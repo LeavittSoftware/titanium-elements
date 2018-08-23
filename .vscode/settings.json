@@ -1,0 +1,4 @@
+{
+    "typescript.tsdk": "node_modules\\typescript\\lib",
+    "terminal.integrated.shell.windows": "D:\\Git\\bin\\bash.exe"
+}

@@ -1,0 +1,21 @@
+{
+  "name": "titanium-elements-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "update:local-package": "npm pack ../ | tail -1 && npm uninstall titanium-elements && npm install --save file:leavittsoftware-titanium-elements-1.0.1.tgz",
+    "preinstall": "npm run update:local-package",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run update:local-package && tsc && cd .. && gulp"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@leavittsoftware/titanium-elements": "file:leavittsoftware-titanium-elements-1.0.1.tgz",
+    "@polymer/decorators": "^3.0.0",
+    "@polymer/polymer": "^3.0.5",
+    "@webcomponents/webcomponentsjs": "^2.0.0",
+    "babel-polyfill": "^6.26.0"
+  }
+}

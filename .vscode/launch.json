@@ -1,0 +1,40 @@
+{
+    "version": "0.2.0",
+    "configurations": [{
+            "name": "Launch Chrome against localhost",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceRoot}"
+        },
+        {
+            "name": "Attach to Chrome",
+            "type": "chrome",
+            "request": "attach",
+            "port": 9222,
+            "webRoot": "${workspaceRoot}"
+        },
+        {
+            "name": "Launch Edge localhost with sourcemaps",
+            "type": "edge",
+            "request": "launch",
+            "url": "http://localhost:3000/",
+            "webRoot": "${workspaceRoot}",
+            "sourceMaps": true
+        },
+        {
+            "name": "Launch Edge index.html (without sourcemaps)",
+            "type": "edge",
+            "request": "launch",
+            "url": "http://localhost:3000/",
+            "file": "${workspaceRoot}"
+        }, {
+            "name": "Attach Edge with sourcemaps",
+            "type": "edge",
+            "request": "attach",
+            "url": "http://localhost:3000/", // optional: used to find the right tab running in Edge
+            "port": 9222,
+            "sourceMaps": true
+        }
+    ]
+}
