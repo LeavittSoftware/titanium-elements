@@ -1,10 +1,9 @@
 {
   "name": "@leavittsoftware/titanium-elements",
   "version": "1.0.1",
-  "description": "Leavitt Manage Side Menu Hybrid",
+  "description": "A collection of titanium elements",
   "main": "titanium-elements.html",
   "dependencies": {
-    "@leavittsoftware/user-manager": "^7.0.48",
     "@polymer/decorators": "^3.0.0",
     "@webcomponents/webcomponentsjs": "^2.1.0"
   },
