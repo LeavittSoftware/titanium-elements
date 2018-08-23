@@ -5,5 +5,3 @@ demo/*.js
 
 demo/package-lock\.json
 \.vscode/
-
-package-lock\.json
