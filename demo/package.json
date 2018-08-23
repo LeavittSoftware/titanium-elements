@@ -14,6 +14,7 @@
   "dependencies": {
     "@leavittsoftware/titanium-elements": "file:leavittsoftware-titanium-elements-1.0.1.tgz",
     "@polymer/decorators": "^3.0.0",
+    "@polymer/paper-button": "^3.0.0-pre.21",
     "@polymer/polymer": "^3.0.5",
     "@webcomponents/webcomponentsjs": "^2.0.0",
     "babel-polyfill": "^6.26.0"
