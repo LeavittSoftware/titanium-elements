@@ -10,7 +10,6 @@ export class TitaniumOfflineNoticeElement extends PolymerElement {
     super.ready();
     window.addEventListener('online', this.onlineStatusChanged.bind(this));
     window.addEventListener('offline', this.onlineStatusChanged.bind(this));
-    console.log(this.isOnline);
   }
 
   onlineStatusChanged() {
