@@ -5,6 +5,7 @@
   "main": "titanium-elements.html",
   "dependencies": {
     "@polymer/decorators": "^3.0.0",
+    "@polymer/polymer": "^3.0.5",
     "@webcomponents/webcomponentsjs": "^2.1.0"
   },
   "devDependencies": {
