@@ -1,0 +1,32 @@
+{
+  "name": "@leavittsoftware/titanium-elements",
+  "version": "1.0.1",
+  "description": "A collection of titanium elements",
+  "main": "titanium-elements.html",
+  "dependencies": {
+    "@polymer/decorators": "^3.0.0",
+    "@webcomponents/webcomponentsjs": "^2.1.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "browser-sync": "^2.24.6",
+    "clang-format": "^1.2.2",
+    "tslint": "4.0.2",
+    "typescript": "^3.0.1"
+  },
+  "scripts": {
+    "start": "tsc && cd demo && npm start",
+    "update-demo": "cd demo && npm run update:local-package",
+    "lint": "tslint \"/*.ts\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeavittSoftware/titanium-elements.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LeavittSoftware/titanium-elements/issues"
+  },
+  "homepage": "https://github.com/LeavittSoftware/titanium-elements/#readme"
+}
