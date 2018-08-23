@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+    <title>Titanium Currency Demo</title>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../../polymer/polymer.html">
+    <link rel="import" href="../../lss-iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../lss-iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../paper-toggle-button/paper-toggle-button.html">
+    <link rel="import" href="../../paper-input/paper-input.html">
+    <link rel="import" href="../titanium-currency.html">
+    <custom-style>
+        <style is="custom-style" include="demo-pages-shared-styles">
+
+        </style>
+    </custom-style>
+</head>
+<dom-module id="x-demo">
+    <template>
+        <h3>Titanium Currency Demo</h3>
+        <demo-snippet>
+            <code>
+        <style>
+            .row {
+                @apply --layout-horizontal;
+            }
+        </style>
+        <h1>titanium-currency Demo</h1>
+        <div>
+            <div class="row">
+                thousandsSeparators
+                <paper-toggle-button checked="{{thousandsSeparators}}"></paper-toggle-button>
+            </div>
+            <div class="row">
+                accountingFormat
+                <paper-toggle-button checked="{{accountingFormat}}"></paper-toggle-button>
+            </div>
+            <div class="row">
+                <paper-input type="number" label="decimalPlaces" value="{{decimalPlaces}}"></paper-input>
+            </div>
+            <div class="row">
+                <paper-input label="value" value="{{value}}"></paper-input>
+            </div>
+        </div>
+        formatted currency:
+        <titanium-currency value="[[value]]" decimal-places="[[decimalPlaces]]" thousands-separators="[[thousandsSeparators]]" accounting-format="[[accountingFormat]]"></titanium-currency>
+   </code>
+        </demo-snippet>
+    </template>
+    <script>
+        class XDemo extends Polymer.Element {
+            static get is() {
+                return 'x-demo';
+            }
+
+            static get properties() {
+                return {
+                    decimalPlaces: {
+                        type: String,
+                        value: "2"
+                    },
+                    value: {
+                        type: String
+                    }
+                }
+            }
+        }
+        customElements.define(XDemo.is, XDemo);
+    </script>
+</dom-module>
+
+<body>
+    <div class="vertical-section-container centered">
+        <x-demo></x-demo>
+    </div>
+</body>
+
+</html>
