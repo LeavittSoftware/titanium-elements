@@ -1,7 +1,8 @@
 import {customElement, observe, property} from '@polymer/decorators';
 import {html, PolymerElement} from '@polymer/polymer';
 
-customElement('titanium-currency')
+@customElement('titanium-currency')
+
 export class TitaniumCurrency extends PolymerElement {
   /**value parameter. If this is not a number or parseable into a number,
    * formattedValue will be the same as this*/
