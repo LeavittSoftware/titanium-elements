@@ -1,5 +1,5 @@
 import { PolymerElement } from '@polymer/polymer';
-export declare class TitanuimServerWorkerNotifierElement extends PolymerElement {
+export declare class TitanuimServiceWorkerNotifierElement extends PolymerElement {
     notificationsStatus: string;
     ready(): Promise<void>;
     _reload(): void;
