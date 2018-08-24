@@ -3,16 +3,17 @@ import {html, PolymerElement} from '@polymer/polymer';
 
 @customElement('titanium-sw-notifier')
 
-export class TitanuimServerWorkerNotifierElement extends PolymerElement {
+export class TitanuimServiceWorkerNotifierElement extends PolymerElement {
   @property({type: String, notify: true}) notificationsStatus: string;
 
   async ready() {
     super.ready();
 
     if ('serviceWorker' in navigator) {
-      const registration = await navigator.serviceWorker.register('service-worker.js', {
-        scope: '/',
-      });
+      const registration =
+          await navigator.serviceWorker.register('service-worker.js', {
+            scope: '/',
+          });
 
       registration.addEventListener('updatefound', () => {
         const installingWorker = registration.installing;
@@ -20,7 +21,8 @@ export class TitanuimServerWorkerNotifierElement extends PolymerElement {
           return;
 
         installingWorker.addEventListener('statechange', () => {
-          if (installingWorker.state === 'installed' && !navigator.serviceWorker.controller) {
+          if (installingWorker.state === 'installed' &&
+              !navigator.serviceWorker.controller) {
             this.$.installedMessage.classList.add('visible');
             setTimeout(() => {
               this.$.installedMessage.classList.remove('visible');
@@ -31,19 +33,21 @@ export class TitanuimServerWorkerNotifierElement extends PolymerElement {
 
       if ('PushManager' in window && 'Notification' in window) {
         registration.pushManager.getSubscription().then((subscription) => {
-          this.notificationsStatus = subscription ? 'subscribed' : 'unsubscribed';
+          this.notificationsStatus =
+              subscription ? 'subscribed' : 'unsubscribed';
         });
       }
 
-      // Check to see if the service worker controlling the page at initial load has
-      // become redundant, since this implies there's a new service worker with fresh
-      // content.
+      // Check to see if the service worker controlling the page at initial load
+      // has become redundant, since this implies there's a new service worker
+      // with fresh content.
       if (navigator.serviceWorker.controller) {
-        navigator.serviceWorker.controller.addEventListener('statechange', (event: any) => {
-          if (event.target.state === 'redundant') {
-            this.$.updatedMessage.classList.add('visible');
-          }
-        });
+        navigator.serviceWorker.controller.addEventListener(
+            'statechange', (event: any) => {
+              if (event.target.state === 'redundant') {
+                this.$.updatedMessage.classList.add('visible');
+              }
+            });
       }
     }
   }
