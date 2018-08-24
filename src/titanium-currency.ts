@@ -3,18 +3,18 @@ import {html, PolymerElement} from '@polymer/polymer';
 
 @customElement('titanium-currency')
 
-export class TitaniumCurrency extends PolymerElement {
+export class TitaniumCurrencyElement extends PolymerElement {
   /**value parameter. If this is not a number or parseable into a number,
    * formattedValue will be the same as this*/
   @property({type: String}) value: string;
 
   /**Whether to use parentheses to format negative values. e.g. a value of `-4`
    * produces a formattedValue of `($4)`*/
-  @property({type: Boolean}) accountingFormat: boolean = false;
+  @property({type: Boolean}) hideAccountingFormat: boolean;
 
   /**Whether to use commas to separate thousands places. e.g. a value of
    * `4000000` produces a formattedValue of `$4,000,000`*/
-  @property({type: Boolean}) thousandsSeparators: boolean = true;
+  @property({type: Boolean}) hideThousandsSeparators: boolean;
 
   /**Number of decimal places to round to in the formatted value. e.g. a value
    * of `30.5678` and decimalPlaces of `2` produces a formattedValue of
@@ -24,7 +24,11 @@ export class TitaniumCurrency extends PolymerElement {
   /**The value formatted as currency.*/
   @property({notify: true, type: String}) formattedValue: string;
 
-  @observe('value', 'accountingFormat', 'decimalPlaces', 'thousandsSeparators')
+  @observe(
+      'value',
+      'hideAccountingFormat',
+      'decimalPlaces',
+      'hideThousandsSeparators')
   protected _computeFormattedValue(value: string): void {
     let floatValue: number;
     floatValue = parseFloat(value);
@@ -43,13 +47,13 @@ export class TitaniumCurrency extends PolymerElement {
 
     let formattedValue = Math.abs(floatValue).toFixed(digits);
 
-    if (this.thousandsSeparators) {
+    if (!this.hideThousandsSeparators) {
       formattedValue = this.addCommas(formattedValue);
     }
 
     formattedValue = `\$${formattedValue}`;
 
-    if (floatValue < 0 && this.accountingFormat) {
+    if (floatValue < 0 && !this.hideAccountingFormat) {
       formattedValue = `(${formattedValue})`;
     } else if (floatValue < 0) {
       formattedValue = `-${formattedValue}`;

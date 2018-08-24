@@ -8,30 +8,77 @@
     <title>titanium elements demo</title>
 
     <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
-    <script type="module" src="./titanium-offline-notice-demo.js"></script>
-    <script type="module" src="./titanium-currency-demo.js"></script>
+    <script type="module" src="node_modules/@polymer/iron-demo-helpers/demo-snippet.js" crossorigin></script>
+    <script type="module" src="node_modules/@polymer/paper-styles/paper-styles.js" crossorigin></script>
+    <script type="module" src="node_modules/@polymer/paper-toggle-button/paper-toggle-button.js"></script>
     <script type="module" src="node_modules/@leavittsoftware/titanium-elements/lib/titanium-offline-notice.js"></script>
     <script type="module" src="node_modules/@leavittsoftware/titanium-elements/lib/titanium-currency.js"></script>
+
     <style>
         body {
-            margin: 0;
             font-family: 'Roboto', 'Noto', sans-serif;
             line-height: 1.5;
             background-color: #FFF;
         }
 
         div {
-            padding: 42px;
+            padding: 48px;
+            padding-bottom: 0px;
         }
     </style>
 </head>
 
 <body>
     <div>
-        <titanium-offline-notice-demo></titanium-offline-notice-demo>
+        <demo-snippet>
+            <template>
+
+                <h3>Titanium Offline Notice Demo</h3>
+                <dom-bind>
+                    <template>
+                        <style>
+                            titanium-offline-notice {
+                                --titanium-offline-notice-top-offset: 0;
+                            }
+                        </style>
+                        <titanium-offline-notice is-online="{{isOnline}}"></titanium-offline-notice>
+                        <paper-toggle-button checked={{!isOnline}}>Offline</paper-toggle-button>
+                    </template>
+                </dom-bind>
+            </template>
+        </demo-snippet>
     </div>
     <div>
-        <titanium-currency-demo></titanium-currency-demo>
+        <demo-snippet>
+            <template>
+                <h3>Titanium Currency Demo</h3>
+                <titanium-currency value="1006.50" decimal-places="2"></titanium-currency>
+            </template>
+        </demo-snippet>
+    </div>
+    <div>
+        <demo-snippet>
+            <template>
+                <h3>Titanium Currency No Hide Thousands Separators Demo</h3>
+                <titanium-currency value="1006.50" decimal-places="2" hide-thousands-separators></titanium-currency>
+            </template>
+        </demo-snippet>
+    </div>
+    <div>
+        <demo-snippet>
+            <template>
+                <h3>Titanium Currency Accounting Format Demo</h3>
+                <titanium-currency value="-6.50" decimal-places="2"></titanium-currency>
+            </template>
+        </demo-snippet>
+    </div>
+    <div>
+        <demo-snippet>
+            <template>
+                <h3>Titanium Currency Hide Accounting Format Demo</h3>
+                <titanium-currency value="-6.50" decimal-places="2" hide-accounting-format></titanium-currency>
+            </template>
+        </demo-snippet>
     </div>
 </body>
 
