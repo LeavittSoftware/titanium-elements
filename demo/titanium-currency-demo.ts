@@ -1,25 +1,23 @@
-<!doctype html>
-<html lang="en">
+import '@polymer/paper-button';
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
-    <title>Titanium Currency Demo</title>
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-    <link rel="import" href="../../polymer/polymer.html">
-    <link rel="import" href="../../lss-iron-demo-helpers/demo-pages-shared-styles.html">
-    <link rel="import" href="../../lss-iron-demo-helpers/demo-snippet.html">
-    <link rel="import" href="../../paper-toggle-button/paper-toggle-button.html">
-    <link rel="import" href="../../paper-input/paper-input.html">
-    <link rel="import" href="../titanium-currency.html">
+
+import {customElement, property} from '@polymer/decorators';
+import {DeclarativeEventListeners} from '@polymer/decorators/lib/declarative-event-listeners.js';
+import {html, PolymerElement} from '@polymer/polymer';
+
+@customElement('titanium-currency-demo')
+export class TitaniumCurrencyDemo extends DeclarativeEventListeners
+(PolymerElement) {
+  @property({type: String}) decimalPlaces: string = '2';
+
+  static get template() {
+    return html`
     <custom-style>
         <style is="custom-style" include="demo-pages-shared-styles">
 
         </style>
     </custom-style>
-</head>
 <dom-module id="x-demo">
-    <template>
         <h3>Titanium Currency Demo</h3>
         <demo-snippet>
             <code>
@@ -49,33 +47,12 @@
         <titanium-currency value="[[value]]" decimal-places="[[decimalPlaces]]" thousands-separators="[[thousandsSeparators]]" accounting-format="[[accountingFormat]]"></titanium-currency>
    </code>
         </demo-snippet>
-    </template>
-    <script>
-        class XDemo extends Polymer.Element {
-            static get is() {
-                return 'x-demo';
-            }
-
-            static get properties() {
-                return {
-                    decimalPlaces: {
-                        type: String,
-                        value: "2"
-                    },
-                    value: {
-                        type: String
-                    }
-                }
-            }
-        }
-        customElements.define(XDemo.is, XDemo);
-    </script>
-</dom-module>
-
+    <script src="titanium-currency-demo.js"></script>
 <body>
     <div class="vertical-section-container centered">
         <x-demo></x-demo>
     </div>
 </body>
-
-</html>
+      `;
+  }
+}

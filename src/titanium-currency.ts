@@ -1,27 +1,30 @@
-@Polymer.decorators.customElement('titanium-currency')
-class TitaniumCurrency extends Polymer.Element {
-  /**value parameter. If this is not a number or parseable into a number, formattedValue will be the same as this*/
-  @Polymer.decorators.property({type: String})
-  value: string;
+import {customElement, observe, property} from '@polymer/decorators';
+import {html, PolymerElement} from '@polymer/polymer';
 
-  /**Whether to use parentheses to format negative values. e.g. a value of `-4` produces a formattedValue of `($4)`*/
-  @Polymer.decorators.property({type: Boolean})
-  accountingFormat: boolean = false;
+customElement('titanium-currency')
+export class TitaniumCurrency extends PolymerElement {
+  /**value parameter. If this is not a number or parseable into a number,
+   * formattedValue will be the same as this*/
+  @property({type: String}) value: string;
 
-  /**Whether to use commas to separate thousands places. e.g. a value of `4000000` produces a formattedValue of `$4,000,000`*/
-  @Polymer.decorators.property({type: Boolean})
-  thousandsSeparators: boolean = true;
+  /**Whether to use parentheses to format negative values. e.g. a value of `-4`
+   * produces a formattedValue of `($4)`*/
+  @property({type: Boolean}) accountingFormat: boolean = false;
 
-  /**Number of decimal places to round to in the formatted value. e.g. a value of `30.5678` and decimalPlaces of `2` produces a formattedValue of `$30.57`*/
-  @Polymer.decorators.property({type: Number})
-  decimalPlaces: number = 0;
+  /**Whether to use commas to separate thousands places. e.g. a value of
+   * `4000000` produces a formattedValue of `$4,000,000`*/
+  @property({type: Boolean}) thousandsSeparators: boolean = true;
+
+  /**Number of decimal places to round to in the formatted value. e.g. a value
+   * of `30.5678` and decimalPlaces of `2` produces a formattedValue of
+   * `$30.57`*/
+  @property({type: Number}) decimalPlaces: number = 0;
 
   /**The value formatted as currency.*/
-  @Polymer.decorators.property({notify: true, type: String})
-  formattedValue: string;
+  @property({notify: true, type: String}) formattedValue: string;
 
-  @Polymer
-      .decorators.observe('value', 'accountingFormat', 'decimalPlaces', 'thousandsSeparators') protected _computeFormattedValue(value: string): void {
+  @observe('value', 'accountingFormat', 'decimalPlaces', 'thousandsSeparators')
+  protected _computeFormattedValue(value: string): void {
     let floatValue: number;
     floatValue = parseFloat(value);
 
@@ -32,7 +35,9 @@ class TitaniumCurrency extends Polymer.Element {
     }
 
     let decimalPlacesValue = parseInt(this.decimalPlaces.toString());
-    let digits = (decimalPlacesValue && (decimalPlacesValue >= 0)) ? decimalPlacesValue : 0;
+    let digits = (decimalPlacesValue && (decimalPlacesValue >= 0)) ?
+        decimalPlacesValue :
+        0;
     digits = Math.min(digits, 20);
 
     let formattedValue = Math.abs(floatValue).toFixed(digits);
@@ -66,5 +71,12 @@ class TitaniumCurrency extends Polymer.Element {
               '$2');
     }
     return x1 + x2;
+  }
+
+  static get template() {
+    return html`  <style>
+    </style>
+    [[formattedValue]]
+    <script src="lib/titanium-currency.js"></script>`;
   }
 }
