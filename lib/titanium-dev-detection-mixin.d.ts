@@ -4,9 +4,9 @@ export interface TitaniumDevDetectionMixinConstructor {
     new (...args: any[]): TitaniumDevDetectionMixin;
 }
 export interface TitaniumDevDetectionMixin {
-    isDevelopment(url: string): boolean;
+    determineIsDevelopment(url: string): boolean;
     isDev: boolean;
 }
 export declare const titaniumDevDetectionMixin: <T extends Constructable>(superClass: T) => T & TitaniumDevDetectionMixinConstructor;
-export declare const isDevelopment: (url: string) => boolean;
+export declare const determineIsDevelopment: (url: string) => boolean;
 export {};
