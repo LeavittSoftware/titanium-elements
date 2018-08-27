@@ -7,15 +7,15 @@ export interface TitaniumDevDetectionMixinConstructor {
 }
 
 export interface TitaniumDevDetectionMixin {
-  isDevelopment(url: string): boolean;
+  determineIsDevelopment(url: string): boolean;
   isDev: boolean;
 }
 
 export const titaniumDevDetectionMixin =
     <T extends Constructable>(superClass: T): T&
     TitaniumDevDetectionMixinConstructor => class extends superClass {
-  isDevelopment(url: string): boolean {
-    return isDevelopment(url);
+  determineIsDevelopment(url: string): boolean {
+    return determineIsDevelopment(url);
   }
 
   /**
@@ -23,7 +23,7 @@ export const titaniumDevDetectionMixin =
    */
   constructor(..._params: any[]) {
     super(_params);
-    this.isDev = isDevelopment(window.location.origin);
+    this.isDev = determineIsDevelopment(window.location.origin);
   }
 
   isDev: boolean;
@@ -33,7 +33,7 @@ export const titaniumDevDetectionMixin =
   }
 };
 
-export const isDevelopment = (url: string): boolean => {
+export const determineIsDevelopment = (url: string): boolean => {
   const allowedUrlRegularExpressions = [
     new RegExp('^https://10[\\.]'),
     new RegExp('^http://10[\\.]'),
