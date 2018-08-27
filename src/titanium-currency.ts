@@ -81,7 +81,6 @@ export class TitaniumCurrencyElement extends PolymerElement {
   static get template() {
     return html`  <style>
     </style>
-    [[formattedValue]]
-    <script src="lib/titanium-currency.js"></script>`;
+    [[formattedValue]]`;
   }
 }
