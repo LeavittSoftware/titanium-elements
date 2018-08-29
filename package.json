@@ -3,6 +3,10 @@
   "version": "1.0.1",
   "description": "A collection of titanium elements",
   "main": "titanium-elements.html",
+  "files": [
+    "lib",
+    "src"
+  ],
   "dependencies": {
     "@polymer/decorators": "^3.0.0",
     "@polymer/polymer": "^3.0.5",
