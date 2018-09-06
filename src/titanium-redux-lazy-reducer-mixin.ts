@@ -1,4 +1,8 @@
-import {Reducer, ReducersMapObject, StoreCreator} from 'redux/index';
+import {Reducer, ReducersMapObject, StoreCreator, Store} from 'redux';
+
+export interface LazyReducerEnhancerStore extends Store {
+  addReducers(ReducersMapObject);
+}
 
 export const lazyReducerEnhancer = function<T>(
     combineReducers: (reducers: ReducersMapObject<T, any>) => Reducer<T>) {
