@@ -21,7 +21,7 @@ export interface ConnectMixinConstructor {
   new(...args: any[]): ConnectMixin;
 }
 export interface ConnectMixin {
-  _stateChanged(state: string): void;
+  _stateChanged(state: any): void;
 }
 
 // export const connectMixin = (store) => (baseElement) => class extends
