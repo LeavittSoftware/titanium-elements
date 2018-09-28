@@ -1,3 +1,5 @@
+import {escapeTerm} from './titanium-odata-helpers';
+
 type Constructable = new (...args: any[]) => any;
 
 export interface TitaniumSearchTokenMixinConstructor {
@@ -23,10 +25,9 @@ export const getSearchTokens =
       if (typeof inputText === 'undefined' || inputText === null ||
           inputText.length === 0)
         return [];
-      inputText = inputText.replace(/'/g, '\'\'');  // Escape all ' with ''
       let tokens = inputText.split(' ')
                        .map((token) => {
-                         return token.trim();
+                         return escapeTerm(token.trim());
                        })
                        .filter((token) => {
                          return token.length > 0;
