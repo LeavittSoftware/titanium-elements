@@ -9,7 +9,9 @@
   ],
   "dependencies": {
     "@polymer/decorators": "^3.0.0",
+    "@polymer/paper-ripple": "^3.0.1",
     "@polymer/polymer": "^3.0.5",
+    "@vaadin/vaadin-button": "^2.1.0",
     "@webcomponents/webcomponentsjs": "^2.1.0",
     "redux": "^4.0.0"
   },
