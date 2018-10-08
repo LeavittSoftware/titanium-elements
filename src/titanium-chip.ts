@@ -62,8 +62,8 @@ export class TitaniumChipElement extends PolymerElement {
     -webkit-font-smoothing: antialiased;
     margin: 0 16px;
     font-size: 13px;
+    line-height: 17px;
     font-weight: 500;
-    line-height: 20px;    
     color: #424242;
     cursor: pointer;
     @apply --titanium-chip-label;
@@ -79,7 +79,7 @@ export class TitaniumChipElement extends PolymerElement {
 
   vaadin-button {
     display: none;
-    margin: 0;
+    margin: 0 4px 0 -8px;
     padding: 0;
     height: 28px;
     width: 28px;
