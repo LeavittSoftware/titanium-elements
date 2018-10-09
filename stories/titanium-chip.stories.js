@@ -1,5 +1,4 @@
-// TODO: add demo stories
-import '../../lib/titanium-chip';
+import '../lib/titanium-chip';
 
 import {storiesOf} from '@storybook/polymer';
 
