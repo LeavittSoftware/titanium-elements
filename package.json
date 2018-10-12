@@ -15,9 +15,14 @@
     "redux": "^4.0.0"
   },
   "devDependencies": {
-    "gulp": "^3.9.1",
+    "@storybook/addon-notes": "^3.4.11",
+    "@storybook/polymer": "^3.4.11",
+    "babel-core": "^6.26.3",
+    "babel-runtime": "^6.26.0",
     "browser-sync": "^2.24.6",
     "clang-format": "^1.2.2",
+    "gulp": "^3.9.1",
+    "polymer-webpack-loader": "^2.0.3",
     "tslint": "4.0.2",
     "typescript": "^3.0.1"
   },
@@ -25,7 +30,9 @@
     "start": "npm run build && cd demo && npm start",
     "build": "tsc",
     "update-demo": "cd demo && npm run update:local-package",
-    "lint": "tslint \"/*.ts\""
+    "lint": "tslint \"/*.ts\"",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",

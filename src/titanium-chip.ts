@@ -23,6 +23,7 @@ export class TitaniumChipElement extends PolymerElement {
     @apply --layout-horizontal;
     @apply --layout-center;
     position: relative;
+    font-family: 'Roboto';
     background-color: #eee;
     border-radius: 16px;
     cursor: pointer;
