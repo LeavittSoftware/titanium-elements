@@ -2,7 +2,6 @@ import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import '@vaadin/vaadin-combo-box/theme/material/vaadin-combo-box-light';
 import '@vaadin/vaadin-text-field/theme/material/vaadin-text-field';
 import '@leavittsoftware/api-service/lib/api-service-element';
-import '@leavittsoftware/user-manager/lib/user-manager.js';
 
 import {ApiServiceElement} from '@leavittsoftware/api-service/lib/api-service-element';
 import {ODataDto} from '@leavittsoftware/api-service/lib/odata-dto';
@@ -214,7 +213,6 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
   }
 </style>
 <api-service></api-service>
-<user-manager></user-manager>
 <vaadin-combo-box-light opened="{{opened}}" filter="{{searchTerm}}" filtered-items="[[items]]" selected-item="{{selectedPerson}}">
   <vaadin-text-field placeholder="[[placeholder]]" label="[[label]]">
     <template>
