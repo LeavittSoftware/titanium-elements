@@ -57,19 +57,19 @@ export class TitaniumCompanySelectorElement extends PolymerElement {
       return;
     }
 
-    if (!this.isLoading && !this.items.length &&
-        this.disableAutoload !== false) {
+    if (!this.isLoading && !this.items &&
+      this.disableAutoload !== false) {
       this.items = await this._getCompanies();
-    } else {
+    } else if (this.isLoading) {
       return;
     }
 
     // restore selected company from company id
-    const companyItem = this.items.find(v => companyId === v.value.Id);
-    if (!companyItem) {
+    const companyItems = this.items.filter(v => companyId === v.value.Id);
+    if (!companyItems.length) {
       this.reportError(`No company with the Id ${companyId} could be found.`);
     } else {
-      this.selectedCompany = companyItem;
+      this.selectedCompany = companyItems[0];
     }
   }
 
