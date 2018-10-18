@@ -15,6 +15,8 @@
     <script type="module" src="node_modules/@leavittsoftware/titanium-elements/lib/titanium-offline-notice.js"></script>
     <script type="module" src="node_modules/@leavittsoftware/titanium-elements/lib/titanium-currency.js"></script>
     <script type="module" src="node_modules/@leavittsoftware/titanium-elements/lib/titanium-chip.js"></script>
+    <script type="module" src="node_modules/@leavittsoftware/titanium-elements/lib/titanium-person-selector.js"></script>
+    <script type="module" src="node_modules/@leavittsoftware/titanium-elements/lib/titanium-company-selector.js"></script>
 
     <script type="module" src="./titanium-dev-detection-mixin-demo.js"></script>
 
@@ -33,6 +35,68 @@
 </head>
 
 <body>
+    <div>
+        <demo-snippet>
+            <template>
+                <!--
+                    Properties
+                      controller-namespace: string - API namespace to use.
+                      label: string - It's a label. Use it.
+                      placeholder: string - Placeholder text. Only shows if no label is set. Use label.
+                      is-loading: boolean - Show spinner.
+                      opened: boolean - Can be bound out to notify parent when combo-box is open.
+                      selectedCompany: { label: string, value: { Id: number, Name: string }} - Currently selected company. Set to empty string to clear.
+                      companyId: number - Id of the currently selected company.
+                      disable-autoload: boolean - If active Company Selector waits to load company list until input is focussed.
+
+                    Methods
+                      clear() - clear selection and searchTerm
+
+                    Events
+                      titanium-company-selector-error
+
+                    Notes
+                      Gets full list of companies once, up-front.
+                -->
+                <h3>Titanium Company Selector Demo</h3>
+                <p>With Autoload</p>
+                <titanium-company-selector controller-namespace="Home" label="Leavitt Group Companies"></titanium-company-selector>
+                <p>Without Autoload</p>
+                <titanium-company-selector controller-namespace="Home" label="Leavitt Group Companies" disable-autoload></titanium-company-selector>
+            </template>
+        </demo-snippet>
+    </div>
+    <div>
+        <demo-snippet>
+            <template>
+                <!--
+                    Properties
+                      controller-namespace: string - API namespace to use.
+                      label: string - It's a label. Use it.
+                      placeholder: string - Placeholder text. Only shows if no label is set. Use label.
+                      is-loading: boolean - Show spinner.
+                      opened: boolean - Can be bound out to notify parent when combo-box is open.
+                      selectedPerson: { label: string, value: { Id: number, FirstName: string, LastName: string }} - Currently selected person. Set to empty string to clear.
+                      personId: number - Id of the currently selected person.
+                      disable-autoload: boolean - If active, Person Selector will not display top 10 results on focus.
+
+                    Methods
+                      clear() - clear selection and searchTerm
+
+                    Events
+                      titanium-person-selector-error
+
+                    Notes
+                      Queries API on search term update
+                -->
+                <h3>Titanium Person Selector Demo</h3>
+                <p>With Autoload</p>
+                <titanium-person-selector controller-namespace="Home" label="Leavitt Group Producer"></titanium-person-selector>
+                <p>Without Autoload</p>
+                <titanium-person-selector controller-namespace="Home" label="Leavitt Group Producer" disable-autoload></titanium-person-selector>
+            </template>
+        </demo-snippet>
+    </div>
     <div>
         <demo-snippet>
             <template>
