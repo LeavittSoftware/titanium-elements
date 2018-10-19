@@ -32,7 +32,7 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
   @property() opened: boolean;
   @property() label: string|null;
   @property() placeholder: string|null = 'Search...';
-  @property() personId: number;
+  @property({type: Number, notify: true}) personId: number|null;
 
   @property() filter: string;
   @property() select: string;
@@ -90,6 +90,15 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
     }
   }
 
+  @observe('selectedPerson')
+  selectedPersonChanged(selectedPerson: personComboBoxItem) {
+    if (selectedPerson && selectedPerson.value.Id === this.personId)
+      return;
+    this.personId = !selectedPerson || !selectedPerson.value.Id ?
+        null :
+        selectedPerson.value.Id;
+  }
+
   private reportError(error: string) {
     this.dispatchEvent(new CustomEvent(
         'titanium-person-selector-error',
@@ -124,8 +133,6 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
                     token}') or startswith(LastName, '${token}'))`);
     if (this.filter)
       searchFilters.push(this.filter);
-
-    console.log(this.filter, searchFilters);
 
     if (searchFilters.length) {
       queryOptions.push(`$filter=${searchFilters.join(' and ')}`);
