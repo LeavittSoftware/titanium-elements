@@ -77,6 +77,15 @@ export class TitaniumCompanySelectorElement extends PolymerElement {
     }
   }
 
+  @observe('selectedCompany')
+  selectedCompanyChanged(selectedCompany: companyComboBoxItem) {
+    if (!selectedCompany || !selectedCompany.value.Id ||
+        selectedCompany.value.Id === this.companyId) {
+      return;
+    }
+    this.companyId = selectedCompany.value.Id;
+  }
+
   private reportError(error: string) {
     this.dispatchEvent(new CustomEvent(
         'titanium-company-selector-error',

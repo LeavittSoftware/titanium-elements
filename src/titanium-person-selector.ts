@@ -90,6 +90,15 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
     }
   }
 
+  @observe('selectedPerson')
+  selectedPersonChanged(selectedPerson: personComboBoxItem) {
+    if (!selectedPerson || !selectedPerson.value.Id ||
+        selectedPerson.value.Id === this.personId) {
+      return;
+    }
+    this.personId = selectedPerson.value.Id;
+  }
+
   private reportError(error: string) {
     this.dispatchEvent(new CustomEvent(
         'titanium-person-selector-error',
