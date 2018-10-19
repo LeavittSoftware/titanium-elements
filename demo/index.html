@@ -50,6 +50,8 @@
                       selectedCompany: { label: string, value: { Id: number, Name: string }} - Currently selected company. Set to empty string to clear.
                       companyId: number - Id of the currently selected company.
                       disable-autoload: boolean - If active Company Selector waits to load company list until input is focussed.
+                      filter: string = 'not IsExpired' - OData filter for Company objects.
+                      name-filter: string - Additional filters to apply to Company.Names.
 
                     Methods
                       clear() - clear selection and searchTerm
@@ -61,10 +63,20 @@
                       Gets full list of companies once, up-front.
                 -->
                 <h3>Titanium Company Selector Demo</h3>
+
                 <p>With Autoload</p>
                 <titanium-company-selector controller-namespace="Home" label="Leavitt Group Companies"></titanium-company-selector>
+
                 <p>Without Autoload</p>
                 <titanium-company-selector controller-namespace="Home" label="Leavitt Group Companies" disable-autoload></titanium-company-selector>
+
+                <p>Only Companies with Name Starting with 'A' - The Slightly Faster Way</p>
+                <titanium-company-selector controller-namespace="Home" label="Leavitt Group Companies" filter="not IsExpired and Names/any(n:not n/IsExpired and n/CompanyNameType eq 'Main' and startswith(n/Name, 'A'))"
+                    disable-autoload></titanium-company-selector>
+
+                <p>Da Ez Wae</p>
+                <titanium-company-selector controller-namespace="Home" label="Leavitt Group Companies" name-filter="startswith(Name,'A')"
+                    disable-autoload></titanium-company-selector>
             </template>
         </demo-snippet>
     </div>
@@ -96,6 +108,8 @@
                 <titanium-person-selector controller-namespace="Home" label="Leavitt Group Producer"></titanium-person-selector>
                 <p>Without Autoload</p>
                 <titanium-person-selector controller-namespace="Home" label="Leavitt Group Producer" disable-autoload></titanium-person-selector>
+                <p>FirstName Begins With 'J'</p>
+                <titanium-person-selector controller-namespace="Home" label="Leavitt Group Producer" filter="startswith(FirstName, 'J')"></titanium-person-selector>
             </template>
         </demo-snippet>
     </div>

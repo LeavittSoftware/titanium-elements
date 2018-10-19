@@ -41,6 +41,9 @@ export class TitaniumCompanySelectorElement extends PolymerElement {
 
   @property() disableAutoload: boolean = false;
 
+  @property() filter: string = 'not IsExpired';
+  @property() nameFilter: string = '';
+
   @property() searchTerm: string;
   @property() items: Array<companyComboBoxItem>;
   @property({type: Object, notify: true})
@@ -84,9 +87,13 @@ export class TitaniumCompanySelectorElement extends PolymerElement {
     let returnValue = new Array<companyComboBoxItem>();
 
     try {
+      let nameFilters = [`not IsExpired and CompanyNameType eq 'Main'`];
+      if (this.nameFilter) {
+        nameFilters.push(this.nameFilter);
+      }
       const result: Array<Company> =
           (await this.apiService.getAsync<Company>(
-               `Companies?$expand=Names($filter=not IsExpired and CompanyNameType eq 'Main';$select=Name;$top=1),Roles($filter=not IsExpired and isof('LG.Core.DataModel.Core.AgencyRole');$select=Id;$top=1)&$select=Id&$filter=not IsExpired`,
+               `Companies?$expand=Names($filter=${nameFilters.join(' and ')};$select=Name;$top=1),Roles($filter=not IsExpired and isof('LG.Core.DataModel.Core.AgencyRole');$select=Id;$top=1)&$select=Id&$filter=${this.filter}`,
                this.controllerNamespace))
               .toList();
       returnValue =

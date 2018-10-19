@@ -34,6 +34,8 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
   @property() placeholder: string|null = 'Search...';
   @property() personId: number;
 
+  @property() filter: string;
+
   @property() disableAutoload: boolean = false;
 
   @property() searchTerm: string;
@@ -102,18 +104,15 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
   private async _getProducers(searchTerm: string) {
     const queryOptions: Array<string> = [];
 
-    const searchFilter =
+    const searchFilters =
         getSearchTokens(searchTerm)
-            .map(
-                (token: string) => `(startswith(FirstName, '${
-                    token}') or startswith(LastName, '${token}'))`)
-            .join(' and ');
-    if (searchFilter) {
-      queryOptions.push(`$filter=${searchFilter}`);
-    } else {
-      queryOptions.push('$orderby=FirstName');
-    }
+        .map((token: string) => `(startswith(FirstName, '${token}') or startswith(LastName, '${token}'))`);
+    if (this.filter)
+      searchFilters.push(this.filter);
+    if (searchFilters)
+      queryOptions.push(`$filter=${searchFilters.join(' and ')}`);
 
+    queryOptions.push('$orderby=FirstName');
     queryOptions.push('$top=10');
     queryOptions.push('$select=Id,FirstName,LastName');
 
