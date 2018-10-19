@@ -8,9 +8,13 @@
     "src"
   ],
   "dependencies": {
+    "@leavittsoftware/api-service": "^2.0.16",
+    "@leavittsoftware/user-manager": "^7.0.61",
     "@polymer/decorators": "^3.0.0",
     "@polymer/polymer": "^3.0.5",
     "@vaadin/vaadin-button": "^2.1.0",
+    "@vaadin/vaadin-combo-box": "^4.2.0-alpha7",
+    "@vaadin/vaadin-text-field": "^2.1.2",
     "@webcomponents/webcomponentsjs": "^2.1.0",
     "redux": "^4.0.0"
   },

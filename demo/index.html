@@ -15,6 +15,9 @@
     <script type="module" src="node_modules/@leavittsoftware/titanium-elements/lib/titanium-offline-notice.js"></script>
     <script type="module" src="node_modules/@leavittsoftware/titanium-elements/lib/titanium-currency.js"></script>
     <script type="module" src="node_modules/@leavittsoftware/titanium-elements/lib/titanium-chip.js"></script>
+    <script type="module" src="node_modules/@leavittsoftware/titanium-elements/lib/titanium-person-selector.js"></script>
+    <script type="module" src="node_modules/@leavittsoftware/titanium-elements/lib/titanium-company-selector.js"></script>
+    <script type="module" src="node_modules/@leavittsoftware/user-manager/lib/user-manager.js"></script>
 
     <script type="module" src="./titanium-dev-detection-mixin-demo.js"></script>
 
@@ -33,6 +36,96 @@
 </head>
 
 <body>
+    <user-manager></user-manager>
+    <div>
+        <demo-snippet>
+            <template>
+                <!--
+                    Properties
+                      controller-namespace: string - API namespace to use.
+                      label: string - It's a label. Use it.
+                      placeholder: string - Placeholder text. Only shows if no label is set. Use label.
+                      is-loading: boolean - Show spinner.
+                      opened: boolean - Can be bound out to notify parent when combo-box is open.
+                      selectedCompany: { label: string, value: { Id: number, Name: string }} - Currently selected company. Set to empty string to clear.
+                      companyId: number - Id of the currently selected company.
+                      disable-autoload: boolean - If active Company Selector waits to load company list until input is focussed.
+
+                      expand: string - Additional OData expands to include with returned data.
+                      filter: string = 'not IsExpired' - OData filter for Company objects.
+                      name-filter: string - Additional filters to apply to Company.Names.
+                      select: string - Comma separated list of additional columns to return with data.
+
+                    Methods
+                      clear() - clear selection and searchTerm
+
+                    Events
+                      titanium-company-selector-error
+
+                    Notes
+                      Gets full list of companies once, up-front.
+                -->
+                <h3>Titanium Company Selector Demo</h3>
+
+                <p>With Autoload</p>
+                <titanium-company-selector controller-namespace="Home" label="Leavitt Group Companies"></titanium-company-selector>
+
+                <p>Without Autoload</p>
+                <titanium-company-selector controller-namespace="Home" label="Leavitt Group Companies" disable-autoload></titanium-company-selector>
+
+                <p>Only Companies with Name Starting with 'A' - The Slightly Faster Way</p>
+                <titanium-company-selector controller-namespace="Home" label="Leavitt Group Companies" filter="not IsExpired and Names/any(n:not n/IsExpired and n/CompanyNameType eq 'Main' and startswith(n/Name, 'A'))"
+                    disable-autoload></titanium-company-selector>
+
+                <p>Da Ez Wae</p>
+                <titanium-company-selector controller-namespace="Home" label="Leavitt Group Companies" name-filter="startswith(Name,'A')"
+                    disable-autoload></titanium-company-selector>
+            </template>
+        </demo-snippet>
+    </div>
+    <div>
+        <demo-snippet>
+            <template>
+                <!--
+                    Properties
+                      controller-namespace: string - API namespace to use.
+                      label: string - It's a label. Use it.
+                      placeholder: string - Placeholder text. Only shows if no label is set. Use label.
+                      is-loading: boolean - Show spinner.
+                      opened: boolean - Can be bound out to notify parent when combo-box is open.
+                      selectedPerson: { label: string, value: { Id: number, FirstName: string, LastName: string }} - Currently selected person. Set to empty string to clear.
+                      personId: number - Id of the currently selected person.
+                      disable-autoload: boolean - If active, Person Selector will not display top 10 results on focus.
+
+                      expand - OData expands to include with returned data.
+                      filter - OData filter criteria.
+                      select - Additional columns to select. Comma-separated.
+
+                    Methods
+                      clear() - clear selection and searchTerm
+
+                    Events
+                      titanium-person-selector-error
+
+                    Notes
+                      Queries API on search term update
+                -->
+                <h3>Titanium Person Selector Demo</h3>
+
+                <p>With Autoload</p>
+                <titanium-person-selector controller-namespace="Home" label="Leavitt Group Producer"></titanium-person-selector>
+
+                <p>Without Autoload</p>
+                <titanium-person-selector controller-namespace="Home" label="Leavitt Group Producer" disable-autoload></titanium-person-selector>
+
+                <p>FirstName Begins With 'J'</p>
+                <titanium-person-selector controller-namespace="Home" label="Leavitt Group Producer" filter="startswith(FirstName, 'J')"></titanium-person-selector>
+
+                <p>Include DateOfBirth and Biography(I'm lazy. Inspect to See Data)</p>
+                <titanium-person-selector controller-namespace="Home" label="Leavitt Group Producer" select="DateOfBirth,Biography"></titanium-person-selector>
+            </template>
+        </demo-snippet>
+    </div>
     <div>
         <demo-snippet>
             <template>
