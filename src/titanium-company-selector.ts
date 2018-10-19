@@ -37,7 +37,7 @@ export class TitaniumCompanySelectorElement extends PolymerElement {
   @property() opened: boolean;
   @property() label: string|null;
   @property() placeholder: string|null = 'Search...';
-  @property() companyId: number;
+  @property({type: Number, notify: true}) companyId: number|null;
 
   @property() disableAutoload: boolean = false;
 
@@ -79,11 +79,11 @@ export class TitaniumCompanySelectorElement extends PolymerElement {
 
   @observe('selectedCompany')
   selectedCompanyChanged(selectedCompany: companyComboBoxItem) {
-    if (!selectedCompany || !selectedCompany.value.Id ||
-        selectedCompany.value.Id === this.companyId) {
+    if (selectedCompany && selectedCompany.value.Id === this.companyId)
       return;
-    }
-    this.companyId = selectedCompany.value.Id;
+    this.companyId = !selectedCompany || !selectedCompany.value.Id ?
+        null :
+        selectedCompany.value.Id;
   }
 
   private reportError(error: string) {
