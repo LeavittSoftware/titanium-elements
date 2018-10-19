@@ -104,12 +104,18 @@
                       Queries API on search term update
                 -->
                 <h3>Titanium Person Selector Demo</h3>
+
                 <p>With Autoload</p>
                 <titanium-person-selector controller-namespace="Home" label="Leavitt Group Producer"></titanium-person-selector>
+
                 <p>Without Autoload</p>
                 <titanium-person-selector controller-namespace="Home" label="Leavitt Group Producer" disable-autoload></titanium-person-selector>
+
                 <p>FirstName Begins With 'J'</p>
                 <titanium-person-selector controller-namespace="Home" label="Leavitt Group Producer" filter="startswith(FirstName, 'J')"></titanium-person-selector>
+
+                <p>Include DateOfBirth and Biography(I'm lazy. Inspect to See Data)</p>
+                <titanium-person-selector controller-namespace="Home" label="Leavitt Group Producer" select="DateOfBirth,Biography"></titanium-person-selector>
             </template>
         </demo-snippet>
     </div>

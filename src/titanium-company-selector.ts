@@ -10,8 +10,8 @@ import {html, PolymerElement} from '@polymer/polymer';
 
 export interface Company extends ODataDto {
   Id: number;
-  Roles: Array<CompanyRole>;
   Names: Array<CompanyName>;
+  Name?: string;
 }
 
 export interface CompanyRole extends ODataDto {
@@ -43,6 +43,8 @@ export class TitaniumCompanySelectorElement extends PolymerElement {
 
   @property() filter: string = 'not IsExpired';
   @property() nameFilter: string = '';
+  @property() expand: string = '';
+  @property() select: string = '';
 
   @property() searchTerm: string;
   @property() items: Array<companyComboBoxItem>;
@@ -60,8 +62,7 @@ export class TitaniumCompanySelectorElement extends PolymerElement {
       return;
     }
 
-    if (!this.isLoading && !this.items &&
-      this.disableAutoload !== false) {
+    if (!this.isLoading && !this.items && this.disableAutoload !== false) {
       this.items = await this._getCompanies();
     } else if (this.isLoading) {
       return;
@@ -87,30 +88,39 @@ export class TitaniumCompanySelectorElement extends PolymerElement {
     let returnValue = new Array<companyComboBoxItem>();
 
     try {
+      let queryOptions: Array<string> = [];
+
+      let selectItems = ['Id'];
+      if (this.select)
+        selectItems.push(this.select);
+      queryOptions.push(`$select=${selectItems.join(',')}`)
+
       let nameFilters = [`not IsExpired and CompanyNameType eq 'Main'`];
-      if (this.nameFilter) {
+      if (this.nameFilter)
         nameFilters.push(this.nameFilter);
-      }
+
+      let expands =
+          [`Names($filter=${nameFilters.join(' and ')};$select=Name;$top=1)`];
+      if (this.expand)
+        expands.push(this.expand);
+      queryOptions.push(`$expand=${expands.join(',')}`);
+
+      if (this.filter)
+        queryOptions.push(`$filter=${this.filter}`);
+
       const result: Array<Company> =
           (await this.apiService.getAsync<Company>(
-               `Companies?$expand=Names($filter=${nameFilters.join(' and ')};$select=Name;$top=1),Roles($filter=not IsExpired and isof('LG.Core.DataModel.Core.AgencyRole');$select=Id;$top=1)&$select=Id&$filter=${this.filter}`,
-               this.controllerNamespace))
+               `Companies?${queryOptions.join('&')}`, this.controllerNamespace))
               .toList();
       returnValue =
-          result
-              .filter((company: Company) => {
-                return !!company.Names.length && !!company.Roles.length;
-              })
+          result.filter((company: Company) => {return !!company.Names.length})
               .map((company: Company) => {
-                return {
-                  label: company.Names[0].Name,
-                  value: {Id: company.Id, Name: company.Names[0].Name}
-                };
+                let value = {...company};
+                value.Name = value.Names[0].Name;
+                return {label: value.Name, value: value};
               })
               .sort(
-                  (a, b) => a.value.Name < b.value.Name ?
-                      -1 :
-                      a.value.Name > b.value.Name ? 1 : 0);
+                  (a, b) => a.label < b.label ? -1 : a.label > b.label ? 1 : 0);
     } catch (error) {
       this.reportError(error);
     }

@@ -35,6 +35,8 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
   @property() personId: number;
 
   @property() filter: string;
+  @property() select: string;
+  @property() expand: string;
 
   @property() disableAutoload: boolean = false;
 
@@ -55,13 +57,24 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
       return;
     }
 
+    let queryOptions: Array<string> = [];
+
+    let selectItems = ['Id', 'FirstName', 'LastName'];
+    if (this.select)
+      selectItems.push(this.select);
+    queryOptions.push(`$select=${selectItems.join(',')}`);
+
+    queryOptions.push(`$filter=Id eq ${personId}`);
+
+    if (this.expand)
+      queryOptions.push(`&$expand=${this.expand}`);
+
     // restore selected person from person id
     try {
-      const person = (await this.apiService.getAsync<Partial<Person>&ODataDto>(
-                          `People/?$filter=Id eq ${
-                              personId}&$select=Id,FirstName,LastName`,
-                          this.controllerNamespace))
-                         .firstOrDefault();
+      const person =
+          (await this.apiService.getAsync<Partial<Person>&ODataDto>(
+               `People/?${queryOptions.join('&')}`, this.controllerNamespace))
+              .firstOrDefault();
       this.isLoading = false;
       if (person) {
         // populate the combobox
@@ -106,15 +119,31 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
 
     const searchFilters =
         getSearchTokens(searchTerm)
-        .map((token: string) => `(startswith(FirstName, '${token}') or startswith(LastName, '${token}'))`);
+            .map(
+                (token: string) => `(startswith(FirstName, '${
+                    token}') or startswith(LastName, '${token}'))`);
     if (this.filter)
       searchFilters.push(this.filter);
-    if (searchFilters)
-      queryOptions.push(`$filter=${searchFilters.join(' and ')}`);
 
-    queryOptions.push('$orderby=FirstName');
+    console.log(this.filter, searchFilters);
+
+    if (searchFilters.length) {
+      queryOptions.push(`$filter=${searchFilters.join(' and ')}`);
+    } else {
+      queryOptions.push('$orderby=FirstName');
+    }
+
     queryOptions.push('$top=10');
-    queryOptions.push('$select=Id,FirstName,LastName');
+
+    let selectItems = ['Id', 'FirstName', 'LastName'];
+    if (this.select) {
+      selectItems.push(this.select);
+    }
+
+    queryOptions.push(`$select=${selectItems.join(',')}`);
+
+    if (this.expand)
+      queryOptions.push(`$expand=${this.expand}`);
 
     this.isLoading = true;
     let returnValue = new Array<personComboBoxItem>();
