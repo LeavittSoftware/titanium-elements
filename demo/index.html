@@ -50,8 +50,11 @@
                       selectedCompany: { label: string, value: { Id: number, Name: string }} - Currently selected company. Set to empty string to clear.
                       companyId: number - Id of the currently selected company.
                       disable-autoload: boolean - If active Company Selector waits to load company list until input is focussed.
+
+                      expand: string - Additional OData expands to include with returned data.
                       filter: string = 'not IsExpired' - OData filter for Company objects.
                       name-filter: string - Additional filters to apply to Company.Names.
+                      select: string - Comma separated list of additional columns to return with data.
 
                     Methods
                       clear() - clear selection and searchTerm
@@ -93,6 +96,10 @@
                       selectedPerson: { label: string, value: { Id: number, FirstName: string, LastName: string }} - Currently selected person. Set to empty string to clear.
                       personId: number - Id of the currently selected person.
                       disable-autoload: boolean - If active, Person Selector will not display top 10 results on focus.
+
+                      expand - OData expands to include with returned data.
+                      filter - OData filter criteria.
+                      select - Additional columns to select. Comma-separated.
 
                     Methods
                       clear() - clear selection and searchTerm
