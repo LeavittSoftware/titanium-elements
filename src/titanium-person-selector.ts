@@ -177,21 +177,6 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
 
   static get template() {
     return html`
-  <dom-module id="people-combo-box" theme-for="vaadin-combo-box-item">
-    <template>
-      <style>
-      :host::before {
-          display: none !important;
-      }
-
-      [part="content"] {
-          @apply --layout-horizontal;
-          @apply --layout-center;
-        }
-      </style>
-    </template>
-  </dom-module>
-
   <style>
   :host {
     display: block;
@@ -270,3 +255,23 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
 `;
   }
 }
+
+const ComboboxStyles = document.createElement('template');
+
+ComboboxStyles.innerHTML =
+    `<dom-module id="people-combo-box" theme-for="vaadin-combo-box-item">
+  <template>
+    <style>
+    :host::before {
+        display: none !important;
+    }
+
+    [part="content"] {
+        @apply --layout-horizontal;
+        @apply --layout-center;
+      }
+    </style>
+  </template>
+</dom-module>`;
+
+(document as any).head.appendChild(ComboboxStyles.content);
