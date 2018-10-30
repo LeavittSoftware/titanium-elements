@@ -94,6 +94,13 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
   selectedPersonChanged(selectedPerson: personComboBoxItem) {
     if (selectedPerson && selectedPerson.value.Id === this.personId)
       return;
+
+    if (selectedPerson && selectedPerson.value.Id === 0) {
+      this.selectedPerson = '';
+      this.searchTerm = '';
+      return;
+    }
+
     this.personId = !selectedPerson || !selectedPerson.value.Id ?
         null :
         selectedPerson.value.Id;
@@ -154,6 +161,7 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
 
     this.isLoading = true;
     let returnValue = new Array<personComboBoxItem>();
+
     try {
       const results =
           (await this.apiService.getAsync<Partial<Person>&ODataDto>(
@@ -166,6 +174,9 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
     } catch (error) {
       this.reportError(error);
     }
+    if (returnValue && returnValue.length == 0)
+      returnValue.push({label: `No Results`, value: {Id: 0} as Person});
+
     this.isLoading = false;
     return returnValue;
   }
