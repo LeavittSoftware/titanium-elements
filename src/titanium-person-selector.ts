@@ -43,7 +43,7 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
   @property() searchTerm: string;
   @property() items: Array<personComboBoxItem>;
   @property({type: Object, notify: true})
-  selectedPerson: personComboBoxItem|string = '';
+  selectedPerson: personComboBoxItem|null;
 
   @query('api-service') apiService: ApiServiceElement;
 
@@ -52,8 +52,7 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
   @observe('personId')
   async personIdChanged(personId: number|undefined) {
     if (!personId ||
-        (this.selectedPerson &&
-         (this.selectedPerson as personComboBoxItem).value.Id === personId)) {
+        (this.selectedPerson && this.selectedPerson.value.Id === personId)) {
       return;
     }
 
@@ -91,9 +90,15 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
   }
 
   @observe('selectedPerson')
-  selectedPersonChanged(selectedPerson: personComboBoxItem) {
+  selectedPersonChanged(selectedPerson: personComboBoxItem|null) {
     if (selectedPerson && selectedPerson.value.Id === this.personId)
       return;
+
+    if (selectedPerson && selectedPerson.value.Id === 0) {
+      this.clear();
+      return;
+    }
+
     this.personId = !selectedPerson || !selectedPerson.value.Id ?
         null :
         selectedPerson.value.Id;
@@ -154,6 +159,7 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
 
     this.isLoading = true;
     let returnValue = new Array<personComboBoxItem>();
+
     try {
       const results =
           (await this.apiService.getAsync<Partial<Person>&ODataDto>(
@@ -166,12 +172,15 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
     } catch (error) {
       this.reportError(error);
     }
+    if (returnValue && returnValue.length == 0)
+      returnValue.push({label: `No Results`, value: {Id: 0} as Person});
+
     this.isLoading = false;
     return returnValue;
   }
 
   public clear() {
-    this.selectedPerson = '';
+    this.selectedPerson = null;
     this.searchTerm = '';
   }
 
@@ -241,8 +250,11 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
           border-radius: 50%;
           margin-right: 16px;
         }
+        img[id="0"]{
+          display:none;
+        }
       </style>
-      <img profile src="https://mapi.leavitt.com/People([[item.value.Id]])/Default.Picture(size=24)" />
+      <img profile id$="[[item.value.Id]]" src="https://mapi.leavitt.com/People([[item.value.Id]])/Default.Picture(size=24)" />
       <span>[[item.label]]</span>
     </template>
     <dual-ring-spinner slot="suffix" hidden$="[[!isLoading]]"></dual-ring-spinner>
