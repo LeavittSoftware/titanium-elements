@@ -43,7 +43,7 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
   @property() searchTerm: string;
   @property() items: Array<personComboBoxItem>;
   @property({type: Object, notify: true})
-  selectedPerson: personComboBoxItem|string = '';
+  selectedPerson: personComboBoxItem|null;
 
   @query('api-service') apiService: ApiServiceElement;
 
@@ -52,8 +52,7 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
   @observe('personId')
   async personIdChanged(personId: number|undefined) {
     if (!personId ||
-        (this.selectedPerson &&
-         (this.selectedPerson as personComboBoxItem).value.Id === personId)) {
+        (this.selectedPerson && this.selectedPerson.value.Id === personId)) {
       return;
     }
 
@@ -91,13 +90,12 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
   }
 
   @observe('selectedPerson')
-  selectedPersonChanged(selectedPerson: personComboBoxItem) {
+  selectedPersonChanged(selectedPerson: personComboBoxItem|null) {
     if (selectedPerson && selectedPerson.value.Id === this.personId)
       return;
 
     if (selectedPerson && selectedPerson.value.Id === 0) {
-      this.selectedPerson = '';
-      this.searchTerm = '';
+      this.clear();
       return;
     }
 
@@ -182,7 +180,7 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
   }
 
   public clear() {
-    this.selectedPerson = '';
+    this.selectedPerson = null;
     this.searchTerm = '';
   }
 
