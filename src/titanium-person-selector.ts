@@ -250,8 +250,11 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
           border-radius: 50%;
           margin-right: 16px;
         }
+        img[id="0"]{
+          display:none;
+        }
       </style>
-      <img profile src="https://mapi.leavitt.com/People([[item.value.Id]])/Default.Picture(size=24)" />
+      <img profile id$="[[item.value.Id]]" src="https://mapi.leavitt.com/People([[item.value.Id]])/Default.Picture(size=24)" />
       <span>[[item.label]]</span>
     </template>
     <dual-ring-spinner slot="suffix" hidden$="[[!isLoading]]"></dual-ring-spinner>
