@@ -35,12 +35,12 @@ gulp.task('compile', function (done) {
 });
 
 gulp.task('serve', (done) => {
-    var serve = exec('polymer serve -p 8000 -v demo');
+    var serve = exec('polymer serve -p 8006 -v demo');
     serve.stdout.on('data', o => {
         console.log(o);
         if (o.indexOf('Files in this directory are available under the following URLs') > -1) {
             browserSync.init({
-                proxy: "localhost:8000",
+                proxy: "localhost:8006",
                 startPath: "/",
                 snippetOptions: {
                     // just append the snippet to the end of the file

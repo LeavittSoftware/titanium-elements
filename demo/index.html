@@ -7,7 +7,7 @@
 
     <title>titanium elements demo</title>
 
-    <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
     <script type="module" src="node_modules/@polymer/iron-demo-helpers/demo-snippet.js" crossorigin></script>
     <script type="module" src="node_modules/@polymer/paper-styles/paper-styles.js" crossorigin></script>
     <script type="module" src="node_modules/@polymer/paper-toggle-button/paper-toggle-button.js"></script>
@@ -17,6 +17,7 @@
     <script type="module" src="node_modules/@leavittsoftware/titanium-elements/lib/titanium-chip.js"></script>
     <script type="module" src="node_modules/@leavittsoftware/titanium-elements/lib/titanium-person-selector.js"></script>
     <script type="module" src="node_modules/@leavittsoftware/titanium-elements/lib/titanium-company-selector.js"></script>
+    <script type="module" src="node_modules/@leavittsoftware/titanium-elements/lib/titanium-header.js"></script>
     <script type="module" src="node_modules/@leavittsoftware/user-manager/lib/user-manager.js"></script>
 
     <script type="module" src="./titanium-dev-detection-mixin-demo.js"></script>
@@ -224,6 +225,11 @@
     <div>
         <h3>Titanium Dev Detection Mixin Demo</h3>
         <titanium-dev-detection-mixin-demo></titanium-dev-detection-mixin-demo>
+    </div>
+
+    <div>
+        <h3>Titanium Header Demo</h3>
+        <titanium-header header="This is my header" subHeader="This is where you tell the user what this page is about."></titanium-header>
     </div>
 
 </body>
