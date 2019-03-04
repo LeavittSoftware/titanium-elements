@@ -8,6 +8,6 @@ const notes = `
 `;
 
 const basic =
-    `<titanium-header header="Cute kittens" subHeader="These are my cute kittens"></titanium-chip>`;
+    `<titanium-header header="Cute kittens" subHeader="These are my cute kittens"></titanium-header>`;
 
 storiesOf('Header', module).add('basic', withNotes(notes)(() => basic));
