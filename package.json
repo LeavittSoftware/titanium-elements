@@ -16,6 +16,7 @@
     "@vaadin/vaadin-combo-box": "^4.2.0-alpha7",
     "@vaadin/vaadin-text-field": "^2.1.2",
     "@webcomponents/webcomponentsjs": "^2.1.0",
+    "lit-element": "^2.0.1",
     "redux": "^4.0.0"
   },
   "devDependencies": {
@@ -28,7 +29,7 @@
     "gulp": "^3.9.1",
     "polymer-webpack-loader": "^2.0.3",
     "tslint": "4.0.2",
-    "typescript": "^3.0.1"
+    "typescript": "^3.2.2"
   },
   "scripts": {
     "start": "npm run build && cd demo && npm start",
