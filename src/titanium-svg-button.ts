@@ -37,8 +37,8 @@ export class TitaniumSvgButton extends LitElement {
    svg {
     display: block;
     margin: 0 auto;
-    height: 65%;
-    width: 65%;
+    height: 60%;
+    width: 60%;
     fill: var(--titanium-svg-button-svg-active-color, #3b95ff);
     @apply --titanium-svg-button-active-color;
    }
