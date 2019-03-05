@@ -18,7 +18,7 @@ export class TitaniumSvgButton extends LitElement {
    }
 
    :host(:hover:not([disabled])) {
-     background-color: #fafafa;
+     background-color: var(--titanium-svg-button-hover-color, #fafafa);  
    }
   
    :host([large]) {
@@ -35,8 +35,8 @@ export class TitaniumSvgButton extends LitElement {
    }
    
    svg {
-     display: block;
-     margin: 0 auto;
+    display: block;
+    margin: 0 auto;
     height: 65%;
     width: 65%;
     fill: var(--titanium-svg-button-svg-active-color, #3b95ff);
