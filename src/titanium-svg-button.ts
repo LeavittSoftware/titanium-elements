@@ -9,7 +9,6 @@ export class TitaniumSvgButton extends LitElement {
   static styles = css`
    :host {
      display: block;
-     cursor: pointer;
      width: 42px;
      height: 42px;
      border-radius:50%;
@@ -17,6 +16,10 @@ export class TitaniumSvgButton extends LitElement {
 
    :host(:hover:not([disabled])) {
      background-color: var(--titanium-svg-button-hover-color, #fafafa);  
+   }
+   
+   :host(:not([disabled])) {
+     cursor: pointer;
    }
   
    :host([large]) {
