@@ -10,6 +10,7 @@
   "dependencies": {
     "@leavittsoftware/api-service": "^2.0.16",
     "@leavittsoftware/user-manager": "^7.0.61",
+    "@material/mwc-ripple": "^0.3.6",
     "@polymer/decorators": "^3.0.0",
     "@polymer/polymer": "^3.0.5",
     "@vaadin/vaadin-button": "^2.1.0",
