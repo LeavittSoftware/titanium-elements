@@ -1,6 +1,6 @@
 import '@leavittsoftware/titanium-elements/lib/titanium-search-input';
 
-import {customElement, observe, property} from '@polymer/decorators';
+import {customElement, property} from '@polymer/decorators';
 import {html, PolymerElement} from '@polymer/polymer/polymer-element';
 
 @customElement('titanium-search-input-demo')
