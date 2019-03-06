@@ -10,7 +10,7 @@ export class TitaniumHeader extends LitElement {
 
   static styles = css`
    :host {
-     @apply --layout-vertical;
+     display: block;
      padding: 0 24px 24px 24px;
    }
 
