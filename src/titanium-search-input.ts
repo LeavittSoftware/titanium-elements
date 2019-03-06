@@ -18,6 +18,7 @@ export class TitaniumSearchInput extends LitElement {
 
   _onValueChange() {
     this.value = this._input.value;
+    this.dispatchEvent(new CustomEvent('value-changed', {detail: this.value}));
   }
 
   _onClearClick() {
@@ -32,8 +33,7 @@ export class TitaniumSearchInput extends LitElement {
 
   static styles = css`
   :host {
-    @apply --layout-vertical;
-    @apply --titanium-search-input;
+    display: block;
   }
 
   input-container {
