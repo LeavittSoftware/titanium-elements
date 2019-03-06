@@ -26,9 +26,9 @@ export default class TitaniumSearchInputDemo extends PolymerElement {
     }
 
     titanium-search-input {
-        --titanium-search-input-svg-search: {
-            fill: salmon;
-        };
+        @apply --layout-self-center;
+        --titanium-search-input-clear-button-fill-color: salmon;
+        --titanium-search-input-svg-fill-color: salmon;
     }
 </style>
 <demo-container>

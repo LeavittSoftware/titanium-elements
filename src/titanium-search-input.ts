@@ -1,6 +1,6 @@
 import '../lib/titanium-svg-button';
 
-import {customElement, html, LitElement, property} from 'lit-element';
+import {css, customElement, html, LitElement, property} from 'lit-element';
 
 @customElement('titanium-search-input')
 export class TitaniumSearchInput extends LitElement {
@@ -36,7 +36,7 @@ export class TitaniumSearchInput extends LitElement {
     this._input.focus();
   }
 
-  styles = html`<style>
+  static styles = css`
   :host {
     display: flex;
     flex-direction: column;
@@ -45,24 +45,20 @@ export class TitaniumSearchInput extends LitElement {
   input-container {
     display: flex;
     flex-direction: row;
-    align-self: flex-end;
     position: relative;
-    @apply --titanium-search-input-input-container;
   }
 
   svg[search] {
     position: absolute;
     left: 12px;
     align-self: center;
-    fill: #4285f4;
+    fill: var(--titanium-search-input-svg-fill-color, #4285f4);
     width: 24px;
     height: 24px;
-    @apply --titanium-search-input-svg-search;
   }
 
   :host([disabled]) svg {
     cursor: not-allowed;
-    @apply --titanium-search-input-svg-search-disabled;
   }
 
   titanium-svg-button {
@@ -71,14 +67,12 @@ export class TitaniumSearchInput extends LitElement {
     align-self: center;
     width: 36px;
     height: 36px;
-    --titanium-svg-button-svg-active-color: #757575;
-    @apply --titanium-search-input-titanium-svg-button;
+    --titanium-svg-button-svg-active-color: var(--titanium-search-input-clear-button-fill-color, #757575);
   }
 
   :host([disabled]) titanium-svg-button {
     cursor: not-allowed;
     opacity: .6;
-    @apply --titanium-search-input-titanium-svg-button-disabled;
   }
 
   input-container input {
@@ -98,12 +92,10 @@ export class TitaniumSearchInput extends LitElement {
     border-bottom-right-radius: 20px;
     border: 1px solid #eee;
     border-bottom: 1px solid #eee;
-    @apply --titanium-search-input-input;
   }
 
   input-container:hover input {
     box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
-    @apply --titanium-search-input-input-hover;
   }
 
   input-container input::-ms-clear {
@@ -114,12 +106,10 @@ export class TitaniumSearchInput extends LitElement {
     background-color: #FAFAFA;
     cursor: not-allowed;
     opacity: .6;
-    @apply --titanium-search-input-input-disabled;
   }
 
   :host([disabled]) input-container:hover input {
     box-shadow: none;
-    @apply --titanium-search-input-input-disabled-hover;
   }
 
   input-container input,
@@ -128,22 +118,19 @@ export class TitaniumSearchInput extends LitElement {
     outline: none;
     font-size: 16px;
     font-weight: 400;
-    @apply --titanium-search-input-and-focus;
   }
 
   input-container input:focus {
-    color: #000;
-    @apply --titanium-search-input-focus;
+    color: var(--titanium-search-input-focus-color, #000);
   }
 
   [hidden] {
     display: none;
-  }
-</style>`;
+  }`;
 
   render() {
     return html
-    `${this.styles}
+    `
 <input-container>
   <svg search viewBox="0 0 24 24">
     <path
