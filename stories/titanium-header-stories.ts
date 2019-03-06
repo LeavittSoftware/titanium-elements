@@ -10,4 +10,15 @@ const notes = `
 const basic =
     `<titanium-header header="Cute kittens" subHeader="These are my cute kittens"></titanium-header>`;
 
-storiesOf('Header', module).add('basic', withNotes(notes)(() => basic));
+const styled = `
+    <style>
+    titanium-header {
+        --titanium-header-header-color: red; 
+        --titanium-header-subheader-color: green; 
+    }
+    </style>
+    <titanium-header header="Cute kittens" subHeader="These are my cute kittens"></titanium-header>`;
+
+storiesOf('Header', module)
+    .add('basic', withNotes(notes)(() => basic))
+    .add('styled', withNotes(notes)(() => styled));
