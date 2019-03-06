@@ -10,9 +10,6 @@ export default class TitaniumSearchInputDemo extends PolymerElement {
 
   static get template() {
     return html`<style>
-    h1 {
-        @apply --paper-font-title;
-    }
     demo-container {
         @apply --layout-vertical;
         @apply --layout-flex-auto;
@@ -32,7 +29,6 @@ export default class TitaniumSearchInputDemo extends PolymerElement {
     }
 </style>
 <demo-container>
-    <h3>Titanium Search Input</h3>
     <search-term>Term: [[searchTerm]]</search-term>
     <titanium-search-input placeholder="Search" value="{{searchTerm}}"></titanium-search-input>
 </demo-container>`;
