@@ -16,12 +16,15 @@
     <script type="module" src="node_modules/@leavittsoftware/titanium-elements/lib/titanium-currency.js"></script>
     <script type="module" src="node_modules/@leavittsoftware/titanium-elements/lib/titanium-chip.js"></script>
     <script type="module" src="node_modules/@leavittsoftware/titanium-elements/lib/titanium-svg-button.js"></script>
-    <script type="module" src="node_modules/@leavittsoftware/titanium-elements/lib/titanium-loading-indicator.js"></script>
-    <script type="module" src="node_modules/@leavittsoftware/titanium-elements/lib/titanium-person-selector.js"></script>
-    <script type="module" src="node_modules/@leavittsoftware/titanium-elements/lib/titanium-company-selector.js"></script>
+    <script type="module"
+        src="node_modules/@leavittsoftware/titanium-elements/lib/titanium-loading-indicator.js"></script>
+    <script type="module"
+        src="node_modules/@leavittsoftware/titanium-elements/lib/titanium-person-selector.js"></script>
+    <script type="module"
+        src="node_modules/@leavittsoftware/titanium-elements/lib/titanium-company-selector.js"></script>
     <script type="module" src="node_modules/@leavittsoftware/titanium-elements/lib/titanium-header.js"></script>
     <script type="module" src="node_modules/@leavittsoftware/user-manager/lib/user-manager.js"></script>
-
+    <script type="module" src="./titanium-search-input-demo.js"></script>
     <script type="module" src="./titanium-dev-detection-mixin-demo.js"></script>
 
     <style>
@@ -71,18 +74,21 @@
                 <h3>Titanium Company Selector Demo</h3>
 
                 <p>With Autoload</p>
-                <titanium-company-selector controller-namespace="Home" label="Leavitt Group Companies"></titanium-company-selector>
+                <titanium-company-selector controller-namespace="Home" label="Leavitt Group Companies">
+                </titanium-company-selector>
 
                 <p>Without Autoload</p>
-                <titanium-company-selector controller-namespace="Home" label="Leavitt Group Companies" disable-autoload></titanium-company-selector>
+                <titanium-company-selector controller-namespace="Home" label="Leavitt Group Companies" disable-autoload>
+                </titanium-company-selector>
 
                 <p>Only Companies with Name Starting with 'A' - The Slightly Faster Way</p>
-                <titanium-company-selector controller-namespace="Home" label="Leavitt Group Companies" filter="not IsExpired and Names/any(n:not n/IsExpired and n/CompanyNameType eq 'Main' and startswith(n/Name, 'A'))"
+                <titanium-company-selector controller-namespace="Home" label="Leavitt Group Companies"
+                    filter="not IsExpired and Names/any(n:not n/IsExpired and n/CompanyNameType eq 'Main' and startswith(n/Name, 'A'))"
                     disable-autoload></titanium-company-selector>
 
                 <p>Da Ez Wae</p>
-                <titanium-company-selector controller-namespace="Home" label="Leavitt Group Companies" name-filter="startswith(Name,'A')"
-                    disable-autoload></titanium-company-selector>
+                <titanium-company-selector controller-namespace="Home" label="Leavitt Group Companies"
+                    name-filter="startswith(Name,'A')" disable-autoload></titanium-company-selector>
             </template>
         </demo-snippet>
     </div>
@@ -116,16 +122,20 @@
                 <h3>Titanium Person Selector Demo</h3>
 
                 <p>With Autoload</p>
-                <titanium-person-selector controller-namespace="Home" label="Leavitt Group Producer"></titanium-person-selector>
+                <titanium-person-selector controller-namespace="Home" label="Leavitt Group Producer">
+                </titanium-person-selector>
 
                 <p>Without Autoload</p>
-                <titanium-person-selector controller-namespace="Home" label="Leavitt Group Producer" disable-autoload></titanium-person-selector>
+                <titanium-person-selector controller-namespace="Home" label="Leavitt Group Producer" disable-autoload>
+                </titanium-person-selector>
 
                 <p>FirstName Begins With 'J'</p>
-                <titanium-person-selector controller-namespace="Home" label="Leavitt Group Producer" filter="startswith(FirstName, 'J')"></titanium-person-selector>
+                <titanium-person-selector controller-namespace="Home" label="Leavitt Group Producer"
+                    filter="startswith(FirstName, 'J')"></titanium-person-selector>
 
                 <p>Include DateOfBirth and Biography(I'm lazy. Inspect to See Data)</p>
-                <titanium-person-selector controller-namespace="Home" label="Leavitt Group Producer" select="DateOfBirth,Biography"></titanium-person-selector>
+                <titanium-person-selector controller-namespace="Home" label="Leavitt Group Producer"
+                    select="DateOfBirth,Biography"></titanium-person-selector>
             </template>
         </demo-snippet>
     </div>
@@ -145,7 +155,8 @@
                 </style>
                 <h3>Titanium Chip Demo</h3>
                 <chip-container>
-                    <titanium-chip label="Frank" src="https://mapi.leavitt.com/People(771130)/Default.Picture(size=35)"></titanium-chip>
+                    <titanium-chip label="Frank" src="https://mapi.leavitt.com/People(771130)/Default.Picture(size=35)">
+                    </titanium-chip>
                     <titanium-chip label="John" src="https://mapi.leavitt.com/People(771130)/Default.Picture(size=35)"
                         closeable></titanium-chip>
                     <titanium-chip label="Tom" src="https://mapi.leavitt.com/People(771130)/Default.Picture(size=35)"
@@ -154,14 +165,18 @@
                             <path fill="#757575" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
                         </svg>
                     </titanium-chip>
-                    <titanium-chip label="Doge DB" src="https://mapi.leavitt.com/People(771130)/Default.Picture(size=35)">
+                    <titanium-chip label="Doge DB"
+                        src="https://mapi.leavitt.com/People(771130)/Default.Picture(size=35)">
                         <svg slot="chip-icon" style="width:18px;height:18px" viewBox="0 0 24 24">
-                            <path fill="#757575" d="M12,3C7.58,3 4,4.79 4,7C4,9.21 7.58,11 12,11C16.42,11 20,9.21 20,7C20,4.79 16.42,3 12,3M4,9V12C4,14.21 7.58,16 12,16C16.42,16 20,14.21 20,12V9C20,11.21 16.42,13 12,13C7.58,13 4,11.21 4,9M4,14V17C4,19.21 7.58,21 12,21C16.42,21 20,19.21 20,17V14C20,16.21 16.42,18 12,18C7.58,18 4,16.21 4,14Z" />
+                            <path fill="#757575"
+                                d="M12,3C7.58,3 4,4.79 4,7C4,9.21 7.58,11 12,11C16.42,11 20,9.21 20,7C20,4.79 16.42,3 12,3M4,9V12C4,14.21 7.58,16 12,16C16.42,16 20,14.21 20,12V9C20,11.21 16.42,13 12,13C7.58,13 4,11.21 4,9M4,14V17C4,19.21 7.58,21 12,21C16.42,21 20,19.21 20,17V14C20,16.21 16.42,18 12,18C7.58,18 4,16.21 4,14Z" />
                         </svg>
                     </titanium-chip>
-                    <titanium-chip closeable label="Kittens DB" src="https://mapi.leavitt.com/People(771130)/Default.Picture(size=35)">
+                    <titanium-chip closeable label="Kittens DB"
+                        src="https://mapi.leavitt.com/People(771130)/Default.Picture(size=35)">
                         <svg slot="chip-icon" style="width:18px;height:18px" viewBox="0 0 24 24">
-                            <path fill="#757575" d="M12,3C7.58,3 4,4.79 4,7C4,9.21 7.58,11 12,11C16.42,11 20,9.21 20,7C20,4.79 16.42,3 12,3M4,9V12C4,14.21 7.58,16 12,16C16.42,16 20,14.21 20,12V9C20,11.21 16.42,13 12,13C7.58,13 4,11.21 4,9M4,14V17C4,19.21 7.58,21 12,21C16.42,21 20,19.21 20,17V14C20,16.21 16.42,18 12,18C7.58,18 4,16.21 4,14Z" />
+                            <path fill="#757575"
+                                d="M12,3C7.58,3 4,4.79 4,7C4,9.21 7.58,11 12,11C16.42,11 20,9.21 20,7C20,4.79 16.42,3 12,3M4,9V12C4,14.21 7.58,16 12,16C16.42,16 20,14.21 20,12V9C20,11.21 16.42,13 12,13C7.58,13 4,11.21 4,9M4,14V17C4,19.21 7.58,21 12,21C16.42,21 20,19.21 20,17V14C20,16.21 16.42,18 12,18C7.58,18 4,16.21 4,14Z" />
                         </svg>
                     </titanium-chip>
                     <titanium-chip label="Fluffles"></titanium-chip>
@@ -231,19 +246,27 @@
 
     <div>
         <h3>Titanium Header Demo</h3>
-        <titanium-header header="This is my header" subHeader="This is where you tell the user what this page is about."></titanium-header>
+        <titanium-header header="This is my header"
+            subHeader="This is where you tell the user what this page is about."></titanium-header>
     </div>
 
     <div>
         <h3>Titanium Svg Button</h3>
-        <titanium-svg-button path="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></titanium-svg-button>
-        <titanium-svg-button large path="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></titanium-svg-button>
-        <titanium-svg-button disabled path="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></titanium-svg-button>
+        <titanium-svg-button path="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z">
+        </titanium-svg-button>
+        <titanium-svg-button large path="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z">
+        </titanium-svg-button>
+        <titanium-svg-button disabled path="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z">
+        </titanium-svg-button>
     </div>
 
     <div>
         <h3>Titanium Loader</h3>
         <titanium-loading-indicator>Loading...</titanium-loading-indicator>
+    </div>
+
+    <div>
+        <titanium-search-input-demo></titanium-search-input-demo>
     </div>
     </div>
 
