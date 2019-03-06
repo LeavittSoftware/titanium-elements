@@ -16,7 +16,6 @@ export class TitaniumTableHeader extends LitElement {
     if (changedProps.has('sortBy') &&
         changedProps.get('sortBy') !== this.sortBy) {
       this.active = this.sortBy === this.columnName;
-      console.log(`${this.columnName} is ${this.active ? '' : ' not '} active`);
     }
   }
 
