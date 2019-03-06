@@ -38,24 +38,13 @@ export class TitaniumSearchInput extends LitElement {
 
   styles = html`<style>
   :host {
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex;
-    -ms-flex-direction: column;
-    -webkit-flex-direction: column;
     flex-direction: column;
-    @apply --titanium-search-input;
   }
 
   input-container {
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex;
-    -ms-flex-direction: row;
-    -webkit-flex-direction: row;
     flex-direction: row;
-    -ms-align-self: flex-end;
-    -webkit-align-self: flex-end;
     align-self: flex-end;
     position: relative;
     @apply --titanium-search-input-input-container;
@@ -64,8 +53,6 @@ export class TitaniumSearchInput extends LitElement {
   svg[search] {
     position: absolute;
     left: 12px;
-    -ms-align-self: center;
-    -webkit-align-self: center;
     align-self: center;
     fill: #4285f4;
     width: 24px;
@@ -81,8 +68,6 @@ export class TitaniumSearchInput extends LitElement {
   titanium-svg-button {
     position: absolute;
     right: 8px;
-    -ms-align-self: center;
-    -webkit-align-self: center;
     align-self: center;
     width: 36px;
     height: 36px;
