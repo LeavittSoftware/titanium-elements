@@ -30,6 +30,7 @@ export class TitaniumSearchInput extends LitElement {
 
     this.value = '';
     this.dispatchEvent(new CustomEvent('value-changed', {detail: this.value}));
+    this.focus();
   }
 
   focus() {
@@ -51,7 +52,7 @@ export class TitaniumSearchInput extends LitElement {
   svg[search] {
     position: absolute;
     left: 12px;
-    align-self: center;
+    top: 12px;
     fill: var(--titanium-search-input-svg-fill-color, #4285f4);
     width: 24px;
     height: 24px;
@@ -64,7 +65,7 @@ export class TitaniumSearchInput extends LitElement {
   titanium-svg-button {
     position: absolute;
     right: 8px;
-    align-self: center;
+    top: 6px;
     width: 36px;
     height: 36px;
     --titanium-svg-button-svg-active-color: var(--titanium-search-input-clear-button-fill-color, #757575);
@@ -84,14 +85,13 @@ export class TitaniumSearchInput extends LitElement {
     padding-right: 80px !important;
     transition: background 100ms ease-in, width 100ms ease-out;
     padding: 5px 0;
-    color: #8C929D;
+    color: var(--titanium-search-input-text-color, #8c929d);
     background-color: #fff;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
-    border: 1px solid #eee;
-    border-bottom: 1px solid #eee;
+    border: 1px solid var(--titanium-search-input-border-color, #eee);
   }
 
   input-container:hover input {
@@ -103,7 +103,7 @@ export class TitaniumSearchInput extends LitElement {
   }
 
   :host([disabled]) input-container input {
-    background-color: #FAFAFA;
+    background-color: #fafafa;
     cursor: not-allowed;
     opacity: .6;
   }
