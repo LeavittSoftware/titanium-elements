@@ -21,8 +21,7 @@ export class TitaniumLoadingIndicatorButton extends LitElement {
     font-family: 'Roboto', 'Noto', sans-serif;
     -webkit-font-smoothing: antialiased;
     font-size: 14px;
-    color: #737373;
-    @apply --titanium-loading-indicator-slot;
+    color: var(--titanium-loading-indicator-text-color, #737373);
    }
 
    svg {
@@ -30,7 +29,6 @@ export class TitaniumLoadingIndicatorButton extends LitElement {
     width: 24px;
     height: 24px;
     fill: var(--titanium-loading-indicator-icon-color, #737373);
-    @apply --titanium-loading-indicator-svg;
    }
 
    :host(:not([disabled])) svg {
