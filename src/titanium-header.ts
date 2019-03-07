@@ -16,6 +16,10 @@ export class TitaniumHeader extends LitElement {
      -webkit-font-smoothing: antialiased;
    }
 
+   :host([hidden]) {
+    display: none;
+  }
+
    h1 {
      letter-spacing: -.012em;
      line-height: 32px;

@@ -59,6 +59,10 @@ export class TitaniumTableHeader extends LitElement {
     color: #737373;
   }
 
+  :host([hidden]) {
+    display: none;
+  }
+
   :host([active]) {
      color: var(--titanium-table-header-active-text-color, #000);
   }

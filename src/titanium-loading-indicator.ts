@@ -15,6 +15,10 @@ export class TitaniumLoadingIndicatorButton extends LitElement {
       align-items: center;
    }
 
+   :host([hidden]) {
+      display: none;
+    }
+
    text-container {
     diplay: block;
     padding-left: 8px;
