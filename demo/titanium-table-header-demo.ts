@@ -36,6 +36,13 @@ export class TitaniumTableHeaderDemo extends LitElement {
         (e: CustomEvent) => this.sortDirection = e.detail} .sortDirection="${
         this.sortDirection}"></titanium-table-header>
 
+        <titanium-table-header width="75px" column-name="position" title="Position" @sort-by-changed=${
+        (e: CustomEvent) => this.sortBy =
+            e.detail} .sortBy="${this.sortBy}"  @sort-direction-changed=${
+        (e: CustomEvent) => this.sortDirection = e.detail} .sortDirection="${
+        this.sortDirection}"></titanium-table-header>
+  
+
         <titanium-table-header right no-sort title="Address"></titanium-table-header>
      </header>
      <p></p>

@@ -7,6 +7,7 @@ export class TitaniumTableHeader extends LitElement {
   // an observed attribute.
   @property() title: string;
   @property() sortBy: string;
+  @property({type: Number}) width: number;
   @property({reflect: true, type: Boolean}) active: Boolean;
   @property({reflect: true, type: String, attribute: 'sort-direction'})
   sortDirection: 'asc'|'desc'|'';
@@ -16,6 +17,11 @@ export class TitaniumTableHeader extends LitElement {
     if (changedProps.has('sortBy') &&
         changedProps.get('sortBy') !== this.sortBy) {
       this.active = this.sortBy === this.columnName;
+    }
+
+    if (changedProps.has('width') && changedProps.get('width') !== this.width &&
+        changedProps.get('width')) {
+      this.style.width = changedProps.get('width');
     }
   }
 
@@ -37,10 +43,6 @@ export class TitaniumTableHeader extends LitElement {
     flex-direction: row;
     align-items: center;
 
-    -ms-flex: 3;
-    -webkit-flex: 3;
-    flex: 3;
-
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -59,18 +61,24 @@ export class TitaniumTableHeader extends LitElement {
     color: #737373;
   }
 
-  :host([hidden]) {
-    display: none;
+  :host(:not([width])) {
+    -ms-flex: 3;
+    -webkit-flex: 3;
+    flex: 3;
   }
 
-  :host([active]) {
-     color: var(--titanium-table-header-active-text-color, #000);
-  }
-
-  :host([large]) {
+  :host(:not([width])[large]) {
     -ms-flex: 5;
     -webkit-flex: 5;
     flex: 5;
+  }
+
+  :host([active]) {
+    color: var(--titanium-table-header-active-text-color, #000);
+  }
+
+  :host([hidden]) {
+    display: none;
   }
 
   :host([no-sort]) {
