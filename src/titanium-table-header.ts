@@ -81,6 +81,10 @@ export class TitaniumTableHeader extends LitElement {
     justify-content: center;
   }
 
+  :host([right]) {
+    justify-content: flex-end;
+  }
+
   :host([no-sort]) sort-icon {
     display: none;
   }
