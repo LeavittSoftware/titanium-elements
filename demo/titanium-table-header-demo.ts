@@ -5,8 +5,8 @@ import {css, customElement, html, LitElement, property} from 'lit-element';
 // This decorator defines the element.
 @customElement('titanium-table-header-demo')
 export class TitaniumTableHeaderDemo extends LitElement {
-  @property() sortBy: string;
-  @property() sortDirection: string;
+  @property() sortBy: string = 'name';
+  @property() sortDirection: string = 'asc';
 
   static styles = css`
   :host {
@@ -23,20 +23,20 @@ export class TitaniumTableHeaderDemo extends LitElement {
 
   render() {
     return html
-    `<header >
+    `<header>
         <titanium-table-header column-name="name" title="Name" @sort-by-changed=${
         (e: CustomEvent) => this.sortBy =
             e.detail} .sortBy="${this.sortBy}" @sort-direction-changed=${
         (e: CustomEvent) => this.sortDirection = e.detail} .sortDirection="${
         this.sortDirection}" large></titanium-table-header>
        
-        <titanium-table-header column-name="title" title="Title" @sort-by-changed=${
+        <titanium-table-header center column-name="title" title="Title" @sort-by-changed=${
         (e: CustomEvent) => this.sortBy =
             e.detail} .sortBy="${this.sortBy}"  @sort-direction-changed=${
         (e: CustomEvent) => this.sortDirection = e.detail} .sortDirection="${
-        this.sortDirection}"  ></titanium-table-header>
+        this.sortDirection}"></titanium-table-header>
 
-        <titanium-table-header no-sort title="Address"></titanium-table-header>
+        <titanium-table-header center no-sort title="Address"></titanium-table-header>
      </header>
      <p></p>
      <p></p>
