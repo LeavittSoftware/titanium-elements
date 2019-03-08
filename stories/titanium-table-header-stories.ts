@@ -13,6 +13,20 @@ const basic = `
 <titanium-table-header column-name="name" title="Name"></titanium-table-header>
 </header>
 `;
+const styled = `
+<style>
+    titanium-table-header {
+        color: blue;
+        --titanium-table-header-svg-color: blue; 
+
+        --titanium-table-header-active-text-color: red; 
+        --titanium-table-header-active-svg-color: red; 
+    }
+    </style>
+<header style="border-bottom: 1px solid #dadce0;border-top: 1px solid #dadce0;">
+<titanium-table-header column-name="name" title="Name"></titanium-table-header>
+</header>
+`;
 
 const noSort = `
 <header style="border-bottom: 1px solid #dadce0;border-top: 1px solid #dadce0;">
@@ -22,4 +36,5 @@ const noSort = `
 
 storiesOf('Table Header', module)
     .add('basic', withNotes(notes)(() => basic))
+    .add('styled', withNotes(notes)(() => styled))
     .add('no sort', withNotes(notes)(() => noSort));

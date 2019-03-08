@@ -14,7 +14,25 @@ const disabled =
 const large =
     `<titanium-svg-button large path="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"></titanium-svg-button>`;
 
+const styled = `
+    <style>
+        titanium-svg-button {
+            --titanium-svg-button-hover-color: lightcoral;
+            --titanium-svg-button-svg-active-color: blue;
+            --titanium-svg-button-svg-width: 30%;
+            --titanium-svg-button-svg-height: 30%;
+            --titanium-svg-button-svg-disabled-color: lightblue;
+        }
+    </style>
+    <div>Active</div>
+    <titanium-svg-button path="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></titanium-svg-button>
+
+    <div>Disabled</div>
+    <titanium-svg-button disabled path="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></titanium-svg-button>
+    `;
+
 storiesOf('SVG Button', module)
     .add('basic', withNotes(notes)(() => basic))
     .add('large', withNotes(notes)(() => large))
+    .add('styled', withNotes(notes)(() => styled))
     .add('disabled', withNotes(notes)(() => disabled));

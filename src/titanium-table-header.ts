@@ -55,11 +55,16 @@ export class TitaniumTableHeader extends LitElement {
     font-size: 13px;
     padding: 8px;
     line-height: 28px;
+    
     color: #737373;
   }
 
+  :host([hidden]) {
+    display: none;
+  }
+
   :host([active]) {
-    color: #000;
+     color: var(--titanium-table-header-active-text-color, #000);
   }
 
   :host([large]) {
@@ -84,17 +89,13 @@ export class TitaniumTableHeader extends LitElement {
 
   sort-icon svg {
     display: none;
-    fill: #737373;
+    fill: var(--titanium-table-header-svg-color, #737373);
   }
 
-  :host([active][sort-direction="asc"]) sort-icon svg[desc] {
-    display: block;
-    fill: #000;
-  }
-
+  :host([active][sort-direction="asc"]) sort-icon svg[desc],
   :host([active][sort-direction="desc"]) sort-icon svg[asc] {
     display: block;
-    fill: #000;
+    fill: var(--titanium-table-header-active-svg-color, #000);
   }`;
 
   render() {

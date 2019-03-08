@@ -11,11 +11,21 @@ const basic = `<titanium-loading-indicator></titanium-loading-indicator>`;
 const disabled =
     `<titanium-loading-indicator disabled></titanium-loading-indicator>`;
 
+const styled = `
+    <style>
+    titanium-loading-indicator {
+        --titanium-loading-indicator-text-color: green;
+        --titanium-loading-indicator-icon-color: lightcoral;
+    }
+    </style>
+    <titanium-loading-indicator></titanium-loading-indicator>`;
+
 const centered =
     `<div style="display: flex;height: 350px;width: 350px;border: 1px solid black;justify-content: center;align-items: center;text-align: center;flex-direction: column;"> 
     <titanium-loading-indicator>Loading in a box...</titanium-loading-indicator></div>`;
 
 storiesOf('Loading Indicator', module)
     .add('Basic', withNotes(notes)(() => basic))
+    .add('Styled', withNotes(notes)(() => styled))
     .add('Disabled', withNotes(notes)(() => disabled))
     .add('Centered in a div', withNotes(notes)(() => centered));
