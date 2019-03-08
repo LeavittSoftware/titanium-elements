@@ -7,7 +7,7 @@ export class TitaniumTableHeader extends LitElement {
   // an observed attribute.
   @property() title: string;
   @property() sortBy: string;
-  @property({type: Number}) width: number;
+  @property({reflect: true, type: String}) width: string;
   @property({reflect: true, type: Boolean}) active: Boolean;
   @property({reflect: true, type: String, attribute: 'sort-direction'})
   sortDirection: 'asc'|'desc'|'';
@@ -20,8 +20,8 @@ export class TitaniumTableHeader extends LitElement {
     }
 
     if (changedProps.has('width') && changedProps.get('width') !== this.width &&
-        changedProps.get('width')) {
-      this.style.width = changedProps.get('width');
+        this.width) {
+      this.style.width = this.width;
     }
   }
 
