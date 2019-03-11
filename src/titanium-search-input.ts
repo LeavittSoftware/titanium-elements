@@ -82,7 +82,7 @@ export class TitaniumSearchInput extends LitElement {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     padding-left: 42px !important;
-    padding-right: 80px !important;
+    padding-right: 42px !important;
     transition: background 100ms ease-in, width 100ms ease-out;
     padding: 5px 0;
     color: var(--titanium-search-input-text-color, #8c929d);

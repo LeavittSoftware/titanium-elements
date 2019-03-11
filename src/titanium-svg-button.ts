@@ -12,6 +12,7 @@ export class TitaniumSvgButton extends LitElement {
      width: 42px;
      height: 42px;
      border-radius:50%;
+     flex-shrink: 0;
    }
 
    :host([hidden]) {
