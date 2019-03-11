@@ -90,19 +90,24 @@ export class TitaniumTableHeader extends LitElement {
   }
 
   :host([right]) {
-    justify-content: flex-end;
+    flex-direction: row-reverse;
+  }
+
+  sort-icon {
+    height: 18px;
+    width: 18px;
+    margin-left: 4px;    
   }
 
   :host([no-sort]) sort-icon {
     display: none;
   }
 
-  sort-icon {
-    height: 18px;
-    width: 18px;
+  :host([right]) sort-icon {
     margin-right: 4px;
+    margin-left: 0;
   }
-
+  
   sort-icon svg {
     display: none;
     fill: var(--titanium-table-header-svg-color, #737373);
@@ -122,18 +127,16 @@ export class TitaniumTableHeader extends LitElement {
   :host([active][sort-direction="desc"]) sort-icon svg {
     display: block;
     fill: var(--titanium-table-header-active-svg-color, #000);
-  }
-
-  
-  `;
+  }`;
 
   render() {
-    return html`<sort-icon>
-    <svg viewBox="0 0 24 24">
-      <path fill="none" d="M0 0h24v24H0V0z" />
-      <path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z" />
-    </svg>
-  </sort-icon>
-  ${this.title}`;
+    return html`${this.title}
+    <sort-icon>
+      <svg viewBox="0 0 24 24">
+        <path fill="none" d="M0 0h24v24H0V0z" />
+        <path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z" />
+      </svg>
+    </sort-icon>
+  `;
   }
 }
