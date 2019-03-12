@@ -28,8 +28,8 @@ export class TitaniumSvgButton extends LitElement {
    }
   
    :host([large]) {
-    width: 64px;
-    height: 64px;
+    width: 52px;
+    height: 52px;
    }
 
    ripple-contianer { 
