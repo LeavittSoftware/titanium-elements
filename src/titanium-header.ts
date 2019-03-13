@@ -11,8 +11,8 @@ export class TitaniumHeader extends LitElement {
   @property() subHeader: string;
 
   _handleBackClick() {
-    this.dispatchEvent(
-        new CustomEvent('titanium-header-back-click', {composed: true}));
+    this.dispatchEvent(new CustomEvent(
+        'titanium-header-back-click', {composed: true, bubbles: true}));
   }
 
   static styles = css`
