@@ -9,6 +9,10 @@ export class TitaniumDataTable extends LitElement {
   @property() take: number;
   @property() page: number = 0;
   @property() count: number;
+  @property() items: Array<any>;
+  @property({type: Boolean, attribute: 'single-select', reflect: true})
+  singleSelect: boolean;
+  @property() selectedCount: number = 0;
 
   connectedCallback() {
     super.connectedCallback();
@@ -36,6 +40,12 @@ export class TitaniumDataTable extends LitElement {
     return 5;
   }
 
+  private setSelectedCount(value: number) {
+    this.selectedCount = value;
+    this.dispatchEvent(
+        new CustomEvent('selected-count-changed', {detail: value}));
+  }
+
   private setPage(value: number) {
     this.page = value;
     this.dispatchEvent(new CustomEvent('page-changed', {detail: value}));
@@ -44,6 +54,36 @@ export class TitaniumDataTable extends LitElement {
   private setTake(value: number) {
     this.take = value;
     this.dispatchEvent(new CustomEvent('take-changed', {detail: value}));
+  }
+
+  _handleSelectAllClick(e: Event) {
+    e.preventDefault();
+    e.stopPropagation();
+    this._toggleSelectAll();
+  }
+
+  private _toggleSelectAll() {
+    if (this.selectedCount > 0) {
+      this.deselectAll();
+    } else {
+      if (!this.singleSelect) {
+        this.selectAll();
+      }
+    }
+  }
+
+  private deselectAll() {
+    this.items.forEach((o) => {
+      o.isSelected = false;
+    });
+    this.setSelectedCount(0);
+  }
+
+  private selectAll() {
+    this.items.forEach((o) => {
+      o.isSelected = true;
+    });
+    this.setSelectedCount(this.items.length);
   }
 
   _handleNextPageClick() {
@@ -136,10 +176,6 @@ export class TitaniumDataTable extends LitElement {
     border-bottom: 1px solid #dadce0;
   }
 
-  table-header ::slotted(titanium-table-header:first-of-type) {
-    padding-left:16px;
-  }
-
   table-header ::slotted(titanium-table-header:last-of-type) {
     padding-right:16px;
   }
@@ -168,6 +204,24 @@ export class TitaniumDataTable extends LitElement {
     margin: 0 8px;
   }
 
+  select-all-checkbox {
+    display: block;
+    flex-shrink: 0;
+    align-self: center;
+    margin: 0 8px 0 16px;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+  }
+
+  select-all-checkbox svg {
+    fill: #757575;
+  }
+
+  :host([single-select]) select-all-checkbox svg[empty] {
+    fill: #f5f5f5;
+    cursor: inherit;
+  }
 
   [hidden] {
     display: none;
@@ -188,21 +242,43 @@ export class TitaniumDataTable extends LitElement {
 </header>
 <table-container>
   <table-header>
-    <slot name="table-headers"></slot>    
+    <select-all-checkbox @click="${this._handleSelectAllClick}">
+      <svg empty viewBox="0 0 24 24" ?hidden="${this.selectedCount !== 0}">
+        <path fill="none" d="M0 0h24v24H0V0z" />
+        <path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" />
+      </svg>
+      <svg checked viewBox="0 0 24 24" ?hidden="${
+        this.selectedCount === 0 || this.selectedCount !== this.items.length}">
+        <path d="M0 0h24v24H0z" fill="none" />
+        <path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+      </svg>
+      <svg indetermanite viewBox="0 0 24 24" ?hidden="${
+        this.selectedCount === 0 || this.selectedCount === this.items.length}">
+        <defs>
+          <path id="a" d="M0 0h24v24H0z" />
+        </defs>
+        <clipPath id="b">
+          <use xlink:href="#a" overflow="visible" />
+        </clipPath>
+        <path clip-path="url(#b)" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2z" />
+      </svg>
+    </select-all-checkbox>
+    <slot name="table-headers"></slot>
   </table-header>
 
   <titanium-loading-indicator hidden disabled="[[!isLoading]]">Loading...</titanium-loading-indicator>
-  <slot name="items"></slot>   
+  <slot name="items"></slot>
 
 </table-container>
 <page-buttons>
   <pagination-text>${
         this._getPageStats(this.page, this.count)}</pagination-text>
   <titanium-svg-button path="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" @click="${
-        this._handleLastPageClick}" ?disabled="${
-        this.page === 0}"></titanium-svg-button>
+        this._handleLastPageClick}"
+    ?disabled="${this.page === 0}"></titanium-svg-button>
   <titanium-svg-button path="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" @click="${
-        this._handleNextPageClick}" ?disabled="${
+        this._handleNextPageClick}"
+    ?disabled="${
         (this.page + 1) * this.take >= this.count}"></titanium-svg-button>
 </page-buttons>`;
   }
