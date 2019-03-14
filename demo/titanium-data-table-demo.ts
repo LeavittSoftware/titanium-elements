@@ -52,19 +52,19 @@ export default class TitaniumDataTableDemo extends PolymerElement {
     console.log('page: ', this.page);
 
     this.items = [
-      {first: 'Aaron', last: 'Drabeck', title: 'Engineer 1'},
-      {first: 'Anthony', last: 'Thomas', title: 'Engineer 2'},
-      {first: 'Wyatt', last: 'Morrow', title: 'Engineer 3 '},
-      {first: 'Bob', last: 'Drabeck', title: 'Engineer 4 '},
-      {first: 'Frank', last: 'Thomas', title: 'Engineer 5'},
-      {first: 'John', last: 'Morrow', title: 'Engineer 6'},
-      {first: 'Robert', last: 'Drabeck', title: 'Engineer 7'},
-      {first: 'Vlad', last: 'Thomas', title: 'Engineer 8'},
-      {first: 'Billy', last: 'Morrow', title: 'Engineer 9'},
-      {first: 'Tina', last: 'Drabeck', title: 'Engineer 10'},
-      {first: 'Danielle', last: 'Thomas', title: 'Engineer 11'},
-      {first: 'Wilson', last: 'Morrow', title: 'Engineer 12'},
-      {first: 'Kip', last: 'Morrow', title: 'Engineer 13'}
+      {first: 'Aaron', last: 'Drabeck', title: 'Engineer 1', amount: '1.2'},
+      {first: 'Anthony', last: 'Thomas', title: 'Engineer 2', amount: '0.2'},
+      {first: 'Wyatt', last: 'Morrow', title: 'Engineer 3 ', amount: '3.2'},
+      {first: 'Bob', last: 'Drabeck', title: 'Engineer 4 ', amount: '4.5'},
+      {first: 'Frank', last: 'Thomas', title: 'Engineer 5', amount: '2.7'},
+      {first: 'John', last: 'Morrow', title: 'Engineer 6', amount: '5.3'},
+      {first: 'Robert', last: 'Drabeck', title: 'Engineer 7', amount: '6.4'},
+      {first: 'Vlad', last: 'Thomas', title: 'Engineer 8', amount: '7.4'},
+      {first: 'Billy', last: 'Morrow', title: 'Engineer 9', amount: '6.3'},
+      {first: 'Tina', last: 'Drabeck', title: 'Engineer 10', amount: '1.5'},
+      {first: 'Danielle', last: 'Thomas', title: 'Engineer 11', amount: '2.2'},
+      {first: 'Wilson', last: 'Morrow', title: 'Engineer 12', amount: '0.3'},
+      {first: 'Kip', last: 'Morrow', title: 'Engineer 13', amount: '2.2'}
     ].slice(this.page * this.take, (this.page * this.take) + this.take);
 
     this.count = 13;
@@ -103,17 +103,24 @@ export default class TitaniumDataTableDemo extends PolymerElement {
         <titanium-svg-button slot="selected-actions" title="Delete" on-click="_handleDelete" path="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"></titanium-svg-button>
 
 
-        <titanium-table-header slot="table-headers" critical large column-name="first" title="First Name" sort-by="{{sortBy}}"
-            sort-direction="{{sortDirection}}"></titanium-table-header>
-        <titanium-table-header slot="table-headers" column-name="last" title="Last Name" sort-by="{{sortBy}}"
-            sort-direction="{{sortDirection}}"></titanium-table-header>
-        <titanium-table-header slot="table-headers" column-name="title" title="Title" sort-by="{{sortBy}}"
-            sort-direction="{{sortDirection}}"></titanium-table-header>
+        <titanium-table-header slot="table-headers" large column-name="first" title="First Name" sort-by="{{sortBy}}"            sort-direction="{{sortDirection}}"></titanium-table-header>
+        <titanium-table-header slot="table-headers" column-name="last" title="Last Name" sort-by="{{sortBy}}"            sort-direction="{{sortDirection}}"></titanium-table-header>
+        <titanium-table-header slot="table-headers" desktop column-name="title" title="Title" sort-by="{{sortBy}}"            sort-direction="{{sortDirection}}"></titanium-table-header>
+        <titanium-table-header slot="table-headers" desktop center column-name="amount" title="Centered" sort-by="{{sortBy}}" sort-direction="{{sortDirection}}"></titanium-table-header>
+        <titanium-table-header slot="table-headers" desktop right column-name="amount" title="Right" sort-by="{{sortBy}}" sort-direction="{{sortDirection}}"></titanium-table-header>
+        <titanium-table-header slot="table-headers" width="40px" column-name="amount" title="Width" sort-by="{{sortBy}}" sort-direction="{{sortDirection}}"></titanium-table-header>
+        <titanium-table-header slot="table-headers" desktop width="120px" center column-name="amount" title="Width Center" sort-by="{{sortBy}}" sort-direction="{{sortDirection}}"></titanium-table-header>
+        <titanium-table-header slot="table-headers" desktop width="120px" right column-name="amount" title="Width Right" sort-by="{{sortBy}}" sort-direction="{{sortDirection}}"></titanium-table-header>
         <template is="dom-repeat" items="[[items]]">
             <titanium-data-table-item item="[[item]]" slot="items">
                 <row-item large>[[item.first]]</row-item>
                 <row-item>[[item.last]]</row-item>
-                <row-item>[[item.title]]</row-item>
+                <row-item desktop >[[item.title]]</row-item>
+                <row-item desktop center >[[item.amount]]</row-item>
+                <row-item desktop right>[[item.amount]]</row-item>
+                <row-item width="40px">[[item.amount]]</row-item>
+                <row-item desktop width="120px" center>[[item.amount]]</row-item>
+                <row-item desktop width="120px" right>[[item.amount]]</row-item>
             </titanium-data-table-item>
         </template>
     </titanium-data-table>

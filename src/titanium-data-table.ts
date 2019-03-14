@@ -224,7 +224,7 @@ export class TitaniumDataTable extends LitElement {
   }
 
   table-header ::slotted(titanium-table-header:last-of-type) {
-    padding-right:16px;
+    padding-right: 24px;
   }
 
   titanium-loading-indicator {
@@ -255,7 +255,7 @@ export class TitaniumDataTable extends LitElement {
     display: block;
     flex-shrink: 0;
     align-self: center;
-    margin: 0 8px 0 16px;
+    margin: 0 8px 0 24px;
     width: 22px;
     height: 22px;
     cursor: pointer;
@@ -266,8 +266,8 @@ export class TitaniumDataTable extends LitElement {
   }
 
   :host([single-select]) select-all-checkbox svg[empty] {
-    fill: #f5f5f5;
-    cursor: inherit;
+    fill: #b9b9b9;
+    cursor: not-allowed ;
   }
 
   [hidden] {
@@ -290,7 +290,8 @@ export class TitaniumDataTable extends LitElement {
 <table-container>
   <table-header>
     <select-all-checkbox @click="${this._handleSelectAllClick}">
-      <div title="Select all" ?hidden="${this.selected.length !== 0}">
+      <div title="${this.singleSelect ? '' : 'Select all'}" ?hidden="${
+        this.selected.length !== 0}">
         <svg empty viewBox="0 0 24 24">
           <path fill="none" d="M0 0h24v24H0V0z" />
           <path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" />

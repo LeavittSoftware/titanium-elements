@@ -89,6 +89,10 @@ export class TitaniumTableHeader extends LitElement {
     justify-content: center;
   }
 
+  :host([center])::before {
+    width:18px;
+  }
+
   :host([right]) {
     flex-direction: row-reverse;
   }
@@ -127,7 +131,14 @@ export class TitaniumTableHeader extends LitElement {
   :host([active][sort-direction="desc"]) sort-icon svg {
     display: block;
     fill: var(--titanium-table-header-active-svg-color, #000);
-  }`;
+  }
+
+  @media(max-width: 768px) {
+    :host([desktop]) { 
+      display: none;
+    }
+  }
+  `;
 
   render() {
     return html`${this.title}

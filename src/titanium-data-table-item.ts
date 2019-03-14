@@ -11,6 +11,18 @@ export class TitaniumDataTableItem extends LitElement {
     this.addEventListener('click', () => this._handleToggleButton());
   }
 
+  firstUpdated() {
+    // Set width of each slotted row with based on width
+    (this.shadowRoot as any)
+        .querySelector('slot')
+        .assignedElements()
+        .forEach(o => {
+          if (o.getAttribute('width')) {
+            o.style.width = o.getAttribute('width');
+          }
+        });
+  }
+
   toggleSelected() {
     this.isSelected = !this.isSelected;
     this.dispatchEvent(
@@ -20,6 +32,8 @@ export class TitaniumDataTableItem extends LitElement {
           detail: {isSelected: this.isSelected, item: this.item}
         }))
   }
+
+
 
   select() {
     if (!this.isSelected) {
@@ -44,13 +58,18 @@ export class TitaniumDataTableItem extends LitElement {
     flex-direction: row;
     align-items: center;
 
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
     min-height: 32px;
     text-decoration: none;
 
     background-color: #fff;
     border-bottom: 1px #dfdfdf solid;
-
-    cursor: pointer;
 
     font-family: 'Roboto', 'Noto', sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -66,15 +85,15 @@ export class TitaniumDataTableItem extends LitElement {
     display: block;
 
     font-size: 13px;
+    line-height: 18px;
     color: #757575;
-    line-height: 40px;
     font-weight: 400;
     padding: 4px 8px;
     margin: 0;
   }
 
   ::slotted(row-item:last-of-type) {
-    padding-right:16px;
+    padding-right: 24px;
   }
 
   ::slotted(row-item:not([width])) {
@@ -89,11 +108,19 @@ export class TitaniumDataTableItem extends LitElement {
     flex: 5;
   }
 
+  ::slotted(row-item[center]) {
+    text-align:center;
+  }
+
+  ::slotted(row-item[right]) {
+    text-align:right;
+  }
+
   item-checkbox {
     display: block;
     flex-shrink: 0;
     align-self: center;
-    margin: 0 8px 0 16px;
+    margin: 8px 8px 8px 24px;
     width: 22px;
     height: 22px;
     cursor: pointer;
@@ -105,7 +132,14 @@ export class TitaniumDataTableItem extends LitElement {
 
   [hidden] {
     display: none;
-  }`;
+  }
+
+  @media(max-width: 768px) {
+    ::slotted(row-item[desktop]) { 
+      display: none;
+    }
+  }
+  `;
 
   render() {
     return html
