@@ -95,28 +95,41 @@ export default class TitaniumDataTableDemo extends PolymerElement {
     <br />
     <titanium-data-table single-select$="[[singleSelect]]" title="Demo People Table" count="[[count]]" page="{{page}}"
         take="{{take}}" items="[[items]]">
+
+        <!-- Table actions -->
         <titanium-search-input slot="table-actions" placeholder="Search" value={{searchTerm}}></titanium-search-input>
         <titanium-svg-button slot="table-actions" title="Add" on-click="_handleAdd" path="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"></titanium-svg-button>
         <titanium-svg-button slot="table-actions" title="Filter" on-click="_handleFilter" path="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"></titanium-svg-button>
 
+        <!-- Selected Actions -->
         <titanium-svg-button slot="selected-actions" title="Edit" on-click="_handleEdit" path="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"></titanium-svg-button>
         <titanium-svg-button slot="selected-actions" title="Delete" on-click="_handleDelete" path="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"></titanium-svg-button>
 
+        <!-- Table Headers -->
+        <titanium-table-header slot="table-headers" large column-name="first" title="First Name" sort-by="{{sortBy}}"
+            sort-direction="{{sortDirection}}"></titanium-table-header>
+        <titanium-table-header slot="table-headers" column-name="last" title="Last Name" sort-by="{{sortBy}}"
+            sort-direction="{{sortDirection}}"></titanium-table-header>
+        <titanium-table-header slot="table-headers" desktop column-name="title" title="Title" sort-by="{{sortBy}}"
+            sort-direction="{{sortDirection}}"></titanium-table-header>
+        <titanium-table-header slot="table-headers" desktop center column-name="amount" title="Centered" sort-by="{{sortBy}}"
+            sort-direction="{{sortDirection}}"></titanium-table-header>
+        <titanium-table-header slot="table-headers" desktop right column-name="amount" title="Right" sort-by="{{sortBy}}"
+            sort-direction="{{sortDirection}}"></titanium-table-header>
+        <titanium-table-header slot="table-headers" width="40px" column-name="amount" title="Width" sort-by="{{sortBy}}"
+            sort-direction="{{sortDirection}}"></titanium-table-header>
+        <titanium-table-header slot="table-headers" desktop width="120px" center column-name="amount" title="Width Center"
+            sort-by="{{sortBy}}" sort-direction="{{sortDirection}}"></titanium-table-header>
+        <titanium-table-header slot="table-headers" desktop width="120px" right column-name="amount" title="Width Right"
+            sort-by="{{sortBy}}" sort-direction="{{sortDirection}}"></titanium-table-header>
 
-        <titanium-table-header slot="table-headers" large column-name="first" title="First Name" sort-by="{{sortBy}}"            sort-direction="{{sortDirection}}"></titanium-table-header>
-        <titanium-table-header slot="table-headers" column-name="last" title="Last Name" sort-by="{{sortBy}}"            sort-direction="{{sortDirection}}"></titanium-table-header>
-        <titanium-table-header slot="table-headers" desktop column-name="title" title="Title" sort-by="{{sortBy}}"            sort-direction="{{sortDirection}}"></titanium-table-header>
-        <titanium-table-header slot="table-headers" desktop center column-name="amount" title="Centered" sort-by="{{sortBy}}" sort-direction="{{sortDirection}}"></titanium-table-header>
-        <titanium-table-header slot="table-headers" desktop right column-name="amount" title="Right" sort-by="{{sortBy}}" sort-direction="{{sortDirection}}"></titanium-table-header>
-        <titanium-table-header slot="table-headers" width="40px" column-name="amount" title="Width" sort-by="{{sortBy}}" sort-direction="{{sortDirection}}"></titanium-table-header>
-        <titanium-table-header slot="table-headers" desktop width="120px" center column-name="amount" title="Width Center" sort-by="{{sortBy}}" sort-direction="{{sortDirection}}"></titanium-table-header>
-        <titanium-table-header slot="table-headers" desktop width="120px" right column-name="amount" title="Width Right" sort-by="{{sortBy}}" sort-direction="{{sortDirection}}"></titanium-table-header>
+        <!-- Items -->
         <template is="dom-repeat" items="[[items]]">
             <titanium-data-table-item item="[[item]]" slot="items">
                 <row-item large>[[item.first]]</row-item>
                 <row-item>[[item.last]]</row-item>
-                <row-item desktop >[[item.title]]</row-item>
-                <row-item desktop center >[[item.amount]]</row-item>
+                <row-item desktop>[[item.title]]</row-item>
+                <row-item desktop center>[[item.amount]]</row-item>
                 <row-item desktop right>[[item.amount]]</row-item>
                 <row-item width="40px">[[item.amount]]</row-item>
                 <row-item desktop width="120px" center>[[item.amount]]</row-item>
