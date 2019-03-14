@@ -6,21 +6,38 @@ export class TitaniumDataTableItem extends LitElement {
   @property() item: boolean;
   @property() isSelected: boolean;
 
+  private clickTimeoutHandle: NodeJS.Timer;
+
   constructor() {
     super();
-    this.addEventListener('click', () => this._handleToggleButton());
+    this.addEventListener('click', () => this._handleClick());
+    this.addEventListener('dblclick', () => this._handleDoubleClick());
   }
 
   firstUpdated() {
     // Set width of each slotted row with based on width
+    // console.log(this.shadowRoot.querySelector('slot').assignedNodes());
     (this.shadowRoot as any)
         .querySelector('slot')
-        .assignedElements()
-        .forEach(o => {
-          if (o.getAttribute('width')) {
-            o.style.width = o.getAttribute('width');
+        .assignedNodes()
+        .filter(e => e.nodeType === Node.ELEMENT_NODE)
+        .forEach(e => {
+          if (e => e.getAttribute('width')) {
+            e.style.width = e.getAttribute('width');
           }
         });
+  }
+
+  _handleClick() {
+    clearTimeout(this.clickTimeoutHandle);
+    this.clickTimeoutHandle = setTimeout(() => {
+      this.toggleSelected();
+    }, 300);
+  }
+
+  _handleDoubleClick() {
+    clearTimeout(this.clickTimeoutHandle);
+    console.log('do double click')
   }
 
   toggleSelected() {
@@ -32,8 +49,6 @@ export class TitaniumDataTableItem extends LitElement {
           detail: {isSelected: this.isSelected, item: this.item}
         }))
   }
-
-
 
   select() {
     if (!this.isSelected) {
