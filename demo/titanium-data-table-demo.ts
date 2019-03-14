@@ -1,6 +1,7 @@
 import '@leavittsoftware/titanium-elements/lib/titanium-data-table';
 import '@leavittsoftware/titanium-elements/lib/titanium-svg-button';
 import '@leavittsoftware/titanium-elements/lib/titanium-search-input';
+import '@polymer/paper-toggle-button';
 import '@leavittsoftware/titanium-elements/lib/titanium-data-table-item';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
 
@@ -81,7 +82,19 @@ export default class TitaniumDataTableDemo extends PolymerElement {
     }
 </style>
 <demo-container>
-    <titanium-data-table title="Demo People Table" count="[[count]]" page="{{page}}" take="{{take}}" items="[[items]]">
+
+    <h4>Table Options</h4>
+    <paper-toggle-button checked="{{singleSelect}}">Multi Select</paper-toggle-button>
+
+    <h4>Selected Items</h4>
+    <template is="dom-repeat" items="[[selectedItems]]">
+        <div> [[item.first]] [[item.last]] [[item.title]] </div>
+    </template>
+
+    <br />
+    <br />
+    <titanium-data-table single-select$="[[singleSelect]]" title="Demo People Table" count="[[count]]" page="{{page}}"
+        take="{{take}}" items="[[items]]">
         <titanium-search-input slot="table-actions" placeholder="Search" value={{searchTerm}}></titanium-search-input>
         <titanium-svg-button slot="table-actions" title="Add" on-click="_handleAdd" path="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"></titanium-svg-button>
         <titanium-svg-button slot="table-actions" title="Filter" on-click="_handleFilter" path="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"></titanium-svg-button>
@@ -97,21 +110,16 @@ export default class TitaniumDataTableDemo extends PolymerElement {
         <titanium-table-header slot="table-headers" column-name="title" title="Title" sort-by="{{sortBy}}"
             sort-direction="{{sortDirection}}"></titanium-table-header>
         <template is="dom-repeat" items="[[items]]">
-                <titanium-data-table-item item="[[item]]" slot="items">
-                    <row-item large>[[item.first]]</row-item>
-                    <row-item>[[item.last]]</row-item>
-                    <row-item>[[item.title]]</row-item>
-                </titanium-data-table-item>
+            <titanium-data-table-item item="[[item]]" slot="items">
+                <row-item large>[[item.first]]</row-item>
+                <row-item>[[item.last]]</row-item>
+                <row-item>[[item.title]]</row-item>
+            </titanium-data-table-item>
         </template>
     </titanium-data-table>
 
 
-    <h4>Selected Items</h4>
-    <template is="dom-repeat" items="[[selectedItems]]">
-        <div>
-            [[item.first]] [[item.last]] [[item.title]]
-        </div>
-    </template>
+
 </demo-container>`;
   }
 }

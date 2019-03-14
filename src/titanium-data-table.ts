@@ -43,6 +43,12 @@ export class TitaniumDataTable extends LitElement {
   private _handleItemSelectionChange(
       e: CustomEvent<{item: any, isSelected: boolean}>) {
     if (e.detail.isSelected) {
+      if (this.singleSelect) {
+        this._getTableItems()
+            .filter(o => o.item !== e.detail.item)
+            .forEach(o => o.deselected())
+      }
+
       this.selected.push(e.detail.item);
       this.requestUpdate();
       this._notifiySelectedChanged();
@@ -284,27 +290,33 @@ export class TitaniumDataTable extends LitElement {
 <table-container>
   <table-header>
     <select-all-checkbox @click="${this._handleSelectAllClick}">
-      <svg empty viewBox="0 0 24 24" ?hidden="${this.selected.length !== 0}">
-        <path fill="none" d="M0 0h24v24H0V0z" />
-        <path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" />
-      </svg>
-      <svg checked viewBox="0 0 24 24" ?hidden="${
+      <div title="Select all" ?hidden="${this.selected.length !== 0}">
+        <svg empty viewBox="0 0 24 24">
+          <path fill="none" d="M0 0h24v24H0V0z" />
+          <path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" />
+        </svg>
+      </div>
+      <div title="Deselect all" ?hidden="${
         this.selected.length === 0 ||
         this.selected.length !== this.items.length}">
-        <path d="M0 0h24v24H0z" fill="none" />
-        <path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-      </svg>
-      <svg indetermanite viewBox="0 0 24 24" ?hidden="${
+        <svg checked viewBox="0 0 24 24">
+          <path d="M0 0h24v24H0z" fill="none" />
+          <path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+        </svg>
+      </div>
+      <div title="Clear selection" ?hidden="${
         this.selected.length === 0 ||
         this.selected.length === this.items.length}">
-        <defs>
-          <path id="a" d="M0 0h24v24H0z" />
-        </defs>
-        <clipPath id="b">
-          <use xlink:href="#a" overflow="visible" />
-        </clipPath>
-        <path clip-path="url(#b)" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2z" />
-      </svg>
+        <svg indetermanite viewBox="0 0 24 24">
+          <defs>
+            <path id="a" d="M0 0h24v24H0z" />
+          </defs>
+          <clipPath id="b">
+            <use xlink:href="#a" overflow="visible" />
+          </clipPath>
+          <path clip-path="url(#b)" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2z" />
+        </svg>
+      </div>
     </select-all-checkbox>
     <slot name="table-headers"></slot>
   </table-header>
