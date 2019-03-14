@@ -1,7 +1,8 @@
 import '../lib/titanium-svg-button';
 import '../lib/titanium-loading-indicator';
 
-import {css, customElement, html, LitElement, property} from 'lit-element';
+import {css, customElement, html, LitElement, property, queryAll} from 'lit-element';
+import {TitaniumDataTableItem} from './titanium-data-table-item';
 
 @customElement('titanium-data-table')
 export class TitaniumDataTable extends LitElement {
@@ -12,15 +13,52 @@ export class TitaniumDataTable extends LitElement {
   @property() items: Array<any>;
   @property({type: Boolean, attribute: 'single-select', reflect: true})
   singleSelect: boolean;
-  @property() selectedCount: number = 0;
+  @property() selected: Array<any> = [];
+  @queryAll('table-container') tableContanier: NodeListOf<any>;
 
   connectedCallback() {
     super.connectedCallback();
     this.setTake(this._determineTake());
     this.setPage(0);
+    this.addEventListener(
+        'titanium-data-table-item-selected-changed',
+        this._handleItemSelectionChange.bind(this));
   }
 
-  _getPageStats(page: number, count: number) {
+  clearSelection() {
+    this.deselectAll();
+    // Ensure the collection is empty, deselect can cause a race condition
+    // between deselecting and UI drawing new items.
+    this.selected = [];
+    this._notifiySelectedChanged();
+  }
+
+  updated(changedProps) {
+    if (changedProps.has('items') && changedProps.get('items') !== this.items) {
+      // Clear selection when items array changes.
+      this.clearSelection();
+    }
+  }
+
+  private _handleItemSelectionChange(
+      e: CustomEvent<{item: any, isSelected: boolean}>) {
+    if (e.detail.isSelected) {
+      this.selected.push(e.detail.item);
+      this.requestUpdate();
+      this._notifiySelectedChanged();
+    } else {
+      this.selected.splice(this.selected.indexOf(e.detail.item), 1);
+      this.requestUpdate();
+      this._notifiySelectedChanged();
+    }
+  }
+
+  private _notifiySelectedChanged() {
+    this.dispatchEvent(new CustomEvent(
+        'selected-changed', {composed: true, detail: this.selected}));
+  }
+
+  private _getPageStats(page: number, count: number) {
     const startOfPage = count === 0 ? count : page * this.take + 1;
     const endOfPage =
         (page + 1) * this.take > count ? count : (page + 1) * this.take;
@@ -40,30 +78,26 @@ export class TitaniumDataTable extends LitElement {
     return 5;
   }
 
-  private setSelectedCount(value: number) {
-    this.selectedCount = value;
-    this.dispatchEvent(
-        new CustomEvent('selected-count-changed', {detail: value}));
-  }
-
   private setPage(value: number) {
     this.page = value;
-    this.dispatchEvent(new CustomEvent('page-changed', {detail: value}));
+    this.dispatchEvent(
+        new CustomEvent('page-changed', {composed: true, detail: value}));
   }
 
   private setTake(value: number) {
     this.take = value;
-    this.dispatchEvent(new CustomEvent('take-changed', {detail: value}));
+    this.dispatchEvent(
+        new CustomEvent('take-changed', {composed: true, detail: value}));
   }
 
-  _handleSelectAllClick(e: Event) {
+  private _handleSelectAllClick(e: Event) {
     e.preventDefault();
     e.stopPropagation();
     this._toggleSelectAll();
   }
 
   private _toggleSelectAll() {
-    if (this.selectedCount > 0) {
+    if (this.selected.length > 0) {
       this.deselectAll();
     } else {
       if (!this.singleSelect) {
@@ -73,20 +107,23 @@ export class TitaniumDataTable extends LitElement {
   }
 
   private deselectAll() {
-    this.items.forEach((o) => {
-      o.isSelected = false;
-    });
-    this.setSelectedCount(0);
+    this._getTableItems().forEach(o => o.deselected())
   }
 
   private selectAll() {
-    this.items.forEach((o) => {
-      o.isSelected = true;
-    });
-    this.setSelectedCount(this.items.length);
+    this._getTableItems().forEach(o => o.select())
   }
 
-  _handleNextPageClick() {
+  private _getTableItems(): Array<TitaniumDataTableItem> {
+    return this.tableContanier[0]
+        .querySelector('slot[name="items"]')
+        .assignedNodes()
+        .filter(
+            o => typeof o.select === 'function' ||
+                typeof o.deselect === 'function');
+  }
+
+  private _handleNextPageClick() {
     const nextPage = this.page + 1;
     if (nextPage * this.take >= this.count) {
       return;
@@ -94,7 +131,7 @@ export class TitaniumDataTable extends LitElement {
     this.setPage(this.page + 1);
   }
 
-  _handleLastPageClick() {
+  private _handleLastPageClick() {
     if (this.page === 0) {
       return;
     }
@@ -170,6 +207,10 @@ export class TitaniumDataTable extends LitElement {
     flex: 1 1 auto;
   }
 
+  table-container {
+    padding-bottom: 12px;
+  }
+
   table-header {
     display: flex;
     flex-direction: row;
@@ -243,17 +284,19 @@ export class TitaniumDataTable extends LitElement {
 <table-container>
   <table-header>
     <select-all-checkbox @click="${this._handleSelectAllClick}">
-      <svg empty viewBox="0 0 24 24" ?hidden="${this.selectedCount !== 0}">
+      <svg empty viewBox="0 0 24 24" ?hidden="${this.selected.length !== 0}">
         <path fill="none" d="M0 0h24v24H0V0z" />
         <path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" />
       </svg>
       <svg checked viewBox="0 0 24 24" ?hidden="${
-        this.selectedCount === 0 || this.selectedCount !== this.items.length}">
+        this.selected.length === 0 ||
+        this.selected.length !== this.items.length}">
         <path d="M0 0h24v24H0z" fill="none" />
         <path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
       </svg>
       <svg indetermanite viewBox="0 0 24 24" ?hidden="${
-        this.selectedCount === 0 || this.selectedCount === this.items.length}">
+        this.selected.length === 0 ||
+        this.selected.length === this.items.length}">
         <defs>
           <path id="a" d="M0 0h24v24H0z" />
         </defs>

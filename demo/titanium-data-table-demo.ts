@@ -1,9 +1,11 @@
 import '@leavittsoftware/titanium-elements/lib/titanium-data-table';
 import '@leavittsoftware/titanium-elements/lib/titanium-svg-button';
 import '@leavittsoftware/titanium-elements/lib/titanium-search-input';
+import '@leavittsoftware/titanium-elements/lib/titanium-data-table-item';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
 
-import {customElement, observe, property} from '@polymer/decorators';
+import {TitaniumDataTable} from '@leavittsoftware/titanium-elements/lib/titanium-data-table';
+import {customElement, observe, property, query} from '@polymer/decorators';
 import {html, PolymerElement} from '@polymer/polymer/polymer-element';
 
 type itemModel = {
@@ -15,18 +17,33 @@ type itemModel = {
 @customElement('titanium-data-table-demo')
 export default class TitaniumDataTableDemo extends PolymerElement {
   @property() searchTerm: string;
-  @property() items: Array<itemModel>;
+  @property({notify: true, type: Array}) items: Array<itemModel>;
+  @property() selectedItems: Array<itemModel> = [];
   @property() count: number;
   @property() take: number;
   @property() page: number;
+  @query('titanium-data-table') dataTable: TitaniumDataTable;
 
   ready() {
     super.ready();
     setTimeout(() => {
       this._getDataAsync();
     }, 200);
-  }
 
+    // this.addEventListener(
+    //     'items-changed', (e) => console.log('items-changed', e));
+    // this.addEventListener(
+    //     'selected-items-changed',
+    //     (e: CustomEvent) => {
+    //       console.log(e.detail);
+    //     }
+
+    // );
+    this.dataTable.addEventListener('selected-changed', (e: CustomEvent) => {
+      this.selectedItems = e.detail;
+      this.notifySplices('selectedItems', null);
+    });
+  }
 
   @observe('take', 'page')
   private _getDataAsync() {
@@ -48,7 +65,6 @@ export default class TitaniumDataTableDemo extends PolymerElement {
       {first: 'Wilson', last: 'Morrow', title: 'Engineer 12'},
       {first: 'Kip', last: 'Morrow', title: 'Engineer 13'}
     ].slice(this.page * this.take, (this.page * this.take) + this.take);
-    console.log('items: ', this.items);
 
     this.count = 13;
   }
@@ -65,7 +81,7 @@ export default class TitaniumDataTableDemo extends PolymerElement {
     }
 </style>
 <demo-container>
-    <titanium-data-table title="Demo People Table" count="[[count]]" page="{{page}}" take="{{take}}" items="{{items}}">
+    <titanium-data-table title="Demo People Table" count="[[count]]" page="{{page}}" take="{{take}}" items="[[items]]">
         <titanium-search-input slot="table-actions" placeholder="Search" value={{searchTerm}}></titanium-search-input>
         <titanium-svg-button slot="table-actions" title="Add" on-click="_handleAdd" path="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"></titanium-svg-button>
         <titanium-svg-button slot="table-actions" title="Filter" on-click="_handleFilter" path="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"></titanium-svg-button>
@@ -74,20 +90,28 @@ export default class TitaniumDataTableDemo extends PolymerElement {
         <titanium-svg-button slot="selected-actions" title="Delete" on-click="_handleDelete" path="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"></titanium-svg-button>
 
 
-        <titanium-table-header slot="table-headers" critical large column-name="first" title="First Name" sort-by="{{sortBy}}" sort-direction="{{sortDirection}}"></titanium-table-header>
-        <titanium-table-header slot="table-headers" column-name="last" title="Last Name" sort-by="{{sortBy}}" sort-direction="{{sortDirection}}"></titanium-table-header>
-        <titanium-table-header slot="table-headers" column-name="title" title="Title" sort-by="{{sortBy}}" sort-direction="{{sortDirection}}"></titanium-table-header>
-
-        <iron-list items="[[items]]" slot="items">
-            <template>
-                <div>
-                    <div>[[item.first]]</div>
-                    <div>[[item.last]]</div>
-                    <div>[[item.title]]</div>
-                </div>
-            </template>
-        </iron-list>
+        <titanium-table-header slot="table-headers" critical large column-name="first" title="First Name" sort-by="{{sortBy}}"
+            sort-direction="{{sortDirection}}"></titanium-table-header>
+        <titanium-table-header slot="table-headers" column-name="last" title="Last Name" sort-by="{{sortBy}}"
+            sort-direction="{{sortDirection}}"></titanium-table-header>
+        <titanium-table-header slot="table-headers" column-name="title" title="Title" sort-by="{{sortBy}}"
+            sort-direction="{{sortDirection}}"></titanium-table-header>
+        <template is="dom-repeat" items="[[items]]">
+                <titanium-data-table-item item="[[item]]" slot="items">
+                    <row-item large>[[item.first]]</row-item>
+                    <row-item>[[item.last]]</row-item>
+                    <row-item>[[item.title]]</row-item>
+                </titanium-data-table-item>
+        </template>
     </titanium-data-table>
+
+
+    <h4>Selected Items</h4>
+    <template is="dom-repeat" items="[[selectedItems]]">
+        <div>
+            [[item.first]] [[item.last]] [[item.title]]
+        </div>
+    </template>
 </demo-container>`;
   }
 }
