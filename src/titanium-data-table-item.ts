@@ -17,7 +17,6 @@ export class TitaniumDataTableItem extends LitElement {
 
   firstUpdated() {
     // Set width of each slotted row with based on width
-    // console.log(this.shadowRoot.querySelector('slot').assignedNodes());
     (this.shadowRoot as any)
         .querySelector('slot')
         .assignedNodes()

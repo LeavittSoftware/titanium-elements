@@ -31,15 +31,6 @@ export default class TitaniumDataTableDemo extends PolymerElement {
       this._getDataAsync();
     }, 200);
 
-    // this.addEventListener(
-    //     'items-changed', (e) => console.log('items-changed', e));
-    // this.addEventListener(
-    //     'selected-items-changed',
-    //     (e: CustomEvent) => {
-    //       console.log(e.detail);
-    //     }
-
-    // );
     this.dataTable.addEventListener('selected-changed', (e: CustomEvent) => {
       this.selectedItems = e.detail;
       this.notifySplices('selectedItems', null);
