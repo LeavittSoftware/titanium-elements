@@ -4,7 +4,8 @@ import {css, customElement, html, LitElement, property} from 'lit-element';
 @customElement('titanium-data-table-item')
 export class TitaniumDataTableItem extends LitElement {
   @property() item: boolean;
-  @property() isSelected: boolean;
+  @property({reflect: true, type: Boolean, attribute: 'is-selected'})
+  isSelected: boolean;
 
   private clickTimeoutHandle: NodeJS.Timer;
 
@@ -37,7 +38,9 @@ export class TitaniumDataTableItem extends LitElement {
 
   _handleDoubleClick() {
     clearTimeout(this.clickTimeoutHandle);
-    console.log('do double click')
+    this.dispatchEvent(new CustomEvent(
+        'titanium-data-table-item-navigate',
+        {composed: true, detail: this.item, bubbles: true}))
   }
 
   toggleSelected() {
@@ -47,7 +50,7 @@ export class TitaniumDataTableItem extends LitElement {
           bubbles: true,
           composed: true,
           detail: {isSelected: this.isSelected, item: this.item}
-        }))
+        }));
   }
 
   select() {
