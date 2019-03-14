@@ -53,7 +53,7 @@ export class TitaniumSearchInput extends LitElement {
     position: absolute;
     left: 12px;
     top: 12px;
-    fill: var(--titanium-search-input-svg-fill-color, #4285f4);
+    fill: var(--titanium-search-input-svg-fill-color, #5f6368);
     width: 24px;
     height: 24px;
   }
@@ -68,7 +68,7 @@ export class TitaniumSearchInput extends LitElement {
     top: 6px;
     width: 36px;
     height: 36px;
-    --titanium-svg-button-svg-active-color: var(--titanium-search-input-clear-button-fill-color, #757575);
+    --titanium-svg-button-svg-active-color: var(--titanium-search-input-clear-button-fill-color, #5f6368);
   }
 
   :host([disabled]) titanium-svg-button {
