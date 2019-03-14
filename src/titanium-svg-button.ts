@@ -48,6 +48,10 @@ export class TitaniumSvgButton extends LitElement {
     height: var(--titanium-svg-button-svg-height, 60%);
     fill: var(--titanium-svg-button-svg-active-color, #5f6368);
    }
+
+   mwc-ripple[disabled] {
+    display: none;
+   }
    
    :host([disabled]) svg {
     fill: var(--titanium-svg-button-svg-disabled-color, #9b9b9b);
