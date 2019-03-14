@@ -35,6 +35,7 @@ export class TitaniumSvgButton extends LitElement {
    ripple-contianer { 
     display: flex;
     height: 100%;
+    width: 100%;
     justify-content: center;
     text-align: center;
     flex-direction: column;
