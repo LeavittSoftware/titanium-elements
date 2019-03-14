@@ -261,6 +261,12 @@ export class TitaniumDataTable extends LitElement {
     cursor: pointer;
   }
 
+  select-all-checkbox>div {
+    width: 22px;
+    height: 22px;
+    padding: 0;
+  }
+
   select-all-checkbox svg {
     fill: #757575;
   }
