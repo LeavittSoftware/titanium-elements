@@ -201,7 +201,7 @@ export class TitaniumDataTable extends LitElement {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 16px;
+    padding: 8px;
     color: #1e88e5;
     font-size: 18px;
     background-color: #e3f2fd;
@@ -210,6 +210,15 @@ export class TitaniumDataTable extends LitElement {
     left: 0px;
     right: 0px;
     bottom: 0px;
+  }
+
+  selected-text { 
+    display:block;
+  }
+
+  selected-text,
+  header ::slotted(*) { 
+      margin: 8px;
   }
 
   [spacer] {
@@ -291,7 +300,7 @@ export class TitaniumDataTable extends LitElement {
     <slot name="table-actions"></slot>
   </header-actions>
   <selected-actions ?hidden="${this.selected.length === 0}">
-    <div>${this.selected.length} selected</div>
+    <selected-text>${this.selected.length} selected</selected-text>
     <div spacer></div>
     <slot name="selected-actions"></slot>
   </selected-actions>
@@ -338,7 +347,7 @@ export class TitaniumDataTable extends LitElement {
 </table-container>
 <page-buttons ?hidden="${this.isLoading}">
   <pagination-text>${
-        this._getPageStats(this.page, this.count)}</pagination-text>
+    this._getPageStats(this.page, this.count)}</pagination-text>
   <titanium-svg-button path="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" @click="${
         this._handleLastPageClick}"
     ?disabled="${this.page === 0}"></titanium-svg-button>
