@@ -68,6 +68,10 @@ export class TitaniumDataTable extends LitElement {
   }
 
   private _getPageStats(page: number, count: number) {
+    if (!count) {
+      return '0-0 of 0'
+    }
+
     const startOfPage = count === 0 ? count : page * this.take + 1;
     const endOfPage =
         (page + 1) * this.take > count ? count : (page + 1) * this.take;
