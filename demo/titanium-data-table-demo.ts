@@ -69,10 +69,20 @@ export default class TitaniumDataTableDemo extends PolymerElement {
           amount: '2.2'
         },
         {first: 'Wilson', last: 'Morrow', title: 'Engineer 12', amount: '0.3'},
-        {first: 'Kip', last: 'Morrow', title: 'Engineer 13', amount: '2.2'}
+        {first: 'Kip', last: 'Morrow', title: 'Engineer 13', amount: '2.2'},
+        {first: 'Aaron', last: 'Drabeck', title: 'Engineer 14', amount: '1.2'},
+        {first: 'Anthony', last: 'Thomas', title: 'Engineer 15', amount: '0.2'},
+        {first: 'Wyatt', last: 'Morrow', title: 'Engineer 16', amount: '3.2'},
+        {first: 'Bob', last: 'Drabeck', title: 'Engineer 17', amount: '4.5'},
+        {first: 'Frank', last: 'Thomas', title: 'Engineer 18', amount: '2.7'},
+        {first: 'John', last: 'Morrow', title: 'Engineer 19', amount: '5.3'},
+        {first: 'Robert', last: 'Drabeck', title: 'Engineer 20', amount: '6.4'},
+        {first: 'Vlad', last: 'Thomas', title: 'Engineer 21', amount: '7.4'},
+        {first: 'Billy', last: 'Morrow', title: 'Engineer 22', amount: '6.3'},
+        {first: 'Tina', last: 'Drabeck', title: 'Engineer 23', amount: '1.5'}
       ].slice(this.page * this.take, (this.page * this.take) + this.take);
       this.isLoading = false;
-      this.count = 13;
+      this.count = 23;
     }, 1250);
   }
 
