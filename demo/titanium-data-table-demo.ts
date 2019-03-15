@@ -1,9 +1,10 @@
 import '@leavittsoftware/titanium-elements/lib/titanium-data-table';
 import '@leavittsoftware/titanium-elements/lib/titanium-svg-button';
 import '@leavittsoftware/titanium-elements/lib/titanium-search-input';
-import '@polymer/paper-toggle-button';
 import '@leavittsoftware/titanium-elements/lib/titanium-data-table-item';
+import '@leavittsoftware/titanium-elements/lib/titanium-table-header';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
+import '@polymer/paper-toggle-button';
 
 import {TitaniumDataTable} from '@leavittsoftware/titanium-elements/lib/titanium-data-table';
 import {customElement, observe, property, query} from '@polymer/decorators';

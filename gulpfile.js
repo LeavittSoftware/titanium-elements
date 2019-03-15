@@ -57,7 +57,7 @@ gulp.task('serve', (done) => {
 });
 
 gulp.task('watch-demo', function () {
-    var directoriesToWatch = ["demo/*.html"]
+    var directoriesToWatch = ["demo/*.html", "demo/demos/*.html"]
     directoriesToWatch.forEach(function (directory) {
         console.log(`Listening for changes, ${directory}`);
         gulp.watch(directory, {
