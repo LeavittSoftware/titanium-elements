@@ -42,6 +42,8 @@ export class TitaniumDataTable extends LitElement {
 
   private _handleItemSelectionChange(
       e: CustomEvent<{item: any, isSelected: boolean}>) {
+    e.stopPropagation();
+
     if (e.detail.isSelected) {
       if (this.singleSelect) {
         this._getTableItems()
