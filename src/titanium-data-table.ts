@@ -14,6 +14,7 @@ export class TitaniumDataTable extends LitElement {
   @property({type: Boolean, attribute: 'single-select', reflect: true})
   singleSelect: boolean;
   @property() selected: Array<any> = [];
+  @property() isLoading: Boolean = true;
   @queryAll('table-container') tableContanier: NodeListOf<any>;
 
   connectedCallback() {
@@ -330,11 +331,12 @@ export class TitaniumDataTable extends LitElement {
     <slot name="table-headers"></slot>
   </table-header>
 
-  <titanium-loading-indicator hidden disabled="[[!isLoading]]">Loading...</titanium-loading-indicator>
+  <titanium-loading-indicator ?hidden="${!this.isLoading}" ?disabled="${
+    !this.isLoading}">Loading...</titanium-loading-indicator>
   <slot name="items"></slot>
 
 </table-container>
-<page-buttons>
+<page-buttons ?hidden="${this.isLoading}">
   <pagination-text>${
         this._getPageStats(this.page, this.count)}</pagination-text>
   <titanium-svg-button path="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" @click="${
@@ -343,7 +345,8 @@ export class TitaniumDataTable extends LitElement {
   <titanium-svg-button path="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" @click="${
         this._handleNextPageClick}"
     ?disabled="${
-        (this.page + 1) * this.take >= this.count}"></titanium-svg-button>
+        (this.page + 1) *
+        this.take >= this.count}"></titanium-svg-button>
 </page-buttons>`;
   }
 }
