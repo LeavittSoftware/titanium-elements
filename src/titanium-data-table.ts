@@ -10,7 +10,10 @@ export class TitaniumDataTable extends LitElement {
   @property() take: number;
   @property() page: number = 0;
   @property() count: number;
-  @property() items: Array<any>;
+  @property() items: Array<any> = [];
+
+  @property() searchTerm: string;
+
   @property({type: Boolean, attribute: 'single-select', reflect: true})
   singleSelect: boolean;
   @property() selected: Array<any> = [];
@@ -249,6 +252,27 @@ export class TitaniumDataTable extends LitElement {
     margin: 64px;
   }
 
+  no-results-indicator {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    margin: 32px;
+    margin-top: 92px;
+    font-size: 13px;
+    color: #737373;
+    line-height: 20px;
+  }
+
+  no-results-indicator svg {
+    display: block;
+    align-self:center;
+    margin: 0 8px;
+    height: 20px;
+    width: 20px;
+    fill: #737373;
+    flex-shrink: 0;
+  }
+
   page-buttons {
     display: flex;
     flex-direction: row;
@@ -344,6 +368,17 @@ export class TitaniumDataTable extends LitElement {
     </select-all-checkbox>
     <slot name="table-headers"></slot>
   </table-header>
+
+  <no-results-indicator ?hidden="${
+        this.isLoading ||
+        this.items.length >
+            0}" ><svg viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+            ${
+        this.searchTerm === '' || typeof this.searchTerm === 'undefined' ||
+                this.searchTerm === null ?
+            'No results' :
+            `Your search of '${
+                this.searchTerm}' did not match any results`}</no-results-indicator>
 
   <titanium-loading-indicator ?hidden="${!this.isLoading}" ?disabled="${
     !this.isLoading}">Loading...</titanium-loading-indicator>
