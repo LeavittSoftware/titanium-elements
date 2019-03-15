@@ -75,7 +75,7 @@ export default class TitaniumDataTableDemo extends PolymerElement {
 <demo-container>
 
     <h4>Table Options</h4>
-    <paper-toggle-button checked="{{singleSelect}}">Multi Select</paper-toggle-button>
+    <paper-toggle-button checked="{{singleSelect}}">Single Select</paper-toggle-button>
 
     <h4>Selected Items</h4>
     <template is="dom-repeat" items="[[selectedItems]]">
@@ -107,8 +107,7 @@ export default class TitaniumDataTableDemo extends PolymerElement {
             sort-direction="{{sortDirection}}"></titanium-table-header>
         <titanium-table-header slot="table-headers" desktop right column-name="amount" title="Right" sort-by="{{sortBy}}"
             sort-direction="{{sortDirection}}"></titanium-table-header>
-        <titanium-table-header slot="table-headers" width="40px" column-name="amount" title="Width" sort-by="{{sortBy}}"
-            sort-direction="{{sortDirection}}"></titanium-table-header>
+        <titanium-table-header slot="table-headers" width="40px" column-name="amount" title="Width" no-sort></titanium-table-header>
         <titanium-table-header slot="table-headers" desktop width="120px" center column-name="amount" title="Width Center"
             sort-by="{{sortBy}}" sort-direction="{{sortDirection}}"></titanium-table-header>
         <titanium-table-header slot="table-headers" desktop width="120px" right column-name="amount" title="Width Right"
