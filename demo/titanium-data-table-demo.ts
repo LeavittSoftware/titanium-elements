@@ -1,9 +1,10 @@
 import '@leavittsoftware/titanium-elements/lib/titanium-data-table';
 import '@leavittsoftware/titanium-elements/lib/titanium-svg-button';
 import '@leavittsoftware/titanium-elements/lib/titanium-search-input';
-import '@polymer/paper-toggle-button';
 import '@leavittsoftware/titanium-elements/lib/titanium-data-table-item';
+import '@leavittsoftware/titanium-elements/lib/titanium-table-header';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
+import '@polymer/paper-toggle-button';
 
 import {TitaniumDataTable} from '@leavittsoftware/titanium-elements/lib/titanium-data-table';
 import {customElement, observe, property, query} from '@polymer/decorators';
@@ -17,7 +18,6 @@ type itemModel = {
 
 @customElement('titanium-data-table-demo')
 export default class TitaniumDataTableDemo extends PolymerElement {
-  @property() searchTerm: string;
   @property({notify: true, type: Array}) items: Array<itemModel>;
   @property() selectedItems: Array<itemModel> = [];
   @property() count: number;
@@ -26,7 +26,13 @@ export default class TitaniumDataTableDemo extends PolymerElement {
   @property() isLoading: boolean;
   @query('titanium-data-table') dataTable: TitaniumDataTable;
 
-  ready() {
+
+  @property()
+  isLoadingTwo: boolean = false
+
+
+
+      ready() {
     super.ready();
 
     this._getDataAsync();
@@ -63,10 +69,20 @@ export default class TitaniumDataTableDemo extends PolymerElement {
           amount: '2.2'
         },
         {first: 'Wilson', last: 'Morrow', title: 'Engineer 12', amount: '0.3'},
-        {first: 'Kip', last: 'Morrow', title: 'Engineer 13', amount: '2.2'}
+        {first: 'Kip', last: 'Morrow', title: 'Engineer 13', amount: '2.2'},
+        {first: 'Aaron', last: 'Drabeck', title: 'Engineer 14', amount: '1.2'},
+        {first: 'Anthony', last: 'Thomas', title: 'Engineer 15', amount: '0.2'},
+        {first: 'Wyatt', last: 'Morrow', title: 'Engineer 16', amount: '3.2'},
+        {first: 'Bob', last: 'Drabeck', title: 'Engineer 17', amount: '4.5'},
+        {first: 'Frank', last: 'Thomas', title: 'Engineer 18', amount: '2.7'},
+        {first: 'John', last: 'Morrow', title: 'Engineer 19', amount: '5.3'},
+        {first: 'Robert', last: 'Drabeck', title: 'Engineer 20', amount: '6.4'},
+        {first: 'Vlad', last: 'Thomas', title: 'Engineer 21', amount: '7.4'},
+        {first: 'Billy', last: 'Morrow', title: 'Engineer 22', amount: '6.3'},
+        {first: 'Tina', last: 'Drabeck', title: 'Engineer 23', amount: '1.5'}
       ].slice(this.page * this.take, (this.page * this.take) + this.take);
       this.isLoading = false;
-      this.count = 13;
+      this.count = 23;
     }, 1250);
   }
 
@@ -88,7 +104,7 @@ export default class TitaniumDataTableDemo extends PolymerElement {
     
 </style>
 <demo-container>
-
+    <h2> Feature Demo</h2>
     <h4>Table Options</h4>
     <paper-toggle-button checked="{{singleSelect}}">Single Select</paper-toggle-button>
 
@@ -101,11 +117,10 @@ export default class TitaniumDataTableDemo extends PolymerElement {
 
     <br />
     <br />
-    <titanium-data-table single-select$="[[singleSelect]]" title="Demo People Table" count="[[count]]" page="{{page}}"
-        take="{{take}}" items="[[items]]" is-loading="{{isLoading}}">
+    <titanium-data-table single-select$="[[singleSelect]]" header="Demo People Table" count="[[count]]" page="{{page}}"         take="{{take}}" items="[[items]]" is-loading="{{isLoading}}">
 
         <!-- Table actions -->
-        <titanium-search-input slot="table-actions" placeholder="Search" value={{searchTerm}}></titanium-search-input>
+        <titanium-search-input slot="table-actions" placeholder="Search" value="{{searchTerm}}"></titanium-search-input>
         <titanium-svg-button slot="table-actions" title="Add" on-click="_handleAdd" path="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"></titanium-svg-button>
         <titanium-svg-button slot="table-actions" title="Filter" on-click="_handleFilter" path="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"></titanium-svg-button>
 
@@ -146,6 +161,22 @@ export default class TitaniumDataTableDemo extends PolymerElement {
     </titanium-data-table>
 
 
+
+    <h2> No results Demo</h2>
+      <titanium-data-table header="Total Potential" is-loading="{{isLoadingTwo}}">
+      <titanium-table-header slot="table-headers" large column-name="first" title="First Name" ></titanium-table-header>
+
+    </titanium-data-table>
+
+
+    <h2> No results From Search Demo</h2>
+    
+    <titanium-data-table header="Google" is-loading="{{isLoadingTwo}}" searchTerm="React Tutorials">
+      <titanium-search-input slot="table-actions" placeholder="Search" value="React Tutorials"></titanium-search-input>
+
+      <titanium-table-header slot="table-headers" large column-name="first" title="First Name" ></titanium-table-header>
+    </titanium-data-table>
+       
 
 </demo-container>`;
   }
