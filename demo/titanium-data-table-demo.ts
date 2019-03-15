@@ -13,7 +13,7 @@ type itemModel = {
   first: string,
   last: string,
   title: string,
-}
+};
 
 @customElement('titanium-data-table-demo')
 export default class TitaniumDataTableDemo extends PolymerElement {
@@ -71,6 +71,12 @@ export default class TitaniumDataTableDemo extends PolymerElement {
         @apply --layout-vertical;
         padding: 16px;
     }
+
+    selected-items {
+      @apply --layout-horizontal;
+      min-height: 24px;
+    }
+    
 </style>
 <demo-container>
 
@@ -78,9 +84,11 @@ export default class TitaniumDataTableDemo extends PolymerElement {
     <paper-toggle-button checked="{{singleSelect}}">Multi Select</paper-toggle-button>
 
     <h4>Selected Items</h4>
-    <template is="dom-repeat" items="[[selectedItems]]">
-        <div> [[item.first]] [[item.last]] [[item.title]] </div>
-    </template>
+    <selected-items>
+      <template is="dom-repeat" items="[[selectedItems]]">
+          <div> [[item.first]] [[item.last]] [[item.title]] </div>
+      </template>
+    </selected-items>
 
     <br />
     <br />
