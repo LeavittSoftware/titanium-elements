@@ -30,7 +30,7 @@ export class TitaniumDataTable extends LitElement {
     // Ensure the collection is empty, deselect can cause a race condition
     // between deselecting and UI drawing new items.
     this.selected = [];
-    this._notifiySelectedChanged();
+    this._notifySelectedChanged();
   }
 
   updated(changedProps) {
@@ -53,15 +53,15 @@ export class TitaniumDataTable extends LitElement {
 
       this.selected.push(e.detail.item);
       this.requestUpdate();
-      this._notifiySelectedChanged();
+      this._notifySelectedChanged();
     } else {
       this.selected.splice(this.selected.indexOf(e.detail.item), 1);
       this.requestUpdate();
-      this._notifiySelectedChanged();
+      this._notifySelectedChanged();
     }
   }
 
-  private _notifiySelectedChanged() {
+  private _notifySelectedChanged() {
     this.dispatchEvent(new CustomEvent(
         'selected-changed', {composed: true, detail: this.selected}));
   }
