@@ -72,15 +72,15 @@ export class TitaniumDataTable extends LitElement {
   }
 
   private _determineTake() {
-    // const height = Math.max(
-    //     document.documentElement.clientHeight, window.innerHeight || 0);
-    // if (height > 1200) {
-    //   return 20;
-    // } else if (height > 1000) {
-    //   return 15;
-    // } else if (height > 800) {
-    //   return 10;
-    // }
+    const height = Math.max(
+        document.documentElement.clientHeight, window.innerHeight || 0);
+    if (height > 1200) {
+      return 20;
+    } else if (height > 1000) {
+      return 15;
+    } else if (height > 800) {
+      return 10;
+    }
     return 5;
   }
 
