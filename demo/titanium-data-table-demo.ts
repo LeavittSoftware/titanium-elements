@@ -23,14 +23,13 @@ export default class TitaniumDataTableDemo extends PolymerElement {
   @property() count: number;
   @property() take: number;
   @property() page: number;
+  @property() isLoading: boolean;
   @query('titanium-data-table') dataTable: TitaniumDataTable;
 
   ready() {
     super.ready();
-    setTimeout(() => {
-      this._getDataAsync();
-    }, 200);
 
+    this._getDataAsync();
     this.dataTable.addEventListener('selected-changed', (e: CustomEvent) => {
       this.selectedItems = e.detail;
       this.notifySplices('selectedItems', null);
@@ -42,23 +41,33 @@ export default class TitaniumDataTableDemo extends PolymerElement {
     console.log('take: ', this.take);
     console.log('page: ', this.page);
 
-    this.items = [
-      {first: 'Aaron', last: 'Drabeck', title: 'Engineer 1', amount: '1.2'},
-      {first: 'Anthony', last: 'Thomas', title: 'Engineer 2', amount: '0.2'},
-      {first: 'Wyatt', last: 'Morrow', title: 'Engineer 3 ', amount: '3.2'},
-      {first: 'Bob', last: 'Drabeck', title: 'Engineer 4 ', amount: '4.5'},
-      {first: 'Frank', last: 'Thomas', title: 'Engineer 5', amount: '2.7'},
-      {first: 'John', last: 'Morrow', title: 'Engineer 6', amount: '5.3'},
-      {first: 'Robert', last: 'Drabeck', title: 'Engineer 7', amount: '6.4'},
-      {first: 'Vlad', last: 'Thomas', title: 'Engineer 8', amount: '7.4'},
-      {first: 'Billy', last: 'Morrow', title: 'Engineer 9', amount: '6.3'},
-      {first: 'Tina', last: 'Drabeck', title: 'Engineer 10', amount: '1.5'},
-      {first: 'Danielle', last: 'Thomas', title: 'Engineer 11', amount: '2.2'},
-      {first: 'Wilson', last: 'Morrow', title: 'Engineer 12', amount: '0.3'},
-      {first: 'Kip', last: 'Morrow', title: 'Engineer 13', amount: '2.2'}
-    ].slice(this.page * this.take, (this.page * this.take) + this.take);
+    this.items = [];
+    this.isLoading = true;
 
-    this.count = 13;
+    setTimeout(() => {
+      this.items = [
+        {first: 'Aaron', last: 'Drabeck', title: 'Engineer 1', amount: '1.2'},
+        {first: 'Anthony', last: 'Thomas', title: 'Engineer 2', amount: '0.2'},
+        {first: 'Wyatt', last: 'Morrow', title: 'Engineer 3 ', amount: '3.2'},
+        {first: 'Bob', last: 'Drabeck', title: 'Engineer 4 ', amount: '4.5'},
+        {first: 'Frank', last: 'Thomas', title: 'Engineer 5', amount: '2.7'},
+        {first: 'John', last: 'Morrow', title: 'Engineer 6', amount: '5.3'},
+        {first: 'Robert', last: 'Drabeck', title: 'Engineer 7', amount: '6.4'},
+        {first: 'Vlad', last: 'Thomas', title: 'Engineer 8', amount: '7.4'},
+        {first: 'Billy', last: 'Morrow', title: 'Engineer 9', amount: '6.3'},
+        {first: 'Tina', last: 'Drabeck', title: 'Engineer 10', amount: '1.5'},
+        {
+          first: 'Danielle',
+          last: 'Thomas',
+          title: 'Engineer 11',
+          amount: '2.2'
+        },
+        {first: 'Wilson', last: 'Morrow', title: 'Engineer 12', amount: '0.3'},
+        {first: 'Kip', last: 'Morrow', title: 'Engineer 13', amount: '2.2'}
+      ].slice(this.page * this.take, (this.page * this.take) + this.take);
+      this.isLoading = false;
+      this.count = 13;
+    }, 1250);
   }
 
   static get template() {
@@ -93,7 +102,7 @@ export default class TitaniumDataTableDemo extends PolymerElement {
     <br />
     <br />
     <titanium-data-table single-select$="[[singleSelect]]" title="Demo People Table" count="[[count]]" page="{{page}}"
-        take="{{take}}" items="[[items]]">
+        take="{{take}}" items="[[items]]" is-loading="{{isLoading}}">
 
         <!-- Table actions -->
         <titanium-search-input slot="table-actions" placeholder="Search" value={{searchTerm}}></titanium-search-input>
