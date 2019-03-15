@@ -61,7 +61,7 @@ export class TitaniumHeader extends LitElement {
    
    titanium-svg-button {
      position: absolute;
-     top: -8px;
+     top: -11px;
      left: 0;
    }
    

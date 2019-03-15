@@ -35,6 +35,7 @@ export class TitaniumSvgButton extends LitElement {
    ripple-contianer { 
     display: flex;
     height: 100%;
+    width: 100%;
     justify-content: center;
     text-align: center;
     flex-direction: column;
@@ -46,6 +47,10 @@ export class TitaniumSvgButton extends LitElement {
     width: var(--titanium-svg-button-svg-width, 60%);
     height: var(--titanium-svg-button-svg-height, 60%);
     fill: var(--titanium-svg-button-svg-active-color, #5f6368);
+   }
+
+   mwc-ripple[disabled] {
+    display: none;
    }
    
    :host([disabled]) svg {

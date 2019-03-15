@@ -6,7 +6,7 @@ import {html, PolymerElement} from '@polymer/polymer/polymer-element';
 
 @customElement('titanium-search-input-demo')
 export default class TitaniumSearchInputDemo extends PolymerElement {
-  @property() searchTerm: string;
+  @property() searchTerm: string = 'hello world';
 
   static get template() {
     return html`<style>
