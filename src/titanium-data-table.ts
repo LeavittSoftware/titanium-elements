@@ -261,6 +261,7 @@ export class TitaniumDataTable extends LitElement {
     color: #757575;
     text-align: right;
     margin: 0 8px;
+    user-select: none;
   }
 
   select-all-checkbox {
@@ -347,7 +348,7 @@ export class TitaniumDataTable extends LitElement {
 </table-container>
 <page-buttons ?hidden="${this.isLoading}">
   <pagination-text>${
-    this._getPageStats(this.page, this.count)}</pagination-text>
+        this._getPageStats(this.page, this.count)}</pagination-text>
   <titanium-svg-button path="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" @click="${
         this._handleLastPageClick}"
     ?disabled="${this.page === 0}"></titanium-svg-button>
