@@ -7,6 +7,8 @@ export class TitaniumDataTableItem extends LitElement {
   @property({reflect: true, type: Boolean, attribute: 'is-selected'})
   isSelected: boolean;
 
+  @property() isClicking: boolean;
+
   private clickTimeoutHandle: NodeJS.Timer;
 
   constructor() {
@@ -30,8 +32,11 @@ export class TitaniumDataTableItem extends LitElement {
 
   _handleClick() {
     clearTimeout(this.clickTimeoutHandle);
-    this.clickTimeoutHandle = setTimeout(() => {
+    if (!this.isClicking)
       this.toggleSelected();
+    this.isClicking = true;
+    this.clickTimeoutHandle = setTimeout(() => {
+      this.isClicking = false;
     }, 300);
   }
 
@@ -39,7 +44,7 @@ export class TitaniumDataTableItem extends LitElement {
     clearTimeout(this.clickTimeoutHandle);
     this.dispatchEvent(new CustomEvent(
         'titanium-data-table-item-navigate',
-        {composed: true, detail: this.item, bubbles: true}))
+        {composed: true, detail: this.item, bubbles: true}));
   }
 
   toggleSelected() {
