@@ -390,12 +390,14 @@ export class TitaniumDataTable extends LitElement {
         this._getPageStats(this.page, this.count)}</pagination-text>
   <titanium-svg-button path="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" @click="${
         this._handleLastPageClick}"
-    ?disabled="${this.page === 0}"></titanium-svg-button>
+    ?disabled="${
+        this.page === 0 ||
+        !this.count}"></titanium-svg-button>
   <titanium-svg-button path="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" @click="${
         this._handleNextPageClick}"
     ?disabled="${
-        (this.page + 1) *
-        this.take >= this.count}"></titanium-svg-button>
+        (!this.count ||
+         (this.page + 1) * this.take >= this.count)}"></titanium-svg-button>
 </page-buttons>`;
   }
 }
