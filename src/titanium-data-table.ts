@@ -289,8 +289,8 @@ export class TitaniumDataTable extends LitElement {
   <header-actions>
     <slot name="table-actions"></slot>
   </header-actions>
-  <selected-actions hidden>
-    <div>1 selected</div>
+  <selected-actions ?hidden="${this.selected.length === 0}">
+    <div>${this.selected.length} selected</div>
     <div spacer></div>
     <slot name="selected-actions"></slot>
   </selected-actions>
