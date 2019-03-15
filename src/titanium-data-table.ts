@@ -6,7 +6,7 @@ import {TitaniumDataTableItem} from './titanium-data-table-item';
 
 @customElement('titanium-data-table')
 export class TitaniumDataTable extends LitElement {
-  @property() title: string;
+  @property() header: string;
   @property() take: number;
   @property() page: number = 0;
   @property() count: number;
@@ -286,7 +286,7 @@ export class TitaniumDataTable extends LitElement {
   render() {
     return html
     `<header>
-  <header-text>${this.title}</header-text>
+  <header-text>${this.header}</header-text>
   <header-actions>
     <slot name="table-actions"></slot>
   </header-actions>

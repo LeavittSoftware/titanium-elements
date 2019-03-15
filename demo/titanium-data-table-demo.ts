@@ -101,7 +101,7 @@ export default class TitaniumDataTableDemo extends PolymerElement {
 
     <br />
     <br />
-    <titanium-data-table single-select$="[[singleSelect]]" title="Demo People Table" count="[[count]]" page="{{page}}"
+    <titanium-data-table single-select$="[[singleSelect]]" header="Demo People Table" count="[[count]]" page="{{page}}"
         take="{{take}}" items="[[items]]" is-loading="{{isLoading}}">
 
         <!-- Table actions -->
