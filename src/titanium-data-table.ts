@@ -81,17 +81,33 @@ export class TitaniumDataTable extends LitElement {
     return `${startOfPage}-${endOfPage} of ${count}`;
   }
 
+  private _handleChangeTake() {
+    if (this.take === 10) {
+      this.setTake(15);
+    } else if (this.take === 15) {
+      this.setTake(20);
+    } else if (this.take === 20) {
+      this.setTake(50);
+    } else if (this.take === 50) {
+      this.setTake(10);
+    }
+  }
+
   private _determineTake() {
+    const take =
+        Number(window.localStorage.getItem(`${this.header}-take`)) || 0;
+    if (take > 0) {
+      return take;
+    }
+
     const height = Math.max(
         document.documentElement.clientHeight, window.innerHeight || 0);
     if (height > 1200) {
       return 20;
     } else if (height > 1000) {
       return 15;
-    } else if (height > 800) {
-      return 10;
     }
-    return 5;
+    return 10;
   }
 
   private setPage(value: number) {
@@ -104,6 +120,7 @@ export class TitaniumDataTable extends LitElement {
     this.take = value;
     this.dispatchEvent(
         new CustomEvent('take-changed', {composed: true, detail: value}));
+    localStorage.setItem(`${this.header}-take`, `${value}`);
   }
 
   private _handleSelectAllClick(e: Event) {
@@ -155,171 +172,202 @@ export class TitaniumDataTable extends LitElement {
   }
 
   static styles = css`:host {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    border: 1px solid #dadce0;
-    border-radius: 8px;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
 
-    font-family: 'Roboto', 'Noto', sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }
+  font-family: 'Roboto', 'Noto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
 
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  padding: 12px 12px 0 12px;
+  position: relative;
+}
+
+header-text {
+  display: flex;
+  flex: 1 1 auto;
+  letter-spacing: -0.264px;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 28px;
+  padding: 12px;
+  color: #202124;
+}
+
+header-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+header-actions ::slotted(*) {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 12px;
+}
+
+selected-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px;
+  color: #1e88e5;
+  font-size: 18px;
+  background-color: #e3f2fd;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+}
+
+selected-text {
+  display: block;
+}
+
+selected-text,
+header ::slotted(*) {
+  margin: 8px;
+}
+
+[spacer] {
+  flex: 1 1 auto;
+}
+
+table-container {
+  padding-bottom: 12px;
+}
+
+table-header {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid #dadce0;
+}
+
+table-header ::slotted(titanium-table-header:last-of-type) {
+  padding-right: 24px;
+}
+
+titanium-loading-indicator {
+  align-content: center;
+  justify-content: center;
+  margin: 64px;
+}
+
+no-results-indicator {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  margin: 32px;
+  margin-top: 92px;
+  font-size: 13px;
+  color: #737373;
+  line-height: 20px;
+}
+
+no-results-indicator svg {
+  display: block;
+  align-self: center;
+  margin: 0 8px;
+  height: 20px;
+  width: 20px;
+  fill: #737373;
+  flex-shrink: 0;
+}
+
+table-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  justify-content: flex-end;
+  padding: 0 12px 12px 12px;
+
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.011em;
+  line-height: 20px;
+  color: #757575;
+}
+
+table-control {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0;
+}
+
+table-control:last-of-type {
+  margin-left: 44px;
+}
+
+table-control span {
+  padding: 0 4px 0 12px;
+}
+
+pagination-text {
+  text-align: right;
+  margin: 0 8px;
+  user-select: none;
+}
+
+take-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+select-all-checkbox {
+  display: block;
+  flex-shrink: 0;
+  align-self: center;
+  margin: 0 8px 0 24px;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+}
+
+select-all-checkbox>div {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+}
+
+select-all-checkbox svg {
+  fill: #757575;
+}
+
+:host([single-select]) select-all-checkbox svg[empty] {
+  fill: #b9b9b9;
+  cursor: not-allowed;
+}
+
+@media(max-width: 768px) {
   header {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-
-    padding: 12px 12px 0 12px;
-    position: relative;
+    flex-direction: column;
   }
 
-  header-text {
-    display: flex;
-    flex: 1 1 auto;
-    letter-spacing: -0.264px;
-    font-weight: 400;
-    font-size: 22px;
-    line-height: 28px;
-    padding: 12px;
-    color: #202124;
-  }
- 
-  header-actions {
-    display: flex;
-    flex-direction: row; 
-    justify-content: center;
+  table-control:last-of-type {
+    margin-left: 4px;
   }
 
-  header-actions ::slotted(*) {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin: 12px;
-  }
-  
-  @media(max-width: 768px) {
-    header {
-      flex-direction: column;
-    }
-  }
-
-  selected-actions {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 8px;
-    color: #1e88e5;
-    font-size: 18px;
-    background-color: #e3f2fd;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-  }
-
-  selected-text { 
-    display:block;
-  }
-
-  selected-text,
-  header ::slotted(*) { 
-      margin: 8px;
-  }
-
-  [spacer] {
+  [mobile-space] {
     flex: 1 1 auto;
   }
+}
 
-  table-container {
-    padding-bottom: 12px;
-  }
 
-  table-header {
-    display: flex;
-    flex-direction: row;
-    border-bottom: 1px solid #dadce0;
-  }
-
-  table-header ::slotted(titanium-table-header:last-of-type) {
-    padding-right: 24px;
-  }
-
-  titanium-loading-indicator {
-    align-content: center;
-    justify-content: center;
-    margin: 64px;
-  }
-
-  no-results-indicator {
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    margin: 32px;
-    margin-top: 92px;
-    font-size: 13px;
-    color: #737373;
-    line-height: 20px;
-  }
-
-  no-results-indicator svg {
-    display: block;
-    align-self:center;
-    margin: 0 8px;
-    height: 20px;
-    width: 20px;
-    fill: #737373;
-    flex-shrink: 0;
-  }
-
-  page-buttons {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    padding: 0 12px 12px 12px;
-  }
-
-  pagination-text {
-    align-self: center;
-    font-size: 12px;
-    font-weight: 400;
-    letter-spacing: 0.011em;
-    line-height: 20px;
-    color: #757575;
-    text-align: right;
-    margin: 0 8px;
-    user-select: none;
-  }
-
-  select-all-checkbox {
-    display: block;
-    flex-shrink: 0;
-    align-self: center;
-    margin: 0 8px 0 24px;
-    width: 22px;
-    height: 22px;
-    cursor: pointer;
-  }
-
-  select-all-checkbox>div {
-    width: 22px;
-    height: 22px;
-    padding: 0;
-  }
-
-  select-all-checkbox svg {
-    fill: #757575;
-  }
-
-  :host([single-select]) select-all-checkbox svg[empty] {
-    fill: #b9b9b9;
-    cursor: not-allowed ;
-  }
-
-  [hidden] {
-    display: none;
-  }`;
+[hidden] {
+  display: none;
+}`;
 
   render() {
     return html
@@ -350,7 +398,8 @@ export class TitaniumDataTable extends LitElement {
         this.selected.length !== this.items.length}">
         <svg viewBox="0 0 24 24">
           <path d="M0 0h24v24H0z" fill="none" />
-          <path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+          <path
+            d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
         </svg>
       </div>
       <div title="Clear selection" ?hidden="${
@@ -363,7 +412,8 @@ export class TitaniumDataTable extends LitElement {
           <clipPath id="b">
             <use xlink:href="#a" overflow="visible" />
           </clipPath>
-          <path clip-path="url(#b)" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2z" />
+          <path clip-path="url(#b)"
+            d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2z" />
         </svg>
       </div>
     </select-all-checkbox>
@@ -371,10 +421,12 @@ export class TitaniumDataTable extends LitElement {
   </table-header>
 
   <no-results-indicator ?hidden="${
-        this.isLoading ||
-        this.items.length >
-            0}" ><svg viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
-            ${
+        this.isLoading || this.items.length > 0}"><svg viewBox="0 0 24 24">
+      <path fill="none" d="M0 0h24v24H0V0z" />
+      <path
+        d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+    </svg>
+    ${
         this.searchTerm === '' || typeof this.searchTerm === 'undefined' ||
                 this.searchTerm === null ?
             'No results' :
@@ -386,19 +438,27 @@ export class TitaniumDataTable extends LitElement {
   <slot name="items"></slot>
 
 </table-container>
-<page-buttons ?hidden="${this.isLoading}">
-  <pagination-text>${
+<table-controls ?hidden="${this.isLoading}">
+  <table-control>
+    Rows per page: <span>${this.take}</span>
+    <take-buttons>
+      <titanium-svg-button path="M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9 12 5.83zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15 12 18.17z" @click="${
+        this._handleChangeTake}"></titanium-svg-button>
+    </take-buttons>
+  </table-control>
+  <div mobile-space></div>
+  <table-control>
+    <pagination-text>${
         this._getPageStats(this.page, this.count)}</pagination-text>
-  <titanium-svg-button path="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" @click="${
-        this._handleLastPageClick}"
-    ?disabled="${
+    <titanium-svg-button path="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" @click="${
+        this._handleLastPageClick}" ?disabled="${
         this.page === 0 ||
         !this.count}"></titanium-svg-button>
-  <titanium-svg-button path="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" @click="${
-        this._handleNextPageClick}"
-    ?disabled="${
+    <titanium-svg-button path="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" @click="${
+        this._handleNextPageClick}" ?disabled="${
         (!this.count ||
          (this.page + 1) * this.take >= this.count)}"></titanium-svg-button>
-</page-buttons>`;
+  </table-control>
+</table-controls>`;
   }
 }
