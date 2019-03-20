@@ -30,10 +30,27 @@ export default class TitaniumSearchInputDemo extends PolymerElement {
         --titanium-search-input-focus-color: slategray;
         --titanium-search-input-border-color: lightgray;
     }
+
+    titanium-search-input[wide] {
+        --titanium-search-input-width: 500px;
+    }
 </style>
 <demo-container>
     <search-term>Term: [[searchTerm]]</search-term>
     <titanium-search-input placeholder="Search" value="{{searchTerm}}"></titanium-search-input>
+
+
+    <h3> Collapsed </h3>
+    <titanium-search-input placeholder="Search"></titanium-search-input>
+
+    <h3> Wide </h3>
+    <titanium-search-input wide placeholder="Search"></titanium-search-input>
+
+    <h3> Prevent Collapse </h3>
+    <titanium-search-input prevent-collapse placeholder="Search"></titanium-search-input>
+
+
+
 </demo-container>`;
   }
 }

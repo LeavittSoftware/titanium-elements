@@ -117,11 +117,11 @@ export default class TitaniumDataTableDemo extends PolymerElement {
 
     <br />
     <br />
-    <titanium-data-table single-select$="[[singleSelect]]" header="Demo People Table" count="[[count]]" page="{{page}}"         take="{{take}}" items="[[items]]" is-loading="{{isLoading}}">
+    <titanium-data-table single-select$="[[singleSelect]]" header="Demo People Table" count="[[count]]" page="{{page}}" take="{{take}}" items="[[items]]" is-loading="{{isLoading}}">
 
         <!-- Table actions -->
         <titanium-search-input slot="table-actions" placeholder="Search" value="{{searchTerm}}"></titanium-search-input>
-        <titanium-svg-button slot="table-actions" title="Add" on-click="_handleAdd" path="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"></titanium-svg-button>
+        <titanium-svg-button slot="table-actions" title="Add" on-click="_handleAdd" path="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></titanium-svg-button>
         <titanium-svg-button slot="table-actions" title="Filter" on-click="_handleFilter" path="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"></titanium-svg-button>
 
         <!-- Selected Actions -->
