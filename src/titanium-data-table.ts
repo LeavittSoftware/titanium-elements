@@ -212,7 +212,7 @@ header-actions ::slotted(*) {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 12px;
+  margin: 8px 4px;
 }
 
 selected-actions {
@@ -235,7 +235,7 @@ selected-text {
 }
 
 selected-text,
-header ::slotted(*) {
+selected-actions ::slotted(*) {
   margin: 8px;
 }
 
