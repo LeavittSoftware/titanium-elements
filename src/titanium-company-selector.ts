@@ -216,7 +216,7 @@ export class TitaniumCompanySelectorElement extends LitElement {
 
   vaadin-combo-box-light[disabled] .clear-button,
   vaadin-combo-box-light[readonly] .clear-button,
-  vaadin-combo-box-light:not([has-value]) .clear-button {
+  vaadin-combo-box-light[empty] .clear-button {
     display: none;
   }
 </style>
@@ -226,6 +226,7 @@ export class TitaniumCompanySelectorElement extends LitElement {
   .items="${this.items}"
   .selectedItem="${this.selectedCompany}"
   @selected-item-changed="${this.selectedCompanyChanged}"
+  ?empty="${!this.selectedCompany}">
   <vaadin-text-field .placeholder="${this.placeholder}" .label="${this.label}">
     <template>
       <span>[[item.label]]</span>
