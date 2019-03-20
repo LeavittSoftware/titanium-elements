@@ -188,7 +188,7 @@ header {
   justify-content: center;
   flex-wrap: wrap;
 
-  padding: 12px 12px 0 12px;
+  padding: 24px;
   position: relative;
 }
 
@@ -198,18 +198,18 @@ header-text {
   letter-spacing: -0.264px;
   font-weight: 400;
   font-size: 22px;
-  line-height: 28px;
-  padding: 12px;
+  line-height: 26px;
+  padding: 8px 8px 8px 0;
   color: #202124;
 }
 
-header-actions {
+/* header-actions {
   display: flex;
   flex-direction: row;
   justify-content: center;
-}
+} */
 
-header-actions ::slotted(*) {
+header>::slotted(*) {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -369,10 +369,8 @@ select-all-checkbox svg {
   render() {
     return html
     `<header>
-  <header-text>${this.header}</header-text>
-  <header-actions>
-    <slot name="table-actions"></slot>
-  </header-actions>
+      <header-text>${this.header}</header-text>
+      <slot name="table-actions"></slot>
   <selected-actions ?hidden="${this.selected.length === 0}">
     <selected-text>${this.selected.length} item${
         this.selected.length > 1 ? 's' : ''} selected</selected-text>
