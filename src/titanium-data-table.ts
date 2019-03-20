@@ -211,7 +211,7 @@ header-actions {
 header-actions ::slotted(*) {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  align-items: center;
   margin: 12px;
 }
 
