@@ -69,7 +69,7 @@ export class TitaniumSearchInput extends LitElement {
     flex-direction: column;
     -webkit-transition: width .250s; /* Safari */
     transition: width .250s;
-    width: var(--titanium-search-input-witdh, 250px); ;
+    width: var(--titanium-search-input-width, 250px); ;
   }
 
   input-container {
