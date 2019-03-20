@@ -5,8 +5,7 @@ import '@leavittsoftware/api-service/lib/api-service-element';
 
 import {ApiServiceElement} from '@leavittsoftware/api-service/lib/api-service-element';
 import {ODataDto} from '@leavittsoftware/api-service/lib/odata-dto';
-import {customElement, observe, property, query} from '@polymer/decorators';
-import {html, PolymerElement} from '@polymer/polymer';
+import {customElement, html, LitElement, property, query} from 'lit-element';
 
 export interface Company extends ODataDto {
   Id: number;
@@ -29,32 +28,38 @@ export type companyComboBoxItem = {
 };
 
 @customElement('titanium-company-selector')
-export class TitaniumCompanySelectorElement extends PolymerElement {
-  @property() isLoading: boolean = false;
+export class TitaniumCompanySelectorElement extends LitElement {
+  @property({attribute: 'is-loading'}) isLoading: boolean = false;
 
-  @property() controllerNamespace: string;
+  @property({attribute: 'controller-namespace'}) controllerNamespace: string;
 
-  @property() opened: boolean;
   @property() label: string|null;
   @property() placeholder: string|null = 'Search...';
-  @property({type: Number, notify: true}) companyId: number|null;
+  @property({type: Number, reflect: true, attribute: 'company-id'})
+  companyId: number|null;
 
-  @property() disableAutoload: boolean = false;
+  @property({attribute: 'disable-autoload'}) disableAutoload: boolean = false;
 
   @property() filter: string = 'not IsExpired';
-  @property() nameFilter: string = '';
+  @property({attribute: 'name-filter'}) nameFilter: string = '';
   @property() expand: string = '';
   @property() select: string = '';
 
   @property() searchTerm: string;
   @property() items: Array<companyComboBoxItem>;
-  @property({type: Object, notify: true})
+  @property({type: Object, reflect: true, attribute: 'selected-company'})
   selectedCompany: companyComboBoxItem|string = '';
 
   @query('api-service') apiService: ApiServiceElement;
 
-  @observe('companyId', 'items')
-  async companyIdChanged(companyId: number|undefined) {
+  updated(changedProps: Map<string|number|symbol, unknown>) {
+    if (changedProps.has('items') || changedProps.has('companyId')) {
+      this.companyIdChanged(this.companyId);
+    }
+  }
+
+  // @observe('companyId', 'items')
+  async companyIdChanged(companyId: number|null) {
     if (!companyId ||
         (this.selectedCompany &&
          (this.selectedCompany as companyComboBoxItem).value.Id ===
@@ -71,14 +76,16 @@ export class TitaniumCompanySelectorElement extends PolymerElement {
     // restore selected company from company id
     const companyItems = this.items.filter(v => companyId === v.value.Id);
     if (!companyItems.length) {
-      this.reportError(`No company with the Id ${companyId} could be found.`);
+      this.reportError(`No company with the Id ${companyId} could be
+      found.`);
     } else {
       this.selectedCompany = companyItems[0];
     }
   }
 
-  @observe('selectedCompany')
-  selectedCompanyChanged(selectedCompany: companyComboBoxItem) {
+  // @observe('selectedCompany')
+  selectedCompanyChanged(e: CustomEvent) {
+    const selectedCompany = e.detail.value;
     if (selectedCompany && selectedCompany.value.Id === this.companyId)
       return;
     this.companyId = !selectedCompany || !selectedCompany.value.Id ?
@@ -137,16 +144,15 @@ export class TitaniumCompanySelectorElement extends PolymerElement {
     return returnValue;
   }
 
-  @observe('opened')
-  async openedChanged(opened: boolean) {
-    if (!opened || this.isLoading || (this.items && this.items.length))
+  // @observe('opened')
+  async openedChanged(e: CustomEvent) {
+    if (!e.detail.value || this.isLoading || (this.items && this.items.length))
       return;
 
     this.items = await this._getCompanies();
   }
 
-  async ready() {
-    super.ready();
+  async firstUpdated() {
     if (this.disableAutoload === false) {
       this.items = await this._getCompanies();
     }
@@ -157,8 +163,7 @@ export class TitaniumCompanySelectorElement extends PolymerElement {
     this.searchTerm = '';
   }
 
-
-  static get template() {
+  render() {
     return html`
   <style>
   :host {
@@ -216,18 +221,18 @@ export class TitaniumCompanySelectorElement extends PolymerElement {
   }
 </style>
 <api-service></api-service>
-<vaadin-combo-box-light opened="{{opened}}" items="[[items]]" selected-item="{{selectedCompany}}">
-  <vaadin-text-field placeholder="[[placeholder]]" label="[[label]]">
+<vaadin-combo-box-light
+  @opened-changed="${this.openedChanged}"
+  .items="${this.items}"
+  .selectedItem="${this.selectedCompany}"
+  @selected-item-changed="${this.selectedCompanyChanged}"
+  <vaadin-text-field .placeholder="${this.placeholder}" .label="${this.label}">
     <template>
-      <style>
-        img[profile] {
-          border-radius: 50%;
-          margin-right: 16px;
-        }
-      </style>
       <span>[[item.label]]</span>
     </template>
-    <dual-ring-spinner slot="suffix" hidden$="[[!isLoading]]"></dual-ring-spinner>
+    <dual-ring-spinner
+      slot="suffix"
+      ?hidden="${!this.isLoading}"></dual-ring-spinner>
     <svg slot="suffix" class="clear-button" viewBox="0 0 24 24">
       <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
     </svg>
