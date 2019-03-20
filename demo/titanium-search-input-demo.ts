@@ -32,7 +32,7 @@ export default class TitaniumSearchInputDemo extends PolymerElement {
     }
 
     titanium-search-input[wide] {
-        --titanium-search-input-witdh: 500px;
+        --titanium-search-input-width: 500px;
     }
 </style>
 <demo-container>
@@ -46,7 +46,7 @@ export default class TitaniumSearchInputDemo extends PolymerElement {
     <h3> Wide </h3>
     <titanium-search-input wide placeholder="Search"></titanium-search-input>
 
-    <h3> Prevent Collaspse </h3>
+    <h3> Prevent Collapse </h3>
     <titanium-search-input prevent-collapse placeholder="Search"></titanium-search-input>
 
 
