@@ -186,6 +186,7 @@ header {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  flex-wrap: wrap;
 
   padding: 12px 12px 0 12px;
   position: relative;
@@ -212,7 +213,7 @@ header-actions ::slotted(*) {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 8px 4px;
+  margin: 0 8px;
 }
 
 selected-actions {
@@ -350,11 +351,7 @@ select-all-checkbox svg {
   cursor: not-allowed;
 }
 
-@media(max-width: 768px) {
-  header {
-    flex-direction: column;
-  }
-
+@media(max-width: 768px) {  
   table-control:last-of-type {
     margin-left: 4px;
   }

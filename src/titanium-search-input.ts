@@ -67,6 +67,7 @@ export class TitaniumSearchInput extends LitElement {
   :host {
     display: flex;
     flex-direction: column;
+    height: 42px;
     -webkit-transition: width .250s; /* Safari */
     transition: width .250s;
     width: var(--titanium-search-input-width, 250px); ;
@@ -103,10 +104,11 @@ export class TitaniumSearchInput extends LitElement {
     height: 42px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    padding: 0;
+    margin: 0;
     padding-left: 46px !important;
     padding-right: 46px !important;
     transition: background 100ms ease-in, width 100ms ease-out;
-    padding: 5px 0;
     color: var(--titanium-search-input-text-color, #8c929d);
     background-color: #fff;
     border-top-left-radius: 20px;
