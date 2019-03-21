@@ -52,9 +52,14 @@ export class TitaniumCompanySelectorElement extends LitElement {
 
   @query('api-service') apiService: ApiServiceElement;
 
-  updated(changedProps: Map<string|number|symbol, unknown>) {
+  async updated(changedProps: Map<string|number|symbol, unknown>) {
     if (changedProps.has('items') || changedProps.has('companyId')) {
       this.companyIdChanged(this.companyId);
+    }
+
+    if ((changedProps.has('filter') || changedProps.has('nameFilter')) &&
+        (!this.isLoading && this.items)) {
+      this.items = await this._getCompanies();
     }
   }
 
