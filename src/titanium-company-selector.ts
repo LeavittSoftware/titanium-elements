@@ -261,7 +261,7 @@ export class TitaniumCompanySelectorElement extends LitElement {
 const ComboboxStyles = document.createElement('template');
 
 ComboboxStyles.innerHTML =
-    `<dom-module id="people-combo-box" theme-for="vaadin-combo-box-item">
+    `<dom-module id="company-combo-box" theme-for="vaadin-combo-box-item">
   <template>
     <style>
     :host::before {
