@@ -172,6 +172,8 @@ export class TitaniumCompanySelectorElement extends LitElement {
 
   vaadin-combo-box-light {
     width: 100%;
+    --material-primary-color: var(--titanium-input-color, #2c7eea);
+    --material-primary-text-color: var(--titanium-input-color, #2c7eea);
   }
 
   vaadin-text-field {
@@ -184,28 +186,39 @@ export class TitaniumCompanySelectorElement extends LitElement {
   }
 
   svg {
-    fill: var(--app-text-color-lighter);
+    fill: var(--titanium-input-color, #2c7eea);
     width: 24px;
     height: 24px;
   }
 
-  dual-ring-spinner {
+  lds-ring {
     display: inline-block;
-    width: 26px;
-    height: 26px;
+    position: relative;
+    width: 24px;
+    height: 24px;
   }
-  dual-ring-spinner:after {
-    content: " ";
+  lds-ring div {
+    box-sizing: border-box;
     display: block;
-    width: 18px;
-    height: 18px;
-    margin: 1px;
+    position: absolute;
+    width: 21px;
+    height: 21px;
+    margin: 3px;
+    border: 3px solid var(--titanium-input-color, #2c7eea);
     border-radius: 50%;
-    border: 3px solid var(--material-primary-color);
-    border-color: var(--material-primary-color) transparent var(--material-primary-color) transparent;
-    animation: dual-ring-spinner 1.2s linear infinite;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: var(--titanium-input-color, #2c7eea) transparent transparent transparent;
   }
-  @keyframes dual-ring-spinner {
+  lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+  lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+  lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+  }
+  @keyframes lds-ring {
     0% {
       transform: rotate(0deg);
     }
@@ -231,9 +244,10 @@ export class TitaniumCompanySelectorElement extends LitElement {
     <template>
       <span>[[item.label]]</span>
     </template>
-    <dual-ring-spinner
+    <lds-ring
       slot="suffix"
-      ?hidden="${!this.isLoading}"></dual-ring-spinner>
+      ?hidden="${!this.isLoading}">
+      <div></div><div></div><div></div><div></div></lds-ring>
     <svg slot="suffix" class="clear-button" viewBox="0 0 24 24">
       <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
     </svg>
