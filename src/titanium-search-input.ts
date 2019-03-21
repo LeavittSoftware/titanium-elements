@@ -8,11 +8,17 @@ export class TitaniumSearchInput extends LitElement {
   @property() placeholder: string = '';
   @property({type: Boolean, attribute: 'hide-clear-button'})
   hideClearButton: boolean = false;
+
   @property({type: Boolean, reflect: true}) disabled: boolean;
+  @property({type: Boolean, reflect: true}) collapsed: boolean = true;
+  @property({type: Boolean, reflect: true, attribute: 'prevent-collapse'})
+  preventCollapse: boolean;
 
   _input: HTMLInputElement;
 
   firstUpdated() {
+    this.collapsed = !this.value;
+
     super.firstUpdated(new Map());
     const el = this.shadowRoot && this.shadowRoot.querySelector('input');
     if (el)
@@ -33,6 +39,26 @@ export class TitaniumSearchInput extends LitElement {
     this.focus();
   }
 
+  _handleSearchClick() {
+    if (this.preventCollapse) {
+      return;
+    }
+
+    this.collapsed = false;
+    setTimeout(() => {
+      this.focus();
+    }, 300);
+  }
+
+  _lostFocus() {
+    if (this.preventCollapse) {
+      return;
+    }
+
+    if (!this.value)
+      this.collapsed = true;
+  }
+
   focus() {
     this._input.focus();
   }
@@ -41,6 +67,10 @@ export class TitaniumSearchInput extends LitElement {
   :host {
     display: flex;
     flex-direction: column;
+    height: 42px;
+    -webkit-transition: width .250s; /* Safari */
+    transition: width .250s;
+    width: var(--titanium-search-input-width, 250px); ;
   }
 
   input-container {
@@ -48,43 +78,37 @@ export class TitaniumSearchInput extends LitElement {
     flex-direction: row;
     position: relative;
   }
-
-  svg[search] {
+ 
+  titanium-svg-button{
     position: absolute;
-    left: 12px;
-    top: 12px;
-    fill: var(--titanium-search-input-svg-fill-color, #5f6368);
-    width: 24px;
-    height: 24px;
+  }
+
+  titanium-svg-button[clear] {
+    top: 0;
+    right: 0;
+    --titanium-svg-button-svg-active-color: var(--titanium-search-input-clear-button-fill-color, #5f6368);
+  }
+
+  titanium-svg-button[search] {
+    top: 0;
+    left: 0;
+    --titanium-svg-button-svg-active-color: var(--titanium-search-input-search-button-fill-color, #5f6368);
   }
 
   :host([disabled]) svg {
     cursor: not-allowed;
   }
-
-  titanium-svg-button {
-    position: absolute;
-    right: 8px;
-    top: 6px;
-    width: 36px;
-    height: 36px;
-    --titanium-svg-button-svg-active-color: var(--titanium-search-input-clear-button-fill-color, #5f6368);
-  }
-
-  :host([disabled]) titanium-svg-button {
-    cursor: not-allowed;
-    opacity: .6;
-  }
-
+  
   input-container input {
     width: 100%;
-    height: 48px;
+    height: 42px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    padding-left: 42px !important;
-    padding-right: 42px !important;
+    padding: 0;
+    margin: 0;
+    padding-left: 46px !important;
+    padding-right: 46px !important;
     transition: background 100ms ease-in, width 100ms ease-out;
-    padding: 5px 0;
     color: var(--titanium-search-input-text-color, #8c929d);
     background-color: #fff;
     border-top-left-radius: 20px;
@@ -100,6 +124,20 @@ export class TitaniumSearchInput extends LitElement {
 
   input-container input::-ms-clear {
     display: none;
+  }
+
+  :host([collapsed]:not([prevent-collapse])){
+    width: 42px;
+  }
+
+  :host([collapsed]:not([prevent-collapse])) input-container input {
+    display: none;
+  }
+
+  :host([collapsed]:not([prevent-collapse])) titanium-svg-button[search] {
+    position: relative;
+    top: 0;
+    left: 0;
   }
 
   :host([disabled]) input-container input {
@@ -132,17 +170,17 @@ export class TitaniumSearchInput extends LitElement {
     return html
     `
 <input-container>
-  <svg search viewBox="0 0 24 24">
-    <path
-      d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z">
-    </path>
-  </svg>
+  <titanium-svg-button search @click="${
+        this._handleSearchClick}" path="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" ></titanium-svg-button>
   <input type="text" ?disabled="${this.disabled}" placeholder="${
         this.placeholder}" autocomplete="off" .value="${this.value}" @keyup="${
-        this._onValueChange}" @change="${this._onValueChange}" />
-  <titanium-svg-button ?hidden="${this.hideClearButton}" @click="${
+        this._onValueChange}" @focusout="${this._lostFocus}" @change="${
+        this._onValueChange}" />
+  <titanium-svg-button clear ?hidden="${
+        this.hideClearButton ||
+        (this.value === '' && !this.hideClearButton)}" @click="${
         this._onClearClick}" ?disabled="${this.disabled}"
-    path="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+    path="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" ></titanium-svg-button>
 </input-container>`;
   }
 }
