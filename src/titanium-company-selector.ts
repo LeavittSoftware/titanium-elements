@@ -47,23 +47,22 @@ export class TitaniumCompanySelectorElement extends LitElement {
 
   @property({type: String}) searchTerm: string;
   @property({type: Array}) items: Array<companyComboBoxItem>;
-  @property({type: Object, reflect: true, attribute: 'selected-company'})
-  selectedCompany: companyComboBoxItem|string = '';
+  @property({type: Object}) selectedCompany: companyComboBoxItem|string = '';
 
   @query('api-service') apiService: ApiServiceElement;
 
-  async updated(changedProps: Map<string|number|symbol, unknown>) {
+  updated(changedProps: Map<string|number|symbol, unknown>) {
     if (changedProps.has('companyId')) {
       this.companyIdChanged(this.companyId);
     }
 
     if ((changedProps.has('filter') || changedProps.has('nameFilter')) &&
         (!this.isLoading && this.items)) {
-      await this._getCompanies();
+      this._getCompanies();
     }
   }
 
-  async companyIdChanged(companyId: number|null) {
+  companyIdChanged(companyId: number|null) {
     if (!companyId ||
         (this.selectedCompany &&
          (this.selectedCompany as companyComboBoxItem).value.Id ===
@@ -83,7 +82,7 @@ export class TitaniumCompanySelectorElement extends LitElement {
       this.reportError(`No company with the Id ${companyId} could be
       found.`);
     } else {
-      this.selectedCompany = companyItems[0];
+      this.setSelectedCompany(companyItems[0]);
     }
   }
 
@@ -91,15 +90,26 @@ export class TitaniumCompanySelectorElement extends LitElement {
     const selectedCompany = e.detail.value;
     if (selectedCompany && selectedCompany.value.Id === this.companyId)
       return;
-    this.companyId = !selectedCompany || !selectedCompany.value.Id ?
-        null :
-        selectedCompany.value.Id;
+    this.setCompanyId(
+        !selectedCompany || !selectedCompany.value.Id ?
+            null :
+            selectedCompany.value.Id);
   }
 
   private reportError(error: string) {
     this.dispatchEvent(new CustomEvent(
         'titanium-company-selector-error',
         {bubbles: true, composed: true, detail: {message: error}}));
+  }
+
+  private setCompanyId(id: number|null) {
+    this.dispatchEvent(new CustomEvent(
+        'company-id-changed', {composed: true, detail: {value: id}}));
+  }
+  private setSelectedCompany(company: companyComboBoxItem|'') {
+    this.dispatchEvent(new CustomEvent(
+        'selected-company-changed',
+        {composed: true, detail: {value: company}}));
   }
 
   private _getCompaniesDebouncer;
@@ -157,21 +167,21 @@ export class TitaniumCompanySelectorElement extends LitElement {
         });
   }
 
-  async openedChanged(e: CustomEvent) {
+  openedChanged(e: CustomEvent) {
     if (!e.detail.value || this.isLoading || (this.items && this.items.length))
       return;
 
     this._getCompanies();
   }
 
-  async firstUpdated() {
+  firstUpdated() {
     if (!this.disableAutoload) {
       this._getCompanies();
     }
   }
 
   public clear() {
-    this.selectedCompany = '';
+    this.setSelectedCompany('');
     this.searchTerm = '';
   }
 
