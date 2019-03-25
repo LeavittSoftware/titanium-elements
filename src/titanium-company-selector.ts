@@ -69,7 +69,7 @@ export class TitaniumCompanySelectorElement extends LitElement {
       return;
     }
 
-    if (!this.isLoading && !this.items && this.disableAutoload !== false) {
+    if (!this.isLoading && !this.items && this.disableAutoload) {
       this.items = await this._getCompanies();
     } else if (this.isLoading) {
       return;
@@ -153,7 +153,7 @@ export class TitaniumCompanySelectorElement extends LitElement {
   }
 
   async firstUpdated() {
-    if (this.disableAutoload === false) {
+    if (!this.disableAutoload) {
       this.items = await this._getCompanies();
     }
   }
