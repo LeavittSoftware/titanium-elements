@@ -38,7 +38,8 @@ export class TitaniumCompanySelectorElement extends LitElement {
   @property({type: String}) placeholder: string|null = 'Search...';
   @property({type: Number, attribute: 'company-id'}) companyId: number|null;
 
-  @property({attribute: 'disable-autoload'}) disableAutoload: boolean = false;
+  @property({type: Boolean, attribute: 'disable-autoload'})
+  disableAutoload: boolean = false;
 
   @property({type: String}) filter: string = 'not IsExpired';
   @property({type: String, attribute: 'name-filter'}) nameFilter: string = '';
