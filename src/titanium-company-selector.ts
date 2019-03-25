@@ -4,6 +4,8 @@ import '@leavittsoftware/api-service/lib/api-service-element';
 
 import {ApiServiceElement} from '@leavittsoftware/api-service/lib/api-service-element';
 import {ODataDto} from '@leavittsoftware/api-service/lib/odata-dto';
+import {timeOut} from '@polymer/polymer/lib/utils/async';
+import {Debouncer} from '@polymer/polymer/lib/utils/debounce';
 import {customElement, html, LitElement, property, query} from 'lit-element';
 
 export interface Company extends ODataDto {
@@ -51,13 +53,13 @@ export class TitaniumCompanySelectorElement extends LitElement {
   @query('api-service') apiService: ApiServiceElement;
 
   async updated(changedProps: Map<string|number|symbol, unknown>) {
-    if (changedProps.has('items') || changedProps.has('companyId')) {
+    if (changedProps.has('companyId')) {
       this.companyIdChanged(this.companyId);
     }
 
     if ((changedProps.has('filter') || changedProps.has('nameFilter')) &&
         (!this.isLoading && this.items)) {
-      this.items = await this._getCompanies();
+      await this._getCompanies();
     }
   }
 
@@ -70,7 +72,7 @@ export class TitaniumCompanySelectorElement extends LitElement {
     }
 
     if (!this.isLoading && !this.items && this.disableAutoload) {
-      this.items = await this._getCompanies();
+      this._getCompanies();
     } else if (this.isLoading) {
       return;
     }
@@ -100,61 +102,71 @@ export class TitaniumCompanySelectorElement extends LitElement {
         {bubbles: true, composed: true, detail: {message: error}}));
   }
 
+  private _getCompaniesDebouncer;
   private async _getCompanies() {
-    this.isLoading = true;
-    let returnValue = new Array<companyComboBoxItem>();
+    this._getCompaniesDebouncer = Debouncer.debounce(
+        this._getCompaniesDebouncer, timeOut.after(300), async () => {
+          this.isLoading = true;
+          let returnValue = new Array<companyComboBoxItem>();
 
-    try {
-      let queryOptions: Array<string> = [];
+          try {
+            let queryOptions: Array<string> = [];
 
-      let selectItems = ['Id'];
-      if (this.select)
-        selectItems.push(this.select);
-      queryOptions.push(`$select=${selectItems.join(',')}`)
+            let selectItems = ['Id'];
+            if (this.select)
+              selectItems.push(this.select);
+            queryOptions.push(`$select=${selectItems.join(',')}`)
 
-      let nameFilters = [`not IsExpired and CompanyNameType eq 'Main'`];
-      if (this.nameFilter)
-        nameFilters.push(this.nameFilter);
+            let nameFilters = [`not IsExpired and CompanyNameType eq 'Main'`];
+            if (this.nameFilter)
+              nameFilters.push(this.nameFilter);
 
-      let expands =
-          [`Names($filter=${nameFilters.join(' and ')};$select=Name;$top=1)`];
-      if (this.expand)
-        expands.push(this.expand);
-      queryOptions.push(`$expand=${expands.join(',')}`);
+            let expands = [
+              `Names($filter=${nameFilters.join(' and ')};$select=Name;$top=1)`
+            ];
+            if (this.expand)
+              expands.push(this.expand);
+            queryOptions.push(`$expand=${expands.join(',')}`);
 
-      if (this.filter)
-        queryOptions.push(`$filter=${this.filter}`);
+            if (this.filter)
+              queryOptions.push(`$filter=${this.filter}`);
 
-      const result: Array<Company> =
-          (await this.apiService.getAsync<Company>(
-               `Companies?${queryOptions.join('&')}`, this.controllerNamespace))
-              .toList();
-      returnValue =
-          result.filter((company: Company) => {return !!company.Names.length})
-              .map((company: Company) => {
-                let value = {...company};
-                value.Name = value.Names[0].Name;
-                return {label: value.Name, value: value};
-              })
-              .sort(
-                  (a, b) => a.label < b.label ? -1 : a.label > b.label ? 1 : 0);
-    } catch (error) {
-      this.reportError(error);
-    }
-    this.isLoading = false;
-    return returnValue;
+            const result: Array<Company> =
+                (await this.apiService.getAsync<Company>(
+                     `Companies?${queryOptions.join('&')}`,
+                     this.controllerNamespace))
+                    .toList();
+            returnValue =
+                result
+                    .filter(
+                        (company: Company) => {return !!company.Names.length})
+                    .map((company: Company) => {
+                      let value = {...company};
+                      value.Name = value.Names[0].Name;
+                      return {label: value.Name, value: value};
+                    })
+                    .sort(
+                        (a, b) =>
+                            a.label < b.label ? -1 : a.label > b.label ? 1 : 0);
+          } catch (error) {
+            this.reportError(error);
+          }
+          this.isLoading = false;
+          this.items = returnValue;
+          this.companyIdChanged(this.companyId);
+        });
   }
 
   async openedChanged(e: CustomEvent) {
     if (!e.detail.value || this.isLoading || (this.items && this.items.length))
       return;
 
-    this.items = await this._getCompanies();
+    this._getCompanies();
   }
 
   async firstUpdated() {
     if (!this.disableAutoload) {
-      this.items = await this._getCompanies();
+      this._getCompanies();
     }
   }
 
