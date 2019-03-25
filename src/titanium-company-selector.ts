@@ -1,4 +1,3 @@
-import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import '@vaadin/vaadin-combo-box/theme/material/vaadin-combo-box-light';
 import '@vaadin/vaadin-text-field/theme/material/vaadin-text-field';
 import '@leavittsoftware/api-service/lib/api-service-element';
@@ -29,24 +28,23 @@ export type companyComboBoxItem = {
 
 @customElement('titanium-company-selector')
 export class TitaniumCompanySelectorElement extends LitElement {
-  @property({attribute: 'is-loading'}) isLoading: boolean = false;
+  @property({type: Boolean}) isLoading: boolean = false;
 
   @property({attribute: 'controller-namespace'}) controllerNamespace: string;
 
-  @property() label: string|null;
-  @property() placeholder: string|null = 'Search...';
-  @property({type: Number, reflect: true, attribute: 'company-id'})
-  companyId: number|null;
+  @property({type: String}) label: string|null;
+  @property({type: String}) placeholder: string|null = 'Search...';
+  @property({type: Number, attribute: 'company-id'}) companyId: number|null;
 
   @property({attribute: 'disable-autoload'}) disableAutoload: boolean = false;
 
-  @property() filter: string = 'not IsExpired';
-  @property({attribute: 'name-filter'}) nameFilter: string = '';
-  @property() expand: string = '';
-  @property() select: string = '';
+  @property({type: String}) filter: string = 'not IsExpired';
+  @property({type: String, attribute: 'name-filter'}) nameFilter: string = '';
+  @property({type: String}) expand: string = '';
+  @property({type: String}) select: string = '';
 
-  @property() searchTerm: string;
-  @property() items: Array<companyComboBoxItem>;
+  @property({type: String}) searchTerm: string;
+  @property({type: Array}) items: Array<companyComboBoxItem>;
   @property({type: Object, reflect: true, attribute: 'selected-company'})
   selectedCompany: companyComboBoxItem|string = '';
 
@@ -63,7 +61,6 @@ export class TitaniumCompanySelectorElement extends LitElement {
     }
   }
 
-  // @observe('companyId', 'items')
   async companyIdChanged(companyId: number|null) {
     if (!companyId ||
         (this.selectedCompany &&
@@ -88,7 +85,6 @@ export class TitaniumCompanySelectorElement extends LitElement {
     }
   }
 
-  // @observe('selectedCompany')
   selectedCompanyChanged(e: CustomEvent) {
     const selectedCompany = e.detail.value;
     if (selectedCompany && selectedCompany.value.Id === this.companyId)
@@ -149,7 +145,6 @@ export class TitaniumCompanySelectorElement extends LitElement {
     return returnValue;
   }
 
-  // @observe('opened')
   async openedChanged(e: CustomEvent) {
     if (!e.detail.value || this.isLoading || (this.items && this.items.length))
       return;
@@ -196,13 +191,13 @@ export class TitaniumCompanySelectorElement extends LitElement {
     height: 24px;
   }
 
-  lds-ring {
+  loading-spinner {
     display: inline-block;
     position: relative;
     width: 24px;
     height: 24px;
   }
-  lds-ring div {
+  loading-spinner > div {
     box-sizing: border-box;
     display: block;
     position: absolute;
@@ -211,19 +206,19 @@ export class TitaniumCompanySelectorElement extends LitElement {
     margin: 3px;
     border: 3px solid var(--titanium-input-color, #2c7eea);
     border-radius: 50%;
-    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    animation: loading-spinner 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     border-color: var(--titanium-input-color, #2c7eea) transparent transparent transparent;
   }
-  lds-ring div:nth-child(1) {
+  loading-spinner > div:nth-child(1) {
     animation-delay: -0.45s;
   }
-  lds-ring div:nth-child(2) {
+  loading-spinner > div:nth-child(2) {
     animation-delay: -0.3s;
   }
-  lds-ring div:nth-child(3) {
+  loading-spinner > div:nth-child(3) {
     animation-delay: -0.15s;
   }
-  @keyframes lds-ring {
+  @keyframes loading-spinner {
     0% {
       transform: rotate(0deg);
     }
@@ -249,10 +244,10 @@ export class TitaniumCompanySelectorElement extends LitElement {
     <template>
       <span>[[item.label]]</span>
     </template>
-    <lds-ring
+    <loading-spinner
       slot="suffix"
       ?hidden="${!this.isLoading}">
-      <div></div><div></div><div></div><div></div></lds-ring>
+      <div></div><div></div><div></div><div></div></loading-spinner>
     <svg slot="suffix" class="clear-button" @click="${
         this.clear}" viewBox="0 0 24 24">
       <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
