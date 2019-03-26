@@ -15,6 +15,10 @@ export class TitaniumSvgButton extends LitElement {
      flex-shrink: 0;
    }
 
+   :host([disabled]){
+    pointer-events: none;
+   }
+
    :host([hidden]) {
     display: none;
   }

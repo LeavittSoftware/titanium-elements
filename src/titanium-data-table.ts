@@ -203,12 +203,6 @@ header-text {
   color: #202124;
 }
 
-/* header-actions {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-} */
-
 header>::slotted(*) {
   display: flex;
   flex-direction: row;
@@ -229,6 +223,7 @@ selected-actions {
   left: 0px;
   right: 0px;
   bottom: 0px;
+  margin: 0 !important;
 }
 
 selected-text {
@@ -305,6 +300,7 @@ table-control {
   flex-direction: row;
   align-items: center;
   margin: 0;
+  user-select: none;
 }
 
 table-control:last-of-type {
@@ -367,8 +363,7 @@ select-all-checkbox svg {
 }`;
 
   render() {
-    return html
-    `<header>
+    return html`<header>
       <header-text>${this.header}</header-text>
       <slot name="table-actions"></slot>
   <selected-actions ?hidden="${this.selected.length === 0}">
