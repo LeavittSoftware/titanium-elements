@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=9;IE=10;IE=Edge,chrome=1" />
+    <title>Vaadin Material Design - Text Field Outlined Style Demo</title>
+
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+
+    <script type="module"
+        src="../node_modules/@leavittsoftware/titanium-elements/lib/vaadin-text-field-material-outlined.js"></script>
+
+    <script type="module" src="../node_modules/@vaadin/vaadin-text-field/src/vaadin-text-field.js"></script>
+
+
+    <style>
+        body {
+            font-family: 'Roboto', 'Noto', sans-serif;
+            line-height: 1.5;
+            background-color: #FFF;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="/">BACK TO ALL DEMOS</a>
+    <br />
+    <br />
+    <div>
+        <h3>Vaadin Material Design - Text Field Outlined Style Demo</h3>
+        <vaadin-text-field></vaadin-text-field>
+        <vaadin-text-field label="Username"></vaadin-text-field>
+        <vaadin-text-field placeholder="Placeholder"></vaadin-text-field>
+        <vaadin-text-field label="Focused" focused></vaadin-text-field>
+        <vaadin-text-field placeholder="Username" label="Username"></vaadin-text-field>
+        <vaadin-text-field invalid label="Invalid" error-message="Invalid section"></vaadin-text-field>
+        <vaadin-text-field disabled label="Disabled"></vaadin-text-field>
+    </div>
+
+</body>
+
+</html>

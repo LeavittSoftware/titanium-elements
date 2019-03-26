@@ -20,6 +20,7 @@
     "@polymer/paper-toggle-button": "^3.0.0-pre.21",
     "@polymer/polymer": "^3.0.5",
     "@webcomponents/webcomponentsjs": "^2.2.7",
-    "lit-element": "^2.0.1"
+    "lit-element": "^2.0.1",
+    "vaadin-text-field": "^1.0.0"
   }
 }
