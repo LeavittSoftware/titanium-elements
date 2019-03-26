@@ -11,8 +11,7 @@ const $_documentContainer = html`<dom-module id="material-text-field-outlined" t
       :host {
         display: inline-flex;
         position: relative;
-        padding-top: 8px;
-        margin-bottom: 8px;
+        padding: 20px 0;
         outline: none;
         z-index: 0;
         color: var(--material-body-text-color);
@@ -25,6 +24,10 @@ const $_documentContainer = html`<dom-module id="material-text-field-outlined" t
         --material-disabled-text-color: #b3b3b3;
       }
 
+      :host([invalid][error-message]){
+        padding-bottom: 0;
+      }
+
       :host::before {
         line-height: 32px;
       }
@@ -32,9 +35,7 @@ const $_documentContainer = html`<dom-module id="material-text-field-outlined" t
       /* Strange gymnastics to make fields vertically align nicely in most cases
          (no label, with label, without prefix, with prefix, etc.) */
 
-      :host([has-label]) {
-        padding-top: 24px;
-      }
+      
 
       [part="label"]:empty {
         display: none;
@@ -175,7 +176,7 @@ const $_documentContainer = html`<dom-module id="material-text-field-outlined" t
         transition: transform 0.175s, color 0.175s, width 0.175s;
         transition-timing-function: ease, ease, step-end;
         left: 8px;
-        top: 14px;
+        top: 10px;
         padding: 0 8px;
         background-color: #fff;
         z-index: 1;
