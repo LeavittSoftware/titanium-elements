@@ -14,6 +14,7 @@ const $_documentContainer = html`<dom-module id="material-text-field-outlined" t
         padding-top: 8px;
         margin-bottom: 8px;
         outline: none;
+        z-index: 0;
         color: var(--material-body-text-color);
         font-size: var(--material-body-font-size);
         line-height: 24px;
@@ -46,13 +47,18 @@ const $_documentContainer = html`<dom-module id="material-text-field-outlined" t
 
       [part="input-field"] {
         position: relative;
-        height: 56px;
-        padding-left: 0;
+        height: 40px;
+        padding: 8px;
         background-color: transparent;
         margin: 0;
 
         border: 1px solid #757575;
         border-radius: 4px;
+      }
+
+      :host([dense]) [part="input-field"] { 
+        padding: 4px 8px;
+        height: 30px;
       }
       
       :host(:hover) [part="input-field"] {
@@ -61,6 +67,14 @@ const $_documentContainer = html`<dom-module id="material-text-field-outlined" t
 
       :host([focused]:not([invalid])) [part="input-field"] {
         border: 2px solid var(--material-primary-text-color);
+
+        /* prevent shifting from the 2px border */
+        padding: 7px;
+      }
+
+      :host([focused][dense]:not([invalid])) [part="input-field"] {
+        /* prevent shifting from the 2px border */
+        padding: 3px 7px;
       }
 
       :host([invalid]) [part="input-field"] {
@@ -93,7 +107,7 @@ const $_documentContainer = html`<dom-module id="material-text-field-outlined" t
         margin: 0;
         border: 0;
         border-radius: 0;
-        padding: 8px 16px;
+        padding: 8px;
         width: 100%;
         height: 100%;
         font-family: inherit;
@@ -103,6 +117,14 @@ const $_documentContainer = html`<dom-module id="material-text-field-outlined" t
         background-color: transparent;
         /* Disable default invalid style in Firefox */
         box-shadow: none;
+      }
+
+      :host([dense]) [part="value"],
+      :host([disabled][dense]) [part="input-field"] ::slotted(input),
+      :host([disabled][dense]) [part="input-field"] ::slotted(textarea),
+      /* Slotted by vaadin-select-text-field */
+      :host([dense]) [part="input-field"] ::slotted([part="value"]) {
+        padding: 0 8px;
       }
 
       /* TODO: the text opacity should be 42%, but the disabled style is 38%.
@@ -156,13 +178,8 @@ const $_documentContainer = html`<dom-module id="material-text-field-outlined" t
         top: 14px;
         padding: 0 8px;
         background-color: #fff;
-        z-index: 2;
+        z-index: 1;
       }
-/*
-      :host([focused]:not([invalid])) [part="label"] {
-        background-color: #fff;
-        z-index: 2;
-      } */
 
       /* TODO: using unsupported selector to fix IE11 (even thought the label element is scaled down,
          the 133% width still takes the same space as an unscaled element */
@@ -226,10 +243,15 @@ const $_documentContainer = html`<dom-module id="material-text-field-outlined" t
         transition-delay: 0.1s;
       }
 
+      :host([has-label][dense]:not([has-value]):not([focused]):not([invalid]):not([theme~="always-float-label"])) [part="label"] {
+        transform: scale(1) translateY(22px);
+      }
+
       /* Slotted content */
 
       [part="input-field"] ::slotted(*:not([part="value"]):not([part\$="-button"]):not(input):not(textarea)) {
         color: var(--material-secondary-text-color);
+        fill: var(--material-secondary-text-color);
       }
 
       [part="clear-button"]::before {
