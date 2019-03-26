@@ -32,17 +32,16 @@ export type companyComboBoxItem = {
 export class TitaniumCompanySelectorElement extends LitElement {
   @property({type: Boolean}) isLoading: boolean = false;
 
-  @property({attribute: 'controller-namespace'}) controllerNamespace: string;
+  @property({type: String}) controllerNamespace: string;
 
   @property({type: String}) label: string|null;
   @property({type: String}) placeholder: string|null = 'Search...';
-  @property({type: Number, attribute: 'company-id'}) companyId: number|null;
+  @property({type: Number}) companyId: number|null;
 
-  @property({type: Boolean, attribute: 'disable-autoload'})
-  disableAutoload: boolean = false;
+  @property({type: Boolean}) disableAutoload: boolean = false;
 
   @property({type: String}) filter: string = 'not IsExpired';
-  @property({type: String, attribute: 'name-filter'}) nameFilter: string = '';
+  @property({type: String}) nameFilter: string = '';
   @property({type: String}) expand: string = '';
   @property({type: String}) select: string = '';
 
@@ -105,12 +104,11 @@ export class TitaniumCompanySelectorElement extends LitElement {
 
   private setCompanyId(id: number|null) {
     this.dispatchEvent(new CustomEvent(
-        'company-id-changed', {composed: true, detail: {value: id}}));
+        'companyid-changed', {composed: true, detail: {value: id}}));
   }
   private setSelectedCompany(company: companyComboBoxItem|'') {
     this.dispatchEvent(new CustomEvent(
-        'selected-company-changed',
-        {composed: true, detail: {value: company}}));
+        'selectedcompany-changed', {composed: true, detail: {value: company}}));
   }
 
   private _getCompaniesDebouncer;
