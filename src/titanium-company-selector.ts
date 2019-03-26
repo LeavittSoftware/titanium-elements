@@ -104,11 +104,14 @@ export class TitaniumCompanySelectorElement extends LitElement {
 
   private setCompanyId(id: number|null) {
     this.dispatchEvent(new CustomEvent(
-        'companyid-changed', {composed: true, detail: {value: id}}));
+        'company-id-changed', {composed: true, detail: {value: id}}));
+    this.companyId = id;
   }
   private setSelectedCompany(company: companyComboBoxItem|'') {
     this.dispatchEvent(new CustomEvent(
-        'selectedcompany-changed', {composed: true, detail: {value: company}}));
+        'selected-company-changed',
+        {composed: true, detail: {value: company}}));
+    this.selectedCompany = company;
   }
 
   private _getCompaniesDebouncer;
