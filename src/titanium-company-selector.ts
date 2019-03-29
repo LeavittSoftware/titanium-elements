@@ -1,5 +1,6 @@
 import '@vaadin/vaadin-combo-box/theme/material/vaadin-combo-box-light';
-import '@vaadin/vaadin-text-field/theme/material/vaadin-text-field';
+import './vaadin-text-field-material-outlined';
+import '@vaadin/vaadin-text-field/src/vaadin-text-field';
 import '@leavittsoftware/api-service/lib/api-service-element';
 
 import {ApiServiceElement} from '@leavittsoftware/api-service/lib/api-service-element';
@@ -56,17 +57,13 @@ export class TitaniumCompanySelectorElement extends LitElement {
       this.companyIdChanged(this.companyId);
     }
 
-    if ((changedProps.has('filter') || changedProps.has('nameFilter')) &&
-        (!this.isLoading && this.items)) {
+    if ((changedProps.has('filter') || changedProps.has('nameFilter')) && (!this.isLoading && this.items)) {
       this._getCompanies();
     }
   }
 
   companyIdChanged(companyId: number|null) {
-    if (!companyId ||
-        (this.selectedCompany &&
-         (this.selectedCompany as companyComboBoxItem).value.Id ===
-             companyId)) {
+    if (!companyId || (this.selectedCompany && (this.selectedCompany as companyComboBoxItem).value.Id === companyId)) {
       return;
     }
 
@@ -90,83 +87,63 @@ export class TitaniumCompanySelectorElement extends LitElement {
     const selectedCompany = e.detail.value;
     if (selectedCompany && selectedCompany.value.Id === this.companyId)
       return;
-    this.setCompanyId(
-        !selectedCompany || !selectedCompany.value.Id ?
-            null :
-            selectedCompany.value.Id);
+    this.setCompanyId(!selectedCompany || !selectedCompany.value.Id ? null : selectedCompany.value.Id);
   }
 
   private reportError(error: string) {
-    this.dispatchEvent(new CustomEvent(
-        'titanium-company-selector-error',
-        {bubbles: true, composed: true, detail: {message: error}}));
+    this.dispatchEvent(new CustomEvent('titanium-company-selector-error', {bubbles: true, composed: true, detail: {message: error}}));
   }
 
   private setCompanyId(id: number|null) {
-    this.dispatchEvent(new CustomEvent(
-        'company-id-changed', {composed: true, detail: {value: id}}));
+    this.dispatchEvent(new CustomEvent('company-id-changed', {composed: true, detail: {value: id}}));
     this.companyId = id;
   }
   private setSelectedCompany(company: companyComboBoxItem|'') {
-    this.dispatchEvent(new CustomEvent(
-        'selected-company-changed',
-        {composed: true, detail: {value: company}}));
+    this.dispatchEvent(new CustomEvent('selected-company-changed', {composed: true, detail: {value: company}}));
     this.selectedCompany = company;
   }
 
   private _getCompaniesDebouncer;
   private async _getCompanies() {
-    this._getCompaniesDebouncer = Debouncer.debounce(
-        this._getCompaniesDebouncer, timeOut.after(300), async () => {
-          this.isLoading = true;
-          let returnValue = new Array<companyComboBoxItem>();
+    this._getCompaniesDebouncer = Debouncer.debounce(this._getCompaniesDebouncer, timeOut.after(300), async () => {
+      this.isLoading = true;
+      let returnValue = new Array<companyComboBoxItem>();
 
-          try {
-            let queryOptions: Array<string> = [];
+      try {
+        let queryOptions: Array<string> = [];
 
-            let selectItems = ['Id'];
-            if (this.select)
-              selectItems.push(this.select);
-            queryOptions.push(`$select=${selectItems.join(',')}`)
+        let selectItems = ['Id'];
+        if (this.select)
+          selectItems.push(this.select);
+        queryOptions.push(`$select=${selectItems.join(',')}`)
 
-            let nameFilters = [`not IsExpired and CompanyNameType eq 'Main'`];
-            if (this.nameFilter)
-              nameFilters.push(this.nameFilter);
+        let nameFilters = [`not IsExpired and CompanyNameType eq 'Main'`];
+        if (this.nameFilter)
+          nameFilters.push(this.nameFilter);
 
-            let expands = [
-              `Names($filter=${nameFilters.join(' and ')};$select=Name;$top=1)`
-            ];
-            if (this.expand)
-              expands.push(this.expand);
-            queryOptions.push(`$expand=${expands.join(',')}`);
+        let expands = [`Names($filter=${nameFilters.join(' and ')};$select=Name;$top=1)`];
+        if (this.expand)
+          expands.push(this.expand);
+        queryOptions.push(`$expand=${expands.join(',')}`);
 
-            if (this.filter)
-              queryOptions.push(`$filter=${this.filter}`);
+        if (this.filter)
+          queryOptions.push(`$filter=${this.filter}`);
 
-            const result: Array<Company> =
-                (await this.apiService.getAsync<Company>(
-                     `Companies?${queryOptions.join('&')}`,
-                     this.controllerNamespace))
-                    .toList();
-            returnValue =
-                result
-                    .filter(
-                        (company: Company) => {return !!company.Names.length})
-                    .map((company: Company) => {
-                      let value = {...company};
-                      value.Name = value.Names[0].Name;
-                      return {label: value.Name, value: value};
-                    })
-                    .sort(
-                        (a, b) =>
-                            a.label < b.label ? -1 : a.label > b.label ? 1 : 0);
-          } catch (error) {
-            this.reportError(error);
-          }
-          this.isLoading = false;
-          this.items = returnValue;
-          this.companyIdChanged(this.companyId);
-        });
+        const result: Array<Company> = (await this.apiService.getAsync<Company>(`Companies?${queryOptions.join('&')}`, this.controllerNamespace)).toList();
+        returnValue = result.filter((company: Company) => {return !!company.Names.length})
+                          .map((company: Company) => {
+                            let value = {...company};
+                            value.Name = value.Names[0].Name;
+                            return {label: value.Name, value: value};
+                          })
+                          .sort((a, b) => a.label < b.label ? -1 : a.label > b.label ? 1 : 0);
+      } catch (error) {
+        this.reportError(error);
+      }
+      this.isLoading = false;
+      this.items = returnValue;
+      this.companyIdChanged(this.companyId);
+    });
   }
 
   openedChanged(e: CustomEvent) {
@@ -203,6 +180,7 @@ export class TitaniumCompanySelectorElement extends LitElement {
   vaadin-text-field {
     width: 100%;
     min-width: 0;
+    padding-bottom: 0;
   }
 
   [hidden] {
@@ -272,8 +250,7 @@ export class TitaniumCompanySelectorElement extends LitElement {
       slot="suffix"
       ?hidden="${!this.isLoading}">
       <div></div><div></div><div></div><div></div></loading-spinner>
-    <svg slot="suffix" class="clear-button" @click="${
-        this.clear}" viewBox="0 0 24 24">
+    <svg slot="suffix" class="clear-button" @click="${this.clear}" viewBox="0 0 24 24">
       <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
     </svg>
   </vaadin-text-field>
@@ -285,8 +262,7 @@ export class TitaniumCompanySelectorElement extends LitElement {
 
 const ComboboxStyles = document.createElement('template');
 
-ComboboxStyles.innerHTML =
-    `<dom-module id="company-combo-box" theme-for="vaadin-combo-box-item">
+ComboboxStyles.innerHTML = `<dom-module id="company-combo-box" theme-for="vaadin-combo-box-item">
   <template>
     <style>
     :host::before {
