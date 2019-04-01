@@ -19,10 +19,7 @@
     </script>
     <script type="module" src="node_modules/@leavittsoftware/titanium-elements/lib/titanium-person-selector.js">
     </script>
-    <script type="module" src="node_modules/@leavittsoftware/titanium-elements/lib/titanium-company-selector.js">
-    </script>
     <script type="module" src="node_modules/@leavittsoftware/titanium-elements/lib/titanium-header.js"></script>
-    <script type="module" src="node_modules/@leavittsoftware/user-manager/lib/user-manager.js"></script>
 
     <script type="module" src="./titanium-dev-detection-mixin-demo.js"></script>
     <script type="module" src="./titanium-table-header-demo.js"></script>
@@ -39,58 +36,9 @@
 </head>
 
 <body>
+    <a href="demos/titanium-company-selector-demo.html">Titanium Offline Notice Demo</a>
 
-    <user-manager></user-manager>
-    <div>
-        <demo-snippet>
-            <template>
-                <!--
-                    Properties
-                      controllerNamespace: string - API namespace to use.
-                      label: string - It's a label. Use it.
-                      placeholder: string - Placeholder text. Only shows if no label is set. Use label.
-                      opened: boolean - Can be bound out to notify parent when combo-box is open.
-                      selectedCompany: { label: string, value: { Id: number, Name: string }} - Currently selected company. Set to empty string to clear.
-                      companyId: number - Id of the currently selected company.
-                      disableAutoload: boolean - If active Company Selector waits to load company list until input is focussed.
 
-                      expand: string - Additional OData expands to include with returned data.
-                      filter: string = 'not IsExpired' - OData filter for Company objects.
-                      nameFilter: string - Additional filters to apply to Company.Names.
-                      select: string - Comma separated list of additional columns to return with data.
-
-                    Methods
-                      clear() - clear selection and searchTerm
-
-                    Events
-                      titanium-company-selector-error
-                      selectedcompany-changed
-                      companyid-changed
-
-                    Notes
-                      Gets full list of companies once, up-front.
-                -->
-                <h3>Titanium Company Selector Demo</h3>
-
-                <p>With Autoload</p>
-                <titanium-company-selector controllernamespace="Home" label="Leavitt Group Companies">
-                </titanium-company-selector>
-
-                <p>Without Autoload</p>
-                <titanium-company-selector controllernamespace="Home" label="Leavitt Group Companies" disableautoload>
-                </titanium-company-selector>
-
-                <p>Only Companies with Name Starting with 'A' - The Slightly Faster Way</p>
-                <titanium-company-selector controllernamespace="Home" label="Leavitt Group Companies"
-                    filter="not IsExpired and Names/any(n:not n/IsExpired and n/CompanyNameType eq 'Main' and startswith(n/Name, 'A'))"
-                    disableautoload></titanium-company-selector>
-
-                <p>Da Ez Wae</p>
-                <titanium-company-selector controllernamespace="Home" label="Leavitt Group Companies"
-                    namefilter="startswith(Name,'A')" disableautoload></titanium-company-selector>
-            </template>
-        </demo-snippet>
-    </div>
     <div>
         <demo-snippet>
             <template>
