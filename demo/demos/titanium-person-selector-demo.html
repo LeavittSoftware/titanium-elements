@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=9;IE=10;IE=Edge,chrome=1" />
+    <title>Titanium Person Selector Demo</title>
+
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+
+    <script type="module" src="../node_modules/@polymer/iron-demo-helpers/demo-snippet.js" crossorigin></script>
+    <script type="module" src="../node_modules/@leavittsoftware/titanium-elements/lib/titanium-person-selector.js">
+    </script>
+    <script type="module" src="../node_modules/@leavittsoftware/user-manager/lib/user-manager.js"></script>
+    </script>
+
+    <style>
+        body {
+            font-family: 'Roboto', 'Noto', sans-serif;
+            line-height: 1.5;
+            background-color: #FFF;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="/">BACK TO ALL DEMOS</a>
+    <br />
+    <br />
+    <user-manager></user-manager>
+    <demo-snippet>
+        <template>
+            <!--
+                    Properties
+                      controller-namespace: string - API namespace to use.
+                      label: string - It's a label. Use it.
+                      placeholder: string - Placeholder text. Only shows if no label is set. Use label.
+                      is-loading: boolean - Show spinner.
+                      opened: boolean - Can be bound out to notify parent when combo-box is open.
+                      selectedPerson: { label: string, value: { Id: number, FirstName: string, LastName: string }} - Currently selected person. Set to empty string to clear.
+                      personId: number - Id of the currently selected person.
+                      disable-autoload: boolean - If active, Person Selector will not display top 10 results on focus.
+
+                      expand - OData expands to include with returned data.
+                      filter - OData filter criteria.
+                      select - Additional columns to select. Comma-separated.
+
+                    Methods
+                      clear() - clear selection and searchTerm
+
+                    Events
+                      titanium-person-selector-error
+
+                    Notes
+                      Queries API on search term update
+                -->
+            <h3>Titanium Person Selector Demo</h3>
+
+            <p>With Autoload</p>
+            <titanium-person-selector controller-namespace="Home" label="Leavitt Group Producer">
+            </titanium-person-selector>
+
+            <p>Without Autoload</p>
+            <titanium-person-selector controller-namespace="Home" label="Leavitt Group Producer" disable-autoload>
+            </titanium-person-selector>
+
+            <p>FirstName Begins With 'J'</p>
+            <titanium-person-selector controller-namespace="Home" label="Leavitt Group Producer"
+                filter="startswith(FirstName, 'J')"></titanium-person-selector>
+
+            <p>Include DateOfBirth and Biography(I'm lazy. Inspect to See Data)</p>
+            <titanium-person-selector controller-namespace="Home" label="Leavitt Group Producer"
+                select="DateOfBirth,Biography"></titanium-person-selector>
+        </template>
+    </demo-snippet>
+
+</body>
+
+</html>
