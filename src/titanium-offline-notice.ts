@@ -1,25 +1,30 @@
-import {customElement, property} from '@polymer/decorators';
-import {html, PolymerElement} from '@polymer/polymer';
+import {css, customElement, html, LitElement, property} from 'lit-element';
 
 @customElement('titanium-offline-notice')
-export class TitaniumOfflineNoticeElement extends PolymerElement {
-  @property({type: Boolean, notify: true, reflectToAttribute: true})
-  isOnline: boolean = true;
+export class TitaniumOfflineNoticeElement extends LitElement {
+  @property({type: Boolean, reflect: true}) isOnline: boolean = true;
 
-  ready() {
-    super.ready();
+  connectedCallback() {
+    super.connectedCallback();
     window.addEventListener('online', this.onlineStatusChanged.bind(this));
     window.addEventListener('offline', this.onlineStatusChanged.bind(this));
   }
 
-  onlineStatusChanged() {
-    this.isOnline = navigator.onLine;
+  disconnectedCallback() {
+    window.removeEventListener('online', this.onlineStatusChanged.bind(this));
+    window.removeEventListener('offline', this.onlineStatusChanged.bind(this));
+    super.disconnectedCallback();
   }
 
-  static get template() {
-    return html`<style>
-    :host {
-        @apply --layout-vertical;
+  onlineStatusChanged() {
+    this.isOnline = navigator.onLine;
+    this.dispatchEvent(new CustomEvent('is-online-changed', {composed: true, detail: this.isOnline}));
+  }
+
+  static styles = css`
+    :host {        
+        display: flex;
+        flex-direction: column;
         position: fixed;
         top: var(--titanium-offline-notice-top-offset, 48px);
         left: 0;
@@ -29,16 +34,12 @@ export class TitaniumOfflineNoticeElement extends PolymerElement {
         padding: 0 8px;
     }
 
-    :host([is-online]) {
+    :host([isonline]) {
         display: none;
     }
 
     notice-container {
-        display: -ms-flexbox;
-        display: -webkit-flex;
         display: flex;
-        -ms-flex-direction: row;
-        -webkit-flex-direction: row;
         flex-direction: row;
         font-size: 14px;
         line-height: 18px;
@@ -47,11 +48,7 @@ export class TitaniumOfflineNoticeElement extends PolymerElement {
     }
 
     notice-text {
-        display: -ms-flexbox;
-        display: -webkit-flex;
         display: flex;
-        -ms-flex-direction: column;
-        -webkit-flex-direction: column;
         flex-direction: column;
         margin: 8px 8px 8px 4px;
         overflow: hidden;
@@ -72,14 +69,8 @@ export class TitaniumOfflineNoticeElement extends PolymerElement {
     }
 
     limit-width {
-        display: -ms-flexbox;
-        display: -webkit-flex;
         display: flex;
-        -ms-flex-direction: column;
-        -webkit-flex-direction: column;
         flex-direction: column;
-        -ms-align-self: center;
-        -webkit-align-self: center;
         align-self: center;
         max-width: var(--titanium-offline-notice-max-content-width, inherit);
         width: 100%;
@@ -88,8 +79,10 @@ export class TitaniumOfflineNoticeElement extends PolymerElement {
 
     [hidden] {
         display: none;
-    }
-</style>
+    }`;
+
+  render() {
+    return html`
 <limit-width>
     <notice-container>
         <svg>
