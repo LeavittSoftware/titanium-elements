@@ -39,16 +39,13 @@ export class TitaniumCompanySelectorElement extends LitElement {
   @property({type: String}) placeholder: string|null = 'Search...';
   @property({type: Number}) companyId: number|null;
 
-  @property({type: Boolean}) disableAutoload: boolean = false;
-
   @property({type: String}) filter: string = 'not IsExpired';
   @property({type: String}) nameFilter: string = '';
   @property({type: String}) expand: string = '';
   @property({type: String}) select: string = '';
 
-  @property({type: String}) searchTerm: string;
   @property({type: Array}) items: Array<companyComboBoxItem>;
-  @property({type: Object}) selectedCompany: companyComboBoxItem|string = '';
+  @property({type: Object}) selectedCompany: companyComboBoxItem|null;
 
   @query('api-service') apiService: ApiServiceElement;
 
@@ -63,15 +60,8 @@ export class TitaniumCompanySelectorElement extends LitElement {
   }
 
   companyIdChanged(companyId: number|null) {
-    if (!companyId || (this.selectedCompany && (this.selectedCompany as companyComboBoxItem).value.Id === companyId)) {
+    if (!this.items)
       return;
-    }
-
-    if (!this.isLoading && !this.items && this.disableAutoload) {
-      this._getCompanies();
-    } else if (this.isLoading) {
-      return;
-    }
 
     // restore selected company from company id
     const companyItems = this.items.filter(v => companyId === v.value.Id);
@@ -83,24 +73,33 @@ export class TitaniumCompanySelectorElement extends LitElement {
     }
   }
 
-  selectedCompanyChanged(e: CustomEvent) {
-    const selectedCompany = e.detail.value;
-    if (selectedCompany && selectedCompany.value.Id === this.companyId)
+  setSelectedCompany(selectedCompany: companyComboBoxItem|null) {
+    if (!selectedCompany) {
+      this.selectedCompany = null;
+      this.dispatchEvent(new CustomEvent('selected-company-changed', {composed: true, detail: {value: this.selectedCompany}}));
+
+      this.companyId = null;
+      this.dispatchEvent(new CustomEvent('company-id-changed', {composed: true, detail: {value: this.companyId}}));
+
       return;
-    this.setCompanyId(!selectedCompany || !selectedCompany.value.Id ? null : selectedCompany.value.Id);
+    }
+
+    if (selectedCompany && selectedCompany === this.selectedCompany)
+      return;
+
+    this.selectedCompany = selectedCompany;
+    this.dispatchEvent(new CustomEvent('selected-company-changed', {composed: true, detail: {value: this.selectedCompany}}));
+
+    this.companyId = selectedCompany.value.Id || null;
+    this.dispatchEvent(new CustomEvent('company-id-changed', {composed: true, detail: {value: this.companyId}}));
+  }
+
+  selectedCompanyChanged(e: CustomEvent) {
+    this.setSelectedCompany(e.detail.value);
   }
 
   private reportError(error: string) {
     this.dispatchEvent(new CustomEvent('titanium-company-selector-error', {bubbles: true, composed: true, detail: {message: error}}));
-  }
-
-  private setCompanyId(id: number|null) {
-    this.dispatchEvent(new CustomEvent('company-id-changed', {composed: true, detail: {value: id}}));
-    this.companyId = id;
-  }
-  private setSelectedCompany(company: companyComboBoxItem|'') {
-    this.dispatchEvent(new CustomEvent('selected-company-changed', {composed: true, detail: {value: company}}));
-    this.selectedCompany = company;
   }
 
   private _getCompaniesDebouncer;
@@ -115,7 +114,7 @@ export class TitaniumCompanySelectorElement extends LitElement {
         let selectItems = ['Id'];
         if (this.select)
           selectItems.push(this.select);
-        queryOptions.push(`$select=${selectItems.join(',')}`)
+        queryOptions.push(`$select=${selectItems.join(',')}`);
 
         let nameFilters = [`not IsExpired and CompanyNameType eq 'Main'`];
         if (this.nameFilter)
@@ -130,7 +129,10 @@ export class TitaniumCompanySelectorElement extends LitElement {
           queryOptions.push(`$filter=${this.filter}`);
 
         const result: Array<Company> = (await this.apiService.getAsync<Company>(`Companies?${queryOptions.join('&')}`, this.controllerNamespace)).toList();
-        returnValue = result.filter((company: Company) => {return !!company.Names.length})
+        returnValue = result
+                          .filter((company: Company) => {
+                            return !!company.Names.length;
+                          })
                           .map((company: Company) => {
                             let value = {...company};
                             value.Name = value.Names[0].Name;
@@ -154,14 +156,11 @@ export class TitaniumCompanySelectorElement extends LitElement {
   }
 
   firstUpdated() {
-    if (!this.disableAutoload) {
-      this._getCompanies();
-    }
+    this._getCompanies();
   }
 
   public clear() {
-    this.setSelectedCompany('');
-    this.searchTerm = '';
+    this.setSelectedCompany(null);
   }
 
   render() {
