@@ -1,6 +1,7 @@
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import '@vaadin/vaadin-combo-box/theme/material/vaadin-combo-box-light';
-import '@vaadin/vaadin-text-field/theme/material/vaadin-text-field';
+import './vaadin-text-field-material-outlined';
+import '@vaadin/vaadin-text-field/src/vaadin-text-field';
 import '@leavittsoftware/api-service/lib/api-service-element';
 
 import {ApiServiceElement} from '@leavittsoftware/api-service/lib/api-service-element';
@@ -42,8 +43,7 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
 
   @property() searchTerm: string;
   @property() items: Array<personComboBoxItem>;
-  @property({type: Object, notify: true})
-  selectedPerson: personComboBoxItem|null;
+  @property({type: Object, notify: true}) selectedPerson: personComboBoxItem|null;
 
   @query('api-service') apiService: ApiServiceElement;
 
@@ -51,8 +51,7 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
 
   @observe('personId')
   async personIdChanged(personId: number|undefined) {
-    if (!personId ||
-        (this.selectedPerson && this.selectedPerson.value.Id === personId)) {
+    if (!personId || (this.selectedPerson && this.selectedPerson.value.Id === personId)) {
       return;
     }
 
@@ -70,17 +69,11 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
 
     // restore selected person from person id
     try {
-      const person =
-          (await this.apiService.getAsync<Partial<Person>&ODataDto>(
-               `People/?${queryOptions.join('&')}`, this.controllerNamespace))
-              .firstOrDefault();
+      const person = (await this.apiService.getAsync<Partial<Person>&ODataDto>(`People/?${queryOptions.join('&')}`, this.controllerNamespace)).firstOrDefault();
       this.isLoading = false;
       if (person) {
         // populate the combobox
-        const personItem = {
-          label: `${person.FirstName} ${person.LastName}`,
-          value: person
-        };
+        const personItem = {label: `${person.FirstName} ${person.LastName}`, value: person};
         this.items = [personItem];
         this.selectedPerson = personItem;
       }
@@ -99,15 +92,11 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
       return;
     }
 
-    this.personId = !selectedPerson || !selectedPerson.value.Id ?
-        null :
-        selectedPerson.value.Id;
+    this.personId = !selectedPerson || !selectedPerson.value.Id ? null : selectedPerson.value.Id;
   }
 
   private reportError(error: string) {
-    this.dispatchEvent(new CustomEvent(
-        'titanium-person-selector-error',
-        {bubbles: true, composed: true, detail: {message: error}}));
+    this.dispatchEvent(new CustomEvent('titanium-person-selector-error', {bubbles: true, composed: true, detail: {message: error}}));
   }
 
   @observe('searchTerm', 'opened')
@@ -119,23 +108,18 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
 
     // Important: Check status of opened in debounce call back.  When search
     // terms are cleared, searchterm is changed to empty before opened is false.
-    this._debounceJob =
-        Debouncer.debounce(this._debounceJob, timeOut.after(300), async () => {
-          if (!opened) {
-            return;
-          }
-          this.items = await this._getProducers(searchTerm);
-        });
+    this._debounceJob = Debouncer.debounce(this._debounceJob, timeOut.after(300), async () => {
+      if (!opened) {
+        return;
+      }
+      this.items = await this._getProducers(searchTerm);
+    });
   }
 
   private async _getProducers(searchTerm: string) {
     const queryOptions: Array<string> = [];
 
-    const searchFilters =
-        getSearchTokens(searchTerm)
-            .map(
-                (token: string) => `(startswith(FirstName, '${
-                    token}') or startswith(LastName, '${token}'))`);
+    const searchFilters = getSearchTokens(searchTerm).map((token: string) => `(startswith(FirstName, '${token}') or startswith(LastName, '${token}'))`);
     if (this.filter)
       searchFilters.push(this.filter);
 
@@ -161,10 +145,7 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
     let returnValue = new Array<personComboBoxItem>();
 
     try {
-      const results =
-          (await this.apiService.getAsync<Partial<Person>&ODataDto>(
-               `People?${queryOptions.join('&')}`, this.controllerNamespace))
-              .toList();
+      const results = (await this.apiService.getAsync<Partial<Person>&ODataDto>(`People?${queryOptions.join('&')}`, this.controllerNamespace)).toList();
       this.isLoading = false;
       returnValue = results.map(o => {
         return {label: `${o.FirstName} ${o.LastName}`, value: o};
@@ -198,6 +179,7 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
   vaadin-text-field {
     width: 100%;
     min-width: 0;
+    padding-bottom: 0;
   }
 
   [hidden] {
@@ -270,8 +252,7 @@ export class TitaniumPersonSelectorElement extends PolymerElement {
 
 const ComboboxStyles = document.createElement('template');
 
-ComboboxStyles.innerHTML =
-    `<dom-module id="people-combo-box" theme-for="vaadin-combo-box-item">
+ComboboxStyles.innerHTML = `<dom-module id="people-combo-box" theme-for="vaadin-combo-box-item">
   <template>
     <style>
     :host::before {
