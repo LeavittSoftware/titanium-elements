@@ -59,24 +59,23 @@
                 -->
             <h3>Titanium Company Selector Demo</h3>
 
-            <p>With Autoload</p>
-            <titanium-company-selector controllernamespace="Home" label="Leavitt Group Companies">
-            </titanium-company-selector>
+            <dom-bind>
+                <template>
+                    <p>With Autoload</p>
+                    <p>Company Id: [[companyId]]</p>
+                    <p>Selected Company label: [[selectedCompany.label]]</p>
+                    <p>Selected Company Object: [[selectedCompany.value]]</p>
+                    <titanium-company-selector selected-company="{{selectedCompany}}" company-id="{{companyId}}"
+                        controllernamespace="Home" label="Leavitt Group Companies">
+                    </titanium-company-selector>
+                </template>
+            </dom-bind>
 
-            <p>Without Autoload</p>
-            <titanium-company-selector controllernamespace="Home" label="Leavitt Group Companies" disableautoload>
-            </titanium-company-selector>
-
-            <p>Only Companies with Name Starting with 'A' - The Slightly Faster Way</p>
-            <titanium-company-selector controllernamespace="Home" label="Leavitt Group Companies"
-                filter="not IsExpired and Names/any(n:not n/IsExpired and n/CompanyNameType eq 'Main' and startswith(n/Name, 'A'))"
-                disableautoload></titanium-company-selector>
-
-            <p>Da Ez Wae</p>
+            <p>Filter startswith(Name,'A')</p>
             <titanium-company-selector controllernamespace="Home" label="Leavitt Group Companies"
                 namefilter="startswith(Name,'A')" disableautoload></titanium-company-selector>
 
-            <p>Pre-fill</p>
+            <p>CompanyId provided declaratively</p>
             <titanium-company-selector controllernamespace="Home" label="Leavitt Group Companies" companyId="30379">
             </titanium-company-selector>
         </template>
