@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=9;IE=10;IE=Edge,chrome=1" />
+    <title>Titanium Company Selector Demo</title>
+
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+
+    <script type="module" src="../node_modules/@polymer/iron-demo-helpers/demo-snippet.js" crossorigin></script>
+    <script type="module" src="../node_modules/@leavittsoftware/titanium-elements/lib/titanium-company-selector.js">
+    </script>
+    <script type="module" src="../node_modules/@leavittsoftware/user-manager/lib/user-manager.js"></script>
+    </script>
+
+    <style>
+        body {
+            font-family: 'Roboto', 'Noto', sans-serif;
+            line-height: 1.5;
+            background-color: #FFF;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="/">BACK TO ALL DEMOS</a>
+    <br />
+    <br />
+    <user-manager></user-manager>
+    <demo-snippet>
+        <template>
+            <!--
+                    Properties
+                      controllerNamespace: string - API namespace to use.
+                      label: string - It's a label. Use it.
+                      placeholder: string - Placeholder text. Only shows if no label is set. Use label.
+                      opened: boolean - Can be bound out to notify parent when combo-box is open.
+                      selectedCompany: { label: string, value: { Id: number, Name: string }} - Currently selected company. Set to empty string to clear.
+                      companyId: number - Id of the currently selected company.
+                      disableAutoload: boolean - If active Company Selector waits to load company list until input is focussed.
+
+                      expand: string - Additional OData expands to include with returned data.
+                      filter: string = 'not IsExpired' - OData filter for Company objects.
+                      nameFilter: string - Additional filters to apply to Company.Names.
+                      select: string - Comma separated list of additional columns to return with data.
+
+                    Methods
+                      clear() - clear selection and searchTerm
+
+                    Events
+                      titanium-company-selector-error
+                      selectedcompany-changed
+                      companyid-changed
+
+                    Notes
+                      Gets full list of companies once, up-front.
+                -->
+            <h3>Titanium Company Selector Demo</h3>
+
+            <p>With Autoload</p>
+            <titanium-company-selector controllernamespace="Home" label="Leavitt Group Companies">
+            </titanium-company-selector>
+
+            <p>Without Autoload</p>
+            <titanium-company-selector controllernamespace="Home" label="Leavitt Group Companies" disableautoload>
+            </titanium-company-selector>
+
+            <p>Only Companies with Name Starting with 'A' - The Slightly Faster Way</p>
+            <titanium-company-selector controllernamespace="Home" label="Leavitt Group Companies"
+                filter="not IsExpired and Names/any(n:not n/IsExpired and n/CompanyNameType eq 'Main' and startswith(n/Name, 'A'))"
+                disableautoload></titanium-company-selector>
+
+            <p>Da Ez Wae</p>
+            <titanium-company-selector controllernamespace="Home" label="Leavitt Group Companies"
+                namefilter="startswith(Name,'A')" disableautoload></titanium-company-selector>
+
+            <p>Pre-fill</p>
+            <titanium-company-selector controllernamespace="Home" label="Leavitt Group Companies" companyId="30379">
+            </titanium-company-selector>
+        </template>
+    </demo-snippet>
+
+</body>
+
+</html>
