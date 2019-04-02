@@ -16,7 +16,6 @@ export class TitaniumSnackbar extends LitElement {
   private _animationFrame: number;
   private resolve;
 
-
   updated(changedProps) {
     if (changedProps.has('actionText') && changedProps.get('actionText') !== this.actionText) {
       this.thirdline = !!this.actionText && this.actionText.length > 8;
