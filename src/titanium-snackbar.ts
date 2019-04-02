@@ -6,23 +6,35 @@ import {css, customElement, html, LitElement, property} from 'lit-element';
 @customElement('titanium-snackbar')
 export class TitaniumSnackbar extends LitElement {
   @property({type: String}) message: string;
+  @property({type: String}) actionText: string = 'DISMISS';
   @property({type: Boolean, reflect: true}) open: boolean;
+  @property({type: Boolean, reflect: true}) thirdline: boolean;
   @property({type: Boolean, reflect: true}) opening: boolean;
   @property({type: Boolean, reflect: true}) closing: boolean;
 
   private _animationTimer: NodeJS.Timer;
   private _animationFrame: number;
+  private resolve;
+
+  updated(changedProps) {
+    if (changedProps.has('actionText') && changedProps.get('actionText') !== this.actionText) {
+      this.thirdline = !!this.actionText && this.actionText.length > 8;
+    }
+  }
 
   do_open() {
-    this.closing = false;
-    this.opening = false;
+    return new Promise((resolve) => {
+      this.resolve = resolve;
+      this.closing = false;
+      this.opening = false;
 
-    this._animationFrame = animationFrame.run(() => {
-      this.open = true;
-      this._animationTimer = setTimeout(() => {
-        this.handleAnimationTimerEnd_();
-      }, 150);
-    });
+      this._animationFrame = animationFrame.run(() => {
+        this.open = true;
+        this._animationTimer = setTimeout(() => {
+          this.handleAnimationTimerEnd_();
+        }, 150);
+      });
+    })
   }
 
   do_close() {
@@ -40,6 +52,8 @@ export class TitaniumSnackbar extends LitElement {
     this._animationTimer = setTimeout(() => {
       this.handleAnimationTimerEnd_();
     }, 75);
+
+    this.resolve();
   }
 
   private handleAnimationTimerEnd_() {
@@ -49,6 +63,7 @@ export class TitaniumSnackbar extends LitElement {
 
   static styles = css`:host {
     display: flex;
+    flex-direction: row;
     font-family: Roboto, Noto, sans-serif;
     -webkit-font-smoothing: antialiased;
     position: fixed;
@@ -57,10 +72,12 @@ export class TitaniumSnackbar extends LitElement {
     max-width: 600px;
     margin: 16px;
     padding: 8px;
-    border-radius: 8px;
-    background: #323232;
-    color: #f1f1f1;
+    border-radius: 4px;
+    background: var(--titanium-snackbar-background-color, #323232); 
+    color: var(--titanium-snackbar-text-color, #f1f1f1); 
     font-size: 14px;
+    -webkit-box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+    box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
 
     pointer-events: none;
     -webkit-box-sizing: border-box;
@@ -69,6 +86,10 @@ export class TitaniumSnackbar extends LitElement {
     -ms-transform: scale(0.8);
     transform: scale(0.8);
     opacity: 0;
+  }
+
+  :host([thirdline]) {
+    flex-direction: column;
   }
 
   :host([opening]),
@@ -110,9 +131,10 @@ export class TitaniumSnackbar extends LitElement {
     cursor: pointer;
     align-self: flex-end;
     text-decoration: none;
-    color: var(--app-secondary-color, #3B95FF);
-    font-weight: 500;
+    color: var(--titanium-snackbar-action-color, #3b95ff); 
+    font-weight: 600;
     padding: 16px;
+    user-select: none;
   }`;
 
   render() {
@@ -120,6 +142,6 @@ export class TitaniumSnackbar extends LitElement {
     <a @click=${(e: Event) => {
       e.preventDefault();
       this.do_close();
-    }}> CLOSE<mwc-ripple></mwc-ripple></a>`;
+    }}> ${this.actionText}<mwc-ripple></mwc-ripple></a>`;
   }
 }
