@@ -4,7 +4,6 @@ import {customElement, html, LitElement, property, query} from 'lit-element';
 
 import {TitaniumSnackbar} from './titanium-snackbar';
 
-
 @customElement('titanium-sw-notifier')
 export class TitanuimServiceWorkerNotifierElement extends LitElement {
   @property({type: String}) notificationsStatus: string;
