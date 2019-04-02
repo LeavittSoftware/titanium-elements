@@ -31,6 +31,7 @@ export class TitanuimServiceWorkerNotifierElement extends LitElement {
       if ('PushManager' in window && 'Notification' in window) {
         registration.pushManager.getSubscription().then((subscription) => {
           this.notificationsStatus = subscription ? 'subscribed' : 'unsubscribed';
+          this.dispatchEvent(new CustomEvent('notifications-status-changed', {detail: this.notificationsStatus}));
         });
       }
 
