@@ -3,11 +3,13 @@ import '@material/mwc-ripple';
 import {animationFrame} from '@polymer/polymer/lib/utils/async';
 import {css, customElement, html, LitElement, property} from 'lit-element';
 
+export let TitaniumSnackbarSingleton: TitaniumSnackbar|undefined;
+
 @customElement('titanium-snackbar')
 export class TitaniumSnackbar extends LitElement {
   @property({type: String}) message: string;
   @property({type: String}) actionText: string = 'DISMISS';
-  @property({type: Boolean, reflect: true}) open: boolean;
+  @property({type: Boolean, reflect: true}) opened: boolean;
   @property({type: Boolean, reflect: true}) thirdline: boolean;
   @property({type: Boolean, reflect: true}) opening: boolean;
   @property({type: Boolean, reflect: true}) closing: boolean;
@@ -16,20 +18,35 @@ export class TitaniumSnackbar extends LitElement {
   private _animationFrame: number;
   private resolve;
 
+  constructor() {
+    super();
+    if (!TitaniumSnackbarSingleton) {
+      TitaniumSnackbarSingleton = this;
+    }
+  }
+
   updated(changedProps) {
     if (changedProps.has('actionText') && changedProps.get('actionText') !== this.actionText) {
       this.thirdline = !!this.actionText && this.actionText.length > 8;
     }
   }
 
-  do_open() {
+  open(message?: string, actionText?: string) {
     return new Promise((resolve) => {
+      if (message) {
+        this.message = message;
+      }
+
+      if (actionText) {
+        this.actionText = actionText;
+      }
+
       this.resolve = resolve;
       this.closing = false;
       this.opening = false;
 
       this._animationFrame = animationFrame.run(() => {
-        this.open = true;
+        this.opened = true;
         this._animationTimer = setTimeout(() => {
           this.handleAnimationTimerEnd_();
         }, 150);
@@ -37,8 +54,8 @@ export class TitaniumSnackbar extends LitElement {
     })
   }
 
-  do_close() {
-    if (!this.open) {
+  close() {
+    if (!this.opened) {
       return;
     }
 
@@ -46,7 +63,7 @@ export class TitaniumSnackbar extends LitElement {
     this._animationFrame = 0;
 
     this.closing = true;
-    this.open = false;
+    this.opened = false;
     this.opening = false;
     clearTimeout(this._animationTimer);
     this._animationTimer = setTimeout(() => {
@@ -93,7 +110,7 @@ export class TitaniumSnackbar extends LitElement {
   }
 
   :host([opening]),
-  :host([open]),
+  :host([opened]),
   :host([closing]) {
     display: flex;
   }
@@ -107,7 +124,7 @@ export class TitaniumSnackbar extends LitElement {
     transition: opacity 75ms 0ms cubic-bezier(0.4, 0, 1, 1);
   }
 
-  :host([open]) {
+  :host([opened]) {
     -webkit-transform: scale(1);
     -ms-transform: scale(1);
     transform: scale(1);
@@ -141,7 +158,7 @@ export class TitaniumSnackbar extends LitElement {
     return html`<span>${this.message}</span>
     <a @click=${(e: Event) => {
       e.preventDefault();
-      this.do_close();
+      this.close();
     }}> ${this.actionText}<mwc-ripple></mwc-ripple></a>`;
   }
 }

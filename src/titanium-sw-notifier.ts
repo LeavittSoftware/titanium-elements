@@ -51,7 +51,7 @@ export class TitanuimServiceWorkerNotifierElement extends LitElement {
   private async _showUpdatedSnackbar() {
     this.snackbar.message = 'Site has been updated';
     this.snackbar.actionText = 'RELOAD';
-    await this.snackbar.do_open();
+    await this.snackbar.open();
     window.location.reload();
   }
 
@@ -59,10 +59,10 @@ export class TitanuimServiceWorkerNotifierElement extends LitElement {
     this.snackbar.message = 'Site cached for offline use';
     this.snackbar.actionText = 'DISMISS';
     const closeTimeout = setTimeout(() => {
-      this.snackbar.do_close();
+      this.snackbar.close();
     }, 5000);
 
-    await this.snackbar.do_open();
+    await this.snackbar.open();
     clearTimeout(closeTimeout);
   }
 

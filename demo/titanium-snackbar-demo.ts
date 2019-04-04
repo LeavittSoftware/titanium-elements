@@ -25,22 +25,22 @@ export class TitaniumSnackbarDemo extends LitElement {
 
   render() {
     return html`
-        <a href="#snackbar" @click=${() => this.basic.do_open()}> Open Basic Snack</a>
+        <a href="#snackbar" @click=${() => this.basic.open()}> Open Basic Snack</a>
         <titanium-snackbar basic message="Hello World"></titanium-snackbar>
 
 <br />
 <br />
         <a href="#action" @click=${async () => {
-      await this.action.do_open();
+      await this.action.open();
       alert('Retrying network call.');
     }}> Open Action Snack</a>
         <titanium-snackbar actionText="RETRY" action message="Query failed"></titanium-snackbar>
         <br />
 <br />
         <a href="#long" @click=${() => {
-      this.long.do_open()
+      this.long.open('This item already has the label travel. You can add a new label.', 'LONGER ACTION TEXT')
     }}> Open Long Action Snack</a>
-        <titanium-snackbar actionText="LONGER ACTION TEXT" long message="This item already has the label travel. You can add a new label."></titanium-snackbar>
+        <titanium-snackbar long></titanium-snackbar>
     
      `;
   }
