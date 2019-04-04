@@ -1,14 +1,9 @@
-import './titanium-snackbar';
-
-import {customElement, html, LitElement, property, query} from 'lit-element';
-
-import {TitaniumSnackbar} from './titanium-snackbar';
+import {customElement, html, LitElement, property} from 'lit-element';
+import {TitaniumSnackbarSingleton as AppSnackbar} from './titanium-snackbar';
 
 @customElement('titanium-sw-notifier')
 export class TitanuimServiceWorkerNotifierElement extends LitElement {
   @property({type: String}) notificationsStatus: string;
-
-  @query('titanium-snackbar') snackbar: TitaniumSnackbar;
 
   async firstUpdated() {
     if ('serviceWorker' in navigator) {
@@ -49,24 +44,20 @@ export class TitanuimServiceWorkerNotifierElement extends LitElement {
   }
 
   private async _showUpdatedSnackbar() {
-    this.snackbar.message = 'Site has been updated';
-    this.snackbar.actionText = 'RELOAD';
-    await this.snackbar.do_open();
+    await AppSnackbar.open('Site has been updated', 'RELOAD');
     window.location.reload();
   }
 
   private async _showInstalledSnackbar() {
-    this.snackbar.message = 'Site cached for offline use';
-    this.snackbar.actionText = 'DISMISS';
     const closeTimeout = setTimeout(() => {
-      this.snackbar.do_close();
+      AppSnackbar.close();
     }, 5000);
 
-    await this.snackbar.do_open();
+    await AppSnackbar.open('Site cached for offline use', 'DISMISS')
     clearTimeout(closeTimeout);
   }
 
   render() {
-    return html`<titanium-snackbar></titanium-snackbar>`;
+    return html``;
   }
 }
