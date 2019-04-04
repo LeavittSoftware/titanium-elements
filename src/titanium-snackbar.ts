@@ -31,6 +31,8 @@ export class TitaniumSnackbar extends LitElement {
     super();
     if (!TitaniumSnackbarSingleton || !TitaniumSnackbarSingleton.isComponent) {
       TitaniumSnackbarSingleton = this;
+    } else {
+      console.warn('More than one <titanium-snackbar> element has been used in this web application, consider removing one.')
     }
   }
 
