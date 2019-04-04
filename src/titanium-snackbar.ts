@@ -3,16 +3,24 @@ import '@material/mwc-ripple';
 import {animationFrame} from '@polymer/polymer/lib/utils/async';
 import {css, customElement, html, LitElement, property} from 'lit-element';
 
-
+export let TitaniumSnackbarSingleton = {
+  open(message: string) {
+    alert(message);
+    console.warn(`TitaniumSnackbar.open called before an instance was created. Did you forget to add the TitaniumSnackbar element to your project?`);
+  },
+  close() {
+    console.warn(`TitaniumSnackbar.close called before an instance was created. Did you forget to add the TitaniumSnackbar element to your project?`);
+  }
+} as TitaniumSnackbar;
 
 @customElement('titanium-snackbar')
 export class TitaniumSnackbar extends LitElement {
-  @property({type: String}) message: string;
-  @property({type: String}) actionText: string = 'DISMISS';
-  @property({type: Boolean, reflect: true}) opened: boolean;
-  @property({type: Boolean, reflect: true}) thirdline: boolean;
-  @property({type: Boolean, reflect: true}) opening: boolean;
-  @property({type: Boolean, reflect: true}) closing: boolean;
+  @property({type: String}) private message: string;
+  @property({type: String}) private actionText: string = 'DISMISS';
+  @property({type: Boolean, reflect: true}) protected opened: boolean;
+  @property({type: Boolean, reflect: true}) protected thirdline: boolean;
+  @property({type: Boolean, reflect: true}) protected opening: boolean;
+  @property({type: Boolean, reflect: true}) protected closing: boolean;
 
   private _animationTimer: NodeJS.Timer;
   private _animationFrame: number;
@@ -21,7 +29,7 @@ export class TitaniumSnackbar extends LitElement {
 
   constructor() {
     super();
-    if (!TitaniumSnackbarSingleton.isComponent) {
+    if (!TitaniumSnackbarSingleton || !TitaniumSnackbarSingleton.isComponent) {
       TitaniumSnackbarSingleton = this;
     }
   }
@@ -32,7 +40,7 @@ export class TitaniumSnackbar extends LitElement {
     }
   }
 
-  open(message?: string, actionText?: string) {
+  open(message: string, actionText?: string) {
     return new Promise((resolve) => {
       if (message) {
         this.message = message;
@@ -163,15 +171,3 @@ export class TitaniumSnackbar extends LitElement {
     }}> ${this.actionText}<mwc-ripple></mwc-ripple></a>`;
   }
 }
-
-export let TitaniumSnackbarSingleton: TitaniumSnackbar = {
-  set message(_v: string) {
-    console.warn(`TitaniumSnackbar.message setter called before an instance was created. Did you forget to add the TitaniumSnackbar element to your project?`);
-  },
-  open() {
-    console.warn(`TitaniumSnackbar.open called before an instance was created. Did you forget to add the TitaniumSnackbar element to your project?`);
-  },
-  close() {
-    console.warn(`TitaniumSnackbar.close called before an instance was created. Did you forget to add the TitaniumSnackbar element to your project?`);
-  }
-} as TitaniumSnackbar;
