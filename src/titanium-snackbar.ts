@@ -3,7 +3,7 @@ import '@material/mwc-ripple';
 import {animationFrame} from '@polymer/polymer/lib/utils/async';
 import {css, customElement, html, LitElement, property} from 'lit-element';
 
-export let TitaniumSnackbarSingleton: TitaniumSnackbar|undefined;
+
 
 @customElement('titanium-snackbar')
 export class TitaniumSnackbar extends LitElement {
@@ -17,10 +17,11 @@ export class TitaniumSnackbar extends LitElement {
   private _animationTimer: NodeJS.Timer;
   private _animationFrame: number;
   private resolve;
+  private isComponent = true;
 
   constructor() {
     super();
-    if (!TitaniumSnackbarSingleton) {
+    if (!TitaniumSnackbarSingleton.isComponent) {
       TitaniumSnackbarSingleton = this;
     }
   }
@@ -162,3 +163,15 @@ export class TitaniumSnackbar extends LitElement {
     }}> ${this.actionText}<mwc-ripple></mwc-ripple></a>`;
   }
 }
+
+export let TitaniumSnackbarSingleton: TitaniumSnackbar = {
+  set message(_v: string) {
+    console.warn(`TitaniumSnackbar.message setter called before an instance was created. Did you forget to add the TitaniumSnackbar element to your project?`);
+  },
+  open() {
+    console.warn(`TitaniumSnackbar.open called before an instance was created. Did you forget to add the TitaniumSnackbar element to your project?`);
+  },
+  close() {
+    console.warn(`TitaniumSnackbar.close called before an instance was created. Did you forget to add the TitaniumSnackbar element to your project?`);
+  }
+} as TitaniumSnackbar;
