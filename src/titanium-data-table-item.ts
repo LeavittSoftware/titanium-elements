@@ -3,11 +3,9 @@ import {css, customElement, html, LitElement, property} from 'lit-element';
 
 @customElement('titanium-data-table-item')
 export class TitaniumDataTableItem extends LitElement {
-  @property() item: boolean;
-  @property({reflect: true, type: Boolean, attribute: 'is-selected'})
-  isSelected: boolean;
-
-  @property() isClicking: boolean;
+  @property({type: Object}) item: Object;
+  @property({reflect: true, type: Boolean, attribute: 'is-selected'}) isSelected: boolean;
+  @property({type: Boolean}) isClicking: boolean;
 
   private clickTimeoutHandle: NodeJS.Timer;
 
@@ -19,15 +17,11 @@ export class TitaniumDataTableItem extends LitElement {
 
   firstUpdated() {
     // Set width of each slotted row with based on width
-    (this.shadowRoot as any)
-        .querySelector('slot')
-        .assignedNodes()
-        .filter(e => e.nodeType === Node.ELEMENT_NODE)
-        .forEach(e => {
-          if (e => e.getAttribute('width')) {
-            e.style.width = e.getAttribute('width');
-          }
-        });
+    (this.shadowRoot as any).querySelector('slot').assignedNodes().filter(e => e.nodeType === Node.ELEMENT_NODE).forEach(e => {
+      if (e => e.getAttribute('width')) {
+        e.style.width = e.getAttribute('width');
+      }
+    });
   }
 
   _handleClick() {
@@ -42,19 +36,12 @@ export class TitaniumDataTableItem extends LitElement {
 
   _handleDoubleClick() {
     clearTimeout(this.clickTimeoutHandle);
-    this.dispatchEvent(new CustomEvent(
-        'titanium-data-table-item-navigate',
-        {composed: true, detail: this.item, bubbles: true}));
+    this.dispatchEvent(new CustomEvent('titanium-data-table-item-navigate', {composed: true, detail: this.item, bubbles: true}));
   }
 
   toggleSelected() {
     this.isSelected = !this.isSelected;
-    this.dispatchEvent(
-        new CustomEvent('titanium-data-table-item-selected-changed', {
-          bubbles: true,
-          composed: true,
-          detail: {isSelected: this.isSelected, item: this.item}
-        }));
+    this.dispatchEvent(new CustomEvent('titanium-data-table-item-selected-changed', {bubbles: true, composed: true, detail: {isSelected: this.isSelected, item: this.item}}));
   }
 
   select() {
