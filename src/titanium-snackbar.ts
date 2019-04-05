@@ -6,9 +6,9 @@ import {css, customElement, html, LitElement, property} from 'lit-element';
 
 export class BasicSnackBar {
   _isComponent = false;
-  open(message: string) {
+  open(message: string, actionText?: string) {
     alert(message);
-    console.warn(`TitaniumSnackbar.open called before an instance was created. Did you forget to add the TitaniumSnackbar element to your project?`);
+    console.warn(`TitaniumSnackbar.open called before an instance was created. Did you forget to add the TitaniumSnackbar element to your project?`, actionText);
   }
 
   close() {
