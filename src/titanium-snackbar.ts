@@ -3,18 +3,23 @@ import '@material/mwc-ripple';
 import {animationFrame} from '@polymer/polymer/lib/utils/async';
 import {css, customElement, html, LitElement, property} from 'lit-element';
 
-export let TitaniumSnackbarSingleton = {
-  open(message: string) {
+
+export class BasicSnackBar {
+  _isComponent = false;
+  open(message: string, actionText?: string) {
     alert(message);
-    console.warn(`TitaniumSnackbar.open called before an instance was created. Did you forget to add the TitaniumSnackbar element to your project?`);
-  },
+    console.warn(`TitaniumSnackbar.open called before an instance was created. Did you forget to add the TitaniumSnackbar element to your project?`, actionText);
+  }
+
   close() {
     console.warn(`TitaniumSnackbar.close called before an instance was created. Did you forget to add the TitaniumSnackbar element to your project?`);
   }
-} as TitaniumSnackbar;
+}
+
+export let TitaniumSnackbarSingleton = new BasicSnackBar();
 
 @customElement('titanium-snackbar')
-export class TitaniumSnackbar extends LitElement {
+export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
   @property({type: String}) private message: string;
   @property({type: String}) private actionText: string = 'DISMISS';
   @property({type: Boolean, reflect: true}) protected opened: boolean;
@@ -24,12 +29,12 @@ export class TitaniumSnackbar extends LitElement {
 
   private _animationTimer: NodeJS.Timer;
   private _animationFrame: number;
-  private resolve;
-  private isComponent = true;
+  private _resolve: {(value?: {}|PromiseLike<{}>|undefined): void; (): void;};
+  _isComponent = true;
 
   constructor() {
     super();
-    if (!TitaniumSnackbarSingleton || !TitaniumSnackbarSingleton.isComponent) {
+    if (!TitaniumSnackbarSingleton || !TitaniumSnackbarSingleton._isComponent) {
       TitaniumSnackbarSingleton = this;
     } else {
       console.warn('More than one <titanium-snackbar> element has been used in this web application, consider removing one.')
@@ -52,7 +57,7 @@ export class TitaniumSnackbar extends LitElement {
         this.actionText = actionText;
       }
 
-      this.resolve = resolve;
+      this._resolve = resolve;
       this.closing = false;
       this.opening = false;
 
@@ -62,7 +67,7 @@ export class TitaniumSnackbar extends LitElement {
           this.handleAnimationTimerEnd_();
         }, 150);
       });
-    })
+    });
   }
 
   close() {
@@ -81,7 +86,7 @@ export class TitaniumSnackbar extends LitElement {
       this.handleAnimationTimerEnd_();
     }, 75);
 
-    this.resolve();
+    this._resolve();
   }
 
   private handleAnimationTimerEnd_() {

@@ -180,7 +180,7 @@ header-text {
   flex: 1 1 auto;
   letter-spacing: -0.264px;
   font-weight: 400;
-  font-size: 22px;
+  font-size: 21px;
   line-height: 26px;
   padding: 8px 8px 8px 0;
   color: #202124;
