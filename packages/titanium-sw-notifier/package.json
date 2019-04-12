@@ -2,7 +2,7 @@
     "name": "@leavittsoftware/titanium-sw-notifier",
     "description": "A mixin for dealing with search tokens",
     "author": "Leavitt Software",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "license": "MIT",
     "main": "lib/titanium-sw-notifier.js",
     "homepage": "https://github.com/LeavittSoftware/titanium-elements/tree/master/packages/titanium-sw-notifier#readme",
