@@ -1,0 +1,9 @@
+{
+  "packages": ["packages/*"],
+  "version": "independent",
+  "command": {
+    "publish": {
+      "ignoreChanges": [".prettierrc", "appveyor.yml", "gulpfile.js", ".gitignore", "CODEOWNERS", "README.md", "tslint.json"]
+    }
+  }
+}
