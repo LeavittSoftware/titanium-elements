@@ -1,9 +1,9 @@
-import {customElement, html, LitElement, property} from 'lit-element';
-import {TitaniumSnackbarSingleton as AppSnackbar} from './titanium-snackbar';
+import { customElement, html, LitElement, property } from 'lit-element';
+import { TitaniumSnackbarSingleton as AppSnackbar } from '@leavittsoftware/titanium-snackbar';
 
 @customElement('titanium-sw-notifier')
 export class TitanuimServiceWorkerNotifierElement extends LitElement {
-  @property({type: String}) notificationsStatus: string;
+  @property({ type: String }) notificationsStatus: string;
 
   async firstUpdated() {
     if ('serviceWorker' in navigator) {
@@ -13,8 +13,7 @@ export class TitanuimServiceWorkerNotifierElement extends LitElement {
 
       registration.addEventListener('updatefound', () => {
         const installingWorker = registration.installing;
-        if (!installingWorker)
-          return;
+        if (!installingWorker) return;
 
         installingWorker.addEventListener('statechange', async () => {
           if (installingWorker.state === 'installed' && !navigator.serviceWorker.controller) {
@@ -24,9 +23,9 @@ export class TitanuimServiceWorkerNotifierElement extends LitElement {
       });
 
       if ('PushManager' in window && 'Notification' in window) {
-        registration.pushManager.getSubscription().then((subscription) => {
+        registration.pushManager.getSubscription().then(subscription => {
           this.notificationsStatus = subscription ? 'subscribed' : 'unsubscribed';
-          this.dispatchEvent(new CustomEvent('notifications-status-changed', {detail: this.notificationsStatus}));
+          this.dispatchEvent(new CustomEvent('notifications-status-changed', { detail: this.notificationsStatus }));
         });
       }
 
@@ -53,7 +52,7 @@ export class TitanuimServiceWorkerNotifierElement extends LitElement {
       AppSnackbar.close();
     }, 5000);
 
-    await AppSnackbar.open('Site cached for offline use', 'DISMISS')
+    await AppSnackbar.open('Site cached for offline use', 'DISMISS');
     clearTimeout(closeTimeout);
   }
 
