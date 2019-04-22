@@ -8,11 +8,16 @@
     "src"
   ],
   "dependencies": {
-    "lerna": "^3.13.2"
+    "lerna": "^3.13.2",
+    "storybook": "^1.0.0",
+    "tsc-watch": "^2.1.2",
+    "typescript": "^3.4.4"
   },
   "devDependencies": {},
   "scripts": {
+    "start": "npm run bootstrap && npm run build:watch && cd packages/storybook && npm run storybook",
     "bootstrap": "lerna bootstrap --ci --hoist",
+    "build:watch": "tsc --build --watch tsconfig.base.json",
     "build": "lerna run build --stream",
     "lint": "lerna run lint --stream",
     "version": "lerna version",

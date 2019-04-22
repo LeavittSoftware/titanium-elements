@@ -65,7 +65,7 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
 
       this.runNextAnimationFrame_(() => {
         this.opened = true;
-        this._animationTimer = setTimeout(() => {
+        this._animationTimer = window.setTimeout(() => {
           this.handleAnimationTimerEnd_();
         }, 150);
       });
@@ -80,7 +80,7 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
     this._animationFrame = requestAnimationFrame(() => {
       this._animationFrame = 0;
       clearTimeout(this._animationFrame);
-      this._animationFrame = setTimeout(callback, 0);
+      this._animationFrame = window.setTimeout(callback, 0);
     });
   }
 
@@ -96,7 +96,7 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
     this.opened = false;
     this.opening = false;
     clearTimeout(this._animationTimer);
-    this._animationTimer = setTimeout(() => {
+    this._animationTimer = window.setTimeout(() => {
       this.handleAnimationTimerEnd_();
     }, 75);
 

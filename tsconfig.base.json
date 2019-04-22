@@ -15,5 +15,13 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strictNullChecks": true
-  }
+  },
+  "references": [
+    {
+      "path": "./packages/titanium-snackbar/tsconfig.json"
+    },
+    {
+      "path": "./packages/titanium-sw-notifier/tsconfig.json"
+    }
+  ]
 }

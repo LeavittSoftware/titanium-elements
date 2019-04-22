@@ -1,0 +1,25 @@
+{
+  "name": "@leavittsoftware/storybook",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run storybook",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@leavittsoftware/titanium-snackbar": "^1.0.2",
+    "@storybook/addon-knobs": "^5.0.10",
+    "@storybook/polymer": "^5.0.10",
+    "lit-html": "^1.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@storybook/polymer": "^5.0.10",
+    "babel-loader": "^8.0.5",
+    "polymer-webpack-loader": "^2.0.3"
+  }
+}

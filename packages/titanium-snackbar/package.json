@@ -17,6 +17,7 @@
     "typescript": "3.4.3"
   },
   "scripts": {
+    "build:watch": "tsc -w",
     "build": "tsc",
     "lint": "tslint \"/*.ts\""
   },
