@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/titanium-elements",
-  "version": "1.0.1",
+  "version": "0.0.2",
   "description": "A collection of titanium elements",
   "main": "titanium-elements.html",
   "files": [
@@ -10,16 +10,12 @@
   "dependencies": {
     "lerna": "^3.13.2"
   },
-  "devDependencies": {
-    "browser-sync": "^2.26.3",
-    "gulp": "^3.9.1",
-    "tslint": "5.15.0",
-    "typescript": "3.4.3"
-  },
+  "devDependencies": {},
   "scripts": {
-    "bootstrap": "lerna bootstrap --ci",
+    "bootstrap": "lerna bootstrap --ci --hoist",
     "build": "lerna run build --stream",
     "lint": "lerna run lint --stream",
+    "version": "lerna version",
     "publish": "lerna publish"
   },
   "repository": {

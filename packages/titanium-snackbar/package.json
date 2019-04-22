@@ -1,8 +1,9 @@
 {
   "name": "@leavittsoftware/titanium-snackbar",
   "version": "1.0.2",
-  "description": "A simple material snackbar",
+  "description": "",
   "main": "snackbar.html",
+  "typings": "lib/titanium-snackbar.d.ts",
   "files": [
     "lib",
     "src"
@@ -12,15 +13,11 @@
     "lit-element": "^2.0.1"
   },
   "devDependencies": {
-    "browser-sync": "^2.26.3",
-    "gulp": "^3.9.1",
     "tslint": "5.15.0",
     "typescript": "3.4.3"
   },
   "scripts": {
-    "start": "npm run build && cd demo && npm start",
     "build": "tsc",
-    "update-demo": "cd demo && npm run update:local-package",
     "lint": "tslint \"/*.ts\""
   },
   "repository": {
@@ -32,5 +29,6 @@
   "bugs": {
     "url": "https://github.com/LeavittSoftware/titanium-elements/issues"
   },
-  "homepage": "https://github.com/LeavittSoftware/titanium-elements/#readme"
+  "homepage": "https://github.com/LeavittSoftware/titanium-elements/#readme",
+  "gitHead": "23c19795c3000b259df714eb0e45247265880c1c"
 }

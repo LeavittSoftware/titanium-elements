@@ -153,6 +153,7 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
       -o-transition: opacity 75ms linear;
       transition: opacity 75ms linear;
     }
+
     :host([opening]) {
       -webkit-transition: opacity 75ms linear, -webkit-transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1);
       transition: opacity 75ms linear, -webkit-transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1);
