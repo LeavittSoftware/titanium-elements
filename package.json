@@ -15,12 +15,13 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "npm run bootstrap && npm run build:watch && cd packages/storybook && npm run storybook",
+    "start": "npm run bootstrap && npm run build && npm run storybook ",
     "bootstrap": "lerna bootstrap --ci --hoist",
-    "build:watch": "tsc --build --watch tsconfig.base.json",
+    "build:watch": "lerna run build:watch --stream --parallel",
     "build": "lerna run build --stream",
     "lint": "lerna run lint --stream",
     "version": "lerna version",
+    "storybook": "cd packages/storybook && npm run storybook",
     "publish": "lerna publish"
   },
   "repository": {

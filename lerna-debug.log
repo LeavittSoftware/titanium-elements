@@ -1,7 +1,10 @@
 0 silly argv { _: [ 'bootstrap' ],
+0 silly argv   ci: true,
+0 silly argv   hoist: true,
 0 silly argv   lernaVersion: '3.13.2',
-0 silly argv   '$0': 'C:\\Users\\Aaron\\AppData\\Roaming\\npm-cache\\_npx\\47408\\node_modules\\lerna\\cli.js' }
+0 silly argv   '$0': 'node_modules\\lerna\\cli.js' }
 1 notice cli v3.13.2
 2 verbose rootPath D:\lg\Elements\titanium-elements
 3 info versioning independent
-4 error
+4 info ci enabled
+5 error
