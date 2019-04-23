@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-snackbar@1.0.0...@leavittsoftware/titanium-snackbar@1.0.1) (2019-04-23)
+
+
+### Bug Fixes
+
+* Removes private from life-cycle method ([b373b4f](https://github.com/LeavittSoftware/titanium-elements/commit/b373b4f))
+
+
+
+
+
+
 # [1.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-snackbar@0.0.5...@leavittsoftware/titanium-snackbar@1.0.0) (2019-04-23)
 
 
