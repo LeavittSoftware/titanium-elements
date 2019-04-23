@@ -1,4 +1,5 @@
 {
+  "name": "@leavittsoftware/storybook",
   "version": "1.0.1",
   "description": "",
   "main": "index.js",
@@ -10,11 +11,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@storybook/addon-actions": "^5.0.10"
+   
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@leavittsoftware/titanium-snackbar": "^1.0.3",
+    "@storybook/addon-actions": "^5.0.10",
     "@storybook/addon-cssresources": "^5.0.10",
     "@storybook/addon-knobs": "^5.0.10",
     "@storybook/addon-storysource": "^5.0.10",
