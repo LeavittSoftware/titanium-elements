@@ -1,8 +1,2 @@
 node_modules/
-*.map
-*.tgz
-demo/*.js
-lib/**/*
-
-demo/package-lock\.json
 \.vscode/
