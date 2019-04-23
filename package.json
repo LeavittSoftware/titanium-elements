@@ -1,18 +1,13 @@
 {
+  "name": "root",
   "version": "0.0.2",
-  "description": "A collection of titanium elements",
-  "main": "titanium-elements.html",
-  "files": [
-    "lib",
-    "src"
-  ],
-  "dependencies": {
+  "private": true,
+  "devDependencies": {
     "lerna": "^3.13.2",
     "storybook": "^1.0.0",
     "tsc-watch": "^2.1.2",
     "typescript": "^3.4.4"
   },
-  "devDependencies": {},
   "scripts": {
     "start": "npm run bootstrap && npm run build && npm run storybook ",
     "bootstrap": "lerna bootstrap --ci --hoist",
@@ -22,15 +17,5 @@
     "version": "lerna version",
     "storybook": "cd packages/storybook && npm run storybook",
     "publish": "lerna publish"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/LeavittSoftware/titanium-elements.git"
-  },
-  "author": "",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/LeavittSoftware/titanium-elements/issues"
-  },
-  "homepage": "https://github.com/LeavittSoftware/titanium-elements/#readme"
+  }
 }
