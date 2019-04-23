@@ -11,7 +11,6 @@ export class BasicSnackBar {
       actionText
     );
   }
-
   close() {
     console.warn(`TitaniumSnackbar.close called before an instance was created. Did you forget to add the TitaniumSnackbar element to your project?`);
   }
