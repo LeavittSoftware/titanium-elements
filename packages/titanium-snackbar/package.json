@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/titanium-snackbar",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "description": "",
   "main": "lib/titanium-snackbar.js",
   "typings": "lib/titanium-snackbar.d.ts",
