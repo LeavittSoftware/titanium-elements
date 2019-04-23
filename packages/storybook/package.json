@@ -11,15 +11,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@leavittsoftware/titanium-snackbar": "^1.0.2",
-    "@storybook/addon-knobs": "^5.0.10",
-    "@storybook/polymer": "^5.0.10",
-    "lit-html": "^1.0.0"
+    "@storybook/addon-actions": "^5.0.10"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
+    "@leavittsoftware/titanium-snackbar": "^1.0.2",
+    "@storybook/addon-cssresources": "^5.0.10",
+    "@storybook/addon-knobs": "^5.0.10",
+    "@storybook/addon-storysource": "^5.0.10",
     "@storybook/polymer": "^5.0.10",
     "babel-loader": "^8.0.5",
+    "lit-html": "^1.0.0",
     "polymer-webpack-loader": "^2.0.3"
   }
 }

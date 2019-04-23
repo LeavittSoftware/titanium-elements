@@ -6,7 +6,7 @@ import '@leavittsoftware/titanium-snackbar/lib/titanium-snackbar';
 storiesOf('Snackbar Demo', module)
   .addDecorator(withKnobs)
   .add(
-    'Demo',
+    'Main Demo',
 
     () => {
       let title = text('Toast Message', 'Query failed');
@@ -21,5 +21,17 @@ storiesOf('Snackbar Demo', module)
         Use the open toast knob to show the toast.
         <titanium-snackbar></titanium-snackbar>
       `;
+    },
+    {
+      cssresources: [
+        {
+          id: `LightTheme`,
+          code: `<style> titanium-snackbar {
+            --titanium-snackbar-background-color: #fff;
+            --titanium-snackbar-text-color: #757575;
+            --titanium-snackbar-action-color: #000;
+          } </style>`,
+        },
+      ],
     }
   );
