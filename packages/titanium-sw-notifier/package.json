@@ -1,0 +1,37 @@
+{
+  "name": "@leavittsoftware/titanium-sw-notifier",
+  "description": "",
+  "author": "Leavitt Software",
+  "version": "0.0.6",
+  "license": "MIT",
+  "main": "lib/titanium-sw-notifier.js",
+  "typings": "lib/titanium-sw-notifier.d.ts",
+  "homepage": "https://github.com/LeavittSoftware/titanium-elements/tree/master/packages/titanium-sw-notifier#readme",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "keywords": [
+    "web component"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LeavittSoftware/titanium-elements.git"
+  },
+  "dependencies": {
+    "@leavittsoftware/titanium-snackbar": "^1.0.0",
+    "lit-element": "^2.0.1"
+  },
+  "devDependencies": {
+    "tslint": "5.15.0",
+    "typescript": "3.4.3"
+  },
+  "scripts": {
+    "build:watch": "tsc --watch",
+    "build": "tsc",
+    "lint": "tslint \"/*.ts\""
+  },
+  "bugs": {
+    "url": "https://github.com/LeavittSoftware/titanium-elements/issues"
+  }
+}

@@ -1,0 +1,517 @@
+{
+  "program": {
+    "fileInfos": {
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es5.d.ts": {
+        "version": "c8665e66018917580e71792b91022bcaf53fb946fab4aaf8dfb0738ed564db88",
+        "signature": "c8665e66018917580e71792b91022bcaf53fb946fab4aaf8dfb0738ed564db88"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2015.d.ts": {
+        "version": "7994d44005046d1413ea31d046577cdda33b8b2470f30281fd9c8b3c99fe2d96",
+        "signature": "7994d44005046d1413ea31d046577cdda33b8b2470f30281fd9c8b3c99fe2d96"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2016.d.ts": {
+        "version": "5f217838d25704474d9ef93774f04164889169ca31475fe423a9de6758f058d1",
+        "signature": "5f217838d25704474d9ef93774f04164889169ca31475fe423a9de6758f058d1"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2017.d.ts": {
+        "version": "459097c7bdd88fc5731367e56591e4f465f2c9de81a35427a7bd473165c34743",
+        "signature": "459097c7bdd88fc5731367e56591e4f465f2c9de81a35427a7bd473165c34743"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2018.d.ts": {
+        "version": "2edd3ddf436ef8e12df876dcae4ecd6a8748577944c477bf4b20d5596e0c9843",
+        "signature": "2edd3ddf436ef8e12df876dcae4ecd6a8748577944c477bf4b20d5596e0c9843"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2019.d.ts": {
+        "version": "6549045e428b5f483bc82d6e8f6d01a72decd0cb7387f650f365f2210fe10808",
+        "signature": "6549045e428b5f483bc82d6e8f6d01a72decd0cb7387f650f365f2210fe10808"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.esnext.d.ts": {
+        "version": "1c05c805f62c1c06a60b7812cd8de2dff7a5bda2218ce5edda5d9d298b1c48e1",
+        "signature": "1c05c805f62c1c06a60b7812cd8de2dff7a5bda2218ce5edda5d9d298b1c48e1"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.dom.d.ts": {
+        "version": "6994c583b66862deca24d7bbf77297d95b9d3da8160dbd9beef6b847cf7c1376",
+        "signature": "6994c583b66862deca24d7bbf77297d95b9d3da8160dbd9beef6b847cf7c1376"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2015.core.d.ts": {
+        "version": "384f66a3422d80014c51de2682159bb26f1e35854029880ccd5f6d1f00e6a36d",
+        "signature": "384f66a3422d80014c51de2682159bb26f1e35854029880ccd5f6d1f00e6a36d"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2015.collection.d.ts": {
+        "version": "dd94d8ef48c562389eb58af8df3a3a34d11367f7c818192aa5f16470d469e3f0",
+        "signature": "dd94d8ef48c562389eb58af8df3a3a34d11367f7c818192aa5f16470d469e3f0"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2015.generator.d.ts": {
+        "version": "828413486bdcaa342558e8e4570b1b287b776cb61b4b70b0214bd10c5d9a94c3",
+        "signature": "828413486bdcaa342558e8e4570b1b287b776cb61b4b70b0214bd10c5d9a94c3"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2015.iterable.d.ts": {
+        "version": "4d1f39313a169b8599b8817688f504b56ba8204c2ebafd03f66ff77ddb1899a4",
+        "signature": "4d1f39313a169b8599b8817688f504b56ba8204c2ebafd03f66ff77ddb1899a4"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2015.promise.d.ts": {
+        "version": "7c07d934680d0e33275a44d22fb11a4ff31d46c8c26a8d056828a478753f1efe",
+        "signature": "7c07d934680d0e33275a44d22fb11a4ff31d46c8c26a8d056828a478753f1efe"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2015.proxy.d.ts": {
+        "version": "5e72f949a89717db444e3bd9433468890068bb21a5638d8ab15a1359e05e54fe",
+        "signature": "5e72f949a89717db444e3bd9433468890068bb21a5638d8ab15a1359e05e54fe"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2015.reflect.d.ts": {
+        "version": "f5b242136ae9bfb1cc99a5971cccc44e99947ae6b5ef6fd8aa54b5ade553b976",
+        "signature": "f5b242136ae9bfb1cc99a5971cccc44e99947ae6b5ef6fd8aa54b5ade553b976"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2015.symbol.d.ts": {
+        "version": "9ae2860252d6b5f16e2026d8a2c2069db7b2a3295e98b6031d01337b96437230",
+        "signature": "9ae2860252d6b5f16e2026d8a2c2069db7b2a3295e98b6031d01337b96437230"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts": {
+        "version": "3e0a459888f32b42138d5a39f706ff2d55d500ab1031e0988b5568b0f67c2303",
+        "signature": "3e0a459888f32b42138d5a39f706ff2d55d500ab1031e0988b5568b0f67c2303"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2016.array.include.d.ts": {
+        "version": "3f96f1e570aedbd97bf818c246727151e873125d0512e4ae904330286c721bc0",
+        "signature": "3f96f1e570aedbd97bf818c246727151e873125d0512e4ae904330286c721bc0"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2017.object.d.ts": {
+        "version": "ff8ad203e83338289b0f5defc1a5b5c253fb7d251b464db497383f915a0df3f4",
+        "signature": "ff8ad203e83338289b0f5defc1a5b5c253fb7d251b464db497383f915a0df3f4"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2017.sharedmemory.d.ts": {
+        "version": "b8667586a618c5cf64523d4e500ae39e781428abfb28f3de441fc66b56144b6f",
+        "signature": "b8667586a618c5cf64523d4e500ae39e781428abfb28f3de441fc66b56144b6f"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2017.string.d.ts": {
+        "version": "21df2e0059f14dcb4c3a0e125859f6b6ff01332ee24b0065a741d121250bc71c",
+        "signature": "21df2e0059f14dcb4c3a0e125859f6b6ff01332ee24b0065a741d121250bc71c"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2017.intl.d.ts": {
+        "version": "c1759cb171c7619af0d2234f2f8fb2a871ee88e956e2ed91bb61778e41f272c6",
+        "signature": "c1759cb171c7619af0d2234f2f8fb2a871ee88e956e2ed91bb61778e41f272c6"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2017.typedarrays.d.ts": {
+        "version": "28569d59e07d4378cb3d54979c4c60f9f06305c9bb6999ffe6cab758957adc46",
+        "signature": "28569d59e07d4378cb3d54979c4c60f9f06305c9bb6999ffe6cab758957adc46"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2018.asynciterable.d.ts": {
+        "version": "42102aaeb1bfec213be1e9777466a6d551eeba8567fed18c0cdbca8c35e3c6e4",
+        "signature": "42102aaeb1bfec213be1e9777466a6d551eeba8567fed18c0cdbca8c35e3c6e4"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2018.intl.d.ts": {
+        "version": "1b820b57379c726f94af50cd60053674af53ff9d079c1563cc70071e8b757dd0",
+        "signature": "1b820b57379c726f94af50cd60053674af53ff9d079c1563cc70071e8b757dd0"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2018.promise.d.ts": {
+        "version": "efe049114bad1035b0aa9a4a0359f50ab776e3897c411521e51d3013079cbd62",
+        "signature": "efe049114bad1035b0aa9a4a0359f50ab776e3897c411521e51d3013079cbd62"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2018.regexp.d.ts": {
+        "version": "e7780d04cd4120ee554c665829db2bbdd6b947cbaa3c150b7d9ea74df3beb2e8",
+        "signature": "e7780d04cd4120ee554c665829db2bbdd6b947cbaa3c150b7d9ea74df3beb2e8"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2019.array.d.ts": {
+        "version": "fc7c02b980e7dda0ed14d57ee71705c09efc51ec6286a10b971a25a3bb29262b",
+        "signature": "fc7c02b980e7dda0ed14d57ee71705c09efc51ec6286a10b971a25a3bb29262b"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2019.string.d.ts": {
+        "version": "669427ac10ef9f52b6a7a502a66670eaabba675e0a660eb971041bd73c9894e3",
+        "signature": "669427ac10ef9f52b6a7a502a66670eaabba675e0a660eb971041bd73c9894e3"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2019.symbol.d.ts": {
+        "version": "7a842c21e0fe143eb3ad4d689a1470bab5ed9bc7fd7223fe8b56cbae27038d62",
+        "signature": "7a842c21e0fe143eb3ad4d689a1470bab5ed9bc7fd7223fe8b56cbae27038d62"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.esnext.intl.d.ts": {
+        "version": "f6e0c89daaf72eac38dfb1d5ef0972183f7f26a68da15bfe5bcb7cfccf0c7db8",
+        "signature": "f6e0c89daaf72eac38dfb1d5ef0972183f7f26a68da15bfe5bcb7cfccf0c7db8"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.esnext.bigint.d.ts": {
+        "version": "63b66918290d794f73832a6d0325be5026236674fe8c0cb0b68d162000d7bbe8",
+        "signature": "63b66918290d794f73832a6d0325be5026236674fe8c0cb0b68d162000d7bbe8"
+      },
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/part.d.ts": {
+        "version": "39c52cb43bc71e272292f3250ac3f938944dbd1315b50300332cd11d44b647ca",
+        "signature": "39c52cb43bc71e272292f3250ac3f938944dbd1315b50300332cd11d44b647ca"
+      },
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template.d.ts": {
+        "version": "7f3e4a6c710dde5524c3a90e9c4d85f190fdfb73ff12af7e46c933dcb30539e4",
+        "signature": "7f3e4a6c710dde5524c3a90e9c4d85f190fdfb73ff12af7e46c933dcb30539e4"
+      },
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-factory.d.ts": {
+        "version": "9581a295cf4e29079e7c231b25cadc065db3886f7f82b4f174a5b2be1102129f",
+        "signature": "9581a295cf4e29079e7c231b25cadc065db3886f7f82b4f174a5b2be1102129f"
+      },
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/render-options.d.ts": {
+        "version": "0f5a94345e00fd8f3c59db09efa0676573510cfcdca093dc10ba74fef33e1e70",
+        "signature": "0f5a94345e00fd8f3c59db09efa0676573510cfcdca093dc10ba74fef33e1e70"
+      },
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/parts.d.ts": {
+        "version": "834b21351f9cc6b6bf259850efce6f7ca63506854832fd743470d5f59a0d8cb8",
+        "signature": "834b21351f9cc6b6bf259850efce6f7ca63506854832fd743470d5f59a0d8cb8"
+      },
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-processor.d.ts": {
+        "version": "0bb2fd777a3ddb959629fbe02fea9189fed568b5892dbdfb1c27fba147924d96",
+        "signature": "0bb2fd777a3ddb959629fbe02fea9189fed568b5892dbdfb1c27fba147924d96"
+      },
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-result.d.ts": {
+        "version": "715640d391457ff2bff241370d61557fe8b59334120bfe63c880534756955318",
+        "signature": "715640d391457ff2bff241370d61557fe8b59334120bfe63c880534756955318"
+      },
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/default-template-processor.d.ts": {
+        "version": "461b033aa539ab2070cd2210fe54630886cf22f1ecfb3aa2f4d7a9fc8e03d7f1",
+        "signature": "461b033aa539ab2070cd2210fe54630886cf22f1ecfb3aa2f4d7a9fc8e03d7f1"
+      },
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/directive.d.ts": {
+        "version": "d2255c95637291b5af95ab0c15a73c9cf2f705ecc3825a801bbd6d77231e91c0",
+        "signature": "d2255c95637291b5af95ab0c15a73c9cf2f705ecc3825a801bbd6d77231e91c0"
+      },
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/dom.d.ts": {
+        "version": "e13c6c39a360a9644465f1ed30759f42b643eba193f42b0b355f749bd1580248",
+        "signature": "e13c6c39a360a9644465f1ed30759f42b643eba193f42b0b355f749bd1580248"
+      },
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/render.d.ts": {
+        "version": "eebf95cad4abccf02ac7bf525bea0d6be414c4ccdbfbb9b648daa9bb3a0a8423",
+        "signature": "eebf95cad4abccf02ac7bf525bea0d6be414c4ccdbfbb9b648daa9bb3a0a8423"
+      },
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-instance.d.ts": {
+        "version": "258fa1d47fa678cd442c8afd429cce1d142503adfe7779ca27fec5701fa4d873",
+        "signature": "258fa1d47fa678cd442c8afd429cce1d142503adfe7779ca27fec5701fa4d873"
+      },
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lit-html.d.ts": {
+        "version": "7aec386ef3320a0d16b0d189a610786d54fe6062c70a5d8c3f2c0e9416744f2a",
+        "signature": "7aec386ef3320a0d16b0d189a610786d54fe6062c70a5d8c3f2c0e9416744f2a"
+      },
+      "d:/lg/elements/titanium-elements/node_modules/lit-element/lib/updating-element.d.ts": {
+        "version": "463dd9507006dfcb7c07a3821495ef14780e679f27d1132c376127641a5d8aa4",
+        "signature": "463dd9507006dfcb7c07a3821495ef14780e679f27d1132c376127641a5d8aa4"
+      },
+      "d:/lg/elements/titanium-elements/node_modules/lit-element/lib/decorators.d.ts": {
+        "version": "e7bb5d5be7ea17feb659c513c2a8d8c1c68e6af20a971fbadf1f95ff7c8f0a93",
+        "signature": "e7bb5d5be7ea17feb659c513c2a8d8c1c68e6af20a971fbadf1f95ff7c8f0a93"
+      },
+      "d:/lg/elements/titanium-elements/node_modules/lit-element/lib/css-tag.d.ts": {
+        "version": "7ebe4ff0a0897765201112f741a6780e4efd9c65746d02cabbf0c216ae0453a2",
+        "signature": "7ebe4ff0a0897765201112f741a6780e4efd9c65746d02cabbf0c216ae0453a2"
+      },
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/shady-render.d.ts": {
+        "version": "3e63b34e4921db6c5f5139de784e18bef33692b038fe2eebe548c089623d9efa",
+        "signature": "3e63b34e4921db6c5f5139de784e18bef33692b038fe2eebe548c089623d9efa"
+      },
+      "d:/lg/elements/titanium-elements/node_modules/lit-element/lit-element.d.ts": {
+        "version": "e238e6df901f7d911f2e2dd33d9885d5bb6de73a912e08d7f53c4dc134ff35e1",
+        "signature": "e238e6df901f7d911f2e2dd33d9885d5bb6de73a912e08d7f53c4dc134ff35e1"
+      },
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/directives/class-map.d.ts": {
+        "version": "4ababf58cec0df438f3d626c713734788e7e9ba195aabe805e6f66147f6e4519",
+        "signature": "4ababf58cec0df438f3d626c713734788e7e9ba195aabe805e6f66147f6e4519"
+      },
+      "d:/lg/elements/titanium-elements/node_modules/@material/mwc-base/observer.d.ts": {
+        "version": "612861efabccd2b41343dc66e94f14b7afb624a8e6401399be381c7e665a4b79",
+        "signature": "612861efabccd2b41343dc66e94f14b7afb624a8e6401399be381c7e665a4b79"
+      },
+      "d:/lg/elements/titanium-elements/node_modules/@material/mwc-base/base-element.d.ts": {
+        "version": "35ad17231c4fbd0ebcd50bbae5158e3e4eb987cb7272eeaf7dd7acdaee24b973",
+        "signature": "35ad17231c4fbd0ebcd50bbae5158e3e4eb987cb7272eeaf7dd7acdaee24b973"
+      },
+      "d:/lg/elements/titanium-elements/node_modules/@material/mwc-ripple/mwc-ripple.d.ts": {
+        "version": "b8699a4f126bc999512c3442ebe2756a5ec5f8763b406f043324bd175abf0de2",
+        "signature": "b8699a4f126bc999512c3442ebe2756a5ec5f8763b406f043324bd175abf0de2"
+      },
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/src/titanium-snackbar.ts": {
+        "version": "315a9da5332cc6c48f000131680643a3545395895f37bfdf351ba06ccfcfc617",
+        "signature": "40a1c999b8cca7387da27b1eb509c44596f43bd9bed8232dcf2eb4317fbaaa86"
+      },
+      "d:/lg/elements/titanium-elements/node_modules/@types/clone/index.d.ts": {
+        "version": "9b1b35d8f7e9063fe1980c595338a67e47e345f82b677005ffc425094d96ecf5",
+        "signature": "9b1b35d8f7e9063fe1980c595338a67e47e345f82b677005ffc425094d96ecf5"
+      },
+      "d:/lg/elements/titanium-elements/node_modules/@types/node/index.d.ts": {
+        "version": "2fa4cba6d27b00eb6b9baa6a4fb09328ea34c76313d6f01b7e34d3bd59c32c40",
+        "signature": "2fa4cba6d27b00eb6b9baa6a4fb09328ea34c76313d6f01b7e34d3bd59c32c40"
+      },
+      "d:/lg/elements/titanium-elements/node_modules/@types/parse5/index.d.ts": {
+        "version": "e8bedf3edd60120a3317c031dc8f3832a7ff6412bf5f87206ca0c17eb1431052",
+        "signature": "e8bedf3edd60120a3317c031dc8f3832a7ff6412bf5f87206ca0c17eb1431052"
+      }
+    },
+    "options": {
+      "target": 2,
+      "module": 6,
+      "moduleResolution": 2,
+      "lib": [
+        "lib.esnext.d.ts",
+        "lib.dom.d.ts"
+      ],
+      "experimentalDecorators": true,
+      "noImplicitAny": false,
+      "declaration": true,
+      "sourceMap": true,
+      "noImplicitReturns": true,
+      "alwaysStrict": true,
+      "allowJs": false,
+      "noImplicitThis": true,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "strictNullChecks": true,
+      "rootDir": "D:/lg/Elements/titanium-elements/packages/titanium-snackbar/src",
+      "outDir": "D:/lg/Elements/titanium-elements/packages/titanium-snackbar/lib",
+      "declarationDir": "D:/lg/Elements/titanium-elements/packages/titanium-snackbar/lib",
+      "composite": true,
+      "watch": true,
+      "configFilePath": "D:/lg/Elements/titanium-elements/packages/titanium-snackbar/tsconfig.json"
+    },
+    "referencedMap": {
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-result.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-factory.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-result.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/render-options.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-factory.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/parts.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/part.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/render-options.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-processor.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/part.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/parts.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/render-options.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-result.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-processor.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/default-template-processor.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/part.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/parts.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/render-options.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-processor.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/directive.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/part.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/render.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/parts.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/render-options.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-result.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-instance.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/part.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/render-options.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-processor.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lit-html.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-result.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/default-template-processor.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/directive.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/dom.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/part.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/parts.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/render-options.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/render.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-factory.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-instance.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-processor.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/lit-element/lib/decorators.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-element/lib/updating-element.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/shady-render.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/render-options.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-result.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lit-html.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/lit-element/lit-element.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lit-html.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-element/lib/updating-element.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-element/lib/decorators.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-element/lib/css-tag.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/shady-render.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/directives/class-map.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lit-html.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/@material/mwc-base/base-element.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-element/lit-element.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/directives/class-map.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/@material/mwc-base/observer.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/@material/mwc-ripple/mwc-ripple.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/@material/mwc-base/base-element.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-element/lib/css-tag.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-result.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/src/titanium-snackbar.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/@material/mwc-ripple/mwc-ripple.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-element/lit-element.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/@types/node/index.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/@types/node/index.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/@types/parse5/index.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/@types/node/index.d.ts"
+      ]
+    },
+    "exportedModulesMap": {
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-result.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-factory.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-result.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/render-options.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-factory.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/parts.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/part.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/render-options.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-processor.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/part.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/parts.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/render-options.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-result.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-processor.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/default-template-processor.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/part.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/parts.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/render-options.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-processor.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/directive.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/part.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/render.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/parts.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/render-options.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-result.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-instance.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/part.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/render-options.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-processor.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lit-html.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-result.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/default-template-processor.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/directive.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/dom.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/part.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/parts.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/render-options.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/render.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-factory.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-instance.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-processor.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/lit-element/lib/decorators.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-element/lib/updating-element.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/shady-render.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/render-options.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-result.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lit-html.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/lit-element/lit-element.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lit-html.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-element/lib/updating-element.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-element/lib/decorators.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-element/lib/css-tag.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/shady-render.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/directives/class-map.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lit-html.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/@material/mwc-base/base-element.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/lit-element/lit-element.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/directives/class-map.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/@material/mwc-base/observer.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/@material/mwc-ripple/mwc-ripple.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/@material/mwc-base/base-element.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-element/lib/css-tag.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-result.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/src/titanium-snackbar.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/@material/mwc-ripple/mwc-ripple.d.ts",
+        "d:/lg/elements/titanium-elements/node_modules/lit-element/lit-element.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/@types/node/index.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/@types/node/index.d.ts"
+      ],
+      "d:/lg/elements/titanium-elements/node_modules/@types/parse5/index.d.ts": [
+        "d:/lg/elements/titanium-elements/node_modules/@types/node/index.d.ts"
+      ]
+    },
+    "semanticDiagnosticsPerFile": [
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es5.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2015.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2016.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2017.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2018.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2019.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.esnext.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.dom.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2015.core.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2015.collection.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2015.generator.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2015.iterable.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2015.promise.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2015.proxy.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2015.reflect.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2015.symbol.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2016.array.include.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2017.object.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2017.sharedmemory.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2017.string.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2017.intl.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2017.typedarrays.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2018.asynciterable.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2018.intl.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2018.promise.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2018.regexp.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2019.array.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2019.string.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.es2019.symbol.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.esnext.intl.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/node_modules/typescript/lib/lib.esnext.bigint.d.ts",
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/part.d.ts",
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template.d.ts",
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-factory.d.ts",
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/render-options.d.ts",
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/parts.d.ts",
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-processor.d.ts",
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-result.d.ts",
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/default-template-processor.d.ts",
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/directive.d.ts",
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/dom.d.ts",
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/render.d.ts",
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/template-instance.d.ts",
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lit-html.d.ts",
+      "d:/lg/elements/titanium-elements/node_modules/lit-element/lib/updating-element.d.ts",
+      "d:/lg/elements/titanium-elements/node_modules/lit-element/lib/decorators.d.ts",
+      "d:/lg/elements/titanium-elements/node_modules/lit-element/lib/css-tag.d.ts",
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/lib/shady-render.d.ts",
+      "d:/lg/elements/titanium-elements/node_modules/lit-element/lit-element.d.ts",
+      "d:/lg/elements/titanium-elements/node_modules/lit-html/directives/class-map.d.ts",
+      "d:/lg/elements/titanium-elements/node_modules/@material/mwc-base/observer.d.ts",
+      "d:/lg/elements/titanium-elements/node_modules/@material/mwc-base/base-element.d.ts",
+      "d:/lg/elements/titanium-elements/node_modules/@material/mwc-ripple/mwc-ripple.d.ts",
+      "d:/lg/elements/titanium-elements/packages/titanium-snackbar/src/titanium-snackbar.ts",
+      "d:/lg/elements/titanium-elements/node_modules/@types/clone/index.d.ts",
+      "d:/lg/elements/titanium-elements/node_modules/@types/node/index.d.ts",
+      "d:/lg/elements/titanium-elements/node_modules/@types/parse5/index.d.ts"
+    ]
+  },
+  "version": "3.4.3"
+}

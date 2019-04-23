@@ -1,0 +1,10 @@
+{
+  "packages": ["packages/*"],
+  "version": "independent",
+  "command": {
+    "publish": {
+      "ignoreChanges": [".prettierrc", "appveyor.yml", "gulpfile.js", "package.json", ".gitignore", "CODEOWNERS", "README.md", "tslint.json"]
+    }
+  },
+  "ignoreChanges": ["packages/storybook/**", "**/*.md"]
+}
