@@ -14,7 +14,7 @@
     "build:watch": "lerna run build:watch --stream --parallel",
     "build": "lerna run build --stream",
     "lint": "lerna run lint --stream",
-    "version": "lerna version",
+    "version": "lerna version --stream",
     "storybook": "cd packages/storybook && npm run storybook",
     "publish": "lerna publish"
   }
