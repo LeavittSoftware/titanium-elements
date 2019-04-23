@@ -4,6 +4,9 @@ environment:
   access_token:
     secure: wnsY/d0aklgC+n/vBvdOYOwC0jbmuMM4DGDdVtldcwgbBhWe3rTietAdb9Hm1vvH
 
+skip_commits:
+  message: /\[chore\]/
+
 # Install scripts. (runs after repo cloning)
 install:
   # Get the latest stable version of Node.js or io.js
