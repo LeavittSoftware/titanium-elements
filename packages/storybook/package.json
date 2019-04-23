@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/storybook",
-  "version": "1.0.1",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,9 +10,7 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-   
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@leavittsoftware/titanium-snackbar": "^1.0.3",
