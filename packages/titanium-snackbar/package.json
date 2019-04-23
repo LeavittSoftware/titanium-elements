@@ -30,5 +30,6 @@
   "bugs": {
     "url": "https://github.com/LeavittSoftware/titanium-elements/issues"
   },
-  "homepage": "https://github.com/LeavittSoftware/titanium-elements/#readme"
+  "homepage": "https://github.com/LeavittSoftware/titanium-elements/#readme",
+  "gitHead": "f80c9f25691088c456baf119f3be7e278bf9c80d"
 }

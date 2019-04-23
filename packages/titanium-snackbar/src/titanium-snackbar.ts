@@ -1,5 +1,4 @@
 import '@material/mwc-ripple';
-
 import { css, customElement, html, LitElement, property } from 'lit-element';
 
 export class BasicSnackBar {

@@ -21,5 +21,6 @@
     "babel-loader": "^8.0.5",
     "lit-html": "^1.0.0",
     "polymer-webpack-loader": "^2.0.3"
-  }
+  },
+  "gitHead": "f80c9f25691088c456baf119f3be7e278bf9c80d"
 }
