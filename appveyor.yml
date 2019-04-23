@@ -18,9 +18,9 @@ test_script:
   - npm --version
   # run tests
   - git checkout master
-  - npm run publish
   - git config user.email "builds@leavitt.com"
   - git config user.name "AppVeyor"
+  - npm run publish
 
 # Don't actually build.
 build: off
