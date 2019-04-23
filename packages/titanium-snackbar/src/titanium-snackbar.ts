@@ -1,5 +1,4 @@
 import '@material/mwc-ripple';
-
 import { css, customElement, html, LitElement, property } from 'lit-element';
 
 export class BasicSnackBar {
@@ -31,7 +30,7 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
   private _animationTimer: number;
   private _animationFrame: number;
   private _resolve: { (value?: {} | PromiseLike<{}> | undefined): void; (): void };
-  
+
   _isComponent = true;
 
   constructor() {
