@@ -1,7 +1,6 @@
 {
   "name": "root",
   "version": "0.0.2",
-  "private": true,
   "devDependencies": {
     "lerna": "^3.13.2",
     "storybook": "^1.0.0",
