@@ -17,6 +17,7 @@ test_script:
   - node --version
   - npm --version
   # run tests
+  - git checkout -b master
   - npm run publish
   - git config user.email "builds@leavitt.com"
   - git config user.name "AppVeyor"
