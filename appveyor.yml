@@ -1,8 +1,6 @@
 # Test against the latest version of this Node.js version
 environment:
   nodejs_version: '6'
-  access_token:
-    secure: wnsY/d0aklgC+n/vBvdOYOwC0jbmuMM4DGDdVtldcwgbBhWe3rTietAdb9Hm1vvH
 
 skip_commits:
   message: /chore/
@@ -14,7 +12,7 @@ install:
   # install modules
   - git checkout master
   - git config --global credential.helper store
-  - ps: Add-Content "$HOME\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
+  - ps: Add-Content "$HOME\.git-credentials" "https://$($env:git_access_token):x-oauth-basic@github.com`n"
   - git config user.email "aaron-drabeck@leavitt.com"
   - git config user.name "AppVeyor Automation"
 
