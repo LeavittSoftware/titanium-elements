@@ -42,7 +42,7 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
     }
   }
 
-  updated(changedProps) {
+  private updated(changedProps) {
     if (changedProps.has('actionText') && changedProps.get('actionText') !== this.actionText) {
       this.thirdline = !!this.actionText && this.actionText.length > 8;
     }
