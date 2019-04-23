@@ -9,7 +9,6 @@ install:
   # install modules
   - npm install
   - ps: '"//registry.npmjs.org/:_authToken=$env:npm_auth_token`n" | out-file "$env:userprofile\.npmrc" -Encoding ASCII'
-  - echo %APPVEYOR_REPO_BRANCH% %APPVEYOR_PULL_REQUEST_NUMBER%
 
 # Post-install test scripts.
 test_script:
@@ -18,8 +17,8 @@ test_script:
   - npm --version
   # run tests
   - git checkout master
-  - git config user.email "builds@leavitt.com"
-  - git config user.name "AppVeyor"
+  - git config user.email "aaron-drabeck@leavitt.com"
+  - git config user.name "AppVeyor Automation"
   - npm run publish
 
 # Don't actually build.
