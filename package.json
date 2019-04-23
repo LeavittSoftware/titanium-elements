@@ -14,6 +14,6 @@
     "build": "lerna run build --stream",
     "lint": "lerna run lint --stream",
     "storybook": "cd packages/storybook && npm run storybook",
-    "publish": "npm run bootstrap && npm run build && lerna publish --conventional-commits --yes"
+    "lerna:publish": "npm run bootstrap && npm run build && lerna publish --conventional-commits --yes"
   }
 }

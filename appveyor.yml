@@ -27,7 +27,7 @@ test_script:
   - node --version
   - npm --version
   # run tests
-  - npm run publish
+  - npm run lerna:publish
 
 # Don't actually build.
 build: off
