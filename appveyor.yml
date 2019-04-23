@@ -1,6 +1,6 @@
 # Test against the latest version of this Node.js version
 environment:
-  nodejs_version: "6"
+  nodejs_version: '6'
 
 # Install scripts. (runs after repo cloning)
 install:
@@ -16,44 +16,32 @@ test_script:
   # Output useful info for debugging.
   - node --version
   - npm --version
+  - lerna -v
   # run tests
-  - npm run build
-  - npm run lint
+  - npm run publish
   - git config user.email "builds@leavitt.com"
   - git config user.name "AppVeyor"
- 
+
 # Don't actually build.
 build: off
 
 notifications:
-- provider: Slack
-  incoming_webhook:
-    secure: JhngXiwYl7JkEO7bo4Fh1k6rOy+lZ3dFxGFI4FL3Iep6ruC4WVIj35Px/jzc4Xi0GbEAGTjRQi8NZg4s0V0zZGn3IMRp+HNRdMzmh/Y492s=
-  channel: '#build-success'
-  on_build_success: true
-  on_build_failure: false
-  on_build_status_changed: false
-  template: "<{{buildUrl}}|Build [{{projectName}}] {{buildVersion}} {{status}}> Commit <{{commitUrl}}|{{commitId}}> by {{commitAuthor}} on {{commitDate}}: _{{commitMessage}}_"  
-- provider: Slack
-  incoming_webhook:
-    secure: JhngXiwYl7JkEO7bo4Fh1k6rOy+lZ3dFxGFI4FL3IeqzmMP5SvRSku5VvYel8VEXyavmuo/izODp6H0mjj4tSZhumWBkfENV0JNN+W6Kss8=
-  channel: '#build-failed'
-  on_build_success: false
-  on_build_failure: true
-  on_build_status_changed: false
-  template: "<{{buildUrl}}|Build [{{projectName}}] {{buildVersion}} {{status}}> Commit <{{commitUrl}}|{{commitId}}> by {{commitAuthor}} on {{commitDate}}: _{{commitMessage}}_"
-  
+  - provider: Slack
+    incoming_webhook:
+      secure: JhngXiwYl7JkEO7bo4Fh1k6rOy+lZ3dFxGFI4FL3Iep6ruC4WVIj35Px/jzc4Xi0GbEAGTjRQi8NZg4s0V0zZGn3IMRp+HNRdMzmh/Y492s=
+    channel: '#build-success'
+    on_build_success: true
+    on_build_failure: false
+    on_build_status_changed: false
+    template: '<{{buildUrl}}|Build [{{projectName}}] {{buildVersion}} {{status}}> Commit <{{commitUrl}}|{{commitId}}> by {{commitAuthor}} on {{commitDate}}: _{{commitMessage}}_'
+  - provider: Slack
+    incoming_webhook:
+      secure: JhngXiwYl7JkEO7bo4Fh1k6rOy+lZ3dFxGFI4FL3IeqzmMP5SvRSku5VvYel8VEXyavmuo/izODp6H0mjj4tSZhumWBkfENV0JNN+W6Kss8=
+    channel: '#build-failed'
+    on_build_success: false
+    on_build_failure: true
+    on_build_status_changed: false
+    template: '<{{buildUrl}}|Build [{{projectName}}] {{buildVersion}} {{status}}> Commit <{{commitUrl}}|{{commitId}}> by {{commitAuthor}} on {{commitDate}}: _{{commitMessage}}_'
+
 skip_tags: true
 skip_branch_with_pr: true
-version: 1.0.{build}
-
-after_test:
-- npm version %APPVEYOR_BUILD_VERSION% -m 'v%APPVEYOR_BUILD_VERSION%'
-- ps: >-
-        if($env:APPVEYOR_REPO_BRANCH -eq 'master' –AND $env:APPVEYOR_PULL_REQUEST_NUMBER -lt 1) {
-          npm whoami  
-          npm publish --access public
-        }
-
-deploy:
-    
