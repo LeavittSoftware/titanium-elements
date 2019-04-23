@@ -3,8 +3,9 @@
   "version": "independent",
   "command": {
     "publish": {
-      "ignoreChanges": [".prettierrc", "appveyor.yml", "gulpfile.js", "package.json", ".gitignore", "CODEOWNERS", "*.md", "tslint.json", "**/*.md"],
+      "ignoreChanges": [".prettierrc", "appveyor.yml", "gulpfile.js", "package.json", ".gitignore", "CODEOWNERS", "*.md", "tslint.json"],
       "message": "chore(release): publish"
     }
-  }
+  },
+  "ignoreChanges": ["**/*.md"]
 }
