@@ -3,6 +3,7 @@
   "version": "independent",
   "command": {
     "publish": {
+      "conventionalCommits": true,
       "ignoreChanges": [".prettierrc", "appveyor.yml", "gulpfile.js", "package.json", ".gitignore", "CODEOWNERS", "*.md", "tslint.json"],
       "message": "chore(release): publish"
     }
