@@ -5,6 +5,9 @@ environment:
 skip_commits:
   message: /chore/
 
+skip_tags: true
+skip_branch_with_pr: true
+
 # Install scripts. (runs after repo cloning)
 install:
   # Get the latest stable version of Node.js or io.js
@@ -25,7 +28,13 @@ test_script:
   - node --version
   - npm --version
   # run tests
-  - npm run lerna:publish
+  - npm run lint
+
+  - ps: >-
+      if($env:APPVEYOR_REPO_BRANCH -eq 'master' –AND $env:APPVEYOR_PULL_REQUEST_NUMBER -lt 1) {
+        npm whoami  
+        npm run lerna:publish
+      }
 
 # Don't actually build.
 build: off
@@ -47,6 +56,3 @@ notifications:
     on_build_failure: true
     on_build_status_changed: false
     template: '<{{buildUrl}}|Build [{{projectName}}] {{buildVersion}} {{status}}> Commit <{{commitUrl}}|{{commitId}}> by {{commitAuthor}} on {{commitDate}}: _{{commitMessage}}_'
-
-skip_tags: true
-skip_branch_with_pr: true
