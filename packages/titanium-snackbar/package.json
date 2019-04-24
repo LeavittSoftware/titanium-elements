@@ -12,14 +12,10 @@
     "@material/mwc-ripple": "^0.3.6",
     "lit-element": "^2.0.1"
   },
-  "devDependencies": {
-    "tslint": "5.15.0",
-    "typescript": "3.4.3"
-  },
   "scripts": {
     "build:watch": "tsc --watch",
     "build": "tsc",
-    "lint": "tslint \"/*.ts\""
+    "lint": "tslint \"src/*.ts\""
   },
   "repository": {
     "type": "git",

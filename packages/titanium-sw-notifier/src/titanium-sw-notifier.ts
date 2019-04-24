@@ -23,7 +23,7 @@ export class TitanuimServiceWorkerNotifierElement extends LitElement {
       });
 
       if ('PushManager' in window && 'Notification' in window) {
-        registration.pushManager.getSubscription().then(subscription => {
+        registration.pushManager.getSubscription().then((subscription) => {
           this.notificationsStatus = subscription ? 'subscribed' : 'unsubscribed';
           this.dispatchEvent(new CustomEvent('notifications-status-changed', { detail: this.notificationsStatus }));
         });
@@ -33,8 +33,8 @@ export class TitanuimServiceWorkerNotifierElement extends LitElement {
       // has become redundant, since this implies there's a new service worker
       // with fresh content.
       if (navigator.serviceWorker.controller) {
-        navigator.serviceWorker.controller.addEventListener('statechange', (event: any) => {
-          if (event.target.state === 'redundant') {
+        navigator.serviceWorker.controller.addEventListener('statechange', (event) => {
+          if (event && event.target && event.target.state === 'redundant') {
             this._showUpdatedSnackbar();
           }
         });
