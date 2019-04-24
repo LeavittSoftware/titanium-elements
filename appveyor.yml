@@ -13,11 +13,6 @@ install:
   # Get the latest stable version of Node.js or io.js
   - ps: Install-Product node $env:nodejs_version
   # install modules
-  - git checkout master
-  - git config --global credential.helper store
-  - ps: Add-Content "$HOME\.git-credentials" "https://$($env:git_access_token):x-oauth-basic@github.com`n"
-  - git config user.email "aaron-drabeck@leavitt.com"
-  - git config user.name "AppVeyor Automation"
 
   - npm install
   - ps: '"//registry.npmjs.org/:_authToken=$env:npm_auth_token`n" | out-file "$env:userprofile\.npmrc" -Encoding ASCII'
@@ -33,6 +28,11 @@ test_script:
   - ps: >-
       if($env:APPVEYOR_REPO_BRANCH -eq 'master' –AND $env:APPVEYOR_PULL_REQUEST_NUMBER -lt 1) {
         npm whoami  
+        git checkout master
+        git config --global credential.helper store
+        Add-Content "$HOME\.git-credentials" "https://$($env:git_access_token):x-oauth-basic@github.com`n"
+        git config user.email "aaron-drabeck@leavitt.com"
+        git config user.name "AppVeyor Automation"
         npm run lerna:publish
       }
 
