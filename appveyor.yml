@@ -14,8 +14,7 @@ install:
   - ps: Install-Product node $env:nodejs_version
   # install modules
   - npm install
-  
-  
+
 test_script:
   # Output useful info for debugging.
   - node --version
@@ -41,23 +40,20 @@ notifications:
     on_build_status_changed: false
     template: '<{{buildUrl}}|Build [{{projectName}}] {{buildVersion}} {{status}}> Commit <{{commitUrl}}|{{commitId}}> by {{commitAuthor}} on {{commitDate}}: _{{commitMessage}}_'
 
-
 configuration: Debug
 
 # here we are going to override common configuration
 for:
+  # override settings for `master` branch
+  - branches:
+      only:
+        - master
 
-# override settings for `master` branch
--
-  branches:
-    only:
-      - master
+    configuration: Release
 
-  configuration: Release
-
-test_script:
-  - npm whoami  
-  - git checkout -q master       
+after_test:
+  - npm whoami
+  - git checkout -q master
   - git config --global credential.helper store
   - ps: Add-Content "$HOME\.git-credentials" "https://$($env:git_access_token):x-oauth-basic@github.com`n"
   - git config user.email "aaron-drabeck@leavitt.com"
@@ -67,4 +63,3 @@ test_script:
 
 # Don't actually build.
 build: off
-
