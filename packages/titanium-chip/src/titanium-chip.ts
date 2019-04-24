@@ -1,4 +1,5 @@
 import { css, customElement, html, LitElement, property } from 'lit-element';
+import '@leavittsoftware/titanium-svg-button';
 
 @customElement('titanium-chip')
 export class TitaniumChipElement extends LitElement {
@@ -69,25 +70,14 @@ export class TitaniumChipElement extends LitElement {
       width: 28px;
     }
 
-    vaadin-button {
-      display: none;
-      margin: 0 4px 0 -8px;
-      padding: 0;
+    titanium-svg-button {
       height: 28px;
       width: 28px;
-      min-width: 0;
-      border-radius: 50%;
       flex-shrink: 0;
-      color: var(--titanium-chip-label-color, #424242);
     }
 
-    vaadin-button::after,
-    vaadin-button::before {
-      opacity: 0;
-    }
-
-    :host([closeable]) vaadin-button {
-      display: block;
+    :host(:not([closeable])) titanium-svg-button {
+      display: none;
     }
 
     svg {
@@ -103,11 +93,12 @@ export class TitaniumChipElement extends LitElement {
         <img src=${this.src} ?hidden=${!this.src} />
       </slot>
       <label>${this.label}</label>
-      <vaadin-button ?disabled=${this.disabled} @click=${() => this.dispatchEvent(new CustomEvent('titanium-chip-close', { bubbles: true, composed: true }))}>
-        <svg prefix viewBox="0 0 24 24">
-          <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
-        </svg>
-      </vaadin-button>
+      <titanium-svg-button
+        path="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+        ?disabled=${this.disabled}
+        @click=${() => this.dispatchEvent(new CustomEvent('titanium-chip-close', { bubbles: true, composed: true }))}
+      >
+      </titanium-svg-button>
     `;
   }
 }
