@@ -22,14 +22,10 @@
     "@leavittsoftware/titanium-snackbar": "^1.3.0",
     "lit-element": "^2.0.1"
   },
-  "devDependencies": {
-    "tslint": "5.15.0",
-    "typescript": "3.4.3"
-  },
   "scripts": {
     "build:watch": "tsc --watch",
     "build": "tsc",
-    "lint": "tslint \"/*.ts\""
+    "lint": "tslint \"src/*.ts\""
   },
   "bugs": {
     "url": "https://github.com/LeavittSoftware/titanium-elements/issues"

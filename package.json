@@ -15,5 +15,8 @@
     "lint": "lerna run lint --stream",
     "storybook": "cd packages/storybook && npm run storybook",
     "lerna:publish": "npm run bootstrap && npm run build && lerna publish --conventional-commits --yes"
+  },
+  "dependencies": {
+    "tslint": "^5.16.0"
   }
 }
