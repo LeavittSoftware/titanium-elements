@@ -53,7 +53,12 @@ for:
 
       configuration: Release
 
-      after_test:
+      test_script:
+        # Output useful info for debugging.
+        - node --version
+        - npm --version
+        # run tests
+        - npm run lint
         - ps: '"//registry.npmjs.org/:_authToken=$env:npm_auth_token`n" | out-file "$env:userprofile\.npmrc" -Encoding ASCII'
         - npm whoami
         - git checkout master
