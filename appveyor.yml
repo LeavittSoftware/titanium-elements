@@ -6,7 +6,6 @@ skip_commits:
   message: /chore/
 
 skip_tags: true
-skip_branch_with_pr: true
 
 # Install scripts. (runs after repo cloning)
 install:
