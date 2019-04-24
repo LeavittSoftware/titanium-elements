@@ -8,5 +8,6 @@
       "message": "chore(release): publish"
     }
   },
+
   "ignoreChanges": ["**/*.md"]
 }
