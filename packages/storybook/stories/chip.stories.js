@@ -18,7 +18,7 @@ const availableCssVars = {
   ],
 };
 
-storiesOf('Chip Demo', module)
+storiesOf('UI COMPONENTS|titanium-chip', module)
   .addDecorator(withKnobs)
   .add(
     'Simple',
