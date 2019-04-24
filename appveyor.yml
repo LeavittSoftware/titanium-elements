@@ -6,7 +6,6 @@ skip_commits:
   message: /chore/
 
 skip_tags: true
-skip_branch_with_pr: true
 
 # Install scripts. (runs after repo cloning)
 install:
@@ -40,26 +39,30 @@ notifications:
     on_build_status_changed: false
     template: '<{{buildUrl}}|Build [{{projectName}}] {{buildVersion}} {{status}}> Commit <{{commitUrl}}|{{commitId}}> by {{commitAuthor}} on {{commitDate}}: _{{commitMessage}}_'
 
+# Don't actually build.
+build: off
 configuration: Debug
 
 # here we are going to override common configuration
 for:
-  # override settings for `master` branch
-  - branches:
+  - # override settings for `master` branch
+    branches:
       only:
         - master
 
     configuration: Release
 
-after_test:
-  - ps: '"//registry.npmjs.org/:_authToken=$env:npm_auth_token`n" | out-file "$env:userprofile\.npmrc" -Encoding ASCII'
-  - npm whoami
-  - git checkout master
-  - git config --global credential.helper store
-  - ps: Add-Content "$HOME\.git-credentials" "https://$($env:git_access_token):x-oauth-basic@github.com`n"
-  - git config user.email "aaron-drabeck@leavitt.com"
-  - git config user.name "AppVeyor Automation"
-  - npm run lerna:publish
-
-# Don't actually build.
-build: off
+    test_script:
+      # Output useful info for debugging.
+      - node --version
+      - npm --version
+      # run linting
+      - npm run lint
+      - ps: '"//registry.npmjs.org/:_authToken=$env:npm_auth_token`n" | out-file "$env:userprofile\.npmrc" -Encoding ASCII'
+      - npm whoami
+      - git checkout master
+      - git config --global credential.helper store
+      - ps: Add-Content "$HOME\.git-credentials" "https://$($env:git_access_token):x-oauth-basic@github.com`n"
+      - git config user.email "aaron-drabeck@leavitt.com"
+      - git config user.name "AppVeyor Automation"
+      - npm run lerna:publish
