@@ -3,10 +3,10 @@ import { html } from 'lit-html';
 import { withKnobs, button, text } from '@storybook/addon-knobs';
 import '@leavittsoftware/titanium-snackbar/lib/titanium-snackbar';
 
-storiesOf('Snackbar Demo', module)
+storiesOf('UI COMPONENTS|titanium-snackbar', module)
   .addDecorator(withKnobs)
   .add(
-    'Main Demo',
+    'Usage',
 
     () => {
       let title = text('Toast Message', 'Query failed');
