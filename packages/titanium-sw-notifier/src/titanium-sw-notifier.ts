@@ -33,7 +33,8 @@ export class TitanuimServiceWorkerNotifierElement extends LitElement {
       // has become redundant, since this implies there's a new service worker
       // with fresh content.
       if (navigator.serviceWorker.controller) {
-        navigator.serviceWorker.controller.addEventListener('statechange', (event) => {
+        // tslint:disable-next-line: no-any
+        navigator.serviceWorker.controller.addEventListener('statechange', (event: any) => {
           if (event && event.target && event.target.state === 'redundant') {
             this._showUpdatedSnackbar();
           }
