@@ -4,6 +4,7 @@ import { css, customElement, html, LitElement, property } from 'lit-element';
 @customElement('titanium-svg-button')
 export class TitaniumSvgButton extends LitElement {
   @property() path: string;
+
   @property({ type: Boolean, reflect: true }) disabled: boolean;
 
   static styles = css`
