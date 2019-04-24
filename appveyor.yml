@@ -42,14 +42,16 @@ notifications:
 
 # Don't actually build.
 build: off
-
 configuration: Debug
+
 # here we are going to override common configuration
 for:
   - # override settings for `master` branch
     - branches:
         only:
           - master
+
+      configuration: Release
 
       after_test:
         - ps: '"//registry.npmjs.org/:_authToken=$env:npm_auth_token`n" | out-file "$env:userprofile\.npmrc" -Encoding ASCII'
