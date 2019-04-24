@@ -1,6 +1,6 @@
 # Test against the latest version of this Node.js version
 environment:
-  nodejs_version: '6'
+  nodejs_version: '8'
 
 skip_commits:
   message: /chore/
@@ -28,7 +28,7 @@ test_script:
   - ps: >-
       if($env:APPVEYOR_REPO_BRANCH -eq 'master' –AND $env:APPVEYOR_PULL_REQUEST_NUMBER -lt 1) {
         npm whoami  
-        git checkout master
+        git checkout -q master
         git config --global credential.helper store
         Add-Content "$HOME\.git-credentials" "https://$($env:git_access_token):x-oauth-basic@github.com`n"
         git config user.email "aaron-drabeck@leavitt.com"
