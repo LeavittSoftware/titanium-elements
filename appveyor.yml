@@ -52,13 +52,13 @@ for:
     configuration: Release
 
 after_test:
+  - ps: '"//registry.npmjs.org/:_authToken=$env:npm_auth_token`n" | out-file "$env:userprofile\.npmrc" -Encoding ASCII'
   - npm whoami
   - git checkout -q master
   - git config --global credential.helper store
   - ps: Add-Content "$HOME\.git-credentials" "https://$($env:git_access_token):x-oauth-basic@github.com`n"
   - git config user.email "aaron-drabeck@leavitt.com"
   - git config user.name "AppVeyor Automation"
-  - ps: '"//registry.npmjs.org/:_authToken=$env:npm_auth_token`n" | out-file "$env:userprofile\.npmrc" -Encoding ASCII'
   - npm run lerna:publish
 
 # Don't actually build.
