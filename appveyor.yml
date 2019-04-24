@@ -13,30 +13,15 @@ install:
   # Get the latest stable version of Node.js or io.js
   - ps: Install-Product node $env:nodejs_version
   # install modules
-  - git config --global credential.helper store
-  - ps: Add-Content "$HOME\.git-credentials" "https://$($env:git_access_token):x-oauth-basic@github.com`n"
-  - git config user.email "aaron-drabeck@leavitt.com"
-  - git config user.name "AppVeyor Automation"
   - npm install
-  - ps: '"//registry.npmjs.org/:_authToken=$env:npm_auth_token`n" | out-file "$env:userprofile\.npmrc" -Encoding ASCII'
-
-# Post-install test scripts.
+  
+  
 test_script:
   # Output useful info for debugging.
   - node --version
   - npm --version
   # run tests
   - npm run lint
-
-  - ps: >-
-      if($env:APPVEYOR_REPO_BRANCH -eq 'master' –AND $env:APPVEYOR_PULL_REQUEST_NUMBER -lt 1) {
-        npm whoami  
-        git checkout -q master       
-        npm run lerna:publish
-      }
-
-# Don't actually build.
-build: off
 
 notifications:
   - provider: Slack
@@ -55,3 +40,31 @@ notifications:
     on_build_failure: true
     on_build_status_changed: false
     template: '<{{buildUrl}}|Build [{{projectName}}] {{buildVersion}} {{status}}> Commit <{{commitUrl}}|{{commitId}}> by {{commitAuthor}} on {{commitDate}}: _{{commitMessage}}_'
+
+
+configuration: Debug
+
+# here we are going to override common configuration
+for:
+
+# override settings for `master` branch
+-
+  branches:
+    only:
+      - master
+
+  configuration: Release
+
+test_script:
+  - npm whoami  
+  - git checkout -q master       
+  - git config --global credential.helper store
+  - ps: Add-Content "$HOME\.git-credentials" "https://$($env:git_access_token):x-oauth-basic@github.com`n"
+  - git config user.email "aaron-drabeck@leavitt.com"
+  - git config user.name "AppVeyor Automation"
+  - ps: '"//registry.npmjs.org/:_authToken=$env:npm_auth_token`n" | out-file "$env:userprofile\.npmrc" -Encoding ASCII'
+  - npm run lerna:publish
+
+# Don't actually build.
+build: off
+
