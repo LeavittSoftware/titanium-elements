@@ -8,6 +8,10 @@ export class TitaniumChipElement extends LitElement {
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
   @property({ type: Boolean, reflect: true }) closeable: boolean;
 
+  disable() {
+    this.disabled = !this.disabled;
+  }
+
   static styles = css`
     :host {
       display: inline-flex;

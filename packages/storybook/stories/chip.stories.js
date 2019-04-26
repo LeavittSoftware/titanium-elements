@@ -7,7 +7,7 @@ import '@leavittsoftware/titanium-chip';
 const availableCssVars = {
   cssresources: [
     {
-      id: `Darkheme`,
+      id: `DarkTheme`,
       code: `<style> titanium-chip {
         --titanium-chip-label-background-color: #f9f9f9;
         --titanium-chip-label-hover-background-color: #eee;
