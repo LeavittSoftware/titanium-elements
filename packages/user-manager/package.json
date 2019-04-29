@@ -1,0 +1,35 @@
+{
+  "name": "@leavittsoftware/user-manager",
+  "description": "",
+  "author": "Leavitt Software",
+  "version": "8.0.1",
+  "license": "MIT",
+  "main": "lib/user-manager.js",
+  "typings": "lib/user-manager.d.ts",
+  "homepage": "https://github.com/LeavittSoftware/titanium-elements/tree/master/packages/user-manager",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "keywords": [
+    "web component"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LeavittSoftware/titanium-elements.git"
+  },
+  "dependencies": {
+    "lit-element": "^2.0.1",
+    "jwt-decode": "^2.2.0",
+    "@leavittsoftware/titanium-helpers": "^0.0.1"
+  },
+  "scripts": {
+    "build:watch": "tsc --watch",
+    "build": "tsc",
+    "lint": "tslint \"src/*.ts\""
+  },
+  "bugs": {
+    "url": "https://github.com/LeavittSoftware/titanium-elements/issues"
+  },
+  "gitHead": "f80c9f25691088c456baf119f3be7e278bf9c80d"
+}

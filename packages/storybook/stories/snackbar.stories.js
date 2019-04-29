@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/polymer/dist/client/preview/index';
 import { html } from 'lit-html';
 import { withKnobs, button, text } from '@storybook/addon-knobs';
-import '@leavittsoftware/titanium-snackbar/lib/titanium-snackbar';
+import '@leavittsoftware/titanium-snackbar';
 
 storiesOf('UI COMPONENTS|titanium-snackbar', module)
   .addDecorator(withKnobs)
