@@ -16,6 +16,7 @@ export class TitaniumDataTableItemElement extends LitElement {
 
   firstUpdated() {
     // Set width of each slotted row with based on width
+    // tslint:disable-next-line: no-any
     (this.shadowRoot as any)
       .querySelector('slot')
       .assignedNodes()

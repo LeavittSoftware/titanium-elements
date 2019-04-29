@@ -13,6 +13,8 @@ export const startCsvDownload = (fileName: string, csv: string) => {
   }
 };
 
+//TODO: Rewrite in a safer way...check types, etc...
+// tslint:disable-next-line: no-any
 export const convertArrayToCsv = (json: Array<any>, flatten = false) => {
   if (!json[0]) return 'Empty List';
 
@@ -55,7 +57,7 @@ const flattenObject = (data) => {
         result[prop] = cur;
       }
     } else if (Array.isArray(cur)) {
-      let l;
+      const l = 0;
       for (let i = 0, l = cur.length; i < l; i++) recurse(cur[i], prop ? prop + '.' + i : '' + i);
       if (l === 0) result[prop] = [];
     } else {

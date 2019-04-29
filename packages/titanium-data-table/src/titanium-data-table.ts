@@ -10,13 +10,14 @@ export class TitaniumDataTableElement extends LitElement {
   @property({ type: Number }) take: number;
   @property({ type: Number }) page: number = 0;
   @property({ type: Number }) count: number;
-  @property({ type: Array }) items: Array<any> = [];
+  @property({ type: Array }) items: Array<unknown> = [];
 
   @property({ type: String }) searchTerm: string;
 
   @property({ type: Boolean, attribute: 'single-select', reflect: true }) singleSelect: boolean;
-  @property({ type: Array }) selected: Array<any> = [];
+  @property({ type: Array }) selected: Array<unknown> = [];
   @property({ type: Boolean }) isLoading: Boolean = true;
+  // tslint:disable-next-line: no-any
   @queryAll('table-container') tableContanier: NodeListOf<any>;
 
   connectedCallback() {
@@ -41,7 +42,7 @@ export class TitaniumDataTableElement extends LitElement {
     }
   }
 
-  private _handleItemSelectionChange(e: CustomEvent<{ item: any; isSelected: boolean }>) {
+  private _handleItemSelectionChange(e: CustomEvent<{ item: unknown; isSelected: boolean }>) {
     e.stopPropagation();
 
     if (e.detail.isSelected) {
