@@ -7,10 +7,24 @@ storiesOf('COMMUNICATION|api-service', module)
   .addDecorator(withKnobs)
   .add('Fruits CRUD Demo', () => {
     let apiService = () => document.querySelector('api-service');
+    const names = ['Apple', 'Banana', 'Apricot', 'Blackcurrant', 'Blueberry', 'Orange', 'Strawberry', 'Tomato', 'Redcurrant'];
+    const getRandomFruitName = () => names[Math.floor(Math.random() * names.length)];
 
     button('Get Fruits - Top 5', async () => {
       try {
-        alert((await apiService().getAsync('Fruits/?$top=5&$orderby=Id desc')).toList());
+        alert(JSON.stringify((await apiService().getAsync('Fruits/?$top=5&$orderby=Id desc')).toList()));
+      } catch (error) {
+        alert(error);
+      }
+    });
+
+    button('POST Fruit', async () => {
+      const dto = {};
+      dto.Name = getRandomFruitName();
+
+      try {
+        const fruit = await apiService().postAsync('Fruits', dto);
+        alert(JSON.stringify(fruit));
       } catch (error) {
         alert(error);
       }
