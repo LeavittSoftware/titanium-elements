@@ -23,6 +23,7 @@
     "@leavittsoftware/titanium-svg-button": "^1.0.1",
     "@leavittsoftware/titanium-vaadin": "^1.0.0",
     "@leavittsoftware/user-manager": "^8.1.0",
+    "@leavittsoftware/api-service": "^3.0.0",
     "@storybook/addon-actions": "^5.0.10",
     "@storybook/addon-cssresources": "^5.0.10",
     "@storybook/addon-knobs": "^5.0.10",
@@ -32,5 +33,6 @@
     "lit-html": "^1.0.0",
     "polymer-webpack-loader": "^2.0.3"
   },
-  "gitHead": "f80c9f25691088c456baf119f3be7e278bf9c80d"
+  "gitHead": "f80c9f25691088c456baf119f3be7e278bf9c80d",
+  "dependencies": {}
 }

@@ -1,0 +1,35 @@
+{
+  "name": "@leavittsoftware/api-service",
+  "description": "",
+  "author": "Leavitt Software",
+  "version": "3.0.0",
+  "license": "MIT",
+  "main": "lib/api-service-element.js",
+  "typings": "lib/api-service-element.d.ts",
+  "homepage": "https://github.com/LeavittSoftware/titanium-elements/tree/master/packages/api-service",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "keywords": [
+    "web component"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LeavittSoftware/titanium-elements.git"
+  },
+  "dependencies": {
+    "lit-element": "^2.0.1",
+    "@leavittsoftware/user-manager": "^8.0.1",
+    "@leavittsoftware/titanium-helpers": "^1.0.0"
+  },
+  "scripts": {
+    "build:watch": "tsc --watch",
+    "build": "tsc",
+    "lint": "tslint \"src/*.ts\""
+  },
+  "bugs": {
+    "url": "https://github.com/LeavittSoftware/titanium-elements/issues"
+  },
+  "gitHead": "f80c9f25691088c456baf119f3be7e278bf9c80d"
+}
