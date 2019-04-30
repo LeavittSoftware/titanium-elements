@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@3.1.1...@leavittsoftware/api-service@3.2.0) (2019-04-30)
+
+
+### Features
+
+* Improved typing on POST, GET, PATCH, DEL ([4cee8c2](https://github.com/LeavittSoftware/titanium-elements/commit/4cee8c2))
+
+
+
+
+
 ## [3.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@3.1.0...@leavittsoftware/api-service@3.1.1) (2019-04-30)
 
 **Note:** Version bump only for package @leavittsoftware/api-service
