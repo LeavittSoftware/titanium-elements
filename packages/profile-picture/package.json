@@ -1,12 +1,12 @@
 {
-  "name": "@leavittsoftware/user-manager",
+  "name": "@leavittsoftware/profile-picture",
   "description": "",
   "author": "Leavitt Software",
-  "version": "8.1.0",
+  "version": "2.0.5",
   "license": "MIT",
-  "main": "lib/user-manager.js",
-  "typings": "lib/user-manager.d.ts",
-  "homepage": "https://github.com/LeavittSoftware/titanium-elements/tree/master/packages/user-manager",
+  "main": "lib/profile-picture.js",
+  "typings": "lib/profile-picture.d.ts",
+  "homepage": "https://github.com/LeavittSoftware/titanium-elements/tree/master/packages/titanium-svg-button",
   "files": [
     "lib",
     "src"
@@ -19,8 +19,9 @@
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
   "dependencies": {
+    "@leavittsoftware/user-manager": "^8.1.0",
     "@leavittsoftware/titanium-helpers": "^1.0.0",
-    "jwt-decode": "^2.2.0",
+    "@vaadin/vaadin-button": "^2.2.0",
     "lit-element": "^2.1.0"
   },
   "scripts": {
