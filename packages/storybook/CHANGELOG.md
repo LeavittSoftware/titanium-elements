@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@0.3.0...@leavittsoftware/storybook@0.4.0) (2019-04-30)
+
+
+### Features
+
+* moves profile picture to mono-repo ([e124746](https://github.com/LeavittSoftware/titanium-elements/commit/e124746))
+
+
+
+
+
 # [0.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@0.2.0...@leavittsoftware/storybook@0.3.0) (2019-04-30)
 
 

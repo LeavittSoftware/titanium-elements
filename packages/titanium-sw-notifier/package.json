@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-sw-notifier",
   "description": "",
   "author": "Leavitt Software",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "license": "MIT",
   "main": "lib/titanium-sw-notifier.js",
   "typings": "lib/titanium-sw-notifier.d.ts",
