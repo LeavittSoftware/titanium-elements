@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@0.2.0...@leavittsoftware/storybook@0.3.0) (2019-04-30)
+
+
+### Features
+
+* Adds api-service package. ([79516e5](https://github.com/LeavittSoftware/titanium-elements/commit/79516e5))
+
+
+
+
+
 # [0.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@0.1.2...@leavittsoftware/storybook@0.2.0) (2019-04-29)
 
 
