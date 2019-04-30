@@ -32,7 +32,7 @@ export class ApiServiceElement extends LitElement {
     }
   }
 
-  async postAsync<T>(urlPath: string, body: unknown & ODataDto, appName: string | null = null): Promise<T | null> {
+  async postAsync<T>(urlPath: string, body: unknown | ODataDto = {}, appName: string | null = null): Promise<T | null> {
     return this._apiService.postAsync<T>(urlPath, body, appName);
   }
 
@@ -40,11 +40,11 @@ export class ApiServiceElement extends LitElement {
     return this._apiService.getAsync<T>(urlPath, appName);
   }
 
-  async patchAsync(urlPath: string, body: unknown & ODataDto, appName: string | null = null): Promise<void> {
+  async patchAsync(urlPath: string, body: unknown | ODataDto, appName: string | null = null): Promise<void> {
     return this._apiService.patchAsync(urlPath, body, appName);
   }
 
-  async patchReturnDtoAsync<T>(urlPath: string, body: unknown & ODataDto, appName: string | null = null): Promise<T> {
+  async patchReturnDtoAsync<T>(urlPath: string, body: unknown | ODataDto, appName: string | null = null): Promise<T> {
     return this._apiService.patchReturnDtoAsync<T>(urlPath, body, appName);
   }
 

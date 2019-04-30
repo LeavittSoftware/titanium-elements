@@ -22,9 +22,10 @@ export class ApiService {
   headers = {};
   baseUrl: string = 'https://api2.leavitt.com/';
 
-  async postAsync<T>(urlPath: string, body: unknown & ODataDto, appName: string | null = null): Promise<T | null> {
+  async postAsync<T>(urlPath: string, body: unknown | ODataDto = {}, appName: string | null = null): Promise<T | null> {
     // Add in the odata model info if it not already on the object
-    if (body._odataInfo && !body['@odata.type']) {
+
+    if (body instanceof ODataDto && body._odataInfo && !body['@odata.type']) {
       if (body._odataInfo.type) {
         body['@odata.type'] = body._odataInfo.type;
       }
@@ -69,9 +70,9 @@ export class ApiService {
     }
   }
 
-  async patchAsync(urlPath: string, body: unknown & ODataDto, appName: string | null = null): Promise<void> {
+  async patchAsync(urlPath: string, body: unknown | ODataDto, appName: string | null = null): Promise<void> {
     // Add in the odata model info if it not already on the object
-    if (body._odataInfo && !body['@odata.type']) {
+    if (body instanceof ODataDto && body._odataInfo && !body['@odata.type']) {
       if (body._odataInfo.type) {
         body['@odata.type'] = body._odataInfo.type;
       }
@@ -111,9 +112,9 @@ export class ApiService {
     }
   }
 
-  async patchReturnDtoAsync<T>(urlPath: string, body: unknown & ODataDto, appName: string | null = null): Promise<T> {
+  async patchReturnDtoAsync<T>(urlPath: string, body: unknown | ODataDto, appName: string | null = null): Promise<T> {
     // Add in the odata model info if it not already on the object
-    if (body._odataInfo && !body['@odata.type']) {
+    if (body instanceof ODataDto && body._odataInfo && !body['@odata.type']) {
       if (body._odataInfo.type) {
         body['@odata.type'] = body._odataInfo.type;
       }
