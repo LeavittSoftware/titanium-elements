@@ -1,0 +1,36 @@
+{
+  "name": "@leavittsoftware/profile-picture",
+  "description": "",
+  "author": "Leavitt Software",
+  "version": "2.0.5",
+  "license": "MIT",
+  "main": "lib/profile-picture.js",
+  "typings": "lib/profile-picture.d.ts",
+  "homepage": "https://github.com/LeavittSoftware/titanium-elements/tree/master/packages/titanium-svg-button",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "keywords": [
+    "web component"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LeavittSoftware/titanium-elements.git"
+  },
+  "dependencies": {
+    "@leavittsoftware/user-manager": "^8.1.0",
+    "@leavittsoftware/titanium-helpers": "^1.0.0",
+    "@vaadin/vaadin-button": "^2.2.0",
+    "lit-element": "^2.1.0"
+  },
+  "scripts": {
+    "build:watch": "tsc --watch",
+    "build": "tsc",
+    "lint": "tslint \"src/*.ts\""
+  },
+  "bugs": {
+    "url": "https://github.com/LeavittSoftware/titanium-elements/issues"
+  },
+  "gitHead": "f80c9f25691088c456baf119f3be7e278bf9c80d"
+}
