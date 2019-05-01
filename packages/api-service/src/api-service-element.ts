@@ -1,13 +1,15 @@
 ﻿import { isDevelopment } from '@leavittsoftware/titanium-helpers/lib/titanium-dev-detection';
 import { customElement, LitElement, property } from 'lit-element';
 
-import { ApiService } from './api-service';
+import ApiService, { onProgressCallback } from './api-service';
 import { AuthenticatedTokenProvider } from './authenticated-token-provider';
 import { GetResult } from './get-result';
 import { ODataDto } from './odata-dto';
 
+export type UploadProgressEvent = { event: ProgressEvent; request: XMLHttpRequest };
+
 @customElement('api-service')
-export class ApiServiceElement extends LitElement {
+export default class ApiServiceElement extends LitElement {
   private _apiService: ApiService = new ApiService(new AuthenticatedTokenProvider());
 
   @property({ type: String }) baseProductionUri: string = 'https://api2.leavitt.com/';
@@ -30,6 +32,14 @@ export class ApiServiceElement extends LitElement {
         this._apiService.addHeader('X-LGAppName', this.appName);
       }
     }
+  }
+
+  async uploadFile<T>(urlPath: string, file: File, onprogress: onProgressCallback, appName: string | null = null): Promise<T | void> {
+    const onprogressHandler = (e: ProgressEvent, xhr: XMLHttpRequest) => {
+      onprogress(e, xhr);
+      this.dispatchEvent(new CustomEvent<UploadProgressEvent>('upload-file-progess', { detail: { event: e, request: xhr } }));
+    };
+    return this._apiService.uploadFile<T>(urlPath, file, onprogressHandler, appName);
   }
 
   async postAsync<T>(urlPath: string, body: unknown | ODataDto = {}, appName: string | null = null): Promise<T | null> {

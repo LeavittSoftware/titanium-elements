@@ -2,7 +2,9 @@
 import { GetResult } from './get-result';
 import { ODataDto } from './odata-dto';
 
-export class ApiService {
+export type onProgressCallback = (event: ProgressEvent, request: XMLHttpRequest) => void;
+
+export default class ApiService {
   constructor(tokenProvider: BearerTokenProvider) {
     this._tokenProvider = tokenProvider;
     this.addHeader('Content-Type', 'application/json');
@@ -22,6 +24,62 @@ export class ApiService {
   headers = {};
   baseUrl: string = 'https://api2.leavitt.com/';
 
+  async uploadFile<T>(urlPath: string, file: File, onprogress: onProgressCallback, appName: string | null = null): Promise<T | void> {
+    return new Promise(async (resolve, reject) => {
+      if (!file || !file.name) {
+        reject('ArgumentException: Invlaid file passed to uploadFile.');
+      }
+
+      try {
+        const xhr = new XMLHttpRequest();
+        xhr.upload.addEventListener('progress', (e) => {
+          onprogress(e, xhr);
+        });
+        xhr.open('POST', `${this.baseUrl}${urlPath}`, true);
+        xhr.setRequestHeader('Authorization', `Bearer ${await this._tokenProvider._getBearerTokenAsync()}`);
+        xhr.setRequestHeader('X-LGAttachmentName', file.name);
+
+        if (appName !== null) {
+          xhr.setRequestHeader('X-LGAppName', appName);
+        }
+
+        xhr.addEventListener(
+          'loadend',
+          () => {
+            if (xhr.status === 204) {
+              return resolve();
+            }
+
+            if (xhr.status === 404) {
+              return reject('404: Endpoint not found.');
+            }
+
+            let json;
+            try {
+              json = JSON.parse(xhr.response);
+            } catch (error) {
+              return reject(`The server sent back invalid JSON. ${error}`);
+            }
+
+            if (json.error != null) {
+              return reject(json.error.message);
+            }
+
+            if (xhr.status === 201 || xhr.status === 200) {
+              return resolve(json);
+            } else {
+              return reject('Request error, please try again later.');
+            }
+          },
+          false
+        );
+        xhr.send(file);
+      } catch (error) {
+        return reject(error);
+      }
+    });
+  }
+
   async postAsync<T>(urlPath: string, body: unknown | ODataDto = {}, appName: string | null = null): Promise<T | null> {
     // Add in the odata model info if it not already on the object
 
@@ -35,8 +93,6 @@ export class ApiService {
     if (appName !== null) {
       this.addHeader('X-LGAppName', appName);
     }
-
-    this.addHeader('Authorization', `Bearer ${await this._tokenProvider._getBearerTokenAsync()}`);
 
     let response;
     try {
@@ -180,7 +236,7 @@ export class ApiService {
     }
 
     if (response.status === 404) {
-      return Promise.reject('Not Found');
+      return Promise.reject('404: Endpoint not found.');
     }
 
     let json;
