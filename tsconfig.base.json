@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es2017",
     "module": "esNext",
     "moduleResolution": "node",
-    "lib": ["esnext", "dom"],
+    "lib": ["es2017", "dom"],
     "experimentalDecorators": true,
     "noImplicitAny": false,
     "declaration": true,
