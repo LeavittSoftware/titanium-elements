@@ -36,11 +36,21 @@ export default class ApiService {
           onprogress(e, xhr);
         });
         xhr.open('POST', `${this.baseUrl}${urlPath}`, true);
-        xhr.setRequestHeader('Authorization', `Bearer ${await this._tokenProvider._getBearerTokenAsync()}`);
-        xhr.setRequestHeader('X-LGAttachmentName', file.name);
+
+        const headers = { ...this.headers };
+        headers['Authorization'] = `Bearer ${await this._tokenProvider._getBearerTokenAsync()}`;
+        headers['X-LGAttachmentName'] = file.name;
 
         if (appName !== null) {
-          xhr.setRequestHeader('X-LGAppName', appName);
+          //appName set as a parameter has more specificity and should win
+          headers['X-LGAppName'] = appName;
+        }
+
+        for (const header in headers) {
+          // A peciliarity of XMLHttpRequest is that one can’t undo setRequestHeader.
+          // Once the header is set, it’s set. Additional calls add information to the header, don’t overwrite it.
+          // Because of this, we aggregate headers into the headers object rather than calling setRequestHeader multiple times.
+          xhr.setRequestHeader(header, headers[header]);
         }
 
         xhr.addEventListener(
