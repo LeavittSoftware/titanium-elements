@@ -94,6 +94,8 @@ export default class ApiService {
       this.addHeader('X-LGAppName', appName);
     }
 
+    this.addHeader('Authorization', `Bearer ${await this._tokenProvider._getBearerTokenAsync()}`);
+
     let response;
     try {
       response = await fetch(`${this.baseUrl}${urlPath}`, { method: 'POST', body: JSON.stringify(body), headers: this.headers });
