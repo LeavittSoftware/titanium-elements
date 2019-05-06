@@ -1,4 +1,4 @@
-export const startCsvDownload = (fileName: string, csv: string) => {
+export const startCsvDownload = (fileName: string, csv: string, context: HTMLElement = document.body) => {
   if (window.navigator.msSaveBlob) {
     // IE 10+
     window.navigator.msSaveOrOpenBlob(new Blob([csv], { type: 'text/plain;charset=utf-8;' }), fileName);
@@ -7,9 +7,13 @@ export const startCsvDownload = (fileName: string, csv: string) => {
     link.setAttribute('download', fileName);
     link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv));
     link.style.visibility = 'hidden';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+
+    const clickEvent = document.createEvent('MouseEvent');
+    clickEvent.initEvent('click', true, true);
+
+    context.appendChild(link);
+    link.dispatchEvent(clickEvent);
+    context.removeChild(link);
   }
 };
 
@@ -19,7 +23,7 @@ export const convertArrayToCsv = (json: Array<any>, flatten = false) => {
   if (!json[0]) return 'Empty List';
 
   if (flatten) {
-    json = json.map((o) => {
+    json = json.map((o: Object) => {
       return flattenObject(o);
     });
   }
@@ -48,7 +52,7 @@ export const convertArrayToCsv = (json: Array<any>, flatten = false) => {
   return csv.join('\r\n');
 };
 
-const flattenObject = (data) => {
+const flattenObject = (data: Object) => {
   // also strips odata annotation properties
   const result = {};
   const recurse = (cur, prop) => {
