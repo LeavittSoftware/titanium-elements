@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@4.0.2...@leavittsoftware/api-service@5.0.0) (2019-05-10)
+
+
+### Bug Fixes
+
+* Corrects spelling in progress event ([221e3ec](https://github.com/LeavittSoftware/titanium-elements/commit/221e3ec))
+* Corrects typo in error message. ([36ed622](https://github.com/LeavittSoftware/titanium-elements/commit/36ed622))
+
+
+### Features
+
+* Exposes add and delete header on element. ([e04acba](https://github.com/LeavittSoftware/titanium-elements/commit/e04acba))
+
+
+### BREAKING CHANGES
+
+* Progress event name changed to fix typo.
+
+
+
+
+
 ## [4.0.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@4.0.1...@leavittsoftware/api-service@4.0.2) (2019-05-06)
 
 **Note:** Version bump only for package @leavittsoftware/api-service
