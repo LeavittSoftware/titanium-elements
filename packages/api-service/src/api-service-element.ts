@@ -37,7 +37,7 @@ export default class ApiServiceElement extends LitElement {
   async uploadFile<T>(urlPath: string, file: File, onprogress: onProgressCallback, appName: string | null = null): Promise<T | void> {
     const onprogressHandler = (e: ProgressEvent, xhr: XMLHttpRequest) => {
       onprogress(e, xhr);
-      this.dispatchEvent(new CustomEvent<UploadProgressEvent>('upload-file-progess', { detail: { event: e, request: xhr } }));
+      this.dispatchEvent(new CustomEvent<UploadProgressEvent>('upload-file-progress', { detail: { event: e, request: xhr } }));
     };
     return this._apiService.uploadFile<T>(urlPath, file, onprogressHandler, appName);
   }
