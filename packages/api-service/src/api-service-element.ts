@@ -34,6 +34,14 @@ export default class ApiServiceElement extends LitElement {
     }
   }
 
+  addHeader(key: string, value: string) {
+    this._apiService.addHeader(key, value);
+  }
+
+  deleteHeader(key: string) {
+    this._apiService.deleteHeader(key);
+  }
+
   async uploadFile<T>(urlPath: string, file: File, onprogress: onProgressCallback, appName: string | null = null): Promise<T | void> {
     const onprogressHandler = (e: ProgressEvent, xhr: XMLHttpRequest) => {
       onprogress(e, xhr);
