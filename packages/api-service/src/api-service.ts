@@ -27,7 +27,7 @@ export default class ApiService {
   async uploadFile<T>(urlPath: string, file: File, onprogress: onProgressCallback, appName: string | null = null): Promise<T | void> {
     return new Promise(async (resolve, reject) => {
       if (!file || !file.name) {
-        reject('ArgumentException: Invlaid file passed to uploadFile.');
+        reject('ArgumentException: Invalid file passed to uploadFile.');
       }
 
       try {
