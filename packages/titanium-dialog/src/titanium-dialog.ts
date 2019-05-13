@@ -1,8 +1,8 @@
-import '@material/mwc-ripple';
+import '@leavittsoftware/titanium-button';
 import { css, customElement, html, LitElement, property, query } from 'lit-element';
 
 @customElement('titanium-dialog')
-export class TitaniumDialog extends LitElement {
+export class TitaniumDialogElement extends LitElement {
   @property({ type: Boolean, reflect: true }) protected opened: boolean;
   @property({ type: Boolean, reflect: true }) protected opening: boolean;
   @property({ type: Boolean, reflect: true }) protected closing: boolean;
@@ -216,38 +216,6 @@ export class TitaniumDialog extends LitElement {
       transform: scale(1);
       opacity: 1;
     }
-
-    button {
-      /* Button Reset */
-      border: none;
-      margin: 0;
-      width: auto;
-      overflow: visible;
-      background: transparent;
-      /* inherit font & color from ancestor */
-      font: inherit;
-      outline: none;
-      /* Corrects font smoothing for webkit */
-      -webkit-font-smoothing: inherit;
-      -moz-osx-font-smoothing: inherit;
-
-      display: block;
-      cursor: pointer;
-      color: var(--titanium-button-text-color, #3b95ff);
-      font-weight: 500;
-      letter-spacing: 1.25px;
-      padding: 10px 16px;
-      user-select: none;
-      border-radius: 4px;
-    }
-
-    button:focus,
-    button:hover {
-      font-weight: 500;
-      background-color: #f9f5fe;
-      outline-style: none;
-      box-shadow: none;
-    }
   `;
 
   render() {
@@ -261,14 +229,14 @@ export class TitaniumDialog extends LitElement {
         </section>
 
         <footer>
-          <button
+          <titanium-button
             @click=${(e: Event) => {
               e.preventDefault();
               this.close('close-click');
             }}
           >
-            CLOSE<mwc-ripple></mwc-ripple>
-          </button>
+            CLOSE
+          </titanium-button>
           <slot name="actions"> </slot>
         </footer>
       </dialog-container>
