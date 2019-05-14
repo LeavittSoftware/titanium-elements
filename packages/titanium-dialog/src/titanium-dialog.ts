@@ -229,15 +229,16 @@ export class TitaniumDialogElement extends LitElement {
         </section>
 
         <footer>
-          <titanium-button
-            @click=${(e: Event) => {
-              e.preventDefault();
-              this.close('close-click');
-            }}
-          >
-            CLOSE
-          </titanium-button>
-          <slot name="actions"> </slot>
+          <slot name="actions"
+            ><titanium-button
+              @click=${(e: Event) => {
+                e.preventDefault();
+                this.close('close-click');
+              }}
+            >
+              CLOSE
+            </titanium-button>
+          </slot>
         </footer>
       </dialog-container>
     `;
