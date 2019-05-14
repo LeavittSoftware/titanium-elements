@@ -1,5 +1,5 @@
 ﻿import './profile-picture';
-import '@vaadin/vaadin-button/theme/material/vaadin-button';
+import '@leavittsoftware/titanium-button';
 
 import { GetUserManagerInstance } from '@leavittsoftware/user-manager';
 import { UserManagerUpdatedEvent } from '@leavittsoftware/user-manager/lib/user-manager-events';
@@ -215,15 +215,12 @@ export class ProfilePictureMenuElement extends LitElement {
       padding: 12px 24px;
     }
 
-    vaadin-button {
-      cursor: pointer;
-      --material-primary-color: #2196f3;
-      --material-primary-text-color: #2196f3;
+    titanium-button {
+      --titanium-button-text-color: #2196f3;
     }
 
-    vaadin-button[account] {
+    titanium-button[account] {
       margin: 12px 24px 24px 24px;
-      align-self: flex-start;
     }
 
     [unresolved] {
@@ -253,11 +250,11 @@ export class ProfilePictureMenuElement extends LitElement {
           <slot-container>
             <slot name="content"></slot>
           </slot-container>
-          <vaadin-button theme="contained" account @click=${() => window.open('https://accounts.leavitt.com/', '_blank')}>Leavitt Group Account</vaadin-button>
+          <titanium-button outlined account @click=${() => window.open('https://accounts.leavitt.com/', '_blank')}>My Leavitt Group Account</titanium-button>
         </overlay-content>
         <overlay-actions>
-          <vaadin-button @click=${() => GetUserManagerInstance().logout()}>LOGOUT</vaadin-button>
-          <vaadin-button @click=${() => this.close()}>CLOSE</vaadin-button>
+          <titanium-button @click=${() => GetUserManagerInstance().logout()}>LOGOUT</titanium-button>
+          <titanium-button @click=${() => this.close()}>CLOSE</titanium-button>
         </overlay-actions>
       </overlay-menu>
     `;
