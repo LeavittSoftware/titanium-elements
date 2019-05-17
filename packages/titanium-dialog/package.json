@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/titanium-dialog",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "main": "lib/titanium-dialog.js",
   "typings": "lib/titanium-dialog.d.ts",
@@ -9,7 +9,7 @@
     "src"
   ],
   "dependencies": {
-    "@leavittsoftware/titanium-button": "^0.1.0",
+    "@leavittsoftware/titanium-button": "^0.1.1",
     "lit-element": "^2.1.0"
   },
   "scripts": {
