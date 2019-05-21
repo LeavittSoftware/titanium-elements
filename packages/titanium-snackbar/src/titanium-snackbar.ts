@@ -110,7 +110,7 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
 
   static styles = css`
     :host {
-      display: flex;
+      display: none;
       flex-direction: row;
       font-family: Roboto, Noto, sans-serif;
       -webkit-font-smoothing: antialiased;
