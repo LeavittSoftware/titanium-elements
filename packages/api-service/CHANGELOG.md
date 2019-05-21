@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@5.0.0...@leavittsoftware/api-service@6.0.0) (2019-05-21)
+
+
+### Features
+
+* **api-service:** Introduces new odata-response type ([2772cee](https://github.com/LeavittSoftware/titanium-elements/commit/2772cee))
+
+
+### BREAKING CHANGES
+
+* **api-service:** Signature change due to introduction of odata-reposnse type.
+
+
+
+
+
 # [5.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@4.0.2...@leavittsoftware/api-service@5.0.0) (2019-05-10)
 
 
