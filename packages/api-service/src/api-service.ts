@@ -1,6 +1,6 @@
 ﻿import { BearerTokenProvider } from './bearer-token-provider';
-import { GetResult } from './get-result';
 import { ODataDto } from './odata-dto';
+import { ODataResponse } from './odata-response';
 
 export type onProgressCallback = (event: ProgressEvent, request: XMLHttpRequest) => void;
 
@@ -24,7 +24,7 @@ export default class ApiService {
   headers = {};
   baseUrl: string = 'https://api2.leavitt.com/';
 
-  async uploadFile<T>(urlPath: string, file: File, onprogress: onProgressCallback, appName: string | null = null): Promise<T | void> {
+  async uploadFile<T>(urlPath: string, file: File, onprogress: onProgressCallback, appName: string | null = null): Promise<ODataResponse<T>> {
     return new Promise(async (resolve, reject) => {
       if (!file || !file.name) {
         reject('ArgumentException: Invalid file passed to uploadFile.');
@@ -57,7 +57,7 @@ export default class ApiService {
           'loadend',
           () => {
             if (xhr.status === 204) {
-              return resolve();
+              return resolve(new ODataResponse<T>(xhr.response, {}));
             }
 
             if (xhr.status === 404) {
@@ -76,7 +76,7 @@ export default class ApiService {
             }
 
             if (xhr.status === 201 || xhr.status === 200) {
-              return resolve(json);
+              return resolve(new ODataResponse<T>(xhr.response, json));
             } else {
               return reject('Request error, please try again later.');
             }
@@ -90,7 +90,7 @@ export default class ApiService {
     });
   }
 
-  async postAsync<T>(urlPath: string, body: unknown | ODataDto = {}, appName: string | null = null): Promise<T | null> {
+  async postAsync<T>(urlPath: string, body: unknown | ODataDto = {}, appName: string | null = null): Promise<ODataResponse<T>> {
     // Add in the odata model info if it not already on the object
 
     if (body instanceof ODataDto && body._odataInfo && !body['@odata.type']) {
@@ -117,7 +117,7 @@ export default class ApiService {
     }
 
     if (response.status === 204) {
-      return Promise.resolve(null);
+      return Promise.resolve(new ODataResponse<T>(response, {}));
     }
 
     let json;
@@ -132,7 +132,7 @@ export default class ApiService {
     }
 
     if (response.status === 201 || response.status === 200) {
-      return Promise.resolve(json);
+      return Promise.resolve(new ODataResponse<T>(response, json));
     } else {
       return Promise.reject('Request error, please try again later.');
     }
@@ -180,7 +180,7 @@ export default class ApiService {
     }
   }
 
-  async patchReturnDtoAsync<T>(urlPath: string, body: unknown | ODataDto, appName: string | null = null): Promise<T> {
+  async patchReturnDtoAsync<T>(urlPath: string, body: unknown | ODataDto, appName: string | null = null): Promise<ODataResponse<T>> {
     // Add in the odata model info if it not already on the object
     if (body instanceof ODataDto && body._odataInfo && !body['@odata.type']) {
       if (body._odataInfo.type) {
@@ -217,7 +217,7 @@ export default class ApiService {
       }
 
       if (response.status === 200) {
-        return Promise.resolve(json);
+        return Promise.resolve(new ODataResponse<T>(response, json));
       } else {
         return Promise.reject('Request error, please try again later.');
       }
@@ -226,7 +226,7 @@ export default class ApiService {
     }
   }
 
-  async deleteAsync(urlPath: string, appName: string | null = null): Promise<void> {
+  async deleteAsync<T>(urlPath: string, appName: string | null = null): Promise<ODataResponse<T>> {
     if (appName !== null) {
       this.addHeader('X-LGAppName', appName);
     }
@@ -244,7 +244,7 @@ export default class ApiService {
     }
 
     if (response.status === 204) {
-      return Promise.resolve();
+      return Promise.resolve(new ODataResponse<T>(response, {}));
     }
 
     if (response.status === 404) {
@@ -263,13 +263,13 @@ export default class ApiService {
     }
 
     if (response.status === 201) {
-      return Promise.resolve(json);
+      return Promise.resolve(new ODataResponse<T>(response, json));
     } else {
       return Promise.reject('Request error, please try again later.');
     }
   }
 
-  async getAsync<T extends ODataDto>(urlPath: string, appName: string | null = null): Promise<GetResult<T>> {
+  async getAsync<T>(urlPath: string, appName: string | null = null): Promise<ODataResponse<T>> {
     if (appName !== null) {
       this.addHeader('X-LGAppName', appName);
     }
@@ -305,6 +305,6 @@ export default class ApiService {
       return Promise.reject(json.error.message);
     }
 
-    return Promise.resolve(new GetResult<T>(json));
+    return Promise.resolve(new ODataResponse<T>(response, json));
   }
 }

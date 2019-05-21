@@ -3,8 +3,8 @@ import { customElement, LitElement, property } from 'lit-element';
 
 import ApiService, { onProgressCallback } from './api-service';
 import { AuthenticatedTokenProvider } from './authenticated-token-provider';
-import { GetResult } from './get-result';
 import { ODataDto } from './odata-dto';
+import { ODataResponse } from './odata-response';
 
 export type UploadProgressEvent = { event: ProgressEvent; request: XMLHttpRequest };
 
@@ -42,7 +42,7 @@ export default class ApiServiceElement extends LitElement {
     this._apiService.deleteHeader(key);
   }
 
-  async uploadFile<T>(urlPath: string, file: File, onprogress: onProgressCallback, appName: string | null = null): Promise<T | void> {
+  async uploadFile<T>(urlPath: string, file: File, onprogress: onProgressCallback, appName: string | null = null): Promise<ODataResponse<T>> {
     const onprogressHandler = (e: ProgressEvent, xhr: XMLHttpRequest) => {
       onprogress(e, xhr);
       this.dispatchEvent(new CustomEvent<UploadProgressEvent>('upload-file-progress', { detail: { event: e, request: xhr } }));
@@ -50,11 +50,11 @@ export default class ApiServiceElement extends LitElement {
     return this._apiService.uploadFile<T>(urlPath, file, onprogressHandler, appName);
   }
 
-  async postAsync<T>(urlPath: string, body: unknown | ODataDto = {}, appName: string | null = null): Promise<T | null> {
+  async postAsync<T>(urlPath: string, body: unknown | ODataDto = {}, appName: string | null = null): Promise<ODataResponse<T>> {
     return this._apiService.postAsync<T>(urlPath, body, appName);
   }
 
-  async getAsync<T extends ODataDto>(urlPath: string, appName: string | null = null): Promise<GetResult<T>> {
+  async getAsync<T>(urlPath: string, appName: string | null = null): Promise<ODataResponse<T>> {
     return this._apiService.getAsync<T>(urlPath, appName);
   }
 
@@ -62,11 +62,11 @@ export default class ApiServiceElement extends LitElement {
     return this._apiService.patchAsync(urlPath, body, appName);
   }
 
-  async patchReturnDtoAsync<T>(urlPath: string, body: unknown | ODataDto, appName: string | null = null): Promise<T> {
+  async patchReturnDtoAsync<T>(urlPath: string, body: unknown | ODataDto, appName: string | null = null): Promise<ODataResponse<T>> {
     return this._apiService.patchReturnDtoAsync<T>(urlPath, body, appName);
   }
 
-  async deleteAsync(urlPath: string, appName: string | null = null): Promise<void> {
+  async deleteAsync<T>(urlPath: string, appName: string | null = null): Promise<ODataResponse<T>> {
     return this._apiService.deleteAsync(urlPath, appName);
   }
 }
