@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-snackbar@2.0.0...@leavittsoftware/titanium-snackbar@2.0.1) (2019-05-21)
+
+
+### Bug Fixes
+
+* Hide snackbar when not in use. ([a9c56f7](https://github.com/LeavittSoftware/titanium-elements/commit/a9c56f7))
+
+
+
+
+
 # [2.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-snackbar@1.3.2...@leavittsoftware/titanium-snackbar@2.0.0) (2019-05-02)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-snackbar
