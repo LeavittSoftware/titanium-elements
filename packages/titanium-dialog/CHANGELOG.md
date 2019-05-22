@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@0.1.2...@leavittsoftware/titanium-dialog@0.1.3) (2019-05-22)
+
+
+### Bug Fixes
+
+* Prevents document scrolling when dialog is open. ([dbfebe2](https://github.com/LeavittSoftware/titanium-elements/commit/dbfebe2))
+* Removes overflow rather then sets it. ([f5e79a9](https://github.com/LeavittSoftware/titanium-elements/commit/f5e79a9))
+
+
+
+
+
 ## [0.1.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@0.1.1...@leavittsoftware/titanium-dialog@0.1.2) (2019-05-22)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-dialog
