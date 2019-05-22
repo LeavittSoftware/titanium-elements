@@ -20,6 +20,7 @@ export class TitaniumDialogElement extends LitElement {
       this.closing = false;
       this.opened = false;
       this.opening = true;
+      document.body.style.overflow = 'hidden';
 
       // Experimental way to determine if scroll bar is present.
       // Prevents user from having to declare if modal is scrollable.
@@ -58,6 +59,8 @@ export class TitaniumDialogElement extends LitElement {
     this.closing = true;
     this.opened = false;
     this.opening = false;
+    document.body.style.overflow = 'inherit';
+
     clearTimeout(this._animationTimer);
     this._animationTimer = window.setTimeout(() => {
       this.handleAnimationTimerEnd_();
