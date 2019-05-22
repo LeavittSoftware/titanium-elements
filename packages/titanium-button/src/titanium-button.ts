@@ -38,6 +38,7 @@ export class TitaniumButtonElement extends LitElement {
       color: var(--titanium-button-text-color, #3b95ff);
       font-weight: 500;
       font-size: 12px;
+      line-height: 22px;
       letter-spacing: 1.25px;
       padding: 8px 16px;
       border-radius: 4px;
