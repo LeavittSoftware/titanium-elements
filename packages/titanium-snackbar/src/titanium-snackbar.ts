@@ -25,6 +25,7 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
   @property({ type: Boolean, reflect: true }) protected opened: boolean;
   @property({ type: Boolean, reflect: true }) protected thirdline: boolean;
   @property({ type: Boolean, reflect: true }) protected opening: boolean;
+
   @property({ type: Boolean, reflect: true }) protected closing: boolean;
 
   private _animationTimer: number;

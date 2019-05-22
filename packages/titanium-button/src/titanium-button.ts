@@ -13,6 +13,7 @@ export class TitaniumButtonElement extends LitElement {
       -webkit-font-smoothing: antialiased;
       border-radius: 4px;
       overflow: hidden;
+
       --mdc-theme-primary: var(--titanium-button-text-color, #3b95ff);
     }
 
