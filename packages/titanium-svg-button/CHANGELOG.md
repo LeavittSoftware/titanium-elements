@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-svg-button@2.0.0...@leavittsoftware/titanium-svg-button@2.0.1) (2019-05-22)
+
+
+### Bug Fixes
+
+* Upgrade mwc-ripple package ([47bc389](https://github.com/LeavittSoftware/titanium-elements/commit/47bc389))
+* Upgrade mwc-ripple package. ([c2f4b4e](https://github.com/LeavittSoftware/titanium-elements/commit/c2f4b4e))
+
+
+
+
+
 # [2.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-svg-button@1.0.2...@leavittsoftware/titanium-svg-button@2.0.0) (2019-05-02)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-svg-button
