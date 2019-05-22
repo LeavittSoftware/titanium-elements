@@ -59,7 +59,7 @@ export class TitaniumDialogElement extends LitElement {
     this.closing = true;
     this.opened = false;
     this.opening = false;
-    document.body.style.overflow = 'inherit';
+    document.body.style.overflow = '';
 
     clearTimeout(this._animationTimer);
     this._animationTimer = window.setTimeout(() => {
