@@ -19,7 +19,7 @@
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
   "dependencies": {
-    "@material/mwc-ripple": "^0.3.6",
+    "@material/mwc-ripple": "^0.5.0",
     "lit-element": "^2.1.0"
   },
   "scripts": {
