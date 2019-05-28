@@ -8,8 +8,8 @@ const availableCssVars = {
     {
       id: `Theme`,
       code: `<style> titanium-header {
-        --titanium-header-header-color: red; 
-        --titanium-header-subheader-color: green; 
+        --app-text-color: #01579b;
+        --app-darker-text-color: #002f6c;
       } </style>`,
     },
   ],
