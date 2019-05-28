@@ -74,6 +74,7 @@ export class TitaniumCardElement extends LitElement {
 
       border: 1px solid var(--app-border-color, #dadce0);
       border-radius: 8px;
+      background-color: #fff;
 
       overflow: hidden;
     }

@@ -15,6 +15,7 @@ export class TitaniumSingleActionCardElement extends LitElement {
 
       border: 1px solid var(--app-border-color, #dadce0);
       border-radius: 8px;
+      background-color: #fff;
 
       font-family: Roboto, sans-serif;
       -moz-osx-font-smoothing: grayscale;
