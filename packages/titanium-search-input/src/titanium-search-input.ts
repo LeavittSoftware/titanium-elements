@@ -67,7 +67,7 @@ export class TitaniumSearchInput extends LitElement {
       height: 42px;
       -webkit-transition: width 0.25s; /* Safari */
       transition: width 0.25s;
-      width: var(--titanium-search-input-width, 250px);
+      width: 250px;
     }
 
     input-container {
@@ -83,13 +83,13 @@ export class TitaniumSearchInput extends LitElement {
     titanium-svg-button[clear] {
       top: 0;
       right: 0;
-      --titanium-svg-button-svg-active-color: var(--titanium-search-input-clear-button-fill-color, #5f6368);
+      --titanium-svg-button-svg-active-color: var(--app-text-color, #5f6368);
     }
 
     titanium-svg-button[search] {
       top: 0;
       left: 0;
-      --titanium-svg-button-svg-active-color: var(--titanium-search-input-search-button-fill-color, #5f6368);
+      --titanium-svg-button-svg-active-color: var(--app-text-color, #5f6368);
     }
 
     :host([disabled]) svg {
@@ -106,13 +106,13 @@ export class TitaniumSearchInput extends LitElement {
       padding-left: 46px !important;
       padding-right: 46px !important;
       transition: background 100ms ease-in, width 100ms ease-out;
-      color: var(--titanium-search-input-text-color, #8c929d);
+      color: var(--app-text-color, #5f6368);
       background-color: #fff;
       border-top-left-radius: 20px;
       border-top-right-radius: 20px;
       border-bottom-left-radius: 20px;
       border-bottom-right-radius: 20px;
-      border: 1px solid var(--titanium-search-input-border-color, #eee);
+      border: 1px solid var(--app-border-color, #dadce0);
     }
 
     input-container:hover input {
@@ -156,7 +156,7 @@ export class TitaniumSearchInput extends LitElement {
     }
 
     input-container input:focus {
-      color: var(--titanium-search-input-focus-color, #000);
+      color: var(--app-darker-text-color, #202124);
     }
 
     [hidden] {

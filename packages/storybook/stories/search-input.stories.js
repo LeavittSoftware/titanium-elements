@@ -9,11 +9,10 @@ const availableCssVars = {
     {
       id: `Theme`,
       code: `<style> titanium-search-input {
-        --titanium-search-input-clear-button-fill-color: green;
-        --titanium-search-input-text-color: green;
-        --titanium-search-input-search-button-fill-color: blue; 
-        --titanium-search-input-focus-color: red; 
-        --titanium-search-input-border-color: lightcoral; 
+        --titanium-svg-button-svg-active-color: green;
+        --app-border-color: #bbdefb;
+        --app-darker-text-color: #002f6c;
+        --app-text-color: #01579b;
       } </style>`,
     },
   ],
