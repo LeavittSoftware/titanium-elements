@@ -1,0 +1,57 @@
+import { storiesOf } from '@storybook/polymer/dist/client/preview/index';
+import { html } from 'lit-html';
+import { withKnobs } from '@storybook/addon-knobs';
+import '@leavittsoftware/titanium-data-table/lib/titanium-data-table';
+import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-item';
+
+const availableCssVars = {
+  cssresources: [
+    {
+      id: `Theme`,
+      code: `<style> titanium-data-table {
+      --app-text-color: #01579b;
+      --app-light-text-color: #4f83cc;
+      --app-darker-text-color: #002f6c;
+      --app-hover-color: #e1f5fe;
+      --app-border-color: #870000;
+      --app-menu-text-color: #81d4fa;
+      } </style>`,
+    },
+  ],
+};
+//TODO: Make more demos
+storiesOf('UI COMPONENTS|titanium-data-table', module)
+  .addDecorator(withKnobs)
+  .add(
+    'Feature set',
+    () => {
+      return html`
+        <titanium-data-table header="Data table">
+          <titanium-search-input slot="table-actions"></titanium-search-input>
+          <titanium-svg-button slot="table-actions" path="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></titanium-svg-button>
+
+          <titanium-data-table-header slot="table-headers" large columnName="Name" title="Name" sortBy="Name"></titanium-data-table-header>
+          <titanium-data-table-header slot="table-headers" desktop title="Short Name" sortBy="SName"></titanium-data-table-header>
+          <titanium-data-table-header slot="table-headers" no-sort desktop title="Type"></titanium-data-table-header>
+          <titanium-data-table-header slot="table-headers" no-sort desktop center width="105px" title="Phone Number"></titanium-data-table-header>
+          <titanium-data-table-header slot="table-headers" no-sort width="75px" right title="Locations"></titanium-data-table-header>
+
+          <titanium-data-table-item slot="items">
+            <row-item large>Item A</row-item>
+            <row-item desktop>2 eggs</row-item>
+            <row-item desktop>5 dollars</row-item>
+            <row-item desktop width="105px" center>25 cents</row-item>
+            <row-item width="75px" right>Samsung</row-item>
+          </titanium-data-table-item>
+          <titanium-data-table-item slot="items">
+            <row-item large>Item B</row-item>
+            <row-item desktop>4 eggs</row-item>
+            <row-item desktop>77 dollars</row-item>
+            <row-item desktop width="105px" center>75 cents</row-item>
+            <row-item width="75px" right>Pixel</row-item>
+          </titanium-data-table-item>
+        </titanium-data-table>
+      `;
+    },
+    availableCssVars
+  );
