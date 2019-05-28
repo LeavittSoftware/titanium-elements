@@ -7,10 +7,16 @@ import '@leavittsoftware/titanium-button';
 const availableCssVars = {
   cssresources: [
     {
-      id: `Pink`,
+      id: `Solid Button Light Theme`,
       code: `<style> titanium-button {
-        --titanium-button-text-color: #fff;
-        --titanium-button-background-color: #e9437a;
+        --app-primary-color: #eee;
+        --titanium-solid-button-text-color: #000;
+    } </style>`,
+      id: `Button Pink Theme`,
+      code: `<style> titanium-button {
+        --app-primary-color: #f4511e;
+        --app-link-color: #d84315;
+        --titanium-solid-button-text-color: blue;
     } </style>`,
     },
   ],
@@ -47,7 +53,9 @@ storiesOf('UI COMPONENTS|titanium-button', module)
         {
           id: `Pink`,
           code: `<style> titanium-button {
-            --titanium-button-text-color: #e9437a;
+            --app-primary-color: #f4511e;
+            --app-link-color: #d84315;
+            --titanium-solid-button-text-color: blue;
         } </style>`,
         },
       ],
@@ -65,10 +73,11 @@ storiesOf('UI COMPONENTS|titanium-button', module)
     {
       cssresources: [
         {
-          id: `Pink`,
+          id: `Light Theme`,
           code: `<style> titanium-button {
-            --titanium-button-text-color: #fff;
-            --titanium-button-background-color: #e9437a;
+            --app-primary-color: #f4511e;
+            --app-link-color: #d84315;
+            --titanium-solid-button-text-color: blue;
         } </style>`,
         },
       ],

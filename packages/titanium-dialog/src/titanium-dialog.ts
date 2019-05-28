@@ -129,10 +129,8 @@ export class TitaniumDialogElement extends LitElement {
       min-width: 280px;
       max-height: calc(100vh - 32px);
       margin: 16px;
-
       border-radius: 4px;
       background: var(--titanium-dialog-background-color, #fff);
-      color: var(--titanium-dialog-text-color, #f1f1f1);
       font-size: 14px;
       -webkit-box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
       box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
@@ -157,7 +155,7 @@ export class TitaniumDialogElement extends LitElement {
     }
 
     section {
-      color: #828282;
+      color: var(--app-light-text-color, #80868b);
       padding: 20px 24px;
       font-size: 16px;
       line-height: 24px;
@@ -168,7 +166,7 @@ export class TitaniumDialogElement extends LitElement {
 
     header {
       font-size: 20px;
-      color: #212121;
+      color: var(--app-dark-text-color, #202124);
       line-height: 32px;
       font-weight: 500;
       letter-spacing: 0.0125em;
@@ -176,12 +174,12 @@ export class TitaniumDialogElement extends LitElement {
     }
 
     :host([scrolls]) header {
-      border-bottom: 1px solid #e0e0e0;
+      border-bottom: 1px solid var(--app-border-color, #dadce0);
       padding: 16px 24px;
     }
 
     :host([scrolls]) footer {
-      border-top: 1px solid #e0e0e0;
+      border-top: 1px solid var(--app-border-color, #dadce0);
     }
 
     footer {

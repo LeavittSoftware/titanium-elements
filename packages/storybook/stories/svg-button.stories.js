@@ -9,11 +9,10 @@ const availableCssVars = {
     {
       id: `StyleMe`,
       code: `<style> titanium-svg-button {
-        --titanium-svg-button-hover-color: lightcoral;
-        --titanium-svg-button-svg-active-color: blue;
         --titanium-svg-button-svg-width: 30%;
         --titanium-svg-button-svg-height: 30%;
-        --titanium-svg-button-svg-disabled-color: lightblue;
+        --app-hover-color: #e1f5fe;
+        --app-text-color: #01579b;
     } </style>`,
     },
   ],

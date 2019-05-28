@@ -51,7 +51,7 @@ export class TitaniumDataTableHeaderElement extends LitElement {
       padding: 8px;
       line-height: 28px;
 
-      color: #737373;
+      color: var(--app-light-text-color, #80868b);
     }
 
     :host(:not([width])) {
@@ -67,7 +67,7 @@ export class TitaniumDataTableHeaderElement extends LitElement {
     }
 
     :host([active]) {
-      color: var(--titanium-data-table-header-active-text-color, #000);
+      color: var(--app-dark-text-color, #202124);
     }
 
     :host([hidden]) {
@@ -107,7 +107,7 @@ export class TitaniumDataTableHeaderElement extends LitElement {
 
     sort-icon svg {
       display: none;
-      fill: var(--titanium-data-table-header-svg-color, #737373);
+      fill: var(--app-text-color, #5f6368);
     }
 
     :host([active][sort-direction='asc']) sort-icon svg {
@@ -123,7 +123,7 @@ export class TitaniumDataTableHeaderElement extends LitElement {
     :host([active][sort-direction='asc']) sort-icon svg,
     :host([active][sort-direction='desc']) sort-icon svg {
       display: block;
-      fill: var(--titanium-data-table-header-active-svg-color, #000);
+      fill: var(--app-dark-text-color, #202124);
     }
 
     @media (max-width: 768px) {

@@ -9,10 +9,10 @@ const availableCssVars = {
     {
       id: `DarkTheme`,
       code: `<style> titanium-chip {
-        --titanium-chip-label-background-color: #f9f9f9;
-        --titanium-chip-label-hover-background-color: #eee;
-        --titanium-chip-label-active-background-color: #eee;
-        --titanium-chip-label-color: #000;
+        --titanium-chip-label-background-color: darkred;
+        --app-hover-color: purple;
+        --app-border-color: coral;
+        --app-dark-text-color: white;
       } </style>`,
     },
   ],

@@ -9,9 +9,9 @@ const availableCssVars = {
     {
       id: `Theme`,
       code: `<style> titanium-data-table-header {
-        --titanium-data-table-header-active-svg-color: green;
-        --titanium-data-table-header-svg-color: green;
-        --titanium-data-table-header-active-text-color: blue; 
+        --app-text-color: #01579b;
+        --app-light-text-color: #4f83cc;
+        --app-dark-text-color: #002f6c;
       } </style>`,
     },
   ],
@@ -37,6 +37,8 @@ storiesOf('UI COMPONENTS|titanium-data-table-header', module)
             .width=${width}
             @sort-by-changed=${action('Sort Direction Changed')}
           ></titanium-data-table-header>
+
+          <titanium-data-table-header columnName="Last Name" title="Last Name"></titanium-data-table-header>
         </header>
       `;
     },

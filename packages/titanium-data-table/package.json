@@ -19,7 +19,9 @@
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
   "dependencies": {
-    "lit-element": "^2.1.0"
+    "lit-element": "^2.1.0",
+    "@leavittsoftware/titanium-svg-button": "^2.0.1",
+    "@leavittsoftware/titanium-loading-indicator": "^2.0.0"
   },
   "scripts": {
     "build:watch": "tsc --watch",

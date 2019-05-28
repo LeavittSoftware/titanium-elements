@@ -24,7 +24,7 @@ export class TitaniumSvgButton extends LitElement {
     }
 
     :host(:hover:not([disabled])) {
-      background-color: var(--titanium-svg-button-hover-color, #fafafa);
+      background-color: var(--app-hover-color, #f9f9f9);
     }
 
     :host(:not([disabled])) {
@@ -36,7 +36,7 @@ export class TitaniumSvgButton extends LitElement {
       height: 52px;
     }
 
-    ripple-contianer {
+    ripple-container {
       display: flex;
       height: 100%;
       width: 100%;
@@ -50,7 +50,7 @@ export class TitaniumSvgButton extends LitElement {
       margin: 0 auto;
       width: var(--titanium-svg-button-svg-width, 60%);
       height: var(--titanium-svg-button-svg-height, 60%);
-      fill: var(--titanium-svg-button-svg-active-color, #5f6368);
+      fill: var(--app-text-color, #5f6368);
     }
 
     mwc-ripple[disabled] {
@@ -58,19 +58,19 @@ export class TitaniumSvgButton extends LitElement {
     }
 
     :host([disabled]) svg {
-      fill: var(--titanium-svg-button-svg-disabled-color, #9b9b9b);
+      fill: rgba(0, 0, 0, 0.37);
     }
   `;
 
   // Render element DOM by returning a `lit-html` template.
   render() {
     return html`
-      <ripple-contianer>
+      <ripple-container>
         <svg viewBox="0 0 24 24">
           <path d="${this.path}" />
         </svg>
         <mwc-ripple ?disabled=${this.disabled} unbounded></mwc-ripple>
-      </ripple-contianer>
+      </ripple-container>
     `;
   }
 }

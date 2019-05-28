@@ -44,7 +44,7 @@ export class TitaniumHeader extends LitElement {
       text-align: center;
       margin: 0;
       padding: 0 52px 8px 52px;
-      color: var(--titanium-header-header-color, #202124);
+      color: var(--app-dark-text-color, #202124);
     }
 
     h3 {
@@ -55,7 +55,7 @@ export class TitaniumHeader extends LitElement {
       text-align: center;
       margin: 0;
       padding: 0 12px;
-      color: var(--titanium-header-subheader-color, #5f6368);
+      color: var(--app-text-color, #5f6368);
     }
 
     titanium-svg-button {
@@ -65,7 +65,6 @@ export class TitaniumHeader extends LitElement {
     }
   `;
 
-  // Render element DOM by returning a `lit-html` template.
   render() {
     return html`
       <h1>

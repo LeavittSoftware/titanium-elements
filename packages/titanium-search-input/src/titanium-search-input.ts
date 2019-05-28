@@ -67,7 +67,7 @@ export class TitaniumSearchInput extends LitElement {
       height: 42px;
       -webkit-transition: width 0.25s; /* Safari */
       transition: width 0.25s;
-      width: var(--titanium-search-input-width, 250px);
+      width: 250px;
     }
 
     input-container {
@@ -83,13 +83,13 @@ export class TitaniumSearchInput extends LitElement {
     titanium-svg-button[clear] {
       top: 0;
       right: 0;
-      --titanium-svg-button-svg-active-color: var(--titanium-search-input-clear-button-fill-color, #5f6368);
+      --titanium-svg-button-svg-active-color: var(--app-text-color, #5f6368);
     }
 
     titanium-svg-button[search] {
       top: 0;
       left: 0;
-      --titanium-svg-button-svg-active-color: var(--titanium-search-input-search-button-fill-color, #5f6368);
+      --titanium-svg-button-svg-active-color: var(--app-text-color, #5f6368);
     }
 
     :host([disabled]) svg {
@@ -106,13 +106,13 @@ export class TitaniumSearchInput extends LitElement {
       padding-left: 46px !important;
       padding-right: 46px !important;
       transition: background 100ms ease-in, width 100ms ease-out;
-      color: var(--titanium-search-input-text-color, #8c929d);
+      color: var(--app-text-color, #5f6368);
       background-color: #fff;
       border-top-left-radius: 20px;
       border-top-right-radius: 20px;
       border-bottom-left-radius: 20px;
       border-bottom-right-radius: 20px;
-      border: 1px solid var(--titanium-search-input-border-color, #eee);
+      border: 1px solid var(--app-border-color, #dadce0);
     }
 
     input-container:hover input {
@@ -156,7 +156,7 @@ export class TitaniumSearchInput extends LitElement {
     }
 
     input-container input:focus {
-      color: var(--titanium-search-input-focus-color, #000);
+      color: var(--app-dark-text-color, #202124);
     }
 
     [hidden] {
@@ -168,6 +168,7 @@ export class TitaniumSearchInput extends LitElement {
     return html`
       <input-container>
         <titanium-svg-button
+          ?disabled="${this.disabled}"
           search
           @click="${this._handleSearchClick}"
           path="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"
