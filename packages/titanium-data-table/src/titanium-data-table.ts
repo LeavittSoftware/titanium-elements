@@ -7,18 +7,18 @@ import { TitaniumDataTableItemElement } from './titanium-data-table-item';
 @customElement('titanium-data-table')
 export class TitaniumDataTableElement extends LitElement {
   @property({ type: String }) header: string;
-  @property({ type: Number }) take: number;
   @property({ type: Number }) page: number = 0;
   @property({ type: Number }) count: number;
   @property({ type: Array }) items: Array<unknown> = [];
 
   @property({ type: String }) searchTerm: string;
+  @property({ type: Number }) private take: number;
 
   @property({ type: Boolean, attribute: 'single-select', reflect: true }) singleSelect: boolean;
   @property({ type: Array }) selected: Array<unknown> = [];
   @property({ type: Boolean }) isLoading: Boolean = true;
   // tslint:disable-next-line: no-any
-  @queryAll('table-container') tableContanier: NodeListOf<any>;
+  @queryAll('table-container') tableContainer: NodeListOf<any>;
 
   connectedCallback() {
     super.connectedCallback();
@@ -139,7 +139,7 @@ export class TitaniumDataTableElement extends LitElement {
   }
 
   private _getTableItems(): Array<TitaniumDataTableItemElement> {
-    return this.tableContanier[0]
+    return this.tableContainer[0]
       .querySelector('slot[name="items"]')
       .assignedNodes()
       .filter((o) => typeof o.select === 'function' || typeof o.deselect === 'function');
