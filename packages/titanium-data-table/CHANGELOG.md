@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@2.0.0...@leavittsoftware/titanium-data-table@3.0.0) (2019-05-28)
+
+
+### Features
+
+* Adds site-wide theming vars; updates demo to match ([245abf9](https://github.com/LeavittSoftware/titanium-elements/commit/245abf9))
+* Adds site-wide theming vars; updates demo to match ([0a93672](https://github.com/LeavittSoftware/titanium-elements/commit/0a93672))
+* Adds site-wide theming vars; updates demo to match ([2a17288](https://github.com/LeavittSoftware/titanium-elements/commit/2a17288))
+* More consistent app variables ([8f9655e](https://github.com/LeavittSoftware/titanium-elements/commit/8f9655e))
+
+
+### BREAKING CHANGES
+
+* Changes CSS variables
+* Changes CSS variables
+* Changes CSS variables
+
+
+
+
+
 # [2.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@1.0.1...@leavittsoftware/titanium-data-table@2.0.0) (2019-05-02)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-data-table

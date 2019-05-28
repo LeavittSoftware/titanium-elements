@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@0.1.4...@leavittsoftware/titanium-dialog@1.0.0) (2019-05-28)
+
+
+### Features
+
+* Adds site-wide theming vars; updates demo to match ([f4ce6b3](https://github.com/LeavittSoftware/titanium-elements/commit/f4ce6b3))
+* More consistent app variables ([8f9655e](https://github.com/LeavittSoftware/titanium-elements/commit/8f9655e))
+
+
+### BREAKING CHANGES
+
+* Changes CSS variables
+
+
+
+
+
 ## [0.1.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@0.1.3...@leavittsoftware/titanium-dialog@0.1.4) (2019-05-22)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-dialog

@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-button@0.1.3...@leavittsoftware/titanium-button@1.0.0) (2019-05-28)
+
+
+### Features
+
+* Adds site-wide theming vars; updates demo to match ([101164e](https://github.com/LeavittSoftware/titanium-elements/commit/101164e))
+
+
+### BREAKING CHANGES
+
+* Changes CSS variables
+
+
+
+
+
 ## [0.1.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-button@0.1.2...@leavittsoftware/titanium-button@0.1.3) (2019-05-22)
 
 

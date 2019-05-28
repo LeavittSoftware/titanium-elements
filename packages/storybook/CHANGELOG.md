@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@1.1.6...@leavittsoftware/storybook@2.0.0) (2019-05-28)
+
+
+### Features
+
+* add titanium-card demo ([2f57bf2](https://github.com/LeavittSoftware/titanium-elements/commit/2f57bf2))
+* Adds new titanium-card elements. ([6222129](https://github.com/LeavittSoftware/titanium-elements/commit/6222129))
+* Adds site-wide theming vars; updates demo to match ([101164e](https://github.com/LeavittSoftware/titanium-elements/commit/101164e))
+* Adds site-wide theming vars; updates demo to match ([9cbda84](https://github.com/LeavittSoftware/titanium-elements/commit/9cbda84))
+* Adds site-wide theming vars; updates demo to match ([46515b1](https://github.com/LeavittSoftware/titanium-elements/commit/46515b1))
+* Adds site-wide theming vars; updates demo to match ([2a17288](https://github.com/LeavittSoftware/titanium-elements/commit/2a17288))
+* Adds site-wide theming vars; updates demo to match ([12ee500](https://github.com/LeavittSoftware/titanium-elements/commit/12ee500))
+* Adds site-wide theming vars; updates demo to match ([f4ce6b3](https://github.com/LeavittSoftware/titanium-elements/commit/f4ce6b3))
+* Adds site-wide theming vars; updates demo to match ([e7b35da](https://github.com/LeavittSoftware/titanium-elements/commit/e7b35da))
+* Adds site-wide theming vars; updates demo to match ([5aef3d0](https://github.com/LeavittSoftware/titanium-elements/commit/5aef3d0))
+* adds two new demo pages ([236db97](https://github.com/LeavittSoftware/titanium-elements/commit/236db97))
+* More consistent app variables ([8f9655e](https://github.com/LeavittSoftware/titanium-elements/commit/8f9655e))
+
+
+### BREAKING CHANGES
+
+* Changes CSS variables
+* Changes CSS variables
+* Changes CSS variables
+* Changes CSS variables
+* Changes CSS variables
+* Changes CSS variables
+* Changes CSS variables
+* Changes CSS variables
+
+
+
+
+
 ## [1.1.6](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@1.1.5...@leavittsoftware/storybook@1.1.6) (2019-05-22)
 
 **Note:** Version bump only for package @leavittsoftware/storybook
