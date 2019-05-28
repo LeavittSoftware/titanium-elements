@@ -165,7 +165,7 @@ export class TitaniumDataTableElement extends LitElement {
       display: flex;
       flex-direction: column;
 
-      border: 1px solid #dadce0;
+      border: 1px solid var(--app-border-color, #dadce0);
       border-radius: 8px;
 
       font-family: 'Roboto', 'Noto', sans-serif;
@@ -187,10 +187,10 @@ export class TitaniumDataTableElement extends LitElement {
       flex: 1 1 auto;
       letter-spacing: -0.264px;
       font-weight: 400;
-      font-size: 21px;
-      line-height: 26px;
+      font-size: 22px;
+      line-height: 28px;
       padding: 8px 8px 8px 0;
-      color: #202124;
+      color: var(--app-darker-text-color, #202124);
     }
 
     header > ::slotted(*) {
@@ -236,7 +236,7 @@ export class TitaniumDataTableElement extends LitElement {
     table-header {
       display: flex;
       flex-direction: row;
-      border-bottom: 1px solid #dadce0;
+      border-bottom: 1px solid var(--app-border-color, #dadce0);
     }
 
     table-header ::slotted(titanium-table-header:last-of-type) {
@@ -256,7 +256,7 @@ export class TitaniumDataTableElement extends LitElement {
       margin: 32px;
       margin-top: 92px;
       font-size: 13px;
-      color: #737373;
+      color: var(--app-text-color, #5f6368);
       line-height: 20px;
     }
 
@@ -266,7 +266,7 @@ export class TitaniumDataTableElement extends LitElement {
       margin: 0 8px;
       height: 20px;
       width: 20px;
-      fill: #737373;
+      fill: var(--app-text-color, #5f6368);
       flex-shrink: 0;
     }
 
@@ -282,7 +282,7 @@ export class TitaniumDataTableElement extends LitElement {
       font-weight: 400;
       letter-spacing: 0.011em;
       line-height: 20px;
-      color: #757575;
+      color: var(--app-darker-text-color, #202124);
     }
 
     table-control {
@@ -329,7 +329,7 @@ export class TitaniumDataTableElement extends LitElement {
     }
 
     select-all-checkbox svg {
-      fill: #757575;
+      fill: var(--app-light-text-color, #80868b);
     }
 
     :host([single-select]) select-all-checkbox svg[empty] {
