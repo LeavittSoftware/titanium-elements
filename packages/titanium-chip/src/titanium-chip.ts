@@ -26,7 +26,7 @@ export class TitaniumChipElement extends LitElement {
       -ms-user-select: none; /* IE 10+ */
       user-select: none; /* Standard syntax */
       height: 30px;
-      border: 1px solid #e9e9e9;
+      border: 1px solid var(--app-border-color, #dadce0);
     }
 
     :host([disabled]) {
@@ -34,13 +34,13 @@ export class TitaniumChipElement extends LitElement {
       cursor: inherit;
     }
 
-    :host(:not([disabled]):hover)) {
-      background-color: var(--titanium-chip-label-hover-background-color, #f9f9f9);
+    :host(:not([disabled]):hover) {
+      background-color: var(--app-hover-color, #f9f9f9);
       transition: 0.2s linear;
     }
 
     :host(:not([disabled]):active) {
-      background-color: var(--titanium-chip-label-active-background-color, #f9f9f9);
+      background-color: var(--app-hover-color, #f9f9f9);
     }
 
     :host ::slotted(*) {
@@ -57,9 +57,9 @@ export class TitaniumChipElement extends LitElement {
       font-family: Roboto, Noto, sans-serif;
       -webkit-font-smoothing: antialiased;
       font-size: 13px;
-      line-height: 17px;
+      line-height: 18px;
       font-weight: 500;
-      color: var(--titanium-chip-label-color, #424242);
+      color: var(--app-darker-text-color, #202124);
       cursor: pointer;
     }
 
@@ -85,7 +85,7 @@ export class TitaniumChipElement extends LitElement {
     }
 
     svg {
-      fill: #757575;
+      fill: var(--app-border-color, #dadce0);
       width: 18px;
       height: 18px;
     }
