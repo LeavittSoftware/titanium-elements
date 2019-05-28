@@ -36,7 +36,7 @@ export class TitaniumSvgButton extends LitElement {
       height: 52px;
     }
 
-    ripple-contianer {
+    ripple-container {
       display: flex;
       height: 100%;
       width: 100%;
@@ -65,12 +65,12 @@ export class TitaniumSvgButton extends LitElement {
   // Render element DOM by returning a `lit-html` template.
   render() {
     return html`
-      <ripple-contianer>
+      <ripple-container>
         <svg viewBox="0 0 24 24">
           <path d="${this.path}" />
         </svg>
         <mwc-ripple ?disabled=${this.disabled} unbounded></mwc-ripple>
-      </ripple-contianer>
+      </ripple-container>
     `;
   }
 }
