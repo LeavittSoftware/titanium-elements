@@ -8,8 +8,7 @@ const availableCssVars = {
     {
       id: `Theme`,
       code: `<style> titanium-loading-indicator {
-        --titanium-loading-indicator-text-color: green;
-        --titanium-loading-indicator-icon-color: lightcoral; 
+        --app-text-color: #01579b;
       } </style>`,
     },
   ],
