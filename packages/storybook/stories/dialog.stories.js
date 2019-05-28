@@ -81,8 +81,9 @@ storiesOf('UI COMPONENTS|titanium-dialog', module)
           id: `LightTheme`,
           code: `<style> titanium-dialog {
             --titanium-dialog-background-color: #fff;
-            --titanium-dialog-text-color: #757575;
-            --titanium-dialog-action-color: #000;
+            --app-light-text-color: #4f83cc;
+            --app-darker-text-color: #002f6c;
+            --app-border-color: #870000;
           } </style>`,
         },
       ],
