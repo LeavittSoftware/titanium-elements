@@ -11,7 +11,7 @@ const availableCssVars = {
       code: `<style> titanium-search-input {
         --titanium-svg-button-svg-active-color: green;
         --app-border-color: #bbdefb;
-        --app-darker-text-color: #002f6c;
+        --app-dark-text-color: #002f6c;
         --app-text-color: #01579b;
       } </style>`,
     },

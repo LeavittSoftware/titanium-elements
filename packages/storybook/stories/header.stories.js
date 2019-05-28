@@ -9,7 +9,7 @@ const availableCssVars = {
       id: `Theme`,
       code: `<style> titanium-header {
         --app-text-color: #01579b;
-        --app-darker-text-color: #002f6c;
+        --app-dark-text-color: #002f6c;
       } </style>`,
     },
   ],

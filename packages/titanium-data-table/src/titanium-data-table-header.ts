@@ -67,7 +67,7 @@ export class TitaniumDataTableHeaderElement extends LitElement {
     }
 
     :host([active]) {
-      color: var(--app-darker-text-color, #202124);
+      color: var(--app-dark-text-color, #202124);
     }
 
     :host([hidden]) {
@@ -123,7 +123,7 @@ export class TitaniumDataTableHeaderElement extends LitElement {
     :host([active][sort-direction='asc']) sort-icon svg,
     :host([active][sort-direction='desc']) sort-icon svg {
       display: block;
-      fill: var(--app-darker-text-color, #202124);
+      fill: var(--app-dark-text-color, #202124);
     }
 
     @media (max-width: 768px) {

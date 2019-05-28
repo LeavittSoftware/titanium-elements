@@ -166,7 +166,7 @@ export class TitaniumDialogElement extends LitElement {
 
     header {
       font-size: 20px;
-      color: var(--app-darker-text-color, #202124);
+      color: var(--app-dark-text-color, #202124);
       line-height: 32px;
       font-weight: 500;
       letter-spacing: 0.0125em;

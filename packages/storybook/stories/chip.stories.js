@@ -12,7 +12,7 @@ const availableCssVars = {
         --titanium-chip-label-background-color: darkred;
         --app-hover-color: purple;
         --app-border-color: coral;
-        --app-darker-text-color: white;
+        --app-dark-text-color: white;
       } </style>`,
     },
   ],

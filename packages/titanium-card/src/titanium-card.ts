@@ -4,7 +4,7 @@ export const TitaniumCardStyles = css`
   ::slotted(h1),
   h1 {
     display: block;
-    color: var(--app-darker-text-color, #202124);
+    color: var(--app-dark-text-color, #202124);
 
     font-family: Roboto, sans-serif;
     -moz-osx-font-smoothing: grayscale;

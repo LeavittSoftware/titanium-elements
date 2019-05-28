@@ -156,7 +156,7 @@ export class TitaniumSearchInput extends LitElement {
     }
 
     input-container input:focus {
-      color: var(--app-darker-text-color, #202124);
+      color: var(--app-dark-text-color, #202124);
     }
 
     [hidden] {

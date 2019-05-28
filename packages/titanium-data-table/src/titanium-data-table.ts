@@ -190,7 +190,7 @@ export class TitaniumDataTableElement extends LitElement {
       font-size: 22px;
       line-height: 28px;
       padding: 8px 8px 8px 0;
-      color: var(--app-darker-text-color, #202124);
+      color: var(--app-dark-text-color, #202124);
     }
 
     header > ::slotted(*) {
@@ -282,7 +282,7 @@ export class TitaniumDataTableElement extends LitElement {
       font-weight: 400;
       letter-spacing: 0.011em;
       line-height: 20px;
-      color: var(--app-darker-text-color, #202124);
+      color: var(--app-dark-text-color, #202124);
     }
 
     table-control {

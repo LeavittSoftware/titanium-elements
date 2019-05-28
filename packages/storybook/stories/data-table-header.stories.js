@@ -11,7 +11,7 @@ const availableCssVars = {
       code: `<style> titanium-data-table-header {
         --app-text-color: #01579b;
         --app-light-text-color: #4f83cc;
-        --app-darker-text-color: #002f6c;
+        --app-dark-text-color: #002f6c;
       } </style>`,
     },
   ],

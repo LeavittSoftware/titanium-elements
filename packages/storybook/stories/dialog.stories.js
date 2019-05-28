@@ -82,7 +82,7 @@ storiesOf('UI COMPONENTS|titanium-dialog', module)
           code: `<style> titanium-dialog {
             --titanium-dialog-background-color: #fff;
             --app-light-text-color: #4f83cc;
-            --app-darker-text-color: #002f6c;
+            --app-dark-text-color: #002f6c;
             --app-border-color: #870000;
           } </style>`,
         },
