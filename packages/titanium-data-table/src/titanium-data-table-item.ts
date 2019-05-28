@@ -82,7 +82,7 @@ export class TitaniumDataTableItemElement extends LitElement {
       text-decoration: none;
 
       background-color: #fff;
-      border-bottom: 1px #dfdfdf solid;
+      border-bottom: 1px var(--app-border-color, #dadce0) solid;
 
       font-family: 'Roboto', 'Noto', sans-serif;
       -webkit-font-smoothing: antialiased;
@@ -90,7 +90,7 @@ export class TitaniumDataTableItemElement extends LitElement {
 
     :host([is-selected]),
     :host(:hover) {
-      background-color: #f9f9f9;
+      background-color: var(--app-hover-color, #f9f9f9);
       transition: 0.3s ease;
     }
 
@@ -99,7 +99,7 @@ export class TitaniumDataTableItemElement extends LitElement {
 
       font-size: 13px;
       line-height: 18px;
-      color: #757575;
+      color: var(--app-text-color, #5f6368);
       font-weight: 400;
       padding: 4px 8px;
       margin: 0;
@@ -140,7 +140,7 @@ export class TitaniumDataTableItemElement extends LitElement {
     }
 
     item-checkbox svg {
-      fill: #757575;
+      fill: var(--app-text-color, #5f6368);
     }
 
     [hidden] {
