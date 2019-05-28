@@ -14,7 +14,7 @@ export class TitaniumButtonElement extends LitElement {
       border-radius: 4px;
       overflow: hidden;
 
-      --mdc-theme-primary: var(--titanium-button-text-color, #3b95ff);
+      --mdc-theme-primary: var(--app-link-color, #3b95ff);
     }
 
     button {
@@ -35,10 +35,10 @@ export class TitaniumButtonElement extends LitElement {
       height: 36px;
       display: block;
       cursor: pointer;
-      color: var(--titanium-button-text-color, #3b95ff);
+      color: var(--app-link-color, #3b95ff);
       font-weight: 500;
       font-size: 12px;
-      line-height: 22px;
+      line-height: 20px;
       letter-spacing: 1.25px;
       padding: 8px 16px;
       border-radius: 4px;
@@ -52,7 +52,7 @@ export class TitaniumButtonElement extends LitElement {
       top: 0;
       right: 0;
       left: 0;
-      background-color: var(--titanium-button-background-color, #3b95ff);
+      background-color: var(--app-link-color, #3b95ff);
       bottom: 0;
       opacity: 0.12;
     }
@@ -68,37 +68,48 @@ export class TitaniumButtonElement extends LitElement {
       outline: none;
     }
 
-    :host([raised]:not(:disabled)) focus-veil {
-      background-color: var(--titanium-button-text-color, #000);
+    :host([raised]:not([disabled])) focus-veil {
+      background-color: var(--app-link-color, #3b95ff);
     }
 
     button:hover focus-veil {
       display: block;
     }
 
-    :host([raised]:not(:disabled)) {
+    :host([raised]) {
+      /* Allow drop shadow through */
       padding: 4px;
     }
 
-    :host([raised]:not(:disabled)) {
-      --mdc-theme-primary: var(--titanium-button-text-color, #000);
+    :host([raised]:not([disabled])) {
+      --mdc-theme-primary: var(--app-link-color, #3b95ff);
     }
 
-    :host([raised]:not(:disabled)) button {
-      color: var(--titanium-button-text-color, #000);
-      background-color: var(--titanium-button-background-color, #fff);
+    :host([raised]:not([disabled])) button {
+      color: var(--titanium-solid-button-text-color, #fff);
+      background-color: var(--app-primary-color, #3b95ff);
+      --mdc-theme-primary: var(--app-primary-color, #3b95ff);
       box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
       transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1) 0s;
     }
 
-    :host([outlined]:not(:disabled)) button {
+    :host([outlined]:not([disabled])) button {
+      border-color: var(--app-link-color, #3b95ff);
+    }
+
+    :host([outlined][disabled]) button {
+      border-color: transparent;
+    }
+
+    :host([outlined]) button {
       border-style: solid;
       border-width: 1px;
     }
 
-    :host([unelevated]:not(:disabled)) button {
-      color: var(--titanium-button-text-color, #fff);
-      background-color: var(--titanium-button-background-color, #3b95ff);
+    :host([unelevated]:not([disabled])) button {
+      color: var(--titanium-solid-button-text-color, #fff);
+      background-color: var(--app-primary-color, #3b95ff);
+      --mdc-theme-primary: var(--app-primary-color, #3b95ff);
     }
 
     :host([disabled]) button {
