@@ -7,11 +7,16 @@ export class ODataResponse<T> {
     return metadata;
   }
 
-  private static getEntity<T>(json): T {
-    if (Array.isArray(json.value)) {
-      return {} as T;
+  private getEntity<T>(json): T {
+    if (this.metadata.has('context')) {
+      return json as T;
     }
-    return json.value as T;
+
+    if (json.value && !Array.isArray(json.value)) {
+      return json.value as T;
+    }
+
+    return {} as T;
   }
 
   private static getEntities<T>(json): T[] {
@@ -54,7 +59,7 @@ export class ODataResponse<T> {
     this.headers = response.headers;
     this.metadata = ODataResponse.getMetadata(json);
     this.entities = ODataResponse.getEntities(json);
-    this.entity = this.entities.length === 0 ? ODataResponse.getEntity(json) : null;
+    this.entity = this.entities.length === 0 ? this.getEntity(json) : null;
   }
 
   public get containsMultipleEntities(): boolean {
