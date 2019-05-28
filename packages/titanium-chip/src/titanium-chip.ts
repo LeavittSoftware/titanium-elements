@@ -74,6 +74,13 @@ export class TitaniumChipElement extends LitElement {
       width: 28px;
     }
 
+    ::slotted(*) {
+      height: 18px;
+      width: 18px;
+
+      flex-shrink: 0;
+    }
+
     titanium-svg-button {
       height: 28px;
       width: 28px;
