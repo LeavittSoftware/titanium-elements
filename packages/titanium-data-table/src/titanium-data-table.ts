@@ -239,7 +239,7 @@ export class TitaniumDataTableElement extends LitElement {
       border-bottom: 1px solid var(--app-border-color, #dadce0);
     }
 
-    table-header ::slotted(titanium-table-header:last-of-type) {
+    table-header ::slotted(titanium-data-table-header:last-of-type) {
       padding-right: 24px;
     }
 
