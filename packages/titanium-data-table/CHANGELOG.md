@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@3.0.0...@leavittsoftware/titanium-data-table@3.0.1) (2019-05-29)
+
+
+### Bug Fixes
+
+* Fixes broken css selector due to rename ([a4ed049](https://github.com/LeavittSoftware/titanium-elements/commit/a4ed049))
+
+
+
+
+
 # [3.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@2.0.0...@leavittsoftware/titanium-data-table@3.0.0) (2019-05-28)
 
 
