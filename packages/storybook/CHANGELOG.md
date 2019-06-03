@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@2.0.1...@leavittsoftware/storybook@2.1.0) (2019-06-03)
+
+
+### Features
+
+* Adds initial version of titanium-progress ([b044415](https://github.com/LeavittSoftware/titanium-elements/commit/b044415))
+* Adds initial version of titanium-toolbar ([23db2cf](https://github.com/LeavittSoftware/titanium-elements/commit/23db2cf))
+* adds titanium-full-page-loading-indicator ([3dd7632](https://github.com/LeavittSoftware/titanium-elements/commit/3dd7632))
+
+
+
+
+
 ## [2.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@2.0.0...@leavittsoftware/storybook@2.0.1) (2019-05-29)
 
 **Note:** Version bump only for package @leavittsoftware/storybook
