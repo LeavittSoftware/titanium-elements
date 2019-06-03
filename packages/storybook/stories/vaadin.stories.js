@@ -27,6 +27,7 @@ storiesOf('3RD PARTY|titanium-vaadin', module).add(
           <path fill="none" d="M0 0h24v24H0V0z" />
         </svg>
       </vaadin-text-field>
+      <vaadin-text-area label="Notes"></vaadin-text-area>
     `;
   }
 );
