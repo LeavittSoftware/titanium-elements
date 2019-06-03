@@ -1,12 +1,12 @@
 {
-  "name": "@leavittsoftware/titanium-loading-indicator",
+  "name": "@leavittsoftware/titanium-progress",
   "description": "",
   "author": "Leavitt Software",
-  "version": "3.0.0",
+  "version": "0.0.1",
   "license": "MIT",
-  "main": "lib/titanium-loading-indicator.js",
-  "typings": "lib/titanium-loading-indicator.d.ts",
-  "homepage": "https://github.com/LeavittSoftware/titanium-elements/tree/master/packages/titanium-loading-indicator",
+  "main": "lib/titanium-progress.js",
+  "typings": "lib/titanium-progress.d.ts",
+  "homepage": "https://github.com/LeavittSoftware/titanium-elements/tree/master/packages/titanium-progress",
   "files": [
     "lib",
     "src"
@@ -19,8 +19,7 @@
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
   "dependencies": {
-    "lit-element": "^2.1.0",
-    "@leavittsoftware/titanium-progress": "^0.0.1"
+    "lit-element": "^2.1.0"
   },
   "scripts": {
     "build:watch": "tsc --watch",

@@ -20,6 +20,8 @@
     "@leavittsoftware/titanium-data-table": "^3.0.1",
     "@leavittsoftware/titanium-dialog": "^1.0.0",
     "@leavittsoftware/titanium-header": "^3.0.0",
+    "@leavittsoftware/titanium-progress": "^0.0.1",
+    "@leavittsoftware/titanium-toolbar": "^0.0.1",
     "@leavittsoftware/titanium-helpers": "^2.0.1",
     "@leavittsoftware/titanium-loading-indicator": "^3.0.0",
     "@leavittsoftware/titanium-offline-notice": "^2.0.0",
