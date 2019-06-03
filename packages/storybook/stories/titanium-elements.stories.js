@@ -5,6 +5,7 @@ import '@leavittsoftware/titanium-svg-button';
 import '@leavittsoftware/titanium-header';
 import '@leavittsoftware/titanium-chip';
 import '@leavittsoftware/titanium-card';
+import '@leavittsoftware/titanium-toolbar';
 import '@leavittsoftware/titanium-card/lib/titanium-card-list-item';
 import '@leavittsoftware/titanium-card/lib/titanium-single-action-card';
 import '@leavittsoftware/titanium-button';
@@ -37,7 +38,9 @@ storiesOf('UI COMPONENTS|Titanium Super Demo', module)
     () => {
       let disable = boolean('disable', false);
       return html`
-        <titanium-header header="Titanium elements" subHeader="One stop shop for everything good"></titanium-header>
+        <titanium-toolbar> <span main-title>A Simple Toolbar</span></titanium-toolbar>
+
+        <titanium-header header="Titanium elements" subHeader="One stop shop for everything good" style="padding-top: 60px"></titanium-header>
         <titanium-data-table header="Data table">
           <titanium-search-input slot="table-actions" ?disabled=${disable}></titanium-search-input>
           <titanium-svg-button slot="table-actions" ?disabled=${disable} path="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></titanium-svg-button>
