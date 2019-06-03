@@ -6,6 +6,7 @@ import '@leavittsoftware/titanium-header';
 import '@leavittsoftware/titanium-chip';
 import '@leavittsoftware/titanium-card';
 import '@leavittsoftware/titanium-toolbar';
+import '@leavittsoftware/titanium-progress';
 import '@leavittsoftware/titanium-card/lib/titanium-card-list-item';
 import '@leavittsoftware/titanium-card/lib/titanium-single-action-card';
 import '@leavittsoftware/titanium-button';
@@ -31,7 +32,7 @@ const availableCssVars = {
   ],
 };
 //TODO: Make more demos
-storiesOf('UI COMPONENTS|Titanium Super Demo', module)
+storiesOf('UI COMPONENTS|- Titanium Super Demo -', module)
   .addDecorator(withKnobs)
   .add(
     'Feature set',
@@ -90,6 +91,10 @@ storiesOf('UI COMPONENTS|Titanium Super Demo', module)
         <br />
         <br />
         <titanium-loading-indicator ?disabled=${disable}></titanium-loading-indicator>
+        <br />
+        <br />
+
+        <titanium-progress ?disabled=${disable}> </titanium-progress>
         <br />
         <br />
 
