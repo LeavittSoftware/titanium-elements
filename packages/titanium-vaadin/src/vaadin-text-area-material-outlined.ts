@@ -10,7 +10,27 @@ import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 const $_documentContainer = html`
   <dom-module id="material-text-area-outlined" theme-for="vaadin-text-area">
     <template>
-      <style include="material-required-field material-field-button vaadin-material-outlined"></style>
+      <style include="material-required-field material-field-button vaadin-material-outlined">
+        [part="input-field"] {
+          height: auto;
+          box-sizing: border-box;
+        }
+
+        [part='input-field'] ::slotted(*:not([part='value']):not([part\$='-button']):not(input):not(textarea)) {
+          align-self: center;
+        }
+
+        /* NOTE(platosha): double attribute workarounds specifity for Firefox */
+        [part="value"][part="value"] {
+          padding-top: 0;
+          margin-top: 4px;
+        }
+        [part="input-field"] [part="value"],
+        [part="input-field"] ::slotted(textarea) {
+          white-space: pre-wrap;
+          align-self: stretch;
+        }
+      </style>
     </template>
   </dom-module>
 `;
