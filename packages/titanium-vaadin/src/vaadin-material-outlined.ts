@@ -49,10 +49,6 @@ $_documentContainer.innerHTML = `<dom-module id="vaadin-material-outlined">
         border-radius: 4px;
       }
 
-      :host([dense]) [part='input-field'] {
-        padding: 4px 8px;
-      }
-
       :host(:hover) [part='input-field'] {
         border: 1px solid #404347;
       }
@@ -62,11 +58,6 @@ $_documentContainer.innerHTML = `<dom-module id="vaadin-material-outlined">
 
         /* prevent shifting from the 2px border */
         padding: 7px;
-      }
-
-      :host([focused][dense]:not([invalid])) [part='input-field'] {
-        /* prevent shifting from the 2px border */
-        padding: 3px 7px;
       }
 
       :host([invalid]) [part='input-field'] {
@@ -109,14 +100,6 @@ $_documentContainer.innerHTML = `<dom-module id="vaadin-material-outlined">
         background-color: transparent;
         /* Disable default invalid style in Firefox */
         box-shadow: none;
-      }
-
-      :host([dense]) [part="value"],
-    :host([disabled][dense]) [part="input-field"] ::slotted(input),
-    :host([disabled][dense]) [part="input-field"] ::slotted(textarea),
-    /* Slotted by vaadin-select-text-field */
-    :host([dense]) [part="input-field"] ::slotted([part="value"]) {
-        padding: 0 8px;
       }
 
       /* TODO: the text opacity should be 42%, but the disabled style is 38%.
@@ -238,10 +221,6 @@ $_documentContainer.innerHTML = `<dom-module id="vaadin-material-outlined">
         pointer-events: none;
         left: 8px;
         transition-delay: 0.1s;
-      }
-
-      :host([has-label][dense]:not([has-value]):not([focused]):not([invalid]):not([theme~='always-float-label'])) [part='label'] {
-        transform: scale(1) translateY(22px);
       }
 
       /* Slotted content */

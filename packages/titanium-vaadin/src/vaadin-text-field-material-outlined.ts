@@ -20,7 +20,26 @@ const $_documentContainer = html`
 
         :host([dense]) [part='input-field'] {
           height: 30px;
+          padding: 4px 8px;
         }
+
+        :host([focused][dense]:not([invalid])) [part='input-field'] {
+        /* prevent shifting from the 2px border */
+          padding: 3px 7px;
+        }
+
+        :host([dense]) [part="value"],
+        :host([disabled][dense]) [part="input-field"] ::slotted(input),
+        :host([disabled][dense]) [part="input-field"] ::slotted(textarea),
+        /* Slotted by vaadin-select-text-field */
+        :host([dense]) [part="input-field"] ::slotted([part="value"]) {
+          padding: 0 8px;
+        }
+
+        :host([has-label][dense]:not([has-value]):not([focused]):not([invalid]):not([theme~='always-float-label'])) [part='label'] {
+          transform: scale(1) translateY(22px);
+        }
+
       </style>
     </template>
   </dom-module>
