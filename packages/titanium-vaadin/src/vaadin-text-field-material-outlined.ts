@@ -53,7 +53,7 @@ const $_documentContainer = html`
           background-color: transparent;
           margin: 0;
 
-          border: 1px solid #757575;
+          border: 1px solid var(--app-border-color, #dadce0);
           border-radius: 4px;
         }
 
