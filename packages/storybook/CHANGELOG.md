@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@2.1.2...@leavittsoftware/storybook@2.1.3) (2019-06-04)
+
+
+### Bug Fixes
+
+* Corrects position of pre/suf; aligns label; ... ([9c5e828](https://github.com/LeavittSoftware/titanium-elements/commit/9c5e828))
+* Fix merge conflict ([5ba903a](https://github.com/LeavittSoftware/titanium-elements/commit/5ba903a))
+
+
+
+
+
 ## [2.1.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@2.1.1...@leavittsoftware/storybook@2.1.2) (2019-06-04)
 
 **Note:** Version bump only for package @leavittsoftware/storybook
