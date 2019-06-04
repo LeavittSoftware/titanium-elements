@@ -51,6 +51,12 @@ export class TitaniumCardListItemElement extends LitElement {
     }
   `;
 
+  slottedContent() {
+    return html`
+      <slot></slot>
+    `;
+  }
+
   render() {
     return html`
       <a
@@ -61,7 +67,7 @@ export class TitaniumCardListItemElement extends LitElement {
           this.dispatchEvent(new Event('item-click'));
         }}
       >
-        <slot></slot>
+        ${this.slottedContent()}
         <mwc-ripple></mwc-ripple>
       </a>
     `;
