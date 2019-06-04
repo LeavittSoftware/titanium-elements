@@ -13,6 +13,12 @@ const $_documentContainer = html`
       <style include="material-required-field material-field-button vaadin-material-outlined">
         [part='input-field'] {
           height: 40px;
+          padding: 8px;
+          background-color: transparent;
+          margin: 0;
+
+          border: 1px solid var(--app-border-color, #dadce0);
+          border-radius: 4px;
         }
 
         :host([dense]) [part='input-field'] {

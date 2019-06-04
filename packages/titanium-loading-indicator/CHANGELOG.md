@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-loading-indicator@3.0.0...@leavittsoftware/titanium-loading-indicator@3.1.0) (2019-06-03)
+
+
+### Features
+
+* adds titanium-full-page-loading-indicator ([3dd7632](https://github.com/LeavittSoftware/titanium-elements/commit/3dd7632))
+
+
+
+
+
 # [3.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-loading-indicator@2.0.0...@leavittsoftware/titanium-loading-indicator@3.0.0) (2019-05-28)
 
 

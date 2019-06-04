@@ -1,0 +1,30 @@
+{
+  "name": "@leavittsoftware/titanium-toolbar",
+  "version": "0.1.0",
+  "description": "",
+  "main": "lib/titanium-toolbar.js",
+  "typings": "lib/titanium-toolbar.d.ts",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "dependencies": {
+    "lit-element": "^2.1.0"
+  },
+  "scripts": {
+    "build:watch": "tsc --watch",
+    "build": "tsc",
+    "lint": "tslint \"src/*.ts\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeavittSoftware/titanium-elements.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LeavittSoftware/titanium-elements/issues"
+  },
+  "homepage": "https://github.com/LeavittSoftware/titanium-elements/#readme",
+  "gitHead": "f80c9f25691088c456baf119f3be7e278bf9c80d"
+}

@@ -2,6 +2,7 @@ import { storiesOf } from '@storybook/polymer/dist/client/preview/index';
 import { html } from 'lit-html';
 import { withKnobs, boolean } from '@storybook/addon-knobs';
 import '@leavittsoftware/titanium-loading-indicator';
+import '@leavittsoftware/titanium-loading-indicator/lib/titanium-full-page-loading-indicator';
 
 const availableCssVars = {
   cssresources: [
@@ -12,6 +13,14 @@ const availableCssVars = {
       } </style>`,
     },
   ],
+};
+
+var openDialog = e => {
+  e.preventDefault();
+  document
+    .querySelector(`titanium-full-page-loading-indicator`)
+    .open()
+    .then(() => console.log('Closed'));
 };
 
 storiesOf('UI COMPONENTS|titanium-loading-indicator', module)
@@ -35,6 +44,18 @@ storiesOf('UI COMPONENTS|titanium-loading-indicator', module)
         >
           <titanium-loading-indicator>Loading in a box...</titanium-loading-indicator>
         </div>
+      `;
+    },
+    availableCssVars
+  )
+  .add(
+    'Full Page',
+    () => {
+      return html`
+        <a href="#" @click=${e => openDialog(e)}>
+          Open dialog no title
+        </a>
+        <titanium-full-page-loading-indicator></titanium-full-page-loading-indicator>
       `;
     },
     availableCssVars
