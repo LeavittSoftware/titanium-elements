@@ -10,7 +10,15 @@ import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 const $_documentContainer = html`
   <dom-module id="material-text-field-outlined" theme-for="vaadin-text-field">
     <template>
-      <style include="material-required-field material-field-button vaadin-material-outlined"></style>
+      <style include="material-required-field material-field-button vaadin-material-outlined">
+        [part='input-field'] {
+          height: 40px;
+        }
+
+        :host([dense]) [part='input-field'] {
+          height: 30px;
+        }
+      </style>
     </template>
   </dom-module>
 `;

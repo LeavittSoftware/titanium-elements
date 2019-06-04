@@ -41,7 +41,6 @@ $_documentContainer.innerHTML = `<dom-module id="vaadin-material-outlined">
 
       [part='input-field'] {
         position: relative;
-        height: 40px;
         padding: 8px;
         background-color: transparent;
         margin: 0;
@@ -52,7 +51,6 @@ $_documentContainer.innerHTML = `<dom-module id="vaadin-material-outlined">
 
       :host([dense]) [part='input-field'] {
         padding: 4px 8px;
-        height: 30px;
       }
 
       :host(:hover) [part='input-field'] {
