@@ -1,4 +1,5 @@
 import { customElement, html, LitElement, property, css } from 'lit-element';
+import '@leavittsoftware/titanium-progress';
 
 @customElement('titanium-full-page-loading-indicator')
 export class TitaniumFullPageLoadingIndicatorElement extends LitElement {
