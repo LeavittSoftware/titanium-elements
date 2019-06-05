@@ -105,23 +105,23 @@ $_documentContainer.innerHTML = `<dom-module id="vaadin-material-outlined">
       /* TODO: the text opacity should be 42%, but the disabled style is 38%.
     Would need to introduce another property for it if we want to be 100% accurate. */
       [part='value']::-webkit-input-placeholder {
-        color: var(--material-disabled-text-color);
+        color: #909090;
         transition: opacity 0.175s 0.05s;
         opacity: 1;
       }
 
       [part='value']:-ms-input-placeholder {
-        color: var(--material-disabled-text-color);
+        color: #909090;
       }
 
       [part='value']::-moz-placeholder {
-        color: var(--material-disabled-text-color);
+        color: #909090;
         transition: opacity 0.175s 0.05s;
         opacity: 1;
       }
 
       [part='value']::placeholder {
-        color: var(--material-disabled-text-color);
+        color: #909090;
         transition: opacity 0.175s 0.1s;
         opacity: 1;
       }
