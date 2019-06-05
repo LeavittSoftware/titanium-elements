@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-chip@3.0.0...@leavittsoftware/titanium-chip@3.0.1) (2019-06-05)
+
+
+### Bug Fixes
+
+* Lighter button label colors. ([ca9ac48](https://github.com/LeavittSoftware/titanium-elements/commit/ca9ac48))
+
+
+
+
+
 # [3.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-chip@2.0.1...@leavittsoftware/titanium-chip@3.0.0) (2019-05-28)
 
 
