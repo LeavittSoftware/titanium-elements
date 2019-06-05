@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-loading-indicator@3.1.0...@leavittsoftware/titanium-loading-indicator@3.1.1) (2019-06-05)
+
+
+### Bug Fixes
+
+* Adds missing loading indicator import ([c97eb90](https://github.com/LeavittSoftware/titanium-elements/commit/c97eb90))
+
+
+
+
+
 # [3.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-loading-indicator@3.0.0...@leavittsoftware/titanium-loading-indicator@3.1.0) (2019-06-03)
 
 
