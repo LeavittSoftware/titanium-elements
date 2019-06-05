@@ -59,7 +59,7 @@ export class TitaniumChipElement extends LitElement {
       font-size: 13px;
       line-height: 18px;
       font-weight: 500;
-      color: var(--app-dark-text-color, #202124);
+      color: var(--app-text-color, #5f6368);
       cursor: pointer;
     }
 
