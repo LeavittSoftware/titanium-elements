@@ -18,7 +18,7 @@ export class TitaniumPageMenuItemElement extends LitElement {
     });
   }
 
-  updated(changedProps: Map<string, any>) {
+  updated(changedProps: Map<string, unknown>) {
     if (changedProps.has('disabled') || changedProps.has('parentDisabled')) {
       this.classList[this.disabled || this.parentDisabled ? 'add' : 'remove']('disabled');
     }

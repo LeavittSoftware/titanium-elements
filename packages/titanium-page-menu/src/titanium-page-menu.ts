@@ -24,7 +24,7 @@ export class TitaniumPageMenuElement extends LitElement {
     this._items.set(element.value, element);
   }
 
-  updated(changedProps: Map<string, any>) {
+  updated(changedProps: Map<string, unknown>) {
     if (changedProps.has('disabled')) {
       this._items.forEach((i) => (i.parentDisabled = this.disabled));
     }
