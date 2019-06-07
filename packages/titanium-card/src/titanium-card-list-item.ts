@@ -30,8 +30,12 @@ export class TitaniumCardListItemElement extends LitElement {
       padding: 16px 24px 16px 0;
 
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       text-decoration: none;
+    }
+
+    ::slotted([spacer]) {
+      flex: 1 1 auto;
     }
 
     a:focus,
