@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-card@1.0.0...@leavittsoftware/titanium-card@1.1.0) (2019-06-07)
+
+
+### Features
+
+* **List item:** defaults to align-items: center; ([22e9c3c](https://github.com/LeavittSoftware/titanium-elements/commit/22e9c3c))
+
+
+
+
+
 # [1.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-card@0.2.0...@leavittsoftware/titanium-card@1.0.0) (2019-06-07)
 
 
