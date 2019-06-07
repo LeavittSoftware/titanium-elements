@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@2.1.6...@leavittsoftware/storybook@3.0.0) (2019-06-07)
+
+
+### Bug Fixes
+
+* Fixes broken card focus in IE11 ([c0123d9](https://github.com/LeavittSoftware/titanium-elements/commit/c0123d9))
+
+
+### Features
+
+* Defaults item to flex-direction row & spacer css ([2623df9](https://github.com/LeavittSoftware/titanium-elements/commit/2623df9))
+
+
+### BREAKING CHANGES
+
+* Changes attribute disabled to disable-action in single-action-card
+
+
+
+
+
 ## [2.1.6](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@2.1.5...@leavittsoftware/storybook@2.1.6) (2019-06-05)
 
 **Note:** Version bump only for package @leavittsoftware/storybook
