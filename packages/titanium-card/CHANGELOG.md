@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-card@1.1.0...@leavittsoftware/titanium-card@1.1.1) (2019-06-07)
+
+
+### Bug Fixes
+
+* Corrects text color on list-item ([6e0f5eb](https://github.com/LeavittSoftware/titanium-elements/commit/6e0f5eb))
+
+
+
+
+
 # [1.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-card@1.0.0...@leavittsoftware/titanium-card@1.1.0) (2019-06-07)
 
 
