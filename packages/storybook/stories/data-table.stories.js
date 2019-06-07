@@ -3,6 +3,7 @@ import { html } from 'lit-html';
 import { withKnobs } from '@storybook/addon-knobs';
 import '@leavittsoftware/titanium-data-table/lib/titanium-data-table';
 import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-item';
+import '@leavittsoftware/titanium-chip/lib/titanium-chip';
 
 const availableCssVars = {
   cssresources: [
@@ -29,6 +30,9 @@ storiesOf('UI COMPONENTS|titanium-data-table', module)
         <titanium-data-table header="Data table">
           <titanium-search-input slot="table-actions"></titanium-search-input>
           <titanium-svg-button slot="table-actions" path="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></titanium-svg-button>
+
+          <titanium-chip label="Hello" closeable slot="table-sub-actions"></titanium-chip>
+          <titanium-chip label="World" closeable slot="table-sub-actions"></titanium-chip>
 
           <titanium-data-table-header slot="table-headers" large columnName="Name" title="Name" sortBy="Name"></titanium-data-table-header>
           <titanium-data-table-header slot="table-headers" desktop title="Short Name" sortBy="SName"></titanium-data-table-header>
