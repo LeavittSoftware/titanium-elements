@@ -37,7 +37,7 @@ storiesOf('UI COMPONENTS|titanium-page-menu', module)
       let disable = boolean('disable', false);
       let selection = select('page', values, values[0]);
       return html`
-        <titanium-page-menu .selected=${selection} ?disabled=${disable} @titanium-page-menu-item-selected=${value.action(`Selected`)}>
+        <titanium-page-menu .selected=${selection} ?disabled=${disable} @selected=${value.action(`Selected`)}>
           <titanium-page-menu-item>One Fish</titanium-page-menu-item>
           <titanium-page-menu-item>Two Fish</titanium-page-menu-item>
           <hr />
