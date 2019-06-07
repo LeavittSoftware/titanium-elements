@@ -16,7 +16,7 @@ export class TitaniumCardListItemElement extends LitElement {
     }
 
     a {
-      color: var(--app-text-color, #5f6368);
+      color: var(--app-dark-text-color, #202124);
       border-bottom: 1px solid var(--app-border-color, #dadce0);
       margin-left: 24px;
 
