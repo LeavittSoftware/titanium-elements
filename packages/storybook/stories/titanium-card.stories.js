@@ -63,28 +63,25 @@ storiesOf('UI COMPONENTS|titanium-card', module)
         <titanium-single-action-card ?disable-action=${disable} buttonTitle="Manage your data & personalization">
           <h1>Manage payment methods</h1>
           <titanium-card-list-item ?disabled=${disable} title="Mastercard">
-            <horizontal-pane style="display: flex; justify-content:space-between; flex-direction: row; fill: #5f6368">
-              <div>Mastercard</div>
-              <svg viewBox="0 0 24 24" style="height: 24px; width: 24px; flex-shrink: 0;">
-                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
-              </svg>
-            </horizontal-pane>
+            <div>Mastercard</div>
+            <div spacer></div>
+            <svg viewBox="0 0 24 24" style="height: 24px; width: 24px; flex-shrink: 0;">
+              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+            </svg>
           </titanium-card-list-item>
           <titanium-card-list-item ?disabled=${disable} title="Visa">
-            <horizontal-pane style="display: flex; justify-content:space-between; flex-direction: row; fill: #5f6368">
-              <div>Visa</div>
-              <svg viewBox="0 0 24 24" style="height: 24px; width: 24px; flex-shrink: 0;">
-                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
-              </svg>
-            </horizontal-pane>
+            <div>Visa</div>
+            <div spacer></div>
+            <svg viewBox="0 0 24 24" style="height: 24px; width: 24px; flex-shrink: 0;">
+              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+            </svg>
           </titanium-card-list-item>
           <titanium-card-list-item ?disabled=${disable} title="Discover">
-            <horizontal-pane style="display: flex; justify-content:space-between; flex-direction: row;">
-              <div>Discover</div>
-              <svg viewBox="0 0 24 24" style="height: 24px; width: 24px; flex-shrink: 0; fill: #5f6368">
-                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
-              </svg>
-            </horizontal-pane>
+            <div>Discover</div>
+            <div spacer></div>
+            <svg viewBox="0 0 24 24" style="height: 24px; width: 24px; flex-shrink: 0; fill: #5f6368">
+              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+            </svg>
           </titanium-card-list-item>
         </titanium-single-action-card>
       `;
