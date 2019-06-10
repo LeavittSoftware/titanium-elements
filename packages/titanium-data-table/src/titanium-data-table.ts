@@ -335,12 +335,11 @@ export class TitaniumDataTableElement extends LitElement {
     sub-actions {
       display: flex;
       min-width: 100%;
-      padding: 8px 0;
       justify-content: flex-end;
     }
 
     sub-actions > ::slotted(*) {
-      margin-left: 16px;
+      margin: 8px 0 8px 16px;
     }
 
     :host([single-select]) select-all-checkbox svg[empty] {
