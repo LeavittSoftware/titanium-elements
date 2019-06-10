@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/storybook",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,7 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.4.3",
-    "@leavittsoftware/api-service": "^6.0.1",
+    "@leavittsoftware/api-service": "^6.0.2",
     "@leavittsoftware/profile-picture": "^3.1.5",
     "@leavittsoftware/titanium-button": "^1.0.1",
     "@leavittsoftware/titanium-card": "^1.1.1",
