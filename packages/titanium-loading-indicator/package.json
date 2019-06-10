@@ -19,8 +19,10 @@
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
   "dependencies": {
-    "@leavittsoftware/titanium-progress": "^0.1.0",
-    "lit-element": "^2.1.0"
+    "@leavittsoftware/titanium-progress": "^0.1.0"
+  },
+  "peerDependencies": {
+    "lit-element": ">=2.1.0"
   },
   "scripts": {
     "build:watch": "tsc --watch",

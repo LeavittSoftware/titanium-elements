@@ -20,8 +20,10 @@
   },
   "dependencies": {
     "@leavittsoftware/titanium-helpers": "^2.0.1",
-    "jwt-decode": "^2.2.0",
-    "lit-element": "^2.1.0"
+    "jwt-decode": "^2.2.0"
+  },
+  "peerDependencies": {
+    "lit-element": ">=2.1.0"
   },
   "scripts": {
     "build:watch": "tsc --watch",
