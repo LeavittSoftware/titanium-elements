@@ -33,6 +33,10 @@ storiesOf('UI COMPONENTS|titanium-data-table', module)
 
           <titanium-chip label="Hello" closeable slot="table-sub-actions"></titanium-chip>
           <titanium-chip label="World" closeable slot="table-sub-actions"></titanium-chip>
+          <titanium-chip label="Hello" closeable slot="table-sub-actions"></titanium-chip>
+          <titanium-chip label="World" closeable slot="table-sub-actions"></titanium-chip>
+          <titanium-chip label="Hello" closeable slot="table-sub-actions"></titanium-chip>
+          <titanium-chip label="World" closeable slot="table-sub-actions"></titanium-chip>
 
           <titanium-data-table-header slot="table-headers" large columnName="Name" title="Name" sortBy="Name"></titanium-data-table-header>
           <titanium-data-table-header slot="table-headers" desktop title="Short Name" sortBy="SName"></titanium-data-table-header>
