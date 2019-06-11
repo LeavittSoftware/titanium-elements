@@ -9,8 +9,10 @@
     "src"
   ],
   "dependencies": {
-    "@material/mwc-ripple": "^0.5.0",
-    "lit-element": "^2.1.0"
+    "@material/mwc-ripple": "^0.5.0"
+  },
+  "peerDependencies": {
+    "lit-element": ">=2.1.0"
   },
   "scripts": {
     "build:watch": "tsc --watch",
