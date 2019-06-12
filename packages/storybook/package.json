@@ -29,6 +29,7 @@
     "@leavittsoftware/titanium-svg-button": "^3.0.0",
     "@leavittsoftware/titanium-toolbar": "^0.1.0",
     "@leavittsoftware/titanium-vaadin": "^2.1.1",
+    "@leavittsoftware/titanium-side-menu": "^0.0.1",
     "@leavittsoftware/user-manager": "^9.0.1",
     "@storybook/addon-actions": "^5.0.10",
     "@storybook/addon-cssresources": "^5.0.10",
