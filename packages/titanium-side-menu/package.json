@@ -1,12 +1,12 @@
 {
-  "name": "@leavittsoftware/titanium-page-menu",
+  "name": "@leavittsoftware/titanium-side-menu",
   "description": "",
   "author": "Leavitt Software",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "license": "MIT",
-  "main": "lib/titanium-page-menu.js",
-  "typings": "lib/titanium-page-menu.d.ts",
-  "homepage": "https://github.com/LeavittSoftware/titanium-elements/tree/master/packages/titanium-page-menu",
+  "main": "lib/titanium-side-menu-item.js",
+  "typings": "lib/titanium-side-menu-item.d.ts",
+  "homepage": "https://github.com/LeavittSoftware/titanium-elements/tree/master/packages/titanium-side-menu",
   "files": [
     "lib",
     "src"
@@ -18,8 +18,8 @@
     "type": "git",
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
-  "dependencies": {
-    "lit-element": "^2.1.0"
+  "peerDependencies": {
+    "lit-element": ">=2.1.0"
   },
   "scripts": {
     "build:watch": "tsc --watch",
