@@ -1,0 +1,385 @@
+import { css, customElement, html, LitElement, property, query } from 'lit-element';
+import '@leavittsoftware/titanium-svg-button';
+import '@leavittsoftware/titanium-progress';
+
+@customElement('titanium-single-select')
+export class TitaniumSingleSelectElement extends LitElement {
+  @property({ type: Boolean, reflect: true }) protected invalid: boolean = true;
+  @property({ type: Boolean, reflect: true }) protected open: boolean;
+  @property({ type: String }) protected inputValue: string = '';
+
+  @property({ type: Boolean, reflect: true }) disabled: boolean;
+  @property({ type: Boolean }) isLoading: boolean;
+  @property({ type: String }) placeholder: string = '';
+  @property({ type: String }) hintText: string;
+  @property({ type: Number }) totalCount: number;
+  @property({ type: String }) itemLabelPath: string = 'Label';
+
+  @property() selected: unknown;
+  @query('input') input: HTMLInputElement;
+  @query('slot') slotElement: HTMLSlotElement;
+  private _blurTimeoutHandle: number;
+
+  firstUpdated() {
+    this.slotElement.addEventListener('titanium-single-select-item-blur', () => this._blurHandler());
+    this.slotElement.addEventListener('titanium-single-select-item-keydown', (e: CustomEvent<{ event: KeyboardEvent; value: unknown }>) =>
+      this._onKeyDown(e.detail.event, e.detail.value)
+    );
+    this.slotElement.addEventListener('titanium-single-select-item-click', (e: CustomEvent<{ event: MouseEvent; value: unknown }>) =>
+      this._setSelected(e.detail.value)
+    );
+  }
+
+  private get searchSuggestionElements(): unknown[] {
+    return this.querySlotted(this.shadowRoot, 'titanium-single-select-item');
+  }
+
+  private _handleValueChange() {
+    this._setInputValue(this.input.value);
+  }
+
+  private _setInputValue(value: string) {
+    this.inputValue = value;
+    this.dispatchEvent(
+      new CustomEvent<string>('input-changed', {
+        detail: value,
+        composed: true,
+      })
+    );
+  }
+
+  updated(changedProps) {
+    if (changedProps.has('selected') && changedProps.get('selected') !== this.selected) {
+      this.input.value = this.selected && typeof this.selected === 'object' ? (this.selected as object)[this.itemLabelPath] || '' : '';
+    }
+  }
+
+  private _setSelected(value: unknown) {
+    this.selected = value;
+    this.open = false;
+    this.inputValue = '';
+    this.dispatchEvent(
+      new CustomEvent<unknown>('selected-changed', {
+        detail: value,
+        composed: true,
+      })
+    );
+  }
+
+  private _inputOnFocus() {
+    this.open = true;
+  }
+
+  private _blurHandler() {
+    clearTimeout(this._blurTimeoutHandle);
+    this._blurTimeoutHandle = window.setTimeout(() => {
+      const activeElement = this.getActiveElement();
+
+      if (
+        !activeElement ||
+        (activeElement.tagName !== 'TITANIUM-SINGLE-SELECT-ITEM' && (activeElement.tagName !== 'INPUT' && activeElement.id !== 'searchInput'))
+      ) {
+        this.open = false;
+      }
+    }, 300);
+  }
+
+  private _onKeyDown(e: KeyboardEvent, value?: unknown) {
+    this.open = true;
+    switch (e.keyCode) {
+      case 27: {
+        // esc key
+        this.open = false;
+        this.reset();
+        break;
+      }
+      case 40: {
+        this.focusNextElement();
+        e.preventDefault();
+        break;
+      }
+      case 38: {
+        this.focusPreviousElement();
+        e.preventDefault();
+        break;
+      }
+      case 13: {
+        this._setSelected(value);
+        e.preventDefault();
+        break;
+      }
+      default:
+        break;
+    }
+  }
+
+  private querySlotted(root, selector) {
+    const slots = root.querySelectorAll('slot');
+    let matched = [];
+    slots.forEach((slot) => {
+      matched = matched.concat(
+        slot.assignedNodes().filter((el) => {
+          return (typeof el.matches === 'function' && el.matches(selector)) || (el.__shady_className && el.__shady_className.indexOf(selector) > -1);
+        })
+      );
+    });
+    return matched;
+  }
+
+  //#region Element selection
+  private focusNextElement() {
+    const items = [].slice.call(this.searchSuggestionElements);
+    if (!items) {
+      return;
+    }
+
+    const activeElement = this.getActiveElement();
+    const nextIndex = items.indexOf(activeElement) + 1;
+    if (nextIndex > items.length - 1) {
+      this.input.focus();
+    } else {
+      items[nextIndex].focus();
+    }
+  }
+
+  private focusPreviousElement() {
+    const items = [].slice.call(this.searchSuggestionElements);
+    if (!items) {
+      return;
+    }
+
+    const activeElement = this.getActiveElement();
+    const previousIndex = items.indexOf(activeElement) - 1;
+    if (previousIndex === -2) {
+      items[items.length - 1].focus();
+    } else if (previousIndex === -1) {
+      this.input.focus();
+    } else {
+      items[previousIndex].focus();
+    }
+  }
+  //#endregion
+
+  //#region Determine Active Element In Shadow Root
+  private getActiveElement() {
+    return this._getActiveShadowElement(document.activeElement);
+  }
+
+  private _getActiveShadowElement(element: Element | null): Element | null {
+    if (!element) {
+      return null;
+    }
+
+    if (element.shadowRoot && element.shadowRoot.activeElement) {
+      return this._getActiveShadowElement(element.shadowRoot.activeElement);
+    }
+
+    return element;
+  }
+
+  //#endregion
+
+  reset() {
+    if (this.input) {
+      this.input.value = '';
+      this._setInputValue(this.input.value);
+      this.open = false;
+      this._setSelected(null);
+    }
+  }
+
+  static styles = css`
+    :host {
+      display: block;
+      position: relative;
+    }
+
+    input {
+      position: relative;
+      width: 100%;
+    }
+
+    ::placeholder {
+      color: #909090;
+      opacity: 1; /* Firefox */
+    }
+
+    :-ms-input-placeholder {
+      color: #909090;
+    }
+
+    ::-ms-input-placeholder {
+      color: #909090;
+    }
+
+    svg {
+      position: absolute;
+      top: 16px;
+      left: 12px;
+      fill: var(--app-text-color, #5f6368);
+      width: 25px;
+      height: 25px;
+    }
+
+    titanium-svg-button {
+      position: absolute;
+      top: 7px;
+      right: 8px;
+    }
+
+    :host([disabled]) svg {
+      opacity: 0.4;
+    }
+
+    :host(:not([open]):not([disabled])[filled]) input {
+      background-color: #f1f3f4;
+    }
+
+    :host([shaped]) input {
+      border-top-left-radius: 28px;
+      border-top-right-radius: 28px;
+      border-bottom-left-radius: 28px;
+      border-bottom-right-radius: 28px;
+    }
+
+    input {
+      width: 100%;
+      height: 56px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding: 5px 48px;
+      transition: background 100ms ease-in, width 100ms ease-out;
+      color: var(--app-text-color, #5f6368);
+      background-color: #fff;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+      border: 1px solid var(--app-border-color, #dadce0);
+    }
+
+    :host([open]) input {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border-bottom: 1px solid transparent;
+      box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
+    }
+
+    :host(:not([disabled])) input:hover {
+      box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
+    }
+
+    input::-ms-clear {
+      display: none;
+    }
+
+    :host([has-term]) input {
+      color: #000;
+    }
+
+    input:focus {
+      background-color: #fff;
+    }
+
+    input,
+    input:focus {
+      box-sizing: border-box;
+      outline: none;
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    search-suggestions hr {
+      border: 0;
+      border-top: 1px solid var(--app-border-color);
+      margin: 0 16px;
+      height: 0;
+    }
+
+    titanium-progress {
+      height: 1px;
+      margin: 0 16px;
+    }
+
+    :host([shaped]) search-suggestions {
+      border-bottom-left-radius: 28px;
+      border-bottom-right-radius: 28px;
+    }
+
+    :host(:not([open])) search-suggestions {
+      transform: scale(0);
+      opacity: 0;
+    }
+
+    search-suggestions {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      z-index: 2;
+      min-height: 75px;
+      right: 0;
+      left: 0;
+      background-color: #fff;
+      border: 1px solid var(--app-border-color);
+      border-top: 0;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+      box-shadow: 0 4px 6px 0 rgba(32, 33, 36, 0.28);
+      overflow: hidden;
+      transition: opacity, transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      opacity: 1;
+      transform-origin: left top;
+      transform: scale(1);
+    }
+
+    informatory-text {
+      padding: 8px 16px;
+      font-family: Roboto, Arial, sans-serif;
+      color: var(--app-light-text-color, #80868b);
+      line-height: 18px;
+      font-size: 13px;
+    }
+
+    :host([unresolved]),
+    [hidden] {
+      display: none !important;
+    }
+  `;
+
+  render() {
+    return html`
+      <input
+        autocomplete="off"
+        aria-label="Search"
+        @keydown=${this._onKeyDown}
+        ?disabled=${this.disabled}
+        id="searchInput"
+        tabindex="0"
+        @blur=${this._blurHandler}
+        @focus=${this._inputOnFocus}
+        placeholder=${this.placeholder}
+        @input=${this._handleValueChange}
+        value=${this.inputValue}
+        size="8"
+      />
+      <svg viewBox="0 0 24 24">
+        <path
+          d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+        />
+      </svg>
+      <titanium-svg-button
+        @click=${this.reset}
+        ?hidden=${!this.open && !this.inputValue}
+        path="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+      ></titanium-svg-button>
+
+      <search-suggestions id="suggestions" tabindex="-1">
+        <hr ?hidden=${this.isLoading} />
+        <titanium-progress ?hidden=${!this.isLoading} ?disabled=${!this.isLoading}></titanium-progress>
+        <informatory-text ?hidden=${this.totalCount > 0 || this.inputValue !== ''}>${this.hintText}</informatory-text>
+        <informatory-text ?hidden=${this.inputValue === '' || this.isLoading}> ${this.totalCount} results for '${this.inputValue}' </informatory-text>
+        <slot></slot>
+      </search-suggestions>
+    `;
+  }
+}
