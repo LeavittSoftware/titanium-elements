@@ -14,6 +14,7 @@ import '@leavittsoftware/titanium-button';
 import '@leavittsoftware/titanium-loading-indicator';
 import '@leavittsoftware/titanium-data-table/lib/titanium-data-table';
 import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-item';
+import '@leavittsoftware/titanium-single-select';
 
 const availableCssVars = {
   cssresources: [
@@ -32,7 +33,7 @@ const availableCssVars = {
     },
   ],
 };
-//TODO: Make more demos
+
 storiesOf('UI COMPONENTS|- Titanium Super Demo -', module)
   .addDecorator(withKnobs)
   .add(
@@ -101,6 +102,33 @@ storiesOf('UI COMPONENTS|- Titanium Super Demo -', module)
 
         <titanium-search-input ?disabled=${disable}></titanium-search-input>
 
+        <titanium-single-select
+          ?disabled=${disable}
+          style="max-width: 400px; margin: 24px 0;"
+          itemlabelpath="FullName"
+          hinttext="Search for a person or group to add them as a participant"
+          placeholder="Add participants"
+        >
+        </titanium-single-select>
+        <titanium-single-select
+          ?disabled=${disable}
+          style="max-width: 400px; margin: 24px 0;"
+          shaped
+          itemlabelpath="Shaped"
+          hinttext="Search for a person or group to add them as a participant"
+          placeholder="Shaped"
+        >
+        </titanium-single-select>
+        <titanium-single-select
+          ?disabled=${disable}
+          style="max-width: 400px; margin: 24px 0;"
+          filled
+          itemlabelpath="Filled"
+          hinttext="Search for a person or group to add them as a participant"
+          placeholder="Filled"
+        >
+        </titanium-single-select>
+
         <titanium-svg-button ?disabled=${disable} path="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></titanium-svg-button>
         <titanium-svg-button large ?disabled=${disable} path="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"></titanium-svg-button>
 
@@ -157,28 +185,25 @@ storiesOf('UI COMPONENTS|- Titanium Super Demo -', module)
         <titanium-single-action-card ?disable-action=${disable} buttonTitle="Manage your data & personalization">
           <h1>Manage payment methods</h1>
           <titanium-card-list-item ?disabled=${disable} title="Mastercard">
-            <horizontal-pane style="display: flex; justify-content:space-between; flex-direction: row; fill: #5f6368">
-              <div>Mastercard</div>
-              <svg viewBox="0 0 24 24" style="height: 24px; width: 24px; flex-shrink: 0;">
-                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
-              </svg>
-            </horizontal-pane>
+            <div>Mastercard</div>
+            <div spacer></div>
+            <svg viewBox="0 0 24 24" style="height: 24px; width: 24px; flex-shrink: 0;fill: #5f6368"">
+              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+            </svg>
           </titanium-card-list-item>
           <titanium-card-list-item ?disabled=${disable} title="Visa">
-            <horizontal-pane style="display: flex; justify-content:space-between; flex-direction: row; fill: #5f6368">
-              <div>Visa</div>
-              <svg viewBox="0 0 24 24" style="height: 24px; width: 24px; flex-shrink: 0;">
-                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
-              </svg>
-            </horizontal-pane>
+            <div>Visa</div>
+            <div spacer></div>
+            <svg viewBox="0 0 24 24" style="height: 24px; width: 24px; flex-shrink: 0;fill: #5f6368"">
+              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+            </svg>
           </titanium-card-list-item>
           <titanium-card-list-item ?disabled=${disable} title="Discover">
-            <horizontal-pane style="display: flex; justify-content:space-between; flex-direction: row;">
-              <div>Discover</div>
-              <svg viewBox="0 0 24 24" style="height: 24px; width: 24px; flex-shrink: 0; fill: #5f6368">
-                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
-              </svg>
-            </horizontal-pane>
+            <div>Discover</div>
+            <div spacer></div>
+            <svg viewBox="0 0 24 24" style="height: 24px; width: 24px; flex-shrink: 0; fill: #5f6368">
+              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+            </svg>
           </titanium-card-list-item>
         </titanium-single-action-card>
       `;
