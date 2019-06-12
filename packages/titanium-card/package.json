@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/titanium-card",
-  "version": "0.2.0",
+  "version": "1.1.1",
   "description": "",
   "main": "lib/titanium-card.js",
   "typings": "lib/titanium-card.d.ts",
@@ -9,8 +9,10 @@
     "src"
   ],
   "dependencies": {
-    "@material/mwc-ripple": "^0.5.0",
-    "lit-element": "^2.1.0"
+    "@material/mwc-ripple": "^0.5.0"
+  },
+  "peerDependencies": {
+    "lit-element": ">=2.1.0"
   },
   "scripts": {
     "build:watch": "tsc --watch",

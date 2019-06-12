@@ -18,8 +18,8 @@
     "type": "git",
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
-  "dependencies": {
-    "lit-element": "^2.1.0"
+  "peerDependencies": {
+    "lit-element": ">=2.1.0"
   },
   "scripts": {
     "build:watch": "tsc --watch",

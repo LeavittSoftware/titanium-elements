@@ -11,6 +11,9 @@ export default class ApiService {
     this.addHeader('X-LGAppName', 'General');
   }
 
+  headers = {};
+  baseUrl: string = 'https://api2.leavitt.com/';
+
   private _tokenProvider: BearerTokenProvider;
 
   addHeader(key: string, value: string) {
@@ -21,9 +24,6 @@ export default class ApiService {
     delete this.headers[key];
   }
 
-  headers = {};
-  baseUrl: string = 'https://api2.leavitt.com/';
-
   async uploadFile<T>(urlPath: string, file: File, onprogress: onProgressCallback, appName: string | null = null): Promise<ODataResponse<T>> {
     return new Promise(async (resolve, reject) => {
       if (!file || !file.name) {
@@ -32,7 +32,7 @@ export default class ApiService {
 
       try {
         const xhr = new XMLHttpRequest();
-        xhr.upload.addEventListener('progress', (e) => {
+        xhr.upload.addEventListener('progress', e => {
           onprogress(e, xhr);
         });
         xhr.open('POST', `${this.baseUrl}${urlPath}`, true);
@@ -100,15 +100,16 @@ export default class ApiService {
       delete body._odataInfo;
     }
 
-    if (appName !== null) {
-      this.addHeader('X-LGAppName', appName);
-    }
+    const headers = { ...this.headers };
 
-    this.addHeader('Authorization', `Bearer ${await this._tokenProvider._getBearerTokenAsync()}`);
+    if (appName !== null) {
+      headers['X-LGAppName'] = appName;
+    }
+    headers['Authorization'] = `Bearer ${await this._tokenProvider._getBearerTokenAsync()}`;
 
     let response;
     try {
-      response = await fetch(`${this.baseUrl}${urlPath}`, { method: 'POST', body: JSON.stringify(body), headers: this.headers });
+      response = await fetch(`${this.baseUrl}${urlPath}`, { method: 'POST', body: JSON.stringify(body), headers: headers });
     } catch (error) {
       if (error.message != null && error.message.indexOf('Failed to fetch') !== -1)
         return Promise.reject('Network error. Check your connection and try again.');
@@ -146,15 +147,16 @@ export default class ApiService {
       }
       delete body._odataInfo;
     }
-    if (appName !== null) {
-      this.addHeader('X-LGAppName', appName);
-    }
 
-    this.addHeader('Authorization', `Bearer ${await this._tokenProvider._getBearerTokenAsync()}`);
+    const headers = { ...this.headers };
+    if (appName !== null) {
+      headers['X-LGAppName'] = appName;
+    }
+    headers['Authorization'] = `Bearer ${await this._tokenProvider._getBearerTokenAsync()}`;
 
     let response;
     try {
-      response = await fetch(`${this.baseUrl}${urlPath}`, { method: 'PATCH', body: JSON.stringify(body), headers: this.headers });
+      response = await fetch(`${this.baseUrl}${urlPath}`, { method: 'PATCH', body: JSON.stringify(body), headers: headers });
     } catch (error) {
       if (error.message != null && error.message.indexOf('Failed to fetch') !== -1)
         return Promise.reject('Network error. Check your connection and try again.');
@@ -188,11 +190,12 @@ export default class ApiService {
       }
       delete body._odataInfo;
     }
-    if (appName !== null) {
-      this.addHeader('X-LGAppName', appName);
-    }
 
-    this.addHeader('Authorization', `Bearer ${await this._tokenProvider._getBearerTokenAsync()}`);
+    const headers = { ...this.headers };
+    if (appName !== null) {
+      headers['X-LGAppName'] = appName;
+    }
+    headers['Authorization'] = `Bearer ${await this._tokenProvider._getBearerTokenAsync()}`;
 
     let response;
     try {
@@ -227,15 +230,15 @@ export default class ApiService {
   }
 
   async deleteAsync<T>(urlPath: string, appName: string | null = null): Promise<ODataResponse<T>> {
+    const headers = { ...this.headers };
     if (appName !== null) {
-      this.addHeader('X-LGAppName', appName);
+      headers['X-LGAppName'] = appName;
     }
-
-    this.addHeader('Authorization', `Bearer ${await this._tokenProvider._getBearerTokenAsync()}`);
+    headers['Authorization'] = `Bearer ${await this._tokenProvider._getBearerTokenAsync()}`;
 
     let response;
     try {
-      response = await fetch(`${this.baseUrl}${urlPath}`, { method: 'DELETE', headers: this.headers });
+      response = await fetch(`${this.baseUrl}${urlPath}`, { method: 'DELETE', headers: headers });
     } catch (error) {
       if (error.message != null && error.message.indexOf('Failed to fetch') !== -1)
         return Promise.reject('Network error. Check your connection and try again.');
@@ -270,17 +273,17 @@ export default class ApiService {
   }
 
   async getAsync<T>(urlPath: string, appName: string | null = null): Promise<ODataResponse<T>> {
+    const headers = { ...this.headers };
     if (appName !== null) {
-      this.addHeader('X-LGAppName', appName);
+      headers['X-LGAppName'] = appName;
     }
-
-    this.addHeader('Authorization', `Bearer ${await this._tokenProvider._getBearerTokenAsync()}`);
+    headers['Authorization'] = `Bearer ${await this._tokenProvider._getBearerTokenAsync()}`;
 
     let response;
     try {
       response = await fetch(`${this.baseUrl}${urlPath}`, {
         method: 'GET',
-        headers: this.headers,
+        headers: headers,
       });
     } catch (error) {
       if (error.message != null && error.message.indexOf('Failed to fetch') !== -1)

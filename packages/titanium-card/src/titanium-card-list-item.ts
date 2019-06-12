@@ -16,7 +16,7 @@ export class TitaniumCardListItemElement extends LitElement {
     }
 
     a {
-      color: var(--app-text-color, #5f6368);
+      color: var(--app-dark-text-color, #202124);
       border-bottom: 1px solid var(--app-border-color, #dadce0);
       margin-left: 24px;
 
@@ -30,8 +30,14 @@ export class TitaniumCardListItemElement extends LitElement {
       padding: 16px 24px 16px 0;
 
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       text-decoration: none;
+
+      align-items: center;
+    }
+
+    ::slotted([spacer]) {
+      flex: 1 1 auto;
     }
 
     a:focus,

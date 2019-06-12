@@ -48,8 +48,8 @@ export class TitaniumDataTableElement extends LitElement {
     if (e.detail.isSelected) {
       if (this.singleSelect) {
         this._getTableItems()
-          .filter((o) => o.item !== e.detail.item)
-          .forEach((o) => o.deselected());
+          .filter(o => o.item !== e.detail.item)
+          .forEach(o => o.deselected());
       }
 
       this.selected.push(e.detail.item);
@@ -131,18 +131,18 @@ export class TitaniumDataTableElement extends LitElement {
   }
 
   private deselectAll() {
-    this._getTableItems().forEach((o) => o.deselected());
+    this._getTableItems().forEach(o => o.deselected());
   }
 
   private selectAll() {
-    this._getTableItems().forEach((o) => o.select());
+    this._getTableItems().forEach(o => o.select());
   }
 
   private _getTableItems(): Array<TitaniumDataTableItemElement> {
     return this.tableContainer[0]
       .querySelector('slot[name="items"]')
       .assignedNodes()
-      .filter((o) => typeof o.select === 'function' || typeof o.deselect === 'function');
+      .filter(o => typeof o.select === 'function' || typeof o.deselect === 'function');
   }
 
   private _handleNextPageClick() {
@@ -332,6 +332,18 @@ export class TitaniumDataTableElement extends LitElement {
       fill: var(--app-light-text-color, #80868b);
     }
 
+    sub-actions {
+      display: flex;
+      flex-wrap: wrap;
+      min-width: 100%;
+      justify-content: flex-end;
+      margin-left: -16px;
+    }
+
+    sub-actions > ::slotted(*) {
+      margin: 8px 0 0 16px;
+    }
+
     :host([single-select]) select-all-checkbox svg[empty] {
       fill: #b9b9b9;
       cursor: not-allowed;
@@ -362,6 +374,9 @@ export class TitaniumDataTableElement extends LitElement {
           <div spacer></div>
           <slot name="selected-actions"></slot>
         </selected-actions>
+        <sub-actions>
+          <slot name="table-sub-actions"></slot>
+        </sub-actions>
       </header>
       <table-container>
         <table-header>

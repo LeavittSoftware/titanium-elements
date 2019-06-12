@@ -43,7 +43,7 @@ export class TitaniumSingleActionCardElement extends LitElement {
       border-radius: 0 0 8px 8px;
     }
 
-    :host([disabled]) a {
+    :host([disable-action]) a {
       pointer-events: none;
       color: rgba(0, 0, 0, 0.37);
     }

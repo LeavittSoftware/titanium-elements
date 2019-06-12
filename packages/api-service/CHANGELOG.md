@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@6.0.1...@leavittsoftware/api-service@6.0.2) (2019-06-10)
+
+
+### Bug Fixes
+
+* Fixes presisting appName headers. ([fcb5888](https://github.com/LeavittSoftware/titanium-elements/commit/fcb5888))
+
+
+
+
+
 ## [6.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@6.0.0...@leavittsoftware/api-service@6.0.1) (2019-05-28)
 
 **Note:** Version bump only for package @leavittsoftware/api-service

@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/api-service",
   "description": "",
   "author": "Leavitt Software",
-  "version": "6.0.1",
+  "version": "6.0.2",
   "license": "MIT",
   "main": "lib/api-service-element.js",
   "typings": "lib/api-service-element.d.ts",
@@ -20,8 +20,10 @@
   },
   "dependencies": {
     "@leavittsoftware/titanium-helpers": "^2.0.1",
-    "@leavittsoftware/user-manager": "^9.0.1",
-    "lit-element": "^2.1.0"
+    "@leavittsoftware/user-manager": "^9.0.1"
+  },
+  "peerDependencies": {
+    "lit-element": ">=2.1.0"
   },
   "scripts": {
     "build:watch": "tsc --watch",
