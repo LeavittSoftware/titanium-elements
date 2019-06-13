@@ -108,7 +108,6 @@ export class TitaniumButtonElement extends LitElement {
 
     :host([dense]) button {
       height: 32px;
-      line-height: 20px;
       padding: 6px 16px;
     }
 
