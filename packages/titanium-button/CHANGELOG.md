@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-button@1.0.1...@leavittsoftware/titanium-button@1.1.0) (2019-06-13)
+
+
+### Bug Fixes
+
+* Updated lit-element from dependency to peer dependency ([63d3324](https://github.com/LeavittSoftware/titanium-elements/commit/63d3324))
+
+
+### Features
+
+* Adds dense to titanium-button ([05b2390](https://github.com/LeavittSoftware/titanium-elements/commit/05b2390))
+
+
+
+
+
 ## [1.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-button@1.0.0...@leavittsoftware/titanium-button@1.0.1) (2019-06-04)
 
 
