@@ -82,4 +82,26 @@ storiesOf('UI COMPONENTS|titanium-button', module)
         },
       ],
     }
+  )
+  .add(
+    'Dense',
+    () => {
+      return html`
+        <titanium-button dense raised>RAISED</titanium-button>
+        <titanium-button dense unelevated>UNELEVATED</titanium-button>
+        <titanium-button dense disabled>DISABLED</titanium-button>
+      `;
+    },
+    {
+      cssresources: [
+        {
+          id: `Light Theme`,
+          code: `<style> titanium-button {
+            --app-primary-color: #f4511e;
+            --app-link-color: #d84315;
+            --titanium-solid-button-text-color: blue;
+        } </style>`,
+        },
+      ],
+    }
   );
