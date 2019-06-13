@@ -106,6 +106,10 @@ export class TitaniumButtonElement extends LitElement {
       border-width: 1px;
     }
 
+    :host([dense]) button {
+      height: 32px;
+    }
+
     :host([unelevated]:not([disabled])) button {
       color: var(--titanium-solid-button-text-color, #fff);
       background-color: var(--app-primary-color, #3b95ff);
