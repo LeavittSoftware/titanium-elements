@@ -1,7 +1,19 @@
-import { storiesOf } from '@storybook/polymer/dist/client/preview/index';
+import { storiesOf, forceReRender } from '@storybook/polymer/dist/client/preview/index';
 import { html } from 'lit-html';
 import { withKnobs, button, text } from '@storybook/addon-knobs';
 import '@leavittsoftware/titanium-dialog';
+import '@leavittsoftware/titanium-single-select';
+import '@leavittsoftware/titanium-single-select/lib/titanium-single-select-item';
+
+const singleSelectData = [
+  { FirstName: 'Alice', LastName: 'Smith', FullName: 'Alice Smith' },
+  { FirstName: 'Bob', LastName: 'Silverstone', FullName: 'Bob Silverstone' },
+  { FirstName: 'Charlie', LastName: 'Tu', FullName: 'Charlie Tu' },
+  { FirstName: 'Dogg', LastName: 'Bounty', FullName: 'Dogg Bounty' },
+  { FirstName: 'Alicia', LastName: 'Fu', FullName: 'Alicia Fu' },
+];
+
+let filter = '';
 
 storiesOf('UI COMPONENTS|titanium-dialog', module)
   .addDecorator(withKnobs)
@@ -30,6 +42,10 @@ storiesOf('UI COMPONENTS|titanium-dialog', module)
         <br />
         <a href="#" @click=${e => openDialog('demo-three', e)}>
           Open dialog scrollable
+        </a>
+        <br />
+        <a href="#" @click=${e => openDialog('demo-four', e)}>
+          Open dialog single select
         </a>
 
         <titanium-dialog demo-one .title=${title}>
@@ -72,6 +88,30 @@ storiesOf('UI COMPONENTS|titanium-dialog', module)
               lorem dictum, eget dignissim arcu posuere. Aenean porta velit nec ex ullamcorper rhoncus.
             </p></span
           >
+        </titanium-dialog>
+
+        <titanium-dialog .title=${'Single Select'} demo-four>
+          <titanium-single-select
+            slot="content"
+            @input-changed=${({ detail }) => {
+              filter = detail;
+              forceReRender();
+            }}
+            itemlabelpath="FullName"
+            hinttext="Search for a person or group to add them as a participant"
+            placeholder="Add participants"
+          >
+            ${singleSelectData
+              .filter(({ FullName }) => {
+                return FullName.indexOf(filter) !== -1;
+              })
+              .map(
+                person =>
+                  html`
+                    <titanium-single-select-item .value=${person}>${person.FirstName} ${person.LastName}</titanium-single-select-item>
+                  `
+              )}
+          </titanium-single-select>
         </titanium-dialog>
       `;
     },

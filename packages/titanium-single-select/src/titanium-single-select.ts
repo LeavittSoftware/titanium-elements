@@ -52,10 +52,6 @@ export class TitaniumSingleSelectElement extends LitElement {
 
   private positionSuggestions() {
     this.searchSuggestions.style.width = `${this.input.offsetWidth - 2}px`;
-    const rect = this.input.getBoundingClientRect();
-    this.searchSuggestions.style.top = `${rect.bottom}px`;
-    this.searchSuggestions.style.right = `${rect.right}px`;
-    this.searchSuggestions.style.left = `${rect.left}px`;
   }
 
   private _resizeHandler() {
@@ -363,7 +359,7 @@ export class TitaniumSingleSelectElement extends LitElement {
     search-suggestions {
       display: flex;
       flex-direction: column;
-      position: fixed;
+      position: absolute;
       z-index: 9;
       min-height: 75px;
       background-color: #fff;
