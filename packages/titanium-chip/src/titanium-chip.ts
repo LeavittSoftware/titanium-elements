@@ -43,10 +43,6 @@ export class TitaniumChipElement extends LitElement {
       background-color: var(--app-hover-color, #f9f9f9);
     }
 
-    :host ::slotted(*) {
-      margin-left: 8px;
-    }
-
     label {
       flex: 1 1 auto;
       overflow: hidden;
