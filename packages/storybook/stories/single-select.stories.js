@@ -79,6 +79,19 @@ storiesOf('UI COMPONENTS|titanium-single-select', module)
           placeholder="Filled"
         >
         </titanium-single-select>
+
+        <div style="height: 126px; padding:8px; border: 2px solid red;overflow:hidden">
+          Restrictive parent example
+          <titanium-single-select
+            ?disabled=${disable}
+            style="max-width: 400px; margin: 24px 0;"
+            filled
+            itemlabelpath="Filled"
+            hinttext="Search for a person or group to add them as a participant"
+            placeholder="Filled"
+          >
+          </titanium-single-select>
+        </div>
       `;
     },
     {

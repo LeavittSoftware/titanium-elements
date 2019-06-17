@@ -18,6 +18,8 @@ export class TitaniumSingleSelectElement extends LitElement {
   @property() selected: unknown;
   @query('input') input: HTMLInputElement;
   @query('slot') slotElement: HTMLSlotElement;
+  @query('search-suggestions ') searchSuggestions: HTMLSlotElement;
+  @query('input-container ') inputContainer: HTMLSlotElement;
   private _blurTimeoutHandle: number;
 
   firstUpdated() {
@@ -28,6 +30,24 @@ export class TitaniumSingleSelectElement extends LitElement {
     this.slotElement.addEventListener('titanium-single-select-item-click', (e: CustomEvent<{ event: MouseEvent; value: unknown }>) =>
       this._setSelected(e.detail.value)
     );
+  }
+
+  updated(changedProps) {
+    if (changedProps.has('selected') && changedProps.get('selected') !== this.selected) {
+      this.input.value = this.selected && typeof this.selected === 'object' ? (this.selected as object)[this.itemLabelPath] || '' : '';
+    }
+
+    if (changedProps.has('open') && changedProps.get('open') !== this.open) {
+      if (this.open) {
+        //Make sure the input is above the click trap;
+        this.inputContainer.style.zIndex = '9';
+        this._subscribeToResize();
+        this.positionSuggestions();
+      } else {
+        this.inputContainer.style.zIndex = '';
+        this._unsubscribeToResize();
+      }
+    }
   }
 
   private get searchSuggestionElements(): unknown[] {
@@ -48,10 +68,20 @@ export class TitaniumSingleSelectElement extends LitElement {
     );
   }
 
-  updated(changedProps) {
-    if (changedProps.has('selected') && changedProps.get('selected') !== this.selected) {
-      this.input.value = this.selected && typeof this.selected === 'object' ? (this.selected as object)[this.itemLabelPath] || '' : '';
-    }
+  private positionSuggestions() {
+    this.searchSuggestions.style.width = `${this.input.offsetWidth - 2}px`;
+  }
+
+  private _resizeHandler() {
+    this.positionSuggestions();
+  }
+
+  private _subscribeToResize() {
+    window.addEventListener('resize', () => this._resizeHandler());
+  }
+
+  private _unsubscribeToResize() {
+    window.addEventListener('resize', () => this._resizeHandler());
   }
 
   private _setSelected(value: unknown) {
@@ -116,9 +146,9 @@ export class TitaniumSingleSelectElement extends LitElement {
   private querySlotted(root, selector) {
     const slots = root.querySelectorAll('slot');
     let matched = [];
-    slots.forEach((slot) => {
+    slots.forEach(slot => {
       matched = matched.concat(
-        slot.assignedNodes().filter((el) => {
+        slot.assignedNodes().filter(el => {
           return (typeof el.matches === 'function' && el.matches(selector)) || (el.__shady_className && el.__shady_className.indexOf(selector) > -1);
         })
       );
@@ -190,6 +220,10 @@ export class TitaniumSingleSelectElement extends LitElement {
 
   static styles = css`
     :host {
+      display: block;
+    }
+
+    input-container {
       display: block;
       position: relative;
     }
@@ -291,7 +325,7 @@ export class TitaniumSingleSelectElement extends LitElement {
 
     search-suggestions hr {
       border: 0;
-      border-top: 1px solid var(--app-border-color);
+      border-top: 1px solid var(--app-border-color, #dadce0);
       margin: 0 16px;
       height: 0;
     }
@@ -311,16 +345,25 @@ export class TitaniumSingleSelectElement extends LitElement {
       opacity: 0;
     }
 
+    click-trap {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      background-color: #fff;
+      opacity: 0.01;
+      z-index: 8;
+    }
+
     search-suggestions {
       display: flex;
       flex-direction: column;
       position: absolute;
-      z-index: 2;
+      z-index: 9;
       min-height: 75px;
-      right: 0;
-      left: 0;
       background-color: #fff;
-      border: 1px solid var(--app-border-color);
+      border: 1px solid var(--app-border-color, #dadce0);
       border-top: 0;
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px;
@@ -348,31 +391,33 @@ export class TitaniumSingleSelectElement extends LitElement {
 
   render() {
     return html`
-      <input
-        autocomplete="off"
-        aria-label="Search"
-        @keydown=${this._onKeyDown}
-        ?disabled=${this.disabled}
-        id="searchInput"
-        tabindex="0"
-        @blur=${this._blurHandler}
-        @focus=${this._inputOnFocus}
-        placeholder=${this.placeholder}
-        @input=${this._handleValueChange}
-        value=${this.inputValue}
-        size="8"
-      />
-      <svg viewBox="0 0 24 24">
-        <path
-          d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+      <click-trap ?hidden=${!this.open} @click=${() => (this.open = false)}></click-trap>
+      <input-container>
+        <input
+          autocomplete="off"
+          aria-label="Search"
+          @keydown=${this._onKeyDown}
+          ?disabled=${this.disabled}
+          id="searchInput"
+          tabindex="0"
+          @blur=${this._blurHandler}
+          @focus=${this._inputOnFocus}
+          placeholder=${this.placeholder}
+          @input=${this._handleValueChange}
+          value=${this.inputValue}
+          size="8"
         />
-      </svg>
-      <titanium-svg-button
-        @click=${this.reset}
-        ?hidden=${!this.open && !this.inputValue}
-        path="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
-      ></titanium-svg-button>
-
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+          />
+        </svg>
+        <titanium-svg-button
+          @click=${this.reset}
+          ?hidden=${!this.open && !this.inputValue}
+          path="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+        ></titanium-svg-button>
+      </input-container>
       <search-suggestions id="suggestions" tabindex="-1">
         <hr ?hidden=${this.isLoading} />
         <titanium-progress ?hidden=${!this.isLoading} ?disabled=${!this.isLoading}></titanium-progress>
