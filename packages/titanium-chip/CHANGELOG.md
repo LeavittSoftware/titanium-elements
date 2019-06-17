@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-chip@3.0.1...@leavittsoftware/titanium-chip@3.0.2) (2019-06-17)
+
+
+### Bug Fixes
+
+* Fix unnecessary margin-left on chip img ([6f38747](https://github.com/LeavittSoftware/titanium-elements/commit/6f38747))
+* Updated lit-element from dependency to peer dependency ([63d3324](https://github.com/LeavittSoftware/titanium-elements/commit/63d3324))
+
+
+
+
+
 ## [3.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-chip@3.0.0...@leavittsoftware/titanium-chip@3.0.1) (2019-06-05)
 
 
