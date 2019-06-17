@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@1.0.2...@leavittsoftware/titanium-dialog@1.0.3) (2019-06-17)
+
+
+### Bug Fixes
+
+* removed overflow hidden from dialog, and positioning logic on single-select ([e6d4fd7](https://github.com/LeavittSoftware/titanium-elements/commit/e6d4fd7))
+* removed redundant tslint.json ([b01a325](https://github.com/LeavittSoftware/titanium-elements/commit/b01a325))
+
+
+
+
+
 ## [1.0.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@1.0.1...@leavittsoftware/titanium-dialog@1.0.2) (2019-06-13)
 
 

@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-single-select",
   "description": "",
   "author": "Leavitt Software",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "main": "lib/titanium-single-select.js",
   "typings": "lib/titanium-single-select.d.ts",

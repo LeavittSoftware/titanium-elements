@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.6](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@3.1.5...@leavittsoftware/storybook@3.1.6) (2019-06-17)
+
+
+### Bug Fixes
+
+* removed overflow hidden from dialog, and positioning logic on single-select ([e6d4fd7](https://github.com/LeavittSoftware/titanium-elements/commit/e6d4fd7))
+
+
+
+
+
 ## [3.1.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@3.1.4...@leavittsoftware/storybook@3.1.5) (2019-06-14)
 
 **Note:** Version bump only for package @leavittsoftware/storybook
