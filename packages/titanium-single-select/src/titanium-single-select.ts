@@ -32,6 +32,24 @@ export class TitaniumSingleSelectElement extends LitElement {
     );
   }
 
+  updated(changedProps) {
+    if (changedProps.has('selected') && changedProps.get('selected') !== this.selected) {
+      this.input.value = this.selected && typeof this.selected === 'object' ? (this.selected as object)[this.itemLabelPath] || '' : '';
+    }
+
+    if (changedProps.has('open') && changedProps.get('open') !== this.open) {
+      if (this.open) {
+        //Make sure the input is above the click trap;
+        this.inputContainer.style.zIndex = '9';
+        this._subscribeToResize();
+        this.positionSuggestions();
+      } else {
+        this.inputContainer.style.zIndex = '';
+        this._unsubscribeToResize();
+      }
+    }
+  }
+
   private get searchSuggestionElements(): unknown[] {
     return this.querySlotted(this.shadowRoot, 'titanium-single-select-item');
   }
@@ -58,30 +76,12 @@ export class TitaniumSingleSelectElement extends LitElement {
     this.positionSuggestions();
   }
 
-  subscribeToResize() {
+  private _subscribeToResize() {
     window.addEventListener('resize', () => this._resizeHandler());
   }
 
-  unsubscribeToResize() {
+  private _unsubscribeToResize() {
     window.addEventListener('resize', () => this._resizeHandler());
-  }
-
-  updated(changedProps) {
-    if (changedProps.has('selected') && changedProps.get('selected') !== this.selected) {
-      this.input.value = this.selected && typeof this.selected === 'object' ? (this.selected as object)[this.itemLabelPath] || '' : '';
-    }
-
-    if (changedProps.has('open') && changedProps.get('open') !== this.open) {
-      if (this.open) {
-        //Make sure the input is above the click trap;
-        this.inputContainer.style.zIndex = '9';
-        this.subscribeToResize();
-        this.positionSuggestions();
-      } else {
-        this.inputContainer.style.zIndex = '';
-        this.unsubscribeToResize();
-      }
-    }
   }
 
   private _setSelected(value: unknown) {
