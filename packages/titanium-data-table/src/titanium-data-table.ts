@@ -253,8 +253,7 @@ export class TitaniumDataTableElement extends LitElement {
       display: flex;
       align-content: center;
       justify-content: center;
-      margin: 32px;
-      margin-top: 92px;
+      margin: 48px 32px 32px 32px;
       font-size: 13px;
       color: var(--app-text-color, #5f6368);
       line-height: 20px;
