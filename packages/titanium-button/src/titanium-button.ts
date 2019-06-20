@@ -13,7 +13,10 @@ export class TitaniumButtonElement extends LitElement {
       -webkit-font-smoothing: antialiased;
       border-radius: 4px;
       overflow: hidden;
-
+      -webkit-user-select: none; /* Chrome all / Safari all */
+      -moz-user-select: none; /* Firefox all */
+      -ms-user-select: none; /* IE 10+ */
+      user-select: none;
       --mdc-theme-primary: var(--app-link-color, #3b95ff);
     }
 
@@ -117,11 +120,14 @@ export class TitaniumButtonElement extends LitElement {
       --mdc-theme-primary: var(--app-primary-color, #3b95ff);
     }
 
+    :host([disabled]) {
+      pointer-events: none;
+    }
+
     :host([disabled]) button {
       background-color: transparent;
       color: rgba(0, 0, 0, 0.37);
       cursor: default;
-      pointer-events: none;
     }
   `;
 
