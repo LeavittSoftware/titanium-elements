@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-button@1.1.0...@leavittsoftware/titanium-button@1.1.1) (2019-06-20)
+
+
+### Bug Fixes
+
+* Adds user-select none to button and fixes disabled ([289cbab](https://github.com/LeavittSoftware/titanium-elements/commit/289cbab))
+* removed redundant tslint.json ([b01a325](https://github.com/LeavittSoftware/titanium-elements/commit/b01a325))
+
+
+
+
+
 # [1.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-button@1.0.1...@leavittsoftware/titanium-button@1.1.0) (2019-06-13)
 
 
