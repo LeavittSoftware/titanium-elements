@@ -87,7 +87,7 @@ export class TitaniumDialogElement extends LitElement {
       height: 100%;
       align-items: center;
       justify-content: center;
-      z-index: -1;
+      display: none;
     }
 
     click-trap {
@@ -105,6 +105,7 @@ export class TitaniumDialogElement extends LitElement {
     :host([closing]),
     :host([opened]) {
       z-index: 7;
+      display: flex;
     }
 
     :host([opening]) click-trap {
