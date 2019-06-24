@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@1.0.4...@leavittsoftware/titanium-dialog@1.0.5) (2019-06-24)
+
+
+### Bug Fixes
+
+* Hides the dialog instead of z indexing it low ([560af1f](https://github.com/LeavittSoftware/titanium-elements/commit/560af1f))
+
+
+
+
+
 ## [1.0.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@1.0.3...@leavittsoftware/titanium-dialog@1.0.4) (2019-06-20)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-dialog
