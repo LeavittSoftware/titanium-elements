@@ -3,34 +3,44 @@ import { css, customElement, html, LitElement, property } from 'lit-element';
 
 export class BasicSnackBar {
   _isComponent = false;
-  open(message: string, actionText?: string) {
+  open(message: string, options?: SnackbarOptions) {
     alert(message);
-    console.warn(
-      `TitaniumSnackbar.open called before an instance was created. Did you forget to add the TitaniumSnackbar element to your project?`,
-      actionText
-    );
+    console.warn(`Titanium Snackbar.open called before an instance was created. Did you forget to add the Titanium Snackbar element to your project?`, options);
   }
 
   close() {
-    console.warn(`TitaniumSnackbar.close called before an instance was created. Did you forget to add the TitaniumSnackbar element to your project?`);
+    console.warn(`Titanium Snackbar.close called before an instance was created. Did you forget to add the TitaniumSnackbar element to your project?`);
   }
 }
 
 export let TitaniumSnackbarSingleton = new BasicSnackBar();
 
+export type SnackbarOptions = {
+  actionText?: string | null;
+  autoHide?: boolean;
+  style?: 'informational' | 'error';
+  noAction?: boolean;
+};
+
 @customElement('titanium-snackbar')
 export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
   @property({ type: String }) private message: string;
-  @property({ type: String }) private actionText: string = 'DISMISS';
+  @property({ type: String }) private actionText: string;
   @property({ type: Boolean, reflect: true }) protected opened: boolean;
+
   @property({ type: Boolean, reflect: true }) protected thirdline: boolean;
   @property({ type: Boolean, reflect: true }) protected opening: boolean;
+
+  @property({ type: Boolean, reflect: true }) protected noaction: boolean;
+  @property({ type: Boolean, reflect: true }) protected informational: boolean;
+  @property({ type: Boolean, reflect: true }) protected error: boolean;
 
   @property({ type: Boolean, reflect: true }) protected closing: boolean;
 
   private _animationTimer: number;
   private _animationFrame: number;
   private _resolve: { (value?: {} | PromiseLike<{}> | undefined): void; (): void };
+  private _closeTimeoutHandle: number;
 
   _isComponent = true;
 
@@ -49,14 +59,41 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
     }
   }
 
-  open(message: string, actionText?: string) {
-    return new Promise((resolve) => {
+  open(message: string, options?: SnackbarOptions) {
+    return new Promise(resolve => {
+      //reset
+      clearTimeout(this._closeTimeoutHandle);
+      this.noaction = false;
+      this.informational = false;
+      this.error = false;
+      this.actionText = 'DISMISS';
+
       if (message) {
         this.message = message;
       }
 
-      if (actionText) {
-        this.actionText = actionText;
+      if (options) {
+        if (options.style === 'informational') {
+          this.informational = true;
+        }
+
+        if (options.style === 'error') {
+          this.error = true;
+        }
+
+        if (options.actionText) {
+          this.actionText = options.actionText;
+        }
+
+        if (options.noAction) {
+          this.noaction = true;
+        }
+
+        if (options.autoHide) {
+          this._closeTimeoutHandle = window.setTimeout(() => {
+            this.close();
+          }, 5000);
+        }
       }
 
       this._resolve = resolve;
@@ -136,6 +173,16 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
       opacity: 0;
     }
 
+    :host([informational]) {
+      background-color: #43a047;
+      color: #fff;
+    }
+
+    :host([error]) {
+      background-color: #d32f2f;
+      color: #fff;
+    }
+
     :host([thirdline]) {
       flex-direction: column;
     }
@@ -185,6 +232,16 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
       font-weight: 600;
       padding: 16px;
       user-select: none;
+      border-radius: 4px;
+    }
+
+    :host([error]) a,
+    :host([informational]) a {
+      color: #fff;
+    }
+
+    [hidden] {
+      display: none !important;
     }
   `;
 
@@ -192,8 +249,10 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
     return html`
       <span>${this.message}</span>
       <a
+        ?hidden=${this.noaction}
         @click=${(e: Event) => {
           e.preventDefault();
+          clearTimeout(this._closeTimeoutHandle);
           this.close();
         }}
       >
