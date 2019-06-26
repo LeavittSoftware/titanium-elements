@@ -23,7 +23,7 @@ export class TitanuimServiceWorkerNotifierElement extends LitElement {
       });
 
       if ('PushManager' in window && 'Notification' in window) {
-        registration.pushManager.getSubscription().then((subscription) => {
+        registration.pushManager.getSubscription().then(subscription => {
           this.notificationsStatus = subscription ? 'subscribed' : 'unsubscribed';
           this.dispatchEvent(new CustomEvent('notifications-status-changed', { detail: this.notificationsStatus }));
         });
@@ -44,7 +44,7 @@ export class TitanuimServiceWorkerNotifierElement extends LitElement {
   }
 
   private async _showUpdatedSnackbar() {
-    await AppSnackbar.open('Site has been updated', 'RELOAD');
+    await AppSnackbar.open('Site has been updated', { actionText: 'RELOAD' });
     window.location.reload();
   }
 
@@ -53,7 +53,7 @@ export class TitanuimServiceWorkerNotifierElement extends LitElement {
       AppSnackbar.close();
     }, 5000);
 
-    await AppSnackbar.open('Site cached for offline use', 'DISMISS');
+    await AppSnackbar.open('Site cached for offline use', { actionText: 'DISMISS' });
     clearTimeout(closeTimeout);
   }
 

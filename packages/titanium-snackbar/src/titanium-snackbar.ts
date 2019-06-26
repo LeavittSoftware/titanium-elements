@@ -24,18 +24,17 @@ export type SnackbarOptions = {
 
 @customElement('titanium-snackbar')
 export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
-  @property({ type: String }) private message: string;
-  @property({ type: String }) private actionText: string;
   @property({ type: Boolean, reflect: true }) protected opened: boolean;
-
-  @property({ type: Boolean, reflect: true }) protected thirdline: boolean;
+  @property({ type: Boolean, reflect: true }) protected closing: boolean;
   @property({ type: Boolean, reflect: true }) protected opening: boolean;
 
+  @property({ type: Boolean, reflect: true }) protected thirdline: boolean;
+
+  @property({ type: String }) private message: string;
+  @property({ type: String }) private actionText: string;
   @property({ type: Boolean, reflect: true }) protected noaction: boolean;
   @property({ type: Boolean, reflect: true }) protected informational: boolean;
   @property({ type: Boolean, reflect: true }) protected error: boolean;
-
-  @property({ type: Boolean, reflect: true }) protected closing: boolean;
 
   private _animationTimer: number;
   private _animationFrame: number;
