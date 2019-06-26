@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@3.1.10...@leavittsoftware/storybook@4.0.0) (2019-06-26)
+
+
+### Features
+
+* **snackbar:** Adds options: style, autohide, and noAction ([460c82e](https://github.com/LeavittSoftware/titanium-elements/commit/460c82e))
+
+
+### BREAKING CHANGES
+
+* **snackbar:** open() function second parameter actionText is replaced by SnackbarOptions object;
+
+
+
+
+
 ## [3.1.10](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@3.1.9...@leavittsoftware/storybook@3.1.10) (2019-06-24)
 
 **Note:** Version bump only for package @leavittsoftware/storybook

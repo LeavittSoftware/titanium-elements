@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-sw-notifier@1.0.2...@leavittsoftware/titanium-sw-notifier@1.0.3) (2019-06-26)
+
+
+### Bug Fixes
+
+* Updated lit-element from dependency to peer dependency ([63d3324](https://github.com/LeavittSoftware/titanium-elements/commit/63d3324))
+* updates sw-notifier to work with latest snackbar interface. ([e5d6ba5](https://github.com/LeavittSoftware/titanium-elements/commit/e5d6ba5))
+
+
+
+
+
 ## [1.0.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-sw-notifier@1.0.1...@leavittsoftware/titanium-sw-notifier@1.0.2) (2019-05-22)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-sw-notifier

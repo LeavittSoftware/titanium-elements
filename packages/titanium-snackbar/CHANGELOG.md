@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-snackbar@2.0.2...@leavittsoftware/titanium-snackbar@3.0.0) (2019-06-26)
+
+
+### Bug Fixes
+
+* removed redundant tslint.json ([b01a325](https://github.com/LeavittSoftware/titanium-elements/commit/b01a325))
+* Updated lit-element from dependency to peer dependency ([63d3324](https://github.com/LeavittSoftware/titanium-elements/commit/63d3324))
+* updates sw-notifier to work with latest snackbar interface. ([e5d6ba5](https://github.com/LeavittSoftware/titanium-elements/commit/e5d6ba5))
+
+
+### Features
+
+* **snackbar:** Adds options: style, autohide, and noAction ([460c82e](https://github.com/LeavittSoftware/titanium-elements/commit/460c82e))
+
+
+### BREAKING CHANGES
+
+* **snackbar:** open() function second parameter actionText is replaced by SnackbarOptions object;
+
+
+
+
+
 ## [2.0.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-snackbar@2.0.1...@leavittsoftware/titanium-snackbar@2.0.2) (2019-05-22)
 
 
