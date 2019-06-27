@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-vaadin@2.1.1...@leavittsoftware/titanium-vaadin@2.2.0) (2019-06-27)
+
+
+### Bug Fixes
+
+* Fixes vaadin-number theme ([adaacb4](https://github.com/LeavittSoftware/titanium-elements/commit/adaacb4))
+
+
+### Features
+
+* adds vaadin-number-field theme ([12963af](https://github.com/LeavittSoftware/titanium-elements/commit/12963af))
+
+
+
+
+
 ## [2.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-vaadin@2.1.0...@leavittsoftware/titanium-vaadin@2.1.1) (2019-06-05)
 
 

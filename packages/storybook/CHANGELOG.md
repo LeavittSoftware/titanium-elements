@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@4.0.0...@leavittsoftware/storybook@4.0.1) (2019-06-27)
+
+
+### Bug Fixes
+
+* Fixes vaadin-number theme ([adaacb4](https://github.com/LeavittSoftware/titanium-elements/commit/adaacb4))
+
+
+
+
+
 # [4.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@3.1.10...@leavittsoftware/storybook@4.0.0) (2019-06-26)
 
 
