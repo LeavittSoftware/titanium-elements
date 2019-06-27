@@ -99,7 +99,11 @@ storiesOf('3RD PARTY|titanium-vaadin', module)
     return html`
       <div>
         <vaadin-number-field dense></vaadin-number-field>
-        <vaadin-number-field dense label="Age"></vaadin-number-field>
+        <vaadin-number-field label="Age"></vaadin-number-field>
+
+        <vaadin-number-field has-controls dense label="Age"></vaadin-number-field>
+        <vaadin-number-field has-controls label="Age"></vaadin-number-field>
+
         <vaadin-number-field dense placeholder="Placeholder"></vaadin-number-field>
         <vaadin-number-field dense label="Focused Age" focused></vaadin-number-field>
       </div>

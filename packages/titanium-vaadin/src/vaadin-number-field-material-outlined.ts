@@ -30,7 +30,6 @@ const $_documentContainer = html`
 
         :host([dense]) [part="value"],
         :host([disabled][dense]) [part="input-field"] ::slotted(input),
-        :host([disabled][dense]) [part="input-field"] ::slotted(textarea),
         /* Slotted by vaadin-select-text-field */
         :host([dense]) [part="input-field"] ::slotted([part="value"]) {
           padding: 0 8px;
@@ -38,6 +37,14 @@ const $_documentContainer = html`
 
         :host([has-label][dense]:not([has-value]):not([focused]):not([invalid]):not([theme~='always-float-label'])) [part='label'] {
           transform: scale(1) translateY(22px);
+        }
+
+        :host([has-label][has-controls]:not([has-value]):not([focused]):not([invalid]):not([theme~='always-float-label'])) [part='label'] {
+          transform: scale(1) translate(32px, 32px);
+        }
+
+        :host([has-label][dense][has-controls]:not([has-value]):not([focused]):not([invalid]):not([theme~='always-float-label'])) [part='label'] {
+          transform: scale(1) translate(32px, 22px);
         }
       </style>
     </template>
