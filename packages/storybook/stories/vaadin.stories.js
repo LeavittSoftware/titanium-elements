@@ -2,6 +2,7 @@ import { storiesOf } from '@storybook/polymer/dist/client/preview/index';
 import { html } from 'lit-html';
 import '@leavittsoftware/titanium-vaadin/lib/vaadin-text-area-material-outlined';
 import '@leavittsoftware/titanium-vaadin/lib/vaadin-text-field-material-outlined';
+import '@leavittsoftware/titanium-vaadin/lib/vaadin-number-field-material-outlined';
 
 storiesOf('3RD PARTY|titanium-vaadin', module)
   .add(
@@ -94,16 +95,33 @@ storiesOf('3RD PARTY|titanium-vaadin', module)
       `;
     }
   )
+  .add('vaadin-number-field', () => {
+    return html`
+      <div>
+        <vaadin-number-field dense></vaadin-number-field>
+        <vaadin-number-field label="Age"></vaadin-number-field>
+
+        <vaadin-number-field has-controls dense label="Age"></vaadin-number-field>
+        <vaadin-number-field has-controls label="Age"></vaadin-number-field>
+
+        <vaadin-number-field dense placeholder="Placeholder"></vaadin-number-field>
+        <vaadin-number-field dense label="Focused Age" focused></vaadin-number-field>
+      </div>
+    `;
+  })
   .add(
     'All inputs',
 
     () => {
       return html`
-        <vaadin-text-field placeholder="Placeholder"></vaadin-text-field>
-        <vaadin-text-area placeholder="Placeholder"></vaadin-text-area>
+        <vaadin-text-field placeholder="Text Field"></vaadin-text-field>
+        <vaadin-text-field label="Text" placeholder="Text Field"></vaadin-text-field>
 
-        <vaadin-text-field label="Placeholder" placeholder="Placeholder"></vaadin-text-field>
-        <vaadin-text-area label="Placeholder" placeholder="Placeholder"></vaadin-text-area>
+        <vaadin-number-field placeholder="Number Field"></vaadin-number-field>
+        <vaadin-number-field label="Number" placeholder="Number Field"></vaadin-number-field>
+
+        <vaadin-text-area placeholder="Text Area"></vaadin-text-area>
+        <vaadin-text-area label="Text Area" placeholder="Text Area"></vaadin-text-area>
       `;
     }
   );

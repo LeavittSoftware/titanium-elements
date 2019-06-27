@@ -3,12 +3,12 @@ import '@vaadin/vaadin-material-styles/typography.js';
 import '@vaadin/vaadin-material-styles/mixins/required-field.js';
 import '@vaadin/vaadin-material-styles/font-icons.js';
 import '@vaadin/vaadin-material-styles/mixins/field-button.js';
-import '@vaadin/vaadin-text-field/src/vaadin-text-field';
+import '@vaadin/vaadin-text-field/src/vaadin-number-field';
 import './vaadin-material-outlined.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 
 const $_documentContainer = html`
-  <dom-module id="material-text-field-outlined" theme-for="vaadin-text-field">
+  <dom-module id="material-number-field-outlined" theme-for="vaadin-number-field">
     <template>
       <style include="material-required-field material-field-button vaadin-material-outlined">
         [part='input-field'] {
@@ -37,6 +37,14 @@ const $_documentContainer = html`
 
         :host([has-label][dense]:not([has-value]):not([focused]):not([invalid]):not([theme~='always-float-label'])) [part='label'] {
           transform: scale(1) translateY(22px);
+        }
+
+        :host([has-label][has-controls]:not([has-value]):not([focused]):not([invalid]):not([theme~='always-float-label'])) [part='label'] {
+          transform: scale(1) translate(32px, 32px);
+        }
+
+        :host([has-label][dense][has-controls]:not([has-value]):not([focused]):not([invalid]):not([theme~='always-float-label'])) [part='label'] {
+          transform: scale(1) translate(32px, 22px);
         }
       </style>
     </template>
