@@ -50,6 +50,10 @@ export class TitaniumSingleSelectElement extends LitElement {
     }
   }
 
+  public clearInputValue() {
+    this.inputValue = '';
+  }
+
   private get searchSuggestionElements(): unknown[] {
     return this.querySlotted(this.shadowRoot, 'titanium-single-select-item');
   }
