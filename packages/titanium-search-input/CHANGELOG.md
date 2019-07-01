@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-search-input@3.0.0...@leavittsoftware/titanium-search-input@3.0.1) (2019-07-01)
+
+
+### Bug Fixes
+
+* fixes expand animation in ie 11. ([9dfa4b1](https://github.com/LeavittSoftware/titanium-elements/commit/9dfa4b1))
+* Updated lit-element from dependency to peer dependency ([63d3324](https://github.com/LeavittSoftware/titanium-elements/commit/63d3324))
+
+
+
+
+
 # [3.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-search-input@2.0.1...@leavittsoftware/titanium-search-input@3.0.0) (2019-05-28)
 
 
