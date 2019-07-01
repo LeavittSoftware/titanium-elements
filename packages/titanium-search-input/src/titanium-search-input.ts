@@ -68,6 +68,8 @@ export class TitaniumSearchInput extends LitElement {
       -webkit-transition: width 0.25s; /* Safari */
       transition: width 0.25s;
       width: 250px;
+      /* GPU acceleration for animation in ie 11 */
+      transform: translate3d(0, 0, 0);
     }
 
     input-container {
