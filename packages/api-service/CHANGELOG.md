@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@6.0.2...@leavittsoftware/api-service@6.0.3) (2019-07-02)
+
+
+### Bug Fixes
+
+* Fixes bad ref to outer scope var in patchReturnDtoAsync ([739cbba](https://github.com/LeavittSoftware/titanium-elements/commit/739cbba))
+* Updated lit-element from dependency to peer dependency ([63d3324](https://github.com/LeavittSoftware/titanium-elements/commit/63d3324))
+
+
+
+
+
 ## [6.0.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@6.0.1...@leavittsoftware/api-service@6.0.2) (2019-06-10)
 
 
