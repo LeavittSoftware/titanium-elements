@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@6.0.3...@leavittsoftware/api-service@6.0.4) (2019-07-02)
+
+
+### Bug Fixes
+
+* fixes race condition caused by asynchronous appName setting ([3fe2a51](https://github.com/LeavittSoftware/titanium-elements/commit/3fe2a51))
+
+
+
+
+
 ## [6.0.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@6.0.2...@leavittsoftware/api-service@6.0.3) (2019-07-02)
 
 

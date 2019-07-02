@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.6](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@4.0.5...@leavittsoftware/storybook@4.0.6) (2019-07-02)
+
+
+### Bug Fixes
+
+* uses correct testing app name ([163ed6d](https://github.com/LeavittSoftware/titanium-elements/commit/163ed6d))
+
+
+
+
+
 ## [4.0.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@4.0.4...@leavittsoftware/storybook@4.0.5) (2019-07-02)
 
 **Note:** Version bump only for package @leavittsoftware/storybook
