@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-vaadin@2.2.0...@leavittsoftware/titanium-vaadin@2.2.1) (2019-07-02)
+
+
+### Bug Fixes
+
+* imports number field styles in main file ([6173163](https://github.com/LeavittSoftware/titanium-elements/commit/6173163))
+
+
+
+
+
 # [2.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-vaadin@2.1.1...@leavittsoftware/titanium-vaadin@2.2.0) (2019-06-27)
 
 

@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-card@1.1.1...@leavittsoftware/titanium-card@1.1.2) (2019-07-02)
+
+
+### Bug Fixes
+
+* removed redundant tslint.json ([b01a325](https://github.com/LeavittSoftware/titanium-elements/commit/b01a325))
+* Updated lit-element from dependency to peer dependency ([63d3324](https://github.com/LeavittSoftware/titanium-elements/commit/63d3324))
+* upgrades mwc-ripple ([4037ce0](https://github.com/LeavittSoftware/titanium-elements/commit/4037ce0))
+
+
+
+
+
 ## [1.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-card@1.1.0...@leavittsoftware/titanium-card@1.1.1) (2019-06-07)
 
 

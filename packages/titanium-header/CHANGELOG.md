@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-header@3.0.0...@leavittsoftware/titanium-header@3.0.1) (2019-07-02)
+
+
+### Bug Fixes
+
+* Updated lit-element from dependency to peer dependency ([63d3324](https://github.com/LeavittSoftware/titanium-elements/commit/63d3324))
+
+
+
+
+
 # [3.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-header@2.0.1...@leavittsoftware/titanium-header@3.0.0) (2019-05-28)
 
 
