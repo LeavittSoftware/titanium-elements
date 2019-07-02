@@ -202,7 +202,7 @@ export default class ApiService {
       response = await fetch(`${this.baseUrl}${urlPath}`, {
         method: 'PATCH',
         body: JSON.stringify(body),
-        headers: { ...this.headers, Prefer: 'return=representation' },
+        headers: { ...headers, Prefer: 'return=representation' },
       });
     } catch (error) {
       if (error.message != null && error.message.indexOf('Failed to fetch') !== -1)
