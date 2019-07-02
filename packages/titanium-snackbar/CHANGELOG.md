@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-snackbar@3.0.0...@leavittsoftware/titanium-snackbar@3.0.1) (2019-07-02)
+
+
+### Bug Fixes
+
+* updates mwc-ripple ([faa6f3d](https://github.com/LeavittSoftware/titanium-elements/commit/faa6f3d))
+
+
+
+
+
 # [3.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-snackbar@2.0.2...@leavittsoftware/titanium-snackbar@3.0.0) (2019-06-26)
 
 
