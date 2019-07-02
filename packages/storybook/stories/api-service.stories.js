@@ -41,7 +41,7 @@ storiesOf('COMMUNICATION|api-service', module)
 
     const template = html`
       <user-manager></user-manager>
-      <api-service api2 appName="General"></api-service>
+      <api-service api2 appName="Testing"></api-service>
       <api-service mapi baseProductionUri="https://mapi.leavitt.com/" baseDevUri="https://devmapi.leavitt.com/"></api-service>
 
       <input type="file" accept="*.*" />

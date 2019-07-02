@@ -16,7 +16,24 @@ export default class ApiServiceElement extends LitElement {
 
   @property({ type: String }) baseDevUri: string = 'https://devapi2.leavitt.com/';
 
-  @property({ type: String }) appName: string = 'General';
+  private _appName;
+
+  constructor() {
+    super();
+    this.appName = 'General';
+  }
+
+  @property({ type: String, noAccessor: true })
+  set appName(value: string) {
+    const oldValue = this.appName;
+    this._appName = value;
+    this._setAppNameHeader(value);
+    this.requestUpdate('appName', oldValue);
+  }
+
+  get appName() {
+    return this._appName;
+  }
 
   firstUpdated() {
     if (this._apiService) {
@@ -26,11 +43,15 @@ export default class ApiServiceElement extends LitElement {
 
   updated(changedProps) {
     if (changedProps.has('appName') && changedProps.get('appName') !== this.appName) {
-      if (this.appName === '' || typeof this.appName === 'undefined' || this.appName === null) {
-        this._apiService.deleteHeader('X-LGAppName');
-      } else {
-        this._apiService.addHeader('X-LGAppName', this.appName);
-      }
+      this._setAppNameHeader(this.appName);
+    }
+  }
+
+  private _setAppNameHeader(value: string) {
+    if (value === '' || typeof value === 'undefined' || value === null) {
+      this._apiService.deleteHeader('X-LGAppName');
+    } else {
+      this._apiService.addHeader('X-LGAppName', value);
     }
   }
 
