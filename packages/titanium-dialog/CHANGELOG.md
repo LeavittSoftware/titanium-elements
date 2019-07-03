@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@1.0.6...@leavittsoftware/titanium-dialog@1.1.0) (2019-07-03)
+
+
+### Bug Fixes
+
+*  Fixes overflow issue for ie11  ([fec8585](https://github.com/LeavittSoftware/titanium-elements/commit/fec8585))
+
+
+### Features
+
+* Allows a user to call recall calculate layout in case  ([74fb20c](https://github.com/LeavittSoftware/titanium-elements/commit/74fb20c))
+
+
+
+
+
 ## [1.0.6](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@1.0.5...@leavittsoftware/titanium-dialog@1.0.6) (2019-07-02)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-dialog
