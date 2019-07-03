@@ -14,6 +14,13 @@ export class TitaniumDialogElement extends LitElement {
   private _animationFrame: number;
   private _resolve: { (value?: string | PromiseLike<string> | undefined): void; (reason: string): void };
 
+  recalculateLayout() {
+    // Experimental way to determine if scroll bar is present.
+    // Prevents user from having to declare if modal is scrollable.
+    // TODO: Use Resize observers in the future......
+    this.scrolls = this.section.scrollHeight > this.section.offsetHeight;
+  }
+
   open() {
     return new Promise<string>(resolve => {
       this._resolve = resolve;
@@ -22,12 +29,9 @@ export class TitaniumDialogElement extends LitElement {
       this.opening = true;
       document.body.style.overflow = 'hidden';
 
-      // Experimental way to determine if scroll bar is present.
-      // Prevents user from having to declare if modal is scrollable.
-      this.scrolls = this.section.scrollHeight > this.section.offsetHeight;
-
       this.runNextAnimationFrame_(() => {
         this.opened = true;
+        this.recalculateLayout();
 
         this._animationTimer = window.setTimeout(() => {
           this.handleAnimationTimerEnd_();
@@ -128,7 +132,7 @@ export class TitaniumDialogElement extends LitElement {
       display: flex;
       flex-direction: column;
       min-width: 280px;
-      max-height: calc(100vh - 32px);
+      max-height: calc(100% - 32px);
       margin: 16px;
       border-radius: 4px;
       background: var(--titanium-dialog-background-color, #fff);
