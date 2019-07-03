@@ -128,7 +128,7 @@ export class TitaniumDialogElement extends LitElement {
       display: flex;
       flex-direction: column;
       min-width: 280px;
-      max-height: calc(100vh - 32px);
+      max-height: calc(100% - 32px);
       margin: 16px;
       border-radius: 4px;
       background: var(--titanium-dialog-background-color, #fff);
