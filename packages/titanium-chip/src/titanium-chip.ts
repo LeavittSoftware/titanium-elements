@@ -70,7 +70,8 @@ export class TitaniumChipElement extends LitElement {
       width: 28px;
     }
 
-    ::slotted(*) {
+    ::slotted(img),
+    ::slotted(svg) {
       height: 18px;
       width: 18px;
 
