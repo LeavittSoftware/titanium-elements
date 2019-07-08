@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-chip@3.0.3...@leavittsoftware/titanium-chip@3.0.4) (2019-07-08)
+
+
+### Bug Fixes
+
+* Fixes * selector that doesn't work in ie11. ([64bbd35](https://github.com/LeavittSoftware/titanium-elements/commit/64bbd35))
+
+
+
+
+
 ## [3.0.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-chip@3.0.2...@leavittsoftware/titanium-chip@3.0.3) (2019-07-02)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-chip
