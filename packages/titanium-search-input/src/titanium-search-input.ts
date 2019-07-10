@@ -81,14 +81,12 @@ export class TitaniumSearchInput extends LitElement {
     }
 
     titanium-svg-button[clear] {
-      z-index: 2;
       top: 0;
       right: 0;
       --titanium-svg-button-svg-active-color: var(--app-text-color, #5f6368);
     }
 
     titanium-svg-button[search] {
-      z-index: 2;
       top: 0;
       left: 0;
       --titanium-svg-button-svg-active-color: var(--app-text-color, #5f6368);
@@ -132,7 +130,6 @@ export class TitaniumSearchInput extends LitElement {
     :host([collapsed]:not([prevent-collapse])) input-container input {
       opacity: 0;
       pointer-events: none;
-      z-index: 1;
     }
 
     :host([disabled]) input-container input {
