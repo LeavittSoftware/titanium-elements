@@ -25,8 +25,10 @@ export class TitaniumSearchInput extends LitElement {
   }
 
   _onValueChange() {
-    this.value = this._input.value;
-    this.dispatchEvent(new CustomEvent('value-changed', { detail: this.value }));
+    if (this.value !== this._input.value) {
+      this.value = this._input.value;
+      this.dispatchEvent(new CustomEvent('value-changed', { detail: this.value }));
+    }
   }
 
   _onClearClick() {
