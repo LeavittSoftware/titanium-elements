@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/storybook",
-  "version": "4.0.8",
+  "version": "4.0.9",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -24,7 +24,7 @@
     "@leavittsoftware/titanium-loading-indicator": "^3.1.1",
     "@leavittsoftware/titanium-offline-notice": "^2.0.0",
     "@leavittsoftware/titanium-progress": "^0.1.0",
-    "@leavittsoftware/titanium-search-input": "^3.0.2",
+    "@leavittsoftware/titanium-search-input": "^3.0.3",
     "@leavittsoftware/titanium-side-menu": "^0.0.2",
     "@leavittsoftware/titanium-single-select": "^0.0.4",
     "@leavittsoftware/titanium-snackbar": "^3.0.1",
