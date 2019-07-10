@@ -43,9 +43,7 @@ export class TitaniumSearchInput extends LitElement {
     }
 
     this.collapsed = false;
-    setTimeout(() => {
-      this.focus();
-    }, 300);
+    this.focus();
   }
 
   _lostFocus() {
@@ -130,13 +128,8 @@ export class TitaniumSearchInput extends LitElement {
     }
 
     :host([collapsed]:not([prevent-collapse])) input-container input {
-      display: none;
-    }
-
-    :host([collapsed]:not([prevent-collapse])) titanium-svg-button[search] {
-      position: relative;
-      top: 0;
-      left: 0;
+      opacity: 0;
+      pointer-events: none;
     }
 
     :host([disabled]) input-container input {
