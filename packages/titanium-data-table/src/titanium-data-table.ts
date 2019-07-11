@@ -368,14 +368,14 @@ export class TitaniumDataTableElement extends LitElement {
       <header>
         <header-text>${this.header}</header-text>
         <slot name="table-actions"></slot>
+        <sub-actions>
+          <slot name="table-sub-actions"></slot>
+        </sub-actions>
         <selected-actions ?hidden="${this.selected.length === 0}">
           <selected-text>${this.selected.length} item${this.selected.length > 1 ? 's' : ''} selected</selected-text>
           <div spacer></div>
           <slot name="selected-actions"></slot>
         </selected-actions>
-        <sub-actions>
-          <slot name="table-sub-actions"></slot>
-        </sub-actions>
       </header>
       <table-container>
         <table-header>
