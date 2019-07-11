@@ -165,6 +165,7 @@ export class TitaniumDataTableElement extends LitElement {
       display: flex;
       flex-direction: column;
 
+      background-color: #fff;
       border: 1px solid var(--app-border-color, #dadce0);
       border-radius: 8px;
 
