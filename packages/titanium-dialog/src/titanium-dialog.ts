@@ -166,6 +166,7 @@ export class TitaniumDialogElement extends LitElement {
       font-weight: 400;
       letter-spacing: 0.5px;
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     header {
