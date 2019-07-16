@@ -27,7 +27,7 @@ storiesOf('UI COMPONENTS|titanium-data-table', module)
     'Feature set',
     () => {
       return html`
-        <titanium-data-table header="Data table">
+        <titanium-data-table .isLoading="${false}" largePages header="Data table">
           <titanium-search-input slot="table-actions"></titanium-search-input>
           <titanium-svg-button slot="table-actions" path="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></titanium-svg-button>
 

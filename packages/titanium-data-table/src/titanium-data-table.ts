@@ -17,6 +17,7 @@ export class TitaniumDataTableElement extends LitElement {
   @property({ type: Boolean, attribute: 'single-select', reflect: true }) singleSelect: boolean;
   @property({ type: Array }) selected: Array<unknown> = [];
   @property({ type: Boolean }) isLoading: Boolean = true;
+  @property({ type: Boolean }) largePages: Boolean = false;
   // tslint:disable-next-line: no-any
   @queryAll('table-container') tableContainer: NodeListOf<any>;
 
@@ -84,6 +85,10 @@ export class TitaniumDataTableElement extends LitElement {
     } else if (this.take === 20) {
       this.setTake(50);
     } else if (this.take === 50) {
+      this.setTake(this.largePages ? 100 : 10);
+    } else if (this.take === 100) {
+      this.setTake(500);
+    } else if (this.take === 500) {
       this.setTake(10);
     }
   }
