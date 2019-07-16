@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@1.1.0...@leavittsoftware/titanium-dialog@1.1.1) (2019-07-16)
+
+
+### Bug Fixes
+
+* Smooth scrolling on iPhone in section ([d21a09a](https://github.com/LeavittSoftware/titanium-elements/commit/d21a09a))
+
+
+
+
+
 # [1.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@1.0.6...@leavittsoftware/titanium-dialog@1.1.0) (2019-07-03)
 
 

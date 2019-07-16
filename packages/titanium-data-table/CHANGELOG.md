@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@3.1.2...@leavittsoftware/titanium-data-table@3.2.0) (2019-07-16)
+
+
+### Bug Fixes
+
+* Moves sub-action DOM position so that select veils it. ([396181b](https://github.com/LeavittSoftware/titanium-elements/commit/396181b))
+
+
+### Features
+
+* Add largePages property ([3be4336](https://github.com/LeavittSoftware/titanium-elements/commit/3be4336))
+* defaults bg color to white. ([d8b5167](https://github.com/LeavittSoftware/titanium-elements/commit/d8b5167))
+
+
+
+
+
 ## [3.1.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@3.1.1...@leavittsoftware/titanium-data-table@3.1.2) (2019-07-02)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-data-table

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@4.0.9...@leavittsoftware/storybook@4.1.0) (2019-07-16)
+
+
+### Features
+
+* Add largePages property ([3be4336](https://github.com/LeavittSoftware/titanium-elements/commit/3be4336))
+
+
+
+
+
 ## [4.0.9](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@4.0.8...@leavittsoftware/storybook@4.0.9) (2019-07-10)
 
 **Note:** Version bump only for package @leavittsoftware/storybook
