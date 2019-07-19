@@ -253,8 +253,8 @@ export class ProfilePictureMenuElement extends LitElement {
           <titanium-button outlined account @click=${() => window.open('https://accounts.leavitt.com/', '_blank')}>My Leavitt Group Account</titanium-button>
         </overlay-content>
         <overlay-actions>
-          <titanium-button @click=${() => GetUserManagerInstance().logout()}>LOGOUT</titanium-button>
           <titanium-button @click=${() => this.close()}>CLOSE</titanium-button>
+          <titanium-button @click=${() => GetUserManagerInstance().logout()}>LOGOUT</titanium-button>
         </overlay-actions>
       </overlay-menu>
     `;
