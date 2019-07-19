@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/storybook",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,7 @@
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@leavittsoftware/api-service": "^6.0.4",
-    "@leavittsoftware/profile-picture": "^3.1.8",
+    "@leavittsoftware/profile-picture": "^3.1.9",
     "@leavittsoftware/titanium-button": "^1.1.2",
     "@leavittsoftware/titanium-card": "^1.1.2",
     "@leavittsoftware/titanium-chip": "^3.0.4",
@@ -30,7 +30,7 @@
     "@leavittsoftware/titanium-snackbar": "^3.0.1",
     "@leavittsoftware/titanium-svg-button": "^3.0.1",
     "@leavittsoftware/titanium-tab-control": "^0.1.0",
-    "@leavittsoftware/titanium-toolbar": "^0.1.0",
+    "@leavittsoftware/titanium-toolbar": "^0.1.1",
     "@leavittsoftware/titanium-vaadin": "^2.2.1",
     "@leavittsoftware/user-manager": "^9.0.1",
     "@storybook/addon-actions": "^5.1.3",
