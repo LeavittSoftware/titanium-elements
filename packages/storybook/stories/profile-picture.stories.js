@@ -2,7 +2,7 @@ import { storiesOf } from '@storybook/polymer/dist/client/preview/index';
 import { html } from 'lit-html';
 import { withKnobs, text, select } from '@storybook/addon-knobs';
 import '@leavittsoftware/profile-picture';
-// import '@leavittsoftware/profile-picture/lib/profile-picture-menu';
+import '@leavittsoftware/profile-picture/lib/profile-picture-menu';
 
 storiesOf('UI COMPONENTS|profile-picture', module)
   .addDecorator(withKnobs)
@@ -13,14 +13,10 @@ storiesOf('UI COMPONENTS|profile-picture', module)
     return html`
       <profile-picture .personId=${personId} .shape=${shape} .size=${size}></profile-picture>
     `;
+  })
+  .add('Feature set - profile-picture-menu', () => {
+    return html`
+      <user-manager></user-manager>
+      <profile-picture-menu style="float:right"> </profile-picture-menu>
+    `;
   });
-// .add('Feature set - profile-picture-menu', () => {
-//   return html`
-//     <user-manager></user-manager>
-//     <profile-picture-menu style="float:right">
-//       <div slot="content">
-//         <pre>slot="content"</pre>
-//       </div>
-//     </profile-picture-menu>
-//   `;
-// });
