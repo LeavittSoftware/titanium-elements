@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@1.1.1...@leavittsoftware/titanium-dialog@1.2.0) (2019-07-26)
+
+
+### Features
+
+* titanium-dialog close on escape key being pressed ([c61f10f](https://github.com/LeavittSoftware/titanium-elements/commit/c61f10f))
+
+
+
+
+
 ## [1.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@1.1.0...@leavittsoftware/titanium-dialog@1.1.1) (2019-07-16)
 
 
