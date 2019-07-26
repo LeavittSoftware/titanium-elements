@@ -14,7 +14,7 @@
     "no-unnecessary-type-assertion": true,
     "one-line": [true, "check-open-brace", "check-whitespace"],
     "quotemark": [true, "single", "avoid-escape"],
-    "semicolon": [true, "always"],
+    "semicolon": [true, "always", "ignore-bound-class-methods"],
     "trailing-comma": [true, "multiline"],
     "triple-equals": [true, "allow-null-check"],
     "typedef-whitespace": [

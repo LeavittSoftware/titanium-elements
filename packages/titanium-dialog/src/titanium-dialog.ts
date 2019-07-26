@@ -31,6 +31,7 @@ export class TitaniumDialogElement extends LitElement {
 
       this.runNextAnimationFrame_(() => {
         this.opened = true;
+        window.addEventListener('keydown', this._handleKeydown);
         this.recalculateLayout();
 
         this._animationTimer = window.setTimeout(() => {
@@ -52,6 +53,12 @@ export class TitaniumDialogElement extends LitElement {
     });
   }
 
+  private _handleKeydown = ({ key }) => {
+    if (key === 'Escape' || key === 'Esc') {
+      this.close('esc-keydown');
+    }
+  };
+
   close(reason: string) {
     if (!this.opened) {
       return;
@@ -63,6 +70,7 @@ export class TitaniumDialogElement extends LitElement {
     this.closing = true;
     this.opened = false;
     this.opening = false;
+    window.removeEventListener('keydown', this._handleKeydown);
     document.body.style.overflow = '';
 
     clearTimeout(this._animationTimer);
