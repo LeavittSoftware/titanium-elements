@@ -44,6 +44,7 @@ export class TitaniumChipElement extends LitElement {
     }
 
     label {
+      width: 100%;
       flex: 1 1 auto;
       overflow: hidden;
       white-space: nowrap;
