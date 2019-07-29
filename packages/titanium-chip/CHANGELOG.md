@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-chip@3.0.4...@leavittsoftware/titanium-chip@3.0.5) (2019-07-29)
+
+
+### Bug Fixes
+
+* fix chip width on ie ([8d7a749](https://github.com/LeavittSoftware/titanium-elements/commit/8d7a749))
+
+
+
+
+
 ## [3.0.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-chip@3.0.3...@leavittsoftware/titanium-chip@3.0.4) (2019-07-08)
 
 
