@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@4.1.3...@leavittsoftware/storybook@4.1.4) (2019-07-31)
+
+
+### Bug Fixes
+
+* Story name change ([2e68797](https://github.com/LeavittSoftware/titanium-elements/commit/2e68797))
+
+
+
+
+
 ## [4.1.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@4.1.2...@leavittsoftware/storybook@4.1.3) (2019-07-29)
 
 **Note:** Version bump only for package @leavittsoftware/storybook

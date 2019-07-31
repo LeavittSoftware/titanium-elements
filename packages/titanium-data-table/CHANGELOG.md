@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@3.2.0...@leavittsoftware/titanium-data-table@3.3.0) (2019-07-31)
+
+
+### Features
+
+* **titanium-data-table:** Adds ability to disable select entirely ([f3b70fb](https://github.com/LeavittSoftware/titanium-elements/commit/f3b70fb))
+
+
+
+
+
 # [3.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@3.1.2...@leavittsoftware/titanium-data-table@3.2.0) (2019-07-16)
 
 
