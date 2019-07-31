@@ -27,7 +27,7 @@ storiesOf('UI COMPONENTS|titanium-data-table', module)
     'Feature set',
     () => {
       return html`
-        <titanium-data-table .isLoading="${false}" largePages header="Data table">
+        <titanium-data-table .items=${[{}, {}]} .isLoading=${false} count="2" largePages header="Data table">
           <titanium-search-input slot="table-actions"></titanium-search-input>
           <titanium-svg-button slot="table-actions" path="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></titanium-svg-button>
 
@@ -52,6 +52,46 @@ storiesOf('UI COMPONENTS|titanium-data-table', module)
             <row-item width="75px" right>Samsung</row-item>
           </titanium-data-table-item>
           <titanium-data-table-item slot="items">
+            <row-item large>Item B</row-item>
+            <row-item desktop>4 eggs</row-item>
+            <row-item desktop>77 dollars</row-item>
+            <row-item desktop width="105px" center>75 cents</row-item>
+            <row-item width="75px" right>Pixel</row-item>
+          </titanium-data-table-item>
+        </titanium-data-table>
+      `;
+    },
+    availableCssVars
+  )
+  .add(
+    'No select',
+    () => {
+      return html`
+        <titanium-data-table disable-select .items=${[{}, {}]} .isLoading=${false} count="2" largePages header="Data table">
+          <titanium-search-input slot="table-actions"></titanium-search-input>
+          <titanium-svg-button slot="table-actions" path="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></titanium-svg-button>
+
+          <titanium-chip label="Hello" closeable slot="table-sub-actions"></titanium-chip>
+          <titanium-chip label="World" closeable slot="table-sub-actions"></titanium-chip>
+          <titanium-chip label="Hello" closeable slot="table-sub-actions"></titanium-chip>
+          <titanium-chip label="World" closeable slot="table-sub-actions"></titanium-chip>
+          <titanium-chip label="Hello" closeable slot="table-sub-actions"></titanium-chip>
+          <titanium-chip label="World" closeable slot="table-sub-actions"></titanium-chip>
+
+          <titanium-data-table-header slot="table-headers" large columnName="Name" title="Name" sortBy="Name"></titanium-data-table-header>
+          <titanium-data-table-header slot="table-headers" desktop title="Short Name" sortBy="SName"></titanium-data-table-header>
+          <titanium-data-table-header slot="table-headers" no-sort desktop title="Type"></titanium-data-table-header>
+          <titanium-data-table-header slot="table-headers" no-sort desktop center width="105px" title="Phone Number"></titanium-data-table-header>
+          <titanium-data-table-header slot="table-headers" no-sort width="75px" right title="Locations"></titanium-data-table-header>
+
+          <titanium-data-table-item disable-select slot="items">
+            <row-item large>Item A</row-item>
+            <row-item desktop>2 eggs</row-item>
+            <row-item desktop>5 dollars</row-item>
+            <row-item desktop width="105px" center>25 cents</row-item>
+            <row-item width="75px" right>Samsung</row-item>
+          </titanium-data-table-item>
+          <titanium-data-table-item disable-select slot="items">
             <row-item large>Item B</row-item>
             <row-item desktop>4 eggs</row-item>
             <row-item desktop>77 dollars</row-item>
