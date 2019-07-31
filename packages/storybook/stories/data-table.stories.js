@@ -64,7 +64,7 @@ storiesOf('UI COMPONENTS|titanium-data-table', module)
     availableCssVars
   )
   .add(
-    'No sort',
+    'No select',
     () => {
       return html`
         <titanium-data-table disable-select .items=${[{}, {}]} .isLoading=${false} count="2" largePages header="Data table">
