@@ -5,6 +5,7 @@ export class TitaniumDataTableItemElement extends LitElement {
   @property({ type: Object }) item: Object;
   @property({ reflect: true, type: Boolean, attribute: 'is-selected' }) isSelected: boolean;
   @property({ type: Boolean }) isClicking: boolean;
+  @property({ type: Boolean, attribute: 'disable-select' }) disableSelect: boolean;
 
   private clickTimeoutHandle: NodeJS.Timer;
 
@@ -20,9 +21,9 @@ export class TitaniumDataTableItemElement extends LitElement {
     (this.shadowRoot as any)
       .querySelector('slot')
       .assignedNodes()
-      .filter((e) => e.nodeType === Node.ELEMENT_NODE)
-      .forEach((e) => {
-        if ((e) => e.getAttribute('width')) {
+      .filter(e => e.nodeType === Node.ELEMENT_NODE)
+      .forEach(e => {
+        if (e => e.getAttribute('width')) {
           e.style.width = e.getAttribute('width');
         }
       });
@@ -43,6 +44,9 @@ export class TitaniumDataTableItemElement extends LitElement {
   }
 
   toggleSelected() {
+    if (this.disableSelect) {
+      return;
+    }
     this.isSelected = !this.isSelected;
     this.dispatchEvent(
       new CustomEvent('titanium-data-table-item-selected-changed', { bubbles: true, composed: true, detail: { isSelected: this.isSelected, item: this.item } })
@@ -88,8 +92,8 @@ export class TitaniumDataTableItemElement extends LitElement {
       -webkit-font-smoothing: antialiased;
     }
 
-    :host([is-selected]),
-    :host(:hover) {
+    :host(:not([disable-select])[is-selected]),
+    :host(:not([disable-select]):hover) {
       background-color: var(--app-hover-color, #f9f9f9);
       transition: 0.3s ease;
     }
@@ -141,6 +145,14 @@ export class TitaniumDataTableItemElement extends LitElement {
 
     item-checkbox svg {
       fill: var(--app-text-color, #5f6368);
+    }
+
+    :host([disable-select]) item-checkbox {
+      display: none;
+    }
+
+    :host([disable-select]) ::slotted(row-item:first-of-type) {
+      padding-left: 24px;
     }
 
     [hidden] {

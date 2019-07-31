@@ -337,6 +337,14 @@ export class TitaniumDataTableElement extends LitElement {
       fill: var(--app-light-text-color, #80868b);
     }
 
+    :host([disable-select]) select-all-checkbox {
+      display: none;
+    }
+
+    :host([disable-select]) table-header ::slotted(titanium-data-table-header:first-of-type) {
+      padding-left: 24px;
+    }
+
     sub-actions {
       display: flex;
       flex-wrap: wrap;
