@@ -27,7 +27,8 @@ export class TitaniumDialogElement extends LitElement {
       this.closing = false;
       this.opened = false;
       this.opening = true;
-      document.body.style.overflow = 'hidden';
+      const htmlNode = document.querySelector('html');
+      if (htmlNode) htmlNode.style.overflow = 'hidden';
 
       this.runNextAnimationFrame_(() => {
         this.opened = true;
@@ -71,7 +72,8 @@ export class TitaniumDialogElement extends LitElement {
     this.opened = false;
     this.opening = false;
     window.removeEventListener('keydown', this._handleKeydown);
-    document.body.style.overflow = '';
+    const htmlNode = document.querySelector('html');
+    if (htmlNode) htmlNode.style.overflow = '';
 
     clearTimeout(this._animationTimer);
     this._animationTimer = window.setTimeout(() => {
