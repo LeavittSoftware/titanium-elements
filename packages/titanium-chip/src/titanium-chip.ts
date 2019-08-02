@@ -69,6 +69,7 @@ export class TitaniumChipElement extends LitElement {
       border: 1px solid transparent;
       height: 28px;
       width: 28px;
+      flex-shrink: 0;
     }
 
     ::slotted(img),
