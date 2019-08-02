@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.6](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-chip@3.0.5...@leavittsoftware/titanium-chip@3.0.6) (2019-08-02)
+
+
+### Bug Fixes
+
+* adds flex-shrink to img ([c625366](https://github.com/LeavittSoftware/titanium-elements/commit/c625366))
+
+
+
+
+
 ## [3.0.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-chip@3.0.4...@leavittsoftware/titanium-chip@3.0.5) (2019-07-29)
 
 
