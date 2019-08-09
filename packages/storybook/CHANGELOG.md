@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.7](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@4.1.6...@leavittsoftware/storybook@4.1.7) (2019-08-09)
+
+
+### Bug Fixes
+
+* Removed tagName check as it was preventing hiding when tabbing to next input in the form. Did not seem to me needed as the id check was already doing what the input check was doing ([f1eb2f0](https://github.com/LeavittSoftware/titanium-elements/commit/f1eb2f0))
+
+
+
+
+
 ## [4.1.6](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@4.1.5...@leavittsoftware/storybook@4.1.6) (2019-08-02)
 
 **Note:** Version bump only for package @leavittsoftware/storybook
