@@ -105,10 +105,7 @@ export class TitaniumSingleSelectElement extends LitElement {
     this._blurTimeoutHandle = window.setTimeout(() => {
       const activeElement = this.getActiveElement();
 
-      if (
-        !activeElement ||
-        (activeElement.tagName !== 'TITANIUM-SINGLE-SELECT-ITEM' && (activeElement.tagName !== 'INPUT' && activeElement.id !== 'searchInput'))
-      ) {
+      if (!activeElement || (activeElement.tagName !== 'TITANIUM-SINGLE-SELECT-ITEM' && activeElement.id !== 'searchInput')) {
         this.open = false;
       }
     }, 300);
