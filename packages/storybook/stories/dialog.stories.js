@@ -112,6 +112,7 @@ storiesOf('UI COMPONENTS|titanium-dialog', module)
                   `
               )}
           </titanium-single-select>
+          <input slot="content" type="text" placeholder="test blur of single select" />
         </titanium-dialog>
       `;
     },
