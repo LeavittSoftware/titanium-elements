@@ -26,6 +26,7 @@ export class TitaniumChipElement extends LitElement {
       -ms-user-select: none; /* IE 10+ */
       user-select: none; /* Standard syntax */
       height: 30px;
+      max-width: 100%;
       border: 1px solid var(--app-border-color, #dadce0);
     }
 

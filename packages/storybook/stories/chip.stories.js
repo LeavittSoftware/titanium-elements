@@ -67,4 +67,18 @@ storiesOf('UI COMPONENTS|titanium-chip', module)
       `;
     },
     availableCssVars
+  )
+  .add(
+    'Really long text',
+    () => {
+      let label = text(
+        'label',
+        'This is a really long label that needs to ellipsis when it runs out of room.  This will allow chips to look better on mobile.'
+      );
+      return html`
+        <titanium-chip .label=${label} closeable></titanium-chip>
+      `;
+    },
+    availableCssVars,
+    availableCssVars
   );
