@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.8](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@4.1.7...@leavittsoftware/storybook@4.1.8) (2019-08-12)
+
+
+### Bug Fixes
+
+* Set max-width of chip so that it does not grow past its parent and get cut off ([d47949c](https://github.com/LeavittSoftware/titanium-elements/commit/d47949c))
+
+
+
+
+
 ## [4.1.7](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@4.1.6...@leavittsoftware/storybook@4.1.7) (2019-08-09)
 
 

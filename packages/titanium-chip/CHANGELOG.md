@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.7](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-chip@3.0.6...@leavittsoftware/titanium-chip@3.0.7) (2019-08-12)
+
+
+### Bug Fixes
+
+* Set max-width of chip so that it does not grow past its parent and get cut off ([d47949c](https://github.com/LeavittSoftware/titanium-elements/commit/d47949c))
+
+
+
+
+
 ## [3.0.6](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-chip@3.0.5...@leavittsoftware/titanium-chip@3.0.6) (2019-08-02)
 
 
