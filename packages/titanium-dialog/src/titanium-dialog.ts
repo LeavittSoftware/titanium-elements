@@ -3,6 +3,7 @@ import { css, customElement, html, LitElement, property, query } from 'lit-eleme
 
 @customElement('titanium-dialog')
 export class TitaniumDialogElement extends LitElement {
+  @property({ type: Boolean, reflect: true }) disableSmoothScroll: boolean;
   @property({ type: Boolean, reflect: true }) protected opened: boolean;
   @property({ type: Boolean, reflect: true }) protected opening: boolean;
   @property({ type: Boolean, reflect: true }) protected closing: boolean;
@@ -107,6 +108,7 @@ export class TitaniumDialogElement extends LitElement {
     click-trap {
       display: block;
       position: fixed;
+      z-index: 1;
       top: 0;
       left: 0;
       width: 100%;
@@ -151,10 +153,8 @@ export class TitaniumDialogElement extends LitElement {
       box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
       -webkit-box-sizing: border-box;
       box-sizing: border-box;
-      -webkit-transform: scale(0.8);
-      -ms-transform: scale(0.8);
-      transform: scale(0.8);
       opacity: 0;
+      z-index: 2;
     }
 
     @media (max-width: 592px) {
@@ -176,7 +176,6 @@ export class TitaniumDialogElement extends LitElement {
       font-weight: 400;
       letter-spacing: 0.5px;
       overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
     }
 
     header {
@@ -191,6 +190,10 @@ export class TitaniumDialogElement extends LitElement {
     :host([scrolls]) header {
       border-bottom: 1px solid var(--app-border-color, #dadce0);
       padding: 16px 24px;
+    }
+
+    :host([scrolls]:not([disableSmoothScroll])) section {
+      -webkit-overflow-scrolling: touch;
     }
 
     :host([scrolls]) footer {
@@ -210,9 +213,6 @@ export class TitaniumDialogElement extends LitElement {
     }
 
     :host([closing]) dialog-container {
-      -webkit-transform: scale(1);
-      -ms-transform: scale(1);
-      transform: scale(1);
       -webkit-transition: opacity 75ms linear;
       -o-transition: opacity 75ms linear;
       transition: opacity 75ms linear;
@@ -227,9 +227,6 @@ export class TitaniumDialogElement extends LitElement {
     }
 
     :host([opened]) dialog-container {
-      -webkit-transform: scale(1);
-      -ms-transform: scale(1);
-      transform: scale(1);
       opacity: 1;
     }
   `;
