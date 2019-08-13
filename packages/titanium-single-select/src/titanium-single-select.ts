@@ -4,6 +4,7 @@ import '@leavittsoftware/titanium-progress';
 
 @customElement('titanium-single-select')
 export class TitaniumSingleSelectElement extends LitElement {
+  @property({ type: Boolean, reflect: true }) disableFullScreen: boolean;
   @property({ type: Boolean, reflect: true }) protected invalid: boolean = true;
   @property({ type: Boolean, reflect: true }) protected open: boolean;
   @property({ type: String }) protected inputValue: string = '';
@@ -320,7 +321,10 @@ export class TitaniumSingleSelectElement extends LitElement {
       font-weight: 400;
     }
 
-    search-suggestions hr {
+    hr {
+      position: absolute;
+      bottom: 1px;
+      width: calc(100% - 32px);
       border: 0;
       border-top: 1px solid var(--app-border-color, #dadce0);
       margin: 0 16px;
@@ -328,6 +332,10 @@ export class TitaniumSingleSelectElement extends LitElement {
     }
 
     titanium-progress {
+      display: block;
+      position: absolute;
+      bottom: 1px;
+      width: calc(100% - 32px);
       height: 1px;
       margin: 0 16px;
     }
@@ -364,7 +372,8 @@ export class TitaniumSingleSelectElement extends LitElement {
       border-top: 0;
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px;
-      box-shadow: 0 4px 6px 0 rgba(32, 33, 36, 0.28);
+      margin-top: -1px;
+      box-shadow: 0 6px 6px 0 rgba(32, 33, 36, 0.28);
       overflow: hidden;
       transition: opacity, transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
       opacity: 1;
@@ -373,6 +382,7 @@ export class TitaniumSingleSelectElement extends LitElement {
     }
 
     informatory-text {
+      display: block;
       padding: 8px 16px;
       font-family: Roboto, Arial, sans-serif;
       color: var(--app-light-text-color, #80868b);
@@ -383,6 +393,45 @@ export class TitaniumSingleSelectElement extends LitElement {
     :host([unresolved]),
     [hidden] {
       display: none !important;
+    }
+
+    @media (max-width: 768px) {
+      :host([open]:not([disableFullScreen])) {
+        max-width: 100% !important;
+        margin: 0 !important;
+        position: fixed;
+        z-index: 1000;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #fff;
+      }
+
+      :host([open]:not([disableFullScreen])) input,
+      :host([open]:not([disableFullScreen])) input:hover {
+        position: fixed;
+        top: 0;
+        left: 0;
+        border-radius: 0;
+        border: 0;
+        box-shadow: none;
+      }
+
+      :host([open]:not([disableFullScreen])) input-container {
+        height: 57px;
+        width: 100%;
+      }
+
+      :host([open]:not([disableFullScreen])) search-suggestions {
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+        transition: none;
+        overflow: auto;
+        max-height: calc(100% - 56px);
+        display: block;
+      }
     }
   `;
 
@@ -414,10 +463,10 @@ export class TitaniumSingleSelectElement extends LitElement {
           ?hidden=${!this.open && !this.inputValue}
           path="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
         ></titanium-svg-button>
+        <hr ?hidden=${this.isLoading || !this.open} />
+        <titanium-progress ?hidden=${!this.isLoading || !this.open} ?disabled=${!this.isLoading}></titanium-progress>
       </input-container>
       <search-suggestions id="suggestions" tabindex="-1">
-        <hr ?hidden=${this.isLoading} />
-        <titanium-progress ?hidden=${!this.isLoading} ?disabled=${!this.isLoading}></titanium-progress>
         <informatory-text ?hidden=${this.totalCount > 0 || this.inputValue !== ''}>${this.hintText}</informatory-text>
         <informatory-text ?hidden=${this.inputValue === '' || this.isLoading}> ${this.totalCount} results for '${this.inputValue}' </informatory-text>
         <slot></slot>
