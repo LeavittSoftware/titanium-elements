@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@1.2.1...@leavittsoftware/titanium-dialog@1.3.0) (2019-08-14)
+
+
+### Features
+
+* Updated styles to better work with single-select ([e2a5fb0](https://github.com/LeavittSoftware/titanium-elements/commit/e2a5fb0))
+
+
+
+
+
 ## [1.2.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@1.2.0...@leavittsoftware/titanium-dialog@1.2.1) (2019-08-01)
 
 
