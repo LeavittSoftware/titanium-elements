@@ -17,7 +17,9 @@ export class TitaniumCardListItemElement extends LitElement {
 
     a {
       color: var(--app-dark-text-color, #202124);
+      border-top: 1px solid var(--app-border-color, #dadce0);
       border-bottom: 1px solid var(--app-border-color, #dadce0);
+      margin-top: -1px;
       margin-left: 24px;
 
       cursor: pointer;
@@ -50,6 +52,11 @@ export class TitaniumCardListItemElement extends LitElement {
     :host([disabled]) a {
       pointer-events: none;
       color: rgba(0, 0, 0, 0.37);
+    }
+
+    :host(:first-of-type) a {
+      border-top: none;
+      margin-top: 0;
     }
 
     :host(:last-of-type) a {
