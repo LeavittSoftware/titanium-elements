@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-card@1.1.2...@leavittsoftware/titanium-card@1.1.3) (2019-08-21)
+
+
+### Bug Fixes
+
+* Added border to top of card-list-item on hover ([0e30462](https://github.com/LeavittSoftware/titanium-elements/commit/0e30462))
+
+
+
+
+
 ## [1.1.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-card@1.1.1...@leavittsoftware/titanium-card@1.1.2) (2019-07-02)
 
 
