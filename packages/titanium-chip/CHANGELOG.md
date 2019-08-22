@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.8](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-chip@3.0.7...@leavittsoftware/titanium-chip@3.0.8) (2019-08-22)
+
+
+### Bug Fixes
+
+* Prevent close click from propagating. ([0641744](https://github.com/LeavittSoftware/titanium-elements/commit/0641744))
+
+
+
+
+
 ## [3.0.7](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-chip@3.0.6...@leavittsoftware/titanium-chip@3.0.7) (2019-08-12)
 
 
