@@ -4,7 +4,7 @@ import { css, customElement, html, LitElement, property } from 'lit-element';
 export class TitaniumDataTableItemElement extends LitElement {
   @property({ type: Object }) item: Object;
   @property({ reflect: true, type: Boolean, attribute: 'is-selected' }) isSelected: boolean;
-  @property({ type: Boolean }) isClicking: boolean;
+  @property({ type: Boolean }) isClicking: boolean = false;
   @property({ type: Boolean, attribute: 'disable-select' }) disableSelect: boolean;
 
   private clickTimeoutHandle: NodeJS.Timer;
@@ -12,7 +12,6 @@ export class TitaniumDataTableItemElement extends LitElement {
   constructor() {
     super();
     this.addEventListener('click', () => this._handleClick());
-    this.addEventListener('dblclick', () => this._handleDoubleClick());
   }
 
   firstUpdated() {
@@ -30,17 +29,18 @@ export class TitaniumDataTableItemElement extends LitElement {
   }
 
   _handleClick() {
-    clearTimeout(this.clickTimeoutHandle);
-    if (!this.isClicking) this.toggleSelected();
+    if (this.isClicking) {
+      this.dispatchEvent(new CustomEvent('titanium-data-table-item-navigate', { composed: true, detail: this.item, bubbles: true }));
+      clearTimeout(this.clickTimeoutHandle);
+      this.isClicking = false;
+      return;
+    }
+
     this.isClicking = true;
+    this.toggleSelected();
     this.clickTimeoutHandle = setTimeout(() => {
       this.isClicking = false;
     }, 300);
-  }
-
-  _handleDoubleClick() {
-    clearTimeout(this.clickTimeoutHandle);
-    this.dispatchEvent(new CustomEvent('titanium-data-table-item-navigate', { composed: true, detail: this.item, bubbles: true }));
   }
 
   toggleSelected() {

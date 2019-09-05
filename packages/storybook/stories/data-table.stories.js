@@ -1,6 +1,7 @@
 import { storiesOf } from '@storybook/polymer/dist/client/preview/index';
 import { html } from 'lit-html';
 import { withKnobs } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
 import '@leavittsoftware/titanium-data-table/lib/titanium-data-table';
 import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-item';
 import '@leavittsoftware/titanium-chip/lib/titanium-chip';
@@ -27,7 +28,15 @@ storiesOf('UI COMPONENTS|titanium-data-table', module)
     'Feature set',
     () => {
       return html`
-        <titanium-data-table .items=${[{}, {}]} .isLoading=${false} count="2" largePages header="Data table">
+        <titanium-data-table
+          .items=${[{}, {}]}
+          .isLoading=${false}
+          count="2"
+          largePages
+          header="Data table"
+          @titanium-data-table-item-navigate=${action('navigate')}
+          @titanium-data-table-item-selected-changed=${action('changed')}
+        >
           <titanium-search-input slot="table-actions"></titanium-search-input>
           <titanium-svg-button slot="table-actions" path="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></titanium-svg-button>
 
