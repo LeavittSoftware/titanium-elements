@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.12](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@4.1.11...@leavittsoftware/storybook@4.1.12) (2019-09-05)
+
+
+### Bug Fixes
+
+* double click not always firing on data-table-item. ([493d207](https://github.com/LeavittSoftware/titanium-elements/commit/493d207))
+
+
+
+
+
 ## [4.1.11](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@4.1.10...@leavittsoftware/storybook@4.1.11) (2019-08-22)
 
 **Note:** Version bump only for package @leavittsoftware/storybook
