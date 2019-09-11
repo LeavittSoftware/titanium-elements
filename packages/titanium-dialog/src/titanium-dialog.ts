@@ -162,8 +162,9 @@ export class TitaniumDialogElement extends LitElement {
         max-width: calc(100vw - 32px);
       }
     }
+
     @media (min-width: 592px) {
-      dialog-container {
+      :host(:not([fullscreen])) dialog-container {
         max-width: 560px;
       }
     }
