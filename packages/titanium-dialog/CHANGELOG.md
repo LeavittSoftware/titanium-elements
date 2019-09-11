@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@1.3.0...@leavittsoftware/titanium-dialog@1.4.0) (2019-09-11)
+
+
+### Features
+
+* adds selector for fullscreen ([50c8a78](https://github.com/LeavittSoftware/titanium-elements/commit/50c8a78))
+
+
+
+
+
 # [1.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@1.2.1...@leavittsoftware/titanium-dialog@1.3.0) (2019-08-14)
 
 
