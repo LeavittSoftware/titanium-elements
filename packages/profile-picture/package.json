@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/profile-picture",
   "description": "",
   "author": "Leavitt Software",
-  "version": "3.1.9",
+  "version": "3.1.10",
   "license": "MIT",
   "main": "lib/profile-picture.js",
   "typings": "lib/profile-picture.d.ts",
@@ -20,8 +20,8 @@
   },
   "dependencies": {
     "@leavittsoftware/titanium-button": "^1.1.2",
-    "@leavittsoftware/titanium-helpers": "^2.0.1",
-    "@leavittsoftware/user-manager": "^9.0.1"
+    "@leavittsoftware/titanium-helpers": "^2.1.0",
+    "@leavittsoftware/user-manager": "^9.0.2"
   },
   "peerDependencies": {
     "lit-element": ">=2.1.0"
