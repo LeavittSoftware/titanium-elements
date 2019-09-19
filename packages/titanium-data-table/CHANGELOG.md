@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@3.3.2...@leavittsoftware/titanium-data-table@3.3.3) (2019-09-19)
+
+
+### Bug Fixes
+
+* Improved UX of sorting with titanium data table header ([481c8ea](https://github.com/LeavittSoftware/titanium-elements/commit/481c8ea))
+
+
+
+
+
 ## [3.3.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@3.3.1...@leavittsoftware/titanium-data-table@3.3.2) (2019-09-19)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-data-table

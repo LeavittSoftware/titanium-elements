@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.2.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@4.2.2...@leavittsoftware/storybook@4.2.3) (2019-09-19)
+
+
+### Bug Fixes
+
+* Improved UX of sorting with titanium data table header ([481c8ea](https://github.com/LeavittSoftware/titanium-elements/commit/481c8ea))
+
+
+
+
+
 ## [4.2.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@4.2.1...@leavittsoftware/storybook@4.2.2) (2019-09-19)
 
 **Note:** Version bump only for package @leavittsoftware/storybook
