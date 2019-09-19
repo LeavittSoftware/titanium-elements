@@ -22,11 +22,13 @@ export class TitaniumDataTableHeaderElement extends LitElement {
 
   firstUpdated() {
     this.addEventListener('click', () => {
-      this.sortBy = this.columnName;
-      this.dispatchEvent(new CustomEvent('sort-by-changed', { detail: this.sortBy }));
-
-      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
-      this.dispatchEvent(new CustomEvent('sort-direction-changed', { detail: this.sortDirection }));
+      if (this.active) {
+        this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+        this.dispatchEvent(new CustomEvent('sort-direction-changed', { detail: this.sortDirection }));
+      } else {
+        this.sortBy = this.columnName;
+        this.dispatchEvent(new CustomEvent('sort-by-changed', { detail: this.sortBy }));
+      }
     });
   }
 

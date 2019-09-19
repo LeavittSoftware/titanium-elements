@@ -1,4 +1,4 @@
-import { storiesOf } from '@storybook/polymer/dist/client/preview/index';
+import { storiesOf, forceReRender } from '@storybook/polymer/dist/client/preview/index';
 import { html } from 'lit-html';
 import { withKnobs } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
@@ -21,6 +21,18 @@ const availableCssVars = {
     },
   ],
 };
+
+let sortDirection = 'desc';
+let sortBy = 'Name';
+const onSortDirectionChange = event => {
+  sortDirection = event.detail;
+  forceReRender();
+};
+const onSortByChange = event => {
+  sortBy = event.detail;
+  forceReRender();
+};
+
 //TODO: Make more demos
 storiesOf('UI COMPONENTS|titanium-data-table', module)
   .addDecorator(withKnobs)
@@ -47,8 +59,26 @@ storiesOf('UI COMPONENTS|titanium-data-table', module)
           <titanium-chip label="Hello" closeable slot="table-sub-actions"></titanium-chip>
           <titanium-chip label="World" closeable slot="table-sub-actions"></titanium-chip>
 
-          <titanium-data-table-header slot="table-headers" large columnName="Name" title="Name" sortBy="Name"></titanium-data-table-header>
-          <titanium-data-table-header slot="table-headers" desktop title="Short Name" sortBy="SName"></titanium-data-table-header>
+          <titanium-data-table-header
+            @sort-by-changed=${onSortByChange}
+            .sortBy=${sortBy}
+            .sortDirection=${sortDirection}
+            @sort-direction-changed=${onSortDirectionChange}
+            column-name="Name"
+            slot="table-headers"
+            large
+            title="Name"
+          ></titanium-data-table-header>
+          <titanium-data-table-header
+            @sort-by-changed=${onSortByChange}
+            .sortBy=${sortBy}
+            .sortDirection=${sortDirection}
+            @sort-direction-changed=${onSortDirectionChange}
+            column-name="SName"
+            slot="table-headers"
+            desktop
+            title="Short Name"
+          ></titanium-data-table-header>
           <titanium-data-table-header slot="table-headers" no-sort desktop title="Type"></titanium-data-table-header>
           <titanium-data-table-header slot="table-headers" no-sort desktop center width="105px" title="Phone Number"></titanium-data-table-header>
           <titanium-data-table-header slot="table-headers" no-sort width="75px" right title="Locations"></titanium-data-table-header>
@@ -87,8 +117,26 @@ storiesOf('UI COMPONENTS|titanium-data-table', module)
           <titanium-chip label="Hello" closeable slot="table-sub-actions"></titanium-chip>
           <titanium-chip label="World" closeable slot="table-sub-actions"></titanium-chip>
 
-          <titanium-data-table-header slot="table-headers" large columnName="Name" title="Name" sortBy="Name"></titanium-data-table-header>
-          <titanium-data-table-header slot="table-headers" desktop title="Short Name" sortBy="SName"></titanium-data-table-header>
+          <titanium-data-table-header
+            @sort-by-changed=${onSortByChange}
+            .sortBy=${sortBy}
+            .sortDirection=${sortDirection}
+            @sort-direction-changed=${onSortDirectionChange}
+            column-name="Name"
+            slot="table-headers"
+            large
+            title="Name"
+          ></titanium-data-table-header>
+          <titanium-data-table-header
+            @sort-by-changed=${onSortByChange}
+            .sortBy=${sortBy}
+            .sortDirection=${sortDirection}
+            @sort-direction-changed=${onSortDirectionChange}
+            column-name="SName"
+            slot="table-headers"
+            desktop
+            title="Short Name"
+          ></titanium-data-table-header>
           <titanium-data-table-header slot="table-headers" no-sort desktop title="Type"></titanium-data-table-header>
           <titanium-data-table-header slot="table-headers" no-sort desktop center width="105px" title="Phone Number"></titanium-data-table-header>
           <titanium-data-table-header slot="table-headers" no-sort width="75px" right title="Locations"></titanium-data-table-header>
