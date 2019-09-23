@@ -1,4 +1,4 @@
-﻿import 'jwt-decode/build/jwt-decode';
+import 'jwt-decode/build/jwt-decode';
 declare var jwt_decode: (token: string) => {};
 
 import { customElement, LitElement, property } from 'lit-element';
@@ -33,7 +33,7 @@ export class UserManager extends LitElement {
 
   @property({ type: String }) redirectDevUrl: string = 'https://devsignin.leavitt.com/';
 
-  @property({ type: String }) tokenUri: string = 'https://oauth2.leavitt.com/token';
+  @property({ type: String }) tokenUri: string = isDevelopment ? 'https://devoauth2.leavitt.com/token' : 'https://oauth2.leavitt.com/token';
 
   @property({ type: Boolean }) disableAutoload: boolean;
 
