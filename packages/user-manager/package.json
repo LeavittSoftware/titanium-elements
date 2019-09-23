@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/user-manager",
   "description": "",
   "author": "Leavitt Software",
-  "version": "9.0.2",
+  "version": "9.0.3",
   "license": "MIT",
   "main": "lib/user-manager.js",
   "typings": "lib/user-manager.d.ts",

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.0.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/user-manager@9.0.2...@leavittsoftware/user-manager@9.0.3) (2019-09-23)
+
+
+### Bug Fixes
+
+* Adds missing dev switch flag. ([618c44b](https://github.com/LeavittSoftware/titanium-elements/commit/618c44b))
+
+
+
+
+
 ## [9.0.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/user-manager@9.0.1...@leavittsoftware/user-manager@9.0.2) (2019-09-12)
 
 
