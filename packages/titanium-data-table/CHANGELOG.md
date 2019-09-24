@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@3.3.3...@leavittsoftware/titanium-data-table@4.0.0) (2019-09-24)
+
+
+### Bug Fixes
+
+* Supresses intial page-chage event (0) on DT load ([a70658f](https://github.com/LeavittSoftware/titanium-elements/commit/a70658f))
+
+
+### BREAKING CHANGES
+
+* Data Table no longer emits an initial page change event when it is connected.
+
+
+
+
+
 ## [3.3.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@3.3.2...@leavittsoftware/titanium-data-table@3.3.3) (2019-09-19)
 
 
