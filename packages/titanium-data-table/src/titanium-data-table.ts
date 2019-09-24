@@ -24,7 +24,6 @@ export class TitaniumDataTableElement extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     this.setTake(this._determineTake());
-    this.setPage(0);
     this.addEventListener('titanium-data-table-item-selected-changed', this._handleItemSelectionChange.bind(this));
   }
 
