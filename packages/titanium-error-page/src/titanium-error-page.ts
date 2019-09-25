@@ -59,7 +59,9 @@ export class TitaniumErrorPageElement extends LitElement {
       }
 
       svg {
-        display: none;
+        height: 120px;
+        width: 120px;
+        align-self: flex-start;
       }
 
       h1 {
