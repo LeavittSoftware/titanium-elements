@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/storybook",
-  "version": "4.2.5",
+  "version": "4.3.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -19,6 +19,7 @@
     "@leavittsoftware/titanium-chip": "^3.0.9",
     "@leavittsoftware/titanium-data-table": "^4.0.0",
     "@leavittsoftware/titanium-dialog": "^1.4.1",
+    "@leavittsoftware/titanium-error-page": "^0.1.0",
     "@leavittsoftware/titanium-header": "^3.0.2",
     "@leavittsoftware/titanium-helpers": "^2.1.0",
     "@leavittsoftware/titanium-loading-indicator": "^3.1.1",
@@ -32,7 +33,6 @@
     "@leavittsoftware/titanium-tab-control": "^0.1.0",
     "@leavittsoftware/titanium-toolbar": "^0.1.1",
     "@leavittsoftware/titanium-vaadin": "^2.2.1",
-    "@leavittsoftware/titanium-error-page": "^0.0.1",
     "@leavittsoftware/user-manager": "^9.0.3",
     "@storybook/addon-actions": "^5.1.3",
     "@storybook/addon-cssresources": "^5.1.3",
