@@ -16,6 +16,7 @@ import '@leavittsoftware/titanium-data-table/lib/titanium-data-table';
 import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-item';
 import '@leavittsoftware/titanium-single-select';
 import '@leavittsoftware/titanium-tab-control';
+import '@leavittsoftware/titanium-error-page';
 
 const availableCssVars = {
   cssresources: [
@@ -209,6 +210,8 @@ storiesOf('UI COMPONENTS|- Titanium Super Demo -', module)
             </svg>
           </titanium-card-list-item>
         </titanium-single-action-card>
+
+        <titanium-error-page></titanium-error-page>
       `;
     },
     availableCssVars
