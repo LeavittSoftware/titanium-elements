@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-button@1.1.3...@leavittsoftware/titanium-button@1.1.4) (2019-09-27)
+
+
+### Bug Fixes
+
+* Upgrades mwc components to 0.9 ([212ed51](https://github.com/LeavittSoftware/titanium-elements/commit/212ed51))
+
+
+
+
+
 ## [1.1.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-button@1.1.2...@leavittsoftware/titanium-button@1.1.3) (2019-09-19)
 
 

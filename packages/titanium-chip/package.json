@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-chip",
   "description": "",
   "author": "Leavitt Software",
-  "version": "3.0.9",
+  "version": "3.0.10",
   "license": "MIT",
   "main": "lib/titanium-chip.js",
   "typings": "lib/titanium-chip.d.ts",
@@ -19,7 +19,7 @@
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
   "dependencies": {
-    "@leavittsoftware/titanium-svg-button": "^3.0.2"
+    "@leavittsoftware/titanium-svg-button": "^3.0.3"
   },
   "peerDependencies": {
     "lit-element": ">=2.1.0"
