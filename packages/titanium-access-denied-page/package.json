@@ -1,0 +1,30 @@
+{
+  "name": "@leavittsoftware/titanium-access-denied-page",
+  "version": "0.1.0",
+  "description": "",
+  "main": "lib/titanium-access-denied-page.js",
+  "typings": "lib/titanium-access-denied-page.d.ts",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "peerDependencies": {
+    "lit-element": ">=2.1.0"
+  },
+  "scripts": {
+    "build:watch": "tsc --watch",
+    "build": "tsc",
+    "lint": "tslint \"src/*.ts\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeavittSoftware/titanium-elements.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LeavittSoftware/titanium-elements/issues"
+  },
+  "homepage": "https://github.com/LeavittSoftware/titanium-elements/#readme",
+  "gitHead": "f80c9f25691088c456baf119f3be7e278bf9c80d"
+}
