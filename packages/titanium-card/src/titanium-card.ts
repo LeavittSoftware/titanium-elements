@@ -6,7 +6,7 @@ export const TitaniumCardStyles = css`
     display: block;
     color: var(--app-dark-text-color, #202124);
 
-    font-family: Roboto, sans-serif;
+    font-family: Metropolis, 'Roboto', 'Noto', sans-serif;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     letter-spacing: -0.264px;

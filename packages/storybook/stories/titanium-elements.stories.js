@@ -43,6 +43,26 @@ storiesOf('UI COMPONENTS|- Titanium Super Demo -', module)
     () => {
       let disable = boolean('disable', false);
       return html`
+
+        <style>
+          @font-face {
+            font-family: Metropolis;
+            font-weight: 600;
+            src: url('https://leavitt.com/fonts/Metropolis-Bold.otf') format('opentype');
+          }
+
+          @font-face {
+            font-family: Metropolis;
+            font-weight: 500;
+            src: url('https://leavitt.com/fonts/Metropolis-SemiBold.otf') format('opentype');
+          }
+
+          @font-face {
+            font-family: Metropolis;
+            font-weight: 400;
+            src: url('https://leavitt.com/fonts/Metropolis-Medium.otf') format('opentype');
+          }
+        </style>
         <titanium-toolbar> <span main-title>A Simple Toolbar</span></titanium-toolbar>
 
         <titanium-header header="Titanium elements" subHeader="One stop shop for everything good" style="padding-top: 60px"></titanium-header>

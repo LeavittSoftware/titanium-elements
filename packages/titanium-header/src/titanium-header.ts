@@ -18,7 +18,7 @@ export class TitaniumHeader extends LitElement {
     :host {
       display: block;
       padding-bottom: 24px;
-      font-family: 'Roboto', 'Noto', sans-serif;
+      font-family: Metropolis, 'Roboto', 'Noto', sans-serif;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -48,6 +48,7 @@ export class TitaniumHeader extends LitElement {
     }
 
     h3 {
+      font-family: 'Roboto', 'Noto', sans-serif;
       letter-spacing: -0.012em;
       font-size: 16px;
       font-weight: 400;

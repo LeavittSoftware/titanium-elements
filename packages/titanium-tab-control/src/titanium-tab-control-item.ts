@@ -19,7 +19,7 @@ export class TitaniumTabControlItemElement extends LitElement {
       display: flex;
       flex-direction: row;
       align-items: center;
-      font-family: Roboto, Noto, sans-serif;
+      font-family: Metropolis, 'Roboto', 'Noto', sans-serif;
       -webkit-font-smoothing: antialiased;
       line-height: 24px;
       letter-spacing: 0.35px;
