@@ -24,6 +24,8 @@ export class TitaniumErrorPageElement extends LitElement {
     }
 
     h1 {
+      font-family: Metropolis, 'Roboto', 'Noto', sans-serif;
+      font-weight: 600;
       color: var(--app-text-color, #5f6368);
       font-size: 75px;
       line-height: 85px;
