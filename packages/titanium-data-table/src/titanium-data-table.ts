@@ -189,6 +189,7 @@ export class TitaniumDataTableElement extends LitElement {
 
     header-text {
       display: flex;
+      font-family: Metropolis, 'Roboto', 'Noto', sans-serif;
       flex: 1 1 auto;
       letter-spacing: -0.264px;
       font-weight: 400;
