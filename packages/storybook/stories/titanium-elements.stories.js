@@ -17,6 +17,7 @@ import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-item';
 import '@leavittsoftware/titanium-single-select';
 import '@leavittsoftware/titanium-tab-control';
 import '@leavittsoftware/titanium-error-page';
+import '@leavittsoftware/titanium-access-denied-page';
 
 const availableCssVars = {
   cssresources: [
@@ -48,19 +49,19 @@ storiesOf('UI COMPONENTS|- Titanium Super Demo -', module)
           @font-face {
             font-family: Metropolis;
             font-weight: 600;
-            src: url('https://leavitt.com/fonts/Metropolis-Bold.otf') format('opentype');
+            src: url('https://www.leavitt.com/fonts/Metropolis-Bold.otf') format('opentype');
           }
 
           @font-face {
             font-family: Metropolis;
             font-weight: 500;
-            src: url('https://leavitt.com/fonts/Metropolis-SemiBold.otf') format('opentype');
+            src: url('https://www.leavitt.com/fonts/Metropolis-SemiBold.otf') format('opentype');
           }
 
           @font-face {
             font-family: Metropolis;
             font-weight: 400;
-            src: url('https://leavitt.com/fonts/Metropolis-Medium.otf') format('opentype');
+            src: url('https://www.leavitt.com/fonts/Metropolis-Medium.otf') format('opentype');
           }
         </style>
         <titanium-toolbar> <span main-title>A Simple Toolbar</span></titanium-toolbar>
@@ -232,6 +233,7 @@ storiesOf('UI COMPONENTS|- Titanium Super Demo -', module)
         </titanium-single-action-card>
 
         <titanium-error-page></titanium-error-page>
+        <titanium-access-denied-page></titanium-access-denied-page>
       `;
     },
     availableCssVars
