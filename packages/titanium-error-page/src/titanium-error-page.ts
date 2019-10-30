@@ -39,11 +39,6 @@ export class TitaniumErrorPageElement extends LitElement {
       max-width: 75%;
     }
 
-    p {
-      font-size: 16px;
-      margin-top: 8px;
-    }
-
     svg {
       flex-shrink: 0;
       height: 280px;
