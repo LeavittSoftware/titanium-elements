@@ -27,8 +27,8 @@ export class TitaniumAccessDeniedPageElement extends LitElement {
       font-family: Metropolis, 'Roboto', 'Noto', sans-serif;
       font-weight: 600;
       color: var(--app-text-color, #5f6368);
-      font-size: 75px;
-      line-height: 85px;
+      font-size: 68px;
+      line-height: 75px;
       margin: 0;
     }
 
