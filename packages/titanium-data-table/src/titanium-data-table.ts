@@ -199,13 +199,6 @@ export class TitaniumDataTableElement extends LitElement {
       color: var(--app-dark-text-color, #202124);
     }
 
-    header > ::slotted(*) {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      margin: 0 8px;
-    }
-
     selected-actions {
       display: flex;
       flex-direction: row;
@@ -345,6 +338,16 @@ export class TitaniumDataTableElement extends LitElement {
       padding-left: 24px;
     }
 
+    main-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    main-actions > ::slotted(*) {
+      margin: 0 8px;
+    }
+
     sub-actions {
       display: flex;
       flex-wrap: wrap;
@@ -367,6 +370,10 @@ export class TitaniumDataTableElement extends LitElement {
         margin-left: 4px;
       }
 
+      main-actions {
+        min-width: 100%;
+      }
+
       [mobile-space] {
         flex: 1 1 auto;
       }
@@ -381,7 +388,9 @@ export class TitaniumDataTableElement extends LitElement {
     return html`
       <header>
         <header-text>${this.header}</header-text>
-        <slot name="table-actions"></slot>
+        <main-actions>
+          <slot name="table-actions"></slot>
+        </main-actions>
         <sub-actions>
           <slot name="table-sub-actions"></slot>
         </sub-actions>
