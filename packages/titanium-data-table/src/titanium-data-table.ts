@@ -180,7 +180,7 @@ export class TitaniumDataTableElement extends LitElement {
     header {
       display: flex;
       flex-direction: row;
-      justify-content: center;
+      justify-content: flex-end;
       flex-wrap: wrap;
 
       padding: 24px;
