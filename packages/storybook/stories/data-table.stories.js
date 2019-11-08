@@ -49,15 +49,17 @@ storiesOf('UI COMPONENTS|titanium-data-table', module)
           @titanium-data-table-item-navigate=${action('navigate')}
           @titanium-data-table-item-selected-changed=${action('changed')}
         >
-          <titanium-search-input slot="table-actions"></titanium-search-input>
+          <titanium-search-input slot="search-button"></titanium-search-input>
           <titanium-svg-button slot="table-actions" path="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></titanium-svg-button>
 
-          <titanium-chip label="Hello" closeable slot="table-sub-actions"></titanium-chip>
-          <titanium-chip label="World" closeable slot="table-sub-actions"></titanium-chip>
-          <titanium-chip label="Hello" closeable slot="table-sub-actions"></titanium-chip>
-          <titanium-chip label="World" closeable slot="table-sub-actions"></titanium-chip>
-          <titanium-chip label="Hello" closeable slot="table-sub-actions"></titanium-chip>
-          <titanium-chip label="World" closeable slot="table-sub-actions"></titanium-chip>
+          <titanium-svg-button slot="filter-button" path="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"></titanium-svg-button>
+
+          <titanium-chip label="Hello" closeable slot="filters"></titanium-chip>
+          <titanium-chip label="World" closeable slot="filters"></titanium-chip>
+          <titanium-chip label="Hello" closeable slot="filters"></titanium-chip>
+          <titanium-chip label="World" closeable slot="filters"></titanium-chip>
+          <titanium-chip label="Hello" closeable slot="filters"></titanium-chip>
+          <titanium-chip label="World" closeable slot="filters"></titanium-chip>
 
           <titanium-data-table-header
             @sort-by-changed=${onSortByChange}
