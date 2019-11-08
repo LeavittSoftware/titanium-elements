@@ -179,31 +179,43 @@ export class TitaniumDataTableElement extends LitElement {
 
     header {
       display: flex;
-      flex-direction: row;
-      justify-content: center;
-      flex-wrap: wrap;
+      flex-direction: column;
 
-      padding: 24px;
+      border-bottom: 1px solid var(--app-border-color, #dadce0);
       position: relative;
     }
 
-    header-text {
+    adaptive-header {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      padding-top: 12px;
+    }
+
+    table-actions {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      flex: 1 1 150px;
+      padding: 0 12px;
+    }
+
+    table-actions > ::slotted(*) {
+      margin: 0 8px 8px 8px;
+    }
+
+    h1 {
       display: flex;
       font-family: Metropolis, 'Roboto', 'Noto', sans-serif;
-      flex: 1 1 auto;
+
       letter-spacing: -0.264px;
       font-weight: 400;
       font-size: 22px;
       line-height: 28px;
-      padding: 8px 8px 8px 0;
+      margin: 0px;
+      padding: 12px 24px 12px;
       color: var(--app-dark-text-color, #202124);
-    }
-
-    header > ::slotted(*) {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      margin: 0 8px;
     }
 
     selected-actions {
@@ -229,6 +241,45 @@ export class TitaniumDataTableElement extends LitElement {
     selected-text,
     selected-actions ::slotted(*) {
       margin: 8px;
+    }
+
+    section[row-two] {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      margin: 0 12px 6px 12px;
+    }
+
+    section[row-two] > ::slotted(*) {
+      margin: 6px 0;
+    }
+
+    filter-container {
+      display: flex;
+      flex-direction: row;
+      flex: 1 1 auto;
+
+      overflow: hidden;
+    }
+
+    filter-container > ::slotted(*) {
+      align-self: flex-start;
+      flex-shrink: 0;
+      margin: 6px 0;
+    }
+
+    all-filters {
+      display: flex;
+      flex-direction: row;
+      flex: 1 1 auto;
+      flex-wrap: wrap;
+      align-content: flex-end;
+      padding-bottom: 6px;
+    }
+
+    all-filters > ::slotted(*) {
+      margin: 6px 0 6px 12px;
     }
 
     [spacer] {
@@ -345,18 +396,6 @@ export class TitaniumDataTableElement extends LitElement {
       padding-left: 24px;
     }
 
-    sub-actions {
-      display: flex;
-      flex-wrap: wrap;
-      min-width: 100%;
-      justify-content: flex-end;
-      margin-left: -16px;
-    }
-
-    sub-actions > ::slotted(*) {
-      margin: 8px 0 0 16px;
-    }
-
     :host([single-select]) select-all-checkbox svg[empty] {
       fill: #b9b9b9;
       cursor: not-allowed;
@@ -380,11 +419,21 @@ export class TitaniumDataTableElement extends LitElement {
   render() {
     return html`
       <header>
-        <header-text>${this.header}</header-text>
-        <slot name="table-actions"></slot>
-        <sub-actions>
-          <slot name="table-sub-actions"></slot>
-        </sub-actions>
+        <adaptive-header>
+          <h1>${this.header}</h1>
+          <table-actions>
+            <slot name="table-actions"></slot>
+          </table-actions>
+        </adaptive-header>
+        <section row-two>
+          <filter-container>
+            <slot name="filter-button"></slot>
+            <all-filters>
+              <slot name="filters"></slot>
+            </all-filters>
+          </filter-container>
+          <slot name="search-button"></slot>
+        </section>
         <selected-actions ?hidden="${this.selected.length === 0}">
           <selected-text>${this.selected.length} item${this.selected.length > 1 ? 's' : ''} selected</selected-text>
           <div spacer></div>
