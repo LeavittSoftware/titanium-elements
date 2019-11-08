@@ -68,14 +68,27 @@ storiesOf('UI COMPONENTS|- Titanium Super Demo -', module)
 
         <titanium-header header="Titanium elements" subHeader="One stop shop for everything good" style="padding-top: 60px"></titanium-header>
         <titanium-data-table header="Data table">
-          <titanium-search-input slot="table-actions" ?disabled=${disable}></titanium-search-input>
-          <titanium-svg-button slot="table-actions" ?disabled=${disable} path="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></titanium-svg-button>
+          <titanium-search-input slot="search-button" ?disabled=${disable}></titanium-search-input>
+          <titanium-svg-button slot="filter-button" ?disabled=${disable} path="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></titanium-svg-button>
+          <titanium-svg-button slot="table-actions" path="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></titanium-svg-button>
+
+
+          <titanium-chip label="Hello" closeable slot="filters"></titanium-chip>
+          <titanium-chip label="World" closeable slot="filters"></titanium-chip>
+          <titanium-chip label="Hello" closeable slot="filters"></titanium-chip>
+          <titanium-chip label="World" closeable slot="filters"></titanium-chip>
+          <titanium-chip label="Hello" closeable slot="filters"></titanium-chip>
+          <titanium-chip label="World" closeable slot="filters"></titanium-chip>
 
           <titanium-data-table-header slot="table-headers" large columnName="Name" title="Name" sortBy="Name"></titanium-data-table-header>
           <titanium-data-table-header slot="table-headers" desktop title="Short Name" sortBy="SName"></titanium-data-table-header>
           <titanium-data-table-header slot="table-headers" no-sort desktop title="Type"></titanium-data-table-header>
           <titanium-data-table-header slot="table-headers" no-sort desktop center width="105px" title="Phone Number"></titanium-data-table-header>
           <titanium-data-table-header slot="table-headers" no-sort width="75px" right title="Locations"></titanium-data-table-header>
+
+
+
+
 
           <titanium-data-table-item slot="items">
             <row-item large>Item A</row-item>
