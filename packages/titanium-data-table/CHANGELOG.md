@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@4.0.2...@leavittsoftware/titanium-data-table@5.0.0) (2019-11-08)
+
+
+### Bug Fixes
+
+* property types Boolean ([f7d50dc](https://github.com/LeavittSoftware/titanium-elements/commit/f7d50dc))
+
+
+### Features
+
+* Improved data table header layout ([57cb5e1](https://github.com/LeavittSoftware/titanium-elements/commit/57cb5e1))
+
+
+### BREAKING CHANGES
+
+* Slot 'table-sub-action' REMOVED.  Use slot 'filter' and 'filter-button'
+
+
+
+
+
 ## [4.0.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@4.0.1...@leavittsoftware/titanium-data-table@4.0.2) (2019-10-29)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-data-table
