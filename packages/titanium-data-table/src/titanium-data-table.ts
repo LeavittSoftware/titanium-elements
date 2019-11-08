@@ -16,8 +16,8 @@ export class TitaniumDataTableElement extends LitElement {
 
   @property({ type: Boolean, attribute: 'single-select', reflect: true }) singleSelect: boolean;
   @property({ type: Array }) selected: Array<unknown> = [];
-  @property({ type: Boolean }) isLoading: Boolean = true;
-  @property({ type: Boolean }) largePages: Boolean = false;
+  @property({ type: Boolean }) isLoading: boolean = true;
+  @property({ type: Boolean }) largePages: boolean = false;
   // tslint:disable-next-line: no-any
   @queryAll('table-container') tableContainer: NodeListOf<any>;
 
