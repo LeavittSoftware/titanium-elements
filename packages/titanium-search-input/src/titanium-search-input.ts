@@ -99,6 +99,7 @@ export class TitaniumSearchInput extends LitElement {
     }
 
     input-container input {
+      -webkit-appearance: none;
       width: 100%;
       height: 42px;
       -webkit-font-smoothing: antialiased;
