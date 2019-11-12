@@ -12,7 +12,8 @@
     "storybook": "^1.0.0",
     "ts-jest": "^24.1.0",
     "tslint": "^5.20.0",
-    "typescript": "^3.6.3"
+    "typescript": "^3.6.3",
+    "web-component-analyzer": "^0.1.20"
   },
   "scripts": {
     "test": "jest",
@@ -23,6 +24,6 @@
     "build": "lerna run build --stream",
     "lint": "lerna run lint --stream",
     "storybook": "cd packages/storybook && npm run storybook",
-    "lerna:publish": "npm run bootstrap && npm run build && lerna publish --conventional-commits --yes"
+    "lerna:publish": "npm run bootstrap && npm run build && lerna run gen-docs && lerna publish --conventional-commits --yes"
   }
 }
