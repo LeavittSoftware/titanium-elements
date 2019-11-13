@@ -51,6 +51,10 @@ storiesOf('UI COMPONENTS|titanium-data-table', module)
         >
           <titanium-search-input slot="search-button"></titanium-search-input>
           <titanium-svg-button slot="table-actions" path="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></titanium-svg-button>
+          <titanium-svg-button
+            slot="table-actions"
+            path="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z"
+          ></titanium-svg-button>
 
           <titanium-svg-button slot="filter-button" path="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"></titanium-svg-button>
 
