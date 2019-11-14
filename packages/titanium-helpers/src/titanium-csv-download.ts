@@ -1,5 +1,5 @@
 export const startCsvDownload = (fileName: string, csv: string, context: HTMLElement = document.body) => {
-  if (window.navigator.msSaveBlob) {
+  if (typeof window.navigator.msSaveBlob === 'function') {
     // IE 10+
     window.navigator.msSaveOrOpenBlob(new Blob([csv], { type: 'text/plain;charset=utf-8;' }), fileName);
   } else {
