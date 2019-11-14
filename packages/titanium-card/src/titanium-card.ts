@@ -64,11 +64,19 @@ export const TitaniumCardStyles = css`
   }
 `;
 
+/**
+ * A card with h1,h2,h3 and p styles on-board
+ *
+ * @element titanium-card
+ *
+ * @cssprop --app-border-color - Card border color
+ *
+ * @slot - Card content
+ */
 @customElement('titanium-card')
 export class TitaniumCardElement extends LitElement {
   static styles = css`
-    ${TitaniumCardStyles}
-    :host {
+    ${TitaniumCardStyles} :host {
       display: flex;
       flex-direction: column;
 
