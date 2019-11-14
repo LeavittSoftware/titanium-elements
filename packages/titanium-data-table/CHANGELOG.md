@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@5.0.1...@leavittsoftware/titanium-data-table@5.0.2) (2019-11-14)
+
+
+### Bug Fixes
+
+* align search and tables actions ([7473279](https://github.com/LeavittSoftware/titanium-elements/commit/7473279))
+
+
+
+
+
 ## [5.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@5.0.0...@leavittsoftware/titanium-data-table@5.0.1) (2019-11-12)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-data-table

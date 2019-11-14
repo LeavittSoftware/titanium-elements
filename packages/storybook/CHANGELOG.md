@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.4.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@4.4.4...@leavittsoftware/storybook@4.4.5) (2019-11-14)
+
+
+### Bug Fixes
+
+* align search and tables actions ([7473279](https://github.com/LeavittSoftware/titanium-elements/commit/7473279))
+
+
+
+
+
 ## [4.4.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@4.4.3...@leavittsoftware/storybook@4.4.4) (2019-11-12)
 
 **Note:** Version bump only for package @leavittsoftware/storybook
