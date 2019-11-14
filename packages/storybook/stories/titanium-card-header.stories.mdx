@@ -1,0 +1,52 @@
+import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { html, unsafeCSS } from 'lit-element';
+import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
+import { withWebComponentsKnobs } from '../index.js';
+
+import '@leavittsoftware/titanium-card';
+import '@leavittsoftware/titanium-card/lib/titanium-card-header';
+import { TitaniumCardStyles } from '@leavittsoftware/titanium-card';
+
+<Meta
+  title="UI COMPONENTS|titanium-card-header"
+  decorators={[withKnobs, withWebComponentsKnobs]}
+  parameters={{ component: 'titanium-card-header', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+/>
+
+# Titanium Card Header
+
+A card header with an image
+
+## How to use
+
+```bash
+npm i @leavittsoftware/titanium-card
+```
+
+```js
+import '@leavittsoftware/titanium-card/lib/titanium-card-header';
+```
+
+## API
+
+<Props of="titanium-card-header" />
+
+## Demo
+
+<Preview withToolbar>
+  <Story name="Docs">
+    {html`
+      <style>
+        ${TitaniumCardStyles}
+      </style>
+      <titanium-card>
+        <titanium-card-header>
+          <h1 slot="content">Termination details</h1>
+          <p slot="content">Use this form to terminate active employees. Please carefully answer the questions to ensure an accurate termination.</p>
+          <img slot="image" src="./hire.svg" />
+        </titanium-card-header>
+      </titanium-card>
+    `}
+  </Story>
+</Preview>
