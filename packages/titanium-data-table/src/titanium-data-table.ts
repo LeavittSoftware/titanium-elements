@@ -198,7 +198,7 @@ export class TitaniumDataTableElement extends LitElement {
       justify-content: flex-end;
       flex-wrap: wrap;
       flex: 1 1 150px;
-      padding: 0 12px;
+      padding: 0 4px;
     }
 
     table-actions > ::slotted(*) {
