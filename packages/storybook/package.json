@@ -7,7 +7,7 @@
     "start": "npm run storybook",
     "storybook": "start-storybook -s ./static -p 6006",
     "build-storybook": "build-storybook",
-    "site:build": "npm run gen-docs && build-storybook -o ./site/titanium-elements",
+    "site:build": "npm run gen-docs && build-storybook -s ./static -o ./site/titanium-elements",
     "gen-docs": "wca analyze \"../**/src/*.{ts}\" --format json --outFile custom-elements.json"
   },
   "author": "",
