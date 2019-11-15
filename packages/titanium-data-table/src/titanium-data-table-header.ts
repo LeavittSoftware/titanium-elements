@@ -5,7 +5,7 @@ export class TitaniumDataTableHeaderElement extends LitElement {
   @property() title: string;
   @property() sortBy: string;
   @property({ reflect: true, type: String }) width: string;
-  @property({ reflect: true, type: Boolean }) active: Boolean;
+  @property({ reflect: true, type: Boolean }) active: boolean;
   @property({ reflect: true, type: String, attribute: 'sort-direction' })
   sortDirection: 'asc' | 'desc' | '';
   @property({ attribute: 'column-name' }) columnName: string;
