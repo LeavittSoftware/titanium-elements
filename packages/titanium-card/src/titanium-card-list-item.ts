@@ -8,9 +8,9 @@ import '@material/mwc-ripple';
  *
  * @fires item-click - Fired when the item is clicked
  *
- * @cssprop --app-border-color - Border color
- * @cssprop --app-hover-color - Hover background color
- * @cssprop --app-dark-text-color - Link text color
+ * @cssprop {Color} --app-border-color - Border color
+ * @cssprop {Color} --app-hover-color - Hover background color
+ * @cssprop {Color} --app-dark-text-color - Link text color
  *
  * @slot - Item content (text)
  */
@@ -21,7 +21,7 @@ export class TitaniumCardListItemElement extends LitElement {
   /**
    * Disables element.
    */
-  @property({ type: Boolean, reflect: true, attribute: 'disabled' }) disabled: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'disabled' }) disabled: boolean = false;
 
   static styles = css`
     :host {

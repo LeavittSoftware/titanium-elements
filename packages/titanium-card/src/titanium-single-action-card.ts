@@ -9,9 +9,9 @@ import '@material/mwc-ripple';
  *
  * @fires action-click - Fired when the single action button is clicked
  *
- * @cssprop --app-border-color - Card border color
- * @cssprop --app-link-color - Link text color
- * @cssprop --app-hover-color - Button hover color
+ * @cssprop {Color} --app-border-color - Card border color
+ * @cssprop {Color} --app-link-color - Link text color
+ * @cssprop {Color} --app-hover-color - Button hover color
  */
 
 @customElement('titanium-single-action-card')
@@ -21,7 +21,7 @@ export class TitaniumSingleActionCardElement extends LitElement {
   /**
    * Disables the button on the card.
    */
-  @property({ type: Boolean, reflect: true, attribute: 'disable-action' }) disableAction: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'disable-action' }) disableAction: boolean = false;
 
   static styles = css`
     ${TitaniumCardElement.styles} :host {

@@ -69,7 +69,7 @@ export const TitaniumCardStyles = css`
  *
  * @element titanium-card
  *
- * @cssprop --app-border-color - Card border color
+ * @cssprop {Color} --app-border-color - Card border color
  *
  * @slot - Card content
  */
