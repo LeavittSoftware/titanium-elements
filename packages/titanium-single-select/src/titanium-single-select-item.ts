@@ -1,21 +1,21 @@
 import { css, customElement, html, LitElement, property } from 'lit-element';
 
 @customElement('titanium-single-select-item')
-export class TitaniumSingleSelectItemElement extends LitElement {
-  @property() value: unknown;
+export class TitaniumSingleSelectItemElement<T> extends LitElement {
+  @property({ attribute: false }) value: T;
   @property({ type: Number, reflect: true }) tabindex: number = 0;
 
   firstUpdated() {
-    this.addEventListener('keydown', (e) =>
+    this.addEventListener('keydown', e =>
       this.dispatchEvent(
-        new CustomEvent<{ event: KeyboardEvent; value: unknown }>('titanium-single-select-item-keydown', {
+        new CustomEvent<{ event: KeyboardEvent; value: T }>('titanium-single-select-item-keydown', {
           detail: { event: e, value: this.value },
           composed: true,
           bubbles: true,
         })
       )
     );
-    this.addEventListener('blur', (e) =>
+    this.addEventListener('blur', e =>
       this.dispatchEvent(
         new CustomEvent<FocusEvent>('titanium-single-select-item-blur', {
           detail: e,
@@ -24,9 +24,9 @@ export class TitaniumSingleSelectItemElement extends LitElement {
         })
       )
     );
-    this.addEventListener('click', (e) =>
+    this.addEventListener('click', e =>
       this.dispatchEvent(
-        new CustomEvent<{ event: MouseEvent; value: unknown }>('titanium-single-select-item-click', {
+        new CustomEvent<{ event: MouseEvent; value: T }>('titanium-single-select-item-click', {
           detail: { event: e, value: this.value },
           composed: true,
           bubbles: true,
