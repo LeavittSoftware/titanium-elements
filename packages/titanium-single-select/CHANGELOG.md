@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-single-select@0.0.8...@leavittsoftware/titanium-single-select@1.0.0) (2019-11-18)
+
+
+### Features
+
+* **titanium-single-select:** Adds generics for improved typing ([b1e1e37](https://github.com/LeavittSoftware/titanium-elements/commit/b1e1e3716dd9fc634d6a9b6d18725db0b8cebab6))
+
+
+### BREAKING CHANGES
+
+* **titanium-single-select:** Adds generic type T
+
+
+
+
+
 ## [0.0.8](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-single-select@0.0.7...@leavittsoftware/titanium-single-select@0.0.8) (2019-09-27)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-single-select

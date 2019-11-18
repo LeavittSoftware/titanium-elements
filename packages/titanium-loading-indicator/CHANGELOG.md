@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-loading-indicator@3.1.1...@leavittsoftware/titanium-loading-indicator@3.1.2) (2019-11-18)
+
+
+### Bug Fixes
+
+* Updated lit-element from dependency to peer dependency ([63d3324](https://github.com/LeavittSoftware/titanium-elements/commit/63d332436d677b7e82c6adf91a6e08e29adee32b))
+
+
+
+
+
 ## [3.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-loading-indicator@3.1.0...@leavittsoftware/titanium-loading-indicator@3.1.1) (2019-06-05)
 
 
