@@ -1,14 +1,73 @@
 import { css, customElement, html, LitElement, property } from 'lit-element';
 
+/**
+ * Material design data table header with styling and sorting capabilities
+ *
+ * @element titanium-data-table-header
+ *
+ * @fires sort-direction-changed - Fired if sort direction is changed (detail: 'desc' | 'asc')
+ * @fires sort-by-changed - Fired when the close button is clicked (detail: {string} column name of currently sorted header )
+ *
+ * @cssprop {Color} --app-text-color - Inactive sort icon color
+ * @cssprop {Color} --app-light-text-color - Inactive text color
+ * @cssprop {Color} --app-dark-text-color - Active text color
+ */
 @customElement('titanium-data-table-header')
 export class TitaniumDataTableHeaderElement extends LitElement {
-  @property() title: string;
-  @property() sortBy: string;
+  /**
+   * This displayed header name
+   */
+  @property({ type: String }) title: string;
+
+  /**
+   * The column name of the currently applied sort
+   */
+  @property({ type: String }) sortBy: string;
+
+  /**
+   * Optional fixed width of header in px  ex. "140px"
+   */
   @property({ reflect: true, type: String }) width: string;
-  @property({ reflect: true, type: Boolean }) active: boolean;
-  @property({ reflect: true, type: String, attribute: 'sort-direction' })
-  sortDirection: 'asc' | 'desc' | '';
-  @property({ attribute: 'column-name' }) columnName: string;
+
+  /**
+   * True if header is currently the sorted column. Read-only, do not set.
+   */
+  @property({ type: Boolean, reflect: true }) active: boolean = false;
+
+  /**
+   * Current sort direction on header.
+   */
+  @property({ type: String, reflect: true, attribute: 'sort-direction' }) sortDirection: 'asc' | 'desc' | '';
+
+  /**
+   * Name of header column passed along in sort-by-changed event.  Typically the name of the col in the backing DB. ex. first_name
+   */
+  @property({ type: String, attribute: 'column-name' }) columnName: string;
+
+  /**
+   * Justify header text center
+   */
+  @property({ type: Boolean, reflect: true }) center: boolean = false;
+
+  /**
+   * Justify header text right; moves sort icon to left.
+   */
+  @property({ type: Boolean, reflect: true }) right: boolean = false;
+
+  /**
+   * Removes the sort icon
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'no-sort' }) noSort: boolean = false;
+
+  /**
+   * Set flex 5 on header, default is 3.
+   */
+  @property({ type: Boolean, reflect: true }) large: boolean = false;
+
+  /**
+   * Only show this header on desktop via view port size. (max-width: 768px)
+   */
+  @property({ type: Boolean, reflect: true }) desktop: boolean = false;
 
   updated(changedProps) {
     if (changedProps.has('sortBy') && changedProps.get('sortBy') !== this.sortBy) {
