@@ -1,12 +1,41 @@
 import { css, customElement, html, LitElement, property } from 'lit-element';
 import '@leavittsoftware/titanium-svg-button';
 
+/**
+ * Material design inspired chips.
+ *
+ * @element titanium-chip
+ *
+ * @slot chip-icon - Optional chip icon (replaces the image if src was provided)
+ *
+ * @fires titanium-chip-close - Fired when the close button is clicked
+ *
+ * @cssprop {Color} --app-border-color - Chip border color
+ * @cssprop {Color} --app-text-color - Label color
+ * @cssprop {Color} --titanium-chip-label-background-color - Chip background color
+ * @cssprop {Color} --app-hover-color - Hover background color
+ */
 @customElement('titanium-chip')
 export class TitaniumChipElement extends LitElement {
+  /**
+   * Main text of the chip
+   */
   @property({ type: String }) label: string;
+
+  /**
+   * Optional:  src to image that will prefix the label
+   */
   @property({ type: String }) src: string | undefined;
+
+  /**
+   * Disables element.
+   */
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
-  @property({ type: Boolean, reflect: true }) closeable: boolean;
+
+  /**
+   * Adds close button to the chip when true.
+   */
+  @property({ type: Boolean, reflect: true }) closeable: boolean = false;
 
   disable() {
     this.disabled = !this.disabled;
@@ -101,7 +130,11 @@ export class TitaniumChipElement extends LitElement {
   render() {
     return html`
       <slot slot="chip-icon" name="chip-icon">
-        <img src=${this.src} ?hidden=${!this.src} />
+        ${this.src
+          ? html`
+              <img src=${this.src} />
+            `
+          : ''}
       </slot>
       <label>${this.label}</label>
       <titanium-svg-button

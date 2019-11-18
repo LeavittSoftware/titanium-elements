@@ -1,0 +1,41 @@
+import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { html } from 'lit-html';
+import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
+import { withWebComponentsKnobs } from '../index.js';
+
+import '@leavittsoftware/titanium-chip';
+
+<Meta
+  title="UI COMPONENTS|titanium-chip"
+  decorators={[withKnobs, withWebComponentsKnobs]}
+  parameters={{ component: 'titanium-chip', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+/>
+
+# Titanium Chip
+
+Material design inspired chips.
+
+## How to use
+
+```bash
+npm i @leavittsoftware/titanium-chip
+```
+
+```js
+import '@leavittsoftware/titanium-chip';
+```
+
+## API
+
+<Props of="titanium-chip" />
+
+## Demo
+
+<Preview withToolbar>
+  <Story name="Docs">
+    {html`
+      <titanium-chip label="James Franco" src="https://mapi.leavitt.com/People(771130)/Default.Picture(size=32)"></titanium-chip>
+    `}
+  </Story>
+</Preview>
