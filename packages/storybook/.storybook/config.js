@@ -1,30 +1,38 @@
-import { configure, addDecorator } from '@storybook/polymer';
-import { makeDecorator } from '@storybook/addons';
-import { withCssResources } from '@storybook/addon-cssresources';
+/* global window */
 
-addDecorator(withCssResources);
-const litDecorator = makeDecorator({
-  name: 'lit',
-  parameterName: 'exports',
-  skipIfNoParametersOrOptions: true,
-  wrapper: (getStory, context, { parameters }) => {
-    const component = getStory();
-    if (!(component instanceof HTMLElement)) {
-      const { render } = parameters;
-      const el = document.createElement('section'); // this element probably can br reused.
-      render(component, el);
-      return el;
-    }
+import { configure, addParameters, addDecorator, setCustomElements } from '@storybook/web-components';
+import { withA11y } from '@storybook/addon-a11y';
 
-    return getStory(context);
+import customElements from '../custom-elements.json';
+setCustomElements(customElements);
+
+addDecorator(withA11y);
+
+addParameters({
+  a11y: {
+    config: {},
+    options: {
+      checks: { 'color-contrast': { options: { noScroll: true } } },
+      restoreScroll: true,
+    },
+  },
+  options: {
+    hierarchyRootSeparator: /\|/,
+  },
+  docs: {
+    iframeHeight: '200px',
   },
 });
-addDecorator(litDecorator);
 
-// automatically import all files ending in *.stories.js
-const req = require.context('../stories', true, /\.stories\.js$/);
-function loadStories() {
-  req.keys().forEach(filename => req(filename));
+// configure(require.context('../stories', true, /\.stories\.(js|mdx)$/), module);
+
+// force full reload to not reregister web components
+const req = require.context('../stories', true, /\.stories\.(js|mdx)$/);
+configure(req, module);
+if (module.hot) {
+  module.hot.accept(req.id, () => {
+    const currentLocationHref = window.location.href;
+    window.history.pushState(null, null, currentLocationHref);
+    window.location.reload();
+  });
 }
-
-configure(loadStories, module);

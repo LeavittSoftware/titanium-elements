@@ -1,0 +1,65 @@
+import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { html } from 'lit-html';
+import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
+import { withWebComponentsKnobs } from '../index.js';
+
+import '@leavittsoftware/titanium-card/lib/titanium-card-list-item';
+import '@leavittsoftware/titanium-card/';
+
+<Meta
+  title="UI COMPONENTS|titanium-card-list-item"
+  decorators={[withKnobs, withWebComponentsKnobs]}
+  parameters={{ component: 'titanium-card', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+/>
+
+# Titanium Card List Item
+
+A styled list item for use in titanium-card.
+
+## How to use
+
+```bash
+npm i @leavittsoftware/titanium-card
+```
+
+```js
+import '@leavittsoftware/titanium-card/lib/titanium-card-list-item';
+```
+
+## API
+
+<Props of="titanium-card-list-item" />
+
+## Demo
+
+<Preview withToolbar>
+  <Story name="Docs">
+    {html`
+      <titanium-card>
+        <h1>Manage payment methods</h1>
+        <titanium-card-list-item title="Mastercard">
+          <div>Mastercard</div>
+          <div spacer></div>
+          <svg viewBox="0 0 24 24" style="height: 24px; width: 24px; flex-shrink: 0;">
+            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+          </svg>
+        </titanium-card-list-item>
+        <titanium-card-list-item title="Visa">
+          <div>Visa</div>
+          <div spacer></div>
+          <svg viewBox="0 0 24 24" style="height: 24px; width: 24px; flex-shrink: 0;">
+            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+          </svg>
+        </titanium-card-list-item>
+        <titanium-card-list-item title="Discover">
+          <div>Discover</div>
+          <div spacer></div>
+          <svg viewBox="0 0 24 24" style="height: 24px; width: 24px; flex-shrink: 0; fill: #5f6368">
+            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+          </svg>
+        </titanium-card-list-item>
+      </titanium-card>
+    `}
+  </Story>
+</Preview>

@@ -7,23 +7,23 @@
     "@types/node": "^12.7.7",
     "jest": "^24.9.0",
     "lerna": "^3.16.4",
-    "lit-element": "^2.1.1",
+    "lit-element": "^2.2.1",
     "npm-run-all": "^4.1.5",
     "storybook": "^1.0.0",
     "ts-jest": "^24.1.0",
-    "tslint": "^5.20.0",
-    "typescript": "^3.6.3",
-    "web-component-analyzer": "^0.1.20"
+    "tslint": "^5.20.1",
+    "typescript": "^3.7.2"
   },
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
-    "start": "npm run bootstrap && npm run build && run-p storybook build:watch",
+    "start": "npm run bootstrap && run-p build:watch storybook ",
     "bootstrap": "lerna bootstrap --ci --hoist",
-    "build:watch": "lerna run build:watch --stream --parallel",
-    "build": "lerna run build --stream",
+    "build:watch": "tsc --build --preserveWatchOutput -w",
+    "build": "tsc --build --preserveWatchOutput",
     "lint": "lerna run lint --stream",
-    "storybook": "cd packages/storybook && npm run storybook",
+    "storybook": "cd packages/storybook && npm run start",
+    "build:storybook": "npm run bootstrap && npm run build && lerna run site:build",
     "lerna:publish": "npm run bootstrap && npm run build && lerna run gen-docs && lerna publish --conventional-commits --yes"
   }
 }

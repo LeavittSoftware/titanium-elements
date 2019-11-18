@@ -1,9 +1,27 @@
 ﻿import { css, customElement, html, LitElement, property } from 'lit-element';
 import '@material/mwc-ripple';
 
+/**
+ * A list item for use inside a titanium-card
+ *
+ * @element titanium-card-list-item
+ *
+ * @fires item-click - Fired when the item is clicked
+ *
+ * @cssprop {Color} --app-border-color - Border color
+ * @cssprop {Color} --app-hover-color - Hover background color
+ * @cssprop {Color} --app-dark-text-color - Link text color
+ *
+ * @slot - Item content (text)
+ */
 @customElement('titanium-card-list-item')
 export class TitaniumCardListItemElement extends LitElement {
-  @property({ type: String }) title = '';
+  @property({ type: String }) title: string;
+
+  /**
+   * Disables element.
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'disabled' }) disabled: boolean = false;
 
   static styles = css`
     :host {

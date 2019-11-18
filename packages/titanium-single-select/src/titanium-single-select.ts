@@ -3,7 +3,7 @@ import '@leavittsoftware/titanium-svg-button';
 import '@leavittsoftware/titanium-progress';
 
 @customElement('titanium-single-select')
-export class TitaniumSingleSelectElement extends LitElement {
+export class TitaniumSingleSelectElement<T> extends LitElement {
   @property({ type: Boolean, reflect: true }) disableFullScreen: boolean;
   @property({ type: Boolean, reflect: true }) protected invalid: boolean = true;
   @property({ type: Boolean, reflect: true }) protected open: boolean;
@@ -16,7 +16,7 @@ export class TitaniumSingleSelectElement extends LitElement {
   @property({ type: Number }) totalCount: number;
   @property({ type: String }) itemLabelPath: string = 'Label';
 
-  @property() selected: unknown;
+  @property({ attribute: false }) selected: T | null = null;
   @query('input') input: HTMLInputElement;
   @query('slot') slotElement: HTMLSlotElement;
   @query('search-suggestions ') searchSuggestions: HTMLSlotElement;
@@ -25,17 +25,17 @@ export class TitaniumSingleSelectElement extends LitElement {
 
   firstUpdated() {
     this.slotElement.addEventListener('titanium-single-select-item-blur', () => this._blurHandler());
-    this.slotElement.addEventListener('titanium-single-select-item-keydown', (e: CustomEvent<{ event: KeyboardEvent; value: unknown }>) =>
+    this.slotElement.addEventListener('titanium-single-select-item-keydown', (e: CustomEvent<{ event: KeyboardEvent; value: T }>) =>
       this._onKeyDown(e.detail.event, e.detail.value)
     );
-    this.slotElement.addEventListener('titanium-single-select-item-click', (e: CustomEvent<{ event: MouseEvent; value: unknown }>) =>
+    this.slotElement.addEventListener('titanium-single-select-item-click', (e: CustomEvent<{ event: MouseEvent; value: T }>) =>
       this._setSelected(e.detail.value)
     );
   }
 
   updated(changedProps) {
     if (changedProps.has('selected') && changedProps.get('selected') !== this.selected) {
-      this.input.value = this.selected && typeof this.selected === 'object' ? (this.selected as object)[this.itemLabelPath] || '' : '';
+      this.input.value = this.selected && typeof this.selected === 'object' ? this.selected[this.itemLabelPath] || '' : '';
     }
 
     if (changedProps.has('open') && changedProps.get('open') !== this.open) {
@@ -85,7 +85,7 @@ export class TitaniumSingleSelectElement extends LitElement {
     window.addEventListener('resize', () => this._resizeHandler());
   }
 
-  private _setSelected(value: unknown) {
+  private _setSelected(value: T | null) {
     this.selected = value;
     this.open = false;
     this.inputValue = '';
@@ -112,7 +112,7 @@ export class TitaniumSingleSelectElement extends LitElement {
     }, 300);
   }
 
-  private _onKeyDown(e: KeyboardEvent, value?: unknown) {
+  private _onKeyDown(e: KeyboardEvent, value: T) {
     this.open = true;
     switch (e.keyCode) {
       case 27: {

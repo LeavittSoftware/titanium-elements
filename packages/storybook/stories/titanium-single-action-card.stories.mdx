@@ -1,0 +1,47 @@
+import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { html } from 'lit-html';
+import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
+import { withWebComponentsKnobs } from '../index.js';
+
+import '@leavittsoftware/titanium-card/lib/titanium-single-action-card';
+
+<Meta
+  title="UI COMPONENTS|titanium-single-action-card"
+  decorators={[withKnobs, withWebComponentsKnobs]}
+  parameters={{ component: 'titanium-single-action-card', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+/>
+
+# Titanium Single Action Card
+
+A card with a built-in button on the bottom
+
+## How to use
+
+```bash
+npm i @leavittsoftware/titanium-card
+```
+
+```js
+import '@leavittsoftware/titanium-card/lib/titanium-single-action-card';
+```
+
+## API
+
+<Props of="titanium-single-action-card" />
+
+## Demo
+
+<Preview withToolbar>
+  <Story name="Docs">
+    {html`
+      <titanium-single-action-card buttonTitle="Manage your data">
+        <h1>Privacy & personalization</h1>
+        <p>
+          Nulla posuere lacus luctus, fringilla orci vel, laoreet felis. Maecenas imperdiet urna eu consequat lobortis. Sed at ornare nibh. Donec justo urna,
+          iaculis a interdum id, luctus sit amet mi. Aenean eu metus sed ligula egestas tincidunt.
+        </p>
+      </titanium-single-action-card>
+    `}
+  </Story>
+</Preview>

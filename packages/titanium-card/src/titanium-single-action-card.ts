@@ -2,14 +2,29 @@
 import { TitaniumCardElement } from './titanium-card';
 import '@material/mwc-ripple';
 
+/**
+ * A card with a built-in button on the bottom
+ *
+ * @element titanium-single-action-card
+ *
+ * @fires action-click - Fired when the single action button is clicked
+ *
+ * @cssprop {Color} --app-border-color - Card border color
+ * @cssprop {Color} --app-link-color - Link text color
+ * @cssprop {Color} --app-hover-color - Button hover color
+ */
+
 @customElement('titanium-single-action-card')
 export class TitaniumSingleActionCardElement extends LitElement {
-  @property({ type: String }) buttonTitle;
+  @property({ type: String }) buttonTitle: string;
+
+  /**
+   * Disables the button on the card.
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'disable-action' }) disableAction: boolean = false;
 
   static styles = css`
-    ${TitaniumCardElement.styles}
-
-    :host {
+    ${TitaniumCardElement.styles} :host {
       display: flex;
       flex-direction: column;
 
