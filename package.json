@@ -18,9 +18,9 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
-    "start": "npm run bootstrap && npm run build && run-p storybook build:watch",
+    "start": "npm run bootstrap && run-p build:watch storybook ",
     "bootstrap": "lerna bootstrap --ci --hoist",
-    "build:watch": "lerna run build:watch --stream --parallel",
+    "build:watch": "tsc --build --preserveWatchOutput -w",
     "build": "tsc --build --preserveWatchOutput",
     "lint": "lerna run lint --stream",
     "storybook": "cd packages/storybook && npm run start",
