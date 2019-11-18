@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-card@1.1.6...@leavittsoftware/titanium-card@1.2.0) (2019-11-18)
+
+
+### Features
+
+* Adds new titanium-card-header element ([0aa22d5](https://github.com/LeavittSoftware/titanium-elements/commit/0aa22d56be34a9c838b8fc219dd91e95ca693d2f))
+
+
+
+
+
 ## [1.1.6](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-card@1.1.5...@leavittsoftware/titanium-card@1.1.6) (2019-10-29)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-card

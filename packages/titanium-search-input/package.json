@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-search-input",
   "description": "",
   "author": "Leavitt Software",
-  "version": "3.0.6",
+  "version": "3.0.7",
   "license": "MIT",
   "main": "lib/titanium-search-input.js",
   "typings": "lib/titanium-search-input.d.ts",
@@ -19,7 +19,7 @@
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
   "dependencies": {
-    "@leavittsoftware/titanium-svg-button": "^3.0.3"
+    "@leavittsoftware/titanium-svg-button": "^3.0.4"
   },
   "peerDependencies": {
     "lit-element": ">=2.1.0"

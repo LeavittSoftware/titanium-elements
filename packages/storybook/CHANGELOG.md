@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@4.4.5...@leavittsoftware/storybook@4.5.0) (2019-11-18)
+
+
+### Bug Fixes
+
+* Fix crash header of story ([0e7f76e](https://github.com/LeavittSoftware/titanium-elements/commit/0e7f76e4b56bf23a15950523f4de538ba781be4b))
+
+
+### Features
+
+* Upgrades to Storybook 4.3 alpha auto-gen knobs ([6bcc7ce](https://github.com/LeavittSoftware/titanium-elements/commit/6bcc7ced67b60f507c7e326cd79c4068894bc251))
+
+
+
+
+
 ## [4.4.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@4.4.4...@leavittsoftware/storybook@4.4.5) (2019-11-14)
 
 

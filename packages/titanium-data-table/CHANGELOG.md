@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@5.0.2...@leavittsoftware/titanium-data-table@5.0.3) (2019-11-18)
+
+
+### Bug Fixes
+
+* improper type ([bead92c](https://github.com/LeavittSoftware/titanium-elements/commit/bead92c83451b800326bdc600d21b34d57f99545))
+
+
+
+
+
 ## [5.0.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@5.0.1...@leavittsoftware/titanium-data-table@5.0.2) (2019-11-14)
 
 
