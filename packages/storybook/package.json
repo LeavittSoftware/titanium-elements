@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "run-p gen-docs:watch storybook:start",
+    "start": "npm run gen-docs && run-p  gen-docs:watch storybook:start",
     "storybook:start": "start-storybook -s ./static -p 6006",
     "build-storybook": "build-storybook",
     "site:build": "npm run gen-docs && build-storybook -s ./static -o ./site/titanium-elements",
