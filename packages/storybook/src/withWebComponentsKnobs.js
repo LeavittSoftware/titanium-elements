@@ -3,6 +3,7 @@ import { render } from 'lit-html';
 import { elementUpdated } from '@open-wc/testing-helpers/index-no-side-effects.js';
 import { array, boolean, color, date, text, number, object } from '@storybook/addon-knobs';
 import { manager } from '@storybook/addon-knobs/dist/registerKnobs.js';
+import { action, ActionOptions } from '@storybook/addon-actions';
 
 function getType(meta) {
   let type = 'string';
@@ -38,6 +39,12 @@ function getLabel({ meta, elIndex, filterProperties }) {
   return meta.name;
 }
 
+function isValidPropertyType(type) {
+  console.log(type);
+  const validTypes = ['string', 'number', 'array', 'boolean', 'object', 'object[]', 'date'];
+  return validTypes.includes(type);
+}
+
 function propertiesToKnobs({ el, elIndex, metaData, hasMultiple, filterProperties }) {
   if (metaData && metaData.properties) {
     const properties = filterProperties ? metaData.properties.filter(prop => filterProperties.includes(prop.name)) : metaData.properties;
@@ -63,7 +70,7 @@ function propertiesToKnobs({ el, elIndex, metaData, hasMultiple, filterPropertie
             el[propName] = boolean(label, el[propName], group);
             break;
           case 'object':
-          case 'array<object>':
+          case 'object[]':
             el[propName] = object(label, el[propName], group);
             break;
           case 'date':
@@ -127,15 +134,17 @@ function isValidMetaData(customElements) {
 }
 
 function syncElToKnobs(el, elIndex, metaData, multiple, filterProperties) {
-  if (metaData.properties) {
-    const properties = filterProperties ? metaData.properties.filter(prop => filterProperties.includes(prop.name)) : metaData.properties;
-    properties.forEach(property => {
-      const group = getGroupName(property, elIndex, 'Properties', multiple, filterProperties);
-      const label = getLabel({ meta: property, elIndex, filterProperties });
-      const knobsName = `${label}_${group}`;
-      manager.knobStore.update(knobsName, { value: el[property.name] });
-    });
-  }
+  // if (metaData.properties) {
+  //   const properties = filterProperties ? metaData.properties.filter(prop => filterProperties.includes(prop.name)) : metaData.properties;
+  //   properties
+  //     .filter(o => isValidPropertyType(getType(o)))
+  //     .forEach(property => {
+  //       const group = getGroupName(property, elIndex, 'Properties', multiple, filterProperties);
+  //       const label = getLabel({ meta: property, elIndex, filterProperties });
+  //       const knobsName = `${label}_${group}`;
+  //       manager.knobStore.update(knobsName, { value: el[property.name] });
+  //     });
+  // }
   // // TODO: find a way to update css
   // if (metaData.cssProperties) {
   //   metaData.cssProperties.forEach(property => {
@@ -143,11 +152,10 @@ function syncElToKnobs(el, elIndex, metaData, multiple, filterProperties) {
   //     const knobsName = `${property.name}_${group}`;
   //     const style = window.getComputedStyle(el);
   //     const value = style.getPropertyValue(property);
-
   //     manager.knobStore.update(knobsName, { value });
   //   });
   // }
-  manager._mayCallChannel();
+  // manager._mayCallChannel();
 }
 
 export function withWebComponentsKnobs(storyFn, data) {
@@ -168,7 +176,6 @@ export function withWebComponentsKnobs(storyFn, data) {
     render(storyFn(), wrapper);
 
     const wcTags = Array.from(wrapper.querySelectorAll(querySelectorAll)).filter(node => node.tagName.includes('-'));
-
     if (wcTags.length === 0) {
       throw new Error(`The provided querySelectorString "${querySelectorAll}" did
         not select any custom elements (with a "-" in the tag name)`);
@@ -188,11 +195,13 @@ export function withWebComponentsKnobs(storyFn, data) {
       });
 
       if (metaData) {
-        const defaultEventNames = ['click', 'focusin', 'focusout', 'keyup'];
+        const defaultEventNames = []; // ['click', 'focusin', 'focusout', 'keyup'];
         const userEventNames = metaData.events ? metaData.events.map(item => item.name) : [];
         const uniqueEventNames = [...new Set([...defaultEventNames, ...userEventNames])];
+
         uniqueEventNames.forEach(evName => {
-          el.addEventListener(evName, () => {
+          el.addEventListener(evName, e => {
+            console.log('event: ', evName, e);
             syncElToKnobs(el, elIndex, metaData, hasMultiple, filterProperties);
           });
         });
