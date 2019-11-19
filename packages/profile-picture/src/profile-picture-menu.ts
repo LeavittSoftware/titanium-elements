@@ -6,15 +6,40 @@ import { UserManagerUpdatedEvent } from '@leavittsoftware/user-manager/lib/user-
 import { css, customElement, html, LitElement, property } from 'lit-element';
 import { styleMap } from 'lit-html/directives/style-map';
 
+/**
+ * Profile picture menu for the Leavitt Group
+ *
+ * @element profile-picture-menu
+ *
+ * @cssprop {Color} --app-dark-text-color - User's name color
+ * @cssprop {Color} --app-text-color - Email address color
+ * @cssprop {Color} --app-border-color - divider line color
+ */
 @customElement('profile-picture-menu')
 export class ProfilePictureMenuElement extends LitElement {
+  /**
+   * Size in pixels of profile picture button
+   */
   @property({ type: Number }) size: number = 40;
+
+  /**
+   * Person id of user
+   */
   @property({ type: Number }) personId: number = 0;
+
+  /**
+   * Email address of user
+   */
   @property({ type: String }) email: string = '';
+
+  /**
+   * Full name of user
+   */
   @property({ type: String }) name: string = '';
-  @property({ type: Boolean, reflect: true }) opened: boolean;
-  @property({ type: Boolean, reflect: true }) protected opening: boolean;
-  @property({ type: Boolean, reflect: true }) protected closing: boolean;
+
+  @property({ type: Boolean, reflect: true }) protected opened: boolean = false;
+  @property({ type: Boolean, reflect: true }) protected opening: boolean = false;
+  @property({ type: Boolean, reflect: true }) protected closing: boolean = false;
 
   private _animationTimer: number;
   private _animationFrame: number;
@@ -220,10 +245,6 @@ export class ProfilePictureMenuElement extends LitElement {
     slot-container {
       display: flex;
       flex-direction: column;
-    }
-
-    titanium-button {
-      --titanium-button-text-color: #2196f3;
     }
 
     titanium-button[account] {
