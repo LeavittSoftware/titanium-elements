@@ -1,13 +1,30 @@
 ﻿import { isDevelopment } from '@leavittsoftware/titanium-helpers/lib/titanium-dev-detection';
 import { css, customElement, html, LitElement, property } from 'lit-element';
 
+/**
+ * Displays a Leavitt Group users profile picture
+ *
+ * @element profile-picture
+ *
+ */
 @customElement('profile-picture')
 export class ProfilePictureElement extends LitElement {
+  /**
+   * Person id of user
+   */
   @property({ type: Number }) personId: number = 0;
-  @property({ reflect: true, type: String }) shape: string = 'circle';
+
+  /**
+   * Shape of profile picture
+   */
+  @property({ reflect: true, type: String }) shape: 'circle' | 'square' = 'circle';
+
+  /**
+   * Size in pixels of profile picture
+   */
   @property({ type: Number }) size: number = 120;
 
-  private availableSizes = new Set([32, 64, 128, 256, 512, 1024]);
+  private _availableSizes = new Set([32, 64, 128, 256, 512, 1024]);
 
   _computeSrc(personId: number, size: number): string | undefined {
     if (!personId) {
@@ -18,7 +35,7 @@ export class ProfilePictureElement extends LitElement {
   }
 
   private determineSize(size: number) {
-    const availableSizes = [...this.availableSizes];
+    const availableSizes = [...this._availableSizes];
     for (let index = 0; index < availableSizes.length; index++) {
       const availableSize = availableSizes[index];
       if (size <= availableSize) {

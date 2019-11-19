@@ -4,17 +4,17 @@ import { html } from 'lit-html';
 import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
 import { withWebComponentsKnobs } from '../index.js';
 
-import '@leavittsoftware/profile-picture/lib/profile-picture-menu';
+import '@leavittsoftware/profile-picture/lib/profile-picture';
 
 <Meta
-  title="UI COMPONENTS|profile-picture-menu"
+  title="UI COMPONENTS|profile-picture"
   decorators={[withKnobs, withWebComponentsKnobs]}
-  parameters={{ component: 'profile-picture-menu', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+  parameters={{ component: 'profile-picture', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
 />
 
-# Profile Picture Menu
+# Profile Picture
 
-Material design inspired chips.
+Displays a Leavitt Group users profile picture
 
 ## How to use
 
@@ -23,20 +23,22 @@ npm i @leavittsoftware/profile-picture
 ```
 
 ```js
-import '@leavittsoftware/profile-picture/lib/profile-picture-menu';
+import '@leavittsoftware/profile-picture/lib/profile-picture';
 ```
 
 ## API
 
-<Props of="profile-picture-menu" />
+<Props of="profile-picture" />
 
 ## Demo
 
 <Preview withToolbar>
   <Story name="Docs" height="400px">
     {html`
-      <user-manager></user-manager>
-      <profile-picture-menu style="float:right"> </profile-picture-menu>
+      <profile-picture size="64" personId="771130" shape="square"> </profile-picture>
+      <br />
+      <br />
+      <profile-picture size="128" personId="11056" shape="circle"> </profile-picture>
     `}
   </Story>
 </Preview>
