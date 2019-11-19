@@ -1,15 +1,31 @@
 ﻿import { isDevelopment } from '@leavittsoftware/titanium-helpers/lib/titanium-dev-detection';
-import { css, customElement, html, LitElement, property} from 'lit-element';
+import { css, customElement, html, LitElement, property } from 'lit-element';
 
 @customElement('profile-picture')
 export class ProfilePictureElement extends LitElement {
-  @property({ type: Number }) personId: number = 44;
+  @property({ type: Number }) personId: number = 0;
   @property({ reflect: true, type: String }) shape: string = 'circle';
   @property({ type: Number }) size: number = 120;
 
-  _computeSrc(personId: number, size: number): string {
+  private availableSizes = new Set([32, 64, 128, 256, 512, 1024]);
+
+  _computeSrc(personId: number, size: number): string | undefined {
+    if (!personId) {
+      return undefined;
+    }
     const baseUrl = isDevelopment ? 'https://devmapi.leavitt.com/' : 'https://mapi.leavitt.com/';
-    return `${baseUrl}People(${personId})/Default.Picture(size=${size})`;
+    return `${baseUrl}People(${personId})/Default.Picture(size=${this.determineSize(size)})`;
+  }
+
+  private determineSize(size: number) {
+    const availableSizes = [...this.availableSizes];
+    for (let index = 0; index < availableSizes.length; index++) {
+      const availableSize = availableSizes[index];
+      if (size <= availableSize) {
+        return availableSize;
+      }
+    }
+    return 1024;
   }
 
   updated(changedProps) {
@@ -39,13 +55,14 @@ export class ProfilePictureElement extends LitElement {
 
     :host([shape='circle']) img {
       border-radius: 50%;
-      cursor: pointer;
     }
   `;
 
   render() {
-    return html`
-      <img draggable="false" alt="Profile Picture" src="${this._computeSrc(this.personId, this.size)}" />
-    `;
+    return this.personId
+      ? html`
+          <img draggable="false" alt="Profile Picture" src=${this._computeSrc(this.personId, this.size)} />
+        `
+      : html``;
   }
 }
