@@ -4,22 +4,83 @@ import '@leavittsoftware/titanium-loading-indicator';
 import { css, customElement, html, LitElement, property, queryAll } from 'lit-element';
 import { TitaniumDataTableItemElement } from './titanium-data-table-item';
 
+/**
+ * Material design inspired data table with paging, sorting, multi/single select, table actions, selected actions and more!
+ *
+ * @element titanium-data-table
+ *
+ * @fires selected-changed - Fired when a row or rows in the data table is selected. detail: array<unknown>
+ * @fires page-changed - Fired when item is selected.  detail: { isSelected: boolean, item: unknown }
+ * @fires take-changed - Fired when item is selected.  detail: { isSelected: boolean, item: unknown }
+ *
+ * @slot table-actions - item nonspecific table buttons such as add new item
+ * @slot filter-button - filter button slot
+ * @slot filters - filter chips slot
+ * @slot search-button -  search button slot
+ * @slot selected-actions -  item specific table buttons such as edit, delete shown when one or more items are selected
+ * @slot table-headers - slot for table headers (ex. titanium-data-table-header)
+ * @slot items - slot for table rows (ex. titanium-data-table-item)
+ *
+ * @cssprop {Color} --app-text-color - No results text color
+ * @cssprop {Color} --app-dark-text-color - Heading and table control color
+ * @cssprop {Color} --app-light-text-color - Select all checkbox fill color
+ * @cssprop {Color} --app-border-color - Table border color
+ */
 @customElement('titanium-data-table')
 export class TitaniumDataTableElement extends LitElement {
+  /**
+   * Table heading / title
+   */
   @property({ type: String }) header: string;
+
+  /**
+   * Current page of data the table is on
+   */
   @property({ type: Number }) page: number = 0;
+
+  /**
+   * Total number of items in all pages.
+   */
   @property({ type: Number }) count: number;
+
+  /**
+   * Current items displayed on the table.
+   */
   @property({ type: Array }) items: Array<unknown> = [];
 
+  /**
+   * Current search term shown in the no result state if no results are found
+   */
   @property({ type: String }) searchTerm: string;
-  @property({ type: Number }) private take: number;
 
+  /**
+   * Limits table selection mode to single-select.  Default is multi-select.
+   */
   @property({ type: Boolean, attribute: 'single-select', reflect: true }) singleSelect: boolean;
+
+  /**
+   * Disables all item section on the data-table.
+   */
+  @property({ type: Boolean, attribute: 'disable-select' }) disableSelect: boolean = false;
+
+  /**
+   * Array of currently selected data table objects
+   */
   @property({ type: Array }) selected: Array<unknown> = [];
+
+  /**
+   * When set to true, the loading state is shown.
+   */
   @property({ type: Boolean }) isLoading: boolean = true;
+
+  /**
+   * Allows page sizes of 100 and 500 to be selected in addition to the standard sizes of 10, 15, 20, and 50.
+   */
   @property({ type: Boolean }) largePages: boolean = false;
+
   // tslint:disable-next-line: no-any
-  @queryAll('table-container') tableContainer: NodeListOf<any>;
+  @queryAll('table-container') private _tableContainer: NodeListOf<any>;
+  @property({ type: Number }) private take: number;
 
   connectedCallback() {
     super.connectedCallback();
@@ -42,7 +103,8 @@ export class TitaniumDataTableElement extends LitElement {
     }
   }
 
-  private _handleItemSelectionChange(e: CustomEvent<{ item: unknown; isSelected: boolean }>) {
+  // tslint:disable-next-line: no-any
+  private _handleItemSelectionChange(e: any) {
     e.stopPropagation();
 
     if (e.detail.isSelected) {
@@ -143,7 +205,7 @@ export class TitaniumDataTableElement extends LitElement {
   }
 
   private _getTableItems(): Array<TitaniumDataTableItemElement> {
-    return this.tableContainer[0]
+    return this._tableContainer[0]
       .querySelector('slot[name="items"]')
       .assignedNodes()
       .filter(o => typeof o.select === 'function' || typeof o.deselect === 'function');
