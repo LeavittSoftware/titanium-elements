@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/profile-picture@3.1.14...@leavittsoftware/profile-picture@4.0.0) (2019-11-19)
+
+
+### Features
+
+* **profile-picture:** Only attempts to fetch available size pictures ([8ee68ea](https://github.com/LeavittSoftware/titanium-elements/commit/8ee68ea348f655de45caa9eefaf8a95ce59ec606))
+* **profile-picture-menu:**  style refresh; optimizes network calls. ([ea68028](https://github.com/LeavittSoftware/titanium-elements/commit/ea68028f6f6c3391ec6d15ceec6aedc5611d0a5d))
+
+
+### BREAKING CHANGES
+
+* **profile-picture:** removes: cursor pointer; will not show anything until person id is set.
+
+
+
+
+
 ## [3.1.14](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/profile-picture@3.1.13...@leavittsoftware/profile-picture@3.1.14) (2019-11-18)
 
 **Note:** Version bump only for package @leavittsoftware/profile-picture

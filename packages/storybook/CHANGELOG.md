@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.6.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@4.5.0...@leavittsoftware/storybook@4.6.0) (2019-11-19)
+
+
+### Bug Fixes
+
+* **storybook:** Disable manager.knobStore.update for now.  ([2b543cc](https://github.com/LeavittSoftware/titanium-elements/commit/2b543cc75da34025460fd68f0ca6e8c24e0d7a62))
+
+
+### Features
+
+* **storybook:** Load fonts on all demos. ([0aa99f7](https://github.com/LeavittSoftware/titanium-elements/commit/0aa99f7efe478f632e9b66caec70e8946ce63a8a))
+
+
+
+
+
 # [4.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@4.4.5...@leavittsoftware/storybook@4.5.0) (2019-11-18)
 
 
