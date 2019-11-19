@@ -1,0 +1,55 @@
+import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { html } from 'lit-html';
+import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
+import { withWebComponentsKnobs } from '../index.js';
+
+import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-item';
+
+<Meta
+  title="UI COMPONENTS|titanium-data-table-item"
+  decorators={[withKnobs, withWebComponentsKnobs]}
+  parameters={{ component: 'titanium-data-table-item', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+/>
+
+# Titanium Data Table Item
+
+A data table element to organize row data and handle row selection.
+
+row-item positioning attributes:
+
+- right
+- desktop
+- large
+- center
+- width - ex. "140px"
+
+## How to use
+
+```bash
+npm i @leavittsoftware/titanium-data-table
+```
+
+```js
+import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-item';
+```
+
+## API
+
+<Props of="titanium-data-table-item" />
+
+## Demo
+
+<Preview withToolbar>
+  <Story name="Docs">
+    {html`
+      <titanium-data-table-item>
+        <row-item large>Telsa</row-item>
+        <row-item desktop>Model Y</row-item>
+        <row-item desktop>$61,000 dollars</row-item>
+        <row-item desktop width="105px" center>122 cu. ft.</row-item>
+        <row-item width="75px" right>180 mi</row-item>
+      </titanium-data-table-item>
+    `}
+  </Story>
+</Preview>

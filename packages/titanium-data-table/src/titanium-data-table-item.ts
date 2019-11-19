@@ -1,13 +1,45 @@
 import { css, customElement, html, LitElement, property } from 'lit-element';
 
+/**
+ * A data table element to organize row data and handle row selection.
+ *
+ * row-item positioning attributes:
+ *    - right
+ *    - desktop
+ *    - large
+ *    - center
+ *    - width - ex. "140px"
+ *
+ * @element titanium-data-table-item
+ *
+ * @fires titanium-data-table-item-navigate - Fired on double click of a row. detail: unknown(this.item)
+ * @fires titanium-data-table-item-selected-changed - Fired when item is selected.  detail: { isSelected: boolean, item: unknown }
+ *
+ * @slot - Main slot that should contain a list of row-item elements
+ *
+ * @cssprop {Color} --app-text-color - Row text color
+ * @cssprop {Color} --app-hover-color - Row hover color
+ * @cssprop {Color} --app-border-color - Bottom division line
+ */
 @customElement('titanium-data-table-item')
 export class TitaniumDataTableItemElement extends LitElement {
-  @property({ type: Object }) item: Object;
-  @property({ reflect: true, type: Boolean, attribute: 'is-selected' }) isSelected: boolean;
-  @property({ type: Boolean }) isClicking: boolean = false;
+  /**
+   * The backing object that is display in this row.  Sent in navigate and selected events.
+   */
+  @property({ type: Object }) item: unknown;
+
+  /**
+   * True when row is selected.
+   */
+  @property({ reflect: true, type: Boolean, attribute: 'is-selected' }) isSelected: boolean = false;
+
+  /**
+   *  Disables ability to select this row.
+   */
   @property({ type: Boolean, attribute: 'disable-select' }) disableSelect: boolean;
 
-  private clickTimeoutHandle: NodeJS.Timer;
+  private _isClicking: boolean = false;
+  private _clickTimeoutHandle: number;
 
   constructor() {
     super();
@@ -29,17 +61,17 @@ export class TitaniumDataTableItemElement extends LitElement {
   }
 
   _handleClick() {
-    if (this.isClicking) {
+    if (this._isClicking) {
       this.dispatchEvent(new CustomEvent('titanium-data-table-item-navigate', { composed: true, detail: this.item, bubbles: true }));
-      clearTimeout(this.clickTimeoutHandle);
-      this.isClicking = false;
+      window.clearTimeout(this._clickTimeoutHandle);
+      this._isClicking = false;
       return;
     }
 
-    this.isClicking = true;
+    this._isClicking = true;
     this.toggleSelected();
-    this.clickTimeoutHandle = setTimeout(() => {
-      this.isClicking = false;
+    this._clickTimeoutHandle = window.setTimeout(() => {
+      this._isClicking = false;
     }, 300);
   }
 
