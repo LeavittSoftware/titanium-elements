@@ -1,9 +1,43 @@
 import '@material/mwc-ripple';
 import { css, customElement, html, LitElement, property } from 'lit-element';
 
+/**
+ * Material design inspired button.
+ *
+ * @element titanium-button
+ *
+ * @slot - main slot for button content
+ *
+ * @cssprop {Color} --app-link-color - Button slotted text color
+ * @cssprop {Color} --titanium-solid-button-text-color - Button slotted text color for raised and unelevated styles
+ * @cssprop {Color} --app-primary-color - Button BG color
+ */
 @customElement('titanium-button')
 export class TitaniumButtonElement extends LitElement {
-  @property({ type: Boolean, reflect: true }) disabled: boolean;
+  /**
+   * Disables the button
+   */
+  @property({ type: Boolean, reflect: true }) disabled: boolean = false;
+
+  /**
+   * Applies the raised button style
+   */
+  @property({ type: Boolean, reflect: true }) raised: boolean = false;
+
+  /**
+   * Applies the  outlined button style
+   */
+  @property({ type: Boolean, reflect: true }) outlined: boolean = false;
+
+  /**
+   * Applies the  dense button style
+   */
+  @property({ type: Boolean, reflect: true }) dense: boolean = false;
+
+  /**
+   * Applies the  unelevated button style
+   */
+  @property({ type: Boolean, reflect: true }) unelevated: boolean = false;
 
   static styles = css`
     :host {

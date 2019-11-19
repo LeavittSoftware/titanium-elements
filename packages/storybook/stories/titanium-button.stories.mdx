@@ -1,0 +1,50 @@
+import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { html } from 'lit-html';
+import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
+import { withWebComponentsKnobs } from '../index.js';
+
+import '@leavittsoftware/titanium-button';
+
+<Meta
+  title="UI COMPONENTS|titanium-button"
+  decorators={[withKnobs, withWebComponentsKnobs]}
+  parameters={{ component: 'titanium-button', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+/>
+
+# Titanium Button
+
+Material design inspired button.
+
+## How to use
+
+```bash
+npm i @leavittsoftware/titanium-button
+```
+
+```js
+import '@leavittsoftware/titanium-button';
+```
+
+## API
+
+<Props of="titanium-button" />
+
+## Demo
+
+<Preview withToolbar>
+  <Story name="Docs">
+    {html`
+      <h3>Standard</h3>
+      <titanium-button raised>RAISED</titanium-button>
+      <titanium-button unelevated>UNELEVATED</titanium-button>
+      <titanium-button disabled>DISABLED</titanium-button>
+      <titanium-button outlined>Outlined</titanium-button>
+      <h3>Dense</h3>
+      <titanium-button dense raised>RAISED</titanium-button>
+      <titanium-button dense unelevated>UNELEVATED</titanium-button>
+      <titanium-button dense disabled>DISABLED</titanium-button>
+      <titanium-button dense outlined>Outlined</titanium-button>
+    `}
+  </Story>
+</Preview>
