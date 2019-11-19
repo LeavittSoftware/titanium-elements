@@ -202,6 +202,9 @@ export class TitaniumDialogElement extends LitElement {
       box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
       -webkit-box-sizing: border-box;
       box-sizing: border-box;
+      -webkit-transform: scale(0.8);
+      -ms-transform: scale(0.8);
+      transform: scale(0.8);
       opacity: 0;
       z-index: 2;
     }
@@ -264,6 +267,9 @@ export class TitaniumDialogElement extends LitElement {
     }
 
     :host([closing]) dialog-container {
+      -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+      transform: scale(1);
       -webkit-transition: opacity 75ms linear;
       -o-transition: opacity 75ms linear;
       transition: opacity 75ms linear;
@@ -278,6 +284,9 @@ export class TitaniumDialogElement extends LitElement {
     }
 
     :host([opened]) dialog-container {
+      -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+      transform: scale(1);
       opacity: 1;
     }
   `;
