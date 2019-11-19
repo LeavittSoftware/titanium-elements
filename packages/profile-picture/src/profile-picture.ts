@@ -1,15 +1,48 @@
 ﻿import { isDevelopment } from '@leavittsoftware/titanium-helpers/lib/titanium-dev-detection';
-import { css, customElement, html, LitElement, property} from 'lit-element';
+import { css, customElement, html, LitElement, property } from 'lit-element';
 
+/**
+ * Displays a Leavitt Group users profile picture
+ *
+ * @element profile-picture
+ *
+ */
 @customElement('profile-picture')
 export class ProfilePictureElement extends LitElement {
-  @property({ type: Number }) personId: number = 44;
-  @property({ reflect: true, type: String }) shape: string = 'circle';
+  /**
+   * Person id of user
+   */
+  @property({ type: Number }) personId: number = 0;
+
+  /**
+   * Shape of profile picture
+   */
+  @property({ reflect: true, type: String }) shape: 'circle' | 'square' = 'circle';
+
+  /**
+   * Size in pixels of profile picture
+   */
   @property({ type: Number }) size: number = 120;
 
-  _computeSrc(personId: number, size: number): string {
+  private _availableSizes = new Set([32, 64, 128, 256, 512, 1024]);
+
+  _computeSrc(personId: number, size: number): string | undefined {
+    if (!personId) {
+      return undefined;
+    }
     const baseUrl = isDevelopment ? 'https://devmapi.leavitt.com/' : 'https://mapi.leavitt.com/';
-    return `${baseUrl}People(${personId})/Default.Picture(size=${size})`;
+    return `${baseUrl}People(${personId})/Default.Picture(size=${this.determineSize(size)})`;
+  }
+
+  private determineSize(size: number) {
+    const availableSizes = [...this._availableSizes];
+    for (let index = 0; index < availableSizes.length; index++) {
+      const availableSize = availableSizes[index];
+      if (size <= availableSize) {
+        return availableSize;
+      }
+    }
+    return 1024;
   }
 
   updated(changedProps) {
@@ -39,13 +72,14 @@ export class ProfilePictureElement extends LitElement {
 
     :host([shape='circle']) img {
       border-radius: 50%;
-      cursor: pointer;
     }
   `;
 
   render() {
-    return html`
-      <img draggable="false" alt="Profile Picture" src="${this._computeSrc(this.personId, this.size)}" />
-    `;
+    return this.personId
+      ? html`
+          <img draggable="false" alt="Profile Picture" src=${this._computeSrc(this.personId, this.size)} />
+        `
+      : html``;
   }
 }

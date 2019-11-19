@@ -2,15 +2,34 @@ import '@leavittsoftware/titanium-svg-button';
 
 import { css, customElement, html, LitElement, property } from 'lit-element';
 
-// This decorator defines the element.
+/**
+ * A pre-styled page header with sub header and optional back button.
+ *
+ * @element titanium-header
+ *
+ * @fires titanium-header-back-click - Fired when the back button is clicked
+ *
+ * @cssprop {Color} --app-dark-text-color - Header color
+ * @cssprop {Color} --app-text-color - Sub-header color
+ */
 @customElement('titanium-header')
 export class TitaniumHeader extends LitElement {
-  // This decorator creates a property accessor that triggers rendering and
-  // an observed attribute.
-  @property() header: string;
-  @property() subHeader: string;
+  /**
+   * Header text
+   */
+  @property({ type: String }) header: string;
 
-  _handleBackClick() {
+  /**
+   * Sub-header text
+   */
+  @property({ type: String }) subHeader: string;
+
+  /**
+   *  Removes the back button
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'no-nav' }) noNav: boolean = false;
+
+  private _handleBackClick() {
     this.dispatchEvent(new CustomEvent('titanium-header-back-click', { composed: true }));
   }
 
@@ -22,15 +41,15 @@ export class TitaniumHeader extends LitElement {
       -webkit-font-smoothing: antialiased;
     }
 
-    :host([hidden]) {
-      display: none;
-    }
-
     :host([no-nav]) h1 {
       padding: 0 12px 8px 12px;
     }
 
     :host([no-nav]) titanium-svg-button {
+      display: none;
+    }
+
+    :host([hidden]) {
       display: none;
     }
 

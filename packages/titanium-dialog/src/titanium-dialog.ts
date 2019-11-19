@@ -1,14 +1,56 @@
 import '@leavittsoftware/titanium-button';
 import { css, customElement, html, LitElement, property, query } from 'lit-element';
 
+/**
+ * Material design inspired dialog
+ *
+ * @element titanium-dialog
+ *
+ * @slot content - dialog content
+ * @slot actions - dialog buttons (if provided will overwrite the default close button)
+ *
+ * @cssprop {Color} --titanium-dialog-background-color - Background color of the dialog
+ * @cssprop {Color} --app-light-text-color - Content text color
+ * @cssprop {Color} --app-dark-text-color - Dialog header color
+ * @cssprop {Color} --app-border-color - Dialog border color
+ */
 @customElement('titanium-dialog')
 export class TitaniumDialogElement extends LitElement {
-  @property({ type: Boolean, reflect: true }) disableSmoothScroll: boolean;
-  @property({ type: Boolean, reflect: true }) protected opened: boolean;
-  @property({ type: Boolean, reflect: true }) protected opening: boolean;
-  @property({ type: Boolean, reflect: true }) protected closing: boolean;
-  @property({ type: Boolean, reflect: true }) protected scrolls: boolean;
+  /**
+   * Dialog title
+   */
   @property({ type: String }) title: string;
+
+  /**
+   * Disables momentum-based scrolling on (webkit only)
+   */
+  @property({ type: Boolean, reflect: true }) disableSmoothScroll: boolean = false;
+
+  /**
+   * True when dialog is opened.
+   */
+  @property({ type: Boolean, reflect: true }) protected opened: boolean = false;
+
+  /**
+   * True when dialog is opening. (used for animation purposes)
+   */
+  @property({ type: Boolean, reflect: true }) protected opening: boolean = false;
+
+  /**
+   * True when dialog is closing.  (used for animation purposes)
+   */
+  @property({ type: Boolean, reflect: true }) protected closing: boolean = false;
+
+  /**
+   * Allows dialog content to scroll.  (automatically controlled based on content and viewport size)
+   */
+  @property({ type: Boolean, reflect: true }) protected scrolls: boolean = false;
+
+  /**
+   * Makes the dialog fullscreen
+   */
+  @property({ type: Boolean, reflect: true }) protected fullscreen: boolean = false;
+
   @query('section') section: HTMLElement;
 
   private _animationTimer: number;
@@ -22,6 +64,10 @@ export class TitaniumDialogElement extends LitElement {
     this.scrolls = this.section.scrollHeight > this.section.offsetHeight;
   }
 
+  /**
+   * Opens the dialog and returns a promise which is resolved if and when the dialog is closed.
+   * Promise returns a string stating the reason for closing.
+   */
   open() {
     return new Promise<string>(resolve => {
       this._resolve = resolve;
@@ -44,23 +90,8 @@ export class TitaniumDialogElement extends LitElement {
   }
 
   /**
-   * Runs the given logic on the next animation frame, using setTimeout to factor in Firefox reflow behavior.
+   * Closes the dialog returning the reason to the open promise.
    */
-  private runNextAnimationFrame_(callback: () => void) {
-    cancelAnimationFrame(this._animationFrame);
-    this._animationFrame = requestAnimationFrame(() => {
-      this._animationFrame = 0;
-      clearTimeout(this._animationFrame);
-      this._animationFrame = window.setTimeout(callback, 0);
-    });
-  }
-
-  private _handleKeydown = ({ key }) => {
-    if (key === 'Escape' || key === 'Esc') {
-      this.close('esc-keydown');
-    }
-  };
-
   close(reason: string) {
     if (!this.opened) {
       return;
@@ -83,6 +114,24 @@ export class TitaniumDialogElement extends LitElement {
 
     this._resolve(reason);
   }
+
+  /**
+   * Runs the given logic on the next animation frame, using setTimeout to factor in Firefox reflow behavior.
+   */
+  private runNextAnimationFrame_(callback: () => void) {
+    cancelAnimationFrame(this._animationFrame);
+    this._animationFrame = requestAnimationFrame(() => {
+      this._animationFrame = 0;
+      clearTimeout(this._animationFrame);
+      this._animationFrame = window.setTimeout(callback, 0);
+    });
+  }
+
+  private _handleKeydown = ({ key }) => {
+    if (key === 'Escape' || key === 'Esc') {
+      this.close('esc-keydown');
+    }
+  };
 
   private handleAnimationTimerEnd_() {
     this.opening = false;
@@ -146,13 +195,16 @@ export class TitaniumDialogElement extends LitElement {
       min-width: 280px;
       max-height: calc(100% - 32px);
       margin: 16px;
-      border-radius: 4px;
+      border-radius: 8px;
       background: var(--titanium-dialog-background-color, #fff);
       font-size: 14px;
       -webkit-box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
       box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
       -webkit-box-sizing: border-box;
       box-sizing: border-box;
+      -webkit-transform: scale(0.8);
+      -ms-transform: scale(0.8);
+      transform: scale(0.8);
       opacity: 0;
       z-index: 2;
     }
@@ -169,23 +221,24 @@ export class TitaniumDialogElement extends LitElement {
       }
     }
 
+    header {
+      font-family: Metropolis, 'Roboto', 'Noto', sans-serif;
+      font-size: 22px;
+      color: var(--app-dark-text-color, #202124);
+      line-height: 28px;
+      font-weight: 400;
+      letter-spacing: 0.0125em;
+      padding: 24px 24px 16px 24px;
+    }
+
     section {
-      color: var(--app-light-text-color, #80868b);
-      padding: 20px 24px;
-      font-size: 16px;
-      line-height: 24px;
+      color: var(--app-dark-text-color, #202124);
+      padding: 8px 24px 16px 24px;
+      font-size: 14px;
+      line-height: 20px;
       font-weight: 400;
       letter-spacing: 0.5px;
       overflow-y: auto;
-    }
-
-    header {
-      font-size: 20px;
-      color: var(--app-dark-text-color, #202124);
-      line-height: 32px;
-      font-weight: 500;
-      letter-spacing: 0.0125em;
-      padding: 16px 24px 9px 24px;
     }
 
     :host([scrolls]) header {
@@ -214,6 +267,9 @@ export class TitaniumDialogElement extends LitElement {
     }
 
     :host([closing]) dialog-container {
+      -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+      transform: scale(1);
       -webkit-transition: opacity 75ms linear;
       -o-transition: opacity 75ms linear;
       transition: opacity 75ms linear;
@@ -228,6 +284,9 @@ export class TitaniumDialogElement extends LitElement {
     }
 
     :host([opened]) dialog-container {
+      -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+      transform: scale(1);
       opacity: 1;
     }
   `;
@@ -237,7 +296,7 @@ export class TitaniumDialogElement extends LitElement {
       <click-trap @click=${() => this.close('veil-click')}></click-trap>
 
       <dialog-container>
-        <header ?hidden=${!this.title}>${this.title}</header>
+        <header>${this.title}</header>
         <section>
           <slot name="content"></slot>
         </section>

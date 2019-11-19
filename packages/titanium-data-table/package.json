@@ -28,7 +28,6 @@
   "scripts": {
     "build:watch": "tsc --watch",
     "build": "tsc",
-    "gen-docs": "wca analyze \"src/**/*.{ts}\" --format markdown --outFile README.md",
     "lint": "tslint \"src/*.ts\""
   },
   "bugs": {

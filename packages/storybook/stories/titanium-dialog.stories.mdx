@@ -1,66 +1,63 @@
-import { storiesOf, forceReRender } from '@storybook/polymer/dist/client/preview/index';
+import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
 import { html } from 'lit-html';
-import { withKnobs, button, text } from '@storybook/addon-knobs';
+import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
+import { withWebComponentsKnobs } from '../index.js';
 import '@leavittsoftware/titanium-dialog';
-import '@leavittsoftware/titanium-single-select';
-import '@leavittsoftware/titanium-single-select/lib/titanium-single-select-item';
 
-const singleSelectData = [
-  { FirstName: 'Alice', LastName: 'Smith', FullName: 'Alice Smith' },
-  { FirstName: 'Bob', LastName: 'Silverstone', FullName: 'Bob Silverstone' },
-  { FirstName: 'Charlie', LastName: 'Tu', FullName: 'Charlie Tu' },
-  { FirstName: 'Dogg', LastName: 'Bounty', FullName: 'Dogg Bounty' },
-  { FirstName: 'Alicia', LastName: 'Fu', FullName: 'Alicia Fu' },
-];
+<Meta
+  title="UI COMPONENTS|titanium-dialog"
+  decorators={[withKnobs, withWebComponentsKnobs]}
+  parameters={{ component: 'titanium-dialog', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+/>
 
-let filter = '';
+# Titanium Dialog
 
-storiesOf('UI COMPONENTS|titanium-dialog', module)
-  .addDecorator(withKnobs)
-  .add(
-    'Usage',
+Material design inspired data table with paging, sorting, multi/single select, table actions, selected actions and more!
 
-    () => {
-      let title = text('Title (optional)', 'Not in stock');
-      var openDialog = (selector, e) => {
+## How to use
+
+```bash
+npm i @leavittsoftware/titanium-dialog
+```
+
+```js
+import '@leavittsoftware/titanium-dialog';
+```
+
+## API
+
+<Props of="titanium-dialog" />
+
+## Demo
+
+<Preview withToolbar>
+  <Story name="Docs">
+    {() => {
+       var openDialog = (selector, e) => {
         e.preventDefault();
         document
           .querySelector(`titanium-dialog[${selector}]`)
           .open()
           .then(reason => console.log(reason));
       };
-
       return html`
-        <div style="height: 48px;background-color: red; z-index: 2;"></div>
-        <a href="#" @click=${e => openDialog('demo-one', e)}>
-          Open dialog
-        </a>
+    
+     <a href="#" @click=${e => openDialog('demo-one', e)}>Open dialog demo with title</a>
         <br />
-        <a href="#" @click=${e => openDialog('demo-two', e)}>
-          Open dialog no title
-        </a>
+        <a href="#" @click=${e => openDialog('demo-two', e)}>          Open dialog demo without title        </a>
         <br />
-        <a href="#" @click=${e => openDialog('demo-three', e)}>
-          Open dialog scrollable
-        </a>
+        <a href="#" @click=${e => openDialog('demo-three', e)}>          Open dialog demo scrollable        </a>
         <br />
-        <a href="#" @click=${e => openDialog('demo-four', e)}>
-          Open dialog fullscreen
-        </a>
+        <a href="#" @click=${e => openDialog('demo-four', e)}>          Open dialog demo fullscreen        </a>
         <br />
-        <a href="#" @click=${e => openDialog('demo-five', e)}>
-          Open dialog single select
-        </a>
-
-        <titanium-dialog demo-one .title=${title}>
+        <titanium-dialog demo-one title="Add to cart" }>
+          <span slot="content">Lorem ipsum dolor amet small batch synth distillery godard cardigan. Letterpress trust fund brunch, humblebrag pickled enamel pin activated charcoal organic crucifix shaman chillwave adaptogen. Pok pok tattooed brunch, waistcoat cloud bread +1 asymmetrical. Shaman narwhal slow-carb adaptogen art party. Trust fund man bun DIY man braid. Vaporware gochujang yuccie, bitters hexagon mumblecore etsy bicycle rights mixtape master cleanse asymmetrical selfies. Leggings succulents flexitarian everyday carry, cronut tofu tattooed lumbersexual unicorn asymmetrical.</span>
+        </titanium-dialog>
+         <titanium-dialog demo-two>
           <span slot="content">Please check the left and right side of this element for fun.</span>
         </titanium-dialog>
-
-        <titanium-dialog demo-two>
-          <span slot="content">Please check the left and right side of this element for fun.</span>
-        </titanium-dialog>
-
-        <titanium-dialog .title=${'Terms of service'} demo-three>
+        <titanium-dialog title="Terms of service" demo-three>
           <span slot="content"
             ><p style="margin-top:0;">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras varius turpis sed nibh aliquam pulvinar. Maecenas mollis orci at velit pulvinar, non
@@ -93,8 +90,7 @@ storiesOf('UI COMPONENTS|titanium-dialog', module)
             </p></span
           >
         </titanium-dialog>
-
-        <titanium-dialog fullscreen .title=${'Terms of service'} demo-four>
+        <titanium-dialog fullscreen title="Terms of service" demo-four>
           <span slot="content"
             ><p style="margin-top:0;">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras varius turpis sed nibh aliquam pulvinar. Maecenas mollis orci at velit pulvinar, non
@@ -126,45 +122,8 @@ storiesOf('UI COMPONENTS|titanium-dialog', module)
               lorem dictum, eget dignissim arcu posuere. Aenean porta velit nec ex ullamcorper rhoncus.
             </p></span
           >
-        </titanium-dialog>
-
-        <titanium-dialog .title=${'Single Select'} demo-five>
-          <titanium-single-select
-            slot="content"
-            @input-changed=${({ detail }) => {
-              filter = detail;
-              forceReRender();
-            }}
-            itemlabelpath="FullName"
-            hinttext="Search for a person or group to add them as a participant"
-            placeholder="Add participants"
-          >
-            ${singleSelectData
-              .filter(({ FullName }) => {
-                return FullName.indexOf(filter) !== -1;
-              })
-              .map(
-                person =>
-                  html`
-                    <titanium-single-select-item .value=${person}>${person.FirstName} ${person.LastName}</titanium-single-select-item>
-                  `
-              )}
-          </titanium-single-select>
-          <input slot="content" type="text" placeholder="test blur of single select" />
         </titanium-dialog>
       `;
-    },
-    {
-      cssresources: [
-        {
-          id: `LightTheme`,
-          code: `<style> titanium-dialog {
-            --titanium-dialog-background-color: #fff;
-            --app-light-text-color: #4f83cc;
-            --app-dark-text-color: #002f6c;
-            --app-border-color: #870000;
-          } </style>`,
-        },
-      ],
-    }
-  );
+    }}
+  </Story>
+</Preview>

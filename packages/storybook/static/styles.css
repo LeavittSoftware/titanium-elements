@@ -1,0 +1,20 @@
+@font-face {
+  font-family: 'Metropolis';
+  font-weight: 600;
+  font-display: swap;
+  src: local('Metropolis'), url('https://www.leavitt.com/fonts/metropolis-bold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Metropolis';
+  font-weight: 500;
+  font-display: swap;
+  src: local('Metropolis'), url('https://www.leavitt.com/fonts/metropolis-semibold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Metropolis';
+  font-weight: 400;
+  font-display: swap;
+  src: local('Metropolis'), url('https://www.leavitt.com/fonts/metropolis-medium.otf') format('opentype');
+}

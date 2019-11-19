@@ -1,0 +1,45 @@
+import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { html } from 'lit-html';
+import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
+import { withWebComponentsKnobs } from '../index.js';
+
+import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-header';
+
+<Meta
+  title="UI COMPONENTS|titanium-data-table-header"
+  decorators={[withKnobs, withWebComponentsKnobs]}
+  parameters={{ component: 'titanium-data-table-header', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+/>
+
+# Titanium Data Table Header
+
+Material design data table header with styling and sorting capabilities
+
+## How to use
+
+```bash
+npm i @leavittsoftware/titanium-data-table
+```
+
+```js
+import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-header';
+```
+
+## API
+
+<Props of="titanium-data-table-header" />
+
+## Demo
+
+<Preview withToolbar>
+  <Story name="Docs">
+    {html`
+      <titanium-data-table-header column-name="Name" large title="Name"></titanium-data-table-header>
+      <titanium-data-table-header column-name="SName" desktop title="Short Name"></titanium-data-table-header>
+      <titanium-data-table-header column-name="person_type" right desktop title="Type"></titanium-data-table-header>
+      <titanium-data-table-header no-sort desktop center width="105px" title="Phone Number"></titanium-data-table-header>
+      <titanium-data-table-header no-sort width="75px" right title="Locations"></titanium-data-table-header>
+    `}
+  </Story>
+</Preview>
