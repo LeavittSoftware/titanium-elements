@@ -9,12 +9,11 @@ import { styleMap } from 'lit-html/directives/style-map';
 @customElement('profile-picture-menu')
 export class ProfilePictureMenuElement extends LitElement {
   @property({ type: Number }) size: number = 40;
-  @property({ type: Number }) personId: number = 44;
+  @property({ type: Number }) personId: number = 0;
   @property({ type: String }) email: string = '';
   @property({ type: String }) name: string = '';
   @property({ type: Boolean, reflect: true }) opened: boolean;
   @property({ type: Boolean, reflect: true }) protected opening: boolean;
-
   @property({ type: Boolean, reflect: true }) protected closing: boolean;
 
   private _animationTimer: number;
@@ -47,6 +46,10 @@ export class ProfilePictureMenuElement extends LitElement {
   }
 
   open() {
+    if (!this.personId) {
+      return;
+    }
+
     this.closing = false;
     this.opened = false;
     this.opening = true;
@@ -161,44 +164,49 @@ export class ProfilePictureMenuElement extends LitElement {
       transition: opacity 75ms linear, transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1), -webkit-transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1);
     }
 
-    profile-picture {
+    profile-picture[main] {
       -webkit-user-select: none; /* Chrome all / Safari all */
       -moz-user-select: none; /* Firefox all */
       -ms-user-select: none; /* IE 10+ */
       user-select: none;
+
+      cursor: pointer;
     }
 
     overlay-content {
       display: flex;
       flex-direction: column;
+      align-items: center;
       flex: 1 1 auto;
     }
 
     overlay-actions {
       display: flex;
       flex-direction: row;
-      align-self: flex-end;
       padding: 8px;
+      justify-content: flex-end;
+      border-top: 1px solid var(--app-border-color, #dadce0);
+    }
+
+    overlay-content profile-picture {
+      margin: 24px 24px 20px;
     }
 
     overlay-title {
       display: block;
-      color: #202124;
-      font-family: Roboto, sans-serif;
-      -moz-osx-font-smoothing: grayscale;
-      -webkit-font-smoothing: antialiased;
-      font-size: 20px;
-      line-height: 32px;
-      font-weight: 500;
+      color: var(--app-dark-text-color, #202124);
+      font-family: Metropolis, 'Roboto', 'Noto', sans-serif;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 24px;
       letter-spacing: 0.25px;
       margin: 0;
-      padding: 24px 24px 0 24px;
+      padding: 0 24px 0 24px;
     }
 
     overlay-subtitle {
       display: flex;
-      align-self: flex-start;
-      color: #757575;
+      color: var(--app-text-color, #5f6368);
       font-family: Roboto, sans-serif;
       -moz-osx-font-smoothing: grayscale;
       -webkit-font-smoothing: antialiased;
@@ -212,7 +220,6 @@ export class ProfilePictureMenuElement extends LitElement {
     slot-container {
       display: flex;
       flex-direction: column;
-      padding: 12px 24px;
     }
 
     titanium-button {
@@ -241,10 +248,11 @@ export class ProfilePictureMenuElement extends LitElement {
 
   render() {
     return html`
-      <profile-picture shape="circle" .personId=${this.personId} .size=${this.size} @click=${() => this._toggleOverlay()}></profile-picture>
+      <profile-picture main shape="circle" .personId=${this.personId} .size=${this.size} @click=${() => this._toggleOverlay()}></profile-picture>
       <click-trap ?hidden=${!this.opened} @click=${() => this.close()}></click-trap>
       <overlay-menu style=${styleMap(this._calcOverlayPosition(this.size))} tabindex="-1">
         <overlay-content @mousedown=${(e: Event) => e.preventDefault()}>
+          <profile-picture shape="circle" .personId=${this.personId} size="90"></profile-picture>
           <overlay-title>${this.name}</overlay-title>
           <overlay-subtitle>${this.email}</overlay-subtitle>
           <slot-container>
