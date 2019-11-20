@@ -8,6 +8,12 @@ import { ODataResponse } from './odata-response';
 
 export type UploadProgressEvent = { event: ProgressEvent; request: XMLHttpRequest };
 
+/**
+ * API service exposed in a custom element.
+ *
+ * @element api-service
+ *
+ */
 @customElement('api-service')
 export default class ApiServiceElement extends LitElement {
   private _apiService: ApiService = new ApiService(new AuthenticatedTokenProvider());
@@ -66,7 +72,9 @@ export default class ApiServiceElement extends LitElement {
   async uploadFile<T>(urlPath: string, file: File, onprogress: onProgressCallback, appName: string | null = null): Promise<ODataResponse<T>> {
     const onprogressHandler = (e: ProgressEvent, xhr: XMLHttpRequest) => {
       onprogress(e, xhr);
-      this.dispatchEvent(new CustomEvent<UploadProgressEvent>('upload-file-progress', { detail: { event: e, request: xhr } }));
+      this.dispatchEvent(
+        new CustomEvent<UploadProgressEvent>('upload-file-progress', { detail: { event: e, request: xhr } })
+      );
     };
     return this._apiService.uploadFile<T>(urlPath, file, onprogressHandler, appName);
   }
