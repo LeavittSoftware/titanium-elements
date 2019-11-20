@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.8](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@6.0.7...@leavittsoftware/api-service@6.0.8) (2019-11-20)
+
+
+### Bug Fixes
+
+* Version bump to restore compilation.  ([a23c11f](https://github.com/LeavittSoftware/titanium-elements/commit/a23c11f1768ba53ffecf8a5b80268aa6b1867235))
+
+
+
+
+
 ## [6.0.7](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@6.0.6...@leavittsoftware/api-service@6.0.7) (2019-11-18)
 
 **Note:** Version bump only for package @leavittsoftware/api-service

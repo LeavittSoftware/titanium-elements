@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/api-service",
   "description": "",
   "author": "Leavitt Software",
-  "version": "6.0.7",
+  "version": "6.0.8",
   "license": "MIT",
   "main": "lib/api-service-element.js",
   "typings": "lib/api-service-element.d.ts",
