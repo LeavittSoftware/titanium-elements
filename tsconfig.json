@@ -23,7 +23,8 @@
     { "path": "packages/titanium-toolbar" },
     { "path": "packages/titanium-vaadin" },
     { "path": "packages/user-manager" },
-    { "path": "packages/profile-picture" }
+    { "path": "packages/profile-picture" },
+    { "path": "packages/api-service" }
   ],
   "files": []
 }
