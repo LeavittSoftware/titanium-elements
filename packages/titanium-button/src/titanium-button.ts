@@ -75,9 +75,9 @@ export class TitaniumButtonElement extends LitElement {
       color: var(--app-link-color, #3b95ff);
       font-weight: 500;
       font-size: 14px;
-      line-height: 20px;
+      line-height: 16px;
       letter-spacing: 1.25px;
-      padding: 8px 16px;
+      padding: 0 16px;
       border-radius: 4px;
     }
 
@@ -145,7 +145,7 @@ export class TitaniumButtonElement extends LitElement {
 
     :host([dense]) button {
       height: 32px;
-      padding: 6px 16px;
+      padding: 0 16px;
     }
 
     :host([unelevated]:not([disabled])) button {
