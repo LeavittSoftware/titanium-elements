@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.6.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@4.6.1...@leavittsoftware/storybook@4.6.2) (2019-11-21)
+
+
+### Bug Fixes
+
+* **titanium-button:** Improves handling of long button text. ([77f3883](https://github.com/LeavittSoftware/titanium-elements/commit/77f388398521b45af0d76daa8291b22a059700e2))
+
+
+
+
+
 ## [4.6.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@4.6.0...@leavittsoftware/storybook@4.6.1) (2019-11-20)
 
 **Note:** Version bump only for package @leavittsoftware/storybook

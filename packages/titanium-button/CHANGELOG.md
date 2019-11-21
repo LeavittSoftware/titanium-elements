@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.7](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-button@1.1.6...@leavittsoftware/titanium-button@1.1.7) (2019-11-21)
+
+
+### Bug Fixes
+
+* **titanium-button:** Improves handling of long button text. ([77f3883](https://github.com/LeavittSoftware/titanium-elements/commit/77f388398521b45af0d76daa8291b22a059700e2))
+
+
+
+
+
 ## [1.1.6](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-button@1.1.5...@leavittsoftware/titanium-button@1.1.6) (2019-11-19)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-button
