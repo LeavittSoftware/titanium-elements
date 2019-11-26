@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.0.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/user-manager@9.0.4...@leavittsoftware/user-manager@9.0.5) (2019-11-26)
+
+
+### Bug Fixes
+
+* **user-manager:** Corrects improper handling of single permission. ([dfb0422](https://github.com/LeavittSoftware/titanium-elements/commit/dfb04221c6bca09a629295c91680afe05b14469b))
+
+
+
+
+
 ## [9.0.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/user-manager@9.0.3...@leavittsoftware/user-manager@9.0.4) (2019-11-18)
 
 **Note:** Version bump only for package @leavittsoftware/user-manager
