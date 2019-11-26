@@ -106,7 +106,7 @@ export class UserManager extends LitElement {
 
   private _getTokenfromUrl(tokenName: string): string | null {
     const hashParameters = this._getHashParametersFromUrl();
-    const accessTokenArray = hashParameters.filter((value) => value.key === tokenName);
+    const accessTokenArray = hashParameters.filter(value => value.key === tokenName);
     if (accessTokenArray.length === 0) {
       return null;
     } else {
@@ -179,7 +179,10 @@ export class UserManager extends LitElement {
     const response = await fetch(uri, {
       method: 'POST',
       body: JSON.stringify(body),
-      headers: [['Content-Type', 'application/json'], ['Accept', 'application/json']],
+      headers: [
+        ['Content-Type', 'application/json'],
+        ['Accept', 'application/json'],
+      ],
     });
 
     let json;
@@ -209,7 +212,7 @@ export class UserManager extends LitElement {
     this.firstName = _jwtToken.given_name;
     this.lastName = _jwtToken.family_name;
     this.email = _jwtToken.email;
-    this.roles = _jwtToken.role || [];
+    this.roles = typeof _jwtToken.role === 'string' ? [_jwtToken.role] : _jwtToken.role ?? [];
     this.dispatchEvent(new UserManagerUpdatedEvent());
   }
 
@@ -301,7 +304,7 @@ export class UserManager extends LitElement {
     this.roles = [];
     this.dispatchEvent(new UserManagerUpdatedEvent());
 
-    this.roles.forEach((o) => {
+    this.roles.forEach(o => {
       window.dispatchEvent(new CustomEvent('um-role-removed', { detail: { role: o } }));
     });
     this.roles = [];
