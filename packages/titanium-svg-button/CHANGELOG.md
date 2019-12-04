@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-svg-button@3.0.4...@leavittsoftware/titanium-svg-button@4.0.0) (2019-12-04)
+
+
+### Bug Fixes
+
+* Removes outline on button focus in FireFox. ([e06f917](https://github.com/LeavittSoftware/titanium-elements/commit/e06f917581c3a6626c5774b18a1e3a006f5b90c2))
+
+
+### Features
+
+* **titanium-svg-button:** Allows button to get focus; adds CSS vars. ([b9faf3a](https://github.com/LeavittSoftware/titanium-elements/commit/b9faf3a48962c05399f0aa04f8740c397f322fc6))
+
+
+### BREAKING CHANGES
+
+* **titanium-svg-button:** Removes LARGE attribute | Removes --titanium-svg-button-svg-width and height replaces with --titanium-svg-button-svg-size
+
+
+
+
+
 ## [3.0.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-svg-button@3.0.3...@leavittsoftware/titanium-svg-button@3.0.4) (2019-11-18)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-svg-button
