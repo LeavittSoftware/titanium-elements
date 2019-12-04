@@ -1,0 +1,44 @@
+import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { html } from 'lit-html';
+import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
+import { withWebComponentsKnobs } from '../index.js';
+
+import '@leavittsoftware/titanium-svg-button';
+
+<Meta
+  title="UI COMPONENTS|titanium-svg-button"
+  decorators={[withKnobs, withWebComponentsKnobs]}
+  parameters={{ component: 'titanium-svg-button', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+/>
+
+# Titanium SVG Button
+
+Material design inspired SVG button.
+
+## How to use
+
+```bash
+npm i @leavittsoftware/titanium-svg-button
+```
+
+```js
+import '@leavittsoftware/titanium-svg-button';
+```
+
+## API
+
+<Props of="titanium-svg-button" />
+
+## Demo
+
+<Preview withToolbar>
+  <Story name="Docs">
+    {html`
+      <titanium-svg-button path="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></titanium-svg-button>
+      <titanium-svg-button path="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></titanium-svg-button>
+      <titanium-svg-button style="--titanium-svg-button-size: 60px;" path="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"></titanium-svg-button>
+      <titanium-svg-button disabled path="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"></titanium-svg-button>
+    `}
+  </Story>
+</Preview>
