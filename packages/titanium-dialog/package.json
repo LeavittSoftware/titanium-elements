@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/titanium-dialog",
-  "version": "1.4.5",
+  "version": "2.0.0",
   "description": "",
   "main": "lib/titanium-dialog.js",
   "typings": "lib/titanium-dialog.d.ts",

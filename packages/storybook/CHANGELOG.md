@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.6.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@4.6.3...@leavittsoftware/storybook@4.6.4) (2019-12-04)
+
+
+### Bug Fixes
+
+* **titanium-dialog:** Doc description update. ([eb11e78](https://github.com/LeavittSoftware/titanium-elements/commit/eb11e78ac9d4efc7b55046a79e28b4d64724f572))
+
+
+
+
+
 ## [4.6.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@4.6.2...@leavittsoftware/storybook@4.6.3) (2019-11-26)
 
 **Note:** Version bump only for package @leavittsoftware/storybook

@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@1.4.5...@leavittsoftware/titanium-dialog@2.0.0) (2019-12-04)
+
+
+### Bug Fixes
+
+* **titanium-dialog-base:** fullwidth works as intended. ([af3fde6](https://github.com/LeavittSoftware/titanium-elements/commit/af3fde67f726f4a1aa98a4927b754b00145eb882))
+
+
+### Features
+
+* **titanium-dialog:** New titanium-dialog-base element ([099ba92](https://github.com/LeavittSoftware/titanium-elements/commit/099ba92e09dadaafdb4575acf9fa09f7ab968e31))
+* **titanium-dialog:** titanium-dialog now extends from dialog base ([a8544d1](https://github.com/LeavittSoftware/titanium-elements/commit/a8544d1e0d9bdc785dd9a34400b5428d1fc3d173))
+* **titanium-dialog-base:** Adds fullheight attribute.  ([1e4ecc3](https://github.com/LeavittSoftware/titanium-elements/commit/1e4ecc37a9355bc39ee6f84e2201de1c65bc0898))
+
+
+### BREAKING CHANGES
+
+* **titanium-dialog:** Removes fullscreen and replaces with fullwidth attribute. Fullwidth sets dialog width to 1 vw -32.
+
+
+
+
+
 ## [1.4.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@1.4.4...@leavittsoftware/titanium-dialog@1.4.5) (2019-11-21)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-dialog
