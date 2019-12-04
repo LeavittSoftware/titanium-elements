@@ -69,6 +69,10 @@ export class TitaniumSvgButton extends LitElement {
       background-color: none;
     }
 
+    button::-moz-focus-inner {
+      border: 0;
+    }
+
     button:focus {
       background-color: var(--titanium-svg-button-focus-color, inherit);
     }
