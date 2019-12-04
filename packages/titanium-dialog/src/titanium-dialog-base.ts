@@ -187,7 +187,7 @@ export class TitaniumDialogBaseElement extends LitElement {
     }
 
     :host([fullwidth]) dialog-container {
-      max-width: calc(100vw - 32px);
+      width: calc(100vw - 32px);
     }
 
     :host([opening]) dialog-container,
