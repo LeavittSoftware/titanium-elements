@@ -23,6 +23,11 @@ export class TitaniumDialogBaseElement extends LitElement {
   @property({ type: Boolean, reflect: true }) protected fullwidth: boolean = false;
 
   /**
+   * Sets dialog height to vh less 32px
+   */
+  @property({ type: Boolean, reflect: true }) protected fullheight: boolean = false;
+
+  /**
    * True when dialog is opening. (used for animation purposes)
    */
   @property({ type: Boolean, reflect: true }) protected opening: boolean = false;
@@ -188,6 +193,10 @@ export class TitaniumDialogBaseElement extends LitElement {
 
     :host([fullwidth]) dialog-container {
       width: calc(100vw - 32px);
+    }
+
+    :host([fullheight]) dialog-container {
+      height: calc(100vh - 32px);
     }
 
     :host([opening]) dialog-container,
