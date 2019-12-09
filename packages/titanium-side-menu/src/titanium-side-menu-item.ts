@@ -1,9 +1,33 @@
 import { css, customElement, html, LitElement, property } from 'lit-element';
 
+/**
+ * Material design inspired website side menu
+ *
+ * @element titanium-side-menu-item
+ *
+ * @slot - main slot item title
+ *
+ * @cssprop {Color} --app-menu-text-color - Item text color
+ * @cssprop {Color} --app-hover-color - Background hover and focus color
+ * @cssprop {Color} --titanium-side-menu-item-selected-background-color - Selected item background color
+ * @cssprop {Color} --titanium-side-menu-item-selected-color - Selected item text color
+ */
+
 @customElement('titanium-side-menu-item')
 export class TitaniumSideMenuItemElement extends LitElement {
+  /**
+   *  True when item is selected
+   */
   @property({ type: Boolean, reflect: true }) selected: boolean;
-  @property({ type: Boolean, reflect: true }) disabled: boolean;
+
+  /**
+   * Disables the button
+   */
+  @property({ type: Boolean, reflect: true }) disabled: boolean = false;
+
+  /**
+   * The URL that the item points to
+   */
   @property({ type: String }) href: string;
 
   static styles = css`
@@ -35,8 +59,14 @@ export class TitaniumSideMenuItemElement extends LitElement {
       width: 24px;
     }
 
-    a:active {
-      background-color: var(--titanium-side-menu-item-active-background-color, #d6d6d6);
+    a:active,
+    a:focus {
+      outline: none;
+      background-color: var(--app-hover-color, #f9f9f9);
+    }
+
+    a::-moz-focus-inner {
+      border: 0;
     }
 
     :host([selected]) a {

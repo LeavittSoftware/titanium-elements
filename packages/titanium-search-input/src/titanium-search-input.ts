@@ -4,15 +4,13 @@ import { css, customElement, html, LitElement, property } from 'lit-element';
 
 @customElement('titanium-search-input')
 export class TitaniumSearchInput extends LitElement {
-  @property() value: string = '';
-  @property() placeholder: string = '';
-  @property({ type: Boolean, attribute: 'hide-clear-button' })
-  hideClearButton: boolean = false;
+  @property({ type: String }) value: string = '';
+  @property({ type: String }) placeholder: string = '';
+  @property({ type: Boolean, attribute: 'hide-clear-button' }) hideClearButton: boolean = false;
 
   @property({ type: Boolean, reflect: true }) disabled: boolean;
   @property({ type: Boolean, reflect: true }) collapsed: boolean = true;
-  @property({ type: Boolean, reflect: true, attribute: 'prevent-collapse' })
-  preventCollapse: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'prevent-collapse' }) preventCollapse: boolean;
 
   _input: HTMLInputElement;
 
@@ -39,12 +37,13 @@ export class TitaniumSearchInput extends LitElement {
     this.focus();
   }
 
-  _handleSearchClick() {
+  async _handleSearchClick() {
     if (this.preventCollapse) {
       return;
     }
 
     this.collapsed = false;
+    await this.updateComplete;
     this.focus();
   }
 
@@ -166,28 +165,31 @@ export class TitaniumSearchInput extends LitElement {
     return html`
       <input-container>
         <titanium-svg-button
-          ?disabled="${this.disabled}"
+          ?disabled=${this.disabled}
           search
-          @click="${this._handleSearchClick}"
+          @click=${this._handleSearchClick}
           path="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"
         ></titanium-svg-button>
         <input
           type="text"
-          ?disabled="${this.disabled}"
-          placeholder="${this.placeholder}"
+          ?disabled=${this.disabled || this.collapsed}
+          placeholder=${this.placeholder}
           autocomplete="off"
-          .value="${this.value}"
-          @keyup="${this._onValueChange}"
-          @focusout="${this._lostFocus}"
-          @change="${this._onValueChange}"
+          .value=${this.value}
+          @keyup=${this._onValueChange}
+          @focusout=${this._lostFocus}
+          @change=${this._onValueChange}
         />
-        <titanium-svg-button
-          clear
-          ?hidden="${this.hideClearButton || (this.value === '' && !this.hideClearButton)}"
-          @click="${this._onClearClick}"
-          ?disabled="${this.disabled}"
-          path="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
-        ></titanium-svg-button>
+        ${this.hideClearButton || this.value === ''
+          ? ''
+          : html`
+              <titanium-svg-button
+                clear
+                @click=${this._onClearClick}
+                ?disabled=${this.disabled}
+                path="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+              ></titanium-svg-button>
+            `}
       </input-container>
     `;
   }
