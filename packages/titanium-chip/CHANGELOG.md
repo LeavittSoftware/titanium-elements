@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.14](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-chip@3.0.13...@leavittsoftware/titanium-chip@3.0.14) (2019-12-09)
+
+
+### Bug Fixes
+
+* **titanium-chip:** Close button styled properly with new SVG button.  ([4b5f38d](https://github.com/LeavittSoftware/titanium-elements/commit/4b5f38d3a4a38514f1cd8e5a475339c53ed77ecb))
+
+
+
+
+
 ## [3.0.13](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-chip@3.0.12...@leavittsoftware/titanium-chip@3.0.13) (2019-12-04)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-chip

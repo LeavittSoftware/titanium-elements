@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.9](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-search-input@3.0.8...@leavittsoftware/titanium-search-input@3.0.9) (2019-12-09)
+
+
+### Bug Fixes
+
+* **titanium-search-input:** Input can no longer get focus if not open.  ([9d77609](https://github.com/LeavittSoftware/titanium-elements/commit/9d7760945cee296aba98068b6d2580e3d0b6b185))
+
+
+
+
+
 ## [3.0.8](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-search-input@3.0.7...@leavittsoftware/titanium-search-input@3.0.8) (2019-12-04)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-search-input
