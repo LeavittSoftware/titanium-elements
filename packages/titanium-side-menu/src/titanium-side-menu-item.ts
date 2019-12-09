@@ -35,8 +35,14 @@ export class TitaniumSideMenuItemElement extends LitElement {
       width: 24px;
     }
 
-    a:active {
-      background-color: var(--titanium-side-menu-item-active-background-color, #d6d6d6);
+    a:active,
+    a:focus {
+      outline: none;
+      background-color: var(--app-hover-color, #f9f9f9);
+    }
+
+    a::-moz-focus-inner {
+      border: 0;
     }
 
     :host([selected]) a {
