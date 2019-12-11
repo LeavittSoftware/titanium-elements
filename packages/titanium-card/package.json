@@ -9,7 +9,8 @@
     "src"
   ],
   "dependencies": {
-    "@material/mwc-ripple": "^0.10.0"
+    "@material/mwc-ripple": "^0.10.0",
+    "@leavittsoftware/titanium-button": "^1.1.7"
   },
   "peerDependencies": {
     "lit-element": ">=2.1.0"
