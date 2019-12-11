@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/titanium-select",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "",
   "main": "lib/titanium-select.js",
   "typings": "lib/titanium-select.d.ts",
