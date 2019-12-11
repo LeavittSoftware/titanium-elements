@@ -43,6 +43,7 @@
     "@leavittsoftware/titanium-side-menu": "^0.1.0",
     "@leavittsoftware/titanium-single-select": "^1.0.1",
     "@leavittsoftware/titanium-snackbar": "^3.0.4",
+    "@leavittsoftware/titanium-select": "^0.0.1",
     "@leavittsoftware/titanium-svg-button": "^4.0.0",
     "@leavittsoftware/titanium-tab-control": "^0.1.2",
     "@leavittsoftware/titanium-toolbar": "^0.1.2",

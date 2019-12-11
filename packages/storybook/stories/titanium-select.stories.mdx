@@ -1,0 +1,49 @@
+import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { html } from 'lit-html';
+import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
+import { withWebComponentsKnobs } from '../index.js';
+
+import '@leavittsoftware/titanium-select';
+
+<Meta
+  title="UI COMPONENTS|titanium-select"
+  decorators={[withKnobs, withWebComponentsKnobs]}
+  parameters={{ component: 'titanium-select', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+/>
+
+# Titanium Select
+
+Material design inspired select. This component is just a wrapper for a native select adding styles and functionality.
+
+## How to use
+
+```bash
+npm i @leavittsoftware/titanium-select
+```
+
+```js
+import '@leavittsoftware/titanium-select';
+```
+
+## API
+
+<Props of="titanium-select" />
+
+## Demo
+
+<Preview withToolbar>
+  <Story name="Docs">
+    { () => { 
+      const options = [{Name: 'Saurischia', Id: 1 },{Name: 'Sauropodomorpha', Id: 2 }];
+      return html`
+            <titanium-select 
+              @value-changed=${event => {
+                console.log(event.detail);
+              }}
+              .options=${options}
+              label="Taxonomy"
+            ></titanium-select>
+      `}}
+  </Story>
+</Preview>
