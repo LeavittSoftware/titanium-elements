@@ -1,16 +1,15 @@
 {
-  "name": "@leavittsoftware/titanium-card",
-  "version": "1.2.0",
+  "name": "@leavittsoftware/titanium-select",
+  "version": "0.0.1",
   "description": "",
-  "main": "lib/titanium-card.js",
-  "typings": "lib/titanium-card.d.ts",
+  "main": "lib/titanium-select.js",
+  "typings": "lib/titanium-select.d.ts",
   "files": [
     "lib",
     "src"
   ],
   "dependencies": {
-    "@material/mwc-ripple": "^0.10.0",
-    "@leavittsoftware/titanium-button": "^1.1.7"
+    "@material/mwc-textfield": "^0.11.1"
   },
   "peerDependencies": {
     "lit-element": ">=2.1.0"
