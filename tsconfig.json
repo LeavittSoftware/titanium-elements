@@ -14,6 +14,7 @@
     { "path": "packages/titanium-offline-notice" },
     { "path": "packages/titanium-progress" },
     { "path": "packages/titanium-search-input" },
+    { "path": "packages/titanium-select" },
     { "path": "packages/titanium-side-menu" },
     { "path": "packages/titanium-single-select" },
     { "path": "packages/titanium-snackbar" },
