@@ -1,6 +1,12 @@
 import { customElement, html, LitElement, property, css } from 'lit-element';
 import '@leavittsoftware/titanium-progress';
 
+/**
+ * A simple full-screen veil with loading indicator.
+ *
+ * @element titanium-full-page-loading-indicator
+ *
+ */
 @customElement('titanium-full-page-loading-indicator')
 export class TitaniumFullPageLoadingIndicatorElement extends LitElement {
   @property({ type: Boolean, reflect: true }) protected opened: boolean;
@@ -34,8 +40,8 @@ export class TitaniumFullPageLoadingIndicatorElement extends LitElement {
       this.closing = false;
       this.opened = false;
       this.opening = true;
+
       document.body.style.overflow = 'hidden';
-      // document.body.style.filter = 'blur(2px)';
 
       this.runNextAnimationFrame_(() => {
         this.opened = true;
@@ -62,7 +68,6 @@ export class TitaniumFullPageLoadingIndicatorElement extends LitElement {
       this._animationTimer = window.setTimeout(() => {
         this.handleAnimationTimerEnd_();
         document.body.style.overflow = '';
-        // document.body.style.filter = 'inherit';
       }, 150);
     }, closeDelay);
   }
