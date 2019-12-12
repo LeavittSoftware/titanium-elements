@@ -1,6 +1,6 @@
 import '@leavittsoftware/titanium-svg-button';
 
-import { css, customElement, html, LitElement, property } from 'lit-element';
+import { css, customElement, html, LitElement, property, query } from 'lit-element';
 
 /**
  * A styled input with built-in search and clear icons. .
@@ -42,6 +42,7 @@ export class TitaniumSearchInput extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'prevent-collapse' }) preventCollapse: boolean = false;
   @property({ type: Boolean, reflect: true }) private collapsed: boolean = true;
 
+  @query('input') private _input: HTMLInputElement;
   /**
    * Focuses the input
    */
@@ -49,14 +50,8 @@ export class TitaniumSearchInput extends LitElement {
     this._input.focus();
   }
 
-  private _input: HTMLInputElement;
-
   firstUpdated() {
     this.collapsed = !this.value;
-
-    super.firstUpdated(new Map());
-    const el = this.shadowRoot && this.shadowRoot.querySelector('input');
-    if (el) this._input = el;
   }
 
   private _onValueChange() {
@@ -211,7 +206,7 @@ export class TitaniumSearchInput extends LitElement {
           @focusout=${this._lostFocus}
           @change=${this._onValueChange}
         />
-        ${this.hideClearButton || this.value === ''
+        ${this.hideClearButton || !this.value
           ? ''
           : html`
               <titanium-svg-button
