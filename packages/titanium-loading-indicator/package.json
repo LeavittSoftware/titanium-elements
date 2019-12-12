@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-loading-indicator",
   "description": "",
   "author": "Leavitt Software",
-  "version": "3.1.2",
+  "version": "3.1.3",
   "license": "MIT",
   "main": "lib/titanium-loading-indicator.js",
   "typings": "lib/titanium-loading-indicator.d.ts",
@@ -19,7 +19,7 @@
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
   "dependencies": {
-    "@leavittsoftware/titanium-progress": "^0.1.1"
+    "@leavittsoftware/titanium-progress": "^0.1.2"
   },
   "peerDependencies": {
     "lit-element": ">=2.1.0"

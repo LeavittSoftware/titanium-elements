@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.6](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@5.0.5...@leavittsoftware/titanium-data-table@5.0.6) (2019-12-12)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-data-table
+
+
+
+
+
 ## [5.0.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@5.0.4...@leavittsoftware/titanium-data-table@5.0.5) (2019-12-04)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-data-table
