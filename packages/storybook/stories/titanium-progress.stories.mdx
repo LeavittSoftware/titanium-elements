@@ -1,0 +1,41 @@
+import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { html } from 'lit-html';
+import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
+import { withWebComponentsKnobs } from '../index.js';
+
+import '@leavittsoftware/titanium-progress';
+
+<Meta
+  title="UI COMPONENTS|titanium-progress"
+  decorators={[withKnobs, withWebComponentsKnobs]}
+  parameters={{ component: 'titanium-progress', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+/>
+
+# Titanium Progress
+
+A simple progress indicator bar.
+
+## How to use
+
+```bash
+npm i @leavittsoftware/titanium-progress
+```
+
+```js
+import '@leavittsoftware/titanium-progress';
+```
+
+## API
+
+<Props of="titanium-progress" />
+
+## Demo
+
+<Preview withToolbar>
+  <Story name="Docs">
+    {html`
+      <titanium-progress></titanium-progress>
+    `}
+  </Story>
+</Preview>

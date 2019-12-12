@@ -1,9 +1,23 @@
 ﻿import { customElement, html, LitElement, property, css } from 'lit-element';
 
+/**
+ * A simple progress indicator bar.
+ *
+ * @element titanium-progress
+ *
+ * @cssprop {Color} --app-primary-color - Progress bar color
+ */
 @customElement('titanium-progress')
 export class TitaniumProgressElement extends LitElement {
-  @property({ type: Boolean, reflect: true }) disabled: boolean;
-  @property({ type: Boolean, reflect: true }) hidden: boolean;
+  /**
+   *  Whether or not the progress should be disabled.
+   */
+  @property({ type: Boolean, reflect: true }) disabled: boolean = false;
+
+  /**
+   *  Whether or not the progress should be hidden.
+   */
+  @property({ type: Boolean, reflect: true }) hidden: boolean = false;
 
   static styles = css`
     :host {

@@ -1,35 +1,67 @@
 import '@leavittsoftware/titanium-svg-button';
 
-import { css, customElement, html, LitElement, property } from 'lit-element';
+import { css, customElement, html, LitElement, property, query } from 'lit-element';
 
+/**
+ * A styled input with built-in search and clear icons. .
+ *
+ * @element titanium-search-input
+ *
+ * @fires value-changed - Fired when selection changes. details contains the selected item <T> or null.
+ *
+ * @cssprop {Color} --app-text-color - Not active text color
+ * @cssprop {Color} --app-dark-text-color - Focuses text color
+ * @cssprop {Color} --app-border-color - Input border color
+ *
+ */
 @customElement('titanium-search-input')
 export class TitaniumSearchInput extends LitElement {
+  /**
+   *  Gets and sets input value.
+   */
   @property({ type: String }) value: string = '';
+
+  /**
+   *  Sets input placeholder text.
+   */
   @property({ type: String }) placeholder: string = '';
+
+  /**
+   *  Whether or not the input should hide the clear button
+   */
   @property({ type: Boolean, attribute: 'hide-clear-button' }) hideClearButton: boolean = false;
 
-  @property({ type: Boolean, reflect: true }) disabled: boolean;
-  @property({ type: Boolean, reflect: true }) collapsed: boolean = true;
-  @property({ type: Boolean, reflect: true, attribute: 'prevent-collapse' }) preventCollapse: boolean;
+  /**
+   *  Whether or not the input should be disabled.
+   */
+  @property({ type: Boolean, reflect: true }) disabled: boolean = false;
 
-  _input: HTMLInputElement;
+  /**
+   *  Whether the input should prevent collapse.
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'prevent-collapse' }) preventCollapse: boolean = false;
+  @property({ type: Boolean, reflect: true }) private collapsed: boolean = true;
+
+  @query('input') private _input: HTMLInputElement;
+  /**
+   * Focuses the input
+   */
+  focus() {
+    this._input.focus();
+  }
 
   firstUpdated() {
     this.collapsed = !this.value;
-
-    super.firstUpdated(new Map());
-    const el = this.shadowRoot && this.shadowRoot.querySelector('input');
-    if (el) this._input = el;
   }
 
-  _onValueChange() {
+  private _onValueChange() {
     if (this.value !== this._input.value) {
       this.value = this._input.value;
       this.dispatchEvent(new CustomEvent('value-changed', { detail: this.value }));
     }
   }
 
-  _onClearClick() {
+  private _onClearClick() {
     if (this.disabled) return;
 
     this.value = '';
@@ -37,7 +69,7 @@ export class TitaniumSearchInput extends LitElement {
     this.focus();
   }
 
-  async _handleSearchClick() {
+  private async _handleSearchClick() {
     if (this.preventCollapse) {
       return;
     }
@@ -47,7 +79,7 @@ export class TitaniumSearchInput extends LitElement {
     this.focus();
   }
 
-  _lostFocus() {
+  private _lostFocus() {
     if (this.preventCollapse) {
       return;
     }
@@ -55,20 +87,14 @@ export class TitaniumSearchInput extends LitElement {
     if (!this.value) this.collapsed = true;
   }
 
-  focus() {
-    this._input.focus();
-  }
-
   static styles = css`
     :host {
       display: flex;
       flex-direction: column;
       height: 42px;
-      -webkit-transition: width 0.25s; /* Safari */
-      transition: width 0.25s;
+      -webkit-transition: width 250ms 0ms cubic-bezier(0.4, 0, 0.2, 1); /* Safari */
+      transition: width 250ms 0ms cubic-bezier(0.4, 0, 0.2, 1);
       width: 250px;
-      /* GPU acceleration for animation in ie 11 */
-      transform: translate3d(0, 0, 0);
     }
 
     input-container {
@@ -180,7 +206,7 @@ export class TitaniumSearchInput extends LitElement {
           @focusout=${this._lostFocus}
           @change=${this._onValueChange}
         />
-        ${this.hideClearButton || this.value === ''
+        ${this.hideClearButton || !this.value
           ? ''
           : html`
               <titanium-svg-button

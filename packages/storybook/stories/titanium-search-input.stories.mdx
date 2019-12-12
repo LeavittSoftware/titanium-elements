@@ -1,0 +1,41 @@
+import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { html } from 'lit-html';
+import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
+import { withWebComponentsKnobs } from '../index.js';
+
+import '@leavittsoftware/titanium-search-input';
+
+<Meta
+  title="UI COMPONENTS|titanium-search-input"
+  decorators={[withKnobs, withWebComponentsKnobs]}
+  parameters={{ component: 'titanium-search-input', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+/>
+
+# Titanium Search Input
+
+A styled input with built-in search and clear icons.
+
+## How to use
+
+```bash
+npm i @leavittsoftware/titanium-search-input
+```
+
+```js
+import '@leavittsoftware/titanium-search-input';
+```
+
+## API
+
+<Props of="titanium-search-input" />
+
+## Demo
+
+<Preview withToolbar>
+  <Story name="Docs">
+    {html`
+      <titanium-search-input placeholder="Search elephants"></titanium-search-input>
+    `}
+  </Story>
+</Preview>
