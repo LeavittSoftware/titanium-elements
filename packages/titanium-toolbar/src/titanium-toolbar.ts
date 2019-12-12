@@ -1,8 +1,18 @@
 ﻿import { css, customElement, html, property, LitElement } from 'lit-element';
 
+/**
+ * A material design inspired site toolbar
+ *
+ * @element titanium-toolbar
+ *
+ * @slot - toolbar content (use main-title attribute on slotted title item)
+ *
+ * @cssprop {Color} --titanium-toolbar-color - Color of the toolbar background
+ * @cssprop {Color} -app-text-color - main title text color
+ */
 @customElement('titanium-toolbar')
 export class TitaniumToolbarElement extends LitElement {
-  @property({ type: Boolean, reflect: true }) shadow: boolean;
+  @property({ type: Boolean, reflect: true }) protected shadow: boolean;
 
   static styles = css`
     :host {
