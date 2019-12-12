@@ -1,29 +1,64 @@
-import { storiesOf } from '@storybook/polymer/dist/client/preview/index';
+import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
 import { html } from 'lit-html';
-import { withKnobs, button, text } from '@storybook/addon-knobs';
+import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
+import { withWebComponentsKnobs } from '../index.js';
 import '@leavittsoftware/titanium-snackbar';
 
-storiesOf('UI COMPONENTS|titanium-snackbar', module)
-  .addDecorator(withKnobs)
-  .add(
-    'Usage',
+<Meta
+  title="UI COMPONENTS|titanium-snackbar"
+  decorators={[withKnobs, withWebComponentsKnobs]}
+  parameters={{ component: 'titanium-snackbar', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+/>
 
-    () => {
-      return html`
-        <div style="height: 48px;background-color: red; z-index: 2;"></div>
-        <a
+# Titanium Snackbar
+
+Material design inspired snackbar.
+
+Only one snackbar is intended to be used per site, typically added to the site root page such as my-app.  Use TitaniumSnackbarSingleton esm export to fetch the instance of the snackbar when you need to use it.
+
+## How to use
+
+```bash
+npm i @leavittsoftware/titanium-snackbar
+```
+
+```html
+my-app.html
+
+import '@leavittsoftware/titanium-snackbar';
+...
+...
+<titanium-snackbar></titanium-snackbar>
+
+```
+
+To use anywhere in the application:
+```js
+import { TitaniumSnackbarSingleton as AppSnackbar } from '@leavittsoftware/titanium-snackbar';
+AppSnackbar.open('Hello world');
+```
+
+## API
+
+<Props of="titanium-snackbar" />
+
+## Demo
+
+<Preview withToolbar>
+  <Story name="Docs">
+    {html`        <a
           href="#"
           @click=${e => {
             e.preventDefault();
-            document
-              .querySelector(`titanium-snackbar`)
+            document.querySelector(`titanium-snackbar`)
               .open('This is the body')
               .then(() => console.log('closed'));
           }}
         >
           Simple snackbar
         </a>
-        <br />
+          <br />
         <a
           href="#"
           @click=${e => {
@@ -93,18 +128,7 @@ storiesOf('UI COMPONENTS|titanium-snackbar', module)
         </a>
         <br />
         <titanium-snackbar></titanium-snackbar>
-      `;
-    },
-    {
-      cssresources: [
-        {
-          id: `LightTheme`,
-          code: `<style> titanium-snackbar {
-            --titanium-snackbar-background-color: #fff;
-            --titanium-snackbar-text-color: #757575;
-            --titanium-snackbar-action-color: #000;
-          } </style>`,
-        },
-      ],
+      `
     }
-  );
+  </Story>
+</Preview>
