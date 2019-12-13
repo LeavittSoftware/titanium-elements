@@ -21,16 +21,16 @@ export class TitaniumFullPageLoadingIndicatorElement extends LitElement {
   private _timeOpen;
   private _openCount = 0;
 
-  open() {
-    this._openCount = this._openCount + 1;
-    this._open();
-  }
-
-  close() {
-    this._openCount = this._openCount - 1;
-    if (this._openCount === 0) {
-      this._close();
-    }
+  firstUpdated() {
+    window.addEventListener('pending-state', async (e: CustomEvent<{ promise: Promise<unknown> }>) => {
+      this._open();
+      this._openCount++;
+      await e.detail.promise;
+      this._openCount--;
+      if (this._openCount === 0) {
+        this._close();
+      }
+    });
   }
 
   private _open() {

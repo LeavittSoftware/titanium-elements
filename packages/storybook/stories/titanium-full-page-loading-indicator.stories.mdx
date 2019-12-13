@@ -37,10 +37,21 @@ import '@leavittsoftware/titanium-loading-indicator/lib/titanium-full-page-loadi
     {html`
      <a href="#" @click=${e => {
        e.preventDefault();
-        document
-        .querySelector(`titanium-full-page-loading-indicator[one]`)
-        .open()}}>
-          Open dialog no title
+       const work = new Promise(r => setTimeout(r, 50));
+        const work2 = new Promise(r => setTimeout(r, 3000));
+       window.dispatchEvent(new CustomEvent('pending-state', {
+          composed: true,
+          bubbles: true,
+          detail: { promise:work.then(  () => console.log('Done 1')) }
+     }));
+       window.dispatchEvent(new CustomEvent('pending-state', {
+          composed: true,
+          bubbles: true,
+          detail: { promise:work2.then(  () => console.log('Done 2')) }
+     }));
+     
+     }}>      
+          Open loading veil for 2 seconds
         </a>
       <titanium-full-page-loading-indicator one></titanium-full-page-loading-indicator>
     `}
