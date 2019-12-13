@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@5.0.6...@leavittsoftware/titanium-data-table@6.0.0) (2019-12-13)
+
+
+### Features
+
+* **titanium-data-table:** Add loadWhile function; remove isLoading ([c16da8e](https://github.com/LeavittSoftware/titanium-elements/commit/c16da8eb62456bfb9c5a5db7d61ca496bc8ad73c))
+
+
+### BREAKING CHANGES
+
+* **titanium-data-table:** REMOVES isLoading property.  Use loadWhile function to provide the datatable with a promise.
+
+
+
+
+
 ## [5.0.6](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@5.0.5...@leavittsoftware/titanium-data-table@5.0.6) (2019-12-12)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-data-table

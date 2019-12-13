@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-loading-indicator@3.1.3...@leavittsoftware/titanium-loading-indicator@4.0.0) (2019-12-13)
+
+
+### Features
+
+* **titanium-full-page-loading-indicator:** Implements new pending-state pattern ([f293161](https://github.com/LeavittSoftware/titanium-elements/commit/f293161581b33a7f25be939a89421bf25adb60f8))
+* **titanium-loading-indicator:** Experimental:  Prevents scroll jank ([f13db31](https://github.com/LeavittSoftware/titanium-elements/commit/f13db3115e41c76785f3f895a14f23586ae1a639))
+
+
+### BREAKING CHANGES
+
+* **titanium-full-page-loading-indicator:** OPEN and CLOSED methods removed!!  use pending-state event.
+
+
+
+
+
 ## [3.1.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-loading-indicator@3.1.2...@leavittsoftware/titanium-loading-indicator@3.1.3) (2019-12-12)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-loading-indicator

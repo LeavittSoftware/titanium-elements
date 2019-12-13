@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@4.6.8...@leavittsoftware/storybook@5.0.0) (2019-12-13)
+
+
+### Features
+
+* **titanium-full-page-loading-indicator:** Implements new pending-state pattern ([f293161](https://github.com/LeavittSoftware/titanium-elements/commit/f293161581b33a7f25be939a89421bf25adb60f8))
+
+
+### BREAKING CHANGES
+
+* **titanium-full-page-loading-indicator:** OPEN and CLOSED methods removed!!  use pending-state event.
+
+
+
+
+
 ## [4.6.8](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@4.6.7...@leavittsoftware/storybook@4.6.8) (2019-12-12)
 
 **Note:** Version bump only for package @leavittsoftware/storybook
