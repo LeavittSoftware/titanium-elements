@@ -25,10 +25,13 @@ export class TitaniumFullPageLoadingIndicatorElement extends LitElement {
     window.addEventListener('pending-state', async (e: CustomEvent<{ promise: Promise<unknown> }>) => {
       this._open();
       this._openCount++;
-      await e.detail.promise;
-      this._openCount--;
-      if (this._openCount === 0) {
-        this._close();
+      try {
+        await e.detail.promise;
+      } finally {
+        this._openCount--;
+        if (this._openCount === 0) {
+          this._close();
+        }
       }
     });
   }
