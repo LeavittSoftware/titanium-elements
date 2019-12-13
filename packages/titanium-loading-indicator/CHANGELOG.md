@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-loading-indicator@4.0.0...@leavittsoftware/titanium-loading-indicator@4.0.1) (2019-12-13)
+
+
+### Bug Fixes
+
+* **titanium-full-page-loading-indicator): Adds try catch for fix(titanium-data-table:** Adds try catch for pending-state ([1e0cd59](https://github.com/LeavittSoftware/titanium-elements/commit/1e0cd592fb104f4b3e5f34497a144f30eb928070))
+
+
+
+
+
 # [4.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-loading-indicator@3.1.3...@leavittsoftware/titanium-loading-indicator@4.0.0) (2019-12-13)
 
 

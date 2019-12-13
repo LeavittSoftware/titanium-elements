@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@6.0.0...@leavittsoftware/titanium-data-table@6.0.1) (2019-12-13)
+
+
+### Bug Fixes
+
+* **titanium-data-table:** Adds try catch for pending-state ([2a22ea4](https://github.com/LeavittSoftware/titanium-elements/commit/2a22ea4c91790cd11b29c542cb00560d7cc257f7))
+
+
+
+
+
 # [6.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@5.0.6...@leavittsoftware/titanium-data-table@6.0.0) (2019-12-13)
 
 
