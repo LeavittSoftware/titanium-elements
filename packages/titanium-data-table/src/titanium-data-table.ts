@@ -71,7 +71,7 @@ export class TitaniumDataTableElement extends LitElement {
   /**
    * When set to true, the loading state is shown.
    */
-  @property({ type: Boolean }) isLoading: boolean = true;
+  @property({ type: Boolean }) private _isLoading: boolean;
 
   /**
    * Allows page sizes of 100 and 500 to be selected in addition to the standard sizes of 10, 15, 20, and 50.
@@ -81,6 +81,8 @@ export class TitaniumDataTableElement extends LitElement {
   // tslint:disable-next-line: no-any
   @queryAll('table-container') private _tableContainer: NodeListOf<any>;
   @property({ type: Number }) private take: number;
+
+  private _openCount = 0;
 
   connectedCallback() {
     super.connectedCallback();
@@ -167,6 +169,16 @@ export class TitaniumDataTableElement extends LitElement {
       return 15;
     }
     return 10;
+  }
+
+  async loadWhile(promise: Promise<unknown>) {
+    this._isLoading = true;
+    this._openCount++;
+    await promise;
+    this._openCount--;
+    if (this._openCount === 0) {
+      this._isLoading = false;
+    }
   }
 
   private setPage(value: number) {
@@ -532,7 +544,7 @@ export class TitaniumDataTableElement extends LitElement {
           <slot name="table-headers"></slot>
         </table-header>
 
-        <no-results-indicator ?hidden="${this.isLoading || this.items.length > 0}"
+        <no-results-indicator ?hidden="${this._isLoading || this.items.length > 0}"
           ><svg viewBox="0 0 24 24">
             <path fill="none" d="M0 0h24v24H0V0z" />
             <path
@@ -544,10 +556,10 @@ export class TitaniumDataTableElement extends LitElement {
             : `Your search of '${this.searchTerm}' did not match any results`}</no-results-indicator
         >
 
-        <titanium-loading-indicator ?hidden="${!this.isLoading}" ?disabled="${!this.isLoading}">Loading...</titanium-loading-indicator>
+        <titanium-loading-indicator ?hidden="${!this._isLoading}" ?disabled="${!this._isLoading}">Loading...</titanium-loading-indicator>
         <slot name="items"></slot>
       </table-container>
-      <table-controls ?hidden="${this.isLoading}">
+      <table-controls ?hidden="${this._isLoading}">
         <table-control>
           Rows per page: <span>${this.take}</span>
           <take-buttons>
