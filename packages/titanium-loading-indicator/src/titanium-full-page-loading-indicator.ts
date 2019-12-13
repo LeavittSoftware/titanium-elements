@@ -1,6 +1,12 @@
 import { customElement, html, LitElement, property, css } from 'lit-element';
 import '@leavittsoftware/titanium-progress';
 
+/**
+ * A simple full-screen veil with loading indicator.
+ *
+ * @element titanium-full-page-loading-indicator
+ *
+ */
 @customElement('titanium-full-page-loading-indicator')
 export class TitaniumFullPageLoadingIndicatorElement extends LitElement {
   @property({ type: Boolean, reflect: true }) protected opened: boolean;
@@ -15,16 +21,16 @@ export class TitaniumFullPageLoadingIndicatorElement extends LitElement {
   private _timeOpen;
   private _openCount = 0;
 
-  open() {
-    this._openCount = this._openCount + 1;
-    this._open();
-  }
-
-  close() {
-    this._openCount = this._openCount - 1;
-    if (this._openCount === 0) {
-      this._close();
-    }
+  firstUpdated() {
+    window.addEventListener('pending-state', async (e: CustomEvent<{ promise: Promise<unknown> }>) => {
+      this._open();
+      this._openCount++;
+      await e.detail.promise;
+      this._openCount--;
+      if (this._openCount === 0) {
+        this._close();
+      }
+    });
   }
 
   private _open() {
@@ -34,8 +40,12 @@ export class TitaniumFullPageLoadingIndicatorElement extends LitElement {
       this.closing = false;
       this.opened = false;
       this.opening = true;
-      document.body.style.overflow = 'hidden';
-      // document.body.style.filter = 'blur(2px)';
+
+      if (window.innerWidth > document.documentElement.clientWidth) {
+        document.body.style.overflowY = 'scroll';
+        document.body.style.position = 'fixed';
+        document.body.style.width = '100%';
+      }
 
       this.runNextAnimationFrame_(() => {
         this.opened = true;
@@ -61,8 +71,9 @@ export class TitaniumFullPageLoadingIndicatorElement extends LitElement {
       clearTimeout(this._animationTimer);
       this._animationTimer = window.setTimeout(() => {
         this.handleAnimationTimerEnd_();
-        document.body.style.overflow = '';
-        // document.body.style.filter = 'inherit';
+        document.body.style.overflowY = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
       }, 150);
     }, closeDelay);
   }

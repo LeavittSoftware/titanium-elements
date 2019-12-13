@@ -22,19 +22,35 @@ export type SnackbarOptions = {
   noAction?: boolean;
 };
 
+/**
+ * Material design snackbar.
+ *
+ * @element titanium-snackbar
+ *
+ * Only one snackbar is intended to be used per site.
+ * Use TitaniumSnackbarSingleton export to fetch the instance of the snackbar when you need to use it.
+ * ex.
+ * import { TitaniumSnackbarSingleton as AppSnackbar } from '@leavittsoftware/titanium-snackbar';
+ * AppSnackbar.open('Hello world');
+ *
+ * @cssprop {Color} --titanium-snackbar-action-color - Action button text color
+ * @cssprop {Color} --titanium-snackbar-background-color - Snackbar background color
+ * @cssprop {Color} --titanium-snackbar-text-color - Color of the text in the snackbar
+ *
+ */
+
 @customElement('titanium-snackbar')
 export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
   @property({ type: Boolean, reflect: true }) protected opened: boolean;
   @property({ type: Boolean, reflect: true }) protected closing: boolean;
   @property({ type: Boolean, reflect: true }) protected opening: boolean;
-
   @property({ type: Boolean, reflect: true }) protected thirdline: boolean;
-
-  @property({ type: String }) private message: string;
-  @property({ type: String }) private actionText: string;
   @property({ type: Boolean, reflect: true }) protected noaction: boolean;
   @property({ type: Boolean, reflect: true }) protected informational: boolean;
   @property({ type: Boolean, reflect: true }) protected error: boolean;
+
+  @property({ type: String }) private actionText: string;
+  @property({ type: String }) private message: string;
 
   private _animationTimer: number;
   private _animationFrame: number;
@@ -58,6 +74,16 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
     }
   }
 
+  /**
+   * Opens the snackbar with the supplied message.
+   *
+   * optional options object:
+   * actionText?: string | null;
+   * autoHide?: boolean;
+   * style?: 'informational' | 'error';
+   * noAction?: boolean;
+   *
+   */
   open(message: string, options?: SnackbarOptions) {
     return new Promise(resolve => {
       //reset
@@ -110,17 +136,8 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
   }
 
   /**
-   * Runs the given logic on the next animation frame, using setTimeout to factor in Firefox reflow behavior.
+   * Closes the snackbar
    */
-  private runNextAnimationFrame_(callback: () => void) {
-    cancelAnimationFrame(this._animationFrame);
-    this._animationFrame = requestAnimationFrame(() => {
-      this._animationFrame = 0;
-      clearTimeout(this._animationFrame);
-      this._animationFrame = window.setTimeout(callback, 0);
-    });
-  }
-
   close() {
     if (!this.opened) {
       return;
@@ -138,6 +155,18 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
     }, 75);
 
     this._resolve();
+  }
+
+  /**
+   * Runs the given logic on the next animation frame, using setTimeout to factor in Firefox reflow behavior.
+   */
+  private runNextAnimationFrame_(callback: () => void) {
+    cancelAnimationFrame(this._animationFrame);
+    this._animationFrame = requestAnimationFrame(() => {
+      this._animationFrame = 0;
+      clearTimeout(this._animationFrame);
+      this._animationFrame = window.setTimeout(callback, 0);
+    });
   }
 
   private handleAnimationTimerEnd_() {
