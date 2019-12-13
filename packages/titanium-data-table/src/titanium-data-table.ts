@@ -174,10 +174,13 @@ export class TitaniumDataTableElement extends LitElement {
   async loadWhile(promise: Promise<unknown>) {
     this._isLoading = true;
     this._openCount++;
-    await promise;
-    this._openCount--;
-    if (this._openCount === 0) {
-      this._isLoading = false;
+    try {
+      await promise;
+    } finally {
+      this._openCount--;
+      if (this._openCount === 0) {
+        this._isLoading = false;
+      }
     }
   }
 
