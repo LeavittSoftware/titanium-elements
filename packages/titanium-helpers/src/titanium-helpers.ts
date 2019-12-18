@@ -5,4 +5,4 @@ export { AnyFunction, StringMap } from './titanium-types';
 export { installMediaQueryWatcher } from './titanium-media-query';
 export { getSearchTokens } from './titanium-search-token';
 export { debounce } from './titanium-debounce';
-export { Debounce } from './titanium-debounce';
+export { Debouncer } from './titanium-debouncer';
