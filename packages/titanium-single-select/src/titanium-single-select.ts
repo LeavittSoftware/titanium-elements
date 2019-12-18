@@ -10,7 +10,7 @@ export class TitaniumSingleSelectElement<T> extends LitElement {
   @property({ type: String }) protected inputValue: string = '';
 
   @property({ type: Boolean, reflect: true }) disabled: boolean;
-  @property({ type: Boolean }) isLoading: boolean;
+  @property({ type: Boolean }) private _isLoading: boolean;
   @property({ type: String }) placeholder: string = '';
   @property({ type: String }) hintText: string;
   @property({ type: Number }) totalCount: number;
@@ -21,7 +21,9 @@ export class TitaniumSingleSelectElement<T> extends LitElement {
   @query('slot') slotElement: HTMLSlotElement;
   @query('search-suggestions ') searchSuggestions: HTMLSlotElement;
   @query('input-container ') inputContainer: HTMLSlotElement;
+
   private _blurTimeoutHandle: number;
+  private _openCount = 0;
 
   firstUpdated() {
     this.slotElement.addEventListener('titanium-single-select-item-blur', () => this._blurHandler());
@@ -47,6 +49,19 @@ export class TitaniumSingleSelectElement<T> extends LitElement {
       } else {
         this.inputContainer.style.zIndex = '';
         this._unsubscribeToResize();
+      }
+    }
+  }
+
+  async loadWhile(promise: Promise<unknown>) {
+    this._isLoading = true;
+    this._openCount++;
+    try {
+      await promise;
+    } finally {
+      this._openCount--;
+      if (this._openCount === 0) {
+        this._isLoading = false;
       }
     }
   }
@@ -463,12 +478,12 @@ export class TitaniumSingleSelectElement<T> extends LitElement {
           ?hidden=${!this.open && !this.inputValue}
           path="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
         ></titanium-svg-button>
-        <hr ?hidden=${this.isLoading || !this.open} />
-        <titanium-progress ?hidden=${!this.isLoading || !this.open} ?disabled=${!this.isLoading}></titanium-progress>
+        <hr ?hidden=${this._isLoading || !this.open} />
+        <titanium-progress ?hidden=${!this._isLoading || !this.open} ?disabled=${!this._isLoading}></titanium-progress>
       </input-container>
       <search-suggestions id="suggestions" tabindex="-1">
         <informatory-text ?hidden=${this.totalCount > 0 || this.inputValue !== ''}>${this.hintText}</informatory-text>
-        <informatory-text ?hidden=${this.inputValue === '' || this.isLoading}> ${this.totalCount} results for '${this.inputValue}' </informatory-text>
+        <informatory-text ?hidden=${this.inputValue === '' || this._isLoading}> ${this.totalCount} results for '${this.inputValue}' </informatory-text>
         <slot></slot>
       </search-suggestions>
     `;
