@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/titanium-card",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "",
   "main": "lib/titanium-card.js",
   "typings": "lib/titanium-card.d.ts",
@@ -9,7 +9,7 @@
     "src"
   ],
   "dependencies": {
-    "@leavittsoftware/titanium-button": "^1.1.7",
+    "@leavittsoftware/titanium-button": "^1.2.0",
     "@material/mwc-ripple": "^0.12.0"
   },
   "peerDependencies": {

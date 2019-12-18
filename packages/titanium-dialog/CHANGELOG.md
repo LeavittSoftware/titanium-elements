@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@2.0.0...@leavittsoftware/titanium-dialog@2.0.1) (2019-12-18)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-dialog
+
+
+
+
+
 # [2.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@1.4.5...@leavittsoftware/titanium-dialog@2.0.0) (2019-12-04)
 
 
