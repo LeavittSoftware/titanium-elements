@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-helpers@2.2.0...@leavittsoftware/titanium-helpers@3.0.0) (2019-12-18)
+
+
+### Code Refactoring
+
+* **titanium-helpers:** Moves Debounce class to its own file ([142a370](https://github.com/LeavittSoftware/titanium-elements/commit/142a37078cb20d0a4596c1da579e91ecb94a11ff))
+
+
+### BREAKING CHANGES
+
+* **titanium-helpers:** RENAMED class Debounce to Debouncer.
+
+
+
+
+
 # [2.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-helpers@2.1.1...@leavittsoftware/titanium-helpers@2.2.0) (2019-12-13)
 
 
