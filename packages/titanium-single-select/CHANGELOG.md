@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-single-select@1.0.3...@leavittsoftware/titanium-single-select@2.0.0) (2019-12-18)
+
+
+### Features
+
+* **titanium-single-select:** Removes isLoading prop for loadWhile(promise) ([8585eae](https://github.com/LeavittSoftware/titanium-elements/commit/8585eaefb7538efdebc2b381c26d13c0484da989))
+
+
+### BREAKING CHANGES
+
+* **titanium-single-select:** REMOVES isLoading -- pass a promise to loadWhile()
+
+
+
+
+
 ## [1.0.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-single-select@1.0.2...@leavittsoftware/titanium-single-select@1.0.3) (2019-12-18)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-single-select
