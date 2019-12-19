@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/user-manager@9.0.7...@leavittsoftware/user-manager@9.1.0) (2019-12-19)
+
+
+### Features
+
+* **user-manager:** Adds isAuthenticatedAsync method.  ([ca7f1bb](https://github.com/LeavittSoftware/titanium-elements/commit/ca7f1bbe15e37fd11166647c7ca49dbac5ef8673))
+
+
+
+
+
 ## [9.0.7](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/user-manager@9.0.6...@leavittsoftware/user-manager@9.0.7) (2019-12-18)
 
 **Note:** Version bump only for package @leavittsoftware/user-manager
