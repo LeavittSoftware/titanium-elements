@@ -254,6 +254,21 @@ export class UserManager extends LitElement {
     return this._getAccessTokenFromLocalStorage();
   }
 
+  /**
+   *  Returns true is the user is currently signed in.
+   *  Will not redirect if user is not authenticated.
+   *
+   *  Avoid calling multiple times concurrently.
+   */
+  async isAuthenticatedAsync(): Promise<boolean> {
+    try {
+      await this._getTokenAsync();
+    } catch (error) {
+      return false;
+    }
+    return true;
+  }
+
   async authenticateAsync(): Promise<LssJwtToken> {
     const self = this;
     if (this._isAuthenticating) {
