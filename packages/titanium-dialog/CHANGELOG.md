@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@2.0.1...@leavittsoftware/titanium-dialog@2.0.2) (2019-12-23)
+
+
+### Bug Fixes
+
+* **titanium-dialog:** corrects footer padding ([1a0bbad](https://github.com/LeavittSoftware/titanium-elements/commit/1a0bbada8c38260dd64aed3ea0beee1d94180e90))
+
+
+
+
+
 ## [2.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@2.0.0...@leavittsoftware/titanium-dialog@2.0.1) (2019-12-18)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-dialog
