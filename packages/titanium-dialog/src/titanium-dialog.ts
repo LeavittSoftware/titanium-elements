@@ -79,7 +79,7 @@ export class TitaniumDialogElement extends TitaniumDialogBaseElement {
     footer {
       display: flex;
       flex-direction: row-reverse;
-      padding: 8px;
+      padding: 10px;
     }
   `;
 
