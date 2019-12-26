@@ -1,12 +1,32 @@
 import { css, customElement, html, LitElement, property } from 'lit-element';
 
+/**
+ * A simple loading indicator.
+ *
+ * @element titanium-loading-indicator
+ *
+ * @slot - Overwrites the default "Loading..." text
+ *
+ * @cssprop {Color} --app-text-color - Loading text and icon color
+ *
+ */
 @customElement('titanium-loading-indicator')
 export class TitaniumLoadingIndicatorButton extends LitElement {
-  @property()
-  path: string =
+  /**
+   * SVG path attribute
+   */
+  @property({ type: String }) path: string =
     'M15.95 10.78c.03-.25.05-.51.05-.78s-.02-.53-.06-.78l1.69-1.32c.15-.12.19-.34.1-.51l-1.6-2.77c-.1-.18-.31-.24-.49-.18l-1.99.8c-.42-.32-.86-.58-1.35-.78L12 2.34c-.03-.2-.2-.34-.4-.34H8.4c-.2 0-.36.14-.39.34l-.3 2.12c-.49.2-.94.47-1.35.78l-1.99-.8c-.18-.07-.39 0-.49.18l-1.6 2.77c-.1.18-.06.39.1.51l1.69 1.32c-.04.25-.07.52-.07.78s.02.53.06.78L2.37 12.1c-.15.12-.19.34-.1.51l1.6 2.77c.1.18.31.24.49.18l1.99-.8c.42.32.86.58 1.35.78l.3 2.12c.04.2.2.34.4.34h3.2c.2 0 .37-.14.39-.34l.3-2.12c.49-.2.94-.47 1.35-.78l1.99.8c.18.07.39 0 .49-.18l1.6-2.77c.1-.18.06-.39-.1-.51l-1.67-1.32zM10 13c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3z';
-  @property({ type: Boolean, reflect: true }) disabled: boolean;
-  @property() viewBox: string = '0 0 20 20';
+
+  /**
+   * Disables element
+   */
+  @property({ type: Boolean, reflect: true }) disabled: boolean = false;
+
+  /**
+   * SVG viewbox attribute
+   */
+  @property({ type: String }) viewBox: string = '0 0 20 20';
 
   static styles = css`
     :host {
@@ -20,7 +40,7 @@ export class TitaniumLoadingIndicatorButton extends LitElement {
     }
 
     text-container {
-      diplay: block;
+      display: block;
       padding-left: 8px;
       font-family: 'Roboto', 'Noto', sans-serif;
       -webkit-font-smoothing: antialiased;
@@ -79,7 +99,6 @@ export class TitaniumLoadingIndicatorButton extends LitElement {
     }
   `;
 
-  // Render element DOM by returning a `lit-html` template.
   render() {
     return html`
       <svg viewBox="${this.viewBox}">

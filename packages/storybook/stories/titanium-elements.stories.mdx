@@ -1,6 +1,9 @@
-import { storiesOf } from '@storybook/polymer/dist/client/preview/index';
+import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
 import { html } from 'lit-html';
-import { withKnobs, boolean } from '@storybook/addon-knobs';
+import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
+import { withWebComponentsKnobs } from '../index.js';
+
 import '@leavittsoftware/titanium-svg-button';
 import '@leavittsoftware/titanium-header';
 import '@leavittsoftware/titanium-chip';
@@ -19,77 +22,39 @@ import '@leavittsoftware/titanium-tab-control';
 import '@leavittsoftware/titanium-error-page';
 import '@leavittsoftware/titanium-access-denied-page';
 
-const availableCssVars = {
-  cssresources: [
-    {
-      id: `Theme`,
-      code: `<style> body {
-      --app-text-color: #01579b;
-      --app-light-text-color: #4f83cc;
-      --app-dark-text-color: #002f6c;
-      --app-hover-color: #e1f5fe;
-      --app-border-color: #bbdefb;
-      --app-menu-text-color: #81d4fa;
-      --app-link-color: #d84315;
-      --app-primary-color: #f4511e;
-      } </style>`,
-    },
-  ],
-};
 
-storiesOf('UI COMPONENTS|- Titanium Super Demo -', module)
-  .addDecorator(withKnobs)
-  .add(
-    'Feature set',
-    () => {
-      let disable = boolean('disable', false);
-      return html`
+<Meta
+  title="A quick demo|All Elements"
+  decorators={[withKnobs, withWebComponentsKnobs]}
+  parameters={{ component: 'titanium-chip', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+/>
 
-        <style>
-          @font-face {
-            font-family: Metropolis;
-            font-weight: 600;
-            src: url('https://www.leavitt.com/fonts/Metropolis-Bold.otf') format('opentype');
-          }
+# Titanium Element Super Demo
 
-          @font-face {
-            font-family: Metropolis;
-            font-weight: 500;
-            src: url('https://www.leavitt.com/fonts/Metropolis-SemiBold.otf') format('opentype');
-          }
+A demo of all titanium elements
 
-          @font-face {
-            font-family: Metropolis;
-            font-weight: 400;
-            src: url('https://www.leavitt.com/fonts/Metropolis-Medium.otf') format('opentype');
-          }
-        </style>
+## Demo
+
+<Preview withToolbar>
+  <Story name="Demo">
+    {html`
         <titanium-toolbar> <span main-title>A Simple Toolbar</span></titanium-toolbar>
-
         <titanium-header header="Titanium elements" subHeader="One stop shop for everything good" style="padding-top: 60px"></titanium-header>
         <titanium-data-table header="Data table">
-          <titanium-search-input slot="search-button" ?disabled=${disable}></titanium-search-input>
-          <titanium-svg-button slot="filter-button" ?disabled=${disable} path="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></titanium-svg-button>
+          <titanium-search-input slot="search-button" ></titanium-search-input>
+          <titanium-svg-button slot="filter-button"  path="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></titanium-svg-button>
           <titanium-svg-button slot="table-actions" path="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></titanium-svg-button>
-
-
           <titanium-chip label="Hello" closeable slot="filters"></titanium-chip>
           <titanium-chip label="World" closeable slot="filters"></titanium-chip>
           <titanium-chip label="Hello" closeable slot="filters"></titanium-chip>
           <titanium-chip label="World" closeable slot="filters"></titanium-chip>
           <titanium-chip label="Hello" closeable slot="filters"></titanium-chip>
           <titanium-chip label="World" closeable slot="filters"></titanium-chip>
-
           <titanium-data-table-header slot="table-headers" large columnName="Name" title="Name" sortBy="Name"></titanium-data-table-header>
           <titanium-data-table-header slot="table-headers" desktop title="Short Name" sortBy="SName"></titanium-data-table-header>
           <titanium-data-table-header slot="table-headers" no-sort desktop title="Type"></titanium-data-table-header>
           <titanium-data-table-header slot="table-headers" no-sort desktop center width="105px" title="Phone Number"></titanium-data-table-header>
           <titanium-data-table-header slot="table-headers" no-sort width="75px" right title="Locations"></titanium-data-table-header>
-
-
-
-
-
           <titanium-data-table-item slot="items">
             <row-item large>Item A</row-item>
             <row-item desktop>2 eggs</row-item>
@@ -97,7 +62,6 @@ storiesOf('UI COMPONENTS|- Titanium Super Demo -', module)
             <row-item desktop width="105px" center>25 cents</row-item>
             <row-item width="75px" right>Samsung</row-item>
           </titanium-data-table-item>
-
           <titanium-data-table-item slot="items">
             <row-item large>Item B</row-item>
             <row-item desktop>4 eggs</row-item>
@@ -106,14 +70,13 @@ storiesOf('UI COMPONENTS|- Titanium Super Demo -', module)
             <row-item width="75px" right>Pixel</row-item>
           </titanium-data-table-item>
         </titanium-data-table>
-
         <p>
-          <titanium-chip label="C Drive" closeable ?disabled=${disable}></titanium-chip>
-          <titanium-chip label="D Drive" closeable ?disabled=${disable}></titanium-chip>
-          <titanium-chip label="F Drive" closeable ?disabled=${disable}></titanium-chip>
-          <titanium-chip label="F Drive" closeable ?disabled=${disable}></titanium-chip>
-          <titanium-chip label="This Guy" src="https://mapi.leavitt.com/People(771130)/Default.Picture(size=35)" ?disabled=${disable}></titanium-chip>
-          <titanium-chip label="Main frame" closeable ?disabled=${disable}>
+          <titanium-chip label="C Drive" closeable ></titanium-chip>
+          <titanium-chip label="D Drive" closeable ></titanium-chip>
+          <titanium-chip label="F Drive" closeable ></titanium-chip>
+          <titanium-chip label="F Drive" closeable ></titanium-chip>
+          <titanium-chip label="This Guy" src="https://mapi.leavitt.com/People(771130)/Default.Picture(size=35)" ></titanium-chip>
+          <titanium-chip label="Main frame" closeable >
             <svg slot="chip-icon" style="width:18px;height:18px" viewBox="0 0 24 24">
               <path
                 d="M12,3C7.58,3 4,4.79 4,7C4,9.21 7.58,11 12,11C16.42,11 20,9.21 20,7C20,4.79 16.42,3 12,3M4,9V12C4,14.21 7.58,16 12,16C16.42,16 20,14.21 20,12V9C20,11.21 16.42,13 12,13C7.58,13 4,11.21 4,9M4,14V17C4,19.21 7.58,21 12,21C16.42,21 20,19.21 20,17V14C20,16.21 16.42,18 12,18C7.58,18 4,16.21 4,14Z"
@@ -122,24 +85,20 @@ storiesOf('UI COMPONENTS|- Titanium Super Demo -', module)
           </titanium-chip>
         </p>
         <br />
-        <titanium-button ?disabled=${disable}>CLOSE</titanium-button>
-        <titanium-button outlined ?disabled=${disable}>OUTLINED</titanium-button>
-        <titanium-button raised ?disabled=${disable}>RAISED</titanium-button>
-        <titanium-button unelevated ?disabled=${disable}>UNELEVATED</titanium-button>
+        <titanium-button >CLOSE</titanium-button>
+        <titanium-button outlined >OUTLINED</titanium-button>
+        <titanium-button raised >RAISED</titanium-button>
+        <titanium-button unelevated >UNELEVATED</titanium-button>
         <br />
         <br />
-        <titanium-loading-indicator ?disabled=${disable}></titanium-loading-indicator>
+        <titanium-loading-indicator ></titanium-loading-indicator>
         <br />
         <br />
-
-        <titanium-progress ?disabled=${disable}> </titanium-progress>
+        <titanium-progress > </titanium-progress>
         <br />
         <br />
-
-        <titanium-search-input ?disabled=${disable}></titanium-search-input>
-
+        <titanium-search-input ></titanium-search-input>
         <titanium-single-select
-          ?disabled=${disable}
           style="max-width: 400px; margin: 24px 0;"
           itemlabelpath="FullName"
           hinttext="Search for a person or group to add them as a participant"
@@ -147,7 +106,6 @@ storiesOf('UI COMPONENTS|- Titanium Super Demo -', module)
         >
         </titanium-single-select>
         <titanium-single-select
-          ?disabled=${disable}
           style="max-width: 400px; margin: 24px 0;"
           shaped
           itemlabelpath="Shaped"
@@ -156,7 +114,6 @@ storiesOf('UI COMPONENTS|- Titanium Super Demo -', module)
         >
         </titanium-single-select>
         <titanium-single-select
-          ?disabled=${disable}
           style="max-width: 400px; margin: 24px 0;"
           filled
           itemlabelpath="Filled"
@@ -164,12 +121,10 @@ storiesOf('UI COMPONENTS|- Titanium Super Demo -', module)
           placeholder="Filled"
         >
         </titanium-single-select>
-
-        <titanium-svg-button ?disabled=${disable} path="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></titanium-svg-button>
-        <titanium-svg-button large ?disabled=${disable} path="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"></titanium-svg-button>
-
+        <titanium-svg-button  path="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></titanium-svg-button>
+        <titanium-svg-button large  path="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"></titanium-svg-button>
         <menu-container style="display: flex; flex-direction: column;width: 280px;margin: 24px 0;">
-          <titanium-side-menu-item href="#" ?disabled=${disable}>One Fish</titanium-side-menu-item>
+          <titanium-side-menu-item href="#" >One Fish</titanium-side-menu-item>
           <titanium-side-menu-item href="#">Two Fish</titanium-side-menu-item>
           <titanium-side-menu-item href="#" selected>
             <svg viewBox="0 0 24 24">
@@ -188,31 +143,22 @@ storiesOf('UI COMPONENTS|- Titanium Super Demo -', module)
           <titanium-tab-control-item selected> Red Fish </titanium-tab-control-item>
           <titanium-tab-control-item> Blue Fish </titanium-tab-control-item>
         </titanium-tab-control>
-
         <titanium-card>
           <h1>Color picker</h1>
           <h2>TLDR</h2>
-          <p>
-            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using
-            Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here',
-          </p>
-          <h2>Preamble</h2>
-          <p>
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-            esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-            laborum."
-          </p>
-
-          <h3>Section I</h3>
-          <p>
-            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus
-            Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H.
-            Rackham.
-          </p>
+           <p>
+          Lorem ipsum dolor amet artisan edison bulb viral helvetica trust fund poke, vaporware freegan hot chicken aesthetic photo booth green juice.
+          Meditation cloud bread woke 3 wolf moon, jianbing quinoa skateboard butcher neutra poutine tattooed gastropub semiotics locavore kickstarter.
+        </p>
+        <h2>Preamble</h2>
+        <h3>Section I</h3>
+        <p>
+          Hashtag forage shaman selvage poutine vinyl man braid lomo distillery lo-fi street art gochujang art party. Photo booth messenger bag offal palo santo
+          chia. Meggings whatever direct trade semiotics cronut, 3 wolf moon sartorial vinyl crucifix edison bulb neutra shabby chic affogato YOLO.
+        </p>
         </titanium-card>
         <br />
-        <titanium-single-action-card ?disable-action=${disable} buttonTitle="Manage your data & personalization">
+        <titanium-single-action-card buttonTitle="Manage your data & personalization">
           <h1>Privacy & personalization</h1>
           <p>
             Nulla posuere lacus luctus, fringilla orci vel, laoreet felis. Maecenas imperdiet urna eu consequat lobortis. Sed at ornare nibh. Donec justo urna,
@@ -220,23 +166,23 @@ storiesOf('UI COMPONENTS|- Titanium Super Demo -', module)
           </p>
         </titanium-single-action-card>
         <br />
-        <titanium-single-action-card ?disable-action=${disable} buttonTitle="Manage your data & personalization">
+        <titanium-single-action-card  buttonTitle="Manage your data & personalization">
           <h1>Manage payment methods</h1>
-          <titanium-card-list-item ?disabled=${disable} title="Mastercard">
+          <titanium-card-list-item  title="Mastercard">
             <div>Mastercard</div>
             <div spacer></div>
             <svg viewBox="0 0 24 24" style="height: 24px; width: 24px; flex-shrink: 0;fill: #5f6368"">
               <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
             </svg>
           </titanium-card-list-item>
-          <titanium-card-list-item ?disabled=${disable} title="Visa">
+          <titanium-card-list-item  title="Visa">
             <div>Visa</div>
             <div spacer></div>
             <svg viewBox="0 0 24 24" style="height: 24px; width: 24px; flex-shrink: 0;fill: #5f6368"">
               <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
             </svg>
           </titanium-card-list-item>
-          <titanium-card-list-item ?disabled=${disable} title="Discover">
+          <titanium-card-list-item  title="Discover">
             <div>Discover</div>
             <div spacer></div>
             <svg viewBox="0 0 24 24" style="height: 24px; width: 24px; flex-shrink: 0; fill: #5f6368">
@@ -244,10 +190,8 @@ storiesOf('UI COMPONENTS|- Titanium Super Demo -', module)
             </svg>
           </titanium-card-list-item>
         </titanium-single-action-card>
-
         <titanium-error-page></titanium-error-page>
         <titanium-access-denied-page></titanium-access-denied-page>
-      `;
-    },
-    availableCssVars
-  );
+    `}
+  </Story>
+</Preview>
