@@ -28,7 +28,7 @@ export class TitaniumChipElement extends LitElement {
   @property({ type: String }) src: string | undefined;
 
   /**
-   * Disables element.
+   * Disables element
    */
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
 

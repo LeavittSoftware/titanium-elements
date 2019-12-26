@@ -1,7 +1,18 @@
 import { css, customElement, html, LitElement, property } from 'lit-element';
 
+/**
+ * A pre-styled error page
+ *
+ * @element titanium-error-page
+ *
+ * @cssprop {Color} --app-text-color - Text and heading color
+ */
+
 @customElement('titanium-error-page')
 export class TitaniumErrorPageElement extends LitElement {
+  /**
+   * Reason text for the error
+   */
   @property({ type: String }) message: string = 'We were unable to find the page you are looking for...';
 
   static styles = css`

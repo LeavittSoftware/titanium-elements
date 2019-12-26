@@ -1,7 +1,17 @@
 import { css, customElement, html, LitElement, property } from 'lit-element';
 
+/**
+ * A pre-styled access denied page
+ *
+ * @element titanium-access-denied-page
+ *
+ * @cssprop {Color} --app-text-color - Text and heading color
+ */
 @customElement('titanium-access-denied-page')
 export class TitaniumAccessDeniedPageElement extends LitElement {
+  /**
+   * Reason text for the denial of access
+   */
   @property({ type: String }) message: string = 'You do not have permission to access this application.';
 
   static styles = css`
