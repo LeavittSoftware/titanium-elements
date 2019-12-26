@@ -2,25 +2,67 @@ import { css, customElement, html, LitElement, property, query } from 'lit-eleme
 import '@leavittsoftware/titanium-svg-button';
 import '@leavittsoftware/titanium-progress';
 
+/**
+ * Material design inspired searchable single select input.
+ *
+ * @element titanium-single-select
+ *
+ * @slot - Main slot for search suggestions. Slotted elements should be titanium-single-select-items
+ *
+ * @fires selected-change - Fired when selected item changes. Detail is the selected-item  or null.
+ * @fires input-change - Fired when the text changed in the text field.
+ *
+ * @cssprop {Color} --app-border-color - Input border color
+ * @cssprop {Color} --app-light=text-color - informatory text color
+ * @cssprop {Color} --app-text-color - Inputs main text color
+ */
 @customElement('titanium-single-select')
 export class TitaniumSingleSelectElement<T> extends LitElement {
-  @property({ type: Boolean, reflect: true }) disableFullScreen: boolean;
-  @property({ type: Boolean, reflect: true }) protected invalid: boolean = true;
-  @property({ type: Boolean, reflect: true }) protected open: boolean;
-  @property({ type: String }) protected inputValue: string = '';
+  @property({ type: Boolean, reflect: true }) disableFullScreen: boolean = false;
 
-  @property({ type: Boolean, reflect: true }) disabled: boolean;
-  @property({ type: Boolean }) private _isLoading: boolean;
+  /**
+   * Disables element
+   */
+  @property({ type: Boolean, reflect: true }) disabled: boolean = false;
+
+  /**
+   *  Sets input placeholder text.
+   */
   @property({ type: String }) placeholder: string = '';
+
+  /**
+   *  Displayed when the user focuses the input before typing occurs
+   */
   @property({ type: String }) hintText: string;
+
+  /**
+   *  Number of total results returned in the search
+   */
   @property({ type: Number }) totalCount: number;
+
+  /**
+   *  Property name in the suggestions object where the display name is stored.
+   */
   @property({ type: String }) itemLabelPath: string = 'Label';
 
+  /**
+   *  The selected suggestion object.
+   */
   @property({ attribute: false }) selected: T | null = null;
+
+  /**
+   *  The native input
+   */
   @query('input') input: HTMLInputElement;
-  @query('slot') slotElement: HTMLSlotElement;
-  @query('search-suggestions ') searchSuggestions: HTMLSlotElement;
-  @query('input-container ') inputContainer: HTMLSlotElement;
+
+  @property({ type: Boolean, reflect: true }) protected open: boolean = false;
+  @property({ type: String }) protected inputValue: string = '';
+  @property({ type: Boolean, reflect: true }) protected invalid: boolean = true;
+
+  @property({ type: Boolean }) private _isLoading: boolean;
+  @query('search-suggestions ') private searchSuggestions: HTMLSlotElement;
+  @query('input-container ') private inputContainer: HTMLSlotElement;
+  @query('slot') private slotElement: HTMLSlotElement;
 
   private _blurTimeoutHandle: number;
   private _openCount = 0;
