@@ -1,0 +1,103 @@
+import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { html } from 'lit-html';
+import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
+import { withWebComponentsKnobs } from '../index.js';
+import '@leavittsoftware/titanium-single-select';
+import '@leavittsoftware/titanium-single-select/lib/titanium-single-select-item';
+
+<Meta
+  title="UI COMPONENTS|titanium-single-select"
+  decorators={[withKnobs, withWebComponentsKnobs]}
+  parameters={{ component: 'titanium-single-select', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+/>
+
+# Titanium Single Select
+
+Material design inspired searchable single select input.
+
+## How to use
+
+```bash
+npm i @leavittsoftware/titanium-single-select
+```
+
+```js
+import '@leavittsoftware/titanium-single-select';
+```
+
+## API
+
+<Props of="titanium-single-select" />
+
+## Demo
+
+<Preview withToolbar>
+  <Story name="Docs" height="200px">
+    {() => {
+      const data = [
+        { FirstName: 'Alice', LastName: 'Smith', FullName: 'Alice Smith' },
+        { FirstName: 'Bob', LastName: 'Silverstone', FullName: 'Bob Silverstone' },
+        { FirstName: 'Charlie', LastName: 'Tu', FullName: 'Charlie Tu' },
+        { FirstName: 'Dogg', LastName: 'Bounty', FullName: 'Dogg Bounty' },
+        { FirstName: 'Alicia', LastName: 'Fu', FullName: 'Alicia Fu' },
+      ];
+      let suggestions = [];
+      return html`
+      <titanium-single-select
+          style="max-width: 400px; margin: 24px 0;"
+          @input-changed=${e =>  {
+            //TODO: Make a better demo
+            //suggestions = e.detail ? data : [];
+          }}
+          @selected-changed=${e => {
+            alert(JSON.stringify(e.detail));
+          }}
+          itemlabelpath="FullName"
+          totalCount="532"
+          hinttext="Search for a person or group to add them as a participant"
+          placeholder="Add participants"
+        >
+          ${data.map(
+            person =>
+              html`<titanium-single-select-item .value=${person}>${person.FirstName} ${person.LastName}</titanium-single-select-item>`
+          )}
+        </titanium-single-select>
+      `;
+    }}
+  </Story>
+</Preview>
+
+### Shaped
+<Preview>
+  <Story name="Shaped" height="120px">
+    {html`
+        <titanium-single-select
+          style="max-width: 400px; margin: 24px 0;"
+          shaped
+          itemlabelpath="Shaped"
+          hinttext="Search for a person or group to add them as a participant"
+          placeholder="Shaped"
+        >
+        </titanium-single-select>
+      `
+    }}
+  </Story>
+</Preview>
+
+### Filled
+<Preview>
+  <Story name="Filled" height="120px">
+    {html`
+        <titanium-single-select
+          style="max-width: 400px; margin: 24px 0;"
+          Filled
+          itemlabelpath="Filled"
+          hinttext="Search for a person or group to add them as a participant"
+          placeholder="Filled"
+        >
+        </titanium-single-select>
+      `
+    }}
+  </Story>
+</Preview>
