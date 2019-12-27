@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.12](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-search-input@3.0.11...@leavittsoftware/titanium-search-input@3.0.12) (2019-12-27)
+
+
+### Bug Fixes
+
+* **titanium-search-input:** input no longer prevented when preventCollapse is set. ([c0247f7](https://github.com/LeavittSoftware/titanium-elements/commit/c0247f749583c9086da4a09f575c2766781c6c22))
+
+
+
+
+
 ## [3.0.11](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-search-input@3.0.10...@leavittsoftware/titanium-search-input@3.0.11) (2019-12-18)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-search-input
