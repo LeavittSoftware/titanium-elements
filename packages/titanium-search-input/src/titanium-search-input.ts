@@ -198,7 +198,7 @@ export class TitaniumSearchInput extends LitElement {
         ></titanium-svg-button>
         <input
           type="text"
-          ?disabled=${this.disabled || this.collapsed}
+          ?disabled=${this.disabled || (this.collapsed && !this.preventCollapse)}
           placeholder=${this.placeholder}
           autocomplete="off"
           .value=${this.value}
