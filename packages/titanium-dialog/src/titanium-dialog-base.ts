@@ -9,6 +9,8 @@ import { css, customElement, html, LitElement, property } from 'lit-element';
  *
  * @cssprop {Color} --titanium-dialog-background-color - Background color of the dialog
  *
+ * @cssprop {<length> | <percentage> | none | max-content | min-content | fit-content | fill-available} --titanium-dialog-max-width - Max-width of dialog container
+ *
  */
 @customElement('titanium-dialog-base')
 export class TitaniumDialogBaseElement extends LitElement {
@@ -176,6 +178,7 @@ export class TitaniumDialogBaseElement extends LitElement {
       flex-direction: column;
       min-width: 280px;
       max-height: calc(100% - 32px);
+      max-width: var(--titanium-dialog-max-width, none);
       margin: 16px;
       border-radius: 8px;
       background: var(--titanium-dialog-background-color, #fff);
