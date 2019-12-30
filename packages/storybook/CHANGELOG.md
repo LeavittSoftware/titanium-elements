@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.0.8...@leavittsoftware/storybook@5.1.0) (2019-12-30)
+
+
+### Features
+
+* Add ability to have a max width set for titanium-dialog ([62d3d6b](https://github.com/LeavittSoftware/titanium-elements/commit/62d3d6b4fe2a1990dfdcb1b9bb547307187d2912))
+
+
+
+
+
 ## [5.0.8](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.0.7...@leavittsoftware/storybook@5.0.8) (2019-12-27)
 
 **Note:** Version bump only for package @leavittsoftware/storybook

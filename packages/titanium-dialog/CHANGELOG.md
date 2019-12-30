@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@2.0.2...@leavittsoftware/titanium-dialog@2.1.0) (2019-12-30)
+
+
+### Features
+
+* Add ability to have a max width set for titanium-dialog ([62d3d6b](https://github.com/LeavittSoftware/titanium-elements/commit/62d3d6b4fe2a1990dfdcb1b9bb547307187d2912))
+
+
+
+
+
 ## [2.0.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@2.0.1...@leavittsoftware/titanium-dialog@2.0.2) (2019-12-23)
 
 
