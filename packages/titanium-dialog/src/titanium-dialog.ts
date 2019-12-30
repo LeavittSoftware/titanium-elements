@@ -11,6 +11,7 @@ import { TitaniumDialogBaseElement } from './titanium-dialog-base';
  * @slot actions - dialog buttons (if provided will overwrite the default close button)
  *
  * @cssprop {Color} --titanium-dialog-background-color - Background color of the dialog
+ * @cssprop {<length> | <percentage> | none | max-content | min-content | fit-content | fill-available} --titanium-dialog-max-width - Max-width of dialog container
  * @cssprop {Color} --app-light-text-color - Content text color
  * @cssprop {Color} --app-dark-text-color - Dialog header color
  * @cssprop {Color} --app-border-color - Dialog border color
