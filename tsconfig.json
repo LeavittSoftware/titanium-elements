@@ -12,6 +12,7 @@
     { "path": "packages/titanium-helpers" },
     { "path": "packages/titanium-loading-indicator" },
     { "path": "packages/titanium-offline-notice" },
+    { "path": "packages/titanium-popup-surface" },
     { "path": "packages/titanium-progress" },
     { "path": "packages/titanium-search-input" },
     { "path": "packages/titanium-select" },
