@@ -21,6 +21,7 @@
   "dependencies": {
     "@leavittsoftware/titanium-button": "^1.2.0",
     "@leavittsoftware/titanium-helpers": "^3.0.0",
+    "@leavittsoftware/titanium-popup-surface": "^0.0.1",
     "@leavittsoftware/user-manager": "^9.1.0"
   },
   "peerDependencies": {
