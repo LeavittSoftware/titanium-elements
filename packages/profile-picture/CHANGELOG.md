@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/profile-picture@4.0.6...@leavittsoftware/profile-picture@4.1.0) (2019-12-31)
+
+
+### Features
+
+* Switch underlying component to use titanium-popup-surface ([1c2abce](https://github.com/LeavittSoftware/titanium-elements/commit/1c2abced401808d40f5217f2e07d1112a40338b5))
+
+
+
+
+
 ## [4.0.6](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/profile-picture@4.0.5...@leavittsoftware/profile-picture@4.0.6) (2019-12-19)
 
 **Note:** Version bump only for package @leavittsoftware/profile-picture
