@@ -298,8 +298,7 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
   }
 
   private handleBodyClick = (evt: MouseEvent) => {
-    const el = evt.composedPath()[0] as Element;
-    if (this.isElementInContainer(evt.target) || this === el) {
+    if (evt.composedPath().includes(this)) {
       return;
     }
     this.close();
