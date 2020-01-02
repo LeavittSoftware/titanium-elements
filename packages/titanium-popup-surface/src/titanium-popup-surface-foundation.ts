@@ -35,7 +35,7 @@ enum CornerBit {
   FLIP_RTL = 8,
 }
 
-enum Corner {
+export enum Corner {
   TOP_LEFT = 0,
   TOP_RIGHT = CornerBit.RIGHT,
   BOTTOM_LEFT = CornerBit.BOTTOM,
@@ -58,11 +58,29 @@ interface AutoLayoutMeasurements {
 export class TitaniumPopupSurfaceFoundation extends LitElement {
   @property({ type: Object }) anchorElement!: Element | null; // assigned in initialSyncWithDOM()
 
+  /**
+   * Anchors margin from bottom
+   */
+  @property({ type: Number, attribute: 'anchor-margin-bottom' }) anchorMarginBottom = 0;
+
+  /**
+   * Anchors margin from top
+   */
+  @property({ type: Number, attribute: 'anchor-margin-top' }) anchorMarginTop = 0;
+
+  /**
+   * Anchors margin from right
+   */
+  @property({ type: Number, attribute: 'anchor-margin-right' }) anchorMarginRight = 0;
+
+  /**
+   * Anchors margin from left
+   */
+  @property({ type: Number, attribute: 'anchor-margin-left' }) anchorMarginLeft = 0;
+
   @property({ type: Boolean, reflect: true }) protected opened: boolean = false;
   @property({ type: Boolean, reflect: true }) protected opening: boolean = false;
   @property({ type: Boolean, reflect: true }) protected closing: boolean = false;
-
-  private isOpen_ = false;
 
   @property({ type: Boolean, reflect: true, attribute: 'quick-open' }) protected isQuickOpen = false;
 
@@ -75,9 +93,9 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
   private openAnimationEndTimerId_ = 0;
   private closeAnimationEndTimerId_ = 0;
   private animationRequestId_ = 0;
+  private isOpen_ = false;
 
   private anchorCorner_: Corner = Corner.TOP_START;
-  private anchorMargin_: MenuDistance = { top: 0, right: 0, bottom: 0, left: 0 };
   private position_: MenuPoint = { x: 0, y: 0 };
 
   private dimensions_!: MenuDimensions; // assigned in open()
@@ -151,11 +169,10 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
   }
 
   private registerBodyListener() {
-    console.log(document.body);
     document.body.addEventListener('click', this.handleBodyClick);
   }
 
-  private deregisterBodyListener() {
+  private unregisterBodyListener() {
     document.body.removeEventListener('click', this.handleBodyClick);
   }
 
@@ -220,10 +237,10 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
    * @param margin Set of margin values from anchor.
    */
   setAnchorMargin(margin: Partial<MenuDistance>) {
-    this.anchorMargin_.top = margin.top || 0;
-    this.anchorMargin_.right = margin.right || 0;
-    this.anchorMargin_.bottom = margin.bottom || 0;
-    this.anchorMargin_.left = margin.left || 0;
+    this.anchorMarginTop = margin.top || 0;
+    this.anchorMarginRight = margin.right || 0;
+    this.anchorMarginBottom = margin.bottom || 0;
+    this.anchorMarginLeft = margin.left || 0;
   }
 
   /** Sets the menu-surface position on the page. */
@@ -281,12 +298,12 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
       this.opened = false;
       await this.updateComplete;
       if (this.isQuickOpen) {
-        this.deregisterBodyListener();
+        this.unregisterBodyListener();
       } else {
         this.closeAnimationEndTimerId_ = window.setTimeout(() => {
           this.closeAnimationEndTimerId_ = 0;
           this.closing = false;
-          this.deregisterBodyListener();
+          this.unregisterBodyListener();
         }, 75);
       }
     });
@@ -365,12 +382,12 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
 
     // When maximum height is not specified, it is handled from CSS.
     if (isBottomAligned) {
-      maxHeight = viewportDistance.top + this.anchorMargin_.top - MARGIN_TO_EDGE;
+      maxHeight = viewportDistance.top + this.anchorMarginTop - MARGIN_TO_EDGE;
       if (!isBottomAnchored) {
         maxHeight += this.measurements_.anchorSize.height;
       }
     } else {
-      maxHeight = viewportDistance.bottom - this.anchorMargin_.bottom + this.measurements_.anchorSize.height - MARGIN_TO_EDGE;
+      maxHeight = viewportDistance.bottom - this.anchorMarginBottom + this.measurements_.anchorSize.height - MARGIN_TO_EDGE;
       if (isBottomAnchored) {
         maxHeight -= this.measurements_.anchorSize.height;
       }
@@ -390,7 +407,7 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
     const avoidHorizontalOverlap = this.hasBit_(this.anchorCorner_, CornerBit.RIGHT);
 
     if (isRightAligned) {
-      const rightOffset = avoidHorizontalOverlap ? anchorSize.width - this.anchorMargin_.left : this.anchorMargin_.right;
+      const rightOffset = avoidHorizontalOverlap ? anchorSize.width - this.anchorMarginLeft : this.anchorMarginRight;
 
       // For hoisted or fixed elements, adjust the offset by the difference between viewport width and body width so
       // when we calculate the right value (`adjustPositionForHoistedElement_`) based on the element position,
@@ -402,7 +419,7 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
       return rightOffset;
     }
 
-    return avoidHorizontalOverlap ? anchorSize.width - this.anchorMargin_.right : this.anchorMargin_.left;
+    return avoidHorizontalOverlap ? anchorSize.width - this.anchorMarginRight : this.anchorMarginLeft;
   }
 
   /**
@@ -416,9 +433,9 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
 
     let y = 0;
     if (isBottomAligned) {
-      y = avoidVerticalOverlap ? anchorSize.height - this.anchorMargin_.top : -this.anchorMargin_.bottom;
+      y = avoidVerticalOverlap ? anchorSize.height - this.anchorMarginTop : -this.anchorMarginBottom;
     } else {
-      y = avoidVerticalOverlap ? anchorSize.height + this.anchorMargin_.bottom : this.anchorMargin_.top;
+      y = avoidVerticalOverlap ? anchorSize.height + this.anchorMarginBottom : this.anchorMarginTop;
     }
     return y;
   }
@@ -481,10 +498,10 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
     const { viewportDistance, anchorSize, surfaceSize } = this.measurements_;
 
     const isBottomAligned = this.hasBit_(this.anchorCorner_, CornerBit.BOTTOM);
-    const availableTop = isBottomAligned ? viewportDistance.top + anchorSize.height + this.anchorMargin_.bottom : viewportDistance.top + this.anchorMargin_.top;
+    const availableTop = isBottomAligned ? viewportDistance.top + anchorSize.height + this.anchorMarginBottom : viewportDistance.top + this.anchorMarginTop;
     const availableBottom = isBottomAligned
-      ? viewportDistance.bottom - this.anchorMargin_.bottom
-      : viewportDistance.bottom + anchorSize.height - this.anchorMargin_.top;
+      ? viewportDistance.bottom - this.anchorMarginBottom
+      : viewportDistance.bottom + anchorSize.height - this.anchorMarginTop;
 
     const topOverflow = surfaceSize.height - availableTop;
     const bottomOverflow = surfaceSize.height - availableBottom;
@@ -496,12 +513,8 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
     const isFlipRtl = this.hasBit_(this.anchorCorner_, CornerBit.FLIP_RTL);
     const avoidHorizontalOverlap = this.hasBit_(this.anchorCorner_, CornerBit.RIGHT);
     const isAlignedRight = (avoidHorizontalOverlap && !isRtl) || (!avoidHorizontalOverlap && isFlipRtl && isRtl);
-    const availableLeft = isAlignedRight
-      ? viewportDistance.left + anchorSize.width + this.anchorMargin_.right
-      : viewportDistance.left + this.anchorMargin_.left;
-    const availableRight = isAlignedRight
-      ? viewportDistance.right - this.anchorMargin_.right
-      : viewportDistance.right + anchorSize.width - this.anchorMargin_.left;
+    const availableLeft = isAlignedRight ? viewportDistance.left + anchorSize.width + this.anchorMarginRight : viewportDistance.left + this.anchorMarginLeft;
+    const availableRight = isAlignedRight ? viewportDistance.right - this.anchorMarginRight : viewportDistance.right + anchorSize.width - this.anchorMarginLeft;
 
     const leftOverflow = surfaceSize.width - availableLeft;
     const rightOverflow = surfaceSize.width - availableRight;
