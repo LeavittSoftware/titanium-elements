@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.1.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.1.1...@leavittsoftware/storybook@5.1.2) (2020-01-03)
+
+**Note:** Version bump only for package @leavittsoftware/storybook
+
+
+
+
+
 ## [5.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.1.0...@leavittsoftware/storybook@5.1.1) (2019-12-31)
 
 **Note:** Version bump only for package @leavittsoftware/storybook
