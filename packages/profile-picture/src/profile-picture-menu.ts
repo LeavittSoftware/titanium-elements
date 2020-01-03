@@ -1,4 +1,4 @@
-﻿import './profile-picture';
+import './profile-picture';
 import './profile-picture-menu-popup';
 
 import { GetUserManagerInstance } from '@leavittsoftware/user-manager';
@@ -71,12 +71,17 @@ export class ProfilePictureMenuElement extends LitElement {
 
   render() {
     return html`
-      <div class="popup--anchor">
+      <div
+        style=${styleMap({
+          height: `${this.size}px`,
+          width: `${this.size}px`,
+        })}
+        class="popup--anchor"
+      >
         <profile-picture shape="circle" .personId=${this.personId} .size=${this.size} @click=${() => this.popup.open()}></profile-picture>
         <profile-picture-menu-popup
-          style=${styleMap({
-            'margin-top': `${this.size + 4}px`,
-          })}
+          anchor-margin-bottom="5"
+          anchor-corner="9"
           .personId=${this.personId}
           .name=${this.name}
           .email=${this.email}
