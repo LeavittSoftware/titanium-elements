@@ -95,13 +95,13 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
   @property({ type: Boolean, reflect: true }) protected opening: boolean = false;
   @property({ type: Boolean, reflect: true }) protected closing: boolean = false;
 
-  @property({ type: Boolean, reflect: true, attribute: 'quick-open' }) protected isQuickOpen = false;
+  @property({ type: Boolean, reflect: true, attribute: 'quick-open' }) isQuickOpen = false;
 
   /** Used to indicate if the menu-surface is hoisted to the body. */
-  @property({ type: Boolean, reflect: true, attribute: 'hoisted-element' }) protected isHoistedElement = false;
+  @property({ type: Boolean, reflect: true, attribute: 'hoisted-element' }) isHoistedElement = false;
 
   /** Used to set the menu-surface calculations based on a fixed position menu. */
-  @property({ type: Boolean, reflect: true, attribute: 'fixed-position' }) protected isFixedPosition = false;
+  @property({ type: Boolean, reflect: true, attribute: 'fixed-position' }) isFixedPosition = false;
 
   private openAnimationEndTimerId_ = 0;
   private closeAnimationEndTimerId_ = 0;
@@ -110,8 +110,8 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
 
   private position_: MenuPoint = { x: 0, y: 0 };
 
-  private dimensions_!: MenuDimensions; // assigned in open()
-  private measurements_!: AutoLayoutMeasurements; // assigned in open()
+  private dimensions_!: MenuDimensions;
+  private measurements_!: AutoLayoutMeasurements;
   private previousFocus_?: HTMLElement | SVGElement | null;
 
   static styles = css`
@@ -286,11 +286,17 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
       this.autoPosition_();
       if (this.isQuickOpen) {
         this.registerBodyListener();
+        this.dispatchEvent(
+          new CustomEvent<boolean>('opened-changed', { detail: true })
+        );
       } else {
         this.openAnimationEndTimerId_ = window.setTimeout(() => {
           this.openAnimationEndTimerId_ = 0;
           this.opening = false;
           this.registerBodyListener();
+          this.dispatchEvent(
+            new CustomEvent<boolean>('opened-changed', { detail: true })
+          );
         }, 120);
       }
     });
@@ -311,11 +317,17 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
       await this.updateComplete;
       if (this.isQuickOpen) {
         this.unregisterBodyListener();
+        this.dispatchEvent(
+          new CustomEvent<boolean>('opened-changed', { detail: false })
+        );
       } else {
         this.closeAnimationEndTimerId_ = window.setTimeout(() => {
           this.closeAnimationEndTimerId_ = 0;
           this.closing = false;
           this.unregisterBodyListener();
+          this.dispatchEvent(
+            new CustomEvent<boolean>('opened-changed', { detail: false })
+          );
         }, 75);
       }
     });
