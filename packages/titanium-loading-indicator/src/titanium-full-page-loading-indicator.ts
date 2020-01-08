@@ -27,9 +27,8 @@ export class TitaniumFullPageLoadingIndicatorElement extends LitElement {
       this._openCount++;
       try {
         await e.detail.promise;
-      }
-      catch { }
-      finally {
+      } catch {
+      } finally {
         this._openCount--;
         if (this._openCount === 0) {
           this._close();
@@ -46,11 +45,7 @@ export class TitaniumFullPageLoadingIndicatorElement extends LitElement {
       this.opened = false;
       this.opening = true;
 
-      if (window.innerWidth > document.documentElement.clientWidth) {
-        document.body.style.overflowY = 'scroll';
-        document.body.style.position = 'fixed';
-        document.body.style.width = '100%';
-      }
+      document.body.style.overflow = 'hidden';
 
       this.runNextAnimationFrame_(() => {
         this.opened = true;
@@ -76,9 +71,7 @@ export class TitaniumFullPageLoadingIndicatorElement extends LitElement {
       clearTimeout(this._animationTimer);
       this._animationTimer = window.setTimeout(() => {
         this.handleAnimationTimerEnd_();
-        document.body.style.overflowY = '';
-        document.body.style.position = '';
-        document.body.style.width = '';
+        document.body.style.overflow = '';
       }, 150);
     }, closeDelay);
   }
