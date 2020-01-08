@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-loading-indicator@4.0.3...@leavittsoftware/titanium-loading-indicator@4.0.4) (2020-01-08)
+
+
+### Bug Fixes
+
+* **titanium-full-page-loading-indicator:** Alters overflow styling ([5de4f6e](https://github.com/LeavittSoftware/titanium-elements/commit/5de4f6e0e3b9472ed3bc6d751b7f81ef4902b615))
+
+
+
+
+
 ## [4.0.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-loading-indicator@4.0.2...@leavittsoftware/titanium-loading-indicator@4.0.3) (2019-12-30)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-loading-indicator
