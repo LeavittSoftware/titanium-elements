@@ -524,8 +524,9 @@ export class TitaniumSingleSelectElement<T> extends LitElement {
         <titanium-progress ?hidden=${!this._isLoading || !this.open} ?disabled=${!this._isLoading}></titanium-progress>
       </input-container>
       <search-suggestions id="suggestions" tabindex="-1">
-        <informatory-text ?hidden=${this.totalCount > 0 || this.inputValue !== ''}>${this.hintText}</informatory-text>
-        <informatory-text ?hidden=${this.inputValue === '' || this._isLoading}> ${this.totalCount} results for '${this.inputValue}' </informatory-text>
+        <informatory-text ?hidden=${this._isLoading}
+          >${this.inputValue === '' ? this.hintText : this.totalCount + ' results for ' + this.inputValue}</informatory-text
+        >
         <slot></slot>
       </search-suggestions>
     `;
