@@ -20,8 +20,9 @@ export class Debouncer<T, A> {
   debounce(...args: A[]) {
     clearTimeout(this.timer);
     this.timer = window.setTimeout(async () => {
-      this._debounceResolve(await this.work(...args));
       this._debouncePromise = undefined;
+      const debounceResolve = this._debounceResolve;
+      debounceResolve(await this.work(...args));
     }, this.interval);
 
     if (!this._debouncePromise) {
