@@ -56,6 +56,7 @@ export class TitaniumSvgButton extends LitElement {
       width: var(--titanium-svg-button-size, 42px);
       height: var(--titanium-svg-button-size, 42px);
       border-radius: 50%;
+      padding: 1px 6px;
     }
 
     :host([disabled]) {
