@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-svg-button@4.1.0...@leavittsoftware/titanium-svg-button@4.1.1) (2020-01-15)
+
+
+### Bug Fixes
+
+* added padding to titanium-svg-button to make consistent accross browsers ([f6d1558](https://github.com/LeavittSoftware/titanium-elements/commit/f6d1558859a00a7c27781271d6eaa571d4139dcb))
+
+
+
+
+
 # [4.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-svg-button@4.0.0...@leavittsoftware/titanium-svg-button@4.1.0) (2019-12-18)
 
 
