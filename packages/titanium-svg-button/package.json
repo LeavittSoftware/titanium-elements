@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-svg-button",
   "description": "",
   "author": "Leavitt Software",
-  "version": "4.1.1",
+  "version": "4.2.0",
   "license": "MIT",
   "main": "lib/titanium-svg-button.js",
   "typings": "lib/titanium-svg-button.d.ts",
@@ -19,8 +19,8 @@
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
   "dependencies": {
-    "@material/mwc-ripple": "^0.12.0",
-    "@leavittsoftware/titanium-popup-surface": "0.2.0"
+    "@leavittsoftware/titanium-popup-surface": "^0.3.0",
+    "@material/mwc-ripple": "^0.12.0"
   },
   "peerDependencies": {
     "lit-element": ">=2.1.0"

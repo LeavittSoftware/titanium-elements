@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-svg-button@4.1.1...@leavittsoftware/titanium-svg-button@4.2.0) (2020-01-16)
+
+
+### Features
+
+* Adds initial version of svg-button-menu ([584ed51](https://github.com/LeavittSoftware/titanium-elements/commit/584ed513312c948a100ddc945df1cf089fc254ba))
+
+
+
+
+
 ## [4.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-svg-button@4.1.0...@leavittsoftware/titanium-svg-button@4.1.1) (2020-01-15)
 
 
