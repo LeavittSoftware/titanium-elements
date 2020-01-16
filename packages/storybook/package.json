@@ -8,9 +8,9 @@
     "storybook:start": "start-storybook -s ./static -p 6006",
     "build-storybook": "build-storybook",
     "site:build": "npm run gen-docs && build-storybook -s ./static -o ./site/titanium-elements",
-    "gen-docs": "wca analyze \"../**/src/*.{ts}\" --format json --outFile custom-elements.json",
+    "gen-docs": "wca analyze \"../**/src/*.ts\" --format json --outFile custom-elements.json",
     "gen-docs:watch": "npm-watch gen-docs",
-    "diagnose": "wca diagnose \"../**/src/*.{ts}\""
+    "diagnose": "wca diagnose \"../**/src/*.ts\""
   },
   "watch": {
     "gen-docs": {
