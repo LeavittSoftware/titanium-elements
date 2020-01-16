@@ -1,0 +1,49 @@
+import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { html } from 'lit-html';
+import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
+import { withWebComponentsKnobs } from '../index.js';
+
+import '@leavittsoftware/titanium-svg-button/lib/titanium-svg-button-menu';
+
+<Meta
+  title="UI COMPONENTS|titanium-svg-button-menu"
+  decorators={[withKnobs, withWebComponentsKnobs]}
+  parameters={{ component: 'titanium-svg-button-menu', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+/>
+
+# Titanium SVG Button with menu
+
+Material design inspired svg button with menu.
+
+## How to use
+
+```bash
+npm i @leavittsoftware/titanium-svg-button
+```
+
+```js
+import '@leavittsoftware/titanium-svg-button/lib/titanium-svg-button-menu';
+```
+
+## API
+
+<Props of="titanium-svg-button-menu" />
+
+## Demo
+
+<Preview withToolbar>
+  <Story name="Docs">
+    {html`
+      <titanium-svg-button-menu style="margin-left:200px;">
+        <div role="menuitem">Option A</div>
+        <div role="menuitem">Option B</div>
+        <div role="menuitem">Option C</div>
+        <div role="menuitem">Option D</div>
+        <hr />
+        <div role="menuitem">About</div>
+        <div role="menuitem">Help</div>
+      </titanium-svg-button-menu>
+    `}
+  </Story>
+</Preview>
