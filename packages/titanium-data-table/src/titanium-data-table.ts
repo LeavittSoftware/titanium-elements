@@ -1,4 +1,5 @@
 import '@leavittsoftware/titanium-svg-button';
+import '@leavittsoftware/titanium-svg-button/lib/titanium-svg-button-menu';
 import '@leavittsoftware/titanium-loading-indicator';
 
 import { css, customElement, html, LitElement, property, queryAll } from 'lit-element';
@@ -138,22 +139,6 @@ export class TitaniumDataTableElement extends LitElement {
     const startOfPage = count === 0 ? count : page * this.take + 1;
     const endOfPage = (page + 1) * this.take > count ? count : (page + 1) * this.take;
     return `${startOfPage}-${endOfPage} of ${count}`;
-  }
-
-  private _handleChangeTake() {
-    if (this.take === 10) {
-      this.setTake(15);
-    } else if (this.take === 15) {
-      this.setTake(20);
-    } else if (this.take === 20) {
-      this.setTake(50);
-    } else if (this.take === 50) {
-      this.setTake(this.largePages ? 100 : 10);
-    } else if (this.take === 100) {
-      this.setTake(500);
-    } else if (this.take === 500) {
-      this.setTake(10);
-    }
   }
 
   private _determineTake() {
@@ -434,15 +419,16 @@ export class TitaniumDataTableElement extends LitElement {
       padding: 0 4px 0 12px;
     }
 
+    table-control > titanium-svg-button-menu {
+      margin-bottom: -6px;
+      --titanium-svg-button-size: 32px;
+      --titanium-svg-button-svg-size: 25px;
+    }
+
     pagination-text {
       text-align: right;
       margin: 0 8px;
       user-select: none;
-    }
-
-    take-buttons {
-      display: flex;
-      flex-direction: column;
     }
 
     select-all-checkbox {
@@ -565,12 +551,19 @@ export class TitaniumDataTableElement extends LitElement {
       <table-controls ?hidden="${this._isLoading}">
         <table-control>
           Rows per page: <span>${this.take}</span>
-          <take-buttons>
-            <titanium-svg-button
-              path="M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9 12 5.83zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15 12 18.17z"
-              @click="${this._handleChangeTake}"
-            ></titanium-svg-button>
-          </take-buttons>
+
+          <titanium-svg-button-menu path="M7 10l5 5 5-5H7z" anchorCorner="9" anchor-margin-top="0" anchor-margin-right="0">
+            <div role="menuitem" @item-selected=${() => this.setTake(10)}>10 rows</div>
+            <div role="menuitem" @item-selected=${() => this.setTake(15)}>15 rows</div>
+            <div role="menuitem" @item-selected=${() => this.setTake(20)}>20 rows</div>
+            <div role="menuitem" @item-selected=${() => this.setTake(50)}>50 rows</div>
+            ${this.largePages
+              ? html`
+                  <div role="menuitem" @item-selected=${() => this.setTake(100)}>100 rows</div>
+                  <div role="menuitem" @item-selected=${() => this.setTake(500)}>500 rows</div>
+                `
+              : ''}
+          </titanium-svg-button-menu>
         </table-control>
         <div mobile-space></div>
         <table-control>
