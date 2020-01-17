@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-header",
   "description": "",
   "author": "Leavitt Software",
-  "version": "3.0.10",
+  "version": "3.0.11",
   "license": "MIT",
   "main": "lib/titanium-header.js",
   "typings": "lib/titanium-header.d.ts",
@@ -19,7 +19,7 @@
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
   "dependencies": {
-    "@leavittsoftware/titanium-svg-button": "^4.2.0"
+    "@leavittsoftware/titanium-svg-button": "^4.3.0"
   },
   "peerDependencies": {
     "lit-element": ">=2.1.0"

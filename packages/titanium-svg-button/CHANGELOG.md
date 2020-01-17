@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-svg-button@4.2.0...@leavittsoftware/titanium-svg-button@4.3.0) (2020-01-17)
+
+
+### Bug Fixes
+
+* Reset padding on button to allow predictable SVG resizing.  ([7d2bf8b](https://github.com/LeavittSoftware/titanium-elements/commit/7d2bf8bdc275fb465997559077ff76f10db3dc5c))
+
+
+### Features
+
+* Expose anchor positioning properties for consumers.  ([f0fae21](https://github.com/LeavittSoftware/titanium-elements/commit/f0fae2113411acdc0621b2f7882aa1d235b34c1f))
+
+
+
+
+
 # [4.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-svg-button@4.1.1...@leavittsoftware/titanium-svg-button@4.2.0) (2020-01-16)
 
 

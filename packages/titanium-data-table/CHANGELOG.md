@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@6.0.7...@leavittsoftware/titanium-data-table@6.1.0) (2020-01-17)
+
+
+### Features
+
+* Convert paging button to a menu of page options ([618ad1a](https://github.com/LeavittSoftware/titanium-elements/commit/618ad1a98ab4326d364ceb16e3a391a940299ca2))
+
+
+
+
+
 ## [6.0.7](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@6.0.6...@leavittsoftware/titanium-data-table@6.0.7) (2020-01-16)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-data-table
