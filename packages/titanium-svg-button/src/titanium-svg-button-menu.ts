@@ -3,6 +3,7 @@ import { TitaniumMenuSurfaceElement } from '@leavittsoftware/titanium-popup-surf
 
 import '@leavittsoftware/titanium-popup-surface/lib/titanium-menu-surface';
 import './titanium-svg-button';
+import { Corner } from '@leavittsoftware/titanium-popup-surface';
 
 /**
  * Material design inspired svg button with menu.
@@ -17,6 +18,39 @@ import './titanium-svg-button';
 @customElement('titanium-svg-button-menu')
 export class TitaniumSvgButtonMenuElement extends LitElement {
   @query('titanium-menu-surface') surface: TitaniumMenuSurfaceElement;
+
+  /**
+   * Anchors margin from bottom
+   */
+  @property({ type: Number, attribute: 'anchor-margin-bottom' }) anchorMarginBottom = 0;
+
+  /**
+   * Anchors margin from top
+   */
+  @property({ type: Number, attribute: 'anchor-margin-top' }) anchorMarginTop = 34;
+
+  /**
+   * Anchors margin from right
+   */
+  @property({ type: Number, attribute: 'anchor-margin-right' }) anchorMarginRight = 10;
+
+  /**
+   * Anchors margin from left
+   */
+  @property({ type: Number, attribute: 'anchor-margin-left' }) anchorMarginLeft = 0;
+
+  /**
+   *  Defines the corner the surface is anchored to
+   * TOP_LEFT = 0
+   * TOP_RIGHT = 4
+   * BOTTOM_LEFT = 1
+   * BOTTOM_RIGHT = 5
+   * TOP_START = 8
+   * TOP_END = 12
+   * BOTTOM_START = 9
+   * BOTTOM_END = 13
+   */
+  @property({ type: Number, attribute: 'anchor-corner' }) anchorCorner: Corner = Corner.TOP_START;
 
   /**
    * SVG path
@@ -72,7 +106,13 @@ export class TitaniumSvgButtonMenuElement extends LitElement {
     return html`
       <div class="popup--anchor">
         <titanium-svg-button @click=${() => this.surface.open()} path=${this.path}></titanium-svg-button>
-        <titanium-menu-surface anchor-corner="8" anchor-margin-top="34" anchor-margin-right="10">
+        <titanium-menu-surface
+          .anchorCorner=${this.anchorCorner}
+          .anchorMarginRight=${this.anchorMarginRight}
+          .anchorMarginBottom=${this.anchorMarginBottom}
+          .anchorMarginTop=${this.anchorMarginTop}
+          .anchorMarginLeft=${this.anchorMarginLeft}
+        >
           <slot></slot>
         </titanium-menu-surface>
       </div>
