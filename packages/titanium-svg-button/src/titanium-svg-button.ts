@@ -11,7 +11,7 @@ import { css, customElement, html, LitElement, property } from 'lit-element';
  * @cssprop {Color} --titanium-svg-button-focus-color - Button focus color
  * @cssprop {Color} --app-text-color - Icon fill color
  * @cssprop {Color} --app-primary-color - Ripple color
- * @cssprop {Length} --titanium-svg-button-svg-size - Size of the SVG in the button (default: 80%)
+ * @cssprop {Length} --titanium-svg-button-svg-size - Size of the SVG in the button (default: 60%)
  */
 
 @customElement('titanium-svg-button')
@@ -56,7 +56,7 @@ export class TitaniumSvgButton extends LitElement {
       width: var(--titanium-svg-button-size, 42px);
       height: var(--titanium-svg-button-size, 42px);
       border-radius: 50%;
-      padding: 1px 6px;
+      padding: 0;
     }
 
     :host([disabled]) {
@@ -89,8 +89,8 @@ export class TitaniumSvgButton extends LitElement {
     svg {
       display: block;
       margin: 0 auto;
-      width: var(--titanium-svg-button-svg-size, 80%);
-      height: var(--titanium-svg-button-svg-size, 80%);
+      width: var(--titanium-svg-button-svg-size, 60%);
+      height: var(--titanium-svg-button-svg-size, 60%);
       fill: var(--app-text-color, #5f6368);
     }
 
