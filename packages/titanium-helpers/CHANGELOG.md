@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-helpers@3.0.0...@leavittsoftware/titanium-helpers@3.0.1) (2020-01-17)
+
+
+### Bug Fixes
+
+* Clear promise before awaiting work and store local resolve ([a895639](https://github.com/LeavittSoftware/titanium-elements/commit/a895639281f2c823fa72768885359b89a6f2a16b))
+* Wait for work then resolve and clear promise ([14be948](https://github.com/LeavittSoftware/titanium-elements/commit/14be948ead6dac03373f5910e7e40af251ed4b01))
+
+
+
+
+
 # [3.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-helpers@2.2.0...@leavittsoftware/titanium-helpers@3.0.0) (2019-12-18)
 
 
