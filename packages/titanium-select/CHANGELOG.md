@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-select@0.2.0...@leavittsoftware/titanium-select@0.2.1) (2020-01-21)
+
+
+### Bug Fixes
+
+* Setting options no longer clears selection. ([d336172](https://github.com/LeavittSoftware/titanium-elements/commit/d3361726e31023febee1c6ab1dbb0c234447014d))
+
+
+
+
+
 # [0.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-select@0.1.0...@leavittsoftware/titanium-select@0.2.0) (2019-12-18)
 
 
