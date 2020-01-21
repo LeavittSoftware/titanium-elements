@@ -96,8 +96,8 @@ export class TitaniumDataTableElement extends LitElement {
 
     if (!this.disablePaging) {
       this.setTake(this._determineTake());
-      this.addEventListener('titanium-data-table-item-selected-changed', this._handleItemSelectionChange.bind(this));
     }
+    this.addEventListener('titanium-data-table-item-selected-changed', this._handleItemSelectionChange.bind(this));
   }
 
   clearSelection() {
