@@ -21,6 +21,7 @@ import { TitaniumDataTableItemElement } from './titanium-data-table-item';
  * @slot selected-actions -  item specific table buttons such as edit, delete shown when one or more items are selected
  * @slot table-headers - slot for table headers (ex. titanium-data-table-header)
  * @slot items - slot for table rows (ex. titanium-data-table-item)
+ * @slot footer - slot for additional footer items
  *
  * @cssprop {Color} --app-text-color - No results text color
  * @cssprop {Color} --app-dark-text-color - Heading and table control color
@@ -65,6 +66,11 @@ export class TitaniumDataTableElement extends LitElement {
   @property({ type: Boolean, attribute: 'disable-select' }) disableSelect: boolean = false;
 
   /**
+   * Disables paging.
+   */
+  @property({ type: Boolean, attribute: 'disable-paging' }) disablePaging: boolean = false;
+
+  /**
    * Array of currently selected data table objects
    */
   @property({ type: Array }) selected: Array<unknown> = [];
@@ -87,8 +93,11 @@ export class TitaniumDataTableElement extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.setTake(this._determineTake());
-    this.addEventListener('titanium-data-table-item-selected-changed', this._handleItemSelectionChange.bind(this));
+
+    if (!this.disablePaging) {
+      this.setTake(this._determineTake());
+      this.addEventListener('titanium-data-table-item-selected-changed', this._handleItemSelectionChange.bind(this));
+    }
   }
 
   clearSelection() {
@@ -548,38 +557,44 @@ export class TitaniumDataTableElement extends LitElement {
         <titanium-loading-indicator ?hidden="${!this._isLoading}" ?disabled="${!this._isLoading}">Loading...</titanium-loading-indicator>
         <slot name="items"></slot>
       </table-container>
-      <table-controls ?hidden="${this._isLoading}">
-        <table-control>
-          Rows per page: <span>${this.take}</span>
 
-          <titanium-svg-button-menu path="M7 10l5 5 5-5H7z" anchorCorner="9" anchor-margin-top="0" anchor-margin-right="0">
-            <div role="menuitem" @item-selected=${() => this.setTake(10)}>10 rows</div>
-            <div role="menuitem" @item-selected=${() => this.setTake(15)}>15 rows</div>
-            <div role="menuitem" @item-selected=${() => this.setTake(20)}>20 rows</div>
-            <div role="menuitem" @item-selected=${() => this.setTake(50)}>50 rows</div>
-            ${this.largePages
-              ? html`
-                  <div role="menuitem" @item-selected=${() => this.setTake(100)}>100 rows</div>
-                  <div role="menuitem" @item-selected=${() => this.setTake(500)}>500 rows</div>
-                `
-              : ''}
-          </titanium-svg-button-menu>
-        </table-control>
-        <div mobile-space></div>
-        <table-control>
-          <pagination-text>${this._getPageStats(this.page, this.count)}</pagination-text>
-          <titanium-svg-button
-            path="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"
-            @click="${this._handleLastPageClick}"
-            ?disabled="${this.page === 0 || !this.count}"
-          ></titanium-svg-button>
-          <titanium-svg-button
-            path="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
-            @click="${this._handleNextPageClick}"
-            ?disabled="${!this.count || (this.page + 1) * this.take >= this.count}"
-          ></titanium-svg-button>
-        </table-control>
-      </table-controls>
+      ${this.disablePaging
+        ? ''
+        : html`
+            <table-controls ?hidden=${this._isLoading}>
+              <table-control>
+                Rows per page: <span>${this.take}</span>
+
+                <titanium-svg-button-menu path="M7 10l5 5 5-5H7z" anchorCorner="9" anchor-margin-top="0" anchor-margin-right="0">
+                  <div role="menuitem" @item-selected=${() => this.setTake(10)}>10 rows</div>
+                  <div role="menuitem" @item-selected=${() => this.setTake(15)}>15 rows</div>
+                  <div role="menuitem" @item-selected=${() => this.setTake(20)}>20 rows</div>
+                  <div role="menuitem" @item-selected=${() => this.setTake(50)}>50 rows</div>
+                  ${this.largePages
+                    ? html`
+                        <div role="menuitem" @item-selected=${() => this.setTake(100)}>100 rows</div>
+                        <div role="menuitem" @item-selected=${() => this.setTake(500)}>500 rows</div>
+                      `
+                    : ''}
+                </titanium-svg-button-menu>
+              </table-control>
+              <div mobile-space></div>
+              <table-control>
+                <pagination-text>${this._getPageStats(this.page, this.count)}</pagination-text>
+                <titanium-svg-button
+                  path="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"
+                  @click="${this._handleLastPageClick}"
+                  ?disabled="${this.page === 0 || !this.count}"
+                ></titanium-svg-button>
+                <titanium-svg-button
+                  path="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
+                  @click="${this._handleNextPageClick}"
+                  ?disabled="${!this.count || (this.page + 1) * this.take >= this.count}"
+                ></titanium-svg-button>
+              </table-control>
+            </table-controls>
+          `}
+      <slot name="footer"></slot>
     `;
   }
 }
