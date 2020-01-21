@@ -75,12 +75,6 @@ export class TitaniumSelectElement<T> extends LitElement {
   @query('mwc-textfield') private textfield: TextFieldExt;
   @property({ type: Boolean }) private focused: boolean = false;
 
-  updated(changedProps: Map<string, unknown>) {
-    if (changedProps.has('options')) {
-      this.reset();
-    }
-  }
-
   /**
    *  Property name in the options object where the unique option Id is stored.
    */
