@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@6.2.0...@leavittsoftware/titanium-data-table@6.2.1) (2020-01-21)
+
+
+### Bug Fixes
+
+* restores item selection when using disablePaging ([6f20573](https://github.com/LeavittSoftware/titanium-elements/commit/6f20573a5c987accdddd56ad99f5057aeed8fae1))
+
+
+
+
+
 # [6.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@6.1.0...@leavittsoftware/titanium-data-table@6.2.0) (2020-01-21)
 
 
