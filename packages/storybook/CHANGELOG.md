@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.2.3...@leavittsoftware/storybook@5.3.0) (2020-01-21)
+
+
+### Features
+
+* Adds disable-paging  attr/prop and footer slot.  ([ab5bdae](https://github.com/LeavittSoftware/titanium-elements/commit/ab5bdae4d05bdb9aff1d7ad88a0fe08c3677413f))
+
+
+
+
+
 ## [5.2.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.2.2...@leavittsoftware/storybook@5.2.3) (2020-01-21)
 
 **Note:** Version bump only for package @leavittsoftware/storybook

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@6.1.0...@leavittsoftware/titanium-data-table@6.2.0) (2020-01-21)
+
+
+### Features
+
+* Adds disable-paging  attr/prop and footer slot.  ([ab5bdae](https://github.com/LeavittSoftware/titanium-elements/commit/ab5bdae4d05bdb9aff1d7ad88a0fe08c3677413f))
+
+
+
+
+
 # [6.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@6.0.7...@leavittsoftware/titanium-data-table@6.1.0) (2020-01-17)
 
 
