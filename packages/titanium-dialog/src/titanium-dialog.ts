@@ -19,9 +19,9 @@ import { TitaniumDialogBaseElement } from './titanium-dialog-base';
 @customElement('titanium-dialog')
 export class TitaniumDialogElement extends TitaniumDialogBaseElement {
   /**
-   * Dialog title
+   * Dialog title text
    */
-  @property({ type: String }) title: string;
+  @property({ type: String }) header: string;
 
   /**
    * Disables momentum-based scrolling on (webkit only)
@@ -86,7 +86,7 @@ export class TitaniumDialogElement extends TitaniumDialogBaseElement {
 
   renderSlot() {
     return html`
-      <header>${this.title}</header>
+      <header>${this.header}</header>
       <section>
         <slot name="content"></slot>
       </section>
