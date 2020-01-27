@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.3.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.3.1...@leavittsoftware/storybook@5.3.2) (2020-01-27)
+
+
+### Bug Fixes
+
+* Updates titanium-dialog demos to reflect header change. ([b734190](https://github.com/LeavittSoftware/titanium-elements/commit/b734190fb245005c869938e3cfd93dea2540bbb4))
+
+
+
+
+
 ## [5.3.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.3.0...@leavittsoftware/storybook@5.3.1) (2020-01-21)
 
 **Note:** Version bump only for package @leavittsoftware/storybook

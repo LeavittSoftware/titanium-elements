@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@2.1.0...@leavittsoftware/titanium-dialog@3.0.0) (2020-01-27)
+
+
+### Bug Fixes
+
+* Fixes native title text showing in dialog ([9fa0a78](https://github.com/LeavittSoftware/titanium-elements/commit/9fa0a78170833462bdfb2b4a1cf00f102eca3543))
+
+
+### BREAKING CHANGES
+
+* RENAMES title property to header!!
+
+
+
+
+
 # [2.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@2.0.2...@leavittsoftware/titanium-dialog@2.1.0) (2019-12-30)
 
 
