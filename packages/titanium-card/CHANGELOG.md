@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-card@1.4.0...@leavittsoftware/titanium-card@1.4.1) (2020-01-31)
+
+
+### Bug Fixes
+
+* Prevents event from firing if action card button is disabled. ([8bb691f](https://github.com/LeavittSoftware/titanium-elements/commit/8bb691f273467715a4b8a32f53814ac7279f118a))
+
+
+
+
+
 # [1.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-card@1.3.0...@leavittsoftware/titanium-card@1.4.0) (2019-12-18)
 
 
