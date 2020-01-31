@@ -77,7 +77,9 @@ export class TitaniumSingleActionCardElement extends LitElement {
         href=${this.buttonTitle}
         @click=${(e: Event) => {
           e.preventDefault();
-          this.dispatchEvent(new Event('action-click'));
+          if (!this.disableAction) {
+            this.dispatchEvent(new Event('action-click'));
+          }
         }}
       >
         ${this.buttonTitle}
