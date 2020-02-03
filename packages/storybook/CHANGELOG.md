@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.3.3...@leavittsoftware/storybook@5.4.0) (2020-02-03)
+
+
+### Features
+
+* Adds a shaped attribute for increased border radius ([57b5cad](https://github.com/LeavittSoftware/titanium-elements/commit/57b5cad8dd73f14da5045de99b9677d441337421))
+* Adds a titanium-toggle-button element ([2bbc9d6](https://github.com/LeavittSoftware/titanium-elements/commit/2bbc9d6000e70754497509dd762b3f0190e9bca7))
+
+
+
+
+
 ## [5.3.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.3.2...@leavittsoftware/storybook@5.3.3) (2020-01-31)
 
 **Note:** Version bump only for package @leavittsoftware/storybook

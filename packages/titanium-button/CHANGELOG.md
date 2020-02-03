@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-button@1.2.0...@leavittsoftware/titanium-button@1.3.0) (2020-02-03)
+
+
+### Features
+
+* Adds a shaped attribute for increased border radius ([57b5cad](https://github.com/LeavittSoftware/titanium-elements/commit/57b5cad8dd73f14da5045de99b9677d441337421))
+* Adds a titanium-toggle-button element ([2bbc9d6](https://github.com/LeavittSoftware/titanium-elements/commit/2bbc9d6000e70754497509dd762b3f0190e9bca7))
+
+
+
+
+
 # [1.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-button@1.1.7...@leavittsoftware/titanium-button@1.2.0) (2019-12-18)
 
 
