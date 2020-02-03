@@ -1,0 +1,62 @@
+import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { html } from 'lit-html';
+import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
+import { withWebComponentsKnobs } from '../index.js';
+
+import '@leavittsoftware/titanium-button/lib/titanium-toggle-button';
+
+<Meta
+  title="UI COMPONENTS|titanium-toggle-button"
+  decorators={[withKnobs, withWebComponentsKnobs]}
+  parameters={{ component: 'titanium-toggle-button', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+/>
+
+# Titanium Toggle Button
+
+Material design inspired toggle button.
+
+## How to use
+
+```bash
+npm i @leavittsoftware/titanium-button
+```
+
+```js
+import '@leavittsoftware/titanium-button/lib/titanium-toggle-button';
+```
+
+## API
+
+<Props of="titanium-toggle-button" />
+
+## Demo
+
+<Preview withToolbar>
+  <Story name="Docs">
+    {html`
+      <h3>Standard</h3>
+      <titanium-toggle-button>APPLY</titanium-toggle-button>
+      <titanium-toggle-button shaped>SHAPED</titanium-toggle-button>
+      <titanium-toggle-button outlined>Outlined</titanium-toggle-button>
+      <titanium-toggle-button disabled>DISABLED</titanium-toggle-button>
+      <h3>Selected</h3>
+      <titanium-toggle-button selected>APPLY</titanium-toggle-button>
+      <titanium-toggle-button selected shaped>SHAPED</titanium-toggle-button>
+      <titanium-toggle-button selected outlined>Outlined</titanium-toggle-button>
+      <titanium-toggle-button selected disabled>DISABLED</titanium-toggle-button>
+      <h3>Dense</h3>
+      <titanium-toggle-button dense>APPLY</titanium-toggle-button>
+      <titanium-toggle-button dense shaped>SHAPED</titanium-toggle-button>
+      <titanium-toggle-button dense outlined>Outlined</titanium-toggle-button>
+      <titanium-toggle-button dense disabled>DISABLED</titanium-toggle-button>
+      <h3>Long button text</h3>
+      <titanium-toggle-button style="width:200px;" outlined>Are you sure you want to continue?</titanium-toggle-button>
+      <h3>Example</h3>
+      <titanium-toggle-button dense shaped selected>Jan 1</titanium-toggle-button>
+      <titanium-toggle-button dense shaped>Jan 2</titanium-toggle-button>
+      <titanium-toggle-button dense shaped>Jan 3</titanium-toggle-button>
+      <titanium-toggle-button dense shaped>Jan 4</titanium-toggle-button>
+    `}
+  </Story>
+</Preview>
