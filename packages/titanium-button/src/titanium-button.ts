@@ -39,6 +39,11 @@ export class TitaniumButtonElement extends LitElement {
    */
   @property({ type: Boolean, reflect: true }) unelevated: boolean = false;
 
+  /**
+   * Increases border radius of button
+   */
+  @property({ type: Boolean, reflect: true }) shaped: boolean = false;
+
   static styles = css`
     :host {
       display: inline-flex;
@@ -79,6 +84,11 @@ export class TitaniumButtonElement extends LitElement {
       letter-spacing: 1.25px;
       padding: 0 16px;
       border-radius: 4px;
+    }
+
+    :host([shaped]),
+    :host([shaped]) button {
+      border-radius: 18px;
     }
 
     focus-veil {
@@ -144,7 +154,7 @@ export class TitaniumButtonElement extends LitElement {
     }
 
     :host([dense]) button {
-      height: 32px;
+      height: 28px;
       padding: 0 16px;
     }
 
