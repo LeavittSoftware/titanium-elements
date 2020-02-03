@@ -8,21 +8,24 @@ import { css, customElement, html, LitElement, property } from 'lit-element';
  *
  * @slot - main slot for button content
  *
+ * @fires selected-changed - Fired when user interaction causes selected prop to change.
+ *
  * @cssprop {Color} --app-link-color - Button slotted text color
- * @cssprop {Color} --titanium-solid-button-text-color - Button slotted text color for raised and unelevated styles
+ * @cssprop {Color} --app-selected-color - Button selected background color
+ * @cssprop {Color} --titanium-selected-text-color - Button slotted text color for when in the selected state
  * @cssprop {Color} --app-primary-color - Button BG color
  */
-@customElement('titanium-button')
-export class TitaniumButtonElement extends LitElement {
+@customElement('titanium-toggle-button')
+export class TitaniumToggleButtonElement extends LitElement {
+  /**
+   * Disables the button
+   */
+  @property({ type: Boolean, reflect: true }) selected: boolean = false;
+
   /**
    * Disables the button
    */
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
-
-  /**
-   * Applies the raised button style
-   */
-  @property({ type: Boolean, reflect: true }) raised: boolean = false;
 
   /**
    * Applies the  outlined button style
@@ -33,11 +36,6 @@ export class TitaniumButtonElement extends LitElement {
    * Applies the  dense button style
    */
   @property({ type: Boolean, reflect: true }) dense: boolean = false;
-
-  /**
-   * Applies the  unelevated button style
-   */
-  @property({ type: Boolean, reflect: true }) unelevated: boolean = false;
 
   /**
    * Increases border radius of button
@@ -115,29 +113,14 @@ export class TitaniumButtonElement extends LitElement {
       outline: none;
     }
 
-    :host([raised]:not([disabled])) focus-veil {
-      background-color: var(--app-link-color, #3b95ff);
+    :host([selected]:not([disabled])) button {
+      color: var(--titanium-selected-text-color, #fff);
+      background-color: var(--app-selected-color, #1a73e8);
+      --mdc-theme-primary: var(--app-selected-color, #1a73e8);
     }
 
     button:hover focus-veil {
       display: block;
-    }
-
-    :host([raised]) {
-      /* Allow drop shadow through */
-      padding: 4px;
-    }
-
-    :host([raised]:not([disabled])) {
-      --mdc-theme-primary: var(--app-link-color, #3b95ff);
-    }
-
-    :host([raised]:not([disabled])) button {
-      color: var(--titanium-solid-button-text-color, #fff);
-      background-color: var(--app-primary-color, #3b95ff);
-      --mdc-theme-primary: var(--app-primary-color, #3b95ff);
-      box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
-      transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1) 0s;
     }
 
     :host([outlined]:not([disabled])) button {
@@ -158,12 +141,6 @@ export class TitaniumButtonElement extends LitElement {
       padding: 0 16px;
     }
 
-    :host([unelevated]:not([disabled])) button {
-      color: var(--titanium-solid-button-text-color, #fff);
-      background-color: var(--app-primary-color, #3b95ff);
-      --mdc-theme-primary: var(--app-primary-color, #3b95ff);
-    }
-
     :host([disabled]) {
       pointer-events: none;
     }
@@ -177,7 +154,12 @@ export class TitaniumButtonElement extends LitElement {
 
   render() {
     return html`
-      <button>
+      <button
+        @click=${() => {
+          this.selected = !this.selected;
+          this.dispatchEvent(new CustomEvent('selected-changed', { detail: this.selected }));
+        }}
+      >
         <slot></slot>
         <mwc-ripple ?disabled=${this.disabled} primary></mwc-ripple>
         <focus-veil></focus-veil>
