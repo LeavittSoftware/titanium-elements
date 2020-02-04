@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@6.0.13...@leavittsoftware/api-service@6.1.0) (2020-02-04)
+
+
+### Features
+
+*  Publish 7df83da092a1602559747dc9ee091c5bc9742972 ([4fc853c](https://github.com/LeavittSoftware/titanium-elements/commit/4fc853c827e521b1c63b4d7f1748776798cf0e0c))
+* Adds mix-ins for Leavitt Groups API's.  ([4d8e3bc](https://github.com/LeavittSoftware/titanium-elements/commit/4d8e3bcf95881c136e4c7a5d33cdd3949ebd199a))
+
+
+
+
+
 ## [6.0.13](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@6.0.12...@leavittsoftware/api-service@6.0.13) (2020-01-17)
 
 **Note:** Version bump only for package @leavittsoftware/api-service

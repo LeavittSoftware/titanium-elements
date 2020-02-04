@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-side-menu@0.1.0...@leavittsoftware/titanium-side-menu@0.1.1) (2020-02-04)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-side-menu
+
+
+
+
+
 # [0.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-side-menu@0.0.4...@leavittsoftware/titanium-side-menu@0.1.0) (2019-12-09)
 
 

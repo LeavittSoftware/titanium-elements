@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.4.0...@leavittsoftware/storybook@5.5.0) (2020-02-04)
+
+
+### Features
+
+* Adds demo of button in a grid container.  ([7df83da](https://github.com/LeavittSoftware/titanium-elements/commit/7df83da092a1602559747dc9ee091c5bc9742972))
+
+
+
+
+
 # [5.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.3.3...@leavittsoftware/storybook@5.4.0) (2020-02-03)
 
 
