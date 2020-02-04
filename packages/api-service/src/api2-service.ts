@@ -16,5 +16,4 @@ const Api2ServiceMixin = <C extends Constructor<HTMLElement>>(base: C) =>
       this.api2.baseUrl = isDevelopment ? 'https://devapi2.leavitt.com/' : 'https://api2.leavitt.com/';
     }
   };
-
 export default Api2ServiceMixin;

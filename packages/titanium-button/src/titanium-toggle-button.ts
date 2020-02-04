@@ -49,8 +49,8 @@ export class TitaniumToggleButtonElement extends LitElement {
       font-family: Roboto, Noto, sans-serif;
       overflow: hidden;
       -webkit-user-select: none; /* Chrome all / Safari all */
-      -moz-user-select: none; /* Firefox all */
       -ms-user-select: none; /* IE 10+ */
+      -moz-user-select: none; /* Firefox all */
       user-select: none;
       --mdc-theme-primary: var(--app-link-color, #3b95ff);
     }
