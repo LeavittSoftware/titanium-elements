@@ -87,6 +87,7 @@ export class TitaniumToggleButtonElement extends LitElement {
     :host([shaped]),
     :host([shaped]) button {
       border-radius: 18px;
+      overflow: hidden;
     }
 
     focus-veil {
