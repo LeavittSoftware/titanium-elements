@@ -49,8 +49,6 @@ export class TitaniumButtonElement extends LitElement {
       display: inline-flex;
       position: relative;
       font-family: Roboto, Noto, sans-serif;
-      -webkit-font-smoothing: antialiased;
-      border-radius: 4px;
       overflow: hidden;
       -webkit-user-select: none; /* Chrome all / Safari all */
       -moz-user-select: none; /* Firefox all */
@@ -65,13 +63,13 @@ export class TitaniumButtonElement extends LitElement {
       outline: none;
       margin: 0;
       width: auto;
-      overflow: visible;
+      overflow: hidden;
       background: transparent;
       /* inherit font & color from ancestor */
       font: inherit;
       /* Corrects font smoothing for webkit */
-      -webkit-font-smoothing: inherit;
-      -moz-osx-font-smoothing: inherit;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: antialiased;
       box-sizing: border-box;
       min-width: 64px;
       height: 36px;
@@ -86,22 +84,12 @@ export class TitaniumButtonElement extends LitElement {
       border-radius: 4px;
     }
 
-    :host([shaped]),
-    :host([shaped]) button {
-      border-radius: 18px;
+    button::-moz-focus-inner {
+      border: 0;
     }
 
-    focus-veil {
-      position: absolute;
-      display: none;
-      user-select: none;
-      pointer-events: none;
-      top: 0;
-      right: 0;
-      left: 0;
-      background-color: var(--app-link-color, #3b95ff);
-      bottom: 0;
-      opacity: 0.12;
+    :host([shaped]) button {
+      border-radius: 18px;
     }
 
     button:active,
@@ -109,18 +97,11 @@ export class TitaniumButtonElement extends LitElement {
       font-weight: 500;
       outline-style: none;
       box-shadow: none;
+      background-color: var(--app-link-color, rgba(59, 149, 255, 0.11));
     }
 
     button:focus {
       outline: none;
-    }
-
-    :host([raised]:not([disabled])) focus-veil {
-      background-color: var(--app-link-color, #3b95ff);
-    }
-
-    button:hover focus-veil {
-      display: block;
     }
 
     :host([raised]) {
@@ -177,10 +158,9 @@ export class TitaniumButtonElement extends LitElement {
 
   render() {
     return html`
-      <button>
+      <button ?disabled=${this.disabled}>
         <slot></slot>
         <mwc-ripple ?disabled=${this.disabled} primary></mwc-ripple>
-        <focus-veil></focus-veil>
       </button>
     `;
   }
