@@ -1,5 +1,6 @@
 import 'jwt-decode/build/jwt-decode';
-declare var jwt_decode: (token: string) => {};
+// eslint-disable-next-line @typescript-eslint/camelcase
+declare let jwt_decode: (token: string) => {};
 
 import { customElement, LitElement, property } from 'lit-element';
 import { LssJwtToken } from './LssJwtToken';
@@ -8,11 +9,11 @@ import { UserManagerUpdatedEvent } from './user-manager-events';
 
 let instance: null | UserManager = null;
 
-export let GetUserManagerInstance = () => {
+export const GetUserManagerInstance = () => {
   if (instance) {
     return instance;
   }
-  throw `GetUserManagerInstance requested before an instance was created. Did you forget to add the <user-manager> element to your project?`;
+  throw 'GetUserManagerInstance requested before an instance was created. Did you forget to add the <user-manager> element to your project?';
 };
 
 @customElement('user-manager')
@@ -101,7 +102,9 @@ export class UserManager extends LitElement {
   }
 
   private _clearHashFromUrl() {
-    if (document.location && document.location.hash && document.location.hash.indexOf('refreshToken') > -1) document.location.hash = '';
+    if (document.location && document.location.hash && document.location.hash.indexOf('refreshToken') > -1) {
+      document.location.hash = '';
+    }
   }
 
   private _getTokenfromUrl(tokenName: string): string | null {
@@ -170,9 +173,11 @@ export class UserManager extends LitElement {
     }
 
     const claimScopes = this._getClaimScopes('LgClaimScopes');
+    // eslint-disable-next-line @typescript-eslint/camelcase
     const body = { grant_type: 'refresh_token', refresh_token: refreshToken } as { grant_type: string; refresh_token: string; claim_scopes: string[] };
 
     if (claimScopes.length > 0) {
+      // eslint-disable-next-line @typescript-eslint/camelcase
       body.claim_scopes = claimScopes;
     }
 
@@ -270,6 +275,7 @@ export class UserManager extends LitElement {
   }
 
   async authenticateAsync(): Promise<LssJwtToken> {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
     if (this._isAuthenticating) {
       return new Promise<LssJwtToken>((resolve, reject) => {

@@ -5,11 +5,11 @@ export class BasicSnackBar {
   _isComponent = false;
   open(message: string, options?: SnackbarOptions) {
     alert(message);
-    console.warn(`Titanium Snackbar.open called before an instance was created. Did you forget to add the Titanium Snackbar element to your project?`, options);
+    console.warn('Titanium Snackbar.open called before an instance was created. Did you forget to add the Titanium Snackbar element to your project?', options);
   }
 
   close() {
-    console.warn(`Titanium Snackbar.close called before an instance was created. Did you forget to add the TitaniumSnackbar element to your project?`);
+    console.warn('Titanium Snackbar.close called before an instance was created. Did you forget to add the TitaniumSnackbar element to your project?');
   }
 }
 

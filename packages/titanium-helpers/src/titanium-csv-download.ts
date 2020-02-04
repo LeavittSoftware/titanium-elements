@@ -17,13 +17,48 @@ export const startCsvDownload = (fileName: string, csv: string, context: HTMLEle
   }
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const flattenObject = (data: Record<string, any>) => {
+  // also strips odata annotation properties
+  const result = {};
+  const recurse = (cur, prop) => {
+    if (Object(cur) !== cur) {
+      if (prop.indexOf('@odata') === -1) {
+        result[prop] = cur;
+      }
+    } else if (Array.isArray(cur)) {
+      const l = 0;
+      for (let i = 0, l = cur.length; i < l; i++) {
+        recurse(cur[i], prop ? prop + '.' + i : '' + i);
+      }
+      if (l === 0) {
+        result[prop] = [];
+      }
+    } else {
+      let isEmpty = true;
+      for (const p in cur) {
+        isEmpty = false;
+        recurse(cur[p], prop ? prop + '.' + p : p);
+      }
+      if (isEmpty) {
+        result[prop] = {};
+      }
+    }
+  };
+  recurse(data, '');
+  return result;
+};
+
 //TODO: Rewrite in a safer way...check types, etc...
-// tslint:disable-next-line: no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const convertArrayToCsv = (json: Array<any>, flatten = false) => {
-  if (!json[0]) return 'Empty List';
+  if (!json[0]) {
+    return 'Empty List';
+  }
 
   if (flatten) {
-    json = json.map((o: Object) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    json = json.map((o: Record<string, any>) => {
       return flattenObject(o);
     });
   }
@@ -50,29 +85,4 @@ export const convertArrayToCsv = (json: Array<any>, flatten = false) => {
   });
   csv.unshift(fields.join(',')); // add header column
   return csv.join('\r\n');
-};
-
-const flattenObject = (data: Object) => {
-  // also strips odata annotation properties
-  const result = {};
-  const recurse = (cur, prop) => {
-    if (Object(cur) !== cur) {
-      if (prop.indexOf('@odata') === -1) {
-        result[prop] = cur;
-      }
-    } else if (Array.isArray(cur)) {
-      const l = 0;
-      for (let i = 0, l = cur.length; i < l; i++) recurse(cur[i], prop ? prop + '.' + i : '' + i);
-      if (l === 0) result[prop] = [];
-    } else {
-      let isEmpty = true;
-      for (const p in cur) {
-        isEmpty = false;
-        recurse(cur[p], prop ? prop + '.' + p : p);
-      }
-      if (isEmpty) result[prop] = {};
-    }
-  };
-  recurse(data, '');
-  return result;
 };

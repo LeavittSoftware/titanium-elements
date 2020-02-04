@@ -1,7 +1,7 @@
 /**
  * use this type definition instead of `Function` type constructor
  */
-// tslint:disable-next-line: no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AnyFunction = (...args: any[]) => any;
 
 /**

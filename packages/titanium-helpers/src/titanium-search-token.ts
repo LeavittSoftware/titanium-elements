@@ -1,13 +1,15 @@
 import { escapeTerm } from './titanium-odata-helpers';
 
 export const getSearchTokens = (inputText: string, allowedComplexityLevel = 3) => {
-  if (typeof inputText === 'undefined' || inputText === null || inputText.length === 0) return [];
+  if (typeof inputText === 'undefined' || inputText === null || inputText.length === 0) {
+    return [];
+  }
   let tokens = inputText
     .split(' ')
-    .map((token) => {
+    .map(token => {
       return escapeTerm(token.trim());
     })
-    .filter((token) => {
+    .filter(token => {
       return token.length > 0;
     });
   if (tokens.length > allowedComplexityLevel) {

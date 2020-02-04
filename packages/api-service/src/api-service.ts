@@ -111,8 +111,9 @@ export default class ApiService {
     try {
       response = await fetch(`${this.baseUrl}${urlPath}`, { method: 'POST', body: JSON.stringify(body), headers: headers });
     } catch (error) {
-      if (error.message != null && error.message.indexOf('Failed to fetch') !== -1)
+      if (error.message != null && error.message.indexOf('Failed to fetch') !== -1) {
         return Promise.reject('Network error. Check your connection and try again.');
+      }
 
       return Promise.reject(error);
     }
@@ -158,8 +159,9 @@ export default class ApiService {
     try {
       response = await fetch(`${this.baseUrl}${urlPath}`, { method: 'PATCH', body: JSON.stringify(body), headers: headers });
     } catch (error) {
-      if (error.message != null && error.message.indexOf('Failed to fetch') !== -1)
+      if (error.message != null && error.message.indexOf('Failed to fetch') !== -1) {
         return Promise.reject('Network error. Check your connection and try again.');
+      }
 
       return Promise.reject(error);
     }
@@ -205,8 +207,9 @@ export default class ApiService {
         headers: { ...headers, Prefer: 'return=representation' },
       });
     } catch (error) {
-      if (error.message != null && error.message.indexOf('Failed to fetch') !== -1)
+      if (error.message != null && error.message.indexOf('Failed to fetch') !== -1) {
         return Promise.reject('Network error. Check your connection and try again.');
+      }
 
       return Promise.reject(error);
     }
@@ -240,8 +243,9 @@ export default class ApiService {
     try {
       response = await fetch(`${this.baseUrl}${urlPath}`, { method: 'DELETE', headers: headers });
     } catch (error) {
-      if (error.message != null && error.message.indexOf('Failed to fetch') !== -1)
+      if (error.message != null && error.message.indexOf('Failed to fetch') !== -1) {
         return Promise.reject('Network error. Check your connection and try again.');
+      }
 
       return Promise.reject(error);
     }
@@ -286,14 +290,15 @@ export default class ApiService {
         headers: headers,
       });
     } catch (error) {
-      if (error.message != null && error.message.indexOf('Failed to fetch') !== -1)
+      if (error.message != null && error.message.indexOf('Failed to fetch') !== -1) {
         return Promise.reject('Network error. Check your connection and try again.');
+      }
 
       return Promise.reject(error);
     }
 
     if (response.status === 404) {
-      return Promise.reject(`404: Endpoint not found.`);
+      return Promise.reject('404: Endpoint not found.');
     }
 
     const text = await response.text();

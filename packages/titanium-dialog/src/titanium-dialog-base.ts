@@ -54,7 +54,9 @@ export class TitaniumDialogBaseElement extends LitElement {
       this.opened = false;
       this.opening = true;
       const htmlNode = document.querySelector('html');
-      if (htmlNode) htmlNode.style.overflow = 'hidden';
+      if (htmlNode) {
+        htmlNode.style.overflow = 'hidden';
+      }
 
       this.runNextAnimationFrame_(() => {
         this.opened = true;
@@ -71,6 +73,7 @@ export class TitaniumDialogBaseElement extends LitElement {
   /**
    * Called when dialog is open and rendered.
    */
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected afterOpen() {}
 
   /**
@@ -89,7 +92,9 @@ export class TitaniumDialogBaseElement extends LitElement {
     this.opening = false;
     window.removeEventListener('keydown', this._handleKeydown);
     const htmlNode = document.querySelector('html');
-    if (htmlNode) htmlNode.style.overflow = '';
+    if (htmlNode) {
+      htmlNode.style.overflow = '';
+    }
 
     clearTimeout(this._animationTimer);
     this._animationTimer = window.setTimeout(() => {

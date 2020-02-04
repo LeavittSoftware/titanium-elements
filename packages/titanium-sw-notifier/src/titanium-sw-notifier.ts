@@ -13,7 +13,9 @@ export class TitanuimServiceWorkerNotifierElement extends LitElement {
 
       registration.addEventListener('updatefound', () => {
         const installingWorker = registration.installing;
-        if (!installingWorker) return;
+        if (!installingWorker) {
+          return;
+        }
 
         installingWorker.addEventListener('statechange', async () => {
           if (installingWorker.state === 'installed' && !navigator.serviceWorker.controller) {
@@ -34,6 +36,7 @@ export class TitanuimServiceWorkerNotifierElement extends LitElement {
       // with fresh content.
       if (navigator.serviceWorker.controller) {
         // tslint:disable-next-line: no-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         navigator.serviceWorker.controller.addEventListener('statechange', (event: any) => {
           if (event && event.target && event.target.state === 'redundant') {
             this._showUpdatedSnackbar();

@@ -85,7 +85,7 @@ export class TitaniumDataTableElement extends LitElement {
    */
   @property({ type: Boolean }) largePages: boolean = false;
 
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @queryAll('table-container') private _tableContainer: NodeListOf<any>;
   @property({ type: Number }) private take: number;
 

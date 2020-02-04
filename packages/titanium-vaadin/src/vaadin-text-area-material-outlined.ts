@@ -7,6 +7,7 @@ import '@vaadin/vaadin-text-field/src/vaadin-text-area.js';
 import './vaadin-material-outlined.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 
+// eslint-disable-next-line @typescript-eslint/camelcase
 const $_documentContainer = html`
   <dom-module id="material-text-area-outlined" theme-for="vaadin-text-area">
     <template>
@@ -16,7 +17,7 @@ const $_documentContainer = html`
           box-sizing: border-box;
         }
 
-        [part='input-field'] ::slotted(*:not([part='value']):not([part\$='-button']):not(input):not(textarea)) {
+        [part='input-field'] ::slotted(*:not([part='value']):not([part$='-button']):not(input):not(textarea)) {
           margin-top: 8px;
         }
 
@@ -35,4 +36,5 @@ const $_documentContainer = html`
   </dom-module>
 `;
 
+// eslint-disable-next-line @typescript-eslint/camelcase
 document.head.appendChild($_documentContainer.content);

@@ -7,7 +7,9 @@ export class TitaniumTabControlItemElement extends LitElement {
   @property({ type: Boolean, reflect: true }) selected: boolean;
 
   updated(changedProps: Map<string, unknown>) {
-    if (changedProps.has('selected') && this.selected) this.dispatchEvent(new CustomEvent('selected', { detail: this }));
+    if (changedProps.has('selected') && this.selected) {
+      this.dispatchEvent(new CustomEvent('selected', { detail: this }));
+    }
   }
 
   static styles = css`

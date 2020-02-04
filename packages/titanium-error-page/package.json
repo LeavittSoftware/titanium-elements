@@ -14,7 +14,7 @@
   "scripts": {
     "build:watch": "tsc --watch",
     "build": "tsc",
-    "lint": "tslint \"src/*.ts\""
+    "lint": "eslint ./src/**/*.ts"
   },
   "repository": {
     "type": "git",

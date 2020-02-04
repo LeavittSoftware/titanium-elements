@@ -62,7 +62,9 @@ export class TitaniumSearchInput extends LitElement {
   }
 
   private _onClearClick() {
-    if (this.disabled) return;
+    if (this.disabled) {
+      return;
+    }
 
     this.value = '';
     this.dispatchEvent(new CustomEvent('value-changed', { detail: this.value }));
@@ -84,7 +86,9 @@ export class TitaniumSearchInput extends LitElement {
       return;
     }
 
-    if (!this.value) this.collapsed = true;
+    if (!this.value) {
+      this.collapsed = true;
+    }
   }
 
   static styles = css`

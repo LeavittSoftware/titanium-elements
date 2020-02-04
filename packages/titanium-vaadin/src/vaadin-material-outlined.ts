@@ -1,5 +1,7 @@
+// eslint-disable-next-line @typescript-eslint/camelcase
 const $_documentContainer = document.createElement('template');
 
+// eslint-disable-next-line @typescript-eslint/camelcase
 $_documentContainer.innerHTML = `<dom-module id="vaadin-material-outlined">
   <template>
     <style>
@@ -237,4 +239,5 @@ $_documentContainer.innerHTML = `<dom-module id="vaadin-material-outlined">
   </template>
 </dom-module>`;
 
+// eslint-disable-next-line @typescript-eslint/camelcase
 document.head.appendChild($_documentContainer.content);
