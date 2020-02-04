@@ -115,7 +115,7 @@ export class TitaniumDataTableElement extends LitElement {
     }
   }
 
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private _handleItemSelectionChange(e: any) {
     e.stopPropagation();
 
