@@ -11,6 +11,7 @@ import { css, customElement, html, LitElement, property } from 'lit-element';
  * @cssprop {Color} --app-link-color - Button slotted text color
  * @cssprop {Color} --titanium-solid-button-text-color - Button slotted text color for raised and unelevated styles
  * @cssprop {Color} --app-primary-color - Button BG color
+ * @cssprop {Color} --titanium-button-hover-bg-color - Button hover BG color
  */
 @customElement('titanium-button')
 export class TitaniumButtonElement extends LitElement {
@@ -97,7 +98,7 @@ export class TitaniumButtonElement extends LitElement {
       font-weight: 500;
       outline-style: none;
       box-shadow: none;
-      background-color: var(--app-link-color, rgba(59, 149, 255, 0.11));
+      background-color: var(--titanium-button-hover-bg-color, rgba(59, 149, 255, 0.11));
     }
 
     button:focus {
