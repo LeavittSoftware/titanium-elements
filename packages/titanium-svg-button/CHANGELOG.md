@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-svg-button@4.3.0...@leavittsoftware/titanium-svg-button@4.3.1) (2020-02-04)
+
+
+### Bug Fixes
+
+* Bumps mwc version ([8dd7d3f](https://github.com/LeavittSoftware/titanium-elements/commit/8dd7d3fee6c7e2d57667b06f2e894b9b3de4c36a))
+
+
+
+
+
 # [4.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-svg-button@4.2.0...@leavittsoftware/titanium-svg-button@4.3.0) (2020-01-17)
 
 

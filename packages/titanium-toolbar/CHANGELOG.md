@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-toolbar@0.1.3...@leavittsoftware/titanium-toolbar@0.1.4) (2020-02-04)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-toolbar
+
+
+
+
+
 ## [0.1.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-toolbar@0.1.2...@leavittsoftware/titanium-toolbar@0.1.3) (2019-12-13)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-toolbar

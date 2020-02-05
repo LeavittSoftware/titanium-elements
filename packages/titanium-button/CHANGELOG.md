@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-button@1.3.0...@leavittsoftware/titanium-button@1.4.0) (2020-02-04)
+
+
+### Bug Fixes
+
+* Bumps mwc version ([8dd7d3f](https://github.com/LeavittSoftware/titanium-elements/commit/8dd7d3fee6c7e2d57667b06f2e894b9b3de4c36a))
+
+
+### Features
+
+*  Publish 7df83da092a1602559747dc9ee091c5bc9742972 ([4fc853c](https://github.com/LeavittSoftware/titanium-elements/commit/4fc853c827e521b1c63b4d7f1748776798cf0e0c))
+* Internal rework: Removes focus-veil, disabled focus when disabled.  ([b6f52af](https://github.com/LeavittSoftware/titanium-elements/commit/b6f52afaa78006c8414c32146c4a613e6273dafb))
+
+
+
+
+
 # [1.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-button@1.2.0...@leavittsoftware/titanium-button@1.3.0) (2020-02-03)
 
 
