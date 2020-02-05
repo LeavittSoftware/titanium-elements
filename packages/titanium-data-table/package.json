@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-data-table",
   "description": "",
   "author": "Leavitt Software",
-  "version": "6.2.2",
+  "version": "6.2.3",
   "license": "MIT",
   "main": "lib/titanium-data-table.js",
   "typings": "lib/titanium-data-table.d.ts",
@@ -19,8 +19,8 @@
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
   "dependencies": {
-    "@leavittsoftware/titanium-loading-indicator": "^4.0.5",
-    "@leavittsoftware/titanium-svg-button": "^4.3.1"
+    "@leavittsoftware/titanium-loading-indicator": "^4.0.6",
+    "@leavittsoftware/titanium-svg-button": "^4.3.2"
   },
   "peerDependencies": {
     "lit-element": ">=2.1.0"

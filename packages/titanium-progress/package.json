@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-progress",
   "description": "",
   "author": "Leavitt Software",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "license": "MIT",
   "main": "lib/titanium-progress.js",
   "typings": "lib/titanium-progress.d.ts",

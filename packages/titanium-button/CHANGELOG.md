@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-button@1.4.0...@leavittsoftware/titanium-button@1.5.0) (2020-02-05)
+
+
+### Features
+
+* Introduces new hover bg color css attribute ([da1f916](https://github.com/LeavittSoftware/titanium-elements/commit/da1f9164f4545b5b6608b12dddb07fe6fa4460b7))
+
+
+
+
+
 # [1.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-button@1.3.0...@leavittsoftware/titanium-button@1.4.0) (2020-02-04)
 
 

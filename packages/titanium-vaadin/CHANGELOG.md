@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-vaadin@2.2.3...@leavittsoftware/titanium-vaadin@2.2.4) (2020-02-05)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-vaadin
+
+
+
+
+
 ## [2.2.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-vaadin@2.2.2...@leavittsoftware/titanium-vaadin@2.2.3) (2020-02-04)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-vaadin

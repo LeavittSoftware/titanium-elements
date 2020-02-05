@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.13](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-header@3.0.12...@leavittsoftware/titanium-header@3.0.13) (2020-02-05)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-header
+
+
+
+
+
 ## [3.0.12](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-header@3.0.11...@leavittsoftware/titanium-header@3.0.12) (2020-02-04)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-header
