@@ -219,7 +219,7 @@ export class UserManager extends LitElement {
     this.firstName = _jwtToken.given_name;
     this.lastName = _jwtToken.family_name;
     this.email = _jwtToken.email;
-    this.isActiveEmployee = typeof _jwtToken.IsActiveEmployee === 'string' && _jwtToken.IsActiveEmployee === 'True';
+    this.isActiveEmployee = _jwtToken.IsActiveEmployee === 'True';
     this.roles = typeof _jwtToken.role === 'string' ? [_jwtToken.role] : _jwtToken.role ?? [];
     this.dispatchEvent(new UserManagerUpdatedEvent());
   }
