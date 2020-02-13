@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/user-manager@9.1.3...@leavittsoftware/user-manager@9.2.0) (2020-02-13)
+
+
+### Bug Fixes
+
+* adds missing reset on logout for isActiveEmployee ([7b9da9f](https://github.com/LeavittSoftware/titanium-elements/commit/7b9da9fce4c9ac85bf5de20dcec7fb5f5c29431b))
+* removes check for a string. ([983addf](https://github.com/LeavittSoftware/titanium-elements/commit/983addfb3a3cca891fcebaafb3462cdbb46ab6fb))
+
+
+### Features
+
+* Adds isActiveEmployee to user manager instance ([09a324f](https://github.com/LeavittSoftware/titanium-elements/commit/09a324f6cde4dd0f4c04774a9c689770f660b928))
+
+
+
+
+
 ## [9.1.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/user-manager@9.1.2...@leavittsoftware/user-manager@9.1.3) (2020-02-05)
 
 **Note:** Version bump only for package @leavittsoftware/user-manager
