@@ -325,6 +325,7 @@ export class UserManager extends LitElement {
     this.firstName = '';
     this.lastName = '';
     this.email = '';
+    this.isActiveEmployee = false;
     this.roles = [];
     this.dispatchEvent(new UserManagerUpdatedEvent());
 
