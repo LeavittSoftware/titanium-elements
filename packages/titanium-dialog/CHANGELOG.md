@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@3.0.3...@leavittsoftware/titanium-dialog@3.1.0) (2020-02-20)
+
+
+### Features
+
+* adds titanium-dialog-opened event ([b954f54](https://github.com/LeavittSoftware/titanium-elements/commit/b954f543a21c54a54a48e3224afae692fc1ccfd3))
+
+
+
+
+
 ## [3.0.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@3.0.2...@leavittsoftware/titanium-dialog@3.0.3) (2020-02-05)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-dialog
