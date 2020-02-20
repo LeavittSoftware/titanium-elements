@@ -91,6 +91,7 @@ export class TitaniumCardListItemElement extends LitElement {
   render() {
     return html`
       <a
+        draggable="false"
         title=${this.title}
         href=${this.title}
         @click=${(e: Event) => {
