@@ -1,5 +1,6 @@
 ﻿import { css, customElement, html, LitElement, property } from 'lit-element';
 import '@material/mwc-ripple';
+import { ifDefined } from 'lit-html/directives/if-defined';
 
 /**
  * A list item for use inside a titanium-card
@@ -92,7 +93,7 @@ export class TitaniumCardListItemElement extends LitElement {
     return html`
       <a
         draggable="false"
-        title=${this.title}
+        title=${ifDefined(this.title)}
         href=${this.title}
         @click=${(e: Event) => {
           e.preventDefault();
