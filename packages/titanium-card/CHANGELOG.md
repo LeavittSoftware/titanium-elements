@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-card@1.4.4...@leavittsoftware/titanium-card@1.4.5) (2020-02-20)
+
+
+### Bug Fixes
+
+* prevent dragging of element ([f4f6061](https://github.com/LeavittSoftware/titanium-elements/commit/f4f606125bb7beab180e3079a0d16b5647442d5c))
+
+
+
+
+
 ## [1.4.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-card@1.4.3...@leavittsoftware/titanium-card@1.4.4) (2020-02-05)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-card
