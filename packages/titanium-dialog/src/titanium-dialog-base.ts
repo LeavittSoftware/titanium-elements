@@ -7,6 +7,8 @@ import { css, customElement, html, LitElement, property } from 'lit-element';
  *
  * @slot - dialog content
  *
+ * @fires titanium-dialog-opened - Fired after open animation is complete
+ *
  * @cssprop {Color} --titanium-dialog-background-color - Background color of the dialog
  *
  * @cssprop {<length> | <percentage> | none | max-content | min-content | fit-content | fill-available} --titanium-dialog-max-width - Max-width of dialog container
@@ -64,6 +66,7 @@ export class TitaniumDialogBaseElement extends LitElement {
         this.afterOpen();
 
         this._animationTimer = window.setTimeout(() => {
+          this.dispatchEvent(new CustomEvent('titanium-dialog-opened'));
           this.handleAnimationTimerEnd_();
         }, 150);
       });
