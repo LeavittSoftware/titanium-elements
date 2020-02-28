@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-card@1.4.5...@leavittsoftware/titanium-card@1.5.0) (2020-02-28)
+
+
+### Bug Fixes
+
+*  Image would not be right aligned on large view ports. ([7ede4b1](https://github.com/LeavittSoftware/titanium-elements/commit/7ede4b1ccf902aaa402522c8b7d73a1df1d372ca))
+
+
+### Features
+
+* Positions image top or right depending on width of element. ([9de7a85](https://github.com/LeavittSoftware/titanium-elements/commit/9de7a857b08a2b9480e6b6e0d5acb75e1a8fddc8))
+
+
+
+
+
 ## [1.4.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-card@1.4.4...@leavittsoftware/titanium-card@1.4.5) (2020-02-20)
 
 
