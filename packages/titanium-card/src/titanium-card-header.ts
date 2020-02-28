@@ -46,7 +46,7 @@ export class TitaniumCardHeaderElement extends LitElement {
       grid-template-areas: 'content img';
     }
 
-    :host([image-always-above]),
+    :host([force-image-above]),
     :host([image-above]) {
       grid-template-columns: inherit;
       grid-template-rows: auto auto;
@@ -55,7 +55,7 @@ export class TitaniumCardHeaderElement extends LitElement {
         'content';
     }
 
-    :host([image-always-above]) div[img],
+    :host([force-image-above]) div[img],
     :host([image-above]) div[img] {
       width: var(--titanium-card-header-above-image-width, 144px);
       justify-self: center;
