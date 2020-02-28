@@ -42,7 +42,7 @@ export class TitaniumCardHeaderElement extends LitElement {
   static styles = css`
     :host {
       display: grid;
-      grid-template-columns: auto auto;
+      grid-template-columns: 1fr auto;
       grid-template-areas: 'content img';
     }
 
