@@ -363,8 +363,6 @@ export class TitaniumDataTableElement extends LitElement {
       display: flex;
       flex-direction: row;
       flex: 1 1 auto;
-
-      overflow: hidden;
     }
 
     filter-container > ::slotted(*) {
