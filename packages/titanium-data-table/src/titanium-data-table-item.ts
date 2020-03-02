@@ -59,6 +59,10 @@ export class TitaniumDataTableItemElement extends LitElement {
           e.style.width = e.getAttribute('width');
         }
       });
+
+    this.addEventListener('dblclick', () => {
+      this.dispatchEvent(new CustomEvent('titanium-data-table-item-navigate', { composed: true, detail: this.item, bubbles: true }));
+    });
   }
 
   toggleSelected() {
@@ -182,10 +186,6 @@ export class TitaniumDataTableItemElement extends LitElement {
                     detail: { isSelected: this.selected, item: this.item, checkbox: this.checkbox },
                   })
                 );
-              }}
-              @dblclick=${() => {
-                console.log('yo');
-                this.dispatchEvent(new CustomEvent('titanium-data-table-item-navigate', { composed: true, detail: this.item, bubbles: true }));
               }}
             ></mwc-checkbox>
           `}
