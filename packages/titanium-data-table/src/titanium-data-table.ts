@@ -116,7 +116,7 @@ export class TitaniumDataTableElement extends LitElement {
       const ro = new ResizeObserver(entries => {
         for (const entry of entries) {
           const cr = entry.contentRect;
-          this.setIsNarrowOnChildren(cr.width < 800);
+          this.setIsNarrowOnChildren(cr.width < 760);
         }
       });
 
