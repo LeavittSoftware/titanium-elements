@@ -1,4 +1,6 @@
-import { css, customElement, html, LitElement, property } from 'lit-element';
+import { css, customElement, html, LitElement, property, query } from 'lit-element';
+import '@material/mwc-checkbox';
+import { Checkbox } from '@material/mwc-checkbox';
 
 /**
  * A data table element to organize row data and handle row selection.
@@ -31,7 +33,7 @@ export class TitaniumDataTableItemElement extends LitElement {
   /**
    * True when row is selected.
    */
-  @property({ reflect: true, type: Boolean, attribute: 'is-selected' }) isSelected: boolean = false;
+  @property({ reflect: true, type: Boolean }) selected: boolean = false;
 
   /**
    *  Disables ability to select this row.
@@ -43,13 +45,7 @@ export class TitaniumDataTableItemElement extends LitElement {
    */
   @property({ type: Boolean, reflect: true, attribute: 'narrow' }) isTableNarrow: boolean = false;
 
-  private _isClicking: boolean = false;
-  private _clickTimeoutHandle: number;
-
-  constructor() {
-    super();
-    this.addEventListener('click', () => this._handleClick());
-  }
+  @query('mwc-checkbox') checkbox: Checkbox;
 
   firstUpdated() {
     // Set width of each slotted row with based on width
@@ -65,45 +61,27 @@ export class TitaniumDataTableItemElement extends LitElement {
       });
   }
 
-  _handleClick() {
-    if (this._isClicking) {
-      this.dispatchEvent(new CustomEvent('titanium-data-table-item-navigate', { composed: true, detail: this.item, bubbles: true }));
-      window.clearTimeout(this._clickTimeoutHandle);
-      this._isClicking = false;
-      return;
-    }
-
-    this._isClicking = true;
-    this.toggleSelected();
-    this._clickTimeoutHandle = window.setTimeout(() => {
-      this._isClicking = false;
-    }, 300);
-  }
-
   toggleSelected() {
-    if (this.disableSelect) {
-      return;
-    }
-    this.isSelected = !this.isSelected;
-    this.dispatchEvent(
-      new CustomEvent('titanium-data-table-item-selected-changed', { bubbles: true, composed: true, detail: { isSelected: this.isSelected, item: this.item } })
-    );
+    this.selected ? this.deselect() : this.select();
   }
 
   select() {
-    if (!this.isSelected) {
-      this.toggleSelected();
+    if (this.checkbox && !this.checkbox.checked) {
+      this.checkbox.click();
     }
   }
 
-  deselected() {
-    if (this.isSelected) {
-      this.toggleSelected();
+  deselect() {
+    if (this.checkbox?.checked) {
+      this.checkbox.click();
     }
   }
 
   _handleToggleButton() {
-    this.toggleSelected();
+    if (this.checkbox.checked) {
+      this.selected = !this.checkbox.checked;
+      this.checkbox.click();
+    }
   }
 
   static styles = css`
@@ -119,7 +97,7 @@ export class TitaniumDataTableItemElement extends LitElement {
       -ms-user-select: none;
       user-select: none;
 
-      min-height: 32px;
+      min-height: 48px;
       text-decoration: none;
 
       background-color: #fff;
@@ -129,10 +107,13 @@ export class TitaniumDataTableItemElement extends LitElement {
       -webkit-font-smoothing: antialiased;
     }
 
-    :host(:not([disable-select])[is-selected]),
     :host(:not([disable-select]):hover) {
       background-color: var(--app-hover-color, #f9f9f9);
       transition: 0.3s ease;
+    }
+
+    :host(:not([disable-select])[selected]) {
+      background-color: rgb(66, 133, 244, 0.12);
     }
 
     ::slotted(row-item) {
@@ -170,22 +151,10 @@ export class TitaniumDataTableItemElement extends LitElement {
       text-align: right;
     }
 
-    item-checkbox {
-      display: block;
+    mwc-checkbox {
       flex-shrink: 0;
       align-self: center;
-      margin: 8px 8px 8px 24px;
-      width: 22px;
-      height: 22px;
-      cursor: pointer;
-    }
-
-    item-checkbox svg {
-      fill: var(--app-text-color, #5f6368);
-    }
-
-    :host([disable-select]) item-checkbox {
-      display: none;
+      margin: 4px 4px 4px 16px;
     }
 
     :host([disable-select]) ::slotted(row-item:first-of-type) {
@@ -195,24 +164,32 @@ export class TitaniumDataTableItemElement extends LitElement {
     :host([narrow]) ::slotted(row-item[desktop]) {
       display: none;
     }
-
-    [hidden] {
-      display: none;
-    }
   `;
 
   render() {
     return html`
-      <item-checkbox>
-        <svg empty viewBox="0 0 24 24" ?hidden="${this.isSelected}">
-          <path fill="none" d="M0 0h24v24H0V0z" />
-          <path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" />
-        </svg>
-        <svg checked viewBox="0 0 24 24" ?hidden="${!this.isSelected}">
-          <path d="M0 0h24v24H0z" fill="none" />
-          <path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-        </svg>
-      </item-checkbox>
+      ${this.disableSelect
+        ? ''
+        : html`
+            <mwc-checkbox
+              .disabled=${this.disableSelect}
+              @change=${() => {
+                this.selected = this.checkbox.checked;
+                this.dispatchEvent(
+                  new CustomEvent('titanium-data-table-item-selected-changed', {
+                    composed: true,
+                    bubbles: true,
+                    detail: { isSelected: this.selected, item: this.item, checkbox: this.checkbox },
+                  })
+                );
+              }}
+              @dblclick=${() => {
+                console.log('yo');
+                this.dispatchEvent(new CustomEvent('titanium-data-table-item-navigate', { composed: true, detail: this.item, bubbles: true }));
+              }}
+            ></mwc-checkbox>
+          `}
+
       <slot></slot>
     `;
   }

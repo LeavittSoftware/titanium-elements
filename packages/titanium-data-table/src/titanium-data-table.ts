@@ -1,6 +1,8 @@
 import '@leavittsoftware/titanium-svg-button';
 import '@leavittsoftware/titanium-svg-button/lib/titanium-svg-button-menu';
 import '@leavittsoftware/titanium-loading-indicator';
+import '@material/mwc-checkbox';
+import { Checkbox } from '@material/mwc-checkbox';
 
 import { css, customElement, html, LitElement, property, query } from 'lit-element';
 import { TitaniumDataTableItemElement } from './titanium-data-table-item';
@@ -100,6 +102,8 @@ export class TitaniumDataTableElement extends LitElement {
 
   @property({ type: Number }) private take: number;
 
+  @query('mwc-checkbox') checkbox: Checkbox;
+
   private _openCount = 0;
 
   connectedCallback() {
@@ -157,7 +161,9 @@ export class TitaniumDataTableElement extends LitElement {
       if (this.singleSelect) {
         this._getTableItems()
           .filter(o => o.item !== e.detail.item)
-          .forEach(o => o.deselected());
+          .forEach(o => o.deselect());
+
+        e.detail?.checkbox?.focus?.();
       }
 
       this.selected.push(e.detail.item);
@@ -223,24 +229,8 @@ export class TitaniumDataTableElement extends LitElement {
     localStorage.setItem(`${this.header}-take`, `${value}`);
   }
 
-  private _handleSelectAllClick(e: Event) {
-    e.preventDefault();
-    e.stopPropagation();
-    this._toggleSelectAll();
-  }
-
-  private _toggleSelectAll() {
-    if (this.selected.length > 0) {
-      this.deselectAll();
-    } else {
-      if (!this.singleSelect) {
-        this.selectAll();
-      }
-    }
-  }
-
   private deselectAll() {
-    this._getTableItems().forEach(o => o.deselected());
+    this._getTableItems().forEach(o => o.deselect());
   }
 
   private selectAll() {
@@ -249,7 +239,7 @@ export class TitaniumDataTableElement extends LitElement {
 
   private _getTableItems(): Array<TitaniumDataTableItemElement> {
     return (this.itemsSlot.assignedElements() as Array<TitaniumDataTableItemElement & HTMLElement>).filter(
-      o => typeof o.select === 'function' && typeof o.deselected === 'function'
+      o => typeof o.select === 'function' && typeof o.deselect === 'function'
     ) as Array<TitaniumDataTableItemElement>;
   }
 
@@ -329,7 +319,7 @@ export class TitaniumDataTableElement extends LitElement {
       padding: 8px;
       color: #1e88e5;
       font-size: 18px;
-      background-color: #e3f2fd;
+      background-color: #e8f0fe;
       position: absolute;
       top: 0px;
       left: 0px;
@@ -395,6 +385,7 @@ export class TitaniumDataTableElement extends LitElement {
     table-header {
       display: flex;
       flex-direction: row;
+      min-height: 48px;
       border-bottom: 1px solid var(--app-border-color, #dadce0);
     }
 
@@ -464,7 +455,6 @@ export class TitaniumDataTableElement extends LitElement {
 
     :host([narrow]) table-controls {
       grid-auto-columns: 1fr auto auto;
-
       gap: 8px;
     }
 
@@ -474,37 +464,18 @@ export class TitaniumDataTableElement extends LitElement {
       user-select: none;
     }
 
-    select-all-checkbox {
-      display: block;
+    mwc-checkbox {
       flex-shrink: 0;
       align-self: center;
-      margin: 0 8px 0 24px;
-      width: 22px;
-      height: 22px;
-      cursor: pointer;
-    }
-
-    select-all-checkbox > div {
-      width: 22px;
-      height: 22px;
-      padding: 0;
-    }
-
-    select-all-checkbox svg {
-      fill: var(--app-light-text-color, #80868b);
-    }
-
-    :host([disable-select]) select-all-checkbox {
-      display: none;
+      margin: 4px 4px 4px 16px;
     }
 
     :host([disable-select]) table-header ::slotted(titanium-data-table-header:first-of-type) {
       padding-left: 24px;
     }
 
-    :host([single-select]) select-all-checkbox svg[empty] {
-      fill: #b9b9b9;
-      cursor: not-allowed;
+    :host(:not([disable-select])[single-select]) table-header {
+      padding-left: 60px;
     }
 
     [hidden] {
@@ -538,31 +509,18 @@ export class TitaniumDataTableElement extends LitElement {
       </header>
       <table-container>
         <table-header>
-          <select-all-checkbox @click="${this._handleSelectAllClick}">
-            <div title="${this.singleSelect ? '' : 'Select all'}" ?hidden="${this.selected.length !== 0}">
-              <svg empty viewBox="0 0 24 24">
-                <path fill="none" d="M0 0h24v24H0V0z" />
-                <path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" />
-              </svg>
-            </div>
-            <div title="Deselect all" ?hidden="${this.selected.length === 0 || this.selected.length !== this.items.length}">
-              <svg viewBox="0 0 24 24">
-                <path d="M0 0h24v24H0z" fill="none" />
-                <path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-              </svg>
-            </div>
-            <div title="Clear selection" ?hidden="${this.selected.length === 0 || this.selected.length === this.items.length}">
-              <svg viewBox="0 0 24 24">
-                <defs>
-                  <path id="a" d="M0 0h24v24H0z" />
-                </defs>
-                <clipPath id="b">
-                  <use xlink:href="#a" overflow="visible" />
-                </clipPath>
-                <path clip-path="url(#b)" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2z" />
-              </svg>
-            </div>
-          </select-all-checkbox>
+          ${this.disableSelect || this.singleSelect
+            ? ''
+            : html`
+                <mwc-checkbox
+                  ?checked=${this.selected.length > 0}
+                  ?indeterminate=${this.selected.length !== 0 && this.selected.length !== this.items.length}
+                  @click=${() => {
+                    this.selected.length > 0 ? this.deselectAll() : this.selectAll();
+                    this.checkbox.focus();
+                  }}
+                ></mwc-checkbox>
+              `}
           <slot name="table-headers"></slot>
         </table-header>
 

@@ -20,7 +20,8 @@
   },
   "dependencies": {
     "@leavittsoftware/titanium-loading-indicator": "^4.0.6",
-    "@leavittsoftware/titanium-svg-button": "^4.3.2"
+    "@leavittsoftware/titanium-svg-button": "^4.3.2",
+    "@material/mwc-checkbox": "^0.13.0"
   },
   "peerDependencies": {
     "lit-element": ">=2.1.0"
