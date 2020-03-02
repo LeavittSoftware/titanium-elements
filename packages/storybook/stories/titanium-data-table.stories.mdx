@@ -109,3 +109,159 @@ import '@leavittsoftware/titanium-data-table';
     }}
   </Story>
 </Preview>
+
+#### Single Select
+
+<Preview>
+  <Story name="Single Select">
+    {() => {
+      const data = [
+        { name: 'Model 3', miles: '310 miles', price: '$33,315' },
+        { name: 'Model X', miles: '328 miles', price: '$77,815' },
+        { name: 'Model Y', miles: '300 miles', price: '$43,700' },
+      ];
+      let sortDirection = 'asc';
+      let sortBy = 'name';
+      const onSortDirectionChange = event => {
+        sortDirection = event.detail;
+        //TODO: re-render
+      };
+      const onSortByChange = event => {
+        sortBy = event.detail;
+        //TODO: re-render
+      };
+      return html`
+        <titanium-data-table single-select .items=${data} count="3" largePages header="Telsa motors">
+          <titanium-search-input slot="search-button"></titanium-search-input>
+          <titanium-svg-button slot="table-actions" path="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></titanium-svg-button>
+          <titanium-svg-button
+            slot="table-actions"
+            path="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z"
+          >
+          </titanium-svg-button>
+          <titanium-svg-button slot="filter-button" path="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"></titanium-svg-button>
+          <titanium-chip label="Sedan" closeable slot="filters"></titanium-chip>
+          <titanium-chip label="SUV" closeable slot="filters"></titanium-chip>
+          <titanium-data-table-header
+            title="Model"
+            @sort-by-changed=${onSortByChange}
+            .sortBy=${sortBy}
+            .sortDirection=${sortDirection}
+            @sort-direction-changed=${onSortDirectionChange}
+            large
+            column-name="name"
+            slot="table-headers"
+          ></titanium-data-table-header>
+          <titanium-data-table-header
+            title="Range"
+            @sort-by-changed=${onSortByChange}
+            .sortBy=${sortBy}
+            .sortDirection=${sortDirection}
+            @sort-direction-changed=${onSortDirectionChange}
+            desktop
+            column-name="miles"
+            slot="table-headers"
+          ></titanium-data-table-header>
+          <titanium-data-table-header
+            title="Price"
+            @sort-by-changed=${onSortByChange}
+            .sortBy=${sortBy}
+            .sortDirection=${sortDirection}
+            @sort-direction-changed=${onSortDirectionChange}
+            right
+            column-name="price"
+            slot="table-headers"
+          ></titanium-data-table-header>
+          ${data.map(
+            item => html`
+              <titanium-data-table-item .item=${item} slot="items">
+                <row-item large x>${item.name}</row-item>
+                <row-item desktop>${item.miles}</row-item>
+                <row-item right>${item.price}</row-item>
+              </titanium-data-table-item>
+            `
+          )}
+          <div slot="footer">hello footer</div>
+        </titanium-data-table>
+      `;
+    }}
+  </Story>
+</Preview>
+
+#### Disable Select
+
+<Preview>
+  <Story name="Disable Select">
+    {() => {
+      const data = [
+        { name: 'Model 3', miles: '310 miles', price: '$33,315' },
+        { name: 'Model X', miles: '328 miles', price: '$77,815' },
+        { name: 'Model Y', miles: '300 miles', price: '$43,700' },
+      ];
+      let sortDirection = 'asc';
+      let sortBy = 'name';
+      const onSortDirectionChange = event => {
+        sortDirection = event.detail;
+        //TODO: re-render
+      };
+      const onSortByChange = event => {
+        sortBy = event.detail;
+        //TODO: re-render
+      };
+      return html`
+        <titanium-data-table disable-select .items=${data} count="3" largePages header="Telsa motors">
+          <titanium-search-input slot="search-button"></titanium-search-input>
+          <titanium-svg-button slot="table-actions" path="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></titanium-svg-button>
+          <titanium-svg-button
+            slot="table-actions"
+            path="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z"
+          >
+          </titanium-svg-button>
+          <titanium-svg-button slot="filter-button" path="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"></titanium-svg-button>
+          <titanium-chip label="Sedan" closeable slot="filters"></titanium-chip>
+          <titanium-chip label="SUV" closeable slot="filters"></titanium-chip>
+          <titanium-data-table-header
+            title="Model"
+            @sort-by-changed=${onSortByChange}
+            .sortBy=${sortBy}
+            .sortDirection=${sortDirection}
+            @sort-direction-changed=${onSortDirectionChange}
+            large
+            column-name="name"
+            slot="table-headers"
+          ></titanium-data-table-header>
+          <titanium-data-table-header
+            title="Range"
+            @sort-by-changed=${onSortByChange}
+            .sortBy=${sortBy}
+            .sortDirection=${sortDirection}
+            @sort-direction-changed=${onSortDirectionChange}
+            desktop
+            column-name="miles"
+            slot="table-headers"
+          ></titanium-data-table-header>
+          <titanium-data-table-header
+            title="Price"
+            @sort-by-changed=${onSortByChange}
+            .sortBy=${sortBy}
+            .sortDirection=${sortDirection}
+            @sort-direction-changed=${onSortDirectionChange}
+            right
+            column-name="price"
+            slot="table-headers"
+          ></titanium-data-table-header>
+          ${data.map(
+            item => html`
+              <titanium-data-table-item disable-select .item=${item} slot="items">
+                <row-item large x>${item.name}</row-item>
+                <row-item desktop>${item.miles}</row-item>
+                <row-item right>${item.price}</row-item>
+              </titanium-data-table-item>
+            `
+          )}
+          <div slot="footer">hello footer</div>
+        </titanium-data-table>
+      `;
+    }}
+  </Story>
+</Preview>
