@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.3.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@6.3.0...@leavittsoftware/titanium-data-table@6.3.1) (2020-03-02)
+
+
+### Bug Fixes
+
+* Reduces size in which narrow is set. ([f7a2118](https://github.com/LeavittSoftware/titanium-elements/commit/f7a2118e8ad95bdc00e822f428d5c9905ecd9b39))
+
+
+
+
+
 # [6.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@6.2.3...@leavittsoftware/titanium-data-table@6.3.0) (2020-03-02)
 
 
