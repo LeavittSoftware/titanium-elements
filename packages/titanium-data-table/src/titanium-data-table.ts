@@ -2,8 +2,12 @@ import '@leavittsoftware/titanium-svg-button';
 import '@leavittsoftware/titanium-svg-button/lib/titanium-svg-button-menu';
 import '@leavittsoftware/titanium-loading-indicator';
 
-import { css, customElement, html, LitElement, property, queryAll } from 'lit-element';
+import { css, customElement, html, LitElement, property, query } from 'lit-element';
 import { TitaniumDataTableItemElement } from './titanium-data-table-item';
+import { TitaniumDataTableHeaderElement } from './titanium-data-table-header';
+
+//eslint-disable-next-line @typescript-eslint/no-explicit-any
+declare const ResizeObserver: any;
 
 /**
  * Material design inspired data table with paging, sorting, multi/single select, table actions, selected actions and more!
@@ -86,7 +90,14 @@ export class TitaniumDataTableElement extends LitElement {
   @property({ type: Boolean }) largePages: boolean = false;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @queryAll('table-container') private _tableContainer: NodeListOf<any>;
+  @query('slot[name="items"]') private itemsSlot: HTMLSlotElement;
+  @query('slot[name="table-headers"]') private tableHeaders: HTMLSlotElement;
+
+  /**
+   *  Sets if view port is small
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'narrow' }) protected isTableNarrow: boolean = false;
+
   @property({ type: Number }) private take: number;
 
   private _openCount = 0;
@@ -98,6 +109,29 @@ export class TitaniumDataTableElement extends LitElement {
       this.setTake(this._determineTake());
     }
     this.addEventListener('titanium-data-table-item-selected-changed', this._handleItemSelectionChange.bind(this));
+  }
+
+  firstUpdated() {
+    if (typeof ResizeObserver === 'function') {
+      const ro = new ResizeObserver(entries => {
+        for (const entry of entries) {
+          const cr = entry.contentRect;
+          this.setIsNarrowOnChildren(cr.width < 800);
+        }
+      });
+
+      ro.observe(this);
+    } else {
+      const mql = window.matchMedia('(max-width: 768px)');
+      mql.addListener(e => this.setIsNarrowOnChildren(e.matches));
+      this.setIsNarrowOnChildren(mql.matches);
+    }
+  }
+
+  setIsNarrowOnChildren(value: boolean) {
+    this.isTableNarrow = value;
+    this._getTableItems().forEach(o => (o.isTableNarrow = value));
+    (this.tableHeaders.assignedElements() as Array<TitaniumDataTableHeaderElement & HTMLElement>).forEach(o => (o.isTableNarrow = value));
   }
 
   clearSelection() {
@@ -214,10 +248,9 @@ export class TitaniumDataTableElement extends LitElement {
   }
 
   private _getTableItems(): Array<TitaniumDataTableItemElement> {
-    return this._tableContainer[0]
-      .querySelector('slot[name="items"]')
-      .assignedNodes()
-      .filter(o => typeof o.select === 'function' || typeof o.deselect === 'function');
+    return (this.itemsSlot.assignedElements() as Array<TitaniumDataTableItemElement & HTMLElement>).filter(
+      o => typeof o.select === 'function' && typeof o.deselected === 'function'
+    ) as Array<TitaniumDataTableItemElement>;
   }
 
   private _handleNextPageClick() {
@@ -398,8 +431,9 @@ export class TitaniumDataTableElement extends LitElement {
     }
 
     table-controls {
-      display: flex;
-      flex-direction: row;
+      display: grid;
+      grid-auto-flow: column;
+      gap: 44px;
       align-items: center;
 
       justify-content: flex-end;
@@ -420,10 +454,6 @@ export class TitaniumDataTableElement extends LitElement {
       user-select: none;
     }
 
-    table-control:last-of-type {
-      margin-left: 44px;
-    }
-
     table-control span {
       padding: 0 4px 0 12px;
     }
@@ -432,6 +462,12 @@ export class TitaniumDataTableElement extends LitElement {
       margin-bottom: -6px;
       --titanium-svg-button-size: 32px;
       --titanium-svg-button-svg-size: 25px;
+    }
+
+    :host([narrow]) table-controls {
+      grid-auto-columns: 1fr auto auto;
+
+      gap: 8px;
     }
 
     pagination-text {
@@ -471,16 +507,6 @@ export class TitaniumDataTableElement extends LitElement {
     :host([single-select]) select-all-checkbox svg[empty] {
       fill: #b9b9b9;
       cursor: not-allowed;
-    }
-
-    @media (max-width: 768px) {
-      table-control:last-of-type {
-        margin-left: 4px;
-      }
-
-      [mobile-space] {
-        flex: 1 1 auto;
-      }
     }
 
     [hidden] {
@@ -564,7 +590,6 @@ export class TitaniumDataTableElement extends LitElement {
             <table-controls ?hidden=${this._isLoading}>
               <table-control>
                 Rows per page: <span>${this.take}</span>
-
                 <titanium-svg-button-menu path="M7 10l5 5 5-5H7z" anchorCorner="9" anchor-margin-top="0" anchor-margin-right="0">
                   <div role="menuitem" @item-selected=${() => this.setTake(10)}>10 rows</div>
                   <div role="menuitem" @item-selected=${() => this.setTake(15)}>15 rows</div>
@@ -578,9 +603,8 @@ export class TitaniumDataTableElement extends LitElement {
                     : ''}
                 </titanium-svg-button-menu>
               </table-control>
-              <div mobile-space></div>
+              <pagination-text>${this._getPageStats(this.page, this.count)}</pagination-text>
               <table-control>
-                <pagination-text>${this._getPageStats(this.page, this.count)}</pagination-text>
                 <titanium-svg-button
                   path="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"
                   @click="${this._handleLastPageClick}"

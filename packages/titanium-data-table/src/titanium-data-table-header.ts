@@ -65,9 +65,14 @@ export class TitaniumDataTableHeaderElement extends LitElement {
   @property({ type: Boolean, reflect: true }) large: boolean = false;
 
   /**
-   * Only show this header on desktop via view port size. (max-width: 768px)
+   * Only show this header when width is larger
    */
   @property({ type: Boolean, reflect: true }) desktop: boolean = false;
+
+  /**
+   *  Sets if view port is small
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'narrow' }) isTableNarrow: boolean = false;
 
   updated(changedProps) {
     if (changedProps.has('sortBy') && changedProps.get('sortBy') !== this.sortBy) {
@@ -187,10 +192,8 @@ export class TitaniumDataTableHeaderElement extends LitElement {
       fill: var(--app-dark-text-color, #202124);
     }
 
-    @media (max-width: 768px) {
-      :host([desktop]) {
-        display: none;
-      }
+    :host([narrow][desktop]) {
+      display: none;
     }
   `;
 

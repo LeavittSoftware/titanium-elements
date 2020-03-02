@@ -38,6 +38,11 @@ export class TitaniumDataTableItemElement extends LitElement {
    */
   @property({ type: Boolean, attribute: 'disable-select' }) disableSelect: boolean;
 
+  /**
+   *  Sets if view port is small
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'narrow' }) isTableNarrow: boolean = false;
+
   private _isClicking: boolean = false;
   private _clickTimeoutHandle: number;
 
@@ -187,14 +192,12 @@ export class TitaniumDataTableItemElement extends LitElement {
       padding-left: 24px;
     }
 
-    [hidden] {
+    :host([narrow]) ::slotted(row-item[desktop]) {
       display: none;
     }
 
-    @media (max-width: 768px) {
-      ::slotted(row-item[desktop]) {
-        display: none;
-      }
+    [hidden] {
+      display: none;
     }
   `;
 
