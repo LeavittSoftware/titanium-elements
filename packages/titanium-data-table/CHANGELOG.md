@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@6.2.3...@leavittsoftware/titanium-data-table@6.3.0) (2020-03-02)
+
+
+### Bug Fixes
+
+* Removes overflow from filter container.  ([2b72c32](https://github.com/LeavittSoftware/titanium-elements/commit/2b72c3262e195fb35a00e0fe4a7fcf3a99a29c3e))
+
+
+### Features
+
+* Use a resize observer to set when to hide/show data table items ([f4aa87e](https://github.com/LeavittSoftware/titanium-elements/commit/f4aa87e43b4cce48294e4bc333f1f4d1433ee242))
+
+
+
+
+
 ## [6.2.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@6.2.2...@leavittsoftware/titanium-data-table@6.2.3) (2020-02-05)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-data-table
