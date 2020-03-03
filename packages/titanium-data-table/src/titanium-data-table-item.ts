@@ -61,7 +61,7 @@ export class TitaniumDataTableItemElement extends LitElement {
       });
 
     this.addEventListener('dblclick', () => {
-      this.dispatchEvent(new CustomEvent('titanium-data-table-item-navigate', { composed: true, detail: this.item, bubbles: true }));
+      this.dispatchEvent(new CustomEvent('titanium-data-table-item-navigate', { detail: this.item }));
     });
   }
 
