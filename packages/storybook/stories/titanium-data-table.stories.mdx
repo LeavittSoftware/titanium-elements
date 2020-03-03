@@ -96,7 +96,7 @@ import '@leavittsoftware/titanium-data-table';
           ></titanium-data-table-header>
           ${data.map(
             item => html`
-              <titanium-data-table-item .item=${item} slot="items">
+              <titanium-data-table-item .item=${item} slot="items"  @titanium-data-table-item-navigate=${()=> alert('dbl click')}>
                 <row-item large x>${item.name}</row-item>
                 <row-item desktop>${item.miles}</row-item>
                 <row-item right>${item.price}</row-item>
@@ -252,7 +252,7 @@ import '@leavittsoftware/titanium-data-table';
           ></titanium-data-table-header>
           ${data.map(
             item => html`
-              <titanium-data-table-item disable-select .item=${item} slot="items">
+              <titanium-data-table-item disable-select .item=${item} slot="items" >
                 <row-item large x>${item.name}</row-item>
                 <row-item desktop>${item.miles}</row-item>
                 <row-item right>${item.price}</row-item>

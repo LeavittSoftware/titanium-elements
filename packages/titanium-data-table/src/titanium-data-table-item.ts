@@ -177,6 +177,7 @@ export class TitaniumDataTableItemElement extends LitElement {
         : html`
             <mwc-checkbox
               .disabled=${this.disableSelect}
+              @dblclick=${e => e.stopPropagation()}
               @change=${() => {
                 this.selected = this.checkbox.checked;
                 this.dispatchEvent(
