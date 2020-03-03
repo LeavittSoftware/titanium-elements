@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@7.0.0...@leavittsoftware/titanium-data-table@7.0.1) (2020-03-02)
+
+
+### Bug Fixes
+
+* Restores double click item functionality. ([0464d11](https://github.com/LeavittSoftware/titanium-elements/commit/0464d116ab8113670db3f3749e5efc178452b3ea))
+
+
+
+
+
 # [7.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@6.3.1...@leavittsoftware/titanium-data-table@7.0.0) (2020-03-02)
 
 
