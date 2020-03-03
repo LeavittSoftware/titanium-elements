@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@7.0.1...@leavittsoftware/titanium-data-table@7.0.2) (2020-03-03)
+
+
+### Bug Fixes
+
+* Prevent double click on checkbox from firing navigate ([e328432](https://github.com/LeavittSoftware/titanium-elements/commit/e328432b5693509a834957a32230c2f6211cc3d1))
+* Remove unneeded bubbles on navigate event.  ([04b373e](https://github.com/LeavittSoftware/titanium-elements/commit/04b373e7198e44c58829af3411fa3d0e02af1813))
+
+
+
+
+
 ## [7.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@7.0.0...@leavittsoftware/titanium-data-table@7.0.1) (2020-03-02)
 
 
