@@ -43,7 +43,7 @@ export class TitaniumDataTableItemElement extends LitElement {
   /**
    *  Sets if view port is small
    */
-  @property({ type: Boolean, reflect: true, attribute: 'narrow' }) isTableNarrow: boolean = false;
+  @property({ type: Boolean, reflect: true }) narrow: boolean = false;
 
   @query('mwc-checkbox') checkbox: Checkbox;
 

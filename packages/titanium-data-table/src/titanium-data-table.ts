@@ -98,7 +98,7 @@ export class TitaniumDataTableElement extends LitElement {
   /**
    *  Sets if view port is small
    */
-  @property({ type: Boolean, reflect: true, attribute: 'narrow' }) protected isTableNarrow: boolean = false;
+  @property({ type: Boolean, reflect: true, attribute: 'narrow' }) protected narrow: boolean = false;
 
   @property({ type: Number }) private take: number;
 
@@ -120,22 +120,30 @@ export class TitaniumDataTableElement extends LitElement {
       const ro = new ResizeObserver(entries => {
         for (const entry of entries) {
           const cr = entry.contentRect;
-          this.setIsNarrowOnChildren(cr.width < 760);
+          this.narrow = cr.width < 760;
+          this.updateChildrenIsNarrow();
         }
       });
 
       ro.observe(this);
     } else {
       const mql = window.matchMedia('(max-width: 768px)');
-      mql.addListener(e => this.setIsNarrowOnChildren(e.matches));
-      this.setIsNarrowOnChildren(mql.matches);
+      mql.addListener(e => {
+        this.narrow = e.matches;
+        this.updateChildrenIsNarrow();
+      });
+      this.narrow = mql.matches;
+      this.updateChildrenIsNarrow();
     }
+
+    //When slotted in items change, sync the narrow prop
+    this.tableHeaders.addEventListener('slotchange', () => this.updateChildrenIsNarrow());
+    this.itemsSlot.addEventListener('slotchange', () => this.updateChildrenIsNarrow());
   }
 
-  setIsNarrowOnChildren(value: boolean) {
-    this.isTableNarrow = value;
-    this._getTableItems().forEach(o => (o.isTableNarrow = value));
-    (this.tableHeaders.assignedElements() as Array<TitaniumDataTableHeaderElement & HTMLElement>).forEach(o => (o.isTableNarrow = value));
+  updateChildrenIsNarrow() {
+    (this.itemsSlot.assignedElements() as Array<TitaniumDataTableItemElement & HTMLElement>).forEach(o => (o.narrow = this.narrow));
+    (this.tableHeaders.assignedElements() as Array<TitaniumDataTableHeaderElement & HTMLElement>).forEach(o => (o.narrow = this.narrow));
   }
 
   clearSelection() {
