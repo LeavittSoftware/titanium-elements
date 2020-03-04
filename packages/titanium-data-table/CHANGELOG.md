@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@7.0.2...@leavittsoftware/titanium-data-table@7.0.3) (2020-03-04)
+
+
+### Bug Fixes
+
+* Sets narrow on slotchanged event to ensure new items are hidden or shown ([26b8043](https://github.com/LeavittSoftware/titanium-elements/commit/26b80433cdf9e2e8d8e52b7b350b6000e5a99192))
+
+
+
+
+
 ## [7.0.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@7.0.1...@leavittsoftware/titanium-data-table@7.0.2) (2020-03-03)
 
 
