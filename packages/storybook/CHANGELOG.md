@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.11](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.5.10...@leavittsoftware/storybook@5.5.11) (2020-03-03)
+
+
+### Bug Fixes
+
+* Prevent double click on checkbox from firing navigate ([e328432](https://github.com/LeavittSoftware/titanium-elements/commit/e328432b5693509a834957a32230c2f6211cc3d1))
+
+
+
+
+
 ## [5.5.10](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.5.9...@leavittsoftware/storybook@5.5.10) (2020-03-02)
 
 **Note:** Version bump only for package @leavittsoftware/storybook
