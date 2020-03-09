@@ -54,6 +54,7 @@ export class TitaniumSingleActionCardElement extends LitElement {
       -ms-user-select: none; /* IE 10+ */
       user-select: none; /* Standard syntax */
       text-decoration: none;
+      outline: none;
 
       border-radius: 0 0 8px 8px;
     }
