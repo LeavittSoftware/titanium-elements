@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-card@1.5.1...@leavittsoftware/titanium-card@1.5.2) (2020-03-09)
+
+
+### Bug Fixes
+
+* remove outline from single action card. ([635f1fd](https://github.com/LeavittSoftware/titanium-elements/commit/635f1fda113538c6bd66fed6937eb99c59aa9e6f))
+
+
+
+
+
 ## [1.5.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-card@1.5.0...@leavittsoftware/titanium-card@1.5.1) (2020-02-28)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-card
