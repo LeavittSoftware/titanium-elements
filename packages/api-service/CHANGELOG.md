@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@6.1.2...@leavittsoftware/api-service@6.2.0) (2020-03-12)
+
+
+### Features
+
+* Adds disableAuthentication and defaultLGAppNameHeader options ([de382ae](https://github.com/LeavittSoftware/titanium-elements/commit/de382ae3cc0f91bea2d38453d66ddc0210412afd))
+
+
+
+
+
 ## [6.1.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@6.1.1...@leavittsoftware/api-service@6.1.2) (2020-02-13)
 
 **Note:** Version bump only for package @leavittsoftware/api-service
