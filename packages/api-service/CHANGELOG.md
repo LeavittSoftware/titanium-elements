@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@6.2.0...@leavittsoftware/api-service@6.2.1) (2020-03-12)
+
+
+### Bug Fixes
+
+* allow options to be optionally set ([9b3354a](https://github.com/LeavittSoftware/titanium-elements/commit/9b3354a3fb1119a13495cf05280986ae3ca61213))
+
+
+
+
+
 # [6.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@6.1.2...@leavittsoftware/api-service@6.2.0) (2020-03-12)
 
 
