@@ -8,7 +8,7 @@ export type Constructor<T> = { new (...args: any[]): T };
 
 const Api2ServiceMixin = <C extends Constructor<HTMLElement>>(
   base: C,
-  options?: { disableAuthentication: boolean | undefined; defaultLGAppNameHeader: string | undefined }
+  options?: { disableAuthentication?: boolean | undefined; defaultLGAppNameHeader?: string | undefined }
 ) =>
   class extends base {
     api2: ApiService;
