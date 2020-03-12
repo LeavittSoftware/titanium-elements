@@ -38,7 +38,10 @@ export default class ApiService {
         xhr.open('POST', `${this.baseUrl}${urlPath}`, true);
 
         const headers = { ...this.headers };
-        headers['Authorization'] = `Bearer ${await this._tokenProvider._getBearerTokenAsync()}`;
+        const token = await this._tokenProvider._getBearerTokenAsync();
+        if (token !== null) {
+          headers['Authorization'] = `Bearer ${token}`;
+        }
         headers['X-LGAttachmentName'] = file.name;
 
         if (appName !== null) {
@@ -105,7 +108,10 @@ export default class ApiService {
     if (appName !== null) {
       headers['X-LGAppName'] = appName;
     }
-    headers['Authorization'] = `Bearer ${await this._tokenProvider._getBearerTokenAsync()}`;
+    const token = await this._tokenProvider._getBearerTokenAsync();
+    if (token !== null) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
 
     let response;
     try {
@@ -153,7 +159,10 @@ export default class ApiService {
     if (appName !== null) {
       headers['X-LGAppName'] = appName;
     }
-    headers['Authorization'] = `Bearer ${await this._tokenProvider._getBearerTokenAsync()}`;
+    const token = await this._tokenProvider._getBearerTokenAsync();
+    if (token !== null) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
 
     let response;
     try {
@@ -197,7 +206,10 @@ export default class ApiService {
     if (appName !== null) {
       headers['X-LGAppName'] = appName;
     }
-    headers['Authorization'] = `Bearer ${await this._tokenProvider._getBearerTokenAsync()}`;
+    const token = await this._tokenProvider._getBearerTokenAsync();
+    if (token !== null) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
 
     let response;
     try {
@@ -237,7 +249,10 @@ export default class ApiService {
     if (appName !== null) {
       headers['X-LGAppName'] = appName;
     }
-    headers['Authorization'] = `Bearer ${await this._tokenProvider._getBearerTokenAsync()}`;
+    const token = await this._tokenProvider._getBearerTokenAsync();
+    if (token !== null) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
 
     let response;
     try {
@@ -281,7 +296,10 @@ export default class ApiService {
     if (appName !== null) {
       headers['X-LGAppName'] = appName;
     }
-    headers['Authorization'] = `Bearer ${await this._tokenProvider._getBearerTokenAsync()}`;
+    const token = await this._tokenProvider._getBearerTokenAsync();
+    if (token !== null) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
 
     let response;
     try {
