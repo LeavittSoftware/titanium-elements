@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-card@1.5.2...@leavittsoftware/titanium-card@1.5.3) (2020-03-17)
+
+
+### Bug Fixes
+
+* prevents tabbing if action is disabled. ([d0983d2](https://github.com/LeavittSoftware/titanium-elements/commit/d0983d2f405f06987eecf2ea90e2fc1aa1ec2ff6))
+
+
+
+
+
 ## [1.5.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-card@1.5.1...@leavittsoftware/titanium-card@1.5.2) (2020-03-09)
 
 
