@@ -1,6 +1,7 @@
 ﻿import { customElement, html, property, css, LitElement } from 'lit-element';
 import { TitaniumCardElement } from './titanium-card';
 import '@material/mwc-ripple';
+import { ifDefined } from 'lit-html/directives/if-defined';
 
 /**
  * A card with a built-in button on the bottom
@@ -64,18 +65,22 @@ export class TitaniumSingleActionCardElement extends LitElement {
       color: rgba(0, 0, 0, 0.37);
     }
 
-    a:hover {
+    :host(:not([disable-action])) a:hover {
       background-color: var(--app-hover-color, #f9f9f9);
       transition: 0.3s ease;
     }
   `;
+
+  getHref(disabled: boolean, title: string) {
+    return disabled ? undefined : title ? `#${title}` : '#';
+  }
 
   render() {
     return html`
       <slot></slot>
       <a
         title=${this.buttonTitle}
-        href=${this.buttonTitle}
+        href=${ifDefined(this.getHref(this.disableAction, this.buttonTitle))}
         @click=${(e: Event) => {
           e.preventDefault();
           if (!this.disableAction) {
