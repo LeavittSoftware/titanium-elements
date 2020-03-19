@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-button@1.5.0...@leavittsoftware/titanium-button@1.5.1) (2020-03-19)
+
+
+### Performance Improvements
+
+* @material/mwc package bump  ([57adb92](https://github.com/LeavittSoftware/titanium-elements/commit/57adb92c645196c926cc8a6e8f93a5f713274fe8))
+
+
+
+
+
 # [1.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-button@1.4.0...@leavittsoftware/titanium-button@1.5.0) (2020-02-05)
 
 
