@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@7.0.3...@leavittsoftware/titanium-data-table@7.0.4) (2020-03-19)
+
+
+### Performance Improvements
+
+* @material/mwc package bump  ([57adb92](https://github.com/LeavittSoftware/titanium-elements/commit/57adb92c645196c926cc8a6e8f93a5f713274fe8))
+
+
+
+
+
 ## [7.0.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@7.0.2...@leavittsoftware/titanium-data-table@7.0.3) (2020-03-04)
 
 
