@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-single-select",
   "description": "",
   "author": "Leavitt Software",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "license": "MIT",
   "main": "lib/titanium-single-select.js",
   "typings": "lib/titanium-single-select.d.ts",
@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@leavittsoftware/titanium-progress": "^0.1.4",
-    "@leavittsoftware/titanium-svg-button": "^4.3.3"
+    "@leavittsoftware/titanium-svg-button": "^4.3.4"
   },
   "peerDependencies": {
     "lit-element": ">=2.1.0"
