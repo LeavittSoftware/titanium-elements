@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Constructor<T> = { new (...args: any[]): T };
-const LoadWhile = <C extends Constructor<HTMLElement>>(base: C) =>
+export const LoadWhile = <C extends Constructor<HTMLElement>>(base: C) =>
   class extends base {
     static get properties() {
       return {
@@ -23,4 +23,3 @@ const LoadWhile = <C extends Constructor<HTMLElement>>(base: C) =>
       }
     }
   };
-export default LoadWhile;
