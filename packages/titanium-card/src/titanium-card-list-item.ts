@@ -47,6 +47,7 @@ export class TitaniumCardListItemElement extends LitElement {
       -moz-user-select: none; /* Firefox 2+ */
       -ms-user-select: none; /* IE 10+ */
       user-select: none; /* Standard syntax */
+      outline: none;
 
       padding: 16px 24px 16px 0;
 
