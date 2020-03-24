@@ -6,3 +6,4 @@ export { installMediaQueryWatcher } from './titanium-media-query';
 export { getSearchTokens } from './titanium-search-token';
 export { debounce } from './titanium-debounce';
 export { Debouncer } from './titanium-debouncer';
+export { LoadWhile } from './titanium-load-while';
