@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-helpers@3.0.3...@leavittsoftware/titanium-helpers@3.1.0) (2020-03-24)
+
+
+### Bug Fixes
+
+* adds entry into titanium helpers and removes default export to more closely align with other helpers ([51e217c](https://github.com/LeavittSoftware/titanium-elements/commit/51e217c9cfa58f02295d51c563d17b6ee46e6770))
+
+
+### Features
+
+* adds load while helper mixin ([d65a74b](https://github.com/LeavittSoftware/titanium-elements/commit/d65a74b12ab4d45b614bc28030ad2f76fcf0b63e))
+
+
+
+
+
 ## [3.0.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-helpers@3.0.2...@leavittsoftware/titanium-helpers@3.0.3) (2020-02-05)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-helpers
