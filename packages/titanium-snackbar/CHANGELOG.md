@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-snackbar@3.1.4...@leavittsoftware/titanium-snackbar@3.1.5) (2020-03-25)
+
+
+### Bug Fixes
+
+* Replaces href with mwc-button. ([f4364f8](https://github.com/LeavittSoftware/titanium-elements/commit/f4364f8f50f4ce2eb2b543f612abda30e78271af))
+
+
+
+
+
 ## [3.1.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-snackbar@3.1.3...@leavittsoftware/titanium-snackbar@3.1.4) (2020-03-20)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-snackbar

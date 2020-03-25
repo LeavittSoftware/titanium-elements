@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-button@1.5.2...@leavittsoftware/titanium-button@1.5.3) (2020-03-25)
+
+
+### Bug Fixes
+
+* Restores ripple per breaking change in mwc-ripple. ([bdc931d](https://github.com/LeavittSoftware/titanium-elements/commit/bdc931d5b26e790128a36e9c589ecaa969937983))
+
+
+
+
+
 ## [1.5.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-button@1.5.1...@leavittsoftware/titanium-button@1.5.2) (2020-03-20)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-button
