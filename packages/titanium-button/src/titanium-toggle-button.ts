@@ -1,5 +1,6 @@
 import '@material/mwc-ripple';
-import { css, customElement, html, LitElement, property } from 'lit-element';
+import { css, customElement, html, LitElement, property, query } from 'lit-element';
+import { Ripple } from '@material/mwc-ripple';
 
 /**
  * Material design inspired button.
@@ -14,7 +15,6 @@ import { css, customElement, html, LitElement, property } from 'lit-element';
  * @cssprop {Color} --app-selected-color - Button selected background color
  * @cssprop {Color} --titanium-selected-text-color - Button slotted text color for when in the selected state
  * @cssprop {Color} --app-primary-color - Button BG color
- * @cssprop {Color} --titanium-button-hover-bg-color - Button hover BG color
  */
 @customElement('titanium-toggle-button')
 export class TitaniumToggleButtonElement extends LitElement {
@@ -43,12 +43,13 @@ export class TitaniumToggleButtonElement extends LitElement {
    */
   @property({ type: Boolean, reflect: true }) shaped: boolean = false;
 
+  @query('mwc-ripple') private ripple: Ripple;
+
   static styles = css`
     :host {
       display: inline-flex;
-      position: relative;
+
       font-family: Roboto, Noto, sans-serif;
-      overflow: hidden;
       -webkit-user-select: none; /* Chrome all / Safari all */
       -ms-user-select: none; /* IE 10+ */
       -moz-user-select: none; /* Firefox all */
@@ -62,7 +63,6 @@ export class TitaniumToggleButtonElement extends LitElement {
       outline: none;
       margin: 0;
       width: auto;
-      overflow: hidden;
       background: transparent;
       /* inherit font & color from ancestor */
       font: inherit;
@@ -81,6 +81,8 @@ export class TitaniumToggleButtonElement extends LitElement {
       letter-spacing: 1.25px;
       padding: 0 16px;
       border-radius: 4px;
+      outline: none;
+      position: relative;
     }
 
     button::-moz-focus-inner {
@@ -89,18 +91,6 @@ export class TitaniumToggleButtonElement extends LitElement {
 
     :host([shaped]) button {
       border-radius: 18px;
-    }
-
-    button:active,
-    button:hover {
-      font-weight: 500;
-      outline-style: none;
-      box-shadow: none;
-      background-color: var(--titanium-button-hover-bg-color, rgba(59, 149, 255, 0.11));
-    }
-
-    button:focus {
-      outline: none;
     }
 
     :host([selected]:not([disabled])) button {
@@ -136,11 +126,33 @@ export class TitaniumToggleButtonElement extends LitElement {
       color: rgba(0, 0, 0, 0.37);
       cursor: default;
     }
+
+    mwc-ripple {
+      border-radius: 4px;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      right: 0;
+      overflow: hidden;
+    }
+
+    :host([shaped]) mwc-ripple {
+      border-radius: 18px;
+    }
   `;
 
   render() {
     return html`
       <button
+        @mouseenter=${() => this.ripple.handleMouseEnter()}
+        @mouseleave=${() => this.ripple.handleMouseLeave()}
+        @focus=${() => this.ripple.handleFocus()}
+        @blur=${() => this.ripple.handleBlur()}
+        @mousedown=${e => this.ripple.activate(e)}
+        @mouseup=${() => this.ripple.deactivate()}
+        @keydown=${e => (e.which === 32 ? this.ripple.activate() : '')}
+        @keyup=${() => this.ripple.deactivate()}
         ?disabled=${this.disabled}
         @click=${() => {
           this.selected = !this.selected;

@@ -1,5 +1,6 @@
 import '@material/mwc-ripple';
-import { css, customElement, html, LitElement, property } from 'lit-element';
+import { css, customElement, html, LitElement, property, query } from 'lit-element';
+import { Ripple } from '@material/mwc-ripple';
 
 /**
  * Material design inspired SVG button.
@@ -7,8 +8,6 @@ import { css, customElement, html, LitElement, property } from 'lit-element';
  * @element titanium-svg-button
  *
  * @cssprop {Length} --titanium-svg-button-size - Size of the SVG button (default: 42px)
- * @cssprop {Color} --app-hover-color - Button hover color
- * @cssprop {Color} --titanium-svg-button-focus-color - Button focus color
  * @cssprop {Color} --app-text-color - Icon fill color
  * @cssprop {Color} --app-primary-color - Ripple color
  * @cssprop {Length} --titanium-svg-button-svg-size - Size of the SVG in the button (default: 60%)
@@ -26,6 +25,8 @@ export class TitaniumSvgButton extends LitElement {
    */
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
 
+  @query('mwc-ripple') private ripple: Ripple;
+
   static styles = css`
     :host {
       display: inline-block;
@@ -35,6 +36,7 @@ export class TitaniumSvgButton extends LitElement {
       cursor: pointer;
       border-radius: 50%;
       overflow: hidden;
+      --mdc-theme-primary: var(--app-primary-color, #3b95ff);
     }
 
     button {
@@ -57,33 +59,20 @@ export class TitaniumSvgButton extends LitElement {
       height: var(--titanium-svg-button-size, 42px);
       border-radius: 50%;
       padding: 0;
+      position: relative;
+      outline: none;
     }
 
     :host([disabled]) {
       pointer-events: none;
     }
 
-    button:hover,
-    button:focus {
-      outline: none;
-      background-color: var(--app-hover-color, #f9f9f9);
-      background-color: none;
-    }
-
     button::-moz-focus-inner {
       border: 0;
     }
 
-    button:focus {
-      background-color: var(--titanium-svg-button-focus-color, inherit);
-    }
-
     :host([hidden]) {
       display: none;
-    }
-
-    :host(:not([disabled])) {
-      --mdc-theme-primary: var(--app-primary-color, #3b95ff);
     }
 
     svg {
@@ -94,6 +83,16 @@ export class TitaniumSvgButton extends LitElement {
       fill: var(--app-text-color, #5f6368);
     }
 
+    mwc-ripple {
+      border-radius: 50%;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      right: 0;
+      overflow: hidden;
+    }
+
     :host([disabled]) svg {
       fill: rgba(0, 0, 0, 0.37);
     }
@@ -101,7 +100,17 @@ export class TitaniumSvgButton extends LitElement {
 
   render() {
     return html`
-      <button ?disabled=${this.disabled}>
+      <button
+        ?disabled=${this.disabled}
+        @mouseenter=${() => this.ripple.handleMouseEnter()}
+        @mouseleave=${() => this.ripple.handleMouseLeave()}
+        @focus=${() => this.ripple.handleFocus()}
+        @blur=${() => this.ripple.handleBlur()}
+        @mousedown=${e => this.ripple.activate(e)}
+        @mouseup=${() => this.ripple.deactivate()}
+        @keydown=${e => (e.which === 32 ? this.ripple.activate() : '')}
+        @keyup=${() => this.ripple.deactivate()}
+      >
         <svg viewBox="0 0 24 24">
           <path d="${this.path}" />
         </svg>

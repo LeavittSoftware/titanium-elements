@@ -1,7 +1,8 @@
-﻿import { customElement, html, property, css, LitElement } from 'lit-element';
+﻿import { customElement, html, property, css, LitElement, query } from 'lit-element';
 import { TitaniumCardElement } from './titanium-card';
 import '@material/mwc-ripple';
 import { ifDefined } from 'lit-html/directives/if-defined';
+import { Ripple } from '@material/mwc-ripple';
 
 /**
  * A card with a built-in button on the bottom
@@ -12,7 +13,6 @@ import { ifDefined } from 'lit-html/directives/if-defined';
  *
  * @cssprop {Color} --app-border-color - Card border color
  * @cssprop {Color} --app-link-color - Link text color
- * @cssprop {Color} --app-hover-color - Button hover color
  */
 
 @customElement('titanium-single-action-card')
@@ -23,6 +23,8 @@ export class TitaniumSingleActionCardElement extends LitElement {
    * Disables the button on the card.
    */
   @property({ type: Boolean, reflect: true, attribute: 'disable-action' }) disableAction: boolean = false;
+
+  @query('mwc-ripple') private ripple: Ripple;
 
   static styles = css`
     ${TitaniumCardElement.styles} :host {
@@ -36,7 +38,7 @@ export class TitaniumSingleActionCardElement extends LitElement {
       font-family: Roboto, sans-serif;
       -moz-osx-font-smoothing: grayscale;
       -webkit-font-smoothing: antialiased;
-
+      --mdc-theme-primary: var(--app-primary-color, #3b95ff);
       overflow: hidden;
     }
 
@@ -56,18 +58,22 @@ export class TitaniumSingleActionCardElement extends LitElement {
       user-select: none; /* Standard syntax */
       text-decoration: none;
       outline: none;
+      position: relative;
 
       border-radius: 0 0 8px 8px;
+    }
+
+    a:hover {
+      background-color: none;
+    }
+
+    mwc-ripple {
+      overflow: hidden;
     }
 
     :host([disable-action]) a {
       pointer-events: none;
       color: rgba(0, 0, 0, 0.37);
-    }
-
-    :host(:not([disable-action])) a:hover {
-      background-color: var(--app-hover-color, #f9f9f9);
-      transition: 0.3s ease;
     }
   `;
 
@@ -81,6 +87,14 @@ export class TitaniumSingleActionCardElement extends LitElement {
       <a
         title=${this.buttonTitle}
         href=${ifDefined(this.getHref(this.disableAction, this.buttonTitle))}
+        @mouseenter=${() => this.ripple.handleMouseEnter()}
+        @mouseleave=${() => this.ripple.handleMouseLeave()}
+        @focus=${() => this.ripple.handleFocus()}
+        @blur=${() => this.ripple.handleBlur()}
+        @mousedown=${e => this.ripple.activate(e)}
+        @mouseup=${() => this.ripple.deactivate()}
+        @keydown=${e => (e.which === 32 ? this.ripple.activate() : '')}
+        @keyup=${() => this.ripple.deactivate()}
         @click=${(e: Event) => {
           e.preventDefault();
           if (!this.disableAction) {

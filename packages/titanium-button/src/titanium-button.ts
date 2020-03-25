@@ -1,5 +1,6 @@
 import '@material/mwc-ripple';
-import { css, customElement, html, LitElement, property } from 'lit-element';
+import { css, customElement, html, LitElement, property, query } from 'lit-element';
+import { Ripple } from '@material/mwc-ripple';
 
 /**
  * Material design inspired button.
@@ -11,7 +12,6 @@ import { css, customElement, html, LitElement, property } from 'lit-element';
  * @cssprop {Color} --app-link-color - Button slotted text color
  * @cssprop {Color} --titanium-solid-button-text-color - Button slotted text color for raised and unelevated styles
  * @cssprop {Color} --app-primary-color - Button BG color
- * @cssprop {Color} --titanium-button-hover-bg-color - Button hover BG color
  */
 @customElement('titanium-button')
 export class TitaniumButtonElement extends LitElement {
@@ -45,12 +45,12 @@ export class TitaniumButtonElement extends LitElement {
    */
   @property({ type: Boolean, reflect: true }) shaped: boolean = false;
 
+  @query('mwc-ripple') private ripple: Ripple;
+
   static styles = css`
     :host {
       display: inline-flex;
-      position: relative;
       font-family: Roboto, Noto, sans-serif;
-      overflow: hidden;
       -webkit-user-select: none; /* Chrome all / Safari all */
       -moz-user-select: none; /* Firefox all */
       -ms-user-select: none; /* IE 10+ */
@@ -64,7 +64,6 @@ export class TitaniumButtonElement extends LitElement {
       outline: none;
       margin: 0;
       width: auto;
-      overflow: hidden;
       background: transparent;
       /* inherit font & color from ancestor */
       font: inherit;
@@ -83,6 +82,8 @@ export class TitaniumButtonElement extends LitElement {
       letter-spacing: 1.25px;
       padding: 0 16px;
       border-radius: 4px;
+      outline: none;
+      position: relative;
     }
 
     button::-moz-focus-inner {
@@ -93,23 +94,6 @@ export class TitaniumButtonElement extends LitElement {
       border-radius: 18px;
     }
 
-    button:active,
-    button:hover {
-      font-weight: 500;
-      outline-style: none;
-      box-shadow: none;
-      background-color: var(--titanium-button-hover-bg-color, rgba(59, 149, 255, 0.11));
-    }
-
-    button:focus {
-      outline: none;
-    }
-
-    :host([raised]) {
-      /* Allow drop shadow through */
-      padding: 4px;
-    }
-
     :host([raised]:not([disabled])) {
       --mdc-theme-primary: var(--app-link-color, #3b95ff);
     }
@@ -118,8 +102,12 @@ export class TitaniumButtonElement extends LitElement {
       color: var(--titanium-solid-button-text-color, #fff);
       background-color: var(--app-primary-color, #3b95ff);
       --mdc-theme-primary: var(--app-primary-color, #3b95ff);
-      box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
+      box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
       transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1) 0s;
+    }
+
+    :host([raised]:not([disabled])) button:active {
+      box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
     }
 
     :host([outlined]:not([disabled])) button {
@@ -150,6 +138,20 @@ export class TitaniumButtonElement extends LitElement {
       pointer-events: none;
     }
 
+    mwc-ripple {
+      border-radius: 4px;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      right: 0;
+      overflow: hidden;
+    }
+
+    :host([shaped]) mwc-ripple {
+      border-radius: 18px;
+    }
+
     :host([disabled]) button {
       background-color: transparent;
       color: rgba(0, 0, 0, 0.37);
@@ -159,7 +161,17 @@ export class TitaniumButtonElement extends LitElement {
 
   render() {
     return html`
-      <button ?disabled=${this.disabled}>
+      <button
+        @mouseenter=${() => this.ripple.handleMouseEnter()}
+        @mouseleave=${() => this.ripple.handleMouseLeave()}
+        @focus=${() => this.ripple.handleFocus()}
+        @blur=${() => this.ripple.handleBlur()}
+        @mousedown=${e => this.ripple.activate(e)}
+        @mouseup=${() => this.ripple.deactivate()}
+        @keydown=${e => (e.which === 32 ? this.ripple.activate() : '')}
+        @keyup=${() => this.ripple.deactivate()}
+        ?disabled=${this.disabled}
+      >
         <slot></slot>
         <mwc-ripple ?disabled=${this.disabled} primary></mwc-ripple>
       </button>

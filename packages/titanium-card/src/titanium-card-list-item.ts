@@ -1,6 +1,7 @@
-﻿import { css, customElement, html, LitElement, property } from 'lit-element';
+﻿import { css, customElement, html, LitElement, property, query } from 'lit-element';
 import '@material/mwc-ripple';
 import { ifDefined } from 'lit-html/directives/if-defined';
+import { Ripple } from '@material/mwc-ripple';
 
 /**
  * A list item for use inside a titanium-card
@@ -10,7 +11,6 @@ import { ifDefined } from 'lit-html/directives/if-defined';
  * @fires item-click - Fired when the item is clicked
  *
  * @cssprop {Color} --app-border-color - Border color
- * @cssprop {Color} --app-hover-color - Hover background color
  * @cssprop {Color} --app-dark-text-color - Link text color
  *
  * @slot - Item content (text)
@@ -23,6 +23,8 @@ export class TitaniumCardListItemElement extends LitElement {
    * Disables element.
    */
   @property({ type: Boolean, reflect: true, attribute: 'disabled' }) disabled: boolean = false;
+
+  @query('mwc-ripple') private ripple: Ripple;
 
   static styles = css`
     :host {
@@ -56,6 +58,7 @@ export class TitaniumCardListItemElement extends LitElement {
       text-decoration: none;
 
       align-items: center;
+      position: relative;
     }
 
     ::slotted([spacer]) {
@@ -66,7 +69,6 @@ export class TitaniumCardListItemElement extends LitElement {
     :host(:hover:not([disabled])) a {
       margin-left: 0;
       padding-left: 24px;
-      background-color: var(--app-hover-color, #f9f9f9);
     }
 
     :host([disabled]) a {
@@ -98,8 +100,17 @@ export class TitaniumCardListItemElement extends LitElement {
         href=${this.title}
         @click=${(e: Event) => {
           e.preventDefault();
+          this.ripple.activate();
           this.dispatchEvent(new Event('item-click'));
         }}
+        @mouseenter=${() => this.ripple.handleMouseEnter()}
+        @mouseleave=${() => this.ripple.handleMouseLeave()}
+        @focus=${() => this.ripple.handleFocus()}
+        @blur=${() => this.ripple.handleBlur()}
+        @mousedown=${e => this.ripple.activate(e)}
+        @mouseup=${() => this.ripple.deactivate()}
+        @keydown=${e => (e.which === 32 ? this.ripple.activate() : '')}
+        @keyup=${() => this.ripple.deactivate()}
       >
         ${this.slottedContent()}
         <mwc-ripple></mwc-ripple>
