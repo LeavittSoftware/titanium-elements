@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/user-manager@9.2.1...@leavittsoftware/user-manager@9.3.0) (2020-03-25)
+
+
+### Features
+
+* Adds refreshTokenId to user manager. ([dc937be](https://github.com/LeavittSoftware/titanium-elements/commit/dc937be6fd5c248f574d1b9fb397e8b4a955f988))
+
+
+
+
+
 ## [9.2.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/user-manager@9.2.0...@leavittsoftware/user-manager@9.2.1) (2020-03-24)
 
 **Note:** Version bump only for package @leavittsoftware/user-manager

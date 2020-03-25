@@ -30,6 +30,8 @@ export class UserManager extends LitElement {
 
   @property({ type: Number }) personId: number = 0;
 
+  @property({ type: Number }) refreshTokenId: number = 0;
+
   @property({ type: String }) redirectUrl: string = 'https://signin.leavitt.com/';
 
   @property({ type: String }) redirectDevUrl: string = 'https://devsignin.leavitt.com/';
@@ -215,6 +217,7 @@ export class UserManager extends LitElement {
 
   private _setLocalProperties(_jwtToken: LssJwtToken) {
     this.personId = Number(_jwtToken.nameid);
+    this.refreshTokenId = Number(_jwtToken.RefreshTokenId);
     this.fullname = _jwtToken.unique_name;
     this.firstName = _jwtToken.given_name;
     this.lastName = _jwtToken.family_name;
@@ -321,6 +324,7 @@ export class UserManager extends LitElement {
     localStorage.removeItem('LG-AUTH-RT');
 
     this.personId = 0;
+    this.refreshTokenId = 0;
     this.fullname = '';
     this.firstName = '';
     this.lastName = '';
