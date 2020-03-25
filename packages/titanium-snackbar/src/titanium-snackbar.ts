@@ -1,4 +1,4 @@
-import '@material/mwc-ripple';
+import '@material/mwc-button';
 import { css, customElement, html, LitElement, property } from 'lit-element';
 
 export class BasicSnackBar {
@@ -33,7 +33,6 @@ export type SnackbarOptions = {
  * import { TitaniumSnackbarSingleton as AppSnackbar } from '@leavittsoftware/titanium-snackbar';
  * AppSnackbar.open('Hello world');
  *
- * @cssprop {Color} --titanium-snackbar-action-color - Action button text color
  * @cssprop {Color} --titanium-snackbar-background-color - Snackbar background color
  * @cssprop {Color} --titanium-snackbar-text-color - Color of the text in the snackbar
  *
@@ -251,21 +250,13 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
       margin: 8px;
     }
 
-    a {
-      display: block;
-      cursor: pointer;
+    mwc-button {
       align-self: flex-end;
-      text-decoration: none;
-      color: var(--titanium-snackbar-action-color, #3b95ff);
-      font-weight: 600;
-      padding: 16px;
-      user-select: none;
-      border-radius: 4px;
     }
 
-    :host([error]) a,
-    :host([informational]) a {
-      color: #fff;
+    :host([error]) mwc-button,
+    :host([informational]) mwc-button {
+      --mdc-theme-primary: #fff;
     }
 
     [hidden] {
@@ -276,16 +267,15 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
   render() {
     return html`
       <span>${this.message}</span>
-      <a
+      <mwc-button
         ?hidden=${this.noaction}
-        @click=${(e: Event) => {
-          e.preventDefault();
+        @click=${() => {
           clearTimeout(this._closeTimeoutHandle);
           this.close();
         }}
+        .label=${this.actionText}
       >
-        ${this.actionText}<mwc-ripple></mwc-ripple
-      ></a>
+      </mwc-button>
     `;
   }
 }
