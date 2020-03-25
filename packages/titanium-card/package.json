@@ -10,7 +10,7 @@
   ],
   "dependencies": {
     "@leavittsoftware/titanium-button": "^1.5.2",
-    "@material/mwc-ripple": "^0.14.0"
+    "@material/mwc-ripple": "^0.14.1"
   },
   "peerDependencies": {
     "lit-element": ">=2.1.0"
