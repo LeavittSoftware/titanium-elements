@@ -156,6 +156,7 @@ export class TitaniumSearchInput extends LitElement {
     }
 
     :host([collapsed]:not([prevent-collapse])) {
+      overflow: hidden;
       width: 42px;
     }
 
