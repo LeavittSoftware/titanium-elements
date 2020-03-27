@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@3.1.3...@leavittsoftware/titanium-dialog@3.1.4) (2020-03-27)
+
+
+### Performance Improvements
+
+* swaps titanium-button for mwc-button in dialog. ([2360eda](https://github.com/LeavittSoftware/titanium-elements/commit/2360eda44b99453d79839752891c18684394f840))
+
+
+
+
+
 ## [3.1.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@3.1.2...@leavittsoftware/titanium-dialog@3.1.3) (2020-03-25)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-dialog

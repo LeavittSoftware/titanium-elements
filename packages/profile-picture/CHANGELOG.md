@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.13](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/profile-picture@4.1.12...@leavittsoftware/profile-picture@4.1.13) (2020-03-27)
+
+
+### Performance Improvements
+
+* swaps titanium-button for mwc-button in dialog. ([71d9171](https://github.com/LeavittSoftware/titanium-elements/commit/71d9171059bddd9d85e6cad67b2d3e152a7f8183))
+
+
+
+
+
 ## [4.1.12](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/profile-picture@4.1.11...@leavittsoftware/profile-picture@4.1.12) (2020-03-25)
 
 **Note:** Version bump only for package @leavittsoftware/profile-picture
