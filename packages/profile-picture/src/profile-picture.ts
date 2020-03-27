@@ -24,14 +24,16 @@ export class ProfilePictureElement extends LitElement {
    */
   @property({ type: Number }) size: number = 120;
 
+  @property({ type: Number }) private cacheBust: number = 0;
+
   private _availableSizes = new Set([32, 64, 128, 256, 512, 1024]);
 
-  _computeSrc(personId: number, size: number): string | undefined {
+  _computeSrc(personId: number, size: number, cacheBust: number): string | undefined {
     if (!personId) {
       return undefined;
     }
     const baseUrl = isDevelopment ? 'https://devmapi.leavitt.com/' : 'https://mapi.leavitt.com/';
-    return `${baseUrl}People(${personId})/Default.Picture(size=${this.determineSize(size)})`;
+    return `${baseUrl}People(${personId})/Default.Picture(size=${this.determineSize(size)})${cacheBust > 0 ? `?c=${cacheBust}` : ''}`;
   }
 
   private determineSize(size: number) {
@@ -52,10 +54,11 @@ export class ProfilePictureElement extends LitElement {
     }
   }
 
-  public refresh() {
-    const personId = this.personId;
-    this.personId = 0;
-    this.personId = personId;
+  /**
+   * Reloads profile picture from server
+   */
+  refresh() {
+    this.cacheBust = this.cacheBust > 0 ? this.cacheBust + 1 : 1;
   }
 
   static styles = css`
@@ -78,7 +81,7 @@ export class ProfilePictureElement extends LitElement {
   render() {
     return this.personId
       ? html`
-          <img draggable="false" alt="Profile Picture" src=${this._computeSrc(this.personId, this.size)} />
+          <img draggable="false" alt="Profile Picture" src=${this._computeSrc(this.personId, this.size, this.cacheBust)} />
         `
       : html``;
   }
