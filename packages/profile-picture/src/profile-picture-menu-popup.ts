@@ -1,5 +1,5 @@
 ﻿import './profile-picture';
-import '@leavittsoftware/titanium-button';
+import '@material/mwc-button';
 
 import { TitaniumPopupSurfaceFoundation } from '@leavittsoftware/titanium-popup-surface';
 import { GetUserManagerInstance } from '@leavittsoftware/user-manager';
@@ -102,13 +102,7 @@ export class ProfilePictureMenuPopupElement extends TitaniumPopupSurfaceFoundati
         <slot-container>
           <slot name="content"></slot>
         </slot-container>
-        <mwc-button
-          shaped
-          outlined
-          account
-          @click=${() => window.open('https://accounts.leavitt.com/', '_blank')}
-          label="Manage your Leavitt account"
-        ></mwc-button>
+        <mwc-button outlined account @click=${() => window.open('https://accounts.leavitt.com/', '_blank')} label="Manage your Leavitt account"></mwc-button>
       </main>
 
       <footer>
