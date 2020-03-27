@@ -1,4 +1,4 @@
-import '@leavittsoftware/titanium-button';
+import '@material/mwc-button';
 import { css, customElement, html, property, query } from 'lit-element';
 import { TitaniumDialogBaseElement } from './titanium-dialog-base';
 
@@ -15,6 +15,7 @@ import { TitaniumDialogBaseElement } from './titanium-dialog-base';
  * @cssprop {Color} --app-light-text-color - Content text color
  * @cssprop {Color} --app-dark-text-color - Dialog header color
  * @cssprop {Color} --app-border-color - Dialog border color
+ * @cssprop {Color} --app-primary-color - Dialog default button text color
  */
 @customElement('titanium-dialog')
 export class TitaniumDialogElement extends TitaniumDialogBaseElement {
@@ -52,6 +53,7 @@ export class TitaniumDialogElement extends TitaniumDialogBaseElement {
       font-weight: 400;
       letter-spacing: 0.0125em;
       padding: 24px 24px 16px 24px;
+      --mdc-theme-primary: var(--app-primary-color, #3b95ff);
     }
 
     section {
@@ -78,9 +80,13 @@ export class TitaniumDialogElement extends TitaniumDialogBaseElement {
     }
 
     footer {
-      display: flex;
-      flex-direction: row-reverse;
-      padding: 10px;
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: max-content;
+      justify-content: end;
+
+      padding: 8px;
+      gap: 8px;
     }
   `;
 
@@ -93,14 +99,14 @@ export class TitaniumDialogElement extends TitaniumDialogBaseElement {
 
       <footer>
         <slot name="actions"
-          ><titanium-button
+          ><mwc-button
             @click=${(e: Event) => {
               e.preventDefault();
               this.close('close-click');
             }}
+            label="CLOSE"
           >
-            CLOSE
-          </titanium-button>
+          </mwc-button>
         </slot>
       </footer>
     `;

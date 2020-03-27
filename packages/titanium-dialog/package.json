@@ -9,7 +9,7 @@
     "src"
   ],
   "dependencies": {
-    "@leavittsoftware/titanium-button": "^1.5.3"
+    "@material/mwc-button": "^0.14.1"
   },
   "peerDependencies": {
     "lit-element": ">=2.1.0"

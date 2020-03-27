@@ -1,6 +1,6 @@
 ﻿import { customElement, html, property, css } from 'lit-element';
 import { TitaniumCardElement } from './titanium-card';
-import '@leavittsoftware/titanium-button';
+import '@material/mwc-button';
 
 /**
  * A card with built-in primary and secondary buttons
@@ -34,6 +34,7 @@ export class TitaniumEditCardElement extends TitaniumCardElement {
     action-container {
       display: grid;
       grid-auto-flow: column;
+      grid-auto-columns: max-content;
       justify-content: end;
       margin: 12px 8px 8px 8px;
       gap: 8px;
@@ -44,24 +45,24 @@ export class TitaniumEditCardElement extends TitaniumCardElement {
     return html`
       <slot></slot>
       <action-container>
-        <titanium-button
+        <mwc-button
           ?disabled=${this.disableSecondaryButton}
           @click=${(e: Event) => {
             e.preventDefault();
             this.dispatchEvent(new Event('secondary-action-click'));
           }}
+          .label=${this.secondaryButtonTitle}
         >
-          ${this.secondaryButtonTitle}
-        </titanium-button>
-        <titanium-button
+        </mwc-button>
+        <mwc-button
           ?disabled=${this.disablePrimaryButton}
           @click=${(e: Event) => {
             e.preventDefault();
             this.dispatchEvent(new Event('primary-action-click'));
           }}
+          .label=${this.primaryButtonTitle}
         >
-          ${this.primaryButtonTitle}
-        </titanium-button>
+        </mwc-button>
       </action-container>
     `;
   }

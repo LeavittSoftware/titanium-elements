@@ -1,5 +1,5 @@
 ﻿import './profile-picture';
-import '@leavittsoftware/titanium-button';
+import '@material/mwc-button';
 
 import { TitaniumPopupSurfaceFoundation } from '@leavittsoftware/titanium-popup-surface';
 import { GetUserManagerInstance } from '@leavittsoftware/user-manager';
@@ -71,16 +71,25 @@ export class ProfilePictureMenuPopupElement extends TitaniumPopupSurfaceFoundati
       flex-direction: column;
     }
 
-    titanium-button[account] {
+    mwc-button[account] {
       margin: 12px 24px 24px 24px;
-      --app-link-color: #5f6368;
+      --mdc-theme-primary: #5f6368;
+      --mdc-button-outline-color: #dadce0;
+      --mdc-typography-button-text-transform: none;
+      --mdc-typography-button-font-family: Metropolis, 'Roboto', 'Noto', sans-serif;
+      --mdc-typography-button-font-weight: 400;
+      --mdc-typography-button-letter-spacing: 0.4px;
+      --mdc-typography-button-font-size: 14px;
     }
 
     footer {
       display: grid;
       justify-content: end;
-      padding: 10px;
+      padding: 8px;
       border-top: 1px solid var(--app-border-color, #dadce0);
+      --mdc-theme-primary: #5f6368;
+      --mdc-button-outline-color: #dadce0;
+      --mdc-typography-button-text-transform: none;
     }
   `;
 
@@ -93,11 +102,11 @@ export class ProfilePictureMenuPopupElement extends TitaniumPopupSurfaceFoundati
         <slot-container>
           <slot name="content"></slot>
         </slot-container>
-        <titanium-button outlined account @click=${() => window.open('https://accounts.leavitt.com/', '_blank')}>My Leavitt Group Account</titanium-button>
+        <mwc-button outlined account @click=${() => window.open('https://accounts.leavitt.com/', '_blank')} label="Manage your Leavitt account"></mwc-button>
       </main>
 
       <footer>
-        <titanium-button @click=${() => GetUserManagerInstance().logout()}>Sign out</titanium-button>
+        <mwc-button @click=${() => GetUserManagerInstance().logout()} label="Sign out"></mwc-button>
       </footer>
     `;
   }
