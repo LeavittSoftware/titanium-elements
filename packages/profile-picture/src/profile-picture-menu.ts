@@ -6,6 +6,7 @@ import { UserManagerUpdatedEvent } from '@leavittsoftware/user-manager/lib/user-
 import { css, customElement, html, LitElement, property, query } from 'lit-element';
 import { styleMap } from 'lit-html/directives/style-map';
 import { ProfilePictureMenuPopupElement } from './profile-picture-menu-popup';
+import { ProfilePictureElement } from './profile-picture';
 
 /**
  * Profile picture menu for the Leavitt Group
@@ -33,6 +34,7 @@ export class ProfilePictureMenuElement extends LitElement {
    */
   @property({ type: String }) email: string = '';
 
+  @query('profile-picture') profilePicture: ProfilePictureElement;
   @query('profile-picture-menu-popup') popup: ProfilePictureMenuPopupElement;
 
   /**
@@ -43,6 +45,14 @@ export class ProfilePictureMenuElement extends LitElement {
   firstUpdated() {
     GetUserManagerInstance().addEventListener(UserManagerUpdatedEvent.eventName, () => this.setUserProps());
     this.setUserProps();
+  }
+
+  /**
+   * Reloads profile picture from server
+   */
+  forceRefreshPicture() {
+    this.profilePicture.refresh();
+    this.popup.forceRefreshPicture();
   }
 
   setUserProps() {

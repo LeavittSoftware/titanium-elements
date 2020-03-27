@@ -3,7 +3,8 @@ import '@material/mwc-button';
 
 import { TitaniumPopupSurfaceFoundation } from '@leavittsoftware/titanium-popup-surface';
 import { GetUserManagerInstance } from '@leavittsoftware/user-manager';
-import { css, customElement, html, property } from 'lit-element';
+import { css, customElement, html, property, query } from 'lit-element';
+import { ProfilePictureElement } from './profile-picture';
 
 @customElement('profile-picture-menu-popup')
 export class ProfilePictureMenuPopupElement extends TitaniumPopupSurfaceFoundation {
@@ -21,6 +22,15 @@ export class ProfilePictureMenuPopupElement extends TitaniumPopupSurfaceFoundati
    * Full name of user
    */
   @property({ type: String }) name: string = '';
+
+  @query('profile-picture') profilePicture: ProfilePictureElement;
+
+  /**
+   * Reloads profile picture from server
+   */
+  forceRefreshPicture() {
+    this.profilePicture.refresh();
+  }
 
   static styles = css`
     ${TitaniumPopupSurfaceFoundation.styles} :host {
