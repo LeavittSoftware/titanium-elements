@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/profile-picture@4.1.13...@leavittsoftware/profile-picture@4.2.0) (2020-03-27)
+
+
+### Bug Fixes
+
+* Fixes refresh() to do proper cache busting ([5d7be35](https://github.com/LeavittSoftware/titanium-elements/commit/5d7be356d3c6a86c8022c35538bedefa5ca3f1f6))
+
+
+### Features
+
+* adds forceRefreshPicture() to reload image from server ([2398600](https://github.com/LeavittSoftware/titanium-elements/commit/23986008452f771f493e87fa11d9496103c8b617))
+
+
+
+
+
 ## [4.1.13](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/profile-picture@4.1.12...@leavittsoftware/profile-picture@4.1.13) (2020-03-27)
 
 
