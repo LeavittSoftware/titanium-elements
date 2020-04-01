@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-sw-notifier@1.0.14...@leavittsoftware/titanium-sw-notifier@1.1.0) (2020-04-01)
+
+
+### Features
+
+* makes script URL configurable.  ([a781e64](https://github.com/LeavittSoftware/titanium-elements/commit/a781e64275f7244e748100d21c9d97f84d5415bf))
+
+
+
+
+
 ## [1.0.14](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-sw-notifier@1.0.13...@leavittsoftware/titanium-sw-notifier@1.0.14) (2020-03-25)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-sw-notifier
