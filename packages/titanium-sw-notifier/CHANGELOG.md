@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-sw-notifier@1.1.1...@leavittsoftware/titanium-sw-notifier@2.0.0) (2020-04-01)
+
+
+### Refactor
+
+* workbox complient ([ed8c6b9](https://github.com/LeavittSoftware/titanium-elements/commit/ed8c6b9a2db998ff143e7867cf1181b09f2da5f9))
+
+
+### BREAKING CHANGES
+
+* Must use with google workbox 
+
+
+
+
+
 ## [1.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-sw-notifier@1.1.0...@leavittsoftware/titanium-sw-notifier@1.1.1) (2020-04-01)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-sw-notifier
