@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-tab-control",
   "description": "",
   "author": "Leavitt Software",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "license": "MIT",
   "main": "lib/titanium-tab-control.js",
   "typings": "lib/titanium-tab-control.d.ts",

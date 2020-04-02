@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/titanium-button",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "description": "",
   "main": "lib/titanium-button.js",
   "typings": "lib/titanium-button.d.ts",
