@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.7](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-error-page@0.1.6...@leavittsoftware/titanium-error-page@0.1.7) (2020-04-02)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-error-page
+
+
+
+
+
 ## [0.1.6](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-error-page@0.1.5...@leavittsoftware/titanium-error-page@0.1.6) (2020-02-05)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-error-page

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.25](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-chip@3.0.24...@leavittsoftware/titanium-chip@3.0.25) (2020-04-02)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-chip
+
+
+
+
+
 ## [3.0.24](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-chip@3.0.23...@leavittsoftware/titanium-chip@3.0.24) (2020-03-25)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-chip

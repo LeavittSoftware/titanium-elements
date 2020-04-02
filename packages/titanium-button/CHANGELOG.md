@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-button@1.5.3...@leavittsoftware/titanium-button@1.5.4) (2020-04-02)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-button
+
+
+
+
+
 ## [1.5.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-button@1.5.2...@leavittsoftware/titanium-button@1.5.3) (2020-03-25)
 
 
