@@ -19,7 +19,8 @@
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
   "dependencies": {
-    "@leavittsoftware/titanium-snackbar": "^3.1.5"
+    "@leavittsoftware/titanium-snackbar": "^3.1.5",
+    "tslib": "^1.11.1"
   },
   "peerDependencies": {
     "lit-element": ">=2.1.0"

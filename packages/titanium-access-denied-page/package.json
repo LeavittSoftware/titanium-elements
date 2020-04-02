@@ -8,6 +8,9 @@
     "lib",
     "src"
   ],
+  "dependencies": {
+    "tslib": "^1.11.1"
+  },
   "peerDependencies": {
     "lit-element": ">=2.1.0"
   },

@@ -20,7 +20,8 @@
   },
   "dependencies": {
     "@polymer/polymer": "^3.2.0",
-    "@vaadin/vaadin-text-field": "^2.3.7"
+    "@vaadin/vaadin-text-field": "^2.3.7",
+    "tslib": "^1.11.1"
   },
   "scripts": {
     "build:watch": "tsc --watch",

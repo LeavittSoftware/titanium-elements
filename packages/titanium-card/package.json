@@ -10,7 +10,8 @@
   ],
   "dependencies": {
     "@material/mwc-button": "^0.14.1",
-    "@material/mwc-ripple": "^0.14.1"
+    "@material/mwc-ripple": "^0.14.1",
+    "tslib": "^1.11.1"
   },
   "peerDependencies": {
     "lit-element": ">=2.1.0"
