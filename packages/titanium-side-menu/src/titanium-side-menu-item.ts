@@ -1,4 +1,5 @@
 import { css, customElement, html, LitElement, property } from 'lit-element';
+import { ifDefined } from 'lit-html/directives/if-defined';
 
 /**
  * Material design inspired website side menu
@@ -29,6 +30,11 @@ export class TitaniumSideMenuItemElement extends LitElement {
    * The URL that the item points to
    */
   @property({ type: String }) href: string;
+
+  /**
+   * The URL target
+   */
+  @property({ type: String }) target: '_blank' | '_parent' | '_self' | '_top';
 
   static styles = css`
     a {
@@ -84,7 +90,7 @@ export class TitaniumSideMenuItemElement extends LitElement {
 
   render() {
     return html`
-      <a href=${this.href}><slot></slot></a>
+      <a href=${this.href} target=${ifDefined(this.target)}><slot></slot></a>
     `;
   }
 }

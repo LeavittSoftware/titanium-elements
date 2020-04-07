@@ -1,10 +1,16 @@
 import { css, customElement, html, LitElement, property } from 'lit-element';
+import { ifDefined } from 'lit-html/directives/if-defined';
 
 @customElement('titanium-tab-control-item')
 export class TitaniumTabControlItemElement extends LitElement {
   @property({ type: String }) href: string;
   @property({ type: Boolean, reflect: true }) disabled: boolean;
   @property({ type: Boolean, reflect: true }) selected: boolean;
+
+  /**
+   * The URL target
+   */
+  @property({ type: String }) target: '_blank' | '_parent' | '_self' | '_top';
 
   updated(changedProps: Map<string, unknown>) {
     if (changedProps.has('selected') && this.selected) {
@@ -64,7 +70,7 @@ export class TitaniumTabControlItemElement extends LitElement {
 
   render() {
     return html`
-      <a href=${this.href}>
+      <a href=${this.href} target=${ifDefined(this.target)}>
         <selection-marker><slot></slot></selection-marker>
       </a>
     `;
