@@ -150,8 +150,11 @@ export class TitaniumDataTableElement extends LitElement {
     this.deselectAll();
     // Ensure the collection is empty, deselect can cause a race condition
     // between deselecting and UI drawing new items.
-    this.selected = [];
-    this._notifySelectedChanged();
+
+    if (this.selected.length > 0) {
+      this.selected = [];
+      this._notifySelectedChanged();
+    }
   }
 
   updated(changedProps) {
