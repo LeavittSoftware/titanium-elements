@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.9](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@7.0.8...@leavittsoftware/titanium-data-table@7.0.9) (2020-04-15)
+
+
+### Bug Fixes
+
+* Fixes selection-changed event being sent when no changes occurred. ([d426fb0](https://github.com/LeavittSoftware/titanium-elements/commit/d426fb0628a63471443f858e444b5fff1596cc35))
+
+
+
+
+
 ## [7.0.8](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@7.0.7...@leavittsoftware/titanium-data-table@7.0.8) (2020-04-02)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-data-table

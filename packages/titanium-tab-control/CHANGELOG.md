@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-tab-control@0.2.0...@leavittsoftware/titanium-tab-control@0.2.1) (2020-04-15)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-tab-control
+
+
+
+
+
 # [0.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-tab-control@0.1.6...@leavittsoftware/titanium-tab-control@0.2.0) (2020-04-07)
 
 
