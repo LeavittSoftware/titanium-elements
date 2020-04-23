@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.6.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.5.29...@leavittsoftware/storybook@5.6.0) (2020-04-23)
+
+
+### Features
+
+* card header brings its own content slot styles ([d0d2e05](https://github.com/LeavittSoftware/titanium-elements/commit/d0d2e05714a51b6bce5abfd4277316e364b54008))
+
+
+
+
+
 ## [5.5.29](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.5.28...@leavittsoftware/storybook@5.5.29) (2020-04-15)
 
 **Note:** Version bump only for package @leavittsoftware/storybook

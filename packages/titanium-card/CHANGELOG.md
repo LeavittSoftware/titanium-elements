@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-card@1.5.9...@leavittsoftware/titanium-card@1.6.0) (2020-04-23)
+
+
+### Features
+
+* card header brings its own content slot styles ([d0d2e05](https://github.com/LeavittSoftware/titanium-elements/commit/d0d2e05714a51b6bce5abfd4277316e364b54008))
+
+
+
+
+
 ## [1.5.9](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-card@1.5.8...@leavittsoftware/titanium-card@1.5.9) (2020-04-02)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-card
