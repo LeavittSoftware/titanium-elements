@@ -50,7 +50,7 @@ export class TitaniumErrorPageElement extends LitElement {
       max-width: 75%;
     }
 
-    svg {
+    img {
       flex-shrink: 0;
       height: 280px;
       width: 280px;
