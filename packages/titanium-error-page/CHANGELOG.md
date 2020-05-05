@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.9](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-error-page@0.1.8...@leavittsoftware/titanium-error-page@0.1.9) (2020-05-05)
+
+
+### Bug Fixes
+
+* style needs to apply to img tag not svg tag ([042ec48](https://github.com/LeavittSoftware/titanium-elements/commit/042ec48ee0075d062fc2733cac1865d4c2f7abb9))
+
+
+
+
+
 ## [0.1.8](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-error-page@0.1.7...@leavittsoftware/titanium-error-page@0.1.8) (2020-04-02)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-error-page
