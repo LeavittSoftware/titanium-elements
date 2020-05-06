@@ -87,14 +87,14 @@ export class TitaniumSingleActionCardElement extends LitElement {
       <a
         title=${this.buttonTitle}
         href=${ifDefined(this.getHref(this.disableAction, this.buttonTitle))}
-        @mouseenter=${() => this.ripple.handleMouseEnter()}
-        @mouseleave=${() => this.ripple.handleMouseLeave()}
-        @focus=${() => this.ripple.handleFocus()}
-        @blur=${() => this.ripple.handleBlur()}
-        @mousedown=${e => this.ripple.activate(e)}
-        @mouseup=${() => this.ripple.deactivate()}
-        @keydown=${e => (e.which === 32 ? this.ripple.activate() : '')}
-        @keyup=${() => this.ripple.deactivate()}
+        @mouseenter=${() => this.ripple.startHover()}
+        @mouseleave=${() => this.ripple.endHover()}
+        @focus=${() => this.ripple.startFocus()}
+        @blur=${() => this.ripple.endFocus()}
+        @mousedown=${(e) => this.ripple.startPress(e)}
+        @mouseup=${() => this.ripple.endPress()}
+        @keydown=${(e) => (e.which === 32 ? this.ripple.startPress() : '')}
+        @keyup=${() => this.ripple.endPress()}
         @click=${(e: Event) => {
           e.preventDefault();
           if (!this.disableAction) {

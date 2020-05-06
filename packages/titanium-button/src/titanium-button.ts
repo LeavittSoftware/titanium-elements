@@ -162,14 +162,14 @@ export class TitaniumButtonElement extends LitElement {
   render() {
     return html`
       <button
-        @mouseenter=${() => this.ripple.handleMouseEnter()}
-        @mouseleave=${() => this.ripple.handleMouseLeave()}
-        @focus=${() => this.ripple.handleFocus()}
-        @blur=${() => this.ripple.handleBlur()}
-        @mousedown=${e => this.ripple.activate(e)}
-        @mouseup=${() => this.ripple.deactivate()}
-        @keydown=${e => (e.which === 32 ? this.ripple.activate() : '')}
-        @keyup=${() => this.ripple.deactivate()}
+        @mouseenter=${() => this.ripple.startHover()}
+        @mouseleave=${() => this.ripple.endHover()}
+        @focus=${() => this.ripple.startFocus()}
+        @blur=${() => this.ripple.endFocus()}
+        @mousedown=${(e) => this.ripple.startPress(e)}
+        @mouseup=${() => this.ripple.endPress()}
+        @keydown=${(e) => (e.which === 32 ? this.ripple.startPress() : '')}
+        @keyup=${() => this.ripple.endPress()}
         ?disabled=${this.disabled}
       >
         <slot></slot>

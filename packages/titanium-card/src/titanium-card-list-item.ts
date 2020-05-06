@@ -87,9 +87,7 @@ export class TitaniumCardListItemElement extends LitElement {
   `;
 
   slottedContent() {
-    return html`
-      <slot></slot>
-    `;
+    return html` <slot></slot> `;
   }
 
   render() {
@@ -100,17 +98,17 @@ export class TitaniumCardListItemElement extends LitElement {
         href=${this.title}
         @click=${(e: Event) => {
           e.preventDefault();
-          this.ripple.activate();
+          this.ripple.startPress();
           this.dispatchEvent(new Event('item-click'));
         }}
-        @mouseenter=${() => this.ripple.handleMouseEnter()}
-        @mouseleave=${() => this.ripple.handleMouseLeave()}
-        @focus=${() => this.ripple.handleFocus()}
-        @blur=${() => this.ripple.handleBlur()}
-        @mousedown=${e => this.ripple.activate(e)}
-        @mouseup=${() => this.ripple.deactivate()}
-        @keydown=${e => (e.which === 32 ? this.ripple.activate() : '')}
-        @keyup=${() => this.ripple.deactivate()}
+        @mouseenter=${() => this.ripple.startHover()}
+        @mouseleave=${() => this.ripple.endHover()}
+        @focus=${() => this.ripple.startFocus()}
+        @blur=${() => this.ripple.endFocus()}
+        @mousedown=${(e) => this.ripple.startPress(e)}
+        @mouseup=${() => this.ripple.endPress()}
+        @keydown=${(e) => (e.which === 32 ? this.ripple.startPress() : '')}
+        @keyup=${() => this.ripple.endPress()}
       >
         ${this.slottedContent()}
         <mwc-ripple></mwc-ripple>
