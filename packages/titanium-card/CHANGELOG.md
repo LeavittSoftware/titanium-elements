@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-card@1.6.0...@leavittsoftware/titanium-card@1.7.0) (2020-05-06)
+
+
+### Features
+
+* Upgrades mwc elements to .15; updates api's to comply. ([05ea81c](https://github.com/LeavittSoftware/titanium-elements/commit/05ea81cb6852d056c6f58d7cc0a1dd2ea0efea86))
+
+
+
+
+
 # [1.6.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-card@1.5.9...@leavittsoftware/titanium-card@1.6.0) (2020-04-23)
 
 

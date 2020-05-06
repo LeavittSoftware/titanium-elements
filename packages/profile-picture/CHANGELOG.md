@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/profile-picture@4.2.3...@leavittsoftware/profile-picture@4.3.0) (2020-05-06)
+
+
+### Features
+
+* Upgrades mwc elements to .15; updates api's to comply. ([05ea81c](https://github.com/LeavittSoftware/titanium-elements/commit/05ea81cb6852d056c6f58d7cc0a1dd2ea0efea86))
+
+
+
+
+
 ## [4.2.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/profile-picture@4.2.2...@leavittsoftware/profile-picture@4.2.3) (2020-04-02)
 
 **Note:** Version bump only for package @leavittsoftware/profile-picture

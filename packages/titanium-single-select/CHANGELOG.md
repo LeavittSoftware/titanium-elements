@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.12](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-single-select@2.0.11...@leavittsoftware/titanium-single-select@2.0.12) (2020-05-06)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-single-select
+
+
+
+
+
 ## [2.0.11](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-single-select@2.0.10...@leavittsoftware/titanium-single-select@2.0.11) (2020-04-02)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-single-select
