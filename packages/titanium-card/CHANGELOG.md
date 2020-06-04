@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-card@1.7.0...@leavittsoftware/titanium-card@1.7.1) (2020-06-04)
+
+
+### Bug Fixes
+
+* removes overflow hidden from titanium-card root style ([bf38e6e](https://github.com/LeavittSoftware/titanium-elements/commit/bf38e6e0e0e71ae32bf8ef9ef7ff202ec8f2e79d))
+
+
+
+
+
 # [1.7.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-card@1.6.0...@leavittsoftware/titanium-card@1.7.0) (2020-05-06)
 
 
