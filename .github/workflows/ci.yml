@@ -35,6 +35,7 @@ jobs:
       env:
           USER_NAME: ${{ secrets.DEPLOYING_USER_NAME }}
           GITHUB_PAT: ${{ secrets.PAT }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
                    
     - name: Lint
       run: npm run lint           
