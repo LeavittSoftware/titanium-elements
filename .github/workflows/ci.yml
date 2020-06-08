@@ -18,17 +18,11 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v1
     - name: Setup Node.js environment
-      uses: actions/setup-node@v1.4.2
-        
-    - name: Authenticate with Registry
-      run: |
-          echo "registry=http://registry.npmjs.org/" >> .npmrc
-          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
-          npm whoami
-      env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    - uses: actions/setup-node@v1
+      with:
+          node-version: 12         
     
     - name: Install
       run: npm install
@@ -42,4 +36,5 @@ jobs:
          GH_TOKEN: ${{ secrets.PAT }}
          GITHUB_TOKEN: ${{ secrets.PAT }}
          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-    
+         
+        
