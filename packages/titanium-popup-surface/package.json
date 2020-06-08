@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/titanium-popup-surface",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "",
   "main": "lib/titanium-popup-surface-foundation.js",
   "typings": "lib/titanium-popup-surface-foundation.d.ts",

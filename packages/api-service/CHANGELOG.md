@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.2.9 (2020-06-08)
+
+**Note:** Version bump only for package @leavittsoftware/api-service
+
+
+
+
+
 ## 6.2.8 (2020-06-08)
 
 **Note:** Version bump only for package @leavittsoftware/api-service
