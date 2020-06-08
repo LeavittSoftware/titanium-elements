@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/titanium-toolbar",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "",
   "main": "lib/titanium-toolbar.js",
   "typings": "lib/titanium-toolbar.d.ts",
