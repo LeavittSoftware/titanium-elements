@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.0.25 (2020-06-08)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-search-input
+
+
+
+
+
 ## [3.0.24](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-search-input@3.0.23...@leavittsoftware/titanium-search-input@3.0.24) (2020-05-06)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-search-input

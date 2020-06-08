@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.1.7 (2020-06-08)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-progress
+
+
+
+
+
 ## [0.1.6](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-progress@0.1.5...@leavittsoftware/titanium-progress@0.1.6) (2020-04-02)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-progress

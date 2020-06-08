@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.1.8 (2020-06-08)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-access-denied-page
+
+
+
+
+
 ## [0.1.7](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-access-denied-page@0.1.6...@leavittsoftware/titanium-access-denied-page@0.1.7) (2020-04-02)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-access-denied-page
