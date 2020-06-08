@@ -9,7 +9,6 @@ import '@material/mwc-button';
  *
  * @fires primary-action-click - Fired when the primary action button is clicked
  * @fires secondary-action-click - Fired when the secondary action button is clicked
-
  *
  * @cssprop {Color} --app-border-color - Card border color
  */
