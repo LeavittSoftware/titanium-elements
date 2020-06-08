@@ -2,6 +2,7 @@
 
 A collection of lightweight web components used by Leavitt Group Enterprises and partnering organizations. 
 
+![Publish](https://github.com/LeavittSoftware/titanium-elements/workflows/Publish/badge.svg?branch=master)
 
 ## Development
 
