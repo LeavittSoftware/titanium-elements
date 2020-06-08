@@ -19,6 +19,13 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
+       with:
+       # pulls all commits (needed for lerna / semantic release to correctly version)
+       fetch-depth: "0"
+       
+      # pulls all tags (needed for lerna / semantic release to correctly version)
+    - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+      
     - uses: actions/setup-node@v1
       with:
           node-version: 12
@@ -32,18 +39,13 @@ jobs:
       run: |        
           git config --global user.email automation@leavitt.com
           git config --global user.name 'GitHub Actions'
-          git checkout "${GITHUB_REF:11}" && git pull
-      env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
                       
     - name: Lint
       run: npm run lint           
     
     - name: Run Lerna Publish
       run: npm run lerna:publish
-      env:
-         GH_TOKEN: ${{ secrets.PAT }}
-         GITHUB_TOKEN: ${{ secrets.PAT }}
+      env:        
          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
          
         
