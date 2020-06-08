@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.8](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-card@1.7.7...@leavittsoftware/titanium-card@1.7.8) (2020-06-08)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-card
+
+
+
+
+
 ## 1.7.7 (2020-06-08)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-card
