@@ -9,8 +9,8 @@ import { css, customElement, html, LitElement, property } from 'lit-element';
  *
  * @fires titanium-header-back-click - Fired when the back button is clicked
  *
- * @cssprop {Color} --app-dark-text-color - Header color
- * @cssprop {Color} --app-text-color - Sub-header color
+ * @cssprop {Color} --app-dark-text-color - Header text color
+ * @cssprop {Color} --app-text-color - Sub-header text color
  */
 @customElement('titanium-header')
 export class TitaniumHeader extends LitElement {
