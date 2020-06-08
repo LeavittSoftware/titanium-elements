@@ -6,10 +6,10 @@ name: Lint
 # events but only for the master branch
 on:
   push:
-     branches:    
-      - '*'         # matches every branch
-      - '*/*'       # matches every branch containing a single '/'
-      - '!master'   # excludes master
+    branches:
+      - '*' # matches every branch
+      - '*/*' # matches every branch containing a single '/'
+      - '!master' # excludes master
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -20,19 +20,19 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
           node-version: 12
-          registry-url: 'https://registry.npmjs.org'    
-          scope: leavittsoftware    
-    
-    - name: Install
-      run: npm install
-    
-    - name: Lint
-      run: npm run lint          
-   
-         
-        
+          registry-url: 'https://registry.npmjs.org'
+          scope: leavittsoftware
+
+      - name: Install
+        run: npm install
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Run test
+        run: npm run test
