@@ -6,7 +6,7 @@ name: Publish
 # events but only for the master branch
 on:
   push:
-    branches: [ master ]
+    branches: [master]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -17,35 +17,36 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-      with:      
-       # pulls all commits (needed for lerna / semantic release to correctly version)       
-       fetch-depth: "0"
-       
-      # pulls all tags (needed for lerna / semantic release to correctly version)
-    - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-      
-    - uses: actions/setup-node@v1
-      with:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        with:
+          # pulls all commits (needed for lerna / semantic release to correctly version)
+          fetch-depth: '0'
+
+        # pulls all tags (needed for lerna / semantic release to correctly version)
+      - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+
+      - uses: actions/setup-node@v1
+        with:
           node-version: 12
-          registry-url: 'https://registry.npmjs.org'    
-          scope: leavittsoftware    
-    
-    - name: Install
-      run: npm install
-    
-    - name: Configure CI Git User
-      run: |        
+          registry-url: 'https://registry.npmjs.org'
+          scope: leavittsoftware
+
+      - name: Install
+        run: npm install
+
+      - name: Configure CI Git User
+        run: |
           git config --global user.email automation@leavitt.com
           git config --global user.name 'GitHub Actions'
-                      
-    - name: Lint
-      run: npm run lint           
-    
-    - name: Run Lerna Publish
-      run: npm run lerna:publish
-      env:        
-         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-         
-        
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Run test
+        run: npm run test
+
+      - name: Run Lerna Publish
+        run: npm run lerna:publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
