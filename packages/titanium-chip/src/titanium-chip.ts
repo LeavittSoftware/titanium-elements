@@ -23,17 +23,17 @@ export class TitaniumChipElement extends LitElement {
   @property({ type: String }) label: string;
 
   /**
-   * Optional:  src to image that will prefix the label
+   * Optional: src to image that will prefix the label
    */
   @property({ type: String }) src: string | undefined;
 
   /**
-   * Disables element
+   * Disables chip
    */
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
 
   /**
-   * Adds close button to the chip when true.
+   * Adds a close button to the chip when true
    */
   @property({ type: Boolean, reflect: true }) closeable: boolean = false;
 
@@ -129,17 +129,13 @@ export class TitaniumChipElement extends LitElement {
   render() {
     return html`
       <slot slot="chip-icon" name="chip-icon">
-        ${this.src
-          ? html`
-              <img src=${this.src} />
-            `
-          : ''}
+        ${this.src ? html` <img src=${this.src} /> ` : ''}
       </slot>
       <label>${this.label}</label>
       <titanium-svg-button
         path="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
         ?disabled=${this.disabled}
-        @click=${e => {
+        @click=${(e) => {
           e.stopPropagation();
           this.dispatchEvent(new CustomEvent('titanium-chip-close', { bubbles: true, composed: true }));
         }}
