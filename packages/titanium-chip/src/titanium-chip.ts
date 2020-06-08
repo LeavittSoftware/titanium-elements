@@ -18,22 +18,22 @@ import '@leavittsoftware/titanium-svg-button';
 @customElement('titanium-chip')
 export class TitaniumChipElement extends LitElement {
   /**
-   * Main text of the chip
+   *  Main text of the chip
    */
   @property({ type: String }) label: string;
 
   /**
-   * Optional: src to image that will prefix the label
+   *  Optional: src to image that will prefix the label
    */
   @property({ type: String }) src: string | undefined;
 
   /**
-   * Disables chip
+   *  Disables chip
    */
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
 
   /**
-   * Adds a close button to the chip when true
+   *  Adds a close button to the chip when true
    */
   @property({ type: Boolean, reflect: true }) closeable: boolean = false;
 
