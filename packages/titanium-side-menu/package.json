@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-side-menu",
   "description": "",
   "author": "Leavitt Software",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "license": "MIT",
   "main": "lib/titanium-side-menu-item.js",
   "typings": "lib/titanium-side-menu-item.d.ts",
