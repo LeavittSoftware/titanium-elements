@@ -3,6 +3,7 @@
 /**
  * A simple progress indicator bar.
  *
+ *
  * @element titanium-progress
  *
  * @cssprop {Color} --app-primary-color - Progress bar color
