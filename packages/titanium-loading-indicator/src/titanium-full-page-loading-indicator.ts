@@ -6,6 +6,7 @@ import '@leavittsoftware/titanium-progress';
  *
  * @element titanium-full-page-loading-indicator
  *
+ *
  */
 @customElement('titanium-full-page-loading-indicator')
 export class TitaniumFullPageLoadingIndicatorElement extends LitElement {
@@ -142,8 +143,6 @@ export class TitaniumFullPageLoadingIndicatorElement extends LitElement {
   `;
 
   render() {
-    return html`
-      <titanium-progress ?disabled=${!this.opening && !this.closing && !this.opened}></titanium-progress>
-    `;
+    return html` <titanium-progress ?disabled=${!this.opening && !this.closing && !this.opened}></titanium-progress> `;
   }
 }
