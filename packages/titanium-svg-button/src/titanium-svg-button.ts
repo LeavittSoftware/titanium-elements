@@ -47,7 +47,7 @@ export class TitaniumSvgButton extends LitElement {
       width: auto;
       overflow: visible;
       background: transparent;
-      /* inherit font & color from ancestor */
+      /* inherit font and color from ancestor */
       font: inherit;
       /* Corrects font smoothing for webkit */
       -webkit-font-smoothing: inherit;
