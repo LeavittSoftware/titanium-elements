@@ -11,6 +11,7 @@ export class TitaniumMenuSurfaceElement extends TitaniumPopupSurfaceFoundation {
   open() {
     super.open();
     document.body.addEventListener('keydown', this.keydownHandler);
+
     this.addListenersToItems();
   }
 
@@ -21,7 +22,7 @@ export class TitaniumMenuSurfaceElement extends TitaniumPopupSurfaceFoundation {
   }
 
   private get items(): Element[] {
-    return this.mainSlot?.assignedElements({ flatten: true }).filter(o => o.getAttribute('role') === 'menuitem') ?? [];
+    return this.mainSlot?.assignedElements({ flatten: true }).filter((o) => o.getAttribute('role') === 'menuitem') ?? [];
   }
 
   private setSelectedAtIndex(index: number) {
@@ -42,7 +43,7 @@ export class TitaniumMenuSurfaceElement extends TitaniumPopupSurfaceFoundation {
   }
 
   private getSelectedItemIndex() {
-    return this.items.indexOf(this.items.filter(o => o.getAttribute('tabindex') === '1')[0]);
+    return this.items.indexOf(this.items.filter((o) => o.getAttribute('tabindex') === '1')[0]);
   }
 
   selectNextItem() {
@@ -62,7 +63,7 @@ export class TitaniumMenuSurfaceElement extends TitaniumPopupSurfaceFoundation {
   private keydownHandler = this.handleKeydownEvent.bind(this);
 
   private addListenersToItems() {
-    this.items.forEach(i => {
+    this.items.forEach((i) => {
       const item = i as Element & {
         ___titaniumClickHandler: EventListenerOrEventListenerObject;
         ___titaniumKeydownHandler: EventListenerOrEventListenerObject;
@@ -84,7 +85,7 @@ export class TitaniumMenuSurfaceElement extends TitaniumPopupSurfaceFoundation {
   }
 
   private removeListenersFromItems() {
-    this.items.forEach(i => {
+    this.items.forEach((i) => {
       const item = i as Element & {
         ___titaniumClickHandler: EventListenerOrEventListenerObject;
         ___titaniumKeydownHandler: EventListenerOrEventListenerObject;
