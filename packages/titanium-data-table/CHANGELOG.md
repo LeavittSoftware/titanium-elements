@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 7.1.9 (2020-06-15)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-data-table
+
+
+
+
+
 ## [7.1.8](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@7.1.7...@leavittsoftware/titanium-data-table@7.1.8) (2020-06-15)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-data-table
