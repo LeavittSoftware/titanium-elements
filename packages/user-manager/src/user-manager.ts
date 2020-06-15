@@ -13,6 +13,7 @@ export const GetUserManagerInstance = () => {
   if (instance) {
     return instance;
   }
+
   throw 'GetUserManagerInstance requested before an instance was created. Did you forget to add the <user-manager> element to your project?';
 };
 
@@ -113,7 +114,7 @@ export class UserManager extends LitElement {
 
   private _getTokenfromUrl(tokenName: string): string | null {
     const hashParameters = this._getHashParametersFromUrl();
-    const accessTokenArray = hashParameters.filter(value => value.key === tokenName);
+    const accessTokenArray = hashParameters.filter((value) => value.key === tokenName);
     if (accessTokenArray.length === 0) {
       return null;
     } else {
@@ -333,7 +334,7 @@ export class UserManager extends LitElement {
     this.roles = [];
     this.dispatchEvent(new UserManagerUpdatedEvent());
 
-    this.roles.forEach(o => {
+    this.roles.forEach((o) => {
       window.dispatchEvent(new CustomEvent('um-role-removed', { detail: { role: o } }));
     });
     this.roles = [];
