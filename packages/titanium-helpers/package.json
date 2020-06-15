@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-helpers",
   "description": "",
   "author": "Leavitt Software",
-  "version": "3.1.8",
+  "version": "3.1.9",
   "license": "MIT",
   "main": "lib/titanium-helpers.js",
   "typings": "lib/titanium-helpers.d.ts",
