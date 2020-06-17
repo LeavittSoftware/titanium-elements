@@ -26,65 +26,67 @@ export class TitaniumCardListItemElement extends LitElement {
 
   @query('mwc-ripple') private ripple: Ripple;
 
-  static styles = css`
-    :host {
-      display: flex;
-      flex-direction: column;
+  static styles = [
+    css`
+      :host {
+        display: flex;
+        flex-direction: column;
 
-      font-family: Roboto, sans-serif;
-      -moz-osx-font-smoothing: grayscale;
-      -webkit-font-smoothing: antialiased;
-    }
+        font-family: Roboto, sans-serif;
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-font-smoothing: antialiased;
+      }
 
-    a {
-      color: var(--app-dark-text-color, #202124);
-      border-top: 1px solid var(--app-border-color, #dadce0);
-      border-bottom: 1px solid var(--app-border-color, #dadce0);
-      margin-top: -1px;
-      margin-left: 24px;
+      a {
+        color: var(--app-dark-text-color, #202124);
+        border-top: 1px solid var(--app-border-color, #dadce0);
+        border-bottom: 1px solid var(--app-border-color, #dadce0);
+        margin-top: -1px;
+        margin-left: 24px;
 
-      cursor: pointer;
+        cursor: pointer;
 
-      -webkit-user-select: none; /* Safari 3.1+ */
-      -moz-user-select: none; /* Firefox 2+ */
-      -ms-user-select: none; /* IE 10+ */
-      user-select: none; /* Standard syntax */
-      outline: none;
+        -webkit-user-select: none; /* Safari 3.1+ */
+        -moz-user-select: none; /* Firefox 2+ */
+        -ms-user-select: none; /* IE 10+ */
+        user-select: none; /* Standard syntax */
+        outline: none;
 
-      padding: 16px 24px 16px 0;
+        padding: 16px 24px 16px 0;
 
-      display: flex;
-      flex-direction: row;
-      text-decoration: none;
+        display: flex;
+        flex-direction: row;
+        text-decoration: none;
 
-      align-items: center;
-      position: relative;
-    }
+        align-items: center;
+        position: relative;
+      }
 
-    ::slotted([spacer]) {
-      flex: 1 1 auto;
-    }
+      ::slotted([spacer]) {
+        flex: 1 1 auto;
+      }
 
-    a:focus,
-    :host(:hover:not([disabled])) a {
-      margin-left: 0;
-      padding-left: 24px;
-    }
+      a:focus,
+      :host(:hover:not([disabled])) a {
+        margin-left: 0;
+        padding-left: 24px;
+      }
 
-    :host([disabled]) a {
-      pointer-events: none;
-      color: rgba(0, 0, 0, 0.37);
-    }
+      :host([disabled]) a {
+        pointer-events: none;
+        color: rgba(0, 0, 0, 0.37);
+      }
 
-    :host(:first-of-type) a {
-      border-top: none;
-      margin-top: 0;
-    }
+      :host(:first-of-type) a {
+        border-top: none;
+        margin-top: 0;
+      }
 
-    :host(:last-of-type) a {
-      border-bottom: none;
-    }
-  `;
+      :host(:last-of-type) a {
+        border-bottom: none;
+      }
+    `,
+  ];
 
   slottedContent() {
     return html` <slot></slot> `;
