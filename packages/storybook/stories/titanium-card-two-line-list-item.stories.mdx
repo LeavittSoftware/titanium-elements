@@ -1,0 +1,80 @@
+import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { html } from 'lit-html';
+import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
+import { withWebComponentsKnobs } from '../index.js';
+
+import '@leavittsoftware/titanium-card/lib/titanium-card-two-line-list-item';
+import '@leavittsoftware/titanium-card/';
+
+<Meta
+  title="UI COMPONENTS|titanium-card-two-line-list-item"
+  decorators={[withKnobs, withWebComponentsKnobs]}
+  parameters={{ component: 'titanium-card', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+/>
+
+# Titanium Card Two Line List Item
+
+A styled list item with image, title and sub header text styles for use in titanium-card.
+
+## How to use
+
+```bash
+npm i @leavittsoftware/titanium-card
+```
+
+```js
+import '@leavittsoftware/titanium-card/lib/titanium-card-two-line-list-item';
+```
+
+## API
+
+<Props of="titanium-card-two-line-list-item" />
+
+## Demo
+
+<Preview withToolbar>
+  <Story name="Docs">
+    {html`
+      <titanium-card>
+        <h1>Make changes to my account</h1>
+        <titanium-card-two-line-list-item title="Details">
+          <img src="https://cdn.leavitt.com/icons/icon-scoreboard-details.svg" />
+          <h2>Details</h2>
+          <h3>Update name, grace period, blackout date, and is development</h3>
+          <svg viewBox="0 0 24 24" style="height: 24px; width: 24px; flex-shrink: 0;">
+            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+          </svg>
+        </titanium-card-two-line-list-item>
+        <titanium-card-two-line-list-item title="Rules">
+          <img src="https://cdn.leavitt.com/icons/icon-rules.svg" />
+          <h2>Rules</h2>
+          <h3>Change the rules</h3>
+          <svg viewBox="0 0 24 24" style="height: 24px; width: 24px; flex-shrink: 0;">
+            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+          </svg>
+        </titanium-card-two-line-list-item>
+        <titanium-card-two-line-list-item title="Logo">
+          <img src="https://cdn.leavitt.com/icons/icon-logo.svg" />
+          <h2>Logo</h2>
+          <h3>Update the logo</h3>
+          <svg viewBox="0 0 24 24" style="height: 24px; width: 24px; flex-shrink: 0; fill: #5f6368">
+            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+          </svg>
+        </titanium-card-two-line-list-item>
+      </titanium-card>
+      <h2>Available CDN icons</h2>
+      <div>
+        <img height="48" src="https://cdn.leavitt.com/icons/icon-logo.svg" />
+        <img height="48" src="https://cdn.leavitt.com/icons/icon-scoreboard-prizes.svg" />
+        <img height="48" src="https://cdn.leavitt.com/icons/icon-delete-logo.svg" />
+        <img height="48" src="https://cdn.leavitt.com/icons/icon-logo.svg" />
+        <img height="48" src="https://cdn.leavitt.com/icons/icon-rules.svg" />
+        <img height="48" src="https://cdn.leavitt.com/icons/icon-scoreboard-details.svg" />
+        <img height="48" src="https://cdn.leavitt.com/icons/icon-carousel.svg" />
+        <img height="48" src="https://cdn.leavitt.com/icons/icon-name-division.svg" />
+        <img height="48" src="https://cdn.leavitt.com/icons/icon-reminder.svg" />
+      </div>
+    `}
+  </Story>
+</Preview>
