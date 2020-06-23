@@ -202,7 +202,8 @@ export class TitaniumDataTableElement extends LitElement {
   }
 
   private _determineTake() {
-    const take = Number(window.localStorage.getItem(`${this.header}-take`)) || 0;
+    const id = this.getAttribute("id");
+    const take = Number(window.localStorage.getItem(`${ id ?? this.header}-take`)) || 0;
     if (take > 0) {
       return take;
     }
