@@ -42,6 +42,11 @@ export class TitaniumDataTableElement extends LitElement {
   @property({ type: String }) header: string;
 
   /**
+   * Local storage key. Not required if header is static and unique
+   */
+  @property({ type: String }) localStorageKey: string;
+
+  /**
    * Current page of data the table is on
    */
   @property({ type: Number }) page: number = 0;
@@ -202,7 +207,7 @@ export class TitaniumDataTableElement extends LitElement {
   }
 
   private _determineTake() {
-    const take = Number(window.localStorage.getItem(`${this.header}-take`)) || 0;
+    const take = Number(window.localStorage.getItem(`${ this.localStorageKey ?? this.header}-take`)) || 0;
     if (take > 0) {
       return take;
     }
@@ -237,7 +242,7 @@ export class TitaniumDataTableElement extends LitElement {
   private setTake(value: number) {
     this.take = value;
     this.dispatchEvent(new CustomEvent('take-changed', { composed: true, detail: value }));
-    localStorage.setItem(`${this.header}-take`, `${value}`);
+    localStorage.setItem(`${this.localStorageKey ?? this.header}-take`, `${value}`);
   }
 
   private deselectAll() {
