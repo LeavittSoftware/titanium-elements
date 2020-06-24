@@ -60,11 +60,13 @@ export class TitaniumCardTwoLineListItemElement extends TitaniumCardListItemElem
         width: 48px;
       }
 
+      ::slotted(mwc-icon),
       ::slotted(svg) {
         grid-area: action;
         width: 24px;
         height: 24px;
         fill: var(--app-text-color, #5f6368);
+        color: var(--app-text-color, #5f6368);
         align-self: center;
       }
     `,
