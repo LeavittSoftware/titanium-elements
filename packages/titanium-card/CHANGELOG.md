@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 1.9.0 (2020-06-24)
+
+
+### Features
+
+* **titanium-card-two-line-list-item:** Allows use of mwc-icon for navigation icon ([5d8bf74](https://github.com/LeavittSoftware/titanium-elements/commit/5d8bf74fbe7e87520e2cd3fcbbe4dc6fae0c1935))
+
+
+
+
+
 # 1.8.0 (2020-06-17)
 
 
