@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.3.9 (2020-06-26)
+
+**Note:** Version bump only for package @leavittsoftware/profile-picture
+
+
+
+
+
 ## [4.3.8](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/profile-picture@4.3.7...@leavittsoftware/profile-picture@4.3.8) (2020-06-15)
 
 **Note:** Version bump only for package @leavittsoftware/profile-picture

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.2.0 (2020-06-26)
+
+
+### Features
+
+* Add Leavitt CDN helper functions to helpers. ([43707b3](https://github.com/LeavittSoftware/titanium-elements/commit/43707b304ae994fd810357b2c046ab07ddacb65a))
+
+
+
+
+
 ## 3.1.9 (2020-06-15)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-helpers

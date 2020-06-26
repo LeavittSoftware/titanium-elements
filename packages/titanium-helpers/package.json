@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-helpers",
   "description": "",
   "author": "Leavitt Software",
-  "version": "3.1.9",
+  "version": "3.2.0",
   "license": "MIT",
   "main": "lib/titanium-helpers.js",
   "typings": "lib/titanium-helpers.d.ts",
@@ -12,8 +12,8 @@
     "src"
   ],
   "dependencies": {
-    "tslib": "^1.11.1",
-    "@leavittsoftware/lg-core-typescript": "*"
+    "@leavittsoftware/lg-core-typescript": "*",
+    "tslib": "^1.11.1"
   },
   "keywords": [
     "web component"
