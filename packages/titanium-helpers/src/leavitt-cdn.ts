@@ -16,6 +16,6 @@ export function getCdnDownloadUrl(attachment: Partial<Attachment> | null | undef
   }
 
   return size
-    ? `https://cdn.leavitt.com/${attachment.CdnFileName}-${size}.${attachment.PreviewExtension}?d=${attachment.FileName}.${attachment.Extension}`
-    : `https://cdn.leavitt.com/${attachment.CdnFileName}.${attachment.Extension}?d=${attachment.FileName}.${attachment.Extension}`;
+    ? `https://cdn.leavitt.com/${attachment.CdnFileName}-${size}.${attachment.PreviewExtension}?d=${attachment.FileName}`
+    : `https://cdn.leavitt.com/${attachment.CdnFileName}.${attachment.Extension}?d=${attachment.FileName}`;
 }
