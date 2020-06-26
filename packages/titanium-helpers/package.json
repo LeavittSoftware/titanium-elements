@@ -12,7 +12,8 @@
     "src"
   ],
   "dependencies": {
-    "tslib": "^1.11.1"
+    "tslib": "^1.11.1",
+    "@leavittsoftware/lg-core-typescript": "*"
   },
   "keywords": [
     "web component"
