@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.3.13](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/user-manager@9.3.12...@leavittsoftware/user-manager@9.3.13) (2020-06-26)
+
+**Note:** Version bump only for package @leavittsoftware/user-manager
+
+
+
+
+
 ## [9.3.12](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/user-manager@9.3.11...@leavittsoftware/user-manager@9.3.12) (2020-06-26)
 
 **Note:** Version bump only for package @leavittsoftware/user-manager
