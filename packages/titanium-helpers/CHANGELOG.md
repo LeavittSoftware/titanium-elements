@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-helpers@3.2.0...@leavittsoftware/titanium-helpers@3.2.1) (2020-06-26)
+
+
+### Bug Fixes
+
+* double extension ([86ba615](https://github.com/LeavittSoftware/titanium-elements/commit/86ba61576b914e1a6068a9872e907084233013a4))
+
+
+
+
+
 # 3.2.0 (2020-06-26)
 
 
