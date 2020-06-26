@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/storybook",
-  "version": "5.7.1",
+  "version": "5.7.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -24,8 +24,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@leavittsoftware/api-service": "^6.2.14",
-    "@leavittsoftware/profile-picture": "^4.3.9",
+    "@leavittsoftware/api-service": "^6.2.15",
+    "@leavittsoftware/profile-picture": "^4.3.10",
     "@leavittsoftware/titanium-access-denied-page": "^0.1.13",
     "@leavittsoftware/titanium-button": "^1.6.6",
     "@leavittsoftware/titanium-card": "^1.9.0",
@@ -34,7 +34,7 @@
     "@leavittsoftware/titanium-dialog": "^3.2.6",
     "@leavittsoftware/titanium-error-page": "^0.1.16",
     "@leavittsoftware/titanium-header": "^3.0.27",
-    "@leavittsoftware/titanium-helpers": "^3.2.0",
+    "@leavittsoftware/titanium-helpers": "^3.2.1",
     "@leavittsoftware/titanium-loading-indicator": "^4.0.16",
     "@leavittsoftware/titanium-offline-notice": "^2.0.11",
     "@leavittsoftware/titanium-progress": "^0.1.13",
@@ -47,7 +47,7 @@
     "@leavittsoftware/titanium-tab-control": "^0.2.7",
     "@leavittsoftware/titanium-toolbar": "^0.1.13",
     "@leavittsoftware/titanium-vaadin": "^2.2.12",
-    "@leavittsoftware/user-manager": "^9.3.11",
+    "@leavittsoftware/user-manager": "^9.3.12",
     "@material/mwc-icon": "^0.15.0",
     "@open-wc/testing-helpers": "^1.7.2",
     "@storybook/addon-a11y": "5.3.18",
