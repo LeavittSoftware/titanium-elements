@@ -207,7 +207,7 @@ export class TitaniumDataTableElement extends LitElement {
   }
 
   private _determineTake() {
-    const take = Number(window.localStorage.getItem(`${ this.localStorageKey ?? this.header}-take`)) || 0;
+    const take = Number(window.localStorage.getItem(`${this.localStorageKey ?? this.header}-take`)) || 0;
     if (take > 0) {
       return take;
     }
@@ -483,7 +483,7 @@ export class TitaniumDataTableElement extends LitElement {
     mwc-checkbox {
       flex-shrink: 0;
       align-self: center;
-      margin: 4px 4px 4px 16px;
+      margin: 0 0 0 16px;
     }
 
     :host([disable-select]) table-header ::slotted(titanium-data-table-header:first-of-type) {
