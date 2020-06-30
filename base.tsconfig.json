@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "es2019",
     "module": "esNext",
     "moduleResolution": "node",
-    "lib": ["es2017", "dom"],
+    "lib": ["esnext", "dom", "dom.iterable"],
     "experimentalDecorators": true,
     "noImplicitAny": false,
     "declaration": true,
@@ -16,6 +16,7 @@
     "noUnusedParameters": true,
     "strictNullChecks": true,
     "noEmitHelpers": true,
-    "importHelpers": true
+    "importHelpers": true,
+    "skipLibCheck": true
   }
 }
