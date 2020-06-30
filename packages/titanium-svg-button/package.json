@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-svg-button",
   "description": "",
   "author": "Leavitt Software",
-  "version": "4.4.8",
+  "version": "4.4.9",
   "license": "MIT",
   "main": "lib/titanium-svg-button.js",
   "typings": "lib/titanium-svg-button.d.ts",
