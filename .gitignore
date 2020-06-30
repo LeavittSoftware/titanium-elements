@@ -1,3 +1,4 @@
 node_modules/
 \.vscode/
 packages/storybook/custom-elements.json
+package-lock.json
