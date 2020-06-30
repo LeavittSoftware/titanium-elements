@@ -53,7 +53,7 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
 
   private _animationTimer: number;
   private _animationFrame: number;
-  private _resolve: { (value?: {} | PromiseLike<{}> | undefined): void; (): void };
+  private _resolve: { (): void; (value?: unknown): void };
   private _closeTimeoutHandle: number;
 
   _isComponent = true;

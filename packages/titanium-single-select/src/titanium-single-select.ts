@@ -203,9 +203,9 @@ export class TitaniumSingleSelectElement<T> extends LitElement {
     let matched = [];
     slots.forEach(slot => {
       matched = matched.concat(
-        slot.assignedNodes().filter(el => {
-          return (typeof el.matches === 'function' && el.matches(selector)) || (el.__shady_className && el.__shady_className.indexOf(selector) > -1);
-        })
+        slot
+          .assignedNodes()
+          .filter(el => (typeof el.matches === 'function' && el.matches(selector)) || (el.__shady_className && el.__shady_className.indexOf(selector) > -1))
       );
     });
     return matched;

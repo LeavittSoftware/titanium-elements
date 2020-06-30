@@ -181,13 +181,13 @@ export class TitaniumSelectElement<T> extends LitElement {
         ?disabled=${this.disabled}
       >
         <option value="" disabled hidden></option>
-        ${this.options.map(option => {
-          return html`
+        ${this.options.map(
+          option => html`
             <option ?selected=${option?.[this.itemIdentifierPath] === this.value?.[this.itemIdentifierPath]} value=${option?.[this.itemIdentifierPath]}
               >&nbsp;&nbsp;${option?.[this.itemLabelPath]}</option
             >
-          `;
-        })}
+          `
+        )}
       </select>
       <mwc-textfield
         tabindex="-1"

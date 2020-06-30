@@ -13,10 +13,12 @@ module.exports = {
     // e.g. "@typescript-eslint/explicit-function-return-type": "off",
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-inferrable-types': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
     'no-new': 'warn',
     quotes: ['error', 'single', { avoidEscape: true }],
     'no-var': 'error',
     curly: 'error',
     'no-floating-decimal': 'error',
+    'arrow-body-style': ['error', 'as-needed', { requireReturnForObjectLiteral: false }],
   },
 };

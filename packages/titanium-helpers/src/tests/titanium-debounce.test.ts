@@ -20,14 +20,16 @@ test('Should debounce', done => {
 test('Should stack async calls', done => {
   let finalResult: string;
 
-  const getTheResult = debounce(async (result: string, interval: number) => {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        finalResult = result;
-        resolve();
-      }, interval);
-    });
-  }, 3);
+  const getTheResult = debounce(
+    async (result: string, interval: number) =>
+      new Promise(resolve => {
+        setTimeout(() => {
+          finalResult = result;
+          resolve();
+        }, interval);
+      }),
+    3
+  );
 
   getTheResult('1', 50);
 
@@ -42,13 +44,12 @@ test('Should stack async calls', done => {
 });
 
 test('Returns results', async done => {
-  const callback = async (result: string, interval: number) => {
-    return new Promise(resolve => {
+  const callback = async (result: string, interval: number) =>
+    new Promise(resolve => {
       setTimeout(() => {
         resolve(result);
       }, interval);
     });
-  };
 
   const getTheResult = debounce(callback, 3);
 

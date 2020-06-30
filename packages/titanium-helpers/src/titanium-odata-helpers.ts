@@ -1,3 +1,1 @@
-export const escapeTerm = (term: string): string => {
-  return encodeURIComponent(term.replace(/'/g, "''"));
-};
+export const escapeTerm = (term: string): string => encodeURIComponent(term.replace(/'/g, "''"));

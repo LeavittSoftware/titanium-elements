@@ -58,18 +58,16 @@ export const convertArrayToCsv = (json: Array<any>, flatten = false) => {
 
   if (flatten) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    json = json.map((o: Record<string, any>) => {
-      return flattenObject(o);
-    });
+    json = json.map((o: Record<string, any>) => flattenObject(o));
   }
 
   const fields = Object.keys(json[0]);
-  const replacer = function(_key, value) {
+  const replacer = function (_key, value) {
     return value === null ? '' : value;
   };
-  const csv = json.map(function(row) {
+  const csv = json.map(function (row) {
     return fields
-      .map(function(fieldName) {
+      .map(function (fieldName) {
         let data = row[fieldName];
         if (data == null) {
           data = '';
