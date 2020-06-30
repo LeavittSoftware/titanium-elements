@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-vaadin",
   "description": "",
   "author": "Leavitt Software",
-  "version": "2.2.12",
+  "version": "2.2.13",
   "license": "MIT",
   "main": "lib/titanium-vaadin.js",
   "typings": "lib/titanium-vaadin.d.ts",
