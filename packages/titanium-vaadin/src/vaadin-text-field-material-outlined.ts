@@ -7,7 +7,7 @@ import '@vaadin/vaadin-text-field/src/vaadin-text-field';
 import './vaadin-material-outlined.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 
-// eslint-disable-next-line @typescript-eslint/camelcase
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const $_documentContainer = html`
   <dom-module id="material-text-field-outlined" theme-for="vaadin-text-field">
     <template>
@@ -44,5 +44,5 @@ const $_documentContainer = html`
   </dom-module>
 `;
 
-// eslint-disable-next-line @typescript-eslint/camelcase
+// eslint-disable-next-line @typescript-eslint/naming-convention
 document.head.appendChild($_documentContainer.content);

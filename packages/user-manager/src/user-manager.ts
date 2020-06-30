@@ -1,6 +1,6 @@
 import 'jwt-decode/build/jwt-decode';
-// eslint-disable-next-line @typescript-eslint/camelcase
-declare let jwt_decode: (token: string) => {};
+// eslint-disable-next-line @typescript-eslint/naming-convention
+declare let jwt_decode: (token: string) => Record<string, unknown>;
 
 import { customElement, LitElement, property } from 'lit-element';
 import { LssJwtToken } from './LssJwtToken';
@@ -114,7 +114,7 @@ export class UserManager extends LitElement {
 
   private _getTokenfromUrl(tokenName: string): string | null {
     const hashParameters = this._getHashParametersFromUrl();
-    const accessTokenArray = hashParameters.filter((value) => value.key === tokenName);
+    const accessTokenArray = hashParameters.filter(value => value.key === tokenName);
     if (accessTokenArray.length === 0) {
       return null;
     } else {
@@ -178,11 +178,11 @@ export class UserManager extends LitElement {
     }
 
     const claimScopes = this._getClaimScopes('LgClaimScopes');
-    // eslint-disable-next-line @typescript-eslint/camelcase
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     const body = { grant_type: 'refresh_token', refresh_token: refreshToken } as { grant_type: string; refresh_token: string; claim_scopes: string[] };
 
     if (claimScopes.length > 0) {
-      // eslint-disable-next-line @typescript-eslint/camelcase
+      // eslint-disable-next-line @typescript-eslint/naming-convention
       body.claim_scopes = claimScopes;
     }
 
@@ -334,7 +334,7 @@ export class UserManager extends LitElement {
     this.roles = [];
     this.dispatchEvent(new UserManagerUpdatedEvent());
 
-    this.roles.forEach((o) => {
+    this.roles.forEach(o => {
       window.dispatchEvent(new CustomEvent('um-role-removed', { detail: { role: o } }));
     });
     this.roles = [];

@@ -1,7 +1,7 @@
-// eslint-disable-next-line @typescript-eslint/camelcase
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const $_documentContainer = document.createElement('template');
 
-// eslint-disable-next-line @typescript-eslint/camelcase
+// eslint-disable-next-line @typescript-eslint/naming-convention
 $_documentContainer.innerHTML = `<dom-module id="vaadin-material-outlined">
   <template>
     <style>
@@ -239,5 +239,5 @@ $_documentContainer.innerHTML = `<dom-module id="vaadin-material-outlined">
   </template>
 </dom-module>`;
 
-// eslint-disable-next-line @typescript-eslint/camelcase
+// eslint-disable-next-line @typescript-eslint/naming-convention
 document.head.appendChild($_documentContainer.content);
