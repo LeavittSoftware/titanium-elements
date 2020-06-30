@@ -1,6 +1,6 @@
 import 'jwt-decode/build/jwt-decode';
 // eslint-disable-next-line @typescript-eslint/naming-convention
-declare let jwt_decode: (token: string) => Record<string, unknown>;
+declare let jwt_decode: (token: string) => LssJwtToken;
 
 import { customElement, LitElement, property } from 'lit-element';
 import { LssJwtToken } from './LssJwtToken';
