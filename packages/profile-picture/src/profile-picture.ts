@@ -1,5 +1,4 @@
-﻿import { isDevelopment } from '@leavittsoftware/titanium-helpers/lib/titanium-dev-detection';
-import { css, customElement, html, LitElement, property } from 'lit-element';
+﻿import { css, customElement, html, LitElement, property } from 'lit-element';
 
 /**
  * Displays a Leavitt Group users profile picture
@@ -24,16 +23,18 @@ export class ProfilePictureElement extends LitElement {
    */
   @property({ type: Number }) size: number = 120;
 
+  @property({ type: Boolean }) private hasError: boolean = false;
+
   @property({ type: Number }) private cacheBust: number = 0;
 
-  private _availableSizes = new Set([32, 64, 128, 256, 512, 1024]);
+  private _availableSizes = new Set([32, 64, 128, 256, 512]);
 
-  _computeSrc(personId: number, size: number, cacheBust: number): string | undefined {
-    if (!personId) {
-      return undefined;
+  _computeSrc(personId: number, size: number, cacheBust: number, hasError: boolean): string {
+    if (hasError) {
+      return `https://cdn.leavitt.com/user-0-${this.determineSize(this.size)}.jpeg`;
     }
-    const baseUrl = isDevelopment ? 'https://devmapi.leavitt.com/' : 'https://mapi.leavitt.com/';
-    return `${baseUrl}People(${personId})/Default.Picture(size=${this.determineSize(size)})${cacheBust > 0 ? `?c=${cacheBust}` : ''}`;
+
+    return `https://cdn.leavitt.com/user-${personId}-${this.determineSize(size)}.jpeg${cacheBust > 0 ? `?c=${cacheBust}` : ''}`;
   }
 
   private determineSize(size: number) {
@@ -44,7 +45,7 @@ export class ProfilePictureElement extends LitElement {
         return availableSize;
       }
     }
-    return 1024;
+    return 512;
   }
 
   updated(changedProps) {
@@ -58,6 +59,7 @@ export class ProfilePictureElement extends LitElement {
    * Reloads profile picture from server
    */
   refresh() {
+    this.hasError = false;
     this.cacheBust = this.cacheBust > 0 ? this.cacheBust + 1 : 1;
   }
 
@@ -81,7 +83,12 @@ export class ProfilePictureElement extends LitElement {
   render() {
     return this.personId
       ? html`
-          <img draggable="false" alt="Profile Picture" src=${this._computeSrc(this.personId, this.size, this.cacheBust)} />
+          <img
+            draggable="false"
+            alt="Profile Picture"
+            @error=${() => (this.hasError = true)}
+            src=${this._computeSrc(this.personId, this.size, this.cacheBust, this.hasError)}
+          />
         `
       : html``;
   }
