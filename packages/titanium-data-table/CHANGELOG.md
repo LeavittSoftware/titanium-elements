@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.2.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@7.2.2...@leavittsoftware/titanium-data-table@7.2.3) (2020-07-01)
+
+
+### Bug Fixes
+
+* **data-table:** narrows left margin on checkboxs ([b721973](https://github.com/LeavittSoftware/titanium-elements/commit/b7219736bc96cd6514901e4cabac857032ac56d2))
+
+
+
+
+
 ## [7.2.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@7.2.1...@leavittsoftware/titanium-data-table@7.2.2) (2020-06-30)
 
 
