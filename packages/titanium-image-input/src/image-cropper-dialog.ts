@@ -6,11 +6,10 @@ import { css, customElement, html, LitElement, query, property } from 'lit-eleme
 import { TitaniumDialogBaseElement } from '@leavittsoftware/titanium-dialog/lib/titanium-dialog-base';
 import { TitaniumCardStyles } from '@leavittsoftware/titanium-card';
 import Cropper from 'cropperjs';
-import MapiServiceMixin from '@leavittsoftware/api-service/lib/mapi-service';
 import { cropperCSS } from './cropper-styles';
 
 @customElement('image-cropper-dialog')
-export class ImageCropperDialogElement extends MapiServiceMixin(LitElement) {
+export class ImageCropperDialogElement extends LitElement {
   @query('titanium-dialog-base') dialog: TitaniumDialogBaseElement;
   @query('cropper-container > img') img: HTMLImageElement;
 
