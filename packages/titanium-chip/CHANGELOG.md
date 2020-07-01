@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.0.38 (2020-07-01)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-chip
+
+
+
+
+
 ## 3.0.37 (2020-06-30)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-chip
