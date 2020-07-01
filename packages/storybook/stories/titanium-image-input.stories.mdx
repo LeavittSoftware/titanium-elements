@@ -1,0 +1,45 @@
+import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { html } from 'lit-html';
+import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
+import { withWebComponentsKnobs } from '../index.js';
+
+import '@leavittsoftware/titanium-image-input';
+
+<Meta
+  title="UI COMPONENTS|titanium-image-input"
+  decorators={[withKnobs, withWebComponentsKnobs]}
+  parameters={{ component: 'titanium-image-input', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+/>
+
+# Titanium Image Input
+
+Material design image picker with cropper.
+
+## How to use
+
+```bash
+npm i @leavittsoftware/titanium-image-input
+```
+
+```js
+import '@leavittsoftware/titanium-image-input';
+```
+
+## API
+
+<Props of="titanium-image-input" />
+
+## Demo
+
+<Preview withToolbar>
+  <Story name="Docs">{html`
+    <titanium-image-input></titanium-image-input>
+    <h2>Tall image</h2>
+    <titanium-image-input .options=${{ aspectRatio: 220 / 850 }}></titanium-image-input>
+    <h2>Wide image</h2>
+    <titanium-image-input .options=${{ aspectRatio: 850 / 220 }}></titanium-image-input>
+    <h2>Required</h2>
+    <titanium-image-input label="Profile photo" required validationMessage="Please select a photo" }></titanium-image-input>
+  `}</Story>
+</Preview>

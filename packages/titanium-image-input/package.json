@@ -1,12 +1,12 @@
 {
-  "name": "@leavittsoftware/titanium-data-table",
+  "name": "@leavittsoftware/titanium-image-input",
   "description": "",
   "author": "Leavitt Software",
-  "version": "7.2.3",
+  "version": "1.0.0",
   "license": "MIT",
-  "main": "lib/titanium-data-table.js",
-  "typings": "lib/titanium-data-table.d.ts",
-  "homepage": "https://github.com/LeavittSoftware/titanium-elements/tree/master/packages/titanium-data-table",
+  "main": "lib/titanium-image-input.js",
+  "typings": "lib/titanium-image-input.d.ts",
+  "homepage": "https://github.com/LeavittSoftware/titanium-elements/tree/master/packages/titanium-image-input",
   "files": [
     "lib",
     "src"
@@ -19,9 +19,11 @@
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
   "dependencies": {
-    "@leavittsoftware/titanium-loading-indicator": "^4.0.16",
-    "@leavittsoftware/titanium-svg-button": "^4.4.9",
-    "@material/mwc-checkbox": "^0.17.0",
+    "@material/mwc-button": "^0.17.0",
+    "@material/mwc-icon-button": "^0.17.0",
+    "@leavittsoftware/titanium-dialog": "^3.2.7",
+    "@leavittsoftware/titanium-card": "^1.9.1",
+    "cropperjs": "^1.5.7",
     "tslib": "^1.11.1"
   },
   "peerDependencies": {
@@ -29,11 +31,10 @@
   },
   "scripts": {
     "build:watch": "tsc --watch",
-    "build": "tsc",
+    "build": "tsc ",
     "lint": "eslint ./src/**/*.ts"
   },
   "bugs": {
     "url": "https://github.com/LeavittSoftware/titanium-elements/issues"
-  },
-  "gitHead": "f80c9f25691088c456baf119f3be7e278bf9c80d"
+  }
 }

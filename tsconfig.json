@@ -11,6 +11,7 @@
     { "path": "packages/titanium-header" },
     { "path": "packages/titanium-helpers" },
     { "path": "packages/titanium-loading-indicator" },
+    { "path": "packages/titanium-image-input" },
     { "path": "packages/titanium-offline-notice" },
     { "path": "packages/titanium-popup-surface" },
     { "path": "packages/titanium-progress" },
