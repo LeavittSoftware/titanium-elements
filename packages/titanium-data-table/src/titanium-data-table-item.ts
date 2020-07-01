@@ -158,7 +158,7 @@ export class TitaniumDataTableItemElement extends LitElement {
     mwc-checkbox {
       flex-shrink: 0;
       align-self: center;
-      margin: 0 0 0 16px;
+      margin: 0 0 0 12px;
     }
 
     :host([disable-select]) ::slotted(row-item:first-of-type) {
