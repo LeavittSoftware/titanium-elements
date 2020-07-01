@@ -30,6 +30,7 @@
     "@leavittsoftware/titanium-button": "^1.6.7",
     "@leavittsoftware/titanium-card": "^1.9.1",
     "@leavittsoftware/titanium-chip": "^3.0.37",
+    "@leavittsoftware/titanium-image-input": "^1.0.0",
     "@leavittsoftware/titanium-data-table": "^7.2.2",
     "@leavittsoftware/titanium-dialog": "^3.2.7",
     "@leavittsoftware/titanium-error-page": "^0.1.16",
