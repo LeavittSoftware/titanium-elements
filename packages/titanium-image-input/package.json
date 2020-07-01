@@ -1,0 +1,40 @@
+{
+  "name": "@leavittsoftware/titanium-image-input",
+  "description": "",
+  "author": "Leavitt Software",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "lib/titanium-image-input.js",
+  "typings": "lib/titanium-image-input.d.ts",
+  "homepage": "https://github.com/LeavittSoftware/titanium-elements/tree/master/packages/titanium-image-input",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "keywords": [
+    "web component"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LeavittSoftware/titanium-elements.git"
+  },
+  "dependencies": {
+    "@material/mwc-button": "^0.17.0",
+    "@material/mwc-icon-button": "^0.17.0",
+    "@leavittsoftware/titanium-dialog": "^3.2.7",
+    "@leavittsoftware/titanium-card": "^1.9.1",
+    "cropperjs": "^1.5.7",
+    "tslib": "^1.11.1"
+  },
+  "peerDependencies": {
+    "lit-element": ">=2.1.0"
+  },
+  "scripts": {
+    "build:watch": "tsc --watch",
+    "build": "tsc ",
+    "lint": "eslint ./src/**/*.ts"
+  },
+  "bugs": {
+    "url": "https://github.com/LeavittSoftware/titanium-elements/issues"
+  }
+}
