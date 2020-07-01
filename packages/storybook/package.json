@@ -48,7 +48,7 @@
     "@leavittsoftware/titanium-toolbar": "^0.1.13",
     "@leavittsoftware/titanium-vaadin": "^2.2.13",
     "@leavittsoftware/user-manager": "^9.3.14",
-    "@material/mwc-icon": "^0.16.1",
+    "@material/mwc-icon": "^0.17.0",
     "@open-wc/testing-helpers": "^1.8.3",
     "@storybook/addon-a11y": "5.3.19",
     "@storybook/addon-actions": "5.3.19",
