@@ -1,5 +1,4 @@
 import { css, customElement, html, LitElement, property, query } from 'lit-element';
-import '@leavittsoftware/titanium-progress';
 import '@leavittsoftware/profile-picture';
 import '@material/mwc-textfield';
 import '@material/mwc-list/mwc-list-item.js';
@@ -14,38 +13,67 @@ import { getSearchTokens, Debouncer, LoadWhile } from '@leavittsoftware/titanium
 import Api2ServiceMixin from '@leavittsoftware/api-service/lib/api2-service';
 import { Person } from '@leavittsoftware/lg-core-typescript/lg.core';
 
-export class TitaniumPersonSelectorSelectedEvent extends Event {
+export class LeavittPersonSelectSelectedEvent extends Event {
   static eventType = 'selected';
   person: Partial<Person | null>;
 
   constructor(person: Partial<Person | null>, eventInitDict?: EventInit) {
-    super(TitaniumPersonSelectorSelectedEvent.eventType, eventInitDict);
+    super(LeavittPersonSelectSelectedEvent.eventType, eventInitDict);
     this.person = person;
   }
 }
 
 /**
- *  Searchable person single select
+ *  Single select input that searches Leavitt Group employees
  *  Does not currently support setting a pre-selected person.
  *
+ *  @element leavitt-person-select
+ *
  *  @fires selected - Fired when selection is made or cleared
+ *
  */
-
-@customElement('titanium-person-selector')
-export class TitaniumPersonSelectorElement extends LoadWhile(Api2ServiceMixin(LitElement, { defaultLGAppNameHeader: 'PLGameAdmin' })) {
-  @property({ type: Object }) selected: Person | null = null;
-  @property({ type: Array }) people: Array<Person> = [];
-
+@customElement('leavitt-person-select')
+export class LeavittPersonSelectElement extends LoadWhile(Api2ServiceMixin(LitElement)) {
   @property({ type: Number }) protected count: number = 0;
   @property({ type: String }) protected searchTerm: string;
+  @property({ type: Array }) protected people: Array<Person> = [];
+  @query('mwc-menu') protected menu: Menu;
+  @query('mwc-textfield') protected textfield: TextField & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
 
+  /**
+   *  The person object selected by the user.
+   */
+  @property({ type: Object }) selected: Person | null = null;
+
+  /**
+   *  Message to show in the error color when the element is invalid.
+   */
   @property({ type: String }) validationMessage: string;
+
+  /**
+   *  Sets floating label value.
+   */
   @property({ type: String }) label: string = 'Person';
+
+  /**
+   *  Sets placeholder text value.
+   */
   @property({ type: String }) placeholder: string = 'Search for a person';
+
+  /**
+   *  Whether or not the input should be disabled.
+   */
+  @property({ type: Boolean }) disabled: boolean = false;
+
+  /**
+   *  Displays error state if no image is empty and input is blurred.
+   */
   @property({ type: Boolean }) required: boolean = false;
 
-  @query('mwc-menu') menu: Menu;
-  @query('mwc-textfield') textfield: TextField & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
+  /**
+   *  API namespace to be sent with the person search query.
+   */
+  @property({ type: String }) apiNamespace: string = '';
 
   firstUpdated() {
     this.menu.anchor = this.textfield;
@@ -62,6 +90,9 @@ export class TitaniumPersonSelectorElement extends LoadWhile(Api2ServiceMixin(Li
     };
   }
 
+  /**
+   *  Resets the inputs state.
+   */
   reset() {
     this.textfield.value = '';
     this.selected = null;
@@ -72,15 +103,24 @@ export class TitaniumPersonSelectorElement extends LoadWhile(Api2ServiceMixin(Li
     this.searchTerm = '';
   }
 
+  /**
+   *  Sets focus on the input.
+   */
   async focus() {
     await this.textfield.updateComplete;
     this.textfield.focus();
   }
 
+  /**
+   *  Returns true if the input passes validity checks.
+   */
   checkValidity() {
     return this.textfield.checkValidity();
   }
 
+  /**
+   *  Runs checkValidity() method, and if it returns false, then it reports to the user that the input is invalid.
+   */
   reportValidity() {
     return this.textfield.reportValidity();
   }
@@ -96,7 +136,7 @@ export class TitaniumPersonSelectorElement extends LoadWhile(Api2ServiceMixin(Li
         const searchFilter = searchTokens.map((token: string) => `(startswith(FirstName, '${token}') or startswith(LastName, '${token}'))`).join(' and ');
         odataParts.push(`$filter=${searchFilter}`);
       }
-      return await this.api2.getAsync<Person>(`People?${odataParts.join('&')}`);
+      return await this.api2.getAsync<Person>(`People?${odataParts.join('&')}`, this.apiNamespace);
     } catch (error) {
       AppSnackbar.open(error);
     }
@@ -108,7 +148,7 @@ export class TitaniumPersonSelectorElement extends LoadWhile(Api2ServiceMixin(Li
     if (person) {
       this.textfield.reportValidity();
     }
-    this.dispatchEvent(new TitaniumPersonSelectorSelectedEvent(person));
+    this.dispatchEvent(new LeavittPersonSelectSelectedEvent(person));
   }
 
   private _doSearchDebouncer = new Debouncer((searchTerm: string) => this._doSearch(searchTerm));
@@ -126,7 +166,7 @@ export class TitaniumPersonSelectorElement extends LoadWhile(Api2ServiceMixin(Li
 
   static styles = css`
     :host {
-      display: block;
+      display: inline-block;
       position: relative;
     }
 
@@ -159,6 +199,7 @@ export class TitaniumPersonSelectorElement extends LoadWhile(Api2ServiceMixin(Li
         outlined
         icon="search"
         .label=${this.label}
+        .disabled=${this.disabled}
         .placeholder=${this.placeholder}
         .validationMessage=${this.validationMessage}
         .required=${this.required}
