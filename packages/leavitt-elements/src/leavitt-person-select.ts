@@ -203,6 +203,11 @@ export class LeavittPersonSelectElement extends LoadWhile(Api2ServiceMixin(LitEl
         .placeholder=${this.placeholder}
         .validationMessage=${this.validationMessage}
         .required=${this.required}
+        @keydown=${e => {
+          if (this.people.length > 0 && e.keyCode == '40') {
+            this.menu.focusItemAtIndex(0);
+          }
+        }}
         @input=${async e => {
           this.loadWhile(this.onInput(e.target.value));
         }}
