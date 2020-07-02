@@ -1,0 +1,44 @@
+import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { html } from 'lit-html';
+import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
+import { withWebComponentsKnobs } from '../index.js';
+
+import '@leavittsoftware/leavitt-elements/lib/leavitt-person-group-select';
+import '@leavittsoftware/user-manager';
+
+<Meta
+  title="UI LEAVITT SPECIFIC|leavitt-person-group-select"
+  decorators={[withKnobs, withWebComponentsKnobs]}
+  parameters={{ component: 'leavitt-person-group-select', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+/>
+
+# Leavitt Person or Group Select
+
+Single select input that searches both Leavitt Group employees and groups
+
+## How to use
+
+```bash
+npm i @leavittsoftware/leavitt-elements
+```
+
+```js
+import '@leavittsoftware/leavitt-elements/lib/leavitt-person-group-select';
+```
+
+## API
+
+<Props of="leavitt-person-group-select" />
+
+## Demo
+
+<Preview withToolbar>
+  <Story name="Docs">{html` <user-manager></user-manager>
+    <h2>Standard</h2>
+    <leavitt-person-group-select apiNamespace="EducationAdmin"></leavitt-person-group-select>
+    <h2>Required</h2>
+    <leavitt-person-group-select required apiNamespace="EducationAdmin"></leavitt-person-group-select>
+    <h2>Disabled</h2>
+    <leavitt-person-group-select disabled></leavitt-person-group-select>`}</Story>
+</Preview>
