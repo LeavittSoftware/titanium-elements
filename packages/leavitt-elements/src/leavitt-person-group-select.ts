@@ -17,8 +17,8 @@ import { peopleGroupIcons } from './people-group-icons';
 
 export class LeavittPersonGroupSelectSelectedEvent extends Event {
   static eventType = 'selected';
-  person: Partial<Person> | null;
-  group: Partial<PeopleGroup> | null;
+  person: Partial<CorePerson> | null;
+  group: Partial<CorePeopleGroup> | null;
 
   constructor(entity: Partial<Person | PeopleGroup> | null, eventInitDict?: EventInit) {
     super(LeavittPersonGroupSelectSelectedEvent.eventType, eventInitDict);
