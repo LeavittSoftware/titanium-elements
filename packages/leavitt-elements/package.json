@@ -13,9 +13,9 @@
     "@material/mwc-list": "^0.17.2",
     "@material/mwc-linear-progress": "^0.17.2",
     "@material/mwc-menu": "^0.17.2",
+    "@leavittsoftware/lg-core-typescript": "*",
     "@leavittsoftware/profile-picture": "^4.3.14",
     "@leavittsoftware/api-service": "^6.2.17",
-    "@leavittsoftware/lg-core-typescript": "^2.0.72",
     "@leavittsoftware/titanium-helpers": "^3.3.1",
     "@leavittsoftware/titanium-snackbar": "^3.2.9",
     "tslib": "^1.11.1"
