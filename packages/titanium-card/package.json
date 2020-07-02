@@ -9,8 +9,8 @@
     "src"
   ],
   "dependencies": {
-    "@material/mwc-button": "^0.17.0",
-    "@material/mwc-ripple": "^0.17.0",
+    "@material/mwc-button": "^0.17.2",
+    "@material/mwc-ripple": "^0.17.2",
     "tslib": "^1.11.1"
   },
   "peerDependencies": {

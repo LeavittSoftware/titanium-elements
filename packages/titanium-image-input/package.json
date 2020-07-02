@@ -21,8 +21,8 @@
   "dependencies": {
     "@leavittsoftware/titanium-card": "^1.9.2",
     "@leavittsoftware/titanium-dialog": "^3.2.8",
-    "@material/mwc-button": "^0.17.0",
-    "@material/mwc-icon-button": "^0.17.0",
+    "@material/mwc-button": "^0.17.2",
+    "@material/mwc-icon-button": "^0.17.2",
     "cropperjs": "^1.5.7",
     "tslib": "^1.11.1"
   },
