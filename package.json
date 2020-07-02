@@ -29,6 +29,7 @@
     "lint": "lerna run lint --stream",
     "storybook": "cd packages/storybook && npm run start",
     "build:storybook": "npm run bootstrap && npm run build && lerna run site:build",
-    "lerna:publish": "npm run bootstrap && npm run build && lerna publish --conventional-commits --yes"
+    "lerna:publish": "npm run bootstrap && npm run build && lerna publish --conventional-commits --yes",
+    "lerna:test": "npm run bootstrap && npm run build && lerna version --no-push --yes"
   }
 }
