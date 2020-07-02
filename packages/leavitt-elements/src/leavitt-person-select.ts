@@ -237,7 +237,7 @@ export class LeavittPersonSelectElement extends LoadWhile(Api2ServiceMixin(LitEl
             <mwc-list-item twoline graphic="avatar">
               <span>${person.FirstName} ${person.LastName}</span>
               <span slot="secondary">${person.CompanyName}</span>
-              <profile-picture slot="graphic" .personId=${person?.Id || 0} shape="circle" size="32"></profile-picture>
+              <profile-picture slot="graphic" .personId=${person?.Id || 0} shape="circle" size="40"></profile-picture>
             </mwc-list-item>
           `
         )}
