@@ -18,6 +18,7 @@ addParameters({
   },
   options: {
     hierarchyRootSeparator: /\|/,
+    enableShortcuts: false,
   },
   docs: {
     iframeHeight: '200px',

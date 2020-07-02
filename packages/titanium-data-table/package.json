@@ -21,7 +21,7 @@
   "dependencies": {
     "@leavittsoftware/titanium-loading-indicator": "^4.0.16",
     "@leavittsoftware/titanium-svg-button": "^4.4.10",
-    "@material/mwc-checkbox": "^0.17.0",
+    "@material/mwc-checkbox": "^0.17.2",
     "tslib": "^1.11.1"
   },
   "peerDependencies": {

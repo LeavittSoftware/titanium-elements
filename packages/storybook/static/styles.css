@@ -19,31 +19,20 @@
   src: local('Metropolis'), url('https://www.leavitt.com/fonts/metropolis-medium.otf') format('opentype');
 }
 
-@font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;
-  font-display: block;
-  src: url(https://fonts.gstatic.com/s/materialicons/v48/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
-}
-
-.material-icons {
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  display: inline-block;
-  white-space: nowrap;
-  word-wrap: normal;
-  direction: ltr;
-  -webkit-font-feature-settings: 'liga';
-  -webkit-font-smoothing: antialiased;
-}
-
 body {
   --mdc-theme-secondary: var(--app-secondary-color, #4285f4);
   --mdc-theme-primary: var(--app-secondary-color, #4285f4);
+  --mdc-icon-font: 'Material Icons Outlined';
+}
+
+h2 {
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  letter-spacing: 0.00625em;
+  line-height: 24px;
+  color: #202124;
+  margin: 16px 0 8px 0;
+  padding: 0;
 }
