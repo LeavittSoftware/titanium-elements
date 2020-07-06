@@ -1,6 +1,7 @@
 {
   "extends": "./base.tsconfig.json",
   "references": [
+    { "path": "packages/titanium-helpers" },
     { "path": "packages/api-service" },
     { "path": "packages/user-manager" },
     { "path": "packages/titanium-access-denied-page" },
@@ -11,7 +12,6 @@
     { "path": "packages/titanium-dialog" },
     { "path": "packages/titanium-error-page" },
     { "path": "packages/titanium-header" },
-    { "path": "packages/titanium-helpers" },
     { "path": "packages/titanium-loading-indicator" },
     { "path": "packages/titanium-image-input" },
     { "path": "packages/titanium-offline-notice" },
