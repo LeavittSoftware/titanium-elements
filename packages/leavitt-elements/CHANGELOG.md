@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@1.1.0...@leavittsoftware/leavitt-elements@1.1.1) (2020-07-06)
+
+
+### Bug Fixes
+
+* prevents undefined from showing in the input. ([48453ab](https://github.com/LeavittSoftware/titanium-elements/commit/48453ab06df747ebd4c6669117ff5c84961bec19))
+
+
+
+
+
 # 1.1.0 (2020-07-06)
 
 
