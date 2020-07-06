@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-image-input@1.1.0...@leavittsoftware/titanium-image-input@1.1.1) (2020-07-06)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-image-input
+
+
+
+
+
 # 1.1.0 (2020-07-01)
 
 

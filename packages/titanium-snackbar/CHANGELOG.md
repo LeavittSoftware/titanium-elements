@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.10](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-snackbar@3.2.9...@leavittsoftware/titanium-snackbar@3.2.10) (2020-07-06)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-snackbar
+
+
+
+
+
 ## 3.2.9 (2020-07-01)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-snackbar

@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/leavitt-elements",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "",
   "main": "lib/leavitt-person-select.js",
   "typings": "lib/leavitt-person-select.d.ts",
@@ -9,15 +9,15 @@
     "src"
   ],
   "dependencies": {
-    "@material/mwc-textfield": "^0.17.2",
-    "@material/mwc-list": "^0.17.2",
-    "@material/mwc-linear-progress": "^0.17.2",
-    "@material/mwc-menu": "^0.17.2",
-    "@leavittsoftware/lg-core-typescript": "*",
-    "@leavittsoftware/profile-picture": "^4.3.14",
     "@leavittsoftware/api-service": "^6.2.17",
+    "@leavittsoftware/lg-core-typescript": "*",
+    "@leavittsoftware/profile-picture": "^4.3.15",
     "@leavittsoftware/titanium-helpers": "^3.3.1",
-    "@leavittsoftware/titanium-snackbar": "^3.2.9",
+    "@leavittsoftware/titanium-snackbar": "^3.2.10",
+    "@material/mwc-linear-progress": "^0.17.2",
+    "@material/mwc-list": "^0.17.2",
+    "@material/mwc-menu": "^0.17.2",
+    "@material/mwc-textfield": "^0.17.2",
     "tslib": "^1.11.1"
   },
   "peerDependencies": {

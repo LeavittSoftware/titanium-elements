@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-select@0.3.9...@leavittsoftware/titanium-select@0.4.0) (2020-07-06)
+
+
+### Features
+
+* Adds new leavitt-person-select element ([8660121](https://github.com/LeavittSoftware/titanium-elements/commit/8660121bec4d348fa7b0002dcc909d719ef5a00c))
+
+
+
+
+
 ## 0.3.9 (2020-07-01)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-select

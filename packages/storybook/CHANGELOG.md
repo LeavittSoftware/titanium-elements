@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.7.9](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.7.8...@leavittsoftware/storybook@5.7.9) (2020-07-06)
+
+
+### Bug Fixes
+
+* Removes storybook shortcuts - disruptive to demos ([94b3bc9](https://github.com/LeavittSoftware/titanium-elements/commit/94b3bc900ca3328d7912b03693fb56f57301f28e))
+
+
+
+
+
 ## [5.7.8](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.7.7...@leavittsoftware/storybook@5.7.8) (2020-07-01)
 
 **Note:** Version bump only for package @leavittsoftware/storybook
