@@ -22,6 +22,18 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+        with:
+          # pulls all commits (needed for lerna / semantic release to correctly version)
+          fetch-depth: '0'
+
+      - name: Configure CI Git User
+        run: |
+          git config --global user.email automation@leavitt.com
+          git config --global user.name 'GitHub Actions'
+
+        # pulls all tags (needed for lerna / semantic release to correctly version)
+      - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+
       - uses: actions/setup-node@v1
         with:
           node-version: 12
