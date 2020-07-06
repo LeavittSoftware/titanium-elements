@@ -227,7 +227,7 @@ export class LeavittPersonSelectElement extends LoadWhile(Api2ServiceMixin(LitEl
           if (selectedIndex > -1) {
             const selected = this.people?.[selectedIndex] ?? null;
             this.setSelected(selected);
-            this.textfield.value = `${selected?.FirstName} ${selected?.LastName}`;
+            this.textfield.value = !selected ? '' : `${selected.FirstName} ${selected.LastName}`;
           }
         }}
       >
