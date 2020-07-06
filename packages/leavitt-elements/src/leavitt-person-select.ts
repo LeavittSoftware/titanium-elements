@@ -4,7 +4,6 @@ import '@material/mwc-textfield';
 import '@material/mwc-list/mwc-list-item.js';
 import '@material/mwc-linear-progress';
 import '@material/mwc-menu';
-import '@leavittsoftware/api-service/lib/api2-service';
 
 import { Menu } from '@material/mwc-menu';
 import { TextField } from '@material/mwc-textfield';
