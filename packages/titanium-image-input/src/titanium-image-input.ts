@@ -224,6 +224,7 @@ export class TitaniumImageInputElement extends LitElement {
 
       img {
         max-height: 35px;
+        width: 100%;
         object-fit: contain;
         object-position: left;
         pointer-events: none;
