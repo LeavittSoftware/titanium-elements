@@ -86,6 +86,8 @@ export class ProfilePictureElement extends LitElement {
           <img
             loading="lazy"
             draggable="false"
+            width="${this.size}px"
+            height="${this.size}px"
             alt="Profile Picture"
             @error=${() => (this.hasError = true)}
             src=${this._computeSrc(this.personId, this.size, this.cacheBust, this.hasError)}
