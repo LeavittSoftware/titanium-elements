@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@1.1.2...@leavittsoftware/leavitt-elements@1.1.3) (2020-07-14)
+
+**Note:** Version bump only for package @leavittsoftware/leavitt-elements
+
+
+
+
+
 ## 1.1.2 (2020-07-08)
 
 **Note:** Version bump only for package @leavittsoftware/leavitt-elements

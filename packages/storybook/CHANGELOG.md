@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.8.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.7.13...@leavittsoftware/storybook@5.8.0) (2020-07-14)
+
+
+### Features
+
+* add story for mwc-datefield ([b7f818c](https://github.com/LeavittSoftware/titanium-elements/commit/b7f818cccf6afb992f2381c8f18b62ec362b8954))
+
+
+
+
+
 ## [5.7.13](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.7.12...@leavittsoftware/storybook@5.7.13) (2020-07-08)
 
 **Note:** Version bump only for package @leavittsoftware/storybook
