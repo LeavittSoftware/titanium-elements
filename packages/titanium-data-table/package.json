@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-data-table",
   "description": "",
   "author": "Leavitt Software",
-  "version": "7.2.5",
+  "version": "7.3.0",
   "license": "MIT",
   "main": "lib/titanium-data-table.js",
   "typings": "lib/titanium-data-table.d.ts",
