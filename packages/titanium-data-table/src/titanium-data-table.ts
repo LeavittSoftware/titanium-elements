@@ -344,6 +344,10 @@ export class TitaniumDataTableElement extends LitElement {
       margin: 0 !important;
     }
 
+    selected-actions ::slotted(mwc-icon-button) {
+      color: var(--app-dark-text-color, #202124);
+    }
+
     selected-text {
       display: block;
     }
