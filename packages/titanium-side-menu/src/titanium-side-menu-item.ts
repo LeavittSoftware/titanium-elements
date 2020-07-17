@@ -65,6 +65,11 @@ export class TitaniumSideMenuItemElement extends LitElement {
       width: 24px;
     }
 
+    a ::slotted(mwc-icon) {
+      margin-right: 16px;
+      --mdc-icon-size: 24px;
+    }
+
     a:active,
     a:focus {
       outline: none;
@@ -89,8 +94,6 @@ export class TitaniumSideMenuItemElement extends LitElement {
   `;
 
   render() {
-    return html`
-      <a href=${this.href} target=${ifDefined(this.target)}><slot></slot></a>
-    `;
+    return html` <a href=${this.href} target=${ifDefined(this.target)}><slot></slot></a> `;
   }
 }
