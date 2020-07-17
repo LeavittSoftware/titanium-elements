@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.3.0 (2020-07-17)
+
+
+### Features
+
+* add mwc-icon support ([4fdf936](https://github.com/LeavittSoftware/titanium-elements/commit/4fdf936dfbc76890a9ffcff255fdcac1cf8b67d7))
+
+
+
+
+
 ## 0.2.7 (2020-06-08)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-side-menu
