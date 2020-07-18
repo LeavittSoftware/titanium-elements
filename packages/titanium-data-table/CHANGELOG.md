@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 7.3.0 (2020-07-17)
+
+
+### Features
+
+* add mwc-icon-button support ([2c156b1](https://github.com/LeavittSoftware/titanium-elements/commit/2c156b15b7caf9e58cb0dacf51d92ecbc5443e55))
+
+
+
+
+
 ## [7.2.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@7.2.4...@leavittsoftware/titanium-data-table@7.2.5) (2020-07-06)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-data-table
