@@ -309,6 +309,7 @@ export class TitaniumDataTableElement extends LitElement {
       flex-wrap: wrap;
       flex: 1 1 150px;
       padding: 0 4px;
+      --mdc-icon-button-size: 42px;
     }
 
     table-actions > ::slotted(*) {
