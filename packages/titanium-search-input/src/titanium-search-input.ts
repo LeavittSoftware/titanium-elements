@@ -1,6 +1,5 @@
-import '@leavittsoftware/titanium-svg-button';
-
 import { css, customElement, html, LitElement, property, query } from 'lit-element';
+import '@material/mwc-icon-button';
 
 /**
  * A styled input with built-in search and clear icons. .
@@ -99,6 +98,7 @@ export class TitaniumSearchInput extends LitElement {
       -webkit-transition: width 250ms 0ms cubic-bezier(0.4, 0, 0.2, 1); /* Safari */
       transition: width 250ms 0ms cubic-bezier(0.4, 0, 0.2, 1);
       width: 250px;
+      --mdc-icon-button-size: 42px;
     }
 
     input-container {
@@ -107,20 +107,18 @@ export class TitaniumSearchInput extends LitElement {
       position: relative;
     }
 
-    titanium-svg-button {
+    mwc-icon-button {
       position: absolute;
+      color: var(--app-text-color, #5f6368);
+      top: 0;
     }
 
-    titanium-svg-button[clear] {
-      top: 0;
+    mwc-icon-button[clear] {
       right: 0;
-      --titanium-svg-button-svg-active-color: var(--app-text-color, #5f6368);
     }
 
-    titanium-svg-button[search] {
-      top: 0;
+    mwc-icon-button[search] {
       left: 0;
-      --titanium-svg-button-svg-active-color: var(--app-text-color, #5f6368);
     }
 
     :host([disabled]) svg {
@@ -195,12 +193,7 @@ export class TitaniumSearchInput extends LitElement {
   render() {
     return html`
       <input-container>
-        <titanium-svg-button
-          ?disabled=${this.disabled}
-          search
-          @click=${this._handleSearchClick}
-          path="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"
-        ></titanium-svg-button>
+        <mwc-icon-button ?disabled=${this.disabled} search @click=${this._handleSearchClick} icon="search"></mwc-icon-button>
         <input
           type="text"
           ?disabled=${this.disabled || (this.collapsed && !this.preventCollapse)}
@@ -213,14 +206,7 @@ export class TitaniumSearchInput extends LitElement {
         />
         ${this.hideClearButton || !this.value
           ? ''
-          : html`
-              <titanium-svg-button
-                clear
-                @click=${this._onClearClick}
-                ?disabled=${this.disabled}
-                path="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
-              ></titanium-svg-button>
-            `}
+          : html` <mwc-icon-button clear @click=${this._onClearClick} ?disabled=${this.disabled} icon="close"></mwc-icon-button> `}
       </input-container>
     `;
   }

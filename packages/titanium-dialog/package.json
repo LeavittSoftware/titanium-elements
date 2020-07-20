@@ -9,7 +9,7 @@
     "src"
   ],
   "dependencies": {
-    "@material/mwc-button": "^0.17.2",
+    "@material/mwc-button": "*",
     "tslib": "^1.11.1"
   },
   "peerDependencies": {
