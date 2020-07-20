@@ -9,7 +9,7 @@
     "src"
   ],
   "dependencies": {
-    "@material/mwc-ripple": "^0.17.2",
+    "@material/mwc-ripple": "*",
     "tslib": "^1.11.1"
   },
   "peerDependencies": {
