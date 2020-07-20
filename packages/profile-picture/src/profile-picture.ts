@@ -50,7 +50,7 @@ export class ProfilePictureElement extends LitElement {
 
   updated(changedProps) {
     if (changedProps.has('personId')) {
-      this.refresh();
+      this.hasError = false;
     }
 
     if (changedProps.has('size') && changedProps.get('size') !== this.size) {
