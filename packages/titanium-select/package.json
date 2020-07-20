@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/titanium-select",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "",
   "main": "lib/titanium-select.js",
   "typings": "lib/titanium-select.d.ts",
@@ -9,7 +9,7 @@
     "src"
   ],
   "dependencies": {
-    "@material/mwc-textfield": "^0.17.2",
+    "@material/mwc-textfield": "*",
     "tslib": "^1.11.1"
   },
   "peerDependencies": {

@@ -1,5 +1,5 @@
 import { css, customElement, html, LitElement, property } from 'lit-element';
-import '@leavittsoftware/titanium-svg-button';
+import '@material/mwc-icon-button';
 
 /**
  * Material design inspired chips.
@@ -109,13 +109,13 @@ export class TitaniumChipElement extends LitElement {
       flex-shrink: 0;
     }
 
-    titanium-svg-button {
-      --titanium-svg-button-svg-size: 18px;
-      --titanium-svg-button-size: 28px;
+    mwc-icon-button {
+      --mdc-icon-size: 18px;
+      --mdc-icon-button-size: 28px;
       flex-shrink: 0;
     }
 
-    :host(:not([closeable])) titanium-svg-button {
+    :host(:not([closeable])) mwc-icon-button {
       display: none;
     }
 
@@ -132,15 +132,15 @@ export class TitaniumChipElement extends LitElement {
         ${this.src ? html` <img src=${this.src} /> ` : ''}
       </slot>
       <label>${this.label}</label>
-      <titanium-svg-button
-        path="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+      <mwc-icon-button
+        icon="close"
         ?disabled=${this.disabled}
-        @click=${(e) => {
+        @click=${e => {
           e.stopPropagation();
           this.dispatchEvent(new CustomEvent('titanium-chip-close', { bubbles: true, composed: true }));
         }}
       >
-      </titanium-svg-button>
+      </mwc-icon-button>
     `;
   }
 }

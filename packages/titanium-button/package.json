@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/titanium-button",
-  "version": "1.6.9",
+  "version": "1.6.10",
   "description": "",
   "main": "lib/titanium-button.js",
   "typings": "lib/titanium-button.d.ts",
@@ -9,7 +9,7 @@
     "src"
   ],
   "dependencies": {
-    "@material/mwc-ripple": "^0.17.2",
+    "@material/mwc-ripple": "*",
     "tslib": "^1.11.1"
   },
   "peerDependencies": {

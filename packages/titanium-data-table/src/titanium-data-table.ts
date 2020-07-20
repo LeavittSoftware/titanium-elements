@@ -1,12 +1,16 @@
-import '@leavittsoftware/titanium-svg-button';
-import '@leavittsoftware/titanium-svg-button/lib/titanium-svg-button-menu';
 import '@leavittsoftware/titanium-loading-indicator';
 import '@material/mwc-checkbox';
 import { Checkbox } from '@material/mwc-checkbox';
+import '@material/mwc-icon-button';
+import '@material/mwc-menu';
+import '@material/mwc-list/mwc-list-item';
 
 import { css, customElement, html, LitElement, property, query } from 'lit-element';
 import { TitaniumDataTableItemElement } from './titanium-data-table-item';
 import { TitaniumDataTableHeaderElement } from './titanium-data-table-header';
+import { Menu } from '@material/mwc-menu';
+import { IconButton } from '@material/mwc-icon-button';
+import { ActionDetail } from '@material/mwc-list/mwc-list-foundation';
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare const ResizeObserver: any;
@@ -282,7 +286,7 @@ export class TitaniumDataTableElement extends LitElement {
       background-color: #fff;
       border: 1px solid var(--app-border-color, #dadce0);
       border-radius: 8px;
-
+      --mdc-icon-button-size: 42px;
       font-family: 'Roboto', 'Noto', sans-serif;
       -webkit-font-smoothing: antialiased;
     }
@@ -309,7 +313,12 @@ export class TitaniumDataTableElement extends LitElement {
       flex-wrap: wrap;
       flex: 1 1 150px;
       padding: 0 4px;
-      --mdc-icon-button-size: 42px;
+
+      color: var(--app-text-color, #5f6368);
+    }
+
+    [take-menu-button] {
+      --mdc-icon-button-size: 32px;
     }
 
     table-actions > ::slotted(*) {
@@ -462,16 +471,11 @@ export class TitaniumDataTableElement extends LitElement {
       align-items: center;
       margin: 0;
       user-select: none;
+      --mdc-icon-button-size: 42px;
     }
 
     table-control span {
       padding: 0 4px 0 12px;
-    }
-
-    table-control > titanium-svg-button-menu {
-      margin-bottom: -6px;
-      --titanium-svg-button-size: 32px;
-      --titanium-svg-button-svg-size: 25px;
     }
 
     :host([narrow]) table-controls {
@@ -567,31 +571,65 @@ export class TitaniumDataTableElement extends LitElement {
             <table-controls ?hidden=${this._isLoading}>
               <table-control>
                 Rows per page: <span>${this.take}</span>
-                <titanium-svg-button-menu path="M7 10l5 5 5-5H7z" anchorCorner="9" anchor-margin-top="0" anchor-margin-right="0">
-                  <div role="menuitem" @item-selected=${() => this.setTake(10)}>10 rows</div>
-                  <div role="menuitem" @item-selected=${() => this.setTake(15)}>15 rows</div>
-                  <div role="menuitem" @item-selected=${() => this.setTake(20)}>20 rows</div>
-                  <div role="menuitem" @item-selected=${() => this.setTake(50)}>50 rows</div>
-                  ${this.largePages
-                    ? html`
-                        <div role="menuitem" @item-selected=${() => this.setTake(100)}>100 rows</div>
-                        <div role="menuitem" @item-selected=${() => this.setTake(500)}>500 rows</div>
-                      `
-                    : ''}
-                </titanium-svg-button-menu>
+
+                <div style="position: relative;">
+                  <mwc-icon-button
+                    take-menu-button
+                    @click=${() => this.shadowRoot?.querySelector<Menu>('mwc-menu[take-menu]')?.show()}
+                    id="button"
+                    icon="arrow_drop_down"
+                    label="Change take"
+                  ></mwc-icon-button>
+                  <mwc-menu
+                    activatable
+                    take-menu
+                    .anchor=${this.shadowRoot?.querySelector<IconButton>('mwc-icon-button[take-menu-button]') ?? null}
+                    corner="TOP_END"
+                    menuCorner="END"
+                    @action=${(e: CustomEvent<ActionDetail>) => {
+                      switch (e.detail.index) {
+                        case 0:
+                          this.setTake(10);
+                          break;
+                        case 1:
+                          this.setTake(15);
+                          break;
+                        case 2:
+                          this.setTake(20);
+                          break;
+                        case 3:
+                          this.setTake(50);
+                          break;
+                        case 4:
+                          this.setTake(100);
+                          break;
+                        case 5:
+                          this.setTake(500);
+                          break;
+                      }
+                    }}
+                  >
+                    <mwc-list-item ?activated=${this.take === 10}><span>10 rows</span></mwc-list-item>
+                    <mwc-list-item ?activated=${this.take === 15}><span>15 rows</span></mwc-list-item>
+                    <mwc-list-item ?activated=${this.take === 20}><span>20 rows</span></mwc-list-item>
+                    <mwc-list-item ?activated=${this.take === 50}><span>50 rows</span></mwc-list-item>
+                    ${this.largePages
+                      ? html`
+                          <mwc-list-item ?activated=${this.take === 100}><span>100 rows</span></mwc-list-item>
+                          <mwc-list-item ?activated=${this.take === 500}><span>500 rows</span></mwc-list-item>
+                        `
+                      : ''}
+                  </mwc-menu>
+                </div>
               </table-control>
               <pagination-text>${this._getPageStats(this.page, this.count)}</pagination-text>
               <table-control>
-                <titanium-svg-button
-                  path="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"
-                  @click="${this._handleLastPageClick}"
-                  ?disabled="${this.page === 0 || !this.count}"
-                ></titanium-svg-button>
-                <titanium-svg-button
-                  path="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
-                  @click="${this._handleNextPageClick}"
-                  ?disabled="${!this.count || (this.page + 1) * this.take >= this.count}"
-                ></titanium-svg-button>
+                <mwc-icon-button icon="keyboard_arrow_left" @click=${this._handleLastPageClick} ?disabled=${this.page === 0 || !this.count}></mwc-icon-button>
+                <mwc-icon-button
+                  icon="keyboard_arrow_right"
+                  @click=${this._handleNextPageClick}
+                  ?disabled=${!this.count || (this.page + 1) * this.take >= this.count}
+                ></mwc-icon-button>
               </table-control>
             </table-controls>
           `}
