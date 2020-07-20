@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.19](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/profile-picture@4.3.18...@leavittsoftware/profile-picture@4.3.19) (2020-07-20)
+
+
+### Bug Fixes
+
+* reset has errors on person id change ([4db3886](https://github.com/LeavittSoftware/titanium-elements/commit/4db3886058001683ea3aa9ef642ef40b6d7d713b))
+
+
+
+
+
 ## 4.3.18 (2020-07-20)
 
 **Note:** Version bump only for package @leavittsoftware/profile-picture
