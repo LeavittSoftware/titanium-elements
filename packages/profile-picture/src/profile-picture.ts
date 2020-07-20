@@ -23,17 +23,11 @@ export class ProfilePictureElement extends LitElement {
    */
   @property({ type: Number }) size: number = 120;
 
-  @property({ type: Boolean }) private hasError: boolean = false;
-
   @property({ type: Number }) private cacheBust: number = 0;
 
   private _availableSizes = new Set([32, 64, 128, 256, 512]);
 
-  _computeSrc(personId: number, size: number, cacheBust: number, hasError: boolean): string {
-    if (hasError) {
-      return `https://cdn.leavitt.com/user-0-${this.determineSize(this.size)}.jpeg`;
-    }
-
+  _computeSrc(personId: number, size: number, cacheBust: number): string {
     return `https://cdn.leavitt.com/user-${personId}-${this.determineSize(size)}.jpeg${cacheBust > 0 ? `?c=${cacheBust}` : ''}`;
   }
 
@@ -49,10 +43,6 @@ export class ProfilePictureElement extends LitElement {
   }
 
   updated(changedProps) {
-    if (changedProps.has('personId')) {
-      this.hasError = false;
-    }
-
     if (changedProps.has('size') && changedProps.get('size') !== this.size) {
       this.style.width = this.size + 'px';
       this.style.height = this.size + 'px';
@@ -63,7 +53,6 @@ export class ProfilePictureElement extends LitElement {
    * Reloads profile picture from server
    */
   refresh() {
-    this.hasError = false;
     this.cacheBust = this.cacheBust > 0 ? this.cacheBust + 1 : 1;
   }
 
@@ -85,18 +74,16 @@ export class ProfilePictureElement extends LitElement {
   `;
 
   render() {
-    return this.personId
-      ? html`
-          <img
-            loading="lazy"
-            draggable="false"
-            width="${this.size}px"
-            height="${this.size}px"
-            alt="Profile Picture"
-            @error=${() => (this.hasError = true)}
-            src=${this._computeSrc(this.personId, this.size, this.cacheBust, this.hasError)}
-          />
-        `
-      : html``;
+    return html`
+      <img
+        loading="lazy"
+        draggable="false"
+        width="${this.size}px"
+        height="${this.size}px"
+        alt="Profile Picture"
+        @error=${() => (this.personId = 0)}
+        src=${this._computeSrc(this.personId, this.size, this.cacheBust)}
+      />
+    `;
   }
 }
