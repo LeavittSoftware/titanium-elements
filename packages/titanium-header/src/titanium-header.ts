@@ -1,4 +1,4 @@
-import '@leavittsoftware/titanium-svg-button';
+import '@material/mwc-icon-button';
 
 import { css, customElement, html, LitElement, property } from 'lit-element';
 
@@ -45,7 +45,7 @@ export class TitaniumHeader extends LitElement {
       padding: 0 12px 8px 12px;
     }
 
-    :host([no-nav]) titanium-svg-button {
+    :host([no-nav]) mwc-icon-button {
       display: none;
     }
 
@@ -78,7 +78,7 @@ export class TitaniumHeader extends LitElement {
       color: var(--app-text-color, #5f6368);
     }
 
-    titanium-svg-button {
+    mwc-icon-button {
       position: absolute;
       top: -11px;
       left: 0;
@@ -87,10 +87,7 @@ export class TitaniumHeader extends LitElement {
 
   render() {
     return html`
-      <h1>
-        <titanium-svg-button @click="${this._handleBackClick}" large path="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></titanium-svg-button
-        >${this.header}
-      </h1>
+      <h1><mwc-icon-button icon="arrow_back" @click="${this._handleBackClick}" large></mwc-icon-button>${this.header}</h1>
       <h3>${this.subHeader}</h3>
     `;
   }
