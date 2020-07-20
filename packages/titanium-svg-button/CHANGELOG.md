@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.4.12 (2020-07-20)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-svg-button
+
+
+
+
+
 ## [4.4.11](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-svg-button@4.4.10...@leavittsoftware/titanium-svg-button@4.4.11) (2020-07-06)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-svg-button
