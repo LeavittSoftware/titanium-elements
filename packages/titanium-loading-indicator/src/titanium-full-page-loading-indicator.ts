@@ -23,7 +23,7 @@ export class TitaniumFullPageLoadingIndicatorElement extends LitElement {
   private _openCount = 0;
 
   firstUpdated() {
-    window.addEventListener('pending-state', async (e: CustomEvent<{ promise: Promise<unknown> }>) => {
+    window.addEventListener(PendingStateEvent.eventType, async (e: PendingStateEvent) => {
       this._open();
       this._openCount++;
       try {
@@ -143,6 +143,15 @@ export class TitaniumFullPageLoadingIndicatorElement extends LitElement {
   `;
 
   render() {
-    return html` <titanium-progress ?disabled=${!this.opening && !this.closing && !this.opened}></titanium-progress> `;
+    return html`
+      <titanium-progress ?disabled=${!this.opening && !this.closing && !this.opened}></titanium-progress>
+    `;
+  }
+}
+
+export class PendingStateEvent extends CustomEvent<{ promise: Promise<unknown> }> {
+  static eventType = 'pending-state';
+  constructor(promise: Promise<unknown>) {
+    super(PendingStateEvent.eventType, { bubbles: true, composed: true, detail: { promise: promise } });
   }
 }
