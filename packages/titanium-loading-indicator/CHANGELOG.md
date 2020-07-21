@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.1.0 (2020-07-21)
+
+
+### Features
+
+* Export PendingStateEvent so we don't have to keep redefining it ([e1481ea](https://github.com/LeavittSoftware/titanium-elements/commit/e1481ea6f399a2b825234188de785bec031d0b28))
+
+
+
+
+
 ## [4.0.16](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-loading-indicator@4.0.15...@leavittsoftware/titanium-loading-indicator@4.0.16) (2020-06-15)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-loading-indicator
