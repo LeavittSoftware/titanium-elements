@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.5 (2020-07-30)
+
+
+### Bug Fixes
+
+* removes unused code ([14d9f80](https://github.com/LeavittSoftware/titanium-elements/commit/14d9f80a9a22e9ac17e472611ad0fc2e68d1fb98))
+
+
+
+
+
 ## 1.1.4 (2020-07-20)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-image-input
