@@ -174,7 +174,6 @@ export class ImageCropperDialogElement extends LitElement {
 
   render() {
     return html`
-      <link href="./cropper.min.css" rel="stylesheet" />
       <titanium-dialog-base>
         <h1 select>Crop photo</h1>
         <main>
