@@ -74,6 +74,12 @@ export class TitaniumDialogBaseElement extends LitElement {
           this.trapFocus();
         }
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const autofocusEl = this.querySelector('[autofocus]') as any;
+        if (autofocusEl) {
+          autofocusEl?.focus?.();
+        }
+
         this._animationTimer = window.setTimeout(() => {
           this.dispatchEvent(new CustomEvent('titanium-dialog-opened'));
           this.handleAnimationTimerEnd_();
