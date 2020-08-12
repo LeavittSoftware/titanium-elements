@@ -41,6 +41,11 @@ export class TitaniumDialogBaseElement extends LitElement {
    */
   @property({ type: Boolean, reflect: true }) protected closing: boolean = false;
 
+  /**
+   * Prevents focusing of elements outside of the opened dialog
+   */
+  @property({ type: Boolean, attribute: 'focus-trap' }) focusTrap: boolean = false;
+
   private _animationTimer: number;
   private _animationFrame: number;
   private _resolve: { (value?: string | PromiseLike<string> | undefined): void; (reason: string): void };
@@ -65,11 +70,54 @@ export class TitaniumDialogBaseElement extends LitElement {
         window.addEventListener('keydown', this._handleKeydown);
         this.afterOpen();
 
+        if (this.focusTrap) {
+          this.trapFocus();
+          console.log('FOCUS TRAP');
+        }
+
         this._animationTimer = window.setTimeout(() => {
           this.dispatchEvent(new CustomEvent('titanium-dialog-opened'));
           this.handleAnimationTimerEnd_();
         }, 150);
       });
+    });
+  }
+
+  private selectorWhiteList =
+    'mwc-button:not([disabled]), mwc-textfield:not([disabled]), mwc-select:not([disabled]), mwc-textarea:not([disabled]), mwc-datefield:not([disabled])';
+
+  private trapFocus() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const focusableEls = [...(this.shadowRoot?.querySelectorAll(this.selectorWhiteList) as any), ...(this.querySelectorAll(this.selectorWhiteList) as any)];
+    console.log(focusableEls);
+    const firstFocusableEl = focusableEls[0];
+    const lastFocusableEl = focusableEls[focusableEls.length - 1];
+    const KEYCODE_TAB = 9;
+
+    this.addEventListener('keydown', function (e) {
+      const isTabPressed = e.key === 'Tab' || e.keyCode === KEYCODE_TAB;
+      console.log(e.key);
+      if (!isTabPressed) {
+        return;
+      }
+
+      console.log(e.shiftKey);
+      if (e.shiftKey) {
+        /* shift + tab */
+
+        console.log(document.activeElement, firstFocusableEl);
+        if (document.activeElement === firstFocusableEl || this.shadowRoot?.activeElement === firstFocusableEl) {
+          console.log('focus first');
+          lastFocusableEl?.focus?.();
+          e.preventDefault();
+        }
+      } /* tab */ else {
+        if (document.activeElement === lastFocusableEl || this.shadowRoot?.activeElement === lastFocusableEl) {
+          console.log('focus last');
+          firstFocusableEl?.focus?.();
+          e.preventDefault();
+        }
+      }
     });
   }
 
@@ -242,9 +290,7 @@ export class TitaniumDialogBaseElement extends LitElement {
   `;
 
   protected renderSlot() {
-    return html`
-      <slot></slot>
-    `;
+    return html` <slot></slot> `;
   }
 
   render() {
