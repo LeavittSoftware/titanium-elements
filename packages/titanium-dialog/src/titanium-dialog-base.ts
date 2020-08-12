@@ -72,7 +72,6 @@ export class TitaniumDialogBaseElement extends LitElement {
 
         if (this.focusTrap) {
           this.trapFocus();
-          console.log('FOCUS TRAP');
         }
 
         this._animationTimer = window.setTimeout(() => {
@@ -88,32 +87,26 @@ export class TitaniumDialogBaseElement extends LitElement {
 
   private trapFocus() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const focusableEls = [...(this.shadowRoot?.querySelectorAll(this.selectorWhiteList) as any), ...(this.querySelectorAll(this.selectorWhiteList) as any)];
-    console.log(focusableEls);
+    const focusableEls = [...(this.querySelectorAll(this.selectorWhiteList) as any)];
     const firstFocusableEl = focusableEls[0];
     const lastFocusableEl = focusableEls[focusableEls.length - 1];
-    const KEYCODE_TAB = 9;
 
     this.addEventListener('keydown', function (e) {
-      const isTabPressed = e.key === 'Tab' || e.keyCode === KEYCODE_TAB;
-      console.log(e.key);
+      const isTabPressed = e.key === 'Tab' || e.keyCode === 9;
       if (!isTabPressed) {
         return;
       }
 
-      console.log(e.shiftKey);
       if (e.shiftKey) {
-        /* shift + tab */
-
-        console.log(document.activeElement, firstFocusableEl);
-        if (document.activeElement === firstFocusableEl || this.shadowRoot?.activeElement === firstFocusableEl) {
-          console.log('focus first');
+        // shift + tab
+        if (document.activeElement === firstFocusableEl) {
           lastFocusableEl?.focus?.();
           e.preventDefault();
         }
-      } /* tab */ else {
-        if (document.activeElement === lastFocusableEl || this.shadowRoot?.activeElement === lastFocusableEl) {
-          console.log('focus last');
+      }
+      // tab
+      else {
+        if (document.activeElement === lastFocusableEl) {
           firstFocusableEl?.focus?.();
           e.preventDefault();
         }
