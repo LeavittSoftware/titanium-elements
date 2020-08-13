@@ -103,14 +103,14 @@ export class TitaniumDialogBaseElement extends LitElement {
 
       if (e.shiftKey) {
         // shift + tab
-        if (document.activeElement === firstFocusableEl) {
+        if ((this.getRootNode() as ShadowRoot|Document)?.activeElement === firstFocusableEl) {
           lastFocusableEl?.focus?.();
           e.preventDefault();
         }
       }
       // tab
       else {
-        if (document.activeElement === lastFocusableEl) {
+        if ((this.getRootNode() as ShadowRoot|Document)?.activeElement === lastFocusableEl) {
           firstFocusableEl?.focus?.();
           e.preventDefault();
         }
