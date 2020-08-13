@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@3.3.0...@leavittsoftware/titanium-dialog@3.3.1) (2020-08-13)
+
+
+### Bug Fixes
+
+* uses a better method for determining active el ([14681f9](https://github.com/LeavittSoftware/titanium-elements/commit/14681f98b02f663b3f58568c6cd2571d308a4025))
+
+
+
+
+
 # 3.3.0 (2020-08-13)
 
 

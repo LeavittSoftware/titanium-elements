@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-image-input",
   "description": "",
   "author": "Leavitt Software",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "license": "MIT",
   "main": "lib/titanium-image-input.js",
   "typings": "lib/titanium-image-input.d.ts",
@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@leavittsoftware/titanium-card": "^1.9.4",
-    "@leavittsoftware/titanium-dialog": "^3.3.0",
+    "@leavittsoftware/titanium-dialog": "^3.3.1",
     "@material/mwc-button": "*",
     "@material/mwc-icon-button": "*",
     "cropperjs": "^1.5.7",
