@@ -52,6 +52,8 @@ import '@leavittsoftware/titanium-dialog';
         <a href="#" @click=${e => openDialog('demo-four', e)}>          Open dialog demo fullscreen        </a>
         <br />
         <a href="#" @click=${e => openDialog('demo-five', e)}>Open dialog demo with max-width</a>
+        <br />
+        <a href="#" @click=${e => openDialog('demo-six', e)}>Open dialog demo with focus trap</a>
       <br />
         <titanium-dialog demo-one header="Add to cart" }>
           <span slot="content">Lorem ipsum dolor amet small batch synth distillery godard cardigan. Letterpress trust fund brunch, humblebrag pickled enamel pin activated charcoal organic crucifix shaman chillwave adaptogen. Pok pok tattooed brunch, waistcoat cloud bread +1 asymmetrical. Shaman narwhal slow-carb adaptogen art party. Trust fund man bun DIY man braid. Vaporware gochujang yuccie, bitters hexagon mumblecore etsy bicycle rights mixtape master cleanse asymmetrical selfies. Leggings succulents flexitarian everyday carry, cronut tofu tattooed lumbersexual unicorn asymmetrical.</span>
@@ -157,6 +159,16 @@ import '@leavittsoftware/titanium-dialog';
               lorem dictum, eget dignissim arcu posuere. Aenean porta velit nec ex ullamcorper rhoncus.
             </p></span
           >
+        </titanium-dialog>
+         <titanium-dialog demo-six header="Focus trap" focus-trap>
+          <span slot="content">
+          <mwc-button label="First"></mwc-button>
+          <br />
+          <mwc-button label="Second"></mwc-button>
+          <br />
+          <span slot="actions">
+           <mwc-button label="Autofocus" autofocus></mwc-button>
+          </span>
         </titanium-dialog>
       `;
     }}

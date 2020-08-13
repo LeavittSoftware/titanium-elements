@@ -98,15 +98,19 @@ export class TitaniumDialogElement extends TitaniumDialogBaseElement {
       </section>
 
       <footer>
-        <slot name="actions"
-          ><mwc-button
-            @click=${(e: Event) => {
-              e.preventDefault();
-              this.close('close-click');
-            }}
-            label="CLOSE"
-          >
-          </mwc-button>
+        <slot name="actions">
+          ${this.focusTrap
+            ? ''
+            : html`
+                <mwc-button
+                  @click=${(e: Event) => {
+                    e.preventDefault();
+                    this.close('close-click');
+                  }}
+                  label="CLOSE"
+                >
+                </mwc-button>
+              `}
         </slot>
       </footer>
     `;

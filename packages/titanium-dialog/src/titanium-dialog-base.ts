@@ -41,6 +41,13 @@ export class TitaniumDialogBaseElement extends LitElement {
    */
   @property({ type: Boolean, reflect: true }) protected closing: boolean = false;
 
+  /**
+   * Prevents focusing of elements outside of the opened dialog.
+   * If you choose to use focus trap you must slot in your own buttons
+   * as the default will no longer be available to you.
+   */
+  @property({ type: Boolean, attribute: 'focus-trap' }) focusTrap: boolean = false;
+
   private _animationTimer: number;
   private _animationFrame: number;
   private _resolve: { (value?: string | PromiseLike<string> | undefined): void; (reason: string): void };
@@ -65,11 +72,49 @@ export class TitaniumDialogBaseElement extends LitElement {
         window.addEventListener('keydown', this._handleKeydown);
         this.afterOpen();
 
+        const autofocusEl = this.querySelector('[autofocus]') as HTMLElement;
+        autofocusEl?.focus?.();
+
         this._animationTimer = window.setTimeout(() => {
           this.dispatchEvent(new CustomEvent('titanium-dialog-opened'));
           this.handleAnimationTimerEnd_();
+
+          if (this.focusTrap) {
+            this.trapFocus();
+          }
         }, 150);
       });
+    });
+  }
+
+  private selectorWhiteList =
+    'mwc-button:not([disabled]), mwc-textfield:not([disabled]), mwc-select:not([disabled]), mwc-textarea:not([disabled]), mwc-datefield:not([disabled])';
+
+  private trapFocus() {
+    const focusableEls = [...(this.querySelectorAll(this.selectorWhiteList) as NodeListOf<HTMLElement>)];
+    const firstFocusableEl = focusableEls[0];
+    const lastFocusableEl = focusableEls[focusableEls.length - 1];
+
+    this.addEventListener('keydown', function (e) {
+      const isTabPressed = e.key === 'Tab' || e.keyCode === 9;
+      if (!isTabPressed) {
+        return;
+      }
+
+      if (e.shiftKey) {
+        // shift + tab
+        if (document.activeElement === firstFocusableEl) {
+          lastFocusableEl?.focus?.();
+          e.preventDefault();
+        }
+      }
+      // tab
+      else {
+        if (document.activeElement === lastFocusableEl) {
+          firstFocusableEl?.focus?.();
+          e.preventDefault();
+        }
+      }
     });
   }
 
@@ -242,9 +287,7 @@ export class TitaniumDialogBaseElement extends LitElement {
   `;
 
   protected renderSlot() {
-    return html`
-      <slot></slot>
-    `;
+    return html` <slot></slot> `;
   }
 
   render() {
