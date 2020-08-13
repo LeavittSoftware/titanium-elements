@@ -42,7 +42,9 @@ export class TitaniumDialogBaseElement extends LitElement {
   @property({ type: Boolean, reflect: true }) protected closing: boolean = false;
 
   /**
-   * Prevents focusing of elements outside of the opened dialog
+   * Prevents focusing of elements outside of the opened dialog.
+   * If you choose to use focus trap you must slot in your own buttons
+   * as the default will no longer be available to you.
    */
   @property({ type: Boolean, attribute: 'focus-trap' }) focusTrap: boolean = false;
 
@@ -74,11 +76,8 @@ export class TitaniumDialogBaseElement extends LitElement {
           this.trapFocus();
         }
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const autofocusEl = this.querySelector('[autofocus]') as any;
-        if (autofocusEl) {
-          autofocusEl?.focus?.();
-        }
+        const autofocusEl = this.querySelector('[autofocus]') as HTMLElement;
+        autofocusEl?.focus?.();
 
         this._animationTimer = window.setTimeout(() => {
           this.dispatchEvent(new CustomEvent('titanium-dialog-opened'));
@@ -92,8 +91,7 @@ export class TitaniumDialogBaseElement extends LitElement {
     'mwc-button:not([disabled]), mwc-textfield:not([disabled]), mwc-select:not([disabled]), mwc-textarea:not([disabled]), mwc-datefield:not([disabled])';
 
   private trapFocus() {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const focusableEls = [...(this.querySelectorAll(this.selectorWhiteList) as any)];
+    const focusableEls = [...(this.querySelectorAll(this.selectorWhiteList) as NodeListOf<HTMLElement>)];
     const firstFocusableEl = focusableEls[0];
     const lastFocusableEl = focusableEls[focusableEls.length - 1];
 
