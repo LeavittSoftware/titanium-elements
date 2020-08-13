@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.3.0 (2020-08-13)
+
+
+### Bug Fixes
+
+* adds types. removes excess if. adds documentation. ([f66d022](https://github.com/LeavittSoftware/titanium-elements/commit/f66d022ccb3ecd6743800f0b9ff2856620da00e9))
+* moves focus trap into animation timer callback ([f9cb1da](https://github.com/LeavittSoftware/titanium-elements/commit/f9cb1daf0969419fc81468a73468efba610ea644))
+
+
+### Features
+
+* adds ability to autofocus ([770b3d1](https://github.com/LeavittSoftware/titanium-elements/commit/770b3d1ded4a98a94032d5a67a61021f6bb8f372))
+* adds trap focus method on dialog base ([12d2388](https://github.com/LeavittSoftware/titanium-elements/commit/12d23889ee558c1d1d2b789fe852e28f6069f9ff))
+* makes focus trap work. removes ability to use default close button with focus trap enabled. ([a91726d](https://github.com/LeavittSoftware/titanium-elements/commit/a91726da0c622416256f6ae30c69ae7024733706))
+
+
+
+
+
 ## 3.2.10 (2020-07-20)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-dialog
