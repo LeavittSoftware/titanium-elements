@@ -72,16 +72,16 @@ export class TitaniumDialogBaseElement extends LitElement {
         window.addEventListener('keydown', this._handleKeydown);
         this.afterOpen();
 
-        if (this.focusTrap) {
-          this.trapFocus();
-        }
-
         const autofocusEl = this.querySelector('[autofocus]') as HTMLElement;
         autofocusEl?.focus?.();
 
         this._animationTimer = window.setTimeout(() => {
           this.dispatchEvent(new CustomEvent('titanium-dialog-opened'));
           this.handleAnimationTimerEnd_();
+
+          if (this.focusTrap) {
+            this.trapFocus();
+          }
         }, 150);
       });
     });
