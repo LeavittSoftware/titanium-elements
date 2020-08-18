@@ -15,6 +15,7 @@ export class DateField extends TextField {
     return css`
       ${super.styles}
       input::-webkit-calendar-picker-indicator {
+        display: block !important;
         position: absolute;
         top: 0;
         right: 0;
