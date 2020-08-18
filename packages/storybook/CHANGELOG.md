@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.9.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.9.0...@leavittsoftware/storybook@5.9.1) (2020-08-13)
+
+**Note:** Version bump only for package @leavittsoftware/storybook
+
+
+
+
+
+# [5.9.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.8.8...@leavittsoftware/storybook@5.9.0) (2020-08-13)
+
+
+### Bug Fixes
+
+* refactors storybook button labels ([a1c737a](https://github.com/LeavittSoftware/titanium-elements/commit/a1c737a43fb3361b6a32b82d420f028cbed277ce))
+
+
+### Features
+
+* adds a story for focus trap ([815503d](https://github.com/LeavittSoftware/titanium-elements/commit/815503d4b1267bd3d686e2a0fbfbf5ecd74c27f7))
+* makes focus trap work. removes ability to use default close button with focus trap enabled. ([a91726d](https://github.com/LeavittSoftware/titanium-elements/commit/a91726da0c622416256f6ae30c69ae7024733706))
+
+
+
+
+
 ## [5.8.8](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.8.7...@leavittsoftware/storybook@5.8.8) (2020-07-30)
 
 **Note:** Version bump only for package @leavittsoftware/storybook
