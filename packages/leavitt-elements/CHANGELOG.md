@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@1.1.7...@leavittsoftware/leavitt-elements@1.2.0) (2020-09-09)
+
+
+### Bug Fixes
+
+* allow calendar button open ([fa47758](https://github.com/LeavittSoftware/titanium-elements/commit/fa4775855938e7216203345ce4974827180b81a4))
+
+
+### Features
+
+* Leavitt person select to support pre-selected person. ([1d6fa75](https://github.com/LeavittSoftware/titanium-elements/commit/1d6fa7521327f002f8260d05c5b77b6ca16cf2eb))
+
+
+
+
+
 ## 1.1.7 (2020-08-18)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.10.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.9.2...@leavittsoftware/storybook@5.10.0) (2020-09-09)
+
+
+### Features
+
+* Leavitt person select to support pre-selected person. ([1d6fa75](https://github.com/LeavittSoftware/titanium-elements/commit/1d6fa7521327f002f8260d05c5b77b6ca16cf2eb))
+
+
+
+
+
 ## [5.9.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.9.1...@leavittsoftware/storybook@5.9.2) (2020-08-18)
 
 **Note:** Version bump only for package @leavittsoftware/storybook
