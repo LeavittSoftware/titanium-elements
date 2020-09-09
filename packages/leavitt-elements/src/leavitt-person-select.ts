@@ -75,6 +75,12 @@ export class LeavittPersonSelectElement extends LoadWhile(Api2ServiceMixin(LitEl
    */
   @property({ type: String }) apiNamespace: string = '';
 
+  updated(changedProps: Map<string, unknown>) {
+    if (changedProps.has('selected')) {
+      this.textfield.value = !this.selected ? '' : `${this.selected.FirstName} ${this.selected.LastName}`;
+    }
+  }
+
   firstUpdated() {
     this.menu.anchor = this.textfield;
     this.textfield.layout();
@@ -227,7 +233,6 @@ export class LeavittPersonSelectElement extends LoadWhile(Api2ServiceMixin(LitEl
           if (selectedIndex > -1) {
             const selected = this.people?.[selectedIndex] ?? null;
             this.setSelected(selected);
-            this.textfield.value = !selected ? '' : `${selected.FirstName} ${selected.LastName}`;
           }
         }}
       >
