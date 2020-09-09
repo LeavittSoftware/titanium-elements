@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.7 (2020-08-18)
+
+
+### Bug Fixes
+
+* allow calendar button open ([fa47758](https://github.com/LeavittSoftware/titanium-elements/commit/fa4775855938e7216203345ce4974827180b81a4))
+
+
+
+
+
 ## [1.1.6](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@1.1.5...@leavittsoftware/leavitt-elements@1.1.6) (2020-07-20)
 
 **Note:** Version bump only for package @leavittsoftware/leavitt-elements
