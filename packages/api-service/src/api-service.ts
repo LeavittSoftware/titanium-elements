@@ -291,7 +291,7 @@ export default class ApiService {
     }
   }
 
-  async getAsync<T>(urlPath: string, appName: string | null = null): Promise<ODataResponse<T>> {
+  async getAsync<T>(urlPath: string, appName: string | null = null, controller: AbortController | null = null): Promise<ODataResponse<T>> {
     const headers = { ...this.headers };
     if (appName !== null) {
       headers['X-LGAppName'] = appName;
@@ -306,6 +306,7 @@ export default class ApiService {
       response = await fetch(`${this.baseUrl}${urlPath}`, {
         method: 'GET',
         headers: headers,
+        signal: controller?.signal ?? undefined
       });
     } catch (error) {
       if (error.message != null && error.message.indexOf('Failed to fetch') !== -1) {
