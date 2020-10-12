@@ -1,0 +1,63 @@
+import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { html } from 'lit-html';
+import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
+import { withWebComponentsKnobs } from '../index.js';
+
+import '@leavittsoftware/leavitt-elements/lib/leavitt-person-select';
+import '@leavittsoftware/user-manager';
+
+<Meta
+  title="Communication|Api Service"
+  decorators={[withKnobs, withWebComponentsKnobs]}
+  parameters={{ component: 'api-service', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+/>
+
+# Api Service
+
+Communicate with Leavitt APIs.
+
+## How to use
+
+```bash
+npm i @leavittsoftware/api-service
+```
+
+```js
+import Api2ServiceMixin from '@leavittsoftware/api-service/lib/api2-service';
+...
+export class DemoElement extends Api2ServiceMixin(LoadWhile(LitElement)) {
+    @property({ type: Array }) abortControllers: Array<AbortController> = [];
+    @property({ type: Array }) fruits: Array<Fruit> = [];
+
+    private async get() {
+        // Cancel any pending requests
+        this.abortControllers.map(c => c.abort());
+        this.abortControllers = [];
+        try {
+            const controller = new AbortController();
+            const get = this.api2.getAsync<Fruit>('Fruits/?$top=5&$orderby=Id desc', 'Testing', controller);
+            this.abortControllers.push(controller);
+            this.dispatchEvent(new PendingStateEvent(get));
+            this.loadWhile(get);
+            const result = await get;
+            this.fruits = result.toList();
+        } catch (error) {
+            if (error.name != 'AbortError') {
+                this.errorMessage = error;
+                AppSnackbar.open(error);
+            }
+        }
+    }
+}
+```
+
+## API
+
+<Props of="api-service" />
+
+## Demo
+
+<Preview withToolbar>
+  <Story name="Docs">{html`<api-service appName="Testing"></api-service>`}</Story>
+</Preview>
