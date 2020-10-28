@@ -3,6 +3,14 @@ import { ODataDto } from './odata-dto';
 import { ODataResponse } from './odata-response';
 
 export type onProgressCallback = (event: ProgressEvent, request: XMLHttpRequest) => void;
+export class CancelRequestEvent extends Event {
+  eventType: string;
+
+  constructor(eventType: string, eventInitDict?: EventInit) {
+    super(eventType, { bubbles: true, composed: true, ...eventInitDict });
+    this.eventType = eventType;
+  }
+}
 
 export default class ApiService {
   constructor(tokenProvider: BearerTokenProvider) {
@@ -24,14 +32,22 @@ export default class ApiService {
     delete this.headers[key];
   }
 
-  async uploadFile<T>(urlPath: string, file: File, onprogress: onProgressCallback, appName: string | null = null): Promise<ODataResponse<T>> {
+  async uploadFile<T>(
+    urlPath: string,
+    file: File,
+    onprogress: onProgressCallback,
+    appName: string | null = null,
+    cancelEvent: CancelRequestEvent
+  ): Promise<ODataResponse<T>> {
     return new Promise(async (resolve, reject) => {
       if (!file || !file.name) {
         reject('ArgumentException: Invalid file passed to uploadFile.');
       }
 
+      const xhr = new XMLHttpRequest();
+      const abortRequest = () => xhr.abort();
+
       try {
-        const xhr = new XMLHttpRequest();
         xhr.upload.addEventListener('progress', e => {
           onprogress(e, xhr);
         });
@@ -54,6 +70,10 @@ export default class ApiService {
           // Once the header is set, it’s set. Additional calls add information to the header, don’t overwrite it.
           // Because of this, we aggregate headers into the headers object rather than calling setRequestHeader multiple times.
           xhr.setRequestHeader(header, headers[header]);
+        }
+
+        if (cancelEvent) {
+          window.addEventListener(cancelEvent.eventType, abortRequest);
         }
 
         xhr.addEventListener(
@@ -89,11 +109,18 @@ export default class ApiService {
         xhr.send(file);
       } catch (error) {
         return reject(error);
+      } finally {
+        window.removeEventListener(cancelEvent.eventType, abortRequest);
       }
     });
   }
 
-  async postAsync<T>(urlPath: string, body: unknown | ODataDto = {}, appName: string | null = null): Promise<ODataResponse<T>> {
+  async postAsync<T>(
+    urlPath: string,
+    body: unknown | ODataDto = {},
+    appName: string | null = null,
+    controller: AbortController | null = null
+  ): Promise<ODataResponse<T>> {
     // Add in the odata model info if it not already on the object
 
     if (body instanceof ODataDto && body._odataInfo && !body['@odata.type']) {
@@ -115,7 +142,12 @@ export default class ApiService {
 
     let response;
     try {
-      response = await fetch(`${this.baseUrl}${urlPath}`, { method: 'POST', body: JSON.stringify(body), headers: headers });
+      response = await fetch(`${this.baseUrl}${urlPath}`, {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: headers,
+        signal: controller?.signal ?? undefined,
+      });
     } catch (error) {
       if (error.message != null && error.message.indexOf('Failed to fetch') !== -1) {
         return Promise.reject('Network error. Check your connection and try again.');
@@ -146,7 +178,7 @@ export default class ApiService {
     }
   }
 
-  async patchAsync(urlPath: string, body: unknown | ODataDto, appName: string | null = null): Promise<void> {
+  async patchAsync(urlPath: string, body: unknown | ODataDto, appName: string | null = null, controller: AbortController | null = null): Promise<void> {
     // Add in the odata model info if it not already on the object
     if (body instanceof ODataDto && body._odataInfo && !body['@odata.type']) {
       if (body._odataInfo.type) {
@@ -166,7 +198,12 @@ export default class ApiService {
 
     let response;
     try {
-      response = await fetch(`${this.baseUrl}${urlPath}`, { method: 'PATCH', body: JSON.stringify(body), headers: headers });
+      response = await fetch(`${this.baseUrl}${urlPath}`, {
+        method: 'PATCH',
+        body: JSON.stringify(body),
+        headers: headers,
+        signal: controller?.signal ?? undefined,
+      });
     } catch (error) {
       if (error.message != null && error.message.indexOf('Failed to fetch') !== -1) {
         return Promise.reject('Network error. Check your connection and try again.');
@@ -193,7 +230,12 @@ export default class ApiService {
     }
   }
 
-  async patchReturnDtoAsync<T>(urlPath: string, body: unknown | ODataDto, appName: string | null = null): Promise<ODataResponse<T>> {
+  async patchReturnDtoAsync<T>(
+    urlPath: string,
+    body: unknown | ODataDto,
+    appName: string | null = null,
+    controller: AbortController | null = null
+  ): Promise<ODataResponse<T>> {
     // Add in the odata model info if it not already on the object
     if (body instanceof ODataDto && body._odataInfo && !body['@odata.type']) {
       if (body._odataInfo.type) {
@@ -217,6 +259,7 @@ export default class ApiService {
         method: 'PATCH',
         body: JSON.stringify(body),
         headers: { ...headers, Prefer: 'return=representation' },
+        signal: controller?.signal ?? undefined,
       });
     } catch (error) {
       if (error.message != null && error.message.indexOf('Failed to fetch') !== -1) {
@@ -244,7 +287,7 @@ export default class ApiService {
     }
   }
 
-  async deleteAsync<T>(urlPath: string, appName: string | null = null): Promise<ODataResponse<T>> {
+  async deleteAsync<T>(urlPath: string, appName: string | null = null, controller: AbortController | null = null): Promise<ODataResponse<T>> {
     const headers = { ...this.headers };
     if (appName !== null) {
       headers['X-LGAppName'] = appName;
@@ -256,7 +299,7 @@ export default class ApiService {
 
     let response;
     try {
-      response = await fetch(`${this.baseUrl}${urlPath}`, { method: 'DELETE', headers: headers });
+      response = await fetch(`${this.baseUrl}${urlPath}`, { method: 'DELETE', headers: headers, signal: controller?.signal ?? undefined });
     } catch (error) {
       if (error.message != null && error.message.indexOf('Failed to fetch') !== -1) {
         return Promise.reject('Network error. Check your connection and try again.');
@@ -306,7 +349,7 @@ export default class ApiService {
       response = await fetch(`${this.baseUrl}${urlPath}`, {
         method: 'GET',
         headers: headers,
-        signal: controller?.signal ?? undefined
+        signal: controller?.signal ?? undefined,
       });
     } catch (error) {
       if (error.message != null && error.message.indexOf('Failed to fetch') !== -1) {
