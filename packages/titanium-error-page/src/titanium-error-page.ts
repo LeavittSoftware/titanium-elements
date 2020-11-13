@@ -85,7 +85,7 @@ export class TitaniumErrorPageElement extends LitElement {
         <h1>Oops!</h1>
         <h2>${this.message}</h2>
       </header>
-      <img src="https://leavitt.com/images/alert.svg" />
+      <img src="https://www.leavitt.com/images/alert.svg" />
     `;
   }
 }
