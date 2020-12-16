@@ -41,6 +41,31 @@ import '@leavittsoftware/leavitt-elements/lib/leavitt-person-select';
     <leavitt-person-select required apiNamespace="PLGameAdmin"></leavitt-person-select>
     <h2>Selected</h2>
     <leavitt-person-select .selected=${{ Id: 11056, FirstName: 'Aaron', LastName: 'Drabeck' }} required apiNamespace="PLGameAdmin"></leavitt-person-select>
+    <h2>Selected Properties</h2>
+    <leavitt-person-select
+      .selectedProperties=${['JobTitle', 'Biography']}
+      @selected=${e => {
+        if (e.target?.selected) {
+          alert(`JobTitle:${e.target.selected.JobTitle} Biography:${e.target.selected.Biography}`);
+        }
+      }}
+      apiNamespace="PLGameAdmin"
+    ></leavitt-person-select>
+    <h2>Expand</h2>
+    <leavitt-person-select
+      expand="EmailAddresses"
+      @selected=${e => {
+        if (e.target?.selected) {
+          alert(`Email:${e.target.selected.EmailAddresses[0]?.Address}`);
+        }
+      }}
+      apiNamespace="DepartmentManager"
+    ></leavitt-person-select>
+    <h2>Filter</h2>
+    <leavitt-person-select
+      filter="Roles/any(r: isof(r,%27LG.Core.DataModel.Core.LGEmployeeRole%27) and not r/IsExpired and (r/LG.Core.DataModel.Core.LGEmployeeRole/LGEmployeeRoleToCompanyAddresses/any(c: not c/IsExpired and c/CompanyAddress/CompanyId eq 20248)))"
+      apiNamespace="DepartmentManager"
+    ></leavitt-person-select>
     <h2>Disabled</h2>
     <leavitt-person-select disabled></leavitt-person-select>`}</Story>
 </Preview>
