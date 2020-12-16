@@ -75,6 +75,21 @@ export class LeavittPersonSelectElement extends LoadWhile(Api2ServiceMixin(LitEl
    */
   @property({ type: String }) apiNamespace: string = '';
 
+  /**
+   *  Additional properties to be selected in the person search query.
+   */
+  @property({ type: Array }) selectedProperties: Array<keyof Person> = [];
+
+  /**
+   *  Expand query added to the person search query.
+   */
+  @property({ type: String }) expand: string = '';
+
+  /**
+   *  Filter query added to the person search query in addition to search terms.
+   */
+  @property({ type: String }) filter: string = '';
+
   updated(changedProps: Map<string, unknown>) {
     if (changedProps.has('selected')) {
       this.textfield.value = !this.selected ? '' : `${this.selected.FirstName} ${this.selected.LastName}`;
@@ -136,11 +151,15 @@ export class LeavittPersonSelectElement extends LoadWhile(Api2ServiceMixin(LitEl
       return null;
     }
     try {
-      const odataParts = ['$top=8', '$count=true', '$select=FirstName,LastName,CompanyName,Id'];
+      const odataParts = ['$top=8', '$count=true', `$select=FirstName,LastName,CompanyName,Id${this.selectedProperties.map(o => `,${o}`).join('')}`];
+      if(this.expand){
+        odataParts.push(`$expand=${this.expand}`);
+      }
       const searchTokens = getSearchTokens(searchTerm);
       if (searchTokens.length > 0) {
         const searchFilter = searchTokens.map((token: string) => `(startswith(FirstName, '${token}') or startswith(LastName, '${token}'))`).join(' and ');
-        odataParts.push(`$filter=${searchFilter}`);
+        const filter = `${searchFilter}${this.filter ? ` and (${this.filter})` : ''}`;
+        odataParts.push(`$filter=${filter}`);
       }
       return await this.api2.getAsync<Person>(`People?${odataParts.join('&')}`, this.apiNamespace);
     } catch (error) {
