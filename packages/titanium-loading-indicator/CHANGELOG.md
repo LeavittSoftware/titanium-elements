@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.1.1 (2021-01-06)
+
+
+### Bug Fixes
+
+* correct casw where close would override sequential opens   ([6b72eac](https://github.com/LeavittSoftware/titanium-elements/commit/6b72eac988c07dd3905608921ae4218051ee9844))
+
+
+
+
+
 # 4.1.0 (2020-07-21)
 
 
