@@ -17,6 +17,7 @@ export class TitaniumFullPageLoadingIndicatorElement extends LitElement {
   private _animationTimer: number;
   private _animationFrame: number;
   private _openDelayTimer: number;
+  private _closeDelayTimer: number;
   private _openDelay: number = 75;
   private _minTimeOpen: number = 350;
   private _timeOpen;
@@ -40,6 +41,10 @@ export class TitaniumFullPageLoadingIndicatorElement extends LitElement {
 
   private _open() {
     window.clearTimeout(this._openDelayTimer);
+
+    //If re-opened while close timer is running, prevent the close
+    window.clearTimeout(this._closeDelayTimer);
+
     this._openDelayTimer = window.setTimeout(() => {
       this._timeOpen = performance.now();
       this.closing = false;
@@ -62,7 +67,7 @@ export class TitaniumFullPageLoadingIndicatorElement extends LitElement {
     const totalTimeOpened = performance.now() - this._timeOpen;
     const closeDelay = totalTimeOpened > this._minTimeOpen ? 0 : this._minTimeOpen - totalTimeOpened || 0;
 
-    window.setTimeout(() => {
+    this._closeDelayTimer = window.setTimeout(() => {
       cancelAnimationFrame(this._animationFrame);
       this._animationFrame = 0;
 
@@ -143,9 +148,7 @@ export class TitaniumFullPageLoadingIndicatorElement extends LitElement {
   `;
 
   render() {
-    return html`
-      <titanium-progress ?disabled=${!this.opening && !this.closing && !this.opened}></titanium-progress>
-    `;
+    return html` <titanium-progress ?disabled=${!this.opening && !this.closing && !this.opened}></titanium-progress> `;
   }
 }
 
