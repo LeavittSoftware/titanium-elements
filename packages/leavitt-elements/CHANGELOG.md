@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 1.3.0 (2021-01-08)
+
+
+### Features
+
+* allow date field to accept date and datetime local ([9af49b7](https://github.com/LeavittSoftware/titanium-elements/commit/9af49b76a31f2a3db12600385e42f1b59f929a83))
+
+
+
+
+
 ## 1.2.1 (2020-12-16)
 
 **Note:** Version bump only for package @leavittsoftware/leavitt-elements
