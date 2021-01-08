@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@1.3.0...@leavittsoftware/leavitt-elements@1.3.1) (2021-01-08)
+
+
+### Bug Fixes
+
+* remove console log ([6b50aa4](https://github.com/LeavittSoftware/titanium-elements/commit/6b50aa4e2c5699bae75ed6e07081fac63b89c333))
+
+
+
+
+
 # 1.3.0 (2021-01-08)
 
 
