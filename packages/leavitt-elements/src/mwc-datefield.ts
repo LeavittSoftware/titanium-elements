@@ -7,7 +7,6 @@ export class DateField extends TextField {
 
   updated(changedProps: Map<keyof this, unknown>) {
     if (changedProps.has('dateType')) {
-      console.log(this.dateType);
       this.placeholder = this.dateType === 'date' ? 'yyyy-mm-dd' : 'yyyy-mm-dd MM:hh:ss';
       this.type = this.dateType;
     }
