@@ -1,0 +1,44 @@
+{
+  "name": "@leavittsoftware/titanium-address-input",
+  "description": "",
+  "author": "Leavitt Software",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "lib/titanium-address-input.js",
+  "typings": "lib/titanium-address-input.d.ts",
+  "homepage": "https://github.com/LeavittSoftware/titanium-elements/tree/master/packages/titanium-address-input",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "keywords": [
+    "web component"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LeavittSoftware/titanium-elements.git"
+  },
+  "dependencies": {
+    "@leavittsoftware/titanium-dialog": "^3.3.3",
+    "@material/mwc-button": "*",
+    "@material/mwc-textfield": "*",
+    "@material/mwc-select": "*",
+    "@material/mwc-list": "*",
+    "@em-polymer/google-apis": "*",
+    "tslib": "^1.11.1"
+  },
+  "peerDependencies": {
+    "lit-element": ">=2.1.0"
+  },
+  "devDependencies": {
+    "@types/googlemaps": "^3.43.0"
+  },
+  "scripts": {
+    "build:watch": "tsc --watch",
+    "build": "tsc ",
+    "lint": "eslint ./src/**/*.ts"
+  },
+  "bugs": {
+    "url": "https://github.com/LeavittSoftware/titanium-elements/issues"
+  }
+}

@@ -5,6 +5,7 @@
     { "path": "packages/user-manager" },
     { "path": "packages/api-service" },
     { "path": "packages/titanium-access-denied-page" },
+    { "path": "packages/titanium-address-input" },
     { "path": "packages/titanium-button" },
     { "path": "packages/titanium-card" },
     { "path": "packages/titanium-chip" },

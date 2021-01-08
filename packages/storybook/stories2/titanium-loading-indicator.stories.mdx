@@ -1,0 +1,38 @@
+import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { html } from 'lit-html';
+import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
+
+import '@leavittsoftware/titanium-loading-indicator';
+
+<Meta
+  title="UI COMPONENTS|titanium-loading-indicator" }
+/>
+
+# Titanium Loading Indicator
+
+A simple loading indicator.
+
+## How to use
+
+```bash
+npm i @leavittsoftware/titanium-loading-indicator
+```
+
+```js
+import '@leavittsoftware/titanium-loading-indicator';
+```
+
+## API
+
+<Props of="titanium-loading-indicator" />
+
+## Demo
+
+<Preview withToolbar>
+  <Story name="Docs">
+    {html`
+      <titanium-loading-indicator one></titanium-loading-indicator>
+    `}
+  </Story>
+</Preview>

@@ -1,0 +1,37 @@
+import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { html } from 'lit-html';
+import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
+import { withWebComponentsKnobs } from '../index.js';
+
+import '@leavittsoftware/titanium-address-input';
+
+<Meta
+  title="UI COMPONENTS|titanium-address-input"
+  decorators={[withKnobs, withWebComponentsKnobs]}
+  parameters={{ component: 'titanium-address-input', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+/>
+
+# Titanium Image Input
+
+Material design input with addrress suggestion and manual entry.
+
+## How to use
+
+```bash
+npm i @leavittsoftware/titanium-address-input
+```
+
+```js
+import '@leavittsoftware/titanium-address-input';
+```
+
+## API
+
+<Props of="titanium-address-input" />
+
+## Demo
+
+<Preview withToolbar>
+  <Story name="Docs">{html` <titanium-address-input googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k" outlined></titanium-address-input>`}</Story>
+</Preview>
