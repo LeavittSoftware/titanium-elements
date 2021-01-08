@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.11.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.10.3...@leavittsoftware/storybook@5.11.0) (2021-01-08)
+
+
+### Features
+
+* add titanium-address-input ([44a3ca6](https://github.com/LeavittSoftware/titanium-elements/commit/44a3ca6f9a47978c14981f32531263263aa8e642))
+
+
+
+
+
 ## [5.10.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.10.2...@leavittsoftware/storybook@5.10.3) (2021-01-06)
 
 **Note:** Version bump only for package @leavittsoftware/storybook
