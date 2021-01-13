@@ -41,6 +41,14 @@ export class TitaniumAddressInput extends LitElement {
     return this.input.reportValidity();
   }
 
+  public reset() {
+    return this.input.reset();
+  }
+
+  public layout() {
+    return this.input.layout();
+  }
+
   private _setLocationAndNotify(location: Partial<Address> | null) {
     this.location = location;
     this.dispatchEvent(
