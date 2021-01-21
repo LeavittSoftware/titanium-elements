@@ -16,6 +16,8 @@ export class GoogleAddressInput extends LitElement {
   @property({ type: Object }) location: Partial<Address> | null;
   @property({ type: String }) label: string = 'Address';
   @property({ type: String }) googleMapsApiKey: string;
+  @property({ type: String }) helper: string;
+  @property({ type: Boolean }) helperPersistent: boolean;
 
   @query('mwc-textfield') input: TextField & { formElement: HTMLInputElement; mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
   @query('google-maps-api') mapsApi: HTMLElement;
@@ -155,6 +157,8 @@ export class GoogleAddressInput extends LitElement {
         .validationMessage=${this.validationMessage}
         .label=${this.label}
         .icon=${this.icon}
+        .helper=${this.helper}
+        .helperPersistent=${this.helperPersistent}
         @input=${event => {
           this.inputValue = event.target.value;
           if (this.location) {

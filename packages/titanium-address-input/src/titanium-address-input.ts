@@ -16,6 +16,8 @@ export class TitaniumAddressInput extends LitElement {
   @property({ type: String }) label: string = 'Address';
   @property({ type: String }) icon: string;
   @property({ type: String }) googleMapsApiKey: string;
+  @property({ type: String }) helper: string;
+  @property({ type: Boolean }) helperPersistent: boolean;
 
   @query('manual-address-dialog') private dialog: ManualAddressDialogElement;
   @query('google-address-input') private input: GoogleAddressInput;
@@ -66,6 +68,8 @@ export class TitaniumAddressInput extends LitElement {
         .validationMessage=${this.validationMessage}
         .label=${this.label}
         .googleMapsApiKey=${this.googleMapsApiKey}
+        .helper=${this.helper}
+        .helperPersistent=${this.helperPersistent}
         @location-changed=${event => {
           const location = event.detail;
           this._setLocationAndNotify(location);
