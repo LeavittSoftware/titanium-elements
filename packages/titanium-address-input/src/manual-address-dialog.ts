@@ -118,7 +118,6 @@ export class ManualAddressDialogElement extends LitElement {
             }}
             @click=${e => {
               //Epic hack to limit height of select until mwc fixes overflow in modals
-              console.log(e);
               const menuSurface = e.target?.shadowRoot
                 ?.querySelector('.mdc-select')
                 ?.querySelector('mwc-menu')
