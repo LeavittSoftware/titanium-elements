@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-address-input@1.1.3...@leavittsoftware/titanium-address-input@1.1.4) (2021-01-25)
+
+
+### Bug Fixes
+
+* removes console log ([d038702](https://github.com/LeavittSoftware/titanium-elements/commit/d038702961f8b85b9415522cbf1bdfb5858744b7))
+
+
+
+
+
 ## [1.1.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-address-input@1.1.2...@leavittsoftware/titanium-address-input@1.1.3) (2021-01-21)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-address-input
