@@ -38,7 +38,10 @@ export class GoogleAddressInput extends LitElement {
 
   async firstUpdated() {
     this.input.validityTransform = () => {
-      if (!this.location || !validateStreet(this.location?.street ?? '') || !this.location.city || !this.location.state || !this.location.zip) {
+      if (
+           (this.location && (!validateStreet(this.location?.street ?? '') || !this.location.city || !this.location.state || !this.location.zip))
+        || (this.required && !this.location)
+      ) {
         return {
           valid: false,
         };
