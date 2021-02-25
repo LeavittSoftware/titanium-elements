@@ -92,7 +92,7 @@ export class GoogleAddressInput extends LitElement {
 
   private async _setUpAutocomplete() {
     await this.input.updateComplete;
-    this.autocomplete = new google.maps.places.Autocomplete(this.input.formElement, { types: ['address'] });
+    this.autocomplete = new google.maps.places.Autocomplete(this.input.formElement, { fields: ['address_components', 'formatted_address'], types: ['address'] });
     google.maps.event.addListener(this.autocomplete, 'place_changed', this._onPlaceChanged.bind(this));
   }
 
