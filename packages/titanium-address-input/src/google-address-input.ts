@@ -13,7 +13,7 @@ export class GoogleAddressInput extends LitElement {
   @property({ type: Boolean }) outlined: boolean;
   @property({ type: String }) validationMessage: string;
   @property({ type: String }) icon: string;
-  @property({ type: Object }) location: Partial<Address> | null;
+  @property({ type: Object }) location: Partial<Address> | null = null;
   @property({ type: String }) label: string = 'Address';
   @property({ type: String }) googleMapsApiKey: string;
   @property({ type: String }) helper: string;
@@ -29,6 +29,9 @@ export class GoogleAddressInput extends LitElement {
 
   async updated(changedProps: Map<keyof this, unknown>) {
     if (changedProps.has('location')) {
+      if (typeof changedProps.get('location') === 'undefined') {
+        return;
+      }
       this.inputValue = addressToString(this.location);
 
       await this.input.updateComplete;
