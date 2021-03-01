@@ -10,6 +10,7 @@ import { ImageCropperDialogElement } from './image-cropper-dialog';
  *
  * @element titanium-image-input
  *
+ * @cssprop {Color} --app-border-color - Border color.
  * @cssprop {Color} --app-primary-color - Focused border color.
  * @cssprop {Color} --titanium-input-error-color - Error color, text and outline.
  * @cssprop {Color} --titanium-input-placeholder-color - Color of icon button and placeholder text.
@@ -177,7 +178,7 @@ export class TitaniumImageInputElement extends LitElement {
         max-height: 48px;
         grid-template-columns: 1fr auto;
         align-items: center;
-        border: 1px solid rgba(0, 0, 0, 0.38);
+        border: 1px solid var(--app-border-color, rgba(0, 0, 0, 0.38));
         border-radius: 4px;
         padding: 3px 16px;
       }
