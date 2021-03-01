@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-address-input@1.1.4...@leavittsoftware/titanium-address-input@1.1.5) (2021-03-01)
+
+
+### Bug Fixes
+
+* init location to null and add check to prevent reporting invalid on load ([4383381](https://github.com/LeavittSoftware/titanium-elements/commit/438338141986548d1c0fad361f290870db9583b3))
+* missing geometry field ([a4dd8f8](https://github.com/LeavittSoftware/titanium-elements/commit/a4dd8f85f5dc35ae5ba61cf07620527f3edbb660))
+* restrict data requested from google api ([3c8d27a](https://github.com/LeavittSoftware/titanium-elements/commit/3c8d27afd3c1bc9a803cce31f4e6df7d5fcc40c4))
+* validityTransform causes invalid state on empty, non-required field ([e2801d3](https://github.com/LeavittSoftware/titanium-elements/commit/e2801d3cc87882f4a5fec57981d967bb91f46e09))
+
+
+
+
+
 ## [1.1.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-address-input@1.1.3...@leavittsoftware/titanium-address-input@1.1.4) (2021-01-25)
 
 
