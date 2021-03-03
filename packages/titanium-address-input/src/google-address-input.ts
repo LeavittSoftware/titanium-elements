@@ -28,11 +28,12 @@ export class GoogleAddressInput extends LitElement {
   }
 
   async updated(changedProps: Map<keyof this, unknown>) {
+    this.inputValue = addressToString(this.location);
+
     if (changedProps.has('location')) {
       if (typeof changedProps.get('location') === 'undefined') {
         return;
       }
-      this.inputValue = addressToString(this.location);
 
       await this.input.updateComplete;
       this.reportValidity();
