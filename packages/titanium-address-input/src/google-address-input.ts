@@ -28,13 +28,8 @@ export class GoogleAddressInput extends LitElement {
   }
 
   async updated(changedProps: Map<keyof this, unknown>) {
-    this.inputValue = addressToString(this.location);
-
     if (changedProps.has('location')) {
-      if (typeof changedProps.get('location') === 'undefined') {
-        return;
-      }
-
+      this.inputValue = addressToString(this.location);
       await this.input.updateComplete;
       this.reportValidity();
     }
@@ -43,8 +38,8 @@ export class GoogleAddressInput extends LitElement {
   async firstUpdated() {
     this.input.validityTransform = () => {
       if (
-           (this.location && (!validateStreet(this.location?.street ?? '') || !this.location.city || !this.location.state || !this.location.zip))
-        || (this.required && !this.location)
+        (this.location && (!validateStreet(this.location?.street ?? '') || !this.location.city || !this.location.state || !this.location.zip)) ||
+        (this.required && !this.location)
       ) {
         return {
           valid: false,
@@ -99,7 +94,10 @@ export class GoogleAddressInput extends LitElement {
 
   private async _setUpAutocomplete() {
     await this.input.updateComplete;
-    this.autocomplete = new google.maps.places.Autocomplete(this.input.formElement, { fields: ['address_components', 'formatted_address', 'geometry'], types: ['address'] });
+    this.autocomplete = new google.maps.places.Autocomplete(this.input.formElement, {
+      fields: ['address_components', 'formatted_address', 'geometry'],
+      types: ['address'],
+    });
     google.maps.event.addListener(this.autocomplete, 'place_changed', this._onPlaceChanged.bind(this));
   }
 
