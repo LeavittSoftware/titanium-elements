@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.6 (2021-03-04)
+
+
+### Bug Fixes
+
+* can no longer select a new address after one was selected ([f57209d](https://github.com/LeavittSoftware/titanium-elements/commit/f57209d04545d5ccf8baaf4de8794d6587e8600f))
+* reverts location type check ([cace2dc](https://github.com/LeavittSoftware/titanium-elements/commit/cace2dcbade45c94a5e97674c339ee24a753d844))
+
+
+
+
+
 ## [1.1.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-address-input@1.1.4...@leavittsoftware/titanium-address-input@1.1.5) (2021-03-01)
 
 
