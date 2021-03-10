@@ -13,6 +13,7 @@ export class GoogleAddressInput extends LitElement {
   @property({ type: Boolean }) outlined: boolean;
   @property({ type: String }) validationMessage: string;
   @property({ type: String }) icon: string;
+  @property({ type: String }) iconTrailing: string;
   @property({ type: Object }) location: Partial<Address> | null;
   @property({ type: String }) label: string = 'Address';
   @property({ type: String }) googleMapsApiKey: string;
@@ -170,6 +171,7 @@ export class GoogleAddressInput extends LitElement {
         .validationMessage=${this.validationMessage}
         .label=${this.label}
         .icon=${this.icon}
+        .iconTrailing=${this.iconTrailing}
         .helper=${this.helper}
         .helperPersistent=${this.helperPersistent}
         @input=${event => {
