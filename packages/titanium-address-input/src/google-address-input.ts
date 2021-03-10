@@ -69,13 +69,13 @@ export class GoogleAddressInput extends LitElement {
     //Hack to get around lack of a reset method on mwc-textfield
     // Update when API is available
     this._clearAddress();
-    this._setLocationAndNotify(null);
+    this.setLocation(null);
     await this.updateComplete;
     this.input?.mdcFoundation?.setValid(true);
     this.input.isUiValid = true;
   }
 
-  private _setLocationAndNotify(location: Partial<Address> | null) {
+  public setLocation(location: Partial<Address> | null) {
     this.location = location;
     this.dispatchEvent(
       new CustomEvent<Partial<Address> | null>('location-changed', { composed: true, detail: location })
@@ -149,7 +149,7 @@ export class GoogleAddressInput extends LitElement {
 
     if (location.street || location.city || location.state || location.zip || location.fullStreet || location.fullState) {
       this.location = location;
-      this._setLocationAndNotify(this.location);
+      this.setLocation(this.location);
       this.reportValidity();
     }
   }
@@ -177,7 +177,7 @@ export class GoogleAddressInput extends LitElement {
         @input=${event => {
           this.inputValue = event.target.value;
           if (this.location) {
-            this._setLocationAndNotify(null);
+            this.setLocation(null);
           }
           this.dispatchEvent(new CustomEvent('value-changed', { composed: true, detail: { value: this.inputValue } }));
         }}

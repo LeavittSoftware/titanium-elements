@@ -51,7 +51,7 @@ export class TitaniumAddressInput extends LitElement {
     return this.input.layout();
   }
 
-  private _setLocationAndNotify(location: Partial<Address> | null) {
+  public setLocation(location: Partial<Address> | null) {
     this.location = location;
     this.dispatchEvent(
       new CustomEvent<Partial<Address> | null>('location-changed', { composed: true, detail: location })
@@ -72,7 +72,7 @@ export class TitaniumAddressInput extends LitElement {
         .helperPersistent=${this.helperPersistent}
         @location-changed=${event => {
           const location = event.detail;
-          this._setLocationAndNotify(location);
+          this.setLocation(location);
         }}
       ></google-address-input>
       <mwc-icon-button
@@ -80,7 +80,7 @@ export class TitaniumAddressInput extends LitElement {
         @click=${async () => {
           const customAddress = await this.dialog.open(this.location);
           if (customAddress) {
-            this._setLocationAndNotify(customAddress);
+            this.setLocation(customAddress);
             this.input.focus();
           }
         }}
