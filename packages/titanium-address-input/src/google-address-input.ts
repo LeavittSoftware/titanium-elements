@@ -13,7 +13,7 @@ export class GoogleAddressInput extends LitElement {
   @property({ type: Boolean }) outlined: boolean;
   @property({ type: String }) validationMessage: string;
   @property({ type: String }) icon: string;
-  @property({ type: Object }) location: Partial<Address> | null = null;
+  @property({ type: Object }) location: Partial<Address> | null;
   @property({ type: String }) label: string = 'Address';
   @property({ type: String }) googleMapsApiKey: string;
   @property({ type: String }) helper: string;
@@ -37,10 +37,7 @@ export class GoogleAddressInput extends LitElement {
 
   async firstUpdated() {
     this.input.validityTransform = () => {
-      if (
-        (this.location && (!validateStreet(this.location?.street ?? '') || !this.location.city || !this.location.state || !this.location.zip)) ||
-        (this.required && !this.location)
-      ) {
+      if (!this.location || !validateStreet(this.location?.street ?? '') || !this.location.city || !this.location.state || !this.location.zip) {
         return {
           valid: false,
         };
@@ -94,10 +91,7 @@ export class GoogleAddressInput extends LitElement {
 
   private async _setUpAutocomplete() {
     await this.input.updateComplete;
-    this.autocomplete = new google.maps.places.Autocomplete(this.input.formElement, {
-      fields: ['address_components', 'formatted_address', 'geometry'],
-      types: ['address'],
-    });
+    this.autocomplete = new google.maps.places.Autocomplete(this.input.formElement, { types: ['address'] });
     google.maps.event.addListener(this.autocomplete, 'place_changed', this._onPlaceChanged.bind(this));
   }
 

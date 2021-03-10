@@ -12,7 +12,7 @@ export class TitaniumAddressInput extends LitElement {
   @property({ type: Boolean }) required: boolean;
   @property({ type: Boolean }) outlined: boolean;
   @property({ type: String }) validationMessage: string;
-  @property({ type: Object }) location: Partial<Address> | null = null;
+  @property({ type: Object }) location: Partial<Address> | null;
   @property({ type: String }) label: string = 'Address';
   @property({ type: String }) icon: string;
   @property({ type: String }) googleMapsApiKey: string;
