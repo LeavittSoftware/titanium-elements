@@ -37,10 +37,21 @@ export class GoogleAddressInput extends LitElement {
 
   async firstUpdated() {
     this.input.validityTransform = () => {
-      if (!this.location || !validateStreet(this.location?.street ?? '') || !this.location.city || !this.location.state || !this.location.zip) {
-        return {
-          valid: false,
-        };
+      if (this.required) {
+        if (!this.location || !validateStreet(this.location?.street ?? '') || !this.location.city || !this.location.state || !this.location.zip) {
+          return {
+            valid: false,
+          };
+        }
+      } else {
+        if (
+          (!this.location && this.inputValue) ||
+          (this.location && (!validateStreet(this.location?.street ?? '') || !this.location.city || !this.location.state || !this.location.zip))
+        ) {
+          return {
+            valid: false,
+          };
+        }
       }
 
       return {};
