@@ -1,7 +1,7 @@
 import { property, html, customElement, query, LitElement, css } from 'lit-element';
 import '@material/mwc-textfield';
-import '@em-polymer/google-apis/google-maps-api';
 
+import { Loader } from '@googlemaps/js-api-loader';
 import { TextField } from '@material/mwc-textfield';
 import { Address, addressToString, validateStreet } from './Address';
 
@@ -21,12 +21,6 @@ export class GoogleAddressInput extends LitElement {
   @property({ type: Boolean }) helperPersistent: boolean;
 
   @query('mwc-textfield') input: TextField & { formElement: HTMLInputElement; mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
-  @query('google-maps-api') mapsApi: HTMLElement;
-
-  async disconnectedCallback() {
-    super.disconnectedCallback();
-    this.mapsApi.removeEventListener('library-loaded-changed', this._onLibraryLoadedChanged.bind(this));
-  }
 
   async updated(changedProps: Map<keyof this, unknown>) {
     if (changedProps.has('location')) {
@@ -37,6 +31,15 @@ export class GoogleAddressInput extends LitElement {
   }
 
   async firstUpdated() {
+    const loader = new Loader({
+      apiKey: this.googleMapsApiKey,
+      version: 'weekly',
+      libraries: ['places'],
+    });
+
+    await loader.load();
+    this._setUpAutocomplete();
+
     this.input.validityTransform = () => {
       if (this.required) {
         if (!this.location || !validateStreet(this.location?.street ?? '') || !this.location.city || !this.location.state || !this.location.zip) {
@@ -59,10 +62,6 @@ export class GoogleAddressInput extends LitElement {
     };
 
     await this.updateComplete;
-    this.mapsApi.addEventListener('library-loaded-changed', this._onLibraryLoadedChanged.bind(this));
-    if (typeof google !== 'undefined') {
-      this._setUpAutocomplete();
-    }
   }
 
   public async reset() {
@@ -92,13 +91,6 @@ export class GoogleAddressInput extends LitElement {
 
   public layout() {
     this.input.layout();
-  }
-
-  private _onLibraryLoadedChanged(e: CustomEvent) {
-    if (!e.detail.value) {
-      return;
-    }
-    this._setUpAutocomplete();
   }
 
   private async _setUpAutocomplete() {
@@ -163,7 +155,6 @@ export class GoogleAddressInput extends LitElement {
 
   render() {
     return html`
-      <google-maps-api api-key=${this.googleMapsApiKey} libraries="places"></google-maps-api>
       <mwc-textfield
         .required=${this.required}
         .outlined=${this.outlined}

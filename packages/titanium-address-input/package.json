@@ -19,7 +19,7 @@
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
   "dependencies": {
-    "@em-polymer/google-apis": "*",
+    "@googlemaps/js-api-loader": "*",
     "@leavittsoftware/titanium-dialog": "^3.3.3",
     "@material/mwc-button": "*",
     "@material/mwc-list": "*",
