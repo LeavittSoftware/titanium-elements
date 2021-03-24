@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-address-input@1.3.0...@leavittsoftware/titanium-address-input@1.4.0) (2021-03-24)
+
+
+### Features
+
+* use short name for address ([7957452](https://github.com/LeavittSoftware/titanium-elements/commit/7957452550d4f3f7fab145cf4dc1808b31bbc6c4))
+
+
+
+
+
 # [1.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-address-input@1.2.0...@leavittsoftware/titanium-address-input@1.3.0) (2021-03-10)
 
 
