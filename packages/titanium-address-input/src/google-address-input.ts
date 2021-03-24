@@ -134,8 +134,8 @@ export class GoogleAddressInput extends LitElement {
     const countryComponent = place.address_components.filter(o => o.types.some(p => p === 'country'))[0];
     const location: Address = {
       street: streetNumberComponent?.short_name
-        ? `${streetNumberComponent?.short_name} ${streetAddressComponent?.long_name}`
-        : streetAddressComponent?.long_name,
+        ? `${streetNumberComponent?.short_name} ${streetAddressComponent?.short_name}`
+        : streetAddressComponent?.short_name,
       fullStreet: `${streetNumberComponent?.long_name} ${streetAddressComponent?.long_name}`,
       city: cityComponent?.short_name,
       county: countyComponent?.short_name,
