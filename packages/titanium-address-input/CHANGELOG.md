@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-address-input@1.4.0...@leavittsoftware/titanium-address-input@1.5.0) (2021-03-24)
+
+
+### Features
+
+* remove polymer based google map API component  ([f6ed462](https://github.com/LeavittSoftware/titanium-elements/commit/f6ed4629bf02b8e66acc2629a936796e8885c178))
+
+
+
+
+
 # [1.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-address-input@1.3.0...@leavittsoftware/titanium-address-input@1.4.0) (2021-03-24)
 
 
