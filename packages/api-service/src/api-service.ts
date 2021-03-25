@@ -3,18 +3,21 @@ import { ODataDto } from './odata-dto';
 import { ODataResponse } from './odata-response';
 
 export type onProgressCallback = (event: ProgressEvent, request: XMLHttpRequest) => void;
-
+export type ApiServiceOptions = { appNameHeaderKey: string };
 export default class ApiService {
-  constructor(tokenProvider: BearerTokenProvider) {
+  constructor(tokenProvider: BearerTokenProvider, options?: ApiServiceOptions) {
     this._tokenProvider = tokenProvider;
     this.addHeader('Content-Type', 'application/json');
-    this.addHeader('X-LGAppName', 'General');
+
+    this._appNameHeaderKey = options?.appNameHeaderKey ? options?.appNameHeaderKey : 'X-LGAppName';
+    this.addHeader(this._appNameHeaderKey, 'General');
   }
 
   headers = {};
   baseUrl: string = 'https://api2.leavitt.com/';
 
   private _tokenProvider: BearerTokenProvider;
+  private _appNameHeaderKey: string;
 
   addHeader(key: string, value: string) {
     this.headers[key] = value;
@@ -46,7 +49,7 @@ export default class ApiService {
 
         if (appName !== null) {
           //appName set as a parameter has more specificity and should win
-          headers['X-LGAppName'] = appName;
+          headers[this._appNameHeaderKey] = appName;
         }
 
         for (const header in headers) {
@@ -106,7 +109,7 @@ export default class ApiService {
     const headers = { ...this.headers };
 
     if (appName !== null) {
-      headers['X-LGAppName'] = appName;
+      headers[this._appNameHeaderKey] = appName;
     }
     const token = await this._tokenProvider._getBearerTokenAsync();
     if (token !== null) {
@@ -157,7 +160,7 @@ export default class ApiService {
 
     const headers = { ...this.headers };
     if (appName !== null) {
-      headers['X-LGAppName'] = appName;
+      headers[this._appNameHeaderKey] = appName;
     }
     const token = await this._tokenProvider._getBearerTokenAsync();
     if (token !== null) {
@@ -204,7 +207,7 @@ export default class ApiService {
 
     const headers = { ...this.headers };
     if (appName !== null) {
-      headers['X-LGAppName'] = appName;
+      headers[this._appNameHeaderKey] = appName;
     }
     const token = await this._tokenProvider._getBearerTokenAsync();
     if (token !== null) {
@@ -247,7 +250,7 @@ export default class ApiService {
   async deleteAsync<T>(urlPath: string, appName: string | null = null): Promise<ODataResponse<T>> {
     const headers = { ...this.headers };
     if (appName !== null) {
-      headers['X-LGAppName'] = appName;
+      headers[this._appNameHeaderKey] = appName;
     }
     const token = await this._tokenProvider._getBearerTokenAsync();
     if (token !== null) {
@@ -294,7 +297,7 @@ export default class ApiService {
   async getAsync<T>(urlPath: string, appName: string | null = null): Promise<ODataResponse<T>> {
     const headers = { ...this.headers };
     if (appName !== null) {
-      headers['X-LGAppName'] = appName;
+      headers[this._appNameHeaderKey] = appName;
     }
     const token = await this._tokenProvider._getBearerTokenAsync();
     if (token !== null) {
