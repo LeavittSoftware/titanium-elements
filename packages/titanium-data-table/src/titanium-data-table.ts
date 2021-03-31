@@ -119,7 +119,7 @@ export class TitaniumDataTableElement extends LitElement {
     super.connectedCallback();
 
     if (!this.disablePaging) {
-      this.setTake(this._determineTake());
+      this.setTake(this._determineTake(), false);
     }
     this.addEventListener('titanium-data-table-item-selected-changed', this._handleItemSelectionChange.bind(this));
   }
@@ -243,9 +243,11 @@ export class TitaniumDataTableElement extends LitElement {
     this.dispatchEvent(new CustomEvent('page-changed', { composed: true, detail: value }));
   }
 
-  private setTake(value: number) {
+  private setTake(value: number, notify: boolean = true) {
     this.take = value;
-    this.dispatchEvent(new CustomEvent('take-changed', { composed: true, detail: value }));
+    if (notify) {
+      this.dispatchEvent(new CustomEvent('take-changed', { composed: true, detail: value }));
+    }
     localStorage.setItem(`${this.localStorageKey ?? this.header}-take`, `${value}`);
   }
 
