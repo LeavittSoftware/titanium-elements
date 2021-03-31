@@ -109,7 +109,10 @@ export class TitaniumDataTableElement extends LitElement {
    */
   @property({ type: Boolean, reflect: true, attribute: 'narrow' }) protected narrow: boolean = false;
 
-  @property({ type: Number }) private take: number;
+  /**
+   *  Get current take value. Do not set.
+   */
+  @property({ type: Number }) take: number;
 
   @query('mwc-checkbox') checkbox: Checkbox;
 
