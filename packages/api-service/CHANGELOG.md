@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.3.0 (2021-03-25)
+
+
+### Features
+
+* adds options parameter to api service ([15cf540](https://github.com/LeavittSoftware/titanium-elements/commit/15cf540883981be7f9c09df286ea4155b2ce734b))
+
+
+
+
+
 ## [6.2.17](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@6.2.16...@leavittsoftware/api-service@6.2.17) (2020-06-30)
 
 **Note:** Version bump only for package @leavittsoftware/api-service
