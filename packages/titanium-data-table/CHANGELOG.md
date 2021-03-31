@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@8.0.0...@leavittsoftware/titanium-data-table@9.0.0) (2021-03-31)
+
+
+### Features
+
+* expose take property ([fb62f8e](https://github.com/LeavittSoftware/titanium-elements/commit/fb62f8ee6f19a7ae5a2c5c4968917a93fd99b430))
+* **titanium-datatable:** take-changed will no longer be called during constructor  ([d21cb17](https://github.com/LeavittSoftware/titanium-elements/commit/d21cb17305790e77d02d23883df0e2a7d9a9395a))
+
+
+### BREAKING CHANGES
+
+* **titanium-datatable:** take-changed will no longer be called during constructor 
+
+
+
+
+
 # 8.0.0 (2021-03-31)
 
 
