@@ -117,24 +117,25 @@ export class GoogleAddressInput extends LitElement {
 
     this.dispatchEvent(new CustomEvent('value-changed', { composed: true, detail: { value: this.inputValue } }));
 
-    const stateComponent = place.address_components.filter(o => o.types.some(p => p === 'administrative_area_level_1'))[0];
-    const streetNumberComponent = place.address_components.filter(o => o.types.some(p => p === 'street_number'))[0];
-    const streetAddressComponent = place.address_components.filter(o => o.types.some(p => p === 'route'))[0];
-    const cityComponent = place.address_components.filter(o => o.types.some(p => p === 'locality'))[0];
-    const zipCodeComponent = place.address_components.filter(o => o.types.some(p => p === 'postal_code'))[0];
-    const countyComponent = place.address_components.filter(o => o.types.some(p => p === 'administrative_area_level_2'))[0];
-    const countryComponent = place.address_components.filter(o => o.types.some(p => p === 'country'))[0];
+    const stateComponent = place.address_components.find(o => o.types.some(p => p === 'administrative_area_level_1'));
+    const streetNumberComponent = place.address_components.find(o => o.types.some(p => p === 'street_number'));
+    const streetAddressComponent = place.address_components.find(o => o.types.some(p => p === 'route'));
+    const cityComponent =
+      place.address_components.find(o => o.types.some(p => p === 'neighborhood')) ?? place.address_components.find(o => o.types.some(p => p === 'locality'));
+    const zipCodeComponent = place.address_components.find(o => o.types.some(p => p === 'postal_code'));
+    const countyComponent = place.address_components.find(o => o.types.some(p => p === 'administrative_area_level_2'));
+    const countryComponent = place.address_components.find(o => o.types.some(p => p === 'country'));
     const location: Address = {
       street: streetNumberComponent?.short_name
         ? `${streetNumberComponent?.short_name} ${streetAddressComponent?.short_name}`
-        : streetAddressComponent?.short_name,
+        : streetAddressComponent?.short_name ?? '',
       fullStreet: `${streetNumberComponent?.long_name} ${streetAddressComponent?.long_name}`,
-      city: cityComponent?.short_name,
-      county: countyComponent?.short_name,
-      country: countryComponent?.short_name,
-      state: stateComponent?.short_name,
-      fullState: stateComponent?.long_name,
-      zip: zipCodeComponent?.short_name,
+      city: cityComponent?.short_name ?? '',
+      county: countyComponent?.short_name ?? '',
+      country: countryComponent?.short_name ?? '',
+      state: stateComponent?.short_name ?? '',
+      fullState: stateComponent?.long_name ?? '',
+      zip: zipCodeComponent?.short_name ?? '',
       latitude: place.geometry?.location.lat() ?? null,
       longitude: place.geometry?.location.lng() ?? null,
     };
