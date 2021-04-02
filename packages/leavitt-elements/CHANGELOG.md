@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@1.3.4...@leavittsoftware/leavitt-elements@1.4.0) (2021-04-02)
+
+
+### Features
+
+* add new Leavitt Date Range selector element ([e4a3410](https://github.com/LeavittSoftware/titanium-elements/commit/e4a3410e4c67fe83ffee1bde571ebbcaf325e234))
+
+
+
+
+
 ## [1.3.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@1.3.3...@leavittsoftware/leavitt-elements@1.3.4) (2021-03-31)
 
 **Note:** Version bump only for package @leavittsoftware/leavitt-elements
