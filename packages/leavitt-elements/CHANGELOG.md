@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@1.4.2...@leavittsoftware/leavitt-elements@1.5.0) (2021-04-02)
+
+
+### Features
+
+* add icon to range select ([fcce0e9](https://github.com/LeavittSoftware/titanium-elements/commit/fcce0e9f6cba0cef6fc7280fe01970bb8c6a7e56))
+
+
+
+
+
 ## [1.4.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@1.4.1...@leavittsoftware/leavitt-elements@1.4.2) (2021-04-02)
 
 **Note:** Version bump only for package @leavittsoftware/leavitt-elements
