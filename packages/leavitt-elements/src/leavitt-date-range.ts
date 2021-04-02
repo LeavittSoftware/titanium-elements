@@ -136,6 +136,7 @@ export class LeavittDateRangeElement extends LitElement {
   render() {
     return html`
       <mwc-select
+        icon="date_range"
         .value=${this._determineRange(this.startDate, this.endDate)}
         outlined
         @change=${async event => {
@@ -153,19 +154,19 @@ export class LeavittDateRangeElement extends LitElement {
           }
         }}
       >
-        <mwc-list-item value="">Custom Range</mwc-list-item>
-        <mwc-list-item value="today">Today</mwc-list-item>
-        <mwc-list-item value="thisWeek">This week</mwc-list-item>
-        <mwc-list-item value="thisMonth">This month</mwc-list-item>
-        <mwc-list-item value="thisQuarter">This quarter</mwc-list-item>
-        <mwc-list-item value="thisYear">This year</mwc-list-item>
-        <mwc-list-item value="thisYearToDate">This year to date</mwc-list-item>
-        <mwc-list-item value="lastWeek">Last week</mwc-list-item>
-        <mwc-list-item value="lastMonth">Last month</mwc-list-item>
-        <mwc-list-item value="lastQuarter">Last quarter</mwc-list-item>
-        <mwc-list-item value="lastYear">Last year</mwc-list-item>
-        <mwc-list-item value="lastYearToDate">Last year to date</mwc-list-item>
-        <mwc-list-item value="yesterday">Yesterday</mwc-list-item>
+        <mwc-list-item graphic="icon" value="">Custom Range</mwc-list-item>
+        <mwc-list-item graphic="icon" value="today">Today</mwc-list-item>
+        <mwc-list-item graphic="icon" value="thisWeek">This week</mwc-list-item>
+        <mwc-list-item graphic="icon" value="thisMonth">This month</mwc-list-item>
+        <mwc-list-item graphic="icon" value="thisQuarter">This quarter</mwc-list-item>
+        <mwc-list-item graphic="icon" value="thisYear">This year</mwc-list-item>
+        <mwc-list-item graphic="icon" value="thisYearToDate">This year to date</mwc-list-item>
+        <mwc-list-item graphic="icon" value="lastWeek">Last week</mwc-list-item>
+        <mwc-list-item graphic="icon" value="lastMonth">Last month</mwc-list-item>
+        <mwc-list-item graphic="icon" value="lastQuarter">Last quarter</mwc-list-item>
+        <mwc-list-item graphic="icon" value="lastYear">Last year</mwc-list-item>
+        <mwc-list-item graphic="icon" value="lastYearToDate">Last year to date</mwc-list-item>
+        <mwc-list-item graphic="icon" value="yesterday">Yesterday</mwc-list-item>
       </mwc-select>
 
       <mwc-datefield
