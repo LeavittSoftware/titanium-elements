@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@9.0.0...@leavittsoftware/titanium-data-table@9.1.0) (2021-04-02)
+
+
+### Features
+
+* add filter and filter controller classes ([28a9c91](https://github.com/LeavittSoftware/titanium-elements/commit/28a9c91aeaf9f3db6bda5c281bb4212f75cb0275))
+
+
+
+
+
 # [9.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@8.0.0...@leavittsoftware/titanium-data-table@9.0.0) (2021-03-31)
 
 
