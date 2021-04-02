@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.5.1 (2021-04-02)
+
+
+### Bug Fixes
+
+* use neighborhood for city info when available ([206e41a](https://github.com/LeavittSoftware/titanium-elements/commit/206e41a6c4ac3bfc95b7977d4456cfa0b9d6cfad))
+
+
+
+
+
 # [1.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-address-input@1.4.0...@leavittsoftware/titanium-address-input@1.5.0) (2021-03-24)
 
 
