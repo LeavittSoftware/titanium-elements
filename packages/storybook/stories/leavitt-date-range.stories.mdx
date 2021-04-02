@@ -1,0 +1,38 @@
+import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { html } from 'lit-html';
+import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
+import { withWebComponentsKnobs } from '../index.js';
+
+import '@leavittsoftware/leavitt-elements/lib/leavitt-date-range';
+
+<Meta
+  title="UI LEAVITT SPECIFIC|leavitt-date-range"
+  decorators={[withKnobs, withWebComponentsKnobs]}
+  parameters={{ component: 'leavitt-date-range', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+/>
+
+# Leavitt Date Range Selector
+
+Leavitt date range selector
+
+## How to use
+
+```bash
+npm i @leavittsoftware/leavitt-elements
+```
+
+```js
+import '@leavittsoftware/leavitt-elements/lib/leavitt-date-range';
+```
+
+## API
+
+<Props of="leavitt-date-range" />
+
+## Demo
+
+<Preview withToolbar>
+  <Story name="Docs">{html`<h2>leavitt-date-range</h2>
+    <leavitt-date-range @date-range-changed=${e => console.log(e)}></leavitt-date-range>`}</Story>
+</Preview>
