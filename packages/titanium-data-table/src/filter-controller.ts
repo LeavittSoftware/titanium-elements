@@ -88,6 +88,7 @@ export class FilterController<TKey extends string> {
         }
       }
     });
-    window.history.replaceState({}, '', `${location.pathname}?${urlParams}`);
+    const path = `${location.pathname}?${urlParams}`;
+    window.history.replaceState({ path: path }, '', path);
   }
 }
