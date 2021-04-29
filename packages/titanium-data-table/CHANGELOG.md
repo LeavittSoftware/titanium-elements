@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 9.1.1 (2021-04-13)
+
+
+### Bug Fixes
+
+* make comparable with pageJS ([700d530](https://github.com/LeavittSoftware/titanium-elements/commit/700d530246cc8aa080b5afc5120328b05954a405))
+
+
+
+
+
 # [9.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@9.0.0...@leavittsoftware/titanium-data-table@9.1.0) (2021-04-02)
 
 
