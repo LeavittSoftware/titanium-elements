@@ -60,7 +60,7 @@ export class FilterController<TKey extends string> {
     return filter?.value;
   }
 
-  setFilter(key: TKey, oDataFilter: (value: string | null) => string, initialValue: string | null = null) {
+  setFilter(key: TKey, oDataFilter: (value: string) => string, initialValue: string | null = null) {
     this._filters.set(key, new Filter(key, oDataFilter, initialValue));
   }
 

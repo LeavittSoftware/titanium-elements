@@ -1,5 +1,5 @@
 export class Filter {
-  constructor(key: string, oDataFilter: (value: string | null) => string, initialValue: string | null = null) {
+  constructor(key: string, oDataFilter: (value: string) => string, initialValue: string | null = null) {
     this.key = key;
     this.oDataFilter = oDataFilter;
     this.value = initialValue;
@@ -10,10 +10,6 @@ export class Filter {
   oDataFilter: (value: string) => string;
 
   getOdataFilter() {
-    if (this.value === null) {
-      return null;
-    } else {
-      return this.oDataFilter(this.value);
-    }
+    return this.value === null ? null : this.oDataFilter(this.value);
   }
 }
