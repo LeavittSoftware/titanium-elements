@@ -1,4 +1,4 @@
-import { customElement, css, property } from 'lit-element';
+import { customElement, css, property, CSSResult } from 'lit-element';
 import { TextField } from '@material/mwc-textfield';
 
 @customElement('mwc-datefield')
@@ -19,18 +19,20 @@ export class DateField extends TextField {
   }
 
   static get styles() {
-    return css`
-      ${super.styles}
-      input::-webkit-calendar-picker-indicator {
-        display: block !important;
-        position: absolute;
-        top: 0;
-        right: 0;
-        opacity: 0;
-        width: 48px;
-        height: 100%;
-        cursor: pointer;
-      }
-    `;
+    return ([
+      css`
+        input::-webkit-calendar-picker-indicator {
+          display: block !important;
+          position: absolute;
+          top: 0;
+          right: 0;
+          opacity: 0;
+          width: 48px;
+          height: 100%;
+          cursor: pointer;
+        }
+      `,
+      super.styles,
+    ] as unknown) as CSSResult;
   }
 }
