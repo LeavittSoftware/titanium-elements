@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.5.1 (2021-05-06)
+
+
+### Bug Fixes
+
+* work-around to allow datefield styles extend from mwc-textfield ([7435845](https://github.com/LeavittSoftware/titanium-elements/commit/7435845d215d6a6041a6e0b39e4e8052f48a1f9d))
+
+
+
+
+
 # [1.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@1.4.2...@leavittsoftware/leavitt-elements@1.5.0) (2021-04-02)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.13.6](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.13.5...@leavittsoftware/storybook@5.13.6) (2021-05-06)
+
+
+### Bug Fixes
+
+* work-around to allow datefield styles extend from mwc-textfield ([7435845](https://github.com/LeavittSoftware/titanium-elements/commit/7435845d215d6a6041a6e0b39e4e8052f48a1f9d))
+
+
+
+
+
 ## [5.13.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.13.4...@leavittsoftware/storybook@5.13.5) (2021-04-29)
 
 **Note:** Version bump only for package @leavittsoftware/storybook
