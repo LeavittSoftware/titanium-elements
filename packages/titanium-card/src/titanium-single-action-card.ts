@@ -39,7 +39,6 @@ export class TitaniumSingleActionCardElement extends LitElement {
       -moz-osx-font-smoothing: grayscale;
       -webkit-font-smoothing: antialiased;
       --mdc-theme-primary: var(--app-primary-color, #3b95ff);
-      overflow: hidden;
     }
 
     a {
@@ -91,9 +90,9 @@ export class TitaniumSingleActionCardElement extends LitElement {
         @mouseleave=${() => this.ripple.endHover()}
         @focus=${() => this.ripple.startFocus()}
         @blur=${() => this.ripple.endFocus()}
-        @mousedown=${(e) => this.ripple.startPress(e)}
+        @mousedown=${e => this.ripple.startPress(e)}
         @mouseup=${() => this.ripple.endPress()}
-        @keydown=${(e) => (e.which === 32 ? this.ripple.startPress() : '')}
+        @keydown=${e => (e.which === 32 ? this.ripple.startPress() : '')}
         @keyup=${() => this.ripple.endPress()}
         @click=${(e: Event) => {
           e.preventDefault();
