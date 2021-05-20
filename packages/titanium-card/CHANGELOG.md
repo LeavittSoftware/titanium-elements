@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.9.5 (2021-05-20)
+
+
+### Bug Fixes
+
+* remove overflow hidden on container ([7098c3d](https://github.com/LeavittSoftware/titanium-elements/commit/7098c3d36d0fc9281b3f5191db471b6c0d8e424a))
+
+
+
+
+
 ## 1.9.4 (2020-07-20)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-card
