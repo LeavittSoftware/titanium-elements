@@ -27,7 +27,7 @@ export default class ApiService {
     delete this.headers[key];
   }
 
-  async uploadFile<T>(urlPath: string, file: File, onprogress: onProgressCallback, appName: string | null = null): Promise<ODataResponse<T>> {
+  async uploadFile<T>(urlPath: string, file: File, onprogress: onProgressCallback, appName: string | null = null, httpVerb: string = 'POST'): Promise<ODataResponse<T>> {
     return new Promise(async (resolve, reject) => {
       if (!file || !file.name) {
         reject('ArgumentException: Invalid file passed to uploadFile.');
@@ -38,7 +38,7 @@ export default class ApiService {
         xhr.upload.addEventListener('progress', e => {
           onprogress(e, xhr);
         });
-        xhr.open('POST', `${this.baseUrl}${urlPath}`, true);
+        xhr.open(httpVerb, `${this.baseUrl}${urlPath}`, true);
 
         const headers = { ...this.headers };
         const token = await this._tokenProvider._getBearerTokenAsync();
