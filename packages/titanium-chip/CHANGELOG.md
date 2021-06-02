@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.1.0 (2021-06-02)
+
+
+### Features
+
+* adds selectable ability to chips; participation in selection group ([22ac0ce](https://github.com/LeavittSoftware/titanium-elements/commit/22ac0ce41b6ecdfe8d6dc93adee79665c3ec75fe))
+
+
+
+
+
 ## 3.0.40 (2020-07-20)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-chip
