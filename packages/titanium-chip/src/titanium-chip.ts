@@ -1,5 +1,6 @@
 import { css, customElement, html, LitElement, property } from 'lit-element';
 import '@material/mwc-icon-button';
+import { CheckableElement, SingleSelectionController } from '@material/mwc-radio/single-selection-controller';
 
 /**
  * Material design inspired chips.
@@ -9,6 +10,7 @@ import '@material/mwc-icon-button';
  * @slot chip-icon - Optional chip icon (replaces the image if src was provided)
  *
  * @fires titanium-chip-close - Fired when the close button is clicked
+ * @fires checked - Fired when item is checked. Selectable attribute must be present.
  *
  * @cssprop {Color} --app-border-color - Chip border color
  * @cssprop {Color} --app-text-color - Label color
@@ -16,7 +18,15 @@ import '@material/mwc-icon-button';
  * @cssprop {Color} --app-hover-color - Hover background color
  */
 @customElement('titanium-chip')
-export class TitaniumChipElement extends LitElement {
+export class TitaniumChipElement extends LitElement implements CheckableElement {
+  /**
+   *  Name of the input for form submission, and identifier for the selection group.
+   *  Selectable attribute must be present.
+   */
+  @property({ type: String }) name = '';
+
+  @property({ type: Number }) formElementTabIndex = 0;
+
   /**
    *  Main text of the chip
    */
@@ -37,8 +47,54 @@ export class TitaniumChipElement extends LitElement {
    */
   @property({ type: Boolean, reflect: true }) closeable: boolean = false;
 
+  /**
+   *  Enables ability for chip to be selectable and participate in a radio group
+   */
+  @property({ type: Boolean }) selectable: boolean = false;
+
+  protected _checked = false;
+  /**
+   *  Whether this chip is the currently-selected one in its group.
+   */
+  @property({ type: Boolean, reflect: true })
+  get checked(): boolean {
+    return this._checked;
+  }
+  set checked(isChecked: boolean) {
+    const oldValue = this._checked;
+    if (isChecked === oldValue) {
+      return;
+    }
+    this._checked = isChecked;
+    this._selectionController?.update(this);
+    this.requestUpdate('checked', oldValue);
+    this.dispatchEvent(new Event('checked', { bubbles: true, composed: true }));
+  }
+
+  protected _selectionController?: SingleSelectionController;
+
+  firstUpdated() {
+    this.addEventListener('click', () => {
+      if (this.selectable) {
+        this.checked = true;
+      }
+    });
+  }
+
   disable() {
     this.disabled = !this.disabled;
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this._selectionController = SingleSelectionController.getController(this);
+    this._selectionController.register(this);
+    this._selectionController.update(this);
+  }
+
+  disconnectedCallback() {
+    this._selectionController?.unregister(this);
+    this._selectionController = undefined;
   }
 
   static styles = css`
@@ -62,6 +118,15 @@ export class TitaniumChipElement extends LitElement {
     :host([disabled]) {
       opacity: 0.6;
       cursor: inherit;
+    }
+
+    :host([checked]) label {
+      color: var(--titanium-side-menu-item-selected-color, #1967d2);
+      fill: var(--titanium-side-menu-item-selected-color, #1967d2);
+    }
+
+    :host([checked]) {
+      background: var(--titanium-side-menu-item-selected-background-color, #e8f0fe);
     }
 
     :host(:not([disabled]):hover) {
@@ -128,9 +193,7 @@ export class TitaniumChipElement extends LitElement {
 
   render() {
     return html`
-      <slot slot="chip-icon" name="chip-icon">
-        ${this.src ? html` <img src=${this.src} /> ` : ''}
-      </slot>
+      <slot slot="chip-icon" name="chip-icon"> ${this.src ? html` <img src=${this.src} /> ` : ''} </slot>
       <label>${this.label}</label>
       <mwc-icon-button
         icon="close"

@@ -34,8 +34,12 @@ import '@leavittsoftware/titanium-chip';
 
 <Preview withToolbar>
   <Story name="Docs">
-    {html`
-      <titanium-chip label="James Franco" src="https://mapi.leavitt.com/People(771130)/Default.Picture(size=32)"></titanium-chip>
-    `}
+    {html` <titanium-chip label="James Franco" src="https://mapi.leavitt.com/People(771130)/Default.Picture(size=32)"></titanium-chip>
+      <h2>Selectable Chips</h2>
+      <div style="display:grid;grid-auto-flow:column;gap:8px;grid-auto-columns: min-content;">
+        <titanium-chip name="Prices" selectable label="1000"></titanium-chip>
+        <titanium-chip name="Prices" selectable label="2000"></titanium-chip>
+        <titanium-chip name="Prices" selectable label="James Franco" src="https://mapi.leavitt.com/People(771130)/Default.Picture(size=32)"></titanium-chip>
+      </div>`}
   </Story>
 </Preview>

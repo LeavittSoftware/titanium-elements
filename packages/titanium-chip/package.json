@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@material/mwc-icon-button": "*",
+    "@material/mwc-radio": "*",
     "tslib": "^1.11.1"
   },
   "peerDependencies": {
