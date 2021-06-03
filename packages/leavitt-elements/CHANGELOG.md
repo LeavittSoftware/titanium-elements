@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 1.6.0 (2021-06-03)
+
+
+### Features
+
+* add DomEvent interface ([9053515](https://github.com/LeavittSoftware/titanium-elements/commit/905351595cb161c37531eac6920050d9e2df111d))
+
+
+
+
+
 ## 1.5.1 (2021-05-06)
 
 
