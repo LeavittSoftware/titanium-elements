@@ -10,6 +10,7 @@ export class GoogleAddressInput extends LitElement {
   @property({ type: Object }) private autocomplete: google.maps.places.Autocomplete;
   @property({ type: String }) private inputValue: string = '';
   @property({ type: Boolean }) required: boolean;
+  @property({ type: Boolean }) disabled: boolean;
   @property({ type: Boolean }) outlined: boolean;
   @property({ type: String }) validationMessage: string;
   @property({ type: String }) icon: string;
@@ -159,6 +160,7 @@ export class GoogleAddressInput extends LitElement {
       <mwc-textfield
         .required=${this.required}
         .outlined=${this.outlined}
+        .disabled=${this.disabled}
         .value=${this.inputValue}
         .validationMessage=${this.validationMessage}
         .label=${this.label}
