@@ -20,7 +20,7 @@ export class TitaniumCardElement extends LitElement {
       :host {
         display: grid;
         padding: 24px;
-        gap: 18px 12px;
+        gap: 8px 12px;
         grid:
           'title' auto
           'body' 1fr;
@@ -69,7 +69,7 @@ export class TitaniumCardElement extends LitElement {
 
       ::slotted([card-navigation]) {
         grid-area: navigation;
-        margin: 0 -12px -12px 0;
+        margin: 16px -12px -12px 0;
         justify-self: right;
       }
 

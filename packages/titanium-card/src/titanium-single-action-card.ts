@@ -62,7 +62,7 @@ export class TitaniumSingleActionCardElement extends TitaniumCardElement {
         position: relative;
 
         border-radius: 0 0 8px 8px;
-        margin: 0 -24px -24px -24px;
+        margin: 16px -24px -24px -24px;
 
         --mdc-theme-primary: var(--app-primary-color, #3b95ff);
       }
