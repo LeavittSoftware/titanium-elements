@@ -165,6 +165,10 @@ export class TitaniumChipElement extends LitElement implements CheckableElement 
       height: 28px;
       width: 28px;
       flex-shrink: 0;
+      image-rendering: -moz-crisp-edges; /* Firefox */
+      image-rendering: -o-crisp-edges; /* Opera */
+      image-rendering: -webkit-optimize-contrast; /* Webkit (non-standard naming) */
+      image-rendering: crisp-edges;
     }
 
     ::slotted(img),
@@ -172,6 +176,10 @@ export class TitaniumChipElement extends LitElement implements CheckableElement 
       height: 18px;
       width: 18px;
       flex-shrink: 0;
+      image-rendering: -moz-crisp-edges; /* Firefox */
+      image-rendering: -o-crisp-edges; /* Opera */
+      image-rendering: -webkit-optimize-contrast; /* Webkit (non-standard naming) */
+      image-rendering: crisp-edges;
     }
 
     mwc-icon-button {
