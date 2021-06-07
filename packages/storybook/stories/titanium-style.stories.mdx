@@ -1,0 +1,54 @@
+import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { html, css } from 'lit-element';
+import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
+import { withWebComponentsKnobs } from '../index.js';
+
+import { h1, h2, h3, h4, h5, ellipsis, a, p, button } from '@leavittsoftware/titanium-styles';
+
+<Meta title="UI COMPONENTS|titanium-styles" />
+
+# Titanium Styles
+
+Individually export styles for targetd use
+
+## How to use
+
+```bash
+npm i @leavittsoftware/titanium-styles
+```
+
+```js
+import { h1, h2, h3, h4, h5, ellipsis, a, p, button } from '@leavittsoftware/titanium-styles';
+```
+
+## Demo
+
+<Preview withToolbar>
+  <Story name="Docs">
+    {html`<style>
+        main {
+          display: grid;
+          grid-auto-flow: row;
+          gap: 24px;
+          justify-items: start;
+        }
+        ${h1} ${h2} ${h3} ${h4} ${h5} ${a} ${ellipsis} ${button}
+      </style>
+      <main>
+        <h2 demo>Titamium Styles Demo</h2>
+        <h1>Heading one</h1>
+        <h2>Heading two</h2>
+        <h3>Heading three</h3>
+        <h4>Heading four</h4>
+        <h5>Heading fix</h5>
+        <a href="#">Anchor tag</a>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tempus, felis mollis aliquet eleifend, sem nunc volutpat risus, eget cursus odio eros
+          vel sapien. Phasellus sit amet mi a tellus commodo molestie eu nec tellus. In hac habitasse platea dictumst.
+        </p>
+        <h2 ellipsis style="max-width: 130px">Ellipsis text sit amet, consectetur adipiscing elit. Duis</h2>
+        <mwc-button outlined lowercase label="Lowercase button style"></mwc-button>
+      </main>`}
+  </Story>
+</Preview>

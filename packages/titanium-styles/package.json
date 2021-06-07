@@ -1,0 +1,33 @@
+{
+  "name": "@leavittsoftware/titanium-styles",
+  "version": "0.0.1",
+  "description": "",
+  "main": "lib/titanium-styles.js",
+  "typings": "lib/titanium-style.d.ts",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "dependencies": {
+    "tslib": "^1.11.1"
+  },
+  "peerDependencies": {
+    "lit-element": ">=2.1.0"
+  },
+  "scripts": {
+    "build:watch": "tsc --watch",
+    "build": "tsc",
+    "lint": "eslint ./src/**/*.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeavittSoftware/titanium-elements.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LeavittSoftware/titanium-elements/issues"
+  },
+  "homepage": "https://github.com/LeavittSoftware/titanium-elements/#readme",
+  "gitHead": "f80c9f25691088c456baf119f3be7e278bf9c80d"
+}
