@@ -4,9 +4,9 @@ import '@material/mwc-icon-button';
 
 import { css, customElement, html, LitElement, query, property } from 'lit-element';
 import { TitaniumDialogBaseElement } from '@leavittsoftware/titanium-dialog/lib/titanium-dialog-base';
-import { TitaniumCardStyles } from '@leavittsoftware/titanium-card';
 import Cropper from 'cropperjs';
 import { cropperCSS } from './cropper-styles';
+import { h1 } from '@leavittsoftware/titanium-styles';
 
 @customElement('image-cropper-dialog')
 export class ImageCropperDialogElement extends LitElement {
@@ -21,11 +21,15 @@ export class ImageCropperDialogElement extends LitElement {
   private cropper: null | Cropper;
 
   static styles = [
-    TitaniumCardStyles,
+    h1,
     cropperCSS,
     css`
       :host {
         display: block;
+      }
+
+      h1 {
+        margin: 24px 24px 12px 24px;
       }
 
       main {

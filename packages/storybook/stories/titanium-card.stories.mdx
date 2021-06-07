@@ -1,13 +1,15 @@
 import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
 import { action } from '@storybook/addon-actions';
-import { html } from 'lit-html';
+import { html, css } from 'lit-element';
 import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
 import { withWebComponentsKnobs } from '../index.js';
 
 import '@leavittsoftware/titanium-card';
+import '@leavittsoftware/titanium-card';
+import { h1, h2, h3, p } from '@leavittsoftware/titanium-styles';
 
 <Meta
-  title="UI COMPONENTS|titanium-card"
+  title="UI CARD COMPONENTS|titanium-card"
   decorators={[withKnobs, withWebComponentsKnobs]}
   parameters={{ component: 'titanium-card', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
 />
@@ -34,21 +36,85 @@ import '@leavittsoftware/titanium-card';
 
 <Preview withToolbar>
   <Story name="Docs">
-    {html`
+    {html`<style>
+        ${h1} ${h2} ${h3} ${p} titanium-card {
+          margin-bottom: 24px;
+        }
+      </style>
       <titanium-card>
         <h1>The benefits of typed languages</h1>
-        <h2>TLDR</h2>
-        <p>
-          Lorem ipsum dolor amet artisan edison bulb viral helvetica trust fund poke, vaporware freegan hot chicken aesthetic photo booth green juice.
-          Meditation cloud bread woke 3 wolf moon, jianbing quinoa skateboard butcher neutra poutine tattooed gastropub semiotics locavore kickstarter.
-        </p>
-        <h2>Preamble</h2>
-        <h3>Section I</h3>
-        <p>
+        <p body>
           Hashtag forage shaman selvage poutine vinyl man braid lomo distillery lo-fi street art gochujang art party. Photo booth messenger bag offal palo santo
           chia. Meggings whatever direct trade semiotics cronut, 3 wolf moon sartorial vinyl crucifix edison bulb neutra shabby chic affogato YOLO.
         </p>
       </titanium-card>
-    `}
+      <titanium-card has-navigation>
+        <style>
+          ${h1}
+          ${p}
+        </style>
+        <h1>Has navigation</h1>
+        <p>
+          Evelation is higher Lorem ipsum dolor amet artisan edison bulb viral helvetica trust fund poke, vaporware freegan hot chicken aesthetic photo booth
+          green juice. Meditation cloud bread woke 3 wolf moon, jianbing quinoa skateboard butcher neutra poutine tattooed gastropub semiotics locavore
+          kickstarter.
+        </p>
+        <mwc-button card-navigation>SAVE</mwc-button>
+      </titanium-card>
+      <titanium-card has-settings>
+        <style>
+          ${h1}
+          ${p}
+        </style>
+        <h1>Has settings</h1>
+        <mwc-icon-button card-settings icon="more_vert"></mwc-icon-button>
+        <p card-body>
+          Evelation is higher Lorem ipsum dolor amet artisan edison bulb viral helvetica trust fund poke, vaporware freegan hot chicken aesthetic photo booth
+          green juice. Meditation cloud bread woke 3 wolf moon, jianbing quinoa skateboard butcher neutra poutine tattooed gastropub semiotics locavore
+          kickstarter.
+        </p>
+      </titanium-card>
+      <titanium-card has-settings has-navigation>
+        <style>
+          ${h1}
+          ${p}
+        </style>
+        <h1>Has navigation and settings</h1>
+        <mwc-icon-button card-settings icon="more_vert"></mwc-icon-button>
+        <p card-body>
+          Evelation is higher Lorem ipsum dolor amet artisan edison bulb viral helvetica trust fund poke, vaporware freegan hot chicken aesthetic photo booth
+          green juice. Meditation cloud bread woke 3 wolf moon, jianbing quinoa skateboard butcher neutra poutine tattooed gastropub semiotics locavore
+          kickstarter.
+        </p>
+        <span card-navigation>
+          <mwc-button>CANCEL</mwc-button>
+          <mwc-button>SAVE</mwc-button>
+        </span>
+      </titanium-card>
+      <titanium-card elevation="high">
+        <style>
+          ${h1}
+          ${p}
+        </style>
+        <h1>Higher elevation</h1>
+        <p>
+          Evelation is higher Lorem ipsum dolor amet artisan edison bulb viral helvetica trust fund poke, vaporware freegan hot chicken aesthetic photo booth
+          green juice. Meditation cloud bread woke 3 wolf moon, jianbing quinoa skateboard butcher neutra poutine tattooed gastropub semiotics locavore
+          kickstarter.
+        </p>
+      </titanium-card>
+      <titanium-card has-image>
+        <style>
+          ${h1}
+          ${p}
+        </style>
+        <img card-image style="width:110px" src="./hire.svg" />
+        <h1>Has image</h1>
+        <p>
+          Evelation is higher Lorem ipsum dolor amet artisan edison bulb viral helvetica trust fund poke, vaporware freegan hot chicken aesthetic photo booth
+          green juice. Meditation cloud bread woke 3 wolf moon, jianbing quinoa skateboard butcher neutra poutine tattooed gastropub semiotics locavore
+          kickstarter.
+        </p>
+      </titanium-card>`}
   </Story>
 </Preview>

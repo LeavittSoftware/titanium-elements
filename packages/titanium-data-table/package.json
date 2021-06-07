@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@leavittsoftware/titanium-loading-indicator": "^4.1.1",
+    "@leavittsoftware/titanium-styles": "^0.0.1",
     "@material/mwc-checkbox": "*",
     "@material/mwc-icon-button": "*",
     "@material/mwc-list": "*",

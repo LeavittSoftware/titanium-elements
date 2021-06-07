@@ -1,6 +1,7 @@
 import '@material/mwc-button';
 import { css, customElement, html, property, query } from 'lit-element';
 import { TitaniumDialogBaseElement } from './titanium-dialog-base';
+import { h1, p } from '@leavittsoftware/titanium-styles';
 
 /**
  * Material design inspired dialog
@@ -43,57 +44,50 @@ export class TitaniumDialogElement extends TitaniumDialogBaseElement {
     this.scrolls = this.section.scrollHeight > this.section.offsetHeight;
   }
 
-  static styles = css`
-    ${TitaniumDialogBaseElement.styles}
-    header {
-      font-family: Metropolis, 'Roboto', 'Noto', sans-serif;
-      font-size: 22px;
-      color: var(--app-dark-text-color, #202124);
-      line-height: 28px;
-      font-weight: 400;
-      letter-spacing: 0.0125em;
-      padding: 24px 24px 16px 24px;
-      --mdc-theme-primary: var(--app-primary-color, #3b95ff);
-    }
+  static styles = [
+    ...TitaniumDialogBaseElement.styles,
+    h1,
+    p,
+    css`
+      h1 {
+        display: block;
+        padding: 24px 24px 16px 24px;
+      }
 
-    section {
-      color: var(--app-dark-text-color, #202124);
-      padding: 8px 24px 16px 24px;
-      font-size: 14px;
-      line-height: 20px;
-      font-weight: 400;
-      letter-spacing: 0.5px;
-      overflow-y: auto;
-    }
+      section[paragraph] {
+        padding: 8px 24px 16px 24px;
+        overflow-y: auto;
+      }
 
-    :host([scrolls]) header {
-      border-bottom: 1px solid var(--app-border-color, #dadce0);
-      padding: 16px 24px;
-    }
+      :host([scrolls]) h1 {
+        border-bottom: 1px solid var(--app-border-color, #dadce0);
+        padding: 16px 24px;
+      }
 
-    :host([scrolls]:not([disableSmoothScroll])) section {
-      -webkit-overflow-scrolling: touch;
-    }
+      :host([scrolls]:not([disableSmoothScroll])) section {
+        -webkit-overflow-scrolling: touch;
+      }
 
-    :host([scrolls]) footer {
-      border-top: 1px solid var(--app-border-color, #dadce0);
-    }
+      :host([scrolls]) footer {
+        border-top: 1px solid var(--app-border-color, #dadce0);
+      }
 
-    footer {
-      display: grid;
-      grid-auto-flow: column;
-      grid-auto-columns: max-content;
-      justify-content: end;
+      footer {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: max-content;
+        justify-content: end;
 
-      padding: 8px;
-      gap: 8px;
-    }
-  `;
+        padding: 8px;
+        gap: 8px;
+      }
+    `,
+  ];
 
   renderSlot() {
     return html`
-      <header>${this.header}</header>
-      <section>
+      <h1>${this.header}</h1>
+      <section paragraph>
         <slot name="content"></slot>
       </section>
 

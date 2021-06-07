@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@material/mwc-icon-button": "*",
+    "@leavittsoftware/titanium-styles": "^0.0.1",
     "tslib": "^1.11.1"
   },
   "peerDependencies": {

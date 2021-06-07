@@ -6,9 +6,10 @@ import { withWebComponentsKnobs } from '../index.js';
 
 import '@leavittsoftware/titanium-card/lib/titanium-card-two-line-list-item';
 import '@leavittsoftware/titanium-card/';
+import { h1, h5 } from '@leavittsoftware/titanium-styles';
 
 <Meta
-  title="UI COMPONENTS|titanium-card-two-line-list-item"
+  title="UI CARD COMPONENTS|titanium-card-two-line-list-item"
   decorators={[withKnobs, withWebComponentsKnobs]}
   parameters={{ component: 'titanium-card', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
 />
@@ -36,30 +37,40 @@ import '@leavittsoftware/titanium-card/lib/titanium-card-two-line-list-item';
 <Preview withToolbar>
   <Story name="Docs">
     {html`
+      <style>
+        ${h1} ${h5} main {
+          margin: 0 -24px -24px -24px;
+        }
+        h5 {
+          margin-top: 48px;
+        }
+      </style>
       <titanium-card>
         <h1>Make changes to my account</h1>
-        <titanium-card-two-line-list-item title="Details">
-          <img src="https://cdn.leavitt.com/icons/icon-scoreboard-details.svg" />
-          <h2>Details</h2>
-          <h3>Update name, grace period, blackout date, and is development</h3>
-          <svg viewBox="0 0 24 24" style="height: 24px; width: 24px; flex-shrink: 0;">
-            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
-          </svg>
-        </titanium-card-two-line-list-item>
-        <titanium-card-two-line-list-item title="Rules">
-          <img src="https://cdn.leavitt.com/icons/icon-rules.svg" />
-          <h2>Rules</h2>
-          <h3>Change the rules</h3>
-          <mwc-icon>navigate_next</mwc-icon>
-        </titanium-card-two-line-list-item>
-        <titanium-card-two-line-list-item title="Logo">
-          <img src="https://cdn.leavitt.com/icons/icon-logo.svg" />
-          <h2>Logo</h2>
-          <h3>Update the logo</h3>
-          <mwc-icon>navigate_next</mwc-icon>
-        </titanium-card-two-line-list-item>
+        <main>
+          <titanium-card-two-line-list-item title="Details">
+            <img src="https://cdn.leavitt.com/icons/icon-scoreboard-details.svg" />
+            <h2>Details</h2>
+            <h3>Update name, grace period, blackout date, and is development</h3>
+            <svg viewBox="0 0 24 24" style="height: 24px; width: 24px; flex-shrink: 0;">
+              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+            </svg>
+          </titanium-card-two-line-list-item>
+          <titanium-card-two-line-list-item title="Rules">
+            <img src="https://cdn.leavitt.com/icons/icon-rules.svg" />
+            <h2>Rules</h2>
+            <h3>Change the rules</h3>
+            <mwc-icon>navigate_next</mwc-icon>
+          </titanium-card-two-line-list-item>
+          <titanium-card-two-line-list-item title="Logo">
+            <img src="https://cdn.leavitt.com/icons/icon-logo.svg" />
+            <h2>Logo</h2>
+            <h3>Update the logo</h3>
+            <mwc-icon>navigate_next</mwc-icon>
+          </titanium-card-two-line-list-item>
+        </main>
       </titanium-card>
-      <h2>Available CDN icons</h2>
+      <h5>Available CDN icons</h5>
       <div>
         <img height="48" src="https://cdn.leavitt.com/icons/icon-logo.svg" />
         <img height="48" src="https://cdn.leavitt.com/icons/icon-scoreboard-prizes.svg" />

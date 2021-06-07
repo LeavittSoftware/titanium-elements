@@ -3,11 +3,12 @@ import { action } from '@storybook/addon-actions';
 import { html } from 'lit-html';
 import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
 import { withWebComponentsKnobs } from '../index.js';
+import { h1, h2, h3, p } from '@leavittsoftware/titanium-styles';
 
 import '@leavittsoftware/titanium-card/lib/titanium-single-action-card';
 
 <Meta
-  title="UI COMPONENTS|titanium-single-action-card"
+  title="UI CARD COMPONENTS|titanium-single-action-card"
   decorators={[withKnobs, withWebComponentsKnobs]}
   parameters={{ component: 'titanium-single-action-card', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
 />
@@ -34,7 +35,11 @@ import '@leavittsoftware/titanium-card/lib/titanium-single-action-card';
 
 <Preview withToolbar>
   <Story name="Docs">
-    {html`
+    {html`<style>
+        ${h1} ${p} titanium-single-action-card {
+          margin-bottom: 24px;
+        }
+      </style>
       <titanium-single-action-card buttonTitle="Manage your data">
         <h1>Privacy & personalization</h1>
         <p>
@@ -42,6 +47,13 @@ import '@leavittsoftware/titanium-card/lib/titanium-single-action-card';
           iaculis a interdum id, luctus sit amet mi. Aenean eu metus sed ligula egestas tincidunt.
         </p>
       </titanium-single-action-card>
-    `}
+      <titanium-single-action-card buttonTitle="Manage your data" has-settings>
+        <h1>Has settings</h1>
+        <mwc-icon-button card-settings icon="more_vert"></mwc-icon-button>
+        <p>
+          Nulla posuere lacus luctus, fringilla orci vel, laoreet felis. Maecenas imperdiet urna eu consequat lobortis. Sed at ornare nibh. Donec justo urna,
+          iaculis a interdum id, luctus sit amet mi. Aenean eu metus sed ligula egestas tincidunt.
+        </p>
+      </titanium-single-action-card>`}
   </Story>
 </Preview>

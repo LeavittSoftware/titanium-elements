@@ -1,4 +1,5 @@
 import '@material/mwc-icon-button';
+import { h1, h3 } from '@leavittsoftware/titanium-styles';
 
 import { css, customElement, html, LitElement, property } from 'lit-element';
 
@@ -33,57 +34,50 @@ export class TitaniumHeader extends LitElement {
     this.dispatchEvent(new CustomEvent('titanium-header-back-click', { composed: true }));
   }
 
-  static styles = css`
-    :host {
-      display: block;
-      padding-bottom: 24px;
-      font-family: Metropolis, 'Roboto', 'Noto', sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
+  static styles = [
+    h1,
+    h3,
+    css`
+      :host {
+        display: block;
+        padding-bottom: 24px;
+        -webkit-font-smoothing: antialiased;
+      }
 
-    :host([no-nav]) h1 {
-      padding: 0 12px 8px 12px;
-    }
+      :host([no-nav]) h1 {
+        padding: 0 12px 8px 12px;
+      }
 
-    :host([no-nav]) mwc-icon-button {
-      display: none;
-    }
+      :host([no-nav]) mwc-icon-button {
+        display: none;
+      }
 
-    :host([hidden]) {
-      display: none;
-    }
+      :host([hidden]) {
+        display: none;
+      }
 
-    h1 {
-      display: block;
-      position: relative;
-      letter-spacing: -0.012em;
-      line-height: 32px;
-      font-size: 28px;
-      font-weight: 400;
-      text-align: center;
-      margin: 0;
-      padding: 0 52px 8px 52px;
-      color: var(--app-dark-text-color, #202124);
-    }
+      h1 {
+        line-height: 32px;
+        font-size: 28px;
+        text-align: center;
 
-    h3 {
-      font-family: 'Roboto', 'Noto', sans-serif;
-      letter-spacing: -0.012em;
-      font-size: 16px;
-      font-weight: 400;
-      line-height: 20px;
-      text-align: center;
-      margin: 0;
-      padding: 0 12px;
-      color: var(--app-text-color, #5f6368);
-    }
+        padding: 0 52px 8px 52px;
+        position: relative;
+      }
 
-    mwc-icon-button {
-      position: absolute;
-      top: -11px;
-      left: 0;
-    }
-  `;
+      h3 {
+        color: var(--app-text-color, #5f6368);
+        text-align: center;
+        padding: 0 12px;
+      }
+
+      mwc-icon-button {
+        position: absolute;
+        top: -11px;
+        left: 0;
+      }
+    `,
+  ];
 
   render() {
     return html`

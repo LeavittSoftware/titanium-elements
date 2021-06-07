@@ -103,14 +103,14 @@ export class TitaniumDialogBaseElement extends LitElement {
 
       if (e.shiftKey) {
         // shift + tab
-        if ((this.getRootNode() as ShadowRoot|Document)?.activeElement === firstFocusableEl) {
+        if ((this.getRootNode() as ShadowRoot | Document)?.activeElement === firstFocusableEl) {
           lastFocusableEl?.focus?.();
           e.preventDefault();
         }
       }
       // tab
       else {
-        if ((this.getRootNode() as ShadowRoot|Document)?.activeElement === lastFocusableEl) {
+        if ((this.getRootNode() as ShadowRoot | Document)?.activeElement === lastFocusableEl) {
           firstFocusableEl?.focus?.();
           e.preventDefault();
         }
@@ -175,116 +175,118 @@ export class TitaniumDialogBaseElement extends LitElement {
     this.closing = false;
   }
 
-  static styles = css`
-    :host {
-      display: flex;
-      font-family: Roboto, Noto, sans-serif;
-      -webkit-font-smoothing: antialiased;
+  static styles = [
+    css`
+      :host {
+        display: flex;
+        font-family: Roboto, Noto, sans-serif;
+        -webkit-font-smoothing: antialiased;
 
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      align-items: center;
-      justify-content: center;
-      display: none;
-    }
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        display: none;
+      }
 
-    click-trap {
-      display: block;
-      position: fixed;
-      z-index: 1;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.32);
-      opacity: 0;
-    }
+      click-trap {
+        display: block;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.32);
+        opacity: 0;
+      }
 
-    :host([opening]),
-    :host([closing]),
-    :host([opened]) {
-      z-index: 7;
-      display: flex;
-    }
+      :host([opening]),
+      :host([closing]),
+      :host([opened]) {
+        z-index: 7;
+        display: flex;
+      }
 
-    :host([opening]) click-trap {
-      -webkit-transition: opacity 150ms linear;
-      -o-transition: opacity 150ms linear;
-      transition: opacity 150ms linear;
-    }
+      :host([opening]) click-trap {
+        -webkit-transition: opacity 150ms linear;
+        -o-transition: opacity 150ms linear;
+        transition: opacity 150ms linear;
+      }
 
-    :host([closing]) click-trap {
-      -webkit-transition: opacity 75ms linear;
-      -o-transition: opacity 75ms linear;
-      transition: opacity 75ms linear;
-    }
+      :host([closing]) click-trap {
+        -webkit-transition: opacity 75ms linear;
+        -o-transition: opacity 75ms linear;
+        transition: opacity 75ms linear;
+      }
 
-    :host([opened]) click-trap {
-      opacity: 1;
-    }
+      :host([opened]) click-trap {
+        opacity: 1;
+      }
 
-    dialog-container {
-      display: flex;
-      flex-direction: column;
-      min-width: 280px;
-      max-height: calc(100% - 32px);
-      max-width: var(--titanium-dialog-max-width, none);
-      margin: 16px;
-      border-radius: 8px;
-      background: var(--titanium-dialog-background-color, #fff);
-      font-size: 14px;
-      -webkit-box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
-      box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
-      -webkit-box-sizing: border-box;
-      box-sizing: border-box;
-      -webkit-transform: scale(0.8);
-      -ms-transform: scale(0.8);
-      transform: scale(0.8);
-      opacity: 0;
-      z-index: 2;
-    }
+      dialog-container {
+        display: flex;
+        flex-direction: column;
+        min-width: 280px;
+        max-height: calc(100% - 32px);
+        max-width: var(--titanium-dialog-max-width, none);
+        margin: 16px;
+        border-radius: 8px;
+        background: var(--titanium-dialog-background-color, #fff);
+        font-size: 14px;
+        -webkit-box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
+        box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-transform: scale(0.8);
+        -ms-transform: scale(0.8);
+        transform: scale(0.8);
+        opacity: 0;
+        z-index: 2;
+      }
 
-    :host([fullwidth]) dialog-container {
-      width: calc(100vw - 32px);
-    }
+      :host([fullwidth]) dialog-container {
+        width: calc(100vw - 32px);
+      }
 
-    :host([fullheight]) dialog-container {
-      height: calc(100vh - 32px);
-    }
+      :host([fullheight]) dialog-container {
+        height: calc(100vh - 32px);
+      }
 
-    :host([opening]) dialog-container,
-    :host([opened]) dialog-container,
-    :host([closing]) dialog-container {
-      display: flex;
-    }
+      :host([opening]) dialog-container,
+      :host([opened]) dialog-container,
+      :host([closing]) dialog-container {
+        display: flex;
+      }
 
-    :host([closing]) dialog-container {
-      -webkit-transform: scale(1);
-      -ms-transform: scale(1);
-      transform: scale(1);
-      -webkit-transition: opacity 75ms linear;
-      -o-transition: opacity 75ms linear;
-      transition: opacity 75ms linear;
-    }
+      :host([closing]) dialog-container {
+        -webkit-transform: scale(1);
+        -ms-transform: scale(1);
+        transform: scale(1);
+        -webkit-transition: opacity 75ms linear;
+        -o-transition: opacity 75ms linear;
+        transition: opacity 75ms linear;
+      }
 
-    :host([opening]) dialog-container {
-      -webkit-transition: opacity 75ms linear, -webkit-transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1);
-      transition: opacity 75ms linear, -webkit-transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1);
-      -o-transition: opacity 75ms linear, transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1);
-      transition: opacity 75ms linear, transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1);
-      transition: opacity 75ms linear, transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1), -webkit-transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1);
-    }
+      :host([opening]) dialog-container {
+        -webkit-transition: opacity 75ms linear, -webkit-transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1);
+        transition: opacity 75ms linear, -webkit-transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1);
+        -o-transition: opacity 75ms linear, transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1);
+        transition: opacity 75ms linear, transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1);
+        transition: opacity 75ms linear, transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1), -webkit-transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1);
+      }
 
-    :host([opened]) dialog-container {
-      -webkit-transform: scale(1);
-      -ms-transform: scale(1);
-      transform: scale(1);
-      opacity: 1;
-    }
-  `;
+      :host([opened]) dialog-container {
+        -webkit-transform: scale(1);
+        -ms-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+      }
+    `,
+  ];
 
   protected renderSlot() {
     return html` <slot></slot> `;
@@ -293,9 +295,7 @@ export class TitaniumDialogBaseElement extends LitElement {
   render() {
     return html`
       <click-trap @click=${() => this.close('veil-click')}></click-trap>
-      <dialog-container>
-        ${this.renderSlot()}
-      </dialog-container>
+      <dialog-container> ${this.renderSlot()} </dialog-container>
     `;
   }
 }

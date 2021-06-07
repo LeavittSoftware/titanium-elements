@@ -11,6 +11,7 @@ import { TitaniumDataTableHeaderElement } from './titanium-data-table-header';
 import { Menu } from '@material/mwc-menu';
 import { IconButton } from '@material/mwc-icon-button';
 import { ActionDetail } from '@material/mwc-list/mwc-list-foundation';
+import { h1 } from '@leavittsoftware/titanium-styles';
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare const ResizeObserver: any;
@@ -283,235 +284,229 @@ export class TitaniumDataTableElement extends LitElement {
     this.setPage(this.page - 1);
   }
 
-  static styles = css`
-    :host {
-      display: flex;
-      flex-direction: column;
+  static styles = [
+    h1,
+    css`
+      :host {
+        display: flex;
+        flex-direction: column;
 
-      background-color: #fff;
-      border: 1px solid var(--app-border-color, #dadce0);
-      border-radius: 8px;
-      --mdc-icon-button-size: 42px;
-      font-family: 'Roboto', 'Noto', sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
+        background-color: #fff;
+        border: 1px solid var(--app-border-color, #dadce0);
+        border-radius: 8px;
+        --mdc-icon-button-size: 42px;
+        font-family: 'Roboto', 'Noto', sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
 
-    header {
-      display: flex;
-      flex-direction: column;
+      header {
+        display: flex;
+        flex-direction: column;
 
-      border-bottom: 1px solid var(--app-border-color, #dadce0);
-      position: relative;
-    }
+        border-bottom: 1px solid var(--app-border-color, #dadce0);
+        position: relative;
+      }
 
-    adaptive-header {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      padding-top: 12px;
-    }
+      adaptive-header {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding-top: 12px;
+      }
 
-    table-actions {
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-end;
-      flex-wrap: wrap;
-      flex: 1 1 150px;
-      padding: 0 4px;
+      table-actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        flex: 1 1 150px;
+        padding: 0 4px;
 
-      color: var(--app-text-color, #5f6368);
-    }
+        color: var(--app-text-color, #5f6368);
+      }
 
-    [take-menu-button] {
-      --mdc-icon-button-size: 32px;
-    }
+      [take-menu-button] {
+        --mdc-icon-button-size: 32px;
+      }
 
-    table-actions > ::slotted(*) {
-      margin: 0 8px 8px 8px;
-    }
+      table-actions > ::slotted(*) {
+        margin: 0 8px 8px 8px;
+      }
 
-    h1 {
-      display: flex;
-      font-family: Metropolis, 'Roboto', 'Noto', sans-serif;
+      h1 {
+        padding: 12px 24px 12px;
+      }
 
-      letter-spacing: -0.264px;
-      font-weight: 400;
-      font-size: 22px;
-      line-height: 28px;
-      margin: 0px;
-      padding: 12px 24px 12px;
-      color: var(--app-dark-text-color, #202124);
-    }
+      selected-actions {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 8px;
+        color: #1e88e5;
+        font-size: 18px;
+        background-color: #e8f0fe;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        margin: 0 !important;
+      }
 
-    selected-actions {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      padding: 8px;
-      color: #1e88e5;
-      font-size: 18px;
-      background-color: #e8f0fe;
-      position: absolute;
-      top: 0px;
-      left: 0px;
-      right: 0px;
-      bottom: 0px;
-      margin: 0 !important;
-    }
+      selected-actions ::slotted(mwc-icon-button) {
+        color: var(--app-dark-text-color, #202124);
+      }
 
-    selected-actions ::slotted(mwc-icon-button) {
-      color: var(--app-dark-text-color, #202124);
-    }
+      selected-text {
+        display: block;
+      }
 
-    selected-text {
-      display: block;
-    }
+      selected-text,
+      selected-actions ::slotted(*) {
+        margin: 8px;
+      }
 
-    selected-text,
-    selected-actions ::slotted(*) {
-      margin: 8px;
-    }
+      section[row-two] {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        margin: 0 12px 6px 12px;
+      }
 
-    section[row-two] {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      margin: 0 12px 6px 12px;
-    }
+      section[row-two] > ::slotted(*) {
+        margin: 6px 0;
+      }
 
-    section[row-two] > ::slotted(*) {
-      margin: 6px 0;
-    }
+      filter-container {
+        display: flex;
+        flex-direction: row;
+        flex: 1 1 auto;
+      }
 
-    filter-container {
-      display: flex;
-      flex-direction: row;
-      flex: 1 1 auto;
-    }
+      filter-container > ::slotted(*) {
+        align-self: flex-start;
+        flex-shrink: 0;
+        margin: 6px 0;
+      }
 
-    filter-container > ::slotted(*) {
-      align-self: flex-start;
-      flex-shrink: 0;
-      margin: 6px 0;
-    }
+      all-filters {
+        display: flex;
+        flex-direction: row;
+        flex: 1 1 auto;
+        flex-wrap: wrap;
+        align-content: flex-end;
+        padding-bottom: 6px;
+      }
 
-    all-filters {
-      display: flex;
-      flex-direction: row;
-      flex: 1 1 auto;
-      flex-wrap: wrap;
-      align-content: flex-end;
-      padding-bottom: 6px;
-    }
+      all-filters > ::slotted(*) {
+        margin: 6px 0 6px 12px;
+      }
 
-    all-filters > ::slotted(*) {
-      margin: 6px 0 6px 12px;
-    }
+      [spacer] {
+        flex: 1 1 auto;
+      }
 
-    [spacer] {
-      flex: 1 1 auto;
-    }
+      table-container {
+        padding-bottom: 12px;
+      }
 
-    table-container {
-      padding-bottom: 12px;
-    }
+      table-header {
+        display: flex;
+        flex-direction: row;
+        min-height: 48px;
+        border-bottom: 1px solid var(--app-border-color, #dadce0);
+      }
 
-    table-header {
-      display: flex;
-      flex-direction: row;
-      min-height: 48px;
-      border-bottom: 1px solid var(--app-border-color, #dadce0);
-    }
+      table-header ::slotted(titanium-data-table-header:last-of-type) {
+        padding-right: 24px;
+      }
 
-    table-header ::slotted(titanium-data-table-header:last-of-type) {
-      padding-right: 24px;
-    }
+      titanium-loading-indicator {
+        align-content: center;
+        justify-content: center;
+        margin: 64px;
+      }
 
-    titanium-loading-indicator {
-      align-content: center;
-      justify-content: center;
-      margin: 64px;
-    }
+      no-results-indicator {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        margin: 48px 32px 32px 32px;
+        font-size: 13px;
+        color: var(--app-text-color, #5f6368);
+        line-height: 20px;
+      }
 
-    no-results-indicator {
-      display: flex;
-      align-content: center;
-      justify-content: center;
-      margin: 48px 32px 32px 32px;
-      font-size: 13px;
-      color: var(--app-text-color, #5f6368);
-      line-height: 20px;
-    }
+      no-results-indicator svg {
+        display: block;
+        align-self: center;
+        margin: 0 8px;
+        height: 20px;
+        width: 20px;
+        fill: var(--app-text-color, #5f6368);
+        flex-shrink: 0;
+      }
 
-    no-results-indicator svg {
-      display: block;
-      align-self: center;
-      margin: 0 8px;
-      height: 20px;
-      width: 20px;
-      fill: var(--app-text-color, #5f6368);
-      flex-shrink: 0;
-    }
+      table-controls {
+        display: grid;
+        grid-auto-flow: column;
+        gap: 44px;
+        align-items: center;
 
-    table-controls {
-      display: grid;
-      grid-auto-flow: column;
-      gap: 44px;
-      align-items: center;
+        justify-content: flex-end;
+        padding: 0 12px 12px 12px;
 
-      justify-content: flex-end;
-      padding: 0 12px 12px 12px;
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: 0.011em;
+        line-height: 20px;
+        color: var(--app-dark-text-color, #202124);
+      }
 
-      font-size: 12px;
-      font-weight: 400;
-      letter-spacing: 0.011em;
-      line-height: 20px;
-      color: var(--app-dark-text-color, #202124);
-    }
+      table-control {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: 0;
+        user-select: none;
+        --mdc-icon-button-size: 42px;
+      }
 
-    table-control {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      margin: 0;
-      user-select: none;
-      --mdc-icon-button-size: 42px;
-    }
+      table-control span {
+        padding: 0 4px 0 12px;
+      }
 
-    table-control span {
-      padding: 0 4px 0 12px;
-    }
+      :host([narrow]) table-controls {
+        grid-auto-columns: 1fr auto auto;
+        gap: 8px;
+      }
 
-    :host([narrow]) table-controls {
-      grid-auto-columns: 1fr auto auto;
-      gap: 8px;
-    }
+      pagination-text {
+        text-align: right;
+        margin: 0 8px;
+        user-select: none;
+      }
 
-    pagination-text {
-      text-align: right;
-      margin: 0 8px;
-      user-select: none;
-    }
+      mwc-checkbox {
+        flex-shrink: 0;
+        align-self: center;
+        margin: 0 0 0 12px;
+      }
 
-    mwc-checkbox {
-      flex-shrink: 0;
-      align-self: center;
-      margin: 0 0 0 12px;
-    }
+      :host([disable-select]) table-header ::slotted(titanium-data-table-header:first-of-type) {
+        padding-left: 24px;
+      }
 
-    :host([disable-select]) table-header ::slotted(titanium-data-table-header:first-of-type) {
-      padding-left: 24px;
-    }
+      :host(:not([disable-select])[single-select]) table-header {
+        padding-left: 60px;
+      }
 
-    :host(:not([disable-select])[single-select]) table-header {
-      padding-left: 60px;
-    }
-
-    [hidden] {
-      display: none;
-    }
-  `;
+      [hidden] {
+        display: none;
+      }
+    `,
+  ];
 
   render() {
     return html`

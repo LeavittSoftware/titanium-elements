@@ -19,7 +19,7 @@
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
   "dependencies": {
-    "@leavittsoftware/titanium-card": "^1.9.5",
+    "@leavittsoftware/titanium-styles": "^0.0.1",
     "@leavittsoftware/titanium-dialog": "^3.3.3",
     "@material/mwc-button": "*",
     "@material/mwc-icon-button": "*",
