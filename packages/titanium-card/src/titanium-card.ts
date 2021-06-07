@@ -1,69 +1,4 @@
-﻿import { css, customElement, html, LitElement } from 'lit-element';
-
-export const TitaniumCardStyles = css`
-  ::slotted(h1),
-  h1 {
-    display: block;
-    color: var(--app-dark-text-color, #202124);
-
-    font-family: Metropolis, 'Roboto', 'Noto', sans-serif;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-font-smoothing: antialiased;
-    letter-spacing: -0.264px;
-    font-weight: 400;
-    font-size: 22px;
-    line-height: 28px;
-    margin: 0;
-    padding: 24px 24px 12px 24px;
-  }
-
-  ::slotted(h2),
-  h2 {
-    display: block;
-    color: #000000de;
-
-    font-family: Roboto, sans-serif;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-font-smoothing: antialiased;
-    letter-spacing: -0.264px;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 24px;
-    margin: 0;
-    padding: 24px 24px 12px 24px;
-  }
-
-  ::slotted(h3),
-  h3 {
-    display: block;
-    color: #000000de;
-
-    font-family: Roboto, sans-serif;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-font-smoothing: antialiased;
-    letter-spacing: -0.264px;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 20px;
-    margin: 0;
-    padding: 24px 24px 12px 24px;
-  }
-
-  ::slotted(p),
-  p {
-    font-family: Roboto, sans-serif;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-font-smoothing: antialiased;
-    font-size: 14px;
-    font-weight: 400;
-    color: var(--app-text-color, #5f6368);
-    margin: 0;
-    padding: 0 24px 24px;
-    letter-spacing: 0.2px;
-    line-height: 20px;
-  }
-`;
-
+﻿import { css, customElement, html, LitElement, property } from 'lit-element';
 /**
  * A card with h1,h2,h3 and p styles on-board
  *
@@ -75,16 +10,84 @@ export const TitaniumCardStyles = css`
  */
 @customElement('titanium-card')
 export class TitaniumCardElement extends LitElement {
-  static styles = css`
-    ${TitaniumCardStyles} :host {
-      display: flex;
-      flex-direction: column;
+  @property({ type: String, reflect: true }) elevation: 'high' | undefined;
+  @property({ type: Boolean, reflect: true, attribute: 'has-settings' }) hasSettings: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'has-image' }) hasImage: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'has-navigation' }) hasNavigation: boolean;
 
-      border: 1px solid var(--app-border-color, #dadce0);
-      border-radius: 8px;
-      background-color: #fff;
-    }
-  `;
+  static styles = [
+    css`
+      :host {
+        display: grid;
+        padding: 24px;
+        gap: 18px 12px;
+        grid:
+          'title' auto
+          'body' 1fr;
+        border: 1px solid var(--app-border-color, #dadce0);
+        border-radius: 8px;
+        background-color: #fff;
+      }
+
+      :host([has-settings]) {
+        grid: 'title settings' auto 'body body' 1fr / 1fr auto;
+      }
+
+      :host([has-navigation]) {
+        grid:
+          'title' auto
+          'body' 1fr
+          'navigation' auto;
+      }
+
+      :host([has-image]) {
+        grid:
+          'body image' auto
+          'body image' 1fr / 1fr auto;
+      }
+
+      :host([has-settings][has-navigation]) {
+        grid: 'title settings' auto 'body body' 1fr 'navigation navigation' auto / 1fr auto;
+      }
+
+      ::slotted([card-settings]) {
+        margin: -12px -12px -12px 0;
+        color: var(--app-text-color, #5f6368);
+      }
+
+      ::slotted([card-title]) {
+        grid-area: title;
+      }
+
+      ::slotted([card-body]) {
+        grid-area: body;
+      }
+
+      ::slotted([card-image]) {
+        grid-area: image;
+      }
+
+      ::slotted([card-navigation]) {
+        grid-area: navigation;
+        margin: 0 -12px -12px 0;
+        justify-self: right;
+      }
+
+      :host([elevation='high']) {
+        box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
+      }
+
+      @media (max-width: 400px) {
+        ::slotted([card-image]) {
+          display: none;
+        }
+
+        :host([has-image]) {
+          grid: 'title' auto 'body' 1fr;
+        }
+      }
+    `,
+  ];
 
   render() {
     return html` <slot></slot> `;

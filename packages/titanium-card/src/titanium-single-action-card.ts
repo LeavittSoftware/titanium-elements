@@ -1,9 +1,8 @@
-﻿import { customElement, html, property, css, LitElement, query } from 'lit-element';
+﻿import { customElement, html, property, css, query } from 'lit-element';
 import { TitaniumCardElement } from './titanium-card';
 import '@material/mwc-ripple';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import { Ripple } from '@material/mwc-ripple';
-
 /**
  * A card with a built-in button on the bottom
  *
@@ -16,7 +15,18 @@ import { Ripple } from '@material/mwc-ripple';
  */
 
 @customElement('titanium-single-action-card')
-export class TitaniumSingleActionCardElement extends LitElement {
+export class TitaniumSingleActionCardElement extends TitaniumCardElement {
+  /**
+   *
+   */
+  constructor() {
+    super();
+    this.hasNavigation = true;
+  }
+
+  /**
+   * Title of the single action button
+   */
   @property({ type: String }) buttonTitle: string;
 
   /**
@@ -26,55 +36,51 @@ export class TitaniumSingleActionCardElement extends LitElement {
 
   @query('mwc-ripple') private ripple: Ripple;
 
-  static styles = css`
-    ${TitaniumCardElement.styles} :host {
-      display: flex;
-      flex-direction: column;
+  static styles = [
+    ...TitaniumCardElement.styles,
+    css`
+      a {
+        grid-area: navigation;
+        display: block;
+        font-family: Roboto, sans-serif;
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-font-smoothing: antialiased;
+        border-top: 1px solid var(--app-border-color, #dadce0);
+        color: var(--app-link-color, #1a73e8);
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+        padding: 17px 24px 18px 24px;
+        letter-spacing: 0.2px;
+        -webkit-user-select: none; /* Safari 3.1+ */
+        -moz-user-select: none; /* Firefox 2+ */
+        -ms-user-select: none; /* IE 10+ */
+        user-select: none; /* Standard syntax */
+        text-decoration: none;
+        outline: none;
+        position: relative;
 
-      border: 1px solid var(--app-border-color, #dadce0);
-      border-radius: 8px;
-      background-color: #fff;
+        border-radius: 0 0 8px 8px;
+        margin: 0 -24px -24px -24px;
 
-      font-family: Roboto, sans-serif;
-      -moz-osx-font-smoothing: grayscale;
-      -webkit-font-smoothing: antialiased;
-      --mdc-theme-primary: var(--app-primary-color, #3b95ff);
-    }
+        --mdc-theme-primary: var(--app-primary-color, #3b95ff);
+      }
 
-    a {
-      display: block;
-      border-top: 1px solid var(--app-border-color, #dadce0);
-      color: var(--app-link-color, #1a73e8);
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 20px;
-      padding: 17px 24px 18px 24px;
-      letter-spacing: 0.2px;
-      -webkit-user-select: none; /* Safari 3.1+ */
-      -moz-user-select: none; /* Firefox 2+ */
-      -ms-user-select: none; /* IE 10+ */
-      user-select: none; /* Standard syntax */
-      text-decoration: none;
-      outline: none;
-      position: relative;
+      a:hover {
+        background-color: none;
+      }
 
-      border-radius: 0 0 8px 8px;
-    }
+      mwc-ripple {
+        overflow: hidden;
+      }
 
-    a:hover {
-      background-color: none;
-    }
-
-    mwc-ripple {
-      overflow: hidden;
-    }
-
-    :host([disable-action]) a {
-      pointer-events: none;
-      color: rgba(0, 0, 0, 0.37);
-    }
-  `;
+      :host([disable-action]) a {
+        pointer-events: none;
+        color: rgba(0, 0, 0, 0.37);
+      }
+    `,
+  ];
 
   getHref(disabled: boolean, title: string) {
     return disabled ? undefined : title ? `#${title}` : '#';
