@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 1.6.0 (2021-06-03)
+
+
+### Features
+
+* pass-through disabled  ([f4fac68](https://github.com/LeavittSoftware/titanium-elements/commit/f4fac682bff675755377349321d390b7114d3d8a))
+
+
+
+
+
 ## [1.5.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-address-input@1.5.1...@leavittsoftware/titanium-address-input@1.5.2) (2021-04-02)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-address-input
