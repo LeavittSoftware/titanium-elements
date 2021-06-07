@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.14.2...@leavittsoftware/storybook@6.0.0) (2021-06-07)
+
+
+* refactor!: remove deprecated elements ([7a72479](https://github.com/LeavittSoftware/titanium-elements/commit/7a72479d4ca914f93cd9e8a3f287eea1d1f33252))
+
+
+### Bug Fixes
+
+* h2 styles bleeding into components in demo's ([a27218e](https://github.com/LeavittSoftware/titanium-elements/commit/a27218e9f024cf901c2a6bcc65fddd29e4d3a74f))
+
+
+### Features
+
+* adds new titanium-styles package  ([160eb12](https://github.com/LeavittSoftware/titanium-elements/commit/160eb122e6a9d255e038ff2f8560f314568aea2a))
+
+
+### BREAKING CHANGES
+
+* Removes titanium-card-header and titanium-edit-card
+
+
+
+
+
 ## [5.14.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@5.14.1...@leavittsoftware/storybook@5.14.2) (2021-06-03)
 
 **Note:** Version bump only for package @leavittsoftware/storybook

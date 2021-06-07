@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-chip@3.1.0...@leavittsoftware/titanium-chip@3.1.1) (2021-06-07)
+
+
+### Bug Fixes
+
+* add image-rendering css to help with blurry images ([5cc2b3e](https://github.com/LeavittSoftware/titanium-elements/commit/5cc2b3e6b493d5a0db8410e84649ab0e6752bc5f))
+
+
+
+
+
 # 3.1.0 (2021-06-02)
 
 

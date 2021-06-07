@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 2.0.0 (2021-06-07)
+
+
+* feat!: Replaces titanium-card-styles with titanium-styles ([eac7fd0](https://github.com/LeavittSoftware/titanium-elements/commit/eac7fd073cb2ec5ac906698288d4c06b86040198))
+* refactor!: remove deprecated elements ([7a72479](https://github.com/LeavittSoftware/titanium-elements/commit/7a72479d4ca914f93cd9e8a3f287eea1d1f33252))
+
+
+### BREAKING CHANGES
+
+* Removes titanium-card styles, refer to demos for proper usage.
+* Removes titanium-card-header and titanium-edit-card
+
+
+
+
+
 ## 1.9.5 (2021-05-20)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.1.0 (2021-06-07)
+
+
+### Features
+
+* adds new titanium-styles package  ([160eb12](https://github.com/LeavittSoftware/titanium-elements/commit/160eb122e6a9d255e038ff2f8560f314568aea2a))
+
+
+
+
+
 ## 0.4.1 (2020-07-20)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-select
