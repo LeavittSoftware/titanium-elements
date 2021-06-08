@@ -11,7 +11,7 @@
 @customElement('titanium-card')
 export class TitaniumCardElement extends LitElement {
   @property({ type: String, reflect: true }) elevation: 'high' | undefined;
-  @property({ type: Boolean, reflect: true, attribute: 'has-settings' }) hasSettings: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'has-menu' }) hasMenu: boolean;
   @property({ type: Boolean, reflect: true, attribute: 'has-image' }) hasImage: boolean;
   @property({ type: Boolean, reflect: true, attribute: 'has-navigation' }) hasNavigation: boolean;
 
@@ -29,28 +29,49 @@ export class TitaniumCardElement extends LitElement {
         background-color: #fff;
       }
 
-      :host([has-settings]) {
-        grid: 'title settings' auto 'body body' 1fr / 1fr auto;
+      :host([has-menu]) {
+        grid:
+          'title menu' auto
+          'body body' 1fr / 1fr auto;
       }
 
-      :host([has-navigation]) {
+      :host([has-footer]) {
         grid:
           'title' auto
           'body' 1fr
-          'navigation' auto;
+          'footer' auto;
+      }
+
+      :host([has-footer][has-menu]) {
+        grid:
+          'title menu' min-content
+          'body body' 1fr
+          'footer footer' auto / 1fr auto;
       }
 
       :host([has-image]) {
         grid:
-          'body image' auto
+          'title image' min-content
           'body image' 1fr / 1fr auto;
       }
 
-      :host([has-settings][has-navigation]) {
-        grid: 'title settings' auto 'body body' 1fr 'navigation navigation' auto / 1fr auto;
+      :host([has-image][has-footer]) {
+        grid:
+          'title image' min-content
+          'body image' 1fr
+          'footer footer' auto / 1fr auto;
       }
 
-      ::slotted([card-settings]) {
+      :host([has-image][has-footer][has-menu]) {
+        grid:
+          'title menu' min-content
+          'body image' 1fr
+          'footer footer' auto / 1fr auto;
+      }
+
+      ::slotted([card-menu]) {
+        grid-area: menu;
+        justify-self: right;
         margin: -12px -12px -12px 0;
         color: var(--app-text-color, #5f6368);
       }
@@ -67,8 +88,15 @@ export class TitaniumCardElement extends LitElement {
         grid-area: image;
       }
 
-      ::slotted([card-navigation]) {
-        grid-area: navigation;
+      ::slotted([full-width]) {
+        margin: 0 -24px;
+      }
+
+      ::slotted([card-footer]) {
+        grid-area: footer;
+      }
+
+      ::slotted([nav]) {
         margin: 16px -12px -12px 0;
         justify-self: right;
       }
@@ -82,8 +110,17 @@ export class TitaniumCardElement extends LitElement {
           display: none;
         }
 
+        :host([has-image][has-footer]) {
+          grid:
+            'title' min-content
+            'body' auto
+            'footer' 1fr / auto;
+        }
+
         :host([has-image]) {
-          grid: 'title' auto 'body' 1fr;
+          grid:
+            'title' min-content
+            'body' auto / auto;
         }
       }
     `,
