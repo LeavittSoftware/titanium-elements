@@ -21,7 +21,7 @@ export class TitaniumSingleActionCardElement extends TitaniumCardElement {
    */
   constructor() {
     super();
-    this.hasNavigation = true;
+    this.hasFooter = true;
   }
 
   /**
@@ -40,7 +40,7 @@ export class TitaniumSingleActionCardElement extends TitaniumCardElement {
     ...TitaniumCardElement.styles,
     css`
       a {
-        grid-area: navigation;
+        grid-area: footer;
         display: block;
         font-family: Roboto, sans-serif;
         -moz-osx-font-smoothing: grayscale;

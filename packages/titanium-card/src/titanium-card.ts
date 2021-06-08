@@ -13,7 +13,7 @@ export class TitaniumCardElement extends LitElement {
   @property({ type: String, reflect: true }) elevation: 'high' | undefined;
   @property({ type: Boolean, reflect: true, attribute: 'has-menu' }) hasMenu: boolean;
   @property({ type: Boolean, reflect: true, attribute: 'has-image' }) hasImage: boolean;
-  @property({ type: Boolean, reflect: true, attribute: 'has-navigation' }) hasNavigation: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'has-footer' }) hasFooter: boolean;
 
   static styles = [
     css`
