@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@6.0.1...@leavittsoftware/storybook@6.1.0) (2021-06-08)
+
+
+### Features
+
+* adds support for hasImage  ([bdb1b7b](https://github.com/LeavittSoftware/titanium-elements/commit/bdb1b7bed05abe6c61afa417c3017a445057a96a))
+
+
+
+
+
 ## [6.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@6.0.0...@leavittsoftware/storybook@6.0.1) (2021-06-07)
 
 **Note:** Version bump only for package @leavittsoftware/storybook
