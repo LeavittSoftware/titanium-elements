@@ -31,6 +31,11 @@ export class GoogleAddressInput extends LitElement {
     }
   }
 
+  async getUpdateComplete() {
+    await super.getUpdateComplete();
+    await this.input.updateComplete;
+  }
+
   async firstUpdated() {
     const loader = new Loader({
       apiKey: this.googleMapsApiKey,
@@ -69,7 +74,7 @@ export class GoogleAddressInput extends LitElement {
     //Hack to get around lack of a reset method on mwc-textfield
     // Update when API is available
     this._clearAddress();
-    this.setLocation(null);
+    this.location = null;
     await this.updateComplete;
     this.input?.mdcFoundation?.setValid(true);
     this.input.isUiValid = true;
@@ -77,9 +82,7 @@ export class GoogleAddressInput extends LitElement {
 
   public setLocation(location: Partial<Address> | null) {
     this.location = location;
-    this.dispatchEvent(
-      new CustomEvent<Partial<Address> | null>('location-changed', { composed: true, detail: location })
-    );
+    this.dispatchEvent(new CustomEvent<Partial<Address> | null>('location-changed', { composed: true, detail: location }));
   }
 
   public checkValidity() {
