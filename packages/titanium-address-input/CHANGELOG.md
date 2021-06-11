@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.6.2 (2021-06-11)
+
+
+### Bug Fixes
+
+* await inner input updateComplete ([9b997e6](https://github.com/LeavittSoftware/titanium-elements/commit/9b997e60dc4017ef6f52315b681992274c74801e))
+
+
+
+
+
 ## [1.6.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-address-input@1.6.0...@leavittsoftware/titanium-address-input@1.6.1) (2021-06-07)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-address-input
