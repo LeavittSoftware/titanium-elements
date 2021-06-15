@@ -151,6 +151,12 @@ export class TitaniumDataTableItemElement extends LitElement {
       text-align: center;
     }
 
+    ::slotted(row-item[image]) {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
     ::slotted(row-item[right]) {
       text-align: right;
     }
