@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 9.2.0 (2021-06-15)
+
+
+### Features
+
+* adds support for images in row items ([813fa06](https://github.com/LeavittSoftware/titanium-elements/commit/813fa067d88d39553c61f1db10c114fdee2db766))
+
+
+
+
+
 ## 9.1.3 (2021-06-07)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-data-table
