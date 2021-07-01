@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@9.2.2...@leavittsoftware/titanium-data-table@9.3.0) (2021-07-01)
+
+
+### Features
+
+* adds --titanium-data-table-font-family variable ([08322ef](https://github.com/LeavittSoftware/titanium-elements/commit/08322ef58cfadbcc97919d7e8d41e9ea668b8f6f))
+
+
+
+
+
 ## [9.2.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@9.2.1...@leavittsoftware/titanium-data-table@9.2.2) (2021-07-01)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-data-table
