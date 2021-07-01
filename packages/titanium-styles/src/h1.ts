@@ -4,8 +4,7 @@ export const h1 = css`
   [heading1],
   h1 {
     color: var(--app-dark-text-color, #202124);
-    font-family: Metropolis, 'Roboto', 'Noto', sans-serif;
-    -moz-osx-font-smoothing: grayscale;
+    font-family: var(--titanium-styles-h1-font-family, Metropolis, Roboto, Noto, sans-serif);
     -webkit-font-smoothing: antialiased;
     letter-spacing: -0.264px;
     font-weight: 400;

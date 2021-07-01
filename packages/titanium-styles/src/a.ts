@@ -7,7 +7,7 @@ export const a = css`
     font-size: 14px;
 
     color: var(--app-link-color, #1a73e8);
-    font-family: 'Metropolis';
+    font-family: var(--titanium-styles-a-font-family, Metropolis, Roboto, Noto, sans-serif);
     font-weight: 400;
   }
 

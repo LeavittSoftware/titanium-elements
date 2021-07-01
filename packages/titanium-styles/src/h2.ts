@@ -4,7 +4,7 @@ export const h2 = css`
   [heading2],
   h2 {
     color: var(--app-dark-text-color, #202124);
-    font-family: Roboto, sans-serif;
+    font-family: var(--titanium-styles-h2-font-family, Roboto, Noto, sans-serif);
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     letter-spacing: -0.264px;

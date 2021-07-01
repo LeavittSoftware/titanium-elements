@@ -4,7 +4,7 @@ export const h5 = css`
   [heading5],
   h5 {
     letter-spacing: 0.07272727em;
-    font-family: Roboto, Arial, sans-serif;
+    font-family: var(--titanium-styles-h5-font-family, Roboto, Noto, sans-serif);
     font-size: 11px;
     font-weight: 500;
     line-height: 13px;

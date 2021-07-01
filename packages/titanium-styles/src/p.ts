@@ -3,7 +3,7 @@ import { css } from 'lit-element';
 export const p = css`
   [paragraph],
   p {
-    font-family: Roboto, sans-serif;
+    font-family: var(--titanium-styles-p-font-family, Roboto, Noto, sans-serif);
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     font-size: 14px;
