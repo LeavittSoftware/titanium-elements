@@ -46,7 +46,7 @@ export class TitaniumHeader extends LitElement {
       }
 
       :host([no-nav]) h1 {
-        padding: 0 12px 8px 12px;
+        padding: 0 0 8px 0;
       }
 
       :host([no-nav]) mwc-icon-button {
