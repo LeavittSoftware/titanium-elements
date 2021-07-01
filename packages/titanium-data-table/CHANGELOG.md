@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.2.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@9.2.0...@leavittsoftware/titanium-data-table@9.2.1) (2021-06-15)
+
+
+### Bug Fixes
+
+* increase gap between image and text to 12px ([6eebaac](https://github.com/LeavittSoftware/titanium-elements/commit/6eebaac6c3a11a4407ec866c02004483f596752c))
+
+
+
+
+
 # 9.2.0 (2021-06-15)
 
 
