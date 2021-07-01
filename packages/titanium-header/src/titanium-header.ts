@@ -67,8 +67,6 @@ export class TitaniumHeader extends LitElement {
 
       h3 {
         color: var(--app-text-color, #5f6368);
-
-        padding: 0 12px;
       }
 
       mwc-icon-button {
