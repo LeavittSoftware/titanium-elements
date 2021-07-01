@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-header@3.1.1...@leavittsoftware/titanium-header@3.1.2) (2021-07-01)
+
+
+### Bug Fixes
+
+* remove left/right padding ([56dd34a](https://github.com/LeavittSoftware/titanium-elements/commit/56dd34ae5326954acadd922a4690b284a5cddd94))
+
+
+
+
+
 ## [3.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-header@3.1.0...@leavittsoftware/titanium-header@3.1.1) (2021-07-01)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-header
