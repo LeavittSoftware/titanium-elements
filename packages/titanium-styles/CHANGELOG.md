@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.2.0 (2021-07-01)
+
+
+### Features
+
+* add support for font family css vars  ([a5c4d5b](https://github.com/LeavittSoftware/titanium-elements/commit/a5c4d5be9bec55c758d6a2763a7c50a937ad9656))
+
+
+
+
+
 # 0.1.0 (2021-06-07)
 
 
