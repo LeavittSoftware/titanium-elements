@@ -42,6 +42,7 @@ export class TitaniumHeader extends LitElement {
         display: block;
         padding-bottom: 24px;
         -webkit-font-smoothing: antialiased;
+        text-align: center;
       }
 
       :host([no-nav]) h1 {
@@ -59,7 +60,6 @@ export class TitaniumHeader extends LitElement {
       h1 {
         line-height: 32px;
         font-size: 28px;
-        text-align: center;
 
         padding: 0 52px 8px 52px;
         position: relative;
@@ -67,7 +67,7 @@ export class TitaniumHeader extends LitElement {
 
       h3 {
         color: var(--app-text-color, #5f6368);
-        text-align: center;
+
         padding: 0 12px;
       }
 
