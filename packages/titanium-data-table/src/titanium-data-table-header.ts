@@ -111,7 +111,7 @@ export class TitaniumDataTableHeaderElement extends LitElement {
 
       cursor: pointer;
 
-      font-family: 'Roboto', 'Noto', sans-serif;
+      font-family: var(--titanium-data-table-font-family, Roboto, Noto, sans-serif);
       -webkit-font-smoothing: antialiased;
       font-size: 13px;
       padding: 8px;

@@ -107,7 +107,7 @@ export class TitaniumDataTableItemElement extends LitElement {
       background-color: #fff;
       border-bottom: 1px var(--app-border-color, #dadce0) solid;
 
-      font-family: 'Roboto', 'Noto', sans-serif;
+      font-family: var(--titanium-data-table-font-family, Roboto, Noto, sans-serif);
       -webkit-font-smoothing: antialiased;
     }
 
