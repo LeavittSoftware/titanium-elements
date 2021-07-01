@@ -295,7 +295,7 @@ export class TitaniumDataTableElement extends LitElement {
         border: 1px solid var(--app-border-color, #dadce0);
         border-radius: 8px;
         --mdc-icon-button-size: 42px;
-        font-family: 'Roboto', 'Noto', sans-serif;
+        font-family: var(--titanium-data-table-font-family, Roboto, Noto, sans-serif);
         -webkit-font-smoothing: antialiased;
       }
 
