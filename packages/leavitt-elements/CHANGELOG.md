@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 1.7.0 (2021-07-02)
+
+
+### Features
+
+* adds event bus class to Leavitt Elements ([00f3e8c](https://github.com/LeavittSoftware/titanium-elements/commit/00f3e8c885b5b37ef18ebbcc5b63331107d0d92e))
+
+
+
+
+
 ## [1.6.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@1.6.1...@leavittsoftware/leavitt-elements@1.6.2) (2021-06-07)
 
 **Note:** Version bump only for package @leavittsoftware/leavitt-elements
