@@ -1,4 +1,5 @@
 import { css, customElement, html, LitElement, property } from 'lit-element';
+import { ifDefined } from 'lit-html/directives/if-defined';
 import '@material/mwc-icon-button';
 import { CheckableElement, SingleSelectionController } from '@material/mwc-radio/single-selection-controller';
 
@@ -36,6 +37,11 @@ export class TitaniumChipElement extends LitElement implements CheckableElement 
    *  Optional: src to image that will prefix the label
    */
   @property({ type: String }) src: string | undefined;
+
+  /**
+   *  Optional: image shown if error loading src image attribute
+   */
+  @property({ type: String }) fallbackSrc: string | undefined;
 
   /**
    *  Disables chip
@@ -201,7 +207,9 @@ export class TitaniumChipElement extends LitElement implements CheckableElement 
 
   render() {
     return html`
-      <slot slot="chip-icon" name="chip-icon"> ${this.src ? html` <img src=${this.src} /> ` : ''} </slot>
+      <slot slot="chip-icon" name="chip-icon">
+        ${this.src ? html` <img onerror=${ifDefined(this.fallbackSrc ? `this.src='${this.fallbackSrc}'` : undefined)} src=${this.src} /> ` : ''}
+      </slot>
       <label>${this.label}</label>
       <mwc-icon-button
         icon="close"
