@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.2.0 (2021-07-09)
+
+
+### Features
+
+* add support for a fallback image in the case the primary src is bad ([6808578](https://github.com/LeavittSoftware/titanium-elements/commit/68085789ffc093deff96594f785f5de54cbc10cc))
+
+
+
+
+
 ## [3.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-chip@3.1.0...@leavittsoftware/titanium-chip@3.1.1) (2021-06-07)
 
 

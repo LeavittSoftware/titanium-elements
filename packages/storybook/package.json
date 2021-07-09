@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/storybook",
-  "version": "6.1.10",
+  "version": "6.2.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -31,7 +31,7 @@
     "@leavittsoftware/titanium-address-input": "^1.6.4",
     "@leavittsoftware/titanium-button": "^1.6.10",
     "@leavittsoftware/titanium-card": "^2.1.2",
-    "@leavittsoftware/titanium-chip": "^3.1.1",
+    "@leavittsoftware/titanium-chip": "^3.2.0",
     "@leavittsoftware/titanium-data-table": "^9.4.1",
     "@leavittsoftware/titanium-dialog": "^3.3.5",
     "@leavittsoftware/titanium-error-page": "^0.1.17",

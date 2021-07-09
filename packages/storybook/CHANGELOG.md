@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@6.1.10...@leavittsoftware/storybook@6.2.0) (2021-07-09)
+
+
+### Features
+
+* add support for a fallback image in the case the primary src is bad ([6808578](https://github.com/LeavittSoftware/titanium-elements/commit/68085789ffc093deff96594f785f5de54cbc10cc))
+
+
+
+
+
 ## [6.1.10](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@6.1.9...@leavittsoftware/storybook@6.1.10) (2021-07-02)
 
 **Note:** Version bump only for package @leavittsoftware/storybook
