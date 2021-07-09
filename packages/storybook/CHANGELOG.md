@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@6.2.0...@leavittsoftware/storybook@6.3.0) (2021-07-09)
+
+
+### Features
+
+* add table-header-text slot ([4a881ab](https://github.com/LeavittSoftware/titanium-elements/commit/4a881aba983b2e2fd952772e539876f54cb261c7))
+
+
+
+
+
 # [6.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@6.1.10...@leavittsoftware/storybook@6.2.0) (2021-07-09)
 
 

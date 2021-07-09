@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 9.5.0 (2021-07-09)
+
+
+### Features
+
+* add table-header-text slot ([4a881ab](https://github.com/LeavittSoftware/titanium-elements/commit/4a881aba983b2e2fd952772e539876f54cb261c7))
+
+
+
+
+
 ## [9.4.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@9.4.0...@leavittsoftware/titanium-data-table@9.4.1) (2021-07-02)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-data-table
