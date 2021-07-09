@@ -1,0 +1,45 @@
+import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { html } from 'lit-html';
+import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
+import { withWebComponentsKnobs } from '../index.js';
+
+import '@leavittsoftware/titanium-youtube-input';
+
+<Meta
+  title="UI COMPONENTS|titanium-youtube-input"
+  decorators={[withKnobs, withWebComponentsKnobs]}
+  parameters={{ component: 'titanium-youtube-input', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+/>
+
+# Titanium youtube Input
+
+Material design youtube picker with cropper.
+
+## How to use
+
+```bash
+npm i @leavittsoftware/titanium-youtube-input
+```
+
+```js
+import '@leavittsoftware/titanium-youtube-input';
+```
+
+## API
+
+<Props of="titanium-youtube-input" />
+
+## Demo
+
+<Preview withToolbar>
+  <Story name="Docs">{html`
+    <titanium-youtube-input
+            .youtubeVideoKey=${this.video.YoutubeKey}
+             @video-changed=${(event: CustomEvent<{ key: string; duration: string }>) => {
+          this.video = { ...this.video, YoutubeKey: event.detail.key };
+          this.handleChange();
+        }}
+    ></titanium-youtube-input>
+  `}</Story>
+</Preview>

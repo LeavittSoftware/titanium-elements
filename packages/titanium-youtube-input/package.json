@@ -1,0 +1,36 @@
+{
+  "name": "@leavittsoftware/titanium-youtube-input",
+  "description": "",
+  "author": "Leavitt Software",
+  "version": "1.1.13",
+  "license": "MIT",
+  "main": "lib/titanium-youtube-input.js",
+  "typings": "lib/titanium-youtube-input.d.ts",
+  "homepage": "https://github.com/LeavittSoftware/titanium-elements/tree/master/packages/titanium-youtube-input",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "keywords": [
+    "web component"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LeavittSoftware/titanium-elements.git"
+  },
+  "dependencies": {
+    "@material/mwc-textfield": "*",
+    "tslib": "^1.11.1"
+  },
+  "peerDependencies": {
+    "lit-element": ">=2.1.0"
+  },
+  "scripts": {
+    "build:watch": "tsc --watch",
+    "build": "tsc ",
+    "lint": "eslint ./src/**/*.ts"
+  },
+  "bugs": {
+    "url": "https://github.com/LeavittSoftware/titanium-elements/issues"
+  }
+}
