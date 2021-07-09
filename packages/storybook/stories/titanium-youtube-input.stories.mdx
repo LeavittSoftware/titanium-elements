@@ -35,11 +35,9 @@ import '@leavittsoftware/titanium-youtube-input';
 <Preview withToolbar>
   <Story name="Docs">{html`
     <titanium-youtube-input
-            .youtubeVideoKey=${this.video.YoutubeKey}
-             @video-changed=${(event: CustomEvent<{ key: string; duration: string }>) => {
-          this.video = { ...this.video, YoutubeKey: event.detail.key };
-          this.handleChange();
-        }}
+      style="margin:24px; max-width: 400px;"
+      label="Youtube key"
+      youtubeVideoKey="044AF783nok"
     ></titanium-youtube-input>
   `}</Story>
 </Preview>
