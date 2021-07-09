@@ -127,6 +127,7 @@ import '@leavittsoftware/titanium-data-table';
       };
       return html`
         <titanium-data-table single-select .items=${data} count="3" largePages header="Telsa motors">
+          <h6 slot="table-header-text">Custom telsa motors</h6>
           <titanium-search-input slot="search-button"></titanium-search-input>
           <mwc-icon-button slot="table-actions" icon="refresh"></mwc-icon-button>
           <mwc-icon-button slot="filter-button" icon="filter_list"></mwc-icon-button>

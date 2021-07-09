@@ -512,7 +512,7 @@ export class TitaniumDataTableElement extends LitElement {
     return html`
       <header>
         <adaptive-header>
-          <h1>${this.header}</h1>
+          <slot name="table-header-text"> <h1>${this.header}</h1></slot>
           <table-actions>
             <slot name="table-actions"></slot>
           </table-actions>
