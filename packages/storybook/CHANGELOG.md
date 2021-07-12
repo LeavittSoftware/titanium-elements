@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@6.3.0...@leavittsoftware/storybook@7.0.0) (2021-07-12)
+
+
+### Features
+
+* **titanium-data-table:** moves date table-footer slot; adds footer-buttons slot ([828e463](https://github.com/LeavittSoftware/titanium-elements/commit/828e46342aa6e791eee34a03e9e1c00fe6f60ecf))
+
+
+### BREAKING CHANGES
+
+* **titanium-data-table:** moves footer slot to the right of the table-controls could break where footer slot was using in combination with table-controls.  This should be fairly rare.
+
+
+
+
+
 # [6.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@6.2.0...@leavittsoftware/storybook@6.3.0) (2021-07-09)
 
 
