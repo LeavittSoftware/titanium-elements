@@ -32,7 +32,8 @@ declare const ResizeObserver: any;
  * @slot selected-actions -  item specific table buttons such as edit, delete shown when one or more items are selected
  * @slot table-headers - slot for table headers (ex. titanium-data-table-header)
  * @slot items - slot for table rows (ex. titanium-data-table-item)
- * @slot footer - slot for additional footer items
+ * @slot footer - slot for additional footer items. Slotting here overwrites footer-buttons.
+ * @slot footer-buttons - slot for footer action buttons
  *
  * @cssprop {Color} --app-text-color - No results text color
  * @cssprop {Color} --app-dark-text-color - Heading and table control color
@@ -84,7 +85,7 @@ export class TitaniumDataTableElement extends LitElement {
   /**
    * Disables paging.
    */
-  @property({ type: Boolean, attribute: 'disable-paging' }) disablePaging: boolean = false;
+  @property({ type: Boolean, attribute: 'disable-paging', reflect: true }) disablePaging: boolean = false;
 
   /**
    * Array of currently selected data table objects
@@ -325,7 +326,7 @@ export class TitaniumDataTableElement extends LitElement {
         color: var(--app-text-color, #5f6368);
       }
 
-      [take-menu-button] {
+      mwc-icon-button {
         --mdc-icon-button-size: 32px;
       }
 
@@ -408,7 +409,7 @@ export class TitaniumDataTableElement extends LitElement {
       }
 
       table-container {
-        padding-bottom: 12px;
+        padding-bottom: 6px;
       }
 
       table-header {
@@ -448,20 +449,63 @@ export class TitaniumDataTableElement extends LitElement {
         flex-shrink: 0;
       }
 
+      footer {
+        display: grid;
+        grid: 'controls footer-slot' / minmax(400px, 1fr) auto;
+        gap: 24px;
+        padding: 18px 24px 24px 24px;
+        align-items: center;
+      }
+
       table-controls {
         display: grid;
         grid-auto-flow: column;
         gap: 44px;
         align-items: center;
+        align-self: end;
 
-        justify-content: flex-end;
-        padding: 0 12px 12px 12px;
+        justify-content: start;
 
         font-size: 12px;
         font-weight: 400;
         letter-spacing: 0.011em;
         line-height: 20px;
         color: var(--app-dark-text-color, #202124);
+      }
+
+      div[footer] {
+        justify-self: end;
+      }
+
+      :host([narrow]) footer {
+        grid:
+          'controls'
+          'footer-slot' / auto;
+      }
+
+      :host([disable-paging]) footer {
+        grid: 'footer-slot' / auto;
+      }
+
+      :host([narrow]) table-controls {
+        grid-auto-columns: 1fr auto auto;
+        gap: 8px;
+      }
+
+      footer-buttons {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: flex-end;
+      }
+
+      footer-buttons ::slotted(mwc-button) {
+        --mdc-shape-small: 24px;
+        --mdc-typography-font-family: 'Metropolis';
+        --mdc-typography-button-text-transform: none;
+        --mdc-typography-button-font-weight: 400;
+        --mdc-typography-button-font-size: 14px;
+        --mdc-typography-button-letter-spacing: 0.0107142857em;
       }
 
       table-control {
@@ -477,11 +521,6 @@ export class TitaniumDataTableElement extends LitElement {
         padding: 0 4px 0 12px;
       }
 
-      :host([narrow]) table-controls {
-        grid-auto-columns: 1fr auto auto;
-        gap: 8px;
-      }
-
       pagination-text {
         text-align: right;
         margin: 0 8px;
@@ -491,7 +530,7 @@ export class TitaniumDataTableElement extends LitElement {
       mwc-checkbox {
         flex-shrink: 0;
         align-self: center;
-        margin: 0 0 0 12px;
+        margin: 0 0 0 9px;
       }
 
       :host([disable-select]) table-header ::slotted(titanium-data-table-header:first-of-type) {
@@ -499,7 +538,7 @@ export class TitaniumDataTableElement extends LitElement {
       }
 
       :host(:not([disable-select])[single-select]) table-header {
-        padding-left: 60px;
+        padding-left: 57px;
       }
 
       [hidden] {
@@ -564,76 +603,81 @@ export class TitaniumDataTableElement extends LitElement {
         <titanium-loading-indicator ?hidden="${!this._isLoading}" ?disabled="${!this._isLoading}">Loading...</titanium-loading-indicator>
         <slot name="items"></slot>
       </table-container>
+      <footer>
+        ${this.disablePaging
+          ? ''
+          : html`
+              <table-controls ?hidden=${this._isLoading}>
+                <table-control>
+                  Rows per page: <span>${this.take}</span>
 
-      ${this.disablePaging
-        ? ''
-        : html`
-            <table-controls ?hidden=${this._isLoading}>
-              <table-control>
-                Rows per page: <span>${this.take}</span>
-
-                <div style="position: relative;">
+                  <div style="position: relative;">
+                    <mwc-icon-button
+                      take-menu-button
+                      @click=${() => this.shadowRoot?.querySelector<Menu>('mwc-menu[take-menu]')?.show()}
+                      id="button"
+                      icon="arrow_drop_down"
+                      label="Change take"
+                    ></mwc-icon-button>
+                    <mwc-menu
+                      activatable
+                      take-menu
+                      .anchor=${this.shadowRoot?.querySelector<IconButton>('mwc-icon-button[take-menu-button]') ?? null}
+                      corner="TOP_END"
+                      menuCorner="END"
+                      @action=${(e: CustomEvent<ActionDetail>) => {
+                        switch (e.detail.index) {
+                          case 0:
+                            this.setTake(10);
+                            break;
+                          case 1:
+                            this.setTake(15);
+                            break;
+                          case 2:
+                            this.setTake(20);
+                            break;
+                          case 3:
+                            this.setTake(50);
+                            break;
+                          case 4:
+                            this.setTake(100);
+                            break;
+                          case 5:
+                            this.setTake(500);
+                            break;
+                        }
+                      }}
+                    >
+                      <mwc-list-item ?activated=${this.take === 10}><span>10 rows</span></mwc-list-item>
+                      <mwc-list-item ?activated=${this.take === 15}><span>15 rows</span></mwc-list-item>
+                      <mwc-list-item ?activated=${this.take === 20}><span>20 rows</span></mwc-list-item>
+                      <mwc-list-item ?activated=${this.take === 50}><span>50 rows</span></mwc-list-item>
+                      ${this.largePages
+                        ? html`
+                            <mwc-list-item ?activated=${this.take === 100}><span>100 rows</span></mwc-list-item>
+                            <mwc-list-item ?activated=${this.take === 500}><span>500 rows</span></mwc-list-item>
+                          `
+                        : ''}
+                    </mwc-menu>
+                  </div>
+                </table-control>
+                <pagination-text>${this._getPageStats(this.page, this.count)}</pagination-text>
+                <table-control>
+                  <mwc-icon-button icon="keyboard_arrow_left" @click=${this._handleLastPageClick} ?disabled=${this.page === 0 || !this.count}></mwc-icon-button>
                   <mwc-icon-button
-                    take-menu-button
-                    @click=${() => this.shadowRoot?.querySelector<Menu>('mwc-menu[take-menu]')?.show()}
-                    id="button"
-                    icon="arrow_drop_down"
-                    label="Change take"
+                    icon="keyboard_arrow_right"
+                    @click=${this._handleNextPageClick}
+                    ?disabled=${!this.count || (this.page + 1) * this.take >= this.count}
                   ></mwc-icon-button>
-                  <mwc-menu
-                    activatable
-                    take-menu
-                    .anchor=${this.shadowRoot?.querySelector<IconButton>('mwc-icon-button[take-menu-button]') ?? null}
-                    corner="TOP_END"
-                    menuCorner="END"
-                    @action=${(e: CustomEvent<ActionDetail>) => {
-                      switch (e.detail.index) {
-                        case 0:
-                          this.setTake(10);
-                          break;
-                        case 1:
-                          this.setTake(15);
-                          break;
-                        case 2:
-                          this.setTake(20);
-                          break;
-                        case 3:
-                          this.setTake(50);
-                          break;
-                        case 4:
-                          this.setTake(100);
-                          break;
-                        case 5:
-                          this.setTake(500);
-                          break;
-                      }
-                    }}
-                  >
-                    <mwc-list-item ?activated=${this.take === 10}><span>10 rows</span></mwc-list-item>
-                    <mwc-list-item ?activated=${this.take === 15}><span>15 rows</span></mwc-list-item>
-                    <mwc-list-item ?activated=${this.take === 20}><span>20 rows</span></mwc-list-item>
-                    <mwc-list-item ?activated=${this.take === 50}><span>50 rows</span></mwc-list-item>
-                    ${this.largePages
-                      ? html`
-                          <mwc-list-item ?activated=${this.take === 100}><span>100 rows</span></mwc-list-item>
-                          <mwc-list-item ?activated=${this.take === 500}><span>500 rows</span></mwc-list-item>
-                        `
-                      : ''}
-                  </mwc-menu>
-                </div>
-              </table-control>
-              <pagination-text>${this._getPageStats(this.page, this.count)}</pagination-text>
-              <table-control>
-                <mwc-icon-button icon="keyboard_arrow_left" @click=${this._handleLastPageClick} ?disabled=${this.page === 0 || !this.count}></mwc-icon-button>
-                <mwc-icon-button
-                  icon="keyboard_arrow_right"
-                  @click=${this._handleNextPageClick}
-                  ?disabled=${!this.count || (this.page + 1) * this.take >= this.count}
-                ></mwc-icon-button>
-              </table-control>
-            </table-controls>
-          `}
-      <slot name="footer"></slot>
+                </table-control>
+              </table-controls>
+            `}
+        <div footer>
+          <slot name="footer">
+            <footer-buttons><slot name="footer-buttons"></slot></footer-buttons>
+          </slot>
+        </div>
+      </footer>
     `;
   }
 }

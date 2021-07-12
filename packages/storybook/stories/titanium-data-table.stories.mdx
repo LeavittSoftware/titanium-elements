@@ -105,10 +105,10 @@ import '@leavittsoftware/titanium-data-table';
   </Story>
 </Preview>
 
-#### Single Select
+#### Multi Select
 
 <Preview>
-  <Story name="Single Select">
+  <Story name="Multi Select">
     {() => {
       const data = [
         { name: 'Model 3', miles: '310 miles', price: '$33,315' },
@@ -126,8 +126,7 @@ import '@leavittsoftware/titanium-data-table';
         //TODO: re-render
       };
       return html`
-        <titanium-data-table single-select .items=${data} count="3" largePages header="Telsa motors">
-          <h6 slot="table-header-text">Custom telsa motors</h6>
+        <titanium-data-table .items=${data} count="3" largePages header="Telsa motors">
           <titanium-search-input slot="search-button"></titanium-search-input>
           <mwc-icon-button slot="table-actions" icon="refresh"></mwc-icon-button>
           <mwc-icon-button slot="filter-button" icon="filter_list"></mwc-icon-button>
@@ -172,17 +171,18 @@ import '@leavittsoftware/titanium-data-table';
               </titanium-data-table-item>
             `
           )}
-          <div slot="footer">hello footer</div>
+          <mwc-button slot="footer-buttons" icon="add" outlined label="Add a tesla"></mwc-button>
+          <mwc-button slot="footer-buttons" outlined label="Submit"></mwc-button>
         </titanium-data-table>
       `;
     }}
   </Story>
 </Preview>
 
-#### Disable Select
+#### Single Select
 
 <Preview>
-  <Story name="Disable Select">
+  <Story name="Single Select">
     {() => {
       const data = [
         { name: 'Model 3', miles: '310 miles', price: '$33,315' },
@@ -200,7 +200,82 @@ import '@leavittsoftware/titanium-data-table';
         //TODO: re-render
       };
       return html`
-        <titanium-data-table disable-select .items=${data} count="3" largePages header="Telsa motors">
+        <titanium-data-table single-select .items=${data} count="3" largePages header="Telsa motors">
+          <titanium-search-input slot="search-button"></titanium-search-input>
+          <mwc-icon-button slot="table-actions" icon="refresh"></mwc-icon-button>
+          <mwc-icon-button slot="filter-button" icon="filter_list"></mwc-icon-button>
+          <titanium-chip label="Sedan" closeable slot="filters"></titanium-chip>
+          <titanium-chip label="SUV" closeable slot="filters"></titanium-chip>
+          <titanium-data-table-header
+            title="Model"
+            @sort-by-changed=${onSortByChange}
+            .sortBy=${sortBy}
+            .sortDirection=${sortDirection}
+            @sort-direction-changed=${onSortDirectionChange}
+            large
+            column-name="name"
+            slot="table-headers"
+          ></titanium-data-table-header>
+          <titanium-data-table-header
+            title="Range"
+            @sort-by-changed=${onSortByChange}
+            .sortBy=${sortBy}
+            .sortDirection=${sortDirection}
+            @sort-direction-changed=${onSortDirectionChange}
+            desktop
+            column-name="miles"
+            slot="table-headers"
+          ></titanium-data-table-header>
+          <titanium-data-table-header
+            title="Price"
+            @sort-by-changed=${onSortByChange}
+            .sortBy=${sortBy}
+            .sortDirection=${sortDirection}
+            @sort-direction-changed=${onSortDirectionChange}
+            right
+            column-name="price"
+            slot="table-headers"
+          ></titanium-data-table-header>
+          ${data.map(
+            item => html`
+              <titanium-data-table-item .item=${item} slot="items">
+                <row-item large x>${item.name}</row-item>
+                <row-item desktop>${item.miles}</row-item>
+                <row-item right>${item.price}</row-item>
+              </titanium-data-table-item>
+            `
+          )}
+          <mwc-button slot="footer-buttons" icon="add" outlined label="Add a tesla"></mwc-button>
+          <mwc-button slot="footer-buttons" outlined label="Submit"></mwc-button>
+        </titanium-data-table>
+      `;
+    }}
+  </Story>
+</Preview>
+
+#### Disable Select
+
+<Preview>
+  <Story name="Disable Select, no paging">
+    {() => {
+      const data = [
+        { name: 'Model 3', miles: '310 miles', price: '$33,315' },
+        { name: 'Model X', miles: '328 miles', price: '$77,815' },
+        { name: 'Model Y', miles: '300 miles', price: '$43,700' },
+      ];
+      let sortDirection = 'asc';
+      let sortBy = 'name';
+      const onSortDirectionChange = event => {
+        sortDirection = event.detail;
+        //TODO: re-render
+      };
+      const onSortByChange = event => {
+        sortBy = event.detail;
+        //TODO: re-render
+      };
+      return html`
+        <titanium-data-table disable-select disable-paging .items=${data} count="3" largePages header="Telsa motors">
+          <h6 slot="table-header-text">Custom telsa motors</h6>
           <titanium-search-input slot="search-button"></titanium-search-input>
           <mwc-icon-button slot="table-actions" icon="refresh"></mwc-icon-button>
           <mwc-icon-button slot="filter-button" icon="filter_list"></mwc-icon-button>
@@ -245,7 +320,7 @@ import '@leavittsoftware/titanium-data-table';
               </titanium-data-table-item>
             `
           )}
-          <div slot="footer">hello footer</div>
+          <div slot="footer">The whole footer slot</div>
         </titanium-data-table>
       `;
     }}
