@@ -453,7 +453,7 @@ export class TitaniumDataTableElement extends LitElement {
         display: grid;
         grid: 'controls footer-slot' / minmax(400px, 1fr) auto;
         gap: 24px;
-        padding: 18px 24px 24px 24px;
+        padding: 8px 12px 12px;
         align-items: center;
       }
 
@@ -471,6 +471,7 @@ export class TitaniumDataTableElement extends LitElement {
         letter-spacing: 0.011em;
         line-height: 20px;
         color: var(--app-dark-text-color, #202124);
+        margin-left: 12px;
       }
 
       div[footer] {
