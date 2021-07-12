@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@10.0.1...@leavittsoftware/titanium-data-table@10.1.0) (2021-07-12)
+
+
+### Bug Fixes
+
+* reduce overall footer padding ([1d7ab27](https://github.com/LeavittSoftware/titanium-elements/commit/1d7ab27da5cc3a34bd020679b4ab29f366446d43))
+
+
+### Features
+
+* add support for item-footer slot in data-table-item ([f62a244](https://github.com/LeavittSoftware/titanium-elements/commit/f62a24431274113cee2c766b37294e09aefd0b0c))
+
+
+
+
+
 ## [10.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@10.0.0...@leavittsoftware/titanium-data-table@10.0.1) (2021-07-12)
 
 

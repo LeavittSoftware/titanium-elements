@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@7.0.1...@leavittsoftware/storybook@7.1.0) (2021-07-12)
+
+
+### Features
+
+* add support for item-footer slot in data-table-item ([f62a244](https://github.com/LeavittSoftware/titanium-elements/commit/f62a24431274113cee2c766b37294e09aefd0b0c))
+
+
+
+
+
 ## [7.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@7.0.0...@leavittsoftware/storybook@7.0.1) (2021-07-12)
 
 **Note:** Version bump only for package @leavittsoftware/storybook
