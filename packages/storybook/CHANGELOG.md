@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@7.1.0...@leavittsoftware/storybook@7.1.1) (2021-07-13)
+
+
+### Bug Fixes
+
+* Makes storybook work for youtube input ([9a1d51a](https://github.com/LeavittSoftware/titanium-elements/commit/9a1d51ad1e794cc5b521a8c171fadb7b77dbb4cb))
+* youtube input docs ([981b808](https://github.com/LeavittSoftware/titanium-elements/commit/981b808a22ce00c388a6fe1c2cec9c46443260f3))
+
+
+
+
+
 # [7.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@7.0.1...@leavittsoftware/storybook@7.1.0) (2021-07-12)
 
 
