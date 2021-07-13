@@ -90,9 +90,7 @@ export class TitaniumDataTableItemElement extends LitElement {
 
   static styles = css`
     :host {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
+      display: block;
 
       -webkit-touch-callout: none;
       -webkit-user-select: none;
@@ -101,7 +99,6 @@ export class TitaniumDataTableItemElement extends LitElement {
       -ms-user-select: none;
       user-select: none;
 
-      min-height: 48px;
       text-decoration: none;
 
       background-color: #fff;
@@ -109,6 +106,14 @@ export class TitaniumDataTableItemElement extends LitElement {
 
       font-family: var(--titanium-data-table-font-family, Roboto, Noto, sans-serif);
       -webkit-font-smoothing: antialiased;
+    }
+
+    :host main {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      min-height: 48px;
     }
 
     :host(:not([disable-select]):hover) {
@@ -178,26 +183,29 @@ export class TitaniumDataTableItemElement extends LitElement {
 
   render() {
     return html`
-      ${this.disableSelect
-        ? ''
-        : html`
-            <mwc-checkbox
-              .disabled=${this.disableSelect}
-              @dblclick=${e => e.stopPropagation()}
-              @change=${() => {
-                this.selected = this.checkbox.checked;
-                this.dispatchEvent(
-                  new CustomEvent('titanium-data-table-item-selected-changed', {
-                    composed: true,
-                    bubbles: true,
-                    detail: { isSelected: this.selected, item: this.item, checkbox: this.checkbox },
-                  })
-                );
-              }}
-            ></mwc-checkbox>
-          `}
+      <main>
+        ${this.disableSelect
+          ? ''
+          : html`
+              <mwc-checkbox
+                .disabled=${this.disableSelect}
+                @dblclick=${e => e.stopPropagation()}
+                @change=${() => {
+                  this.selected = this.checkbox.checked;
+                  this.dispatchEvent(
+                    new CustomEvent('titanium-data-table-item-selected-changed', {
+                      composed: true,
+                      bubbles: true,
+                      detail: { isSelected: this.selected, item: this.item, checkbox: this.checkbox },
+                    })
+                  );
+                }}
+              ></mwc-checkbox>
+            `}
 
-      <slot></slot>
+        <slot></slot>
+      </main>
+      <slot name="item-footer"></slot>
     `;
   }
 }
