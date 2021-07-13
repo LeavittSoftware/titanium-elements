@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@7.1.1...@leavittsoftware/storybook@7.2.0) (2021-07-13)
+
+
+### Features
+
+* add a slot add-button; moves search to top header row ([0cc52f7](https://github.com/LeavittSoftware/titanium-elements/commit/0cc52f733c5a5696c5945357e4829195b5cb4146))
+
+
+
+
+
 ## [7.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@7.1.0...@leavittsoftware/storybook@7.1.1) (2021-07-13)
 
 

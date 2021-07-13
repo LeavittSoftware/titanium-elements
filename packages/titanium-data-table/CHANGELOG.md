@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 10.2.0 (2021-07-13)
+
+
+### Features
+
+* add a slot add-button; moves search to top header row ([0cc52f7](https://github.com/LeavittSoftware/titanium-elements/commit/0cc52f733c5a5696c5945357e4829195b5cb4146))
+
+
+
+
+
 # [10.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@10.0.1...@leavittsoftware/titanium-data-table@10.1.0) (2021-07-12)
 
 
