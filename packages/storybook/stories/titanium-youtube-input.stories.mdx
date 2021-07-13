@@ -12,9 +12,9 @@ import '@leavittsoftware/titanium-youtube-input';
   parameters={{ component: 'titanium-youtube-input', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
 />
 
-# Titanium youtube Input
+# Titanium YouTube Input
 
-Material design youtube url input.
+Material design YouTube url input.
 
 ## How to use
 
@@ -33,11 +33,6 @@ import '@leavittsoftware/titanium-youtube-input';
 ## Demo
 
 <Preview withToolbar>
-  <Story name="Docs">{html`
-    <titanium-youtube-input
-      style="margin:24px; max-width: 400px;"
-      label="Youtube key"
-      youtubeVideoKey="044AF783nok"
-    ></titanium-youtube-input>
-  `}</Story>
+  <Story name="Docs">{html`<titanium-youtube-input style="margin:24px; max-width: 400px;" youtube-video-key="044AF783nok"></titanium-youtube-input
+    ><mwc-button @click=${() => this.querySelector('titanium-youtube-input').reportValidity()}>Submit</mwc-button>`}</Story>
 </Preview>
