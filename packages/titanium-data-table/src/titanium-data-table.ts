@@ -396,8 +396,7 @@ export class TitaniumDataTableElement extends LitElement {
         flex-direction: row;
         flex: 1 1 auto;
         flex-wrap: wrap;
-        align-content: flex-end;
-        padding-bottom: 6px;
+        align-content: center;
       }
 
       all-filters > ::slotted(*) {
@@ -500,6 +499,7 @@ export class TitaniumDataTableElement extends LitElement {
         align-items: flex-end;
       }
 
+      div[add-button] ::slotted(mwc-button),
       footer-buttons ::slotted(mwc-button) {
         --mdc-shape-small: 24px;
         --mdc-typography-font-family: 'Metropolis';
@@ -507,6 +507,12 @@ export class TitaniumDataTableElement extends LitElement {
         --mdc-typography-button-font-weight: 400;
         --mdc-typography-button-font-size: 14px;
         --mdc-typography-button-letter-spacing: 0.0107142857em;
+      }
+
+      div[add-button] {
+        display: flex;
+        align-items: center;
+        margin-left: 8px;
       }
 
       table-control {
@@ -554,6 +560,7 @@ export class TitaniumDataTableElement extends LitElement {
         <adaptive-header>
           <slot name="table-header-text"> <h1>${this.header}</h1></slot>
           <table-actions>
+            <slot name="search-button"></slot>
             <slot name="table-actions"></slot>
           </table-actions>
         </adaptive-header>
@@ -564,7 +571,7 @@ export class TitaniumDataTableElement extends LitElement {
               <slot name="filters"></slot>
             </all-filters>
           </filter-container>
-          <slot name="search-button"></slot>
+          <div add-button><slot name="add-button"></slot></div>
         </section>
         <selected-actions ?hidden="${this.selected.length === 0}">
           <selected-text>${this.selected.length} item${this.selected.length > 1 ? 's' : ''} selected</selected-text>

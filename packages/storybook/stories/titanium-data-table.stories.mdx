@@ -55,7 +55,7 @@ import '@leavittsoftware/titanium-data-table';
       return html`
         <titanium-data-table .items=${data} count="3" largePages header="Telsa motors">
           <titanium-search-input slot="search-button"></titanium-search-input>
-          <mwc-icon-button slot="table-actions" icon="refresh"></mwc-icon-button>
+          <mwc-icon-button slot="table-actions" icon="more_vert"></mwc-icon-button>
           <mwc-icon-button slot="filter-button" icon="filter_list"></mwc-icon-button>
           <titanium-chip label="Sedan" closeable slot="filters"></titanium-chip>
           <titanium-chip label="SUV" closeable slot="filters"></titanium-chip>
@@ -171,7 +171,7 @@ import '@leavittsoftware/titanium-data-table';
               </titanium-data-table-item>
             `
           )}
-          <mwc-button slot="footer-buttons" icon="add" outlined label="Add a tesla"></mwc-button>
+          <mwc-button slot="add-button" icon="add" outlined label="Add a tesla"></mwc-button>
           <mwc-button slot="footer-buttons" outlined label="Submit"></mwc-button>
         </titanium-data-table>
       `;
@@ -202,7 +202,7 @@ import '@leavittsoftware/titanium-data-table';
       return html`
         <titanium-data-table single-select .items=${data} count="3" largePages header="Telsa motors">
           <titanium-search-input slot="search-button"></titanium-search-input>
-          <mwc-icon-button slot="table-actions" icon="refresh"></mwc-icon-button>
+          <mwc-icon-button slot="table-actions" icon="more_vert"></mwc-icon-button>
           <mwc-icon-button slot="filter-button" icon="filter_list"></mwc-icon-button>
           <titanium-chip label="Sedan" closeable slot="filters"></titanium-chip>
           <titanium-chip label="SUV" closeable slot="filters"></titanium-chip>
@@ -245,7 +245,7 @@ import '@leavittsoftware/titanium-data-table';
               </titanium-data-table-item>
             `
           )}
-          <mwc-button slot="footer-buttons" icon="add" outlined label="Add a tesla"></mwc-button>
+          <mwc-button slot="add-button" icon="add" outlined label="Add a tesla"></mwc-button>
           <mwc-button slot="footer-buttons" outlined label="Submit"></mwc-button>
         </titanium-data-table>
       `;
@@ -277,10 +277,7 @@ import '@leavittsoftware/titanium-data-table';
         <titanium-data-table disable-select disable-paging .items=${data} count="3" largePages header="Telsa motors">
           <h6 slot="table-header-text">Custom telsa motors</h6>
           <titanium-search-input slot="search-button"></titanium-search-input>
-          <mwc-icon-button slot="table-actions" icon="refresh"></mwc-icon-button>
-          <mwc-icon-button slot="filter-button" icon="filter_list"></mwc-icon-button>
-          <titanium-chip label="Sedan" closeable slot="filters"></titanium-chip>
-          <titanium-chip label="SUV" closeable slot="filters"></titanium-chip>
+          <mwc-icon-button slot="table-actions" icon="more_vert"></mwc-icon-button>
           <titanium-data-table-header
             title="Model"
             @sort-by-changed=${onSortByChange}
