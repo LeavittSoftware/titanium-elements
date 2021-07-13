@@ -1,0 +1,38 @@
+import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { html } from 'lit-html';
+import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
+import { withWebComponentsKnobs } from '../index.js';
+
+import '@leavittsoftware/titanium-youtube-input';
+
+<Meta
+  title="UI COMPONENTS|titanium-youtube-input"
+  decorators={[withKnobs, withWebComponentsKnobs]}
+  parameters={{ component: 'titanium-youtube-input', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+/>
+
+# Titanium YouTube Input
+
+Material design YouTube url input.
+
+## How to use
+
+```bash
+npm i @leavittsoftware/titanium-youtube-input
+```
+
+```js
+import '@leavittsoftware/titanium-youtube-input';
+```
+
+## API
+
+<Props of="titanium-youtube-input" />
+
+## Demo
+
+<Preview withToolbar>
+  <Story name="Docs">{html`<titanium-youtube-input style="margin:24px; max-width: 400px;" youtube-video-key="044AF783nok"></titanium-youtube-input
+    ><mwc-button @click=${() => this.querySelector('titanium-youtube-input').reportValidity()}>Submit</mwc-button>`}</Story>
+</Preview>
