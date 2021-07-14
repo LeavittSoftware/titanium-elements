@@ -303,7 +303,7 @@ export class TitaniumDataTableElement extends LitElement {
       header {
         display: flex;
         flex-direction: column;
-
+        padding-bottom: 6px;
         border-bottom: 1px solid var(--app-border-color, #dadce0);
         position: relative;
       }
@@ -331,7 +331,7 @@ export class TitaniumDataTableElement extends LitElement {
       }
 
       table-actions > ::slotted(*) {
-        margin: 0 8px 8px 8px;
+        margin: 0 8px 2px 8px;
       }
 
       h1 {
@@ -372,23 +372,15 @@ export class TitaniumDataTableElement extends LitElement {
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: flex-end;
-        margin: 0 12px 6px 12px;
-      }
-
-      section[row-two] > ::slotted(*) {
-        margin: 6px 0;
+        margin: 0 12px;
+        gap: 8px;
       }
 
       filter-container {
         display: flex;
         flex-direction: row;
         flex: 1 1 auto;
-      }
-
-      filter-container > ::slotted(*) {
-        align-self: flex-start;
-        flex-shrink: 0;
-        margin: 6px 0;
+        gap: 6px;
       }
 
       all-filters {
@@ -397,10 +389,7 @@ export class TitaniumDataTableElement extends LitElement {
         flex: 1 1 auto;
         flex-wrap: wrap;
         align-content: center;
-      }
-
-      all-filters > ::slotted(*) {
-        margin: 6px 0 6px 12px;
+        gap: 6px;
       }
 
       [spacer] {
@@ -512,7 +501,6 @@ export class TitaniumDataTableElement extends LitElement {
       div[add-button] {
         display: flex;
         align-items: center;
-        margin-left: 8px;
       }
 
       table-control {
