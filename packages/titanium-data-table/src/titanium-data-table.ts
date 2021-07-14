@@ -5,7 +5,7 @@ import '@material/mwc-icon-button';
 import '@material/mwc-select';
 import '@material/mwc-list/mwc-list-item';
 
-import { css, customElement, html, LitElement, property, query, queryAsync } from 'lit-element';
+import { css, customElement, html, LitElement, property, query, queryAsync, state } from 'lit-element';
 import { TitaniumDataTableItemElement } from './titanium-data-table-item';
 import { TitaniumDataTableHeaderElement } from './titanium-data-table-header';
 import { Select } from '@material/mwc-select';
@@ -96,9 +96,9 @@ export class TitaniumDataTableElement extends LitElement {
   @property({ type: Boolean }) private _isLoading: boolean;
 
   /**
-   * Allows page sizes of 100 and 500 to be selected in addition to the standard sizes of 10, 15, 20, and 50.
+   * Available page sizes
    */
-  @property({ type: Boolean }) largePages: boolean = false;
+  @state() pageSizes: Array<number> = [10, 15, 20, 50];
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @query('slot[name="items"]') private itemsSlot: HTMLSlotElement;
@@ -226,13 +226,7 @@ export class TitaniumDataTableElement extends LitElement {
       return take;
     }
 
-    const height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-    if (height > 1200) {
-      return 20;
-    } else if (height > 1000) {
-      return 15;
-    }
-    return 10;
+    return this.pageSizes?.[0] ?? 1;
   }
 
   async loadWhile(promise: Promise<unknown>) {
@@ -623,17 +617,7 @@ export class TitaniumDataTableElement extends LitElement {
                 <take-control>
                   <div ellipsis>Rows per page</div>
                   <mwc-select outlined @change=${e => this.setTake(e.target.value)}>
-                    <mwc-list-item></mwc-list-item>
-                    <mwc-list-item ?selected=${this.take === 10} value="10">10</mwc-list-item>
-                    <mwc-list-item ?selected=${this.take === 15} value="15">15</mwc-list-item>
-                    <mwc-list-item ?selected=${this.take === 20} value="20">20</mwc-list-item>
-                    <mwc-list-item ?selected=${this.take === 50} value="50">50</mwc-list-item>
-                    ${this.largePages
-                      ? html`
-                          <mwc-list-item ?selected=${this.take === 100}>100</mwc-list-item>
-                          <mwc-list-item ?selected=${this.take === 500}>500</mwc-list-item>
-                        `
-                      : ''}
+                    ${this.pageSizes.map(o => html` <mwc-list-item ?selected=${this.take === o} value=${o}>${o}</mwc-list-item>`)}
                   </mwc-select>
                 </take-control>
                 <pagination-text>${this._getPageStats(this.page, this.count)}</pagination-text>
