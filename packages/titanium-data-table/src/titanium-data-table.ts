@@ -141,7 +141,7 @@ export class TitaniumDataTableElement extends LitElement {
       ro.observe(this);
     } else {
       const mql = window.matchMedia('(max-width: 768px)');
-      mql.addListener(e => {
+      mql.addEventListener('change', e => {
         this.narrow = e.matches;
         this.updateChildrenIsNarrow();
       });
@@ -456,7 +456,6 @@ export class TitaniumDataTableElement extends LitElement {
         flex-direction: row;
         flex-wrap: wrap;
         align-items: center;
-        justify-content: flex-end;
         max-width: 450px;
         min-width: 0;
 
