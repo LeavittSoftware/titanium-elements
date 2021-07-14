@@ -11,7 +11,7 @@ import { TitaniumDataTableHeaderElement } from './titanium-data-table-header';
 import { Menu } from '@material/mwc-menu';
 import { IconButton } from '@material/mwc-icon-button';
 import { ActionDetail } from '@material/mwc-list/mwc-list-foundation';
-import { h1 } from '@leavittsoftware/titanium-styles';
+import { h1, ellipsis } from '@leavittsoftware/titanium-styles';
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare const ResizeObserver: any;
@@ -134,7 +134,7 @@ export class TitaniumDataTableElement extends LitElement {
       const ro = new ResizeObserver(entries => {
         for (const entry of entries) {
           const cr = entry.contentRect;
-          this.narrow = cr.width < 760;
+          this.narrow = cr.width < 560;
           this.updateChildrenIsNarrow();
         }
       });
@@ -287,6 +287,7 @@ export class TitaniumDataTableElement extends LitElement {
 
   static styles = [
     h1,
+    ellipsis,
     css`
       :host {
         display: flex;
@@ -303,39 +304,72 @@ export class TitaniumDataTableElement extends LitElement {
       header {
         display: flex;
         flex-direction: column;
-        padding-bottom: 6px;
+        padding-bottom: 12px;
+        gap: 12px;
         border-bottom: 1px solid var(--app-border-color, #dadce0);
         position: relative;
       }
 
-      adaptive-header {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        padding-top: 12px;
+      /* HEADER ROW ONE */
+
+      section[row-one] {
+        display: grid;
+
+        grid: 'head menu' / 1fr auto;
+        gap: 8px;
+        padding: 12px 12px 0 12px;
       }
 
-      table-actions {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
-        flex-wrap: wrap;
-        flex: 1 1 150px;
-        padding: 0 4px;
+      section[row-one] div[head] {
+        grid-area: head;
+      }
 
+      section[row-one] div[menu] {
+        grid-area: menu;
         color: var(--app-text-color, #5f6368);
+      }
+
+      div[search] {
+        grid-area: search;
+        color: var(--app-text-color, #5f6368);
+      }
+
+      /* HEADER ROW TWO */
+
+      section[row-two] {
+        display: grid;
+        grid: 'search-filter add' / 1fr auto;
+        gap: 8px;
+        padding: 0 12px 0 20px;
+      }
+
+      :host([narrow]) section[row-two] {
+        grid:
+          'search-filter '
+          'add' / auto;
+      }
+
+      section[row-two] div[search-filter] {
+        grid-area: search-filter;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        color: var(--app-text-color, #5f6368);
+      }
+
+      section[row-two] div[add-button] {
+        grid-area: add;
+        justify-self: end;
+        align-self: end;
+      }
+
+      h1 {
+        padding: 12px 12px 0 12px;
       }
 
       mwc-icon-button {
         --mdc-icon-button-size: 32px;
-      }
-
-      table-actions > ::slotted(*) {
-        margin: 0 8px 2px 8px;
-      }
-
-      h1 {
-        padding: 12px 24px 12px;
       }
 
       selected-actions {
@@ -365,31 +399,6 @@ export class TitaniumDataTableElement extends LitElement {
       selected-text,
       selected-actions ::slotted(*) {
         margin: 8px;
-      }
-
-      section[row-two] {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-        margin: 0 12px;
-        gap: 8px;
-      }
-
-      filter-container {
-        display: flex;
-        flex-direction: row;
-        flex: 1 1 auto;
-        gap: 6px;
-      }
-
-      all-filters {
-        display: flex;
-        flex-direction: row;
-        flex: 1 1 auto;
-        flex-wrap: wrap;
-        align-content: center;
-        gap: 6px;
       }
 
       [spacer] {
@@ -545,22 +554,25 @@ export class TitaniumDataTableElement extends LitElement {
   render() {
     return html`
       <header>
-        <adaptive-header>
-          <slot name="table-header-text"> <h1>${this.header}</h1></slot>
-          <table-actions>
-            <slot name="search-button"></slot>
+        <section row-one>
+          <div head ellipsis>
+            <slot name="table-header-text"> <h1 ellipsis>${this.header}</h1></slot>
+          </div>
+          <div menu>
             <slot name="table-actions"></slot>
-          </table-actions>
-        </adaptive-header>
-        <section row-two>
-          <filter-container>
-            <slot name="filter-button"></slot>
-            <all-filters>
-              <slot name="filters"></slot>
-            </all-filters>
-          </filter-container>
-          <div add-button><slot name="add-button"></slot></div>
+          </div>
         </section>
+        <section row-two>
+          <div search-filter>
+            <slot name="search-button"></slot>
+            <slot name="filter-button"></slot>
+            <slot name="filters"></slot>
+          </div>
+          <div add-button>
+            <slot name="add-button"></slot>
+          </div>
+        </section>
+
         <selected-actions ?hidden="${this.selected.length === 0}">
           <selected-text>${this.selected.length} item${this.selected.length > 1 ? 's' : ''} selected</selected-text>
           <div spacer></div>

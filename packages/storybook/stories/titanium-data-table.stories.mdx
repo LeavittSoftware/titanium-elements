@@ -126,7 +126,7 @@ import '@leavittsoftware/titanium-data-table';
         //TODO: re-render
       };
       return html`
-        <titanium-data-table .items=${data} count="3" largePages header="Telsa motors">
+        <titanium-data-table .items=${data} count="3" largePages header="Telsa motors company llc ">
           <titanium-search-input slot="search-button"></titanium-search-input>
           <mwc-icon-button slot="table-actions" icon="refresh"></mwc-icon-button>
           <mwc-icon-button slot="filter-button" icon="filter_list"></mwc-icon-button>
@@ -204,6 +204,11 @@ import '@leavittsoftware/titanium-data-table';
           <titanium-search-input slot="search-button"></titanium-search-input>
           <mwc-icon-button slot="table-actions" icon="more_vert"></mwc-icon-button>
           <mwc-icon-button slot="filter-button" icon="filter_list"></mwc-icon-button>
+          <mwc-icon-button slot="selected-actions" title="Edit" icon="edit"></mwc-icon-button>
+          <mwc-icon-button slot="selected-actions" title="Do something else" icon="person_outline"></mwc-icon-button>
+          <mwc-icon-button slot="selected-actions" title="Remove" icon="delete"></mwc-icon-button>
+          <mwc-icon-button slot="selected-actions" title="Remove 2" icon="delete"></mwc-icon-button>
+          <mwc-icon-button slot="selected-actions" title="Remove 4" icon="delete"></mwc-icon-button>
           <titanium-chip label="Sedan" closeable slot="filters"></titanium-chip>
           <titanium-chip label="SUV" closeable slot="filters"></titanium-chip>
           <titanium-data-table-header
@@ -346,7 +351,7 @@ import '@leavittsoftware/titanium-data-table';
       };
       return html`
         <titanium-data-table disable-select disable-paging .items=${data} count="3" largePages header="Telsa motors">
-          <h6 style="margin:8px 24px;font-size:18px;font-family: 'Courier New', monospace;" slot="table-header-text">Header text slot</h6>
+          <h6 style="margin:8px 12px;font-size:18px;font-family: 'Courier New', monospace;" slot="table-header-text">Header text slot</h6>
           <titanium-search-input slot="search-button"></titanium-search-input>
           <mwc-icon-button slot="table-actions" icon="more_vert"></mwc-icon-button>
           <titanium-data-table-header
