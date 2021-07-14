@@ -2,15 +2,13 @@ import '@leavittsoftware/titanium-loading-indicator';
 import '@material/mwc-checkbox';
 import { Checkbox } from '@material/mwc-checkbox';
 import '@material/mwc-icon-button';
-import '@material/mwc-menu';
+import '@material/mwc-select';
 import '@material/mwc-list/mwc-list-item';
 
-import { css, customElement, html, LitElement, property, query } from 'lit-element';
+import { css, customElement, html, LitElement, property, query, queryAsync } from 'lit-element';
 import { TitaniumDataTableItemElement } from './titanium-data-table-item';
 import { TitaniumDataTableHeaderElement } from './titanium-data-table-header';
-import { Menu } from '@material/mwc-menu';
-import { IconButton } from '@material/mwc-icon-button';
-import { ActionDetail } from '@material/mwc-list/mwc-list-foundation';
+import { Select } from '@material/mwc-select';
 import { h1, ellipsis } from '@leavittsoftware/titanium-styles';
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -117,6 +115,7 @@ export class TitaniumDataTableElement extends LitElement {
   @property({ type: Number }) take: number;
 
   @query('mwc-checkbox') checkbox: Checkbox;
+  @queryAsync('mwc-select') select: Select;
 
   private _openCount = 0;
 
@@ -129,7 +128,7 @@ export class TitaniumDataTableElement extends LitElement {
     this.addEventListener('titanium-data-table-item-selected-changed', this._handleItemSelectionChange.bind(this));
   }
 
-  firstUpdated() {
+  async firstUpdated() {
     if (typeof ResizeObserver === 'function') {
       const ro = new ResizeObserver(entries => {
         for (const entry of entries) {
@@ -153,6 +152,12 @@ export class TitaniumDataTableElement extends LitElement {
     //When slotted in items change, sync the narrow prop
     this.tableHeaders.addEventListener('slotchange', () => this.updateChildrenIsNarrow());
     this.itemsSlot.addEventListener('slotchange', () => this.updateChildrenIsNarrow());
+
+    //TODO: when height is allowed to be changed via css mixin on mwc-select, remove this
+    const selectAnchor = (await this.select)?.shadowRoot?.querySelector<HTMLElement>('.mdc-select')?.querySelector<HTMLElement>('.mdc-select__anchor');
+    if (selectAnchor) {
+      selectAnchor.style.height = '36px';
+    }
   }
 
   updateChildrenIsNarrow() {
@@ -453,13 +458,13 @@ export class TitaniumDataTableElement extends LitElement {
       }
 
       table-controls {
-        display: grid;
-        grid-auto-flow: column;
-        gap: 44px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
         align-items: center;
-        align-self: end;
-
-        justify-content: start;
+        justify-content: flex-end;
+        max-width: 450px;
+        min-width: 0;
 
         font-size: 14px;
         font-weight: 400;
@@ -467,6 +472,30 @@ export class TitaniumDataTableElement extends LitElement {
         line-height: 20px;
         color: var(--app-dark-text-color, #202124);
         margin-left: 12px;
+        gap: 8px;
+      }
+
+      table-paging {
+        display: flex;
+      }
+
+      take-control {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+      }
+
+      take-control mwc-select {
+        max-width: 100px;
+        --mdc-shape-small: 24px;
+      }
+
+      pagination-text {
+        text-align: center;
+        user-select: none;
+        flex: 1 1 auto;
       }
 
       div[footer] {
@@ -481,11 +510,6 @@ export class TitaniumDataTableElement extends LitElement {
 
       :host([disable-paging]) footer {
         grid: 'footer-slot' / auto;
-      }
-
-      :host([narrow]) table-controls {
-        grid-auto-columns: 1fr auto auto;
-        gap: 8px;
       }
 
       footer-buttons {
@@ -508,25 +532,6 @@ export class TitaniumDataTableElement extends LitElement {
       div[add-button] {
         display: flex;
         align-items: center;
-      }
-
-      table-control {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        margin: 0;
-        user-select: none;
-        --mdc-icon-button-size: 42px;
-      }
-
-      table-control span {
-        padding: 0 4px 0 12px;
-      }
-
-      pagination-text {
-        text-align: right;
-        margin: 0 8px;
-        user-select: none;
       }
 
       mwc-checkbox {
@@ -615,68 +620,31 @@ export class TitaniumDataTableElement extends LitElement {
           ? ''
           : html`
               <table-controls ?hidden=${this._isLoading}>
-                <table-control>
-                  Rows per page: <span>${this.take}</span>
-
-                  <div style="position: relative;">
-                    <mwc-icon-button
-                      take-menu-button
-                      @click=${() => this.shadowRoot?.querySelector<Menu>('mwc-menu[take-menu]')?.show()}
-                      id="button"
-                      icon="arrow_drop_down"
-                      label="Change take"
-                    ></mwc-icon-button>
-                    <mwc-menu
-                      activatable
-                      take-menu
-                      .anchor=${this.shadowRoot?.querySelector<IconButton>('mwc-icon-button[take-menu-button]') ?? null}
-                      corner="TOP_END"
-                      menuCorner="END"
-                      @action=${(e: CustomEvent<ActionDetail>) => {
-                        switch (e.detail.index) {
-                          case 0:
-                            this.setTake(10);
-                            break;
-                          case 1:
-                            this.setTake(15);
-                            break;
-                          case 2:
-                            this.setTake(20);
-                            break;
-                          case 3:
-                            this.setTake(50);
-                            break;
-                          case 4:
-                            this.setTake(100);
-                            break;
-                          case 5:
-                            this.setTake(500);
-                            break;
-                        }
-                      }}
-                    >
-                      <mwc-list-item ?activated=${this.take === 10}><span>10 rows</span></mwc-list-item>
-                      <mwc-list-item ?activated=${this.take === 15}><span>15 rows</span></mwc-list-item>
-                      <mwc-list-item ?activated=${this.take === 20}><span>20 rows</span></mwc-list-item>
-                      <mwc-list-item ?activated=${this.take === 50}><span>50 rows</span></mwc-list-item>
-                      ${this.largePages
-                        ? html`
-                            <mwc-list-item ?activated=${this.take === 100}><span>100 rows</span></mwc-list-item>
-                            <mwc-list-item ?activated=${this.take === 500}><span>500 rows</span></mwc-list-item>
-                          `
-                        : ''}
-                    </mwc-menu>
-                  </div>
-                </table-control>
+                <take-control>
+                  <div ellipsis>Rows per page</div>
+                  <mwc-select outlined @change=${e => this.setTake(e.target.value)}>
+                    <mwc-list-item></mwc-list-item>
+                    <mwc-list-item ?selected=${this.take === 10} value="10">10</mwc-list-item>
+                    <mwc-list-item ?selected=${this.take === 15} value="15">15</mwc-list-item>
+                    <mwc-list-item ?selected=${this.take === 20} value="20">20</mwc-list-item>
+                    <mwc-list-item ?selected=${this.take === 50} value="50">50</mwc-list-item>
+                    ${this.largePages
+                      ? html`
+                          <mwc-list-item ?selected=${this.take === 100}>100</mwc-list-item>
+                          <mwc-list-item ?selected=${this.take === 500}>500</mwc-list-item>
+                        `
+                      : ''}
+                  </mwc-select>
+                </take-control>
                 <pagination-text>${this._getPageStats(this.page, this.count)}</pagination-text>
-                <table-control>
+                <table-paging>
                   <mwc-icon-button icon="keyboard_arrow_left" @click=${this._handleLastPageClick} ?disabled=${this.page === 0 || !this.count}></mwc-icon-button>
                   <mwc-icon-button
                     icon="keyboard_arrow_right"
                     @click=${this._handleNextPageClick}
                     ?disabled=${!this.count || (this.page + 1) * this.take >= this.count}
                   ></mwc-icon-button>
-                </table-control>
+                </table-paging>
               </table-controls>
             `}
         <div footer>

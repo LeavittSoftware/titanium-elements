@@ -24,7 +24,7 @@
     "@material/mwc-checkbox": "*",
     "@material/mwc-icon-button": "*",
     "@material/mwc-list": "*",
-    "@material/mwc-menu": "*",
+    "@material/mwc-select": "*",
     "tslib": "^1.11.1"
   },
   "peerDependencies": {
