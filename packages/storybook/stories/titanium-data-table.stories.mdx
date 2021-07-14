@@ -422,8 +422,11 @@ import '@leavittsoftware/titanium-data-table';
         //TODO: re-render
       };
       return html`
-        <titanium-data-table disable-select disable-paging .items=${data} count="3" largePages header="Telsa motors">
+        <titanium-data-table disable-paging .items=${data} count="3" largePages header="Telsa motors">
           <mwc-icon-button slot="table-actions" icon="more_vert"></mwc-icon-button>
+          <mwc-icon-button slot="selected-actions" title="Edit" icon="edit"></mwc-icon-button>
+          <mwc-icon-button slot="selected-actions" title="Do something else" icon="person_outline"></mwc-icon-button>
+          <mwc-icon-button slot="selected-actions" title="Remove" icon="delete"></mwc-icon-button>
           <titanium-data-table-header
             title="Model"
             @sort-by-changed=${onSortByChange}
@@ -456,7 +459,7 @@ import '@leavittsoftware/titanium-data-table';
           ></titanium-data-table-header>
           ${data.map(
             item => html`
-              <titanium-data-table-item disable-select .item=${item} slot="items">
+              <titanium-data-table-item .item=${item} slot="items">
                 <row-item large x>${item.name}</row-item>
                 <row-item desktop>${item.miles}</row-item>
                 <row-item right>${item.price}</row-item>

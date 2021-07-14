@@ -373,12 +373,9 @@ export class TitaniumDataTableElement extends LitElement {
       }
 
       selected-actions {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        padding: 8px;
-        color: #1e88e5;
-        font-size: 18px;
+        display: grid;
+        gap: 6px 24px;
+        grid: 'selected-text buttons';
         background-color: #e8f0fe;
         position: absolute;
         top: 0px;
@@ -386,23 +383,24 @@ export class TitaniumDataTableElement extends LitElement {
         right: 0px;
         bottom: 0px;
         margin: 0 !important;
+        padding: 0 12px 12px 24px;
+        align-content: end;
       }
 
-      selected-actions ::slotted(mwc-icon-button) {
-        color: var(--app-dark-text-color, #202124);
+      selected-actions h2 {
+        color: #1e88e5;
+        font-size: 18px;
+        font-weight: 400;
+        align-self: end;
       }
 
-      selected-text {
-        display: block;
-      }
-
-      selected-text,
-      selected-actions ::slotted(*) {
-        margin: 8px;
-      }
-
-      [spacer] {
-        flex: 1 1 auto;
+      selected-actions div[buttons] {
+        color: var(--app-text-color, #5f6368);
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0 8px;
+        justify-content: flex-end;
       }
 
       table-container {
@@ -574,9 +572,10 @@ export class TitaniumDataTableElement extends LitElement {
         </section>
 
         <selected-actions ?hidden="${this.selected.length === 0}">
-          <selected-text>${this.selected.length} item${this.selected.length > 1 ? 's' : ''} selected</selected-text>
-          <div spacer></div>
-          <slot name="selected-actions"></slot>
+          <h2 ellipsis>${this.selected.length} item${this.selected.length > 1 ? 's' : ''} selected</h2>
+          <div buttons>
+            <slot name="selected-actions"></slot>
+          </div>
         </selected-actions>
       </header>
       <table-container>
