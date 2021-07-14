@@ -128,7 +128,7 @@ export class TitaniumDataTableItemElement extends LitElement {
     ::slotted(row-item) {
       display: block;
 
-      font-size: 13px;
+      font-size: 14px;
       line-height: 18px;
       color: var(--app-text-color, #5f6368);
       font-weight: 400;

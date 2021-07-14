@@ -461,7 +461,7 @@ export class TitaniumDataTableElement extends LitElement {
 
         justify-content: start;
 
-        font-size: 12px;
+        font-size: 14px;
         font-weight: 400;
         letter-spacing: 0.011em;
         line-height: 20px;

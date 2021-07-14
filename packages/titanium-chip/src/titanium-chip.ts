@@ -154,9 +154,9 @@ export class TitaniumChipElement extends LitElement implements CheckableElement 
       margin: 0 16px;
       font-family: Roboto, Noto, sans-serif;
       -webkit-font-smoothing: antialiased;
-      font-size: 13px;
+      font-size: 14px;
       line-height: 18px;
-      font-weight: 500;
+      font-weight: 400;
       color: var(--app-text-color, #5f6368);
       cursor: pointer;
     }
