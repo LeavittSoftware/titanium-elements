@@ -108,6 +108,10 @@ export class TitaniumDataTableItemElement extends LitElement {
       -webkit-font-smoothing: antialiased;
     }
 
+    :host(:last-of-type) {
+      border: none;
+    }
+
     :host main {
       display: flex;
       flex-direction: row;

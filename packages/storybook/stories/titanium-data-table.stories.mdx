@@ -250,7 +250,13 @@ import '@leavittsoftware/titanium-data-table';
               </titanium-data-table-item>
             `
           )}
-          <mwc-button slot="add-button" icon="add" outlined label="Add a tesla"></mwc-button>
+          <mwc-button
+            slot="add-button"
+            icon="add"
+            outlined
+            label="Add a tesla"
+            @click=${e => e.target.parentElement.loadWhile(new Promise(r => setTimeout(() => r(), 5000)))}
+          ></mwc-button>
           <mwc-button slot="footer-buttons" outlined label="Submit"></mwc-button>
         </titanium-data-table>
       `;
@@ -468,6 +474,76 @@ import '@leavittsoftware/titanium-data-table';
             `
           )}
           <div slot="footer">The whole footer slot</div>
+        </titanium-data-table>
+      `;
+    }}
+  </Story>
+</Preview>
+
+#### Empty table
+
+<Preview>
+  <Story name="Empty table">
+    {() => {
+      const data = [];
+      let sortDirection = 'asc';
+      let sortBy = 'name';
+      const onSortDirectionChange = event => {
+        sortDirection = event.detail;
+        //TODO: re-render
+      };
+      const onSortByChange = event => {
+        sortBy = event.detail;
+        //TODO: re-render
+      };
+      return html`
+        <titanium-data-table .items=${data} count="3" header="Telsa motors">
+          <mwc-icon-button
+            @click=${e => e.target.parentElement.loadWhile(new Promise(r => setTimeout(() => r(), 5000)))}
+            slot="table-actions"
+            icon="more_vert"
+          ></mwc-icon-button>
+          <titanium-data-table-header
+            title="Model"
+            @sort-by-changed=${onSortByChange}
+            .sortBy=${sortBy}
+            .sortDirection=${sortDirection}
+            @sort-direction-changed=${onSortDirectionChange}
+            large
+            column-name="name"
+            slot="table-headers"
+          ></titanium-data-table-header>
+          <titanium-data-table-header
+            title="Range"
+            @sort-by-changed=${onSortByChange}
+            .sortBy=${sortBy}
+            .sortDirection=${sortDirection}
+            @sort-direction-changed=${onSortDirectionChange}
+            desktop
+            column-name="miles"
+            slot="table-headers"
+          ></titanium-data-table-header>
+          <titanium-data-table-header
+            title="Price"
+            @sort-by-changed=${onSortByChange}
+            .sortBy=${sortBy}
+            .sortDirection=${sortDirection}
+            @sort-direction-changed=${onSortDirectionChange}
+            right
+            column-name="price"
+            slot="table-headers"
+          ></titanium-data-table-header>
+          ${data.map(
+            item => html`
+              <titanium-data-table-item .item=${item} slot="items">
+                <row-item large x>${item.name}</row-item>
+                <row-item desktop>${item.miles}</row-item>
+                <row-item right>${item.price}</row-item>
+                <div slot="item-footer" style="padding: 24px">Item metadata</div>
+              </titanium-data-table-item>
+            `
+          )}
+          <mwc-button slot="footer-buttons" outlined label="Submit"></mwc-button>
         </titanium-data-table>
       `;
     }}

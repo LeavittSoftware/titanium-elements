@@ -1,4 +1,4 @@
-import '@leavittsoftware/titanium-loading-indicator';
+import '@material/mwc-linear-progress';
 import '@material/mwc-checkbox';
 import { Checkbox } from '@material/mwc-checkbox';
 import '@material/mwc-icon-button';
@@ -93,7 +93,7 @@ export class TitaniumDataTableElement extends LitElement {
   /**
    * When set to true, the loading state is shown.
    */
-  @property({ type: Boolean }) private _isLoading: boolean;
+  @property({ type: Boolean }) private isLoading: boolean;
 
   /**
    * Available page sizes
@@ -230,14 +230,14 @@ export class TitaniumDataTableElement extends LitElement {
   }
 
   async loadWhile(promise: Promise<unknown>) {
-    this._isLoading = true;
+    this.isLoading = true;
     this._openCount++;
     try {
       await promise;
     } finally {
       this._openCount--;
       if (this._openCount === 0) {
-        this._isLoading = false;
+        this.isLoading = false;
       }
     }
   }
@@ -402,10 +402,6 @@ export class TitaniumDataTableElement extends LitElement {
         justify-content: flex-end;
       }
 
-      table-container {
-        padding-bottom: 6px;
-      }
-
       table-header {
         display: flex;
         flex-direction: row;
@@ -417,23 +413,49 @@ export class TitaniumDataTableElement extends LitElement {
         padding-right: 24px;
       }
 
-      titanium-loading-indicator {
-        align-content: center;
-        justify-content: center;
-        margin: 64px;
+      mwc-linear-progress {
+        margin-top: -4px;
       }
 
-      no-results-indicator {
+      main {
+        position: relative;
+        min-height: 48px;
+      }
+
+      content-veil {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        opacity: 0;
+        -webkit-transition: opacity 75ms linear;
+        -o-transition: opacity 75ms linear;
+        transition: opacity 75ms linear;
+        z-index: 6;
+      }
+
+      content-veil[opened] {
+        opacity: 0.8;
+        display: block;
+      }
+
+      table-message {
         display: flex;
-        align-content: center;
+        place-items: center;
         justify-content: center;
-        margin: 48px 32px 32px 32px;
-        font-size: 13px;
+        padding: 64px;
+
+        font-size: 14px;
+        background-color: #fff;
+        z-index: 10;
         color: var(--app-text-color, #5f6368);
         line-height: 20px;
       }
 
-      no-results-indicator svg {
+      table-message svg {
         display: block;
         align-self: center;
         margin: 0 8px;
@@ -447,8 +469,9 @@ export class TitaniumDataTableElement extends LitElement {
         display: grid;
         grid: 'controls footer-slot' / minmax(400px, 1fr) auto;
         gap: 24px;
-        padding: 8px 12px 12px;
+        padding: 12px;
         align-items: center;
+        border-top: 1px solid var(--app-border-color, #dadce0);
       }
 
       table-controls {
@@ -542,7 +565,7 @@ export class TitaniumDataTableElement extends LitElement {
       }
 
       [hidden] {
-        display: none;
+        display: none !important;
       }
     `,
   ];
@@ -576,6 +599,7 @@ export class TitaniumDataTableElement extends LitElement {
           </div>
         </selected-actions>
       </header>
+
       <table-container>
         <table-header>
           ${this.disableSelect || this.singleSelect
@@ -592,40 +616,47 @@ export class TitaniumDataTableElement extends LitElement {
               `}
           <slot name="table-headers"></slot>
         </table-header>
+        <mwc-linear-progress ?hidden=${!this.isLoading} ?closed=${!this.isLoading} indeterminate></mwc-linear-progress>
 
-        <no-results-indicator ?hidden="${this._isLoading || this.items.length > 0}"
-          ><svg viewBox="0 0 24 24">
-            <path fill="none" d="M0 0h24v24H0V0z" />
-            <path
-              d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"
-            />
-          </svg>
-          ${this.searchTerm === '' || typeof this.searchTerm === 'undefined' || this.searchTerm === null
-            ? 'No results'
-            : `Your search of '${this.searchTerm}' did not match any results`}</no-results-indicator
-        >
-
-        <titanium-loading-indicator ?hidden="${!this._isLoading}" ?disabled="${!this._isLoading}">Loading...</titanium-loading-indicator>
-        <slot name="items"></slot>
+        <main>
+          <slot name="items"></slot>
+          <table-message ?hidden=${this.isLoading || this.items.length > 0}
+            ><svg viewBox="0 0 24 24">
+              <path fill="none" d="M0 0h24v24H0V0z" />
+              <path
+                d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"
+              />
+            </svg>
+            ${this.searchTerm === '' || typeof this.searchTerm === 'undefined' || this.searchTerm === null
+              ? 'No results'
+              : `Your search of '${this.searchTerm}' did not match any results`}</table-message
+          >
+          <table-message ?hidden=${!this.isLoading || this.items.length !== 0}> Loading data... </table-message>
+          <content-veil ?opened=${this.isLoading}></content-veil>
+        </main>
       </table-container>
       <footer>
         ${this.disablePaging
           ? ''
           : html`
-              <table-controls ?hidden=${this._isLoading}>
+              <table-controls>
                 <take-control>
                   <div ellipsis>Rows per page</div>
-                  <mwc-select outlined @change=${e => this.setTake(e.target.value)}>
+                  <mwc-select outlined @change=${e => this.setTake(e.target.value)} ?disabled=${this.isLoading}>
                     ${this.pageSizes.map(o => html` <mwc-list-item ?selected=${this.take === o} value=${o}>${o}</mwc-list-item>`)}
                   </mwc-select>
                 </take-control>
                 <pagination-text>${this._getPageStats(this.page, this.count)}</pagination-text>
                 <table-paging>
-                  <mwc-icon-button icon="keyboard_arrow_left" @click=${this._handleLastPageClick} ?disabled=${this.page === 0 || !this.count}></mwc-icon-button>
+                  <mwc-icon-button
+                    icon="keyboard_arrow_left"
+                    @click=${this._handleLastPageClick}
+                    ?disabled=${this.page === 0 || !this.count || this.isLoading}
+                  ></mwc-icon-button>
                   <mwc-icon-button
                     icon="keyboard_arrow_right"
                     @click=${this._handleNextPageClick}
-                    ?disabled=${!this.count || (this.page + 1) * this.take >= this.count}
+                    ?disabled=${!this.count || (this.page + 1) * this.take >= this.count || this.isLoading}
                   ></mwc-icon-button>
                 </table-paging>
               </table-controls>
