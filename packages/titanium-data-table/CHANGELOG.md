@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [11.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@10.2.0...@leavittsoftware/titanium-data-table@11.0.0) (2021-07-15)
+
+
+### Bug Fixes
+
+* deprecated event listener  ([b11b43f](https://github.com/LeavittSoftware/titanium-elements/commit/b11b43f21546e2bf60367f2ad06145fb98cdd111))
+* remove sub 14px font sizes ([f815378](https://github.com/LeavittSoftware/titanium-elements/commit/f81537801b0e31dd23b53bb40bd3e20ba9f43654))
+* **titanium-data-table:** allow wrapping on selection action buttons; ellipsis text ([8ef27a9](https://github.com/LeavittSoftware/titanium-elements/commit/8ef27a910d81f03ac6d775d93febd02d9e75defc))
+
+
+### Features
+
+* add a slot add-button; moves search to top header row ([0cc52f7](https://github.com/LeavittSoftware/titanium-elements/commit/0cc52f733c5a5696c5945357e4829195b5cb4146))
+* align loading indicator with material design table spec ([88f2bb0](https://github.com/LeavittSoftware/titanium-elements/commit/88f2bb02754edb853999661421e8db4e83bda800))
+* replace largePages with pageSizes array of number ([851a99a](https://github.com/LeavittSoftware/titanium-elements/commit/851a99ae0065ad054d79573d9d53228d7252b02f))
+* swap page menu from mwc-select; refine responsive layout ([4fa1a6a](https://github.com/LeavittSoftware/titanium-elements/commit/4fa1a6a7db549af590243423be7a57a838555ef6))
+
+
+### BREAKING CHANGES
+
+* removes largePages attribute; set  pageSizes with desired page sizes instead.
+
+
+
+
+
 # 10.2.0 (2021-07-13)
 
 

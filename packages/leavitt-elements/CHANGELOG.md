@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.7.1 (2021-07-15)
+
+
+### Bug Fixes
+
+* abide by @material/text-field > Version 0.22.1 interface ([f7dc3a5](https://github.com/LeavittSoftware/titanium-elements/commit/f7dc3a50faf7ace80244608b4a46e7725af6349e))
+
+
+
+
+
 # 1.7.0 (2021-07-02)
 
 

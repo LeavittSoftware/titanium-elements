@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@7.2.0...@leavittsoftware/storybook@8.0.0) (2021-07-15)
+
+
+### Bug Fixes
+
+* **titanium-data-table:** allow wrapping on selection action buttons; ellipsis text ([8ef27a9](https://github.com/LeavittSoftware/titanium-elements/commit/8ef27a910d81f03ac6d775d93febd02d9e75defc))
+
+
+### Features
+
+* add a slot add-button; moves search to top header row ([0cc52f7](https://github.com/LeavittSoftware/titanium-elements/commit/0cc52f733c5a5696c5945357e4829195b5cb4146))
+* align loading indicator with material design table spec ([88f2bb0](https://github.com/LeavittSoftware/titanium-elements/commit/88f2bb02754edb853999661421e8db4e83bda800))
+* replace largePages with pageSizes array of number ([851a99a](https://github.com/LeavittSoftware/titanium-elements/commit/851a99ae0065ad054d79573d9d53228d7252b02f))
+
+
+### BREAKING CHANGES
+
+* removes largePages attribute; set  pageSizes with desired page sizes instead.
+
+
+
+
+
 # [7.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@7.1.1...@leavittsoftware/storybook@7.2.0) (2021-07-13)
 
 

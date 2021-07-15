@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.2.1 (2021-07-15)
+
+
+### Bug Fixes
+
+* remove sub 14px font sizes ([f815378](https://github.com/LeavittSoftware/titanium-elements/commit/f81537801b0e31dd23b53bb40bd3e20ba9f43654))
+
+
+
+
+
 # 3.2.0 (2021-07-09)
 
 
