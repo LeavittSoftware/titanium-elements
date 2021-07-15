@@ -108,6 +108,10 @@ export class TitaniumDataTableItemElement extends LitElement {
       -webkit-font-smoothing: antialiased;
     }
 
+    :host(:last-of-type) {
+      border: none;
+    }
+
     :host main {
       display: flex;
       flex-direction: row;
@@ -128,7 +132,7 @@ export class TitaniumDataTableItemElement extends LitElement {
     ::slotted(row-item) {
       display: block;
 
-      font-size: 13px;
+      font-size: 14px;
       line-height: 18px;
       color: var(--app-text-color, #5f6368);
       font-weight: 400;

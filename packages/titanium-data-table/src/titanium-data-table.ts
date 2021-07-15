@@ -1,17 +1,15 @@
-import '@leavittsoftware/titanium-loading-indicator';
+import '@material/mwc-linear-progress';
 import '@material/mwc-checkbox';
 import { Checkbox } from '@material/mwc-checkbox';
 import '@material/mwc-icon-button';
-import '@material/mwc-menu';
+import '@material/mwc-select';
 import '@material/mwc-list/mwc-list-item';
 
-import { css, customElement, html, LitElement, property, query } from 'lit-element';
+import { css, customElement, html, LitElement, property, query, queryAsync, state } from 'lit-element';
 import { TitaniumDataTableItemElement } from './titanium-data-table-item';
 import { TitaniumDataTableHeaderElement } from './titanium-data-table-header';
-import { Menu } from '@material/mwc-menu';
-import { IconButton } from '@material/mwc-icon-button';
-import { ActionDetail } from '@material/mwc-list/mwc-list-foundation';
-import { h1 } from '@leavittsoftware/titanium-styles';
+import { Select } from '@material/mwc-select';
+import { h1, ellipsis } from '@leavittsoftware/titanium-styles';
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare const ResizeObserver: any;
@@ -95,12 +93,12 @@ export class TitaniumDataTableElement extends LitElement {
   /**
    * When set to true, the loading state is shown.
    */
-  @property({ type: Boolean }) private _isLoading: boolean;
+  @property({ type: Boolean }) private isLoading: boolean;
 
   /**
-   * Allows page sizes of 100 and 500 to be selected in addition to the standard sizes of 10, 15, 20, and 50.
+   * Available page sizes
    */
-  @property({ type: Boolean }) largePages: boolean = false;
+  @state() pageSizes: Array<number> = [10, 15, 20, 50];
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @query('slot[name="items"]') private itemsSlot: HTMLSlotElement;
@@ -117,6 +115,7 @@ export class TitaniumDataTableElement extends LitElement {
   @property({ type: Number }) take: number;
 
   @query('mwc-checkbox') checkbox: Checkbox;
+  @queryAsync('mwc-select') select: Select;
 
   private _openCount = 0;
 
@@ -129,12 +128,12 @@ export class TitaniumDataTableElement extends LitElement {
     this.addEventListener('titanium-data-table-item-selected-changed', this._handleItemSelectionChange.bind(this));
   }
 
-  firstUpdated() {
+  async firstUpdated() {
     if (typeof ResizeObserver === 'function') {
       const ro = new ResizeObserver(entries => {
         for (const entry of entries) {
           const cr = entry.contentRect;
-          this.narrow = cr.width < 760;
+          this.narrow = cr.width < 560;
           this.updateChildrenIsNarrow();
         }
       });
@@ -142,7 +141,7 @@ export class TitaniumDataTableElement extends LitElement {
       ro.observe(this);
     } else {
       const mql = window.matchMedia('(max-width: 768px)');
-      mql.addListener(e => {
+      mql.addEventListener('change', e => {
         this.narrow = e.matches;
         this.updateChildrenIsNarrow();
       });
@@ -153,6 +152,12 @@ export class TitaniumDataTableElement extends LitElement {
     //When slotted in items change, sync the narrow prop
     this.tableHeaders.addEventListener('slotchange', () => this.updateChildrenIsNarrow());
     this.itemsSlot.addEventListener('slotchange', () => this.updateChildrenIsNarrow());
+
+    //TODO: when height is allowed to be changed via css mixin on mwc-select, remove this
+    const selectAnchor = (await this.select)?.shadowRoot?.querySelector<HTMLElement>('.mdc-select')?.querySelector<HTMLElement>('.mdc-select__anchor');
+    if (selectAnchor) {
+      selectAnchor.style.height = '36px';
+    }
   }
 
   updateChildrenIsNarrow() {
@@ -221,24 +226,18 @@ export class TitaniumDataTableElement extends LitElement {
       return take;
     }
 
-    const height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-    if (height > 1200) {
-      return 20;
-    } else if (height > 1000) {
-      return 15;
-    }
-    return 10;
+    return this.pageSizes?.[0] ?? 1;
   }
 
   async loadWhile(promise: Promise<unknown>) {
-    this._isLoading = true;
+    this.isLoading = true;
     this._openCount++;
     try {
       await promise;
     } finally {
       this._openCount--;
       if (this._openCount === 0) {
-        this._isLoading = false;
+        this.isLoading = false;
       }
     }
   }
@@ -287,6 +286,7 @@ export class TitaniumDataTableElement extends LitElement {
 
   static styles = [
     h1,
+    ellipsis,
     css`
       :host {
         display: flex;
@@ -303,48 +303,78 @@ export class TitaniumDataTableElement extends LitElement {
       header {
         display: flex;
         flex-direction: column;
-
+        padding-bottom: 12px;
+        gap: 12px;
         border-bottom: 1px solid var(--app-border-color, #dadce0);
         position: relative;
       }
 
-      adaptive-header {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        padding-top: 12px;
+      /* HEADER ROW ONE */
+
+      section[row-one] {
+        display: grid;
+
+        grid: 'head menu' / 1fr auto;
+        gap: 8px;
+        padding: 12px 12px 0 12px;
       }
 
-      table-actions {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
-        flex-wrap: wrap;
-        flex: 1 1 150px;
-        padding: 0 4px;
+      section[row-one] div[head] {
+        grid-area: head;
+      }
 
+      section[row-one] div[menu] {
+        grid-area: menu;
         color: var(--app-text-color, #5f6368);
+      }
+
+      div[search] {
+        grid-area: search;
+        color: var(--app-text-color, #5f6368);
+      }
+
+      /* HEADER ROW TWO */
+
+      section[row-two] {
+        display: grid;
+        grid: 'search-filter add' / 1fr auto;
+        gap: 8px;
+        padding: 0 12px 0 20px;
+      }
+
+      :host([narrow]) section[row-two] {
+        grid:
+          'search-filter '
+          'add' / auto;
+      }
+
+      section[row-two] div[search-filter] {
+        grid-area: search-filter;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        color: var(--app-text-color, #5f6368);
+      }
+
+      section[row-two] div[add-button] {
+        grid-area: add;
+        justify-self: end;
+        align-self: end;
+      }
+
+      h1 {
+        padding: 12px 12px 0 12px;
       }
 
       mwc-icon-button {
         --mdc-icon-button-size: 32px;
       }
 
-      table-actions > ::slotted(*) {
-        margin: 0 8px 8px 8px;
-      }
-
-      h1 {
-        padding: 12px 24px 12px;
-      }
-
       selected-actions {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        padding: 8px;
-        color: #1e88e5;
-        font-size: 18px;
+        display: grid;
+        gap: 6px 24px;
+        grid: 'selected-text buttons';
         background-color: #e8f0fe;
         position: absolute;
         top: 0px;
@@ -352,63 +382,24 @@ export class TitaniumDataTableElement extends LitElement {
         right: 0px;
         bottom: 0px;
         margin: 0 !important;
+        padding: 0 12px 12px 24px;
+        align-content: end;
       }
 
-      selected-actions ::slotted(mwc-icon-button) {
-        color: var(--app-dark-text-color, #202124);
+      selected-actions h2 {
+        color: #1e88e5;
+        font-size: 18px;
+        font-weight: 400;
+        align-self: end;
       }
 
-      selected-text {
-        display: block;
-      }
-
-      selected-text,
-      selected-actions ::slotted(*) {
-        margin: 8px;
-      }
-
-      section[row-two] {
+      selected-actions div[buttons] {
+        color: var(--app-text-color, #5f6368);
         display: flex;
-        flex-direction: row;
         flex-wrap: wrap;
+        align-items: center;
+        gap: 0 8px;
         justify-content: flex-end;
-        margin: 0 12px 6px 12px;
-      }
-
-      section[row-two] > ::slotted(*) {
-        margin: 6px 0;
-      }
-
-      filter-container {
-        display: flex;
-        flex-direction: row;
-        flex: 1 1 auto;
-      }
-
-      filter-container > ::slotted(*) {
-        align-self: flex-start;
-        flex-shrink: 0;
-        margin: 6px 0;
-      }
-
-      all-filters {
-        display: flex;
-        flex-direction: row;
-        flex: 1 1 auto;
-        flex-wrap: wrap;
-        align-content: center;
-      }
-
-      all-filters > ::slotted(*) {
-        margin: 6px 0 6px 12px;
-      }
-
-      [spacer] {
-        flex: 1 1 auto;
-      }
-
-      table-container {
-        padding-bottom: 6px;
       }
 
       table-header {
@@ -422,23 +413,49 @@ export class TitaniumDataTableElement extends LitElement {
         padding-right: 24px;
       }
 
-      titanium-loading-indicator {
-        align-content: center;
-        justify-content: center;
-        margin: 64px;
+      mwc-linear-progress {
+        margin-top: -4px;
       }
 
-      no-results-indicator {
+      main {
+        position: relative;
+        min-height: 48px;
+      }
+
+      content-veil {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        opacity: 0;
+        -webkit-transition: opacity 75ms linear;
+        -o-transition: opacity 75ms linear;
+        transition: opacity 75ms linear;
+        z-index: 6;
+      }
+
+      content-veil[opened] {
+        opacity: 0.8;
+        display: block;
+      }
+
+      table-message {
         display: flex;
-        align-content: center;
+        place-items: center;
         justify-content: center;
-        margin: 48px 32px 32px 32px;
-        font-size: 13px;
+        padding: 64px;
+
+        font-size: 14px;
+        background-color: #fff;
+        z-index: 10;
         color: var(--app-text-color, #5f6368);
         line-height: 20px;
       }
 
-      no-results-indicator svg {
+      table-message svg {
         display: block;
         align-self: center;
         margin: 0 8px;
@@ -452,25 +469,49 @@ export class TitaniumDataTableElement extends LitElement {
         display: grid;
         grid: 'controls footer-slot' / minmax(400px, 1fr) auto;
         gap: 24px;
-        padding: 8px 12px 12px;
+        padding: 12px;
         align-items: center;
+        border-top: 1px solid var(--app-border-color, #dadce0);
       }
 
       table-controls {
-        display: grid;
-        grid-auto-flow: column;
-        gap: 44px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
         align-items: center;
-        align-self: end;
+        max-width: 450px;
+        min-width: 0;
 
-        justify-content: start;
-
-        font-size: 12px;
+        font-size: 14px;
         font-weight: 400;
         letter-spacing: 0.011em;
         line-height: 20px;
         color: var(--app-dark-text-color, #202124);
         margin-left: 12px;
+        gap: 8px;
+      }
+
+      table-paging {
+        display: flex;
+      }
+
+      take-control {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+      }
+
+      take-control mwc-select {
+        max-width: 100px;
+        --mdc-shape-small: 24px;
+      }
+
+      pagination-text {
+        text-align: center;
+        user-select: none;
+        flex: 1 1 auto;
       }
 
       div[footer] {
@@ -485,11 +526,6 @@ export class TitaniumDataTableElement extends LitElement {
 
       :host([disable-paging]) footer {
         grid: 'footer-slot' / auto;
-      }
-
-      :host([narrow]) table-controls {
-        grid-auto-columns: 1fr auto auto;
-        gap: 8px;
       }
 
       footer-buttons {
@@ -512,26 +548,6 @@ export class TitaniumDataTableElement extends LitElement {
       div[add-button] {
         display: flex;
         align-items: center;
-        margin-left: 8px;
-      }
-
-      table-control {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        margin: 0;
-        user-select: none;
-        --mdc-icon-button-size: 42px;
-      }
-
-      table-control span {
-        padding: 0 4px 0 12px;
-      }
-
-      pagination-text {
-        text-align: right;
-        margin: 0 8px;
-        user-select: none;
       }
 
       mwc-checkbox {
@@ -549,7 +565,7 @@ export class TitaniumDataTableElement extends LitElement {
       }
 
       [hidden] {
-        display: none;
+        display: none !important;
       }
     `,
   ];
@@ -557,28 +573,33 @@ export class TitaniumDataTableElement extends LitElement {
   render() {
     return html`
       <header>
-        <adaptive-header>
-          <slot name="table-header-text"> <h1>${this.header}</h1></slot>
-          <table-actions>
-            <slot name="search-button"></slot>
+        <section row-one>
+          <div head ellipsis>
+            <slot name="table-header-text"> <h1 ellipsis>${this.header}</h1></slot>
+          </div>
+          <div menu>
             <slot name="table-actions"></slot>
-          </table-actions>
-        </adaptive-header>
-        <section row-two>
-          <filter-container>
-            <slot name="filter-button"></slot>
-            <all-filters>
-              <slot name="filters"></slot>
-            </all-filters>
-          </filter-container>
-          <div add-button><slot name="add-button"></slot></div>
+          </div>
         </section>
+        <section row-two>
+          <div search-filter>
+            <slot name="search-button"></slot>
+            <slot name="filter-button"></slot>
+            <slot name="filters"></slot>
+          </div>
+          <div add-button>
+            <slot name="add-button"></slot>
+          </div>
+        </section>
+
         <selected-actions ?hidden="${this.selected.length === 0}">
-          <selected-text>${this.selected.length} item${this.selected.length > 1 ? 's' : ''} selected</selected-text>
-          <div spacer></div>
-          <slot name="selected-actions"></slot>
+          <h2 ellipsis>${this.selected.length} item${this.selected.length > 1 ? 's' : ''} selected</h2>
+          <div buttons>
+            <slot name="selected-actions"></slot>
+          </div>
         </selected-actions>
       </header>
+
       <table-container>
         <table-header>
           ${this.disableSelect || this.singleSelect
@@ -595,89 +616,49 @@ export class TitaniumDataTableElement extends LitElement {
               `}
           <slot name="table-headers"></slot>
         </table-header>
+        <mwc-linear-progress ?hidden=${!this.isLoading} ?closed=${!this.isLoading} indeterminate></mwc-linear-progress>
 
-        <no-results-indicator ?hidden="${this._isLoading || this.items.length > 0}"
-          ><svg viewBox="0 0 24 24">
-            <path fill="none" d="M0 0h24v24H0V0z" />
-            <path
-              d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"
-            />
-          </svg>
-          ${this.searchTerm === '' || typeof this.searchTerm === 'undefined' || this.searchTerm === null
-            ? 'No results'
-            : `Your search of '${this.searchTerm}' did not match any results`}</no-results-indicator
-        >
-
-        <titanium-loading-indicator ?hidden="${!this._isLoading}" ?disabled="${!this._isLoading}">Loading...</titanium-loading-indicator>
-        <slot name="items"></slot>
+        <main>
+          <slot name="items"></slot>
+          <table-message ?hidden=${this.isLoading || this.items.length > 0}
+            ><svg viewBox="0 0 24 24">
+              <path fill="none" d="M0 0h24v24H0V0z" />
+              <path
+                d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"
+              />
+            </svg>
+            ${this.searchTerm === '' || typeof this.searchTerm === 'undefined' || this.searchTerm === null
+              ? 'No results'
+              : `Your search of '${this.searchTerm}' did not match any results`}</table-message
+          >
+          <table-message ?hidden=${!this.isLoading || this.items.length !== 0}> Loading data... </table-message>
+          <content-veil ?opened=${this.isLoading}></content-veil>
+        </main>
       </table-container>
       <footer>
         ${this.disablePaging
           ? ''
           : html`
-              <table-controls ?hidden=${this._isLoading}>
-                <table-control>
-                  Rows per page: <span>${this.take}</span>
-
-                  <div style="position: relative;">
-                    <mwc-icon-button
-                      take-menu-button
-                      @click=${() => this.shadowRoot?.querySelector<Menu>('mwc-menu[take-menu]')?.show()}
-                      id="button"
-                      icon="arrow_drop_down"
-                      label="Change take"
-                    ></mwc-icon-button>
-                    <mwc-menu
-                      activatable
-                      take-menu
-                      .anchor=${this.shadowRoot?.querySelector<IconButton>('mwc-icon-button[take-menu-button]') ?? null}
-                      corner="TOP_END"
-                      menuCorner="END"
-                      @action=${(e: CustomEvent<ActionDetail>) => {
-                        switch (e.detail.index) {
-                          case 0:
-                            this.setTake(10);
-                            break;
-                          case 1:
-                            this.setTake(15);
-                            break;
-                          case 2:
-                            this.setTake(20);
-                            break;
-                          case 3:
-                            this.setTake(50);
-                            break;
-                          case 4:
-                            this.setTake(100);
-                            break;
-                          case 5:
-                            this.setTake(500);
-                            break;
-                        }
-                      }}
-                    >
-                      <mwc-list-item ?activated=${this.take === 10}><span>10 rows</span></mwc-list-item>
-                      <mwc-list-item ?activated=${this.take === 15}><span>15 rows</span></mwc-list-item>
-                      <mwc-list-item ?activated=${this.take === 20}><span>20 rows</span></mwc-list-item>
-                      <mwc-list-item ?activated=${this.take === 50}><span>50 rows</span></mwc-list-item>
-                      ${this.largePages
-                        ? html`
-                            <mwc-list-item ?activated=${this.take === 100}><span>100 rows</span></mwc-list-item>
-                            <mwc-list-item ?activated=${this.take === 500}><span>500 rows</span></mwc-list-item>
-                          `
-                        : ''}
-                    </mwc-menu>
-                  </div>
-                </table-control>
+              <table-controls>
+                <take-control>
+                  <div ellipsis>Rows per page</div>
+                  <mwc-select outlined @change=${e => this.setTake(e.target.value)} ?disabled=${this.isLoading}>
+                    ${this.pageSizes.map(o => html` <mwc-list-item ?selected=${this.take === o} value=${o}>${o}</mwc-list-item>`)}
+                  </mwc-select>
+                </take-control>
                 <pagination-text>${this._getPageStats(this.page, this.count)}</pagination-text>
-                <table-control>
-                  <mwc-icon-button icon="keyboard_arrow_left" @click=${this._handleLastPageClick} ?disabled=${this.page === 0 || !this.count}></mwc-icon-button>
+                <table-paging>
+                  <mwc-icon-button
+                    icon="keyboard_arrow_left"
+                    @click=${this._handleLastPageClick}
+                    ?disabled=${this.page === 0 || !this.count || this.isLoading}
+                  ></mwc-icon-button>
                   <mwc-icon-button
                     icon="keyboard_arrow_right"
                     @click=${this._handleNextPageClick}
-                    ?disabled=${!this.count || (this.page + 1) * this.take >= this.count}
+                    ?disabled=${!this.count || (this.page + 1) * this.take >= this.count || this.isLoading}
                   ></mwc-icon-button>
-                </table-control>
+                </table-paging>
               </table-controls>
             `}
         <div footer>

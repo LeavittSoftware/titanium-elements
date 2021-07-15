@@ -113,11 +113,12 @@ export class TitaniumDataTableHeaderElement extends LitElement {
 
       font-family: var(--titanium-data-table-font-family, Roboto, Noto, sans-serif);
       -webkit-font-smoothing: antialiased;
-      font-size: 13px;
+      font-size: 14px;
       padding: 8px;
       line-height: 28px;
+      font-weight: 500;
 
-      color: var(--app-light-text-color, #80868b);
+      color: var(--app-text-color, #5f6368);
     }
 
     :host(:not([width])) {
@@ -133,7 +134,7 @@ export class TitaniumDataTableHeaderElement extends LitElement {
     }
 
     :host([active]) {
-      color: var(--app-dark-text-color, #202124);
+      color: var(--app-text-color, #5f6368);
     }
 
     :host([hidden]) {
@@ -189,7 +190,7 @@ export class TitaniumDataTableHeaderElement extends LitElement {
     :host([active][sort-direction='asc']) sort-icon svg,
     :host([active][sort-direction='desc']) sort-icon svg {
       display: block;
-      fill: var(--app-dark-text-color, #202124);
+      fill: var(--app-text-color, #5f6368);
     }
 
     :host([narrow][desktop]) {
