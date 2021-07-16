@@ -31,7 +31,8 @@
     { "path": "packages/titanium-vaadin" },
     { "path": "packages/leavitt-elements" },
     { "path": "packages/profile-picture" },
-    { "path": "packages/titanium-youtube-input" }
+    { "path": "packages/titanium-youtube-input" },
+    { "path": "packages/storybook/demos" }
   ],
   "files": []
 }
