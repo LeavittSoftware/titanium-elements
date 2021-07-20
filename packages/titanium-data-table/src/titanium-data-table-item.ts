@@ -138,6 +138,7 @@ export class TitaniumDataTableItemElement extends LitElement {
   deselect() {
     if (this.checkbox?.checked) {
       this.checkbox.click();
+      this.checkbox.blur();
     }
   }
 
