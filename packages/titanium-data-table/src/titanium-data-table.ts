@@ -157,6 +157,11 @@ export class TitaniumDataTableElement extends LitElement {
       this.items.splice(position, 0, e.draggedItem);
     });
 
+    this.addEventListener('titanium-data-table-item-drag-start', e => {
+      this.deselectAll();
+      e.stopPropagation();
+    });
+
     //When slotted in items change, sync the narrow prop
     this.tableHeaders.addEventListener('slotchange', () => this.updateChildrenIsNarrow());
     this.itemsSlot.addEventListener('slotchange', () => this.updateChildrenIsNarrow());

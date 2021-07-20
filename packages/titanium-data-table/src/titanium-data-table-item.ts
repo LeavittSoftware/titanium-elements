@@ -311,6 +311,7 @@ export class TitaniumDataTableItemElement extends LitElement {
           e.dataTransfer.setData('item', JSON.stringify(this.item));
           this.nextElementSibling?.setAttribute('below-dragging-item', '');
           this.previousElementSibling?.setAttribute('above-dragging-item', '');
+          this.dispatchEvent(new Event('titanium-data-table-item-drag-start', { composed: true, bubbles: true }));
         }}
       >
         <main>
