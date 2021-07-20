@@ -45,24 +45,84 @@ export class TitaniumDataTableItemElement extends LitElement {
    */
   @property({ type: Boolean, reflect: true }) narrow: boolean = false;
 
+  /**
+   *  Set to true to make item draggable.  When items are dropped, the items in the list's array are sorted accordingly.
+   *  In order to reflect those updates out to the DOM, you will need to call requestUpdate on the items array when
+   *  items are dropped. ex.
+   *
+   *  <titanium-data-table @titanium-data-table-item-drop=${() => this.requestUpdate('items')} ... >
+   *
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'enable-dragging' }) enableDrag: boolean = false;
+
+  @property({ type: Boolean, reflect: true, attribute: 'is-dragging' }) protected isDragging: boolean = false;
+  @property({ type: Boolean, reflect: true, attribute: 'is-over-top' }) protected isOverTop: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'is-over-bottom' }) protected isOverBottom: boolean;
+
   @query('mwc-checkbox') checkbox: Checkbox;
+  @query('item-content') itemContent: HTMLDivElement;
 
   firstUpdated() {
     // Set width of each slotted row with based on width
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (this.shadowRoot as any)
-      .querySelector('slot')
-      .assignedNodes()
-      .filter(e => e.nodeType === Node.ELEMENT_NODE)
-      .forEach(e => {
-        if (e => e.getAttribute('width')) {
-          e.style.width = e.getAttribute('width');
-        }
-      });
+    const elements = this.shadowRoot?.querySelector<HTMLSlotElement>('slot')?.assignedElements();
+    elements?.forEach(e => {
+      const element = e as HTMLElement;
+      const width = element.getAttribute('width');
+      if (width) {
+        element.style.width = width;
+      }
+    });
 
     this.addEventListener('dblclick', () => {
       this.dispatchEvent(new CustomEvent('titanium-data-table-item-navigate', { detail: this.item }));
     });
+
+    if (this.enableDrag) {
+      this.addEventListener('dragover', e => {
+        const rect = this.itemContent.getBoundingClientRect();
+        const y = e.clientY - rect.top; //y position within the element.
+        this.isOverBottom = y > rect.height / 2;
+        this.isOverTop = !this.isOverBottom;
+      });
+      this.addEventListener('dragleave', () => {
+        setTimeout(() => this.notOver(), 15);
+      });
+      this.addEventListener('mouseleave', () => {
+        this.notOver();
+      });
+      this.addEventListener('dragover', e => {
+        e.preventDefault();
+        if (e.dataTransfer) {
+          e.dataTransfer.dropEffect = 'move';
+        }
+      });
+      this.addEventListener('drop', e => {
+        if (!this.isDragging) {
+          const draggedItem = JSON.parse(e.dataTransfer?.getData('item') ?? '');
+          const rect = this.itemContent.getBoundingClientRect();
+          const y = e.clientY - rect.top; //y position within the element.
+          const dropPosition = y > rect.height / 2 ? 'below' : 'above';
+          // console.log((draggedItem as any)?.name, ' dropped ', dropPosition, (this.item as any)?.name);
+          if (
+            (dropPosition === 'below' && this.hasAttribute('above-dragging-item')) ||
+            (dropPosition === 'above' && this.hasAttribute('below-dragging-item'))
+          ) {
+            // console.log('SKIP');
+          } else {
+            this.dispatchEvent(new DataTableItemDropEvent(draggedItem, this.item, dropPosition));
+          }
+        }
+
+        this.notOver();
+        this.isDragging = false;
+      });
+    }
+  }
+
+  private notOver() {
+    this.isOverTop = false;
+    this.isOverBottom = false;
   }
 
   toggleSelected() {
@@ -78,6 +138,7 @@ export class TitaniumDataTableItemElement extends LitElement {
   deselect() {
     if (this.checkbox?.checked) {
       this.checkbox.click();
+      this.checkbox.blur();
     }
   }
 
@@ -102,36 +163,82 @@ export class TitaniumDataTableItemElement extends LitElement {
       text-decoration: none;
 
       background-color: #fff;
-      border-bottom: 1px var(--app-border-color, #dadce0) solid;
 
       font-family: var(--titanium-data-table-font-family, Roboto, Noto, sans-serif);
       -webkit-font-smoothing: antialiased;
+      margin-top: -1px;
     }
 
-    :host(:last-of-type) {
-      border: none;
+    :host(:not([below-dragging-item])[is-over-top]:not([is-dragging])) {
+      margin-top: 0;
+    }
+
+    item-content {
+      display: block;
+      box-sizing: border-box;
+      border-bottom: 1px var(--app-border-color, #dadce0) solid;
+      border-top: 1px var(--app-border-color, #dadce0) solid;
+    }
+
+    :host([enable-dragging]) item-content {
+      cursor: grab;
+    }
+
+    mwc-icon[drag] {
+      display: none;
+      color: var(--app-border-color, #dadce0);
+      margin-right: -24px;
+    }
+
+    :host([is-dragging]) item-content {
+      opacity: 0.4;
+      height: 100%;
+      /* min-height: 48px; */
+    }
+
+    :host(:not([below-dragging-item])) div[top-drop],
+    :host(:not([above-dragging-item])) div[bottom-drop] {
+      max-height: 0;
+      transition: max-height 0.2s linear;
+      background-color: rgb(66, 133, 244, 0.12);
+      height: 48px;
+    }
+
+    :host(:not([above-dragging-item])[is-over-bottom]:not([is-dragging])) div[bottom-drop],
+    :host(:not([below-dragging-item])[is-over-top]:not([is-dragging])) div[top-drop] {
+      max-height: 48px;
+    }
+
+    :host(:last-of-type) item-content {
+      border-bottom: none;
     }
 
     :host main {
       display: flex;
       flex-direction: row;
       align-items: center;
-
       min-height: 48px;
     }
 
-    :host(:not([disable-select]):hover) {
+    :host(:not([is-dragging]):not([above-dragging-item]):not([is-over-top]):not([is-over-bottom]):not([disable-select]):hover) item-content {
       background-color: var(--app-hover-color, #f9f9f9);
-      transition: 0.3s ease;
     }
 
-    :host(:not([disable-select])[selected]) {
+    :host([enable-dragging]:not([is-dragging]):not([above-dragging-item]):not([is-over-top]):not([is-over-bottom]):hover) mwc-icon[drag] {
+      display: block;
+    }
+
+    :host(:not([disable-select])[selected]) item-content {
       background-color: rgb(66, 133, 244, 0.12);
+    }
+
+    div[item-footer] ::slotted(*) {
+      pointer-events: none;
     }
 
     ::slotted(row-item) {
       display: block;
-
+      pointer-events: none;
       font-size: 14px;
       line-height: 18px;
       color: var(--app-text-color, #5f6368);
@@ -183,33 +290,72 @@ export class TitaniumDataTableItemElement extends LitElement {
     :host([narrow]) ::slotted(row-item[desktop]) {
       display: none;
     }
+
+    [hidden] {
+      display: none;
+    }
   `;
 
   render() {
     return html`
-      <main>
-        ${this.disableSelect
-          ? ''
-          : html`
-              <mwc-checkbox
-                .disabled=${this.disableSelect}
-                @dblclick=${e => e.stopPropagation()}
-                @change=${() => {
-                  this.selected = this.checkbox.checked;
-                  this.dispatchEvent(
-                    new CustomEvent('titanium-data-table-item-selected-changed', {
-                      composed: true,
-                      bubbles: true,
-                      detail: { isSelected: this.selected, item: this.item, checkbox: this.checkbox },
-                    })
-                  );
-                }}
-              ></mwc-checkbox>
-            `}
+      <div top-drop></div>
+      <item-content
+        draggable=${this.enableDrag ? true : false}
+        @dragend=${() => {
+          this.isDragging = false;
+          this.notOver();
+          this.nextElementSibling?.removeAttribute('below-dragging-item');
+          this.previousElementSibling?.removeAttribute('above-dragging-item');
+        }}
+        @dragstart=${e => {
+          this.isDragging = true;
+          e.dataTransfer.setData('item', JSON.stringify(this.item));
+          this.nextElementSibling?.setAttribute('below-dragging-item', '');
+          this.previousElementSibling?.setAttribute('above-dragging-item', '');
+          this.dispatchEvent(new Event('titanium-data-table-item-drag-start', { composed: true, bubbles: true }));
+        }}
+      >
+        <main>
+          ${this.disableSelect
+            ? ''
+            : html`
+                <mwc-icon drag>drag_indicator</mwc-icon>
+                <mwc-checkbox
+                  @dblclick=${e => e.stopPropagation()}
+                  @change=${() => {
+                    this.selected = this.checkbox.checked;
+                    this.dispatchEvent(
+                      new CustomEvent('titanium-data-table-item-selected-changed', {
+                        composed: true,
+                        bubbles: true,
+                        detail: { isSelected: this.selected, item: this.item, checkbox: this.checkbox },
+                      })
+                    );
+                  }}
+                ></mwc-checkbox>
+              `}
 
-        <slot></slot>
-      </main>
-      <slot name="item-footer"></slot>
+          <slot></slot>
+        </main>
+        <div item-footer>
+          <slot name="item-footer"></slot>
+        </div>
+      </item-content>
+      <div bottom-drop></div>
     `;
+  }
+}
+
+export class DataTableItemDropEvent extends Event {
+  static eventType = 'titanium-data-table-item-drop';
+  draggedItem: unknown;
+  targetItem: unknown;
+  dropPosition: 'below' | 'above';
+
+  constructor(draggedItem: unknown, targetItem: unknown, dropPosition: 'below' | 'above') {
+    super(DataTableItemDropEvent.eventType, { composed: true, bubbles: true });
+    this.draggedItem = draggedItem;
+    this.targetItem = targetItem;
+    this.dropPosition = dropPosition;
   }
 }

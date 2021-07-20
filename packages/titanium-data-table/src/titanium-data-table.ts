@@ -6,7 +6,7 @@ import '@material/mwc-select';
 import '@material/mwc-list/mwc-list-item';
 
 import { css, customElement, html, LitElement, property, query, queryAsync, state } from 'lit-element';
-import { TitaniumDataTableItemElement } from './titanium-data-table-item';
+import { DataTableItemDropEvent, TitaniumDataTableItemElement } from './titanium-data-table-item';
 import { TitaniumDataTableHeaderElement } from './titanium-data-table-header';
 import { Select } from '@material/mwc-select';
 import { h1, ellipsis } from '@leavittsoftware/titanium-styles';
@@ -148,6 +148,19 @@ export class TitaniumDataTableElement extends LitElement {
       this.narrow = mql.matches;
       this.updateChildrenIsNarrow();
     }
+
+    this.addEventListener(DataTableItemDropEvent.eventType, (e: DataTableItemDropEvent) => {
+      const draggedIndex = this.items.findIndex(o => JSON.stringify(o) === JSON.stringify(e.draggedItem));
+      this.items.splice(draggedIndex, 1);
+      const targetIndex = this.items.indexOf(e.targetItem);
+      const position = e.dropPosition === 'above' ? targetIndex : targetIndex + 1;
+      this.items.splice(position, 0, e.draggedItem);
+    });
+
+    this.addEventListener('titanium-data-table-item-drag-start', e => {
+      this.deselectAll();
+      e.stopPropagation();
+    });
 
     //When slotted in items change, sync the narrow prop
     this.tableHeaders.addEventListener('slotchange', () => this.updateChildrenIsNarrow());

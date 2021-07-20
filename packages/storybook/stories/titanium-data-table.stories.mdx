@@ -7,6 +7,7 @@ import '@leavittsoftware/titanium-data-table';
 import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-header';
 import '@leavittsoftware/titanium-search-input';
 import '@leavittsoftware/titanium-chip';
+import '../demos/data-table-demo';
 
 <Meta
   title="UI COMPONENTS|titanium-data-table"
@@ -546,6 +547,15 @@ import '@leavittsoftware/titanium-data-table';
           <mwc-button slot="footer-buttons" outlined label="Submit"></mwc-button>
         </titanium-data-table>
       `;
+    }}
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="Draggable">
+    {() => {
+      return html`<data-table-demo></data-table-demo>
+        <titanium-data-table style="display:none"></titanium-data-table> `;
     }}
   </Story>
 </Preview>
