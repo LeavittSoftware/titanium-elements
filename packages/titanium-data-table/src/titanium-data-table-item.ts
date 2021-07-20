@@ -231,6 +231,10 @@ export class TitaniumDataTableItemElement extends LitElement {
       background-color: rgb(66, 133, 244, 0.12);
     }
 
+    div[item-footer] ::slotted(*) {
+      pointer-events: none;
+    }
+
     ::slotted(row-item) {
       display: block;
       pointer-events: none;
