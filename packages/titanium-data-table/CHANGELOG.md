@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [11.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@11.0.0...@leavittsoftware/titanium-data-table@11.1.0) (2021-07-20)
+
+
+### Bug Fixes
+
+* better drag support with footer slots ([93c3b23](https://github.com/LeavittSoftware/titanium-elements/commit/93c3b23fda101bbd24f218db02f72ed511be187e))
+* blur checkbox on deselect ([325d827](https://github.com/LeavittSoftware/titanium-elements/commit/325d82781b595d2e00ea8f6c995d444700443060))
+* deselect items on drag start ([c5d2dcc](https://github.com/LeavittSoftware/titanium-elements/commit/c5d2dccd3c287762adb5e97d15e96c460b5d41df))
+
+
+### Features
+
+* implement drag and drop in datatables ([1bb6325](https://github.com/LeavittSoftware/titanium-elements/commit/1bb63250242867bdec8f35450a40c4213379e1de))
+
+
+
+
+
 # [11.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@10.2.0...@leavittsoftware/titanium-data-table@11.0.0) (2021-07-15)
 
 

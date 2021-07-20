@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@8.0.0...@leavittsoftware/storybook@8.1.0) (2021-07-20)
+
+
+### Bug Fixes
+
+* remove compiled code ([85402bd](https://github.com/LeavittSoftware/titanium-elements/commit/85402bd136147e989b77d4ef1ae405da36d79525))
+* remove temp demo ([f47dda5](https://github.com/LeavittSoftware/titanium-elements/commit/f47dda520009c56269310419c36481a5dd5e57db))
+
+
+### Features
+
+* implement drag and drop in datatables ([1bb6325](https://github.com/LeavittSoftware/titanium-elements/commit/1bb63250242867bdec8f35450a40c4213379e1de))
+
+
+
+
+
 # [8.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@7.2.0...@leavittsoftware/storybook@8.0.0) (2021-07-15)
 
 
