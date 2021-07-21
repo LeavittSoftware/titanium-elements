@@ -83,16 +83,19 @@ export class TitaniumDataTableItemElement extends LitElement {
     });
 
     if (this.enableDrag) {
-      this.addEventListener('mousedown', this.startItemDrag);
-      this.addEventListener('touchstart', this.startItemDrag);
+      this.addEventListener('mousedown', e => this.startItemDrag(e, 'mouse'));
+      this.addEventListener('touchstart', e => {
+        e.preventDefault();
+        this.startItemDrag(e, 'touch');
+      });
     }
   }
 
-  updateDragProps(dragging: boolean, draggedIndex: number | null, hoverIndex: number | null) {
+  updateDragProps(dragging: boolean, originIndex: number | null, hoverIndex: number | null) {
     const myIndex = this.items.indexOf(this);
-    this.nudgeDown = draggedIndex !== null && hoverIndex !== null && myIndex < draggedIndex && myIndex >= hoverIndex;
-    this.nudgeUp = draggedIndex !== null && hoverIndex !== null && myIndex > draggedIndex && myIndex <= hoverIndex;
-    this.dragged = draggedIndex === myIndex;
+    this.nudgeDown = originIndex !== null && hoverIndex !== null && myIndex < originIndex && myIndex >= hoverIndex;
+    this.nudgeUp = originIndex !== null && hoverIndex !== null && myIndex > originIndex && myIndex <= hoverIndex;
+    this.dragged = originIndex === myIndex;
     this.dragging = dragging;
   }
 
@@ -113,39 +116,10 @@ export class TitaniumDataTableItemElement extends LitElement {
     }
   }
 
-  _handleToggleButton() {
-    if (this.checkbox.checked) {
-      this.selected = !this.checkbox.checked;
-      this.checkbox.click();
-    }
-  }
-
-  // Move the item at draggedIndex to hoverIndex
-  // insert() {
-  //   if (this.draggedIndex !== null && this.hoverIndex !== null) {
-  //     //HoverIndex cannot be dropped beyond the length of the array
-  //     const hoverIndex = Math.min(this.hoverIndex, this.dataTable.items.length - 1);
-
-  //     console.log('hoverIndex', hoverIndex, 'this.draggedIndex', this.draggedIndex);
-
-  //     //Ignore if item goes back to where it started
-  //     if (hoverIndex !== this.draggedIndex) {
-  //       const temp = this.dataTable.items[this.draggedIndex];
-  //       this.dataTable.items.splice(this.draggedIndex, 1);
-  //       this.dataTable.items.splice(hoverIndex, 0, temp);
-  //       this.dispatchEvent(new DataTableItemDropEvent(temp, this.item));
-  //       console.log('DataTableItemDropEvent', this.dataTable.items);
-  //     }
-  //   }
-
-  //   this.draggedIndex = null;
-  //   this.hoverIndex = null;
-  // }
-
   @property({ type: Number }) hoverIndex: number | null = null;
 
   // Index of the item currently being dragged
-  @property({ type: Number }) draggedIndex: number | null = null;
+  @property({ type: Number }) originIndex: number | null = null;
 
   private get dataTable() {
     return this.parentElement as TitaniumDataTableElement;
@@ -159,94 +133,71 @@ export class TitaniumDataTableItemElement extends LitElement {
     return this.dataTable.itemsContainer;
   }
 
-  private startItemDrag(event) {
-    this.dispatchEvent(new Event('titanium-data-table-item-drag-start', { bubbles: true, composed: true }));
+  private startItemDrag(event, type: 'touch' | 'mouse') {
     this.dragging = true;
-    let moveEvent, upEvent, getClientY, getPageY;
-    // Handle both TouchEvents and MouseEvents.
-    // Looking for a better design pattern to handle this.
-    if (event instanceof TouchEvent) {
-      moveEvent = 'touchmove';
-      upEvent = 'touchend';
-      getClientY = e => e.touches[0].clientY;
-      getPageY = e => e.touches[0].pageY;
-      event.preventDefault();
-    } else {
-      moveEvent = 'mousemove';
-      upEvent = 'mouseup';
-      getClientY = e => e.clientY;
-      getPageY = e => e.pageY;
-    }
+    this.originIndex = this.items.indexOf(this);
 
-    const item = event.target;
-
-    this.draggedIndex = this.items.indexOf(item);
-    console.log('draggedIndex', this.draggedIndex);
-    console.log(moveEvent, upEvent, getClientY(event), getPageY(event), this.draggedIndex);
+    const moveEvent = type === 'touch' ? 'touchmove' : 'mousemove';
+    const upEvents = type === 'touch' ? 'touchend' : 'mouseup,mouseout';
 
     // Offsets to remember for when translating the dragged item
-    console.log('getBoundingClientRect', this.itemsContainer.getBoundingClientRect());
     const containerY = this.itemsContainer.getBoundingClientRect().top + window.scrollY;
-    const startY = getPageY(event);
-
-    console.log(containerY, startY);
+    const startY = event.pageY ?? event.touches[0].pageY;
 
     /*
      * Moving the dragged item
      */
     const moveItem = event => {
-      console.log('moving');
       // Translate and keep track of which index we are hovering over.
-      const itemAbsoluteTop = getPageY(event) - containerY;
-      const transformY = getPageY(event) - startY;
-      item.style.transform = `translateY(${transformY}px)`;
+      const pageY = event.pageY ?? event.touches[0].pageY;
+      const itemAbsoluteTop = pageY - containerY;
+      const transformY = pageY - startY;
+
+      this.style.transform = `translateY(${transformY}px)`;
       // Can get the index we're hovering over easily due to fixed element
       // heights. This calculation needs to get fancier to support
       // a list of any-height elements.
       this.hoverIndex = Math.max(Math.floor(itemAbsoluteTop / 48), 0);
-
-      this.items.forEach(o => o.updateDragProps(this.dragging, this.draggedIndex, this.hoverIndex));
-      console.log('this.hoverIndex', this.hoverIndex);
+      this.items.forEach(o => o.updateDragProps(this.dragging, this.originIndex, this.hoverIndex));
     };
+
     const onMoveEvent = event => {
       moveItem(event);
     };
     moveItem(event);
 
-    /*
-     * Dropping the dragged item
-     */
-    this.addEventListener(upEvent, function _onUpEvent() {
-      console.log('DROP');
-      const self = this as TitaniumDataTableItemElement;
-      self.dragging = false;
-      self.items.forEach(o => o.updateDragProps(self.dragging, self.draggedIndex, self.hoverIndex));
+    const onUpEvent = () => {
+      this.dragging = false;
+      this.items.forEach(o => o.updateDragProps(this.dragging, this.originIndex, this.hoverIndex));
       document.removeEventListener(moveEvent, onMoveEvent);
-      this.removeEventListener(upEvent, _onUpEvent);
+
+      upEvents.split(',').forEach(upEvent => {
+        this.removeEventListener(upEvent, onUpEvent);
+      });
 
       // Perform the swap after the item translates to its resting spot.
       const onTransitionEnd = () => {
-        if (self.draggedIndex !== null && self.hoverIndex !== null) {
-          this.dispatchEvent(new DataTableItemDropEvent(self.draggedIndex, self.hoverIndex));
+        if (this.originIndex !== null && this.hoverIndex !== null) {
+          this.dispatchEvent(new DataTableItemDropEvent(this.originIndex, this.hoverIndex));
         }
-        self.draggedIndex = null;
-        self.hoverIndex = null;
-        self.items.forEach(o => o.updateDragProps(self.dragging, null, null));
+        this.originIndex = null;
+        this.hoverIndex = null;
+        this.items.forEach(o => o.updateDragProps(this.dragging, this.originIndex, this.hoverIndex));
 
-        item.style.transform = '';
-        item.style.transition = '';
-        item.removeEventListener('transitionend', onTransitionEnd);
+        this.style.transform = '';
+        this.style.transition = '';
+        this.removeEventListener('transitionend', onTransitionEnd);
       };
-      item.addEventListener('transitionend', onTransitionEnd);
+      this.addEventListener('transitionend', onTransitionEnd);
 
       // Translate the item to its resting spot.
-      const finalTransformY = ((self.hoverIndex ?? 0) - (self.draggedIndex ?? 0)) * 48;
+      const finalTransformY = ((this.hoverIndex ?? 0) - (this.originIndex ?? 0)) * 48;
+      this.style.transition = 'transform 0.1s ease-out';
+      this.style.transform = `translate3d(0, ${finalTransformY}px, 0)`;
+    };
 
-      console.log('finalTransformY', finalTransformY);
-      console.log('self.hoverIndex', self.hoverIndex);
-      console.log('self.draggedIndex', self.draggedIndex);
-      item.style.transition = 'transform 0.1s ease-out';
-      item.style.transform = `translate3d(0, ${finalTransformY}px, 0)`;
+    upEvents.split(',').forEach(upEvent => {
+      this.addEventListener(upEvent, onUpEvent);
     });
     document.addEventListener(moveEvent, onMoveEvent);
   }
@@ -274,19 +225,16 @@ export class TitaniumDataTableItemElement extends LitElement {
     }
 
     :host(:not([disable-select])[selected]) {
-      background-color: rgb(66, 133, 244, 0.12);
+      background-color: #e8f0fe;
     }
 
-    :host(:not([disable-select]):hover) {
+    :host(:not([disable-select]):not([selected]):hover) {
       background-color: var(--app-hover-color, #f9f9f9);
-    }
-
-    :host(:last-of-type) {
-      border-bottom: none;
     }
 
     :host([enable-dragging]) {
       height: 48px !important;
+      overflow: hidden;
       cursor: grab;
     }
 

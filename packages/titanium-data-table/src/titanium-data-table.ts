@@ -165,11 +165,6 @@ export class TitaniumDataTableElement extends LitElement {
       }
     });
 
-    this.addEventListener('titanium-data-table-item-drag-start', e => {
-      this.deselectAll();
-      e.stopPropagation();
-    });
-
     //When slotted in items change, sync the narrow prop
     this.tableHeaders.addEventListener('slotchange', () => this.updateChildrenIsNarrow());
     this.itemsSlot.addEventListener('slotchange', () => this.updateChildrenIsNarrow());
@@ -474,6 +469,7 @@ export class TitaniumDataTableElement extends LitElement {
         z-index: 10;
         color: var(--app-text-color, #5f6368);
         line-height: 20px;
+        border-bottom: 1px solid var(--app-border-color, #dadce0);
       }
 
       table-message svg {
@@ -492,6 +488,7 @@ export class TitaniumDataTableElement extends LitElement {
         gap: 24px;
         padding: 12px;
         align-items: center;
+        margin-top: -1px;
         border-top: 1px solid var(--app-border-color, #dadce0);
       }
 
