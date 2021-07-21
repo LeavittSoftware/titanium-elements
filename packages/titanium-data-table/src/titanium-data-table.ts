@@ -22,6 +22,7 @@ declare const ResizeObserver: any;
  * @fires selected-changed - Fired when a row or rows in the data table is selected. detail: array<unknown>
  * @fires page-changed - Fired when item is selected.  detail: { isSelected: boolean, item: unknown }
  * @fires take-changed - Fired when item is selected.  detail: { isSelected: boolean, item: unknown }
+ * @fires titanium-data-table-items-reorder - Fired when table items are resorted by user.
  *
  * @slot table-actions - item nonspecific table buttons such as add new item
  * @slot filter-button - filter button slot
@@ -101,8 +102,9 @@ export class TitaniumDataTableElement extends LitElement {
   @state() pageSizes: Array<number> = [10, 15, 20, 50];
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @query('slot[name="items"]') private itemsSlot: HTMLSlotElement;
+  @query('slot[name="items"]') itemsSlot: HTMLSlotElement;
   @query('slot[name="table-headers"]') private tableHeaders: HTMLSlotElement;
+  @query('div[items-slot]') itemsContainer: HTMLDivElement;
 
   /**
    *  Sets if view port is small
@@ -150,16 +152,17 @@ export class TitaniumDataTableElement extends LitElement {
     }
 
     this.addEventListener(DataTableItemDropEvent.eventType, (e: DataTableItemDropEvent) => {
-      const draggedIndex = this.items.findIndex(o => JSON.stringify(o) === JSON.stringify(e.draggedItem));
-      this.items.splice(draggedIndex, 1);
-      const targetIndex = this.items.indexOf(e.targetItem);
-      const position = e.dropPosition === 'above' ? targetIndex : targetIndex + 1;
-      this.items.splice(position, 0, e.draggedItem);
-    });
-
-    this.addEventListener('titanium-data-table-item-drag-start', e => {
-      this.deselectAll();
       e.stopPropagation();
+      //HoverIndex cannot be dropped beyond the length of the array
+      const hoverIndex = Math.min(e.hoverIndex, this.items.length - 1);
+
+      //Ignore if item goes back to where it started
+      if (hoverIndex !== e.originIndex) {
+        const temp = this.items[e.originIndex];
+        this.items.splice(e.originIndex, 1);
+        this.items.splice(hoverIndex, 0, temp);
+        this.dispatchEvent(new DataTableItemsReorderedEvent());
+      }
     });
 
     //When slotted in items change, sync the narrow prop
@@ -466,6 +469,7 @@ export class TitaniumDataTableElement extends LitElement {
         z-index: 10;
         color: var(--app-text-color, #5f6368);
         line-height: 20px;
+        border-bottom: 1px solid var(--app-border-color, #dadce0);
       }
 
       table-message svg {
@@ -484,6 +488,7 @@ export class TitaniumDataTableElement extends LitElement {
         gap: 24px;
         padding: 12px;
         align-items: center;
+        margin-top: -1px;
         border-top: 1px solid var(--app-border-color, #dadce0);
       }
 
@@ -563,6 +568,10 @@ export class TitaniumDataTableElement extends LitElement {
         align-items: center;
       }
 
+      div[items-slot] {
+        position: relative;
+      }
+
       mwc-checkbox {
         flex-shrink: 0;
         align-self: center;
@@ -632,7 +641,9 @@ export class TitaniumDataTableElement extends LitElement {
         <mwc-linear-progress ?hidden=${!this.isLoading} ?closed=${!this.isLoading} indeterminate></mwc-linear-progress>
 
         <main>
-          <slot name="items"></slot>
+          <div items-slot>
+            <slot name="items"></slot>
+          </div>
           <table-message ?hidden=${this.isLoading || this.items.length > 0}
             ><svg viewBox="0 0 24 24">
               <path fill="none" d="M0 0h24v24H0V0z" />
@@ -681,5 +692,12 @@ export class TitaniumDataTableElement extends LitElement {
         </div>
       </footer>
     `;
+  }
+}
+
+export class DataTableItemsReorderedEvent extends Event {
+  static eventType = 'titanium-data-table-items-reorder';
+  constructor() {
+    super(DataTableItemsReorderedEvent.eventType);
   }
 }

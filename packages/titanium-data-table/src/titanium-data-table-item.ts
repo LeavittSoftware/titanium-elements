@@ -1,6 +1,7 @@
 import { css, customElement, html, LitElement, property, query } from 'lit-element';
 import '@material/mwc-checkbox';
 import { Checkbox } from '@material/mwc-checkbox';
+import { TitaniumDataTableElement } from './titanium-data-table';
 
 /**
  * A data table element to organize row data and handle row selection.
@@ -50,14 +51,15 @@ export class TitaniumDataTableItemElement extends LitElement {
    *  In order to reflect those updates out to the DOM, you will need to call requestUpdate on the items array when
    *  items are dropped. ex.
    *
-   *  <titanium-data-table @titanium-data-table-item-drop=${() => this.requestUpdate('items')} ... >
+   *  <titanium-data-table @titanium-data-table-items-reorder=${() => this.requestUpdate('items')} ... >
    *
    */
   @property({ type: Boolean, reflect: true, attribute: 'enable-dragging' }) enableDrag: boolean = false;
 
-  @property({ type: Boolean, reflect: true, attribute: 'is-dragging' }) protected isDragging: boolean = false;
-  @property({ type: Boolean, reflect: true, attribute: 'is-over-top' }) protected isOverTop: boolean;
-  @property({ type: Boolean, reflect: true, attribute: 'is-over-bottom' }) protected isOverBottom: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'nudge-down' }) protected nudgeDown: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'nudge-up' }) protected nudgeUp: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'dragged' }) protected dragged: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'dragging' }) protected dragging: boolean;
 
   @query('mwc-checkbox') checkbox: Checkbox;
   @query('item-content') itemContent: HTMLDivElement;
@@ -75,54 +77,26 @@ export class TitaniumDataTableItemElement extends LitElement {
     });
 
     this.addEventListener('dblclick', () => {
+      //Force the transition to end on the double-click
+      this.dispatchEvent(new Event('transitionend'));
       this.dispatchEvent(new CustomEvent('titanium-data-table-item-navigate', { detail: this.item }));
     });
 
     if (this.enableDrag) {
-      this.addEventListener('dragover', e => {
-        const rect = this.itemContent.getBoundingClientRect();
-        const y = e.clientY - rect.top; //y position within the element.
-        this.isOverBottom = y > rect.height / 2;
-        this.isOverTop = !this.isOverBottom;
-      });
-      this.addEventListener('dragleave', () => {
-        setTimeout(() => this.notOver(), 15);
-      });
-      this.addEventListener('mouseleave', () => {
-        this.notOver();
-      });
-      this.addEventListener('dragover', e => {
+      this.addEventListener('mousedown', e => this.startItemDrag(e, 'mouse'));
+      this.addEventListener('touchstart', e => {
         e.preventDefault();
-        if (e.dataTransfer) {
-          e.dataTransfer.dropEffect = 'move';
-        }
-      });
-      this.addEventListener('drop', e => {
-        if (!this.isDragging) {
-          const draggedItem = JSON.parse(e.dataTransfer?.getData('item') ?? '');
-          const rect = this.itemContent.getBoundingClientRect();
-          const y = e.clientY - rect.top; //y position within the element.
-          const dropPosition = y > rect.height / 2 ? 'below' : 'above';
-          // console.log((draggedItem as any)?.name, ' dropped ', dropPosition, (this.item as any)?.name);
-          if (
-            (dropPosition === 'below' && this.hasAttribute('above-dragging-item')) ||
-            (dropPosition === 'above' && this.hasAttribute('below-dragging-item'))
-          ) {
-            // console.log('SKIP');
-          } else {
-            this.dispatchEvent(new DataTableItemDropEvent(draggedItem, this.item, dropPosition));
-          }
-        }
-
-        this.notOver();
-        this.isDragging = false;
+        this.startItemDrag(e, 'touch');
       });
     }
   }
 
-  private notOver() {
-    this.isOverTop = false;
-    this.isOverBottom = false;
+  updateDragProps(dragging: boolean, originIndex: number | null, hoverIndex: number | null) {
+    const myIndex = this.items.indexOf(this);
+    this.nudgeDown = originIndex !== null && hoverIndex !== null && myIndex < originIndex && myIndex >= hoverIndex;
+    this.nudgeUp = originIndex !== null && hoverIndex !== null && myIndex > originIndex && myIndex <= hoverIndex;
+    this.dragged = originIndex === myIndex;
+    this.dragging = dragging;
   }
 
   toggleSelected() {
@@ -142,11 +116,92 @@ export class TitaniumDataTableItemElement extends LitElement {
     }
   }
 
-  _handleToggleButton() {
-    if (this.checkbox.checked) {
-      this.selected = !this.checkbox.checked;
-      this.checkbox.click();
+  @property({ type: Number }) hoverIndex: number | null = null;
+
+  // Index of the item currently being dragged
+  @property({ type: Number }) originIndex: number | null = null;
+
+  private get dataTable() {
+    return this.parentElement as TitaniumDataTableElement;
+  }
+
+  private get items() {
+    return this.dataTable.itemsSlot?.assignedElements() as TitaniumDataTableItemElement[];
+  }
+
+  private get itemsContainer() {
+    return this.dataTable.itemsContainer;
+  }
+
+  private startItemDrag(event, type: 'touch' | 'mouse') {
+    this.dragging = true;
+    this.originIndex = this.items.indexOf(this);
+
+    const moveEvent = type === 'touch' ? 'touchmove' : 'mousemove';
+    const upEvent = type === 'touch' ? 'touchend' : 'mouseup';
+
+    // Offsets to remember for when translating the dragged item
+    const containerY = this.itemsContainer.getBoundingClientRect().top + window.scrollY;
+    const startY = event.pageY ?? event.touches[0].pageY;
+
+    /*
+     * Moving the dragged item
+     */
+    const moveItem = event => {
+      // Translate and keep track of which index we are hovering over.
+      const pageY = event.pageY ?? event.touches[0].pageY;
+      const itemAbsoluteTop = pageY - containerY;
+      const transformY = pageY - startY;
+
+      this.style.transform = `translateY(${transformY}px)`;
+      // Can get the index we're hovering over easily due to fixed element
+      // heights. This calculation needs to get fancier to support
+      // a list of any-height elements.
+      this.hoverIndex = Math.max(Math.floor(itemAbsoluteTop / 48), 0);
+      this.items.forEach(o => o.updateDragProps(this.dragging, this.originIndex, this.hoverIndex));
+    };
+
+    const onMoveEvent = event => {
+      moveItem(event);
+    };
+    moveItem(event);
+
+    const onUpEvent = () => {
+      this.dragging = false;
+      this.items.forEach(o => o.updateDragProps(this.dragging, this.originIndex, this.hoverIndex));
+      document.removeEventListener(moveEvent, onMoveEvent);
+
+      this.removeEventListener(upEvent, onUpEvent);
+      if (type === 'mouse') {
+        document.removeEventListener('mouseout', onUpEvent);
+      }
+
+      // Perform the swap after the item translates to its resting spot.
+      const onTransitionEnd = () => {
+        if (this.originIndex !== null && this.hoverIndex !== null) {
+          this.dispatchEvent(new DataTableItemDropEvent(this.originIndex, this.hoverIndex));
+        }
+        this.originIndex = null;
+        this.hoverIndex = null;
+        this.items.forEach(o => o.updateDragProps(this.dragging, this.originIndex, this.hoverIndex));
+
+        this.style.transform = '';
+        this.style.transition = '';
+        this.removeEventListener('transitionend', onTransitionEnd);
+      };
+      this.addEventListener('transitionend', onTransitionEnd);
+
+      // Translate the item to its resting spot.
+      const finalTransformY = ((this.hoverIndex ?? 0) - (this.originIndex ?? 0)) * 48;
+      this.style.transition = 'transform 0.1s ease-out';
+      this.style.transform = `translate3d(0, ${finalTransformY}px, 0)`;
+    };
+
+    if (type === 'mouse') {
+      document.addEventListener('mouseout', onUpEvent);
     }
+    this.addEventListener(upEvent, onUpEvent);
+    document.addEventListener(moveEvent, onMoveEvent);
   }
 
   static styles = css`
@@ -154,33 +209,34 @@ export class TitaniumDataTableItemElement extends LitElement {
       display: block;
 
       -webkit-touch-callout: none;
-      -webkit-user-select: none;
-      -khtml-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
       user-select: none;
-
       text-decoration: none;
 
       background-color: #fff;
 
       font-family: var(--titanium-data-table-font-family, Roboto, Noto, sans-serif);
       -webkit-font-smoothing: antialiased;
+
+      transition: none;
+      z-index: 1;
       margin-top: -1px;
-    }
-
-    :host(:not([below-dragging-item])[is-over-top]:not([is-dragging])) {
-      margin-top: 0;
-    }
-
-    item-content {
-      display: block;
       box-sizing: border-box;
       border-bottom: 1px var(--app-border-color, #dadce0) solid;
       border-top: 1px var(--app-border-color, #dadce0) solid;
+      position: relative;
     }
 
-    :host([enable-dragging]) item-content {
+    :host(:not([disable-select])[selected]) {
+      background-color: #e8f0fe;
+    }
+
+    :host(:not([disable-select]):not([selected]):hover) {
+      background-color: var(--app-hover-color, #f9f9f9);
+    }
+
+    :host([enable-dragging]) {
+      height: 48px !important;
+      overflow: hidden;
       cursor: grab;
     }
 
@@ -190,27 +246,28 @@ export class TitaniumDataTableItemElement extends LitElement {
       margin-right: -24px;
     }
 
-    :host([is-dragging]) item-content {
-      opacity: 0.4;
-      height: 100%;
-      /* min-height: 48px; */
+    :host([enable-dragging]:hover) mwc-icon[drag] {
+      display: block;
     }
 
-    :host(:not([below-dragging-item])) div[top-drop],
-    :host(:not([above-dragging-item])) div[bottom-drop] {
-      max-height: 0;
-      transition: max-height 0.2s linear;
-      background-color: rgb(66, 133, 244, 0.12);
-      height: 48px;
+    :host([nudge-down]:not([dragged])) {
+      transform: translate3d(0, 48px, 0);
     }
 
-    :host(:not([above-dragging-item])[is-over-bottom]:not([is-dragging])) div[bottom-drop],
-    :host(:not([below-dragging-item])[is-over-top]:not([is-dragging])) div[top-drop] {
-      max-height: 48px;
+    :host([nudge-up]:not([dragged])) {
+      transform: translate3d(0, -48px, 0);
     }
 
-    :host(:last-of-type) item-content {
-      border-bottom: none;
+    :host([dragged]) {
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+      transition: none;
+      z-index: 2 !important;
+    }
+
+    /* Only have transition under dragging, because we don't want nudged
+     * items to transition into place once dragging is complete */
+    :host([dragging]:not([dragged])) {
+      transition: transform 0.2s ease-out;
     }
 
     :host main {
@@ -218,18 +275,6 @@ export class TitaniumDataTableItemElement extends LitElement {
       flex-direction: row;
       align-items: center;
       min-height: 48px;
-    }
-
-    :host(:not([is-dragging]):not([above-dragging-item]):not([is-over-top]):not([is-over-bottom]):not([disable-select]):hover) item-content {
-      background-color: var(--app-hover-color, #f9f9f9);
-    }
-
-    :host([enable-dragging]:not([is-dragging]):not([above-dragging-item]):not([is-over-top]):not([is-over-bottom]):hover) mwc-icon[drag] {
-      display: block;
-    }
-
-    :host(:not([disable-select])[selected]) item-content {
-      background-color: rgb(66, 133, 244, 0.12);
     }
 
     div[item-footer] ::slotted(*) {
@@ -291,6 +336,12 @@ export class TitaniumDataTableItemElement extends LitElement {
       display: none;
     }
 
+    @media (max-width: 768px) {
+      :host([enable-dragging]) mwc-icon[drag] {
+        display: block;
+      }
+    }
+
     [hidden] {
       display: none;
     }
@@ -298,64 +349,43 @@ export class TitaniumDataTableItemElement extends LitElement {
 
   render() {
     return html`
-      <div top-drop></div>
-      <item-content
-        draggable=${this.enableDrag ? true : false}
-        @dragend=${() => {
-          this.isDragging = false;
-          this.notOver();
-          this.nextElementSibling?.removeAttribute('below-dragging-item');
-          this.previousElementSibling?.removeAttribute('above-dragging-item');
-        }}
-        @dragstart=${e => {
-          this.isDragging = true;
-          e.dataTransfer.setData('item', JSON.stringify(this.item));
-          this.nextElementSibling?.setAttribute('below-dragging-item', '');
-          this.previousElementSibling?.setAttribute('above-dragging-item', '');
-          this.dispatchEvent(new Event('titanium-data-table-item-drag-start', { composed: true, bubbles: true }));
-        }}
-      >
-        <main>
-          ${this.disableSelect
-            ? ''
-            : html`
-                <mwc-icon drag>drag_indicator</mwc-icon>
-                <mwc-checkbox
-                  @dblclick=${e => e.stopPropagation()}
-                  @change=${() => {
-                    this.selected = this.checkbox.checked;
-                    this.dispatchEvent(
-                      new CustomEvent('titanium-data-table-item-selected-changed', {
-                        composed: true,
-                        bubbles: true,
-                        detail: { isSelected: this.selected, item: this.item, checkbox: this.checkbox },
-                      })
-                    );
-                  }}
-                ></mwc-checkbox>
-              `}
+      <main>
+        ${this.disableSelect
+          ? ''
+          : html`
+              <mwc-icon drag>drag_indicator</mwc-icon>
+              <mwc-checkbox
+                @dblclick=${e => e.stopPropagation()}
+                @change=${() => {
+                  this.selected = this.checkbox.checked;
+                  this.dispatchEvent(
+                    new CustomEvent('titanium-data-table-item-selected-changed', {
+                      composed: true,
+                      bubbles: true,
+                      detail: { isSelected: this.selected, item: this.item, checkbox: this.checkbox },
+                    })
+                  );
+                }}
+              ></mwc-checkbox>
+            `}
 
-          <slot></slot>
-        </main>
-        <div item-footer>
-          <slot name="item-footer"></slot>
-        </div>
-      </item-content>
-      <div bottom-drop></div>
+        <slot></slot>
+      </main>
+      <div item-footer>
+        <slot name="item-footer"></slot>
+      </div>
     `;
   }
 }
 
 export class DataTableItemDropEvent extends Event {
   static eventType = 'titanium-data-table-item-drop';
-  draggedItem: unknown;
-  targetItem: unknown;
-  dropPosition: 'below' | 'above';
+  hoverIndex: number;
+  originIndex: number;
 
-  constructor(draggedItem: unknown, targetItem: unknown, dropPosition: 'below' | 'above') {
+  constructor(originIndex: number, hoverIndex: number) {
     super(DataTableItemDropEvent.eventType, { composed: true, bubbles: true });
-    this.draggedItem = draggedItem;
-    this.targetItem = targetItem;
-    this.dropPosition = dropPosition;
+    this.hoverIndex = hoverIndex;
+    this.originIndex = originIndex;
   }
 }
