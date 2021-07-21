@@ -101,8 +101,9 @@ export class TitaniumDataTableElement extends LitElement {
   @state() pageSizes: Array<number> = [10, 15, 20, 50];
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @query('slot[name="items"]') private itemsSlot: HTMLSlotElement;
+  @query('slot[name="items"]') itemsSlot: HTMLSlotElement;
   @query('slot[name="table-headers"]') private tableHeaders: HTMLSlotElement;
+  @query('div[items-slot]') itemsContainer: HTMLDivElement;
 
   /**
    *  Sets if view port is small
@@ -150,11 +151,18 @@ export class TitaniumDataTableElement extends LitElement {
     }
 
     this.addEventListener(DataTableItemDropEvent.eventType, (e: DataTableItemDropEvent) => {
-      const draggedIndex = this.items.findIndex(o => JSON.stringify(o) === JSON.stringify(e.draggedItem));
-      this.items.splice(draggedIndex, 1);
-      const targetIndex = this.items.indexOf(e.targetItem);
-      const position = e.dropPosition === 'above' ? targetIndex : targetIndex + 1;
-      this.items.splice(position, 0, e.draggedItem);
+      //HoverIndex cannot be dropped beyond the length of the array
+      const hoverIndex = Math.min(e.hoverIndex, this.items.length - 1);
+
+      console.log('hoverIndex', hoverIndex, 'originIndex', e.originIndex);
+
+      //Ignore if item goes back to where it started
+      if (hoverIndex !== e.originIndex) {
+        const temp = this.items[e.originIndex];
+        this.items.splice(e.originIndex, 1);
+        this.items.splice(hoverIndex, 0, temp);
+        console.log('DataTableItemDropEvent', this.items);
+      }
     });
 
     this.addEventListener('titanium-data-table-item-drag-start', e => {
@@ -563,6 +571,10 @@ export class TitaniumDataTableElement extends LitElement {
         align-items: center;
       }
 
+      div[items-slot] {
+        position: relative;
+      }
+
       mwc-checkbox {
         flex-shrink: 0;
         align-self: center;
@@ -632,7 +644,9 @@ export class TitaniumDataTableElement extends LitElement {
         <mwc-linear-progress ?hidden=${!this.isLoading} ?closed=${!this.isLoading} indeterminate></mwc-linear-progress>
 
         <main>
-          <slot name="items"></slot>
+          <div items-slot>
+            <slot name="items"></slot>
+          </div>
           <table-message ?hidden=${this.isLoading || this.items.length > 0}
             ><svg viewBox="0 0 24 24">
               <path fill="none" d="M0 0h24v24H0V0z" />
