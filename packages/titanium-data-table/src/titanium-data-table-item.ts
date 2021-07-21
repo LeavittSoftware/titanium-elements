@@ -336,6 +336,12 @@ export class TitaniumDataTableItemElement extends LitElement {
       display: none;
     }
 
+    @media (max-width: 768px) {
+      :host([enable-dragging]) mwc-icon[drag] {
+        display: block;
+      }
+    }
+
     [hidden] {
       display: none;
     }
