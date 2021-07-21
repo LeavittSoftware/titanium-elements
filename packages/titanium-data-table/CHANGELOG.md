@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [11.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@11.1.0...@leavittsoftware/titanium-data-table@11.2.0) (2021-07-21)
+
+
+### Features
+
+* show drag handles on mobile ([acea979](https://github.com/LeavittSoftware/titanium-elements/commit/acea979472d4af13a81b7b017f6e5d6d3263da55))
+* WIP drag and drop 2.0 ([fbbaf43](https://github.com/LeavittSoftware/titanium-elements/commit/fbbaf435c13c0c6e8e3956a51bf841a9bc63bc36))
+* WIP drag and drop 2.0 ([40afd61](https://github.com/LeavittSoftware/titanium-elements/commit/40afd615645cc5a9c8f1d48b8b56a9f8f3e0d90c))
+* WIP drag and drop 2.0 ([f2d54b3](https://github.com/LeavittSoftware/titanium-elements/commit/f2d54b31b14875caa83a8053b1761cbd006118d2))
+
+
+
+
+
 # [11.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@11.0.0...@leavittsoftware/titanium-data-table@11.1.0) (2021-07-20)
 
 
