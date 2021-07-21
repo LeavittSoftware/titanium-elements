@@ -22,6 +22,7 @@ declare const ResizeObserver: any;
  * @fires selected-changed - Fired when a row or rows in the data table is selected. detail: array<unknown>
  * @fires page-changed - Fired when item is selected.  detail: { isSelected: boolean, item: unknown }
  * @fires take-changed - Fired when item is selected.  detail: { isSelected: boolean, item: unknown }
+ * @fires titanium-data-table-items-reorder - Fired when table items are resorted by user.
  *
  * @slot table-actions - item nonspecific table buttons such as add new item
  * @slot filter-button - filter button slot
@@ -151,17 +152,16 @@ export class TitaniumDataTableElement extends LitElement {
     }
 
     this.addEventListener(DataTableItemDropEvent.eventType, (e: DataTableItemDropEvent) => {
+      e.stopPropagation();
       //HoverIndex cannot be dropped beyond the length of the array
       const hoverIndex = Math.min(e.hoverIndex, this.items.length - 1);
-
-      console.log('hoverIndex', hoverIndex, 'originIndex', e.originIndex);
 
       //Ignore if item goes back to where it started
       if (hoverIndex !== e.originIndex) {
         const temp = this.items[e.originIndex];
         this.items.splice(e.originIndex, 1);
         this.items.splice(hoverIndex, 0, temp);
-        console.log('DataTableItemDropEvent', this.items);
+        this.dispatchEvent(new DataTableItemsReorderedEvent());
       }
     });
 
@@ -692,5 +692,12 @@ export class TitaniumDataTableElement extends LitElement {
         </div>
       </footer>
     `;
+  }
+}
+
+export class DataTableItemsReorderedEvent extends Event {
+  static eventType = 'titanium-data-table-items-reorder';
+  constructor() {
+    super(DataTableItemsReorderedEvent.eventType);
   }
 }

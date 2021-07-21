@@ -51,7 +51,7 @@ export class TitaniumDataTableItemElement extends LitElement {
    *  In order to reflect those updates out to the DOM, you will need to call requestUpdate on the items array when
    *  items are dropped. ex.
    *
-   *  <titanium-data-table @titanium-data-table-item-drop=${() => this.requestUpdate('items')} ... >
+   *  <titanium-data-table @titanium-data-table-items-reorder=${() => this.requestUpdate('items')} ... >
    *
    */
   @property({ type: Boolean, reflect: true, attribute: 'enable-dragging' }) enableDrag: boolean = false;
@@ -138,7 +138,7 @@ export class TitaniumDataTableItemElement extends LitElement {
     this.originIndex = this.items.indexOf(this);
 
     const moveEvent = type === 'touch' ? 'touchmove' : 'mousemove';
-    const upEvents = type === 'touch' ? 'touchend' : 'mouseup,mouseout';
+    const upEvent = type === 'touch' ? 'touchend' : 'mouseup';
 
     // Offsets to remember for when translating the dragged item
     const containerY = this.itemsContainer.getBoundingClientRect().top + window.scrollY;
@@ -171,9 +171,10 @@ export class TitaniumDataTableItemElement extends LitElement {
       this.items.forEach(o => o.updateDragProps(this.dragging, this.originIndex, this.hoverIndex));
       document.removeEventListener(moveEvent, onMoveEvent);
 
-      upEvents.split(',').forEach(upEvent => {
-        this.removeEventListener(upEvent, onUpEvent);
-      });
+      this.removeEventListener(upEvent, onUpEvent);
+      if (type === 'mouse') {
+        document.removeEventListener('mouseout', onUpEvent);
+      }
 
       // Perform the swap after the item translates to its resting spot.
       const onTransitionEnd = () => {
@@ -196,9 +197,10 @@ export class TitaniumDataTableItemElement extends LitElement {
       this.style.transform = `translate3d(0, ${finalTransformY}px, 0)`;
     };
 
-    upEvents.split(',').forEach(upEvent => {
-      this.addEventListener(upEvent, onUpEvent);
-    });
+    if (type === 'mouse') {
+      document.addEventListener('mouseout', onUpEvent);
+    }
+    this.addEventListener(upEvent, onUpEvent);
     document.addEventListener(moveEvent, onMoveEvent);
   }
 

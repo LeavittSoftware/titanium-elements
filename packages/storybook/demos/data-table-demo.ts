@@ -58,7 +58,10 @@ export default class DataTableDemo extends LitElement {
   render() {
     return html`
       <titanium-data-table
-        @titanium-data-table-item-drop=${() => this.requestUpdate('cars')}
+        @titanium-data-table-items-reorder=${() => {
+          this.requestUpdate('cars');
+          console.log('SAVE ORDER TO REMOTE');
+        }}
         single-select
         header="Tesla Motors Draggable Demo"
         @selected-changed=${(e: CustomEvent<Car[]>) => {
