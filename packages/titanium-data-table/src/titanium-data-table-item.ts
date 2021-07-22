@@ -165,6 +165,7 @@ export class TitaniumDataTableItemElement extends LitElement {
       return cumulativeSum;
     });
 
+    // let lastHoverIndex = 0;
     /*
      * Moving the dragged item
      */
@@ -176,7 +177,16 @@ export class TitaniumDataTableItemElement extends LitElement {
 
       this.style.transform = `translateY(${transformY}px)`;
       this.hoverIndex = this.getIndexOver(itemEndPositions, itemAbsoluteTop);
-      this.items.forEach(o => o.updateDragProps(this.dragging, this.originIndex, this.hoverIndex, itemHeight));
+
+      //PREF: ONLY UPDATE ITEMS BETWEEN ORIGIN AND HOVER (+1 and -1)
+      const high = Math.max(this.hoverIndex, this.originIndex ?? 0) + 1;
+      let low = Math.min(this.hoverIndex, this.originIndex ?? 0) - 1;
+      low = low < 0 ? 0 : low;
+
+      for (let index = low; index <= high; index++) {
+        const o = this.items?.[index];
+        o?.updateDragProps(this.dragging, this.originIndex, this.hoverIndex, itemHeight);
+      }
     };
 
     const onMoveEvent = event => {
@@ -186,7 +196,7 @@ export class TitaniumDataTableItemElement extends LitElement {
 
     const onUpEvent = () => {
       this.dragging = false;
-      this.items.forEach(o => o.updateDragProps(this.dragging, this.originIndex, this.hoverIndex, itemHeight));
+      this.items.forEach(o => (o.dragging = false));
       document.removeEventListener(moveEvent, onMoveEvent);
 
       this.removeEventListener(upEvent, onUpEvent);
@@ -217,7 +227,7 @@ export class TitaniumDataTableItemElement extends LitElement {
 
       const finalTransformYDown = this.items
         .filter(o => o.nudgeDown)
-        .map(o => -o.getBoundingClientRect().height)
+        .map(o => -o.getBoundingClientRect().height - 1)
         .reduce((a, b) => a + b, 0);
 
       const finalTransformY = finalTransformYUp !== 0 ? finalTransformYUp : finalTransformYDown;
@@ -290,6 +300,10 @@ export class TitaniumDataTableItemElement extends LitElement {
     :host([dragging]:not([dragged])) {
       transition: transform 0.2s ease-out;
     }
+
+    /* :host {
+      transition: transform 0.2s ease-out;
+    } */
 
     :host main {
       display: flex;
