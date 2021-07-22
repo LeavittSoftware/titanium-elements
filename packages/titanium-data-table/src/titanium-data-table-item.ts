@@ -1,4 +1,4 @@
-import { css, customElement, html, LitElement, property, query } from 'lit-element';
+import { css, customElement, html, LitElement, property, query, state } from 'lit-element';
 import '@material/mwc-checkbox';
 import { Checkbox } from '@material/mwc-checkbox';
 import { TitaniumDataTableElement } from './titanium-data-table';
@@ -61,6 +61,10 @@ export class TitaniumDataTableItemElement extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'dragged' }) protected dragged: boolean;
   @property({ type: Boolean, reflect: true, attribute: 'dragging' }) protected dragging: boolean;
 
+  @state() private nudgeHeight: number;
+  @state() private hoverIndex: number | null = null;
+  @state() private originIndex: number | null = null;
+
   @query('mwc-checkbox') checkbox: Checkbox;
   @query('item-content') itemContent: HTMLDivElement;
 
@@ -91,12 +95,13 @@ export class TitaniumDataTableItemElement extends LitElement {
     }
   }
 
-  updateDragProps(dragging: boolean, originIndex: number | null, hoverIndex: number | null) {
+  updateDragProps(dragging: boolean, originIndex: number | null, hoverIndex: number | null, originHeight: number) {
     const myIndex = this.items.indexOf(this);
     this.nudgeDown = originIndex !== null && hoverIndex !== null && myIndex < originIndex && myIndex >= hoverIndex;
     this.nudgeUp = originIndex !== null && hoverIndex !== null && myIndex > originIndex && myIndex <= hoverIndex;
     this.dragged = originIndex === myIndex;
     this.dragging = dragging;
+    this.nudgeHeight = originHeight;
   }
 
   toggleSelected() {
@@ -116,11 +121,6 @@ export class TitaniumDataTableItemElement extends LitElement {
     }
   }
 
-  @property({ type: Number }) hoverIndex: number | null = null;
-
-  // Index of the item currently being dragged
-  @property({ type: Number }) originIndex: number | null = null;
-
   private get dataTable() {
     return this.parentElement as TitaniumDataTableElement;
   }
@@ -133,6 +133,19 @@ export class TitaniumDataTableItemElement extends LitElement {
     return this.dataTable.itemsContainer;
   }
 
+  /**
+   *  Return index of item over
+   */
+  private getIndexOver(itemEndPositions: number[], hoverPosition: number) {
+    for (let index = 0; index < itemEndPositions.length; index++) {
+      const endPosition = itemEndPositions[index];
+      if (hoverPosition <= endPosition) {
+        return index;
+      }
+    }
+    return itemEndPositions.length - 1;
+  }
+
   private startItemDrag(event, type: 'touch' | 'mouse') {
     this.dragging = true;
     this.originIndex = this.items.indexOf(this);
@@ -143,6 +156,14 @@ export class TitaniumDataTableItemElement extends LitElement {
     // Offsets to remember for when translating the dragged item
     const containerY = this.itemsContainer.getBoundingClientRect().top + window.scrollY;
     const startY = event.pageY ?? event.touches[0].pageY;
+    const itemHeight = this.getBoundingClientRect().height;
+
+    //Cache the end positions of each item for variable height list items
+    let cumulativeSum = 0;
+    const itemEndPositions = this.items.map(o => {
+      cumulativeSum = cumulativeSum + o.getBoundingClientRect().height;
+      return cumulativeSum;
+    });
 
     /*
      * Moving the dragged item
@@ -154,11 +175,8 @@ export class TitaniumDataTableItemElement extends LitElement {
       const transformY = pageY - startY;
 
       this.style.transform = `translateY(${transformY}px)`;
-      // Can get the index we're hovering over easily due to fixed element
-      // heights. This calculation needs to get fancier to support
-      // a list of any-height elements.
-      this.hoverIndex = Math.max(Math.floor(itemAbsoluteTop / 48), 0);
-      this.items.forEach(o => o.updateDragProps(this.dragging, this.originIndex, this.hoverIndex));
+      this.hoverIndex = this.getIndexOver(itemEndPositions, itemAbsoluteTop);
+      this.items.forEach(o => o.updateDragProps(this.dragging, this.originIndex, this.hoverIndex, itemHeight));
     };
 
     const onMoveEvent = event => {
@@ -168,7 +186,7 @@ export class TitaniumDataTableItemElement extends LitElement {
 
     const onUpEvent = () => {
       this.dragging = false;
-      this.items.forEach(o => o.updateDragProps(this.dragging, this.originIndex, this.hoverIndex));
+      this.items.forEach(o => o.updateDragProps(this.dragging, this.originIndex, this.hoverIndex, itemHeight));
       document.removeEventListener(moveEvent, onMoveEvent);
 
       this.removeEventListener(upEvent, onUpEvent);
@@ -183,7 +201,7 @@ export class TitaniumDataTableItemElement extends LitElement {
         }
         this.originIndex = null;
         this.hoverIndex = null;
-        this.items.forEach(o => o.updateDragProps(this.dragging, this.originIndex, this.hoverIndex));
+        this.items.forEach(o => o.updateDragProps(this.dragging, this.originIndex, this.hoverIndex, itemHeight));
 
         this.style.transform = '';
         this.style.transition = '';
@@ -191,8 +209,20 @@ export class TitaniumDataTableItemElement extends LitElement {
       };
       this.addEventListener('transitionend', onTransitionEnd);
 
+      //Count the nudged items heights to know final transform amount
+      const finalTransformYUp = this.items
+        .filter(o => o.nudgeUp)
+        .map(o => o.getBoundingClientRect().height)
+        .reduce((a, b) => a + b, 0);
+
+      const finalTransformYDown = this.items
+        .filter(o => o.nudgeDown)
+        .map(o => -o.getBoundingClientRect().height)
+        .reduce((a, b) => a + b, 0);
+
+      const finalTransformY = finalTransformYUp !== 0 ? finalTransformYUp : finalTransformYDown;
+
       // Translate the item to its resting spot.
-      const finalTransformY = ((this.hoverIndex ?? 0) - (this.originIndex ?? 0)) * 48;
       this.style.transition = 'transform 0.1s ease-out';
       this.style.transform = `translate3d(0, ${finalTransformY}px, 0)`;
     };
@@ -235,7 +265,6 @@ export class TitaniumDataTableItemElement extends LitElement {
     }
 
     :host([enable-dragging]) {
-      height: 48px !important;
       overflow: hidden;
       cursor: grab;
     }
@@ -248,14 +277,6 @@ export class TitaniumDataTableItemElement extends LitElement {
 
     :host([enable-dragging]:hover) mwc-icon[drag] {
       display: block;
-    }
-
-    :host([nudge-down]:not([dragged])) {
-      transform: translate3d(0, 48px, 0);
-    }
-
-    :host([nudge-up]:not([dragged])) {
-      transform: translate3d(0, -48px, 0);
     }
 
     :host([dragged]) {
@@ -349,6 +370,15 @@ export class TitaniumDataTableItemElement extends LitElement {
 
   render() {
     return html`
+      <style>
+        :host([nudge-down]:not([dragged])) {
+          transform: translate3d(0, ${this.nudgeHeight}px, 0);
+        }
+
+        :host([nudge-up]:not([dragged])) {
+          transform: translate3d(0, -${this.nudgeHeight}px, 0);
+        }
+      </style>
       <main>
         ${this.disableSelect
           ? ''
