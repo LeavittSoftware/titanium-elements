@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [11.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@11.2.0...@leavittsoftware/titanium-data-table@11.3.0) (2021-07-22)
+
+
+### Features
+
+* add support for variable height list items ([fd9e729](https://github.com/LeavittSoftware/titanium-elements/commit/fd9e729309dc4f387561698e5b2778cb83120dfd))
+
+
+
+
+
 # [11.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@11.1.0...@leavittsoftware/titanium-data-table@11.2.0) (2021-07-21)
 
 
