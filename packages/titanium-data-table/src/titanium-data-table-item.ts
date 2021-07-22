@@ -156,12 +156,12 @@ export class TitaniumDataTableItemElement extends LitElement {
     // Offsets to remember for when translating the dragged item
     const containerY = this.itemsContainer.getBoundingClientRect().top + window.scrollY;
     const startY = event.pageY ?? event.touches[0].pageY;
-    const itemHeight = this.getBoundingClientRect().height;
+    const itemHeight = this.getBoundingClientRect().height - 1;
 
     //Cache the end positions of each item for variable height list items
     let cumulativeSum = 0;
     const itemEndPositions = this.items.map(o => {
-      cumulativeSum = cumulativeSum + o.getBoundingClientRect().height;
+      cumulativeSum = cumulativeSum + (o.getBoundingClientRect().height - 1);
       return cumulativeSum;
     });
 
@@ -212,7 +212,7 @@ export class TitaniumDataTableItemElement extends LitElement {
       //Count the nudged items heights to know final transform amount
       const finalTransformYUp = this.items
         .filter(o => o.nudgeUp)
-        .map(o => o.getBoundingClientRect().height)
+        .map(o => (o.getBoundingClientRect().height > 0 ? o.getBoundingClientRect().height - 1 : 0))
         .reduce((a, b) => a + b, 0);
 
       const finalTransformYDown = this.items
