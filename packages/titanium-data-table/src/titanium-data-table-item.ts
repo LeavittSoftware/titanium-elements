@@ -146,14 +146,40 @@ export class TitaniumDataTableItemElement extends LitElement {
     return itemEndPositions.length - 1;
   }
 
-  private startItemDrag(event, type: 'touch' | 'mouse') {
+  /**
+   *  Given the origin and hover index determine items that will be affected
+   */
+  private determineRange(originIndex: number | null, hoverIndex: number | null) {
+    //PREF: ONLY UPDATE ITEMS BETWEEN ORIGIN AND HOVER (+1 and -1)
+    const high = Math.max(hoverIndex ?? 0, originIndex ?? 0) + 1;
+    let low = Math.min(hoverIndex ?? 0, originIndex ?? 0) - 1;
+    low = low < 0 ? 0 : low;
+
+    return [high, low];
+  }
+
+  private notifySiblingsDrag(originIndex: number | null, hoverIndex: number | null, dragging: boolean, itemHeight: number) {
+    const range = this.determineRange(originIndex, hoverIndex);
+    for (let index = range[1]; index <= range[0]; index++) {
+      const o = this.items?.[index];
+      o?.updateDragProps(dragging, this.originIndex, this.hoverIndex, itemHeight);
+    }
+  }
+
+  private notifySiblingDragStop(originIndex: number | null, hoverIndex: number | null) {
+    const range = this.determineRange(originIndex, hoverIndex);
+    for (let index = range[1]; index <= range[0]; index++) {
+      const o = this.items?.[index];
+      o?.updateDragProps(false, null, null, 0);
+    }
+  }
+
+  private startItemDrag(event: MouseEvent & TouchEvent, type: 'touch' | 'mouse') {
     this.dragging = true;
     this.originIndex = this.items.indexOf(this);
 
     const moveEvent = type === 'touch' ? 'touchmove' : 'mousemove';
     const upEvent = type === 'touch' ? 'touchend' : 'mouseup';
-
-    // Offsets to remember for when translating the dragged item
     const containerY = this.itemsContainer.getBoundingClientRect().top + window.scrollY;
     const startY = event.pageY ?? event.touches[0].pageY;
     const itemHeight = this.getBoundingClientRect().height - 1;
@@ -165,43 +191,74 @@ export class TitaniumDataTableItemElement extends LitElement {
       return cumulativeSum;
     });
 
-    // let lastHoverIndex = 0;
-    /*
-     * Moving the dragged item
-     */
-    const moveItem = event => {
+    const moveItemHandler = (event: MouseEvent & TouchEvent) => {
       // Translate and keep track of which index we are hovering over.
       const pageY = event.pageY ?? event.touches[0].pageY;
+      const clientY = event.clientY ?? event.touches[0].clientY;
+
       const itemAbsoluteTop = pageY - containerY;
       const transformY = pageY - startY;
 
       this.style.transform = `translateY(${transformY}px)`;
       this.hoverIndex = this.getIndexOver(itemEndPositions, itemAbsoluteTop);
+      this.notifySiblingsDrag(this.originIndex, this.hoverIndex, this.dragging, itemHeight);
 
-      //PREF: ONLY UPDATE ITEMS BETWEEN ORIGIN AND HOVER (+1 and -1)
-      const high = Math.max(this.hoverIndex, this.originIndex ?? 0) + 1;
-      let low = Math.min(this.hoverIndex, this.originIndex ?? 0) - 1;
-      low = low < 0 ? 0 : low;
+      //Scroll on when item approaches bottom/top of viewport
+      if (clientY < 5) {
+        scrollBy({
+          top: -(window.innerHeight / 5),
+          behavior: 'smooth',
+        });
+      } else if (clientY < 25) {
+        scrollBy({
+          top: -(window.innerHeight / 10),
+          behavior: 'smooth',
+        });
+      }
 
-      for (let index = low; index <= high; index++) {
-        const o = this.items?.[index];
-        o?.updateDragProps(this.dragging, this.originIndex, this.hoverIndex, itemHeight);
+      if (window.innerHeight - clientY < 5) {
+        scrollBy({
+          top: window.innerHeight / 5,
+          behavior: 'smooth',
+        });
+      } else if (window.innerHeight - clientY < 25) {
+        scrollBy({
+          top: window.innerHeight / 10,
+          behavior: 'smooth',
+        });
       }
     };
 
-    const onMoveEvent = event => {
-      moveItem(event);
-    };
-    moveItem(event);
+    const cancelDragHandler = () => {
+      document.removeEventListener(moveEvent, onMoveEvent);
+      this.removeEventListener(upEvent, dragCompleteHandler);
+      this.dragging = false;
 
-    const onUpEvent = () => {
+      const onTransitionEnd = () => {
+        this.notifySiblingDragStop(this.originIndex, this.hoverIndex);
+        this.originIndex = null;
+        this.hoverIndex = null;
+
+        this.style.transform = '';
+        this.style.transition = '';
+        this.removeEventListener('transitionend', onTransitionEnd);
+      };
+      this.addEventListener('transitionend', onTransitionEnd);
+
+      this.style.transition = 'transform 0.1s ease-out';
+      this.style.transform = 'translate3d(0, 0, 0)';
+
+      document.removeEventListener('mouseout', cancelDragHandler);
+    };
+
+    const dragCompleteHandler = () => {
       this.dragging = false;
       this.items.forEach(o => (o.dragging = false));
-      document.removeEventListener(moveEvent, onMoveEvent);
+      document.removeEventListener(moveEvent, moveItemHandler);
 
-      this.removeEventListener(upEvent, onUpEvent);
+      this.removeEventListener(upEvent, dragCompleteHandler);
       if (type === 'mouse') {
-        document.removeEventListener('mouseout', onUpEvent);
+        document.removeEventListener('mouseout', cancelDragHandler);
       }
 
       // Perform the swap after the item translates to its resting spot.
@@ -209,9 +266,9 @@ export class TitaniumDataTableItemElement extends LitElement {
         if (this.originIndex !== null && this.hoverIndex !== null) {
           this.dispatchEvent(new DataTableItemDropEvent(this.originIndex, this.hoverIndex));
         }
+        this.notifySiblingDragStop(this.originIndex, this.hoverIndex);
         this.originIndex = null;
         this.hoverIndex = null;
-        this.items.forEach(o => o.updateDragProps(this.dragging, this.originIndex, this.hoverIndex, itemHeight));
 
         this.style.transform = '';
         this.style.transition = '';
@@ -238,10 +295,11 @@ export class TitaniumDataTableItemElement extends LitElement {
     };
 
     if (type === 'mouse') {
-      document.addEventListener('mouseout', onUpEvent);
+      document.addEventListener('mouseout', cancelDragHandler);
     }
-    this.addEventListener(upEvent, onUpEvent);
-    document.addEventListener(moveEvent, onMoveEvent);
+    this.addEventListener(upEvent, dragCompleteHandler);
+    document.addEventListener(moveEvent, moveItemHandler);
+    moveItemHandler(event);
   }
 
   static styles = css`
