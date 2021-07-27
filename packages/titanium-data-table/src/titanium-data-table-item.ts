@@ -174,7 +174,7 @@ export class TitaniumDataTableItemElement extends LitElement {
     }
   }
 
-  private startItemDrag(event: MouseEvent & TouchEvent, type: 'touch' | 'mouse') {
+  private startItemDrag(event, type: 'touch' | 'mouse') {
     this.dragging = true;
     this.originIndex = this.items.indexOf(this);
 
@@ -191,7 +191,7 @@ export class TitaniumDataTableItemElement extends LitElement {
       return cumulativeSum;
     });
 
-    const moveItemHandler = (event: MouseEvent & TouchEvent) => {
+    const moveItemHandler = event => {
       // Translate and keep track of which index we are hovering over.
       const pageY = event.pageY ?? event.touches[0].pageY;
       const clientY = event.clientY ?? event.touches[0].clientY;
