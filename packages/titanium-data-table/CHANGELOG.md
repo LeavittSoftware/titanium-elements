@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [11.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@11.4.0...@leavittsoftware/titanium-data-table@11.5.0) (2021-07-27)
+
+
+### Bug Fixes
+
+* account for -1 margin ([19fa4e3](https://github.com/LeavittSoftware/titanium-elements/commit/19fa4e398768b7442562806e071d636723d41cdb))
+* bad merge ([2b517a4](https://github.com/LeavittSoftware/titanium-elements/commit/2b517a404d3c7e8407339e9f04c7b0818c23d063))
+* corrects bad typing  ([287b6fe](https://github.com/LeavittSoftware/titanium-elements/commit/287b6fe5f6fd7eeab056d55603ae9dfbb5a3811a))
+* reenable title text on items ([0914f7d](https://github.com/LeavittSoftware/titanium-elements/commit/0914f7d3ff6a386ed81f5f70e3336278c5bee7c7))
+
+
+### Features
+
+* add page scrolling on drag; cancel drag if mouse leaves browser ([bd0394a](https://github.com/LeavittSoftware/titanium-elements/commit/bd0394a2ee62c1f2c54eb1476b99fbdf8f08ff3b))
+
+
+### Performance Improvements
+
+* only update items in list that could be affected by drag ([7b9539c](https://github.com/LeavittSoftware/titanium-elements/commit/7b9539c47137335bb957a2f11eb1e21a98f206cd))
+
+
+
+
+
 # [11.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@11.3.0...@leavittsoftware/titanium-data-table@11.4.0) (2021-07-27)
 
 
