@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.4.0 (2021-07-27)
+
+
+### Features
+
+* add confirm dialog to titanium-dialog project ([28641ce](https://github.com/LeavittSoftware/titanium-elements/commit/28641ceb97d82f8b95ceafeb49937859696bae6d))
+
+
+
+
+
 ## 3.3.5 (2021-07-01)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-dialog
