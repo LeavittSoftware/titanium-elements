@@ -230,7 +230,7 @@ export class TitaniumDataTableItemElement extends LitElement {
     };
 
     const cancelDragHandler = () => {
-      document.removeEventListener(moveEvent, onMoveEvent);
+      document.removeEventListener(moveEvent, moveItemHandler);
       this.removeEventListener(upEvent, dragCompleteHandler);
       this.dragging = false;
 
