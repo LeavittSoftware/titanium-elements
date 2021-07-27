@@ -370,13 +370,12 @@ export class TitaniumDataTableItemElement extends LitElement {
       min-height: 48px;
     }
 
-    div[item-footer] ::slotted(*) {
+    :host([enable-dragging]) div[item-footer] ::slotted(*) {
       pointer-events: none;
     }
 
     ::slotted(row-item) {
       display: block;
-      pointer-events: none;
       font-size: 14px;
       line-height: 18px;
       color: var(--app-text-color, #5f6368);
