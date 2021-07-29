@@ -333,7 +333,6 @@ export class TitaniumDataTableItemElement extends LitElement {
     }
 
     :host([enable-dragging]) {
-      overflow: hidden;
       cursor: grab;
     }
 
@@ -350,6 +349,7 @@ export class TitaniumDataTableItemElement extends LitElement {
     :host([dragged]) {
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
       transition: none;
+      overflow: hidden;
       z-index: 2 !important;
     }
 
