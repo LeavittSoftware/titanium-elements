@@ -1,4 +1,4 @@
-import { css, customElement, html, LitElement, property, query, state } from 'lit-element';
+import { css, customElement, html, LitElement, property, PropertyValues, query, state } from 'lit-element';
 import '@material/mwc-checkbox';
 import { Checkbox } from '@material/mwc-checkbox';
 import { TitaniumDataTableElement } from './titanium-data-table';
@@ -68,6 +68,24 @@ export class TitaniumDataTableItemElement extends LitElement {
   @query('mwc-checkbox') checkbox: Checkbox;
   @query('item-content') itemContent: HTMLDivElement;
 
+  private mouseEvent = e => this.startItemDrag(e, 'mouse');
+  private touchEvent = e => {
+    e.preventDefault();
+    this.startItemDrag(e, 'touch');
+  };
+
+  async updated(changed: PropertyValues<this>) {
+    if (changed.has('enableDrag')) {
+      if (this.enableDrag) {
+        this.addEventListener('mousedown', this.mouseEvent);
+        this.addEventListener('touchstart', this.touchEvent);
+      } else {
+        this.removeEventListener('mousedown', this.mouseEvent);
+        this.removeEventListener('touchstart', this.touchEvent);
+      }
+    }
+  }
+
   firstUpdated() {
     // Set width of each slotted row with based on width
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -85,14 +103,6 @@ export class TitaniumDataTableItemElement extends LitElement {
       this.dispatchEvent(new Event('transitionend'));
       this.dispatchEvent(new CustomEvent('titanium-data-table-item-navigate', { detail: this.item }));
     });
-
-    if (this.enableDrag) {
-      this.addEventListener('mousedown', e => this.startItemDrag(e, 'mouse'));
-      this.addEventListener('touchstart', e => {
-        e.preventDefault();
-        this.startItemDrag(e, 'touch');
-      });
-    }
   }
 
   updateDragProps(dragging: boolean, originIndex: number | null, hoverIndex: number | null, originHeight: number) {
