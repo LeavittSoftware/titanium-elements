@@ -316,7 +316,6 @@ export class TitaniumDataTableItemElement extends LitElement {
       -webkit-font-smoothing: antialiased;
 
       transition: none;
-      z-index: 1;
       margin-top: -1px;
       box-sizing: border-box;
       border-bottom: 1px var(--app-border-color, #dadce0) solid;
@@ -456,6 +455,8 @@ export class TitaniumDataTableItemElement extends LitElement {
           : html`
               <mwc-icon drag>drag_indicator</mwc-icon>
               <mwc-checkbox
+                @mousedown=${(e: MouseEvent) => e.stopPropagation()}
+                @touchstart=${(e: TouchEvent) => e.stopPropagation()}
                 @dblclick=${e => e.stopPropagation()}
                 @change=${() => {
                   this.selected = this.checkbox.checked;
