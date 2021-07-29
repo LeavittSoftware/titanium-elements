@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [11.5.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@11.5.3...@leavittsoftware/titanium-data-table@11.5.4) (2021-07-29)
+
+
+### Bug Fixes
+
+* remove darg events if enable-dragging is removed. ([12a09b3](https://github.com/LeavittSoftware/titanium-elements/commit/12a09b3b5232c9651a37f5e73ac65433059b5e0a))
+* remove default z index; prevent drag on checkbox input ([928b40f](https://github.com/LeavittSoftware/titanium-elements/commit/928b40f2b9790a3a84767c7caf36a238a22141be))
+
+
+
+
+
 ## [11.5.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@11.5.2...@leavittsoftware/titanium-data-table@11.5.3) (2021-07-29)
 
 
