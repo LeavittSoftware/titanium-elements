@@ -359,7 +359,7 @@ export class TitaniumDataTableItemElement extends LitElement {
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
       transition: none;
       overflow: hidden;
-      z-index: 2 !important;
+      z-index: 1 !important;
     }
 
     /* Only have transition under dragging, because we don't want nudged

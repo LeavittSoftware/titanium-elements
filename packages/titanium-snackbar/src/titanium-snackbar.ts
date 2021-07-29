@@ -197,6 +197,7 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
       -webkit-transform: scale(0.8);
       -ms-transform: scale(0.8);
       transform: scale(0.8);
+      z-index: 2;
       opacity: 0;
     }
 
