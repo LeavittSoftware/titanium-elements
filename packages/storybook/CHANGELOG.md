@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@8.3.6...@leavittsoftware/storybook@8.4.0) (2021-08-03)
+
+
+### Features
+
+* add more icons to storybook ([392bdb7](https://github.com/LeavittSoftware/titanium-elements/commit/392bdb7507a46e2a014fa5a6df3d7d76117e2047))
+
+
+
+
+
 ## [8.3.6](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@8.3.5...@leavittsoftware/storybook@8.3.6) (2021-07-29)
 
 **Note:** Version bump only for package @leavittsoftware/storybook
