@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@8.4.0...@leavittsoftware/storybook@8.5.0) (2021-08-04)
+
+
+### Bug Fixes
+
+* removes extra line break breaking story book ([dd0828c](https://github.com/LeavittSoftware/titanium-elements/commit/dd0828c94974908fd2171abd17a5812d62a4fb3c))
+
+
+### Features
+
+* add more icons to storybook ([392bdb7](https://github.com/LeavittSoftware/titanium-elements/commit/392bdb7507a46e2a014fa5a6df3d7d76117e2047))
+
+
+
+
+
 # [8.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@8.3.6...@leavittsoftware/storybook@8.4.0) (2021-08-03)
 
 
