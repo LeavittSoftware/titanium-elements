@@ -54,6 +54,11 @@ export class TitaniumDataTableElement extends LitElement {
   @property({ type: Number }) page: number = 0;
 
   /**
+   * Available page sizes
+   */
+  @property({ type: Array }) pageSizes: Array<number>;
+
+  /**
    * Total number of items in all pages.
    */
   @property({ type: Number }) count: number;
@@ -560,6 +565,7 @@ export class TitaniumDataTableElement extends LitElement {
                 .count=${this.count}
                 .page=${this.page}
                 .take=${this.take}
+                .pageSizes=${this.pageSizes}
                 .localStorageKey="${this.header}-take"
               ></titanium-page-control>
             `}

@@ -11,7 +11,7 @@ export class TitaniumPageControlElement extends LitElement {
   /**
    * Available page sizes
    */
-  @state() pageSizes: Array<number> = [10, 15, 20, 50];
+  @state() pageSizes: Array<number>;
 
   /**
    * Current page of data the table is on
@@ -47,6 +47,9 @@ export class TitaniumPageControlElement extends LitElement {
   connectedCallback() {
     super.connectedCallback();
 
+    if (!this.pageSizes) {
+      this.pageSizes = [10, 15, 20, 50];
+    }
     this._setTake(this._determineTake());
   }
 
@@ -163,7 +166,7 @@ export class TitaniumPageControlElement extends LitElement {
         <take-control>
           <div ellipsis>${this.label}</div>
           <mwc-select outlined @change=${e => this._setTake(Number(e.target.value))} ?disabled=${this.disabled}>
-            ${this.pageSizes.map(o => html` <mwc-list-item ?selected=${this.take === o} value=${o}>${o}</mwc-list-item>`)}
+            ${this.pageSizes?.map(o => html` <mwc-list-item ?selected=${this.take === o} value=${o}>${o}</mwc-list-item>`)}
           </mwc-select>
         </take-control>
         <pagination-text>${this._getPageStats(this.page, this.count)}</pagination-text>
