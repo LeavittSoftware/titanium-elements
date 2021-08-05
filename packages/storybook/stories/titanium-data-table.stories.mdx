@@ -8,6 +8,7 @@ import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-header';
 import '@leavittsoftware/titanium-search-input';
 import '@leavittsoftware/titanium-chip';
 import '../demos/data-table-demo';
+import '../demos/data-table-paging-demo';
 
 <Meta
   title="UI COMPONENTS|titanium-data-table"
@@ -555,6 +556,15 @@ import '@leavittsoftware/titanium-data-table';
   <Story name="Draggable">
     {() => {
       return html`<data-table-demo></data-table-demo>
+        <titanium-data-table style="display:none"></titanium-data-table> `;
+    }}
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="Paging">
+    {() => {
+      return html`<data-table-paging-demo></data-table-paging-demo>
         <titanium-data-table style="display:none"></titanium-data-table> `;
     }}
   </Story>
