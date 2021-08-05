@@ -59,10 +59,6 @@ export default class DataTablePagingDemo extends LitElement {
   render() {
     return html`
       <titanium-data-table
-        @titanium-data-table-items-reorder=${() => {
-          this.requestUpdate('filteredCars');
-          console.log('SAVE ORDER TO REMOTE');
-        }}
         .pageSizes=${[5, 10, 15]}
         single-select
         header="Tesla Motors Paging Demo"
