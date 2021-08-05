@@ -1,4 +1,4 @@
-import { css, customElement, html, LitElement, property, queryAsync, state } from 'lit-element';
+import { css, customElement, html, LitElement, property, queryAsync } from 'lit-element';
 import { Select } from '@material/mwc-select';
 
 import '@material/mwc-checkbox';
@@ -11,7 +11,7 @@ export class TitaniumPageControlElement extends LitElement {
   /**
    * Available page sizes
    */
-  @state() pageSizes: Array<number>;
+  @property({ type: Array }) pageSizes: Array<number>;
 
   /**
    * Current page of data the table is on
@@ -46,10 +46,6 @@ export class TitaniumPageControlElement extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-
-    if (!this.pageSizes) {
-      this.pageSizes = [10, 15, 20, 50];
-    }
     this._setTake(this._determineTake());
   }
 
@@ -82,7 +78,7 @@ export class TitaniumPageControlElement extends LitElement {
 
   private _setTake(value: number) {
     this.take = value;
-    this.dispatchEvent(new CustomEvent('take-changed', { composed: true, detail: value }));
+    this.dispatchEvent(new CustomEvent('take-changed', { composed: true, detail: value, bubbles: true }));
     localStorage.setItem(this.localStorageKey, `${value}`);
   }
 
@@ -103,7 +99,7 @@ export class TitaniumPageControlElement extends LitElement {
 
   private _setPage(value: number) {
     this.page = value;
-    this.dispatchEvent(new CustomEvent('page-changed', { composed: true, detail: value }));
+    this.dispatchEvent(new CustomEvent('page-changed', { composed: true, detail: value, bubbles: true }));
   }
 
   static styles = css`

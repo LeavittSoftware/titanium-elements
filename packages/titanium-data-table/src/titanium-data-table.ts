@@ -56,7 +56,7 @@ export class TitaniumDataTableElement extends LitElement {
   /**
    * Available page sizes
    */
-  @property({ type: Array }) pageSizes: Array<number>;
+  @property({ type: Array }) pageSizes: Array<number> = [10, 15, 20, 50];
 
   /**
    * Total number of items in all pages.
@@ -119,7 +119,6 @@ export class TitaniumDataTableElement extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-
     this.addEventListener('titanium-data-table-item-selected-changed', this._handleItemSelectionChange.bind(this));
   }
 
@@ -567,6 +566,9 @@ export class TitaniumDataTableElement extends LitElement {
                 .take=${this.take}
                 .pageSizes=${this.pageSizes}
                 .localStorageKey="${this.header}-take"
+                @take-changed=${(e: CustomEvent<number>) => {
+                  this.take = e.detail;
+                }}
               ></titanium-page-control>
             `}
         <div footer>

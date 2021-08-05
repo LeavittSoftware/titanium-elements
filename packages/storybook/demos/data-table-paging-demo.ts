@@ -22,7 +22,6 @@ type Car = {
 @customElement('data-table-paging-demo')
 export default class DataTablePagingDemo extends LitElement {
   @state() private page: number = 0;
-  @state() private take: number = 10;
   @state() private resultTotal: number = largeSet?.length;
   @state() private searchTerm: string = '';
   @state() private cars: Car[] = largeSet;
@@ -38,7 +37,8 @@ export default class DataTablePagingDemo extends LitElement {
     const get = this._later(500);
     this.dataTable.loadWhile(get);
     await get;
-    this.filteredCars = len === 0 ? this.cars.slice(0, this.take) : this.cars.slice(len * this.page, this.take + this.take * this.page);
+    this.filteredCars =
+      len === 0 ? this.cars.slice(0, this.dataTable.take) : this.cars.slice(len * this.page, this.dataTable.take + this.dataTable.take * this.page);
   }
 
   _later(delay) {
@@ -59,7 +59,6 @@ export default class DataTablePagingDemo extends LitElement {
   render() {
     return html`
       <titanium-data-table
-        .pageSizes=${[5, 10, 15]}
         single-select
         header="Tesla Motors Paging Demo"
         @selected-changed=${(e: CustomEvent<Car[]>) => {
@@ -69,15 +68,13 @@ export default class DataTablePagingDemo extends LitElement {
           this.page = e.detail;
           this._reload();
         }}
-        @take-changed=${(e: CustomEvent<number>) => {
-          this.take = e.detail;
+        @take-changed=${() => {
           this.page = 0;
           this.filteredCars = [];
           this._reload();
         }}
         .count=${this.resultTotal}
         .page=${this.page}
-        .take=${this.take}
         .items=${this.cars}
         .searchTerm=${this.searchTerm}
       >
