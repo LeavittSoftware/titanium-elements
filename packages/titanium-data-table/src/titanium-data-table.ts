@@ -1,14 +1,11 @@
 import '@material/mwc-linear-progress';
 import '@material/mwc-checkbox';
+import './titanium-page-control';
 import { Checkbox } from '@material/mwc-checkbox';
-import '@material/mwc-icon-button';
-import '@material/mwc-select';
-import '@material/mwc-list/mwc-list-item';
 
-import { css, customElement, html, LitElement, property, query, queryAsync, state } from 'lit-element';
+import { css, customElement, html, LitElement, property, query } from 'lit-element';
 import { DataTableItemDropEvent, TitaniumDataTableItemElement } from './titanium-data-table-item';
 import { TitaniumDataTableHeaderElement } from './titanium-data-table-header';
-import { Select } from '@material/mwc-select';
 import { h1, ellipsis } from '@leavittsoftware/titanium-styles';
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -96,11 +93,6 @@ export class TitaniumDataTableElement extends LitElement {
    */
   @property({ type: Boolean }) private isLoading: boolean;
 
-  /**
-   * Available page sizes
-   */
-  @state() pageSizes: Array<number> = [10, 15, 20, 50];
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @query('slot[name="items"]') itemsSlot: HTMLSlotElement;
   @query('slot[name="table-headers"]') private tableHeaders: HTMLSlotElement;
@@ -117,16 +109,12 @@ export class TitaniumDataTableElement extends LitElement {
   @property({ type: Number }) take: number;
 
   @query('mwc-checkbox') checkbox: Checkbox;
-  @queryAsync('mwc-select') select: Select;
 
   private _openCount = 0;
 
   connectedCallback() {
     super.connectedCallback();
 
-    if (!this.disablePaging) {
-      this.setTake(this._determineTake(), false);
-    }
     this.addEventListener('titanium-data-table-item-selected-changed', this._handleItemSelectionChange.bind(this));
   }
 
@@ -168,12 +156,6 @@ export class TitaniumDataTableElement extends LitElement {
     //When slotted in items change, sync the narrow prop
     this.tableHeaders.addEventListener('slotchange', () => this.updateChildrenIsNarrow());
     this.itemsSlot.addEventListener('slotchange', () => this.updateChildrenIsNarrow());
-
-    //TODO: when height is allowed to be changed via css mixin on mwc-select, remove this
-    const selectAnchor = (await this.select)?.shadowRoot?.querySelector<HTMLElement>('.mdc-select')?.querySelector<HTMLElement>('.mdc-select__anchor');
-    if (selectAnchor) {
-      selectAnchor.style.height = '36px';
-    }
   }
 
   updateChildrenIsNarrow() {
@@ -226,25 +208,6 @@ export class TitaniumDataTableElement extends LitElement {
     this.dispatchEvent(new CustomEvent('selected-changed', { composed: true, detail: this.selected }));
   }
 
-  private _getPageStats(page: number, count: number) {
-    if (!count) {
-      return '0-0 of 0';
-    }
-
-    const startOfPage = count === 0 ? count : page * this.take + 1;
-    const endOfPage = (page + 1) * this.take > count ? count : (page + 1) * this.take;
-    return `${startOfPage}-${endOfPage} of ${count}`;
-  }
-
-  private _determineTake() {
-    const take = Number(window.localStorage.getItem(`${this.localStorageKey ?? this.header}-take`)) || 0;
-    if (take > 0) {
-      return take;
-    }
-
-    return this.pageSizes?.[0] ?? 1;
-  }
-
   async loadWhile(promise: Promise<unknown>) {
     this.isLoading = true;
     this._openCount++;
@@ -256,19 +219,6 @@ export class TitaniumDataTableElement extends LitElement {
         this.isLoading = false;
       }
     }
-  }
-
-  private setPage(value: number) {
-    this.page = value;
-    this.dispatchEvent(new CustomEvent('page-changed', { composed: true, detail: value }));
-  }
-
-  private setTake(value: number, notify: boolean = true) {
-    this.take = value;
-    if (notify) {
-      this.dispatchEvent(new CustomEvent('take-changed', { composed: true, detail: value }));
-    }
-    localStorage.setItem(`${this.localStorageKey ?? this.header}-take`, `${value}`);
   }
 
   private deselectAll() {
@@ -283,21 +233,6 @@ export class TitaniumDataTableElement extends LitElement {
     return (this.itemsSlot.assignedElements() as Array<TitaniumDataTableItemElement & HTMLElement>).filter(
       o => typeof o.select === 'function' && typeof o.deselect === 'function'
     ) as Array<TitaniumDataTableItemElement>;
-  }
-
-  private _handleNextPageClick() {
-    const nextPage = this.page + 1;
-    if (nextPage * this.take >= this.count) {
-      return;
-    }
-    this.setPage(this.page + 1);
-  }
-
-  private _handleLastPageClick() {
-    if (this.page === 0) {
-      return;
-    }
-    this.setPage(this.page - 1);
   }
 
   static styles = [
@@ -381,10 +316,6 @@ export class TitaniumDataTableElement extends LitElement {
 
       h1 {
         padding: 12px 12px 0 12px;
-      }
-
-      mwc-icon-button {
-        --mdc-icon-button-size: 32px;
       }
 
       selected-actions {
@@ -490,46 +421,6 @@ export class TitaniumDataTableElement extends LitElement {
         align-items: center;
         margin-top: -1px;
         border-top: 1px solid var(--app-border-color, #dadce0);
-      }
-
-      table-controls {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: center;
-        max-width: 450px;
-        min-width: 0;
-
-        font-size: 14px;
-        font-weight: 400;
-        letter-spacing: 0.011em;
-        line-height: 20px;
-        color: var(--app-dark-text-color, #202124);
-        margin-left: 12px;
-        gap: 8px;
-      }
-
-      table-paging {
-        display: flex;
-      }
-
-      take-control {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 12px;
-        min-width: 0;
-      }
-
-      take-control mwc-select {
-        max-width: 100px;
-        --mdc-shape-small: 24px;
-      }
-
-      pagination-text {
-        text-align: center;
-        user-select: none;
-        flex: 1 1 auto;
       }
 
       div[footer] {
@@ -663,27 +554,14 @@ export class TitaniumDataTableElement extends LitElement {
         ${this.disablePaging
           ? ''
           : html`
-              <table-controls>
-                <take-control>
-                  <div ellipsis>Rows per page</div>
-                  <mwc-select outlined @change=${e => this.setTake(e.target.value)} ?disabled=${this.isLoading}>
-                    ${this.pageSizes.map(o => html` <mwc-list-item ?selected=${this.take === o} value=${o}>${o}</mwc-list-item>`)}
-                  </mwc-select>
-                </take-control>
-                <pagination-text>${this._getPageStats(this.page, this.count)}</pagination-text>
-                <table-paging>
-                  <mwc-icon-button
-                    icon="keyboard_arrow_left"
-                    @click=${this._handleLastPageClick}
-                    ?disabled=${this.page === 0 || !this.count || this.isLoading}
-                  ></mwc-icon-button>
-                  <mwc-icon-button
-                    icon="keyboard_arrow_right"
-                    @click=${this._handleNextPageClick}
-                    ?disabled=${!this.count || (this.page + 1) * this.take >= this.count || this.isLoading}
-                  ></mwc-icon-button>
-                </table-paging>
-              </table-controls>
+              <titanium-page-control
+                label="Rows per page"
+                ?disabled=${this.isLoading}
+                .count=${this.count}
+                .page=${this.page}
+                .take=${this.take}
+                .localStorageKey="${this.header}-take"
+              ></titanium-page-control>
             `}
         <div footer>
           <slot name="footer">
