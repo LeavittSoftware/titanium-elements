@@ -1,0 +1,37 @@
+import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { html } from 'lit-html';
+import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
+import { withWebComponentsKnobs } from '../index.js';
+
+import '@leavittsoftware/titanium-data-table/lib/titanium-page-control.js';
+
+<Meta
+  title="UI COMPONENTS|titanium-page-control"
+  decorators={[withKnobs, withWebComponentsKnobs]}
+  parameters={{ component: 'titanium-page-control', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+/>
+
+# Page Control
+
+Material design inspired page controls.
+
+## How to use
+
+```bash
+npm i @leavittsoftware/titanium-page-control
+```
+
+```js
+import '@leavittsoftware/titanium-page-control';
+```
+
+## API
+
+<Props of="titanium-page-control" />
+
+## Demo
+
+<Preview withToolbar>
+  <Story name="Docs">{html`<titanium-page-control></titanium-page-control>`}</Story>
+</Preview>
