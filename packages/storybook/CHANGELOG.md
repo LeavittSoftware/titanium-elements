@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@8.5.0...@leavittsoftware/storybook@9.0.0) (2021-08-06)
+
+
+### Features
+
+* Adds page control element ([00bb51a](https://github.com/LeavittSoftware/titanium-elements/commit/00bb51a5fb5832cd48ff6cae88002aefa79a26fa))
+
+
+### BREAKING CHANGES
+
+* updates how the data table take and page works. Simplifies the  usage. Finishes the page-control component.
+
+
+
+
+
 # [8.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@8.4.0...@leavittsoftware/storybook@8.5.0) (2021-08-04)
 
 
