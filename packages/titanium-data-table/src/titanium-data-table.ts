@@ -244,8 +244,10 @@ export class TitaniumDataTableElement extends LitElement {
     this._getTableItems().forEach(o => o.deselect());
   }
 
-  private selectAll() {
-    this._getTableItems().forEach(o => o.select());
+  selectAll() {
+    if (!this.singleSelect) {
+      this._getTableItems().forEach(o => o.select());
+    }
   }
 
   private _getTableItems(): Array<TitaniumDataTableItemElement> {
