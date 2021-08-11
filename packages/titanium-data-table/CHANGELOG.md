@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [12.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@12.0.0...@leavittsoftware/titanium-data-table@12.1.0) (2021-08-11)
+
+
+### Features
+
+* make data-table selectAll public ([7a07c58](https://github.com/LeavittSoftware/titanium-elements/commit/7a07c58240c8e4fbc3c4499df969b4b316dc11ec))
+
+
+
+
+
 # 12.0.0 (2021-08-06)
 
 
