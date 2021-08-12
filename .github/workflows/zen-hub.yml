@@ -1,16 +1,16 @@
 name: ZenHub
 
-on:   
+on:
   pull_request:
     types: [opened]
   create:
-      
+
 jobs:
-  Move Issues:
+  Move_Issues:
     runs-on: ubuntu-latest
     steps:
       - uses: LeavittSoftware/zenhub-actions@master
         with:
           zh_token: ${{ secrets.ZH_TOKEN }}
-          event: ${{ github.event_name }}          
-          repo_id: '145903688'                
+          event: ${{ github.event_name }}
+          repo_id: '145903688'
