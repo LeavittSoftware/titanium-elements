@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@12.1.0...@leavittsoftware/titanium-data-table@12.1.1) (2021-08-16)
+
+
+### Bug Fixes
+
+* missed drop events if drop is outside the item  ([5f6fea3](https://github.com/LeavittSoftware/titanium-elements/commit/5f6fea3f39d4b1f08676cc721c66374f4c16771c))
+
+
+
+
+
 # [12.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@12.0.0...@leavittsoftware/titanium-data-table@12.1.0) (2021-08-11)
 
 
