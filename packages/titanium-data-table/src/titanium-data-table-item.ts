@@ -266,7 +266,7 @@ export class TitaniumDataTableItemElement extends LitElement {
       this.items.forEach(o => (o.dragging = false));
       document.removeEventListener(moveEvent, moveItemHandler);
 
-      this.removeEventListener(upEvent, dragCompleteHandler);
+      document.removeEventListener(upEvent, dragCompleteHandler);
       if (type === 'mouse') {
         document.removeEventListener('mouseout', cancelDragHandler);
       }
@@ -307,7 +307,7 @@ export class TitaniumDataTableItemElement extends LitElement {
     if (type === 'mouse') {
       document.addEventListener('mouseout', cancelDragHandler);
     }
-    this.addEventListener(upEvent, dragCompleteHandler);
+    document.addEventListener(upEvent, dragCompleteHandler);
     document.addEventListener(moveEvent, moveItemHandler);
     moveItemHandler(event);
   }
