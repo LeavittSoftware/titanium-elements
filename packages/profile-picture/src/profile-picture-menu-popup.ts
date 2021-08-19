@@ -19,6 +19,11 @@ export class ProfilePictureMenuPopupElement extends TitaniumPopupSurfaceFoundati
   @property({ type: String }) email: string = '';
 
   /**
+   * Company of user
+   */
+  @property({ type: String }) company: string = '';
+
+  /**
    * Full name of user
    */
   @property({ type: String }) name: string = '';
@@ -76,6 +81,10 @@ export class ProfilePictureMenuPopupElement extends TitaniumPopupSurfaceFoundati
       padding: 0 24px 12px 24px;
     }
 
+    h2[company] {
+      padding-bottom: 12px;
+    }
+
     slot-container {
       display: flex;
       flex-direction: column;
@@ -108,6 +117,7 @@ export class ProfilePictureMenuPopupElement extends TitaniumPopupSurfaceFoundati
       <main @mousedown=${(e: Event) => e.preventDefault()}>
         <profile-picture shape="circle" .personId=${this.personId} size="90"></profile-picture>
         <h1>${this.name}</h1>
+        ${this.company ? html`<h2 company>${this.company}</h2>` : ''}
         <h2>${this.email}</h2>
         <slot-container>
           <slot name="content"></slot>

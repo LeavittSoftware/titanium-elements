@@ -34,6 +34,11 @@ export class ProfilePictureMenuElement extends LitElement {
    */
   @property({ type: String }) email: string = '';
 
+  /**
+   * Company of user
+   */
+  @property({ type: String }) company: string = '';
+
   @query('profile-picture') profilePicture: ProfilePictureElement;
   @query('profile-picture-menu-popup') popup: ProfilePictureMenuPopupElement;
 
@@ -58,6 +63,7 @@ export class ProfilePictureMenuElement extends LitElement {
   setUserProps() {
     this.personId = GetUserManagerInstance().personId;
     this.email = GetUserManagerInstance().email;
+    this.company = GetUserManagerInstance().company;
     this.name = GetUserManagerInstance().fullname;
   }
 
@@ -95,6 +101,7 @@ export class ProfilePictureMenuElement extends LitElement {
           .personId=${this.personId}
           .name=${this.name}
           .email=${this.email}
+          .company=${this.company}
         ></profile-picture-menu-popup>
       </div>
     `;
