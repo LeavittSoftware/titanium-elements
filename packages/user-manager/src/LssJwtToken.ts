@@ -7,6 +7,8 @@ export interface LssJwtToken {
   family_name: string;
   gender: string;
   given_name: string;
+  Company?: string;
+  CompanyId?: string;
   iss: string;
   nameid: string;
   nbf: number;

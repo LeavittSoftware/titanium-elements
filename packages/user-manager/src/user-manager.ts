@@ -27,6 +27,10 @@ export class UserManager extends LitElement {
 
   @property({ type: String }) lastName: string;
 
+  @property({ type: String }) company: string;
+
+  @property({ type: Number }) companyId: number | null;
+
   @property({ type: String }) email: string;
 
   @property({ type: Number }) personId: number = 0;
@@ -225,6 +229,10 @@ export class UserManager extends LitElement {
     this.email = _jwtToken.email;
     this.isActiveEmployee = _jwtToken.IsActiveEmployee === 'True';
     this.roles = typeof _jwtToken.role === 'string' ? [_jwtToken.role] : _jwtToken.role ?? [];
+
+    this.company = _jwtToken.Company ?? '';
+    this.companyId = _jwtToken.CompanyId ? Number(_jwtToken.CompanyId) : 0;
+
     this.dispatchEvent(new UserManagerUpdatedEvent());
   }
 
@@ -327,6 +335,8 @@ export class UserManager extends LitElement {
     this.personId = 0;
     this.refreshTokenId = 0;
     this.fullname = '';
+    this.company = '';
+    this.companyId = null;
     this.firstName = '';
     this.lastName = '';
     this.email = '';
