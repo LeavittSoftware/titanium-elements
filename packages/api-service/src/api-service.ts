@@ -309,7 +309,7 @@ export default class ApiService {
       }
 
       if (error.name != null && error.name === 'AbortError') {
-        return Promise.reject('Abort error. Call has been aborted.');
+        return Promise.reject('Abort error. Request has been aborted.');
       }
 
       return Promise.reject(error);
