@@ -4,6 +4,7 @@ import { ODataResponse } from './odata-response';
 
 export type onProgressCallback = (event: ProgressEvent, request: XMLHttpRequest) => void;
 export type ApiServiceOptions = { appNameHeaderKey: string };
+export type ApiServiceRequestOptions = { abortController: AbortController };
 export default class ApiService {
   constructor(tokenProvider: BearerTokenProvider, options?: ApiServiceOptions) {
     this._tokenProvider = tokenProvider;
@@ -27,7 +28,7 @@ export default class ApiService {
     delete this.headers[key];
   }
 
-  async uploadFile<T>(urlPath: string, file: File, onprogress: onProgressCallback, appName: string | null = null): Promise<ODataResponse<T>> {
+  async uploadFile<T>(urlPath: string, file: File, onprogress: onProgressCallback): Promise<ODataResponse<T>> {
     return new Promise(async (resolve, reject) => {
       if (!file || !file.name) {
         reject('ArgumentException: Invalid file passed to uploadFile.');
@@ -46,11 +47,6 @@ export default class ApiService {
           headers['Authorization'] = `Bearer ${token}`;
         }
         headers['X-LGAttachmentName'] = file.name;
-
-        if (appName !== null) {
-          //appName set as a parameter has more specificity and should win
-          headers[this._appNameHeaderKey] = appName;
-        }
 
         for (const header in headers) {
           // A peciliarity of XMLHttpRequest is that one can’t undo setRequestHeader.
@@ -96,7 +92,7 @@ export default class ApiService {
     });
   }
 
-  async postAsync<T>(urlPath: string, body: unknown | ODataDto = {}, appName: string | null = null): Promise<ODataResponse<T>> {
+  async postAsync<T>(urlPath: string, body: unknown | ODataDto = {}, options: ApiServiceRequestOptions | null = null): Promise<ODataResponse<T>> {
     // Add in the odata model info if it not already on the object
 
     if (body instanceof ODataDto && body._odataInfo && !body['@odata.type']) {
@@ -108,9 +104,6 @@ export default class ApiService {
 
     const headers = { ...this.headers };
 
-    if (appName !== null) {
-      headers[this._appNameHeaderKey] = appName;
-    }
     const token = await this._tokenProvider._getBearerTokenAsync();
     if (token !== null) {
       headers['Authorization'] = `Bearer ${token}`;
@@ -118,7 +111,12 @@ export default class ApiService {
 
     let response;
     try {
-      response = await fetch(`${this.baseUrl}${urlPath}`, { method: 'POST', body: JSON.stringify(body), headers: headers });
+      response = await fetch(`${this.baseUrl}${urlPath}`, {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: headers,
+        signal: options?.abortController?.signal,
+      });
     } catch (error) {
       if (error.message != null && error.message.indexOf('Failed to fetch') !== -1) {
         return Promise.reject('Network error. Check your connection and try again.');
@@ -149,7 +147,7 @@ export default class ApiService {
     }
   }
 
-  async patchAsync(urlPath: string, body: unknown | ODataDto, appName: string | null = null): Promise<void> {
+  async patchAsync(urlPath: string, body: unknown | ODataDto, options: ApiServiceRequestOptions | null = null): Promise<void> {
     // Add in the odata model info if it not already on the object
     if (body instanceof ODataDto && body._odataInfo && !body['@odata.type']) {
       if (body._odataInfo.type) {
@@ -159,9 +157,6 @@ export default class ApiService {
     }
 
     const headers = { ...this.headers };
-    if (appName !== null) {
-      headers[this._appNameHeaderKey] = appName;
-    }
     const token = await this._tokenProvider._getBearerTokenAsync();
     if (token !== null) {
       headers['Authorization'] = `Bearer ${token}`;
@@ -169,7 +164,12 @@ export default class ApiService {
 
     let response;
     try {
-      response = await fetch(`${this.baseUrl}${urlPath}`, { method: 'PATCH', body: JSON.stringify(body), headers: headers });
+      response = await fetch(`${this.baseUrl}${urlPath}`, {
+        method: 'PATCH',
+        body: JSON.stringify(body),
+        headers: headers,
+        signal: options?.abortController?.signal,
+      });
     } catch (error) {
       if (error.message != null && error.message.indexOf('Failed to fetch') !== -1) {
         return Promise.reject('Network error. Check your connection and try again.');
@@ -196,7 +196,7 @@ export default class ApiService {
     }
   }
 
-  async patchReturnDtoAsync<T>(urlPath: string, body: unknown | ODataDto, appName: string | null = null): Promise<ODataResponse<T>> {
+  async patchReturnDtoAsync<T>(urlPath: string, body: unknown | ODataDto, options: ApiServiceRequestOptions | null = null): Promise<ODataResponse<T>> {
     // Add in the odata model info if it not already on the object
     if (body instanceof ODataDto && body._odataInfo && !body['@odata.type']) {
       if (body._odataInfo.type) {
@@ -206,9 +206,6 @@ export default class ApiService {
     }
 
     const headers = { ...this.headers };
-    if (appName !== null) {
-      headers[this._appNameHeaderKey] = appName;
-    }
     const token = await this._tokenProvider._getBearerTokenAsync();
     if (token !== null) {
       headers['Authorization'] = `Bearer ${token}`;
@@ -220,6 +217,7 @@ export default class ApiService {
         method: 'PATCH',
         body: JSON.stringify(body),
         headers: { ...headers, Prefer: 'return=representation' },
+        signal: options?.abortController?.signal,
       });
     } catch (error) {
       if (error.message != null && error.message.indexOf('Failed to fetch') !== -1) {
@@ -247,11 +245,8 @@ export default class ApiService {
     }
   }
 
-  async deleteAsync<T>(urlPath: string, appName: string | null = null): Promise<ODataResponse<T>> {
+  async deleteAsync<T>(urlPath: string, options: ApiServiceRequestOptions | null = null): Promise<ODataResponse<T>> {
     const headers = { ...this.headers };
-    if (appName !== null) {
-      headers[this._appNameHeaderKey] = appName;
-    }
     const token = await this._tokenProvider._getBearerTokenAsync();
     if (token !== null) {
       headers['Authorization'] = `Bearer ${token}`;
@@ -259,7 +254,7 @@ export default class ApiService {
 
     let response;
     try {
-      response = await fetch(`${this.baseUrl}${urlPath}`, { method: 'DELETE', headers: headers });
+      response = await fetch(`${this.baseUrl}${urlPath}`, { method: 'DELETE', headers: headers, signal: options?.abortController?.signal });
     } catch (error) {
       if (error.message != null && error.message.indexOf('Failed to fetch') !== -1) {
         return Promise.reject('Network error. Check your connection and try again.');
@@ -294,25 +289,20 @@ export default class ApiService {
     }
   }
 
-  async getAsync<T>(urlPath: string, appName: string | null = null, signal: AbortSignal | null = null): Promise<ODataResponse<T>> {
+  async getAsync<T>(urlPath: string, options: ApiServiceRequestOptions | null = null): Promise<ODataResponse<T>> {
     const headers = { ...this.headers };
-    if (appName !== null) {
-      headers[this._appNameHeaderKey] = appName;
-    }
     const token = await this._tokenProvider._getBearerTokenAsync();
     if (token !== null) {
       headers['Authorization'] = `Bearer ${token}`;
     }
 
     let response;
-
-    const fetchOptions: RequestInit = { method: 'GET', headers: headers };
-    if (signal != null) {
-      fetchOptions.signal = signal;
-    }
-
     try {
-      response = await fetch(`${this.baseUrl}${urlPath}`, fetchOptions);
+      response = await fetch(`${this.baseUrl}${urlPath}`, {
+        method: 'GET',
+        headers: headers,
+        signal: options?.abortController?.signal,
+      });
     } catch (error) {
       if (error.message != null && error.message.indexOf('Failed to fetch') !== -1) {
         return Promise.reject('Network error. Check your connection and try again.');
