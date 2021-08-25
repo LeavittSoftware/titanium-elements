@@ -294,7 +294,7 @@ export default class ApiService {
     }
   }
 
-  async getAsync<T>(urlPath: string, appName: string | null = null): Promise<ODataResponse<T>> {
+  async getAsync<T>(urlPath: string, appName: string | null = null, signal: AbortSignal | null = null): Promise<ODataResponse<T>> {
     const headers = { ...this.headers };
     if (appName !== null) {
       headers[this._appNameHeaderKey] = appName;
@@ -305,14 +305,21 @@ export default class ApiService {
     }
 
     let response;
+
+    const fetchOptions: RequestInit = { method: 'GET', headers: headers };
+    if (signal != null) {
+      fetchOptions.signal = signal;
+    }
+
     try {
-      response = await fetch(`${this.baseUrl}${urlPath}`, {
-        method: 'GET',
-        headers: headers,
-      });
+      response = await fetch(`${this.baseUrl}${urlPath}`, fetchOptions);
     } catch (error) {
       if (error.message != null && error.message.indexOf('Failed to fetch') !== -1) {
         return Promise.reject('Network error. Check your connection and try again.');
+      }
+
+      if (error.name != null && error.name === 'AbortError') {
+        return Promise.reject('Abort error. Call has been aborted.');
       }
 
       return Promise.reject(error);
