@@ -1,4 +1,4 @@
-import { css, customElement, html, LitElement, property, query } from 'lit-element';
+import { css, customElement, html, LitElement, property, query, state } from 'lit-element';
 import '@leavittsoftware/profile-picture';
 import '@material/mwc-textfield';
 import '@material/mwc-list/mwc-list-item.js';
@@ -8,12 +8,13 @@ import '@material/mwc-menu';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import { Menu } from '@material/mwc-menu';
 import { TextField } from '@material/mwc-textfield';
-import { TitaniumSnackbarSingleton as AppSnackbar } from '@leavittsoftware/titanium-snackbar/lib/titanium-snackbar';
+import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar/lib/titanium-snackbar';
 
-import { getSearchTokens, Debouncer, LoadWhile } from '@leavittsoftware/titanium-helpers';
-import Api2ServiceMixin from '@leavittsoftware/api-service/lib/api2-service';
+import { getSearchTokens, Debouncer, LoadWhile, isDevelopment } from '@leavittsoftware/titanium-helpers';
 import { Person as CorePerson, PeopleGroup as CorePeopleGroup } from '@leavittsoftware/lg-core-typescript/lg.core';
 import { peopleGroupIcons } from './people-group-icons';
+import ApiService from '@leavittsoftware/api-service/lib/api-service';
+import { AuthenticatedTokenProvider } from '@leavittsoftware/api-service/lib/authenticated-token-provider';
 
 export class LeavittPersonGroupSelectSelectedEvent extends Event {
   static eventType = 'selected';
@@ -40,10 +41,11 @@ type PeopleGroup = CorePeopleGroup & { type: 'PeopleGroup' };
  *
  */
 @customElement('leavitt-person-group-select')
-export class LeavittPersonGroupSelectElement extends LoadWhile(Api2ServiceMixin(LitElement)) {
-  @property({ type: Number }) protected count: number = 0;
-  @property({ type: String }) protected searchTerm: string;
-  @property({ type: Array }) protected suggestions: Array<Partial<Person | PeopleGroup>> = [];
+export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
+  @state() protected count: number = 0;
+  @state() protected searchTerm: string;
+  @state() protected suggestions: Array<Partial<Person | PeopleGroup>> = [];
+  @state() protected apiService: ApiService;
   @query('mwc-menu') protected menu: Menu;
   @query('mwc-textfield') protected textfield: TextField & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
 
@@ -85,6 +87,10 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(Api2ServiceMixin(
   firstUpdated() {
     this.menu.anchor = this.textfield;
     this.textfield.layout();
+
+    this.apiService = new ApiService(new AuthenticatedTokenProvider());
+    this.apiService.baseUrl = isDevelopment ? 'https://devapi2.leavitt.com/' : 'https://api2.leavitt.com/';
+    this.apiService.addHeader('X-LGAppName', this.apiNamespace);
 
     this.textfield.validityTransform = () => {
       if (this.required) {
@@ -147,6 +153,7 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(Api2ServiceMixin(
     if (!searchTerm) {
       return null;
     }
+
     try {
       const odataParts = ['$top=6', '$count=true', '$select=FirstName,LastName,Id,CompanyName'];
       const searchTokens = getSearchTokens(searchTerm);
@@ -154,11 +161,11 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(Api2ServiceMixin(
         const searchFilter = searchTokens.map((token: string) => `(startswith(FirstName, '${token}') or startswith(LastName, '${token}'))`).join(' and ');
         odataParts.push(`$filter=${searchFilter}`);
       }
-      const results = await this.api2.getAsync<Person>(`People?${odataParts.join('&')}`, this.apiNamespace);
+      const results = await this.apiService.getAsync<Person>(`People?${odataParts.join('&')}`);
       results.entities.forEach(p => (p.type = 'Person'));
       return results;
     } catch (error) {
-      AppSnackbar.open(error);
+      TitaniumSnackbarSingleton.open(error);
     }
     return null;
   }
@@ -174,11 +181,11 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(Api2ServiceMixin(
         const searchFilter = searchTokens.map((token: string) => `contains(Name, '${token}')`).join(' and ');
         odataParts.push(`$filter=${searchFilter}`);
       }
-      const results = await this.api2.getAsync<PeopleGroup>(`PeopleGroups?${odataParts.join('&')}`, this.apiNamespace);
+      const results = await this.apiService.getAsync<PeopleGroup>(`PeopleGroups?${odataParts.join('&')}`);
       results.entities.forEach(p => (p.type = 'PeopleGroup'));
       return results;
     } catch (error) {
-      AppSnackbar.open(error);
+      TitaniumSnackbarSingleton.open(error);
     }
     return null;
   }
