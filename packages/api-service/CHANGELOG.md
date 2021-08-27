@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 7.0.0 (2021-08-27)
+
+
+### Bug Fixes
+
+* abort error response ([865ca11](https://github.com/LeavittSoftware/titanium-elements/commit/865ca11a272e9bd9c2400aa44a55ad45262f1845))
+
+
+### Features
+
+* takes options instead of appname ([eb89ad2](https://github.com/LeavittSoftware/titanium-elements/commit/eb89ad2f5dd654e32d0efd10510f4613226d2da6))
+
+
+### BREAKING CHANGES
+
+* updates the parameters passed into api service request methods to take options instead of an appname
+
+
+
+
+
 ## 6.3.3 (2021-08-19)
 
 **Note:** Version bump only for package @leavittsoftware/api-service
