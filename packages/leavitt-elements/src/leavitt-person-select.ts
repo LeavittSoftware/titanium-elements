@@ -1,4 +1,4 @@
-import { css, customElement, html, LitElement, property, query } from 'lit-element';
+import { css, customElement, html, LitElement, property, PropertyValues, query, state } from 'lit-element';
 import '@leavittsoftware/profile-picture';
 import '@material/mwc-textfield';
 import '@material/mwc-list/mwc-list-item.js';
@@ -7,11 +7,12 @@ import '@material/mwc-menu';
 
 import { Menu } from '@material/mwc-menu';
 import { TextField } from '@material/mwc-textfield';
-import { TitaniumSnackbarSingleton as AppSnackbar } from '@leavittsoftware/titanium-snackbar/lib/titanium-snackbar';
+import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar/lib/titanium-snackbar';
+import { AuthenticatedTokenProvider } from '@leavittsoftware/api-service/lib/authenticated-token-provider';
 
-import { getSearchTokens, Debouncer, LoadWhile } from '@leavittsoftware/titanium-helpers';
-import Api2ServiceMixin from '@leavittsoftware/api-service/lib/api2-service';
+import { getSearchTokens, Debouncer, LoadWhile, isDevelopment } from '@leavittsoftware/titanium-helpers';
 import { Person } from '@leavittsoftware/lg-core-typescript/lg.core';
+import ApiService from '@leavittsoftware/api-service/lib/api-service';
 
 export class LeavittPersonSelectSelectedEvent extends Event {
   static eventType = 'selected';
@@ -33,10 +34,11 @@ export class LeavittPersonSelectSelectedEvent extends Event {
  *
  */
 @customElement('leavitt-person-select')
-export class LeavittPersonSelectElement extends LoadWhile(Api2ServiceMixin(LitElement)) {
-  @property({ type: Number }) protected count: number = 0;
-  @property({ type: String }) protected searchTerm: string;
-  @property({ type: Array }) protected people: Array<Person> = [];
+export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
+  @state() protected count: number = 0;
+  @state() protected searchTerm: string;
+  @state() protected apiService: ApiService;
+  @state() protected people: Array<Person> = [];
   @query('mwc-menu') protected menu: Menu;
   @query('mwc-textfield') protected textfield: TextField & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
 
@@ -90,7 +92,7 @@ export class LeavittPersonSelectElement extends LoadWhile(Api2ServiceMixin(LitEl
    */
   @property({ type: String }) filter: string = '';
 
-  updated(changedProps: Map<string, unknown>) {
+  updated(changedProps: PropertyValues<this>) {
     if (changedProps.has('selected')) {
       this.textfield.value = !this.selected ? '' : `${this.selected.FirstName} ${this.selected.LastName}`;
     }
@@ -99,6 +101,9 @@ export class LeavittPersonSelectElement extends LoadWhile(Api2ServiceMixin(LitEl
   firstUpdated() {
     this.menu.anchor = this.textfield;
     this.textfield.layout();
+    this.apiService = new ApiService(new AuthenticatedTokenProvider());
+    this.apiService.baseUrl = isDevelopment ? 'https://devapi2.leavitt.com/' : 'https://api2.leavitt.com/';
+    this.apiService.addHeader('X-LGAppName', this.apiNamespace);
 
     this.textfield.validityTransform = () => {
       if (this.required) {
@@ -146,13 +151,17 @@ export class LeavittPersonSelectElement extends LoadWhile(Api2ServiceMixin(LitEl
     return this.textfield.reportValidity();
   }
 
+  private _abortController: AbortController = new AbortController();
+
   private async _doSearch(searchTerm: string) {
     if (!searchTerm) {
-      return null;
+      return;
     }
+    this._abortController.abort();
+    this._abortController = new AbortController();
     try {
       const odataParts = ['$top=8', '$count=true', `$select=FirstName,LastName,CompanyName,Id${this.selectedProperties.map(o => `,${o}`).join('')}`];
-      if(this.expand){
+      if (this.expand) {
         odataParts.push(`$expand=${this.expand}`);
       }
       const searchTokens = getSearchTokens(searchTerm);
@@ -161,11 +170,19 @@ export class LeavittPersonSelectElement extends LoadWhile(Api2ServiceMixin(LitEl
         const filter = `${searchFilter}${this.filter ? ` and (${this.filter})` : ''}`;
         odataParts.push(`$filter=${filter}`);
       }
-      return await this.api2.getAsync<Person>(`People?${odataParts.join('&')}`, this.apiNamespace);
+      const get = this.apiService.getAsync<Person>(`People?${odataParts.join('&')}`, { abortController: this._abortController });
+      this.loadWhile(get);
+      const result = await get;
+      this.people = result?.entities ?? [];
+      this.count = result?.odataCount ?? 0;
+      return;
     } catch (error) {
-      AppSnackbar.open(error);
+      if (!error?.includes?.('Abort')) {
+        TitaniumSnackbarSingleton.open(error);
+      }
     }
-    return null;
+    this.people = [];
+    this.count = 0;
   }
 
   private setSelected(person: Person | null) {
@@ -184,9 +201,7 @@ export class LeavittPersonSelectElement extends LoadWhile(Api2ServiceMixin(LitEl
     this.menu.open = !!this.searchTerm;
     this.people = [];
     this.count = 0;
-    const result = await this._doSearchDebouncer.debounce(term);
-    this.people = result?.entities ?? [];
-    this.count = result?.odataCount ?? 0;
+    this._doSearchDebouncer.debounce(term);
   }
 
   static styles = css`

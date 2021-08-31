@@ -1,7 +1,7 @@
 ﻿import { isDevelopment } from '@leavittsoftware/titanium-helpers/lib/titanium-dev-detection';
 import { customElement, LitElement, property } from 'lit-element';
 
-import ApiService, { onProgressCallback } from './api-service';
+import ApiService, { ApiServiceRequestOptions, onProgressCallback } from './api-service';
 import { AuthenticatedTokenProvider } from './authenticated-token-provider';
 import { ODataDto } from './odata-dto';
 import { ODataResponse } from './odata-response';
@@ -69,33 +69,33 @@ export default class ApiServiceElement extends LitElement {
     this._apiService.deleteHeader(key);
   }
 
-  async uploadFile<T>(urlPath: string, file: File, onprogress: onProgressCallback, appName: string | null = null): Promise<ODataResponse<T>> {
+  async uploadFile<T>(urlPath: string, file: File, onprogress: onProgressCallback): Promise<ODataResponse<T>> {
     const onprogressHandler = (e: ProgressEvent, xhr: XMLHttpRequest) => {
       onprogress(e, xhr);
       this.dispatchEvent(
         new CustomEvent<UploadProgressEvent>('upload-file-progress', { detail: { event: e, request: xhr } })
       );
     };
-    return this._apiService.uploadFile<T>(urlPath, file, onprogressHandler, appName);
+    return this._apiService.uploadFile<T>(urlPath, file, onprogressHandler);
   }
 
-  async postAsync<T>(urlPath: string, body: unknown | ODataDto = {}, appName: string | null = null): Promise<ODataResponse<T>> {
-    return this._apiService.postAsync<T>(urlPath, body, appName);
+  async postAsync<T>(urlPath: string, body: unknown | ODataDto = {}, options: ApiServiceRequestOptions | null = null): Promise<ODataResponse<T>> {
+    return this._apiService.postAsync<T>(urlPath, body, options);
   }
 
-  async getAsync<T>(urlPath: string, appName: string | null = null): Promise<ODataResponse<T>> {
-    return this._apiService.getAsync<T>(urlPath, appName);
+  async getAsync<T>(urlPath: string, options: ApiServiceRequestOptions | null = null): Promise<ODataResponse<T>> {
+    return this._apiService.getAsync<T>(urlPath, options);
   }
 
-  async patchAsync(urlPath: string, body: unknown | ODataDto, appName: string | null = null): Promise<void> {
-    return this._apiService.patchAsync(urlPath, body, appName);
+  async patchAsync(urlPath: string, body: unknown | ODataDto, options: ApiServiceRequestOptions | null = null): Promise<void> {
+    return this._apiService.patchAsync(urlPath, body, options);
   }
 
-  async patchReturnDtoAsync<T>(urlPath: string, body: unknown | ODataDto, appName: string | null = null): Promise<ODataResponse<T>> {
-    return this._apiService.patchReturnDtoAsync<T>(urlPath, body, appName);
+  async patchReturnDtoAsync<T>(urlPath: string, body: unknown | ODataDto, options: ApiServiceRequestOptions | null = null): Promise<ODataResponse<T>> {
+    return this._apiService.patchReturnDtoAsync<T>(urlPath, body, options);
   }
 
-  async deleteAsync<T>(urlPath: string, appName: string | null = null): Promise<ODataResponse<T>> {
-    return this._apiService.deleteAsync(urlPath, appName);
+  async deleteAsync<T>(urlPath: string, options: ApiServiceRequestOptions | null = null): Promise<ODataResponse<T>> {
+    return this._apiService.deleteAsync(urlPath, options);
   }
 }

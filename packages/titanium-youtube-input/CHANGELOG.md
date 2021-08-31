@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.0.3 (2021-08-19)
+
+
+### Bug Fixes
+
+* input is not longer always required ([24e713f](https://github.com/LeavittSoftware/titanium-elements/commit/24e713f9ee82b64925620a5c7723cf3205f36199))
+
+
+
+
+
 ## 0.0.2 (2021-07-13)
 
 

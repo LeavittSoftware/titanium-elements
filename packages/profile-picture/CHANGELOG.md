@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.4.0 (2021-08-19)
+
+
+### Features
+
+* add company name to the profile picture menu ([aa2f0b3](https://github.com/LeavittSoftware/titanium-elements/commit/aa2f0b355834a10e9dba562a81b6f4ac5870cd9e))
+
+
+
+
+
 ## [4.3.19](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/profile-picture@4.3.18...@leavittsoftware/profile-picture@4.3.19) (2020-07-20)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 9.4.0 (2021-08-19)
+
+
+### Features
+
+* add support for company and company id ([e9d060f](https://github.com/LeavittSoftware/titanium-elements/commit/e9d060fda8d293c06f438d12b2752b497f790526))
+
+
+
+
+
 ## [9.3.14](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/user-manager@9.3.13...@leavittsoftware/user-manager@9.3.14) (2020-06-30)
 
 

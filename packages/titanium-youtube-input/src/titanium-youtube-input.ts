@@ -45,7 +45,7 @@ export class TitaniumYouTubeInputElement extends LitElement {
         return {};
       } else {
         const len = newValue?.length ?? 0;
-        const isValid = len > 6 && len < 12;
+        const isValid = (len > 6 && len < 12) || (len === 0 && !this.required);
         return {
           valid: isValid,
           customError: !isValid,
