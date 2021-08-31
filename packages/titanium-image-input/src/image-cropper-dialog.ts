@@ -17,6 +17,7 @@ export class ImageCropperDialogElement extends LitElement {
   @property({ type: Object }) file: File | null = null;
   @property({ type: String }) fileName: string = '';
   @property({ type: String }) previewDataUrl: string | null = null;
+  @property({ type: Boolean }) circle: boolean = false;
 
   private cropper: null | Cropper;
 
@@ -176,13 +177,55 @@ export class ImageCropperDialogElement extends LitElement {
     return blob as File;
   };
 
+  private async applyCircleMask(dataUrl: string) {
+    const canvas = document.createElement('canvas');
+    const image = new Image();
+
+    const imagePromise = new Promise<string>(resolve => {
+      image.onload = () => {
+        // use min size so we get a square
+        const size = Math.min(image.naturalWidth, image.naturalHeight);
+
+        // let's update the canvas size
+        canvas.width = size;
+        canvas.height = size;
+
+        // draw image to canvas
+        const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+        ctx.drawImage(image, 0, 0);
+
+        // only draw image where mask is
+        ctx.globalCompositeOperation = 'destination-in';
+
+        // draw our circle mask
+        ctx.fillStyle = '#000';
+        ctx.beginPath();
+        ctx.arc(
+          size * 0.5, // x
+          size * 0.5, // y
+          size * 0.5, // radius
+          0, // start angle
+          2 * Math.PI // end angle
+        );
+        ctx.fill();
+
+        // restore to default composite operation (is draw over current image)
+        ctx.globalCompositeOperation = 'source-over';
+        resolve(canvas.toDataURL());
+      };
+    });
+    image.src = dataUrl;
+
+    return await imagePromise;
+  }
+
   render() {
     return html`
       <titanium-dialog-base>
         <h1 select>Crop photo</h1>
         <main>
           <section crop>
-            <cropper-container>
+            <cropper-container ?circle=${this.circle}>
               <img />
             </cropper-container>
             <crop-buttons>
@@ -201,18 +244,16 @@ export class ImageCropperDialogElement extends LitElement {
           ></mwc-button>
           <mwc-button
             label="DONE"
-            @click=${() => {
+            @click=${async () => {
               const canvas = this.cropper?.getCroppedCanvas();
-              if (canvas) {
-                this.previewDataUrl = canvas.toDataURL();
-                canvas.toBlob(async blob => {
-                  if (blob) {
-                    this.blobToFile(blob, this.fileName);
-                    this.file = blob as File;
-                  }
-                  this.dialog.close('cropped');
-                });
+              if (!canvas) {
+                return;
               }
+              this.previewDataUrl = this.circle ? await this.applyCircleMask(canvas.toDataURL()) : canvas.toDataURL();
+              fetch(this.previewDataUrl).then(res => res.blob()).then(blob => {
+                this.file = blob as File;
+                this.dialog.close('cropped');
+              });
             }}
           ></mwc-button>
         </dialog-actions>

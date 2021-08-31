@@ -22,6 +22,7 @@ export class TitaniumImageInputElement extends LitElement {
   @property({ type: Boolean, reflect: true }) protected isUiValid: boolean = true;
   @property({ type: String }) protected previewSrc: string | undefined = undefined;
   @property({ type: Object }) protected file: File | null = null;
+  @property({ type: Boolean }) circle: boolean = false;
 
   @query('input') protected input: HTMLInputElement;
   @query('image-cropper-dialog') protected cropperDialog: ImageCropperDialogElement;
@@ -354,7 +355,7 @@ export class TitaniumImageInputElement extends LitElement {
         </label>
       </image-input>
       ${this.validationMessage ? html`<span helper-text>${!this.isUiValid ? this.validationMessage : ''}</span>` : ''}
-      <image-cropper-dialog .options=${this.options}></image-cropper-dialog>
+      <image-cropper-dialog .options=${this.options} ?circle=${this.circle}></image-cropper-dialog>
     `;
   }
 }
