@@ -15,7 +15,7 @@ import '@leavittsoftware/titanium-snackbar';
 
 Material design inspired snackbar.
 
-Only one snackbar is intended to be used per site, typically added to the site root page such as my-app.  Use TitaniumSnackbarSingleton esm export to fetch the instance of the snackbar when you need to use it.
+Only one snackbar is intended to be used per site, typically added to the site root page such as my-app. Use TitaniumSnackbarSingleton esm export to fetch the instance of the snackbar when you need to use it.
 
 ## How to use
 
@@ -24,16 +24,11 @@ npm i @leavittsoftware/titanium-snackbar
 ```
 
 ```html
-my-app.html
-
-import '@leavittsoftware/titanium-snackbar';
-...
-...
-<titanium-snackbar></titanium-snackbar>
-
+my-app.html import '@leavittsoftware/titanium-snackbar'; ... ... <titanium-snackbar></titanium-snackbar>
 ```
 
 To use anywhere in the application:
+
 ```js
 import { TitaniumSnackbarSingleton as AppSnackbar } from '@leavittsoftware/titanium-snackbar';
 AppSnackbar.open('Hello world');
@@ -47,88 +42,102 @@ AppSnackbar.open('Hello world');
 
 <Preview withToolbar>
   <Story name="Docs">
-    {html`        <a
-          href="#"
-          @click=${e => {
-            e.preventDefault();
-            document.querySelector(`titanium-snackbar`)
-              .open('This is the body')
-              .then(() => console.log('closed'));
-          }}
-        >
-          Simple snackbar
-        </a>
-          <br />
-        <a
-          href="#"
-          @click=${e => {
-            e.preventDefault();
-            document
-              .querySelector(`titanium-snackbar`)
-              .open('Autohide snackbar', { autoHide: true })
-              .then(() => console.log('closed'));
-          }}
-        >
-          Autohide snackbar
-        </a>
-        <br />
-        <a
-          href="#"
-          @click=${e => {
-            e.preventDefault();
-            document
-              .querySelector(`titanium-snackbar`)
-              .open('Informational snackbar', { style: 'informational' })
-              .then(() => console.log('closed'));
-          }}
-        >
-          Informational snackbar
-        </a>
-        <br />
-        <a
-          href="#"
-          @click=${e => {
-            e.preventDefault();
-            document
-              .querySelector(`titanium-snackbar`)
-              .open('Informational no action auto-hide snackbar', { autoHide: true, noAction: true, style: 'informational' })
-              .then(() => console.log('closed'));
-          }}
-        >
-          Informational no action auto-hide snackbar
-        </a>
-        <br />
-        <a
-          href="#"
-          @click=${e => {
-            e.preventDefault();
-            document
-              .querySelector(`titanium-snackbar`)
-              .open('Error styled snackbar', { style: 'error' })
-              .then(() => console.log('closed'));
-          }}
-        >
-          Error styled snackbar
-        </a>
-        <br />
-        <a
-          href="#"
-          @click=${e => {
-            e.preventDefault();
-            document
-              .querySelector(`titanium-snackbar`)
-              .open(
-                'Literally beard sartorial cronut. Squid echo park iPhone polaroid 8-bit, migas synth brunch cred neutra hot chicken snackwave small batch. Yr crucifix letterpress seitan, asymmetrical vape tousled. Typewriter tofu chambray chillwave kombucha.',
-                { actionText: 'UNDO the synth brunch ' }
-              )
-              .then(() => console.log('closed'));
-          }}
-        >
-          Stacked (long action) snackbar
-        </a>
-        <br />
-        <titanium-snackbar></titanium-snackbar>
-      `
-    }
+    {html`
+      <a
+        href="#"
+        @click=${e => {
+          e.preventDefault();
+          document
+            .querySelector(`titanium-snackbar`)
+            .open('This is the body')
+            .then(() => console.log('closed'));
+        }}
+      >
+        Simple snackbar
+      </a>
+      <br />
+      <a
+        href="#"
+        @click=${e => {
+          e.preventDefault();
+          document
+            .querySelector(`titanium-snackbar`)
+            .open(html`This is <b>very very</b> important.<br /><br />Trust me.`)
+            .then(() => console.log('closed'));
+        }}
+      >
+        HTML snackbar
+      </a>
+      <br />
+      <a
+        href="#"
+        @click=${e => {
+          e.preventDefault();
+          document
+            .querySelector(`titanium-snackbar`)
+            .open('Autohide snackbar', { autoHide: true })
+            .then(() => console.log('closed'));
+        }}
+      >
+        Autohide snackbar
+      </a>
+      <br />
+      <a
+        href="#"
+        @click=${e => {
+          e.preventDefault();
+          document
+            .querySelector(`titanium-snackbar`)
+            .open('Informational snackbar', { style: 'informational' })
+            .then(() => console.log('closed'));
+        }}
+      >
+        Informational snackbar
+      </a>
+      <br />
+      <a
+        href="#"
+        @click=${e => {
+          e.preventDefault();
+          document
+            .querySelector(`titanium-snackbar`)
+            .open('Informational no action auto-hide snackbar', { autoHide: true, noAction: true, style: 'informational' })
+            .then(() => console.log('closed'));
+        }}
+      >
+        Informational no action auto-hide snackbar
+      </a>
+      <br />
+      <a
+        href="#"
+        @click=${e => {
+          e.preventDefault();
+          document
+            .querySelector(`titanium-snackbar`)
+            .open('Error styled snackbar', { style: 'error' })
+            .then(() => console.log('closed'));
+        }}
+      >
+        Error styled snackbar
+      </a>
+      <br />
+      <a
+        href="#"
+        @click=${e => {
+          e.preventDefault();
+          document
+            .querySelector(`titanium-snackbar`)
+            .open(
+              'Literally beard sartorial cronut. Squid echo park iPhone polaroid 8-bit, migas synth brunch cred neutra hot chicken snackwave small batch. Yr crucifix letterpress seitan, asymmetrical vape tousled. Typewriter tofu chambray chillwave kombucha.',
+              { actionText: 'UNDO the synth brunch ' }
+            )
+            .then(() => console.log('closed'));
+        }}
+      >
+        Stacked (long action) snackbar
+      </a>
+      <br />
+      <titanium-snackbar></titanium-snackbar>
+    `}
   </Story>
 </Preview>

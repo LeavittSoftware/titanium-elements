@@ -1,10 +1,12 @@
 import '@material/mwc-button';
-import { css, customElement, html, LitElement, property } from 'lit-element';
+import { css, customElement, html, LitElement, property, TemplateResult } from 'lit-element';
 
 export class BasicSnackBar {
   _isComponent = false;
-  open(message: string, options?: SnackbarOptions) {
-    alert(message);
+  open(message: string | TemplateResult, options?: SnackbarOptions) {
+    const msg = typeof message === 'string' ? message : message.getHTML();
+
+    alert(msg);
     console.warn('Titanium Snackbar.open called before an instance was created. Did you forget to add the Titanium Snackbar element to your project?', options);
   }
 
@@ -49,11 +51,11 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
   @property({ type: Boolean, reflect: true }) protected error: boolean;
 
   @property({ type: String }) private actionText: string;
-  @property({ type: String }) private message: string;
+  @property({ type: String }) private message: string | TemplateResult;
 
   private _animationTimer: number;
   private _animationFrame: number;
-  private _resolve: { (): void; (value?: unknown): void };
+  private _resolve;
   private _closeTimeoutHandle: number;
 
   _isComponent = true;
@@ -83,7 +85,7 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
    * noAction?: boolean;
    *
    */
-  open(message: string, options?: SnackbarOptions) {
+  open(message: string | TemplateResult, options?: SnackbarOptions) {
     return new Promise(resolve => {
       //reset
       clearTimeout(this._closeTimeoutHandle);
