@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.3.0 (2021-08-31)
+
+
+### Features
+
+* allows TemplateResult in first parameter of snackbar ([55e4d7a](https://github.com/LeavittSoftware/titanium-elements/commit/55e4d7acf0b55d4b57e9ae00fc49f425b825b61c))
+
+
+
+
+
 ## 3.2.12 (2021-07-29)
 
 

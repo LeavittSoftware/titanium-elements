@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.0.5...@leavittsoftware/storybook@9.1.0) (2021-08-31)
+
+
+### Features
+
+* allows TemplateResult in first parameter of snackbar ([55e4d7a](https://github.com/LeavittSoftware/titanium-elements/commit/55e4d7acf0b55d4b57e9ae00fc49f425b825b61c))
+
+
+
+
+
 ## [9.0.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.0.4...@leavittsoftware/storybook@9.0.5) (2021-08-27)
 
 **Note:** Version bump only for package @leavittsoftware/storybook
