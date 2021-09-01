@@ -250,10 +250,9 @@ export class ImageCropperDialogElement extends LitElement {
                 return;
               }
               this.previewDataUrl = this.circle ? await this.applyCircleMask(canvas.toDataURL()) : canvas.toDataURL();
-              fetch(this.previewDataUrl).then(res => res.blob()).then(blob => {
-                this.file = blob as File;
-                this.dialog.close('cropped');
-              });
+              const response = await fetch(this.previewDataUrl);
+              this.file = await response.blob() as File;
+              this.dialog.close('cropped');
             }}
           ></mwc-button>
         </dialog-actions>
