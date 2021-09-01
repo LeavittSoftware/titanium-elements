@@ -5,6 +5,8 @@ import { css, customElement, html, LitElement, property, query } from 'lit-eleme
 import { ifDefined } from 'lit-html/directives/if-defined';
 import { ImageCropperDialogElement } from './image-cropper-dialog';
 
+export type TitaniumImageInputOptions = Cropper.Options & { shape?: ' square'|'circle'};
+
 /**
  * Material outline image input with cropper
  *
@@ -18,11 +20,11 @@ import { ImageCropperDialogElement } from './image-cropper-dialog';
  */
 @customElement('titanium-image-input')
 export class TitaniumImageInputElement extends LitElement {
+
   @property({ type: Boolean, reflect: true, attribute: 'is-over' }) protected isOver: boolean = false;
   @property({ type: Boolean, reflect: true }) protected isUiValid: boolean = true;
   @property({ type: String }) protected previewSrc: string | undefined = undefined;
   @property({ type: Object }) protected file: File | null = null;
-  @property({ type: Boolean }) circle: boolean = false;
 
   @query('input') protected input: HTMLInputElement;
   @query('image-cropper-dialog') protected cropperDialog: ImageCropperDialogElement;
@@ -58,7 +60,7 @@ export class TitaniumImageInputElement extends LitElement {
   /**
    *  Configurable CropperJs options.
    */
-  @property({ type: Object }) options: Cropper.Options = { aspectRatio: 1 };
+  @property({ type: Object }) options: TitaniumImageInputOptions  = { aspectRatio: 1 };
 
   /**
    *  Data url of cropped image preview.
@@ -355,7 +357,7 @@ export class TitaniumImageInputElement extends LitElement {
         </label>
       </image-input>
       ${this.validationMessage ? html`<span helper-text>${!this.isUiValid ? this.validationMessage : ''}</span>` : ''}
-      <image-cropper-dialog .options=${this.options} ?circle=${this.circle}></image-cropper-dialog>
+      <image-cropper-dialog .options=${this.options}></image-cropper-dialog>
     `;
   }
 }

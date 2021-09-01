@@ -7,17 +7,17 @@ import { TitaniumDialogBaseElement } from '@leavittsoftware/titanium-dialog/lib/
 import Cropper from 'cropperjs';
 import { cropperCSS } from './cropper-styles';
 import { h1 } from '@leavittsoftware/titanium-styles';
+import { TitaniumImageInputOptions } from './titanium-image-input';
 
 @customElement('image-cropper-dialog')
 export class ImageCropperDialogElement extends LitElement {
   @query('titanium-dialog-base') dialog: TitaniumDialogBaseElement;
   @query('cropper-container > img') img: HTMLImageElement;
 
-  @property({ type: Object }) options: Cropper.Options = { aspectRatio: 1 };
+  @property({ type: Object }) options: TitaniumImageInputOptions = { aspectRatio: 1 };
   @property({ type: Object }) file: File | null = null;
   @property({ type: String }) fileName: string = '';
   @property({ type: String }) previewDataUrl: string | null = null;
-  @property({ type: Boolean }) circle: boolean = false;
 
   private cropper: null | Cropper;
 
@@ -167,6 +167,7 @@ export class ImageCropperDialogElement extends LitElement {
     this.cropper = new Cropper(this.img, {
       viewMode: 2,
       ...this.options,
+      aspectRatio: this.options.shape === 'circle' ? 1 : this.options.aspectRatio
     });
   }
 
@@ -225,7 +226,7 @@ export class ImageCropperDialogElement extends LitElement {
         <h1 select>Crop photo</h1>
         <main>
           <section crop>
-            <cropper-container ?circle=${this.circle}>
+            <cropper-container ?circle=${this.options.shape === 'circle'}>
               <img />
             </cropper-container>
             <crop-buttons>
@@ -249,7 +250,7 @@ export class ImageCropperDialogElement extends LitElement {
               if (!canvas) {
                 return;
               }
-              this.previewDataUrl = this.circle ? await this.applyCircleMask(canvas.toDataURL()) : canvas.toDataURL();
+              this.previewDataUrl = this.options.shape === 'circle' ? await this.applyCircleMask(canvas.toDataURL()) : canvas.toDataURL();
               const response = await fetch(this.previewDataUrl);
               this.file = await response.blob() as File;
               this.dialog.close('cropped');
