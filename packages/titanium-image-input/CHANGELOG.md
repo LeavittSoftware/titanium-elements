@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 1.2.0 (2021-09-02)
+
+
+### Bug Fixes
+
+* move shape to options and lock aspect ratio if shape=circle ([7b4dcd6](https://github.com/LeavittSoftware/titanium-elements/commit/7b4dcd6a1caa2a981b52a4bcd42111f66b2dc803))
+* switch thenthen to await syntax ([03d15d0](https://github.com/LeavittSoftware/titanium-elements/commit/03d15d018ceb8ba7c34f8b38acde2273464841fb))
+
+
+### Features
+
+* Add circle option to titanium-image-input ([59a3038](https://github.com/LeavittSoftware/titanium-elements/commit/59a30385af5df7783205bf61e09279e4bebd796a))
+
+
+
+
+
 ## 1.1.14 (2021-07-27)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-image-input

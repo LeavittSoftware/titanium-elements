@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.1.0...@leavittsoftware/storybook@9.2.0) (2021-09-02)
+
+
+### Bug Fixes
+
+* move shape to options and lock aspect ratio if shape=circle ([7b4dcd6](https://github.com/LeavittSoftware/titanium-elements/commit/7b4dcd6a1caa2a981b52a4bcd42111f66b2dc803))
+
+
+### Features
+
+* Add circle option to titanium-image-input ([59a3038](https://github.com/LeavittSoftware/titanium-elements/commit/59a30385af5df7783205bf61e09279e4bebd796a))
+
+
+
+
+
 # [9.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.0.5...@leavittsoftware/storybook@9.1.0) (2021-08-31)
 
 
