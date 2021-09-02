@@ -256,4 +256,16 @@ export const cropperCSS = css`
   .cropper-disabled .cropper-point {
     cursor: not-allowed;
   }
+
+  [circle] .cropper-view-box {
+    box-shadow: 0 0 0 1px #39f;
+    border-radius: 50%;
+    outline: 0;
+  }
+  [circle] .cropper-face {
+    background-color:inherit !important;
+  }
+  [circle] .cropper-view-box {
+    outline:inherit !important;
+  }
 `;
