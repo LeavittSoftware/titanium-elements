@@ -212,6 +212,11 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
 
     mwc-textfield {
       width: 100%;
+      background-color: var(--leavitt-person-select-background-color, #fff);
+    }
+
+    :host([shaped]) {
+      --mdc-shape-small: 28px;
     }
 
     mwc-linear-progress {
