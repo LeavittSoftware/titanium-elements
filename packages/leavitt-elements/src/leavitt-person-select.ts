@@ -1,5 +1,4 @@
 import { css, customElement, html, LitElement, property, PropertyValues, query, state } from 'lit-element';
-import '@leavittsoftware/profile-picture';
 import '@material/mwc-textfield';
 import '@material/mwc-list/mwc-list-item.js';
 import '@material/mwc-linear-progress';
@@ -223,10 +222,17 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
       margin: 0 12px;
     }
 
-    profile-picture[selected] {
+    img {
+      image-rendering: crisp-edges;
+    }
+
+    img[selected] {
       position: absolute;
       top: 16px;
       left: 16px;
+      height: 24px;
+      width: 24px;
+      border-radius: 50%;
     }
 
     [no-result] {
@@ -258,7 +264,13 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
         }}
         @focus=${() => (!this.selected ? (this.menu.open = !!this.searchTerm) : '')}
       ></mwc-textfield>
-      ${this.selected ? html` <profile-picture selected .personId=${this.selected?.Id || 0} shape="circle" size="24"></profile-picture>` : ''}
+      ${this.selected
+        ? html` <img
+            selected
+            onerror="this.src='https://cdn.leavitt.com/user-0-64.jpeg'"
+            src="https://cdn.leavitt.com/user-${this.selected?.Id ?? 0}-64.jpeg"
+          />`
+        : ''}
       <mwc-menu
         fullwidth
         activatable
@@ -281,7 +293,7 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
             <mwc-list-item twoline graphic="avatar">
               <span>${person.FirstName} ${person.LastName}</span>
               <span slot="secondary">${person.CompanyName}</span>
-              <profile-picture slot="graphic" .personId=${person?.Id || 0} shape="circle" size="40"></profile-picture>
+              <img slot="graphic" onerror="this.src='https://cdn.leavitt.com/user-0-64.jpeg'" src="https://cdn.leavitt.com/user-${person?.Id ?? 0}-64.jpeg" />
             </mwc-list-item>
           `
         )}
