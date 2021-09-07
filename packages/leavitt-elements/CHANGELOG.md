@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@1.7.4...@leavittsoftware/leavitt-elements@1.8.0) (2021-09-07)
+
+
+### Features
+
+* add shaped attribute to person select ([9718ffa](https://github.com/LeavittSoftware/titanium-elements/commit/9718ffaaea3981c0673e952182a049c86aff5fa7))
+
+
+
+
+
 ## [1.7.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@1.7.4...@leavittsoftware/leavitt-elements@1.7.5) (2021-08-31)
 
 **Note:** Version bump only for package @leavittsoftware/leavitt-elements

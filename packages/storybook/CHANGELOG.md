@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.2.0...@leavittsoftware/storybook@9.3.0) (2021-09-07)
+
+
+### Features
+
+* add shaped attribute to person select ([9718ffa](https://github.com/LeavittSoftware/titanium-elements/commit/9718ffaaea3981c0673e952182a049c86aff5fa7))
+* allows TemplateResult in first parameter of snackbar ([55e4d7a](https://github.com/LeavittSoftware/titanium-elements/commit/55e4d7acf0b55d4b57e9ae00fc49f425b825b61c))
+
+
+
+
+
 # [9.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.1.0...@leavittsoftware/storybook@9.2.0) (2021-09-02)
 
 
