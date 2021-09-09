@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.4.0...@leavittsoftware/storybook@9.5.0) (2021-09-09)
+
+
+### Features
+
+* adds support for mwc-icons in titanium-chips ([a126463](https://github.com/LeavittSoftware/titanium-elements/commit/a126463dbeeb4e06d084ab74c2b9f30e848c385c))
+* introduces a default-page-size attribute to page controls ([5b73d41](https://github.com/LeavittSoftware/titanium-elements/commit/5b73d41c8022120441bd26532e42ab5c6a3c194a))
+
+
+
+
+
 # [9.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.3.1...@leavittsoftware/storybook@9.4.0) (2021-09-09)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.3.0 (2021-09-09)
+
+
+### Features
+
+* adds support for mwc-icons in titanium-chips ([a126463](https://github.com/LeavittSoftware/titanium-elements/commit/a126463dbeeb4e06d084ab74c2b9f30e848c385c))
+
+
+
+
+
 ## 3.2.1 (2021-07-15)
 
 
