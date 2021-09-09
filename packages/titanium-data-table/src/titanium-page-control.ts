@@ -24,6 +24,11 @@ export class TitaniumPageControlElement extends LitElement {
   @property({ type: Array }) pageSizes: Array<number> = [10, 15, 20, 50];
 
   /**
+   * The default page size before the user changes it
+   */
+  @property({ type: Number, attribute: 'default-page-size' }) defaultPageSize: number = 10;
+
+  /**
    * Current page of data the table is on
    */
   @property({ type: Number }) page: number = 0;
@@ -59,7 +64,8 @@ export class TitaniumPageControlElement extends LitElement {
       return take;
     }
 
-    return this.pageSizes?.[0] ?? 1;
+    const defaultTake = this.pageSizes.includes(this.defaultPageSize) ? this.defaultPageSize : this.pageSizes?.[0] ?? 1;
+    return defaultTake;
   }
 
   set take(val: number) {

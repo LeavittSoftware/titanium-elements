@@ -56,6 +56,11 @@ export class TitaniumDataTableElement extends LitElement {
   @property({ type: Array }) pageSizes: Array<number> = [10, 15, 20, 50];
 
   /**
+   * The default page size before the user changes it
+   */
+  @property({ type: Number, attribute: 'default-page-size' }) defaultPageSize: number = 10;
+
+  /**
    * Total number of items in all pages.
    */
   @property({ type: Number }) count: number;
@@ -588,6 +593,7 @@ export class TitaniumDataTableElement extends LitElement {
                   ?disabled=${this.isLoading}
                   .count=${this.count}
                   .pageSizes=${this.pageSizes}
+                  .defaultPageSize=${this.defaultPageSize}
                   .localStorageKey="${this.header}-take"
                   @action=${() => {
                     this.dispatchEvent(new CustomEvent('paging-changed', { composed: true }));

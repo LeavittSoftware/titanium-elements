@@ -5,8 +5,6 @@ import '@leavittsoftware/titanium-chip';
 import { repeat } from 'lit-html/directives/repeat';
 
 import { css, customElement, html, LitElement, query, state } from 'lit-element';
-// import { TitaniumDataTableElement } from '@leavittsoftware/titanium-data-table/lib/titanium-data-table';
-import { IconButton } from '@material/mwc-icon-button';
 import { TitaniumDataTableElement } from '@leavittsoftware/titanium-data-table/lib/titanium-data-table';
 
 type Car = {
@@ -71,12 +69,14 @@ export default class DataTablePagingDemo extends LitElement {
         }}
         .count=${this.resultTotal}
         .items=${this.cars}
+        default-page-size="21"
+        .pageSizes=${[10, 15, 20, 21, 50]}
       >
         <div slot="table-actions" style="position: relative;">
           <mwc-icon-button table-action-button id="button" icon="more_vert" label="Open Menu"></mwc-icon-button>
           <mwc-menu
             table-action-menu
-            .anchor=${this.shadowRoot?.querySelector<IconButton>('mwc-icon-button[table-action-button]') ?? null}
+            .anchor=${this.shadowRoot?.querySelector<HTMLElement>('mwc-icon-button[table-action-button]') ?? null}
             corner="BOTTOM_END"
             menuCorner="END"
           >

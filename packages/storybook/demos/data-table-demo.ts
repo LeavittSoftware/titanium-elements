@@ -6,8 +6,6 @@ import '@leavittsoftware/titanium-chip';
 import { repeat } from 'lit-html/directives/repeat';
 
 import { css, customElement, html, LitElement, state } from 'lit-element';
-// import { TitaniumDataTableElement } from '@leavittsoftware/titanium-data-table/lib/titanium-data-table';
-import { IconButton } from '@material/mwc-icon-button';
 
 type Car = {
   id: number;
@@ -71,7 +69,7 @@ export default class DataTableDemo extends LitElement {
           <mwc-icon-button table-action-button id="button" icon="more_vert" label="Open Menu"></mwc-icon-button>
           <mwc-menu
             table-action-menu
-            .anchor=${this.shadowRoot?.querySelector<IconButton>('mwc-icon-button[table-action-button]') ?? null}
+            .anchor=${this.shadowRoot?.querySelector<HTMLElement>('mwc-icon-button[table-action-button]') ?? null}
             corner="BOTTOM_END"
             menuCorner="END"
           >
