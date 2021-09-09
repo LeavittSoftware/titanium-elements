@@ -125,6 +125,7 @@ export class TitaniumPageControlElement extends LitElement {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
+      justify-content: space-between;
       align-items: center;
       max-width: 450px;
       min-width: 0;
@@ -134,7 +135,6 @@ export class TitaniumPageControlElement extends LitElement {
       letter-spacing: 0.011em;
       line-height: 20px;
       color: var(--app-dark-text-color, #202124);
-      margin-left: 12px;
       gap: 8px;
     }
 
@@ -158,7 +158,7 @@ export class TitaniumPageControlElement extends LitElement {
     pagination-text {
       text-align: center;
       user-select: none;
-      flex: 1 1 auto;
+      padding-left: 12px;
     }
 
     [hidden] {

@@ -445,6 +445,12 @@ export class TitaniumDataTableElement extends LitElement {
         border-top: 1px solid var(--app-border-color, #dadce0);
       }
 
+      titanium-page-control {
+        grid-area: controls;
+        margin-left: 12px;
+        justify-self: start;
+      }
+
       div[footer] {
         justify-self: end;
       }
@@ -573,25 +579,25 @@ export class TitaniumDataTableElement extends LitElement {
         </main>
       </table-container>
       <footer>
-        ${this.disablePaging
-          ? ''
-          : html`
-              <titanium-page-control
-                label="Rows per page"
-                ?disabled=${this.isLoading}
-                .count=${this.count}
-                .pageSizes=${this.pageSizes}
-                .localStorageKey="${this.header}-take"
-                @action=${() => {
-                  this.dispatchEvent(new CustomEvent('paging-changed', { composed: true }));
-                }}
-              ></titanium-page-control>
-            `}
-        <div footer>
-          <slot name="footer">
+        <slot name="footer">
+          ${this.disablePaging
+            ? ''
+            : html`
+                <titanium-page-control
+                  label="Rows per page"
+                  ?disabled=${this.isLoading}
+                  .count=${this.count}
+                  .pageSizes=${this.pageSizes}
+                  .localStorageKey="${this.header}-take"
+                  @action=${() => {
+                    this.dispatchEvent(new CustomEvent('paging-changed', { composed: true }));
+                  }}
+                ></titanium-page-control>
+              `}
+          <div footer>
             <footer-buttons><slot name="footer-buttons"></slot></footer-buttons>
-          </slot>
-        </div>
+          </div>
+        </slot>
       </footer>
     `;
   }
