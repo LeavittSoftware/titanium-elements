@@ -151,7 +151,7 @@ export class TitaniumChipElement extends LitElement implements CheckableElement 
       white-space: nowrap;
       text-overflow: ellipsis;
       -webkit-font-smoothing: antialiased;
-      margin: 0 16px;
+      margin: 0 8px;
       font-family: Roboto, Noto, sans-serif;
       -webkit-font-smoothing: antialiased;
       font-size: 14px;
@@ -188,7 +188,19 @@ export class TitaniumChipElement extends LitElement implements CheckableElement 
       image-rendering: crisp-edges;
     }
 
+    ::slotted(mwc-icon) {
+      --mdc-icon-size: 18px;
+      color: var(--app-text-color, #5f6368);
+      margin-left: 8px;
+      flex-shrink: 0;
+    }
+
+    :host([checked]) ::slotted(mwc-icon) {
+      color: var(--titanium-side-menu-item-selected-color, #1967d2);
+    }
+
     mwc-icon-button {
+      color: var(--app-text-color, #5f6368);
       --mdc-icon-size: 18px;
       --mdc-icon-button-size: 28px;
       flex-shrink: 0;

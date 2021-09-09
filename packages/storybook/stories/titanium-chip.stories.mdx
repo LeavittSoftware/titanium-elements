@@ -35,6 +35,7 @@ import '@leavittsoftware/titanium-chip';
 <Preview withToolbar>
   <Story name="Docs">
     {html` <titanium-chip label="James Franco" src="https://mapi.leavitt.com/People(771130)/Default.Picture(size=32)"></titanium-chip>
+      <titanium-chip label="James Franco" closeable src="https://mapi.leavitt.com/People(771130)/Default.Picture(size=32)"></titanium-chip>
       <h2>Selectable Chips</h2>
       <div style="display:grid;grid-auto-flow:column;gap:8px;grid-auto-columns: min-content;">
         <titanium-chip name="Prices" selectable label="1000"></titanium-chip>
@@ -47,6 +48,8 @@ import '@leavittsoftware/titanium-chip';
           src="https://cdn.leavitt.com/user-abc123-32.jpeg"
           fallbackSrc="https://www.leavitt.com/application/themes/lg/img/logo/leavitt-group-logo.svg"
         ></titanium-chip>
+        <titanium-chip name="Cash" selectable label="Bad image link"> <mwc-icon slot="chip-icon">savings</mwc-icon></titanium-chip>
+        <titanium-chip name="Offline" selectable label="Bad image link"> <mwc-icon slot="chip-icon">offline_bolt</mwc-icon></titanium-chip>
       </div>`}
   </Story>
 </Preview>
