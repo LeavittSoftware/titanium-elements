@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 12.1.2 (2021-09-09)
+
+
+### Bug Fixes
+
+* improves responsive layout of page controls ([3695dda](https://github.com/LeavittSoftware/titanium-elements/commit/3695ddab5bdf1ad37f1d358440e619ce695b6287))
+
+
+
+
+
 ## [12.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@12.1.0...@leavittsoftware/titanium-data-table@12.1.1) (2021-08-16)
 
 
