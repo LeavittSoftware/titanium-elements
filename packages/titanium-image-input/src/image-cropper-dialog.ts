@@ -252,7 +252,9 @@ export class ImageCropperDialogElement extends LitElement {
               }
               this.previewDataUrl = this.options.shape === 'circle' ? await this.applyCircleMask(canvas.toDataURL()) : canvas.toDataURL();
               const response = await fetch(this.previewDataUrl);
-              this.file = await response.blob() as File;
+              const blob = await response.blob()
+              this.blobToFile(blob, this.fileName)
+              this.file = blob as File;
               this.dialog.close('cropped');
             }}
           ></mwc-button>
