@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.2.2 (2021-09-13)
+
+
+### Bug Fixes
+
+* create file before casting and returning ([20bed8c](https://github.com/LeavittSoftware/titanium-elements/commit/20bed8c9a458d702bc23f5a290f01501aaee5304))
+
+
+
+
+
 ## [1.2.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-image-input@1.2.0...@leavittsoftware/titanium-image-input@1.2.1) (2021-09-07)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-image-input
