@@ -144,6 +144,10 @@ export class ImageCropperDialogElement extends LitElement {
         }
       }
 
+      [closing] img {
+        display: none;
+      }
+
       [hidden] {
         display: none !important;
       }
@@ -167,7 +171,7 @@ export class ImageCropperDialogElement extends LitElement {
     this.cropper = new Cropper(this.img, {
       viewMode: 2,
       ...this.options,
-      aspectRatio: this.options.shape === 'circle' ? 1 : this.options.aspectRatio
+      aspectRatio: this.options.shape === 'circle' ? 1 : this.options.aspectRatio,
     });
   }
 
@@ -252,8 +256,8 @@ export class ImageCropperDialogElement extends LitElement {
               }
               this.previewDataUrl = this.options.shape === 'circle' ? await this.applyCircleMask(canvas.toDataURL()) : canvas.toDataURL();
               const response = await fetch(this.previewDataUrl);
-              const blob = await response.blob()
-              this.blobToFile(blob, this.fileName)
+              const blob = await response.blob();
+              this.blobToFile(blob, this.fileName);
               this.file = blob as File;
               this.dialog.close('cropped');
             }}
