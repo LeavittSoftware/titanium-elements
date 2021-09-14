@@ -144,10 +144,6 @@ export class ImageCropperDialogElement extends LitElement {
         }
       }
 
-      [closing] img {
-        display: none;
-      }
-
       [hidden] {
         display: none !important;
       }
@@ -162,6 +158,7 @@ export class ImageCropperDialogElement extends LitElement {
   }
 
   reset() {
+    this.img.src = '';
     this.cropper?.destroy();
   }
 
