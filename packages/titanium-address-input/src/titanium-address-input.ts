@@ -1,5 +1,4 @@
 import { property, html, customElement, LitElement, css, query } from 'lit-element';
-import '@material/mwc-icon-button';
 import './google-address-input';
 import './manual-address-dialog';
 
@@ -25,13 +24,24 @@ export class TitaniumAddressInput extends LitElement {
   static styles = css`
     :host {
       display: grid;
-      grid: 'input button' / 1fr auto;
-      grid-gap: 0 12px;
+      grid-auto-flow: row;
     }
 
-    mwc-icon-button {
-      margin-top: 4px;
-      color: var(--app-text-color);
+    a {
+      font-family: Roboto, Arial, sans-serif;
+      color: var(--app-link-color, #3b95ff);
+      justify-self: right;
+      padding: 3px 3px 0 0;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    a:link,
+    a:visited,
+    a:hover {
+      text-decoration: none;
     }
   `;
 
@@ -53,9 +63,7 @@ export class TitaniumAddressInput extends LitElement {
 
   public setLocation(location: Partial<Address> | null) {
     this.location = location;
-    this.dispatchEvent(
-      new CustomEvent<Partial<Address> | null>('location-changed', { composed: true, detail: location })
-    );
+    this.dispatchEvent(new CustomEvent<Partial<Address> | null>('location-changed', { composed: true, detail: location }));
   }
 
   render() {
@@ -75,9 +83,10 @@ export class TitaniumAddressInput extends LitElement {
           this.setLocation(location);
         }}
       ></google-address-input>
-      <mwc-icon-button
-        icon="keyboard"
-        @click=${async () => {
+      <a
+        href="#find-my-address"
+        @click=${async e => {
+          e.preventDefault();
           const customAddress = await this.dialog.open(this.location);
           if (customAddress) {
             this.setLocation(customAddress);
@@ -85,9 +94,9 @@ export class TitaniumAddressInput extends LitElement {
           }
         }}
         title="I can't find my address"
-        label="I can't find my address"
+        >I can't find my address</a
       >
-      </mwc-icon-button>
+
       <manual-address-dialog .label=${this.label}></manual-address-dialog>
     `;
   }
