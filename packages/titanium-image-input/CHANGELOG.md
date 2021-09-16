@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-image-input@1.2.2...@leavittsoftware/titanium-image-input@1.2.3) (2021-09-14)
+
+
+### Bug Fixes
+
+* hides cropper image while closing dialog ([cbdbf96](https://github.com/LeavittSoftware/titanium-elements/commit/cbdbf9615a337980293b55499b5cceaf61cc8460))
+* unset cropper image on reset ([853da94](https://github.com/LeavittSoftware/titanium-elements/commit/853da9488fcbc0dd707e73693f2ef5262b976fce))
+
+
+
+
+
+## 1.2.2 (2021-09-13)
+
+
+### Bug Fixes
+
+* create file before casting and returning ([20bed8c](https://github.com/LeavittSoftware/titanium-elements/commit/20bed8c9a458d702bc23f5a290f01501aaee5304))
+
+
+
+
+
 ## [1.2.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-image-input@1.2.0...@leavittsoftware/titanium-image-input@1.2.1) (2021-09-07)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-image-input

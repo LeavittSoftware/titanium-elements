@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-image-input",
   "description": "",
   "author": "Leavitt Software",
-  "version": "1.2.1",
+  "version": "1.2.3",
   "license": "MIT",
   "main": "lib/titanium-image-input.js",
   "typings": "lib/titanium-image-input.d.ts",
