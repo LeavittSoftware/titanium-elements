@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 1.7.0 (2021-09-16)
+
+
+### Features
+
+* splits address from and dialog into separate components  ([35567cd](https://github.com/LeavittSoftware/titanium-elements/commit/35567cd1ec73610e907d0ffe1ab71c3e2100370c))
+
+
+
+
+
 ## 1.6.5 (2021-07-27)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-address-input
