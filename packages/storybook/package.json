@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/storybook",
-  "version": "9.5.3",
+  "version": "9.5.4",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -25,7 +25,7 @@
   "license": "ISC",
   "devDependencies": {
     "@leavittsoftware/api-service": "^7.0.2",
-    "@leavittsoftware/leavitt-elements": "^1.8.0",
+    "@leavittsoftware/leavitt-elements": "^1.8.1",
     "@leavittsoftware/profile-picture": "^4.4.2",
     "@leavittsoftware/titanium-access-denied-page": "^0.1.13",
     "@leavittsoftware/titanium-address-input": "^1.7.0",
