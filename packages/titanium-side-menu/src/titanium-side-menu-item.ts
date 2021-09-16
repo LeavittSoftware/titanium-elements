@@ -70,6 +70,16 @@ export class TitaniumSideMenuItemElement extends LitElement {
       --mdc-icon-size: 24px;
     }
 
+    a ::slotted(mwc-icon[ext]) {
+      --mdc-icon-size: 18px;
+      color: var(--app-light-text-color, #80868b);
+      margin-right: 0;
+    }
+
+    a ::slotted(span) {
+      flex: 1 1 auto;
+    }
+
     a:active,
     a:focus {
       outline: none;
