@@ -228,6 +228,11 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
       margin: 0 12px;
     }
 
+    mwc-list-item mwc-icon {
+      color: var(--app-accent-color-blue, #4285f4);
+      --mdc-icon-size: 32px;
+    }
+
     mwc-icon[selected],
     profile-picture[selected] {
       position: absolute;
@@ -235,14 +240,10 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
       left: 16px;
     }
 
-    mwc-icon {
-      background-color: #7ab7ff;
-      color: #fff;
-    }
-
     mwc-icon[selected] {
-      border-radius: 50%;
+      background: #fff;
       --mdc-icon-size: 24px;
+      color: var(--app-accent-color-blue, #4285f4);
     }
 
     [no-result] {
@@ -278,7 +279,7 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
         ? html`<profile-picture selected .personId=${this.selected?.Id || 0} shape="circle" size="24"></profile-picture>`
         : this.selected?.type === 'PeopleGroup'
         ? html`<mwc-icon selected title=${peopleGroupIcons.get(this.selected['@odata.type'])?.displayName ?? 'People group'} slot="graphic"
-            >${peopleGroupIcons.get(this.selected['@odata.type'])?.icon ?? 'group_work'}</mwc-icon
+            >${peopleGroupIcons.get(this.selected['@odata.type'])?.icon ?? 'task_alt'}</mwc-icon
           >`
         : ''}
       <mwc-menu
@@ -316,7 +317,7 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
                   <span title=${suggestion.Name ?? ''}>${suggestion.Name}</span>
                   <span slot="secondary">${suggestion.Description || (peopleGroupIcons.get(suggestion['@odata.type'])?.displayName ?? 'People group')}</span>
                   <mwc-icon title=${peopleGroupIcons.get(suggestion['@odata.type'])?.displayName ?? 'People group'} slot="graphic"
-                    >${peopleGroupIcons.get(suggestion['@odata.type'])?.icon ?? 'group_work'}</mwc-icon
+                    >${peopleGroupIcons.get(suggestion['@odata.type'])?.icon ?? 'task_alt'}</mwc-icon
                   >
                 </mwc-list-item>
               `
