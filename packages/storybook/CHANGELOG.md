@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.6.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.5.4...@leavittsoftware/storybook@9.6.0) (2021-09-16)
+
+
+### Features
+
+* add styles for second navigate away icon in menu item ([ce03f60](https://github.com/LeavittSoftware/titanium-elements/commit/ce03f6039a03691377a9071624580d29f89d3fbd))
+
+
+
+
+
 ## [9.5.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.5.3...@leavittsoftware/storybook@9.5.4) (2021-09-16)
 
 **Note:** Version bump only for package @leavittsoftware/storybook

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.4.0 (2021-09-16)
+
+
+### Features
+
+* add styles for second navigate away icon in menu item ([ce03f60](https://github.com/LeavittSoftware/titanium-elements/commit/ce03f6039a03691377a9071624580d29f89d3fbd))
+
+
+
+
+
 # 0.3.0 (2020-07-17)
 
 
