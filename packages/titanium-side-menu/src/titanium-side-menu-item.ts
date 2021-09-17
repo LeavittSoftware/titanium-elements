@@ -43,7 +43,6 @@ export class TitaniumSideMenuItemElement extends LitElement {
       align-items: center;
       font-family: Metropolis, Roboto, Noto, sans-serif;
       -webkit-font-smoothing: antialiased;
-      line-height: 24px;
       letter-spacing: 0.35px;
       padding: 10px 16px 10px 24px;
       border-radius: 0 50px 50px 0;
