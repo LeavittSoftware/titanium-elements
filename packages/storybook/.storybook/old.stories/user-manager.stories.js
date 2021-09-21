@@ -16,16 +16,14 @@ storiesOf('COMMUNICATION|user-manager', module)
           .then(token => {
             alert(token);
           })
-          .catch(function(error) {
+          .catch(function (error) {
             console.warn(error);
           });
       };
 
       button('Get Token', handler);
 
-      return html`
-        <user-manager></user-manager>
-      `;
+      return html` <user-manager></user-manager> `;
     }
   )
   .add('Get person data', () => {
@@ -58,12 +56,7 @@ storiesOf('COMMUNICATION|user-manager', module)
       <um-prop><b>email:</b> ${email}</um-prop>
       <um-prop><b>roles:</b> </um-prop>
       <ol>
-        ${roles.map(
-          o =>
-            html`
-              <li>${o}</li>
-            `
-        )}
+        ${roles.map(o => html` <li>${o}</li> `)}
       </ol>
 
       <user-manager></user-manager>

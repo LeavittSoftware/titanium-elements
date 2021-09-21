@@ -1,4 +1,4 @@
-export { html } from 'lit-html';
+export { html } from 'lit';
 
 export {
   storiesOf,

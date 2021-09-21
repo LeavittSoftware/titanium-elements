@@ -1,6 +1,6 @@
 import { TitaniumDialogElement } from './titanium-dialog';
-import { css, customElement, html, LitElement, query, state } from 'lit-element';
-
+import { css, html, LitElement } from 'lit';
+import { customElement, query, state } from 'lit/decorators.js';
 import './titanium-dialog';
 import '@material/mwc-button';
 import { ConfirmDialogOpenEvent } from './confirm-dialog-open-event';

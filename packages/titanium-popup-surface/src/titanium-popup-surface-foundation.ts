@@ -1,4 +1,5 @@
-import { LitElement, property, css } from 'lit-element';
+import { css, LitElement } from 'lit';
+import { property } from 'lit/decorators.js';
 
 let cachedCssTransformPropertyName_: CssTransformPropertyName | undefined;
 export function getTransformPropertyName(globalObj: Window, forceRefresh = false): CssTransformPropertyName {
@@ -114,61 +115,63 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
   private measurements_!: AutoLayoutMeasurements;
   private previousFocus_?: HTMLElement | SVGElement | null;
 
-  static styles = css`
-    :host {
-      display: none;
-      position: absolute;
-      box-sizing: border-box;
-      min-width: 112px;
-      max-width: calc(100vw - 32px);
-      max-height: calc(100vh - 32px);
-      margin: 0;
-      padding: 0;
-      transform-origin: top left;
-      opacity: 0;
-      overflow: auto;
-      will-change: transform, opacity;
-      z-index: 8;
+  static styles = [
+    css`
+      :host {
+        display: none;
+        position: absolute;
+        box-sizing: border-box;
+        min-width: 112px;
+        max-width: calc(100vw - 32px);
+        max-height: calc(100vh - 32px);
+        margin: 0;
+        padding: 0;
+        transform-origin: top left;
+        opacity: 0;
+        overflow: auto;
+        will-change: transform, opacity;
+        z-index: 8;
 
-      -webkit-transition: opacity 0.03s linear, -webkit-transform 0.12s cubic-bezier(0, 0, 0.2, 1);
-      transition: opacity 0.03s linear, -webkit-transform 0.12s cubic-bezier(0, 0, 0.2, 1);
-      -o-transition: opacity 0.03s linear, transform 0.12s cubic-bezier(0, 0, 0.2, 1);
-      transition: opacity 0.03s linear, transform 0.12s cubic-bezier(0, 0, 0.2, 1);
-      transition: opacity 0.03s linear, transform 0.12s cubic-bezier(0, 0, 0.2, 1), -webkit-transform 0.12s cubic-bezier(0, 0, 0.2, 1);
-      -webkit-box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
-      box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
-      background-color: #fff;
-      color: #000;
-    }
+        -webkit-transition: opacity 0.03s linear, -webkit-transform 0.12s cubic-bezier(0, 0, 0.2, 1);
+        transition: opacity 0.03s linear, -webkit-transform 0.12s cubic-bezier(0, 0, 0.2, 1);
+        -o-transition: opacity 0.03s linear, transform 0.12s cubic-bezier(0, 0, 0.2, 1);
+        transition: opacity 0.03s linear, transform 0.12s cubic-bezier(0, 0, 0.2, 1);
+        transition: opacity 0.03s linear, transform 0.12s cubic-bezier(0, 0, 0.2, 1), -webkit-transform 0.12s cubic-bezier(0, 0, 0.2, 1);
+        -webkit-box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+        box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+        background-color: #fff;
+        color: #000;
+      }
 
-    :host([fixed-position]) {
-      position: fixed;
-    }
+      :host([fixed-position]) {
+        position: fixed;
+      }
 
-    :host([opened]) {
-      display: inline-block;
-      -webkit-transform: scale(1);
-      -ms-transform: scale(1);
-      transform: scale(1);
-      opacity: 1;
-    }
+      :host([opened]) {
+        display: inline-block;
+        -webkit-transform: scale(1);
+        -ms-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+      }
 
-    :host([opening]) {
-      display: inline-block;
-      -webkit-transform: scale(0.8);
-      -ms-transform: scale(0.8);
-      transform: scale(0.8);
-      opacity: 0;
-    }
+      :host([opening]) {
+        display: inline-block;
+        -webkit-transform: scale(0.8);
+        -ms-transform: scale(0.8);
+        transform: scale(0.8);
+        opacity: 0;
+      }
 
-    :host([closing]) {
-      display: inline-block;
-      opacity: 0;
-      -webkit-transition: opacity 0.075s linear;
-      -o-transition: opacity 0.075s linear;
-      transition: opacity 0.075s linear;
-    }
-  `;
+      :host([closing]) {
+        display: inline-block;
+        opacity: 0;
+        -webkit-transition: opacity 0.075s linear;
+        -o-transition: opacity 0.075s linear;
+        transition: opacity 0.075s linear;
+      }
+    `,
+  ];
 
   connectedCallback() {
     super.connectedCallback();
@@ -286,17 +289,13 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
       this.autoPosition_();
       if (this.isQuickOpen) {
         this.registerBodyListener();
-        this.dispatchEvent(
-          new CustomEvent<boolean>('opened-changed', { detail: true })
-        );
+        this.dispatchEvent(new CustomEvent<boolean>('opened-changed', { detail: true }));
       } else {
         this.openAnimationEndTimerId_ = window.setTimeout(() => {
           this.openAnimationEndTimerId_ = 0;
           this.opening = false;
           this.registerBodyListener();
-          this.dispatchEvent(
-            new CustomEvent<boolean>('opened-changed', { detail: true })
-          );
+          this.dispatchEvent(new CustomEvent<boolean>('opened-changed', { detail: true }));
         }, 120);
       }
     });
@@ -317,17 +316,13 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
       await this.updateComplete;
       if (this.isQuickOpen) {
         this.unregisterBodyListener();
-        this.dispatchEvent(
-          new CustomEvent<boolean>('opened-changed', { detail: false })
-        );
+        this.dispatchEvent(new CustomEvent<boolean>('opened-changed', { detail: false }));
       } else {
         this.closeAnimationEndTimerId_ = window.setTimeout(() => {
           this.closeAnimationEndTimerId_ = 0;
           this.closing = false;
           this.unregisterBodyListener();
-          this.dispatchEvent(
-            new CustomEvent<boolean>('opened-changed', { detail: false })
-          );
+          this.dispatchEvent(new CustomEvent<boolean>('opened-changed', { detail: false }));
         }, 75);
       }
     });

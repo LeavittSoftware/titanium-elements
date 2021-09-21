@@ -1,4 +1,5 @@
-import { css, customElement, html, LitElement, property, PropertyValues, query, state } from 'lit-element';
+import { css, html, LitElement, PropertyValues } from 'lit';
+import { property, customElement, query, state } from 'lit/decorators.js';
 import '@material/mwc-checkbox';
 import { Checkbox } from '@material/mwc-checkbox';
 import { TitaniumDataTableElement } from './titanium-data-table';

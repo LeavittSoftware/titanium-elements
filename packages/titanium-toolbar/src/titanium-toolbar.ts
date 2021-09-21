@@ -1,5 +1,5 @@
-﻿import { css, customElement, html, property, LitElement } from 'lit-element';
-
+﻿import { css, html, LitElement } from 'lit';
+import { property, customElement } from 'lit/decorators.js';
 /**
  * A material design inspired site toolbar
  *
@@ -87,8 +87,6 @@ export class TitaniumToolbarElement extends LitElement {
   }
 
   render() {
-    return html`
-      <slot></slot>
-    `;
+    return html` <slot></slot> `;
   }
 }

@@ -34,31 +34,36 @@ import '@leavittsoftware/titanium-dialog/lib/titanium-dialog-base';
 <Preview withToolbar>
   <Story name="Docs">
     {() => {
-       var openDialog = (selector, e) => {
+      var openDialog = (selector, e) => {
         e.preventDefault();
-        document
-          .querySelector(`titanium-dialog-base[${selector}]`)
-          .open()
-          .then(console.log);
+        document.querySelector(`titanium-dialog-base[${selector}]`).open().then(console.log);
       };
       return html`
-    
-     <a href="#" @click=${e => openDialog('demo-one', e)}>Open dialog demo</a>
-      <br />
-      <a href="#" @click=${e => openDialog('demo-two', e)}>Open dialog demo with fullscreen</a>
-      <br />
-      <a href="#" @click=${e => openDialog('demo-three', e)}>Open dialog demo with max-width</a>
-      <br />
-      <titanium-dialog-base demo-one>
-        <span >Lorem ipsum dolor amet small batch synth distillery godard cardigan. Letterpress trust fund brunch, humblebrag pickled enamel pin activated charcoal organic crucifix shaman chillwave adaptogen. Pok pok tattooed brunch, waistcoat cloud bread +1 asymmetrical. Shaman narwhal slow-carb adaptogen art party. Trust fund man bun DIY man braid. Vaporware gochujang yuccie, bitters hexagon mumblecore etsy bicycle rights mixtape master cleanse asymmetrical selfies. Leggings succulents flexitarian everyday carry, cronut tofu tattooed lumbersexual unicorn asymmetrical.</span>
-      </titanium-dialog-base>
-      <titanium-dialog-base demo-two fullscreen>
-        <span>Please check the left and right side of this element for fun.</span>
-      </titanium-dialog-base>
-      <titanium-dialog-base demo-three style="--titanium-dialog-max-width: 250px">
-        <span >Lorem ipsum dolor amet small batch synth distillery godard cardigan. Letterpress trust fund brunch, humblebrag pickled enamel pin activated charcoal organic crucifix shaman chillwave adaptogen. Pok pok tattooed brunch, waistcoat cloud bread +1 asymmetrical. Shaman narwhal slow-carb adaptogen art party. Trust fund man bun DIY man braid. Vaporware gochujang yuccie, bitters hexagon mumblecore etsy bicycle rights mixtape master cleanse asymmetrical selfies. Leggings succulents flexitarian everyday carry, cronut tofu tattooed lumbersexual unicorn asymmetrical.</span>
-      </titanium-dialog-base>
-       
+        <a href="#" @click=${e => openDialog('demo-one', e)}>Open dialog demo</a>
+        <br />
+        <a href="#" @click=${e => openDialog('demo-two', e)}>Open dialog demo with fullscreen</a>
+        <br />
+        <a href="#" @click=${e => openDialog('demo-three', e)}>Open dialog demo with max-width</a>
+        <br />
+        <titanium-dialog-base demo-one>
+          <span
+            >Lorem ipsum dolor amet small batch synth distillery godard cardigan. Letterpress trust fund brunch, humblebrag pickled enamel pin activated
+            charcoal organic crucifix shaman chillwave adaptogen. Pok pok tattooed brunch, waistcoat cloud bread +1 asymmetrical. Shaman narwhal slow-carb
+            adaptogen art party. Trust fund man bun DIY man braid. Vaporware gochujang yuccie, bitters hexagon mumblecore etsy bicycle rights mixtape master
+            cleanse asymmetrical selfies. Leggings succulents flexitarian everyday carry, cronut tofu tattooed lumbersexual unicorn asymmetrical.</span
+          >
+        </titanium-dialog-base>
+        <titanium-dialog-base demo-two fullscreen>
+          <span>Please check the left and right side of this element for fun.</span>
+        </titanium-dialog-base>
+        <titanium-dialog-base demo-three style="--titanium-dialog-max-width: 250px">
+          <span
+            >Lorem ipsum dolor amet small batch synth distillery godard cardigan. Letterpress trust fund brunch, humblebrag pickled enamel pin activated
+            charcoal organic crucifix shaman chillwave adaptogen. Pok pok tattooed brunch, waistcoat cloud bread +1 asymmetrical. Shaman narwhal slow-carb
+            adaptogen art party. Trust fund man bun DIY man braid. Vaporware gochujang yuccie, bitters hexagon mumblecore etsy bicycle rights mixtape master
+            cleanse asymmetrical selfies. Leggings succulents flexitarian everyday carry, cronut tofu tattooed lumbersexual unicorn asymmetrical.</span
+          >
+        </titanium-dialog-base>
       `;
     }}
   </Story>

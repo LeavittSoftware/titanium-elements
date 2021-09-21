@@ -44,9 +44,9 @@ import '@leavittsoftware/titanium-single-select';
       ];
       let suggestions = [];
       return html`
-      <titanium-single-select
+        <titanium-single-select
           style="max-width: 400px; margin: 24px 0;"
-          @input-changed=${e =>  {
+          @input-changed=${e => {
             //TODO: Make a better demo
             //suggestions = e.detail ? data : [];
           }}
@@ -58,10 +58,7 @@ import '@leavittsoftware/titanium-single-select';
           hinttext="Search for a person or group to add them as a participant"
           placeholder="Add participants"
         >
-          ${data.map(
-            person =>
-              html`<titanium-single-select-item .value=${person}>${person.FirstName} ${person.LastName}</titanium-single-select-item>`
-          )}
+          ${data.map(person => html`<titanium-single-select-item .value=${person}>${person.FirstName} ${person.LastName}</titanium-single-select-item>`)}
         </titanium-single-select>
       `;
     }}
@@ -69,35 +66,37 @@ import '@leavittsoftware/titanium-single-select';
 </Preview>
 
 ### Shaped
+
 <Preview>
   <Story name="Shaped" height="120px">
     {html`
-        <titanium-single-select
-          style="max-width: 400px; margin: 24px 0;"
-          shaped
-          itemlabelpath="Shaped"
-          hinttext="Search for a person or group to add them as a participant"
-          placeholder="Shaped"
-        >
-        </titanium-single-select>
-      `
-    }}
+      <titanium-single-select
+        style="max-width: 400px; margin: 24px 0;"
+        shaped
+        itemlabelpath="Shaped"
+        hinttext="Search for a person or group to add them as a participant"
+        placeholder="Shaped"
+      >
+      </titanium-single-select>
+    `}
+    }
   </Story>
 </Preview>
 
 ### Filled
+
 <Preview>
   <Story name="Filled" height="120px">
     {html`
-        <titanium-single-select
-          style="max-width: 400px; margin: 24px 0;"
-          Filled
-          itemlabelpath="Filled"
-          hinttext="Search for a person or group to add them as a participant"
-          placeholder="Filled"
-        >
-        </titanium-single-select>
-      `
-    }}
+      <titanium-single-select
+        style="max-width: 400px; margin: 24px 0;"
+        Filled
+        itemlabelpath="Filled"
+        hinttext="Search for a person or group to add them as a participant"
+        placeholder="Filled"
+      >
+      </titanium-single-select>
+    `}
+    }
   </Story>
 </Preview>

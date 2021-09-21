@@ -1,6 +1,7 @@
-﻿import { css, customElement, html, LitElement, property, query } from 'lit-element';
+﻿import { css, html, LitElement } from 'lit';
+import { property, customElement, query } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined';
 import '@material/mwc-ripple';
-import { ifDefined } from 'lit-html/directives/if-defined';
 import { Ripple } from '@material/mwc-ripple';
 
 /**
@@ -107,9 +108,9 @@ export class TitaniumCardListItemElement extends LitElement {
         @mouseleave=${() => this.ripple.endHover()}
         @focus=${() => this.ripple.startFocus()}
         @blur=${() => this.ripple.endFocus()}
-        @mousedown=${(e) => this.ripple.startPress(e)}
+        @mousedown=${e => this.ripple.startPress(e)}
         @mouseup=${() => this.ripple.endPress()}
-        @keydown=${(e) => (e.which === 32 ? this.ripple.startPress() : '')}
+        @keydown=${e => (e.which === 32 ? this.ripple.startPress() : '')}
         @keyup=${() => this.ripple.endPress()}
       >
         ${this.slottedContent()}

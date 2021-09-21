@@ -1,4 +1,5 @@
-import { property, html, customElement, LitElement, css, query } from 'lit-element';
+import { css, html, LitElement } from 'lit';
+import { property, customElement, query } from 'lit/decorators.js';
 import './google-address-input';
 import './manual-address-dialog';
 

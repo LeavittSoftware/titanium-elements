@@ -1,5 +1,6 @@
-import { css, customElement, html, LitElement, property } from 'lit-element';
-import { ifDefined } from 'lit-html/directives/if-defined';
+import { css, html, LitElement } from 'lit';
+import { property, customElement } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined';
 
 /**
  * Material design inspired website side menu

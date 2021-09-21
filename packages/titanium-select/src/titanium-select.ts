@@ -1,6 +1,7 @@
 import '@material/mwc-textfield';
 
-import { css, customElement, html, LitElement, property, query } from 'lit-element';
+import { css, html, LitElement } from 'lit';
+import { property, customElement, query } from 'lit/decorators.js';
 import { TextField } from '@material/mwc-textfield';
 
 /**
@@ -174,18 +175,16 @@ export class TitaniumSelectElement<T> extends LitElement {
           e.stopPropagation();
           // tslint:disable-next-line: triple-equals
           this.value = this.options.find(o => o[this.itemIdentifierPath] == e.target.value) ?? null;
-          this.dispatchEvent(
-            new CustomEvent<T | null>('value-changed', { composed: true, detail: this.value })
-          );
+          this.dispatchEvent(new CustomEvent<T | null>('value-changed', { composed: true, detail: this.value }));
         }}
         ?disabled=${this.disabled}
       >
         <option value="" disabled hidden></option>
         ${this.options.map(
           option => html`
-            <option ?selected=${option?.[this.itemIdentifierPath] === this.value?.[this.itemIdentifierPath]} value=${option?.[this.itemIdentifierPath]}
-              >&nbsp;&nbsp;${option?.[this.itemLabelPath]}</option
-            >
+            <option ?selected=${option?.[this.itemIdentifierPath] === this.value?.[this.itemIdentifierPath]} value=${option?.[this.itemIdentifierPath]}>
+              &nbsp;&nbsp;${option?.[this.itemLabelPath]}
+            </option>
           `
         )}
       </select>

@@ -1,10 +1,10 @@
 import '@material/mwc-button';
-import { css, customElement, html, LitElement, property, TemplateResult } from 'lit-element';
-
+import { css, html, LitElement, TemplateResult } from 'lit';
+import { property, customElement } from 'lit/decorators.js';
 export class BasicSnackBar {
   _isComponent = false;
   open(message: string | TemplateResult, options?: SnackbarOptions) {
-    const msg = typeof message === 'string' ? message : message.getHTML();
+    const msg = typeof message === 'string' ? message : message.values;
 
     alert(msg);
     console.warn('Titanium Snackbar.open called before an instance was created. Did you forget to add the Titanium Snackbar element to your project?', options);

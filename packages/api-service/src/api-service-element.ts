@@ -1,5 +1,6 @@
 ﻿import { isDevelopment } from '@leavittsoftware/titanium-helpers/lib/titanium-dev-detection';
-import { customElement, LitElement, property } from 'lit-element';
+import { LitElement } from 'lit';
+import { property, customElement } from 'lit/decorators.js';
 
 import ApiService, { ApiServiceRequestOptions, onProgressCallback } from './api-service';
 import { AuthenticatedTokenProvider } from './authenticated-token-provider';
@@ -72,9 +73,7 @@ export default class ApiServiceElement extends LitElement {
   async uploadFile<T>(urlPath: string, file: File, onprogress: onProgressCallback): Promise<ODataResponse<T>> {
     const onprogressHandler = (e: ProgressEvent, xhr: XMLHttpRequest) => {
       onprogress(e, xhr);
-      this.dispatchEvent(
-        new CustomEvent<UploadProgressEvent>('upload-file-progress', { detail: { event: e, request: xhr } })
-      );
+      this.dispatchEvent(new CustomEvent<UploadProgressEvent>('upload-file-progress', { detail: { event: e, request: xhr } }));
     };
     return this._apiService.uploadFile<T>(urlPath, file, onprogressHandler);
   }

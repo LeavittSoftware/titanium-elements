@@ -1,4 +1,5 @@
-﻿import { css, customElement, html, LitElement, property } from 'lit-element';
+﻿import { css, html, LitElement } from 'lit';
+import { property, customElement } from 'lit/decorators.js';
 /**
  * A card with h1,h2,h3 and p styles on-board
  *

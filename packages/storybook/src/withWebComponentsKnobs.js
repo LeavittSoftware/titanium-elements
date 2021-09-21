@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { render } from 'lit-html';
+import { render } from 'lit';
 import { elementUpdated } from '@open-wc/testing-helpers/index-no-side-effects.js';
 import { array, boolean, color, date, text, number, object } from '@storybook/addon-knobs';
 import { manager } from '@storybook/addon-knobs/dist/registerKnobs.js';

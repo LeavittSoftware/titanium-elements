@@ -2,7 +2,8 @@ import '@leavittsoftware/titanium-dialog/lib/titanium-dialog-base';
 import '@material/mwc-button';
 import '@material/mwc-icon-button';
 
-import { css, customElement, html, LitElement, query, property } from 'lit-element';
+import { css, html, LitElement } from 'lit';
+import { property, customElement, query } from 'lit/decorators.js';
 import { TitaniumDialogBaseElement } from '@leavittsoftware/titanium-dialog/lib/titanium-dialog-base';
 import Cropper from 'cropperjs';
 import { cropperCSS } from './cropper-styles';

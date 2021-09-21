@@ -1,7 +1,8 @@
-﻿import { customElement, html, property, css, query } from 'lit-element';
+﻿import { css, html } from 'lit';
+import { property, customElement, query } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined';
 import { TitaniumCardElement } from './titanium-card';
 import '@material/mwc-ripple';
-import { ifDefined } from 'lit-html/directives/if-defined';
 import { Ripple } from '@material/mwc-ripple';
 /**
  * A card with a built-in button on the bottom

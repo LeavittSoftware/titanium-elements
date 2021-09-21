@@ -1,4 +1,5 @@
-import { css, customElement, html, LitElement, property } from 'lit-element';
+import { css, html, LitElement } from 'lit';
+import { property, customElement } from 'lit/decorators.js';
 
 @customElement('titanium-single-select-item')
 export class TitaniumSingleSelectItemElement<T> extends LitElement {
@@ -36,9 +37,7 @@ export class TitaniumSingleSelectItemElement<T> extends LitElement {
   }
 
   render() {
-    return html`
-      <slot></slot>
-    `;
+    return html` <slot></slot> `;
   }
 
   static styles = css`

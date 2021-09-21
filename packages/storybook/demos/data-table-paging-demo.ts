@@ -2,9 +2,10 @@ import '@leavittsoftware/titanium-data-table/lib/titanium-data-table';
 import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-header';
 import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-item';
 import '@leavittsoftware/titanium-chip';
-import { repeat } from 'lit-html/directives/repeat';
+import { repeat } from 'lit/directives/repeat';
 
-import { css, customElement, html, LitElement, query, state } from 'lit-element';
+import { css, html, LitElement } from 'lit';
+import { customElement, query, state } from 'lit/decorators.js';
 import { TitaniumDataTableElement } from '@leavittsoftware/titanium-data-table/lib/titanium-data-table';
 
 type Car = {

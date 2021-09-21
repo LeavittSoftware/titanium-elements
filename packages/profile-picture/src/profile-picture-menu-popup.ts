@@ -3,7 +3,8 @@ import '@material/mwc-button';
 
 import { TitaniumPopupSurfaceFoundation } from '@leavittsoftware/titanium-popup-surface';
 import { GetUserManagerInstance } from '@leavittsoftware/user-manager';
-import { css, customElement, html, property, query } from 'lit-element';
+import { css, html } from 'lit';
+import { property, customElement, query } from 'lit/decorators.js';
 import { ProfilePictureElement } from './profile-picture';
 
 @customElement('profile-picture-menu-popup')
@@ -37,80 +38,83 @@ export class ProfilePictureMenuPopupElement extends TitaniumPopupSurfaceFoundati
     this.profilePicture.refresh();
   }
 
-  static styles = css`
-    ${TitaniumPopupSurfaceFoundation.styles} :host {
-      width: 300px;
+  static styles = [
+    ...TitaniumPopupSurfaceFoundation.styles,
+    css`
+      :host {
+        width: 300px;
 
-      -moz-osx-font-smoothing: grayscale;
-      -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-font-smoothing: antialiased;
 
-      border-radius: 8px;
-    }
+        border-radius: 8px;
+      }
 
-    main {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+      main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
-    main profile-picture {
-      margin: 24px 24px 20px;
-    }
+      main profile-picture {
+        margin: 24px 24px 20px;
+      }
 
-    h1 {
-      display: block;
-      color: var(--app-dark-text-color, #202124);
-      font-family: Metropolis, 'Roboto', 'Noto', sans-serif;
-      font-size: 18px;
-      font-weight: 400;
-      line-height: 24px;
-      letter-spacing: 0.25px;
-      margin: 0;
-      padding: 0 24px 0 24px;
-    }
+      h1 {
+        display: block;
+        color: var(--app-dark-text-color, #202124);
+        font-family: Metropolis, 'Roboto', 'Noto', sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 24px;
+        letter-spacing: 0.25px;
+        margin: 0;
+        padding: 0 24px 0 24px;
+      }
 
-    h2 {
-      display: flex;
-      color: var(--app-text-color, #5f6368);
-      font-family: Roboto, sans-serif;
+      h2 {
+        display: flex;
+        color: var(--app-text-color, #5f6368);
+        font-family: Roboto, sans-serif;
 
-      font-size: 14px;
-      font-weight: 400;
-      letter-spacing: 0.25px;
-      margin: 0;
-      padding: 0 24px 12px 24px;
-    }
+        font-size: 14px;
+        font-weight: 400;
+        letter-spacing: 0.25px;
+        margin: 0;
+        padding: 0 24px 12px 24px;
+      }
 
-    h2[company] {
-      padding-bottom: 12px;
-    }
+      h2[company] {
+        padding-bottom: 12px;
+      }
 
-    slot-container {
-      display: flex;
-      flex-direction: column;
-    }
+      slot-container {
+        display: flex;
+        flex-direction: column;
+      }
 
-    mwc-button[account] {
-      margin: 12px 24px 24px 24px;
-      --mdc-theme-primary: #5f6368;
-      --mdc-button-outline-color: #dadce0;
-      --mdc-typography-button-text-transform: none;
-      --mdc-typography-button-font-family: Metropolis, 'Roboto', 'Noto', sans-serif;
-      --mdc-typography-button-font-weight: 400;
-      --mdc-typography-button-letter-spacing: 0.4px;
-      --mdc-typography-button-font-size: 14px;
-    }
+      mwc-button[account] {
+        margin: 12px 24px 24px 24px;
+        --mdc-theme-primary: #5f6368;
+        --mdc-button-outline-color: #dadce0;
+        --mdc-typography-button-text-transform: none;
+        --mdc-typography-button-font-family: Metropolis, 'Roboto', 'Noto', sans-serif;
+        --mdc-typography-button-font-weight: 400;
+        --mdc-typography-button-letter-spacing: 0.4px;
+        --mdc-typography-button-font-size: 14px;
+      }
 
-    footer {
-      display: grid;
-      justify-content: end;
-      padding: 8px;
-      border-top: 1px solid var(--app-border-color, #dadce0);
-      --mdc-theme-primary: #5f6368;
-      --mdc-button-outline-color: #dadce0;
-      --mdc-typography-button-text-transform: none;
-    }
-  `;
+      footer {
+        display: grid;
+        justify-content: end;
+        padding: 8px;
+        border-top: 1px solid var(--app-border-color, #dadce0);
+        --mdc-theme-primary: #5f6368;
+        --mdc-button-outline-color: #dadce0;
+        --mdc-typography-button-text-transform: none;
+      }
+    `,
+  ];
 
   render() {
     return html`

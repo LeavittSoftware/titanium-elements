@@ -1,4 +1,4 @@
-import { css } from 'lit-element';
+import { css } from 'lit';
 
 /** Update when upgrading CropperJS */
 export const cropperCSS = css`
@@ -263,9 +263,9 @@ export const cropperCSS = css`
     outline: 0;
   }
   [circle] .cropper-face {
-    background-color:inherit !important;
+    background-color: inherit !important;
   }
   [circle] .cropper-view-box {
-    outline:inherit !important;
+    outline: inherit !important;
   }
 `;
