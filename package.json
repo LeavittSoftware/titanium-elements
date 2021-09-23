@@ -20,8 +20,6 @@
     "typescript": "^4.4.3"
   },
   "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
     "start": "npm run bootstrap && run-p build:watch storybook ",
     "bootstrap": "lerna bootstrap --ci --hoist",
     "build:watch": "tsc --build --preserveWatchOutput -w",
