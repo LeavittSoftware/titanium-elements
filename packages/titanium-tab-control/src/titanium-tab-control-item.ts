@@ -1,6 +1,6 @@
 import { css, html, LitElement } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 @customElement('titanium-tab-control-item')
 export class TitaniumTabControlItemElement extends LitElement {

@@ -1,6 +1,6 @@
 ﻿import { css, html, LitElement } from 'lit';
 import { property, customElement, query } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import '@material/mwc-ripple';
 import { Ripple } from '@material/mwc-ripple';
 

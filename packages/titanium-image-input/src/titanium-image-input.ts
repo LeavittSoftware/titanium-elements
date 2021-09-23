@@ -3,7 +3,7 @@ import './image-cropper-dialog';
 
 import { css, html, LitElement } from 'lit';
 import { property, customElement, query } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { ImageCropperDialogElement } from './image-cropper-dialog';
 
 export type TitaniumImageInputOptions = Cropper.Options & { shape?: ' square' | 'circle' };
