@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-image-input@1.3.0...@leavittsoftware/titanium-image-input@1.3.1) (2021-09-23)
+
+
+### Bug Fixes
+
+* add missing .js on directives  ([4e7ce1e](https://github.com/LeavittSoftware/titanium-elements/commit/4e7ce1eb2b51213e21d01755674239e810b24cd1))
+
+
+
+
+
 # 1.3.0 (2021-09-23)
 
 
