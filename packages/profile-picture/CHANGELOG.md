@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.5.1 (2021-09-23)
+
+
+### Bug Fixes
+
+* add remaining missing .js from directive imports ([9e19b23](https://github.com/LeavittSoftware/titanium-elements/commit/9e19b23881dd95ff9b1e62f68a41f3e5a7b1380f))
+
+
+
+
+
 # 4.5.0 (2021-09-23)
 
 
