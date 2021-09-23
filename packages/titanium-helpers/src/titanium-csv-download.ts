@@ -1,20 +1,15 @@
 export const startCsvDownload = (fileName: string, csv: string, context: HTMLElement = document.body) => {
-  if (typeof window.navigator.msSaveBlob === 'function') {
-    // IE 10+
-    window.navigator.msSaveOrOpenBlob(new Blob([csv], { type: 'text/plain;charset=utf-8;' }), fileName);
-  } else {
-    const link = document.createElement('a');
-    link.setAttribute('download', fileName);
-    link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv));
-    link.style.visibility = 'hidden';
+  const link = document.createElement('a');
+  link.setAttribute('download', fileName);
+  link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv));
+  link.style.visibility = 'hidden';
 
-    const clickEvent = document.createEvent('MouseEvent');
-    clickEvent.initEvent('click', true, true);
+  const clickEvent = document.createEvent('MouseEvent');
+  clickEvent.initEvent('click', true, true);
 
-    context.appendChild(link);
-    link.dispatchEvent(clickEvent);
-    context.removeChild(link);
-  }
+  context.appendChild(link);
+  link.dispatchEvent(clickEvent);
+  context.removeChild(link);
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
