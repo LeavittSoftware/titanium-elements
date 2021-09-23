@@ -5,7 +5,7 @@ import { GetUserManagerInstance } from '@leavittsoftware/user-manager';
 import { UserManagerUpdatedEvent } from '@leavittsoftware/user-manager/lib/user-manager-events';
 import { css, html, LitElement } from 'lit';
 import { property, customElement, query } from 'lit/decorators.js';
-import { styleMap } from 'lit/directives/style-map';
+import { styleMap } from 'lit/directives/style-map.js';
 import { ProfilePictureMenuPopupElement } from './profile-picture-menu-popup';
 import { ProfilePictureElement } from './profile-picture';
 

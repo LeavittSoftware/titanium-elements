@@ -1,6 +1,6 @@
 import { css, html, LitElement } from 'lit';
 import { property, customElement, query, state } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import '@leavittsoftware/profile-picture';
 import '@material/mwc-textfield';
 import '@material/mwc-list/mwc-list-item.js';
