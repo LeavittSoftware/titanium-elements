@@ -1,5 +1,6 @@
-import { customElement, css, property } from 'lit-element';
+import { css, CSSResult } from 'lit';
 import { TextField } from '@material/mwc-textfield';
+import { property, customElement } from 'lit/decorators.js';
 
 @customElement('mwc-datefield')
 export class DateField extends TextField {
@@ -33,6 +34,6 @@ export class DateField extends TextField {
         }
       `,
       ...super.styles,
-    ];
+    ] as CSSResult[];
   }
 }

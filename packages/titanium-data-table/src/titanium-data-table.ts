@@ -3,7 +3,8 @@ import '@material/mwc-checkbox';
 import './titanium-page-control';
 import { Checkbox } from '@material/mwc-checkbox';
 
-import { css, customElement, html, LitElement, property, query, queryAsync } from 'lit-element';
+import { css, html, LitElement } from 'lit';
+import { property, customElement, query, queryAsync } from 'lit/decorators.js';
 import { DataTableItemDropEvent, TitaniumDataTableItemElement } from './titanium-data-table-item';
 import { TitaniumDataTableHeaderElement } from './titanium-data-table-header';
 import { h1, ellipsis } from '@leavittsoftware/titanium-styles';

@@ -1,11 +1,12 @@
-import { css, customElement, html, LitElement, property, query, state } from 'lit-element';
+import { css, html, LitElement } from 'lit';
+import { property, customElement, query, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined';
 import '@leavittsoftware/profile-picture';
 import '@material/mwc-textfield';
 import '@material/mwc-list/mwc-list-item.js';
 import '@material/mwc-linear-progress';
 import '@material/mwc-menu';
 
-import { ifDefined } from 'lit-html/directives/if-defined';
 import { Menu } from '@material/mwc-menu';
 import { TextField } from '@material/mwc-textfield';
 import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar/lib/titanium-snackbar';

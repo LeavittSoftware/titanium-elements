@@ -1,4 +1,5 @@
-import { customElement, html, LitElement, property } from 'lit-element';
+import { html, LitElement } from 'lit';
+import { property, customElement } from 'lit/decorators.js';
 import { TitaniumSnackbarSingleton as AppSnackbar } from '@leavittsoftware/titanium-snackbar';
 
 @customElement('titanium-sw-notifier')

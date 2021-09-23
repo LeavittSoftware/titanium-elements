@@ -34,16 +34,20 @@ import '@leavittsoftware/titanium-select';
 
 <Preview withToolbar>
   <Story name="Docs">
-    { () => { 
-      const options = [{Name: 'Saurischia', Id: 1 },{Name: 'Sauropodomorpha', Id: 2 }];
+    {() => {
+      const options = [
+        { Name: 'Saurischia', Id: 1 },
+        { Name: 'Sauropodomorpha', Id: 2 },
+      ];
       return html`
-            <titanium-select 
-              @value-changed=${event => {
-                console.log(event.detail);
-              }}
-              .options=${options}
-              label="Taxonomy"
-            ></titanium-select>
-      `}}
+        <titanium-select
+          @value-changed=${event => {
+            console.log(event.detail);
+          }}
+          .options=${options}
+          label="Taxonomy"
+        ></titanium-select>
+      `;
+    }}
   </Story>
 </Preview>

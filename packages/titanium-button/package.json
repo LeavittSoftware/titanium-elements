@@ -13,7 +13,7 @@
     "tslib": "^1.11.1"
   },
   "peerDependencies": {
-    "lit-element": ">=2.1.0"
+    "lit": ">=2.0.0"
   },
   "scripts": {
     "build:watch": "tsc --watch",

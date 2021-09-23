@@ -1,4 +1,5 @@
-import { css, customElement, html } from 'lit-element';
+import { css, html } from 'lit';
+import { customElement } from 'lit/decorators.js';
 import { TitaniumCardListItemElement } from './titanium-card-list-item';
 
 /**

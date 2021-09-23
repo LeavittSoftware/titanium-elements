@@ -1,4 +1,5 @@
-import { property, html, customElement, query, LitElement, css } from 'lit-element';
+import { css, html, LitElement } from 'lit';
+import { property, customElement, query } from 'lit/decorators.js';
 import '@material/mwc-textfield';
 
 import { Loader } from '@googlemaps/js-api-loader';
@@ -32,8 +33,9 @@ export class GoogleAddressInput extends LitElement {
   }
 
   async getUpdateComplete() {
-    await super.getUpdateComplete();
+    const result = await super.getUpdateComplete();
     await this.input.updateComplete;
+    return result;
   }
 
   async firstUpdated() {

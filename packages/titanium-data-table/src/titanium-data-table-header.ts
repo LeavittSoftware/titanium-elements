@@ -1,4 +1,5 @@
-import { css, customElement, html, LitElement, property } from 'lit-element';
+import { css, html, LitElement } from 'lit';
+import { property, customElement } from 'lit/decorators.js';
 
 /**
  * Material design data table header with styling and sorting capabilities

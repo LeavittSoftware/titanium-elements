@@ -1,4 +1,6 @@
-import { LitElement, css, html, customElement, property, query } from 'lit-element';
+import { css, html, LitElement } from 'lit';
+import { property, customElement, query } from 'lit/decorators.js';
+
 import '@material/mwc-textfield';
 import { TextField } from '@material/mwc-textfield';
 /**

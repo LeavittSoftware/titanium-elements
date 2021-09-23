@@ -1,8 +1,9 @@
-import 'jwt-decode/build/jwt-decode';
+import jwt_decode from 'jwt-decode';
 // eslint-disable-next-line @typescript-eslint/naming-convention
-declare let jwt_decode: (token: string) => LssJwtToken;
 
-import { customElement, LitElement, property } from 'lit-element';
+import { LitElement } from 'lit';
+import { property, customElement } from 'lit/decorators.js';
+
 import { LssJwtToken } from './LssJwtToken';
 import { isDevelopment } from '@leavittsoftware/titanium-helpers/lib/titanium-dev-detection';
 import { UserManagerUpdatedEvent } from './user-manager-events';
@@ -131,9 +132,9 @@ export class UserManager extends LitElement {
       return null;
     }
 
-    let token;
+    let token: LssJwtToken;
     try {
-      token = jwt_decode(accessToken) as LssJwtToken;
+      token = jwt_decode<LssJwtToken>(accessToken);
     } catch (error) {
       // Invalid JWT token format
       return null;

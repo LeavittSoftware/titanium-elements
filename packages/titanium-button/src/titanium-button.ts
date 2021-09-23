@@ -1,5 +1,6 @@
 import '@material/mwc-ripple';
-import { css, customElement, html, LitElement, property, query } from 'lit-element';
+import { css, html, LitElement } from 'lit';
+import { property, customElement, query } from 'lit/decorators.js';
 import { Ripple } from '@material/mwc-ripple';
 
 /**
@@ -166,9 +167,9 @@ export class TitaniumButtonElement extends LitElement {
         @mouseleave=${() => this.ripple.endHover()}
         @focus=${() => this.ripple.startFocus()}
         @blur=${() => this.ripple.endFocus()}
-        @mousedown=${(e) => this.ripple.startPress(e)}
+        @mousedown=${e => this.ripple.startPress(e)}
         @mouseup=${() => this.ripple.endPress()}
-        @keydown=${(e) => (e.which === 32 ? this.ripple.startPress() : '')}
+        @keydown=${e => (e.which === 32 ? this.ripple.startPress() : '')}
         @keyup=${() => this.ripple.endPress()}
         ?disabled=${this.disabled}
       >

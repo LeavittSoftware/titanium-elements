@@ -1,7 +1,8 @@
 import '@material/mwc-icon-button';
 import { h1, h3 } from '@leavittsoftware/titanium-styles';
 
-import { css, customElement, html, LitElement, property } from 'lit-element';
+import { css, html, LitElement } from 'lit';
+import { property, customElement } from 'lit/decorators.js';
 
 /**
  * A pre-styled page header with sub header and optional back button.

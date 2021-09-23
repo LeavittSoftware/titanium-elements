@@ -34,7 +34,7 @@ import '@leavittsoftware/titanium-dialog';
 <Preview withToolbar>
   <Story name="Docs">
     {() => {
-       var openDialog = (selector, e) => {
+      var openDialog = (selector, e) => {
         e.preventDefault();
         document
           .querySelector(`titanium-dialog[${selector}]`)

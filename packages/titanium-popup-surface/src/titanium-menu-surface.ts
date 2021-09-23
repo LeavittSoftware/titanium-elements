@@ -1,4 +1,5 @@
-import { customElement, html, query, css } from 'lit-element';
+import { css, html } from 'lit';
+import { customElement, query } from 'lit/decorators.js';
 import { TitaniumPopupSurfaceFoundation } from './titanium-popup-surface-foundation';
 
 import './titanium-popup-surface-foundation';
@@ -22,7 +23,7 @@ export class TitaniumMenuSurfaceElement extends TitaniumPopupSurfaceFoundation {
   }
 
   private get items(): Element[] {
-    return this.mainSlot?.assignedElements({ flatten: true }).filter((o) => o.getAttribute('role') === 'menuitem') ?? [];
+    return this.mainSlot?.assignedElements({ flatten: true }).filter(o => o.getAttribute('role') === 'menuitem') ?? [];
   }
 
   private setSelectedAtIndex(index: number) {
@@ -43,7 +44,7 @@ export class TitaniumMenuSurfaceElement extends TitaniumPopupSurfaceFoundation {
   }
 
   private getSelectedItemIndex() {
-    return this.items.indexOf(this.items.filter((o) => o.getAttribute('tabindex') === '1')[0]);
+    return this.items.indexOf(this.items.filter(o => o.getAttribute('tabindex') === '1')[0]);
   }
 
   selectNextItem() {
@@ -63,7 +64,7 @@ export class TitaniumMenuSurfaceElement extends TitaniumPopupSurfaceFoundation {
   private keydownHandler = this.handleKeydownEvent.bind(this);
 
   private addListenersToItems() {
-    this.items.forEach((i) => {
+    this.items.forEach(i => {
       const item = i as Element & {
         ___titaniumClickHandler: EventListenerOrEventListenerObject;
         ___titaniumKeydownHandler: EventListenerOrEventListenerObject;
@@ -85,7 +86,7 @@ export class TitaniumMenuSurfaceElement extends TitaniumPopupSurfaceFoundation {
   }
 
   private removeListenersFromItems() {
-    this.items.forEach((i) => {
+    this.items.forEach(i => {
       const item = i as Element & {
         ___titaniumClickHandler: EventListenerOrEventListenerObject;
         ___titaniumKeydownHandler: EventListenerOrEventListenerObject;
@@ -113,11 +114,14 @@ export class TitaniumMenuSurfaceElement extends TitaniumPopupSurfaceFoundation {
     }
   }
 
-  static styles = css`
-    ${TitaniumPopupSurfaceFoundation.styles} :host {
-      border-radius: 4px;
-    }
-  `;
+  static styles = [
+    ...TitaniumPopupSurfaceFoundation.styles,
+    css`
+      :host {
+        border-radius: 4px;
+      }
+    `,
+  ];
 
   render() {
     return html`

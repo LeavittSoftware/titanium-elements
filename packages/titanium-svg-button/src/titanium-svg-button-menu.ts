@@ -1,4 +1,6 @@
-import { customElement, html, LitElement, query, css, property } from 'lit-element';
+import { css, html, LitElement } from 'lit';
+import { property, customElement, query } from 'lit/decorators.js';
+
 import { TitaniumMenuSurfaceElement } from '@leavittsoftware/titanium-popup-surface/lib/titanium-menu-surface';
 
 import '@leavittsoftware/titanium-popup-surface/lib/titanium-menu-surface';

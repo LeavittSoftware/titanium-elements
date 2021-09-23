@@ -1,11 +1,12 @@
 import '@material/mwc-icon-button';
 import './image-cropper-dialog';
 
-import { css, customElement, html, LitElement, property, query } from 'lit-element';
-import { ifDefined } from 'lit-html/directives/if-defined';
+import { css, html, LitElement } from 'lit';
+import { property, customElement, query } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined';
 import { ImageCropperDialogElement } from './image-cropper-dialog';
 
-export type TitaniumImageInputOptions = Cropper.Options & { shape?: ' square'|'circle'};
+export type TitaniumImageInputOptions = Cropper.Options & { shape?: ' square' | 'circle' };
 
 /**
  * Material outline image input with cropper
@@ -20,7 +21,6 @@ export type TitaniumImageInputOptions = Cropper.Options & { shape?: ' square'|'c
  */
 @customElement('titanium-image-input')
 export class TitaniumImageInputElement extends LitElement {
-
   @property({ type: Boolean, reflect: true, attribute: 'is-over' }) protected isOver: boolean = false;
   @property({ type: Boolean, reflect: true }) protected isUiValid: boolean = true;
   @property({ type: String }) protected previewSrc: string | undefined = undefined;
@@ -60,7 +60,7 @@ export class TitaniumImageInputElement extends LitElement {
   /**
    *  Configurable CropperJs options.
    */
-  @property({ type: Object }) options: TitaniumImageInputOptions  = { aspectRatio: 1 };
+  @property({ type: Object }) options: TitaniumImageInputOptions = { aspectRatio: 1 };
 
   /**
    *  Data url of cropped image preview.

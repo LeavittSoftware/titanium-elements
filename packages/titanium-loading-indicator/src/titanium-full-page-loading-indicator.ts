@@ -1,4 +1,5 @@
-import { customElement, html, LitElement, property, css } from 'lit-element';
+import { css, html, LitElement } from 'lit';
+import { property, customElement } from 'lit/decorators.js';
 import '@leavittsoftware/titanium-progress';
 
 /**

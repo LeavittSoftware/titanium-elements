@@ -1,5 +1,6 @@
 import '@material/mwc-button';
-import { css, customElement, html, property, query } from 'lit-element';
+import { css, html } from 'lit';
+import { property, customElement, query } from 'lit/decorators.js';
 import { TitaniumDialogBaseElement } from './titanium-dialog-base';
 import { h1, p } from '@leavittsoftware/titanium-styles';
 

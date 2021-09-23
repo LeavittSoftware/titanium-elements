@@ -1,4 +1,5 @@
-import { css, customElement, html, LitElement, property, PropertyValues, query, state } from 'lit-element';
+import { css, html, LitElement, PropertyValues } from 'lit';
+import { property, customElement, query, state } from 'lit/decorators.js';
 import '@material/mwc-textfield';
 import '@material/mwc-list/mwc-list-item.js';
 import '@material/mwc-linear-progress';

@@ -2,7 +2,8 @@ import '@material/mwc-select';
 import '@material/mwc-list/mwc-list-item';
 import './mwc-datefield';
 
-import { customElement, LitElement, html, css, property, query } from 'lit-element';
+import { css, html, LitElement } from 'lit';
+import { property, customElement, query } from 'lit/decorators.js';
 import { DateField } from './mwc-datefield';
 import dayjs, { Dayjs, OpUnitType } from 'dayjs/esm';
 import quarterOfYear from 'dayjs/esm/plugin/quarterOfYear';

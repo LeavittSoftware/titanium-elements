@@ -1,4 +1,5 @@
-import { css, customElement, html, LitElement, query } from 'lit-element';
+import { css, html, LitElement } from 'lit';
+import { customElement, query } from 'lit/decorators.js';
 import './titanium-tab-control-item';
 import { TitaniumTabControlItemElement } from './titanium-tab-control-item';
 
