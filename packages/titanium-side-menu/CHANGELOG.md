@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-side-menu@0.4.0...@leavittsoftware/titanium-side-menu@0.5.0) (2021-09-23)
+
+
+### Bug Fixes
+
+* titanium-side-menu-item content alignment ([8c7e1ac](https://github.com/LeavittSoftware/titanium-elements/commit/8c7e1ac5acc9c4bb5e53691837eec1d803f5eef0))
+
+
+### Features
+
+* convert element imports to lit 2.0 ([2fb5a2d](https://github.com/LeavittSoftware/titanium-elements/commit/2fb5a2da5a5af636541ce58e398fdf587e2c008a))
+
+
+
+
+
 # 0.4.0 (2021-09-16)
 
 

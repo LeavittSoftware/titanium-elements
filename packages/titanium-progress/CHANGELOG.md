@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.2.0 (2021-09-23)
+
+
+### Features
+
+* convert element imports to lit 2.0 ([2fb5a2d](https://github.com/LeavittSoftware/titanium-elements/commit/2fb5a2da5a5af636541ce58e398fdf587e2c008a))
+
+
+
+
+
 ## 0.1.13 (2020-06-15)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-progress

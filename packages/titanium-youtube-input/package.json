@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-youtube-input",
   "description": "",
   "author": "Leavitt Software",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "license": "MIT",
   "main": "lib/titanium-youtube-input.js",
   "typings": "lib/titanium-youtube-input.d.ts",

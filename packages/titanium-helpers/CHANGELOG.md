@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.0.0 (2021-09-23)
+
+
+### Features
+
+* remove deprecated debounce ([714f6cb](https://github.com/LeavittSoftware/titanium-elements/commit/714f6cb2d1e8dc9a46c1b05ed7f2509fa2fa3e11))
+* remove ie 11 support in download csv ([6cdcf83](https://github.com/LeavittSoftware/titanium-elements/commit/6cdcf838daaa014b5f777138fab1634ae475837d))
+
+
+### BREAKING CHANGES
+
+* remove titanium-debounce use titanium-debouncer
+
+
+
+
+
 ## [3.3.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-helpers@3.3.0...@leavittsoftware/titanium-helpers@3.3.1) (2020-06-30)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-helpers
