@@ -1,15 +1,9 @@
-import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
-import { action } from '@storybook/addon-actions';
-import { html } from 'lit-html';
-import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
-import { withWebComponentsKnobs } from '../index.js';
+import { Story, Canvas, Meta, ArgsTable } from '@storybook/addon-docs';
+import { html } from 'lit';
+
 import '@leavittsoftware/titanium-snackbar';
 
-<Meta
-  title="UI COMPONENTS/titanium-snackbar"
-  decorators={[withKnobs, withWebComponentsKnobs]}
-  parameters={{ component: 'titanium-snackbar', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
-/>
+<Meta title="UI COMPONENTS/titanium-snackbar" parameters={{ component: 'titanium-snackbar' }} />
 
 # Titanium Snackbar
 
@@ -36,11 +30,11 @@ AppSnackbar.open('Hello world');
 
 ## API
 
-<Props of="titanium-snackbar" />
+<ArgsTable of="titanium-snackbar" />
 
 ## Demo
 
-<Preview withToolbar>
+<Canvas withToolbar>
   <Story name="Docs">
     {html`
       <a
@@ -140,4 +134,4 @@ AppSnackbar.open('Hello world');
       <titanium-snackbar></titanium-snackbar>
     `}
   </Story>
-</Preview>
+</Canvas>

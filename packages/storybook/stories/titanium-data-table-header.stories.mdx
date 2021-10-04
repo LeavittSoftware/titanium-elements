@@ -1,15 +1,11 @@
-import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
-import { action } from '@storybook/addon-actions';
-import { html } from 'lit-html';
-import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
-import { withWebComponentsKnobs } from '../index.js';
+import { Story, Canvas, Meta, ArgsTable } from '@storybook/addon-docs';
+import { html } from 'lit';
 
 import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-header';
 
 <Meta
   title="UI COMPONENTS/titanium-data-table-header"
-  decorators={[withKnobs, withWebComponentsKnobs]}
-  parameters={{ component: 'titanium-data-table-header', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+  parameters={{ component: 'titanium-data-table-header' }}
 />
 
 # Titanium Data Table Header
@@ -28,11 +24,11 @@ import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-header';
 
 ## API
 
-<Props of="titanium-data-table-header" />
+<ArgsTable of="titanium-data-table-header" />
 
 ## Demo
 
-<Preview withToolbar>
+<Canvas withToolbar>
   <Story name="Docs">
     {html`
       <titanium-data-table-header column-name="Name" large title="Name"></titanium-data-table-header>
@@ -42,4 +38,4 @@ import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-header';
       <titanium-data-table-header no-sort width="75px" right title="Locations"></titanium-data-table-header>
     `}
   </Story>
-</Preview>
+</Canvas>

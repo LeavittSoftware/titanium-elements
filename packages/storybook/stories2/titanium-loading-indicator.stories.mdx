@@ -1,7 +1,5 @@
-import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
-import { action } from '@storybook/addon-actions';
-import { html } from 'lit-html';
-import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
+import { Story, Canvas, Meta, ArgsTable } from '@storybook/addon-docs';
+import { html } from 'lit';
 
 import '@leavittsoftware/titanium-loading-indicator';
 
@@ -25,10 +23,10 @@ import '@leavittsoftware/titanium-loading-indicator';
 
 ## API
 
-<Props of="titanium-loading-indicator" />
+<ArgsTable of="titanium-loading-indicator" />
 
 ## Demo
 
-<Preview withToolbar>
+<Canvas withToolbar>
   <Story name="Docs">{html` <titanium-loading-indicator one></titanium-loading-indicator> `}</Story>
-</Preview>
+</Canvas>

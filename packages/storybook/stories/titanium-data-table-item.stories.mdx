@@ -1,15 +1,11 @@
-import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
-import { action } from '@storybook/addon-actions';
-import { html } from 'lit-html';
-import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
-import { withWebComponentsKnobs } from '../index.js';
+import { Story, Canvas, Meta, ArgsTable } from '@storybook/addon-docs';
+import { html } from 'lit';
 
 import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-item';
 
 <Meta
   title="UI COMPONENTS/titanium-data-table-item"
-  decorators={[withKnobs, withWebComponentsKnobs]}
-  parameters={{ component: 'titanium-data-table-item', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+  parameters={{ component: 'titanium-data-table-item' }}
 />
 
 # Titanium Data Table Item
@@ -36,11 +32,11 @@ import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-item';
 
 ## API
 
-<Props of="titanium-data-table-item" />
+<ArgsTable of="titanium-data-table-item" />
 
 ## Demo
 
-<Preview withToolbar>
+<Canvas withToolbar>
   <Story name="Docs">
     {html`
       <titanium-data-table-item>
@@ -52,4 +48,4 @@ import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-item';
       </titanium-data-table-item>
     `}
   </Story>
-</Preview>
+</Canvas>

@@ -1,16 +1,12 @@
-import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
-import { action } from '@storybook/addon-actions';
-import { html } from 'lit-html';
-import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
-import { withWebComponentsKnobs } from '../index.js';
+import { Story, Canvas, Meta, ArgsTable } from '@storybook/addon-docs';
+import { html } from 'lit';
 
 import '@leavittsoftware/leavitt-elements/lib/leavitt-person-group-select';
 import '@leavittsoftware/user-manager';
 
 <Meta
   title="UI LEAVITT SPECIFIC/leavitt-person-group-select"
-  decorators={[withKnobs, withWebComponentsKnobs]}
-  parameters={{ component: 'leavitt-person-group-select', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+  parameters={{ component: 'leavitt-person-group-select' }}
 />
 
 # Leavitt Person or Group Select
@@ -29,11 +25,11 @@ import '@leavittsoftware/leavitt-elements/lib/leavitt-person-group-select';
 
 ## API
 
-<Props of="leavitt-person-group-select" />
+<ArgsTable of="leavitt-person-group-select" />
 
 ## Demo
 
-<Preview withToolbar>
+<Canvas withToolbar>
   <Story name="Docs">{html` <user-manager></user-manager>
     <h2 demo>Standard</h2>
     <leavitt-person-group-select apiNamespace="EducationAdmin"></leavitt-person-group-select>
@@ -41,4 +37,4 @@ import '@leavittsoftware/leavitt-elements/lib/leavitt-person-group-select';
     <leavitt-person-group-select required apiNamespace="EducationAdmin"></leavitt-person-group-select>
     <h2 demo>Disabled</h2>
     <leavitt-person-group-select disabled></leavitt-person-group-select>`}</Story>
-</Preview>
+</Canvas>

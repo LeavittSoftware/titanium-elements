@@ -1,16 +1,12 @@
-import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
-import { action } from '@storybook/addon-actions';
-import { html } from 'lit-html';
-import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
-import { withWebComponentsKnobs } from '../index.js';
+import { Story, Canvas, Meta, ArgsTable } from '@storybook/addon-docs';
+import { html } from 'lit';
 
 import '@leavittsoftware/leavitt-elements/lib/leavitt-person-select';
 import '@leavittsoftware/user-manager';
 
 <Meta
   title="UI LEAVITT SPECIFIC/leavitt-person-select"
-  decorators={[withKnobs, withWebComponentsKnobs]}
-  parameters={{ component: 'leavitt-person-select', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+  parameters={{ component: 'leavitt-person-select' }}
 />
 
 # Leavitt Person Select
@@ -29,11 +25,11 @@ import '@leavittsoftware/leavitt-elements/lib/leavitt-person-select';
 
 ## API
 
-<Props of="leavitt-person-select" />
+<ArgsTable of="leavitt-person-select" />
 
 ## Demo
 
-<Preview withToolbar>
+<Canvas withToolbar>
   <Story name="Docs">{html` <user-manager></user-manager>
     <h2 demo>Standard</h2>
     <leavitt-person-select apiNamespace="PLGameAdmin"></leavitt-person-select>
@@ -70,4 +66,4 @@ import '@leavittsoftware/leavitt-elements/lib/leavitt-person-select';
     ></leavitt-person-select>
     <h2 demo>Disabled</h2>
     <leavitt-person-select disabled></leavitt-person-select>`}</Story>
-</Preview>
+</Canvas>

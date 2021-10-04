@@ -1,16 +1,9 @@
-import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
-import { action } from '@storybook/addon-actions';
-import { html } from 'lit-html';
-import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
-import { withWebComponentsKnobs } from '../index.js';
+import { Story, Canvas, Meta, ArgsTable } from '@storybook/addon-docs';
+import { html } from 'lit';
 
 import '@leavittsoftware/titanium-toolbar';
 
-<Meta
-  title="UI COMPONENTS/titanium-toolbar"
-  decorators={[withKnobs, withWebComponentsKnobs]}
-  parameters={{ component: 'titanium-toolbar', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
-/>
+<Meta title="UI COMPONENTS/titanium-toolbar" parameters={{ component: 'titanium-toolbar' }} />
 
 # Titanium Toolbar
 
@@ -28,15 +21,15 @@ import '@leavittsoftware/titanium-toolbar';
 
 ## API
 
-<Props of="titanium-toolbar" />
+<ArgsTable of="titanium-toolbar" />
 
 ## Demo
 
-<Preview withToolbar>
+<Canvas withToolbar>
   <Story name="Docs" height="100px">
     {html`
       <titanium-toolbar><span main-title>An 8k toolbar?</span></titanium-toolbar>
       <div style="height:120vh"></div>
     `}
   </Story>
-</Preview>
+</Canvas>

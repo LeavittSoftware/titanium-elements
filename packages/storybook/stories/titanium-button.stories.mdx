@@ -1,16 +1,9 @@
-import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
-import { action } from '@storybook/addon-actions';
-import { html } from 'lit-html';
-import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
-import { withWebComponentsKnobs } from '../index.js';
+import { Story, Canvas, Meta, ArgsTable } from '@storybook/addon-docs';
+import { html } from 'lit';
 
 import '@leavittsoftware/titanium-button';
 
-<Meta
-  title="UI COMPONENTS/titanium-button"
-  decorators={[withKnobs, withWebComponentsKnobs]}
-  parameters={{ component: 'titanium-button', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
-/>
+<Meta title="UI COMPONENTS/titanium-button" component="titanium-button" parameters={{ component: 'titanium-button' }} />
 
 # Titanium Button
 
@@ -28,11 +21,11 @@ import '@leavittsoftware/titanium-button';
 
 ## API
 
-<Props of="titanium-button" />
+<ArgsTable of="titanium-button" />
 
 ## Demo
 
-<Preview withToolbar>
+<Canvas withToolbar>
   <Story name="Docs">
     {html`
       <h3>Standard</h3>
@@ -57,4 +50,4 @@ import '@leavittsoftware/titanium-button';
       <titanium-button style="width:200px;" unelevated>Are you sure you want to continue?</titanium-button>
     `}
   </Story>
-</Preview>
+</Canvas>

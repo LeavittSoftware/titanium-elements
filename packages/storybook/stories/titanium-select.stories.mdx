@@ -1,16 +1,9 @@
-import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
-import { action } from '@storybook/addon-actions';
-import { html } from 'lit-html';
-import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
-import { withWebComponentsKnobs } from '../index.js';
+import { Story, Canvas, Meta, ArgsTable } from '@storybook/addon-docs';
+import { html } from 'lit';
 
 import '@leavittsoftware/titanium-select';
 
-<Meta
-  title="UI COMPONENTS/titanium-select"
-  decorators={[withKnobs, withWebComponentsKnobs]}
-  parameters={{ component: 'titanium-select', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
-/>
+<Meta title="UI COMPONENTS/titanium-select" parameters={{ component: 'titanium-select' }} />
 
 # Titanium Select
 
@@ -28,11 +21,11 @@ import '@leavittsoftware/titanium-select';
 
 ## API
 
-<Props of="titanium-select" />
+<ArgsTable of="titanium-select" />
 
 ## Demo
 
-<Preview withToolbar>
+<Canvas withToolbar>
   <Story name="Docs">
     {() => {
       const options = [
@@ -50,4 +43,4 @@ import '@leavittsoftware/titanium-select';
       `;
     }}
   </Story>
-</Preview>
+</Canvas>
