@@ -3,7 +3,32 @@ import { html } from 'lit';
 
 import '@leavittsoftware/titanium-chip';
 
-<Meta title="UI COMPONENTS/titanium-chip" parameters={{ component: 'titanium-chip' }} />
+<Meta
+  title="UI COMPONENTS/titanium-chip"
+  argTypes={{
+    styles: {
+      table: {
+        disable: true,
+      },
+    },
+    name: {
+      table: {
+        disable: true,
+      },
+    },
+    fallbackSrc: {
+      table: {
+        disable: true,
+      },
+    },
+    formElementTabIndex: {
+      table: {
+        disable: true,
+      },
+    }
+  }}
+  parameters={{ component: 'titanium-chip' }}
+/>
 
 # Titanium Chip
 
@@ -25,24 +50,42 @@ import '@leavittsoftware/titanium-chip';
 
 ## Demo
 
+export const TitaniumChipStory = ({ data, ...args }) =>
+  html`<titanium-chip label="Adam Driver" src="https://mapi.leavitt.com/People(771130)/Default.Picture(size=32)"></titanium-chip>
+    <titanium-chip label="Adam Driver" closeable src="https://mapi.leavitt.com/People(771130)/Default.Picture(size=32)"></titanium-chip>
+    <h2>Selectable Chips</h2>
+    <div style="display:grid;grid-auto-flow:column;gap:8px;grid-auto-columns: min-content;">
+      <titanium-chip name="Prices" selectable label="1000"></titanium-chip>
+      <titanium-chip name="Prices" selectable label="2000"></titanium-chip>
+      <titanium-chip name="Prices" selectable label="Adam Driver" src="https://cdn.leavitt.com/user-771130-32.jpeg"></titanium-chip>
+      <titanium-chip
+        name="Prices"
+        selectable
+        label="Bad image link"
+        src="https://cdn.leavitt.com/user-abc123-32.jpeg"
+        fallbackSrc="https://www.leavitt.com/application/themes/lg/img/logo/leavitt-group-logo.svg"
+      ></titanium-chip>
+      <titanium-chip name="Cash" selectable label="Bad image link"> <mwc-icon slot="chip-icon">savings</mwc-icon></titanium-chip>
+      <titanium-chip name="Offline" selectable label="Bad image link"> <mwc-icon slot="chip-icon">offline_bolt</mwc-icon></titanium-chip>
+    </div>
+    <h2>Controlled</h2>
+    <div style="display:grid;grid-auto-flow:column;gap:8px;grid-auto-columns: min-content;">
+      <titanium-chip
+        .label=${args['label'] ?? 'Adam Driver'}
+        ?closeable=${args['closeable']}
+        ?selectable=${args['selectable']}
+        ?disabled=${args['disabled']}
+        src=${args['src'] ?? 'https://mapi.leavitt.com/People(771130)/Default.Picture(size=32)'}
+      ></titanium-chip>
+      <titanium-chip
+        .label=${args['label'] ?? 'Adam Driver'}
+        ?closeable=${args['closeable']}
+        ?selectable=${args['selectable']}
+        ?disabled=${args['disabled']}
+        src=${args['src'] ?? 'https://mapi.leavitt.com/People(771130)/Default.Picture(size=32)'}
+      ></titanium-chip>
+    </div> `;
+
 <Canvas withToolbar>
-  <Story name="Docs">
-    {html` <titanium-chip label="James Franco" src="https://mapi.leavitt.com/People(771130)/Default.Picture(size=32)"></titanium-chip>
-      <titanium-chip label="James Franco" closeable src="https://mapi.leavitt.com/People(771130)/Default.Picture(size=32)"></titanium-chip>
-      <h2>Selectable Chips</h2>
-      <div style="display:grid;grid-auto-flow:column;gap:8px;grid-auto-columns: min-content;">
-        <titanium-chip name="Prices" selectable label="1000"></titanium-chip>
-        <titanium-chip name="Prices" selectable label="2000"></titanium-chip>
-        <titanium-chip name="Prices" selectable label="James Franco" src="https://cdn.leavitt.com/user-771130-32.jpeg"></titanium-chip>
-        <titanium-chip
-          name="Prices"
-          selectable
-          label="Bad image link"
-          src="https://cdn.leavitt.com/user-abc123-32.jpeg"
-          fallbackSrc="https://www.leavitt.com/application/themes/lg/img/logo/leavitt-group-logo.svg"
-        ></titanium-chip>
-        <titanium-chip name="Cash" selectable label="Bad image link"> <mwc-icon slot="chip-icon">savings</mwc-icon></titanium-chip>
-        <titanium-chip name="Offline" selectable label="Bad image link"> <mwc-icon slot="chip-icon">offline_bolt</mwc-icon></titanium-chip>
-      </div>`}
-  </Story>
+  <Story name="Docs">{TitaniumChipStory.bind({})}</Story>
 </Canvas>
