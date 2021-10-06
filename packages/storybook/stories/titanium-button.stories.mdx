@@ -1,15 +1,24 @@
-import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
-import { action } from '@storybook/addon-actions';
-import { html } from 'lit-html';
-import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
-import { withWebComponentsKnobs } from '../index.js';
-
+import { Story, Canvas, Meta, ArgsTable } from '@storybook/addon-docs';
+import { html } from 'lit';
+import { PRIMARY_STORY } from '@storybook/addon-docs';
 import '@leavittsoftware/titanium-button';
 
 <Meta
-  title="UI COMPONENTS|titanium-button"
-  decorators={[withKnobs, withWebComponentsKnobs]}
-  parameters={{ component: 'titanium-button', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+  title="UI COMPONENTS/titanium-button"
+  argTypes={{
+    styles: {
+      table: {
+        disable: true,
+      },
+    },
+    click: {
+      action: 'Clicked!',
+      table: {
+        disable: true,
+      },
+    },
+  }}
+  parameters={{ component: 'titanium-button' }}
 />
 
 # Titanium Button
@@ -28,33 +37,27 @@ import '@leavittsoftware/titanium-button';
 
 ## API
 
-<Props of="titanium-button" />
+<ArgsTable story={PRIMARY_STORY} />
 
 ## Demo
 
-<Preview withToolbar>
-  <Story name="Docs">
-    {html`
-      <h3>Standard</h3>
-      <titanium-button>APPLY</titanium-button>
-      <titanium-button raised>RAISED</titanium-button>
-      <titanium-button unelevated>UNELEVATED</titanium-button>
-      <titanium-button disabled>DISABLED</titanium-button>
-      <titanium-button outlined>Outlined</titanium-button>
-      <h3>Dense</h3>
-      <titanium-button dense>APPLY</titanium-button>
-      <titanium-button dense raised>RAISED</titanium-button>
-      <titanium-button dense unelevated>UNELEVATED</titanium-button>
-      <titanium-button dense disabled>DISABLED</titanium-button>
-      <titanium-button dense outlined>Outlined</titanium-button>
-      <h3>Shaped</h3>
-      <titanium-button dense shaped>APPLY</titanium-button>
-      <titanium-button dense raised shaped>RAISED</titanium-button>
-      <titanium-button dense unelevated shaped>UNELEVATED</titanium-button>
-      <titanium-button dense disabled shaped>DISABLED</titanium-button>
-      <titanium-button dense outlined shaped>Outlined</titanium-button>
-      <h3>Long button text</h3>
-      <titanium-button style="width:200px;" unelevated>Are you sure you want to continue?</titanium-button>
-    `}
-  </Story>
-</Preview>
+export const TitaniumButtonStory = ({ data, ...args }) =>
+  html`
+    <h3>Standard</h3>
+    <titanium-button
+      ?shaped=${args['shaped']}
+      ?dense=${args['dense']}
+      ?outlined=${args['outlined']}
+      ?disabled=${args['disabled']}
+      ?unelevated=${args['unelevated']}
+      ?raised=${args['raised']}
+      @click=${args.click}
+      >APPLY</titanium-button
+    >
+    <h3>Long button text</h3>
+    <titanium-button style="width:200px;" unelevated>Are you sure you want to continue?</titanium-button>
+  `;
+
+<Canvas withToolbar>
+  <Story name="Docs">{TitaniumButtonStory.bind({})}</Story>
+</Canvas>

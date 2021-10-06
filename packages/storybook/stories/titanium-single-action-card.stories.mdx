@@ -1,16 +1,13 @@
-import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
-import { action } from '@storybook/addon-actions';
-import { html } from 'lit-html';
-import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
-import { withWebComponentsKnobs } from '../index.js';
+import { Story, Canvas, Meta, ArgsTable } from '@storybook/addon-docs';
+import { html } from 'lit';
+
 import { h1, h2, h3, p } from '@leavittsoftware/titanium-styles';
 
 import '@leavittsoftware/titanium-card/lib/titanium-single-action-card';
 
 <Meta
-  title="UI CARD COMPONENTS|titanium-single-action-card"
-  decorators={[withKnobs, withWebComponentsKnobs]}
-  parameters={{ component: 'titanium-single-action-card', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+  title="UI CARD COMPONENTS/titanium-single-action-card"
+  parameters={{ component: 'titanium-single-action-card' }}
 />
 
 # Titanium Single Action Card
@@ -29,11 +26,11 @@ import '@leavittsoftware/titanium-card/lib/titanium-single-action-card';
 
 ## API
 
-<Props of="titanium-single-action-card" />
+<ArgsTable of="titanium-single-action-card" />
 
 ## Demo
 
-<Preview withToolbar>
+<Canvas withToolbar>
   <Story name="Docs">
     {html`<style>
         ${h1} ${p} titanium-single-action-card {
@@ -56,4 +53,4 @@ import '@leavittsoftware/titanium-card/lib/titanium-single-action-card';
         </p>
       </titanium-single-action-card>`}
   </Story>
-</Preview>
+</Canvas>

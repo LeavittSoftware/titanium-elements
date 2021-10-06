@@ -1,8 +1,6 @@
-import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
-import { action } from '@storybook/addon-actions';
-import { html } from 'lit-html';
-import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
-import { withWebComponentsKnobs } from '../index.js';
+import { Story, Canvas, Meta, ArgsTable } from '@storybook/addon-docs';
+import { html } from 'lit';
+
 import '@leavittsoftware/titanium-data-table';
 import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-header';
 import '@leavittsoftware/titanium-search-input';
@@ -10,11 +8,7 @@ import '@leavittsoftware/titanium-chip';
 import '../demos/data-table-demo';
 import '../demos/data-table-paging-demo';
 
-<Meta
-  title="UI COMPONENTS|titanium-data-table"
-  decorators={[withKnobs, withWebComponentsKnobs]}
-  parameters={{ component: 'titanium-data-table', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
-/>
+<Meta title="UI COMPONENTS/titanium-data-table" parameters={{ component: 'titanium-data-table' }} />
 
 # Titanium Data Table
 
@@ -32,11 +26,11 @@ import '@leavittsoftware/titanium-data-table';
 
 ## API
 
-<Props of="titanium-data-table" />
+<ArgsTable of="titanium-data-table" />
 
 ## Demo
 
-<Preview withToolbar>
+<Canvas withToolbar>
   <Story name="Docs">
     {() => {
       const data = [
@@ -105,11 +99,11 @@ import '@leavittsoftware/titanium-data-table';
       `;
     }}
   </Story>
-</Preview>
+</Canvas>
 
 #### Multi Select
 
-<Preview>
+<Canvas>
   <Story name="Multi Select">
     {() => {
       const data = [
@@ -179,11 +173,11 @@ import '@leavittsoftware/titanium-data-table';
       `;
     }}
   </Story>
-</Preview>
+</Canvas>
 
 #### Single Select
 
-<Preview>
+<Canvas>
   <Story name="Single Select">
     {() => {
       const data = [
@@ -264,11 +258,11 @@ import '@leavittsoftware/titanium-data-table';
       `;
     }}
   </Story>
-</Preview>
+</Canvas>
 
 #### No filter
 
-<Preview>
+<Canvas>
   <Story name="No filter, custom pages">
     {() => {
       const data = [
@@ -335,11 +329,11 @@ import '@leavittsoftware/titanium-data-table';
       `;
     }}
   </Story>
-</Preview>
+</Canvas>
 
 #### Disable Select
 
-<Preview>
+<Canvas>
   <Story name="Disable Select, no paging">
     {() => {
       const data = [
@@ -407,11 +401,11 @@ import '@leavittsoftware/titanium-data-table';
       `;
     }}
   </Story>
-</Preview>
+</Canvas>
 
 #### Title and menu header
 
-<Preview>
+<Canvas>
   <Story name="Title and menu header only">
     {() => {
       const data = [
@@ -480,11 +474,11 @@ import '@leavittsoftware/titanium-data-table';
       `;
     }}
   </Story>
-</Preview>
+</Canvas>
 
 #### Empty table
 
-<Preview>
+<Canvas>
   <Story name="Empty table">
     {() => {
       const data = [];
@@ -550,22 +544,22 @@ import '@leavittsoftware/titanium-data-table';
       `;
     }}
   </Story>
-</Preview>
+</Canvas>
 
-<Preview>
+<Canvas>
   <Story name="Draggable">
     {() => {
       return html`<data-table-demo></data-table-demo>
         <titanium-data-table style="display:none"></titanium-data-table> `;
     }}
   </Story>
-</Preview>
+</Canvas>
 
-<Preview>
+<Canvas>
   <Story name="Paging">
     {() => {
       return html`<data-table-paging-demo></data-table-paging-demo>
         <titanium-data-table style="display:none"></titanium-data-table> `;
     }}
   </Story>
-</Preview>
+</Canvas>

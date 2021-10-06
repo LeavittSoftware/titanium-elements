@@ -1,16 +1,9 @@
-import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
-import { action } from '@storybook/addon-actions';
+import { Story, Canvas, Meta, ArgsTable } from '@storybook/addon-docs';
 import { html } from 'lit';
-import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
-import { withWebComponentsKnobs } from '../index.js';
 
 import '@leavittsoftware/leavitt-elements/lib/mwc-datefield';
 
-<Meta
-  title="UI LEAVITT SPECIFIC|mwc-datefield"
-  decorators={[withKnobs, withWebComponentsKnobs]}
-  parameters={{ component: 'mwc-datefield', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
-/>
+<Meta title="UI LEAVITT SPECIFIC/mwc-datefield" parameters={{ component: 'mwc-datefield' }} />
 
 # MWC Date Field
 
@@ -28,13 +21,13 @@ import '@leavittsoftware/leavitt-elements/lib/mwc-datefield';
 
 ## API
 
-<Props of="mwc-datefield" />
+<ArgsTable of="mwc-datefield" />
 
 ## Demo
 
-<Preview withToolbar>
+<Canvas withToolbar>
   <Story name="Docs">{html`<h2 demo>date</h2>
     <mwc-datefield></mwc-datefield>
     <h2 demo>datetime-local</h2>
     <mwc-datefield date-type="datetime-local"></mwc-datefield>`}</Story>
-</Preview>
+</Canvas>

@@ -1,18 +1,11 @@
-import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
-import { action } from '@storybook/addon-actions';
-import { html, css } from 'lit-element';
-import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
-import { withWebComponentsKnobs } from '../index.js';
+import { Story, Canvas, Meta, ArgsTable } from '@storybook/addon-docs';
+import { html, css } from 'lit';
 
 import '@leavittsoftware/titanium-card';
 import '@leavittsoftware/titanium-card/lib/titanium-card-list-item';
 import { h1, h2, h3, p } from '@leavittsoftware/titanium-styles';
 
-<Meta
-  title="UI CARD COMPONENTS|titanium-card"
-  decorators={[withKnobs, withWebComponentsKnobs]}
-  parameters={{ component: 'titanium-card', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
-/>
+<Meta title="UI CARD COMPONENTS/titanium-card" parameters={{ component: 'titanium-card' }} />
 
 # Titanium Card
 
@@ -30,11 +23,11 @@ import '@leavittsoftware/titanium-card';
 
 ## API
 
-<Props of="titanium-card" />
+<ArgsTable of="titanium-card" />
 
 ## Demo
 
-<Preview withToolbar>
+<Canvas withToolbar>
   <Story name="Docs">
     {html`<style>
         ${h1} ${h2} ${h3} ${p} titanium-card {
@@ -176,4 +169,4 @@ import '@leavittsoftware/titanium-card';
         </p>
       </titanium-card> `}
   </Story>
-</Preview>
+</Canvas>

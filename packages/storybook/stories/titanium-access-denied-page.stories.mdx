@@ -1,15 +1,11 @@
-import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
-import { action } from '@storybook/addon-actions';
-import { html } from 'lit-html';
-import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
-import { withWebComponentsKnobs } from '../index.js';
+import { Story, Canvas, Meta, ArgsTable } from '@storybook/addon-docs';
+import { html } from 'lit';
 
 import '@leavittsoftware/titanium-access-denied-page';
 
 <Meta
-  title="UI COMPONENTS|titanium-access-denied-page"
-  decorators={[withKnobs, withWebComponentsKnobs]}
-  parameters={{ component: 'titanium-access-denied-page', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+  title="UI COMPONENTS/titanium-access-denied-page"
+  parameters={{ component: 'titanium-access-denied-page' }}
 />
 
 # Titanium Access Denied Page
@@ -28,10 +24,10 @@ import '@leavittsoftware/titanium-access-denied-page';
 
 ## API
 
-<Props of="titanium-access-denied-page" />
+<ArgsTable of="titanium-access-denied-page" />
 
 ## Demo
 
-<Preview withToolbar>
+<Canvas withToolbar>
   <Story name="Docs">{html` <titanium-access-denied-page></titanium-access-denied-page> `}</Story>
-</Preview>
+</Canvas>

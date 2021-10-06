@@ -1,16 +1,9 @@
-import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
-import { action } from '@storybook/addon-actions';
-import { html } from 'lit-html';
-import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
-import { withWebComponentsKnobs } from '../index.js';
+import { Story, Canvas, Meta, ArgsTable } from '@storybook/addon-docs';
+import { html } from 'lit';
 
 import '@leavittsoftware/titanium-progress';
 
-<Meta
-  title="UI COMPONENTS|titanium-progress"
-  decorators={[withKnobs, withWebComponentsKnobs]}
-  parameters={{ component: 'titanium-progress', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
-/>
+<Meta title="UI COMPONENTS/titanium-progress" parameters={{ component: 'titanium-progress' }} />
 
 # Titanium Progress
 
@@ -28,10 +21,10 @@ import '@leavittsoftware/titanium-progress';
 
 ## API
 
-<Props of="titanium-progress" />
+<ArgsTable of="titanium-progress" />
 
 ## Demo
 
-<Preview withToolbar>
+<Canvas withToolbar>
   <Story name="Docs">{html` <titanium-progress></titanium-progress> `}</Story>
-</Preview>
+</Canvas>

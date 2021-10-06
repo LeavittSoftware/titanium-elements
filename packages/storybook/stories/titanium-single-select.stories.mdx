@@ -1,15 +1,12 @@
-import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
-import { action } from '@storybook/addon-actions';
-import { html } from 'lit-html';
-import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
-import { withWebComponentsKnobs } from '../index.js';
+import { Story, Canvas, Meta, ArgsTable } from '@storybook/addon-docs';
+import { html } from 'lit';
+
 import '@leavittsoftware/titanium-single-select';
 import '@leavittsoftware/titanium-single-select/lib/titanium-single-select-item';
 
 <Meta
-  title="UI COMPONENTS|titanium-single-select"
-  decorators={[withKnobs, withWebComponentsKnobs]}
-  parameters={{ component: 'titanium-single-select', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
+  title="UI COMPONENTS/titanium-single-select"
+  parameters={{ component: 'titanium-single-select' }}
 />
 
 # Titanium Single Select
@@ -28,11 +25,11 @@ import '@leavittsoftware/titanium-single-select';
 
 ## API
 
-<Props of="titanium-single-select" />
+<ArgsTable of="titanium-single-select" />
 
 ## Demo
 
-<Preview withToolbar>
+<Canvas withToolbar>
   <Story name="Docs" height="200px">
     {() => {
       const data = [
@@ -63,11 +60,11 @@ import '@leavittsoftware/titanium-single-select';
       `;
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Shaped
 
-<Preview>
+<Canvas>
   <Story name="Shaped" height="120px">
     {html`
       <titanium-single-select
@@ -81,11 +78,11 @@ import '@leavittsoftware/titanium-single-select';
     `}
     }
   </Story>
-</Preview>
+</Canvas>
 
 ### Filled
 
-<Preview>
+<Canvas>
   <Story name="Filled" height="120px">
     {html`
       <titanium-single-select
@@ -99,4 +96,4 @@ import '@leavittsoftware/titanium-single-select';
     `}
     }
   </Story>
-</Preview>
+</Canvas>

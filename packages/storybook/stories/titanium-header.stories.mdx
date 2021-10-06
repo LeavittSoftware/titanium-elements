@@ -1,16 +1,9 @@
-import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
-import { action } from '@storybook/addon-actions';
-import { html } from 'lit-html';
-import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
-import { withWebComponentsKnobs } from '../index.js';
+import { Story, Canvas, Meta, ArgsTable } from '@storybook/addon-docs';
+import { html } from 'lit';
 
 import '@leavittsoftware/titanium-header';
 
-<Meta
-  title="UI COMPONENTS|titanium-header"
-  decorators={[withKnobs, withWebComponentsKnobs]}
-  parameters={{ component: 'titanium-header', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
-/>
+<Meta title="UI COMPONENTS/titanium-header" parameters={{ component: 'titanium-header' }} />
 
 # Titanium Header
 
@@ -28,10 +21,10 @@ import '@leavittsoftware/titanium-header';
 
 ## API
 
-<Props of="titanium-header" />
+<ArgsTable of="titanium-header" />
 
 ## Demo
 
-<Preview withToolbar>
+<Canvas withToolbar>
   <Story name="Docs">{html` <titanium-header header="Cute kittens" subHeader="These are my cute kittens"></titanium-header> `}</Story>
-</Preview>
+</Canvas>

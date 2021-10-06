@@ -1,8 +1,5 @@
-import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
-import { action } from '@storybook/addon-actions';
-import { html } from 'lit-html';
-import { withKnobs, boolean, text, number } from '@storybook/addon-knobs';
-import { withWebComponentsKnobs } from '../index.js';
+import { Story, Canvas, Meta, ArgsTable } from '@storybook/addon-docs';
+import { html } from 'lit';
 
 import '@leavittsoftware/titanium-svg-button';
 import '@leavittsoftware/titanium-header';
@@ -22,11 +19,7 @@ import '@leavittsoftware/titanium-tab-control';
 import '@leavittsoftware/titanium-error-page';
 import '@leavittsoftware/titanium-access-denied-page';
 
-<Meta
-  title="A quick demo|All Elements"
-  decorators={[withKnobs, withWebComponentsKnobs]}
-  parameters={{ component: 'titanium-chip', options: { selectedPanel: 'storybookjs/knobs/panel' } }}
-/>
+<Meta title="All Elements/Demo" parameters={{ component: 'titanium-chip' }} />
 
 # Titanium Element Super Demo
 
@@ -34,7 +27,7 @@ A demo of all titanium elements
 
 ## Demo
 
-<Preview withToolbar>
+<Canvas withToolbar>
   <Story name="Demo">
     {html`
         <titanium-toolbar> <span main-title>A Simple Toolbar</span></titanium-toolbar>
@@ -193,4 +186,4 @@ A demo of all titanium elements
         <titanium-access-denied-page></titanium-access-denied-page>
     `}
   </Story>
-</Preview>
+</Canvas>
