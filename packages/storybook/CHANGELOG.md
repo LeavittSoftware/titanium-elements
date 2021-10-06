@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.9.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.8.0...@leavittsoftware/storybook@9.9.0) (2021-10-06)
+
+
+### Features
+
+* Massive storybook upgrade. ([652c3a8](https://github.com/LeavittSoftware/titanium-elements/commit/652c3a8d8345c714a4ecd67786e929ffd72a06d1))
+* storybook 6.3 upgrade. WIP ([ea47615](https://github.com/LeavittSoftware/titanium-elements/commit/ea4761539ad0393a1b1e89557f8f4e3b168146db))
+
+
+
+
+
 # [9.8.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.7.2...@leavittsoftware/storybook@9.8.0) (2021-09-23)
 
 
