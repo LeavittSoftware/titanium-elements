@@ -1,0 +1,46 @@
+name: Build Lint Publish
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'develop'
+      - 'master'
+  pull_request:
+    branches: ['*']
+env:
+  PROD_SERVER: LGUTWEB06
+  DEV_SERVER: LGUTWEB06
+jobs:
+  build-lint-publish:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      - run: echo "REPOSITORY_NAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
+        shell: bash
+      - name: 'Determine if master'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        run: |
+          echo "SERVER_HOST=${{ env.DEV_SERVER }}" >> $GITHUB_ENV
+          echo "PROJECT_PATH=${{ env.REPOSITORY_NAME }}" >> $GITHUB_ENV
+      - name: 'Determine if develop'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+        run: |
+          echo "SERVER_HOST=${{ env.PROD_SERVER }}" >> $GITHUB_ENV
+          echo "PROJECT_PATH=dev${{ env.REPOSITORY_NAME }}" >> $GITHUB_ENV
+      - name: NPM install
+        run: npm install
+      - name: Lint
+        run: npm run lint
+      - name: Run build
+        run: run build:storybook
+      - name: Publishing to server ${{ env.SERVER_HOST }}...
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop')
+        uses: Burnett01/rsync-deployments@4.1
+        with:
+          switches: -avzr --delete
+          path: dist/
+          remote_path: /var/www/${{ env.PROJECT_PATH }}
+          remote_host: ${{ env.SERVER_HOST }}
+          remote_key: ${{ secrets.LGUTWEB0607_KEY }}
+          remote_user: programming
