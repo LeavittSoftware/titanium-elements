@@ -12,7 +12,7 @@ env:
   PROD_SERVER: LGUTWEB06
   DEV_SERVER: LGUTWEB06
 jobs:
-  build-lint-publish:
+  build-storybook:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
