@@ -24,6 +24,7 @@ import { TitaniumDataTableElement } from './titanium-data-table';
  * @cssprop {Color} --app-text-color - Row text color
  * @cssprop {Color} --app-hover-color - Row hover color
  * @cssprop {Color} --app-border-color - Bottom division line
+ * @cssprop {Color} --titanium-data-table-font-family - Set the font family of the data table item
  */
 @customElement('titanium-data-table-item')
 export class TitaniumDataTableItemElement extends LitElement {
