@@ -38,6 +38,7 @@ declare const ResizeObserver: any;
  * @cssprop {Color} --app-dark-text-color - Heading and table control color
  * @cssprop {Color} --app-light-text-color - Select all checkbox fill color
  * @cssprop {Color} --app-border-color - Table border color
+ * @cssprop {Color} --titanium-data-table-font-family - Set the font family used on the data table and paging control
  */
 @customElement('titanium-data-table')
 export class TitaniumDataTableElement extends LitElement {
