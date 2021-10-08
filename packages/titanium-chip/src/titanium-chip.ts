@@ -18,6 +18,8 @@ import { CheckableElement, SingleSelectionController } from '@material/mwc-radio
  * @cssprop {Color} --app-text-color - Label color
  * @cssprop {Color} --titanium-chip-label-background-color - Chip background color
  * @cssprop {Color} --app-hover-color - Hover background color
+ * @cssprop {Color} --titanium-side-menu-item-selected-background-color - Selected BG color
+ * @cssprop {Color} --titanium-side-menu-item-selected-color - Checked text and icon color
  */
 @customElement('titanium-chip')
 export class TitaniumChipElement extends LitElement implements CheckableElement {
