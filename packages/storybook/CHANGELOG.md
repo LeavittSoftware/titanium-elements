@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.9.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.9.0...@leavittsoftware/storybook@9.9.1) (2021-10-08)
+
+
+### Bug Fixes
+
+* deprecates titanium-vaadin  ([5d3e5d2](https://github.com/LeavittSoftware/titanium-elements/commit/5d3e5d2d2c9da4dd2c694af3987cd40b9728bbc4))
+
+
+
+
+
 # [9.9.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.8.0...@leavittsoftware/storybook@9.9.0) (2021-10-06)
 
 
