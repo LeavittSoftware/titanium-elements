@@ -50,7 +50,6 @@
     "@leavittsoftware/titanium-svg-button": "^4.5.0",
     "@leavittsoftware/titanium-tab-control": "^0.3.1",
     "@leavittsoftware/titanium-toolbar": "^0.2.0",
-    "@leavittsoftware/titanium-vaadin": "^2.2.13",
     "@leavittsoftware/titanium-youtube-input": "^0.1.0",
     "@leavittsoftware/user-manager": "^9.5.0",
     "@material/mwc-icon": "*",
