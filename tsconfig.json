@@ -28,7 +28,6 @@
     { "path": "packages/titanium-sw-notifier" },
     { "path": "packages/titanium-tab-control" },
     { "path": "packages/titanium-toolbar" },
-    { "path": "packages/titanium-vaadin" },
     { "path": "packages/leavitt-elements" },
     { "path": "packages/profile-picture" },
     { "path": "packages/titanium-youtube-input" },
