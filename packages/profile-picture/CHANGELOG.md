@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.6.1 (2021-10-11)
+
+
+### Bug Fixes
+
+* add missing .js to LE import ([56358ea](https://github.com/LeavittSoftware/titanium-elements/commit/56358ea6c147f867e86c0752b9ec86636037a073))
+
+
+
+
+
 # [4.6.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/profile-picture@4.5.2...@leavittsoftware/profile-picture@4.6.0) (2021-10-06)
 
 
