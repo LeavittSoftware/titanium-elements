@@ -1,5 +1,5 @@
-﻿import { css, html, LitElement,  } from 'lit';
-import {customElement, property} from 'lit/decorators';
+﻿import { css, html, LitElement } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 
 /**
  * Displays a Leavitt Group users profile picture
