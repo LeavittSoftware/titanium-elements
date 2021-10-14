@@ -15,6 +15,7 @@ import { Attachment } from '@leavittsoftware/lg-core-typescript/lg.core';
  * @cssprop {Color} --app-primary-color - Input border and label color when a file is dragged over
  * @cssprop {Color} --material-error-text-color - Input border, label color, and error message color when input value is invalid
  * @cssprop {Color} --app-text-color - Placeholder color
+ * @cssprop {Color} --titanium-input-placeholder-color - Color of icon button and placeholder text.
  */
 @customElement('titanium-attachment-input')
 export class TitaniumAttachmentInputElement extends LitElement {
@@ -134,7 +135,7 @@ export class TitaniumAttachmentInputElement extends LitElement {
   private _handleNewFile(files: FileList) {
     if (files && files.length > 0) {
       const file = files[0];
-      if (this.allowedFileType.includes(file.type)) {
+      if (!this.allowedFileType?.length || this.allowedFileType?.includes(file.type)) {
         this.file = file;
         this._notifyChange();
         this.reportValidity();
@@ -184,13 +185,13 @@ export class TitaniumAttachmentInputElement extends LitElement {
       }
 
       :host(:not([disabled])[is-over]) attachment-input {
-        border: 2px solid var(--app-primary-color, '#3b95ff') !important;
+        border: 2px solid var(--app-primary-color, #3b95ff) !important;
         padding: 2px 15px;
       }
 
       :host(:not([disabled])[is-over]) span[label] {
         left: 11px;
-        color: var(--app-primary-color, '#3b95ff');
+        color: var(--app-primary-color, #3b95ff);
       }
 
       :host([disabled]) span[label],
@@ -201,8 +202,8 @@ export class TitaniumAttachmentInputElement extends LitElement {
       :host(:not([disabled]):not([isUiValid])) span[placeholder],
       :host(:not([disabled]):not([isUiValid])) span[label],
       :host(:not([disabled]):not([isUiValid])) attachment-input {
-        border-color: var(--material-error-text-color, '#da3227');
-        color: var(--material-error-text-color, '#da3227');
+        border-color: var(--material-error-text-color, #da3227);
+        color: var(--material-error-text-color, #da3227);
         cursor: pointer;
       }
 
@@ -221,10 +222,11 @@ export class TitaniumAttachmentInputElement extends LitElement {
       mwc-icon-button {
         justify-self: right;
         margin-right: -12px;
+        color: var(--titanium-input-placeholder-color, #7d7d7d);
       }
 
       span[placeholder] {
-        color: var(--app-text-color, '#5f6368');
+        color: var(--app-text-color, #5f6368);
         pointer-events: none;
         font-size: 16px;
         letter-spacing: 0.15px;
@@ -235,7 +237,7 @@ export class TitaniumAttachmentInputElement extends LitElement {
         height: 19px;
         justify-content: space-between;
         box-sizing: border-box;
-        color: var(--material-error-text-color, '#da3227');
+        color: var(--material-error-text-color, #da3227);
         -webkit-font-smoothing: antialiased;
         font-size: 0.75rem;
         font-weight: 400;
