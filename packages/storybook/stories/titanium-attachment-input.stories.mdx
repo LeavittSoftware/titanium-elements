@@ -11,6 +11,17 @@ import '@leavittsoftware/titanium-attachment-input';
         disable: true,
       },
     },
+    validationMessage: {
+      control: {
+        type: 'text',
+      },
+    },
+    change: {
+      action: 'Changed!',
+    },
+    fileTypeError: {
+      action: 'File Type Error',
+    },
   }}
   parameters={{
     component: 'titanium-attachment-input',
@@ -39,20 +50,31 @@ import '@leavittsoftware/titanium-attachment-input';
 
 export const TitaniumAttachmentInputStory = ({ data, ...args }) =>
   html`
-    <titanium-attachment-input label="Choose File" placeholder="Select a file" required validationMessage="File is Required"></titanium-attachment-input>
-    <h2>Controlled</h2>
-    <div style="display:grid;grid-auto-flow:column;gap:8px;grid-auto-columns: min-content;">
+    <div style="margin-bottom:8px">
+      <titanium-attachment-input label="Choose File" placeholder="Select a file" required validationMessage="File is Required"></titanium-attachment-input>
+    </div>
+    <div style="margin-bottom:8px">
       <titanium-attachment-input
-        .label=${args['label'] ?? 'Choose File'}
-        .placeholder=${args['placeholder'] ?? 'Select a file'}
-        .validationMessage=${args['validationMessage'] ?? 'File is Required'}
-        .allowedFileType=${args['allowedFileType'] ?? []}
-        ?required=${args['required']}
-        ?disabled=${args['disabled']}
+        label="Choose File"
+        placeholder="Select a file"
+        .attachment=${{ Name: 'preselected', Extension: 'pdf' }}
+        required
+        validationMessage="File is Required"
       ></titanium-attachment-input>
     </div>
+    <h2>Controlled</h2>
+    <titanium-attachment-input
+      .label=${args['label'] || 'Choose File'}
+      .placeholder=${args['placeholder'] || 'Select a file'}
+      .validationMessage=${args['validationMessage'] || 'File is Required'}
+      .allowedFileType=${[]}
+      ?required=${args['required']}
+      ?disabled=${args['disabled']}
+      @change=${args.change}
+      @file-type-error=${args.fileTypeError}
+    ></titanium-attachment-input>
   `;
 
 <Canvas withToolbar>
-  <Story name="Docs">{TitaniumAttachmentInput.bind({})}</Story>
+  <Story name="Docs">{TitaniumAttachmentInputStory.bind({})}</Story>
 </Canvas>
