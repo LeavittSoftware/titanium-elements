@@ -1,0 +1,58 @@
+import { Story, Canvas, Meta, ArgsTable } from '@storybook/addon-docs';
+import { html } from 'lit';
+import { PRIMARY_STORY } from '@storybook/addon-docs';
+import '@leavittsoftware/titanium-attachment-input';
+
+<Meta
+  title="UI COMPONENTS/titanium-attachment-input"
+  argTypes={{
+    styles: {
+      table: {
+        disable: true,
+      },
+    },
+  }}
+  parameters={{
+    component: 'titanium-attachment-input',
+  }}
+/>
+
+# Titanium Attachment Input
+
+Material design inspired file input.
+
+## How to use
+
+```bash
+npm i @leavittsoftware/titanium-attachment-input
+```
+
+```js
+import '@leavittsoftware/titanium-attachment-input';
+```
+
+## API
+
+<ArgsTable story={PRIMARY_STORY} />
+
+## Demo
+
+export const TitaniumAttachmentInputStory = ({ data, ...args }) =>
+  html`
+    <titanium-attachment-input label="Choose File" placeholder="Select a file" required validationMessage="File is Required"></titanium-attachment-input>
+    <h2>Controlled</h2>
+    <div style="display:grid;grid-auto-flow:column;gap:8px;grid-auto-columns: min-content;">
+      <titanium-attachment-input
+        .label=${args['label'] ?? 'Choose File'}
+        .placeholder=${args['placeholder'] ?? 'Select a file'}
+        .validationMessage=${args['validationMessage'] ?? 'File is Required'}
+        .allowedFileType=${args['allowedFileType'] ?? []}
+        ?required=${args['required']}
+        ?disabled=${args['disabled']}
+      ></titanium-attachment-input>
+    </div>
+  `;
+
+<Canvas withToolbar>
+  <Story name="Docs">{TitaniumAttachmentInput.bind({})}</Story>
+</Canvas>

@@ -54,7 +54,7 @@ export class TitaniumAttachmentInputElement extends LitElement {
   @property({ type: String }) validationMessage: string | null = null;
 
   /**
-   *  What file types to allow. This will be bound to the accept attribute of the native input and used to fire @file-type-error if selected file does not match
+   *  What file types to allow or empty array to all all files. This will be bound to the accept attribute of the native input and used to fire @file-type-error if selected file does not match
    */
   @property({ type: Array }) allowedFileType = ['image/svg+xml', 'image/png', 'image/jpeg', 'image/gif', 'application/vnd.ms-excel'];
 
