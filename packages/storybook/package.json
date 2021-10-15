@@ -29,6 +29,7 @@
     "@leavittsoftware/profile-picture": "^4.6.1",
     "@leavittsoftware/titanium-access-denied-page": "^0.2.0",
     "@leavittsoftware/titanium-address-input": "^1.8.0",
+    "@leavittsoftware/titanium-attachment-input": "^0.0.1",
     "@leavittsoftware/titanium-button": "^1.7.0",
     "@leavittsoftware/titanium-card": "^2.2.1",
     "@leavittsoftware/titanium-chip": "^3.4.2",
