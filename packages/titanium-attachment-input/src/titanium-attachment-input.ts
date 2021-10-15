@@ -351,7 +351,7 @@ export class TitaniumAttachmentInputElement extends LitElement {
             type="file"
             id="input"
             name="image"
-            .multiple=${this.multiple}
+            ?multiple=${this.multiple}
             accept=${this.allowedFileType.join(',')}
             @change=${e => {
               this._handleNewFile(e.target.files);
