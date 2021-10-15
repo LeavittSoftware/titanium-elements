@@ -35,6 +35,11 @@ export class TitaniumAttachmentInputElement extends LitElement {
   @property({ type: Boolean }) required: boolean = false;
 
   /**
+   *  Whether to allow selection of multiple files
+   */
+  @property({ type: Boolean }) multiple: boolean = false;
+
+  /**
    * Disables the input
    */
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
@@ -60,11 +65,6 @@ export class TitaniumAttachmentInputElement extends LitElement {
   @property({ type: Array }) allowedFileType = ['image/svg+xml', 'image/png', 'image/jpeg', 'image/gif', 'application/vnd.ms-excel'];
 
   /**
-   *  The selected File if multiple is false, the first selected File if multiple is true, or null if no file is selected
-   */
-  @property({ type: Object }) protected file: File | null = null;
-
-  /**
    *  All selected files, empty if no file is selected
    */
   @property({ type: Array }) protected files: Array<File> = [];
@@ -81,8 +81,8 @@ export class TitaniumAttachmentInputElement extends LitElement {
   /**
    *  selected File object.
    */
-  getFile() {
-    return this.file;
+  getFiles() {
+    return this.files;
   }
 
   /**
@@ -104,14 +104,14 @@ export class TitaniumAttachmentInputElement extends LitElement {
     if (this.originalAttachment) {
       if (this.hasChanges()) {
         //Original was replaced or removed, make sure user set an attachment.  OK
-        return !!this.file;
+        return !!this.files.length;
       }
 
       //Original is still there with no changes.  OK
       return true;
     }
 
-    return !!this.file;
+    return !!this.files.length;
   }
 
   /**
@@ -126,7 +126,7 @@ export class TitaniumAttachmentInputElement extends LitElement {
    *  Returns true if the input's image has changed from empty or since the last call to setAttachment().
    */
   hasChanges() {
-    return !!this.file || JSON.stringify(this.attachment) !== JSON.stringify(this.originalAttachment);
+    return !!this.files.length || JSON.stringify(this.attachment) !== JSON.stringify(this.originalAttachment);
   }
 
   /**
@@ -134,16 +134,15 @@ export class TitaniumAttachmentInputElement extends LitElement {
    */
   reset() {
     this.attachment = null;
-    this.file = null;
+    this.files = [];
     this.isOver = false;
     this.input.value = '';
   }
 
   private _handleNewFile(files: FileList) {
     if (files && files.length > 0) {
-      const file = files[0];
-      if (!this.allowedFileType?.length || this.allowedFileType?.includes(file.type)) {
-        this.file = file;
+      if (!this.allowedFileType?.length || Array.from(files).every(file => this.allowedFileType?.includes(file.type))) {
+        this.files = Array.from(files);
         this._notifyChange();
         this.reportValidity();
       } else {
@@ -316,11 +315,13 @@ export class TitaniumAttachmentInputElement extends LitElement {
         }}
       >
         <attachment-name>
-          ${this.file || this.attachment
-            ? html`${this.file?.name ?? this.attachment?.Name + '.' + this.attachment?.Extension}`
+          ${this.files.length
+            ? html`${this.files.map(o => o.name).join(',')}`
+            : this.attachment
+            ? html`${this.attachment?.Name + '.' + this.attachment?.Extension}`
             : html`<span placeholder>${this.placeholder}</span>`}
         </attachment-name>
-        ${this.file || this.attachment
+        ${this.files.length || this.attachment
           ? html` <mwc-icon-button
               draggable="false"
               title="Remove attachment"
@@ -350,10 +351,10 @@ export class TitaniumAttachmentInputElement extends LitElement {
             type="file"
             id="input"
             name="image"
+            .multiple=${this.multiple}
             accept=${this.allowedFileType.join(',')}
             @change=${e => {
-              const files = e.target.files;
-              this._handleNewFile(files);
+              this._handleNewFile(e.target.files);
             }}
           />
         </label>
