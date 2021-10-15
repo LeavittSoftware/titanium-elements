@@ -79,6 +79,13 @@ export class TitaniumAttachmentInputElement extends LitElement {
   @query('input') protected input: HTMLInputElement;
 
   /**
+   *  selected File object.
+   */
+  getFile() {
+    return this.file;
+  }
+
+  /**
    *  Use to preset input to existing attachment.
    */
   setAttachment(attachment: Partial<Attachment>) {
