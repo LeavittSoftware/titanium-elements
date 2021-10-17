@@ -3,6 +3,9 @@
   "version": "0.0.2",
   "license": "MIT",
   "devDependencies": {
+    "@commitlint/cli": "^13.2.1",
+    "@commitlint/config-conventional": "^13.2.0",
+    "@commitlint/config-lerna-scopes": "^13.2.0",
     "@types/jest": "^27.0.2",
     "@types/node": "^16.9.6",
     "@typescript-eslint/eslint-plugin": "^4.31.2",
@@ -10,6 +13,7 @@
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^7.0.2",
     "jest": "^27.2.1",
     "lerna": "^4.0.0",
     "lit": "^2.0.0",
@@ -21,6 +25,7 @@
   },
   "scripts": {
     "start": "npm run bootstrap && run-p build:watch storybook ",
+    "prepare": "husky install",
     "bootstrap": "lerna bootstrap --ci --hoist",
     "build:watch": "tsc --build --preserveWatchOutput -w",
     "build": "tsc --build --preserveWatchOutput",
