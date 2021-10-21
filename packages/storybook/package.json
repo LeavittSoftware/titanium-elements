@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run gen-docs && run-p  gen-docs:watch storybook:start",
+    "start": "npm run gen-docs && run-p gen-docs storybook:start",
     "storybook:start": "start-storybook -s ./static -p 6006",
     "build-storybook": "build-storybook",
     "site:build": "npm run gen-docs && build-storybook -s ./static -o ./site/titanium-elements",
@@ -26,6 +26,7 @@
   "devDependencies": {
     "@leavittsoftware/api-service": "^7.1.0",
     "@leavittsoftware/leavitt-elements": "^1.9.4",
+    "@leavittsoftware/leavitt-file-explorer": "^1.0.0",
     "@leavittsoftware/profile-picture": "^4.6.1",
     "@leavittsoftware/titanium-access-denied-page": "^0.2.0",
     "@leavittsoftware/titanium-address-input": "^1.8.0",

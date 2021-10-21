@@ -1,0 +1,34 @@
+import { Story, Canvas, Meta, ArgsTable } from '@storybook/addon-docs';
+import { html } from 'lit';
+
+import '@leavittsoftware/leavitt-file-explorer';
+import '@leavittsoftware/user-manager';
+
+<Meta title="UI LEAVITT SPECIFIC/leavitt-file-explorer" parameters={{ component: 'leavitt-file-explorer' }} />
+
+# Leavitt File Explorer
+
+A drop in file explorer that allows download, upload, and creating folder stucture
+
+## How to use
+
+```bash
+npm i @leavittsoftware/leavitt-file-explorer
+```
+
+```js
+import '@leavittsoftware/leavitt-file-explorer';
+```
+
+## API
+
+<ArgsTable of="leavitt-file-explorer" />
+
+## Demo
+
+<Canvas withToolbar>
+  <Story name="Docs">{html`
+    <user-manager></user-manager>
+    <leavitt-file-explorer file-explorer-id="1"></leavitt-file-explorer>
+  `}</Story>
+</Canvas>
