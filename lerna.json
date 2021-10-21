@@ -12,5 +12,5 @@
     }
   },
 
-  "ignoreChanges": ["**/*.md"]
+  "ignoreChanges": ["**/*.md", ".husky/**"]
 }
