@@ -62,12 +62,24 @@ export const TitaniumAttachmentInputStory = ({ data, ...args }) =>
         validationMessage="File is Required"
       ></titanium-attachment-input>
     </div>
+    <div style="margin-bottom:8px">
+      <titanium-attachment-input
+        label="Choose Files"
+        placeholder="Select files"
+        multiple
+        .allowedFileType=${['.csv', 'application/vnd.ms-excel']}
+        style="max-width: 250px"
+        required
+        validationMessage="Files are Required"
+      ></titanium-attachment-input>
+    </div>
     <h2>Controlled</h2>
     <titanium-attachment-input
       .label=${args['label'] || 'Choose File'}
       .placeholder=${args['placeholder'] || 'Select a file'}
       .validationMessage=${args['validationMessage'] || 'File is Required'}
       .allowedFileType=${[]}
+      .multiple=${args['multiple']}
       ?required=${args['required']}
       ?disabled=${args['disabled']}
       @change=${args.change}
