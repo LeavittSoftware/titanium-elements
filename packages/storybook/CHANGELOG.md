@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.12.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.11.0...@leavittsoftware/storybook@9.12.0) (2021-10-26)
+
+
+### Features
+
+*  add first port of the leavitt-file-explorer ([5678154](https://github.com/LeavittSoftware/titanium-elements/commit/567815453c13d2d9641be368e8389b9612cb99f4))
+
+
+
+
+
 # [9.11.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.10.0...@leavittsoftware/storybook@9.11.0) (2021-10-18)
 
 
