@@ -1,6 +1,5 @@
 import '@material/mwc-icon-button';
 import '@material/mwc-button';
-import './leavitt-file-explorer-image';
 
 import { css, html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
@@ -8,9 +7,9 @@ import { h1, h2, h5, p, a, ellipsis } from '@leavittsoftware/titanium-styles';
 
 import dayjs from 'dayjs/esm';
 import { FileExplorerFileDto } from '@leavittsoftware/lg-core-typescript/api2.leavitt.com';
-import { getCdnDownloadUrl } from '@leavittsoftware/titanium-helpers/lib/leavitt-cdn';
-import { Attachment } from '@leavittsoftware/lg-core-typescript/lg.core';
+import { getCdnDownloadUrl, getCdnInlineUrl } from '@leavittsoftware/titanium-helpers/lib/leavitt-cdn';
 import { middleEllipsis } from './text-helpers';
+import { ifDefined } from 'lit-html/directives/if-defined';
 
 @customElement('leavitt-file-detail')
 export class LeavittFileDetailElement extends LitElement {
@@ -46,31 +45,11 @@ export class LeavittFileDetailElement extends LitElement {
     ellipsis,
     css`
       :host {
-        display: block;
-      }
-
-      header {
-        display: flex;
-        flex-direction: row;
-        gap: 24px;
-        padding: 12px 12px 12px 24px;
-        border-bottom: 1px solid var(--app-border-color, #dadce0);
-      }
-
-      header h1 {
-        flex: 1 1 auto;
-      }
-
-      header leavitt-file-explorer-image {
-        flex-shrink: 0;
-        height: 80px;
-        width: 80px;
-        margin-top: 10px;
-      }
-
-      header h1 {
-        margin: 12px 0 0 0;
-        word-break: break-all;
+        display: grid;
+        grid:
+          'body' 1fr
+          'footer';
+        overflow: hidden;
       }
 
       mwc-icon-button {
@@ -80,14 +59,58 @@ export class LeavittFileDetailElement extends LitElement {
       main {
         display: flex;
         flex-direction: column;
-        gap: 24px;
-        margin: 12px 24px;
+        gap: 12px;
+        margin: 24px 24px;
+        overflow: auto;
+      }
+
+      img[preview] {
+        height: auto;
+        width: auto;
+        place-self: center;
+      }
+
+      main[ext='pdf'] img[preview] {
+        border: 1px solid var(--app-border-color, #dadce0);
+      }
+
+      no-preview {
+        display: flex;
+        flex-direction: column;
+        height: 320px;
+        width: 430px;
+        place-self: center;
+        place-content: center;
+        text-align: center;
+        border: 1px dashed var(--app-border-color, #dadce0);
+        border-radius: 8px;
+      }
+
+      file-name {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      file-name h1 {
+        margin: 12px 0 0 0;
+        word-break: break-all;
+        text-align: center;
+      }
+
+      file-name mwc-icon-button {
+        align-self: center;
       }
 
       data-item {
         display: flex;
         flex-direction: column;
         gap: 6px;
+        margin-top: 12px;
+      }
+
+      data-item:first-of-type {
+        margin-top: 4px;
       }
 
       p {
@@ -103,7 +126,7 @@ export class LeavittFileDetailElement extends LitElement {
         gap: 6px;
       }
 
-      img {
+      img[profile] {
         border-radius: 50%;
         height: 18px;
         image-rendering: crisp-edges;
@@ -124,13 +147,21 @@ export class LeavittFileDetailElement extends LitElement {
           align-items: center;
         }
 
-        header leavitt-file-explorer-image {
-          height: 40px;
-          width: 40px;
-        }
-
         p {
           max-width: 250px;
+        }
+
+        img[preview] {
+          place-self: initial;
+        }
+
+        file-name {
+          flex-direction: column;
+        }
+
+        no-preview {
+          height: 120px;
+          width: 230px;
         }
       }
 
@@ -146,19 +177,22 @@ export class LeavittFileDetailElement extends LitElement {
 
   render() {
     return html`
-      <header>
-        <leavitt-file-explorer-image shape="rounded" .attachment=${this.file as Partial<Attachment>}></leavitt-file-explorer-image>
-        <h1 title="${this.file?.Name ?? ''}.${this.file?.Extension ?? ''}">${middleEllipsis(`${this.file?.Name ?? ''}.${this.file?.Extension ?? ''}`)}</h1>
-        <header-actions>
+      <main ext="${this.file?.Extension ?? ''}">
+        ${this.file?.PreviewSizes?.includes('512')
+          ? html` <img preview loading="lazy" src=${ifDefined(getCdnInlineUrl(this.file, 512))} />`
+          : html`<no-preview
+              ><p>Preview not available for</p>
+              <p>${this.file?.Extension}</p></no-preview
+            >`}
+        <file-name>
+          <h1 title="${this.file?.Name ?? ''}.${this.file?.Extension ?? ''}">${middleEllipsis(`${this.file?.Name ?? ''}.${this.file?.Extension ?? ''}`)}</h1>
           <mwc-icon-button
             ?hidden=${!this.enableEditing}
             title="Edit filename"
             @click=${() => this.dispatchEvent(new CustomEvent('edit-click'))}
             icon="create"
           ></mwc-icon-button>
-        </header-actions>
-      </header>
-      <main>
+        </file-name>
         <h2>File details</h2>
         <data-item>
           <h5>Uploaded</h5>
@@ -167,7 +201,7 @@ export class LeavittFileDetailElement extends LitElement {
         <data-item>
           <h5>Uploaded By</h5>
           <div user>
-            <img onerror="this.src='https://cdn.leavitt.com/user-0-32.jpeg'" src="https://cdn.leavitt.com/user-${this.file?.CreatorId}-32.jpeg" />
+            <img profile onerror="this.src='https://cdn.leavitt.com/user-0-32.jpeg'" src="https://cdn.leavitt.com/user-${this.file?.CreatorId}-32.jpeg" />
             <p>${this.file?.CreatorFirstName} ${this.file?.CreatorLastName}</p>
           </div>
         </data-item>
