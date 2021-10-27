@@ -9,7 +9,7 @@ import dayjs from 'dayjs/esm';
 import { FileExplorerFileDto } from '@leavittsoftware/lg-core-typescript/api2.leavitt.com';
 import { getCdnDownloadUrl, getCdnInlineUrl } from '@leavittsoftware/titanium-helpers/lib/leavitt-cdn';
 import { middleEllipsis } from './text-helpers';
-import { ifDefined } from 'lit-html/directives/if-defined';
+import { ifDefined } from 'lit-html/directives/if-defined.js';
 
 @customElement('leavitt-file-detail')
 export class LeavittFileDetailElement extends LitElement {
