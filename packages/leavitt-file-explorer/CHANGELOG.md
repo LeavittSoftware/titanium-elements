@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@1.5.0...@leavittsoftware/leavitt-file-explorer@1.6.0) (2021-10-27)
+
+
+### Bug Fixes
+
+* improve visual feedback on check icon ([153fea6](https://github.com/LeavittSoftware/titanium-elements/commit/153fea65483f84407f0561252478e4afe8a33c58))
+* stop prop for confirmation dialog event in case listener is present up tree ([28eb371](https://github.com/LeavittSoftware/titanium-elements/commit/28eb371a93388fc22cff725b2f74facc378e3b8f))
+
+
+### Features
+
+* implement multi-select and multi-delete ([43f1d0a](https://github.com/LeavittSoftware/titanium-elements/commit/43f1d0a0007671e66c05ef1c220e5ec722406c13))
+
+
+
+
+
 # [1.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@1.4.0...@leavittsoftware/leavitt-file-explorer@1.5.0) (2021-10-27)
 
 
