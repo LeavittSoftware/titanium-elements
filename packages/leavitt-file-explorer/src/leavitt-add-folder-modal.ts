@@ -92,6 +92,11 @@ export class LeavittAddFolderModalElement extends LitElement {
         <div slot="content">
           <main>
             <mwc-textfield
+              @keyup=${(event: KeyboardEvent) => {
+                if (event.key === 'Enter') {
+                  this.#save();
+                }
+              }}
               @input=${event => {
                 this.name = event.target.value;
               }}
