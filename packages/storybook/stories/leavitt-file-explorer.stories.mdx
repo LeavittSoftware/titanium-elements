@@ -3,6 +3,7 @@ import { html } from 'lit';
 
 import '@leavittsoftware/leavitt-file-explorer';
 import '@leavittsoftware/user-manager';
+import '@leavittsoftware/titanium-snackbar';
 
 <Meta title="UI LEAVITT SPECIFIC/leavitt-file-explorer" parameters={{ component: 'leavitt-file-explorer' }} />
 
@@ -28,6 +29,7 @@ import '@leavittsoftware/leavitt-file-explorer';
 
 <Canvas withToolbar>
   <Story name="Docs">{html`
+    <titanium-snackbar></titanium-snackbar>
     <user-manager></user-manager>
     <leavitt-file-explorer file-explorer-id="1"></leavitt-file-explorer>
   `}</Story>
