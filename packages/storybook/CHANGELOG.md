@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.13.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.12.2...@leavittsoftware/storybook@9.13.0) (2021-10-27)
+
+
+### Features
+
+* add snackbar to file-explorer demo ([60a8f7f](https://github.com/LeavittSoftware/titanium-elements/commit/60a8f7f34270bd69671cbc14e22a80970df043e1))
+
+
+
+
+
 ## [9.12.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.12.1...@leavittsoftware/storybook@9.12.2) (2021-10-27)
 
 **Note:** Version bump only for package @leavittsoftware/storybook

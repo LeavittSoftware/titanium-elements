@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@1.2.1...@leavittsoftware/leavitt-file-explorer@1.3.0) (2021-10-27)
+
+
+### Features
+
+* add support for multi file upload ([ea4bb2c](https://github.com/LeavittSoftware/titanium-elements/commit/ea4bb2cb0e1e336b996dda6505bde2ad7cfd9f97))
+
+
+
+
+
 ## [1.2.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@1.2.0...@leavittsoftware/leavitt-file-explorer@1.2.1) (2021-10-27)
 
 
