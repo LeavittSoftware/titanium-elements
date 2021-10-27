@@ -64,7 +64,7 @@ export class LeavittFileExplorerImageElement extends LitElement {
   render() {
     return html`
       ${this.attachment?.PreviewSizes?.includes('512')
-        ? html`<img loading="lazy" src=${ifDefined(getCdnInlineUrl(this.attachment, 512))} />`
+        ? html`<img draggable="false" loading="lazy" src=${ifDefined(getCdnInlineUrl(this.attachment, 512))} />`
         : html` <mwc-icon>${getIcon(this.attachment?.Extension ?? '')}</mwc-icon>`}
     `;
   }
