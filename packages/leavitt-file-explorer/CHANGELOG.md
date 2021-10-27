@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@1.2.0...@leavittsoftware/leavitt-file-explorer@1.2.1) (2021-10-27)
+
+
+### Bug Fixes
+
+* add .js to import........... ([7364b4a](https://github.com/LeavittSoftware/titanium-elements/commit/7364b4a92432266a4efa2894ab50c5196fb61294))
+
+
+
+
+
 # [1.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@1.1.0...@leavittsoftware/leavitt-file-explorer@1.2.0) (2021-10-27)
 
 
