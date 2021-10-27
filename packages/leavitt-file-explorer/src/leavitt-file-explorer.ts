@@ -93,6 +93,7 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
     this.display = this.display;
 
     this.addEventListener(ConfirmDialogOpenEvent.eventType, async (e: ConfirmDialogOpenEvent) => {
+      e.stopPropagation();
       await import('@leavittsoftware/titanium-dialog/lib/confirm-dialog');
       this.confirmDialog.handleEvent(e);
     });
