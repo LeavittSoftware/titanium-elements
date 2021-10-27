@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@1.3.0...@leavittsoftware/leavitt-file-explorer@1.4.0) (2021-10-27)
+
+
+### Features
+
+* adds support for enter key down on add folder input ([b135a03](https://github.com/LeavittSoftware/titanium-elements/commit/b135a03f643c63fccbc98197884be4d6f3dc514a))
+
+
+
+
+
 # [1.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@1.2.1...@leavittsoftware/leavitt-file-explorer@1.3.0) (2021-10-27)
 
 
