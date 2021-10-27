@@ -514,7 +514,7 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
       }
 
       file-item svg[check] {
-        color: #707175;
+        color: #bebebe;
       }
 
       file-item svg[check] {
@@ -529,6 +529,10 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
       file-item:hover svg[check],
       file-item[selected] svg[check] {
         display: block;
+      }
+
+      file-item:not([selected]) svg[check]:hover {
+        color: #707175;
       }
 
       file-item[selected] svg[check] {
