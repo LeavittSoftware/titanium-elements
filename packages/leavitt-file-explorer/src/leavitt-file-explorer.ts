@@ -218,7 +218,7 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
       } else {
         del = api2Service.deleteAsync(`FileExplorerFolders(${selected?.Id})`);
       }
-      this.dispatchEvent(new PendingStateEvent(del));
+      this.loadWhile(del);
       await del;
 
       const idx = this[`${collection}`].findIndex(o => o.Id === selected?.Id);
@@ -242,6 +242,46 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
     } else {
       this.fileDialog.open(this.selected);
     }
+  }
+
+  async #uploadFiles(files: FileList | null) {
+    const uri = this.folderId
+      ? `FileExplorerFolders(${this.folderId})/Default.UploadAttachment()?$expand=Creator($select=Firstname,Lastname)`
+      : `FileExplorers(${this.fileExplorerId})/Default.UploadAttachment()?$expand=Creator($select=Firstname,Lastname)`;
+
+    const errorMessageToCount: Map<string, number> = new Map();
+    let totalErrorCount = 0;
+    const requests = Promise.all(
+      Array.from(files ?? []).map(async file => {
+        try {
+          const result = (await mapiService.uploadFile<FileExplorerAttachment>(uri, file, () => console.log)).entity;
+          if (result) {
+            const attachment: FileExplorerFileDto = {
+              ...result,
+              CreatorFirstName: result.Creator?.FirstName ?? '',
+              CreatorLastName: result.Creator?.LastName ?? '',
+            };
+            this.files = [...this.files, attachment];
+            this.state = 'files';
+          }
+        } catch (newError) {
+          const newErrorCount = (errorMessageToCount.get(newError) ?? 0) + 1;
+          errorMessageToCount.set(newError, newErrorCount);
+          totalErrorCount++;
+        }
+      })
+    );
+    this.loadWhile(requests);
+    await requests;
+    if (totalErrorCount > 0) {
+      TitaniumSnackbarSingleton.open(
+        html`Failed to upload ${totalErrorCount === 1 ? 'file' : `${totalErrorCount} files: <br />`}.
+        ${errorMessageToCount.size === 1
+          ? Array.from(errorMessageToCount.keys())[0]
+          : Array.from(errorMessageToCount.entries()).map(([error, count]) => `(${count}) ${error} <br />`)}`
+      );
+    }
+    this.fileInput.value = '';
   }
 
   static styles = [
@@ -827,33 +867,10 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
                 <mwc-button lowercase ?disabled=${this.isLoading} label="Upload" file @click=${() => this.fileInput.click()} icon="backup"></mwc-button>
                 <input
                   @change=${async () => {
-                    if (this.fileInput?.files?.[0]) {
-                      try {
-                        const uri = this.folderId
-                          ? `FileExplorerFolders(${this.folderId})/Default.UploadAttachment()?$expand=Creator($select=Firstname,Lastname)`
-                          : `FileExplorers(${this.fileExplorerId})/Default.UploadAttachment()?$expand=Creator($select=Firstname,Lastname)`;
-
-                        const upload = mapiService.uploadFile<FileExplorerAttachment>(uri, this.fileInput?.files?.[0], () => console.log);
-                        this.dispatchEvent(new PendingStateEvent(upload));
-                        const result = (await upload).entity;
-                        if (result) {
-                          const attachment: FileExplorerFileDto = {
-                            ...result,
-                            CreatorFirstName: result.Creator?.FirstName ?? '',
-                            CreatorLastName: result.Creator?.LastName ?? '',
-                          };
-                          console.log(attachment);
-                          this.files = [attachment, ...this.files];
-                          this.state = 'files';
-                        }
-                      } catch (error) {
-                        TitaniumSnackbarSingleton.open(error);
-                      } finally {
-                        this.fileInput.value = '';
-                      }
-                    }
+                    this.#uploadFiles(this.fileInput.files);
                   }}
                   type="file"
+                  multiple
                   id="file"
                   style="display:none;"
                 />
