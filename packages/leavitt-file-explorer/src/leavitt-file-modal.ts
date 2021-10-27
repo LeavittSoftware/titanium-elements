@@ -34,6 +34,7 @@ export class LeavittFileModalElement extends LitElement {
 
   async open(file: FileExplorerFileDto) {
     this.file = file;
+    this.state = 'view';
     await this.updateComplete;
     return await this.dialog.open();
   }
@@ -41,7 +42,8 @@ export class LeavittFileModalElement extends LitElement {
   static styles = css`
     :host {
       display: block;
-      --titanium-dialog-max-width: 550px;
+      --titanium-dialog-max-width: 850px;
+      --titanium-dialog-max-height: 850px;
     }
   `;
 
