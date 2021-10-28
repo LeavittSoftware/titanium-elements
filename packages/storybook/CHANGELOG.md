@@ -3,6 +3,76 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.13.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.13.3...@leavittsoftware/storybook@9.13.4) (2021-10-27)
+
+**Note:** Version bump only for package @leavittsoftware/storybook
+
+
+
+
+
+## [9.13.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.13.2...@leavittsoftware/storybook@9.13.3) (2021-10-27)
+
+**Note:** Version bump only for package @leavittsoftware/storybook
+
+
+
+
+
+## [9.13.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.13.1...@leavittsoftware/storybook@9.13.2) (2021-10-27)
+
+**Note:** Version bump only for package @leavittsoftware/storybook
+
+
+
+
+
+## [9.13.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.13.0...@leavittsoftware/storybook@9.13.1) (2021-10-27)
+
+**Note:** Version bump only for package @leavittsoftware/storybook
+
+
+
+
+
+# [9.13.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.12.2...@leavittsoftware/storybook@9.13.0) (2021-10-27)
+
+
+### Features
+
+* add snackbar to file-explorer demo ([60a8f7f](https://github.com/LeavittSoftware/titanium-elements/commit/60a8f7f34270bd69671cbc14e22a80970df043e1))
+
+
+
+
+
+## [9.12.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.12.1...@leavittsoftware/storybook@9.12.2) (2021-10-27)
+
+**Note:** Version bump only for package @leavittsoftware/storybook
+
+
+
+
+
+## [9.12.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.12.0...@leavittsoftware/storybook@9.12.1) (2021-10-27)
+
+**Note:** Version bump only for package @leavittsoftware/storybook
+
+
+
+
+
+# [9.12.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.11.0...@leavittsoftware/storybook@9.12.0) (2021-10-26)
+
+
+### Features
+
+*  add first port of the leavitt-file-explorer ([5678154](https://github.com/LeavittSoftware/titanium-elements/commit/567815453c13d2d9641be368e8389b9612cb99f4))
+
+
+
+
+
 # [9.11.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.10.0...@leavittsoftware/storybook@9.11.0) (2021-10-18)
 
 

@@ -29,6 +29,7 @@
     { "path": "packages/titanium-tab-control" },
     { "path": "packages/titanium-toolbar" },
     { "path": "packages/leavitt-elements" },
+    { "path": "packages/leavitt-file-explorer" },
     { "path": "packages/profile-picture" },
     { "path": "packages/titanium-youtube-input" },
     { "path": "packages/titanium-attachment-input" },
