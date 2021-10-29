@@ -214,10 +214,7 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
                 1
               );
               this.requestUpdate('files');
-              this.selected = [];
             }
-
-            this.state = this.folders.length > 0 || this.files.length > 0 ? 'files' : 'no-files';
           } catch (newError) {
             const newErrorCount = (errorMessageToCount.get(newError) ?? 0) + 1;
             errorMessageToCount.set(newError, newErrorCount);
@@ -227,6 +224,8 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
       );
       this.loadWhile(requests);
       await requests;
+      this.selected = [];
+      this.state = this.folders.length > 0 || this.files.length > 0 ? 'files' : 'no-files';
       if (totalErrorCount > 0) {
         TitaniumSnackbarSingleton.open(
           html`Failed to delete ${totalErrorCount === 1 ? 'files and folders' : `${totalErrorCount} files and folders: <br />`}.
