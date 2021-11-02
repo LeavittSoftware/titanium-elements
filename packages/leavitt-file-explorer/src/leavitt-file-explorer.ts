@@ -182,7 +182,6 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
     if (newFolder) {
       this.folders = [...this.folders, newFolder];
       this.state = 'files';
-      // this.selected = [...this.selected, { ...newFolder, type: 'folder' }];
       this.dispatchEvent(new CustomEvent('folder-added', { detail: newFolder }));
     }
   }
@@ -431,8 +430,9 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
         box-sizing: border-box;
         grid: 'icon name' / auto 1fr;
         align-items: center;
+        align-content: center;
         gap: 8px;
-        padding: 12px 24px;
+        padding: 0 24px;
         font-size: 14px;
         border-bottom: 1px solid var(--app-border-color, #dadce0);
 
@@ -447,7 +447,7 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
         cursor: pointer;
         border: 1px solid var(--app-border-color, #dadce0);
         border-radius: 8px;
-        padding: 12px;
+        padding: 0 12px;
         max-height: 50px;
       }
 
@@ -459,9 +459,23 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
         background-color: var(--leavitt-file-explorer-selected-bg-color, #e8f0fe);
       }
 
-      folder-item mwc-icon {
+      folder-item icon-wrapper {
         grid-area: icon;
+        --mdc-icon-size: 32px;
         color: var(--app-accent-color-blue, #4285f4);
+        position: relative;
+      }
+
+      folder-count {
+        font-family: Metropolis, 'Roboto', 'Noto', sans-serif;
+        color: var(--app-accent-color-blue, #4285f4);
+        position: absolute;
+        top: 8px;
+        left: 4px;
+        right: 5px;
+        font-size: 12px;
+        line-height: 20px;
+        text-align: center;
       }
 
       folder-item span {
@@ -724,7 +738,7 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
                       return;
                     }
                     if (this.#isFolder(this.selected[0])) {
-                      this.folderDialog.open(this.selected[0]);
+                      this.folderDialog.open(this.selected[0] as FileExplorerFolderDto);
                     } else {
                       this.fileDialog.open(this.selected[0] as FileExplorerFileDto);
                     }
@@ -752,7 +766,8 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
                   ?selected=${this.selected.some(s => s?.Id === folder.Id && s.type === 'folder')}
                   tabindex="0"
                   aria-label=${folder.Name ?? ''}
-                  title=${folder.Name ?? ''}
+                  title="${folder.Name ?? ''}
+${folder.FilesCount} file${folder.FilesCount === 1 ? '' : 's'}, ${folder.FoldersCount} folder${folder.FoldersCount === 1 ? '' : 's'}"
                   @dblclick=${e => {
                     e.preventDefault();
                     this.folderId = folder.Id ?? null;
@@ -773,7 +788,10 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
                     }
                   }}
                 >
-                  <mwc-icon>folder_open</mwc-icon>
+                  <icon-wrapper>
+                    <mwc-icon>folder_open</mwc-icon>
+                    <folder-count>${folder.FilesCount || ''}</folder-count>
+                  </icon-wrapper>
                   <span>${folder.Name}</span>
                 </folder-item>
               `
