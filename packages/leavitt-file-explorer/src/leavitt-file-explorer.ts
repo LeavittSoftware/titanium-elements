@@ -42,6 +42,11 @@ import ConfirmDialogElement from '@leavittsoftware/titanium-dialog/lib/confirm-d
  * @cssprop {Color} --app-primary-color
  * @cssprop {Color} --leavitt-file-explorer-font-family - Font family
  * @cssprop {Color} --leavitt-file-explorer-selected-bg-color - selected file and folder item bg color
+ *
+ * @fires folder-added - Fired when a new folder is added.
+ * @fires folder-deleted - Fired when a folder is deleted.
+ * @fires file-added - Fired when a new file is added.
+ * @fires file-deleted - Fired when a file is deleted.
  */
 @customElement('leavitt-file-explorer')
 export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
@@ -205,6 +210,7 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
                 this.folders.findIndex(folder => folder.Id === o.Id),
                 1
               );
+              this.dispatchEvent(new CustomEvent('folder-deleted'));
               this.requestUpdate('folders');
             } else {
               await mapiService.deleteAsync(`FileExplorerAttachments(${o.Id})`);
@@ -213,6 +219,7 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
                 1
               );
               this.requestUpdate('files');
+              this.dispatchEvent(new CustomEvent('file-deleted'));
             }
           } catch (newError) {
             const newErrorCount = (errorMessageToCount.get(newError) ?? 0) + 1;
@@ -255,6 +262,7 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
             };
             this.files = [...this.files, attachment];
             this.state = 'files';
+            this.dispatchEvent(new CustomEvent('file-added'));
           }
         } catch (newError) {
           const newErrorCount = (errorMessageToCount.get(newError) ?? 0) + 1;
