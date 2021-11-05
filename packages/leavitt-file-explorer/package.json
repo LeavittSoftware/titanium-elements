@@ -19,6 +19,8 @@
     "@leavittsoftware/titanium-styles": "^0.3.0",
     "@material/mwc-button": "*",
     "@material/mwc-icon": "*",
+    "@material/mwc-menu": "*",
+    "@material/mwc-list": "*",
     "@material/mwc-icon-button": "*",
     "@material/mwc-linear-progress": "*",
     "@material/mwc-textfield": "*",

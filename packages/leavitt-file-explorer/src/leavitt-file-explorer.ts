@@ -16,7 +16,7 @@ import { FormatBytes } from './format-bytes';
 import dayjs from 'dayjs/esm';
 import { LeavittFolderModalElement } from './leavitt-folder-modal';
 import { FileExplorerFolderDto, FileExplorerPathDto, FileExplorerFileDto, FileExplorerDto } from '@leavittsoftware/lg-core-typescript/api2.leavitt.com';
-import { FileExplorerAttachment } from '@leavittsoftware/lg-core-typescript/lg.core';
+import { FileExplorerAttachment, FileExplorerFolder } from '@leavittsoftware/lg-core-typescript/lg.core';
 import { LeavittAddFolderModalElement } from './leavitt-add-folder-modal';
 import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar';
 import { LeavittFileModalElement } from './leavitt-file-modal';
@@ -28,6 +28,9 @@ import fileExplorerEvents from './file-explorer-events';
 import { LoadWhile } from '@leavittsoftware/titanium-helpers';
 import { getIcon } from './file-types';
 import ConfirmDialogElement from '@leavittsoftware/titanium-dialog/lib/confirm-dialog';
+import { ActionDetail } from '@material/mwc-list';
+import { Menu } from '@material/mwc-menu';
+import { Button } from '@material/mwc-button';
 
 /**
  * Leavitt Group specific file explorer
@@ -87,8 +90,11 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
   @query('leavitt-folder-modal') private folderDialog!: LeavittFolderModalElement;
   @query('leavitt-add-folder-modal') private addFolderModal!: LeavittAddFolderModalElement;
   @query('leavitt-file-modal') private fileDialog!: LeavittFileModalElement;
-  @query('input') private fileInput!: HTMLInputElement;
+  @query('input[files]') private fileInput!: HTMLInputElement;
+  @query('input[folders]') private folderInput!: HTMLInputElement;
   @query('confirm-dialog') private confirmDialog: ConfirmDialogElement;
+  @query('mwc-button[upload]') private uploadButton: Button;
+  @query('mwc-menu') private uploadMenu: Menu;
 
   #originalFolderId = 0;
 
@@ -131,17 +137,25 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
       }
 
       this.isAdmin = false;
-      await this.#getExplorerData(this.fileExplorerId, this.folderId);
+      await this.reload();
     }
 
     if (changedProps.has('isAdmin') && this.isAdmin) {
       //load admin elements
       await import('./leavitt-add-folder-modal');
+      await import('@material/mwc-menu');
+      await import('@material/mwc-list/mwc-list-item');
+      await this.updateComplete;
+      this.uploadMenu.anchor = this.uploadButton;
     }
   }
 
   #isFolder(fileOrFolder: ((FileExplorerFolderDto | FileExplorerFileDto) & { type: 'folder' | 'file' }) | null) {
     return fileOrFolder?.type === 'folder';
+  }
+
+  async reload() {
+    await this.#getExplorerData(this.fileExplorerId, this.folderId);
   }
 
   async #getExplorerData(fileExplorerId: number, folderId: number | null) {
@@ -243,6 +257,51 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
     }
   }
 
+  #getFolderPath(file: File) {
+    return file.webkitRelativePath.replace('/' + file.name, '');
+  }
+
+  async #createDirectoryStructure(files: FileList | null) {
+    const pathToFolderId = new Map<string, number>();
+
+    const filesArr = Array.from(files ?? []);
+    for (let index = 0; index < filesArr.length; index++) {
+      const file = filesArr[index];
+      const parentFolderPath = this.#getFolderPath(file).split('/');
+
+      const parentFolders: string[] = [];
+      let parentId = this.folderId;
+      for (let index = 0; index < parentFolderPath.length; index++) {
+        const folderName = parentFolderPath[index];
+
+        const newPath = [...parentFolders, folderName].join('/');
+
+        if (pathToFolderId.has(newPath)) {
+          parentFolders.push(folderName);
+          parentId = pathToFolderId.get(newPath) ?? 0;
+          continue;
+        }
+
+        const folder = await this.#createFolder(folderName, parentId || null);
+        parentId = folder?.Id ?? 0;
+        parentFolders.push(folderName);
+        pathToFolderId.set(parentFolders.join('/'), folder?.Id ?? 0);
+
+        if ((folder?.ParentFolderId && folder?.ParentFolderId === this.folderId) || (!folder?.ParentFolderId && !this.folderId)) {
+          const folderDto = {
+            ...folder,
+            CreatorLastName: folder?.CreatorPerson?.LastName,
+            CreatorFirstName: folder?.CreatorPerson?.FirstName,
+          } as FileExplorerFolderDto;
+          this.folders = [...this.folders, folderDto];
+          this.state = 'files';
+          this.dispatchEvent(new CustomEvent('folder-added', { detail: folderDto }));
+        }
+      }
+    }
+    return pathToFolderId;
+  }
+
   async #uploadFiles(files: FileList | null) {
     const uri = this.folderId
       ? `FileExplorerFolders(${this.folderId})/Default.UploadAttachment()?$expand=Creator($select=Firstname,Lastname)`
@@ -282,6 +341,65 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
       );
     }
     this.fileInput.value = '';
+  }
+
+  async #uploadFolders(files: FileList | null) {
+    const directoryToIdMap = this.#createDirectoryStructure(files);
+
+    const errorMessageToCount: Map<string, number> = new Map();
+    let totalErrorCount = 0;
+    const requests = Promise.all(
+      Array.from(files ?? []).map(async file => {
+        try {
+          const path = this.#getFolderPath(file);
+          const folderId = (await directoryToIdMap).get(path);
+
+          const uri = folderId
+            ? `FileExplorerFolders(${folderId})/Default.UploadAttachment()?$expand=Creator($select=Firstname,Lastname)`
+            : `FileExplorers(${this.fileExplorerId})/Default.UploadAttachment()?$expand=Creator($select=Firstname,Lastname)`;
+
+          const result = (await mapiService.uploadFile<FileExplorerAttachment>(uri, file, () => console.log)).entity;
+          if (result) {
+            this.dispatchEvent(new CustomEvent('file-added'));
+          }
+        } catch (newError) {
+          const newErrorCount = (errorMessageToCount.get(newError) ?? 0) + 1;
+          errorMessageToCount.set(newError, newErrorCount);
+          totalErrorCount++;
+        }
+      })
+    );
+    this.loadWhile(requests);
+    await requests;
+
+    if (totalErrorCount > 0) {
+      TitaniumSnackbarSingleton.open(
+        html`Failed to upload ${totalErrorCount === 1 ? 'file' : `${totalErrorCount} files: <br />`}.
+        ${errorMessageToCount.size === 1
+          ? Array.from(errorMessageToCount.keys())[0]
+          : Array.from(errorMessageToCount.entries()).map(([error, count]) => `(${count}) ${error} <br />`)}`
+      );
+    }
+    await this.reload();
+    this.folderInput.value = '';
+  }
+
+  async #createFolder(name: string, parentFolderId: number | null) {
+    const dto: Partial<FileExplorerFolder> = {
+      FileExplorerId: this.fileExplorerId,
+      Name: name,
+      ParentFolderId: parentFolderId || undefined,
+    };
+
+    try {
+      const post = api2Service.postAsync<FileExplorerFolder>('FileExplorerFolders?$expand=CreatorPerson($select=FirstName,LastName)', dto);
+      const result = (await post).entity;
+      this.dispatchEvent(new PendingStateEvent(post));
+      return result;
+    } catch (error) {
+      TitaniumSnackbarSingleton.open(error);
+    }
+    return null;
   }
 
   #toggleSelected(item: FileExplorerFileDto | FileExplorerFolderDto, type: 'folder' | 'file') {
@@ -880,10 +998,56 @@ ${folder.FilesCount} file${folder.FilesCount === 1 ? '' : 's'}, ${folder.Folders
 
         ${this.isAdmin
           ? html`
-              <div footer-actions>
+              <div footer-actions style="position: relative;">
                 <mwc-button lowercase ?disabled=${this.isLoading} label="Add folder" file @click=${this.#addFolderClick} icon="create_new_folder"></mwc-button>
-                <mwc-button lowercase ?disabled=${this.isLoading} label="Upload" file @click=${() => this.fileInput.click()} icon="backup"></mwc-button>
+                <mwc-button
+                  lowercase
+                  upload
+                  ?disabled=${this.isLoading}
+                  label="Upload"
+                  @click=${() => this.shadowRoot?.querySelector<Menu>('mwc-menu[upload-menu]')?.show()}
+                  file
+                  icon="backup"
+                ></mwc-button>
+                <mwc-menu
+                  upload-menu
+                  corner="BOTTOM_END"
+                  menuCorner="END"
+                  @action=${(e: CustomEvent<ActionDetail>) => {
+                    switch (e.detail.index) {
+                      case 0:
+                        this.fileInput.click();
+                        break;
+
+                      case 1:
+                        this.folderInput.click();
+                        break;
+                    }
+                  }}
+                >
+                  <mwc-list-item graphic="icon">
+                    <span>Upload files</span>
+                    <mwc-icon slot="graphic">upload_file</mwc-icon>
+                  </mwc-list-item>
+                  <mwc-list-item graphic="icon">
+                    <span>Upload folders</span>
+                    <mwc-icon slot="graphic">drive_folder_upload</mwc-icon>
+                  </mwc-list-item>
+                </mwc-menu>
                 <input
+                  folders
+                  @change=${async () => {
+                    this.#uploadFolders(this.folderInput.files);
+                  }}
+                  type="file"
+                  webkitdirectory
+                  directory
+                  multiple
+                  id="file"
+                  style="display:none;"
+                />
+                <input
+                  files
                   @change=${async () => {
                     this.#uploadFiles(this.fileInput.files);
                   }}
