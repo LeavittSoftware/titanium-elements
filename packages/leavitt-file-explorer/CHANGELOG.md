@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@1.8.0...@leavittsoftware/leavitt-file-explorer@1.9.0) (2021-11-05)
+
+
+### Features
+
+* allow full directory uploading ([#187](https://github.com/LeavittSoftware/titanium-elements/issues/187)) ([8efb411](https://github.com/LeavittSoftware/titanium-elements/commit/8efb4114083fb6f43828fac27c1b1ca34c5ea834))
+
+
+
+
+
 # [1.8.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@1.7.0...@leavittsoftware/leavitt-file-explorer@1.8.0) (2021-11-02)
 
 
