@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/profile-picture",
   "description": "",
   "author": "Leavitt Software",
-  "version": "4.6.1",
+  "version": "4.6.2",
   "license": "MIT",
   "main": "lib/profile-picture.js",
   "typings": "lib/profile-picture.d.ts",
@@ -19,9 +19,9 @@
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
   "dependencies": {
-    "@leavittsoftware/titanium-helpers": "^4.0.0",
+    "@leavittsoftware/titanium-helpers": "^4.1.0",
     "@leavittsoftware/titanium-popup-surface": "^0.4.0",
-    "@leavittsoftware/user-manager": "^9.5.0",
+    "@leavittsoftware/user-manager": "^9.5.1",
     "@material/mwc-button": "*",
     "tslib": "^1.11.1"
   },

@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@1.9.0...@leavittsoftware/leavitt-file-explorer@1.10.0) (2021-11-08)
+
+
+### Bug Fixes
+
+* deleting folder properly clear the selected [] ([c954fb8](https://github.com/LeavittSoftware/titanium-elements/commit/c954fb876d4322d3ddbd1cc6d4c1ec273af3d1f4))
+
+
+### Features
+
+* add added and removed events ([111610f](https://github.com/LeavittSoftware/titanium-elements/commit/111610fc395780044217b7a5834ef1052fee1bcc))
+* add file count to folder icons; dispatch folder added event ([e3235cb](https://github.com/LeavittSoftware/titanium-elements/commit/e3235cb8fa83890d9c7d3fed7467e3bdbb1e9204))
+* allow full directory uploading ([ee37a53](https://github.com/LeavittSoftware/titanium-elements/commit/ee37a535acb2f7dca1e5a378394253082a1720a4))
+
+
+
+
+
 # [1.9.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@1.8.0...@leavittsoftware/leavitt-file-explorer@1.9.0) (2021-11-05)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.1.0 (2021-11-08)
+
+
+### Features
+
+* fallback to original image size if previews are not available ([6988d44](https://github.com/LeavittSoftware/titanium-elements/commit/6988d4451da973c75c5db643153eb4052072e74d))
+
+
+
+
+
 # 4.0.0 (2021-09-23)
 
 
