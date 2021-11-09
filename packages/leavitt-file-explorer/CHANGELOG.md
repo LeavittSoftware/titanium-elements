@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.11.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@1.10.0...@leavittsoftware/leavitt-file-explorer@1.11.0) (2021-11-09)
+
+
+### Features
+
+* better error messages; sets limit for max parallel uploads  ([1fb0c62](https://github.com/LeavittSoftware/titanium-elements/commit/1fb0c62b1e3f00eef82b9e59405384e25bebea76))
+
+
+
+
+
 # [1.10.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@1.9.0...@leavittsoftware/leavitt-file-explorer@1.10.0) (2021-11-08)
 
 

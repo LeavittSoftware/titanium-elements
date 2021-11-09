@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-helpers@4.1.0...@leavittsoftware/titanium-helpers@4.2.0) (2021-11-09)
+
+
+### Features
+
+* add join func ([552eae4](https://github.com/LeavittSoftware/titanium-elements/commit/552eae42987dbec4d81b86aafe59ab62db52aa08))
+
+
+
+
+
 # 4.1.0 (2021-11-08)
 
 
