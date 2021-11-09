@@ -1,4 +1,5 @@
 import { Attachment } from '@leavittsoftware/lg-core-typescript/lg.core';
+import { escapeTerm } from './titanium-helpers';
 
 /*
  * Requires CdnFileName,PreviewExtension,PreviewSizes,Extension
@@ -11,14 +12,14 @@ export function getCdnInlineUrl(attachment: Partial<Attachment> | null | undefin
   if (!attachment?.PreviewSizes || !attachment?.PreviewSizes?.split(',').includes(String(size))) {
     if (isImage(attachment)) {
       //Return original size
-      return `https://cdn.leavitt.com/${attachment.CdnFileName}.${attachment.Extension}`;
+      return `https://cdn.leavitt.com/${escapeTerm(attachment.CdnFileName)}.${attachment.Extension}`;
     }
     return undefined;
   }
 
   return size
-    ? `https://cdn.leavitt.com/${attachment.CdnFileName}-${size}.${attachment.PreviewExtension}`
-    : `https://cdn.leavitt.com/${attachment.CdnFileName}.${attachment.Extension}`;
+    ? `https://cdn.leavitt.com/${escapeTerm(attachment.CdnFileName)}-${size}.${attachment.PreviewExtension}`
+    : `https://cdn.leavitt.com/${escapeTerm(attachment.CdnFileName)}.${attachment.Extension}`;
 }
 
 export function isImage(attachment: Partial<Attachment>) {
