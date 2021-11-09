@@ -24,6 +24,7 @@
     "@material/mwc-list": "*",
     "@material/mwc-menu": "*",
     "@material/mwc-textfield": "*",
+    "promise-parallel-throttle": "^3.3.0",
     "dayjs": "*",
     "tslib": "^2.3.1"
   },

@@ -11,6 +11,7 @@ import './leavitt-file-explorer-image';
 import './leavitt-folder-modal';
 import './leavitt-file-modal';
 
+import * as Throttle from 'promise-parallel-throttle';
 import { button, h1, a, ellipsis } from '@leavittsoftware/titanium-styles';
 import { FormatBytes } from './format-bytes';
 import dayjs from 'dayjs/esm';
@@ -25,7 +26,7 @@ import { PendingStateEvent } from '@leavittsoftware/titanium-loading-indicator/l
 import api2Service from './api2-service';
 import mapiService from './mapi-service';
 import fileExplorerEvents from './file-explorer-events';
-import { LoadWhile } from '@leavittsoftware/titanium-helpers';
+import { join, LoadWhile } from '@leavittsoftware/titanium-helpers';
 import { getIcon } from './file-types';
 import ConfirmDialogElement from '@leavittsoftware/titanium-dialog/lib/confirm-dialog';
 import { ActionDetail } from '@material/mwc-list';
@@ -307,38 +308,33 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
       ? `FileExplorerFolders(${this.folderId})/Default.UploadAttachment()?$expand=Creator($select=Firstname,Lastname)`
       : `FileExplorers(${this.fileExplorerId})/Default.UploadAttachment()?$expand=Creator($select=Firstname,Lastname)`;
 
-    const errorMessageToCount: Map<string, number> = new Map();
-    let totalErrorCount = 0;
-    const requests = Promise.all(
-      Array.from(files ?? []).map(async file => {
-        try {
-          const result = (await mapiService.uploadFile<FileExplorerAttachment>(uri, file, () => console.log)).entity;
-          if (result) {
-            const attachment: FileExplorerFileDto = {
-              ...result,
-              CreatorFirstName: result.Creator?.FirstName ?? '',
-              CreatorLastName: result.Creator?.LastName ?? '',
-            };
-            this.files = [...this.files, attachment];
-            this.state = 'files';
-            this.dispatchEvent(new CustomEvent('file-added'));
-          }
-        } catch (newError) {
-          const newErrorCount = (errorMessageToCount.get(newError) ?? 0) + 1;
-          errorMessageToCount.set(newError, newErrorCount);
-          totalErrorCount++;
+    const failedFiles: string[] = [];
+    const requests = Array.from(files ?? []).map(file => async () => {
+      try {
+        const result = (await mapiService.uploadFile<FileExplorerAttachment>(uri, file, () => console.log)).entity;
+        if (result) {
+          const attachment: FileExplorerFileDto = {
+            ...result,
+            CreatorFirstName: result.Creator?.FirstName ?? '',
+            CreatorLastName: result.Creator?.LastName ?? '',
+          };
+          this.files = [...this.files, attachment];
+          this.state = 'files';
+          this.dispatchEvent(new CustomEvent('file-added'));
         }
-      })
-    );
-    this.loadWhile(requests);
-    await requests;
-    if (totalErrorCount > 0) {
-      TitaniumSnackbarSingleton.open(
-        html`Failed to upload ${totalErrorCount === 1 ? 'file' : `${totalErrorCount} files: <br />`}.
-        ${errorMessageToCount.size === 1
-          ? Array.from(errorMessageToCount.keys())[0]
-          : Array.from(errorMessageToCount.entries()).map(([error, count]) => `(${count}) ${error} <br />`)}`
-      );
+      } catch (error) {
+        failedFiles.push(file.name + ': ' + error);
+      }
+    });
+
+    const uploadAll = Throttle.all(requests, { maxInProgress: 4 });
+    this.loadWhile(uploadAll);
+    await uploadAll;
+
+    if (failedFiles.length > 0) {
+      TitaniumSnackbarSingleton.open(html`Failed to upload ${failedFiles.length} file${failedFiles.length === 1 ? '' : 's'}: <br />
+        ${join(failedFiles, html`<br />`)}`);
+      console.warn(`Failed to upload ${failedFiles.length} file${failedFiles.length === 1 ? '' : 's'}: \r\n${failedFiles.join('\r\n')}`);
     }
     this.fileInput.value = '';
   }
@@ -346,39 +342,33 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
   async #uploadFolders(files: FileList | null) {
     const directoryToIdMap = this.#createDirectoryStructure(files);
 
-    const errorMessageToCount: Map<string, number> = new Map();
-    let totalErrorCount = 0;
-    const requests = Promise.all(
-      Array.from(files ?? []).map(async file => {
-        try {
-          const path = this.#getFolderPath(file);
-          const folderId = (await directoryToIdMap).get(path);
+    const failedFiles: string[] = [];
+    const requests = Array.from(files ?? []).map(file => async () => {
+      try {
+        const path = this.#getFolderPath(file);
+        const folderId = (await directoryToIdMap).get(path);
 
-          const uri = folderId
-            ? `FileExplorerFolders(${folderId})/Default.UploadAttachment()?$expand=Creator($select=Firstname,Lastname)`
-            : `FileExplorers(${this.fileExplorerId})/Default.UploadAttachment()?$expand=Creator($select=Firstname,Lastname)`;
+        const uri = folderId
+          ? `FileExplorerFolders(${folderId})/Default.UploadAttachment()?$expand=Creator($select=Firstname,Lastname)`
+          : `FileExplorers(${this.fileExplorerId})/Default.UploadAttachment()?$expand=Creator($select=Firstname,Lastname)`;
 
-          const result = (await mapiService.uploadFile<FileExplorerAttachment>(uri, file, () => console.log)).entity;
-          if (result) {
-            this.dispatchEvent(new CustomEvent('file-added'));
-          }
-        } catch (newError) {
-          const newErrorCount = (errorMessageToCount.get(newError) ?? 0) + 1;
-          errorMessageToCount.set(newError, newErrorCount);
-          totalErrorCount++;
+        const result = (await mapiService.uploadFile<FileExplorerAttachment>(uri, file, () => console.log)).entity;
+        if (result) {
+          this.dispatchEvent(new CustomEvent('file-added'));
         }
-      })
-    );
-    this.loadWhile(requests);
-    await requests;
+      } catch (error) {
+        failedFiles.push(file.webkitRelativePath + ': ' + error);
+      }
+    });
 
-    if (totalErrorCount > 0) {
-      TitaniumSnackbarSingleton.open(
-        html`Failed to upload ${totalErrorCount === 1 ? 'file' : `${totalErrorCount} files: <br />`}.
-        ${errorMessageToCount.size === 1
-          ? Array.from(errorMessageToCount.keys())[0]
-          : Array.from(errorMessageToCount.entries()).map(([error, count]) => `(${count}) ${error} <br />`)}`
-      );
+    const uploadAll = Throttle.all(requests, { maxInProgress: 4 });
+    this.loadWhile(uploadAll);
+    await uploadAll;
+
+    if (failedFiles.length > 0) {
+      TitaniumSnackbarSingleton.open(html`Failed to upload ${failedFiles.length} file${failedFiles.length === 1 ? '' : 's'}: <br />
+        ${join(failedFiles, html`<br />`)}`);
+      console.warn(`Failed to upload ${failedFiles.length} file${failedFiles.length === 1 ? '' : 's'}: \r\n${failedFiles.join('\r\n')}`);
     }
     await this.reload();
     this.folderInput.value = '';
