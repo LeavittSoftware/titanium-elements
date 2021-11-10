@@ -83,8 +83,11 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
 
   @property({ type: String }) private state: 'no-permission' | 'files' | 'no-files' | 'error' = 'files';
   @state() isAdmin: boolean = false;
+
+  @state() private fileExplorer: FileExplorerDto | null = null;
   @state() private files: FileExplorerFileDto[] = [];
   @state() private folders: FileExplorerFolderDto[] = [];
+
   @state() private path: FileExplorerPathDto[] = [];
   @state() private selected: ((FileExplorerFolderDto | FileExplorerFileDto) & { type: 'folder' | 'file' })[] = [];
 
@@ -165,6 +168,7 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
       this.loadWhile(get);
       const result = await get;
       if (result.status == 200 && result.entity) {
+        this.fileExplorer = result.entity;
         this.folders = result.entity.Folders as FileExplorerFolderDto[];
         this.files = result.entity.Files as FileExplorerFileDto[];
 
@@ -484,7 +488,7 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
         grid:
           'nav actions'
           'loader loader' 4px / 4fr auto;
-        gap: 8px 12px;
+        gap: 0px 12px;
 
         margin: 0;
         padding: 12px 12px 0 12px;
@@ -496,15 +500,24 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
         margin: 0 -12px;
       }
 
-      header nav {
+      header aside {
         grid-area: nav;
+      }
 
+      header nav {
         display: flex;
         flex-direction: row;
         align-items: center;
         gap: 2px;
         font-size: 18px;
         margin-left: 12px !important;
+      }
+
+      file-summary {
+        grid-area: summary;
+        display: block;
+        padding-left: 12px !important;
+        font-size: 12px;
       }
 
       header nav mwc-icon {
@@ -583,13 +596,13 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
       }
 
       folder-count {
-        font-family: Metropolis, 'Roboto', 'Noto', sans-serif;
+        font-family: 'Roboto', 'Noto', sans-serif;
         color: var(--app-accent-color-blue, #4285f4);
         position: absolute;
         top: 8px;
         left: 4px;
         right: 5px;
-        font-size: 12px;
+        font-size: 11px;
         line-height: 20px;
         text-align: center;
       }
@@ -812,30 +825,37 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
   render() {
     return html`
       <header>
-        <nav heading1 ellipsis>
-          ${this.path.map(
-            (o, i) =>
-              html`
-                ${i == this.path.length - 1
-                  ? html` <span ellipsis end title=${o?.Name ?? ''}> ${o.Name} </span> `
-                  : html`
-                      <a
-                        ellipsis
-                        title=${o.Name ?? ''}
-                        href="#"
-                        @click=${e => {
-                          e.preventDefault();
-                          this.folderId = o.FolderId ?? null;
-                          this.selected = [];
-                        }}
-                      >
-                        ${o.Name}</a
-                      >
-                      <mwc-icon>navigate_next</mwc-icon>
-                    `}
-              `
-          )}
-        </nav>
+        <aside ellipsis>
+          <nav heading1 ellipsis>
+            ${this.fileExplorer
+              ? this.path.map(
+                  (o, i) =>
+                    html`
+                      ${i == this.path.length - 1
+                        ? html` <span ellipsis end title=${o?.Name ?? ''}> ${o.Name} </span> `
+                        : html`
+                            <a
+                              ellipsis
+                              title=${o.Name ?? ''}
+                              href="#"
+                              @click=${e => {
+                                e.preventDefault();
+                                this.folderId = o.FolderId ?? null;
+                                this.selected = [];
+                              }}
+                            >
+                              ${o.Name}</a
+                            >
+                            <mwc-icon>navigate_next</mwc-icon>
+                          `}
+                    `
+                )
+              : html`<span ellipsis end> File explorer</span>`}
+          </nav>
+          <file-summary ?hidden=${!this.fileExplorer} ellipsis heading3
+            >${this.fileExplorer?.FilesCount} files | ${this.fileExplorer?.FoldersCount} folders</file-summary
+          >
+        </aside>
         <header-actions>
           ${this.selected
             ? html`
@@ -865,6 +885,7 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
             `
             : ''}
         </header-actions>
+
         <mwc-linear-progress ?hidden=${!this.isLoading} ?closed=${!this.isLoading} indeterminate></mwc-linear-progress>
       </header>
       <main>
@@ -984,7 +1005,7 @@ ${folder.FilesCount} file${folder.FilesCount === 1 ? '' : 's'}, ${folder.Folders
           icon="${this.display === 'grid' ? 'view_list' : 'view_module'}"
         >
         </mwc-icon-button>
-        <span counts>${this.folders.length} folders | ${this.files.length} files </span>
+        <span counts> ${this.files.length} files | ${this.folders.length} folders </span>
 
         ${this.isAdmin
           ? html`
