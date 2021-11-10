@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.2.1 (2021-11-10)
+
+
+### Bug Fixes
+
+* escape attachment name ([0656450](https://github.com/LeavittSoftware/titanium-elements/commit/065645059b3f63b829ee4bccb58514e0cdadc140))
+
+
+
+
+
 # [4.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-helpers@4.1.0...@leavittsoftware/titanium-helpers@4.2.0) (2021-11-09)
 
 
