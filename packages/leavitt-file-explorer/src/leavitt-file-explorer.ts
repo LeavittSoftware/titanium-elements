@@ -205,6 +205,10 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
     const newFolder = await this.addFolderModal.open();
     if (newFolder) {
       this.folders = [...this.folders, newFolder];
+      if (this.fileExplorer) {
+        this.fileExplorer.FoldersCount = this.fileExplorer?.FoldersCount + 1;
+        this.requestUpdate('fileExplorer');
+      }
       this.state = 'files';
       this.dispatchEvent(new CustomEvent('folder-added', { detail: newFolder }));
     }
@@ -230,6 +234,10 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
                 1
               );
               this.dispatchEvent(new CustomEvent('folder-deleted'));
+              if (this.fileExplorer) {
+                this.fileExplorer.FoldersCount = this.fileExplorer?.FoldersCount - 1;
+                this.requestUpdate('fileExplorer');
+              }
               this.requestUpdate('folders');
             } else {
               await mapiService.deleteAsync(`FileExplorerAttachments(${o.Id})`);
@@ -238,6 +246,10 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
                 1
               );
               this.requestUpdate('files');
+              if (this.fileExplorer) {
+                this.fileExplorer.FilesCount = this.fileExplorer?.FilesCount - 1;
+                this.requestUpdate('fileExplorer');
+              }
               this.dispatchEvent(new CustomEvent('file-deleted'));
             }
           } catch (newError) {
@@ -251,6 +263,7 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
       await requests;
       this.selected = [];
       this.state = this.folders.length > 0 || this.files.length > 0 ? 'files' : 'no-files';
+      await this.reload();
       if (totalErrorCount > 0) {
         TitaniumSnackbarSingleton.open(
           html`Failed to delete ${totalErrorCount === 1 ? 'files and folders' : `${totalErrorCount} files and folders: <br />`}.
@@ -288,6 +301,7 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
         }
 
         const folder = await this.#createFolder(folderName, parentId || null);
+
         parentId = folder?.Id ?? 0;
         parentFolders.push(folderName);
         pathToFolderId.set(parentFolders.join('/'), folder?.Id ?? 0);
@@ -325,6 +339,10 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
           this.files = [...this.files, attachment];
           this.state = 'files';
           this.dispatchEvent(new CustomEvent('file-added'));
+          if (this.fileExplorer) {
+            this.fileExplorer.FilesCount = this.fileExplorer?.FilesCount + 1;
+            this.requestUpdate('fileExplorer');
+          }
         }
       } catch (error) {
         failedFiles.push(file.name + ': ' + error);
@@ -359,6 +377,10 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
         const result = (await mapiService.uploadFile<FileExplorerAttachment>(uri, file, () => console.log)).entity;
         if (result) {
           this.dispatchEvent(new CustomEvent('file-added'));
+          if (this.fileExplorer) {
+            this.fileExplorer.FilesCount = this.fileExplorer?.FilesCount + 1;
+            this.requestUpdate('fileExplorer');
+          }
         }
       } catch (error) {
         failedFiles.push(file.webkitRelativePath + ': ' + error);
@@ -389,6 +411,10 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
       const post = api2Service.postAsync<FileExplorerFolder>('FileExplorerFolders?$expand=CreatorPerson($select=FirstName,LastName)', dto);
       const result = (await post).entity;
       this.dispatchEvent(new PendingStateEvent(post));
+      if (this.fileExplorer) {
+        this.fileExplorer.FoldersCount = this.fileExplorer?.FoldersCount + 1;
+        this.requestUpdate('fileExplorer');
+      }
       return result;
     } catch (error) {
       TitaniumSnackbarSingleton.open(error);
