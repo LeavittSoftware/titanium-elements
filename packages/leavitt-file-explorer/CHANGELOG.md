@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@1.12.0...@leavittsoftware/leavitt-file-explorer@1.12.1) (2021-11-10)
+
+
+### Bug Fixes
+
+* disable nav href's when loading ([770cee3](https://github.com/LeavittSoftware/titanium-elements/commit/770cee312ab7c5290bce1c06f551fc0db855de6e))
+* update counts as files and folders are added and removed ([6a74d23](https://github.com/LeavittSoftware/titanium-elements/commit/6a74d232a75c0030ff3ea956ce45b048bf62fab8))
+
+
+
+
+
 # [1.12.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@1.11.0...@leavittsoftware/leavitt-file-explorer@1.12.0) (2021-11-10)
 
 
