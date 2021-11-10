@@ -568,6 +568,11 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
         min-width: 20px;
       }
 
+      a[disabled] {
+        pointer-events: none;
+        cursor: default;
+      }
+
       nav a span {
         padding: 0;
       }
@@ -861,6 +866,7 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
                         ? html` <span ellipsis end title=${o?.Name ?? ''}> ${o.Name} </span> `
                         : html`
                             <a
+                              ?disabled=${this.isLoading}
                               ellipsis
                               title=${o.Name ?? ''}
                               href="#"
