@@ -40,6 +40,8 @@ export function getCdnDownloadUrl(attachment: Partial<Attachment> | null | undef
   }
 
   return size
-    ? `https://cdn.leavitt.com/${attachment.CdnFileName}-${size}.${attachment.PreviewExtension}?d=${attachment.Name}-${size}.${attachment.PreviewExtension}`
-    : `https://cdn.leavitt.com/${attachment.CdnFileName}.${attachment.Extension}?d=${attachment.Name}.${attachment.Extension}`;
+    ? `https://cdn.leavitt.com/${attachment.CdnFileName}-${size}.${attachment.PreviewExtension}?d=${encodeURIComponent(
+        `${attachment.Name}-${size}.${attachment.PreviewExtension}`
+      )}`
+    : `https://cdn.leavitt.com/${attachment.CdnFileName}.${attachment.Extension}?d=${encodeURIComponent(`${attachment.Name}.${attachment.Extension}`)}`;
 }
