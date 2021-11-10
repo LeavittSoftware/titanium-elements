@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@1.11.0...@leavittsoftware/leavitt-file-explorer@1.12.0) (2021-11-10)
+
+
+### Features
+
+* adds total file and folder count ([93285d1](https://github.com/LeavittSoftware/titanium-elements/commit/93285d165d0b73fc1b9892a9558e39982c6cc683))
+
+
+
+
+
 # [1.11.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@1.10.0...@leavittsoftware/leavitt-file-explorer@1.11.0) (2021-11-09)
 
 
