@@ -431,6 +431,10 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
     }
   }
 
+  #kFormatter(num) {
+    return Math.abs(num) > 999 ? Math.floor((Math.sign(num) * Math.round(Math.abs(num) / 100)) / 10) + 'k+' : Math.sign(num) * Math.abs(num);
+  }
+
   static styles = [
     button,
     h1,
@@ -626,7 +630,7 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
         position: relative;
       }
 
-      folder-count {
+      file-count {
         font-family: 'Roboto', 'Noto', sans-serif;
         color: var(--app-accent-color-blue, #4285f4);
         position: absolute;
@@ -959,7 +963,7 @@ ${folder.FilesCount} file${folder.FilesCount === 1 ? '' : 's'}, ${folder.Folders
                 >
                   <icon-wrapper>
                     <mwc-icon>folder_open</mwc-icon>
-                    <folder-count>${folder.FilesCount || ''}</folder-count>
+                    <file-count>${this.#kFormatter(folder.FilesCount ?? 0) || ''}</file-count>
                   </icon-wrapper>
                   <span>${folder.Name}</span>
                 </folder-item>
