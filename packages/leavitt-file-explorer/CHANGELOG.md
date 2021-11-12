@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@1.12.2...@leavittsoftware/leavitt-file-explorer@1.12.3) (2021-11-12)
+
+
+### Bug Fixes
+
+* rename folder-count to file-count add kformatting to file count ([955295c](https://github.com/LeavittSoftware/titanium-elements/commit/955295cb25ef75fa0d5ad89023f0a4f63829305b))
+
+
+
+
+
 ## [1.12.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@1.12.1...@leavittsoftware/leavitt-file-explorer@1.12.2) (2021-11-10)
 
 **Note:** Version bump only for package @leavittsoftware/leavitt-file-explorer
