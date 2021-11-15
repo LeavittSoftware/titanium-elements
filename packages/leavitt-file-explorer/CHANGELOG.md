@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.13.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@1.12.3...@leavittsoftware/leavitt-file-explorer@1.13.0) (2021-11-15)
+
+
+### Features
+
+* adds file explorer size to header ([c5390b1](https://github.com/LeavittSoftware/titanium-elements/commit/c5390b122a0ebb9b45d9a692ac0d70161133442e))
+
+
+
+
+
 ## [1.12.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@1.12.2...@leavittsoftware/leavitt-file-explorer@1.12.3) (2021-11-12)
 
 
