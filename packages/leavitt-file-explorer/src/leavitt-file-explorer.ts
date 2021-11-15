@@ -248,6 +248,7 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
               this.requestUpdate('files');
               if (this.fileExplorer) {
                 this.fileExplorer.FilesCount = this.fileExplorer?.FilesCount - 1;
+                this.fileExplorer.Size = this.fileExplorer?.Size - (o as FileExplorerFileDto).Size;
                 this.requestUpdate('fileExplorer');
               }
               this.dispatchEvent(new CustomEvent('file-deleted'));
@@ -341,6 +342,7 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
           this.dispatchEvent(new CustomEvent('file-added'));
           if (this.fileExplorer) {
             this.fileExplorer.FilesCount = this.fileExplorer?.FilesCount + 1;
+            this.fileExplorer.Size = this.fileExplorer?.Size + result.Size;
             this.requestUpdate('fileExplorer');
           }
         }
@@ -379,6 +381,7 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
           this.dispatchEvent(new CustomEvent('file-added'));
           if (this.fileExplorer) {
             this.fileExplorer.FilesCount = this.fileExplorer?.FilesCount + 1;
+            this.fileExplorer.Size = this.fileExplorer?.Size + result.Size;
             this.requestUpdate('fileExplorer');
           }
         }
@@ -889,7 +892,7 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
               : html`<span ellipsis end> File explorer</span>`}
           </nav>
           <file-summary ?hidden=${!this.fileExplorer} ellipsis heading3
-            >${this.fileExplorer?.FilesCount} files | ${this.fileExplorer?.FoldersCount} folders</file-summary
+            >${this.fileExplorer?.FilesCount} files | ${this.fileExplorer?.FoldersCount} folders | ${FormatBytes(this.fileExplorer?.Size)}</file-summary
           >
         </aside>
         <header-actions>
