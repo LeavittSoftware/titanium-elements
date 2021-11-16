@@ -553,6 +553,10 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
         font-size: 12px;
       }
 
+      :host([prevent-navigation-up]) file-summary {
+        display: none;
+      }
+
       header nav mwc-icon {
         color: var(--app-light-text-color, #80868b);
         flex-shrink: 0;
