@@ -2,7 +2,7 @@ import '@material/mwc-icon-button';
 import '@material/mwc-button';
 import '@material/mwc-icon';
 
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { h1, h2, h5, p, a, ellipsis } from '@leavittsoftware/titanium-styles';
 
@@ -131,13 +131,15 @@ export class LeavittFolderDetailElement extends LitElement {
           <h5>Created</h5>
           <p>${dayjs(this.folder?.CreatedDate).format('MMM D, YYYY h:mm:ss a')}</p>
         </data-item>
-        <data-item>
-          <h5>Created By</h5>
-          <div user>
-            <img onerror="this.src='https://cdn.leavitt.com/user-0-32.jpeg'" src="https://cdn.leavitt.com/user-${this.folder?.CreatorId}-32.jpeg" />
-            <p>${this.folder?.CreatorFirstName} ${this.folder?.CreatorLastName}</p>
-          </div>
-        </data-item>
+        ${!this.folder?.CreatorId
+          ? nothing
+          : html`<data-item>
+              <h5>Created By</h5>
+              <div user>
+                <img onerror="this.src='https://cdn.leavitt.com/user-0-32.jpeg'" src="https://cdn.leavitt.com/user-${this.folder?.CreatorId}-32.jpeg" />
+                <p>${this.folder?.CreatorFirstName} ${this.folder?.CreatorLastName}</p>
+              </div>
+            </data-item>`}
       </main>
       <footer>
         <mwc-button label="DONE" @click=${() => this.dispatchEvent(new CustomEvent('close-click'))}></mwc-button>

@@ -1,7 +1,7 @@
 import '@material/mwc-icon-button';
 import '@material/mwc-button';
 
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { h1, h2, h5, p, a, ellipsis } from '@leavittsoftware/titanium-styles';
 
@@ -198,13 +198,15 @@ export class LeavittFileDetailElement extends LitElement {
           <h5>Uploaded</h5>
           <p>${dayjs(this.file?.CreatedDate).format('MMM D, YYYY h:mm:ss a')}</p>
         </data-item>
-        <data-item>
-          <h5>Uploaded By</h5>
-          <div user>
-            <img profile onerror="this.src='https://cdn.leavitt.com/user-0-32.jpeg'" src="https://cdn.leavitt.com/user-${this.file?.CreatorId}-32.jpeg" />
-            <p>${this.file?.CreatorFirstName} ${this.file?.CreatorLastName}</p>
-          </div>
-        </data-item>
+        ${!this.file?.CreatorId
+          ? nothing
+          : html`<data-item>
+              <h5>Uploaded By</h5>
+              <div user>
+                <img profile onerror="this.src='https://cdn.leavitt.com/user-0-32.jpeg'" src="https://cdn.leavitt.com/user-${this.file?.CreatorId}-32.jpeg" />
+                <p>${this.file?.CreatorFirstName} ${this.file?.CreatorLastName}</p>
+              </div>
+            </data-item>`}
         <data-item>
           <h5>Direct Download link</h5>
           <p ellipsis>
