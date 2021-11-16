@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@1.13.0...@leavittsoftware/leavitt-file-explorer@1.13.1) (2021-11-16)
+
+
+### Bug Fixes
+
+* hide image unless we have user data ([b1fc343](https://github.com/LeavittSoftware/titanium-elements/commit/b1fc343b3921ac560bfd9686464c27e11aab36ef))
+
+
+
+
+
 # [1.13.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@1.12.3...@leavittsoftware/leavitt-file-explorer@1.13.0) (2021-11-15)
 
 
