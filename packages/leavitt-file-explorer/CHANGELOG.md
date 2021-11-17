@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@1.13.1...@leavittsoftware/leavitt-file-explorer@1.13.2) (2021-11-17)
+
+
+### Bug Fixes
+
+* remove explorer stats when using prevent-navigation-up ([4d6268d](https://github.com/LeavittSoftware/titanium-elements/commit/4d6268dc161d6314636bbef4df2606257a053c55))
+
+
+
+
+
 ## [1.13.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@1.13.0...@leavittsoftware/leavitt-file-explorer@1.13.1) (2021-11-16)
 
 
