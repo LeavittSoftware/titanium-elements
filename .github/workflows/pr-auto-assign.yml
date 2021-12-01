@@ -1,0 +1,13 @@
+name: auto-assign-reviewers
+on:
+  pull_request:
+    types: [opened, reopened]
+jobs:
+  assign:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: LeavittSoftware/auto-pr-assign@master
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          org: LeavittSoftware
+          production-teams: "mikes-angels,ua-academy"
