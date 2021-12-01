@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.14.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.14.0...@leavittsoftware/storybook@9.14.1) (2021-12-01)
+
+
+### Bug Fixes
+
+* makes bad image link an actual bad image ([1fbd8e6](https://github.com/LeavittSoftware/titanium-elements/commit/1fbd8e684c1b4b2c5f2d9ddaf20d75243ac6e246))
+* replace broken images with cdn links ([405668d](https://github.com/LeavittSoftware/titanium-elements/commit/405668d1fa704ffcd0ab47e500dcf717986fa4af))
+* update packages ([be240a3](https://github.com/LeavittSoftware/titanium-elements/commit/be240a30beb47b8b389c3dbdc43a8815a409582f))
+
+
+
+
+
 # [9.14.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.13.14...@leavittsoftware/storybook@9.14.0) (2021-11-17)
 
 
