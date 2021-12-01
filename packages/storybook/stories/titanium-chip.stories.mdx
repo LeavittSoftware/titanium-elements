@@ -59,8 +59,8 @@ import '@leavittsoftware/titanium-chip';
 
 export const TitaniumChipStory = ({ data, ...args }) =>
   html`
-    <titanium-chip label="Adam Driver" src="https://mapi.leavitt.com/People(771130)/Default.Picture(size=32)"></titanium-chip>
-    <titanium-chip label="Adam Driver" closeable src="https://mapi.leavitt.com/People(771130)/Default.Picture(size=32)"></titanium-chip>
+    <titanium-chip label="Adam Driver" src="https://cdn.leavitt.com/user-771130-32.jpeg"></titanium-chip>
+    <titanium-chip label="Adam Driver" closeable src="https://cdn.leavitt.com/user-771130-32.jpeg"></titanium-chip>
     <h2>Selectable Chips</h2>
     <div style="display:grid;grid-auto-flow:column;gap:8px;grid-auto-columns: min-content;">
       <titanium-chip name="Prices" selectable label="1000"></titanium-chip>
@@ -70,11 +70,11 @@ export const TitaniumChipStory = ({ data, ...args }) =>
         name="Prices"
         selectable
         label="Bad image link"
-        src="https://cdn.leavitt.com/user-abc123-32.jpeg"
+        src="https://cdn.leavitt.com/user-77asd0-32.jpeg"
         fallbackSrc="https://www.leavitt.com/application/themes/lg/img/logo/leavitt-group-logo.svg"
       ></titanium-chip>
-      <titanium-chip name="Cash" selectable label="Bad image link"> <mwc-icon slot="chip-icon">savings</mwc-icon></titanium-chip>
-      <titanium-chip name="Offline" selectable label="Bad image link"> <mwc-icon slot="chip-icon">offline_bolt</mwc-icon></titanium-chip>
+      <titanium-chip name="Cash" selectable label="Savings"> <mwc-icon slot="chip-icon">savings</mwc-icon></titanium-chip>
+      <titanium-chip name="Offline" selectable label="Offline"> <mwc-icon slot="chip-icon">offline_bolt</mwc-icon></titanium-chip>
     </div>
     <h2>Controlled</h2>
     <div style="display:grid;grid-auto-flow:column;gap:8px;grid-auto-columns: min-content;">
@@ -83,14 +83,14 @@ export const TitaniumChipStory = ({ data, ...args }) =>
         ?closeable=${args['closeable']}
         ?selectable=${args['selectable']}
         ?disabled=${args['disabled']}
-        src=${args['src'] ?? 'https://mapi.leavitt.com/People(771130)/Default.Picture(size=32)'}
+        src=${args['src'] ?? 'https://cdn.leavitt.com/user-771130-32.jpeg'}
       ></titanium-chip>
       <titanium-chip
         .label=${args['label'] ?? 'Adam Driver'}
         ?closeable=${args['closeable']}
         ?selectable=${args['selectable']}
         ?disabled=${args['disabled']}
-        src=${args['src'] ?? 'https://mapi.leavitt.com/People(771130)/Default.Picture(size=32)'}
+        src=${args['src'] ?? 'https://cdn.leavitt.com/user-771130-32.jpeg'}
       ></titanium-chip>
     </div>
   `;
