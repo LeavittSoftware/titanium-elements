@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/storybook",
-  "version": "9.14.1",
+  "version": "9.14.2",
   "description": "",
   "main": "index.js",
   "scripts": {
