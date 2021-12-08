@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.14.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.14.2...@leavittsoftware/storybook@9.14.3) (2021-12-08)
+
+
+### Bug Fixes
+
+* REVERT user-manager global fix ([e6326e8](https://github.com/LeavittSoftware/titanium-elements/commit/e6326e83233e427d51a70a1f99824220d989463f))
+
+
+
+
+
 ## [9.14.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.14.1...@leavittsoftware/storybook@9.14.2) (2021-12-07)
 
 
