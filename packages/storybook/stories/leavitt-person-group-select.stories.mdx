@@ -4,7 +4,10 @@ import { html } from 'lit';
 import '@leavittsoftware/leavitt-elements/lib/leavitt-person-group-select';
 import '@leavittsoftware/user-manager';
 
-<Meta title="UI LEAVITT SPECIFIC/leavitt-person-group-select" parameters={{ component: 'leavitt-person-group-select' }} />
+<Meta
+  title="UI LEAVITT SPECIFIC/leavitt-person-group-select"
+  parameters={{ component: 'leavitt-person-group-select' }}
+/>
 
 # Leavitt Person or Group Select
 
@@ -27,7 +30,8 @@ import '@leavittsoftware/leavitt-elements/lib/leavitt-person-group-select';
 ## Demo
 
 <Canvas withToolbar>
-  <Story name="Docs">{html` <h2 demo>Standard</h2>
+  <Story name="Docs">{html` <user-manager></user-manager>
+    <h2 demo>Standard</h2>
     <leavitt-person-group-select apiNamespace="EducationAdmin"></leavitt-person-group-select>
     <h2 demo>Required</h2>
     <leavitt-person-group-select required apiNamespace="EducationAdmin"></leavitt-person-group-select>

@@ -29,6 +29,8 @@ import '@leavittsoftware/leavitt-file-explorer';
 
 <Canvas withToolbar>
   <Story name="Docs">{html`
+    <titanium-snackbar></titanium-snackbar>
+    <user-manager></user-manager>
     <leavitt-file-explorer file-explorer-id="1"></leavitt-file-explorer>
     <h1>Start at a folder, prevent nav up dir tree</h1>
     <leavitt-file-explorer file-explorer-id="1" prevent-navigation-up folder-id="1635"></leavitt-file-explorer>
