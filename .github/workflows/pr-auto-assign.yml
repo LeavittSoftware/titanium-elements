@@ -8,6 +8,6 @@ jobs:
     steps:
       - uses: LeavittSoftware/auto-pr-assign@master
         with:
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           org: LeavittSoftware
           production-teams: "mikes-angels,ua-academy"
