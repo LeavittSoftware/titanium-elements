@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 1.14.0 (2021-12-14)
+
+
+### Features
+
+* **leavitt-file-explorer:** dbl click of file in list view opens preview ([a20582b](https://github.com/LeavittSoftware/titanium-elements/commit/a20582ba0afb11983f634e10e585036f6f733f3c))
+* **leavitt-file-explorer:** update preview message verbiage ([a3dc48d](https://github.com/LeavittSoftware/titanium-elements/commit/a3dc48daa7ff3ea40994f2e64812ba0b26b5556f))
+
+
+
+
+
 ## [1.13.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@1.13.1...@leavittsoftware/leavitt-file-explorer@1.13.2) (2021-11-17)
 
 
