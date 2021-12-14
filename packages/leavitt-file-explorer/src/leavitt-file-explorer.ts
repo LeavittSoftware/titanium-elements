@@ -812,11 +812,19 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
       file-item span[date] {
         grid-area: date;
         text-align: center;
+
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
       }
 
       file-item span[size] {
         grid-area: size;
         text-align: right;
+
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
       }
 
       footer {
@@ -848,6 +856,10 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
         letter-spacing: 0.011em;
         line-height: 20px;
         color: var(--app-dark-text-color, #202124);
+
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
       }
 
       div[footer-actions] {
@@ -988,6 +1000,12 @@ ${folder.FilesCount} file${folder.FilesCount === 1 ? '' : 's'}, ${folder.Folders
                   tabindex="0"
                   aria-label="${file.Name}.${file.Extension}"
                   title="${file.Name}.${file.Extension}"
+                  @dblclick=${e => {
+                    e.preventDefault();
+                    if (this.display === 'list' && this.selected.length === 0) {
+                      this.fileDialog.open(file);
+                    }
+                  }}
                   @click=${e => {
                     e.stopPropagation();
 

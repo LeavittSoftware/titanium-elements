@@ -180,10 +180,7 @@ export class LeavittFileDetailElement extends LitElement {
       <main ext="${this.file?.Extension ?? ''}">
         ${this.file?.PreviewSizes?.includes('512')
           ? html` <img preview loading="lazy" src=${ifDefined(getCdnInlineUrl(this.file, 512))} />`
-          : html`<no-preview
-              ><p>Preview not available for</p>
-              <p>${this.file?.Extension}</p></no-preview
-            >`}
+          : html`<no-preview><p>No preview currently available</p> </no-preview> `}
         <file-name>
           <h1 title="${this.file?.Name ?? ''}.${this.file?.Extension ?? ''}">${middleEllipsis(`${this.file?.Name ?? ''}.${this.file?.Extension ?? ''}`)}</h1>
           <mwc-icon-button
