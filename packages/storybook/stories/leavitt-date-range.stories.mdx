@@ -2,6 +2,7 @@ import { Story, Canvas, Meta, ArgsTable } from '@storybook/addon-docs';
 import { html } from 'lit';
 
 import '@leavittsoftware/leavitt-elements/lib/leavitt-date-range';
+import '@material/mwc-button';
 
 <Meta title="UI LEAVITT SPECIFIC/leavitt-date-range" parameters={{ component: 'leavitt-date-range' }} />
 
@@ -26,6 +27,27 @@ import '@leavittsoftware/leavitt-elements/lib/leavitt-date-range';
 ## Demo
 
 <Canvas withToolbar>
-  <Story name="Docs">{html`<h2 demo>leavitt-date-range</h2>
-    <leavitt-date-range @date-range-changed=${e => console.log(e)}></leavitt-date-range>`}</Story>
+  <Story name="Docs">{html`
+    <h2 demo>Empty</h2>
+    <leavitt-date-range @date-range-changed=${e => console.log(e)}></leavitt-date-range>
+    <h2 demo>Custom</h2>
+    <leavitt-date-range @date-range-changed=${e => console.log(e)} startDate="2020-10-10"></leavitt-date-range>
+    <h2 demo>Year to date</h2>
+    <leavitt-date-range
+      @date-range-changed=${e => console.log(e)}
+      startDate="${new Date(`${new Date().getFullYear()}-01-01`).toISOString().split('T')[0]}"
+      endDate="${new Date().toISOString().split('T')[0]}"
+    ></leavitt-date-range>
+    <h2 demo>initially hidden</h2>
+    <mwc-button
+      @click=${async e => {
+        e.target.style.display = 'none';
+        const input = e.target.nextElementSibling;
+        input.style.display = 'grid';
+        input.layout();
+      }}
+      >Show input</mwc-button
+    >
+    <leavitt-date-range style="display:none;" @date-range-changed=${e => console.log(e)}></leavitt-date-range>
+  `}</Story>
 </Canvas>
