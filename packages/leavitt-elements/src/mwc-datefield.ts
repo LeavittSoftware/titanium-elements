@@ -1,6 +1,7 @@
 import { css, CSSResult } from 'lit';
 import { TextField } from '@material/mwc-textfield';
 import { property, customElement } from 'lit/decorators.js';
+import { NotchedOutline } from '@material/mwc-notched-outline';
 
 @customElement('mwc-datefield')
 export class DateField extends TextField {
@@ -12,6 +13,16 @@ export class DateField extends TextField {
       this.type = this.dateType;
     }
   }
+
+  public async layout() {
+    await super.layout();
+    this.labelElement?.floatingLabelFoundation.float(true);
+    (this.outlineElement as (NotchedOutline & { openOrClose(shouldOpen: boolean, width?: number): void }) | null)?.openOrClose(
+      true,
+      this.labelElement?.offsetWidth
+    );
+  }
+
   constructor() {
     super();
     this.type = 'date';

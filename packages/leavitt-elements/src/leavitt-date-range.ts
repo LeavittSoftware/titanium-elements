@@ -5,10 +5,12 @@ import './mwc-datefield';
 import { css, html, LitElement } from 'lit';
 import { property, customElement, query } from 'lit/decorators.js';
 import { DateField } from './mwc-datefield';
+import { Select } from '@material/mwc-select';
 import dayjs, { Dayjs, OpUnitType } from 'dayjs/esm';
 import quarterOfYear from 'dayjs/esm/plugin/quarterOfYear';
-import { Debouncer } from '@leavittsoftware/titanium-helpers';
+import { Debouncer } from '@leavittsoftware/titanium-helpers/lib/titanium-debouncer';
 import { DateRangeChangedEvent } from './DateRangeChangedEvent';
+import { DOMEvent } from './dom-event';
 
 dayjs.extend(quarterOfYear);
 
@@ -21,18 +23,19 @@ const lastQuarter: Dayjs = today.subtract(1, quarter);
 const lastYear: Dayjs = today.subtract(1, 'year');
 
 const dates = {
-  today: { startDate: today, endDate: today },
-  yesterday: { startDate: yesterday, endDate: yesterday },
-  thisWeek: { startDate: today.startOf('week'), endDate: today.endOf('week') },
-  thisMonth: { startDate: today.startOf('month'), endDate: today.endOf('month') },
-  thisQuarter: { startDate: today.startOf(quarter), endDate: today.endOf(quarter) },
-  thisYear: { startDate: today.startOf('year'), endDate: today.endOf('year') },
-  thisYearToDate: { startDate: today.startOf('year'), endDate: today },
-  lastWeek: { startDate: lastWeek.startOf('week'), endDate: lastWeek.endOf('week') },
-  lastMonth: { startDate: lastMonth.startOf('month'), endDate: lastMonth.endOf('month') },
-  lastQuarter: { startDate: lastQuarter.startOf(quarter), endDate: lastQuarter.endOf(quarter) },
-  lastYear: { startDate: lastYear.startOf('year'), endDate: lastYear.endOf('year') },
-  lastYearToDate: { startDate: lastYear.startOf('year'), endDate: today },
+  today: { startDate: today.format('YYYY-MM-DD'), endDate: today.format('YYYY-MM-DD') },
+  yesterday: { startDate: yesterday.format('YYYY-MM-DD'), endDate: yesterday.format('YYYY-MM-DD') },
+  thisWeek: { startDate: today.startOf('week').format('YYYY-MM-DD'), endDate: today.endOf('week').format('YYYY-MM-DD') },
+  thisMonth: { startDate: today.startOf('month').format('YYYY-MM-DD'), endDate: today.endOf('month').format('YYYY-MM-DD') },
+  thisQuarter: { startDate: today.startOf(quarter).format('YYYY-MM-DD'), endDate: today.endOf(quarter).format('YYYY-MM-DD') },
+  thisYear: { startDate: today.startOf('year').format('YYYY-MM-DD'), endDate: today.endOf('year').format('YYYY-MM-DD') },
+  thisYearToDate: { startDate: today.startOf('year').format('YYYY-MM-DD'), endDate: today.format('YYYY-MM-DD') },
+  lastWeek: { startDate: lastWeek.startOf('week').format('YYYY-MM-DD'), endDate: lastWeek.endOf('week').format('YYYY-MM-DD') },
+  lastMonth: { startDate: lastMonth.startOf('month').format('YYYY-MM-DD'), endDate: lastMonth.endOf('month').format('YYYY-MM-DD') },
+  lastQuarter: { startDate: lastQuarter.startOf(quarter).format('YYYY-MM-DD'), endDate: lastQuarter.endOf(quarter).format('YYYY-MM-DD') },
+  lastYear: { startDate: lastYear.startOf('year').format('YYYY-MM-DD'), endDate: lastYear.endOf('year').format('YYYY-MM-DD') },
+  lastYearToDate: { startDate: lastYear.startOf('year').format('YYYY-MM-DD'), endDate: today.format('YYYY-MM-DD') },
+  allTime: { startDate: '', endDate: '' },
 };
 
 @customElement('leavitt-date-range')
@@ -57,24 +60,16 @@ export class LeavittDateRangeElement extends LitElement {
     }
   }
 
-  private _determineRange = (startDate, endDate) => {
-    let range = '';
-    Object.keys(dates).some(key => {
-      if (dates[key].startDate.format('YYYY-MM-DD') === startDate && dates[key].endDate.format('YYYY-MM-DD') === endDate) {
-        range = key;
-        return true;
-      }
-      return false;
-    });
-    return range;
-  };
+  async layout() {
+    return Promise.all([this.startDateField.layout(), this.endDateField.layout()]);
+  }
+
+  private _determineRange(startDate: string, endDate: string) {
+    return Object.entries(dates).find(([key, date]) => !!key.length && date.startDate === startDate && date.endDate === endDate)?.[0] ?? '';
+  }
 
   private _checkValidity() {
-    if (!this.startDate || !this.endDate) {
-      return false;
-    }
-
-    if (dayjs(this.startDate).isAfter(dayjs(this.endDate))) {
+    if (!!this.startDate && !!this.endDate && dayjs(this.startDate).isAfter(dayjs(this.endDate))) {
       this.startDateField.setCustomValidity('Start date must be before end date');
       this.startDateField.reportValidity();
       return false;
@@ -140,18 +135,27 @@ export class LeavittDateRangeElement extends LitElement {
         icon="date_range"
         .value=${this._determineRange(this.startDate, this.endDate)}
         outlined
-        @change=${async event => {
+        @change=${async (event: DOMEvent<Select>) => {
           const date = dates[event.target.value];
-          if (date && (!dayjs(this.startDate).isSame(date.startDate) || !dayjs(this.endDate).isSame(date.endDate))) {
-            this.startDate = date.startDate.format('YYYY-MM-DD');
-            this.endDate = date.endDate.format('YYYY-MM-DD');
-            await this.startDateField.updateComplete;
-            await this.endDateField.updateComplete;
-            this.startDateField.layout();
-            this.endDateField.layout();
-            if (this._checkValidity()) {
-              this.dispatchEvent(new DateRangeChangedEvent(this.startDate, this.endDate));
-            }
+          if (
+            !date ||
+            ((this.startDate === date.startDate || dayjs(this.startDate).isSame(dayjs(date.startDate), 'day')) &&
+              (this.endDate === date.endDate || dayjs(this.endDate).isSame(dayjs(date.endDate), 'day')))
+          ) {
+            return;
+          }
+
+          this.startDate = date.startDate ?? '';
+          this.endDate = date.endDate ?? '';
+
+          await this.startDateField.updateComplete;
+          this.startDateField.layout();
+
+          await this.endDateField.updateComplete;
+          this.endDateField.layout();
+
+          if (this._checkValidity()) {
+            this.dispatchEvent(new DateRangeChangedEvent(this.startDate, this.endDate));
           }
         }}
       >
@@ -168,13 +172,14 @@ export class LeavittDateRangeElement extends LitElement {
         <mwc-list-item graphic="icon" value="lastYear">Last year</mwc-list-item>
         <mwc-list-item graphic="icon" value="lastYearToDate">Last year to date</mwc-list-item>
         <mwc-list-item graphic="icon" value="yesterday">Yesterday</mwc-list-item>
+        <mwc-list-item graphic="icon" value="allTime">All time</mwc-list-item>
       </mwc-select>
 
       <mwc-datefield
         start-date
         label="Start date"
-        value=${this.startDate}
-        @change=${event => {
+        value=${this.startDate ?? ''}
+        @change=${(event: DOMEvent<DateField>) => {
           const value = event.target.value;
           if (this.startDate !== value) {
             this.startDate = value;
@@ -186,8 +191,8 @@ export class LeavittDateRangeElement extends LitElement {
       <mwc-datefield
         end-date
         label="End date"
-        value=${this.endDate}
-        @change=${event => {
+        value=${this.endDate ?? ''}
+        @change=${(event: DOMEvent<DateField>) => {
           const value = event.target.value;
           if (this.endDate !== value) {
             this.endDate = value;

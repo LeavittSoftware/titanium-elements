@@ -2,6 +2,7 @@ import { Story, Canvas, Meta, ArgsTable } from '@storybook/addon-docs';
 import { html } from 'lit';
 
 import '@leavittsoftware/leavitt-elements/lib/mwc-datefield';
+import '@material/mwc-button';
 
 <Meta title="UI LEAVITT SPECIFIC/mwc-datefield" parameters={{ component: 'mwc-datefield' }} />
 
@@ -29,5 +30,20 @@ import '@leavittsoftware/leavitt-elements/lib/mwc-datefield';
   <Story name="Docs">{html`<h2 demo>date</h2>
     <mwc-datefield></mwc-datefield>
     <h2 demo>datetime-local</h2>
-    <mwc-datefield date-type="datetime-local"></mwc-datefield>`}</Story>
+    <mwc-datefield date-type="datetime-local"></mwc-datefield>
+    <h2 demo>date with label</h2>
+    <mwc-datefield label="date"></mwc-datefield>
+    <h2 demo>prefilled with label</h2>
+    <mwc-datefield label="date" value="2020-01-01"></mwc-datefield>
+    <h2 demo>initially hidden</h2>
+    <mwc-button
+      @click=${async e => {
+        e.target.style.display = 'none';
+        const input = e.target.nextElementSibling;
+        input.style.display = 'inline-flex';
+        input.layout();
+      }}
+      >Clear date and show input</mwc-button
+    >
+    <mwc-datefield label="date" style="display:none;"></mwc-datefield> `}</Story>
 </Canvas>
