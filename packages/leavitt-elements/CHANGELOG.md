@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 1.10.0 (2022-01-14)
+
+
+### Bug Fixes
+
+* **leavitt-elements:** force outlined datefield label float ([1ef89aa](https://github.com/LeavittSoftware/titanium-elements/commit/1ef89aa3bcd937a5fe875c5688474662917e5cf7))
+
+
+### Features
+
+* **leavitt-elements:** allow dates to be open-ended(null) and add all-time option ([97e7e2a](https://github.com/LeavittSoftware/titanium-elements/commit/97e7e2a5d93fa7d3e366bbff79381f805bd7a796))
+
+
+
+
+
 ## 1.9.7 (2021-11-10)
 
 **Note:** Version bump only for package @leavittsoftware/leavitt-elements
