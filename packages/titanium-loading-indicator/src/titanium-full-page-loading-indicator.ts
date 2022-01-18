@@ -66,7 +66,7 @@ export class TitaniumFullPageLoadingIndicatorElement extends LitElement {
   private _close() {
     window.clearTimeout(this._openDelayTimer);
     const totalTimeOpened = performance.now() - this._timeOpen;
-    const closeDelay = totalTimeOpened > this._minTimeOpen ? 0 : this._minTimeOpen - totalTimeOpened || 0;
+    const closeDelay = Math.max(this._minTimeOpen - totalTimeOpened, 0);
 
     this._closeDelayTimer = window.setTimeout(() => {
       cancelAnimationFrame(this._animationFrame);
@@ -79,6 +79,7 @@ export class TitaniumFullPageLoadingIndicatorElement extends LitElement {
       this._animationTimer = window.setTimeout(() => {
         this.handleAnimationTimerEnd_();
         document.body.style.overflow = '';
+        this.opened = false;
       }, 150);
     }, closeDelay);
   }
