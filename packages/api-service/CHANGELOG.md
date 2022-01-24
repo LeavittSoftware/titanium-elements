@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 7.2.0 (2022-01-24)
+
+
+### Features
+
+* **api-service:** add support for 409 on POST ([d7ed9a9](https://github.com/LeavittSoftware/titanium-elements/commit/d7ed9a9c7853168ea4c8e33f3bc9c187f322c34a))
+
+
+
+
+
 ## 7.1.3 (2021-11-10)
 
 **Note:** Version bump only for package @leavittsoftware/api-service
