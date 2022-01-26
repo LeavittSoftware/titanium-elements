@@ -55,6 +55,9 @@ export class TitaniumFullPageLoadingIndicatorElement extends LitElement {
       document.body.style.overflow = 'hidden';
 
       this.runNextAnimationFrame_(() => {
+        if (this.closing) {
+          return;
+        }
         this.opened = true;
         this._animationTimer = window.setTimeout(() => {
           this.handleAnimationTimerEnd_();
@@ -79,7 +82,6 @@ export class TitaniumFullPageLoadingIndicatorElement extends LitElement {
       this._animationTimer = window.setTimeout(() => {
         this.handleAnimationTimerEnd_();
         document.body.style.overflow = '';
-        this.opened = false;
       }, 150);
     }, closeDelay);
   }
