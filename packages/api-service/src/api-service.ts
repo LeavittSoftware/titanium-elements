@@ -129,6 +129,10 @@ export default class ApiService {
       return Promise.resolve(new ODataResponse<T>(response, {}));
     }
 
+    if (response.status === 409) {
+      return Promise.reject('Object already exists (409).');
+    }
+
     let json;
     try {
       json = await response.json();
