@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.2.1 (2022-01-26)
+
+
+### Bug Fixes
+
+* **titanium-loading-indicator:** change to prevent setting closing veil to opened ([da807e4](https://github.com/LeavittSoftware/titanium-elements/commit/da807e4851c6030f9b122c6f853b2de4228e9165))
+* **titanium-loading-indicator:** ensure veil is closed when closing is done ([e53a0bc](https://github.com/LeavittSoftware/titanium-elements/commit/e53a0bc00b6b568d1f19f56d95c616384a67bdd4))
+
+
+
+
+
 # 4.2.0 (2021-09-23)
 
 
