@@ -44,6 +44,8 @@ export class UserManager extends LitElement {
 
   @property({ type: String }) tokenUri: string = isDevelopment ? 'https://devoauth2.leavitt.com/token' : 'https://oauth2.leavitt.com/token';
 
+  @property({ type: String }) issuerIdentifier: string = 'https://oauth2.leavitt.com/';
+
   @property({ type: Boolean }) disableAutoload: boolean;
 
   @property({ type: Boolean }) isActiveEmployee: boolean;
@@ -150,7 +152,7 @@ export class UserManager extends LitElement {
     const currentDate = new Date();
     currentDate.setSeconds(currentDate.getSeconds() + 30);
 
-    if (accessToken.iss !== 'https://oauth2.leavitt.com/') {
+    if (accessToken.iss !== this.issuerIdentifier) {
       return false;
     }
 
