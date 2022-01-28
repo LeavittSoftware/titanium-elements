@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 9.6.0 (2022-01-28)
+
+
+### Features
+
+* **user-manager:** make issuer identifier a property ([af1a96c](https://github.com/LeavittSoftware/titanium-elements/commit/af1a96c582cb4225e5683d53259f716d0e6b08e1))
+
+
+
+
+
 ## 9.5.3 (2021-11-10)
 
 **Note:** Version bump only for package @leavittsoftware/user-manager

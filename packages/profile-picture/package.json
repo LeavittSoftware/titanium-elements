@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/profile-picture",
   "description": "",
   "author": "Leavitt Software",
-  "version": "4.6.4",
+  "version": "4.6.5",
   "license": "MIT",
   "main": "lib/profile-picture.js",
   "typings": "lib/profile-picture.d.ts",
@@ -21,7 +21,7 @@
   "dependencies": {
     "@leavittsoftware/titanium-helpers": "^4.2.1",
     "@leavittsoftware/titanium-popup-surface": "^0.4.0",
-    "@leavittsoftware/user-manager": "^9.5.3",
+    "@leavittsoftware/user-manager": "^9.6.0",
     "@material/mwc-button": "*",
     "tslib": "^1.11.1"
   },
