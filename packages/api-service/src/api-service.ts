@@ -77,6 +77,10 @@ export default class ApiService {
               return reject(json.error.message);
             }
 
+            if (json.value != null) {
+              return reject(json.value);
+            }
+
             if (xhr.status === 201 || xhr.status === 200) {
               return resolve(new ODataResponse<T>(xhr.response, json));
             } else {
@@ -144,6 +148,10 @@ export default class ApiService {
       return Promise.reject(json.error.message);
     }
 
+    if (json.value != null) {
+      return Promise.reject(json.value);
+    }
+
     if (response.status === 201 || response.status === 200) {
       return Promise.resolve(new ODataResponse<T>(response, json));
     } else {
@@ -194,6 +202,10 @@ export default class ApiService {
         return Promise.reject(json.error.message);
       }
 
+      if (json.value != null) {
+        return Promise.reject(json.value);
+      }
+
       return Promise.reject('Request error, please try again later.');
     } catch (error) {
       return Promise.reject(`The server sent back invalid JSON. ${error}`);
@@ -237,6 +249,10 @@ export default class ApiService {
 
       if (json.error != null) {
         return Promise.reject(json.error.message);
+      }
+
+      if (json.value != null) {
+        return Promise.reject(json.value);
       }
 
       if (response.status === 200) {
@@ -286,6 +302,10 @@ export default class ApiService {
       return Promise.reject(json.error.message);
     }
 
+    if (json.value != null) {
+      return Promise.reject(json.value);
+    }
+
     if (response.status === 201) {
       return Promise.resolve(new ODataResponse<T>(response, json));
     } else {
@@ -333,6 +353,10 @@ export default class ApiService {
 
     if (json.error) {
       return Promise.reject(json.error.message);
+    }
+
+    if (json.value != null) {
+      return Promise.reject(json.value);
     }
 
     return Promise.resolve(new ODataResponse<T>(response, json));
