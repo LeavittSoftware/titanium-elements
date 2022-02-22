@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@7.2.1...@leavittsoftware/api-service@7.3.0) (2022-02-22)
+
+
+### Features
+
+* **api-service:** add support for value error messages in newer API's ([0ad92a2](https://github.com/LeavittSoftware/titanium-elements/commit/0ad92a226141876df675e41f69c27f053e242ccf))
+
+
+
+
+
 ## 7.2.1 (2022-01-28)
 
 **Note:** Version bump only for package @leavittsoftware/api-service
