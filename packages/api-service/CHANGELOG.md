@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.3.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@7.3.1...@leavittsoftware/api-service@7.3.2) (2022-02-22)
+
+
+### Bug Fixes
+
+* **api-service:** add error status code checks prior to rejecting promise ([fe3fe7a](https://github.com/LeavittSoftware/titanium-elements/commit/fe3fe7a12cc3ebd85db268fd161314c7a1c58450))
+* **api-service:** corrects broken range ([102054e](https://github.com/LeavittSoftware/titanium-elements/commit/102054ebfd760e17f8c42bdb4040346edb1cfeac))
+
+
+
+
+
 ## [7.3.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@7.3.0...@leavittsoftware/api-service@7.3.1) (2022-02-22)
 
 
