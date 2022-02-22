@@ -148,7 +148,7 @@ export default class ApiService {
       return Promise.reject(json.error.message);
     }
 
-    if ((response.status >= 400 || response.status <= 600) && json.value != null) {
+    if (response.status >= 400 && response.status <= 600 && json.value != null) {
       return Promise.reject(json.value);
     }
 
@@ -202,7 +202,7 @@ export default class ApiService {
         return Promise.reject(json.error.message);
       }
 
-      if ((response.status >= 400 || response.status <= 600) && json.value != null) {
+      if (response.status >= 400 && response.status <= 600 && json.value != null) {
         return Promise.reject(json.value);
       }
 
@@ -251,7 +251,7 @@ export default class ApiService {
         return Promise.reject(json.error.message);
       }
 
-      if ((response.status >= 400 || response.status <= 600) && json.value != null) {
+      if (response.status >= 400 && response.status <= 600 && json.value != null) {
         return Promise.reject(json.value);
       }
 
@@ -302,7 +302,7 @@ export default class ApiService {
       return Promise.reject(json.error.message);
     }
 
-    if ((response.status >= 400 || response.status <= 600) && json.value != null) {
+    if (response.status >= 400 && response.status <= 600 && json.value != null) {
       return Promise.reject(json.value);
     }
 
@@ -355,7 +355,7 @@ export default class ApiService {
       return Promise.reject(json.error.message);
     }
 
-    if ((response.status >= 400 || response.status <= 600) && json.value != null) {
+    if (response.status >= 400 && response.status <= 600 && json.value != null) {
       return Promise.reject(json.value);
     }
 
