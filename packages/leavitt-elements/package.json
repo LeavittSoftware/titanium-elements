@@ -19,7 +19,7 @@
     "@material/mwc-menu": "*",
     "@material/mwc-textfield": "*",
     "dayjs": "*",
-    "tslib": "^1.11.1"
+    "tslib": "^2.3.1"
   },
   "peerDependencies": {
     "lit": ">=2.0.0"
