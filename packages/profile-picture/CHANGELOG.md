@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.6.6 (2022-03-01)
+
+
+### Bug Fixes
+
+* get lit and tslib versions nsync ([c8fa1b7](https://github.com/LeavittSoftware/titanium-elements/commit/c8fa1b77320c6b6854009bb076ba0bcc2c632ae0))
+
+
+
+
+
 ## 4.6.5 (2022-01-28)
 
 **Note:** Version bump only for package @leavittsoftware/profile-picture

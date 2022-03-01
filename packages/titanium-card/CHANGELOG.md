@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.2.2 (2022-03-01)
+
+
+### Bug Fixes
+
+* get lit and tslib versions nsync ([c8fa1b7](https://github.com/LeavittSoftware/titanium-elements/commit/c8fa1b77320c6b6854009bb076ba0bcc2c632ae0))
+
+
+
+
+
 ## [2.2.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-card@2.2.0...@leavittsoftware/titanium-card@2.2.1) (2021-09-23)
 
 

@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/user-manager",
   "description": "",
   "author": "Leavitt Software",
-  "version": "9.6.0",
+  "version": "9.6.1",
   "license": "MIT",
   "main": "lib/user-manager.js",
   "typings": "lib/user-manager.d.ts",
@@ -19,7 +19,7 @@
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
   "dependencies": {
-    "@leavittsoftware/titanium-helpers": "^4.2.1",
+    "@leavittsoftware/titanium-helpers": "^4.2.2",
     "jwt-decode": "^3.1.2",
     "tslib": "^2.3.1"
   },

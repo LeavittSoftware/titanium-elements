@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.2.1 (2022-03-01)
+
+
+### Bug Fixes
+
+* get lit and tslib versions nsync ([c8fa1b7](https://github.com/LeavittSoftware/titanium-elements/commit/c8fa1b77320c6b6854009bb076ba0bcc2c632ae0))
+
+
+
+
+
 # [0.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-attachment-input@0.1.0...@leavittsoftware/titanium-attachment-input@0.2.0) (2021-10-18)
 
 

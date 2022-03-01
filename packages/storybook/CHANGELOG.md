@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.16.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.15.6...@leavittsoftware/storybook@9.16.0) (2022-03-01)
+
+
+### Features
+
+* **leavitt-elements:** add range identifier to event and let custom to be same as named ranges ([cad6a46](https://github.com/LeavittSoftware/titanium-elements/commit/cad6a46c21dabef193f80329abb3596a917a895a))
+
+
+
+
+
 ## [9.15.6](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.15.5...@leavittsoftware/storybook@9.15.6) (2022-02-22)
 
 **Note:** Version bump only for package @leavittsoftware/storybook

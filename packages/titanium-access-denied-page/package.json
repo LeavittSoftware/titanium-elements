@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/titanium-access-denied-page",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "",
   "main": "lib/titanium-access-denied-page.js",
   "typings": "lib/titanium-access-denied-page.d.ts",

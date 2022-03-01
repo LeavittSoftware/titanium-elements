@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.11.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@1.10.5...@leavittsoftware/leavitt-elements@1.11.0) (2022-03-01)
+
+
+### Bug Fixes
+
+* get lit and tslib versions nsync ([c8fa1b7](https://github.com/LeavittSoftware/titanium-elements/commit/c8fa1b77320c6b6854009bb076ba0bcc2c632ae0))
+
+
+### Features
+
+* **leavitt-elements:** add range identifier to event and let custom to be same as named ranges ([cad6a46](https://github.com/LeavittSoftware/titanium-elements/commit/cad6a46c21dabef193f80329abb3596a917a895a))
+
+
+
+
+
 ## [1.10.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@1.10.4...@leavittsoftware/leavitt-elements@1.10.5) (2022-02-22)
 
 **Note:** Version bump only for package @leavittsoftware/leavitt-elements

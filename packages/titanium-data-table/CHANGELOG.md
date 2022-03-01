@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 12.3.2 (2022-03-01)
+
+
+### Bug Fixes
+
+* get lit and tslib versions nsync ([c8fa1b7](https://github.com/LeavittSoftware/titanium-elements/commit/c8fa1b77320c6b6854009bb076ba0bcc2c632ae0))
+
+
+
+
+
 ## 12.3.1 (2021-10-08)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-data-table
