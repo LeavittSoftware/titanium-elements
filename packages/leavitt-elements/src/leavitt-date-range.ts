@@ -22,7 +22,7 @@ const lastMonth: Dayjs = today.subtract(1, 'month');
 const lastQuarter: Dayjs = today.subtract(1, quarter);
 const lastYear: Dayjs = today.subtract(1, 'year');
 
-const dates = {
+export const DateRanges = {
   today: { startDate: today.format('YYYY-MM-DD'), endDate: today.format('YYYY-MM-DD') },
   yesterday: { startDate: yesterday.format('YYYY-MM-DD'), endDate: yesterday.format('YYYY-MM-DD') },
   thisWeek: { startDate: today.startOf('week').format('YYYY-MM-DD'), endDate: today.endOf('week').format('YYYY-MM-DD') },
@@ -37,9 +37,11 @@ const dates = {
   lastYearToDate: { startDate: lastYear.startOf('year').format('YYYY-MM-DD'), endDate: today.format('YYYY-MM-DD') },
   allTime: { startDate: '', endDate: '' },
 };
+export type DateRangeType = keyof typeof DateRanges | 'custom';
 
 @customElement('leavitt-date-range')
 export class LeavittDateRangeElement extends LitElement {
+  @property({ type: String }) range: DateRangeType = 'custom';
   @property({ type: String }) startDate: string = '';
   @property({ type: String }) endDate: string = '';
 
@@ -64,10 +66,6 @@ export class LeavittDateRangeElement extends LitElement {
     return Promise.all([this.startDateField.layout(), this.endDateField.layout()]);
   }
 
-  private _determineRange(startDate: string, endDate: string) {
-    return Object.entries(dates).find(([key, date]) => !!key.length && date.startDate === startDate && date.endDate === endDate)?.[0] ?? '';
-  }
-
   private _checkValidity() {
     if (!!this.startDate && !!this.endDate && dayjs(this.startDate).isAfter(dayjs(this.endDate))) {
       this.startDateField.setCustomValidity('Start date must be before end date');
@@ -83,7 +81,7 @@ export class LeavittDateRangeElement extends LitElement {
     () =>
       Promise.resolve().then(() => {
         if (this._checkValidity()) {
-          this.dispatchEvent(new DateRangeChangedEvent(this.startDate, this.endDate));
+          this.dispatchEvent(new DateRangeChangedEvent(this.range, this.startDate, this.endDate));
         }
       }),
     1000
@@ -133,33 +131,29 @@ export class LeavittDateRangeElement extends LitElement {
     return html`
       <mwc-select
         icon="date_range"
-        .value=${this._determineRange(this.startDate, this.endDate)}
+        .value=${this.range}
         outlined
         @change=${async (event: DOMEvent<Select>) => {
-          const date = dates[event.target.value];
-          if (
-            !date ||
-            ((this.startDate === date.startDate || dayjs(this.startDate).isSame(dayjs(date.startDate), 'day')) &&
-              (this.endDate === date.endDate || dayjs(this.endDate).isSame(dayjs(date.endDate), 'day')))
-          ) {
-            return;
+          this.range = event.target.value as DateRangeType;
+          const date = DateRanges[event.target.value];
+
+          if (this.range !== 'custom') {
+            this.startDate = date.startDate ?? '';
+            this.endDate = date.endDate ?? '';
+
+            await this.startDateField.updateComplete;
+            this.startDateField.layout();
+
+            await this.endDateField.updateComplete;
+            this.endDateField.layout();
           }
 
-          this.startDate = date.startDate ?? '';
-          this.endDate = date.endDate ?? '';
-
-          await this.startDateField.updateComplete;
-          this.startDateField.layout();
-
-          await this.endDateField.updateComplete;
-          this.endDateField.layout();
-
           if (this._checkValidity()) {
-            this.dispatchEvent(new DateRangeChangedEvent(this.startDate, this.endDate));
+            this.dispatchEvent(new DateRangeChangedEvent(this.range, this.startDate, this.endDate));
           }
         }}
       >
-        <mwc-list-item graphic="icon" value="">Custom Range</mwc-list-item>
+        <mwc-list-item graphic="icon" value="custom">Custom Range</mwc-list-item>
         <mwc-list-item graphic="icon" value="today">Today</mwc-list-item>
         <mwc-list-item graphic="icon" value="thisWeek">This week</mwc-list-item>
         <mwc-list-item graphic="icon" value="thisMonth">This month</mwc-list-item>
@@ -183,6 +177,7 @@ export class LeavittDateRangeElement extends LitElement {
           const value = event.target.value;
           if (this.startDate !== value) {
             this.startDate = value;
+            this.range = 'custom';
             this._dispatchDateRangeChangeEventDebouncer.debounce();
           }
         }}
@@ -196,6 +191,7 @@ export class LeavittDateRangeElement extends LitElement {
           const value = event.target.value;
           if (this.endDate !== value) {
             this.endDate = value;
+            this.range = 'custom';
             this._dispatchDateRangeChangeEventDebouncer.debounce();
           }
         }}

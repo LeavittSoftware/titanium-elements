@@ -29,16 +29,25 @@ import '@leavittsoftware/leavitt-elements/lib/leavitt-date-range';
 <Canvas withToolbar>
   <Story name="Docs">{html`
     <h2 demo>Empty</h2>
-    <leavitt-date-range @date-range-changed=${e => console.log(e)}></leavitt-date-range>
-    <h2 demo>Custom</h2>
+    <p>Output:</p>
+    <leavitt-date-range
+      @date-range-changed=${e => {
+        console.log(e);
+        e.target.previousElementSibling.innerText =
+          'Output: ' + (e.range != '' ? e.range : 'n/a') + ' = ' + (e.startDate != '' ? e.startDate : 'n/a') + ' - ' + (e.endDate != '' ? e.endDate : 'n/a');
+      }}
+    ></leavitt-date-range>
+    <h2 demo>Custom <span></span></h2>
     <leavitt-date-range @date-range-changed=${e => console.log(e)} startDate="2020-10-10"></leavitt-date-range>
-    <h2 demo>Year to date</h2>
+    <h2 demo>Year to date <span></span></h2>
+    <leavitt-date-range @date-range-changed=${e => console.log(e)} range="thisYearToDate"></leavitt-date-range>
+    <h2 demo>Custom range matching year to date <span></span></h2>
     <leavitt-date-range
       @date-range-changed=${e => console.log(e)}
       startDate="${new Date(`${new Date().getFullYear()}-01-01`).toISOString().split('T')[0]}"
       endDate="${new Date().toISOString().split('T')[0]}"
     ></leavitt-date-range>
-    <h2 demo>initially hidden</h2>
+    <h2 demo>Initially hidden <span></span></h2>
     <mwc-button
       @click=${async e => {
         e.target.style.display = 'none';

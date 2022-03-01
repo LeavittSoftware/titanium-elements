@@ -25,7 +25,7 @@
     "@material/mwc-linear-progress": "*",
     "@material/mwc-list": "*",
     "@material/mwc-select": "*",
-    "tslib": "^1.11.1"
+    "tslib": "^2.3.1"
   },
   "peerDependencies": {
     "lit": ">=2.0.0"
