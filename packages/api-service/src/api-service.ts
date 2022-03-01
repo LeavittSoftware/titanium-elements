@@ -256,7 +256,7 @@ export default class ApiService {
       ? 'Network error. Check your connection and try again.'
       : error?.name === 'AbortError'
       ? 'Abort error. Request has been aborted.'
-      : error;
+      : error?.message || error;
 
     const httpError: HttpError = {
       type: 'HttpError',
