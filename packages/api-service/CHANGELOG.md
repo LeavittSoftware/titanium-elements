@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@7.3.3...@leavittsoftware/api-service@8.0.0) (2022-03-01)
+
+
+### Bug Fixes
+
+* **api-service:** fallback to message then error ([7c39a05](https://github.com/LeavittSoftware/titanium-elements/commit/7c39a05127feae2ebbbae90fd67cf911a607dca2))
+
+
+* feat(api-service)!: add more error details on GET, POST, PATCH, DELETE ([f57e984](https://github.com/LeavittSoftware/titanium-elements/commit/f57e984cef3d019132b7700f56cc32a2211dbc93))
+
+
+### BREAKING CHANGES
+
+* Error return object from GET, POST, PATCH, DELETE has change to HTTPError object
+
+
+
+
+
 ## [7.3.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@7.3.2...@leavittsoftware/api-service@7.3.3) (2022-03-01)
 
 
