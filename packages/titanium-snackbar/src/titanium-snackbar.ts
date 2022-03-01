@@ -1,5 +1,6 @@
 import '@material/mwc-button';
-import { css, html, LitElement, TemplateResult } from 'lit';
+import { HttpError } from '@leavittsoftware/api-service/lib/HttpError';
+import { css, html, LitElement, nothing, TemplateResult } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
 export class BasicSnackBar {
   _isComponent = false;
@@ -45,7 +46,6 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
   @property({ type: Boolean, reflect: true }) protected opened: boolean;
   @property({ type: Boolean, reflect: true }) protected closing: boolean;
   @property({ type: Boolean, reflect: true }) protected opening: boolean;
-  @property({ type: Boolean, reflect: true }) protected thirdline: boolean;
   @property({ type: Boolean, reflect: true }) protected noaction: boolean;
   @property({ type: Boolean, reflect: true }) protected informational: boolean;
   @property({ type: Boolean, reflect: true }) protected error: boolean;
@@ -69,12 +69,6 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
     }
   }
 
-  updated(changedProps) {
-    if (changedProps.has('actionText') && changedProps.get('actionText') !== this.actionText) {
-      this.thirdline = !!this.actionText && this.actionText.length > 8;
-    }
-  }
-
   /**
    * Opens the snackbar with the supplied message.
    *
@@ -85,7 +79,7 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
    * noAction?: boolean;
    *
    */
-  open(message: string | TemplateResult, options?: SnackbarOptions) {
+  open(message: string | TemplateResult | HttpError, options?: SnackbarOptions) {
     return new Promise(resolve => {
       //reset
       clearTimeout(this._closeTimeoutHandle);
@@ -94,8 +88,16 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
       this.error = false;
       this.actionText = 'DISMISS';
 
-      if (message) {
-        this.message = message;
+      if (typeof message !== 'string' && (message as HttpError)?.type === 'HttpError') {
+        const error = message as HttpError;
+        this.message = html` <http-error>
+          <span error>${this.addNewLineBreaks(error.message)}</span>
+          <span status>${error.statusCode}</span>
+          <span action>${error.action}</span>
+          ${error.detail ? html` <code detail>${this.addNewLineBreaks(error.detail)}</code>` : nothing}
+        </http-error>`;
+      } else if (message) {
+        this.message = message as string | TemplateResult;
       }
 
       if (options) {
@@ -175,16 +177,23 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
     this.closing = false;
   }
 
+  private addNewLineBreaks(text: string) {
+    const lines = text.split('\n');
+    const l = lines.length;
+
+    return lines.map((line: string, i) => (i === l - 1 ? line : html`${line}<br />`));
+  }
+
   static styles = css`
     :host {
       display: none;
-      flex-direction: row;
+      min-width: 240px;
+      flex-direction: column;
       font-family: Roboto, Noto, sans-serif;
       -webkit-font-smoothing: antialiased;
       position: fixed;
       bottom: 0;
       left: 0;
-      max-width: 600px;
       margin: 16px;
       padding: 8px;
       border-radius: 4px;
@@ -211,10 +220,6 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
     :host([error]) {
       background-color: #d32f2f;
       color: #fff;
-    }
-
-    :host([thirdline]) {
-      flex-direction: column;
     }
 
     :host([opening]),
@@ -247,10 +252,44 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
       opacity: 1;
     }
 
-    span {
-      align-self: center;
-      flex: 1 1 auto;
-      margin: 8px;
+    http-error {
+      display: grid;
+      gap: 24px;
+      grid:
+        'action status'
+        'error error';
+    }
+
+    http-error [detail] {
+      font-size: 10px;
+      overflow-y: auto;
+      overflow-y: auto;
+      max-height: 400px;
+      grid-column: 1 / -1;
+      color: #929397;
+    }
+
+    http-error [error] {
+      grid-area: error;
+    }
+
+    http-error [status] {
+      grid-area: status;
+      font-size: 12px;
+      justify-self: end;
+      color: var(--app-light-text-color, #707175);
+    }
+
+    http-error [action] {
+      grid-area: action;
+      font-size: 12px;
+      color: var(--app-light-text-color, #707175);
+    }
+
+    span[main] {
+      max-width: 600px;
+      overflow: hidden;
+      margin: 12px;
     }
 
     mwc-button {
@@ -269,7 +308,7 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
 
   render() {
     return html`
-      <span>${this.message}</span>
+      <span main>${this.message}</span>
       <mwc-button
         ?hidden=${this.noaction}
         @click=${() => {
