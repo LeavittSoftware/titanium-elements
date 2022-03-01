@@ -1,6 +1,8 @@
 ﻿import { BearerTokenProvider } from './bearer-token-provider';
+import { HttpError } from './HttpError';
 import { ODataDto } from './odata-dto';
 import { ODataResponse } from './odata-response';
+import { HTTPStatusCodes } from './status-codes';
 
 export type onProgressCallback = (event: ProgressEvent, request: XMLHttpRequest) => void;
 export type ApiServiceOptions = { appNameHeaderKey: string };
@@ -49,7 +51,7 @@ export default class ApiService {
         headers['X-LGAttachmentName'] = file.name;
 
         for (const header in headers) {
-          // A peciliarity of XMLHttpRequest is that one can’t undo setRequestHeader.
+          // A peculiarity of XMLHttpRequest is that one can’t undo setRequestHeader.
           // Once the header is set, it’s set. Additional calls add information to the header, don’t overwrite it.
           // Because of this, we aggregate headers into the headers object rather than calling setRequestHeader multiple times.
           xhr.setRequestHeader(header, headers[header]);
@@ -58,40 +60,19 @@ export default class ApiService {
         xhr.addEventListener(
           'loadend',
           () => {
-            if (xhr.status === 204) {
-              return resolve(new ODataResponse<T>(xhr.response, {}));
-            }
-
-            if (xhr.status === 404) {
-              return reject('404: Endpoint not found.');
-            }
-
-            let json;
             try {
-              json = JSON.parse(xhr.response);
+              const response = { text: () => xhr.response, status: xhr.status } as Response;
+              const result = this.parseResponse<T>(response, 'UPLOAD', urlPath);
+              return resolve(result);
             } catch (error) {
-              return reject(`The server sent back invalid JSON. ${error}`);
-            }
-
-            if (json.error != null) {
-              return reject(json.error.message);
-            }
-
-            if ((xhr.status >= 400 || xhr.status <= 600) && json.value != null) {
-              return Promise.reject(json.value);
-            }
-
-            if (xhr.status === 201 || xhr.status === 200) {
-              return resolve(new ODataResponse<T>(xhr.response, json));
-            } else {
-              return reject('Request error, please try again later.');
+              return reject(error);
             }
           },
           false
         );
         xhr.send(file);
       } catch (error) {
-        return reject(error);
+        return Promise.reject(this.rewriteFetchErrors(error, 'UPLOAD', urlPath));
       }
     });
   }
@@ -113,7 +94,7 @@ export default class ApiService {
       headers['Authorization'] = `Bearer ${token}`;
     }
 
-    let response;
+    let response: Response;
     try {
       response = await fetch(`${this.baseUrl}${urlPath}`, {
         method: 'POST',
@@ -122,44 +103,13 @@ export default class ApiService {
         signal: options?.abortController?.signal,
       });
     } catch (error) {
-      if (error.message != null && error.message.indexOf('Failed to fetch') !== -1) {
-        return Promise.reject('Network error. Check your connection and try again.');
-      }
-
-      return Promise.reject(error);
+      return Promise.reject(this.rewriteFetchErrors(error, 'POST', urlPath));
     }
 
-    if (response.status === 204) {
-      return Promise.resolve(new ODataResponse<T>(response, {}));
-    }
-
-    if (response.status === 409) {
-      return Promise.reject('Object already exists (409).');
-    }
-
-    let json;
-    try {
-      json = await response.json();
-    } catch (error) {
-      return Promise.reject(`The server sent back invalid JSON. ${error}`);
-    }
-
-    if (json.error != null) {
-      return Promise.reject(json.error.message);
-    }
-
-    if (response.status >= 400 && response.status <= 600 && json.value != null) {
-      return Promise.reject(json.value);
-    }
-
-    if (response.status === 201 || response.status === 200) {
-      return Promise.resolve(new ODataResponse<T>(response, json));
-    } else {
-      return Promise.reject('Request error, please try again later.');
-    }
+    return await this.parseResponse(response, 'POST', urlPath);
   }
 
-  async patchAsync(urlPath: string, body: unknown | ODataDto, options: ApiServiceRequestOptions | null = null): Promise<void> {
+  async patchAsync<T>(urlPath: string, body: unknown | ODataDto, options: ApiServiceRequestOptions | null = null): Promise<ODataResponse<T>> {
     // Add in the odata model info if it not already on the object
     if (body instanceof ODataDto && body._odataInfo && !body['@odata.type']) {
       if (body._odataInfo.type) {
@@ -174,7 +124,7 @@ export default class ApiService {
       headers['Authorization'] = `Bearer ${token}`;
     }
 
-    let response;
+    let response: Response;
     try {
       response = await fetch(`${this.baseUrl}${urlPath}`, {
         method: 'PATCH',
@@ -183,33 +133,9 @@ export default class ApiService {
         signal: options?.abortController?.signal,
       });
     } catch (error) {
-      if (error.message != null && error.message.indexOf('Failed to fetch') !== -1) {
-        return Promise.reject('Network error. Check your connection and try again.');
-      }
-
-      return Promise.reject(error);
+      return Promise.reject(this.rewriteFetchErrors(error, 'PATCH', urlPath));
     }
-
-    if (response.status === 204) {
-      return Promise.resolve();
-    }
-
-    let json;
-    try {
-      json = await response.json();
-
-      if (json.error != null) {
-        return Promise.reject(json.error.message);
-      }
-
-      if (response.status >= 400 && response.status <= 600 && json.value != null) {
-        return Promise.reject(json.value);
-      }
-
-      return Promise.reject('Request error, please try again later.');
-    } catch (error) {
-      return Promise.reject(`The server sent back invalid JSON. ${error}`);
-    }
+    return await this.parseResponse(response, 'PATCH', urlPath);
   }
 
   async patchReturnDtoAsync<T>(urlPath: string, body: unknown | ODataDto, options: ApiServiceRequestOptions | null = null): Promise<ODataResponse<T>> {
@@ -227,7 +153,7 @@ export default class ApiService {
       headers['Authorization'] = `Bearer ${token}`;
     }
 
-    let response;
+    let response: Response;
     try {
       response = await fetch(`${this.baseUrl}${urlPath}`, {
         method: 'PATCH',
@@ -236,33 +162,9 @@ export default class ApiService {
         signal: options?.abortController?.signal,
       });
     } catch (error) {
-      if (error.message != null && error.message.indexOf('Failed to fetch') !== -1) {
-        return Promise.reject('Network error. Check your connection and try again.');
-      }
-
-      return Promise.reject(error);
+      return Promise.reject(this.rewriteFetchErrors(error, 'PATCH', urlPath));
     }
-
-    let json;
-    try {
-      json = await response.json();
-
-      if (json.error != null) {
-        return Promise.reject(json.error.message);
-      }
-
-      if (response.status >= 400 && response.status <= 600 && json.value != null) {
-        return Promise.reject(json.value);
-      }
-
-      if (response.status === 200) {
-        return Promise.resolve(new ODataResponse<T>(response, json));
-      } else {
-        return Promise.reject('Request error, please try again later.');
-      }
-    } catch (error) {
-      return Promise.reject(`The server sent back invalid JSON. ${error}`);
-    }
+    return await this.parseResponse(response, 'PATCH', urlPath);
   }
 
   async deleteAsync<T>(urlPath: string, options: ApiServiceRequestOptions | null = null): Promise<ODataResponse<T>> {
@@ -272,45 +174,14 @@ export default class ApiService {
       headers['Authorization'] = `Bearer ${token}`;
     }
 
-    let response;
+    let response: Response;
     try {
       response = await fetch(`${this.baseUrl}${urlPath}`, { method: 'DELETE', headers: headers, signal: options?.abortController?.signal });
     } catch (error) {
-      if (error.message != null && error.message.indexOf('Failed to fetch') !== -1) {
-        return Promise.reject('Network error. Check your connection and try again.');
-      }
-
-      return Promise.reject(error);
+      return Promise.reject(this.rewriteFetchErrors(error, 'DELETE', urlPath));
     }
 
-    if (response.status === 204) {
-      return Promise.resolve(new ODataResponse<T>(response, {}));
-    }
-
-    if (response.status === 404) {
-      return Promise.reject('404: Endpoint not found.');
-    }
-
-    let json;
-    try {
-      json = await response.json();
-    } catch (error) {
-      return Promise.reject(`The server sent back invalid JSON. ${error}`);
-    }
-
-    if (json.error != null) {
-      return Promise.reject(json.error.message);
-    }
-
-    if (response.status >= 400 && response.status <= 600 && json.value != null) {
-      return Promise.reject(json.value);
-    }
-
-    if (response.status === 201) {
-      return Promise.resolve(new ODataResponse<T>(response, json));
-    } else {
-      return Promise.reject('Request error, please try again later.');
-    }
+    return await this.parseResponse(response, 'DELETE', urlPath);
   }
 
   async getAsync<T>(urlPath: string, options: ApiServiceRequestOptions | null = null): Promise<ODataResponse<T>> {
@@ -320,7 +191,7 @@ export default class ApiService {
       headers['Authorization'] = `Bearer ${token}`;
     }
 
-    let response;
+    let response: Response;
     try {
       response = await fetch(`${this.baseUrl}${urlPath}`, {
         method: 'GET',
@@ -328,37 +199,106 @@ export default class ApiService {
         signal: options?.abortController?.signal,
       });
     } catch (error) {
-      if (error.message != null && error.message.indexOf('Failed to fetch') !== -1) {
-        return Promise.reject('Network error. Check your connection and try again.');
-      }
-
-      if (error.name != null && error.name === 'AbortError') {
-        return Promise.reject('Abort error. Request has been aborted.');
-      }
-
-      return Promise.reject(error);
+      return Promise.reject(this.rewriteFetchErrors(error, 'GET', urlPath));
     }
 
-    if (response.status === 404) {
-      return Promise.reject('404: Endpoint not found.');
-    }
+    return await this.parseResponse(response, 'GET', urlPath);
+  }
 
+  private distinct<T>(value: T, index: number, array: T[]) {
+    return array.indexOf(value) === index;
+  }
+
+  public async aggregateResponses<T>(apiCalls: Promise<ODataResponse<T>>[]): Promise<void> {
+    const errorMessageToCount: Map<string, number> = new Map();
+    const httpErrors: HttpError[] = [];
+
+    const requests = apiCalls.map(async call => {
+      try {
+        await call;
+      } catch (httpError) {
+        httpErrors.push(httpError);
+        const errorMsg = httpError.message;
+        errorMessageToCount.set(errorMsg, (errorMessageToCount.get(errorMsg) ?? 0) + 1);
+      }
+    });
+
+    await Promise.allSettled(requests);
+
+    if (errorMessageToCount.size > 0) {
+      const newError: HttpError = {
+        type: 'HttpError',
+        action: httpErrors
+          .map(o => o.action)
+          .filter(this.distinct)
+          .join(', '),
+        message: `${httpErrors.length} of ${apiCalls.length} actions failed`,
+        detail: Array.from(errorMessageToCount.keys())
+          .map(o => `${errorMessageToCount.get(o)} error(s):  ${o}`)
+          .join('\n'),
+        baseUrl: httpErrors
+          .map(o => o.baseUrl)
+          .filter(this.distinct)
+          .join(', '),
+        path: httpErrors
+          .map(o => o.path)
+          .filter(this.distinct)
+          .join(', '),
+      };
+      return Promise.reject(newError);
+    }
+    return;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private rewriteFetchErrors(error: any, action: string, urlPath: string, statusCode: number | undefined = undefined) {
+    const message = error?.message?.includes('Failed to fetch')
+      ? 'Network error. Check your connection and try again.'
+      : error?.name === 'AbortError'
+      ? 'Abort error. Request has been aborted.'
+      : error;
+
+    const httpError: HttpError = {
+      type: 'HttpError',
+      statusCode: statusCode,
+      baseUrl: this.baseUrl,
+      message: message,
+      action: action,
+      path: urlPath,
+    };
+
+    return httpError;
+  }
+
+  private async parseResponse<T>(response: Response, action: string, urlPath: string) {
     const text = await response.text();
     let json;
     try {
       json = text.length ? JSON.parse(text) : {};
+
+      if (response.status >= 400 && response.status <= 600) {
+        const message = json?.error?.message || json?.value || HTTPStatusCodes.get(response.status) || 'unknown';
+
+        if (json?.details) {
+          console.warn(json.details);
+        }
+
+        const httpError: HttpError = {
+          type: 'HttpError',
+          statusCode: response.status,
+          baseUrl: this.baseUrl,
+          message: message,
+          detail: json?.details,
+          action: action,
+          path: urlPath,
+        };
+
+        return Promise.reject(httpError);
+      } else {
+        return Promise.resolve(new ODataResponse<T>(response, json));
+      }
     } catch (error) {
       return Promise.reject(`The server sent back invalid JSON. ${error}`);
     }
-
-    if (json.error) {
-      return Promise.reject(json.error.message);
-    }
-
-    if (response.status >= 400 && response.status <= 600 && json.value != null) {
-      return Promise.reject(json.value);
-    }
-
-    return Promise.resolve(new ODataResponse<T>(response, json));
   }
 }
