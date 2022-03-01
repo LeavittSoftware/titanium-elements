@@ -86,7 +86,7 @@ export default class ApiServiceElement extends LitElement {
     return this._apiService.getAsync<T>(urlPath, options);
   }
 
-  async patchAsync(urlPath: string, body: unknown | ODataDto, options: ApiServiceRequestOptions | null = null): Promise<void> {
+  async patchAsync<T>(urlPath: string, body: unknown | ODataDto, options: ApiServiceRequestOptions | null = null): Promise<ODataResponse<T>> {
     return this._apiService.patchAsync(urlPath, body, options);
   }
 
