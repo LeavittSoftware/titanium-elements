@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { Filter } from './filter';
 
 export class FilterController<TKey extends string> {
@@ -23,6 +24,10 @@ export class FilterController<TKey extends string> {
         hasChanges = true;
       }
     });
+
+    if (hasChanges) {
+      this.onFilterValueUpdated();
+    }
 
     return hasChanges;
   }
@@ -68,13 +73,19 @@ export class FilterController<TKey extends string> {
     return this._filters.get(key);
   }
 
-  onFilterValueChanged: () => void;
+  // this will be called by any update to the filter values changed only by the user
+  onFilterValueChanged: () => void = () => {};
+  // this will be called by any update to the filter values changed programmatically or by the user
+  onFilterValueUpdated: () => void = () => {};
 
   private _notifyTimer: number;
   private batchNotifyFiltersChanged() {
     clearTimeout(this._notifyTimer);
     this._setQueryString();
-    this._notifyTimer = window.setTimeout(() => this.onFilterValueChanged(), 50);
+    this._notifyTimer = window.setTimeout(() => {
+      this.onFilterValueChanged();
+      this.onFilterValueUpdated();
+    }, 50);
   }
 
   private _setQueryString() {
