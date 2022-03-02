@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 12.4.0 (2022-03-02)
+
+
+### Features
+
+* **titanium-data-table:** support updated callbacks filter controller ([8c40da7](https://github.com/LeavittSoftware/titanium-elements/commit/8c40da78272c81faf1da219530092a5a862acf36))
+
+
+
+
+
 ## 12.3.2 (2022-03-01)
 
 
