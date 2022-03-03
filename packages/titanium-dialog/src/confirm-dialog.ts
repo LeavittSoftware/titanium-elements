@@ -1,47 +1,74 @@
-import { TitaniumDialogElement } from './titanium-dialog';
 import { css, html, LitElement } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
-import './titanium-dialog';
 import '@material/mwc-button';
+
+import { Dialog } from '@material/mwc-dialog';
 import { ConfirmDialogOpenEvent } from './confirm-dialog-open-event';
+import { p } from '@leavittsoftware/titanium-styles';
 
 @customElement('confirm-dialog')
 export default class ConfirmDialogElement extends LitElement {
   @state() private text: string;
   @state() private header: string;
-  @query('titanium-dialog') private dialog!: TitaniumDialogElement;
+  @query('mwc-dialog') private dialog!: Dialog;
 
   listenOn(el: HTMLElement) {
     el.addEventListener(ConfirmDialogOpenEvent.eventType, async (event: ConfirmDialogOpenEvent) => {
       this.header = event.header;
       this.text = event.text;
 
-      event.resolver((await this.dialog.open()) === 'confirmed');
+      if (this.dialogOpenPromise) {
+        this.dialog.close();
+        this.dialogOpenPromise(false);
+      }
+      this.dialogOpenPromise = event.resolver;
     });
   }
+
+  private dialogOpenPromise: ((confirmed: boolean) => void) | null = null;
 
   async handleEvent(event: ConfirmDialogOpenEvent) {
     this.header = event.header;
     this.text = event.text;
 
-    event.resolver((await this.dialog.open()) === 'confirmed');
+    if (this.dialogOpenPromise) {
+      this.dialog.close();
+      this.dialogOpenPromise(false);
+    }
+    this.dialogOpenPromise = event.resolver;
+    this.dialog.show();
   }
 
-  static styles = css`
-    :host {
-      --titanium-dialog-max-width: 400px;
-    }
-  `;
+  static styles = [
+    p,
+    css`
+      :host {
+        --mdc-dialog-max-width: 350px;
+      }
+    `,
+  ];
 
   render() {
     return html`
-      <titanium-dialog fullwidth header=${this.header}>
-        <section slot="content">${this.text}</section>
-        <div slot="actions">
-          <mwc-button slot="actions" @click=${() => this.dialog.close('cancel')} label="CANCEL"></mwc-button>
-          <mwc-button slot="actions" @click=${() => this.dialog.close('confirmed')} label="CONFIRM"></mwc-button>
-        </div>
-      </titanium-dialog>
+      <mwc-dialog heading=${this.header}>
+        <p>${this.text}</p>
+        <mwc-button
+          slot="secondaryAction"
+          @click=${() => {
+            this.dialog.close();
+            this.dialogOpenPromise?.(false);
+          }}
+          label="CANCEL"
+        ></mwc-button>
+        <mwc-button
+          slot="primaryAction"
+          @click=${() => {
+            this.dialog.close();
+            this.dialogOpenPromise?.(true);
+          }}
+          label="CONFIRM"
+        ></mwc-button>
+      </mwc-dialog>
     `;
   }
 }
