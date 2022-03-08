@@ -3,6 +3,9 @@ import { html } from 'lit';
 
 import '@leavittsoftware/leavitt-elements/lib/leavitt-person-select';
 import '@leavittsoftware/user-manager';
+import ApiService from '@leavittsoftware/api-service/lib/api-service';
+import { AuthenticatedTokenProvider } from '@leavittsoftware/api-service/lib/authenticated-token-provider';
+import { isDevelopment } from '@leavittsoftware/titanium-helpers/lib/titanium-dev-detection';
 
 <Meta title="UI LEAVITT SPECIFIC/leavitt-person-select" parameters={{ component: 'leavitt-person-select' }} />
 
@@ -27,39 +30,51 @@ import '@leavittsoftware/leavitt-elements/lib/leavitt-person-select';
 ## Demo
 
 <Canvas withToolbar>
-  <Story name="Docs">{html` <h2 demo>Standard</h2>
-    <leavitt-person-select apiNamespace="PLGameAdmin"></leavitt-person-select>
-    <h2 demo>Shaped</h2>
-    <leavitt-person-select shaped apiNamespace="PLGameAdmin"></leavitt-person-select>
-    <h2 demo>Required</h2>
-    <leavitt-person-select required apiNamespace="PLGameAdmin"></leavitt-person-select>
-    <h2 demo>Selected</h2>
-    <leavitt-person-select .selected=${{ Id: 11056, FirstName: 'Aaron', LastName: 'Drabeck' }} required apiNamespace="PLGameAdmin"></leavitt-person-select>
-    <h2 demo>Selected Properties</h2>
-    <leavitt-person-select
-      .selectedProperties=${['JobTitle', 'Biography']}
-      @selected=${e => {
-        if (e.target?.selected) {
-          alert(`JobTitle:${e.target.selected.JobTitle} Biography:${e.target.selected.Biography}`);
-        }
-      }}
-      apiNamespace="PLGameAdmin"
-    ></leavitt-person-select>
-    <h2 demo>Expand</h2>
-    <leavitt-person-select
-      expand="EmailAddresses"
-      @selected=${e => {
-        if (e.target?.selected) {
-          alert(`Email:${e.target.selected.EmailAddresses[0]?.Address}`);
-        }
-      }}
-      apiNamespace="DepartmentManager"
-    ></leavitt-person-select>
-    <h2 demo>Filter</h2>
-    <leavitt-person-select
-      filter="Roles/any(r: isof(r,%27LG.Core.DataModel.Core.LGEmployeeRole%27) and not r/IsExpired and (r/LG.Core.DataModel.Core.LGEmployeeRole/LGEmployeeRoleToCompanyAddresses/any(c: not c/IsExpired and c/CompanyAddress/CompanyId eq 20248)))"
-      apiNamespace="DepartmentManager"
-    ></leavitt-person-select>
-    <h2 demo>Disabled</h2>
-    <leavitt-person-select disabled></leavitt-person-select>`}</Story>
+  <Story name="Docs">
+    {html` <h2 demo>Standard</h2>
+      <leavitt-person-select apiNamespace="PLGameAdmin"></leavitt-person-select>
+      <h2 demo>Shaped</h2>
+      <leavitt-person-select shaped apiNamespace="PLGameAdmin"></leavitt-person-select>
+      <h2 demo>Required</h2>
+      <leavitt-person-select required apiNamespace="PLGameAdmin"></leavitt-person-select>
+      <h2 demo>Selected</h2>
+      <leavitt-person-select .selected=${{ Id: 11056, FirstName: 'Aaron', LastName: 'Drabeck' }} required apiNamespace="PLGameAdmin"></leavitt-person-select>
+      <h2 demo>Selected Properties</h2>
+      <leavitt-person-select
+        .selectedProperties=${['JobTitle', 'Biography']}
+        @selected=${e => {
+          if (e.target?.selected) {
+            alert(`JobTitle:${e.target.selected.JobTitle} Biography:${e.target.selected.Biography}`);
+          }
+        }}
+        apiNamespace="PLGameAdmin"
+      ></leavitt-person-select>
+      <h2 demo>Expand</h2>
+      <leavitt-person-select
+        expand="EmailAddresses"
+        @selected=${e => {
+          if (e.target?.selected) {
+            alert(`Email:${e.target.selected.EmailAddresses[0]?.Address}`);
+          }
+        }}
+        apiNamespace="DepartmentManager"
+      ></leavitt-person-select>
+      <h2 demo>Filter</h2>
+      <leavitt-person-select
+        filter="Roles/any(r: isof(r,%27LG.Core.DataModel.Core.LGEmployeeRole%27) and not r/IsExpired and (r/LG.Core.DataModel.Core.LGEmployeeRole/LGEmployeeRoleToCompanyAddresses/any(c: not c/IsExpired and c/CompanyAddress/CompanyId eq 20248)))"
+        apiNamespace="DepartmentManager"
+      ></leavitt-person-select>
+      <h2 demo>Disabled</h2>
+      <leavitt-person-select disabled></leavitt-person-select>
+      <h2 demo>External Api Service</h2>
+      <leavitt-person-select
+        .apiService=${(() => {
+          const api2UserService = new ApiService(new AuthenticatedTokenProvider());
+          api2UserService.baseUrl = isDevelopment ? 'https://devapi2.leavitt.com/' : 'https://api2.leavitt.com/';
+          api2UserService.addHeader('X-LGAppName', 'PLGameAdmin');
+          Object.freeze(api2UserService);
+          return api2UserService;
+        })()}
+      ></leavitt-person-select>`}
+  </Story>
 </Canvas>

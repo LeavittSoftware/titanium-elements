@@ -37,10 +37,14 @@ export class LeavittPersonSelectSelectedEvent extends Event {
 export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
   @state() protected count: number = 0;
   @state() protected searchTerm: string;
-  @state() protected apiService: ApiService;
   @state() protected people: Array<Person> = [];
   @query('mwc-menu') protected menu: Menu;
   @query('mwc-textfield') protected textfield: TextField & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
+
+  /**
+   *  Api service to handle calls. Required if apiNamespace is not provided.
+   */
+  @property({ attribute: false }) apiService: ApiService;
 
   /**
    *  The person object selected by the user.
@@ -73,7 +77,7 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
   @property({ type: Boolean }) required: boolean = false;
 
   /**
-   *  API namespace to be sent with the person search query.
+   *  API namespace to be sent with the person search query. Required if apiService is not provided.
    */
   @property({ type: String }) apiNamespace: string = '';
 
@@ -101,9 +105,12 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
   firstUpdated() {
     this.menu.anchor = this.textfield;
     this.textfield.layout();
-    this.apiService = new ApiService(new AuthenticatedTokenProvider());
-    this.apiService.baseUrl = isDevelopment ? 'https://devapi2.leavitt.com/' : 'https://api2.leavitt.com/';
-    this.apiService.addHeader('X-LGAppName', this.apiNamespace);
+
+    if (!this.apiService) {
+      this.apiService = new ApiService(new AuthenticatedTokenProvider());
+      this.apiService.baseUrl = isDevelopment ? 'https://devapi2.leavitt.com/' : 'https://api2.leavitt.com/';
+      this.apiService.addHeader('X-LGAppName', this.apiNamespace);
+    }
 
     this.textfield.validityTransform = () => {
       if (this.required) {
