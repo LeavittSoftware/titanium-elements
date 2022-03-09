@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.17.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.16.3...@leavittsoftware/storybook@9.17.0) (2022-03-09)
+
+
+### Features
+
+* **leavitt-elements:** allow passing apiService into person-select ([b8f27ce](https://github.com/LeavittSoftware/titanium-elements/commit/b8f27cea5d21f567b4c6c28d79ef259e935d6546))
+
+
+
+
+
 ## [9.16.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.16.2...@leavittsoftware/storybook@9.16.3) (2022-03-03)
 
 **Note:** Version bump only for package @leavittsoftware/storybook

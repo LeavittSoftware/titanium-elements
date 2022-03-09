@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 1.12.0 (2022-03-09)
+
+
+### Features
+
+* **leavitt-elements:** allow passing apiService into person-select ([b8f27ce](https://github.com/LeavittSoftware/titanium-elements/commit/b8f27cea5d21f567b4c6c28d79ef259e935d6546))
+
+
+
+
+
 ## [1.11.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@1.11.0...@leavittsoftware/leavitt-elements@1.11.1) (2022-03-01)
 
 **Note:** Version bump only for package @leavittsoftware/leavitt-elements
