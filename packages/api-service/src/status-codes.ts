@@ -1,4 +1,5 @@
 export const HTTPStatusCodes = new Map<number, string>();
+HTTPStatusCodes.set(0, 'CORS Error');
 HTTPStatusCodes.set(200, 'OK');
 HTTPStatusCodes.set(201, 'Created');
 HTTPStatusCodes.set(202, 'Accepted');

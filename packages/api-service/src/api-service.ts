@@ -276,7 +276,7 @@ export default class ApiService {
     try {
       json = text.length ? JSON.parse(text) : {};
 
-      if (response.status >= 400 && response.status <= 600) {
+      if (response.status === 0 || (response.status >= 400 && response.status <= 600)) {
         const message = json?.error?.message || json?.value || HTTPStatusCodes.get(response.status) || 'unknown';
 
         if (json?.details) {
