@@ -1,6 +1,7 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 import '@material/mwc-button';
+import '@material/mwc-dialog';
 
 import { Dialog } from '@material/mwc-dialog';
 import { ConfirmDialogOpenEvent } from './confirm-dialog-open-event';
