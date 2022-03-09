@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.6.1 (2022-03-09)
+
+
+### Bug Fixes
+
+* **titanium-dialog:** add missing import for mwc-dialog ([0606744](https://github.com/LeavittSoftware/titanium-elements/commit/060674436299301aff87c8e0b2f2b4de704d86e4))
+
+
+
+
+
 # 3.6.0 (2022-03-03)
 
 
