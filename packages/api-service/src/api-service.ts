@@ -209,13 +209,13 @@ export default class ApiService {
     return array.indexOf(value) === index;
   }
 
-  public async aggregateResponses<T>(apiCalls: Promise<ODataResponse<T>>[]): Promise<void> {
+  public async aggregateResponses<T>(apiCalls: Array<() => Promise<ODataResponse<T>>>): Promise<void> {
     const errorMessageToCount: Map<string, number> = new Map();
     const httpErrors: HttpError[] = [];
 
     const requests = apiCalls.map(async call => {
       try {
-        await call;
+        await call();
       } catch (httpError) {
         httpErrors.push(httpError);
         const errorMsg = httpError.message;
