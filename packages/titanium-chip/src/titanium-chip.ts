@@ -59,12 +59,12 @@ export class TitaniumChipElement extends LitElement implements CheckableElement 
   /**
    *  Enables ability for chip to be selectable and participate in a radio group
    */
-  @property({ type: Boolean, reflect: true }) selectable: boolean = false;
+  @property({ type: Boolean }) selectable: boolean = false;
 
   /**
    *  Enables ability for chip to be readonly
    */
-  @property({ type: Boolean }) readonly: boolean = false;
+  @property({ type: Boolean, reflect: true }) readonly: boolean = false;
 
   protected _checked = false;
   /**
