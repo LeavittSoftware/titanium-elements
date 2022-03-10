@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 8.0.1 (2022-03-09)
+
+
+### Bug Fixes
+
+* **api-service:** properly handle a CORS error from XhrRequest ([21d0f93](https://github.com/LeavittSoftware/titanium-elements/commit/21d0f9335f1afac8896e25171040231315bd5655))
+
+
+
+
+
 # [8.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@7.3.3...@leavittsoftware/api-service@8.0.0) (2022-03-01)
 
 
