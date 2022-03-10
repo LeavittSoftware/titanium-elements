@@ -59,7 +59,12 @@ export class TitaniumChipElement extends LitElement implements CheckableElement 
   /**
    *  Enables ability for chip to be selectable and participate in a radio group
    */
-  @property({ type: Boolean }) selectable: boolean = false;
+  @property({ type: Boolean, reflect: true }) selectable: boolean = false;
+
+  /**
+   *  Enables ability for chip to be readonly
+   */
+  @property({ type: Boolean }) readonly: boolean = false;
 
   protected _checked = false;
   /**
@@ -129,6 +134,10 @@ export class TitaniumChipElement extends LitElement implements CheckableElement 
       cursor: inherit;
     }
 
+    :host([readonly]) {
+      cursor: inherit;
+    }
+
     :host([checked]) label {
       color: var(--titanium-side-menu-item-selected-color, #1967d2);
       fill: var(--titanium-side-menu-item-selected-color, #1967d2);
@@ -138,12 +147,12 @@ export class TitaniumChipElement extends LitElement implements CheckableElement 
       background: var(--titanium-side-menu-item-selected-background-color, #e8f0fe);
     }
 
-    :host(:not([disabled]):hover) {
+    :host(:not([disabled]):not([readonly]):hover) {
       background-color: var(--app-hover-color, #f9f9f9);
       transition: 0.2s linear;
     }
 
-    :host(:not([disabled]):active) {
+    :host(:not([disabled]):not([readonly]):active) {
       background-color: var(--app-hover-color, #f9f9f9);
     }
 
@@ -164,6 +173,7 @@ export class TitaniumChipElement extends LitElement implements CheckableElement 
       cursor: pointer;
     }
 
+    :host([readonly]) label,
     :host([disabled]) label {
       cursor: inherit;
     }
