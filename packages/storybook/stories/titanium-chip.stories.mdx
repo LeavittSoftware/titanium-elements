@@ -59,8 +59,26 @@ import '@leavittsoftware/titanium-chip';
 
 export const TitaniumChipStory = ({ data, ...args }) =>
   html`
-    <titanium-chip label="Adam Driver" src="https://cdn.leavitt.com/user-771130-32.jpeg"></titanium-chip>
-    <titanium-chip label="Adam Driver" closeable src="https://cdn.leavitt.com/user-771130-32.jpeg"></titanium-chip>
+    <h2>Regular Chips</h2>
+    <div>
+      <titanium-chip label="No React"> <mwc-icon slot="chip-icon">do_not_touch</mwc-icon></titanium-chip>
+      <titanium-chip label="Web Components"> <mwc-icon slot="chip-icon">code</mwc-icon></titanium-chip>
+    </div>
+    <h2>Closeable Chips</h2>
+    <div>
+      <titanium-chip closeable label="No React"> <mwc-icon slot="chip-icon">do_not_touch</mwc-icon></titanium-chip>
+      <titanium-chip closeable label="Web Components"> <mwc-icon slot="chip-icon">code</mwc-icon></titanium-chip>
+    </div>
+    <h2>Readonly Chips</h2>
+    <div>
+      <titanium-chip readonly label="No React"> <mwc-icon slot="chip-icon">do_not_touch</mwc-icon></titanium-chip>
+      <titanium-chip readonly label="Web Components"> <mwc-icon slot="chip-icon">code</mwc-icon></titanium-chip>
+    </div>
+    <h2>Disabled Chips</h2>
+    <div>
+      <titanium-chip disabled label="No React"> <mwc-icon slot="chip-icon">do_not_touch</mwc-icon></titanium-chip>
+      <titanium-chip disabled label="Web Components"> <mwc-icon slot="chip-icon">code</mwc-icon></titanium-chip>
+    </div>
     <h2>Selectable Chips</h2>
     <div style="display:grid;grid-auto-flow:column;gap:8px;grid-auto-columns: min-content;">
       <titanium-chip name="Prices" selectable label="1000"></titanium-chip>
