@@ -37,6 +37,11 @@ export class TitaniumChipElement extends LitElement implements CheckableElement 
   @property({ type: String }) label: string;
 
   /**
+   *  Icon used for the close icon button
+   */
+  @property({ type: String }) closeIcon: string = 'close';
+
+  /**
    *  Optional: src to image that will prefix the label
    */
   @property({ type: String }) src: string | undefined;
@@ -227,7 +232,7 @@ export class TitaniumChipElement extends LitElement implements CheckableElement 
       </slot>
       <label>${this.label}</label>
       <mwc-icon-button
-        icon="close"
+        icon=${this.closeIcon}
         ?disabled=${this.disabled}
         @click=${e => {
           e.stopPropagation();
