@@ -2,8 +2,8 @@ export class ODataResponse<T> {
   private static getMetadata(json): Map<string, unknown> {
     const metadata = new Map<string, unknown>();
     Object.keys(json)
-      .filter((key) => key.indexOf('@odata') === 0)
-      .forEach((key) => metadata.set(key.replace('@odata.', ''), json[key]));
+      .filter(key => key.indexOf('@odata') === 0)
+      .forEach(key => metadata.set(key.replace('@odata.', ''), json[key]));
     return metadata;
   }
 
@@ -16,7 +16,7 @@ export class ODataResponse<T> {
       return json.value as T;
     }
 
-    return {} as T;
+    return json as T;
   }
 
   private static getEntities<T>(json): T[] {
