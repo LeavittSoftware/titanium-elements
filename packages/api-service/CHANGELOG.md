@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@8.0.1...@leavittsoftware/api-service@9.0.0) (2022-03-10)
+
+
+### Bug Fixes
+
+* **api-service:** prevent uncaught exceptions in aggregateResponses ([a8a3421](https://github.com/LeavittSoftware/titanium-elements/commit/a8a342194bf8872ba38612d01aef8759b5d51ecb))
+* **api-service:** properly handle a CORS error from XhrRequest ([21d0f93](https://github.com/LeavittSoftware/titanium-elements/commit/21d0f9335f1afac8896e25171040231315bd5655))
+
+
+### BREAKING CHANGES
+
+* **api-service:** change signature of aggregateResponses to take a func that returns promise vs only  promises in order to control execution
+
+
+
+
+
 ## 8.0.1 (2022-03-09)
 
 

@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.5.0 (2022-03-11)
+
+
+### Bug Fixes
+
+* **titanium-chip:** move reflect from selectable to readonly ([6ff0e3e](https://github.com/LeavittSoftware/titanium-elements/commit/6ff0e3e0bfcdc01f6d0f63c3141382c61a9e5a3d))
+
+
+### Features
+
+* **titanium-chip:** adds readonly attribute ([7a4ceb8](https://github.com/LeavittSoftware/titanium-elements/commit/7a4ceb8d620031ebed7aafac77493f0a75aa04a2))
+
+
+
+
+
 ## 3.4.3 (2022-03-01)
 
 

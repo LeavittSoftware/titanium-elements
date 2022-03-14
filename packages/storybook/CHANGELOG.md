@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.18.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.17.3...@leavittsoftware/storybook@9.18.0) (2022-03-11)
+
+
+### Features
+
+* **titanium-chip:** adds readonly attribute ([7a4ceb8](https://github.com/LeavittSoftware/titanium-elements/commit/7a4ceb8d620031ebed7aafac77493f0a75aa04a2))
+
+
+
+
+
+## [9.17.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.17.2...@leavittsoftware/storybook@9.17.3) (2022-03-10)
+
+**Note:** Version bump only for package @leavittsoftware/storybook
+
+
+
+
+
 ## [9.17.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.17.1...@leavittsoftware/storybook@9.17.2) (2022-03-09)
 
 **Note:** Version bump only for package @leavittsoftware/storybook
