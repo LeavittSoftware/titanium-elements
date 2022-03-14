@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@9.0.1...@leavittsoftware/api-service@9.1.0) (2022-03-14)
+
+
+### Features
+
+* **api-service:** allow for unencapsulated json in api returns ([5700cf5](https://github.com/LeavittSoftware/titanium-elements/commit/5700cf5fc168134850237c972e4c485e26a8bc65))
+
+
+
+
+
 ## [9.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@8.0.1...@leavittsoftware/api-service@9.0.1) (2022-03-14)
 
 **Note:** Version bump only for package @leavittsoftware/api-service
