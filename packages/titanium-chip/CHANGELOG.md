@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.6.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-chip@3.5.0...@leavittsoftware/titanium-chip@3.6.0) (2022-03-14)
+
+
+### Features
+
+* **titanium-chip:** add property for closeIcon ([f416dae](https://github.com/LeavittSoftware/titanium-elements/commit/f416daef3f2265761b508fb276fd60beafd0d243))
+
+
+
+
+
 # 3.5.0 (2022-03-11)
 
 

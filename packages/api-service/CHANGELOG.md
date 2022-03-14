@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@8.0.1...@leavittsoftware/api-service@9.0.1) (2022-03-14)
+
+**Note:** Version bump only for package @leavittsoftware/api-service
+
+
+
+
+
 # [9.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@8.0.1...@leavittsoftware/api-service@9.0.0) (2022-03-10)
 
 
