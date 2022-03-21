@@ -8,10 +8,6 @@ export class ODataResponse<T> {
   }
 
   private getEntity<T>(json): T {
-    if (this.metadata.has('context')) {
-      return json as T;
-    }
-
     if (json.value && !Array.isArray(json.value)) {
       return json.value as T;
     }
