@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@9.1.0...@leavittsoftware/api-service@9.1.1) (2022-03-21)
+
+
+### Bug Fixes
+
+* **api-service:** remove improper assumption that return object for simple types ([e55f663](https://github.com/LeavittSoftware/titanium-elements/commit/e55f66374c6ab42ff9620800c2860a3560e77e92))
+
+
+
+
+
 # [9.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@9.0.1...@leavittsoftware/api-service@9.1.0) (2022-03-14)
 
 
