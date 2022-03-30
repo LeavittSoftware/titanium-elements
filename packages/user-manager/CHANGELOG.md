@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 9.7.0 (2022-03-30)
+
+
+### Features
+
+* **user-manager:** adds username to JwtToken ([1cfd323](https://github.com/LeavittSoftware/titanium-elements/commit/1cfd3230d466c1c5a6f916b0364ad4b7413b1b8b))
+
+
+
+
+
 ## 9.6.1 (2022-03-01)
 
 
