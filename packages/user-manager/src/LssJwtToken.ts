@@ -15,4 +15,5 @@ export interface LssJwtToken {
   role: Array<string>;
   unique_name: string;
   email: string;
+  username: string;
 }
