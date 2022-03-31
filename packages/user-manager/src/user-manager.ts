@@ -243,8 +243,11 @@ export class UserManager extends LitElement {
   }
 
   private async _getTokenAsync(): Promise<LssJwtToken> {
-    let accessToken = this._getAccessTokenFromLocalStorage();
-    const refreshToken = this._getTokenfromUrl('refreshToken') || this._getRefreshTokenFromLocalStorage() || null;
+    const refreshTokenFromUrl = this._getTokenfromUrl('refreshToken');
+
+    //If a new refresh token is sent, clear the access token incase one is still valid from another user
+    let accessToken = refreshTokenFromUrl ? '' : this._getAccessTokenFromLocalStorage();
+    const refreshToken = refreshTokenFromUrl || this._getRefreshTokenFromLocalStorage() || null;
     this._clearHashFromUrl();
 
     // validate uri access token
