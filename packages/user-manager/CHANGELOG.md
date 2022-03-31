@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.8.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/user-manager@9.7.0...@leavittsoftware/user-manager@9.8.0) (2022-03-31)
+
+
+### Features
+
+* **user-manager:** add username prop to user manager ([ed3c0ca](https://github.com/LeavittSoftware/titanium-elements/commit/ed3c0ca675566e1c4320062fa465c9f1aca4752d))
+
+
+
+
+
 # 9.7.0 (2022-03-30)
 
 
