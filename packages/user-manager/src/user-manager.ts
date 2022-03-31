@@ -24,6 +24,8 @@ export class UserManager extends LitElement {
 
   @property({ type: String }) fullname: string;
 
+  @property({ type: String }) username: string;
+
   @property({ type: String }) firstName: string;
 
   @property({ type: String }) lastName: string;
@@ -227,6 +229,7 @@ export class UserManager extends LitElement {
     this.personId = Number(_jwtToken.nameid);
     this.refreshTokenId = Number(_jwtToken.RefreshTokenId);
     this.fullname = _jwtToken.unique_name;
+    this.username = _jwtToken.username;
     this.firstName = _jwtToken.given_name;
     this.lastName = _jwtToken.family_name;
     this.email = _jwtToken.email;
@@ -337,6 +340,7 @@ export class UserManager extends LitElement {
 
     this.personId = 0;
     this.refreshTokenId = 0;
+    this.username = '';
     this.fullname = '';
     this.company = '';
     this.companyId = null;
