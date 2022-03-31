@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.8.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/user-manager@9.8.0...@leavittsoftware/user-manager@9.8.1) (2022-03-31)
+
+
+### Bug Fixes
+
+* **user-manager:** clear access token if newer refresh is present ([998277a](https://github.com/LeavittSoftware/titanium-elements/commit/998277a175489bcf013e609d6217754f8c513761))
+
+
+
+
+
 # [9.8.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/user-manager@9.7.0...@leavittsoftware/user-manager@9.8.0) (2022-03-31)
 
 
