@@ -293,7 +293,7 @@ export default class ApiService {
           statusCode: response.status,
           baseUrl: this.baseUrl,
           message: message,
-          detail: json?.details,
+          detail: json?.details || json?.error_description,
           action: action,
           path: urlPath,
         };
