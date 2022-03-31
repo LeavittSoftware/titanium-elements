@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/leavitt-file-explorer",
-  "version": "1.14.21",
+  "version": "1.14.22",
   "description": "",
   "main": "lib/leavitt-file-explorer.js",
   "typings": "lib/leavitt-file-explorer.d.ts",
@@ -9,13 +9,13 @@
     "src"
   ],
   "dependencies": {
-    "@leavittsoftware/api-service": "^9.2.3",
-    "@leavittsoftware/leavitt-elements": "^1.12.9",
+    "@leavittsoftware/api-service": "^9.3.0",
+    "@leavittsoftware/leavitt-elements": "^1.12.10",
     "@leavittsoftware/lg-core-typescript": "*",
     "@leavittsoftware/titanium-dialog": "^3.6.4",
     "@leavittsoftware/titanium-helpers": "^4.2.2",
     "@leavittsoftware/titanium-loading-indicator": "^4.2.2",
-    "@leavittsoftware/titanium-snackbar": "^3.4.11",
+    "@leavittsoftware/titanium-snackbar": "^3.4.12",
     "@leavittsoftware/titanium-styles": "^0.3.1",
     "@material/mwc-button": "*",
     "@material/mwc-icon": "*",
