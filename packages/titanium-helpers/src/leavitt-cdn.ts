@@ -27,6 +27,7 @@ export function isImage(attachment: Partial<Attachment>) {
     attachment?.Extension === 'jpg' ||
     attachment?.Extension === 'jpeg' ||
     attachment?.Extension === 'gif' ||
+    attachment?.Extension === 'svg' ||
     attachment?.Extension === 'webp'
   );
 }
