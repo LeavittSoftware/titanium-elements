@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.3.0 (2022-03-31)
+
+
+### Features
+
+* **titanium-helpers:** allow original size svg to be returned in inline URL ([dfb2133](https://github.com/LeavittSoftware/titanium-elements/commit/dfb213312602ec568a75815880c1750855fe3371))
+
+
+
+
+
 ## 4.2.2 (2022-03-01)
 
 
