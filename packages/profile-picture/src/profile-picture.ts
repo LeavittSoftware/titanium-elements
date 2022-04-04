@@ -1,5 +1,5 @@
 ﻿import { css, html, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, state } from 'lit/decorators.js';
 
 /**
  * Displays a Leavitt Group users profile picture
@@ -24,13 +24,10 @@ export class ProfilePictureElement extends LitElement {
    */
   @property({ type: Number }) size: number = 120;
 
-  @property({ type: Number }) private cacheBust: number = 0;
+  @state() private cacheBust: number = 0;
+  @state() private hasError = false;
 
   private _availableSizes = new Set([32, 64, 128, 256, 512]);
-
-  _computeSrc(personId: number, size: number, cacheBust: number): string {
-    return `https://cdn.leavitt.com/user-${personId}-${this.determineSize(size)}.jpeg${cacheBust > 0 ? `?c=${cacheBust}` : ''}`;
-  }
 
   private determineSize(size: number) {
     const availableSizes = [...this._availableSizes];
@@ -54,6 +51,7 @@ export class ProfilePictureElement extends LitElement {
    * Reloads profile picture from server
    */
   refresh() {
+    this.hasError = false;
     this.cacheBust = this.cacheBust > 0 ? this.cacheBust + 1 : 1;
   }
 
@@ -67,6 +65,7 @@ export class ProfilePictureElement extends LitElement {
     img {
       display: block;
       width: 100%;
+      image-rendering: crisp-edges;
     }
 
     :host([shape='circle']) img {
@@ -81,9 +80,11 @@ export class ProfilePictureElement extends LitElement {
         draggable="false"
         width="${this.size}px"
         height="${this.size}px"
-        alt="Profile Picture"
-        @error=${() => (this.personId = 0)}
-        src=${this._computeSrc(this.personId, this.size, this.cacheBust)}
+        alt="User profile picture"
+        @error=${() => (this.hasError = true)}
+        src="https://cdn.leavitt.com/user-${this.hasError ? 0 : this.personId}-${this.determineSize(this.size)}.jpeg${this.cacheBust > 0
+          ? `?c=${this.cacheBust}`
+          : ''}"
       />
     `;
   }
