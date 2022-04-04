@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.8.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/profile-picture@4.7.0...@leavittsoftware/profile-picture@4.8.0) (2022-04-04)
+
+
+### Features
+
+* **profile-picture:** higher quality resized images in chrome ([3e24bd0](https://github.com/LeavittSoftware/titanium-elements/commit/3e24bd09fad4b6e699c9d74df43bb4439bd60738))
+
+
+
+
+
 # [4.7.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/profile-picture@4.6.10...@leavittsoftware/profile-picture@4.7.0) (2022-04-04)
 
 
