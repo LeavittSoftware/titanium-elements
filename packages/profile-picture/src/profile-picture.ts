@@ -65,7 +65,7 @@ export class ProfilePictureElement extends LitElement {
     img {
       display: block;
       width: 100%;
-      image-rendering: crisp-edges;
+      image-rendering: -webkit-optimize-contrast;
     }
 
     :host([shape='circle']) img {
