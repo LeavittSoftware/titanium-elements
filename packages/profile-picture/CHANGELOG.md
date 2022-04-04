@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.7.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/profile-picture@4.6.10...@leavittsoftware/profile-picture@4.7.0) (2022-04-04)
+
+
+### Features
+
+* **profile-picture:** prevent no picture from overriding person id ([de13de1](https://github.com/LeavittSoftware/titanium-elements/commit/de13de1dfd2a96bacae1258bade3158c2aa3a4f6))
+
+
+
+
+
 ## 4.6.10 (2022-03-31)
 
 **Note:** Version bump only for package @leavittsoftware/profile-picture
