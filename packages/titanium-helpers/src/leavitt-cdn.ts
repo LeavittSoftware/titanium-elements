@@ -1,9 +1,9 @@
-import { Attachment } from '@leavittsoftware/lg-core-typescript/lg.core';
+import { IDatabaseAttachment } from '@leavittsoftware/lg-core-typescript/lg.net.core';
 
 /*
  * Requires CdnFileName,PreviewExtension,PreviewSizes,Extension
  */
-export function getCdnInlineUrl(attachment: Partial<Attachment> | null | undefined, size?: number) {
+export function getCdnInlineUrl(attachment: Partial<IDatabaseAttachment> | null | undefined, size?: number) {
   if (!attachment?.CdnFileName) {
     return undefined;
   }
@@ -21,7 +21,7 @@ export function getCdnInlineUrl(attachment: Partial<Attachment> | null | undefin
     : `https://cdn.leavitt.com/${attachment.CdnFileName}.${attachment.Extension}`;
 }
 
-export function isImage(attachment: Partial<Attachment>) {
+export function isImage(attachment: Partial<IDatabaseAttachment>) {
   return (
     attachment?.Extension === 'png' ||
     attachment?.Extension === 'jpg' ||
@@ -35,7 +35,7 @@ export function isImage(attachment: Partial<Attachment>) {
 /*
  * Requires CdnFileName,PreviewExtension,PreviewSizes,Extension,Name
  */
-export function getCdnDownloadUrl(attachment: Partial<Attachment> | null | undefined, size?: number) {
+export function getCdnDownloadUrl(attachment: Partial<IDatabaseAttachment> | null | undefined, size?: number) {
   if (!attachment?.CdnFileName || (size && !attachment?.PreviewSizes?.split(',').includes(String(size)))) {
     return undefined;
   }
