@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.4.0 (2022-04-11)
+
+
+### Features
+
+* **titanium-helpers:** update to .net core IDatabaseAttachment ([479bbd4](https://github.com/LeavittSoftware/titanium-elements/commit/479bbd4f8841d879f054f1995bc9d0eea43ba99c))
+
+
+
+
+
 ## [4.3.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-helpers@4.3.0...@leavittsoftware/titanium-helpers@4.3.1) (2022-04-04)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-helpers

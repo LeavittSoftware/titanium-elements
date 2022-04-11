@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/api-service",
   "description": "",
   "author": "Leavitt Software",
-  "version": "9.3.2",
+  "version": "9.3.3",
   "license": "MIT",
   "main": "lib/api-service-element.js",
   "typings": "lib/api-service-element.d.ts",
@@ -19,8 +19,8 @@
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
   "dependencies": {
-    "@leavittsoftware/titanium-helpers": "^4.3.1",
-    "@leavittsoftware/user-manager": "^9.8.3",
+    "@leavittsoftware/titanium-helpers": "^4.4.0",
+    "@leavittsoftware/user-manager": "^9.8.4",
     "tslib": "^2.3.1"
   },
   "peerDependencies": {
