@@ -1,4 +1,4 @@
-import { BearerTokenProvider } from './bearer-token-provider';
+﻿import { BearerTokenProvider } from './bearer-token-provider';
 import { HttpError } from './HttpError';
 import { ODataDto } from './odata-dto';
 import { ODataResponse } from './odata-response';
@@ -30,14 +30,34 @@ export default class ApiService {
     delete this.headers[key];
   }
 
-  async uploadFile<T>(urlPath: string, file: File, onprogress: onProgressCallback): Promise<ODataResponse<T>> {
+  async uploadFile<T>(urlPath: string, file: File, onprogress: onProgressCallback, options: ApiServiceRequestOptions | null = null): Promise<ODataResponse<T>> {
     return new Promise(async (resolve, reject) => {
+      if (options?.abortController.signal && options?.abortController.signal.aborted) {
+        reject(new AbortError());
+      }
+      const DONE_STATE = 4;
+
       if (!file || !file.name) {
         reject('ArgumentException: Invalid file passed to uploadFile.');
       }
 
       try {
         const xhr = new XMLHttpRequest();
+
+        xhr.onabort = function () {
+          reject(new AbortError());
+        };
+
+        if (options?.abortController.signal) {
+          options?.abortController.signal.addEventListener('abort', () => xhr.abort());
+
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState === DONE_STATE) {
+              options?.abortController.signal.removeEventListener('abort', () => xhr.abort());
+            }
+          };
+        }
+
         xhr.upload.addEventListener('progress', e => {
           onprogress(e, xhr);
         });
@@ -306,4 +326,9 @@ export default class ApiService {
       return Promise.reject(`The server sent back invalid JSON. ${error}`);
     }
   }
+}
+
+class AbortError extends Error {
+  name = 'AbortError';
+  message = 'Aborted';
 }
