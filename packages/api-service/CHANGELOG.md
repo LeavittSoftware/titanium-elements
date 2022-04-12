@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@9.3.3...@leavittsoftware/api-service@9.4.0) (2022-04-12)
+
+
+### Features
+
+* **api-service:** add support for abort controller in upload ([eedc18f](https://github.com/LeavittSoftware/titanium-elements/commit/eedc18fd3594c84ca5f61fdba3481daa74f57c4a))
+* **api-service:** allow void return promises on aggregate responses ([a0479ab](https://github.com/LeavittSoftware/titanium-elements/commit/a0479ab9b88d99320cd07e810b82b8a4ae1367a4))
+
+
+
+
+
 ## 9.3.3 (2022-04-11)
 
 **Note:** Version bump only for package @leavittsoftware/api-service
