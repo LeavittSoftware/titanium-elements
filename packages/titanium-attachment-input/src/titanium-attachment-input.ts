@@ -62,7 +62,7 @@ export class TitaniumAttachmentInputElement extends LitElement {
   /**
    *  What file types to allow or empty array to all all files. This will be bound to the accept attribute of the native input and used to fire @file-type-error if selected file does not match
    */
-  @property({ type: Array }) allowedFileType = ['image/svg+xml', 'image/png', 'image/jpeg', 'image/gif', 'application/vnd.ms-excel'];
+  @property({ type: String }) allowedExtensions = 'png,svg,bmp,jpeg,jpg,exe,webp,iso,sv';
 
   /**
    *  All selected files, empty if no file is selected
@@ -139,15 +139,17 @@ export class TitaniumAttachmentInputElement extends LitElement {
     this.input.value = '';
   }
 
-  private _handleNewFile(files: FileList) {
-    if (files && files.length > 0) {
-      if (!this.allowedFileType?.length || Array.from(files).every(file => this.allowedFileType?.includes(file.type))) {
-        this.files = Array.from(files);
+  private addFiles(files: FileList) {
+    const extensions = this.allowedExtensions.split(',');
+
+    for (let index = 0; index < files.length; index++) {
+      const file = files[index];
+      if (!extensions.some(ext => file.name.endsWith(ext))) {
+        this.dispatchEvent(new Event('file-type-error', { bubbles: true, composed: true }));
+      } else {
+        this.files = [...this.files, file];
         this._notifyChange();
         this.reportValidity();
-      } else {
-        this.dispatchEvent(new Event('file-type-error', { bubbles: true, composed: true }));
-        this.reset();
       }
     }
   }
@@ -299,7 +301,7 @@ export class TitaniumAttachmentInputElement extends LitElement {
         @click=${() => (!this.disabled ? this.input.click() : '')}
         @drop=${(e: DragEvent) => {
           const files = e.dataTransfer?.files || new FileList();
-          this._handleNewFile(files);
+          this.addFiles(files);
           e.preventDefault();
           this.isOver = false;
         }}
@@ -316,7 +318,7 @@ export class TitaniumAttachmentInputElement extends LitElement {
       >
         <attachment-name>
           ${this.files.length
-            ? html`${this.files.map(o => o.name).join(',')}`
+            ? html`${this.files.length > 1 ? `(${this.files.length}) ` : ''}${this.files.map(o => o.name).join(', ')}`
             : this.attachment
             ? html`${this.attachment?.Name + '.' + this.attachment?.Extension}`
             : html`<span placeholder>${this.placeholder}</span>`}
@@ -352,9 +354,12 @@ export class TitaniumAttachmentInputElement extends LitElement {
             id="input"
             name="image"
             ?multiple=${this.multiple}
-            accept=${this.allowedFileType.join(',')}
+            accept=${this.allowedExtensions
+              .split(',')
+              .map(o => `.${o}`)
+              .join(',')}
             @change=${e => {
-              this._handleNewFile(e.target.files);
+              this.addFiles(e.target.files);
             }}
           />
         </label>
