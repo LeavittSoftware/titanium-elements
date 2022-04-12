@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.3.0 (2022-04-12)
+
+
+* feat(titanium-attachment-input)!:  replace allowedFileType with allowedExtensions ([3d6714f](https://github.com/LeavittSoftware/titanium-elements/commit/3d6714fd3ea2ca4163b741fedd318b559df32bc8))
+
+
+### BREAKING CHANGES
+
+* replace allowedFileType  with comma sep. string of extensions allowedExtensions
+
+
+
+
+
 ## 0.2.1 (2022-03-01)
 
 

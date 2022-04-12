@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.17](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-sw-notifier@2.1.16...@leavittsoftware/titanium-sw-notifier@2.1.17) (2022-04-12)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-sw-notifier
+
+
+
+
+
 ## [2.1.16](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-sw-notifier@2.1.15...@leavittsoftware/titanium-sw-notifier@2.1.16) (2022-04-12)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-sw-notifier
