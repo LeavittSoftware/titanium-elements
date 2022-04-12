@@ -1,4 +1,4 @@
-﻿import { BearerTokenProvider } from './bearer-token-provider';
+import { BearerTokenProvider } from './bearer-token-provider';
 import { HttpError } from './HttpError';
 import { ODataDto } from './odata-dto';
 import { ODataResponse } from './odata-response';
@@ -209,7 +209,7 @@ export default class ApiService {
     return array.indexOf(value) === index;
   }
 
-  public async aggregateResponses<T>(apiCalls: Array<() => Promise<ODataResponse<T>>>): Promise<void> {
+  public async aggregateResponses<T>(apiCalls: Array<() => Promise<ODataResponse<T> | void>>): Promise<void> {
     const errorMessageToCount: Map<string, number> = new Map();
     const httpErrors: HttpError[] = [];
 
