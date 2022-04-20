@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-input-validator",
   "description": "",
   "author": "Leavitt Software",
-  "version": "3.6.0",
+  "version": "0.0.1",
   "license": "MIT",
   "main": "lib/titanium-input-validator.js",
   "typings": "lib/titanium-input-validator.d.ts",
@@ -19,8 +19,6 @@
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
   "dependencies": {
-    "@material/mwc-icon-button": "*",
-    "@material/mwc-radio": "*",
     "tslib": "^2.3.1"
   },
   "peerDependencies": {

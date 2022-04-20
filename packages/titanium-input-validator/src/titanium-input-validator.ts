@@ -4,7 +4,7 @@ import { property, customElement, state } from 'lit/decorators.js';
 @customElement('titanium-input-validator')
 export class TitaniumInputValidatorElement extends LitElement {
   @property({ type: String }) validationMessage = '';
-  @state() evaluator = () => true;
+  @property({ type: Object }) evaluator = () => true;
 
   @state() protected isUiValid = true;
 
