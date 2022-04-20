@@ -1,0 +1,128 @@
+import { Story, Canvas, Meta, ArgsTable } from '@storybook/addon-docs';
+import { html } from 'lit';
+
+import '@leavittsoftware/leavitt-elements/lib/leavitt-company-select';
+import '@leavittsoftware/user-manager';
+import ApiService from '@leavittsoftware/api-service/lib/api-service';
+import { AuthenticatedTokenProvider } from '@leavittsoftware/api-service/lib/authenticated-token-provider';
+import { isDevelopment } from '@leavittsoftware/titanium-helpers/lib/titanium-dev-detection';
+
+<Meta title="UI LEAVITT SPECIFIC/leavitt-company-select" parameters={{ component: 'leavitt-company-select' }} />
+
+# Leavitt Company Select
+
+Leavitt specific company single select element
+
+## How to use
+
+```bash
+npm i @leavittsoftware/leavitt-elements
+```
+
+```js
+import '@leavittsoftware/leavitt-elements/lib/leavitt-company-select';
+```
+
+## API
+
+<ArgsTable of="leavitt-company-select" />
+
+## Demo
+
+<Canvas withToolbar>
+  <Story name="Docs">
+    {html`
+      <h2 demo>Standard</h2>
+      <leavitt-company-select
+        .apiService=${(() => {
+          const api3UserService = new ApiService(new AuthenticatedTokenProvider());
+          api3UserService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
+          api3UserService.addHeader('X-LGAppName', 'Documents');
+          return api3UserService;
+        })()}
+        @selected=${e => {
+          if (e.target?.value) {
+            console.log(e.target.value);
+          }
+        }}
+      ></leavitt-company-select>
+      <h2 demo>Shaped</h2>
+      <leavitt-company-select
+        shaped
+        .apiService=${(() => {
+          const api3UserService = new ApiService(new AuthenticatedTokenProvider());
+          api3UserService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
+          api3UserService.addHeader('X-LGAppName', 'Documents');
+          return api3UserService;
+        })()}
+      ></leavitt-company-select>
+      <h2 demo>Empty list item (selected)</h2>
+      <leavitt-company-select
+        enableEmptyListItem
+        emptyListItemLabel="Any company"
+        @selected=${e => {
+          if (e.target?.value) {
+            console.log(e.target.value);
+          }
+        }}
+        .value=${{ Id: 0 }}
+        .apiService=${(() => {
+          const api3UserService = new ApiService(new AuthenticatedTokenProvider());
+          api3UserService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
+          api3UserService.addHeader('X-LGAppName', 'Documents');
+          return api3UserService;
+        })()}
+      ></leavitt-company-select>
+      <h2 demo>Required</h2>
+      <leavitt-company-select
+        required
+        .apiService=${(() => {
+          const api3UserService = new ApiService(new AuthenticatedTokenProvider());
+          api3UserService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
+          api3UserService.addHeader('X-LGAppName', 'Documents');
+          return api3UserService;
+        })()}
+      ></leavitt-company-select>
+      <h2 demo>Pre-selected</h2>
+      <leavitt-company-select
+        @selected=${e => {
+          if (e.target?.value) {
+            console.log(e.target.value);
+          }
+        }}
+        .value=${{ Id: 20248 }}
+        .apiService=${(() => {
+          const api3UserService = new ApiService(new AuthenticatedTokenProvider());
+          api3UserService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
+          api3UserService.addHeader('X-LGAppName', 'Documents');
+          return api3UserService;
+        })()}
+      ></leavitt-company-select>
+      <h2 demo>Custom Odata (Top 5)</h2>
+      <leavitt-company-select
+        @selected=${e => {
+          if (e.target?.value) {
+            console.log(e.target.value);
+          }
+        }}
+        .odataParts=${['top=5', 'orderby=name', 'select=Id,Name', "expand=Logos(filter=Type eq 'Mark';top=0;count=true)"]}
+        .apiService=${(() => {
+          const api3UserService = new ApiService(new AuthenticatedTokenProvider());
+          api3UserService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
+          api3UserService.addHeader('X-LGAppName', 'Documents');
+          return api3UserService;
+        })()}
+      ></leavitt-company-select>
+      <h2 demo>User supplied data (pre-selected)</h2>
+      <leavitt-company-select
+        .companies=${[
+          { Id: 1, Name: 'Twitter' },
+          { Id: 2, Name: 'Google' },
+        ]}
+        .value=${{ Id: 2 }}
+      ></leavitt-company-select>
+      <h2 demo>Disabled</h2>
+      <leavitt-company-select disabled></leavitt-company-select>
+    `}
+  </Story>
+</Canvas>
