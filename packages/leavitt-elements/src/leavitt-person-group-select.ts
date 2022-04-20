@@ -137,9 +137,8 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
     };
 
     const fuse = new Fuse(entities, options);
-    let fuseResults = fuse.search(searchTerm);
-    fuseResults = fuseResults?.sort((a, b) => b?.score - a?.score) ?? [];
-    return { entities: fuseResults?.map(o => o.item) ?? [], count: odataCount };
+    const fuseResults = fuse.search(searchTerm).sort((a, b) => (b?.score ?? 0) - (a?.score ?? 0));
+    return { entities: fuseResults.map(o => o.item), count: odataCount };
   }
 
   private async doPersonSearch(searchTerm: string) {
