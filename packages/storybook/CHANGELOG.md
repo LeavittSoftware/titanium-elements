@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.19.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.18.14...@leavittsoftware/storybook@9.19.0) (2022-04-20)
+
+
+### Features
+
+* **leavitt-elements:** adds initial version of Leavitt company selector ([1b186cc](https://github.com/LeavittSoftware/titanium-elements/commit/1b186cc62f96bcdd5ca0efaeecc734c1a6db6c3b))
+
+
+
+
+
 ## [9.18.14](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.18.13...@leavittsoftware/storybook@9.18.14) (2022-04-12)
 
 **Note:** Version bump only for package @leavittsoftware/storybook
