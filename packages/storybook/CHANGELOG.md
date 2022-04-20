@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.19.0...@leavittsoftware/storybook@10.0.0) (2022-04-20)
+
+
+### Features
+
+* **leavitt-elements:**  more results back; fuzzy sorted; req. api service ([a086f49](https://github.com/LeavittSoftware/titanium-elements/commit/a086f4914d0e83addc22de845b3c279361543fc5))
+* **leavitt-elements:** adds initial version of Leavitt company selector ([1b186cc](https://github.com/LeavittSoftware/titanium-elements/commit/1b186cc62f96bcdd5ca0efaeecc734c1a6db6c3b))
+
+
+### BREAKING CHANGES
+
+* **leavitt-elements:** Require API Service passed in for element to query remote host
+
+
+
+
+
 # [9.19.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@9.18.14...@leavittsoftware/storybook@9.19.0) (2022-04-20)
 
 

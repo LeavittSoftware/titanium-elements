@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@1.13.0...@leavittsoftware/leavitt-elements@2.0.0) (2022-04-20)
+
+
+### Features
+
+* **leavitt-elements:**  more results back; fuzzy sorted; req. api service ([a086f49](https://github.com/LeavittSoftware/titanium-elements/commit/a086f4914d0e83addc22de845b3c279361543fc5))
+* **leavitt-elements:** adds initial version of Leavitt company selector ([1b186cc](https://github.com/LeavittSoftware/titanium-elements/commit/1b186cc62f96bcdd5ca0efaeecc734c1a6db6c3b))
+
+
+### BREAKING CHANGES
+
+* **leavitt-elements:** Require API Service passed in for element to query remote host
+
+
+
+
+
 # [1.13.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@1.12.16...@leavittsoftware/leavitt-elements@1.13.0) (2022-04-20)
 
 
