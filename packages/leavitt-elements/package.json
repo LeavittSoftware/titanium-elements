@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/leavitt-elements",
-  "version": "1.12.16",
+  "version": "1.13.0",
   "description": "",
   "main": "lib/leavitt-person-select.js",
   "typings": "lib/leavitt-person-select.d.ts",
