@@ -53,6 +53,7 @@
     "@leavittsoftware/titanium-tab-control": "^0.3.2",
     "@leavittsoftware/titanium-toolbar": "^0.2.1",
     "@leavittsoftware/titanium-youtube-input": "^0.1.1",
+    "@leavittsoftware/titanium-input-validator": "0.0.1",
     "@leavittsoftware/user-manager": "^9.8.4",
     "@material/mwc-icon": "*",
     "@open-wc/testing-helpers": "^1.8.12",
