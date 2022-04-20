@@ -41,4 +41,25 @@ export const peopleGroupIcons = new Map<string, { icon: string; displayName: str
       displayName: 'Department people group',
     },
   ],
+  [
+    '#LG.Core.DataModel.Core.BuildingPeopleGroup ',
+    {
+      icon: 'location_city',
+      displayName: 'Building people group',
+    },
+  ],
+  [
+    '#LG.Core.DataModel.Core.FTEJobRolePeopleGroup',
+    {
+      icon: 'work_outline',
+      displayName: 'FTE job role people group',
+    },
+  ],
+  [
+    '#LG.Core.DataModel.Core.CompanyGroupPeopleGroup',
+    {
+      icon: 'groups',
+      displayName: 'Company grouping people group',
+    },
+  ],
 ]);

@@ -3,6 +3,9 @@ import { html } from 'lit';
 
 import '@leavittsoftware/leavitt-elements/lib/leavitt-person-group-select';
 import '@leavittsoftware/user-manager';
+import ApiService from '@leavittsoftware/api-service/lib/api-service';
+import { AuthenticatedTokenProvider } from '@leavittsoftware/api-service/lib/authenticated-token-provider';
+import { isDevelopment } from '@leavittsoftware/titanium-helpers/lib/titanium-dev-detection';
 
 <Meta title="UI LEAVITT SPECIFIC/leavitt-person-group-select" parameters={{ component: 'leavitt-person-group-select' }} />
 
@@ -28,9 +31,44 @@ import '@leavittsoftware/leavitt-elements/lib/leavitt-person-group-select';
 
 <Canvas withToolbar>
   <Story name="Docs">{html` <h2 demo>Standard</h2>
-    <leavitt-person-group-select apiNamespace="EducationAdmin"></leavitt-person-group-select>
+    <leavitt-person-group-select
+      .apiService=${(() => {
+        const api3UserService = new ApiService(new AuthenticatedTokenProvider());
+        api3UserService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
+        api3UserService.addHeader('X-LGAppName', 'DocumentsAdmin');
+        return api3UserService;
+      })()}
+    ></leavitt-person-group-select>
     <h2 demo>Required</h2>
-    <leavitt-person-group-select required apiNamespace="EducationAdmin"></leavitt-person-group-select>
+    <leavitt-person-group-select
+      required
+      .apiService=${(() => {
+        const api3UserService = new ApiService(new AuthenticatedTokenProvider());
+        api3UserService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
+        api3UserService.addHeader('X-LGAppName', 'DocumentsAdmin');
+        return api3UserService;
+      })()}
+    ></leavitt-person-group-select>
+    <h2 demo>Shaped</h2>
+    <leavitt-person-group-select
+      shaped
+      .apiService=${(() => {
+        const api3UserService = new ApiService(new AuthenticatedTokenProvider());
+        api3UserService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
+        api3UserService.addHeader('X-LGAppName', 'DocumentsAdmin');
+        return api3UserService;
+      })()}
+    ></leavitt-person-group-select>
+    <h2 demo>Pre-selected</h2>
+    <leavitt-person-group-select
+      .selected=${{ type: 'Person', Id: 11056, FirstName: 'Aaron', LastName: 'Drabeck' }}
+      .apiService=${(() => {
+        const api3UserService = new ApiService(new AuthenticatedTokenProvider());
+        api3UserService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
+        api3UserService.addHeader('X-LGAppName', 'DocumentsAdmin');
+        return api3UserService;
+      })()}
+    ></leavitt-person-group-select>
     <h2 demo>Disabled</h2>
     <leavitt-person-group-select disabled></leavitt-person-group-select>`}</Story>
 </Canvas>
