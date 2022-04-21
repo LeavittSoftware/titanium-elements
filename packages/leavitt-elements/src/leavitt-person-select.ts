@@ -1,18 +1,20 @@
-import { css, html, LitElement, PropertyValues } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { property, customElement, query, state } from 'lit/decorators.js';
 import '@material/mwc-textfield';
 import '@material/mwc-list/mwc-list-item.js';
 import '@material/mwc-linear-progress';
 import '@material/mwc-menu';
+import '@leavittsoftware/profile-picture';
 
 import { Menu } from '@material/mwc-menu';
 import { TextField } from '@material/mwc-textfield';
 import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar/lib/titanium-snackbar';
-import { AuthenticatedTokenProvider } from '@leavittsoftware/api-service/lib/authenticated-token-provider';
 
-import { getSearchTokens, Debouncer, LoadWhile, isDevelopment } from '@leavittsoftware/titanium-helpers';
+import { getSearchTokens, Debouncer, LoadWhile } from '@leavittsoftware/titanium-helpers';
 import { Person } from '@leavittsoftware/lg-core-typescript/lg.core';
 import ApiService from '@leavittsoftware/api-service/lib/api-service';
+import { DOMEvent } from './dom-event';
+import { SelectedDetail } from '@material/mwc-menu/mwc-menu-base';
 
 export class LeavittPersonSelectSelectedEvent extends Event {
   static eventType = 'selected';
@@ -37,14 +39,19 @@ export class LeavittPersonSelectSelectedEvent extends Event {
 export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
   @state() protected count: number = 0;
   @state() protected searchTerm: string;
-  @state() protected people: Array<Person> = [];
+  @state() protected suggestions: Array<Person> = [];
   @query('mwc-menu') protected menu: Menu;
   @query('mwc-textfield') protected textfield: TextField & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
 
   /**
-   *  Api service to handle calls. Required if apiNamespace is not provided.
+   *  Required
    */
   @property({ attribute: false }) apiService: ApiService;
+
+  /**
+   *  Odata parts for the Company API call
+   */
+  @property({ type: Array }) odataParts: Array<string> = ['top=8', 'orderby=FirstName', 'select=FirstName,LastName,CompanyName,Id', 'count=true'];
 
   /**
    *  The person object selected by the user.
@@ -77,50 +84,26 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
   @property({ type: Boolean }) required: boolean = false;
 
   /**
-   *  API namespace to be sent with the person search query. Required if apiService is not provided.
+   *  Helper text to display below the select. Always displays by default.
    */
-  @property({ type: String }) apiNamespace: string = '';
+  @property({ type: String }) helper: string = '';
 
   /**
-   *  Additional properties to be selected in the person search query.
+   *  Callback called before each validation check. See the mwc-textfield's validation section for more details.
    */
-  @property({ type: Array }) selectedProperties: Array<keyof Person> = [];
-
-  /**
-   *  Expand query added to the person search query.
-   */
-  @property({ type: String }) expand: string = '';
-
-  /**
-   *  Filter query added to the person search query in addition to search terms.
-   */
-  @property({ type: String }) filter: string = '';
-
-  updated(changedProps: PropertyValues<this>) {
-    if (changedProps.has('selected')) {
-      this.textfield.value = !this.selected ? '' : `${this.selected.FirstName} ${this.selected.LastName}`;
+  @property({ type: Object }) validityTransform = () => {
+    if (this.required) {
+      return {
+        valid: !!this.selected,
+        valueMissing: !!this.selected,
+      };
     }
-  }
+    return {};
+  };
 
   firstUpdated() {
     this.menu.anchor = this.textfield;
     this.textfield.layout();
-
-    if (!this.apiService) {
-      this.apiService = new ApiService(new AuthenticatedTokenProvider());
-      this.apiService.baseUrl = isDevelopment ? 'https://devapi2.leavitt.com/' : 'https://api2.leavitt.com/';
-      this.apiService.addHeader('X-LGAppName', this.apiNamespace);
-    }
-
-    this.textfield.validityTransform = () => {
-      if (this.required) {
-        return {
-          valid: !!this.selected,
-          valueMissing: !!this.selected,
-        };
-      }
-      return {};
-    };
   }
 
   /**
@@ -129,7 +112,7 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
   reset() {
     this.textfield.value = '';
     this.selected = null;
-    this.people = [];
+    this.suggestions = [];
     this.count = 0;
     this.textfield.isUiValid = true;
     this.textfield.mdcFoundation?.setValid?.(true);
@@ -158,38 +141,44 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
     return this.textfield.reportValidity();
   }
 
-  private _abortController: AbortController = new AbortController();
+  private abortController: AbortController = new AbortController();
 
-  private async _doSearch(searchTerm: string) {
+  private async doSearch(searchTerm: string) {
     if (!searchTerm) {
       return;
     }
-    this._abortController.abort();
-    this._abortController = new AbortController();
+    this.abortController.abort();
+    this.abortController = new AbortController();
     try {
-      const odataParts = ['$top=8', '$count=true', `$select=FirstName,LastName,CompanyName,Id${this.selectedProperties.map(o => `,${o}`).join('')}`];
-      if (this.expand) {
-        odataParts.push(`$expand=${this.expand}`);
-      }
       const searchTokens = getSearchTokens(searchTerm);
+      const odataParts = this.clone(this.odataParts);
       if (searchTokens.length > 0) {
         const searchFilter = searchTokens.map((token: string) => `(startswith(FirstName, '${token}') or startswith(LastName, '${token}'))`).join(' and ');
-        const filter = `${searchFilter}${this.filter ? ` and (${this.filter})` : ''}`;
-        odataParts.push(`$filter=${filter}`);
+        const existingFilterIndex = odataParts.findIndex(o => o.startsWith('filter=') || o.startsWith('$filter='));
+        if (existingFilterIndex > -1) {
+          odataParts[existingFilterIndex] = [odataParts[existingFilterIndex], searchFilter].join(' and ');
+        } else {
+          odataParts.push(`filter=${searchFilter}`);
+        }
       }
-      const get = this.apiService.getAsync<Person>(`People?${odataParts.join('&')}`, { abortController: this._abortController });
+
+      const get = this.apiService.getAsync<Person>(`People?${odataParts.join('&')}`, { abortController: this.abortController });
       this.loadWhile(get);
       const result = await get;
-      this.people = result?.entities ?? [];
+      this.suggestions = result?.entities ?? [];
       this.count = result?.odataCount ?? 0;
       return;
     } catch (error) {
-      if (!error?.includes?.('Abort')) {
+      if (!error.Message.include('Abort error')) {
         TitaniumSnackbarSingleton.open(error);
       }
     }
-    this.people = [];
+    this.suggestions = [];
     this.count = 0;
+  }
+
+  private clone<T>(obj: T): T {
+    return JSON.parse(JSON.stringify(obj));
   }
 
   private setSelected(person: Person | null) {
@@ -200,21 +189,22 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
     this.dispatchEvent(new LeavittPersonSelectSelectedEvent(person));
   }
 
-  private _doSearchDebouncer = new Debouncer((searchTerm: string) => this._doSearch(searchTerm));
+  private doSearchDebouncer = new Debouncer((searchTerm: string) => this.doSearch(searchTerm));
 
   private async onInput(term: string) {
     this.setSelected(null);
     this.searchTerm = term;
     this.menu.open = !!this.searchTerm;
-    this.people = [];
+    this.suggestions = [];
     this.count = 0;
-    this._doSearchDebouncer.debounce(term);
+    this.doSearchDebouncer.debounce(term);
   }
 
   static styles = css`
     :host {
       display: inline-block;
       position: relative;
+      --mdc-menu-max-width: 550px;
     }
 
     mwc-textfield {
@@ -230,21 +220,14 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
       margin: 0 12px;
     }
 
-    img {
-      image-rendering: crisp-edges;
-    }
-
-    img[selected] {
+    profile-picture[selected] {
       position: absolute;
       top: 16px;
       left: 16px;
-      height: 24px;
-      width: 24px;
-      border-radius: 50%;
     }
 
-    [no-result] {
-      padding: 0 16px;
+    [summary] {
+      padding: 0px 16px 4px 16px;
       font-family: Roboto, Arial, sans-serif;
       color: var(--app-light-text-color);
       line-height: 18px;
@@ -261,51 +244,51 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
         .disabled=${this.disabled}
         .placeholder=${this.placeholder}
         .validationMessage=${this.validationMessage}
+        .validityTransform=${this.validityTransform}
+        .helper=${this.helper}
+        .value=${!this.selected ? '' : `${this.selected.FirstName} ${this.selected.LastName}`}
         .required=${this.required}
-        @keydown=${e => {
-          if (this.people.length > 0 && e.keyCode == '40') {
+        @keydown=${(e: KeyboardEvent) => {
+          if (this.suggestions.length > 0 && (e.key == 'Enter' || e.key == 'ArrowDown')) {
             this.menu.focusItemAtIndex(0);
           }
         }}
-        @input=${async e => {
+        @input=${async (e: DOMEvent<TextField>) => {
           this.loadWhile(this.onInput(e.target.value));
         }}
         @focus=${() => (!this.selected ? (this.menu.open = !!this.searchTerm) : '')}
       ></mwc-textfield>
-      ${this.selected
-        ? html` <img
-            selected
-            onerror="this.src='https://cdn.leavitt.com/user-0-64.jpeg'"
-            src="https://cdn.leavitt.com/user-${this.selected?.Id ?? 0}-64.jpeg"
-          />`
-        : ''}
+      ${this.selected ? html` <profile-picture selected .personId=${this.selected?.Id || 0} shape="circle" size="24"></profile-picture>` : ''}
       <mwc-menu
-        fullwidth
+        fixed
         activatable
         corner="BOTTOM_LEFT"
         defaultFocus="NONE"
         x="0"
         y=${this.validationMessage ? '-19' : '0'}
-        @selected=${e => {
+        @selected=${(e: CustomEvent<SelectedDetail<number>>) => {
           e.stopPropagation();
           const selectedIndex = e.detail.index;
+
           if (selectedIndex > -1) {
-            const selected = this.people?.[selectedIndex] ?? null;
+            const selected = this.suggestions?.[selectedIndex] ?? null;
             this.setSelected(selected);
           }
         }}
       >
         <mwc-linear-progress .closed=${!this.isLoading} indeterminate></mwc-linear-progress>
-        ${this.people.map(
+        ${!!this.searchTerm && this.isLoading === false
+          ? html`<div summary>Showing ${this.suggestions.length} of ${this.count} result${this.count === 1 ? '' : 's'} for '${this.searchTerm}'</div>`
+          : ''}
+        ${this.suggestions.map(
           person => html`
             <mwc-list-item twoline graphic="avatar">
               <span>${person.FirstName} ${person.LastName}</span>
               <span slot="secondary">${person.CompanyName}</span>
-              <img slot="graphic" onerror="this.src='https://cdn.leavitt.com/user-0-64.jpeg'" src="https://cdn.leavitt.com/user-${person?.Id ?? 0}-64.jpeg" />
+              <profile-picture slot="graphic" .personId=${person?.Id || 0} shape="circle" size="40"></profile-picture>
             </mwc-list-item>
           `
         )}
-        ${this.count === 0 && !!this.searchTerm && this.isLoading === false ? html`<div no-result>0 result for '${this.searchTerm}'</div>` : ''}
       </mwc-menu>
     `;
   }

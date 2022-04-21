@@ -32,49 +32,81 @@ import '@leavittsoftware/leavitt-elements/lib/leavitt-person-select';
 <Canvas withToolbar>
   <Story name="Docs">
     {html` <h2 demo>Standard</h2>
-      <leavitt-person-select apiNamespace="PLGameAdmin"></leavitt-person-select>
-      <h2 demo>Shaped</h2>
-      <leavitt-person-select shaped apiNamespace="PLGameAdmin"></leavitt-person-select>
-      <h2 demo>Required</h2>
-      <leavitt-person-select required apiNamespace="PLGameAdmin"></leavitt-person-select>
-      <h2 demo>Selected</h2>
-      <leavitt-person-select .selected=${{ Id: 11056, FirstName: 'Aaron', LastName: 'Drabeck' }} required apiNamespace="PLGameAdmin"></leavitt-person-select>
-      <h2 demo>Selected Properties</h2>
-      <leavitt-person-select
-        .selectedProperties=${['JobTitle', 'Biography']}
-        @selected=${e => {
-          if (e.target?.selected) {
-            alert(`JobTitle:${e.target.selected.JobTitle} Biography:${e.target.selected.Biography}`);
-          }
-        }}
-        apiNamespace="PLGameAdmin"
-      ></leavitt-person-select>
-      <h2 demo>Expand</h2>
-      <leavitt-person-select
-        expand="EmailAddresses"
-        @selected=${e => {
-          if (e.target?.selected) {
-            alert(`Email:${e.target.selected.EmailAddresses[0]?.Address}`);
-          }
-        }}
-        apiNamespace="DepartmentManager"
-      ></leavitt-person-select>
-      <h2 demo>Filter</h2>
-      <leavitt-person-select
-        filter="Roles/any(r: isof(r,%27LG.Core.DataModel.Core.LGEmployeeRole%27) and not r/IsExpired and (r/LG.Core.DataModel.Core.LGEmployeeRole/LGEmployeeRoleToCompanyAddresses/any(c: not c/IsExpired and c/CompanyAddress/CompanyId eq 20248)))"
-        apiNamespace="DepartmentManager"
-      ></leavitt-person-select>
-      <h2 demo>Disabled</h2>
-      <leavitt-person-select disabled></leavitt-person-select>
-      <h2 demo>External Api Service</h2>
       <leavitt-person-select
         .apiService=${(() => {
-          const api2UserService = new ApiService(new AuthenticatedTokenProvider());
-          api2UserService.baseUrl = isDevelopment ? 'https://devapi2.leavitt.com/' : 'https://api2.leavitt.com/';
-          api2UserService.addHeader('X-LGAppName', 'PLGameAdmin');
-          Object.freeze(api2UserService);
-          return api2UserService;
+          const api3UserService = new ApiService(new AuthenticatedTokenProvider());
+          api3UserService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
+          api3UserService.addHeader('X-LGAppName', 'DocumentsAdmin');
+          return api3UserService;
         })()}
-      ></leavitt-person-select>`}
+        @selected=${e => {
+          if (e.target?.selected) {
+            console.log(e.target.selected);
+          }
+        }}
+      ></leavitt-person-select>
+      <h2 demo>Shaped</h2>
+      <leavitt-person-select
+        shaped
+        .apiService=${(() => {
+          const api3UserService = new ApiService(new AuthenticatedTokenProvider());
+          api3UserService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
+          api3UserService.addHeader('X-LGAppName', 'DocumentsAdmin');
+          return api3UserService;
+        })()}
+        @selected=${e => {
+          if (e.target?.selected) {
+            console.log(e.target.selected);
+          }
+        }}
+      ></leavitt-person-select>
+      <h2 demo>Required</h2>
+      <leavitt-person-select
+        required
+        .apiService=${(() => {
+          const api3UserService = new ApiService(new AuthenticatedTokenProvider());
+          api3UserService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
+          api3UserService.addHeader('X-LGAppName', 'DocumentsAdmin');
+          return api3UserService;
+        })()}
+        @selected=${e => {
+          if (e.target?.selected) {
+            console.log(e.target.selected);
+          }
+        }}
+      ></leavitt-person-select>
+      <h2 demo>Selected</h2>
+      <leavitt-person-select
+        .apiService=${(() => {
+          const api3UserService = new ApiService(new AuthenticatedTokenProvider());
+          api3UserService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
+          api3UserService.addHeader('X-LGAppName', 'DocumentsAdmin');
+          return api3UserService;
+        })()}
+        @selected=${e => {
+          if (e.target?.selected) {
+            console.log(e.target.selected);
+          }
+        }}
+        .selected=${{ Id: 11056, FirstName: 'Aaron', LastName: 'Drabeck' }}
+        required
+      ></leavitt-person-select>
+      <h2 demo>Custom OData</h2>
+      <leavitt-person-select
+        .odataParts=${['top=8', 'orderby=FirstName', 'select=FirstName,LastName,CompanyName,Id,Biography', 'count=true', 'filter=Biography ne null']}
+        .apiService=${(() => {
+          const api3UserService = new ApiService(new AuthenticatedTokenProvider());
+          api3UserService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
+          api3UserService.addHeader('X-LGAppName', 'DocumentsAdmin');
+          return api3UserService;
+        })()}
+        @selected=${e => {
+          if (e.target?.selected) {
+            console.log(e.target.selected);
+          }
+        }}
+      ></leavitt-person-select>
+      <h2 demo>Disabled</h2>
+      <leavitt-person-select disabled></leavitt-person-select>`}
   </Story>
 </Canvas>
