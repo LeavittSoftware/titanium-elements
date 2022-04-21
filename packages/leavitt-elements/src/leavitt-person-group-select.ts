@@ -17,6 +17,7 @@ import { Person as CorePerson, PeopleGroup as CorePeopleGroup } from '@leavittso
 import { peopleGroupIcons } from './people-group-icons';
 import ApiService from '@leavittsoftware/api-service/lib/api-service';
 import { SelectedDetail } from '@material/mwc-list';
+import { DOMEvent } from './dom-event';
 
 export class LeavittPersonGroupSelectSelectedEvent extends Event {
   static eventType = 'selected';
@@ -85,19 +86,22 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
    */
   @property({ type: Boolean }) required: boolean = false;
 
+  /**
+   *  Callback called before each validation check. See the mwc-textfield's validation section for more details.
+   */
+  @property({ type: Object }) validityTransform = () => {
+    if (this.required) {
+      return {
+        valid: !!this.selected,
+        valueMissing: !!this.selected,
+      };
+    }
+    return {};
+  };
+
   firstUpdated() {
     this.menu.anchor = this.textfield;
     this.textfield.layout();
-
-    this.textfield.validityTransform = () => {
-      if (this.required) {
-        return {
-          valid: !!this.selected,
-          valueMissing: !!this.selected,
-        };
-      }
-      return {};
-    };
   }
 
   reset() {
@@ -122,10 +126,15 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
     return this.textfield.reportValidity();
   }
 
+  private abortController: AbortController = new AbortController();
+
   private async doSearch(searchTerm: string) {
     if (!searchTerm) {
       return null;
     }
+
+    this.abortController.abort();
+    this.abortController = new AbortController();
 
     const results = await Promise.all([this.doPersonSearch(searchTerm), this.doGroupSearch(searchTerm)]);
     const entities = [...(results[0]?.entities ?? []), ...(results[1]?.entities ?? [])];
@@ -153,11 +162,13 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
         const searchFilter = searchTokens.map((token: string) => `(startswith(FirstName, '${token}') or startswith(LastName, '${token}'))`).join(' and ');
         odataParts.push(`$filter=${searchFilter}`);
       }
-      const results = await this.apiService?.getAsync<Person>(`People?${odataParts.join('&')}`);
+      const results = await this.apiService?.getAsync<Person>(`People?${odataParts.join('&')}`, { abortController: this.abortController });
       results?.entities.forEach(p => (p.type = 'Person'));
       return results;
     } catch (error) {
-      TitaniumSnackbarSingleton.open(error);
+      if (!error.Message.include('Abort error')) {
+        TitaniumSnackbarSingleton.open(error);
+      }
     }
     return null;
   }
@@ -173,11 +184,13 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
         const searchFilter = searchTokens.map((token: string) => `contains(Name, '${token}')`).join(' and ');
         odataParts.push(`$filter=${searchFilter}`);
       }
-      const results = await this.apiService?.getAsync<PeopleGroup>(`PeopleGroups?${odataParts.join('&')}`);
+      const results = await this.apiService?.getAsync<PeopleGroup>(`PeopleGroups?${odataParts.join('&')}`, { abortController: this.abortController });
       results?.entities.forEach(p => (p.type = 'PeopleGroup'));
       return results;
     } catch (error) {
-      TitaniumSnackbarSingleton.open(error);
+      if (!error.Message.include('Abort error')) {
+        TitaniumSnackbarSingleton.open(error);
+      }
     }
     return null;
   }
@@ -244,7 +257,7 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
     }
 
     [summary] {
-      padding: 0 16px;
+      padding: 0px 16px 4px 16px;
       font-family: Roboto, Arial, sans-serif;
       color: var(--app-light-text-color, #80868b);
       line-height: 18px;
@@ -266,13 +279,14 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
           ? this.selected?.Name
           : '') ?? ''}
         .validationMessage=${this.validationMessage}
+        .validityTransform=${this.validityTransform}
         .required=${this.required}
-        @keydown=${e => {
-          if (this.suggestions.length > 0 && e.keyCode == '40') {
+        @keydown=${(e: KeyboardEvent) => {
+          if (this.suggestions.length > 0 && (e.key == 'Enter' || e.key == 'ArrowDown')) {
             this.menu.focusItemAtIndex(0);
           }
         }}
-        @input=${async e => {
+        @input=${async (e: DOMEvent<TextField>) => {
           this.loadWhile(this.onInput(e.target.value));
         }}
         @focus=${() => (!this.selected ? (this.menu.open = !!this.searchTerm) : '')}
