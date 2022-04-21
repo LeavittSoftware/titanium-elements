@@ -56,8 +56,8 @@ export class UserManager extends LitElement {
 
   constructor() {
     super();
-
     if (!instance) {
+      /* eslint-disable  @typescript-eslint/no-this-alias */
       instance = this;
     } else {
       console.warn('More than one <user-manager> element has been used in this web application, consider removing one.');

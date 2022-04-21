@@ -34,6 +34,7 @@
     { "path": "packages/profile-picture" },
     { "path": "packages/titanium-youtube-input" },
     { "path": "packages/titanium-attachment-input" },
+    { "path": "packages/titanium-input-validator" },
     { "path": "packages/storybook/demos" }
   ],
   "files": []

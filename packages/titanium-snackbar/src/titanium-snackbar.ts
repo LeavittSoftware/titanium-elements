@@ -63,6 +63,7 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
   constructor() {
     super();
     if (!TitaniumSnackbarSingleton || !TitaniumSnackbarSingleton._isComponent) {
+      /* eslint-disable  @typescript-eslint/no-this-alias */
       TitaniumSnackbarSingleton = this;
     } else {
       console.warn('More than one <titanium-snackbar> element has been used in this web application, consider removing one.');

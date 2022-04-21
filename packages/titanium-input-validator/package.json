@@ -1,12 +1,12 @@
 {
-  "name": "@leavittsoftware/api-service",
+  "name": "@leavittsoftware/titanium-input-validator",
   "description": "",
   "author": "Leavitt Software",
-  "version": "9.4.2",
+  "version": "0.1.0",
   "license": "MIT",
-  "main": "lib/api-service-element.js",
-  "typings": "lib/api-service-element.d.ts",
-  "homepage": "https://github.com/LeavittSoftware/titanium-elements/tree/master/packages/api-service",
+  "main": "lib/titanium-input-validator.js",
+  "typings": "lib/titanium-input-validator.d.ts",
+  "homepage": "https://github.com/LeavittSoftware/titanium-elements/tree/master/packages/titanium-input-validator",
   "files": [
     "lib",
     "src"
@@ -19,8 +19,6 @@
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
   "dependencies": {
-    "@leavittsoftware/titanium-helpers": "^4.4.0",
-    "@leavittsoftware/user-manager": "^9.8.5",
     "tslib": "^2.3.1"
   },
   "peerDependencies": {
