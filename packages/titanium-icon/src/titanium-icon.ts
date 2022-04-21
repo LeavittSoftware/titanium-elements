@@ -2,7 +2,7 @@ import { customElement, html, LitElement, property } from 'lit-element';
 import { styles } from '@material/mwc-icon/mwc-icon-host.css';
 
 /**
- * Titanium icon
+ * Titanium icon - encapsulates icon text in shadow DOM to prevent icon name from showing as selected text when used in an mwc-select/mwc-list item
  *
  * @element titanium-icon
  * @example
