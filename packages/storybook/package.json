@@ -28,6 +28,7 @@
     "@leavittsoftware/leavitt-elements": "^1.12.16",
     "@leavittsoftware/leavitt-file-explorer": "^1.14.28",
     "@leavittsoftware/profile-picture": "^4.8.1",
+    "@leavittsoftware/titanium-icon": "0.0.1",
     "@leavittsoftware/titanium-access-denied-page": "^0.2.1",
     "@leavittsoftware/titanium-address-input": "^1.8.6",
     "@leavittsoftware/titanium-attachment-input": "^0.3.0",

@@ -1,6 +1,7 @@
 {
   "extends": "./base.tsconfig.json",
   "references": [
+    { "path": "packages/titanium-icon" },
     { "path": "packages/titanium-helpers" },
     { "path": "packages/user-manager" },
     { "path": "packages/api-service" },
