@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [11.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@10.1.0...@leavittsoftware/storybook@11.0.0) (2022-04-21)
+
+
+### Features
+
+* **leavitt-elements:** bring interface inline with other select; require APISerivce ([25b3115](https://github.com/LeavittSoftware/titanium-elements/commit/25b311568b9a557ce5ec545c2aab7a0b432f5cd7))
+
+
+### BREAKING CHANGES
+
+* **leavitt-elements:** Requires APISerivce; filter,expand props removed -- use odataParts.
+
+
+
+
+
 # [10.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@10.0.0...@leavittsoftware/storybook@10.1.0) (2022-04-21)
 
 
