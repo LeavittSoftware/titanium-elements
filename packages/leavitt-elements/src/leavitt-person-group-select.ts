@@ -36,7 +36,6 @@ type PeopleGroup = CorePeopleGroup & { type: 'PeopleGroup' };
 
 /**
  *  Single select input that searches both Leavitt Group employees and groups
- *  Does not currently support setting a pre-selected person/group.
  *
  *  @element leavitt-person-group-select
  *
@@ -52,7 +51,7 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
   @query('mwc-textfield') protected textfield: TextField & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
 
   /**
-   *  Required if you want component to load companies automatically
+   *  Required
    */
   @property({ attribute: false }) apiService: ApiService | null;
 
@@ -166,7 +165,7 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
       results?.entities.forEach(p => (p.type = 'Person'));
       return results;
     } catch (error) {
-      if (!error.Message.include('Abort error')) {
+      if (!error?.Message?.include('Abort error')) {
         TitaniumSnackbarSingleton.open(error);
       }
     }
@@ -188,7 +187,7 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
       results?.entities.forEach(p => (p.type = 'PeopleGroup'));
       return results;
     } catch (error) {
-      if (!error.Message.include('Abort error')) {
+      if (!error?.Message?.include('Abort error')) {
         TitaniumSnackbarSingleton.open(error);
       }
     }
@@ -210,6 +209,7 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
     if (this.selected !== null) {
       this.setSelected(null);
     }
+    this.dispatchEvent(new Event('change'));
     this.searchTerm = term;
     this.menu.open = !!this.searchTerm;
     this.suggestions = [];
@@ -224,6 +224,7 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
       display: inline-block;
       position: relative;
       --mdc-menu-max-width: 550px;
+      --mdc-list-item-graphic-size: 40px;
     }
 
     mwc-textfield {
@@ -240,7 +241,7 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
 
     mwc-list-item mwc-icon {
       color: var(--app-accent-color-blue, #4285f4);
-      --mdc-icon-size: 32px;
+      --mdc-icon-size: 40px;
     }
 
     mwc-icon[selected],
