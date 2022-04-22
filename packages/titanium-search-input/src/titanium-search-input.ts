@@ -146,6 +146,13 @@ export class TitaniumSearchInput extends LitElement {
       border: 1px solid var(--app-border-color, #dadce0);
     }
 
+    :host([shallow]) input-container input {
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+    }
+
     input-container:hover input {
       box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
     }
