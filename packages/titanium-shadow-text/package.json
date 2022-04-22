@@ -1,0 +1,36 @@
+{
+  "name": "@leavittsoftware/titanium-shadow-text",
+  "description": "",
+  "author": "Leavitt Software",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "lib/titanium-shadow-text.js",
+  "typings": "lib/titanium-shadow-text.d.ts",
+  "homepage": "https://github.com/LeavittSoftware/titanium-elements/tree/master/packages/titanium-shadow-text",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "keywords": [
+    "web component"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LeavittSoftware/titanium-elements.git"
+  },
+  "dependencies": {
+    "tslib": "^2.3.1"
+  },
+  "peerDependencies": {
+    "lit": ">=2.0.0"
+  },
+  "scripts": {
+    "build:watch": "tsc --watch",
+    "build": "tsc",
+    "lint": "eslint ./src/**/*.ts"
+  },
+  "bugs": {
+    "url": "https://github.com/LeavittSoftware/titanium-elements/issues"
+  },
+  "gitHead": "f80c9f25691088c456baf119f3be7e278bf9c80d"
+}

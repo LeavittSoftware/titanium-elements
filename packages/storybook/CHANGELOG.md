@@ -3,6 +3,52 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [12.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@11.0.1...@leavittsoftware/storybook@12.0.0) (2022-04-22)
+
+
+### Bug Fixes
+
+* **titanium-shadow-text:** fixes package name ([86d4949](https://github.com/LeavittSoftware/titanium-elements/commit/86d49497f41d8fd8704d4823381c0aed35f45d63))
+
+
+### Features
+
+* **leavitt-elements:** bring interface inline with other select; require APISerivce ([25b3115](https://github.com/LeavittSoftware/titanium-elements/commit/25b311568b9a557ce5ec545c2aab7a0b432f5cd7))
+* **titanium-shadow-text:** adds titanium-shadow-text ([88a4f02](https://github.com/LeavittSoftware/titanium-elements/commit/88a4f0295ba9564c53dbce0c7b8dab2adca3713d))
+
+
+### BREAKING CHANGES
+
+* **leavitt-elements:** Requires APISerivce; filter,expand props removed -- use odataParts.
+
+
+
+
+
+## [11.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@11.0.0...@leavittsoftware/storybook@11.0.1) (2022-04-22)
+
+**Note:** Version bump only for package @leavittsoftware/storybook
+
+
+
+
+
+# [11.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@10.1.0...@leavittsoftware/storybook@11.0.0) (2022-04-21)
+
+
+### Features
+
+* **leavitt-elements:** bring interface inline with other select; require APISerivce ([25b3115](https://github.com/LeavittSoftware/titanium-elements/commit/25b311568b9a557ce5ec545c2aab7a0b432f5cd7))
+
+
+### BREAKING CHANGES
+
+* **leavitt-elements:** Requires APISerivce; filter,expand props removed -- use odataParts.
+
+
+
+
+
 # [10.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@10.0.0...@leavittsoftware/storybook@10.1.0) (2022-04-21)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/storybook",
-  "version": "10.1.0",
+  "version": "12.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -25,8 +25,8 @@
   "license": "ISC",
   "devDependencies": {
     "@leavittsoftware/api-service": "^9.4.2",
-    "@leavittsoftware/leavitt-elements": "^2.0.0",
-    "@leavittsoftware/leavitt-file-explorer": "^1.14.30",
+    "@leavittsoftware/leavitt-elements": "^3.0.1",
+    "@leavittsoftware/leavitt-file-explorer": "^1.14.32",
     "@leavittsoftware/profile-picture": "^4.8.2",
     "@leavittsoftware/titanium-access-denied-page": "^0.2.1",
     "@leavittsoftware/titanium-address-input": "^1.8.6",
@@ -48,6 +48,7 @@
     "@leavittsoftware/titanium-progress": "^0.2.1",
     "@leavittsoftware/titanium-search-input": "^3.1.1",
     "@leavittsoftware/titanium-select": "^0.5.1",
+    "@leavittsoftware/titanium-shadow-text": "^0.1.0",
     "@leavittsoftware/titanium-side-menu": "^0.5.2",
     "@leavittsoftware/titanium-single-select": "^2.1.1",
     "@leavittsoftware/titanium-snackbar": "^3.4.18",
@@ -56,8 +57,11 @@
     "@leavittsoftware/titanium-tab-control": "^0.3.2",
     "@leavittsoftware/titanium-toolbar": "^0.2.1",
     "@leavittsoftware/titanium-youtube-input": "^0.1.1",
+    "@leavittsoftware/titanium-twoline-formfield": "^0.0.1",
     "@leavittsoftware/user-manager": "^9.8.5",
     "@material/mwc-icon": "*",
+    "@material/mwc-list": "*",
+    "@material/mwc-checkbox": "*",
     "@open-wc/testing-helpers": "^1.8.12",
     "@storybook/addon-a11y": "6.4.22",
     "@storybook/addon-actions": "6.4.22",
