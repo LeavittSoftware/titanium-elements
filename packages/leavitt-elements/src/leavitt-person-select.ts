@@ -51,7 +51,7 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
   /**
    *  Odata parts for the Company API call
    */
-  @property({ type: Array }) odataParts: Array<string> = ['top=8', 'orderby=FirstName', 'select=FirstName,LastName,CompanyName,Id', 'count=true'];
+  @property({ type: Array }) odataParts: Array<string> = ['top=15', 'orderby=FirstName', 'select=FirstName,LastName,CompanyName,Id', 'count=true'];
 
   /**
    *  The person object selected by the user.
@@ -205,6 +205,7 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
       display: inline-block;
       position: relative;
       --mdc-menu-max-width: 550px;
+      --mdc-list-item-graphic-size: 40px;
     }
 
     mwc-textfield {
