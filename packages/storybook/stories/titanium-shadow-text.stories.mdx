@@ -1,0 +1,52 @@
+import { Story, Canvas, Meta, ArgsTable } from '@storybook/addon-docs';
+import { html } from 'lit';
+import { PRIMARY_STORY } from '@storybook/addon-docs';
+import '@leavittsoftware/titanium-shadow-text';
+import '@leavittsoftware/titanium-icon';
+import '@material/mwc-list/mwc-list-item';
+
+<Meta
+  title="UI COMPONENTS/titanium-shadow-text"
+  argTypes={{
+    styles: {
+      table: {
+        disable: true,
+      },
+    },
+  }}
+  parameters={{
+    component: 'titanium-shadow-text',
+  }}
+/>
+
+# Titanium Shadow Text
+
+A helper component to allow a second line of text to display on a mwc-select
+
+## How to use
+
+```bash
+npm i @leavittsoftware/titanium-shadow-text
+```
+
+```js
+import '@leavittsoftware/titanium-shadow-text';
+```
+
+## API
+
+<ArgsTable story={PRIMARY_STORY} />
+
+## Demo
+
+export const TitaniumShadowTextStory = ({ data, ...args }) => html`
+  <mwc-list-item graphic="avatar" twoline value="Graph">
+    <titanium-icon template slot="graphic" icon="assessment"></titanium-icon>
+    <span>View Graph</span>
+    <span slot="secondary"><titanium-shadow-text text="Display the assessment data graphical format"></titanium-shadow-text></span>
+  </mwc-list-item>
+`;
+
+<Canvas withToolbar>
+  <Story name="Docs">{TitaniumShadowTextStory.bind({})}</Story>
+</Canvas>
