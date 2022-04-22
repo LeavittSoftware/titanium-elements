@@ -1,52 +1,51 @@
-import { css, html, LitElement } from 'lit';
-import { property, customElement, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '@leavittsoftware/profile-picture';
 import '@material/mwc-textfield';
-import '@material/mwc-list/mwc-list-item.js';
+import '@material/mwc-list/mwc-list-item';
 import '@material/mwc-linear-progress';
 import '@material/mwc-menu';
-import Fuse from 'fuse.js';
 
 import { Menu } from '@material/mwc-menu';
 import { TextField } from '@material/mwc-textfield';
 import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar/lib/titanium-snackbar';
 
 import { getSearchTokens, Debouncer, LoadWhile } from '@leavittsoftware/titanium-helpers';
-import { Person as CorePerson, PeopleGroup as CorePeopleGroup } from '@leavittsoftware/lg-core-typescript/lg.net.core';
-import { peopleGroupIcons } from './people-group-icons';
+import { Person as CorePerson, Company as CoreCompany } from '@leavittsoftware/lg-core-typescript/lg.net.core';
 import ApiService from '@leavittsoftware/api-service/lib/api-service';
-import { SelectedDetail } from '@material/mwc-list';
+import { LitElement, css, html } from 'lit';
+import { customElement, state, query, property } from 'lit/decorators.js';
 import { DOMEvent } from './dom-event';
+import { SelectedDetail } from '@material/mwc-list';
+import Fuse from 'fuse.js';
 
-export class LeavittPersonGroupSelectSelectedEvent extends Event {
+export class LeavittPersonCompanySelectSelectedEvent extends Event {
   static eventType = 'selected';
-  person: Partial<CorePerson> | null;
-  group: Partial<CorePeopleGroup> | null;
+  selected: SelectableEntity | null;
 
-  constructor(entity: Partial<Person | PeopleGroup> | null, eventInitDict?: EventInit) {
-    super(LeavittPersonGroupSelectSelectedEvent.eventType, eventInitDict);
-    this.person = entity?.type === 'Person' ? entity : null;
-    this.group = entity?.type === 'PeopleGroup' ? entity : null;
+  constructor(entity: SelectableEntity | null, eventInitDict?: EventInit) {
+    super(LeavittPersonCompanySelectSelectedEvent.eventType, eventInitDict);
+    this.selected = entity;
   }
 }
 
 type Person = CorePerson & { type: 'Person' };
-type PeopleGroup = CorePeopleGroup & { type: 'PeopleGroup' };
+type Company = CoreCompany & { type: 'Company' };
+type CustomEntity = { Name: string; type: 'CustomEntity' };
+export type SelectableEntity = Person | Company | CustomEntity;
 
 /**
- *  Single select input that searches both Leavitt Group employees and groups
+ *  Single select input that searches both Leavitt Group employees and companies
  *
- *  @element leavitt-person-group-select
+ *  @element leavitt-person-company-select
  *
  *  @fires selected - Fired when selection is made or cleared
  *
  */
-@customElement('leavitt-person-group-select')
-export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
+@customElement('leavitt-person-company-select')
+export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
   @state() protected count: number = 0;
   @state() protected searchTerm: string;
-  @state() protected suggestions: Array<Partial<Person | PeopleGroup>> = [];
+  @state() protected suggestions: Array<Person | Company | CustomEntity> = [];
   @query('mwc-menu') protected menu: Menu;
   @query('mwc-textfield') protected textfield: TextField & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
 
@@ -56,9 +55,9 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
   @property({ attribute: false }) apiService: ApiService | null;
 
   /**
-   *  The person or group object selected by the user.
+   *  The person, company or text selected by the user.
    */
-  @property({ type: Object }) selected: Partial<Person | (PeopleGroup & { odataType: string })> | null = null;
+  @property({ type: Object }) selected: SelectableEntity | null = null;
 
   /**
    *  Message to show in the error color when the element is invalid.
@@ -68,12 +67,12 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
   /**
    *  Sets floating label value.
    */
-  @property({ type: String }) label: string = 'Person or group';
+  @property({ type: String }) label: string = 'Person or company';
 
   /**
    *  Sets placeholder text value.
    */
-  @property({ type: String }) placeholder: string = 'Search a person or group';
+  @property({ type: String }) placeholder: string = 'Search a person or company';
 
   /**
    *  Whether or not the input should be disabled.
@@ -127,7 +126,7 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
 
   private abortController: AbortController = new AbortController();
 
-  private async doSearch(searchTerm: string) {
+  async #doSearch(searchTerm: string) {
     if (!searchTerm) {
       return null;
     }
@@ -135,21 +134,21 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
     this.abortController.abort();
     this.abortController = new AbortController();
 
-    const results = await Promise.all([this.doPersonSearch(searchTerm), this.doGroupSearch(searchTerm)]);
+    const results = await Promise.all([this.#doPersonSearch(searchTerm), this.#doCompanySearch(searchTerm)]);
     const entities = [...(results[0]?.entities ?? []), ...(results[1]?.entities ?? [])];
     const odataCount = (results[0]?.odataCount ?? 0) + (results[1]?.odataCount ?? 0);
 
     const options = {
       includeScore: true,
-      keys: ['Name', 'FirstName', 'LastName'],
+      keys: ['Name', 'FirstName', 'LastName', 'ShortName'],
     };
 
     const fuse = new Fuse(entities, options);
     const fuseResults = fuse.search(searchTerm).sort((a, b) => (b?.score ?? 0) - (a?.score ?? 0));
-    return { entities: fuseResults.map(o => o.item), count: odataCount };
+    return { entities: [...fuseResults.map(o => o.item), { Name: searchTerm, type: 'CustomEntity' } as CustomEntity], count: odataCount + 1 };
   }
 
-  private async doPersonSearch(searchTerm: string) {
+  async #doPersonSearch(searchTerm: string) {
     if (!searchTerm) {
       return null;
     }
@@ -172,19 +171,19 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
     return null;
   }
 
-  private async doGroupSearch(searchTerm: string) {
+  async #doCompanySearch(searchTerm: string) {
     if (!searchTerm) {
       return null;
     }
     try {
-      const odataParts = ['top=100', 'count=true', 'select=Name,Id,Description'];
+      const odataParts = ['top=100', 'count=true', 'select=Name,Shortname,MarkUrl,Id'];
       const searchTokens = getSearchTokens(searchTerm);
       if (searchTokens.length > 0) {
-        const searchFilter = searchTokens.map((token: string) => `contains(Name, '${token}')`).join(' and ');
+        const searchFilter = searchTokens.map((token: string) => `(contains(Name, '${token}') OR (contains(Shortname, '${token}')))`).join(' and ');
         odataParts.push(`$filter=${searchFilter}`);
       }
-      const results = await this.apiService?.getAsync<PeopleGroup>(`PeopleGroups?${odataParts.join('&')}`, { abortController: this.abortController });
-      results?.entities.forEach(p => (p.type = 'PeopleGroup'));
+      const results = await this.apiService?.getAsync<Company>(`Companies?${odataParts.join('&')}`, { abortController: this.abortController });
+      results?.entities.forEach(p => (p.type = 'Company'));
       return results;
     } catch (error) {
       if (!error?.Message?.include('Abort error')) {
@@ -194,27 +193,18 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
     return null;
   }
 
-  private setSelected(entity: Partial<Person | PeopleGroup> | null) {
-    this.selected = entity;
-    if (entity) {
-      this.textfield.reportValidity();
-    }
+  #doSearchDebouncer = new Debouncer((searchTerm: string) => this.#doSearch(searchTerm));
 
-    this.dispatchEvent(new LeavittPersonGroupSelectSelectedEvent(entity));
-  }
-
-  private doSearchDebouncer = new Debouncer((searchTerm: string) => this.doSearch(searchTerm));
-
-  private async onInput(term: string) {
+  async #onInput(term: string) {
     if (this.selected !== null) {
-      this.setSelected(null);
+      this.selected = null;
     }
     this.dispatchEvent(new Event('change'));
     this.searchTerm = term;
     this.menu.open = !!this.searchTerm;
     this.suggestions = [];
     this.count = 0;
-    const result = await this.doSearchDebouncer.debounce(term);
+    const result = await this.#doSearchDebouncer.debounce(term);
     this.suggestions = result?.entities ?? [];
     this.count = result?.count ?? 0;
   }
@@ -241,9 +231,10 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
 
     mwc-list-item mwc-icon {
       color: var(--app-accent-color-blue, #4285f4);
-      --mdc-icon-size: 40px;
+      --mdc-icon-size: 32px;
     }
 
+    img[selected],
     mwc-icon[selected],
     profile-picture[selected] {
       position: absolute;
@@ -251,16 +242,25 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
       left: 16px;
     }
 
+    img[selected] {
+      height: 24px;
+      width: 24px;
+    }
+
     mwc-icon[selected] {
       background: #fff;
-      --mdc-icon-size: 24px;
+      /* --mdc-icon-size: 36px; */
       color: var(--app-accent-color-blue, #4285f4);
+    }
+
+    :host([has-image]) div[icon] {
+      display: none;
     }
 
     [summary] {
       padding: 0px 16px 4px 16px;
       font-family: Roboto, Arial, sans-serif;
-      color: var(--app-light-text-color, #80868b);
+      color: var(--app-light-text-color);
       line-height: 18px;
       font-size: 13px;
     }
@@ -270,13 +270,13 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
     return html`
       <mwc-textfield
         outlined
-        icon="search"
+        icon=${this.selected ? 'l' : 'search'}
         .label=${this.label}
         .disabled=${this.disabled}
         .placeholder=${this.placeholder}
         .value=${(this.selected?.type === 'Person'
           ? `${this.selected?.FirstName} ${this.selected?.LastName}`
-          : this.selected?.type === 'PeopleGroup'
+          : this.selected?.type === 'Company' || this.selected?.type === 'CustomEntity'
           ? this.selected?.Name
           : '') ?? ''}
         .validationMessage=${this.validationMessage}
@@ -288,17 +288,19 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
           }
         }}
         @input=${async (e: DOMEvent<TextField>) => {
-          this.loadWhile(this.onInput(e.target.value));
+          this.loadWhile(this.#onInput(e.target.value));
         }}
         @focus=${() => (!this.selected ? (this.menu.open = !!this.searchTerm) : '')}
       ></mwc-textfield>
-      ${this.selected?.type === 'Person'
-        ? html`<profile-picture selected .personId=${this.selected?.Id || 0} shape="circle" size="24"></profile-picture>`
-        : this.selected?.type === 'PeopleGroup'
-        ? html`<mwc-icon selected title=${peopleGroupIcons.get(this.selected['@odata.type'])?.displayName ?? 'People group'} slot="graphic"
-            >${peopleGroupIcons.get(this.selected['@odata.type'])?.icon ?? 'task_alt'}</mwc-icon
-          >`
-        : ''}
+      <div icon>
+        ${this.selected?.type === 'Person'
+          ? html`<profile-picture selected .personId=${this.selected?.Id || 0} shape="circle" size="24"></profile-picture>`
+          : this.selected?.type === 'Company'
+          ? html`<img selected src=${this.selected?.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />`
+          : this.selected?.type === 'CustomEntity'
+          ? html`<mwc-icon selected title=${this.selected?.Name ?? 'Company'} slot="graphic">supervised_user_circle</mwc-icon>`
+          : ''}
+      </div>
       <mwc-menu
         fixed
         activatable
@@ -311,8 +313,10 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
           const selectedIndex = e.detail.index;
 
           if (selectedIndex > -1) {
-            const selected = this.suggestions?.[selectedIndex] ?? null;
-            this.setSelected(selected);
+            this.selected = this.suggestions?.[selectedIndex] ?? null;
+            this.dispatchEvent(new LeavittPersonCompanySelectSelectedEvent(this.selected));
+            this.textfield.isUiValid = true;
+            this.textfield.mdcFoundation?.setValid?.(true);
           }
         }}
       >
@@ -323,20 +327,26 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
         ${this.suggestions.map(suggestion =>
           suggestion.type == 'Person'
             ? html`
-                <mwc-list-item twoline graphic="avatar">
+                <mwc-list-item twoline graphic="medium">
                   <span title="${suggestion?.FirstName} ${suggestion?.LastName}">${suggestion?.FirstName} ${suggestion?.LastName}</span>
                   <span title=${ifDefined(suggestion?.CompanyName ?? undefined)} slot="secondary">${suggestion?.CompanyName}</span>
                   <profile-picture slot="graphic" .personId=${suggestion?.Id || 0} shape="circle" size="40"></profile-picture>
                 </mwc-list-item>
               `
-            : suggestion.type == 'PeopleGroup'
+            : suggestion.type == 'Company'
             ? html`
-                <mwc-list-item twoline graphic="avatar">
+                <mwc-list-item twoline graphic="medium">
                   <span title=${suggestion.Name ?? ''}>${suggestion.Name}</span>
-                  <span slot="secondary">${suggestion.Description || (peopleGroupIcons.get(suggestion['@odata.type'])?.displayName ?? 'People group')}</span>
-                  <mwc-icon title=${peopleGroupIcons.get(suggestion['@odata.type'])?.displayName ?? 'People group'} slot="graphic"
-                    >${peopleGroupIcons.get(suggestion['@odata.type'])?.icon ?? 'task_alt'}</mwc-icon
-                  >
+                  <img company-mark slot="graphic" src=${suggestion.MarkUrl ?? 'https://cdn.leavitt.com/lg-mark.svg'} />
+                  <span slot="secondary">Company</span>
+                </mwc-list-item>
+              `
+            : suggestion.type == 'CustomEntity'
+            ? html`
+                <mwc-list-item twoline graphic="medium">
+                  <span title=${suggestion.Name ?? ''}>${suggestion.Name}</span>
+                  <span slot="secondary">Custom entry</span>
+                  <mwc-icon title=${suggestion?.Name ?? ''} slot="graphic">person_add</mwc-icon>
                 </mwc-list-item>
               `
             : ''

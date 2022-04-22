@@ -34,6 +34,7 @@ import '@leavittsoftware/leavitt-elements/lib/leavitt-company-select';
     {html`
       <h2 demo>Standard</h2>
       <leavitt-company-select
+        style="width:350px"
         .apiService=${(() => {
           const api3UserService = new ApiService(new AuthenticatedTokenProvider());
           api3UserService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
@@ -116,8 +117,8 @@ import '@leavittsoftware/leavitt-elements/lib/leavitt-company-select';
       <h2 demo>User supplied data (pre-selected)</h2>
       <leavitt-company-select
         .companies=${[
-          { Id: 1, Name: 'Twitter' },
-          { Id: 2, Name: 'Google' },
+          { Id: 1, Name: 'Twitter', MarkUrl: 'https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg', ShortName: 'TWTR' },
+          { Id: 2, Name: 'Google', MarkUrl: 'https://madeby.google.com/static/images/google_g_logo.svg', ShortName: 'GOOG' },
         ]}
         .value=${{ Id: 2 }}
       ></leavitt-company-select>

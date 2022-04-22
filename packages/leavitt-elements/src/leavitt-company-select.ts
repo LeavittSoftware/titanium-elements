@@ -2,6 +2,7 @@ import { css, html, LitElement } from 'lit';
 import { property, customElement, query } from 'lit/decorators.js';
 import '@material/mwc-select';
 import '@material/mwc-list/mwc-list-item.js';
+import '@leavittsoftware/titanium-shadow-text';
 
 import { Select } from '@material/mwc-select';
 
@@ -88,7 +89,7 @@ export class LeavittCompanySelectElement extends LoadWhile(LitElement) {
   /**
    *  Odata parts for the Company API call
    */
-  @property({ type: Array }) odataParts: Array<string> = ['orderby=name', 'select=Id,Name', "expand=Logos(filter=Type eq 'Mark';top=0;count=true)"];
+  @property({ type: Array }) odataParts: Array<string> = ['orderby=name', 'select=Id,Name,Shortname,MarkUrl'];
 
   async firstUpdated() {
     if (!this.companies.length && this.apiService) {
@@ -153,6 +154,10 @@ export class LeavittCompanySelectElement extends LoadWhile(LitElement) {
       position: relative;
     }
 
+    mwc-select {
+      width: 100%;
+    }
+
     :host([shaped]) {
       --mdc-shape-small: 28px;
     }
@@ -163,6 +168,15 @@ export class LeavittCompanySelectElement extends LoadWhile(LitElement) {
       position: absolute;
       top: 16px;
       left: 12px;
+    }
+
+    img[company-mark] {
+      height: 40px;
+      width: 40px;
+    }
+
+    mwc-list-item {
+      --mdc-list-item-graphic-size: 40px;
     }
   `;
 
@@ -186,24 +200,15 @@ export class LeavittCompanySelectElement extends LoadWhile(LitElement) {
         >${this.enableEmptyListItem ? html`<mwc-list-item value="0">${this.emptyListItemLabel}</mwc-list-item>` : ''}
         ${this.companies.map(
           company => html`
-            <mwc-list-item graphic="icon" ?selected=${this.value?.Id === company.Id} value=${String(company.Id)}
-              ><span>${company.Name}</span>
-              <img
-                slot="graphic"
-                src=${company['Logos@odata.count'] ? `https://cdn.leavitt.com/company-mark-${company.Id ?? 0}-32.png` : 'https://cdn.leavitt.com/lg-mark.svg'}
-              />
+            <mwc-list-item twoline graphic="medium" ?selected=${this.value?.Id === company.Id} value=${String(company.Id)}>
+              <span>${company.Name}</span>
+              <span slot="secondary"><titanium-shadow-text text=${company.ShortName || '-'}></titanium-shadow-text></span>
+              <img company-mark slot="graphic" src=${company.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />
             </mwc-list-item>
           `
         )}
       </mwc-select>
-      ${this.value && (this.value?.Id ?? 0) > 0
-        ? html`<img
-            selected
-            src=${this.value?.['Logos@odata.count']
-              ? `https://cdn.leavitt.com/company-mark-${this.value.Id ?? 0}-32.png`
-              : 'https://cdn.leavitt.com/lg-mark.svg'}
-          />`
-        : ''}
+      ${this.value && (this.value?.Id ?? 0) > 0 ? html`<img selected src=${this.value.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />` : ''}
     `;
   }
 }
