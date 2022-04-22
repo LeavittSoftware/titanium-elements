@@ -32,6 +32,7 @@ import '@leavittsoftware/leavitt-elements/lib/leavitt-person-group-select';
 <Canvas withToolbar>
   <Story name="Docs">{html` <h2 demo>Standard</h2>
     <leavitt-person-group-select
+      style="width:350px"
       .apiService=${(() => {
         const api3UserService = new ApiService(new AuthenticatedTokenProvider());
         api3UserService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';

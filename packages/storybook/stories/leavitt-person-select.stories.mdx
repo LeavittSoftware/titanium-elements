@@ -33,6 +33,7 @@ import '@leavittsoftware/leavitt-elements/lib/leavitt-person-select';
   <Story name="Docs">
     {html` <h2 demo>Standard</h2>
       <leavitt-person-select
+        style="width:350px"
         .apiService=${(() => {
           const api3UserService = new ApiService(new AuthenticatedTokenProvider());
           api3UserService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
