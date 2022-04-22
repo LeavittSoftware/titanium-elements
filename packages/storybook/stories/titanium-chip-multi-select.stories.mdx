@@ -1,0 +1,125 @@
+import { Story, Canvas, Meta, ArgsTable } from '@storybook/addon-docs';
+import { html } from 'lit';
+import { PRIMARY_STORY } from '@storybook/addon-docs';
+import '@leavittsoftware/titanium-chip-multi-select';
+import '@material/mwc-button';
+
+<Meta
+  title="UI COMPONENTS/titanium-chip-multi-select"
+  parameters={{
+    component: 'titanium-chip-multi-select',
+  }}
+/>
+
+# Titanium Chip Multiselect
+
+Multi select outlined themed input that styles slotted in chips and add button
+
+## How to use
+
+```bash
+npm i @leavittsoftware/titanium-chip
+```
+
+```js
+import '@leavittsoftware/titanium-chip-multi-select';
+```
+
+## API
+
+<ArgsTable story={PRIMARY_STORY} />
+
+## Demo
+
+export const TitaniumChipStory = ({ animals = ['Dog', 'Cat', 'Lion', 'Hedgehog'], ...args }) =>
+  html`
+    <h2>Demo (TODO: convert to non-storybook demo to fix binding refresh)</h2>
+    <titanium-chip-multi-select label="Service animals" noItemsText="No animals added yet" ?hasItems=${!!animals.length}>
+      <mwc-button
+        slot="button"
+        lowercase
+        icon="add"
+        label="Add animal"
+        outlined
+        @click=${() => {
+          alert('Show add dialog');
+        }}
+      ></mwc-button>
+      ${animals.map(
+        animal => html`
+          <titanium-chip
+            label=${animal}
+            closeable
+            @titanium-chip-close=${() => {
+              animals = [...animals.filter(o => o !== animal)];
+            }}
+          ></titanium-chip>
+        `
+      )}
+    </titanium-chip-multi-select>
+    <h2>Helper text</h2>
+    <titanium-chip-multi-select
+      helper="These animals will be allowed as service animals on domestic flights "
+      label="Service animals"
+      noItemsText="No animals added yet"
+      ?hasItems=${!!animals.length}
+    >
+      <mwc-button
+        slot="button"
+        lowercase
+        icon="add"
+        label="Add animal"
+        outlined
+        @click=${() => {
+          alert('Show add dialog');
+        }}
+      ></mwc-button>
+      ${animals.map(
+        animal => html`
+          <titanium-chip
+            label=${animal}
+            closeable
+            @titanium-chip-close=${() => {
+              animals = [...animals.filter(o => o !== animal)];
+            }}
+          ></titanium-chip>
+        `
+      )}
+    </titanium-chip-multi-select>
+    <h2>Disabled</h2>
+    <titanium-chip-multi-select
+      helper="These animals will be allowed as service animals on domestic flights "
+      label="Service animals"
+      noItemsText="No animals added yet"
+      disabled
+      ?hasItems=${!!animals.length}
+    >
+      <mwc-button
+        slot="button"
+        disabled
+        lowercase
+        icon="add"
+        label="Add animal"
+        outlined
+        @click=${() => {
+          alert('Show add dialog');
+        }}
+      ></mwc-button>
+      ${animals.map(
+        animal => html`
+          <titanium-chip
+            disabled
+            label=${animal}
+            closeable
+            @titanium-chip-close=${() => {
+              animals = [...animals.filter(o => o !== animal)];
+            }}
+          ></titanium-chip>
+        `
+      )}
+    </titanium-chip-multi-select>
+  `;
+
+<Canvas withToolbar>
+  <Story name="Docs">{TitaniumChipStory.bind({})}</Story>
+</Canvas>

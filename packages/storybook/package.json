@@ -34,6 +34,7 @@
     "@leavittsoftware/titanium-button": "^1.7.1",
     "@leavittsoftware/titanium-card": "^2.2.2",
     "@leavittsoftware/titanium-chip": "^3.6.0",
+    "@leavittsoftware/titanium-chip-multi-select": "^1.0.0",
     "@leavittsoftware/titanium-data-table": "^12.4.0",
     "@leavittsoftware/titanium-dialog": "^3.6.4",
     "@leavittsoftware/titanium-error-page": "^0.2.1",

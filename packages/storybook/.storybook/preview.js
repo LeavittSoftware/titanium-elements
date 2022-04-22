@@ -21,4 +21,10 @@ export const parameters = {
   docs: {
     iframeHeight: '200px',
   },
+  backgrounds: {
+    disable: true,
+  },
+  viewport: {
+    disable: true,
+  },
 };

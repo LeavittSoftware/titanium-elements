@@ -10,6 +10,7 @@
     { "path": "packages/titanium-button" },
     { "path": "packages/titanium-card" },
     { "path": "packages/titanium-chip" },
+    { "path": "packages/titanium-chip-multi-select" },
     { "path": "packages/titanium-data-table" },
     { "path": "packages/titanium-dialog" },
     { "path": "packages/titanium-address-input" },
