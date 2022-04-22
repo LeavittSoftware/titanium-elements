@@ -333,6 +333,13 @@ export class TitaniumSingleSelectElement<T> extends LitElement {
       border-bottom-right-radius: 28px;
     }
 
+    :host([shallow]) input {
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+    }
+
     input {
       width: 100%;
       height: 56px;

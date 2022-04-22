@@ -4,10 +4,7 @@ import { html } from 'lit';
 import '@leavittsoftware/titanium-single-select';
 import '@leavittsoftware/titanium-single-select/lib/titanium-single-select-item';
 
-<Meta
-  title="UI COMPONENTS/titanium-single-select"
-  parameters={{ component: 'titanium-single-select' }}
-/>
+<Meta title="UI COMPONENTS/titanium-single-select" parameters={{ component: 'titanium-single-select' }} />
 
 # Titanium Single Select
 
@@ -73,6 +70,24 @@ import '@leavittsoftware/titanium-single-select';
         itemlabelpath="Shaped"
         hinttext="Search for a person or group to add them as a participant"
         placeholder="Shaped"
+      >
+      </titanium-single-select>
+    `}
+    }
+  </Story>
+</Canvas>
+
+### Shallow
+
+<Canvas>
+  <Story name="Shallow" height="120px">
+    {html`
+      <titanium-single-select
+        style="max-width: 400px; margin: 24px 0;"
+        shallow
+        itemlabelpath="Shallow"
+        hinttext="Search for a person or group to add them as a participant"
+        placeholder="Shallow"
       >
       </titanium-single-select>
     `}
