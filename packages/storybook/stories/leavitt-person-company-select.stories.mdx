@@ -61,6 +61,16 @@ import '@leavittsoftware/leavitt-elements/lib/leavitt-person-company-select';
         return api3UserService;
       })()}
     ></leavitt-person-company-select>
+    <h2 demo>Shallow</h2>
+    <leavitt-person-company-select
+      shallow
+      .apiService=${(() => {
+        const api3UserService = new ApiService(new AuthenticatedTokenProvider());
+        api3UserService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
+        api3UserService.addHeader('X-LGAppName', 'Documents');
+        return api3UserService;
+      })()}
+    ></leavitt-person-company-select>
     <h2 demo>Pre-selected</h2>
     <leavitt-person-company-select
       .selected=${{ type: 'Person', Id: 11056, FirstName: 'Aaron', LastName: 'Drabeck' }}

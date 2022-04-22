@@ -162,6 +162,14 @@ export class LeavittCompanySelectElement extends LoadWhile(LitElement) {
       --mdc-shape-small: 28px;
     }
 
+    :host([shallow]) {
+      --mdc-shape-small: 12px;
+    }
+
+    :host([shallow]) {
+      --mdc-shape-small: 12px;
+    }
+
     img[selected] {
       height: 24px;
       width: 24px;

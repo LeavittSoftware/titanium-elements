@@ -60,6 +60,16 @@ import '@leavittsoftware/leavitt-elements/lib/leavitt-person-group-select';
         return api3UserService;
       })()}
     ></leavitt-person-group-select>
+    <h2 demo>Shallow</h2>
+    <leavitt-person-group-select
+      shallow
+      .apiService=${(() => {
+        const api3UserService = new ApiService(new AuthenticatedTokenProvider());
+        api3UserService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
+        api3UserService.addHeader('X-LGAppName', 'DocumentsAdmin');
+        return api3UserService;
+      })()}
+    ></leavitt-person-group-select>
     <h2 demo>Pre-selected</h2>
     <leavitt-person-group-select
       .selected=${{ type: 'Person', Id: 11056, FirstName: 'Aaron', LastName: 'Drabeck' }}

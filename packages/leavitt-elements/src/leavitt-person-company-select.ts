@@ -229,6 +229,10 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
       --mdc-shape-small: 28px;
     }
 
+    :host([shallow]) {
+      --mdc-shape-small: 12px;
+    }
+
     mwc-list-item mwc-icon {
       color: var(--app-accent-color-blue, #4285f4);
       --mdc-icon-size: 32px;

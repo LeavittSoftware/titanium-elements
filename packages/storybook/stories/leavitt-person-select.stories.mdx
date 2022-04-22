@@ -61,6 +61,21 @@ import '@leavittsoftware/leavitt-elements/lib/leavitt-person-select';
           }
         }}
       ></leavitt-person-select>
+      <h2 demo>Shallow</h2>
+      <leavitt-person-select
+        shallow
+        .apiService=${(() => {
+          const api3UserService = new ApiService(new AuthenticatedTokenProvider());
+          api3UserService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
+          api3UserService.addHeader('X-LGAppName', 'DocumentsAdmin');
+          return api3UserService;
+        })()}
+        @selected=${e => {
+          if (e.target?.selected) {
+            console.log(e.target.selected);
+          }
+        }}
+      ></leavitt-person-select>
       <h2 demo>Required</h2>
       <leavitt-person-select
         required

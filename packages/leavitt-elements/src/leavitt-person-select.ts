@@ -217,6 +217,10 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
       --mdc-shape-small: 28px;
     }
 
+    :host([shallow]) {
+      --mdc-shape-small: 12px;
+    }
+
     mwc-linear-progress {
       margin: 0 12px;
     }
