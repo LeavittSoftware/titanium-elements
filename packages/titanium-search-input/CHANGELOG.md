@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.2.0 (2022-04-22)
+
+
+### Features
+
+* **titanium-search-input:** adds support for shallow ([5e4fff1](https://github.com/LeavittSoftware/titanium-elements/commit/5e4fff1a12d1abe323efb2c174feecab90e40f3d))
+
+
+
+
+
 ## 3.1.1 (2022-03-01)
 
 

@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [14.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@14.1.0...@leavittsoftware/storybook@14.2.0) (2022-04-22)
+
+
+### Features
+
+* **leavitt-elements:** adds support for shallow ([f97cc97](https://github.com/LeavittSoftware/titanium-elements/commit/f97cc9759445bab3c820dc8bfaeb9646978215e3))
+* **titanium-search-input:** adds support for shallow ([5e4fff1](https://github.com/LeavittSoftware/titanium-elements/commit/5e4fff1a12d1abe323efb2c174feecab90e40f3d))
+* **titanium-single-select:** adds support for shallow ([6baf238](https://github.com/LeavittSoftware/titanium-elements/commit/6baf238048bfae054bf191ba7a4721aad79a2a50))
+
+
+
+
+
 # [14.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@14.0.0...@leavittsoftware/storybook@14.1.0) (2022-04-22)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 2.2.0 (2022-04-22)
+
+
+### Features
+
+* **titanium-single-select:** adds support for shallow ([6baf238](https://github.com/LeavittSoftware/titanium-elements/commit/6baf238048bfae054bf191ba7a4721aad79a2a50))
+
+
+
+
+
 ## 2.1.1 (2022-03-01)
 
 

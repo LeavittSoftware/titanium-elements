@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@3.1.0...@leavittsoftware/leavitt-elements@3.2.0) (2022-04-22)
+
+
+### Features
+
+* **leavitt-elements:** adds support for shallow ([f97cc97](https://github.com/LeavittSoftware/titanium-elements/commit/f97cc9759445bab3c820dc8bfaeb9646978215e3))
+
+
+
+
+
 # 3.1.0 (2022-04-22)
 
 
