@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [14.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@14.0.0...@leavittsoftware/storybook@14.1.0) (2022-04-22)
+
+
+### Bug Fixes
+
+* **storybook:** wider inputs in demos ([7038688](https://github.com/LeavittSoftware/titanium-elements/commit/7038688e4f44e08643722a69a08cba5363f3711c))
+
+
+### Features
+
+* **leavitt-elements:** add new person company select ([6aa6014](https://github.com/LeavittSoftware/titanium-elements/commit/6aa60148e7af4c7e08921f525a7f8e3dca336d4a))
+
+
+
+
+
 # [14.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@13.0.0...@leavittsoftware/storybook@14.0.0) (2022-04-22)
 
 

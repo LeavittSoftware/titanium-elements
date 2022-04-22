@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.1.0 (2022-04-22)
+
+
+### Bug Fixes
+
+* **leavitt-elements:** adds null checks to abort; adds change event; format icon sizes ([1347e7c](https://github.com/LeavittSoftware/titanium-elements/commit/1347e7c0722829947ed0239561f58b0f7128a93a))
+* **leavitt-elements:** format icon sizes; increases take ([3eafa6d](https://github.com/LeavittSoftware/titanium-elements/commit/3eafa6d84b7e472a5db6f9369cac48ea91ec3d01))
+
+
+### Features
+
+* **leavitt-elements:** add new person company select ([6aa6014](https://github.com/LeavittSoftware/titanium-elements/commit/6aa60148e7af4c7e08921f525a7f8e3dca336d4a))
+* **leavitt-elements:** add shortname and format icons ([69f5f39](https://github.com/LeavittSoftware/titanium-elements/commit/69f5f39a8f4e13974195778479b308117a475517))
+
+
+
+
+
 ## [3.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@3.0.0...@leavittsoftware/leavitt-elements@3.0.1) (2022-04-22)
 
 
