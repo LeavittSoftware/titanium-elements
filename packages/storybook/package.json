@@ -58,6 +58,7 @@
     "@leavittsoftware/titanium-shadow-text": "^0.0.1",
     "@leavittsoftware/user-manager": "^9.8.5",
     "@material/mwc-icon": "*",
+    "@material/mwc-list-item": "*",
     "@open-wc/testing-helpers": "^1.8.12",
     "@storybook/addon-a11y": "6.4.22",
     "@storybook/addon-actions": "6.4.22",
