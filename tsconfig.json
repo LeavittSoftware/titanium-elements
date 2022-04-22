@@ -35,6 +35,7 @@
     { "path": "packages/titanium-youtube-input" },
     { "path": "packages/titanium-attachment-input" },
     { "path": "packages/titanium-input-validator" },
+    { "path": "packages/titanium-twoline-formfield" },
     { "path": "packages/titanium-shadow-text" },
     { "path": "packages/storybook/demos" }
   ],

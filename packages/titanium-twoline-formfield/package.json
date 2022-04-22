@@ -1,0 +1,34 @@
+{
+  "name": "@leavittsoftware/titanium-twoline-formfield",
+  "version": "0.0.1",
+  "description": "",
+  "main": "lib/titanium-twoline-formfield.js",
+  "typings": "lib/titanium-twoline-formfield.d.ts",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "dependencies": {
+    "@material/mwc-formfield": "*",
+    "tslib": "^2.3.1"
+  },
+  "peerDependencies": {
+    "lit": ">=2.0.0"
+  },
+  "scripts": {
+    "build:watch": "tsc --watch",
+    "build": "tsc",
+    "lint": "eslint ./src/**/*.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeavittSoftware/titanium-elements.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LeavittSoftware/titanium-elements/issues"
+  },
+  "homepage": "https://github.com/LeavittSoftware/titanium-elements/#readme",
+  "gitHead": "f80c9f25691088c456baf119f3be7e278bf9c80d"
+}
