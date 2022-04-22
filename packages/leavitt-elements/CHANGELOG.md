@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@3.0.0...@leavittsoftware/leavitt-elements@3.0.1) (2022-04-22)
+
+
+### Bug Fixes
+
+* **leavitt-elements:** change namespacing to match new API ([4a52836](https://github.com/LeavittSoftware/titanium-elements/commit/4a528366c07dd0ce377f7108bb36d723b700d337))
+
+
+
+
+
+# [3.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@2.0.0...@leavittsoftware/leavitt-elements@3.0.0) (2022-04-21)
+
+
+### Features
+
+* **leavitt-elements:** add abort controller;  arrow down select; expose validityTranform ([c2fff12](https://github.com/LeavittSoftware/titanium-elements/commit/c2fff12a614a0c8313f01aeb26e5756243807a38))
+* **leavitt-elements:** bring interface inline with other select; require APISerivce ([25b3115](https://github.com/LeavittSoftware/titanium-elements/commit/25b311568b9a557ce5ec545c2aab7a0b432f5cd7))
+
+
+### BREAKING CHANGES
+
+* **leavitt-elements:** Requires APISerivce; filter,expand props removed -- use odataParts.
+
+
+
+
+
 # [2.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@1.13.0...@leavittsoftware/leavitt-elements@2.0.0) (2022-04-20)
 
 
