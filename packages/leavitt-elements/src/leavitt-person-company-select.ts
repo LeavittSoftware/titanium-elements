@@ -257,10 +257,6 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
       color: var(--app-accent-color-blue, #4285f4);
     }
 
-    :host([has-image]) div[icon] {
-      display: none;
-    }
-
     [summary] {
       padding: 0px 16px 4px 16px;
       font-family: Roboto, Arial, sans-serif;
