@@ -317,7 +317,7 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
           company => html`
             <mwc-list-item twoline graphic="medium" ?selected=${this.selected?.Id === company.Id} value=${String(company.Id)}>
               <span>${company.Name}</span>
-              <span slot="secondary"><titanium-shadow-text text=${company.ShortName || '-'}></titanium-shadow-text></span>
+              <span slot="secondary">${company.ShortName || '-'}</span>
               <img company-mark slot="graphic" src=${company.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />
             </mwc-list-item>
           `
