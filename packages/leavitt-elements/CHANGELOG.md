@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@5.0.0...@leavittsoftware/leavitt-elements@5.0.1) (2022-04-25)
+
+
+### Bug Fixes
+
+* **leavitt-elements:** null check text inputs ([07bb550](https://github.com/LeavittSoftware/titanium-elements/commit/07bb550f8b92a432afd52aa9566d9c8fd18acfff))
+
+
+
+
+
 # [5.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@4.0.0...@leavittsoftware/leavitt-elements@5.0.0) (2022-04-25)
 
 
