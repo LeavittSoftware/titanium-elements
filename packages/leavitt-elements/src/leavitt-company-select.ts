@@ -180,11 +180,10 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
     const previouslySelected = this.selected;
     this.selected = company;
     if (this.selected) {
-      this.textfield.value = this.selected?.Name || '';
       this.textfield.reportValidity();
     }
 
-    if (previouslySelected !== this.selected) {
+    if (previouslySelected?.Id !== this.selected?.Id) {
       this.dispatchEvent(new LeavittCompanySelectSelectedEvent(company));
     }
   }
@@ -263,6 +262,7 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
         .placeholder=${this.placeholder}
         .validationMessage=${this.validationMessage}
         .validityTransform=${this.validityTransform}
+        .value=${this.selected?.Name || this.searchTerm || ''}
         .helper=${this.helper}
         .required=${this.required}
         @keydown=${(e: KeyboardEvent) => {
@@ -270,7 +270,7 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
             this.menu.focusItemAtIndex(0);
           }
           if (e.key == 'Escape') {
-            this.textfield.value = '';
+            this.searchTerm = '';
             this.setSelected(null);
           }
         }}
