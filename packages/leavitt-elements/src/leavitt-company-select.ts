@@ -118,6 +118,15 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
     if (changedProps.has('companies') && this.companies) {
       this.suggestions = this.companies;
     }
+
+    if (changedProps.has('selected') && this.selected) {
+      {
+        const company = this.companies.find(o => o.Id === this.selected?.Id);
+        if (company) {
+          this.selected = company;
+        }
+      }
+    }
   }
 
   firstUpdated() {
