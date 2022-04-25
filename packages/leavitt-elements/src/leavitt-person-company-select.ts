@@ -12,11 +12,12 @@ import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar/li
 import { getSearchTokens, Debouncer, LoadWhile } from '@leavittsoftware/titanium-helpers';
 import { Person as CorePerson, Company as CoreCompany } from '@leavittsoftware/lg-core-typescript/lg.net.core';
 import ApiService from '@leavittsoftware/api-service/lib/api-service';
-import { LitElement, css, html } from 'lit';
+import { LitElement, css, html, PropertyValues } from 'lit';
 import { customElement, state, query, property } from 'lit/decorators.js';
 import { DOMEvent } from './dom-event';
 import { SelectedDetail } from '@material/mwc-list';
 import Fuse from 'fuse.js';
+import { MenuSurface } from '@material/mwc-menu/mwc-menu-surface';
 
 export class LeavittPersonCompanySelectSelectedEvent extends Event {
   static eventType = 'selected';
@@ -102,6 +103,17 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
     this.textfield.layout();
   }
 
+  async updated(changedProps: PropertyValues<this>) {
+    if (changedProps.has('selected') && this.selected) {
+      this.textfield.value =
+        (this.selected?.type === 'Person'
+          ? `${this.selected?.FirstName} ${this.selected?.LastName}`
+          : this.selected?.type === 'Company' || this.selected?.type === 'CustomEntity'
+          ? this.selected?.Name
+          : '') ?? '';
+    }
+  }
+
   reset() {
     this.textfield.value = '';
     this.selected = null;
@@ -122,6 +134,14 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
 
   reportValidity() {
     return this.textfield.reportValidity();
+  }
+
+  private setSelected(selected: Person | Company | CustomEntity | null) {
+    const previouslySelected = this.selected;
+    this.selected = selected;
+    if (previouslySelected !== this.selected) {
+      this.dispatchEvent(new LeavittPersonCompanySelectSelectedEvent(this.selected));
+    }
   }
 
   private abortController: AbortController = new AbortController();
@@ -197,7 +217,7 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
 
   async #onInput(term: string) {
     if (this.selected !== null) {
-      this.selected = null;
+      this.setSelected(null);
     }
     this.dispatchEvent(new Event('change'));
     this.searchTerm = term;
@@ -274,11 +294,6 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
         .label=${this.label}
         .disabled=${this.disabled}
         .placeholder=${this.placeholder}
-        .value=${(this.selected?.type === 'Person'
-          ? `${this.selected?.FirstName} ${this.selected?.LastName}`
-          : this.selected?.type === 'Company' || this.selected?.type === 'CustomEntity'
-          ? this.selected?.Name
-          : '') ?? ''}
         .validationMessage=${this.validationMessage}
         .validityTransform=${this.validityTransform}
         .required=${this.required}
@@ -286,11 +301,21 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
           if (this.suggestions.length > 0 && (e.key == 'Enter' || e.key == 'ArrowDown')) {
             this.menu.focusItemAtIndex(0);
           }
+          if (e.key == 'Escape') {
+            this.textfield.value = '';
+            this.setSelected(null);
+          }
         }}
         @input=${async (e: DOMEvent<TextField>) => {
           this.loadWhile(this.#onInput(e.target.value));
         }}
-        @focus=${() => (!this.selected ? (this.menu.open = !!this.searchTerm) : '')}
+        @focus=${() => {
+          if (this.selected) {
+            this.textfield.select();
+          } else {
+            this.menu.open = !!this.searchTerm;
+          }
+        }}
       ></mwc-textfield>
       <div icon>
         ${this.selected?.type === 'Person'
@@ -308,13 +333,15 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
         defaultFocus="NONE"
         x="0"
         y=${this.validationMessage ? '-19' : '0'}
+        @opened=${() =>
+          //Prevent previouslyFocused behavior of msc-menu on close
+          ((this.menu.mdcRoot as MenuSurface & { previouslyFocused: null }).previouslyFocused = null)}
         @selected=${(e: CustomEvent<SelectedDetail<number>>) => {
           e.stopPropagation();
           const selectedIndex = e.detail.index;
 
           if (selectedIndex > -1) {
-            this.selected = this.suggestions?.[selectedIndex] ?? null;
-            this.dispatchEvent(new LeavittPersonCompanySelectSelectedEvent(this.selected));
+            this.setSelected(this.suggestions?.[selectedIndex] ?? null);
             this.textfield.isUiValid = true;
             this.textfield.mdcFoundation?.setValid?.(true);
           }

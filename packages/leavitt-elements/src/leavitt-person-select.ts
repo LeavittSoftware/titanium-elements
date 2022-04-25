@@ -1,4 +1,4 @@
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, PropertyValues } from 'lit';
 import { property, customElement, query, state } from 'lit/decorators.js';
 import '@material/mwc-textfield';
 import '@material/mwc-list/mwc-list-item.js';
@@ -15,6 +15,7 @@ import { Person } from '@leavittsoftware/lg-core-typescript/lg.core';
 import ApiService from '@leavittsoftware/api-service/lib/api-service';
 import { DOMEvent } from './dom-event';
 import { SelectedDetail } from '@material/mwc-menu/mwc-menu-base';
+import { MenuSurface } from '@material/mwc-menu/mwc-menu-surface';
 
 export class LeavittPersonSelectSelectedEvent extends Event {
   static eventType = 'selected';
@@ -28,7 +29,6 @@ export class LeavittPersonSelectSelectedEvent extends Event {
 
 /**
  *  Single select input that searches Leavitt Group employees
- *  Does not currently support setting a pre-selected person.
  *
  *  @element leavitt-person-select
  *
@@ -127,6 +127,12 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
     this.textfield.focus();
   }
 
+  async updated(changedProps: PropertyValues<this>) {
+    if (changedProps.has('selected') && this.selected) {
+      this.textfield.value = `${this.selected.FirstName} ${this.selected.LastName}`;
+    }
+  }
+
   /**
    *  Returns true if the input passes validity checks.
    */
@@ -182,11 +188,14 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
   }
 
   private setSelected(person: Person | null) {
+    const previouslySelected = this.selected;
     this.selected = person;
-    if (person) {
+    if (this.selected) {
       this.textfield.reportValidity();
     }
-    this.dispatchEvent(new LeavittPersonSelectSelectedEvent(person));
+    if (previouslySelected !== this.selected) {
+      this.dispatchEvent(new LeavittPersonSelectSelectedEvent(this.selected));
+    }
   }
 
   private doSearchDebouncer = new Debouncer((searchTerm: string) => this.doSearch(searchTerm));
@@ -251,17 +260,26 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
         .validationMessage=${this.validationMessage}
         .validityTransform=${this.validityTransform}
         .helper=${this.helper}
-        .value=${!this.selected ? '' : `${this.selected.FirstName} ${this.selected.LastName}`}
         .required=${this.required}
         @keydown=${(e: KeyboardEvent) => {
           if (this.suggestions.length > 0 && (e.key == 'Enter' || e.key == 'ArrowDown')) {
             this.menu.focusItemAtIndex(0);
           }
+          if (e.key == 'Escape') {
+            this.textfield.value = '';
+            this.setSelected(null);
+          }
         }}
         @input=${async (e: DOMEvent<TextField>) => {
           this.loadWhile(this.onInput(e.target.value));
         }}
-        @focus=${() => (!this.selected ? (this.menu.open = !!this.searchTerm) : '')}
+        @focus=${() => {
+          if (this.selected) {
+            this.textfield.select();
+          } else {
+            this.menu.open = !!this.searchTerm;
+          }
+        }}
       ></mwc-textfield>
       ${this.selected ? html` <profile-picture selected .personId=${this.selected?.Id || 0} shape="circle" size="24"></profile-picture>` : ''}
       <mwc-menu
@@ -271,6 +289,9 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
         defaultFocus="NONE"
         x="0"
         y=${this.validationMessage ? '-19' : '0'}
+        @opened=${() =>
+          //Prevent previouslyFocused behavior of msc-menu on close
+          ((this.menu.mdcRoot as MenuSurface & { previouslyFocused: null }).previouslyFocused = null)}
         @selected=${(e: CustomEvent<SelectedDetail<number>>) => {
           e.stopPropagation();
           const selectedIndex = e.detail.index;

@@ -1,4 +1,4 @@
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, PropertyValues } from 'lit';
 import { property, customElement, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '@leavittsoftware/profile-picture';
@@ -18,6 +18,7 @@ import { peopleGroupIcons } from './people-group-icons';
 import ApiService from '@leavittsoftware/api-service/lib/api-service';
 import { SelectedDetail } from '@material/mwc-list';
 import { DOMEvent } from './dom-event';
+import { MenuSurface } from '@material/mwc-menu/mwc-menu-surface';
 
 export class LeavittPersonGroupSelectSelectedEvent extends Event {
   static eventType = 'selected';
@@ -113,6 +114,17 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
     this.searchTerm = '';
   }
 
+  async updated(changedProps: PropertyValues<this>) {
+    if (changedProps.has('selected') && this.selected) {
+      this.textfield.value =
+        (this.selected?.type === 'Person'
+          ? `${this.selected?.FirstName} ${this.selected?.LastName}`
+          : this.selected?.type === 'PeopleGroup'
+          ? this.selected?.Name
+          : '') ?? '';
+    }
+  }
+
   focus() {
     this.textfield.focus();
   }
@@ -195,12 +207,14 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
   }
 
   private setSelected(entity: Partial<Person | PeopleGroup> | null) {
+    const previouslySelected = this.selected;
     this.selected = entity;
-    if (entity) {
+    if (this.selected) {
       this.textfield.reportValidity();
     }
-
-    this.dispatchEvent(new LeavittPersonGroupSelectSelectedEvent(entity));
+    if (previouslySelected !== this.selected) {
+      this.dispatchEvent(new LeavittPersonGroupSelectSelectedEvent(this.selected));
+    }
   }
 
   private doSearchDebouncer = new Debouncer((searchTerm: string) => this.doSearch(searchTerm));
@@ -278,11 +292,6 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
         .label=${this.label}
         .disabled=${this.disabled}
         .placeholder=${this.placeholder}
-        .value=${(this.selected?.type === 'Person'
-          ? `${this.selected?.FirstName} ${this.selected?.LastName}`
-          : this.selected?.type === 'PeopleGroup'
-          ? this.selected?.Name
-          : '') ?? ''}
         .validationMessage=${this.validationMessage}
         .validityTransform=${this.validityTransform}
         .required=${this.required}
@@ -290,11 +299,21 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
           if (this.suggestions.length > 0 && (e.key == 'Enter' || e.key == 'ArrowDown')) {
             this.menu.focusItemAtIndex(0);
           }
+          if (e.key == 'Escape') {
+            this.textfield.value = '';
+            this.setSelected(null);
+          }
         }}
         @input=${async (e: DOMEvent<TextField>) => {
           this.loadWhile(this.onInput(e.target.value));
         }}
-        @focus=${() => (!this.selected ? (this.menu.open = !!this.searchTerm) : '')}
+        @focus=${() => {
+          if (this.selected) {
+            this.textfield.select();
+          } else {
+            this.menu.open = !!this.searchTerm;
+          }
+        }}
       ></mwc-textfield>
       ${this.selected?.type === 'Person'
         ? html`<profile-picture selected .personId=${this.selected?.Id || 0} shape="circle" size="24"></profile-picture>`
@@ -310,6 +329,9 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
         defaultFocus="NONE"
         x="0"
         y=${this.validationMessage ? '-19' : '0'}
+        @opened=${() =>
+          //Prevent previouslyFocused behavior of msc-menu on close
+          ((this.menu.mdcRoot as MenuSurface & { previouslyFocused: null }).previouslyFocused = null)}
         @selected=${(e: CustomEvent<SelectedDetail<number>>) => {
           e.stopPropagation();
           const selectedIndex = e.detail.index;

@@ -39,6 +39,7 @@ import '@leavittsoftware/leavitt-elements/lib/leavitt-person-group-select';
         api3UserService.addHeader('X-LGAppName', 'DocumentsAdmin');
         return api3UserService;
       })()}
+      @selected=${e => console.log(e.target.selected)}
     ></leavitt-person-group-select>
     <h2 demo>Required</h2>
     <leavitt-person-group-select
@@ -49,6 +50,7 @@ import '@leavittsoftware/leavitt-elements/lib/leavitt-person-group-select';
         api3UserService.addHeader('X-LGAppName', 'DocumentsAdmin');
         return api3UserService;
       })()}
+      @selected=${e => console.log(e.target.selected)}
     ></leavitt-person-group-select>
     <h2 demo>Shaped</h2>
     <leavitt-person-group-select
@@ -59,6 +61,7 @@ import '@leavittsoftware/leavitt-elements/lib/leavitt-person-group-select';
         api3UserService.addHeader('X-LGAppName', 'DocumentsAdmin');
         return api3UserService;
       })()}
+      @selected=${e => console.log(e.target.selected)}
     ></leavitt-person-group-select>
     <h2 demo>Shallow</h2>
     <leavitt-person-group-select
@@ -69,6 +72,7 @@ import '@leavittsoftware/leavitt-elements/lib/leavitt-person-group-select';
         api3UserService.addHeader('X-LGAppName', 'DocumentsAdmin');
         return api3UserService;
       })()}
+      @selected=${e => console.log(e.target.selected)}
     ></leavitt-person-group-select>
     <h2 demo>Pre-selected</h2>
     <leavitt-person-group-select
@@ -79,6 +83,7 @@ import '@leavittsoftware/leavitt-elements/lib/leavitt-person-group-select';
         api3UserService.addHeader('X-LGAppName', 'DocumentsAdmin');
         return api3UserService;
       })()}
+      @selected=${e => console.log(e.target.selected)}
     ></leavitt-person-group-select>
     <h2 demo>Disabled</h2>
     <leavitt-person-group-select disabled></leavitt-person-group-select>`}</Story>
