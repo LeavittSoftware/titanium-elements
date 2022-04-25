@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [15.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@14.2.0...@leavittsoftware/storybook@15.0.0) (2022-04-25)
+
+
+### Bug Fixes
+
+* **leavitt-elements:** bug where first search char would no show in input ([da7d557](https://github.com/LeavittSoftware/titanium-elements/commit/da7d557184b46178e5ed21f4b2a8102c6c4c859c))
+
+
+### Features
+
+* converts to a searchable input ([7239bf7](https://github.com/LeavittSoftware/titanium-elements/commit/7239bf760d22058ea252ff261f32b0505ada50c0))
+
+
+### BREAKING CHANGES
+
+* Selected company prop changed from Value to Selected
+
+
+
+
+
 # [14.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@14.1.0...@leavittsoftware/storybook@14.2.0) (2022-04-22)
 
 
