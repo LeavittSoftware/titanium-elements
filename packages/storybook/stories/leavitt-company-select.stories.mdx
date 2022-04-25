@@ -42,9 +42,7 @@ import '@leavittsoftware/leavitt-elements/lib/leavitt-company-select';
           return api3UserService;
         })()}
         @selected=${e => {
-          if (e.target?.value) {
-            console.log(e.target.value);
-          }
+          console.log(e.target.selected);
         }}
       ></leavitt-company-select>
       <h2 demo>Shaped</h2>
@@ -67,23 +65,6 @@ import '@leavittsoftware/leavitt-elements/lib/leavitt-company-select';
           return api3UserService;
         })()}
       ></leavitt-company-select>
-      <h2 demo>Empty list item (selected)</h2>
-      <leavitt-company-select
-        enableEmptyListItem
-        emptyListItemLabel="Any company"
-        @selected=${e => {
-          if (e.target?.value) {
-            console.log(e.target.value);
-          }
-        }}
-        .value=${{ Id: 0 }}
-        .apiService=${(() => {
-          const api3UserService = new ApiService(new AuthenticatedTokenProvider());
-          api3UserService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
-          api3UserService.addHeader('X-LGAppName', 'Documents');
-          return api3UserService;
-        })()}
-      ></leavitt-company-select>
       <h2 demo>Required</h2>
       <leavitt-company-select
         required
@@ -97,11 +78,9 @@ import '@leavittsoftware/leavitt-elements/lib/leavitt-company-select';
       <h2 demo>Pre-selected</h2>
       <leavitt-company-select
         @selected=${e => {
-          if (e.target?.value) {
-            console.log(e.target.value);
-          }
+          console.log(e.target.selected);
         }}
-        .value=${{ Id: 20248 }}
+        .selected=${{ Id: 20248 }}
         .apiService=${(() => {
           const api3UserService = new ApiService(new AuthenticatedTokenProvider());
           api3UserService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
@@ -112,11 +91,9 @@ import '@leavittsoftware/leavitt-elements/lib/leavitt-company-select';
       <h2 demo>Custom Odata (Top 5)</h2>
       <leavitt-company-select
         @selected=${e => {
-          if (e.target?.value) {
-            console.log(e.target.value);
-          }
+          console.log(e.target.selected);
         }}
-        .odataParts=${['top=5', 'orderby=name', 'select=Id,Name', "expand=Logos(filter=Type eq 'Mark';top=0;count=true)"]}
+        .odataParts=${['top=5', 'orderby=name', 'select=Id,Name,ShortName', "expand=Logos(filter=Type eq 'Mark';top=0;count=true)"]}
         .apiService=${(() => {
           const api3UserService = new ApiService(new AuthenticatedTokenProvider());
           api3UserService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
@@ -130,7 +107,7 @@ import '@leavittsoftware/leavitt-elements/lib/leavitt-company-select';
           { Id: 1, Name: 'Twitter', MarkUrl: 'https://upload.wikimedia.org/wikipedia/sco/9/9f/Twitter_bird_logo_2012.svg', ShortName: 'TWTR' },
           { Id: 2, Name: 'Google', MarkUrl: 'https://madeby.google.com/static/images/google_g_logo.svg', ShortName: 'GOOG' },
         ]}
-        .value=${{ Id: 2 }}
+        .selected=${{ Id: 2, Name: 'Google', MarkUrl: 'https://madeby.google.com/static/images/google_g_logo.svg', ShortName: 'GOOG' }}
       ></leavitt-company-select>
       <h2 demo>Disabled</h2>
       <leavitt-company-select disabled></leavitt-company-select>

@@ -1,45 +1,68 @@
-import { css, html, LitElement } from 'lit';
-import { property, customElement, query } from 'lit/decorators.js';
-import '@material/mwc-select';
+import { css, html, LitElement, PropertyValues } from 'lit';
+import { property, customElement, query, state } from 'lit/decorators.js';
+import '@material/mwc-textfield';
 import '@material/mwc-list/mwc-list-item.js';
-import '@leavittsoftware/titanium-shadow-text';
+import '@material/mwc-linear-progress';
+import '@material/mwc-menu';
 
-import { Select } from '@material/mwc-select';
+import { Menu } from '@material/mwc-menu';
+import { TextField } from '@material/mwc-textfield';
+import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar/lib/titanium-snackbar';
 
 import { LoadWhile } from '@leavittsoftware/titanium-helpers';
 import { Company } from '@leavittsoftware/lg-core-typescript/lg.net.core';
 import ApiService from '@leavittsoftware/api-service/lib/api-service';
 import { DOMEvent } from './dom-event';
-import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar/lib/titanium-snackbar';
+import { SelectedDetail } from '@material/mwc-menu/mwc-menu-base';
+import Fuse from 'fuse.js';
+import { MenuSurface } from '@material/mwc-menu/mwc-menu-surface';
+
+export class LeavittCompanySelectSelectedEvent extends Event {
+  static eventType = 'selected';
+  company: Partial<Company | null>;
+
+  constructor(company: Partial<Company | null>, eventInitDict?: EventInit) {
+    super(LeavittCompanySelectSelectedEvent.eventType, eventInitDict);
+    this.company = company;
+  }
+}
 
 /**
  *  Single select input that searches Leavitt Group companies
  *
  *  @element leavitt-company-select
  *
- *  @fires selected - Fired when a selection has been made. Property index is the selected index (will be of type number)
- *  @fires opened - Fired menu opens
- *  @fires closed - Fired menu closes
+ *  @fires selected - Fired when selection is made or cleared
  *
  */
 @customElement('leavitt-company-select')
-export class LeavittCompanySelectElement extends LoadWhile(LitElement) {
-  @query('mwc-select') protected select: Select & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
+export class LeavittCompanyElement extends LoadWhile(LitElement) {
+  @state() protected searchTerm: string;
+  @state() protected suggestions: Array<Partial<Company>> = [];
+  @query('mwc-menu') protected menu: Menu;
+  @query('mwc-textfield') protected textfield: TextField & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
 
-  /**
-   *  Required if you want component to load companies automatically
-   */
-  @property({ attribute: false }) apiService: ApiService | null;
-
-  /**
-   *  If no service is supplied, consumer can bind in custom list of companies
-   */
   @property({ type: Array }) companies: Array<Partial<Company>> = [];
 
   /**
-   *  The company object selected by the user.
+   *  Required
    */
-  @property({ type: Object }) value: Partial<Company> | null = null;
+  @property({ attribute: false }) apiService: ApiService;
+
+  /**
+   *  Disables automatic loading of companies on firstUpdated
+   */
+  @property({ type: Boolean }) disableAutoLoad: boolean = false;
+
+  /**
+   *  Odata parts for the Company API call
+   */
+  @property({ type: Array }) odataParts: Array<string> = ['orderby=Name', 'select=Name,ShortName,MarkUrl,Id'];
+
+  /**
+   *  The person object selected by the user.
+   */
+  @property({ type: Object }) selected: Partial<Company> | null = null;
 
   /**
    *  Message to show in the error color when the element is invalid.
@@ -52,9 +75,9 @@ export class LeavittCompanySelectElement extends LoadWhile(LitElement) {
   @property({ type: String }) label: string = 'Company';
 
   /**
-   *  Helper text to display below the select. Always displays by default.
+   *  Sets placeholder text value.
    */
-  @property({ type: String }) helper: string = '';
+  @property({ type: String }) placeholder: string = 'Search for a company';
 
   /**
    *  Whether or not the input should be disabled.
@@ -62,40 +85,27 @@ export class LeavittCompanySelectElement extends LoadWhile(LitElement) {
   @property({ type: Boolean }) disabled: boolean = false;
 
   /**
-   *  Sets the dropdown menu's position to fixed. This is useful when the select is inside of a stacking context e.g. inside of an mwc-dialog. Note, that --mdc-menu-min-width or --mdc-menu-max-width may have to be set to resize the menu to the width anchor.
-   */
-  @property({ type: Boolean }) fixedMenuPosition: boolean = true;
-
-  /**
-   *  Displays error state if value is empty and select is blurred.
+   *  Displays error state if no image is empty and input is blurred.
    */
   @property({ type: Boolean }) required: boolean = false;
 
   /**
+   *  Helper text to display below the select. Always displays by default.
+   */
+  @property({ type: String }) helper: string = '';
+
+  /**
    *  Callback called before each validation check. See the mwc-textfield's validation section for more details.
    */
-  @property({ type: Object }) validityTransform: null = null;
-
-  /**
-   *  Add a empty list item to the list
-   */
-  @property({ type: Boolean }) enableEmptyListItem: boolean = false;
-
-  /**
-   *  Label of the empty list item
-   */
-  @property({ type: String }) emptyListItemLabel: string = '';
-
-  /**
-   *  Odata parts for the Company API call
-   */
-  @property({ type: Array }) odataParts: Array<string> = ['orderby=name', 'select=Id,Name,Shortname,MarkUrl'];
-
-  async firstUpdated() {
-    if (!this.companies.length && this.apiService) {
-      this.reloadCompanies();
+  @property({ type: Object }) validityTransform = () => {
+    if (this.required) {
+      return {
+        valid: !!this.selected,
+        valueMissing: !!this.selected,
+      };
     }
-  }
+    return {};
+  };
 
   /**
    *  Force the list of companies to reload from remote
@@ -104,37 +114,19 @@ export class LeavittCompanySelectElement extends LoadWhile(LitElement) {
     this.companies = await this.getCompanies();
   }
 
-  /**
-   *  Resets the inputs state.
-   */
-  reset() {
-    this.select.value = '';
-    this.value = null;
-    this.companies = [];
-    this.select.isUiValid = true;
-    this.select.mdcFoundation?.setValid?.(true);
+  async updated(changedProps: PropertyValues<this>) {
+    if (changedProps.has('companies') && this.companies) {
+      this.suggestions = this.companies;
+    }
   }
 
-  /**
-   *  Sets focus on the input.
-   */
-  async focus() {
-    await this.select.updateComplete;
-    this.select.focus();
-  }
+  firstUpdated() {
+    this.menu.anchor = this.textfield;
+    this.textfield.layout();
 
-  /**
-   *  Returns true if the input passes validity checks.
-   */
-  checkValidity() {
-    return this.select.checkValidity();
-  }
-
-  /**
-   *  Runs checkValidity() method, and if it returns false, then it reports to the user that the input is invalid.
-   */
-  reportValidity() {
-    return this.select.reportValidity();
+    if (!this.disableAutoLoad && !this.companies.length && this.apiService) {
+      this.reloadCompanies();
+    }
   }
 
   private async getCompanies() {
@@ -148,14 +140,86 @@ export class LeavittCompanySelectElement extends LoadWhile(LitElement) {
     return [];
   }
 
+  /**
+   *  Resets the inputs state.
+   */
+  reset() {
+    this.textfield.value = '';
+    this.searchTerm = '';
+    this.selected = null;
+    this.suggestions = this.companies;
+    this.textfield.isUiValid = true;
+    this.textfield.mdcFoundation?.setValid?.(true);
+  }
+
+  /**
+   *  Sets focus on the input.
+   */
+  async focus() {
+    await this.textfield.updateComplete;
+    this.textfield.focus();
+  }
+
+  /**
+   *  Returns true if the input passes validity checks.
+   */
+  checkValidity() {
+    return this.textfield.checkValidity();
+  }
+
+  /**
+   *  Runs checkValidity() method, and if it returns false, then it reports to the user that the input is invalid.
+   */
+  reportValidity() {
+    return this.textfield.reportValidity();
+  }
+
+  private async setSelected(company: Partial<Company> | null) {
+    const previouslySelected = this.selected;
+    this.selected = company;
+    if (this.selected) {
+      this.textfield.value = this.selected?.Name || '';
+      this.textfield.reportValidity();
+    }
+
+    if (previouslySelected !== this.selected) {
+      this.dispatchEvent(new LeavittCompanySelectSelectedEvent(company));
+    }
+  }
+
+  private onInput(searchTerm: string) {
+    this.setSelected(null);
+    this.searchTerm = searchTerm;
+
+    const options = {
+      includeScore: true,
+      keys: ['Name', 'ShortName'],
+      shouldSort: true,
+      threshold: 0.3,
+    };
+
+    if (this.searchTerm) {
+      const fuse = new Fuse(this.companies, options);
+      const fuseResults = fuse.search(searchTerm);
+      this.suggestions = fuseResults.map(o => o.item);
+    } else {
+      this.suggestions = this.companies;
+    }
+
+    this.menu.open = !!this.searchTerm || !!this.suggestions.length;
+  }
+
   static styles = css`
     :host {
       display: inline-block;
       position: relative;
+      --mdc-menu-max-width: 550px;
+      --mdc-list-item-graphic-size: 40px;
     }
 
-    mwc-select {
+    mwc-textfield {
       width: 100%;
+      background-color: var(--leavitt-company-select-background-color, #fff);
     }
 
     :host([shaped]) {
@@ -166,8 +230,8 @@ export class LeavittCompanySelectElement extends LoadWhile(LitElement) {
       --mdc-shape-small: 12px;
     }
 
-    :host([shallow]) {
-      --mdc-shape-small: 12px;
+    mwc-linear-progress {
+      margin: 0 12px;
     }
 
     img[selected] {
@@ -178,45 +242,87 @@ export class LeavittCompanySelectElement extends LoadWhile(LitElement) {
       left: 12px;
     }
 
-    img[company-mark] {
-      height: 40px;
-      width: 40px;
-    }
-
-    mwc-list-item {
-      --mdc-list-item-graphic-size: 40px;
+    [summary] {
+      padding: 0px 16px 4px 16px;
+      font-family: Roboto, Arial, sans-serif;
+      color: var(--app-light-text-color);
+      line-height: 18px;
+      font-size: 13px;
     }
   `;
 
   render() {
     return html`
-      <mwc-select
+      <mwc-textfield
         outlined
-        ?disabled=${this.disabled}
+        icon=${this.selected?.Id ? 'l' : 'search'}
+        .label=${this.label}
+        .disabled=${this.disabled}
+        .placeholder=${this.placeholder}
         .validationMessage=${this.validationMessage}
-        .fixedMenuPosition=${this.fixedMenuPosition}
-        .required=${this.required}
         .validityTransform=${this.validityTransform}
         .helper=${this.helper}
-        icon=${this.value?.Id ? 'll' : 'business'}
-        label=${this.label}
-        .value=${(this.value?.Id ?? -1) > -1 ? String(this.value?.Id) ?? '' : ''}
-        @selected=${(event: DOMEvent<Select>) => {
-          this.value =
-            event.target.value === '0' ? { Name: this.emptyListItemLabel, Id: 0 } : this.companies.find(o => o.Id === Number(event.target.value)) ?? null;
+        .required=${this.required}
+        @keydown=${(e: KeyboardEvent) => {
+          if (this.suggestions.length > 0 && (e.key == 'Enter' || e.key == 'ArrowDown')) {
+            this.menu.focusItemAtIndex(0);
+          }
+          if (e.key == 'Escape') {
+            this.textfield.value = '';
+            this.setSelected(null);
+          }
         }}
-        >${this.enableEmptyListItem ? html`<mwc-list-item value="0">${this.emptyListItemLabel}</mwc-list-item>` : ''}
-        ${this.companies.map(
+        @input=${async (e: DOMEvent<TextField>) => {
+          this.onInput(e.target.value);
+        }}
+        @focus=${() => {
+          if (this.selected) {
+            this.textfield.select();
+          } else {
+            this.menu.open = !!this.searchTerm || !!this.suggestions.length;
+          }
+        }}
+      ></mwc-textfield>
+      ${this.selected ? html`<img selected src=${this.selected.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />` : ''}
+      <mwc-menu
+        fixed
+        activatable
+        corner="BOTTOM_LEFT"
+        defaultFocus="NONE"
+        x="0"
+        y=${this.validationMessage ? '-19' : '0'}
+        @opened=${() =>
+          //Prevent previouslyFocused behavior of msc-menu on close
+          ((this.menu.mdcRoot as MenuSurface & { previouslyFocused: null }).previouslyFocused = null)}
+        @selected=${(e: CustomEvent<SelectedDetail<number>>) => {
+          e.stopPropagation();
+          const selectedIndex = e.detail.index;
+
+          if (selectedIndex > -1) {
+            const selected = this.suggestions?.[selectedIndex] ?? null;
+            this.setSelected(selected);
+          }
+        }}
+      >
+        <mwc-linear-progress .closed=${!this.isLoading} indeterminate></mwc-linear-progress>
+        ${!this.isLoading && this.searchTerm
+          ? html`<div summary>
+              ${this.suggestions.length} result${this.suggestions.length === 1 ? '' : 's'} ${this.searchTerm ? `for '${this.searchTerm}'` : ''}
+            </div>`
+          : ''}
+        ${!this.isLoading && !this.searchTerm
+          ? html`<div summary>Showing ${this.suggestions.length} compan${this.companies.length === 1 ? 'y' : 'ies'}</div>`
+          : ''}
+        ${this.suggestions.map(
           company => html`
-            <mwc-list-item twoline graphic="medium" ?selected=${this.value?.Id === company.Id} value=${String(company.Id)}>
+            <mwc-list-item twoline graphic="medium" ?selected=${this.selected?.Id === company.Id} value=${String(company.Id)}>
               <span>${company.Name}</span>
               <span slot="secondary"><titanium-shadow-text text=${company.ShortName || '-'}></titanium-shadow-text></span>
               <img company-mark slot="graphic" src=${company.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />
             </mwc-list-item>
           `
         )}
-      </mwc-select>
-      ${this.value && (this.value?.Id ?? 0) > 0 ? html`<img selected src=${this.value.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />` : ''}
+      </mwc-menu>
     `;
   }
 }
