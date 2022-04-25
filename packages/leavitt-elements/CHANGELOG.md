@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@5.0.1...@leavittsoftware/leavitt-elements@5.0.2) (2022-04-25)
+
+
+### Bug Fixes
+
+* **leavitt-elements:** corrects binding bug with company select ([96c0d27](https://github.com/LeavittSoftware/titanium-elements/commit/96c0d27a9021181c5b057bf2603b3775f7abd356))
+
+
+
+
+
 ## [5.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@5.0.0...@leavittsoftware/leavitt-elements@5.0.1) (2022-04-25)
 
 
