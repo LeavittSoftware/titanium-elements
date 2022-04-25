@@ -144,12 +144,14 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
    *  Resets the inputs state.
    */
   reset() {
-    this.textfield.value = '';
+    if (this.textfield) {
+      this.textfield.value = '';
+      this.textfield.isUiValid = true;
+      this.textfield.mdcFoundation?.setValid?.(true);
+    }
     this.searchTerm = '';
     this.selected = null;
     this.suggestions = this.companies;
-    this.textfield.isUiValid = true;
-    this.textfield.mdcFoundation?.setValid?.(true);
   }
 
   /**

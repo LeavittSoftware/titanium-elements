@@ -110,12 +110,14 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
    *  Resets the inputs state.
    */
   reset() {
-    this.textfield.value = '';
+    if (this.textfield) {
+      this.textfield.value = '';
+      this.textfield.isUiValid = true;
+      this.textfield.mdcFoundation?.setValid?.(true);
+    }
     this.selected = null;
     this.suggestions = [];
     this.count = 0;
-    this.textfield.isUiValid = true;
-    this.textfield.mdcFoundation?.setValid?.(true);
     this.searchTerm = '';
   }
 
