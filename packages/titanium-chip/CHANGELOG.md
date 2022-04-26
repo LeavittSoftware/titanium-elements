@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.7.0 (2022-04-26)
+
+
+### Features
+
+* **titanium-chip:** add a optional label slot ([25810d3](https://github.com/LeavittSoftware/titanium-elements/commit/25810d3c1cad1e7e2adfafccf8c14909868b2182))
+
+
+
+
+
 # [3.6.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-chip@3.5.0...@leavittsoftware/titanium-chip@3.6.0) (2022-03-14)
 
 
