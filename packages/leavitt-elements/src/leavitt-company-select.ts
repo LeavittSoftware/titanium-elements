@@ -70,6 +70,11 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
   @property({ type: String }) validationMessage: string;
 
   /**
+   *  Leading icon to display in select. See mwc-icon. Note: for proper list spacing, each list item must have graphic="icon" or graphic="avatar" to be set.
+   */
+  @property({ type: String }) icon: string = 'search';
+
+  /**
    *  Sets floating label value.
    */
   @property({ type: String }) label: string = 'Company';
@@ -265,7 +270,7 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
     return html`
       <mwc-textfield
         outlined
-        icon=${this.selected?.Id ? 'l' : 'search'}
+        icon=${this.selected?.Id ? 'l' : this.icon}
         .label=${this.label}
         .disabled=${this.disabled}
         .placeholder=${this.placeholder}

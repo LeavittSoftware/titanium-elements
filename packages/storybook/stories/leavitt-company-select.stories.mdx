@@ -109,6 +109,16 @@ import '@leavittsoftware/leavitt-elements/lib/leavitt-company-select';
         ]}
         .selected=${{ Id: 2, Name: 'Google', MarkUrl: 'https://madeby.google.com/static/images/google_g_logo.svg', ShortName: 'GOOG' }}
       ></leavitt-company-select>
+      <h2 demo>No icon</h2>
+      <leavitt-company-select
+        icon=""
+        .apiService=${(() => {
+          const api3UserService = new ApiService(new AuthenticatedTokenProvider());
+          api3UserService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
+          api3UserService.addHeader('X-LGAppName', 'Documents');
+          return api3UserService;
+        })()}
+      ></leavitt-company-select>
       <h2 demo>Disabled</h2>
       <leavitt-company-select disabled></leavitt-company-select>
     `}
