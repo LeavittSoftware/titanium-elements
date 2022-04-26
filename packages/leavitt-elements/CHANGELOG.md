@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@5.0.3...@leavittsoftware/leavitt-elements@5.0.4) (2022-04-26)
+
+
+### Bug Fixes
+
+* **leavitt-elements:** prevent person-select background from overflowing ([90c333a](https://github.com/LeavittSoftware/titanium-elements/commit/90c333a9a6ae22c8ea23aef0499c87e86919df79))
+
+
+
+
+
 ## [5.0.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@5.0.2...@leavittsoftware/leavitt-elements@5.0.3) (2022-04-25)
 
 
