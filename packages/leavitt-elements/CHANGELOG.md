@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@5.1.0...@leavittsoftware/leavitt-elements@5.2.0) (2022-04-26)
+
+
+### Features
+
+* **leavitt-elements:** adds a icon property on company select ([1b75eda](https://github.com/LeavittSoftware/titanium-elements/commit/1b75eda1302ec1884bc93f3d81e970ef70447181))
+* stop prop when esc key hit ([6adb6d8](https://github.com/LeavittSoftware/titanium-elements/commit/6adb6d801b5886129c74bbe77fbb904b390bcfed))
+
+
+
+
+
 # [5.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@5.0.4...@leavittsoftware/leavitt-elements@5.1.0) (2022-04-26)
 
 
