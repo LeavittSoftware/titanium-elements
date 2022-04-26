@@ -10,6 +10,7 @@ import { CheckableElement, SingleSelectionController } from '@material/mwc-radio
  * @element titanium-chip
  *
  * @slot chip-icon - Optional chip icon (replaces the image if src was provided)
+ * @slot label - Optional slot to override the label text
  *
  * @fires titanium-chip-close - Fired when the close button is clicked
  * @fires checked - Fired when item is checked. Selectable attribute must be present.
@@ -237,10 +238,10 @@ export class TitaniumChipElement extends LitElement implements CheckableElement 
 
   render() {
     return html`
-      <slot slot="chip-icon" name="chip-icon">
+      <slot slot="chip-icon">
         ${this.src ? html` <img onerror=${ifDefined(this.fallbackSrc ? `this.src='${this.fallbackSrc}'` : undefined)} src=${this.src} /> ` : ''}
       </slot>
-      <label>${this.label}</label>
+      <label><slot slot="label">${this.label}</slot></label>
       <mwc-icon-button
         icon=${this.closeIcon}
         ?disabled=${this.disabled}
