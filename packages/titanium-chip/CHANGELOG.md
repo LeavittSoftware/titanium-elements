@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.8.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-chip@3.7.0...@leavittsoftware/titanium-chip@3.8.0) (2022-04-26)
+
+
+### Bug Fixes
+
+* **titanium-chip:** remove unnecessary width 100% ([dcc33a9](https://github.com/LeavittSoftware/titanium-elements/commit/dcc33a9d2d19ab1af49fccbea1a39152e5d6270d))
+
+
+### Features
+
+* **titanium-chip:** add a optional label slot ([25810d3](https://github.com/LeavittSoftware/titanium-elements/commit/25810d3c1cad1e7e2adfafccf8c14909868b2182))
+
+
+
+
+
 # 3.7.0 (2022-04-26)
 
 

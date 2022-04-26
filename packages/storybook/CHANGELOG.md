@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [15.1.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@15.1.2...@leavittsoftware/storybook@15.1.3) (2022-04-26)
+
+
+### Bug Fixes
+
+* **titanium-chip:** remove unnecessary width 100% ([dcc33a9](https://github.com/LeavittSoftware/titanium-elements/commit/dcc33a9d2d19ab1af49fccbea1a39152e5d6270d))
+
+
+
+
+
 ## [15.1.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@15.1.1...@leavittsoftware/storybook@15.1.2) (2022-04-26)
 
 **Note:** Version bump only for package @leavittsoftware/storybook
