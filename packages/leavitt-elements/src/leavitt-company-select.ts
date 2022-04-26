@@ -284,6 +284,7 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
             this.menu.focusItemAtIndex(0);
           }
           if (e.key == 'Escape') {
+            e.stopPropagation();
             this.searchTerm = '';
             this.setSelected(null);
           }
