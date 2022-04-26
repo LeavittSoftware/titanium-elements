@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [15.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@15.0.5...@leavittsoftware/storybook@15.1.0) (2022-04-26)
+
+
+### Features
+
+* **leavitt-elements:** adds a icon property on company select ([1b75eda](https://github.com/LeavittSoftware/titanium-elements/commit/1b75eda1302ec1884bc93f3d81e970ef70447181))
+
+
+
+
+
 ## [15.0.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@15.0.4...@leavittsoftware/storybook@15.0.5) (2022-04-26)
 
 **Note:** Version bump only for package @leavittsoftware/storybook
