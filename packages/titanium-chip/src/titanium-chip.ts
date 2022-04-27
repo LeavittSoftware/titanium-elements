@@ -238,10 +238,10 @@ export class TitaniumChipElement extends LitElement implements CheckableElement 
 
   render() {
     return html`
-      <slot slot="chip-icon">
+      <slot name="chip-icon">
         ${this.src ? html` <img onerror=${ifDefined(this.fallbackSrc ? `this.src='${this.fallbackSrc}'` : undefined)} src=${this.src} /> ` : ''}
       </slot>
-      <label><slot slot="label">${this.label}</slot></label>
+      <label><slot name="label">${this.label}</slot></label>
       <mwc-icon-button
         icon=${this.closeIcon}
         ?disabled=${this.disabled}
