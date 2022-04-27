@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-chip@3.8.0...@leavittsoftware/titanium-chip@4.0.0) (2022-04-27)
+
+
+### Features
+
+* add border-box box sizing as default ([8b50d65](https://github.com/LeavittSoftware/titanium-elements/commit/8b50d656c3d0ada09f991645d9730d2356df2f1d))
+
+
+### BREAKING CHANGES
+
+* Could slightly effect some layouts
+
+
+
+
+
 # [3.8.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-chip@3.7.0...@leavittsoftware/titanium-chip@3.8.0) (2022-04-26)
 
 
