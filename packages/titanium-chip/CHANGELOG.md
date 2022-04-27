@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-chip@4.0.0...@leavittsoftware/titanium-chip@4.0.1) (2022-04-27)
+
+
+### Bug Fixes
+
+* **titanium-chip:** corrects broken slot names ([54129a1](https://github.com/LeavittSoftware/titanium-elements/commit/54129a1ae8c98774639747ce6933e034c21247d8))
+
+
+
+
+
 # [4.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-chip@3.8.0...@leavittsoftware/titanium-chip@4.0.0) (2022-04-27)
 
 
