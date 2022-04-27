@@ -132,6 +132,7 @@ export class TitaniumChipElement extends LitElement implements CheckableElement 
       user-select: none; /* Standard syntax */
       height: 30px;
       max-width: 100%;
+      box-sizing: border-box;
       border: 1px solid var(--app-border-color, #dadce0);
     }
 
