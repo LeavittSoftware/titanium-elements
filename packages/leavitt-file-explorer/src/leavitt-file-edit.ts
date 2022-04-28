@@ -11,11 +11,16 @@ import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar';
 import { h1 } from '@leavittsoftware/titanium-styles';
 
 import { PendingStateEvent } from '@leavittsoftware/titanium-loading-indicator/lib/titanium-full-page-loading-indicator';
-import mapiService from './mapi-service';
 import fileExplorerEvents from './file-explorer-events';
+import ApiService from '@leavittsoftware/api-service/lib/api-service';
 
 @customElement('leavitt-file-edit')
 export class LeavittFileEditElement extends LitElement {
+  /**
+   *  Required
+   */
+  @property({ attribute: false }) apiService: ApiService | null;
+
   @property({ type: Object }) file: Partial<FileExplorerFileDto> | null = null;
 
   @state() private fileName: string;
@@ -47,8 +52,10 @@ export class LeavittFileEditElement extends LitElement {
     };
 
     try {
-      const patch = mapiService.patchAsync(`FileExplorerAttachments(${this.file?.Id})`, dto);
-      this.dispatchEvent(new PendingStateEvent(patch));
+      const patch = this.apiService?.patchAsync(`FileExplorerAttachments(${this.file?.Id})`, dto);
+      if (patch) {
+        this.dispatchEvent(new PendingStateEvent(patch));
+      }
       await patch;
       fileExplorerEvents.dispatch('FileExplorerFileDto', 'Update', { ...this.file, Name: this.fileName });
       this.dispatchEvent(new CustomEvent('save-click'));

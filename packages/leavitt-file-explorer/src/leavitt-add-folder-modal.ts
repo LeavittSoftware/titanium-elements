@@ -10,11 +10,15 @@ import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar';
 import { FileExplorerFolderDto } from '@leavittsoftware/lg-core-typescript/api2.leavitt.com';
 import { TextField } from '@material/mwc-textfield';
 import { PendingStateEvent } from '@leavittsoftware/titanium-loading-indicator/lib/titanium-full-page-loading-indicator';
-import api2Service from './api2-service';
 import { FileExplorerFolder } from '@leavittsoftware/lg-core-typescript';
+import ApiService from '@leavittsoftware/api-service/lib/api-service';
 
 @customElement('leavitt-add-folder-modal')
 export class LeavittAddFolderModalElement extends LitElement {
+  /**
+   *  Required
+   */
+  @property({ attribute: false }) apiService: ApiService | null;
   @property({ type: Number }) fileExplorerId: number;
   @property({ type: Number }) parentFolderId: number;
 
@@ -49,9 +53,11 @@ export class LeavittAddFolderModalElement extends LitElement {
     };
 
     try {
-      const post = api2Service.postAsync<FileExplorerFolder>('FileExplorerFolders?$expand=CreatorPerson($select=FirstName,LastName)', dto);
-      const result = (await post).entity;
-      this.dispatchEvent(new PendingStateEvent(post));
+      const post = this.apiService?.postAsync<FileExplorerFolder>('FileExplorerFolders?$expand=CreatorPerson($select=FirstName,LastName)', dto);
+      if (post) {
+        this.dispatchEvent(new PendingStateEvent(post));
+      }
+      const result = (await post)?.entity;
       this.#reset();
 
       return { ...result, CreatorLastName: result?.CreatorPerson?.LastName, CreatorFirstName: result?.CreatorPerson?.FirstName } as FileExplorerFolderDto;

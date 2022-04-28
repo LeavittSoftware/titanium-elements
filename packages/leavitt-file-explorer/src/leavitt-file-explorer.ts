@@ -23,8 +23,6 @@ import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar';
 import { LeavittFileModalElement } from './leavitt-file-modal';
 import { ConfirmDialogOpenEvent } from '@leavittsoftware/titanium-dialog/lib/confirm-dialog-open-event';
 import { PendingStateEvent } from '@leavittsoftware/titanium-loading-indicator/lib/titanium-full-page-loading-indicator';
-import api2Service from './api2-service';
-import mapiService from './mapi-service';
 import fileExplorerEvents from './file-explorer-events';
 import { join, LoadWhile } from '@leavittsoftware/titanium-helpers';
 import { getIcon } from './file-types';
@@ -32,6 +30,7 @@ import ConfirmDialogElement from '@leavittsoftware/titanium-dialog/lib/confirm-d
 import { ActionDetail } from '@material/mwc-list';
 import { Menu } from '@material/mwc-menu';
 import { Button } from '@material/mwc-button';
+import ApiService from '@leavittsoftware/api-service/lib/api-service';
 
 /**
  * Leavitt Group specific file explorer
@@ -80,6 +79,11 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
     localStorage.setItem('leavitt-file-explorer-display', val);
     this.requestUpdate('display');
   }
+
+  /**
+   *  Required
+   */
+  @property({ attribute: false }) apiService: ApiService | null;
 
   @property({ type: String }) private state: 'no-permission' | 'files' | 'no-files' | 'error' = 'files';
   @state() isAdmin: boolean = false;
@@ -164,10 +168,12 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
 
   async #getExplorerData(fileExplorerId: number, folderId: number | null) {
     try {
-      const get = api2Service.getAsync<FileExplorerDto>(`FileExplorers(${fileExplorerId})/Default.FileExplorerView(folderId=${folderId})`);
-      this.loadWhile(get);
+      const get = this.apiService?.getAsync<FileExplorerDto>(`FileExplorers(${fileExplorerId})/Default.FileExplorerView(folderId=${folderId})`);
+      if (get) {
+        this.loadWhile(get);
+      }
       const result = await get;
-      if (result.status == 200 && result.entity) {
+      if (result?.status == 200 && result.entity) {
         this.fileExplorer = result.entity;
         this.folders = result.entity.Folders as FileExplorerFolderDto[];
         this.files = result.entity.Files as FileExplorerFileDto[];
@@ -190,7 +196,7 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
         this.isAdmin = result.entity.CanEdit;
         this.state = this.folders.length > 0 || this.files.length > 0 ? 'files' : 'no-files';
       }
-      if (result.status == 401 || result.status == 404) {
+      if (result?.status == 401 || result?.status == 404) {
         this.path = [{ Name: 'Files' } as FileExplorerPathDto];
         this.state = 'no-permission';
       }
@@ -228,7 +234,7 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
         items.map(async o => {
           try {
             if (this.#isFolder(o)) {
-              await api2Service.deleteAsync(`FileExplorerFolders(${o.Id})`);
+              await this.apiService?.deleteAsync(`FileExplorerFolders(${o.Id})`);
               this.folders.splice(
                 this.folders.findIndex(folder => folder.Id === o.Id),
                 1
@@ -240,7 +246,7 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
               }
               this.requestUpdate('folders');
             } else {
-              await mapiService.deleteAsync(`FileExplorerAttachments(${o.Id})`);
+              await this.apiService?.deleteAsync(`FileExplorerAttachments(${o.Id})`);
               this.files.splice(
                 this.files.findIndex(file => file.Id === o.Id),
                 1
@@ -330,7 +336,7 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
     const failedFiles: string[] = [];
     const requests = Array.from(files ?? []).map(file => async () => {
       try {
-        const result = (await mapiService.uploadFile<FileExplorerAttachment>(uri, file, () => console.log)).entity;
+        const result = (await this.apiService?.uploadFile<FileExplorerAttachment>(uri, file, () => console.log))?.entity;
         if (result) {
           const attachment: FileExplorerFileDto = {
             ...result,
@@ -376,7 +382,7 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
           ? `FileExplorerFolders(${folderId})/Default.UploadAttachment()?$expand=Creator($select=Firstname,Lastname)`
           : `FileExplorers(${this.fileExplorerId})/Default.UploadAttachment()?$expand=Creator($select=Firstname,Lastname)`;
 
-        const result = (await mapiService.uploadFile<FileExplorerAttachment>(uri, file, () => console.log)).entity;
+        const result = (await this.apiService?.uploadFile<FileExplorerAttachment>(uri, file, () => console.log))?.entity;
         if (result) {
           this.dispatchEvent(new CustomEvent('file-added'));
           if (this.fileExplorer) {
@@ -411,9 +417,11 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
     };
 
     try {
-      const post = api2Service.postAsync<FileExplorerFolder>('FileExplorerFolders?$expand=CreatorPerson($select=FirstName,LastName)', dto);
-      const result = (await post).entity;
-      this.dispatchEvent(new PendingStateEvent(post));
+      const post = this.apiService?.postAsync<FileExplorerFolder>('FileExplorerFolders?$expand=CreatorPerson($select=FirstName,LastName)', dto);
+      if (post) {
+        this.dispatchEvent(new PendingStateEvent(post));
+      }
+      const result = (await post)?.entity;
       if (this.fileExplorer) {
         this.fileExplorer.FoldersCount = this.fileExplorer?.FoldersCount + 1;
         this.requestUpdate('fileExplorer');
@@ -1132,8 +1140,12 @@ ${folder.FilesCount} file${folder.FilesCount === 1 ? '' : 's'}, ${folder.Folders
             `
           : nothing}
       </footer>
-      <leavitt-add-folder-modal .fileExplorerId=${this.fileExplorerId} .parentFolderId=${this?.folderId ?? 0}></leavitt-add-folder-modal>
-      <leavitt-folder-modal .enableEditing=${this.isAdmin}></leavitt-folder-modal>
+      <leavitt-add-folder-modal
+        .apiService=${this.apiService}
+        .fileExplorerId=${this.fileExplorerId}
+        .parentFolderId=${this?.folderId ?? 0}
+      ></leavitt-add-folder-modal>
+      <leavitt-folder-modal .apiService=${this.apiService} .enableEditing=${this.isAdmin}></leavitt-folder-modal>
       <leavitt-file-modal .enableEditing=${this.isAdmin}></leavitt-file-modal>
       <confirm-dialog></confirm-dialog>
     `;

@@ -8,15 +8,19 @@ import { FileExplorerFolderDto } from '@leavittsoftware/lg-core-typescript/api2.
 import { TextField } from '@material/mwc-textfield';
 import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar';
 import { h1 } from '@leavittsoftware/titanium-styles';
-import api2Service from './api2-service';
 import fileExplorerEvents from './file-explorer-events';
 import { PendingStateEvent } from '@leavittsoftware/titanium-loading-indicator/lib/titanium-full-page-loading-indicator';
+import ApiService from '@leavittsoftware/api-service/lib/api-service';
 
 @customElement('leavitt-folder-edit')
 export class LeavittFolderEditElement extends LitElement {
+  /**
+   *  Required
+   */
+  @property({ attribute: false }) apiService: ApiService | null;
+
   @property({ type: Object }) folder: FileExplorerFolderDto | null = null;
   @state() private folderName: string;
-
   @query('mwc-textfield') private nameTextField!: TextField;
 
   async firstUpdated() {
@@ -44,8 +48,10 @@ export class LeavittFolderEditElement extends LitElement {
     };
 
     try {
-      const patch = api2Service.patchAsync(`FileExplorerFolders(${this.folder?.Id})`, dto);
-      this.dispatchEvent(new PendingStateEvent(patch));
+      const patch = this.apiService?.patchAsync(`FileExplorerFolders(${this.folder?.Id})`, dto);
+      if (patch) {
+        this.dispatchEvent(new PendingStateEvent(patch));
+      }
       await patch;
       fileExplorerEvents.dispatch('FileExplorerFolder', 'Update', { ...this.folder, Name: this.folderName });
       this.dispatchEvent(new CustomEvent('save-click'));
