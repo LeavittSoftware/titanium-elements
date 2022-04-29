@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 5.3.0 (2022-04-29)
+
+
+### Features
+
+* adds fixedMenuPosition option ([f8b53b8](https://github.com/LeavittSoftware/titanium-elements/commit/f8b53b8ce2984f20116be53e31f2391391f74844))
+
+
+
+
+
 # [5.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@5.1.0...@leavittsoftware/leavitt-elements@5.2.0) (2022-04-26)
 
 
