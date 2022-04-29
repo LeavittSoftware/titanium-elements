@@ -44,6 +44,10 @@ export class ManualAddressDialogElement extends LitElement {
     return null;
   }
 
+  layout() {
+    this.manualAddressForm.layout();
+  }
+
   static styles = css`
     titanium-dialog {
       --titanium-dialog-max-width: 450px;
