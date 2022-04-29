@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@5.4.0...@leavittsoftware/leavitt-elements@5.5.0) (2022-04-29)
+
+
+### Features
+
+* adds apiControllerName as a prop ([b94edf3](https://github.com/LeavittSoftware/titanium-elements/commit/b94edf3c3870dfcc4d67ac825a9d94a3dd52a01d))
+
+
+
+
+
 # [5.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@5.3.0...@leavittsoftware/leavitt-elements@5.4.0) (2022-04-29)
 
 
