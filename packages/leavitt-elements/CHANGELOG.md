@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@5.3.0...@leavittsoftware/leavitt-elements@5.4.0) (2022-04-29)
+
+
+### Bug Fixes
+
+* **leavitt-elements:** correct name of Building People Group class ([eb45ad2](https://github.com/LeavittSoftware/titanium-elements/commit/eb45ad2a3480d8e1c4cd454d8424a55c6a7faad0))
+
+
+### Features
+
+* add layout to company select and manual address form ([a10cf39](https://github.com/LeavittSoftware/titanium-elements/commit/a10cf397be4fd9b4bc13bca3004e7a36823ebf87))
+
+
+
+
+
 # 5.3.0 (2022-04-29)
 
 
