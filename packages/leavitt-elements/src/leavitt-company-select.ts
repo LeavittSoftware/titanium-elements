@@ -190,6 +190,13 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
     return this.textfield.reportValidity();
   }
 
+  /**
+   *  Runs layout() method on textfield.
+   */
+  layout() {
+    this.textfield.layout();
+  }
+
   private async setSelected(company: Partial<Company> | null) {
     const previouslySelected = this.selected;
     this.selected = company;

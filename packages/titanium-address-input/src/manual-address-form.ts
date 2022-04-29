@@ -46,6 +46,12 @@ export class ManualAddressFormElement extends LitElement {
     });
   }
 
+  layout() {
+    this.allInputs.forEach(input => {
+      input.layout();
+    });
+  }
+
   static styles = css`
     form {
       display: grid;
