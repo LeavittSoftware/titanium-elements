@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [16.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@15.1.8...@leavittsoftware/storybook@16.0.0) (2022-05-02)
+
+
+* 230 Convert file-explorer to use API3 (#231) ([c352985](https://github.com/LeavittSoftware/titanium-elements/commit/c352985d1d8371b24e6b83bb06c6374ce2005f20)), closes [#231](https://github.com/LeavittSoftware/titanium-elements/issues/231)
+
+
+### BREAKING CHANGES
+
+* file explorer now requires an api service to be passed in as a property in order to function.
+
+* fix: api call endpoint fix
+
+
+
+
+
 ## [15.1.8](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/storybook@15.1.7...@leavittsoftware/storybook@15.1.8) (2022-04-29)
 
 **Note:** Version bump only for package @leavittsoftware/storybook
