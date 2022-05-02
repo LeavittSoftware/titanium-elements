@@ -42,7 +42,7 @@ export const peopleGroupIcons = new Map<string, { icon: string; displayName: str
     },
   ],
   [
-    '#lg.net.core.DataModel.Core.BuildingPeopleGroup ',
+    '#lg.net.core.DataModel.Core.BuildingPeopleGroup',
     {
       icon: 'location_city',
       displayName: 'Building people group',

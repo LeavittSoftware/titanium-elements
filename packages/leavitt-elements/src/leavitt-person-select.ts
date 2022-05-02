@@ -69,6 +69,11 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
   @property({ type: String }) label: string = 'Person';
 
   /**
+   *  Set the name of the API controller to use
+   */
+  @property({ type: String }) apiControllerName: string = 'People';
+
+  /**
    *  Sets placeholder text value.
    */
   @property({ type: String }) placeholder: string = 'Search for a person';
@@ -170,7 +175,7 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
         }
       }
 
-      const get = this.apiService.getAsync<Person>(`People?${odataParts.join('&')}`, { abortController: this.abortController });
+      const get = this.apiService.getAsync<Person>(`${this.apiControllerName}?${odataParts.join('&')}`, { abortController: this.abortController });
       this.loadWhile(get);
       const result = await get;
       this.suggestions = result?.entities ?? [];

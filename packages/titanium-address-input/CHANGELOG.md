@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 1.9.0 (2022-04-29)
+
+
+### Features
+
+* add layout to company select and manual address form ([a10cf39](https://github.com/LeavittSoftware/titanium-elements/commit/a10cf397be4fd9b4bc13bca3004e7a36823ebf87))
+
+
+
+
+
 ## [1.8.6](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-address-input@1.8.4...@leavittsoftware/titanium-address-input@1.8.6) (2022-03-14)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-address-input

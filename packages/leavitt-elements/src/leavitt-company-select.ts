@@ -50,6 +50,11 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
   @property({ attribute: false }) apiService: ApiService;
 
   /**
+   *  Sets the dropdown menu's position to fixed. This is useful when the select is inside of a stacking context e.g. inside of an mwc-dialog. Note, that --mdc-menu-min-width or --mdc-menu-max-width may have to be set to resize the menu to the width anchor.
+   */
+  @property({ type: Boolean }) fixedMenuPosition: boolean = true;
+
+  /**
    *  Disables automatic loading of companies on firstUpdated
    */
   @property({ type: Boolean }) disableAutoLoad: boolean = false;
@@ -190,6 +195,13 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
     return this.textfield.reportValidity();
   }
 
+  /**
+   *  Runs layout() method on textfield.
+   */
+  layout() {
+    this.textfield.layout();
+  }
+
   private async setSelected(company: Partial<Company> | null) {
     const previouslySelected = this.selected;
     this.selected = company;
@@ -302,7 +314,7 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
       ></mwc-textfield>
       ${this.selected ? html`<img selected src=${this.selected.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />` : ''}
       <mwc-menu
-        fixed
+        ?fixed=${this.fixedMenuPosition}
         activatable
         corner="BOTTOM_LEFT"
         defaultFocus="NONE"
