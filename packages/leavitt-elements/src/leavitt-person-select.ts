@@ -182,7 +182,7 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
       this.count = result?.odataCount ?? 0;
       return;
     } catch (error) {
-      if (!error.Message.include('Abort error')) {
+      if (!error?.message?.includes('Abort error')) {
         TitaniumSnackbarSingleton.open(error);
       }
     }
