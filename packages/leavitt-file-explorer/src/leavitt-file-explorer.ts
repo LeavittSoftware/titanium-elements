@@ -330,8 +330,8 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
 
   async #uploadFiles(files: FileList | null) {
     const uri = this.folderId
-      ? `FileExplorerFolders(${this.folderId})/Default.UploadAttachment()?$expand=Creator($select=Firstname,Lastname)`
-      : `FileExplorers(${this.fileExplorerId})/Default.UploadAttachment()?$expand=Creator($select=Firstname,Lastname)`;
+      ? `FileExplorerFolders(${this.folderId})/Default.UploadAttachment?$expand=Creator($select=Firstname,Lastname)`
+      : `FileExplorers(${this.fileExplorerId})/Default.UploadAttachment?$expand=Creator($select=Firstname,Lastname)`;
 
     const failedFiles: string[] = [];
     const requests = Array.from(files ?? []).map(file => async () => {
@@ -379,8 +379,8 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
         const folderId = (await directoryToIdMap).get(path);
 
         const uri = folderId
-          ? `FileExplorerFolders(${folderId})/Default.UploadAttachment()?$expand=Creator($select=Firstname,Lastname)`
-          : `FileExplorers(${this.fileExplorerId})/Default.UploadAttachment()?$expand=Creator($select=Firstname,Lastname)`;
+          ? `FileExplorerFolders(${folderId})/Default.UploadAttachment?$expand=Creator($select=Firstname,Lastname)`
+          : `FileExplorers(${this.fileExplorerId})/Default.UploadAttachment?$expand=Creator($select=Firstname,Lastname)`;
 
         const result = (await this.apiService?.uploadFile<FileExplorerAttachment>(uri, file, () => console.log))?.entity;
         if (result) {
