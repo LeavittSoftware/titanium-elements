@@ -179,7 +179,7 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
       results?.entities.forEach(p => (p.type = 'Person'));
       return results;
     } catch (error) {
-      if (!error?.Message?.include('Abort error')) {
+      if (!error?.message?.includes('Abort error')) {
         TitaniumSnackbarSingleton.open(error);
       }
     }
@@ -201,7 +201,7 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
       results?.entities.forEach(p => (p.type = 'PeopleGroup'));
       return results;
     } catch (error) {
-      if (!error?.Message?.include('Abort error')) {
+      if (!error?.message?.includes('Abort error')) {
         TitaniumSnackbarSingleton.open(error);
       }
     }

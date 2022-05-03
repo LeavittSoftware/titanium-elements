@@ -186,7 +186,7 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
       results?.entities.forEach(p => (p.type = 'Person'));
       return results;
     } catch (error) {
-      if (!error?.Message?.include('Abort error')) {
+      if (!error?.message?.includes('Abort error')) {
         TitaniumSnackbarSingleton.open(error);
       }
     }
@@ -208,7 +208,7 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
       results?.entities.forEach(p => (p.type = 'Company'));
       return results;
     } catch (error) {
-      if (!error?.Message?.include('Abort error')) {
+      if (!error?.message?.includes('Abort error')) {
         TitaniumSnackbarSingleton.open(error);
       }
     }
