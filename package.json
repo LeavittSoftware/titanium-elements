@@ -21,15 +21,16 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^2.6.2",
     "ts-jest": "^27.1.4",
-    "typescript": "^4.6.3"
+    "typescript": "4.6.3"
   },
   "scripts": {
-    "start": "npm run bootstrap && run-p build:watch storybook ",
+    "start": "npm run bootstrap && npm run leavittbook",
     "prepare": "husky install",
     "bootstrap": "lerna bootstrap --ci --hoist",
     "build:watch": "tsc --build --preserveWatchOutput -w",
     "build": "tsc --build --preserveWatchOutput",
     "lint": "lerna run lint --stream",
+    "leavittbook": "cd packages/leavittbook && npm start",
     "storybook": "cd packages/storybook && npm run start",
     "build:storybook": "npm run bootstrap && npm run build && lerna run site:build",
     "lerna:publish": "npm run bootstrap && npm run build && lerna publish --conventional-commits --yes",

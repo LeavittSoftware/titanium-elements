@@ -38,7 +38,8 @@
     { "path": "packages/titanium-input-validator" },
     { "path": "packages/titanium-twoline-formfield" },
     { "path": "packages/titanium-shadow-text" },
-    { "path": "packages/storybook/demos" }
+    { "path": "packages/storybook/demos" },
+    { "path": "packages/leavittbook" }
   ],
   "files": []
 }
