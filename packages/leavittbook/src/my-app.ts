@@ -4,6 +4,12 @@ import '@leavittsoftware/titanium-snackbar';
 import '@leavittsoftware/titanium-loading-indicator';
 import '@leavittsoftware/titanium-error-page';
 import '@material/mwc-icon';
+import '@leavittsoftware/titanium-offline-notice/lib/titanium-offline-notice';
+import '@leavittsoftware/titanium-sw-notifier/lib/titanium-sw-notifier';
+import '@leavittsoftware/titanium-tab-control/lib/titanium-tab-control';
+import '@leavittsoftware/titanium-side-menu/lib/titanium-side-menu-item';
+import '@leavittsoftware/titanium-dialog/lib/confirm-dialog';
+
 import { installMediaQueryWatcher } from '@leavittsoftware/titanium-helpers/lib/titanium-media-query';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
@@ -28,7 +34,6 @@ export class MyAppElement extends LitElement {
 
   @state() private page: string | undefined;
   @state() private isDesktop: boolean = true;
-  @state() private navigationResolved: boolean = false;
 
   @query('confirm-dialog') private confirmDialog: ConfirmDialogElement;
   @query('titanium-full-page-loading-indicator') private loadingIndicator: TitaniumFullPageLoadingIndicatorElement & LitElement;
@@ -38,29 +43,11 @@ export class MyAppElement extends LitElement {
 
     installMediaQueryWatcher('(max-width: 830px)', async matches => {
       this.isDesktop = !matches;
-      this.navigationResolved = false;
-
-      if (this.isDesktop) {
-        try {
-          await import('../node_modules/@leavittsoftware/titanium-side-menu/lib/titanium-side-menu-item.js');
-          this.navigationResolved = true;
-        } catch (e) {
-          console.warn('Failed to load side menu.', e);
-        }
-      } else {
-        try {
-          await import('../node_modules/@leavittsoftware/titanium-tab-control/lib/titanium-tab-control.js');
-          this.navigationResolved = true;
-        } catch (e) {
-          console.warn('Failed to load side menu.', e);
-        }
-      }
     });
 
     await this.loadingIndicator.updateComplete;
 
     this.addEventListener(ConfirmDialogOpenEvent.eventType, async (e: ConfirmDialogOpenEvent) => {
-      await import('@leavittsoftware/titanium-dialog/lib/confirm-dialog');
       this.confirmDialog.handleEvent(e);
     });
 
@@ -85,16 +72,6 @@ export class MyAppElement extends LitElement {
     page.start();
   }
 
-  async #lazyLoadExtraComponents() {
-    try {
-      await import('../node_modules/@leavittsoftware/titanium-offline-notice/lib/titanium-offline-notice.js');
-      await import('../node_modules/@leavittsoftware/titanium-sw-notifier/lib/titanium-sw-notifier.js');
-      await import('../node_modules/@leavittsoftware/profile-picture/lib/profile-picture-menu.js');
-    } catch (error) {
-      console.warn('One or more components failed to load', error);
-    }
-  }
-
   #changePage(mainPage: string, importFunction?: () => Promise<unknown>) {
     const handlePageChange = new Promise<void>(async res => {
       this.page = mainPage;
@@ -102,7 +79,6 @@ export class MyAppElement extends LitElement {
       try {
         await importFunction?.();
 
-        setTimeout(() => this.#lazyLoadExtraComponents(), 500);
         window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
       } catch (error) {
         console.warn(error);
@@ -123,10 +99,9 @@ export class MyAppElement extends LitElement {
           <img src=${this.isDesktop ? LGLogo : LGMark} alt="Leavitt Group logo" />
         </a>
         <h3 title="Leavittbook" ?hidden=${this.isDesktop} @click=${() => page.show('/')} main-title>Leavittbook</h3>
-        <profile-picture-menu size="36"></profile-picture-menu>
       </titanium-toolbar>
 
-      <desktop-menu ?hidden=${!this.isDesktop || !this.navigationResolved}>
+      <desktop-menu ?hidden=${!this.isDesktop}>
         <h3 main-title="">Leavittbook</h3>
         <section>
           <titanium-side-menu-item href="/home" ?selected=${!!this.page?.includes('home')}>
@@ -142,7 +117,7 @@ export class MyAppElement extends LitElement {
 
       <toolbar-placeholder></toolbar-placeholder>
 
-      <titanium-tab-control ?hidden=${this.isDesktop || !this.navigationResolved}>
+      <titanium-tab-control ?hidden=${this.isDesktop}>
         <titanium-tab-control-item href="/home" ?selected=${!!this.page?.includes('home')}>Home</titanium-tab-control-item>
         <titanium-tab-control-item href="/example-story" ?selected=${!!this.page?.includes('example-story')}>Example story</titanium-tab-control-item>
       </titanium-tab-control>
