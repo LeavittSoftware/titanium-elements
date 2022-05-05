@@ -1,6 +1,7 @@
 {
   "license": "BSD-3-Clause",
   "name": "@leavittsoftware/leavittbook",
+  "version": "0.0.1",
   "dependencies": {
     "@leavittsoftware/api-service": "*",
     "@leavittsoftware/leavitt-elements": "*",
