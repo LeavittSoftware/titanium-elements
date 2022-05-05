@@ -158,7 +158,8 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
       keys: ['Name', 'FirstName', 'LastName'],
     };
 
-    const fuse = new Fuse(entities, options);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const fuse = new Fuse(entities, options as any);
     const fuseResults = fuse.search(searchTerm).sort((a, b) => (b?.score ?? 0) - (a?.score ?? 0));
     return { entities: fuseResults.map(o => o.item), count: odataCount };
   }

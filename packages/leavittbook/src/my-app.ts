@@ -5,7 +5,7 @@ import '@leavittsoftware/titanium-loading-indicator';
 import '@leavittsoftware/titanium-error-page';
 import '@material/mwc-icon';
 import { installMediaQueryWatcher } from '@leavittsoftware/titanium-helpers/lib/titanium-media-query';
-import { html, LitElement } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import page from 'page';
 import { h1, p } from '@leavittsoftware/titanium-styles';
@@ -149,12 +149,17 @@ export class MyAppElement extends LitElement {
 
       <main-content>
         <width-limiter>
-          <div ?isActive=${this.page === 'home'} ?hidden=${this.page !== 'home'}>
-            <h1>Leavittbook</h1>
-            <p>A showcase of our @leavittsoftware components!</p>
-          </div>
-          <example-story ?isActive=${this.page === 'example-story'} ?hidden=${this.page !== 'example-story'}></example-story>
-          <div ?isActive=${this.page === 'error'} ?hidden=${this.page !== 'error'}>Oops, something went wrong.</div>
+          ${this.page === 'home'
+            ? html`
+                <div>
+                  <h1>Leavittbook</h1>
+                  <p>A showcase of our @leavittsoftware components!</p>
+                </div>
+              `
+            : nothing}
+          ${this.page === 'error' ? html`<div>Oops, something went wrong.</div>` : nothing}
+          <!-- Stories -->
+          ${this.page === 'example-story' ? html` <example-story ?isActive=${this.page === 'example-story'}></example-story> ` : nothing}
         </width-limiter>
       </main-content>
       <titanium-snackbar></titanium-snackbar>
