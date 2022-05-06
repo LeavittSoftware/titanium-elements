@@ -78,10 +78,14 @@ export const myAppStyles = css`
     display: flex;
     position: fixed;
     flex-direction: column;
-    width: 280px;
+    width: 220px;
     padding-top: 48px;
     margin-top: 12px;
     max-height: calc(100vh - 68px);
+    border-right: 1px solid rgb(238, 238, 238);
+    padding-right: 24px;
+    max-height: calc(100vh - 68px);
+    height: 100%;
   }
 
   desktop-menu section {
@@ -114,7 +118,7 @@ export const myAppStyles = css`
     flex-direction: column;
     flex-grow: 1;
     margin: 0 48px;
-    padding-left: 280px;
+    padding-left: 220px;
   }
 
   width-limiter {

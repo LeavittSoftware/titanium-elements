@@ -9,9 +9,10 @@ import '@leavittsoftware/titanium-sw-notifier/lib/titanium-sw-notifier';
 import '@leavittsoftware/titanium-tab-control/lib/titanium-tab-control';
 import '@leavittsoftware/titanium-side-menu/lib/titanium-side-menu-item';
 import '@leavittsoftware/titanium-dialog/lib/confirm-dialog';
+import './shared/story-header';
 
 import { installMediaQueryWatcher } from '@leavittsoftware/titanium-helpers/lib/titanium-media-query';
-import { html, LitElement, nothing } from 'lit';
+import { css, html, LitElement, nothing } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import page from 'page';
 import { h1, p } from '@leavittsoftware/titanium-styles';
@@ -88,7 +89,54 @@ export class MyAppElement extends LitElement {
     this.dispatchEvent(new PendingStateEvent(handlePageChange));
   }
 
-  static styles = [h1, p, myAppStyles];
+  static styles = [
+    h1,
+    p,
+    myAppStyles,
+    css`
+      desktop-menu details {
+        user-select: none;
+      }
+      desktop-menu summary {
+        padding-left: 24px;
+        font-size: 13px;
+        padding: 2px 28px;
+        border-radius: 0px 50px 50px 0px;
+        cursor: pointer;
+        color: var(--app-text-color);
+        font-weight: 500;
+      }
+      desktop-menu summary::marker {
+        margin-right: 12px;
+      }
+
+      desktop-menu summary:hover {
+        background: var(--app-hover-color);
+      }
+      desktop-menu a {
+        display: flex;
+        text-decoration: none;
+        color: var(--app-light-text-color);
+        font-size: 13px;
+        align-items: center;
+        gap: 6px;
+        padding: 2px 24px;
+        border-radius: 0px 50px 50px 0px;
+      }
+      desktop-menu a mwc-icon {
+        --mdc-icon-size: 16px;
+      }
+      desktop-menu a:hover {
+        background-color: var(--app-hover-color);
+        transition: 0.3s ease;
+      }
+      desktop-menu a[selected] {
+        background-color: #e8f0fe;
+        fill: #1967d2;
+        color: #1967d2;
+      }
+    `,
+  ];
 
   render() {
     return html`
@@ -104,14 +152,30 @@ export class MyAppElement extends LitElement {
       <desktop-menu ?hidden=${!this.isDesktop}>
         <h3 main-title="">Leavittbook</h3>
         <section>
-          <titanium-side-menu-item href="/home" ?selected=${!!this.page?.includes('home')}>
-            <mwc-icon><span class="material-icons-outlined"> home </span></mwc-icon>
-            <span>Home</span>
-          </titanium-side-menu-item>
-          <titanium-side-menu-item href="/titanium-button" ?selected=${!!this.page?.includes('titanium-button')}>
-            <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-            <span>titanium-button</span>
-          </titanium-side-menu-item>
+          <details>
+            <summary>Leavitt</summary>
+            <!-- Leavitt menu -->
+            <a href="/home" ?selected=${!!this.page?.includes('home')}>
+              <mwc-icon><span class="material-icons-outlined"> home </span></mwc-icon>
+              <span>Home</span>
+            </a>
+          </details>
+        </section>
+        <section>
+          <details>
+            <summary>Titanium</summary>
+            <!-- Titanium menu -->
+            <a href="/titanium-button" ?selected=${!!this.page?.includes('titanium-button')}>
+              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+              <span>titanium-button</span>
+            </a>
+          </details>
+        </section>
+        <section>
+          <details>
+            <summary>Deprecated</summary>
+            <!-- Deprecated menu -->
+          </details>
         </section>
       </desktop-menu>
 
@@ -127,8 +191,9 @@ export class MyAppElement extends LitElement {
           ${this.page === 'home'
             ? html`
                 <div>
-                  <h1>Leavittbook</h1>
-                  <p>A showcase of our @leavittsoftware components!</p>
+                  <story-header name="Leavittbook" tagName="@leavittsoftware" klass="A showcase of our components!"></story-header>
+                  <h1></h1>
+                  <p></p>
                 </div>
               `
             : nothing}
