@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Leavittbook - Leavitt Group</title>
+    <meta name="generator" content="Leavittbook" />
+    <meta name="description" content="Leavittbook" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+
+    <base href="/" />
+
+    <link rel="icon" href="manifest/favicon.ico" />
+
+    <!-- See https://goo.gl/OOhYW5 -->
+    <link rel="manifest" href="manifest.json" />
+
+    <!-- See https://goo.gl/qRE0vM -->
+    <meta name="theme-color" content="#727272" />
+
+    <!-- PWA Meta and Assets -->
+    <meta name="application-name" content="Fruits" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="icon" type="image/png" sizes="32x32" href="manifest/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="manifest/favicon-192.png" />
+    <link rel="apple-touch-icon" href="manifest/apple-icon-180.png" />
+
+    <!-- Default twitter cards -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@LeavittGroup" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Fruits" />
+    <meta property="og:image" content="manifest/manifest-icon-192.maskable.png" />
+
+    <!-- Performance tip: hint to the browser to start the handshake for the fonts site -->
+    <link rel="preconnect" href="https://oauth2.leavitt.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" defer async rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons+Outlined&display=block" defer async rel="stylesheet" />
+
+    <script>
+      //do not set ClaimScopes on sites with the manage side menu
+      window.localStorage.setItem('LgClaimScopes', '["Unit Testing App"]');
+    </script>
+
+    <style>
+      @font-face {
+        font-family: 'Metropolis';
+        font-weight: 600;
+        font-display: swap;
+        src: local('Metropolis'), url('https://www.leavitt.com/fonts/metropolis-bold.otf') format('opentype');
+      }
+
+      @font-face {
+        font-family: 'Metropolis';
+        font-weight: 500;
+        font-display: swap;
+        src: local('Metropolis'), url('https://www.leavitt.com/fonts/metropolis-semibold.otf') format('opentype');
+      }
+
+      @font-face {
+        font-family: 'Metropolis';
+        font-weight: 400;
+        font-display: swap;
+        src: local('Metropolis'), url('https://www.leavitt.com/fonts/metropolis-medium.otf') format('opentype');
+      }
+
+      body {
+        margin: 0;
+        /* This is a font-stack that tries to use the system-default sans-serifs first */
+        font-family: Roboto, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+        line-height: 1.5;
+        min-height: calc(100vh - 48px);
+        -webkit-font-smoothing: antialiased;
+        background-color: #fff;
+        color: #5f6368;
+      }
+    </style>
+  </head>
+
+  <body>
+    <my-app></my-app>
+    <script type="module" src="./src/my-app.js"></script>
+    <noscript> Please enable JavaScript to view this website. </noscript>
+  </body>
+</html>

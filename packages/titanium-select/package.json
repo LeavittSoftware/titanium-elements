@@ -9,7 +9,7 @@
     "src"
   ],
   "dependencies": {
-    "@material/mwc-textfield": "*",
+    "@material/mwc-textfield": "0.25.3",
     "tslib": "^2.3.1"
   },
   "peerDependencies": {

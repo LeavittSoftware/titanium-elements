@@ -226,7 +226,8 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
     };
 
     if (this.searchTerm) {
-      const fuse = new Fuse(this.companies, options);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const fuse = new Fuse(this.companies, options as any);
       const fuseResults = fuse.search(searchTerm);
       this.suggestions = fuseResults.map(o => o.item);
     } else {
