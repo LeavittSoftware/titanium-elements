@@ -19,7 +19,7 @@ const today: Dayjs = dayjs();
 const yesterday: Dayjs = today.subtract(1, 'day');
 const lastWeek: Dayjs = today.subtract(1, 'week');
 const lastMonth: Dayjs = today.subtract(1, 'month');
-const lastQuarter: Dayjs = today.subtract(1, quarter);
+const lastQuarter: Dayjs = today.subtract(1, 'quarter');
 const lastYear: Dayjs = today.subtract(1, 'year');
 
 export const DateRanges = {
