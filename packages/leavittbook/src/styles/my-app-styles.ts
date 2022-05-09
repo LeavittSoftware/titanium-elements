@@ -78,7 +78,7 @@ export const myAppStyles = css`
     display: flex;
     position: fixed;
     flex-direction: column;
-    width: 220px;
+    width: 240px;
     padding-top: 48px;
     margin-top: 12px;
     max-height: calc(100vh - 68px);
@@ -118,7 +118,7 @@ export const myAppStyles = css`
     flex-direction: column;
     flex-grow: 1;
     margin: 0 48px;
-    padding-left: 220px;
+    padding-left: 240px;
   }
 
   width-limiter {
