@@ -12,7 +12,7 @@ import '@leavittsoftware/titanium-dialog/lib/confirm-dialog';
 import './shared/story-header';
 
 import { installMediaQueryWatcher } from '@leavittsoftware/titanium-helpers/lib/titanium-media-query';
-import { css, html, LitElement, nothing } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import page from 'page';
 import { h1, p } from '@leavittsoftware/titanium-styles';
@@ -25,6 +25,7 @@ import {
 import { ConfirmDialogOpenEvent } from '@leavittsoftware/titanium-dialog/lib/confirm-dialog-open-event';
 import ConfirmDialogElement from '@leavittsoftware/titanium-dialog/lib/confirm-dialog';
 import { myAppStyles } from './styles/my-app-styles';
+import DesktopMenuStyles from './styles/desktop-menu-styles';
 
 const LGLogo = new URL('../images/lg-logo.svg', import.meta.url).href;
 const LGMark = new URL('../images/lg-mark.svg', import.meta.url).href;
@@ -64,6 +65,7 @@ export class MyAppElement extends LitElement {
       page.show('/home');
     });
     page('/home', () => this.#changePage('home'));
+    page('/titanium-access-denied-page', () => this.#changePage('titanium-access-denied-page', () => import('./components/titanium-access-denied-page.js')));
     page('/titanium-button', () => this.#changePage('titanium-button', () => import('./components/titanium-button.js')));
 
     page('*', () => {
@@ -89,54 +91,7 @@ export class MyAppElement extends LitElement {
     this.dispatchEvent(new PendingStateEvent(handlePageChange));
   }
 
-  static styles = [
-    h1,
-    p,
-    myAppStyles,
-    css`
-      desktop-menu details {
-        user-select: none;
-      }
-      desktop-menu summary {
-        padding-left: 24px;
-        font-size: 13px;
-        padding: 2px 28px;
-        border-radius: 0px 50px 50px 0px;
-        cursor: pointer;
-        color: var(--app-text-color);
-        font-weight: 500;
-      }
-      desktop-menu summary::marker {
-        margin-right: 12px;
-      }
-
-      desktop-menu summary:hover {
-        background: var(--app-hover-color);
-      }
-      desktop-menu a {
-        display: flex;
-        text-decoration: none;
-        color: var(--app-light-text-color);
-        font-size: 13px;
-        align-items: center;
-        gap: 6px;
-        padding: 2px 24px;
-        border-radius: 0px 50px 50px 0px;
-      }
-      desktop-menu a mwc-icon {
-        --mdc-icon-size: 16px;
-      }
-      desktop-menu a:hover {
-        background-color: var(--app-hover-color);
-        transition: 0.3s ease;
-      }
-      desktop-menu a[selected] {
-        background-color: #e8f0fe;
-        fill: #1967d2;
-        color: #1967d2;
-      }
-    `,
-  ];
+  static styles = [h1, p, myAppStyles, DesktopMenuStyles];
 
   render() {
     return html`
@@ -169,6 +124,10 @@ export class MyAppElement extends LitElement {
               <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
               <span>titanium-button</span>
             </a>
+            <a href="/titanium-access-denied-page" ?selected=${!!this.page?.includes('titanium-access-denied-page')}>
+              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+              <span>titanium-access-denied-page</span>
+            </a>
           </details>
         </section>
         <section>
@@ -184,6 +143,9 @@ export class MyAppElement extends LitElement {
       <titanium-tab-control ?hidden=${this.isDesktop}>
         <titanium-tab-control-item href="/home" ?selected=${!!this.page?.includes('home')}>Home</titanium-tab-control-item>
         <titanium-tab-control-item href="/titanium-button" ?selected=${!!this.page?.includes('titanium-button')}>titanium-button</titanium-tab-control-item>
+        <titanium-tab-control-item href="/titanium-access-denied-page" ?selected=${!!this.page?.includes('/titanium-access-denied-page')}
+          >/titanium-access-denied-page</titanium-tab-control-item
+        >
       </titanium-tab-control>
 
       <main-content>
@@ -200,6 +162,9 @@ export class MyAppElement extends LitElement {
           ${this.page === 'error' ? html`<div>Oops, something went wrong.</div>` : nothing}
           <!-- Stories -->
           ${this.page === 'titanium-button' ? html` <titanium-button-demo ?isActive=${this.page === 'titanium-button'}></titanium-button-demo> ` : nothing}
+          ${this.page === 'titanium-access-denied-page'
+            ? html` <titanium-access-denied-page-demo ?isActive=${this.page === 'titanium-access-denied-page'}></titanium-access-denied-page-demo> `
+            : nothing}
         </width-limiter>
       </main-content>
       <titanium-snackbar></titanium-snackbar>
