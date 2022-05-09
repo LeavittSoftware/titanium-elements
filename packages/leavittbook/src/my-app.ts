@@ -66,6 +66,7 @@ export class MyAppElement extends LitElement {
     page('/titanium-access-denied-page', () => this.#changePage('titanium-access-denied-page', () => import('./components/titanium-access-denied-page.js')));
     page('/titanium-button', () => this.#changePage('titanium-button', () => import('./components/titanium-button.js')));
     page('/titanium-twoline-formfield', () => this.#changePage('titanium-twoline-formfield', () => import('./components/titanium-twoline-formfield.js')));
+    page('/leavitt-person-select', () => this.#changePage('leavitt-person-select', () => import('./components/leavitt-person-select.js')));
 
     page('*', () => {
       this.#changePage('error');
@@ -122,6 +123,10 @@ export class MyAppElement extends LitElement {
             <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
             <span>titanium-twoline-formfield</span>
           </titanium-side-menu-item>
+          <titanium-side-menu-item href="/leavitt-person-select" ?selected=${!!this.page?.includes('leavitt-person-select')}>
+            <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+            <span>leavitt-person-select</span>
+          </titanium-side-menu-item>
         </section>
       </desktop-menu>
 
@@ -135,6 +140,9 @@ export class MyAppElement extends LitElement {
         >
         <titanium-tab-control-item href="/titanium-twoline-formfield" ?selected=${!!this.page?.includes('titanium-twoline-formfield')}
           >titanium-twoline-formfield</titanium-tab-control-item
+        >
+        <titanium-tab-control-item href="/leavitt-person-select" ?selected=${!!this.page?.includes('leavitt-person-select')}
+          >leavitt-person-select</titanium-tab-control-item
         >
       </titanium-tab-control>
 
@@ -156,6 +164,9 @@ export class MyAppElement extends LitElement {
             : nothing}
           ${this.page === 'titanium-twoline-formfield'
             ? html` <titanium-twoline-formfield-demo ?isActive=${this.page === 'titanium-twoline-formfield'}></titanium-twoline-formfield-demo> `
+            : nothing}
+          ${this.page === 'leavitt-person-select'
+            ? html` <leavitt-person-select-demo ?isActive=${this.page === 'leavitt-person-select'}></leavitt-person-select-demo> `
             : nothing}
         </width-limiter>
       </main-content>
