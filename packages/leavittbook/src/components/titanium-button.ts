@@ -1,9 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { h1, h2, h3, h5, p } from '@leavittsoftware/titanium-styles';
-
 import StoryStyles from '../styles/story-styles';
-
 import '@leavittsoftware/titanium-card';
 import '@leavittsoftware/titanium-button';
 import '../shared/code-block';
@@ -70,22 +68,22 @@ export class TitaniumButtonDemoElement extends LitElement {
       <story-header name="Titanium button" tagName="titanium-button" klass="TitaniumButtonElement"></story-header>
       <titanium-card>
         ${this.#defaultStory()}
-        <code-block snippet=${this.#defaultStory().strings.join()}> </code-block>
+        <code-block .snippet=${this.#defaultStory()}> </code-block>
       </titanium-card>
 
       <titanium-card>
         ${this.#raisedStory()}
-        <code-block snippet=${this.#raisedStory().strings.join()}> </code-block>
+        <code-block .snippet=${this.#raisedStory()}> </code-block>
       </titanium-card>
 
       <titanium-card>
         ${this.#outlinedStory()}
-        <code-block snippet=${this.#outlinedStory().strings.join()}> </code-block>
+        <code-block .snippet=${this.#outlinedStory()}> </code-block>
       </titanium-card>
 
       <titanium-card>
         ${this.#unelevatedStory()}
-        <code-block snippet=${this.#unelevatedStory().strings.join()}> </code-block>
+        <code-block .snippet=${this.#unelevatedStory()}> </code-block>
       </titanium-card>
     `;
   }
