@@ -176,7 +176,7 @@ export class ImageCropperDialogElement extends LitElement {
   public blobToFile = (blob: Blob, fileName: string): File => {
     const file = blob as Blob & { lastModified: Date; name: string };
     file.lastModified = new Date();
-    file.name = fileName;
+    file.name = fileName.slice(0, fileName.lastIndexOf('.')) + '.png';
     return blob as File;
   };
 
