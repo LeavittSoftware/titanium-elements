@@ -64,6 +64,7 @@ export class MyAppElement extends LitElement {
     });
     page('/home', () => this.#changePage('home'));
     page('/titanium-button', () => this.#changePage('titanium-button', () => import('./components/titanium-button.js')));
+    page('/leavitt-person-select', () => this.#changePage('leavitt-person-select', () => import('./components/leavitt-person-select.js')));
 
     page('*', () => {
       this.#changePage('error');
@@ -112,6 +113,10 @@ export class MyAppElement extends LitElement {
             <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
             <span>titanium-button</span>
           </titanium-side-menu-item>
+          <titanium-side-menu-item href="/leavitt-person-select" ?selected=${!!this.page?.includes('leavitt-person-select')}>
+            <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+            <span>leavitt-person-select</span>
+          </titanium-side-menu-item>
         </section>
       </desktop-menu>
 
@@ -120,6 +125,9 @@ export class MyAppElement extends LitElement {
       <titanium-tab-control ?hidden=${this.isDesktop}>
         <titanium-tab-control-item href="/home" ?selected=${!!this.page?.includes('home')}>Home</titanium-tab-control-item>
         <titanium-tab-control-item href="/titanium-button" ?selected=${!!this.page?.includes('titanium-button')}>titanium-button</titanium-tab-control-item>
+        <titanium-tab-control-item href="/leavitt-person-select" ?selected=${!!this.page?.includes('leavitt-person-select')}
+          >leavitt-person-select</titanium-tab-control-item
+        >
       </titanium-tab-control>
 
       <main-content>
@@ -135,6 +143,9 @@ export class MyAppElement extends LitElement {
           ${this.page === 'error' ? html`<div>Oops, something went wrong.</div>` : nothing}
           <!-- Stories -->
           ${this.page === 'titanium-button' ? html` <titanium-button-demo ?isActive=${this.page === 'titanium-button'}></titanium-button-demo> ` : nothing}
+          ${this.page === 'leavitt-person-select'
+            ? html` <leavitt-person-select-demo ?isActive=${this.page === 'leavitt-person-select'}></leavitt-person-select-demo> `
+            : nothing}
         </width-limiter>
       </main-content>
       <titanium-snackbar></titanium-snackbar>
