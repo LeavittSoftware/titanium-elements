@@ -65,6 +65,7 @@ export class MyAppElement extends LitElement {
     page('/home', () => this.#changePage('home'));
     page('/titanium-access-denied-page', () => this.#changePage('titanium-access-denied-page', () => import('./components/titanium-access-denied-page.js')));
     page('/titanium-button', () => this.#changePage('titanium-button', () => import('./components/titanium-button.js')));
+    page('/leavitt-person-select', () => this.#changePage('leavitt-person-select', () => import('./components/leavitt-person-select.js')));
 
     page('*', () => {
       this.#changePage('error');
@@ -117,6 +118,10 @@ export class MyAppElement extends LitElement {
             <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
             <span>titanium-button</span>
           </titanium-side-menu-item>
+          <titanium-side-menu-item href="/leavitt-person-select" ?selected=${!!this.page?.includes('leavitt-person-select')}>
+            <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+            <span>leavitt-person-select</span>
+          </titanium-side-menu-item>
         </section>
       </desktop-menu>
 
@@ -127,6 +132,9 @@ export class MyAppElement extends LitElement {
         <titanium-tab-control-item href="/titanium-button" ?selected=${!!this.page?.includes('titanium-button')}>titanium-button</titanium-tab-control-item>
         <titanium-tab-control-item href="/titanium-access-denied-page" ?selected=${!!this.page?.includes('/titanium-access-denied-page')}
           >/titanium-access-denied-page</titanium-tab-control-item
+        >
+        <titanium-tab-control-item href="/leavitt-person-select" ?selected=${!!this.page?.includes('leavitt-person-select')}
+          >leavitt-person-select</titanium-tab-control-item
         >
       </titanium-tab-control>
 
@@ -145,6 +153,9 @@ export class MyAppElement extends LitElement {
           ${this.page === 'titanium-button' ? html` <titanium-button-demo ?isActive=${this.page === 'titanium-button'}></titanium-button-demo> ` : nothing}
           ${this.page === 'titanium-access-denied-page'
             ? html` <titanium-access-denied-page-demo ?isActive=${this.page === 'titanium-access-denied-page'}></titanium-access-denied-page-demo> `
+            : nothing}
+          ${this.page === 'leavitt-person-select'
+            ? html` <leavitt-person-select-demo ?isActive=${this.page === 'leavitt-person-select'}></leavitt-person-select-demo> `
             : nothing}
         </width-limiter>
       </main-content>
