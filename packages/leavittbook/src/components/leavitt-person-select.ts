@@ -19,7 +19,13 @@ export class LeavittPersonSelectDemoElement extends LitElement {
       <div>
         <h1>Default</h1>
         <p>Default select styles</p>
-        <leavitt-person-select .apiService=${api3UserService}></leavitt-person-select>
+        <leavitt-person-select
+          label="Leavitt person"
+          required
+          .apiService=${api3UserService}
+          helper="Try searching for and selecting a person"
+          validationMessage="Select a person"
+        ></leavitt-person-select>
       </div>
     `;
   }
