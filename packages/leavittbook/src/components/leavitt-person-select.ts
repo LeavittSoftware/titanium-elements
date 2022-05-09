@@ -26,7 +26,7 @@ export class LeavittPersonSelectDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="Leavitt person select" tagName="leavitt-person-select" klass="LeavittPersonSelectDemoElement"></story-header>
+      <story-header name="Leavitt person select" tagName="leavitt-person-select" klass="LeavittPersonSelectElement"></story-header>
       <titanium-card>
         ${this.#defaultStory()}
         <code-block snippet=${this.#defaultStory().strings.join()}> </code-block>
