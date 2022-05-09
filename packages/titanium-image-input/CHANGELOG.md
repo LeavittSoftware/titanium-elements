@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.3.8 (2022-05-09)
+
+
+### Bug Fixes
+
+* match file name to cropper js type returned ([6550f12](https://github.com/LeavittSoftware/titanium-elements/commit/6550f12b9533e4b3ec31affe24d8c37a91dd1582))
+
+
+
+
+
 ## [1.3.7](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-image-input@1.3.5...@leavittsoftware/titanium-image-input@1.3.7) (2022-03-14)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-image-input
