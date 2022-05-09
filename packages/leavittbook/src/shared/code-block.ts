@@ -1,6 +1,6 @@
 /* eslint-disable no-var */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { LitElement, html, PropertyValues, css } from 'lit';
+import { LitElement, html, PropertyValues, css, TemplateResult } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import 'prismjs/prism.js';
 import 'prismjs/components/prism-markup.js';
@@ -14,13 +14,16 @@ declare var Prism: any;
 export default class CodeBlockElement extends LitElement {
   @property({ type: String }) language = 'html';
   @property({ type: Boolean }) lineNumbers = false;
-  @property({ type: String }) snippet: string;
+  @property({ type: Object }) snippet: TemplateResult<1>;
   @query('#output') output: HTMLElement;
+
+  #snippet: string;
 
   updated(changedProps: PropertyValues<this>) {
     if (changedProps.has('snippet')) {
-      if (this.snippet?.length > 0) {
-        this.#codeToOutput(this.snippet);
+      if (this.snippet) {
+        this.#snippet = this.#getTemplateAsString(this.snippet);
+        this.#codeToOutput(this.#snippet);
       }
     }
   }
@@ -37,10 +40,17 @@ export default class CodeBlockElement extends LitElement {
     }
   }
 
+  #getTemplateAsString(template) {
+    const { strings, values } = template;
+    const v = [...values, ''];
+    return strings.reduce((acc, s, i) => acc + s + v[i], '');
+  }
+
   static styles = [
     css`
       :host {
         position: relative;
+        max-width: 800px;
       }
 
       mwc-icon-button {
@@ -90,7 +100,7 @@ export default class CodeBlockElement extends LitElement {
         <summary>Show code</summary>
         <div content>
           <pre class="language-${this.language}"><code id="output"></code></pre>
-          <mwc-icon-button @click=${() => this.#copyToClipboard(this.snippet)} icon="content_copy"></mwc-icon-button>
+          <mwc-icon-button @click=${() => this.#copyToClipboard(this.#snippet)} icon="content_copy"></mwc-icon-button>
         </div>
       </details>
     `;

@@ -25,7 +25,7 @@ export class TitaniumAccessDeniedDemoElement extends LitElement {
     return html`
       <story-header name="Titanium access denied page" tagName="titanium-access-denied-page" klass="TitaniumAccessDeniedPageElement"></story-header>
       ${this.#defaultStory()}
-      <code-block snippet=${this.#defaultStory().strings.join()}> </code-block>
+      <code-block .snippet=${this.#defaultStory()}> </code-block>
     `;
   }
 }

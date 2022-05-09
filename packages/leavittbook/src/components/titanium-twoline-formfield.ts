@@ -33,7 +33,7 @@ export class TitaniumTwoLineFormFieldDemoElement extends LitElement {
       <story-header name="Titanium twoline formfield" tagName="titanium-twoline-formfield" klass="TitaniumTwoLineFormFieldElement"></story-header>
       <titanium-card>
         ${this.#defaultStory()}
-        <code-block snippet=${this.#defaultStory().strings.join()}> </code-block>
+        <code-block .snippet=${this.#defaultStory()}> </code-block>
       </titanium-card>
     `;
   }

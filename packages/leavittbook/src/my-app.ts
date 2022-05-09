@@ -9,6 +9,7 @@ import '@leavittsoftware/titanium-sw-notifier/lib/titanium-sw-notifier';
 import '@leavittsoftware/titanium-tab-control/lib/titanium-tab-control';
 import '@leavittsoftware/titanium-side-menu/lib/titanium-side-menu-item';
 import '@leavittsoftware/titanium-dialog/lib/confirm-dialog';
+import './shared/story-header';
 
 import { installMediaQueryWatcher } from '@leavittsoftware/titanium-helpers/lib/titanium-media-query';
 import { html, LitElement, nothing } from 'lit';
@@ -24,6 +25,7 @@ import {
 import { ConfirmDialogOpenEvent } from '@leavittsoftware/titanium-dialog/lib/confirm-dialog-open-event';
 import ConfirmDialogElement from '@leavittsoftware/titanium-dialog/lib/confirm-dialog';
 import { myAppStyles } from './styles/my-app-styles';
+import DesktopMenuStyles from './styles/desktop-menu-styles';
 
 const LGLogo = new URL('../images/lg-logo.svg', import.meta.url).href;
 const LGMark = new URL('../images/lg-mark.svg', import.meta.url).href;
@@ -91,7 +93,7 @@ export class MyAppElement extends LitElement {
     this.dispatchEvent(new PendingStateEvent(handlePageChange));
   }
 
-  static styles = [h1, p, myAppStyles];
+  static styles = [h1, p, myAppStyles, DesktopMenuStyles];
 
   render() {
     return html`
@@ -107,26 +109,42 @@ export class MyAppElement extends LitElement {
       <desktop-menu ?hidden=${!this.isDesktop}>
         <h3 main-title="">Leavittbook</h3>
         <section>
-          <titanium-side-menu-item href="/home" ?selected=${!!this.page?.includes('home')}>
-            <mwc-icon><span class="material-icons-outlined"> home </span></mwc-icon>
-            <span>Home</span>
-          </titanium-side-menu-item>
-          <titanium-side-menu-item href="/titanium-access-denied-page" ?selected=${!!this.page?.includes('titanium-access-denied-page')}>
-            <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-            <span>titanium-access-denied-page</span>
-          </titanium-side-menu-item>
-          <titanium-side-menu-item href="/titanium-button" ?selected=${!!this.page?.includes('titanium-button')}>
-            <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-            <span>titanium-button</span>
-          </titanium-side-menu-item>
-          <titanium-side-menu-item href="/titanium-twoline-formfield" ?selected=${!!this.page?.includes('titanium-twoline-formfield')}>
-            <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-            <span>titanium-twoline-formfield</span>
-          </titanium-side-menu-item>
-          <titanium-side-menu-item href="/leavitt-person-select" ?selected=${!!this.page?.includes('leavitt-person-select')}>
-            <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-            <span>leavitt-person-select</span>
-          </titanium-side-menu-item>
+          <details>
+            <summary>Leavitt</summary>
+            <!-- Leavitt menu -->
+            <a href="/home" ?selected=${!!this.page?.includes('home')}>
+              <mwc-icon><span class="material-icons-outlined"> home </span></mwc-icon>
+              <span>Home</span>
+            </a>
+          </details>
+        </section>
+        <section>
+          <details>
+            <summary>Titanium</summary>
+            <!-- Titanium menu -->
+            <a href="/titanium-button" ?selected=${!!this.page?.includes('titanium-button')}>
+              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+              <span>titanium-button</span>
+            </a>
+            <a href="/titanium-access-denied-page" ?selected=${!!this.page?.includes('titanium-access-denied-page')}>
+              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+              <span>titanium-access-denied-page</span>
+            </a>
+            <a href="/titanium-twoline-formfield" ?selected=${!!this.page?.includes('titanium-twoline-formfield')}>
+              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+              <span>titanium-twoline-formfield</span>
+            </a>
+            <a href="/leavitt-person-select" ?selected=${!!this.page?.includes('leavitt-person-select')}>
+              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+              <span>leavitt-person-select</span>
+            </a>
+          </details>
+        </section>
+        <section>
+          <details>
+            <summary>Deprecated</summary>
+            <!-- Deprecated menu -->
+          </details>
         </section>
       </desktop-menu>
 
@@ -151,8 +169,9 @@ export class MyAppElement extends LitElement {
           ${this.page === 'home'
             ? html`
                 <div>
-                  <h1>Leavittbook</h1>
-                  <p>A showcase of our @leavittsoftware components!</p>
+                  <story-header name="Leavittbook" tagName="@leavittsoftware" klass="A showcase of our components!"></story-header>
+                  <h1></h1>
+                  <p></p>
                 </div>
               `
             : nothing}
