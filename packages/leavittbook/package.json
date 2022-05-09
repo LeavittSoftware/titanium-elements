@@ -11,6 +11,7 @@
     "@leavittsoftware/titanium-address-input": "*",
     "@leavittsoftware/titanium-card": "*",
     "@leavittsoftware/titanium-button": "*",
+    "@leavittsoftware/titanium-twoline-formfield": "*",
     "@leavittsoftware/titanium-chip": "*",
     "@leavittsoftware/titanium-data-table": "*",
     "@leavittsoftware/titanium-dialog": "*",
