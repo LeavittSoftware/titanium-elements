@@ -35,7 +35,8 @@
     "dayjs": "*",
     "lit": ">=2.2.2",
     "page": "^1.11.6",
-    "prismjs": "^1.17.1"
+    "prismjs": "^1.17.1",
+    "api-viewer-element": "1.0.0-pre.3"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.16.11",
@@ -60,13 +61,16 @@
     "typescript": "^4.6.3"
   },
   "scripts": {
+    "postinstall": "npm run docs",
     "start": "concurrently --kill-others --names tsc,wds  \"npm run tsc:watch\" \"web-dev-server\"",
     "tsc:watch": "tsc --watch",
     "start:build": "web-dev-server --root-dir dist --app-index index.html --open --compatibility none --port 9090",
     "build": "rimraf dist && tsc && rollup -c rollup.config.js",
+    "docs": "cem analyze --globs \"../**/src/*.ts\" --litelement",
     "clean:dev": "rimraf \"src/**/*.js.map\" \"src/**/*.js\"",
     "clean:modules": "rimraf \"./**/node_modules/!(rimraf|.bin)\" \"./package-lock.json\"",
     "clean:all": "npm run clean:dev && npm run clean:modules",
     "gen:assets": "pwa-asset-generator manifest/icon.svg manifest --opaque --icon-only --type png --manifest ./manifest.json --padding '20%'"
-  }
+  },
+  "customElements": "custom-elements.json"
 }

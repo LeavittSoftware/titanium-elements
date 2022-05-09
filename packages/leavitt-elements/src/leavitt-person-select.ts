@@ -17,6 +17,10 @@ import { DOMEvent } from './dom-event';
 import { SelectedDetail } from '@material/mwc-menu/mwc-menu-base';
 import { MenuSurface } from '@material/mwc-menu/mwc-menu-surface';
 
+/**
+ * @class
+ * @ignore
+ */
 export class LeavittPersonSelectSelectedEvent extends Event {
   static eventType = 'selected';
   person: Partial<Person | null>;

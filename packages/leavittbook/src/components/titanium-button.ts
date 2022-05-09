@@ -6,6 +6,7 @@ import '@leavittsoftware/titanium-card';
 import '@leavittsoftware/titanium-button';
 import '../shared/code-block';
 import '../shared/story-header';
+import '@api-viewer/docs';
 
 @customElement('titanium-button-demo')
 export class TitaniumButtonDemoElement extends LitElement {
@@ -85,6 +86,8 @@ export class TitaniumButtonDemoElement extends LitElement {
         ${this.#unelevatedStory()}
         <code-block .snippet=${this.#unelevatedStory()}> </code-block>
       </titanium-card>
+
+      <api-docs src="./custom-elements.json" selected="titanium-button"></api-docs>
     `;
   }
 }

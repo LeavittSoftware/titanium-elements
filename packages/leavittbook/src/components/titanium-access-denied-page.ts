@@ -8,6 +8,7 @@ import '@leavittsoftware/titanium-card';
 import '@leavittsoftware/titanium-access-denied-page';
 import '../shared/code-block';
 import '../shared/story-header';
+import '@api-viewer/docs';
 
 @customElement('titanium-access-denied-page-demo')
 export class TitaniumAccessDeniedDemoElement extends LitElement {
@@ -26,6 +27,7 @@ export class TitaniumAccessDeniedDemoElement extends LitElement {
       <story-header name="Titanium access denied page" tagName="titanium-access-denied-page" klass="TitaniumAccessDeniedPageElement"></story-header>
       ${this.#defaultStory()}
       <code-block .snippet=${this.#defaultStory()}> </code-block>
+      <api-docs src="./custom-elements.json" selected="titanium-access-denied-page"></api-docs>
     `;
   }
 }
