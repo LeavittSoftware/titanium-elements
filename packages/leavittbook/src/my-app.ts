@@ -63,6 +63,7 @@ export class MyAppElement extends LitElement {
       page.show('/home');
     });
     page('/home', () => this.#changePage('home'));
+    page('/titanium-access-denied-page', () => this.#changePage('titanium-access-denied-page', () => import('./components/titanium-access-denied-page.js')));
     page('/titanium-button', () => this.#changePage('titanium-button', () => import('./components/titanium-button.js')));
 
     page('*', () => {
@@ -108,6 +109,10 @@ export class MyAppElement extends LitElement {
             <mwc-icon><span class="material-icons-outlined"> home </span></mwc-icon>
             <span>Home</span>
           </titanium-side-menu-item>
+          <titanium-side-menu-item href="/titanium-access-denied-page" ?selected=${!!this.page?.includes('titanium-access-denied-page')}>
+            <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+            <span>titanium-access-denied-page</span>
+          </titanium-side-menu-item>
           <titanium-side-menu-item href="/titanium-button" ?selected=${!!this.page?.includes('titanium-button')}>
             <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
             <span>titanium-button</span>
@@ -120,6 +125,9 @@ export class MyAppElement extends LitElement {
       <titanium-tab-control ?hidden=${this.isDesktop}>
         <titanium-tab-control-item href="/home" ?selected=${!!this.page?.includes('home')}>Home</titanium-tab-control-item>
         <titanium-tab-control-item href="/titanium-button" ?selected=${!!this.page?.includes('titanium-button')}>titanium-button</titanium-tab-control-item>
+        <titanium-tab-control-item href="/titanium-access-denied-page" ?selected=${!!this.page?.includes('/titanium-access-denied-page')}
+          >/titanium-access-denied-page</titanium-tab-control-item
+        >
       </titanium-tab-control>
 
       <main-content>
@@ -135,6 +143,9 @@ export class MyAppElement extends LitElement {
           ${this.page === 'error' ? html`<div>Oops, something went wrong.</div>` : nothing}
           <!-- Stories -->
           ${this.page === 'titanium-button' ? html` <titanium-button-demo ?isActive=${this.page === 'titanium-button'}></titanium-button-demo> ` : nothing}
+          ${this.page === 'titanium-access-denied-page'
+            ? html` <titanium-access-denied-page-demo ?isActive=${this.page === 'titanium-access-denied-page'}></titanium-access-denied-page-demo> `
+            : nothing}
         </width-limiter>
       </main-content>
       <titanium-snackbar></titanium-snackbar>
