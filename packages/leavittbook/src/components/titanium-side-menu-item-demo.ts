@@ -29,9 +29,9 @@ export class TitaniumSideMenuItemDemoElement extends LitElement {
       <div desktop-menu>
         <h1>Default</h1>
         <p>Default items</p>
-        <titanium-side-menu-item>Default</span></titanium-side-menu-item>
-        <titanium-side-menu-item disabled>Disabled</titanium-side-menu-item>
-        <titanium-side-menu-item selected>Selected</titanium-side-menu-item>
+        <titanium-side-menu-item href="/titanium-side-menu-item/#default">Default</span></titanium-side-menu-item>
+        <titanium-side-menu-item href="/titanium-side-menu-item/#disabled" disabled>Disabled</titanium-side-menu-item>
+        <titanium-side-menu-item href="/titanium-side-menu-item/#selected" selected>Selected</titanium-side-menu-item>
       </div>
     `;
   }
@@ -41,10 +41,12 @@ export class TitaniumSideMenuItemDemoElement extends LitElement {
       <div desktop-menu>
         <h1>Slotted</h1>
         <p>Slotted items</p>
-        <titanium-side-menu-item
+        <titanium-side-menu-item href="/titanium-side-menu-item/#slotted1"
           ><mwc-icon><span class="material-icons-outlined"> content_copy </span></mwc-icon><span>Slotted with 1 icon</span></titanium-side-menu-item
         >
-        <titanium-side-menu-item><mwc-icon>apps</mwc-icon><span>Slotted with 2 icons</span><mwc-icon ext>exit_to_app</mwc-icon></titanium-side-menu-item>
+        <titanium-side-menu-item href="/titanium-side-menu-item/#slotted2"
+          ><mwc-icon>apps</mwc-icon><span>Slotted with 2 icons</span><mwc-icon ext>exit_to_app</mwc-icon></titanium-side-menu-item
+        >
       </div>
     `;
   }
