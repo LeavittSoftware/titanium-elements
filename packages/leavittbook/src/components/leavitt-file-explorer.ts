@@ -1,18 +1,25 @@
 import { LitElement, html, css } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, queryAll } from 'lit/decorators.js';
 import { h1, h2, h3, h5, p } from '@leavittsoftware/titanium-styles';
+import { LeavittFileExplorerElement } from '../../../leavitt-file-explorer/lib/leavitt-file-explorer';
 
 import StoryStyles from '../styles/story-styles';
 import fileExplorerService from '../services/file-explorer-service.js';
 
 import '@leavittsoftware/titanium-card';
+import '@leavittsoftware/titanium-button';
 import '../../../leavitt-file-explorer/lib/leavitt-file-explorer';
 import '../shared/code-block';
 import '../shared/story-header';
 
 @customElement('leavitt-file-explorer-demo')
 export class LeavittFileExplorerDemoElement extends LitElement {
+  @queryAll('leavitt-file-explorer') private fileExplorers!: NodeListOf<LeavittFileExplorerElement>;
   static styles = [h1, h2, h3, h5, p, StoryStyles, css``];
+
+  async reload() {
+    this.fileExplorers.forEach(fileExplorer => fileExplorer.reload());
+  }
 
   #defaultStory() {
     return html`
@@ -34,6 +41,14 @@ export class LeavittFileExplorerDemoElement extends LitElement {
     `;
   }
 
+  #reloadStory() {
+    return html`
+      <h1>Reload</h1>
+      <p>Reload file explorers</p>
+      <titanium-button raised @click=${this.reload}>Reload</titanium-button>
+    `;
+  }
+
   render() {
     return html`
       <story-header name="Leavitt file explorer" tagName="leavitt-file-explorer" klass="LeavittFileExplorerElement"></story-header>
@@ -44,6 +59,10 @@ export class LeavittFileExplorerDemoElement extends LitElement {
       <titanium-card>
         ${this.#restrictedStory()}
         <code-block .snippet=${this.#restrictedStory()}> </code-block>
+      </titanium-card>
+      <titanium-card>
+        ${this.#reloadStory()}
+        <code-block .snippet=${this.#reloadStory()}> </code-block>
       </titanium-card>
     `;
   }
