@@ -11,6 +11,7 @@ import '@leavittsoftware/titanium-button';
 import '../../../leavitt-file-explorer/lib/leavitt-file-explorer';
 import '../shared/code-block';
 import '../shared/story-header';
+import '@api-viewer/docs';
 
 @customElement('leavitt-file-explorer-demo')
 export class LeavittFileExplorerDemoElement extends LitElement {
@@ -64,6 +65,7 @@ export class LeavittFileExplorerDemoElement extends LitElement {
         ${this.#reloadStory()}
         <code-block .snippet=${this.#reloadStory()}> </code-block>
       </titanium-card>
+      <api-docs src="./custom-elements.json" selected="leavitt-file-explorer"></api-docs>
     `;
   }
 }
