@@ -67,7 +67,9 @@ export class MyAppElement extends LitElement {
     page('/home', () => this.#changePage('home'));
     page('/leavitt-file-explorer', () => this.#changePage('leavitt-file-explorer', () => import('./components/leavitt-file-explorer.js')));
     page('/leavitt-person-select', () => this.#changePage('leavitt-person-select', () => import('./components/leavitt-person-select.js')));
+    page('/profile-picture', () => this.#changePage('profile-picture', () => import('./components/profile-picture-demo.js')));
     page('/titanium-access-denied-page', () => this.#changePage('titanium-access-denied-page', () => import('./components/titanium-access-denied-page.js')));
+    page('/titanium-error-page', () => this.#changePage('titanium-error-page', () => import('./components/titanium-error-page.js')));
     page('/titanium-button', () => this.#changePage('titanium-button', () => import('./components/titanium-button.js')));
     page('/titanium-progress', () => this.#changePage('titanium-progress', () => import('./components/titanium-progress.js')));
     page('/titanium-side-menu-item', () => this.#changePage('titanium-side-menu-item', () => import('./components/titanium-side-menu-item-demo.js')));
@@ -133,6 +135,10 @@ export class MyAppElement extends LitElement {
           <details>
             <summary>Titanium</summary>
             <!-- Titanium menu -->
+            <a href="/profile-picture" ?selected=${!!this.page?.includes('profile-picture')}>
+              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+              <span>profile-picture</span>
+            </a>
             <a href="/titanium-button" ?selected=${!!this.page?.includes('titanium-button')}>
               <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
               <span>titanium-button</span>
@@ -140,6 +146,10 @@ export class MyAppElement extends LitElement {
             <a href="/titanium-access-denied-page" ?selected=${!!this.page?.includes('titanium-access-denied-page')}>
               <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
               <span>titanium-access-denied-page</span>
+            </a>
+            <a href="/titanium-error-page" ?selected=${!!this.page?.includes('titanium-error-page')}>
+              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+              <span>titanium-error-page</span>
             </a>
             <a href="/titanium-progress" ?selected=${!!this.page?.includes('titanium-progress')}>
               <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
@@ -173,12 +183,16 @@ export class MyAppElement extends LitElement {
         <titanium-tab-control-item href="/leavitt-person-select" ?selected=${!!this.page?.includes('leavitt-person-select')}
           >leavitt-person-select</titanium-tab-control-item
         >
+        <titanium-tab-control-item href="/profile-picture" ?selected=${!!this.page?.includes('profile-picture')}>profile-picture</titanium-tab-control-item>
         <titanium-tab-control-item href="/titanium-button" ?selected=${!!this.page?.includes('titanium-button')}>titanium-button</titanium-tab-control-item>
         <titanium-tab-control-item href="/titanium-progress" ?selected=${!!this.page?.includes('titanium-progress')}
           >titanium-progress</titanium-tab-control-item
         >
         <titanium-tab-control-item href="/titanium-access-denied-page" ?selected=${!!this.page?.includes('/titanium-access-denied-page')}
           >/titanium-access-denied-page</titanium-tab-control-item
+        >
+        <titanium-tab-control-item href="/titanium-error-page" ?selected=${!!this.page?.includes('/titanium-error-page')}
+          >/titanium-error-page</titanium-tab-control-item
         >
         <titanium-tab-control-item href="/titanium-side-menu-item" ?selected=${!!this.page?.includes('titanium-side-menu-item')}
           >titanium-side-menu-item</titanium-tab-control-item
@@ -207,9 +221,13 @@ export class MyAppElement extends LitElement {
           ${this.page === 'leavitt-person-select'
             ? html` <leavitt-person-select-demo ?isActive=${this.page === 'leavitt-person-select'}></leavitt-person-select-demo> `
             : nothing}
+          ${this.page === 'profile-picture' ? html` <profile-picture-demo ?isActive=${this.page === 'profile-picture'}></profile-picture-demo> ` : nothing}
           ${this.page === 'titanium-button' ? html` <titanium-button-demo ?isActive=${this.page === 'titanium-button'}></titanium-button-demo> ` : nothing}
           ${this.page === 'titanium-access-denied-page'
             ? html` <titanium-access-denied-page-demo ?isActive=${this.page === 'titanium-access-denied-page'}></titanium-access-denied-page-demo> `
+            : nothing}
+          ${this.page === 'titanium-error-page'
+            ? html` <titanium-error-page-demo ?isActive=${this.page === 'titanium-error-page'}></titanium-error-page-demo> `
             : nothing}
           ${this.page === 'titanium-progress'
             ? html` <titanium-progress-demo ?isActive=${this.page === 'titanium-progress'}></titanium-progress-demo> `
