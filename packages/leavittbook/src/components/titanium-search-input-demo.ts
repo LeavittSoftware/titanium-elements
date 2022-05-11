@@ -1,15 +1,34 @@
 import { LitElement, html, css } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, query } from 'lit/decorators.js';
 import { h1, h2, h3, h5, p } from '@leavittsoftware/titanium-styles';
 import StoryStyles from '../styles/story-styles';
+import '@leavittsoftware/titanium-button';
 import '@leavittsoftware/titanium-card';
 import '@leavittsoftware/titanium-search-input';
 import '../shared/code-block';
 import '../shared/story-header';
+import { TitaniumSearchInput } from '@leavittsoftware/titanium-search-input';
 
 @customElement('titanium-search-input-demo')
 export class TitaniumSearchInputDemoElement extends LitElement {
-  static styles = [h1, h2, h3, h5, p, StoryStyles, css``];
+  @query('titanium-search-input[prevent-collapse]') private defaultSearch!: TitaniumSearchInput;
+  static styles = [
+    h1,
+    h2,
+    h3,
+    h5,
+    p,
+    StoryStyles,
+    css`
+      titanium-button {
+        padding-bottom: 16px;
+      }
+    `,
+  ];
+
+  async focus() {
+    this.defaultSearch.focus();
+  }
 
   #defaultStory() {
     return html`
@@ -17,6 +36,16 @@ export class TitaniumSearchInputDemoElement extends LitElement {
         <h1>Default</h1>
         <p>Default search input styles</p>
         <titanium-search-input></titanium-search-input>
+      </div>
+    `;
+  }
+
+  #disabledStory() {
+    return html`
+      <div>
+        <h1>Disabled</h1>
+        <p>Disabled search input styles</p>
+        <titanium-search-input disabled></titanium-search-input>
       </div>
     `;
   }
@@ -36,6 +65,7 @@ export class TitaniumSearchInputDemoElement extends LitElement {
       <div>
         <h1>Collapse prevented</h1>
         <p>Collapse prevented search input styles</p>
+        <titanium-button @click=${this.focus} raised>Focus input</titanium-button>
         <titanium-search-input prevent-collapse></titanium-search-input>
       </div>
     `;
@@ -47,6 +77,10 @@ export class TitaniumSearchInputDemoElement extends LitElement {
       <titanium-card>
         ${this.#defaultStory()}
         <code-block .snippet=${this.#defaultStory()}> </code-block>
+      </titanium-card>
+      <titanium-card>
+        ${this.#disabledStory()}
+        <code-block .snippet=${this.#disabledStory()}> </code-block>
       </titanium-card>
       <titanium-card>
         ${this.#placeholderStory()}
