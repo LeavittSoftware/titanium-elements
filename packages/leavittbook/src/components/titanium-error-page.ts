@@ -8,6 +8,7 @@ import '@leavittsoftware/titanium-card';
 import '@leavittsoftware/titanium-error-page';
 import '../shared/code-block';
 import '../shared/story-header';
+import '@api-viewer/docs';
 
 @customElement('titanium-error-page-demo')
 export class TitaniumErrorPageDemoElement extends LitElement {
@@ -26,6 +27,7 @@ export class TitaniumErrorPageDemoElement extends LitElement {
       <story-header name="Titanium error page" tagName="titanium-error-page" klass="TitaniumErrorPageElement"></story-header>
       ${this.#defaultStory()}
       <code-block .snippet=${this.#defaultStory()}> </code-block>
+      <api-docs src="./custom-elements.json" selected="titanium-error-page"></api-docs>
     `;
   }
 }
