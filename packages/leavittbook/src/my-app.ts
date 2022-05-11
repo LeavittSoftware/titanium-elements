@@ -67,6 +67,7 @@ export class MyAppElement extends LitElement {
     page('/home', () => this.#changePage('home'));
     page('/leavitt-file-explorer', () => this.#changePage('leavitt-file-explorer', () => import('./components/leavitt-file-explorer.js')));
     page('/leavitt-person-select', () => this.#changePage('leavitt-person-select', () => import('./components/leavitt-person-select.js')));
+    page('/mwc-datefield', () => this.#changePage('mwc-datefield', () => import('./components/mwc-datefield-demo.js')));
     page('/profile-picture', () => this.#changePage('profile-picture', () => import('./components/profile-picture-demo.js')));
     page('/titanium-access-denied-page', () => this.#changePage('titanium-access-denied-page', () => import('./components/titanium-access-denied-page.js')));
     page('/titanium-error-page', () => this.#changePage('titanium-error-page', () => import('./components/titanium-error-page.js')));
@@ -77,6 +78,7 @@ export class MyAppElement extends LitElement {
     page('/titanium-search-input', () => this.#changePage('titanium-search-input', () => import('./components/titanium-search-input-demo.js')));
     page('/titanium-side-menu-item', () => this.#changePage('titanium-side-menu-item', () => import('./components/titanium-side-menu-item-demo.js')));
     page('/titanium-tab-control', () => this.#changePage('titanium-tab-control', () => import('./components/titanium-tab-control-demo.js')));
+    page('/titanium-toolbar', () => this.#changePage('titanium-toolbar', () => import('./components/titanium-toolbar-demo.js')));
     page('/titanium-twoline-formfield', () => this.#changePage('titanium-twoline-formfield', () => import('./components/titanium-twoline-formfield.js')));
 
     page('*', () => {
@@ -139,6 +141,10 @@ export class MyAppElement extends LitElement {
           <details>
             <summary>Titanium</summary>
             <!-- Titanium menu -->
+            <a href="/mwc-datefield" ?selected=${!!this.page?.includes('mwc-datefield')}>
+              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+              <span>mwc-datefield</span>
+            </a>
             <a href="/profile-picture" ?selected=${!!this.page?.includes('profile-picture')}>
               <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
               <span>profile-picture</span>
@@ -179,6 +185,10 @@ export class MyAppElement extends LitElement {
               <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
               <span>titanium-tab-control</span>
             </a>
+            <a href="/titanium-toolbar" ?selected=${!!this.page?.includes('titanium-toolbar')}>
+              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+              <span>titanium-toolbar</span>
+            </a>
             <a href="/titanium-twoline-formfield" ?selected=${!!this.page?.includes('titanium-twoline-formfield')}>
               <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
               <span>titanium-twoline-formfield</span>
@@ -203,6 +213,7 @@ export class MyAppElement extends LitElement {
         <titanium-tab-control-item href="/leavitt-person-select" ?selected=${!!this.page?.includes('leavitt-person-select')}
           >leavitt-person-select</titanium-tab-control-item
         >
+        <titanium-tab-control-item href="/mwc-datefield" ?selected=${!!this.page?.includes('mwc-datefield')}>mwc-datefield</titanium-tab-control-item>
         <titanium-tab-control-item href="/profile-picture" ?selected=${!!this.page?.includes('profile-picture')}>profile-picture</titanium-tab-control-item>
         <titanium-tab-control-item href="/titanium-button" ?selected=${!!this.page?.includes('titanium-button')}>titanium-button</titanium-tab-control-item>
         <titanium-tab-control-item href="/titanium-card-list-item" ?selected=${!!this.page?.includes('titanium-card-list-item')}
@@ -227,6 +238,7 @@ export class MyAppElement extends LitElement {
         <titanium-tab-control-item href="/titanium-tab-control" ?selected=${this.page === 'titanium-tab-control'}
           >titanium-tab-control</titanium-tab-control-item
         >
+        <titanium-tab-control-item href="/titanium-toolbar" ?selected=${!!this.page?.includes('titanium-toolbar')}>titanium-toolbar</titanium-tab-control-item>
         <titanium-tab-control-item href="/titanium-twoline-formfield" ?selected=${!!this.page?.includes('titanium-twoline-formfield')}
           >titanium-twoline-formfield</titanium-tab-control-item
         >
@@ -248,6 +260,7 @@ export class MyAppElement extends LitElement {
           ${this.page === 'leavitt-file-explorer'
             ? html` <leavitt-file-explorer-demo ?isActive=${this.page === 'leavitt-file-explorer'}></leavitt-file-explorer-demo> `
             : nothing}
+          ${this.page === 'mwc-datefield' ? html` <mwc-datefield-demo ?isActive=${this.page === 'mwc-datefield'}></mwc-datefield-demo> ` : nothing}
           ${this.page === 'leavitt-person-select'
             ? html` <leavitt-person-select-demo ?isActive=${this.page === 'leavitt-person-select'}></leavitt-person-select-demo> `
             : nothing}
@@ -275,6 +288,7 @@ export class MyAppElement extends LitElement {
           ${this.page === 'titanium-tab-control'
             ? html` <titanium-tab-control-demo ?isActive=${this.page === 'titanium-tab-control'}></titanium-tab-control-demo> `
             : nothing}
+          ${this.page === 'titanium-toolbar' ? html` <titanium-toolbar-demo ?isActive=${this.page === 'titanium-toolbar'}></titanium-toolbar-demo> ` : nothing}
           ${this.page === 'titanium-twoline-formfield'
             ? html` <titanium-twoline-formfield-demo ?isActive=${this.page === 'titanium-twoline-formfield'}></titanium-twoline-formfield-demo> `
             : nothing}
