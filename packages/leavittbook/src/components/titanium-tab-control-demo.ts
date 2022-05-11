@@ -6,6 +6,7 @@ import StoryStyles from '../styles/story-styles';
 import '@leavittsoftware/titanium-card';
 import '@leavittsoftware/titanium-tab-control';
 import '@leavittsoftware/titanium-tab-control/lib/titanium-tab-control-item';
+import '@api-viewer/docs';
 
 import '../shared/code-block';
 import '../shared/story-header';
@@ -66,6 +67,7 @@ export class TitaniumTabControlDemoElement extends LitElement {
         ${this.#scrollStory()}
         <code-block .snippet=${this.#scrollStory()}> </code-block>
       </titanium-card>
+      <api-docs src="./custom-elements.json" selected="titanium-tab-control"></api-docs>
     `;
   }
 }
