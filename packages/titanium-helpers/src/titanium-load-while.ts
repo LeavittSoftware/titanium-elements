@@ -7,6 +7,9 @@ export const LoadWhile = <C extends Constructor<HTMLElement>>(base: C) =>
         isLoading: { type: Boolean },
       };
     }
+    /**
+     *  @internal
+     */
     _promiseCount = 0;
     isLoading: boolean;
     async loadWhile(promise: Promise<unknown>) {
