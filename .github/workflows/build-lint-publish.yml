@@ -12,7 +12,7 @@ env:
   PROD_SERVER: LGUTWEB07
 jobs:
   build-lint-publish:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux]
     steps:
       - uses: actions/checkout@v2
       - run: echo "REPOSITORY_NAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
