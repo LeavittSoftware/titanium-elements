@@ -63,12 +63,11 @@
     "typescript": "^4.6.3"
   },
   "scripts": {
-    "postinstall": "npm run docs",
-    "start": "concurrently --kill-others --names tsc,wds  \"npm run tsc:watch\" \"web-dev-server\"",
+    "start": "concurrently --kill-others --names tsc,wds,docs  \"npm run tsc:watch\" \"web-dev-server\" \"npm run docs\"",
     "tsc:watch": "tsc --watch",
     "start:build": "web-dev-server --root-dir dist --app-index index.html --open --compatibility none --port 9090",
     "build": "rimraf dist && tsc && rollup -c rollup.config.js",
-    "docs": "cem analyze --globs \"../**/src/*.ts\" --litelement",
+    "docs": "cem analyze --watch --globs \"../**/src/*.ts\" --litelement",
     "clean:dev": "rimraf \"src/**/*.js.map\" \"src/**/*.js\"",
     "clean:modules": "rimraf \"./**/node_modules/!(rimraf|.bin)\" \"./package-lock.json\"",
     "clean:all": "npm run clean:dev && npm run clean:modules",
