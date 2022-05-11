@@ -70,6 +70,7 @@ export class MyAppElement extends LitElement {
     page('/profile-picture', () => this.#changePage('profile-picture', () => import('./components/profile-picture-demo.js')));
     page('/titanium-access-denied-page', () => this.#changePage('titanium-access-denied-page', () => import('./components/titanium-access-denied-page.js')));
     page('/titanium-error-page', () => this.#changePage('titanium-error-page', () => import('./components/titanium-error-page.js')));
+    page('/titanium-header', () => this.#changePage('titanium-header', () => import('./components/titanium-header.js')));
     page('/titanium-button', () => this.#changePage('titanium-button', () => import('./components/titanium-button.js')));
     page('/titanium-progress', () => this.#changePage('titanium-progress', () => import('./components/titanium-progress.js')));
     page('/titanium-twoline-formfield', () => this.#changePage('titanium-twoline-formfield', () => import('./components/titanium-twoline-formfield.js')));
@@ -150,6 +151,10 @@ export class MyAppElement extends LitElement {
               <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
               <span>titanium-error-page</span>
             </a>
+            <a href="/titanium-header" ?selected=${!!this.page?.includes('titanium-header')}>
+              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+              <span>titanium-header</span>
+            </a>
             <a href="/titanium-progress" ?selected=${!!this.page?.includes('titanium-progress')}>
               <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
               <span>titanium-progress</span>
@@ -189,6 +194,7 @@ export class MyAppElement extends LitElement {
         <titanium-tab-control-item href="/titanium-error-page" ?selected=${!!this.page?.includes('/titanium-error-page')}
           >/titanium-error-page</titanium-tab-control-item
         >
+        <titanium-tab-control-item href="/titanium-header" ?selected=${!!this.page?.includes('/titanium-header')}>/titanium-header</titanium-tab-control-item>
         <titanium-tab-control-item href="/titanium-twoline-formfield" ?selected=${!!this.page?.includes('titanium-twoline-formfield')}
           >titanium-twoline-formfield</titanium-tab-control-item
         >
@@ -221,6 +227,7 @@ export class MyAppElement extends LitElement {
           ${this.page === 'titanium-error-page'
             ? html` <titanium-error-page-demo ?isActive=${this.page === 'titanium-error-page'}></titanium-error-page-demo> `
             : nothing}
+          ${this.page === 'titanium-header' ? html` <titanium-header-demo ?isActive=${this.page === 'titanium-header'}></titanium-header-demo> ` : nothing}
           ${this.page === 'titanium-progress'
             ? html` <titanium-progress-demo ?isActive=${this.page === 'titanium-progress'}></titanium-progress-demo> `
             : nothing}

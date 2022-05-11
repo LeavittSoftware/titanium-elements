@@ -46,7 +46,7 @@ export class ProfilePictureDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="Titanium button" tagName="profile-picture" klass="ProfilePictureElement"></story-header>
+      <story-header name="Profile picture" tagName="profile-picture" klass="ProfilePictureElement"></story-header>
       <titanium-card>
         ${this.#defaultStory()}
         <code-block .snippet=${this.#defaultStory()}> </code-block>
