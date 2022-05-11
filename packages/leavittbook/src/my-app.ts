@@ -73,6 +73,7 @@ export class MyAppElement extends LitElement {
     page('/titanium-button', () => this.#changePage('titanium-button', () => import('./components/titanium-button.js')));
     page('/titanium-card-list-item', () => this.#changePage('titanium-card-list-item', () => import('./components/titanium-card-list-item-demo.js')));
     page('/titanium-progress', () => this.#changePage('titanium-progress', () => import('./components/titanium-progress.js')));
+    page('/titanium-side-menu-item', () => this.#changePage('titanium-side-menu-item', () => import('./components/titanium-side-menu-item-demo.js')));
     page('/titanium-twoline-formfield', () => this.#changePage('titanium-twoline-formfield', () => import('./components/titanium-twoline-formfield.js')));
 
     page('*', () => {
@@ -159,6 +160,10 @@ export class MyAppElement extends LitElement {
               <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
               <span>titanium-progress</span>
             </a>
+            <a href="/titanium-side-menu-item" ?selected=${!!this.page?.includes('titanium-side-menu-item')}>
+              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+              <span>titanium-side-menu-item</span>
+            </a>
             <a href="/titanium-twoline-formfield" ?selected=${!!this.page?.includes('titanium-twoline-formfield')}>
               <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
               <span>titanium-twoline-formfield</span>
@@ -197,6 +202,9 @@ export class MyAppElement extends LitElement {
         <titanium-tab-control-item href="/titanium-error-page" ?selected=${!!this.page?.includes('/titanium-error-page')}
           >/titanium-error-page</titanium-tab-control-item
         >
+        <titanium-tab-control-item href="/titanium-side-menu-item" ?selected=${!!this.page?.includes('titanium-side-menu-item')}
+          >titanium-side-menu-item</titanium-tab-control-item
+        >
         <titanium-tab-control-item href="/titanium-twoline-formfield" ?selected=${!!this.page?.includes('titanium-twoline-formfield')}
           >titanium-twoline-formfield</titanium-tab-control-item
         >
@@ -234,6 +242,9 @@ export class MyAppElement extends LitElement {
             : nothing}
           ${this.page === 'titanium-progress'
             ? html` <titanium-progress-demo ?isActive=${this.page === 'titanium-progress'}></titanium-progress-demo> `
+            : nothing}
+          ${this.page === 'titanium-side-menu-item'
+            ? html` <titanium-side-menu-item-demo ?isActive=${this.page === 'titanium-side-menu-item'}></titanium-side-menu-item-demo> `
             : nothing}
           ${this.page === 'titanium-twoline-formfield'
             ? html` <titanium-twoline-formfield-demo ?isActive=${this.page === 'titanium-twoline-formfield'}></titanium-twoline-formfield-demo> `
