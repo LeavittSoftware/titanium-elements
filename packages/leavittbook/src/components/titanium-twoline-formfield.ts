@@ -11,6 +11,7 @@ import '@leavittsoftware/titanium-twoline-formfield';
 import '@material/mwc-checkbox';
 import '../shared/code-block';
 import '../shared/story-header';
+import '@api-viewer/docs';
 
 @customElement('titanium-twoline-formfield-demo')
 export class TitaniumTwoLineFormFieldDemoElement extends LitElement {
@@ -35,6 +36,7 @@ export class TitaniumTwoLineFormFieldDemoElement extends LitElement {
         ${this.#defaultStory()}
         <code-block .snippet=${this.#defaultStory()}> </code-block>
       </titanium-card>
+      <api-docs src="./custom-elements.json" selected="titanium-twoline-formfield"></api-docs>
     `;
   }
 }

@@ -6,6 +6,7 @@ import '@leavittsoftware/titanium-card';
 import '@leavittsoftware/titanium-toolbar';
 import '@leavittsoftware/profile-picture';
 import '@leavittsoftware/profile-picture/lib/profile-picture-menu';
+import '@api-viewer/docs';
 import '../shared/code-block';
 import '../shared/story-header';
 
@@ -101,6 +102,7 @@ export class TitaniumToolbarDemoElement extends LitElement {
         ${this.#shadowStory()}
         <code-block .snippet=${this.#shadowStory()}> </code-block>
       </titanium-card>
+      <api-docs src="./custom-elements.json" selected="titanium-toolbar"></api-docs>
     `;
   }
 }

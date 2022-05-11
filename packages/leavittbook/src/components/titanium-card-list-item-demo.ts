@@ -9,6 +9,7 @@ import '@material/mwc-icon';
 import '@leavittsoftware/titanium-card/lib/titanium-card-list-item';
 import '../shared/code-block';
 import '../shared/story-header';
+import '@api-viewer/docs';
 
 @customElement('titanium-card-list-item-demo')
 export class TitaniumCardListItemDemoElement extends LitElement {
@@ -53,6 +54,7 @@ export class TitaniumCardListItemDemoElement extends LitElement {
         ${this.#disabledStory()}
         <code-block .snippet=${this.#disabledStory()}> </code-block>
       </titanium-card>
+      <api-docs src="./custom-elements.json" selected="titanium-card-list-item"></api-docs>
     `;
   }
 }

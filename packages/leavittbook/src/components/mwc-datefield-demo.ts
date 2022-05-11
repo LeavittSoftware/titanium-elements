@@ -9,6 +9,7 @@ import '@leavittsoftware/leavitt-elements/lib/mwc-datefield';
 import '@material/mwc-switch';
 import '@material/mwc-formfield';
 import '@material/mwc-button';
+import '@api-viewer/docs';
 import '../shared/code-block';
 import '../shared/story-header';
 import { DateField } from '@leavittsoftware/leavitt-elements/lib/mwc-datefield';
@@ -124,6 +125,7 @@ export class MWCDatefieldDemoElement extends LitElement {
         ${this.#layoutStory()}
         <code-block .snippet=${this.#layoutStory()}> </code-block>
       </titanium-card>
+      <api-docs src="./custom-elements.json" selected="mwc-datefield"></api-docs>
     `;
   }
 }

@@ -4,6 +4,7 @@ import { h1, h2, h3, h5, p } from '@leavittsoftware/titanium-styles';
 import StoryStyles from '../styles/story-styles';
 import '@leavittsoftware/titanium-card';
 import '@leavittsoftware/titanium-header';
+import '@api-viewer/docs';
 import '../shared/code-block';
 import '../shared/story-header';
 
@@ -43,6 +44,7 @@ export class TitaniumHeaderDemoElement extends LitElement {
         ${this.#noNavStory()}
         <code-block .snippet=${this.#noNavStory()}> </code-block>
       </titanium-card>
+      <api-docs src="./custom-elements.json" selected="titanium-header"></api-docs>
     `;
   }
 }

@@ -9,6 +9,7 @@ import '@leavittsoftware/titanium-card';
 import '@leavittsoftware/leavitt-elements/lib/leavitt-person-select';
 import '../shared/code-block';
 import '../shared/story-header';
+import '@api-viewer/docs';
 
 @customElement('leavitt-person-select-demo')
 export class LeavittPersonSelectDemoElement extends LitElement {
@@ -37,6 +38,7 @@ export class LeavittPersonSelectDemoElement extends LitElement {
         ${this.#defaultStory()}
         <code-block .snippet=${this.#defaultStory()}> </code-block>
       </titanium-card>
+      <api-docs src="./custom-elements.json" selected="leavitt-person-select"></api-docs>
     `;
   }
 }

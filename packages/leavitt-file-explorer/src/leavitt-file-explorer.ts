@@ -37,14 +37,14 @@ import ApiService from '@leavittsoftware/api-service/lib/api-service';
  *
  * @element leavitt-file-explorer
  *
- * @cssprop {Color} --app-light-text-color
- * @cssprop {Color} --app-hover-color
- * @cssprop {Color} --app-text-color
- * @cssprop {Color} --app-accent-color-blue
- * @cssprop {Color} --app-border-color
- * @cssprop {Color} --app-primary-color
- * @cssprop {Color} --leavitt-file-explorer-font-family - Font family
- * @cssprop {Color} --leavitt-file-explorer-selected-bg-color - selected file and folder item bg color
+ * @cssprop {Color} [--app-light-text-color=#80868b]
+ * @cssprop {Color} [--app-hover-color=#f9f9f9]
+ * @cssprop {Color} [--app-text-color=#6200ee]
+ * @cssprop {Color} [--app-accent-color-blue=#4285f4]
+ * @cssprop {Color} [--app-border-color=#dadce0]
+ * @cssprop {Color} [--app-primary-color=#1a73e8]
+ * @cssprop {Color} [--leavitt-file-explorer-font-family='Roboto', 'Noto', sans-serif] - Font family
+ * @cssprop {Color} [--leavitt-file-explorer-selected-bg-color=#e8f0fe] - selected file and folder item bg color
  *
  * @fires folder-added - Fired when a new folder is added.
  * @fires folder-deleted - Fired when a folder is deleted.
@@ -158,6 +158,9 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
     }
   }
 
+  /**
+   *  @internal
+   */
   #isFolder(fileOrFolder: ((FileExplorerFolderDto | FileExplorerFileDto) & { type: 'folder' | 'file' }) | null) {
     return fileOrFolder?.type === 'folder';
   }
@@ -166,6 +169,9 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
     await this.#getExplorerData(this.fileExplorerId, this.folderId);
   }
 
+  /**
+   *  @internal
+   */
   async #getExplorerData(fileExplorerId: number, folderId: number | null) {
     try {
       const get = this.apiService?.getAsync<FileExplorerDto>(`FileExplorers(${fileExplorerId})/Default.FileExplorerView(folderId=${folderId})`);
@@ -207,6 +213,9 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
     }
   }
 
+  /**
+   *  @internal
+   */
   async #addFolderClick() {
     const newFolder = await this.addFolderModal.open();
     if (newFolder) {
@@ -220,6 +229,9 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
     }
   }
 
+  /**
+   *  @internal
+   */
   async #deleteSelectedClick() {
     const confirmationDialogEvent = new ConfirmDialogOpenEvent(
       'Please confirm delete',
@@ -282,10 +294,16 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
     }
   }
 
+  /**
+   *  @internal
+   */
   #getFolderPath(file: File) {
     return file.webkitRelativePath.replace('/' + file.name, '');
   }
 
+  /**
+   *  @internal
+   */
   async #createDirectoryStructure(files: FileList | null) {
     const pathToFolderId = new Map<string, number>();
 
@@ -328,6 +346,9 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
     return pathToFolderId;
   }
 
+  /**
+   *  @internal
+   */
   async #uploadFiles(files: FileList | null) {
     const uri = this.folderId
       ? `FileExplorerFolders(${this.folderId})/Default.UploadAttachment?$expand=Creator($select=Firstname,Lastname)`
@@ -369,6 +390,9 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
     this.fileInput.value = '';
   }
 
+  /**
+   *  @internal
+   */
   async #uploadFolders(files: FileList | null) {
     const directoryToIdMap = this.#createDirectoryStructure(files);
 
@@ -409,6 +433,9 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
     this.folderInput.value = '';
   }
 
+  /**
+   *  @internal
+   */
   async #createFolder(name: string, parentFolderId: number | null) {
     const dto: Partial<FileExplorerFolder> = {
       FileExplorerId: this.fileExplorerId,
@@ -419,6 +446,9 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
     try {
       const post = this.apiService?.postAsync<FileExplorerFolder>('FileExplorerFolders?$expand=CreatorPerson($select=FirstName,LastName)', dto);
       if (post) {
+        /**
+         *  @ignore
+         */
         this.dispatchEvent(new PendingStateEvent(post));
       }
       const result = (await post)?.entity;
@@ -433,6 +463,9 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
     return null;
   }
 
+  /**
+   *  @internal
+   */
   #toggleSelected(item: FileExplorerFileDto | FileExplorerFolderDto, type: 'folder' | 'file') {
     const selected = this.selected.find(s => s?.Id === item.Id && s.type === type);
     if (selected) {
@@ -442,6 +475,9 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
     }
   }
 
+  /**
+   *  @internal
+   */
   #kFormatter(num) {
     return Math.abs(num) > 999 ? Math.floor((Math.sign(num) * Math.round(Math.abs(num) / 100)) / 10) + 'k+' : Math.sign(num) * Math.abs(num);
   }

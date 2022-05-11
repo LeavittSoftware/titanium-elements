@@ -5,6 +5,7 @@ import StoryStyles from '../styles/story-styles';
 import '@leavittsoftware/titanium-button';
 import '@leavittsoftware/titanium-card';
 import '@leavittsoftware/titanium-search-input';
+import '@api-viewer/docs';
 import '../shared/code-block';
 import '../shared/story-header';
 import { TitaniumSearchInput } from '@leavittsoftware/titanium-search-input';
@@ -90,6 +91,7 @@ export class TitaniumSearchInputDemoElement extends LitElement {
         ${this.#collapsedStory()}
         <code-block .snippet=${this.#collapsedStory()}> </code-block>
       </titanium-card>
+      <api-docs src="./custom-elements.json" selected="titanium-search-input"></api-docs>
     `;
   }
 }

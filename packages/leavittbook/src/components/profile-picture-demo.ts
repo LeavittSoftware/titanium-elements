@@ -6,6 +6,7 @@ import '@leavittsoftware/titanium-card';
 import '@leavittsoftware/profile-picture';
 import '../shared/code-block';
 import '../shared/story-header';
+import '@api-viewer/docs';
 
 @customElement('profile-picture-demo')
 export class ProfilePictureDemoElement extends LitElement {
@@ -61,6 +62,7 @@ export class ProfilePictureDemoElement extends LitElement {
         ${this.#sizesStory()}
         <code-block .snippet=${this.#sizesStory()}> </code-block>
       </titanium-card>
+      <api-docs src="./custom-elements.json" selected="profile-picture"></api-docs>
     `;
   }
 }

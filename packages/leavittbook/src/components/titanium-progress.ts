@@ -5,6 +5,7 @@ import StoryStyles from '../styles/story-styles';
 import '@leavittsoftware/titanium-card';
 import '../shared/code-block';
 import '../shared/story-header';
+import '@api-viewer/docs';
 
 @customElement('titanium-progress-demo')
 export class TitaniumProgressDemoElement extends LitElement {
@@ -42,6 +43,8 @@ export class TitaniumProgressDemoElement extends LitElement {
         ${this.#disabledStory()}
         <code-block .snippet=${this.#disabledStory()}> </code-block>
       </titanium-card>
+
+      <api-docs src="./custom-elements.json" selected="titanium-progress"></api-docs>
     `;
   }
 }

@@ -7,6 +7,7 @@ import '@leavittsoftware/titanium-side-menu/lib/titanium-side-menu-item';
 import '@material/mwc-icon';
 import '../shared/code-block';
 import '../shared/story-header';
+import '@api-viewer/docs';
 
 @customElement('titanium-side-menu-item-demo')
 export class TitaniumSideMenuItemDemoElement extends LitElement {
@@ -79,6 +80,7 @@ export class TitaniumSideMenuItemDemoElement extends LitElement {
         ${this.#hrefStory()}
         <code-block .snippet=${this.#hrefStory()}> </code-block>
       </titanium-card>
+      <api-docs src="./custom-elements.json" selected="titanium-side-menu-item"></api-docs>
     `;
   }
 }
