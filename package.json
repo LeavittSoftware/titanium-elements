@@ -33,6 +33,8 @@
     "leavittbook": "cd packages/leavittbook && npm start",
     "storybook": "cd packages/storybook && npm run start",
     "build:storybook": "npm run bootstrap && npm run build && lerna run site:build",
+    "build:leavittbook": "rimraf dist && tsc && rollup -c packages/leavittbook/rollup.config.js",
+    "start:build-leavittbook": "web-dev-server --root-dir dist --app-index index.html --open --compatibility none --port 9090",
     "lerna:publish": "npm run bootstrap && npm run build && lerna publish --conventional-commits --yes",
     "test:publish": "npm run bootstrap && npm run build && lerna version --no-push --yes"
   },
