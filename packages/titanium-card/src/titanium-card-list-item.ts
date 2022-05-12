@@ -11,10 +11,10 @@ import { Ripple } from '@material/mwc-ripple';
  *
  * @fires item-click - Fired when the item is clicked
  *
- * @cssprop {Color} --app-border-color - Border color
- * @cssprop {Color} --app-dark-text-color - Link text color
+ * @cssprop {Color} [--app-border-color=#dadce0] - Border color
+ * @cssprop {Color} [--app-dark-text-color=#202124] - Link text color
  *
- * @slot - Item content (text)
+ * @slot default - Item content (text)
  */
 @customElement('titanium-card-list-item')
 export class TitaniumCardListItemElement extends LitElement {
@@ -92,6 +92,9 @@ export class TitaniumCardListItemElement extends LitElement {
     `,
   ];
 
+  /**
+   * @ignore
+   */
   slottedContent() {
     return html` <slot></slot> `;
   }
