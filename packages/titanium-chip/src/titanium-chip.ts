@@ -104,6 +104,9 @@ export class TitaniumChipElement extends LitElement implements CheckableElement 
     });
   }
 
+  /**
+   *  Toggles disable on the chip
+   */
   disable() {
     this.disabled = !this.disabled;
   }
