@@ -18,6 +18,9 @@ import { Ripple } from '@material/mwc-ripple';
  */
 @customElement('titanium-card-list-item')
 export class TitaniumCardListItemElement extends LitElement {
+  /**
+   * sets html title attribute on inner &lt;a&gt;
+   */
   @property({ type: String }) title: string;
 
   /**

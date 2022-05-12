@@ -165,6 +165,9 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
     return fileOrFolder?.type === 'folder';
   }
 
+  /**
+   * Refetches current file explorer data and re-renders
+   */
   async reload() {
     await this.#getExplorerData(this.fileExplorerId, this.folderId);
   }
