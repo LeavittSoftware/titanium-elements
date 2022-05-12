@@ -29,6 +29,8 @@ jobs:
           echo "PROJECT_PATH=components.leavitt.com" >> $GITHUB_ENV
       - name: NPM install
         run: npm install
+      - name: Lint
+        run: npm run lint:leavittbook
       - name: Run build:leavittbook
         run: npm run build:leavittbook
       - name: Publishing to server ${{ env.SERVER_HOST }}...

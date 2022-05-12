@@ -42,6 +42,7 @@
     "lint": "lerna run lint --stream",
     "leavittbook": "cd packages/leavittbook && npm start",
     "storybook": "cd packages/storybook && npm run start",
+    "lint:leavittbook": "cd packages/leavittbook && npm run lint",
     "build:storybook": "npm run bootstrap && npm run build && lerna run site:build",
     "build:leavittbook": "npm run bootstrap && npm run build && cd packages/leavittbook && npm run build",
     "start:build-leavittbook": "web-dev-server --root-dir dist --app-index index.html --open --compatibility none --port 9090",
