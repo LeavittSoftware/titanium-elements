@@ -6,3 +6,5 @@ package-lock.json
 packages/storybook/demos/*.d.ts
 packages/storybook/demos/*.js
 packages/storybook/demos/*.js.map
+
+dist/

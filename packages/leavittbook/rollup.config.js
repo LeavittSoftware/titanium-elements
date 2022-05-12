@@ -71,7 +71,7 @@ export default {
     /** Create and inject a service worker */
     generateSW({
       globIgnores: ['polyfills/*.js', 'nomodule-*.js'],
-      navigateFallback: '/index.html',
+      navigateFallback: 'index.html',
       // where to output the generated sw
       swDest: path.join('dist', 'sw.js'),
       // directory to match patterns against to be precached
@@ -90,6 +90,8 @@ export default {
         { src: 'service-worker.js', dest: 'dist/es6-bundled' },
         { src: 'manifest', dest: 'dist' },
         { src: 'fonts', dest: 'dist' },
+        { src: 'images', dest: 'dist' },
+        { src: 'custom-elements.json', dest: 'dist' },
       ],
     }),
     cleanup({
