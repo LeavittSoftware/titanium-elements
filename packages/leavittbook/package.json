@@ -29,6 +29,7 @@
     "@leavittsoftware/titanium-sw-notifier": "*",
     "@leavittsoftware/titanium-tab-control": "*",
     "@leavittsoftware/titanium-toolbar": "*",
+    "@leavittsoftware/titanium-input-validator": "*",
     "@leavittsoftware/user-manager": "*",
     "@leavittsoftware/leavitt-file-explorer": "*",
     "@material/mwc-checkbox": "0.25.3",
