@@ -9,7 +9,7 @@ import path from 'path';
 import cleanup from 'rollup-plugin-cleanup';
 
 export default {
-  input: 'packages/leavittbook/index.html',
+  input: 'index.html',
   output: {
     entryFileNames: '[hash].js',
     chunkFileNames: '[hash].js',
@@ -71,7 +71,7 @@ export default {
     /** Create and inject a service worker */
     generateSW({
       globIgnores: ['polyfills/*.js', 'nomodule-*.js'],
-      navigateFallback: '/packages/leavittbook/index.html',
+      navigateFallback: 'index.html',
       // where to output the generated sw
       swDest: path.join('dist', 'sw.js'),
       // directory to match patterns against to be precached
