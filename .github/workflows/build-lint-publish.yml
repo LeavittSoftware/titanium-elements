@@ -38,7 +38,7 @@ jobs:
         uses: Burnett01/rsync-deployments@4.1
         with:
           switches: -avzr --delete
-          path: dist/
+          path: packages/leavittbook/dist/
           remote_path: /var/www/${{ env.PROJECT_PATH }}
           remote_host: ${{ env.SERVER_HOST }}
           remote_key: ${{ secrets.LGUTWEB0607_KEY }}
