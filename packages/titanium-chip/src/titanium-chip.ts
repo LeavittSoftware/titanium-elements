@@ -30,6 +30,9 @@ export class TitaniumChipElement extends LitElement implements CheckableElement 
    */
   @property({ type: String }) name = '';
 
+  /**
+   *  @ignore
+   */
   @property({ type: Number }) formElementTabIndex = 0;
 
   /**

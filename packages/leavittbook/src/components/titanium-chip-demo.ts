@@ -17,7 +17,7 @@ export class TitaniumChipDemoElement extends LitElement {
     return html`
       <div>
         <h1>Default</h1>
-        <p>Popular titanium-chip uses featuring disabled, closeable, and readonly attribute</p>
+        <p>Examples using disabled, closeable, and readonly attribute</p>
         <titanium-chip label="Default"></titanium-chip>
         <titanium-chip disabled label="Disabled"></titanium-chip>
         <titanium-chip closeable label="Closeable"></titanium-chip>
