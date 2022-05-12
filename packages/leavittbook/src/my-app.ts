@@ -221,6 +221,7 @@ export class MyAppElement extends LitElement {
         <titanium-tab-control-item href="/mwc-datefield" ?selected=${!!this.page?.includes('mwc-datefield')}>mwc-datefield</titanium-tab-control-item>
         <titanium-tab-control-item href="/profile-picture" ?selected=${!!this.page?.includes('profile-picture')}>profile-picture</titanium-tab-control-item>
         <titanium-tab-control-item href="/titanium-button" ?selected=${!!this.page?.includes('titanium-button')}>titanium-button</titanium-tab-control-item>
+        <titanium-tab-control-item href="/titanium-chip" ?selected=${!!this.page?.includes('titanium-chip')}>titanium-chip</titanium-tab-control-item>
         <titanium-tab-control-item href="/titanium-card-list-item" ?selected=${!!this.page?.includes('titanium-card-list-item')}
           >titanium-card-list-item</titanium-tab-control-item
         >
