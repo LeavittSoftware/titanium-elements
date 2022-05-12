@@ -91,6 +91,7 @@ export default {
         { src: 'manifest', dest: 'dist' },
         { src: 'fonts', dest: 'dist' },
         { src: 'images', dest: 'dist' },
+        { src: 'custom-elements.json', dest: 'dist' },
       ],
     }),
     cleanup({
