@@ -12,7 +12,7 @@ env:
   PROD_SERVER: LGUTWEB07
 jobs:
   build-lint-publish:
-    runs-on: [self-hosted,linux]
+    runs-on: [self-hosted, linux]
     steps:
       - uses: actions/checkout@v2
       - run: echo "REPOSITORY_NAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
@@ -30,7 +30,7 @@ jobs:
       - name: NPM install
         run: npm install
       - name: Lint
-        run: npm run lint
+        run: npm run lint:leavittbook
       - name: Run build:leavittbook
         run: npm run build:leavittbook
       - name: Publishing to server ${{ env.SERVER_HOST }}...
@@ -38,7 +38,7 @@ jobs:
         uses: Burnett01/rsync-deployments@4.1
         with:
           switches: -avzr --delete
-          path: dist/
+          path: packages/leavittbook/dist/
           remote_path: /var/www/${{ env.PROJECT_PATH }}
           remote_host: ${{ env.SERVER_HOST }}
           remote_key: ${{ secrets.LGUTWEB0607_KEY }}

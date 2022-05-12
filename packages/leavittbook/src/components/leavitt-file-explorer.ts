@@ -1,14 +1,14 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, queryAll } from 'lit/decorators.js';
 import { h1, h2, h3, h5, p } from '@leavittsoftware/titanium-styles';
-import { LeavittFileExplorerElement } from '../../../leavitt-file-explorer/lib/leavitt-file-explorer';
+import { LeavittFileExplorerElement } from '@leavittsoftware/leavitt-file-explorer';
 
 import StoryStyles from '../styles/story-styles';
 import fileExplorerService from '../services/file-explorer-service.js';
 
 import '@leavittsoftware/titanium-card';
 import '@leavittsoftware/titanium-button';
-import '../../../leavitt-file-explorer/lib/leavitt-file-explorer';
+import '@leavittsoftware/leavitt-file-explorer';
 import '../shared/code-block';
 import '../shared/story-header';
 import '@api-viewer/docs';
