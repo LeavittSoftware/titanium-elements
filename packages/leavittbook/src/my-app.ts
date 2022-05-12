@@ -73,6 +73,7 @@ export class MyAppElement extends LitElement {
     page('/titanium-error-page', () => this.#changePage('titanium-error-page', () => import('./components/titanium-error-page.js')));
     page('/titanium-header', () => this.#changePage('titanium-header', () => import('./components/titanium-header.js')));
     page('/titanium-button', () => this.#changePage('titanium-button', () => import('./components/titanium-button.js')));
+    page('/titanium-chip', () => this.#changePage('titanium-chip', () => import('./components/titanium-chip-demo.js')));
     page('/titanium-card-list-item', () => this.#changePage('titanium-card-list-item', () => import('./components/titanium-card-list-item-demo.js')));
     page('/titanium-progress', () => this.#changePage('titanium-progress', () => import('./components/titanium-progress.js')));
     page('/titanium-search-input', () => this.#changePage('titanium-search-input', () => import('./components/titanium-search-input-demo.js')));
@@ -152,6 +153,10 @@ export class MyAppElement extends LitElement {
             <a href="/titanium-button" ?selected=${!!this.page?.includes('titanium-button')}>
               <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
               <span>titanium-button</span>
+            </a>
+            <a href="/titanium-chip" ?selected=${!!this.page?.includes('titanium-chip')}>
+              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+              <span>titanium-chip</span>
             </a>
             <a href="/titanium-access-denied-page" ?selected=${!!this.page?.includes('titanium-access-denied-page')}>
               <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
@@ -266,6 +271,7 @@ export class MyAppElement extends LitElement {
             : nothing}
           ${this.page === 'profile-picture' ? html` <profile-picture-demo ?isActive=${this.page === 'profile-picture'}></profile-picture-demo> ` : nothing}
           ${this.page === 'titanium-button' ? html` <titanium-button-demo ?isActive=${this.page === 'titanium-button'}></titanium-button-demo> ` : nothing}
+          ${this.page === 'titanium-chip' ? html` <titanium-chip-demo ?isActive=${this.page === 'titanium-chip'}></titanium-chip-demo> ` : nothing}
           ${this.page === 'titanium-card-list-item'
             ? html` <titanium-card-list-item-demo ?isActive=${this.page === 'titanium-card-list-item'}></titanium-card-list-item-demo> `
             : nothing}
