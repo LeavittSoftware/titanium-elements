@@ -5,13 +5,16 @@ import { property, customElement } from 'lit/decorators.js';
  *
  * @element titanium-toolbar
  *
- * @slot - toolbar content (use main-title attribute on slotted title item)
+ * @slot default - toolbar content (use main-title attribute on slotted title item)
  *
- * @cssprop {Color} --titanium-toolbar-color - Color of the toolbar background
- * @cssprop {Color} -app-text-color - main title text color
+ * @cssprop {Color} [--titanium-toolbar-color=#fff] - Color of the toolbar background
+ * @cssprop {Color} [--app-text-color=#5f6368] - main title text color
  */
 @customElement('titanium-toolbar')
 export class TitaniumToolbarElement extends LitElement {
+  /**
+   * Adds a box shadow around the toolbar
+   */
   @property({ type: Boolean, reflect: true }) protected shadow: boolean;
 
   static styles = css`
@@ -61,10 +64,16 @@ export class TitaniumToolbarElement extends LitElement {
     super.disconnectedCallback();
   }
 
+  /**
+   * @ignore
+   */
   onScroll() {
     this.amountScrolled();
   }
 
+  /**
+   * @ignore
+   */
   amountScrolled() {
     const winHeight = window.innerHeight || (document.documentElement || document.body).clientHeight;
     const docHeight = this.getDocHeight();
@@ -74,6 +83,9 @@ export class TitaniumToolbarElement extends LitElement {
     this.shadow = (pctScrolled || 0) !== 0;
   }
 
+  /**
+   * @ignore
+   */
   getDocHeight() {
     const D = document;
     return Math.max(
