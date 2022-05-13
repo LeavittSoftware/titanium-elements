@@ -12,7 +12,6 @@ import '@api-viewer/docs';
 
 @customElement('titanium-dialog-base-demo')
 export class TitaniumDialogBaseValidatorDemoElement extends LitElement {
-  @state() iconSelected = '';
   @query('titanium-dialog-base[default]') defaultDialog;
   @query('titanium-dialog-base[fullwidth]') fullWidthAndHeighDialog;
   @query('titanium-dialog-base[max-width]') maxWidthDialog;
