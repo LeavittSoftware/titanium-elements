@@ -242,7 +242,7 @@ export class MyAppElement extends LitElement {
         <titanium-tab-control-item href="/titanium-error-page" ?selected=${!!this.page?.includes('/titanium-error-page')}
           >titanium-error-page</titanium-tab-control-item
         >
-        <titanium-tab-control-item href="/titanium-header" ?selected=${!!this.page?.includes('/titanium-header')}>/titanium-header</titanium-tab-control-item>
+        <titanium-tab-control-item href="/titanium-header" ?selected=${!!this.page?.includes('/titanium-header')}>titanium-header</titanium-tab-control-item>
         <titanium-tab-control-item href="/titanium-search-input" ?selected=${!!this.page?.includes('titanium-search-input')}
           >titanium-search-input</titanium-tab-control-item
         >
