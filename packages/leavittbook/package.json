@@ -9,6 +9,7 @@
     "@leavittsoftware/profile-picture": "*",
     "@leavittsoftware/titanium-access-denied-page": "*",
     "@leavittsoftware/titanium-address-input": "*",
+    "@leavittsoftware/titanium-attachment-input": "*",
     "@leavittsoftware/titanium-card": "*",
     "@leavittsoftware/titanium-button": "*",
     "@leavittsoftware/titanium-twoline-formfield": "*",

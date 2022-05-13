@@ -12,10 +12,10 @@ import { Attachment } from '@leavittsoftware/lg-core-typescript/lg.core';
  * @fires file-type-error - Fired when the user tries to select files with the wrong allowedFileType
  * @fires change - Fired when files are selected or unselected
  *
- * @cssprop {Color} --app-primary-color - Input border and label color when a file is dragged over
- * @cssprop {Color} --material-error-text-color - Input border, label color, and error message color when input value is invalid
- * @cssprop {Color} --app-text-color - Placeholder color
- * @cssprop {Color} --titanium-input-placeholder-color - Color of icon button and placeholder text.
+ * @cssprop {Color} [--app-primary-color=#3b95ff] - Input border and label color when a file is dragged over
+ * @cssprop {Color} [--material-error-text-color=#da3227] - Input border, label color, and error message color when input value is invalid
+ * @cssprop {Color} [--app-text-color=#5f6368] - Placeholder color
+ * @cssprop {Color} [--titanium-input-placeholder-color=#7d7d7d] - Color of icon button and placeholder text.
  */
 @customElement('titanium-attachment-input')
 export class TitaniumAttachmentInputElement extends LitElement {
