@@ -75,6 +75,9 @@ export class MyAppElement extends LitElement {
     page('/titanium-button', () => this.#changePage('titanium-button', () => import('./components/titanium-button.js')));
     page('/titanium-chip', () => this.#changePage('titanium-chip', () => import('./components/titanium-chip-demo.js')));
     page('/titanium-card-list-item', () => this.#changePage('titanium-card-list-item', () => import('./components/titanium-card-list-item-demo.js')));
+    page('/titanium-full-page-loading-indicator', () =>
+      this.#changePage('titanium-full-page-loading-indicator', () => import('./components/titanium-full-page-loading-indicator.js'))
+    );
     page('/titanium-progress', () => this.#changePage('titanium-progress', () => import('./components/titanium-progress.js')));
     page('/titanium-search-input', () => this.#changePage('titanium-search-input', () => import('./components/titanium-search-input-demo.js')));
     page('/titanium-side-menu-item', () => this.#changePage('titanium-side-menu-item', () => import('./components/titanium-side-menu-item-demo.js')));
@@ -174,6 +177,10 @@ export class MyAppElement extends LitElement {
               <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
               <span>titanium-header</span>
             </a>
+            <a href="/titanium-full-page-loading-indicator" ?selected=${!!this.page?.includes('titanium-full-page-loading-indicator')}>
+              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+              <span>titanium-full-page-loading-indicator</span>
+            </a>
             <a href="/titanium-progress" ?selected=${!!this.page?.includes('titanium-progress')}>
               <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
               <span>titanium-progress</span>
@@ -224,6 +231,9 @@ export class MyAppElement extends LitElement {
         <titanium-tab-control-item href="/titanium-chip" ?selected=${!!this.page?.includes('titanium-chip')}>titanium-chip</titanium-tab-control-item>
         <titanium-tab-control-item href="/titanium-card-list-item" ?selected=${!!this.page?.includes('titanium-card-list-item')}
           >titanium-card-list-item</titanium-tab-control-item
+        >
+        <titanium-tab-control-item href="/titanium-full-page-loading-indicator" ?selected=${!!this.page?.includes('titanium-full-page-loading-indicator')}
+          >titanium-full-page-loading-indicator</titanium-tab-control-item
         >
         <titanium-tab-control-item href="/titanium-progress" ?selected=${!!this.page?.includes('titanium-progress')}
           >titanium-progress</titanium-tab-control-item
@@ -283,6 +293,13 @@ export class MyAppElement extends LitElement {
             ? html` <titanium-error-page-demo ?isActive=${this.page === 'titanium-error-page'}></titanium-error-page-demo> `
             : nothing}
           ${this.page === 'titanium-header' ? html` <titanium-header-demo ?isActive=${this.page === 'titanium-header'}></titanium-header-demo> ` : nothing}
+          ${this.page === 'titanium-full-page-loading-indicator'
+            ? html`
+                <titanium-full-page-loading-indicator-demo
+                  ?isActive=${this.page === 'titanium-full-page-loading-indicator'}
+                ></titanium-full-page-loading-indicator-demo>
+              `
+            : nothing}
           ${this.page === 'titanium-progress'
             ? html` <titanium-progress-demo ?isActive=${this.page === 'titanium-progress'}></titanium-progress-demo> `
             : nothing}
