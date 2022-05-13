@@ -77,14 +77,6 @@ export class TitaniumToolbarDemoElement extends LitElement {
     `;
   }
 
-  #shadowStory() {
-    return html`
-      <div container>
-        <titanium-toolbar shadow>Toolbar with shadow</titanium-toolbar>
-      </div>
-    `;
-  }
-
   render() {
     return html`
       <story-header name="Titanium toolbar" tagName="titanium-toolbar" klass="TitaniumToolbarElement"></story-header>
@@ -96,11 +88,6 @@ export class TitaniumToolbarDemoElement extends LitElement {
       <titanium-card>
         ${this.#bolerplateStory()}
         <code-block .snippet=${this.#bolerplateStory()}> </code-block>
-      </titanium-card>
-
-      <titanium-card>
-        ${this.#shadowStory()}
-        <code-block .snippet=${this.#shadowStory()}> </code-block>
       </titanium-card>
       <api-docs src="./custom-elements.json" selected="titanium-toolbar"></api-docs>
     `;
