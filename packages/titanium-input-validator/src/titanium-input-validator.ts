@@ -5,13 +5,13 @@ import { property, customElement, state } from 'lit/decorators.js';
  * Input validator to make components use validation consistent with mwc-components.
  *
  * @element titanium-input-validator
- * @slot any element - The slotted element should fire the NotifyUserInputEvent when it is ready to be validated
+ * @slot default - The slotted element should fire the NotifyUserInputEvent when it is ready to be validated
  * @example
  * <titanium-input-validator .evaluator=${() => (this.collection?.length ?? 0) > 0} validationMessage="Collection must have one item">
  *     <custom-input @input=${() => this.dispatchEvent(new NotifyUserInputEvent())}></custom-input>
  * </titanium-input-validator>
  * @exports NotifyUserInputEvent - this is a custom event that the consumer of this component can fire to trigger validation
- * @cssprop {Color} --mdc-theme-error - error color used for validation message
+ * @cssprop {Color} [--mdc-theme-error=#b00020] - error color used for validation message
  */
 @customElement('titanium-input-validator')
 export class TitaniumInputValidatorElement extends LitElement {
@@ -34,10 +34,16 @@ export class TitaniumInputValidatorElement extends LitElement {
     });
   }
 
+  /**
+   *  Checks the result of the evaluator function to determine validity
+   */
   checkValidity(): boolean {
     return !!this.evaluator();
   }
 
+  /**
+   *  Calls checkValidity() and reports the results back to the UI by displaying the error message if invalid
+   */
   reportValidity(): boolean {
     const isValid = this.checkValidity();
     this.isUiValid = isValid;

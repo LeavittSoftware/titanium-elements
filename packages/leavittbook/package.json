@@ -34,6 +34,7 @@
     "@leavittsoftware/leavitt-file-explorer": "*",
     "@material/mwc-checkbox": "0.25.3",
     "@material/mwc-icon": "0.25.3",
+    "@material/mwc-icon-button": "0.25.3",
     "@material/mwc-switch": "0.25.3",
     "@material/mwc-formfield": "0.25.3",
     "@webcomponents/webcomponentsjs": "^2.6.0",
