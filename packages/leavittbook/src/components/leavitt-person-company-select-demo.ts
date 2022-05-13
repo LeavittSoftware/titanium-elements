@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { LitElement, html, css } from 'lit';
 import { customElement, query } from 'lit/decorators.js';
 import { h1, h2, h3, h5, p } from '@leavittsoftware/titanium-styles';
@@ -15,7 +16,7 @@ import '@api-viewer/docs';
 
 @customElement('leavitt-person-company-select-demo')
 export class LeavittPersonCompanySelectDemoElement extends LitElement {
-  @query('leavitt-person-company-select[label="Default person or company"]') defaultSelect!: LeavittPersonCompanySelectElement;
+  @query('leavitt-person-company-select[id="1"]') defaultSelect!: LeavittPersonCompanySelectElement;
 
   static styles = [h1, h2, h3, h5, p, StoryStyles, css``];
 
@@ -34,11 +35,7 @@ export class LeavittPersonCompanySelectDemoElement extends LitElement {
         <p>Default select styles</p>
         <titanium-button raised @click=${this.focus}>Focus</titanium-button>
         <titanium-button raised @click=${this.reset}>Reset</titanium-button>
-        <leavitt-person-company-select
-          label="Default person or company"
-          .apiService=${api3UserService}
-          validationMessage="Select a person or company"
-        ></leavitt-person-company-select>
+        <leavitt-person-company-select id="1" .apiService=${api3UserService}></leavitt-person-company-select>
       </div>
     `;
   }
@@ -48,12 +45,7 @@ export class LeavittPersonCompanySelectDemoElement extends LitElement {
       <div>
         <h1>Required</h1>
         <p>Required select styles</p>
-        <leavitt-person-company-select
-          label="Leavitt person or company"
-          required
-          .apiService=${api3UserService}
-          validationMessage="Select a person or company"
-        ></leavitt-person-company-select>
+        <leavitt-person-company-select required .apiService=${api3UserService} validationMessage="Select a person or company"></leavitt-person-company-select>
       </div>
     `;
   }
@@ -63,12 +55,7 @@ export class LeavittPersonCompanySelectDemoElement extends LitElement {
       <div>
         <h1>Shaped</h1>
         <p>Shaped select styles</p>
-        <leavitt-person-company-select
-          label="Leavitt person or company"
-          shaped
-          .apiService=${api3UserService}
-          validationMessage="Select a person or company"
-        ></leavitt-person-company-select>
+        <leavitt-person-company-select shaped .apiService=${api3UserService}></leavitt-person-company-select>
       </div>
     `;
   }
@@ -78,12 +65,7 @@ export class LeavittPersonCompanySelectDemoElement extends LitElement {
       <div>
         <h1>Shallow</h1>
         <p>Shallow select styles</p>
-        <leavitt-person-company-select
-          label="Leavitt person or company"
-          shallow
-          .apiService=${api3UserService}
-          validationMessage="Select a person or company"
-        ></leavitt-person-company-select>
+        <leavitt-person-company-select shallow .apiService=${api3UserService}></leavitt-person-company-select>
       </div>
     `;
   }
@@ -94,13 +76,11 @@ export class LeavittPersonCompanySelectDemoElement extends LitElement {
         <h1>Pre-selected</h1>
         <p>Pre-selected styles</p>
         <leavitt-person-company-select
-          label="Leavitt person or company"
           .apiService=${api3UserService}
           .selected=${{
             Name: 'Leavitt Group Enterprises',
             type: 'Company',
           } as any}
-          validationMessage="Select a person or company"
         ></leavitt-person-company-select>
       </div>
     `;
@@ -109,17 +89,15 @@ export class LeavittPersonCompanySelectDemoElement extends LitElement {
   #disabledPreselectedStory() {
     return html`
       <div>
-        <h1>Shallow</h1>
-        <p>Shallow select styles</p>
+        <h1>Disabled pre-selected</h1>
+        <p>Disabled pre-selected styles</p>
         <leavitt-person-company-select
-          label="Leavitt person or company"
           disabled
           .selected=${{
             Name: 'Leavitt Group Enterprises',
             type: 'Company',
           } as any}
           .apiService=${api3UserService}
-          validationMessage="Select a person or company"
         ></leavitt-person-company-select>
       </div>
     `;

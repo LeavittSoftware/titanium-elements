@@ -159,12 +159,18 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
     const previouslySelected = this.selected;
     this.selected = selected;
     if (previouslySelected !== this.selected) {
+      /**
+       * @ignore
+       */
       this.dispatchEvent(new LeavittPersonCompanySelectSelectedEvent(this.selected));
     }
   }
 
   private abortController: AbortController = new AbortController();
 
+  /**
+   * @ignore
+   */
   async #doSearch(searchTerm: string) {
     if (!searchTerm) {
       return null;
@@ -188,6 +194,9 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
     return { entities: [...fuseResults.map(o => o.item), { Name: searchTerm, type: 'CustomEntity' } as CustomEntity], count: odataCount + 1 };
   }
 
+  /**
+   * @ignore
+   */
   async #doPersonSearch(searchTerm: string) {
     if (!searchTerm) {
       return null;
@@ -211,6 +220,9 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
     return null;
   }
 
+  /**
+   * @ignore
+   */
   async #doCompanySearch(searchTerm: string) {
     if (!searchTerm) {
       return null;
