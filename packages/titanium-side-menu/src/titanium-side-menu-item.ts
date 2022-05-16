@@ -7,12 +7,12 @@ import { ifDefined } from 'lit/directives/if-defined.js';
  *
  * @element titanium-side-menu-item
  *
- * @slot - main slot item title
+ * @slot default - main slot item title
  *
- * @cssprop {Color} --app-menu-text-color - Item text color
- * @cssprop {Color} --app-hover-color - Background hover and focus color
- * @cssprop {Color} --titanium-side-menu-item-selected-background-color - Selected item background color
- * @cssprop {Color} --titanium-side-menu-item-selected-color - Selected item text color
+ * @cssprop {Color} [--app-menu-text-color=#5f6368] - Item text color
+ * @cssprop {Color} [--app-hover-color=#f9f9f9] - Background hover and focus color
+ * @cssprop {Color} [--titanium-side-menu-item-selected-background-color=#e8f0fe] - Selected item background color
+ * @cssprop {Color} [--titanium-side-menu-item-selected-color=#1967d2] - Selected item text color
  */
 
 @customElement('titanium-side-menu-item')

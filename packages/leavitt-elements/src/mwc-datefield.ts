@@ -3,8 +3,17 @@ import { TextField } from '@material/mwc-textfield';
 import { property, customElement } from 'lit/decorators.js';
 import { NotchedOutline } from '@material/mwc-notched-outline';
 
+/**
+ *  Date/Time Field input that extends mwc TextField
+ *  Additional TextField props/methods here: https://www.npmjs.com/package/@material/mwc-textfield
+ *  @element mwc-datefield
+ *
+ */
 @customElement('mwc-datefield')
 export class DateField extends TextField {
+  /**
+   *  Allows either only date ('yyyy-mm-dd') selection or date with time ('yyyy-mm-dd MM:hh:ss') selection
+   */
   @property({ type: String, attribute: 'date-type' }) dateType: 'datetime-local' | 'date' = 'date';
 
   updated(changedProps: Map<keyof this, unknown>) {
@@ -14,6 +23,9 @@ export class DateField extends TextField {
     }
   }
 
+  /**
+   *  Forces the input to layout and float label. useful when the input is initially rendered when hidden
+   */
   public async layout() {
     await super.layout();
     this.labelElement?.floatingLabelFoundation.float(true);
@@ -25,8 +37,17 @@ export class DateField extends TextField {
 
   constructor() {
     super();
+    /**
+     *  @ignore
+     */
     this.type = 'date';
+    /**
+     *  @ignore
+     */
     this.iconTrailing = 'event';
+    /**
+     *  @ignore
+     */
     this.outlined = true;
   }
 
