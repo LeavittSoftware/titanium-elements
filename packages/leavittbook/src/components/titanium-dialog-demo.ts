@@ -140,7 +140,7 @@ export class TitaniumDialogDemoElement extends LitElement {
           </custom-container>
           <span slot="actions">
             <mwc-button @click=${() => this.focusTrapDialog?.close()} label="Cancel"></mwc-button>
-            <mwc-button @click=${() => this.focusTrapDialog?.close()} label="Ok"></mwc-button>
+            <mwc-button @click=${() => this.focusTrapDialog?.close()} autofocus label="Ok"></mwc-button>
           </span>
         </titanium-dialog>
       </div>
