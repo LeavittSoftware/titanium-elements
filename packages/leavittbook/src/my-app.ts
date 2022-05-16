@@ -73,6 +73,7 @@ export class MyAppElement extends LitElement {
     page('/mwc-datefield', () => this.#changePage('mwc-datefield', () => import('./components/mwc-datefield-demo.js')));
     page('/profile-picture', () => this.#changePage('profile-picture', () => import('./components/profile-picture-demo.js')));
     page('/titanium-access-denied-page', () => this.#changePage('titanium-access-denied-page', () => import('./components/titanium-access-denied-page.js')));
+    page('/titanium-attachment-input', () => this.#changePage('titanium-attachment-input', () => import('./components/titanium-attachment-input-demo.js')));
     page('/titanium-error-page', () => this.#changePage('titanium-error-page', () => import('./components/titanium-error-page.js')));
     page('/titanium-header', () => this.#changePage('titanium-header', () => import('./components/titanium-header.js')));
     page('/titanium-button', () => this.#changePage('titanium-button', () => import('./components/titanium-button.js')));
@@ -175,6 +176,10 @@ export class MyAppElement extends LitElement {
               <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
               <span>titanium-access-denied-page</span>
             </a>
+            <a href="/titanium-attachment-input" ?selected=${!!this.page?.includes('titanium-attachment-input')}>
+              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+              <span>titanium-attachment-input</span>
+            </a>
             <a href="/titanium-card-list-item" ?selected=${!!this.page?.includes('titanium-card-list-item')}>
               <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
               <span>titanium-card-list-item</span>
@@ -255,12 +260,15 @@ export class MyAppElement extends LitElement {
           >titanium-dialog-base</titanium-tab-control-item
         >
         <titanium-tab-control-item href="/titanium-access-denied-page" ?selected=${!!this.page?.includes('/titanium-access-denied-page')}
-          >/titanium-access-denied-page</titanium-tab-control-item
+          >titanium-access-denied-page</titanium-tab-control-item
+        >
+        <titanium-tab-control-item href="/titanium-attachment-input" ?selected=${!!this.page?.includes('/titanium-attachment-input')}
+          >titanium-attachment-input</titanium-tab-control-item
         >
         <titanium-tab-control-item href="/titanium-error-page" ?selected=${!!this.page?.includes('/titanium-error-page')}
-          >/titanium-error-page</titanium-tab-control-item
+          >titanium-error-page</titanium-tab-control-item
         >
-        <titanium-tab-control-item href="/titanium-header" ?selected=${!!this.page?.includes('/titanium-header')}>/titanium-header</titanium-tab-control-item>
+        <titanium-tab-control-item href="/titanium-header" ?selected=${!!this.page?.includes('/titanium-header')}>titanium-header</titanium-tab-control-item>
         <titanium-tab-control-item href="/titanium-search-input" ?selected=${!!this.page?.includes('titanium-search-input')}
           >titanium-search-input</titanium-tab-control-item
         >
@@ -310,6 +318,9 @@ export class MyAppElement extends LitElement {
             : nothing}
           ${this.page === 'titanium-access-denied-page'
             ? html` <titanium-access-denied-page-demo ?isActive=${this.page === 'titanium-access-denied-page'}></titanium-access-denied-page-demo> `
+            : nothing}
+          ${this.page === 'titanium-attachment-input'
+            ? html` <titanium-attachment-input-demo ?isActive=${this.page === 'titanium-attachment-input'}></titanium-attachment-input-demo> `
             : nothing}
           ${this.page === 'titanium-error-page'
             ? html` <titanium-error-page-demo ?isActive=${this.page === 'titanium-error-page'}></titanium-error-page-demo> `
