@@ -166,7 +166,9 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
       const searchTokens = getSearchTokens(searchTerm);
       const odataParts = this.clone(this.odataParts);
       if (searchTokens.length > 0) {
-        const searchFilter = searchTokens.map((token: string) => `(startswith(FirstName, '${token}') or startswith(LastName, '${token}'))`).join(' and ');
+        const searchFilter = searchTokens
+          .map((token: string) => `(startswith(tolower(FirstName), '${token.toLowerCase()}') or startswith(tolower(LastName), '${token.toLowerCase()}'))`)
+          .join(' and ');
         const existingFilterIndex = odataParts.findIndex(o => o.startsWith('filter=') || o.startsWith('$filter='));
         if (existingFilterIndex > -1) {
           odataParts[existingFilterIndex] = [odataParts[existingFilterIndex], searchFilter].join(' and ');
