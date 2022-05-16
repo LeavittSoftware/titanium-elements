@@ -83,6 +83,7 @@ export class MyAppElement extends LitElement {
     page('/titanium-input-validator', () => this.#changePage('titanium-input-validator', () => import('./components/titanium-input-validator-demo.js')));
     page('/titanium-card-list-item', () => this.#changePage('titanium-card-list-item', () => import('./components/titanium-card-list-item-demo.js')));
     page('/titanium-dialog-base', () => this.#changePage('titanium-dialog-base', () => import('./components/titanium-dialog-base-demo.js')));
+    page('/titanium-dialog', () => this.#changePage('titanium-dialog', () => import('./components/titanium-dialog-demo.js')));
     page('/titanium-full-page-loading-indicator', () =>
       this.#changePage('titanium-full-page-loading-indicator', () => import('./components/titanium-full-page-loading-indicator.js'))
     );
@@ -217,6 +218,10 @@ export class MyAppElement extends LitElement {
               <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
               <span>titanium-dialog-base</span>
             </a>
+            <a href="/titanium-dialog" ?selected=${this.page === 'titanium-dialog'}>
+              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+              <span>titanium-dialog</span>
+            </a>
             <a href="/titanium-search-input" ?selected=${!!this.page?.includes('titanium-search-input')}>
               <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
               <span>titanium-search-input</span>
@@ -282,6 +287,7 @@ export class MyAppElement extends LitElement {
         <titanium-tab-control-item href="/titanium-dialog-base" ?selected=${!!this.page?.includes('titanium-dialog-base')}
           >titanium-dialog-base</titanium-tab-control-item
         >
+        <titanium-tab-control-item href="/titanium-dialog" ?selected=${!!this.page?.includes('titanium-dialog')}>titanium-dialog</titanium-tab-control-item>
         <titanium-tab-control-item href="/titanium-access-denied-page" ?selected=${!!this.page?.includes('/titanium-access-denied-page')}
           >titanium-access-denied-page</titanium-tab-control-item
         >
@@ -371,6 +377,7 @@ export class MyAppElement extends LitElement {
           ${this.page === 'titanium-dialog-base'
             ? html` <titanium-dialog-base-demo ?isActive=${this.page === 'titanium-dialog-base'}></titanium-dialog-base-demo> `
             : nothing}
+          ${this.page === 'titanium-dialog' ? html` <titanium-dialog-demo ?isActive=${this.page === 'titanium-dialog'}></titanium-dialog-demo> ` : nothing}
           ${this.page === 'titanium-search-input'
             ? html` <titanium-search-input-demo ?isActive=${this.page === 'titanium-search-input'}></titanium-search-input-demo> `
             : nothing}
