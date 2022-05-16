@@ -79,6 +79,7 @@ export class MyAppElement extends LitElement {
     page('/titanium-chip', () => this.#changePage('titanium-chip', () => import('./components/titanium-chip-demo.js')));
     page('/titanium-input-validator', () => this.#changePage('titanium-input-validator', () => import('./components/titanium-input-validator-demo.js')));
     page('/titanium-card-list-item', () => this.#changePage('titanium-card-list-item', () => import('./components/titanium-card-list-item-demo.js')));
+    page('/titanium-dialog-base', () => this.#changePage('titanium-dialog-base', () => import('./components/titanium-dialog-base-demo.js')));
     page('/titanium-progress', () => this.#changePage('titanium-progress', () => import('./components/titanium-progress.js')));
     page('/titanium-search-input', () => this.#changePage('titanium-search-input', () => import('./components/titanium-search-input-demo.js')));
     page('/titanium-side-menu-item', () => this.#changePage('titanium-side-menu-item', () => import('./components/titanium-side-menu-item-demo.js')));
@@ -190,6 +191,10 @@ export class MyAppElement extends LitElement {
               <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
               <span>titanium-progress</span>
             </a>
+            <a href="/titanium-dialog-base" ?selected=${!!this.page?.includes('titanium-dialog-base')}>
+              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+              <span>titanium-dialog-base</span>
+            </a>
             <a href="/titanium-search-input" ?selected=${!!this.page?.includes('titanium-search-input')}>
               <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
               <span>titanium-search-input</span>
@@ -245,6 +250,9 @@ export class MyAppElement extends LitElement {
         >
         <titanium-tab-control-item href="/titanium-progress" ?selected=${!!this.page?.includes('titanium-progress')}
           >titanium-progress</titanium-tab-control-item
+        >
+        <titanium-tab-control-item href="/titanium-dialog-base" ?selected=${!!this.page?.includes('titanium-dialog-base')}
+          >titanium-dialog-base</titanium-tab-control-item
         >
         <titanium-tab-control-item href="/titanium-access-denied-page" ?selected=${!!this.page?.includes('/titanium-access-denied-page')}
           >/titanium-access-denied-page</titanium-tab-control-item
@@ -309,6 +317,9 @@ export class MyAppElement extends LitElement {
           ${this.page === 'titanium-header' ? html` <titanium-header-demo ?isActive=${this.page === 'titanium-header'}></titanium-header-demo> ` : nothing}
           ${this.page === 'titanium-progress'
             ? html` <titanium-progress-demo ?isActive=${this.page === 'titanium-progress'}></titanium-progress-demo> `
+            : nothing}
+          ${this.page === 'titanium-dialog-base'
+            ? html` <titanium-dialog-base-demo ?isActive=${this.page === 'titanium-dialog-base'}></titanium-dialog-base-demo> `
             : nothing}
           ${this.page === 'titanium-search-input'
             ? html` <titanium-search-input-demo ?isActive=${this.page === 'titanium-search-input'}></titanium-search-input-demo> `
