@@ -3,10 +3,30 @@ import { customElement, query } from 'lit/decorators.js';
 import './titanium-tab-control-item';
 import { TitaniumTabControlItemElement } from './titanium-tab-control-item';
 
+/**
+ * Material design horizontal tab controller
+ *
+ * @element titanium-tab-control
+ *
+ * @slot default - main slot item (typically a &lt;titanium-tab-control-item&gt;)
+ *
+ * @cssprop {Color} [--app-border-color=#dadce0] - Border color for whole container
+ * @cssprop {Color} [--app-text-color=#5f6368] - Color of left/right navigation buttons
+ * @cssprop {Color} [--app-link-color=#1a73e8] - Hover color of left/right navigation buttons
+ */
 @customElement('titanium-tab-control')
 export class TitaniumTabControlElement extends LitElement {
+  /**
+   * @ignore
+   */
   @query('menu-container') container: HTMLElement;
+  /**
+   * @ignore
+   */
   @query('left-nav') leftNav: HTMLElement;
+  /**
+   * @ignore
+   */
   @query('right-nav') rightNav: HTMLElement;
 
   connectedCallback() {
@@ -28,6 +48,9 @@ export class TitaniumTabControlElement extends LitElement {
   }
 
   private timeoutHandle: number;
+  /**
+   * @ignore
+   */
   _updateMenu() {
     clearTimeout(this.timeoutHandle);
     this.timeoutHandle = window.setTimeout(() => {
