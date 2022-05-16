@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@leavittsoftware/titanium-popup-surface": "^0.4.1",
-    "@material/mwc-ripple": "0.25.3",
+    "@material/mwc-ripple": "*",
     "tslib": "^2.3.1"
   },
   "peerDependencies": {

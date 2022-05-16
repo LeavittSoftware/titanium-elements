@@ -4,15 +4,17 @@ import '@leavittsoftware/titanium-snackbar';
 import '@leavittsoftware/titanium-loading-indicator';
 import '@leavittsoftware/titanium-error-page';
 import '@material/mwc-icon';
-import '@leavittsoftware/titanium-offline-notice/lib/titanium-offline-notice';
+import '@material/mwc-drawer';
+import '@material/mwc-top-app-bar-fixed';
 import '@leavittsoftware/titanium-sw-notifier/lib/titanium-sw-notifier';
 import '@leavittsoftware/titanium-tab-control/lib/titanium-tab-control';
 import '@leavittsoftware/titanium-side-menu/lib/titanium-side-menu-item';
 import '@leavittsoftware/titanium-dialog/lib/confirm-dialog';
+import '@leavittsoftware/profile-picture/lib/profile-picture-menu';
 import './shared/story-header';
 
 import { installMediaQueryWatcher } from '@leavittsoftware/titanium-helpers/lib/titanium-media-query';
-import { html, LitElement, nothing } from 'lit';
+import { css, html, LitElement, nothing } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import page from 'page';
 import { h1, p } from '@leavittsoftware/titanium-styles';
@@ -24,21 +26,20 @@ import {
 } from '@leavittsoftware/titanium-loading-indicator/lib/titanium-full-page-loading-indicator';
 import { ConfirmDialogOpenEvent } from '@leavittsoftware/titanium-dialog/lib/confirm-dialog-open-event';
 import ConfirmDialogElement from '@leavittsoftware/titanium-dialog/lib/confirm-dialog';
-import { myAppStyles } from './styles/my-app-styles';
-import DesktopMenuStyles from './styles/desktop-menu-styles';
+import { Drawer } from '@material/mwc-drawer';
 
 const LGLogo = new URL('../images/lg-logo.svg', import.meta.url).href;
-const LGMark = new URL('../images/lg-mark.svg', import.meta.url).href;
 
 @customElement('my-app')
 export class MyAppElement extends LitElement {
   @property({ type: Boolean, reflect: true }) public isOnline: boolean = true;
 
   @state() private page: string | undefined;
-  @state() private isDesktop: boolean = true;
+  @state() private isDesktop: boolean = false;
 
   @query('confirm-dialog') private confirmDialog: ConfirmDialogElement;
   @query('titanium-full-page-loading-indicator') private loadingIndicator: TitaniumFullPageLoadingIndicatorElement & LitElement;
+  @query('mwc-drawer') private drawer: Drawer;
 
   public async firstUpdated() {
     page.start();
@@ -62,9 +63,9 @@ export class MyAppElement extends LitElement {
     });
 
     page('/', async () => {
-      page.show('/home');
+      page.show('/getting-started');
     });
-    page('/home', () => this.#changePage('home'));
+    page('/getting-started', () => this.#changePage('getting-started', () => import('./getting-started.js')));
     page('/leavitt-file-explorer', () => this.#changePage('leavitt-file-explorer', () => import('./components/leavitt-file-explorer.js')));
     page('/leavitt-person-select', () => this.#changePage('leavitt-person-select', () => import('./components/leavitt-person-select.js')));
     page('/leavitt-person-company-select', () =>
@@ -110,234 +111,346 @@ export class MyAppElement extends LitElement {
     this.dispatchEvent(new PendingStateEvent(handlePageChange));
   }
 
-  static styles = [h1, p, myAppStyles, DesktopMenuStyles];
+  static styles = [
+    h1,
+    p,
+    css`
+      :host {
+        --app-primary-color: var(--app-link-color);
+        --app-secondary-color: #4285f4;
+        --app-text-color: #5f6368;
+        --app-light-text-color: #707175;
+        --app-dark-text-color: #202124;
+        --app-hover-color: #f9f9f9;
+        --app-border-color: #dadce0;
+        --app-menu-text-color: #5f6368;
+        --app-link-color: #1a73e8;
+        --material-primary-color: var(--app-secondary-color);
+        --material-primary-text-color: var(--app-link-color);
+        --material-error-text-color: #da3227;
+        --app-accent-color-orange: #f8ad03;
+        --app-accent-color-red: #dc3327;
+        --app-accent-color-blue: #4285f4;
+        --app-accent-color-light-blue: #0288d1;
+        --app-accent-color-teal: #00796b;
+        --app-accent-color-indigo: #303f9f;
+        --app-accent-color-green: #34a853;
+        --app-nav-color: #002d56;
+        --mdc-theme-primary: var(--app-primary-color);
+        --mdc-theme-secondary: var(--app-secondary-color);
+        --mdc-text-field-outlined-idle-border-color: var(--app-border-color);
+        --mdc-select-outlined-idle-border-color: var(--app-border-color);
+        --mdc-icon-font: 'Material Icons Outlined';
+
+        /* Dialog styles */
+        --mdc-dialog-max-width: 450px;
+        --mdc-typography-headline6-font-family: Metropolis, Roboto, Noto, sans-serif;
+        --mdc-typography-headline6-font-weight: 400;
+        --mdc-typography-headline6-font-size: 22px;
+        --mdc-typography-headline6-line-height: 28px;
+        --mdc-dialog-heading-ink-color: var(--app-dark-text-color, #202124);
+
+        display: flex;
+        flex-direction: column;
+      }
+
+      titanium-toolbar {
+        display: flex;
+        justify-content: space-between;
+        z-index: 7;
+        padding: 0 12px 0 0;
+      }
+
+      titanium-toolbar h3 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      titanium-toolbar a[logo],
+      titanium-toolbar img {
+        height: 26px;
+        /* Prevent shifting on load */
+        min-width: 26px;
+        cursor: pointer;
+      }
+
+      titanium-toolbar a[logo] {
+        margin: 0 12px;
+      }
+
+      menu-group {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+      }
+
+      mwc-drawer {
+        padding-top: 48px;
+      }
+
+      div[drawer-content] {
+        margin-top: 24px;
+      }
+
+      div[drawer-content] details {
+        user-select: none;
+      }
+
+      div[drawer-content] summary {
+        padding-left: 24px;
+        font-size: 13px;
+        padding: 2px 28px;
+        border-radius: 0px 50px 50px 0px;
+        cursor: pointer;
+        color: var(--app-text-color);
+        font-weight: 500;
+        margin-top: 12px;
+      }
+      div[drawer-content] summary::marker {
+        margin-right: 12px;
+      }
+
+      div[drawer-content] summary:hover {
+        background: var(--app-hover-color);
+      }
+
+      div[drawer-content] a {
+        display: flex;
+        text-decoration: none;
+        color: var(--app-light-text-color);
+        font-size: 14px;
+        line-height: 16px;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 24px;
+        border-radius: 0px 50px 50px 0px;
+      }
+
+      div[drawer-content] a mwc-icon {
+        --mdc-icon-size: 16px;
+      }
+
+      div[drawer-content] a:hover {
+        background-color: var(--app-hover-color);
+        transition: 0.3s ease;
+      }
+
+      div[drawer-content] a[selected] {
+        background-color: #e8f0fe;
+        fill: #1967d2;
+        color: #1967d2;
+      }
+
+      div[app-content] {
+        margin: 0 24px;
+      }
+
+      width-limiter {
+        display: flex;
+        flex-direction: column;
+        max-width: 1200px;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      width-limiter > * {
+        max-width: 1200px;
+        width: 100%;
+      }
+
+      titanium-error-page {
+        margin-top: 24px;
+      }
+
+      @media (max-width: 830px) {
+        div[app-content] {
+          margin: 0 16px;
+        }
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+    `,
+  ];
 
   render() {
     return html`
       <titanium-full-page-loading-indicator></titanium-full-page-loading-indicator>
       <user-manager disableAutoload></user-manager>
-      <titanium-toolbar
-        ><a href="/" title="Back to home">
-          <img src=${this.isDesktop ? LGLogo : LGMark} alt="Leavitt Group logo" />
-        </a>
+      <titanium-toolbar>
+        <menu-group>
+          ${this.isDesktop
+            ? html`<a href="/" title="Back to home" logo>
+                <img src=${LGLogo} alt="Leavitt Group" />
+              </a>`
+            : html`<mwc-icon-button icon="menu" @click=${() => (this.drawer.open = !this.drawer.open)}></mwc-icon-button>`}
+        </menu-group>
         <h3 title="Leavittbook" ?hidden=${this.isDesktop} @click=${() => page.show('/')} main-title>Leavittbook</h3>
+        <profile-picture-menu size="36"></profile-picture-menu>
       </titanium-toolbar>
+      <mwc-drawer ?open=${this.isDesktop} hasHeader type=${this.isDesktop ? 'dismissible' : 'modal'}>
+        <span slot="title">Component library</span>
+        <span slot="subtitle">Leavitt group custom elements</span>
+        <div drawer-content>
+          <a href="/getting-started" ?selected=${!!this.page?.includes('getting-started')}>
+            <mwc-icon><span class="material-icons-outlined"> home </span></mwc-icon>
+            <span>Getting started</span>
+          </a>
+          <section>
+            <details open>
+              <summary>Titanium</summary>
+              <!-- Titanium menu -->
+              <a href="/mwc-datefield" ?selected=${!!this.page?.includes('mwc-datefield')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>mwc-datefield</span>
+              </a>
+              <a href="/profile-picture" ?selected=${!!this.page?.includes('profile-picture')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>profile-picture</span>
+              </a>
+              <a href="/titanium-button" ?selected=${!!this.page?.includes('titanium-button')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-button</span>
+              </a>
+              <a href="/titanium-chip" ?selected=${!!this.page?.includes('titanium-chip')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-chip</span>
+              </a>
+              <a href="/titanium-input-validator" ?selected=${!!this.page?.includes('titanium-input-validator')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-input-validator</span>
+              </a>
+              <a href="/titanium-access-denied-page" ?selected=${!!this.page?.includes('titanium-access-denied-page')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-access-denied-page</span>
+              </a>
+              <a href="/titanium-card-list-item" ?selected=${!!this.page?.includes('titanium-card-list-item')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-card-list-item</span>
+              </a>
+              <a href="/titanium-error-page" ?selected=${!!this.page?.includes('titanium-error-page')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-error-page</span>
+              </a>
+              <a href="/titanium-header" ?selected=${!!this.page?.includes('titanium-header')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-header</span>
+              </a>
+              <a href="/titanium-progress" ?selected=${!!this.page?.includes('titanium-progress')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-progress</span>
+              </a>
+              <a href="/titanium-dialog-base" ?selected=${!!this.page?.includes('titanium-dialog-base')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-dialog-base</span>
+              </a>
+              <a href="/titanium-search-input" ?selected=${!!this.page?.includes('titanium-search-input')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-search-input</span>
+              </a>
+              <a href="/titanium-side-menu-item" ?selected=${!!this.page?.includes('titanium-side-menu-item')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-side-menu-item</span>
+              </a>
+              <a href="/titanium-tab-control" ?selected=${this.page === 'titanium-tab-control'}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-tab-control</span>
+              </a>
+              <a href="/titanium-toolbar" ?selected=${!!this.page?.includes('titanium-toolbar')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-toolbar</span>
+              </a>
+              <a href="/titanium-twoline-formfield" ?selected=${!!this.page?.includes('titanium-twoline-formfield')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-twoline-formfield</span>
+              </a>
+            </details>
+          </section>
+          <section>
+            <details open>
+              <summary>Leavitt</summary>
+              <!-- Leavitt menu -->
 
-      <desktop-menu ?hidden=${!this.isDesktop}>
-        <h3 main-title="">Leavittbook</h3>
-        <section>
-          <details>
-            <summary>Leavitt</summary>
-            <!-- Leavitt menu -->
-            <a href="/home" ?selected=${!!this.page?.includes('home')}>
-              <mwc-icon><span class="material-icons-outlined"> home </span></mwc-icon>
-              <span>Home</span>
-            </a>
-            <a href="/leavitt-file-explorer" ?selected=${!!this.page?.includes('leavitt-file-explorer')}>
-              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-              <span>leavitt-file-explorer</span>
-            </a>
-            <a href="/leavitt-person-select" ?selected=${!!this.page?.includes('leavitt-person-select')}>
-              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-              <span>leavitt-person-select</span>
-            </a>
-            <a href="/leavitt-person-company-select" ?selected=${!!this.page?.includes('leavitt-person-company-select')}>
-              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-              <span>leavitt-person-company-select</span>
-            </a>
-          </details>
-        </section>
-        <section>
-          <details>
-            <summary>Titanium</summary>
-            <!-- Titanium menu -->
-            <a href="/mwc-datefield" ?selected=${!!this.page?.includes('mwc-datefield')}>
-              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-              <span>mwc-datefield</span>
-            </a>
-            <a href="/profile-picture" ?selected=${!!this.page?.includes('profile-picture')}>
-              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-              <span>profile-picture</span>
-            </a>
-            <a href="/titanium-button" ?selected=${!!this.page?.includes('titanium-button')}>
-              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-              <span>titanium-button</span>
-            </a>
-            <a href="/titanium-chip" ?selected=${!!this.page?.includes('titanium-chip')}>
-              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-              <span>titanium-chip</span>
-            </a>
-            <a href="/titanium-input-validator" ?selected=${!!this.page?.includes('titanium-input-validator')}>
-              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-              <span>titanium-input-validator</span>
-            </a>
-            <a href="/titanium-access-denied-page" ?selected=${!!this.page?.includes('titanium-access-denied-page')}>
-              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-              <span>titanium-access-denied-page</span>
-            </a>
-            <a href="/titanium-card-list-item" ?selected=${!!this.page?.includes('titanium-card-list-item')}>
-              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-              <span>titanium-card-list-item</span>
-            </a>
-            <a href="/titanium-error-page" ?selected=${!!this.page?.includes('titanium-error-page')}>
-              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-              <span>titanium-error-page</span>
-            </a>
-            <a href="/titanium-header" ?selected=${!!this.page?.includes('titanium-header')}>
-              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-              <span>titanium-header</span>
-            </a>
-            <a href="/titanium-progress" ?selected=${!!this.page?.includes('titanium-progress')}>
-              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-              <span>titanium-progress</span>
-            </a>
-            <a href="/titanium-dialog-base" ?selected=${!!this.page?.includes('titanium-dialog-base')}>
-              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-              <span>titanium-dialog-base</span>
-            </a>
-            <a href="/titanium-search-input" ?selected=${!!this.page?.includes('titanium-search-input')}>
-              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-              <span>titanium-search-input</span>
-            </a>
-            <a href="/titanium-side-menu-item" ?selected=${!!this.page?.includes('titanium-side-menu-item')}>
-              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-              <span>titanium-side-menu-item</span>
-            </a>
-            <a href="/titanium-tab-control" ?selected=${this.page === 'titanium-tab-control'}>
-              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-              <span>titanium-tab-control</span>
-            </a>
-            <a href="/titanium-toolbar" ?selected=${!!this.page?.includes('titanium-toolbar')}>
-              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-              <span>titanium-toolbar</span>
-            </a>
-            <a href="/titanium-twoline-formfield" ?selected=${!!this.page?.includes('titanium-twoline-formfield')}>
-              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-              <span>titanium-twoline-formfield</span>
-            </a>
-          </details>
-        </section>
-        <section>
-          <details>
-            <summary>Deprecated</summary>
-            <!-- Deprecated menu -->
-          </details>
-        </section>
-      </desktop-menu>
-
-      <toolbar-placeholder></toolbar-placeholder>
-
-      <titanium-tab-control ?hidden=${this.isDesktop}>
-        <titanium-tab-control-item href="/home" ?selected=${!!this.page?.includes('home')}>Home</titanium-tab-control-item>
-        <titanium-tab-control-item href="/leavitt-file-explorer" ?selected=${!!this.page?.includes('leavitt-file-explorer')}
-          >leavitt-file-explorer</titanium-tab-control-item
-        >
-        <titanium-tab-control-item href="/leavitt-person-select" ?selected=${!!this.page?.includes('leavitt-person-select')}
-          >leavitt-person-select</titanium-tab-control-item
-        >
-        <titanium-tab-control-item href="/leavitt-person-company-select" ?selected=${!!this.page?.includes('leavitt-person-company-select')}
-          >leavitt-person-company-select</titanium-tab-control-item
-        >
-        <titanium-tab-control-item href="/mwc-datefield" ?selected=${!!this.page?.includes('mwc-datefield')}>mwc-datefield</titanium-tab-control-item>
-        <titanium-tab-control-item href="/profile-picture" ?selected=${!!this.page?.includes('profile-picture')}>profile-picture</titanium-tab-control-item>
-        <titanium-tab-control-item href="/titanium-button" ?selected=${!!this.page?.includes('titanium-button')}>titanium-button</titanium-tab-control-item>
-        <titanium-tab-control-item href="/titanium-chip" ?selected=${!!this.page?.includes('titanium-chip')}>titanium-chip</titanium-tab-control-item>
-        <titanium-tab-control-item href="/titanium-input-validator" ?selected=${!!this.page?.includes('titanium-input-validator')}
-          >titanium-input-validator</titanium-tab-control-item
-        >
-        <titanium-tab-control-item href="/titanium-card-list-item" ?selected=${!!this.page?.includes('titanium-card-list-item')}
-          >titanium-card-list-item</titanium-tab-control-item
-        >
-        <titanium-tab-control-item href="/titanium-progress" ?selected=${!!this.page?.includes('titanium-progress')}
-          >titanium-progress</titanium-tab-control-item
-        >
-        <titanium-tab-control-item href="/titanium-dialog-base" ?selected=${!!this.page?.includes('titanium-dialog-base')}
-          >titanium-dialog-base</titanium-tab-control-item
-        >
-        <titanium-tab-control-item href="/titanium-access-denied-page" ?selected=${!!this.page?.includes('/titanium-access-denied-page')}
-          >/titanium-access-denied-page</titanium-tab-control-item
-        >
-        <titanium-tab-control-item href="/titanium-error-page" ?selected=${!!this.page?.includes('/titanium-error-page')}
-          >/titanium-error-page</titanium-tab-control-item
-        >
-        <titanium-tab-control-item href="/titanium-header" ?selected=${!!this.page?.includes('/titanium-header')}>/titanium-header</titanium-tab-control-item>
-        <titanium-tab-control-item href="/titanium-search-input" ?selected=${!!this.page?.includes('titanium-search-input')}
-          >titanium-search-input</titanium-tab-control-item
-        >
-        <titanium-tab-control-item href="/titanium-side-menu-item" ?selected=${!!this.page?.includes('titanium-side-menu-item')}
-          >titanium-side-menu-item</titanium-tab-control-item
-        >
-        <titanium-tab-control-item href="/titanium-tab-control" ?selected=${this.page === 'titanium-tab-control'}
-          >titanium-tab-control</titanium-tab-control-item
-        >
-        <titanium-tab-control-item href="/titanium-toolbar" ?selected=${!!this.page?.includes('titanium-toolbar')}>titanium-toolbar</titanium-tab-control-item>
-        <titanium-tab-control-item href="/titanium-twoline-formfield" ?selected=${!!this.page?.includes('titanium-twoline-formfield')}
-          >titanium-twoline-formfield</titanium-tab-control-item
-        >
-      </titanium-tab-control>
-
-      <main-content>
-        <width-limiter>
-          ${this.page === 'home'
-            ? html`
-                <div>
-                  <story-header name="Leavittbook" tagName="@leavittsoftware" klass="A showcase of our components!"></story-header>
-                  <h1></h1>
-                  <p></p>
-                </div>
-              `
-            : nothing}
-          ${this.page === 'error' ? html`<div>Oops, something went wrong.</div>` : nothing}
-          <!-- Stories -->
-          ${this.page === 'leavitt-file-explorer'
-            ? html` <leavitt-file-explorer-demo ?isActive=${this.page === 'leavitt-file-explorer'}></leavitt-file-explorer-demo> `
-            : nothing}
-          ${this.page === 'mwc-datefield' ? html` <mwc-datefield-demo ?isActive=${this.page === 'mwc-datefield'}></mwc-datefield-demo> ` : nothing}
-          ${this.page === 'leavitt-person-select'
-            ? html` <leavitt-person-select-demo ?isActive=${this.page === 'leavitt-person-select'}></leavitt-person-select-demo> `
-            : nothing}
-          ${this.page === 'leavitt-person-company-select'
-            ? html` <leavitt-person-company-select-demo ?isActive=${this.page === 'leavitt-person-company-select'}></leavitt-person-company-select-demo> `
-            : nothing}
-          ${this.page === 'profile-picture' ? html` <profile-picture-demo ?isActive=${this.page === 'profile-picture'}></profile-picture-demo> ` : nothing}
-          ${this.page === 'titanium-button' ? html` <titanium-button-demo ?isActive=${this.page === 'titanium-button'}></titanium-button-demo> ` : nothing}
-          ${this.page === 'titanium-chip' ? html` <titanium-chip-demo ?isActive=${this.page === 'titanium-chip'}></titanium-chip-demo> ` : nothing}
-          ${this.page === 'titanium-input-validator'
-            ? html` <titanium-input-validator-demo ?isActive=${this.page === 'titanium-input-validator'}></titanium-input-validator-demo> `
-            : nothing}
-          ${this.page === 'titanium-card-list-item'
-            ? html` <titanium-card-list-item-demo ?isActive=${this.page === 'titanium-card-list-item'}></titanium-card-list-item-demo> `
-            : nothing}
-          ${this.page === 'titanium-access-denied-page'
-            ? html` <titanium-access-denied-page-demo ?isActive=${this.page === 'titanium-access-denied-page'}></titanium-access-denied-page-demo> `
-            : nothing}
-          ${this.page === 'titanium-error-page'
-            ? html` <titanium-error-page-demo ?isActive=${this.page === 'titanium-error-page'}></titanium-error-page-demo> `
-            : nothing}
-          ${this.page === 'titanium-header' ? html` <titanium-header-demo ?isActive=${this.page === 'titanium-header'}></titanium-header-demo> ` : nothing}
-          ${this.page === 'titanium-progress'
-            ? html` <titanium-progress-demo ?isActive=${this.page === 'titanium-progress'}></titanium-progress-demo> `
-            : nothing}
-          ${this.page === 'titanium-dialog-base'
-            ? html` <titanium-dialog-base-demo ?isActive=${this.page === 'titanium-dialog-base'}></titanium-dialog-base-demo> `
-            : nothing}
-          ${this.page === 'titanium-search-input'
-            ? html` <titanium-search-input-demo ?isActive=${this.page === 'titanium-search-input'}></titanium-search-input-demo> `
-            : nothing}
-          ${this.page === 'titanium-side-menu-item'
-            ? html` <titanium-side-menu-item-demo ?isActive=${this.page === 'titanium-side-menu-item'}></titanium-side-menu-item-demo> `
-            : nothing}
-          ${this.page === 'titanium-tab-control'
-            ? html` <titanium-tab-control-demo ?isActive=${this.page === 'titanium-tab-control'}></titanium-tab-control-demo> `
-            : nothing}
-          ${this.page === 'titanium-toolbar' ? html` <titanium-toolbar-demo ?isActive=${this.page === 'titanium-toolbar'}></titanium-toolbar-demo> ` : nothing}
-          ${this.page === 'titanium-twoline-formfield'
-            ? html` <titanium-twoline-formfield-demo ?isActive=${this.page === 'titanium-twoline-formfield'}></titanium-twoline-formfield-demo> `
-            : nothing}
-        </width-limiter>
-      </main-content>
+              <a href="/leavitt-file-explorer" ?selected=${!!this.page?.includes('leavitt-file-explorer')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>leavitt-file-explorer</span>
+              </a>
+              <a href="/leavitt-person-select" ?selected=${!!this.page?.includes('leavitt-person-select')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>leavitt-person-select</span>
+              </a>
+              <a href="/leavitt-person-company-select" ?selected=${!!this.page?.includes('leavitt-person-company-select')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>leavitt-person-company-select</span>
+              </a>
+            </details>
+          </section>
+          <section>
+            <details open>
+              <summary>Deprecated</summary>
+              <!-- Deprecated menu -->
+            </details>
+          </section>
+        </div>
+        <div app-content slot="appContent">
+          <width-limiter large>
+            ${this.page === 'getting-started' ? html`<getting-started></getting-started>` : nothing}
+            ${this.page === 'error' ? html`<div>Oops, something went wrong.</div>` : nothing}
+            <!-- Stories -->
+            ${this.page === 'leavitt-file-explorer'
+              ? html` <leavitt-file-explorer-demo ?isActive=${this.page === 'leavitt-file-explorer'}></leavitt-file-explorer-demo> `
+              : nothing}
+            ${this.page === 'mwc-datefield' ? html` <mwc-datefield-demo ?isActive=${this.page === 'mwc-datefield'}></mwc-datefield-demo> ` : nothing}
+            ${this.page === 'leavitt-person-select'
+              ? html` <leavitt-person-select-demo ?isActive=${this.page === 'leavitt-person-select'}></leavitt-person-select-demo> `
+              : nothing}
+            ${this.page === 'leavitt-person-company-select'
+              ? html` <leavitt-person-company-select-demo ?isActive=${this.page === 'leavitt-person-company-select'}></leavitt-person-company-select-demo> `
+              : nothing}
+            ${this.page === 'profile-picture' ? html` <profile-picture-demo ?isActive=${this.page === 'profile-picture'}></profile-picture-demo> ` : nothing}
+            ${this.page === 'titanium-button' ? html` <titanium-button-demo ?isActive=${this.page === 'titanium-button'}></titanium-button-demo> ` : nothing}
+            ${this.page === 'titanium-chip' ? html` <titanium-chip-demo ?isActive=${this.page === 'titanium-chip'}></titanium-chip-demo> ` : nothing}
+            ${this.page === 'titanium-input-validator'
+              ? html` <titanium-input-validator-demo ?isActive=${this.page === 'titanium-input-validator'}></titanium-input-validator-demo> `
+              : nothing}
+            ${this.page === 'titanium-card-list-item'
+              ? html` <titanium-card-list-item-demo ?isActive=${this.page === 'titanium-card-list-item'}></titanium-card-list-item-demo> `
+              : nothing}
+            ${this.page === 'titanium-access-denied-page'
+              ? html` <titanium-access-denied-page-demo ?isActive=${this.page === 'titanium-access-denied-page'}></titanium-access-denied-page-demo> `
+              : nothing}
+            ${this.page === 'titanium-error-page'
+              ? html` <titanium-error-page-demo ?isActive=${this.page === 'titanium-error-page'}></titanium-error-page-demo> `
+              : nothing}
+            ${this.page === 'titanium-header' ? html` <titanium-header-demo ?isActive=${this.page === 'titanium-header'}></titanium-header-demo> ` : nothing}
+            ${this.page === 'titanium-progress'
+              ? html` <titanium-progress-demo ?isActive=${this.page === 'titanium-progress'}></titanium-progress-demo> `
+              : nothing}
+            ${this.page === 'titanium-dialog-base'
+              ? html` <titanium-dialog-base-demo ?isActive=${this.page === 'titanium-dialog-base'}></titanium-dialog-base-demo> `
+              : nothing}
+            ${this.page === 'titanium-search-input'
+              ? html` <titanium-search-input-demo ?isActive=${this.page === 'titanium-search-input'}></titanium-search-input-demo> `
+              : nothing}
+            ${this.page === 'titanium-side-menu-item'
+              ? html` <titanium-side-menu-item-demo ?isActive=${this.page === 'titanium-side-menu-item'}></titanium-side-menu-item-demo> `
+              : nothing}
+            ${this.page === 'titanium-tab-control'
+              ? html` <titanium-tab-control-demo ?isActive=${this.page === 'titanium-tab-control'}></titanium-tab-control-demo> `
+              : nothing}
+            ${this.page === 'titanium-toolbar'
+              ? html` <titanium-toolbar-demo ?isActive=${this.page === 'titanium-toolbar'}></titanium-toolbar-demo> `
+              : nothing}
+            ${this.page === 'titanium-twoline-formfield'
+              ? html` <titanium-twoline-formfield-demo ?isActive=${this.page === 'titanium-twoline-formfield'}></titanium-twoline-formfield-demo> `
+              : nothing}
+          </width-limiter>
+        </div>
+      </mwc-drawer>
       <titanium-snackbar></titanium-snackbar>
-      <titanium-offline-notice @is-online-changed=${(e: CustomEvent<boolean>) => (this.isOnline = e.detail)}> </titanium-offline-notice>
       <titanium-sw-notifier></titanium-sw-notifier>
       <confirm-dialog></confirm-dialog>
     `;
