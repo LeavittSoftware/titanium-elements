@@ -78,6 +78,7 @@ export class MyAppElement extends LitElement {
     page('/titanium-header', () => this.#changePage('titanium-header', () => import('./components/titanium-header.js')));
     page('/titanium-button', () => this.#changePage('titanium-button', () => import('./components/titanium-button.js')));
     page('/titanium-chip', () => this.#changePage('titanium-chip', () => import('./components/titanium-chip-demo.js')));
+    page('/titanium-data-table-header', () => this.#changePage('titanium-data-table-header', () => import('./components/titanium-data-table-header.js')));
     page('/titanium-chip-multi-select', () => this.#changePage('titanium-chip-multi-select', () => import('./components/titanium-chip-multi-select-demo.js')));
     page('/titanium-input-validator', () => this.#changePage('titanium-input-validator', () => import('./components/titanium-input-validator-demo.js')));
     page('/titanium-card-list-item', () => this.#changePage('titanium-card-list-item', () => import('./components/titanium-card-list-item-demo.js')));
@@ -176,6 +177,10 @@ export class MyAppElement extends LitElement {
               <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
               <span>titanium-chip-multi-select</span>
             </a>
+            <a href="/titanium-data-table-header" ?selected=${!!this.page?.includes('titanium-data-table-header')}>
+              <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+              <span>titanium-data-table-header</span>
+            </a>
             <a href="/titanium-input-validator" ?selected=${!!this.page?.includes('titanium-input-validator')}>
               <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
               <span>titanium-input-validator</span>
@@ -262,6 +267,9 @@ export class MyAppElement extends LitElement {
         <titanium-tab-control-item href="/titanium-chip-multi-select" ?selected=${this.page === 'titanium-chip-multi-select'}
           >titanium-chip-multi-select</titanium-tab-control-item
         >
+        <titanium-tab-control-item href="/titanium-data-table-header" ?selected=${!!this.page?.includes('titanium-data-table-header')}
+          >titanium-data-table-header</titanium-tab-control-item
+        >
         <titanium-tab-control-item href="/titanium-input-validator" ?selected=${!!this.page?.includes('titanium-input-validator')}
           >titanium-input-validator</titanium-tab-control-item
         >
@@ -330,6 +338,9 @@ export class MyAppElement extends LitElement {
           ${this.page === 'titanium-chip' ? html` <titanium-chip-demo ?isActive=${this.page === 'titanium-chip'}></titanium-chip-demo> ` : nothing}
           ${this.page === 'titanium-chip-multi-select'
             ? html` <titanium-chip-multi-select-demo ?isActive=${this.page === 'titanium-chip-multi-select'}></titanium-chip-multi-select-demo> `
+            : nothing}
+          ${this.page === 'titanium-data-table-header'
+            ? html` <titanium-data-table-header-demo ?isActive=${this.page === 'titanium-data-table-header'}></titanium-data-table-header-demo> `
             : nothing}
           ${this.page === 'titanium-input-validator'
             ? html` <titanium-input-validator-demo ?isActive=${this.page === 'titanium-input-validator'}></titanium-input-validator-demo> `
