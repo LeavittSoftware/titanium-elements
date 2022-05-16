@@ -18,18 +18,20 @@ import { TitaniumDataTableElement } from './titanium-data-table';
  *
  * @fires titanium-data-table-item-navigate - Fired on double click of a row. detail: unknown(this.item)
  * @fires titanium-data-table-item-selected-changed - Fired when item is selected.  detail: { isSelected: boolean, item: unknown }
+ * @fires titanium-data-table-item-drop - Fired when item is dropped after a drag
  *
- * @slot - Main slot that should contain a list of row-item elements
+ * @slot default - Main slot that should contain a list of row-item elements
+ * @slot item-footer - Optional footer content below the row with the row-items
  *
- * @cssprop {Color} --app-text-color - Row text color
- * @cssprop {Color} --app-hover-color - Row hover color
- * @cssprop {Color} --app-border-color - Bottom division line
- * @cssprop {Color} --titanium-data-table-font-family - Set the font family of the data table item
+ * @cssprop {Color} [--app-text-color=#5f6368] - Row text color
+ * @cssprop {Color} [--app-hover-color=#f9f9f9] - Row hover color
+ * @cssprop {Color} [--app-border-color=#dadce0] - Bottom division line
+ * @cssprop [--titanium-data-table-font-family=Roboto, Noto, sans-serif] - Set the font family of the data table item
  */
 @customElement('titanium-data-table-item')
 export class TitaniumDataTableItemElement extends LitElement {
   /**
-   * The backing object that is display in this row.  Sent in navigate and selected events.
+   * The backing object that is displayed in this row.  Sent in navigate and selected events.
    */
   @property({ type: Object }) item: unknown;
 
@@ -102,11 +104,17 @@ export class TitaniumDataTableItemElement extends LitElement {
 
     this.addEventListener('dblclick', () => {
       //Force the transition to end on the double-click
+      /**
+       * @internal
+       */
       this.dispatchEvent(new Event('transitionend'));
       this.dispatchEvent(new CustomEvent('titanium-data-table-item-navigate', { detail: this.item }));
     });
   }
 
+  /**
+   * @ignore
+   */
   updateDragProps(dragging: boolean, originIndex: number | null, hoverIndex: number | null, originHeight: number) {
     const myIndex = this.items.indexOf(this);
     this.nudgeDown = originIndex !== null && hoverIndex !== null && myIndex < originIndex && myIndex >= hoverIndex;
@@ -116,16 +124,25 @@ export class TitaniumDataTableItemElement extends LitElement {
     this.nudgeHeight = originHeight;
   }
 
+  /**
+   *  toggles item's checkbox which triggers this.selected to toggle as well
+   */
   toggleSelected() {
     this.selected ? this.deselect() : this.select();
   }
 
+  /**
+   *  if not already checked, triggers click on checkbox which triggers this.selected to be set as well
+   */
   select() {
     if (this.checkbox && !this.checkbox.checked) {
       this.checkbox.click();
     }
   }
 
+  /**
+   *  if already checked, triggers click on checkbox which triggers this.selected to be set to false as well
+   */
   deselect() {
     if (this.checkbox?.checked) {
       this.checkbox.click();
@@ -276,6 +293,9 @@ export class TitaniumDataTableItemElement extends LitElement {
       // Perform the swap after the item translates to its resting spot.
       const onTransitionEnd = () => {
         if (this.originIndex !== null && this.hoverIndex !== null) {
+          /**
+           * @ignore
+           */
           this.dispatchEvent(new DataTableItemDropEvent(this.originIndex, this.hoverIndex));
         }
         this.notifySiblingDragStop(this.originIndex, this.hoverIndex);
@@ -492,6 +512,10 @@ export class TitaniumDataTableItemElement extends LitElement {
   }
 }
 
+/**
+ * @class
+ * @ignore
+ */
 export class DataTableItemDropEvent extends Event {
   static eventType = 'titanium-data-table-item-drop';
   hoverIndex: number;
