@@ -81,7 +81,7 @@
     "lint:prettier": "prettier \"**/*.ts\" --check --ignore-path .gitignore",
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "docs": "cem analyze --globs \"../**/src/*.ts\" --litelement",
-    "docs:watch": "cem analyze --watch --globs \"../**/src/*.ts\" --litelement",
+    "docs:watch": "cem analyze --watch --globs \"../**/src/*.ts\" --exclude \"../**/node_modules/@leavittsoftware/**/src/*.ts\" --litelement",
     "clean:dev": "rimraf \"src/**/*.js.map\" \"src/**/*.js\"",
     "clean:modules": "rimraf \"./**/node_modules/!(rimraf|.bin)\" \"./package-lock.json\"",
     "clean:all": "npm run clean:dev && npm run clean:modules",
