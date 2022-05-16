@@ -7,7 +7,21 @@ import { customElement, property } from 'lit/decorators.js';
  *
  *  @element titanium-chip-multi-select
  *
+ * @slot default - Main slot (intended to be a list of &lt;titanium-chip&gt;)
+ * @slot button - Optional slot shown before the chips (typically used as an add chip button)
+ *
+ * @cssprop {Color} [--mdc-text-field-outlined-idle-border-color=rgba(0, 0, 0, 0.38)] - Container border color
+ * @cssprop {Color} [--app-light-text-color=#80868b] - No items text color
+ * @cssprop {Color} [--mdc-text-field-disabled-ink-color=rgba(0, 0, 0, 0.38)] - Disabled helper text color
+ * @cssprop {Color} [--mdc-text-field-label-ink-color=rgba(0, 0, 0, 0.6)] - Helper text color
+ * @cssprop [--mdc-typography-caption-font-family=var(--mdc-typography-font-family, Roboto, sans-serif)] - Helper font-family
+ * @cssprop [--mdc-typography-caption-font-size=0.75rem] - Helper font-size
+ * @cssprop [--mdc-typography-caption-font-weight=400] - Helper font-weight
+ * @cssprop [--mdc-typography-caption-letter-spacing=0.0333333em] - Helper letter-spacing
+ * @cssprop [--mdc-typography-caption-text-decoration=inherit] - Helper text-decoration
+ * @cssprop [--mdc-typography-caption-text-transform=inherit] - Helper text-transform
  */
+
 @customElement('titanium-chip-multi-select')
 export class TitaniumChipMultiSelectElement extends LitElement {
   /**
@@ -31,7 +45,7 @@ export class TitaniumChipMultiSelectElement extends LitElement {
   @property({ type: String }) helper: string;
 
   /**
-   *  Whether or not the input should be disabled.
+   *  Whether or not the input should appear disabled (chips, buttons and anything else slotted will still have to be disabled individually).
    */
   @property({ type: Boolean }) disabled: boolean;
 
