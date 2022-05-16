@@ -2,6 +2,7 @@ import { LitElement, html, css } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { h1, h2, h3, h5, p } from '@leavittsoftware/titanium-styles';
 import StoryStyles from '../styles/story-styles';
+import '@leavittsoftware/titanium-loading-indicator';
 import '@leavittsoftware/titanium-card';
 import '../shared/code-block';
 import '../shared/story-header';
