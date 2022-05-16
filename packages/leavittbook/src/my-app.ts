@@ -255,6 +255,9 @@ export class MyAppElement extends LitElement {
         <titanium-tab-control-item href="/titanium-chip-multi-select" ?selected=${this.page === 'titanium-chip-multi-select'}
           >titanium-chip-multi-select</titanium-tab-control-item
         >
+        <titanium-tab-control-item href="/titanium-input-validator" ?selected=${!!this.page?.includes('titanium-input-validator')}
+          >titanium-input-validator</titanium-tab-control-item
+        >
         <titanium-tab-control-item href="/titanium-card-list-item" ?selected=${!!this.page?.includes('titanium-card-list-item')}
           >titanium-card-list-item</titanium-tab-control-item
         >
