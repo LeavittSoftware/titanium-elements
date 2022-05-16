@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@5.5.1...@leavittsoftware/leavitt-elements@5.5.2) (2022-05-16)
+
+
+### Bug Fixes
+
+* add tolower to search terms ([f761b43](https://github.com/LeavittSoftware/titanium-elements/commit/f761b4342b9093b78558d1b56ed41cdc55012be8))
+
+
+
+
+
 ## 5.5.1 (2022-05-09)
 
 
