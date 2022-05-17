@@ -431,75 +431,71 @@ export class MyAppElement extends LitElement {
           </section>
         </div>
         <div app-content slot="appContent">
-          <width-limiter large>
-            ${this.page === 'getting-started' ? html`<getting-started></getting-started>` : nothing}
-            ${this.page === 'error' ? html`<div>Oops, something went wrong.</div>` : nothing}
-            <!-- Stories -->
-            ${this.page === 'titanium-attachment-input'
-              ? html` <titanium-attachment-input-demo ?isActive=${this.page === 'titanium-attachment-input'}></titanium-attachment-input-demo> `
-              : nothing}
-            ${this.page === 'leavitt-file-explorer'
-              ? html` <leavitt-file-explorer-demo ?isActive=${this.page === 'leavitt-file-explorer'}></leavitt-file-explorer-demo> `
-              : nothing}
-            ${this.page === 'mwc-datefield' ? html` <mwc-datefield-demo ?isActive=${this.page === 'mwc-datefield'}></mwc-datefield-demo> ` : nothing}
-            ${this.page === 'leavitt-person-select'
-              ? html` <leavitt-person-select-demo ?isActive=${this.page === 'leavitt-person-select'}></leavitt-person-select-demo> `
-              : nothing}
-            ${this.page === 'leavitt-person-company-select'
-              ? html` <leavitt-person-company-select-demo ?isActive=${this.page === 'leavitt-person-company-select'}></leavitt-person-company-select-demo> `
-              : nothing}
-            ${this.page === 'profile-picture' ? html` <profile-picture-demo ?isActive=${this.page === 'profile-picture'}></profile-picture-demo> ` : nothing}
-            ${this.page === 'titanium-button' ? html` <titanium-button-demo ?isActive=${this.page === 'titanium-button'}></titanium-button-demo> ` : nothing}
-            ${this.page === 'titanium-chip' ? html` <titanium-chip-demo ?isActive=${this.page === 'titanium-chip'}></titanium-chip-demo> ` : nothing}
-            ${this.page === 'titanium-input-validator'
-              ? html` <titanium-input-validator-demo ?isActive=${this.page === 'titanium-input-validator'}></titanium-input-validator-demo> `
-              : nothing}
-            ${this.page === 'titanium-card-list-item'
-              ? html` <titanium-card-list-item-demo ?isActive=${this.page === 'titanium-card-list-item'}></titanium-card-list-item-demo> `
-              : nothing}
-            ${this.page === 'titanium-data-table-item'
-              ? html` <titanium-data-table-item-demo ?isActive=${this.page === 'titanium-data-table-item'}></titanium-data-table-item-demo> `
-              : nothing}
-            ${this.page === 'titanium-access-denied-page'
-              ? html` <titanium-access-denied-page-demo ?isActive=${this.page === 'titanium-access-denied-page'}></titanium-access-denied-page-demo> `
-              : nothing}
-            ${this.page === 'titanium-error-page'
-              ? html` <titanium-error-page-demo ?isActive=${this.page === 'titanium-error-page'}></titanium-error-page-demo> `
-              : nothing}
-            ${this.page === 'titanium-header' ? html` <titanium-header-demo ?isActive=${this.page === 'titanium-header'}></titanium-header-demo> ` : nothing}
-            ${this.page === 'titanium-progress'
-              ? html` <titanium-progress-demo ?isActive=${this.page === 'titanium-progress'}></titanium-progress-demo> `
-              : nothing}
-            ${this.page === 'titanium-search-input'
-              ? html` <titanium-search-input-demo ?isActive=${this.page === 'titanium-search-input'}></titanium-search-input-demo> `
-              : nothing}
-            ${this.page === 'titanium-side-menu-item'
-              ? html` <titanium-side-menu-item-demo ?isActive=${this.page === 'titanium-side-menu-item'}></titanium-side-menu-item-demo> `
-              : nothing}
-            ${this.page === 'titanium-tab-control'
-              ? html` <titanium-tab-control-demo ?isActive=${this.page === 'titanium-tab-control'}></titanium-tab-control-demo> `
-              : nothing}
-            ${this.page === 'titanium-toolbar'
-              ? html` <titanium-toolbar-demo ?isActive=${this.page === 'titanium-toolbar'}></titanium-toolbar-demo> `
-              : nothing}
-            ${this.page === 'titanium-twoline-formfield'
-              ? html` <titanium-twoline-formfield-demo ?isActive=${this.page === 'titanium-twoline-formfield'}></titanium-twoline-formfield-demo> `
-              : nothing}
-            ${this.page === 'titanium-full-page-loading-indicator'
-              ? html`
-                  <titanium-full-page-loading-indicator-demo
-                    ?isActive=${this.page === 'titanium-full-page-loading-indicator'}
-                  ></titanium-full-page-loading-indicator-demo>
-                `
-              : nothing}
-            ${this.page === 'titanium-chip-multi-select'
-              ? html` <titanium-chip-multi-select-demo ?isActive=${this.page === 'titanium-chip-multi-select'}></titanium-chip-multi-select-demo> `
-              : nothing}
-            ${this.page === 'titanium-dialog-base'
-              ? html` <titanium-dialog-base-demo ?isActive=${this.page === 'titanium-dialog-base'}></titanium-dialog-base-demo> `
-              : nothing}
-            ${this.page === 'titanium-dialog' ? html` <titanium-dialog-demo ?isActive=${this.page === 'titanium-dialog'}></titanium-dialog-demo> ` : nothing}
-          </width-limiter>
+          ${this.page === 'getting-started' ? html`<getting-started></getting-started>` : nothing}
+          ${this.page === 'error' ? html`<div>Oops, something went wrong.</div>` : nothing}
+          <!-- Stories -->
+          ${this.page === 'titanium-attachment-input'
+            ? html` <titanium-attachment-input-demo ?isActive=${this.page === 'titanium-attachment-input'}></titanium-attachment-input-demo> `
+            : nothing}
+          ${this.page === 'leavitt-file-explorer'
+            ? html` <leavitt-file-explorer-demo ?isActive=${this.page === 'leavitt-file-explorer'}></leavitt-file-explorer-demo> `
+            : nothing}
+          ${this.page === 'mwc-datefield' ? html` <mwc-datefield-demo ?isActive=${this.page === 'mwc-datefield'}></mwc-datefield-demo> ` : nothing}
+          ${this.page === 'leavitt-person-select'
+            ? html` <leavitt-person-select-demo ?isActive=${this.page === 'leavitt-person-select'}></leavitt-person-select-demo> `
+            : nothing}
+          ${this.page === 'leavitt-person-company-select'
+            ? html` <leavitt-person-company-select-demo ?isActive=${this.page === 'leavitt-person-company-select'}></leavitt-person-company-select-demo> `
+            : nothing}
+          ${this.page === 'profile-picture' ? html` <profile-picture-demo ?isActive=${this.page === 'profile-picture'}></profile-picture-demo> ` : nothing}
+          ${this.page === 'titanium-button' ? html` <titanium-button-demo ?isActive=${this.page === 'titanium-button'}></titanium-button-demo> ` : nothing}
+          ${this.page === 'titanium-chip' ? html` <titanium-chip-demo ?isActive=${this.page === 'titanium-chip'}></titanium-chip-demo> ` : nothing}
+          ${this.page === 'titanium-input-validator'
+            ? html` <titanium-input-validator-demo ?isActive=${this.page === 'titanium-input-validator'}></titanium-input-validator-demo> `
+            : nothing}
+          ${this.page === 'titanium-card-list-item'
+            ? html` <titanium-card-list-item-demo ?isActive=${this.page === 'titanium-card-list-item'}></titanium-card-list-item-demo> `
+            : nothing}
+          ${this.page === 'titanium-data-table-item'
+            ? html` <titanium-data-table-item-demo ?isActive=${this.page === 'titanium-data-table-item'}></titanium-data-table-item-demo> `
+            : nothing}
+          ${this.page === 'titanium-access-denied-page'
+            ? html` <titanium-access-denied-page-demo ?isActive=${this.page === 'titanium-access-denied-page'}></titanium-access-denied-page-demo> `
+            : nothing}
+          ${this.page === 'titanium-error-page'
+            ? html` <titanium-error-page-demo ?isActive=${this.page === 'titanium-error-page'}></titanium-error-page-demo> `
+            : nothing}
+          ${this.page === 'titanium-header' ? html` <titanium-header-demo ?isActive=${this.page === 'titanium-header'}></titanium-header-demo> ` : nothing}
+          ${this.page === 'titanium-progress'
+            ? html` <titanium-progress-demo ?isActive=${this.page === 'titanium-progress'}></titanium-progress-demo> `
+            : nothing}
+          ${this.page === 'titanium-search-input'
+            ? html` <titanium-search-input-demo ?isActive=${this.page === 'titanium-search-input'}></titanium-search-input-demo> `
+            : nothing}
+          ${this.page === 'titanium-side-menu-item'
+            ? html` <titanium-side-menu-item-demo ?isActive=${this.page === 'titanium-side-menu-item'}></titanium-side-menu-item-demo> `
+            : nothing}
+          ${this.page === 'titanium-tab-control'
+            ? html` <titanium-tab-control-demo ?isActive=${this.page === 'titanium-tab-control'}></titanium-tab-control-demo> `
+            : nothing}
+          ${this.page === 'titanium-toolbar' ? html` <titanium-toolbar-demo ?isActive=${this.page === 'titanium-toolbar'}></titanium-toolbar-demo> ` : nothing}
+          ${this.page === 'titanium-twoline-formfield'
+            ? html` <titanium-twoline-formfield-demo ?isActive=${this.page === 'titanium-twoline-formfield'}></titanium-twoline-formfield-demo> `
+            : nothing}
+          ${this.page === 'titanium-full-page-loading-indicator'
+            ? html`
+                <titanium-full-page-loading-indicator-demo
+                  ?isActive=${this.page === 'titanium-full-page-loading-indicator'}
+                ></titanium-full-page-loading-indicator-demo>
+              `
+            : nothing}
+          ${this.page === 'titanium-chip-multi-select'
+            ? html` <titanium-chip-multi-select-demo ?isActive=${this.page === 'titanium-chip-multi-select'}></titanium-chip-multi-select-demo> `
+            : nothing}
+          ${this.page === 'titanium-dialog-base'
+            ? html` <titanium-dialog-base-demo ?isActive=${this.page === 'titanium-dialog-base'}></titanium-dialog-base-demo> `
+            : nothing}
+          ${this.page === 'titanium-dialog' ? html` <titanium-dialog-demo ?isActive=${this.page === 'titanium-dialog'}></titanium-dialog-demo> ` : nothing}
         </div>
       </mwc-drawer>
       <titanium-snackbar></titanium-snackbar>

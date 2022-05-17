@@ -71,7 +71,7 @@ export default class StoryHeaderElement extends LitElement {
     css`
       :host {
         display: block;
-        padding-bottom: 48px;
+        padding-bottom: 24px;
         border-bottom: 1px solid var(--app-border-color);
         margin-bottom: 48px;
       }
