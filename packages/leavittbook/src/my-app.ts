@@ -79,6 +79,7 @@ export class MyAppElement extends LitElement {
     page('/profile-picture', () => this.#changePage('profile-picture', () => import('./components/profile-picture-demo.js')));
     page('/titanium-access-denied-page', () => this.#changePage('titanium-access-denied-page', () => import('./components/titanium-access-denied-page.js')));
     page('/titanium-attachment-input', () => this.#changePage('titanium-attachment-input', () => import('./components/titanium-attachment-input-demo.js')));
+    page('/titanium-data-table', () => this.#changePage('titanium-data-table', () => import('./components/titanium-data-table-demo.js')));
     page('/titanium-data-table-item', () => this.#changePage('titanium-data-table-item', () => import('./components/titanium-data-table-item-demo.js')));
     page('/titanium-error-page', () => this.#changePage('titanium-error-page', () => import('./components/titanium-error-page.js')));
     page('/titanium-header', () => this.#changePage('titanium-header', () => import('./components/titanium-header.js')));
@@ -338,6 +339,10 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-chip-multi-select</span>
               </a>
+              <a href="/titanium-data-table" ?selected=${this.page === 'titanium-data-table'}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-data-table</span>
+              </a>
               <a href="/titanium-data-table-item" ?selected=${!!this.page?.includes('titanium-data-table-item')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-data-table-item</span>
@@ -358,7 +363,6 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-error-page</span>
               </a>
-
               <a href="/titanium-full-page-loading-indicator" ?selected=${!!this.page?.includes('titanium-full-page-loading-indicator')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-full-page-loading-indicator</span>
@@ -453,6 +457,9 @@ export class MyAppElement extends LitElement {
               : nothing}
             ${this.page === 'titanium-card-list-item'
               ? html` <titanium-card-list-item-demo ?isActive=${this.page === 'titanium-card-list-item'}></titanium-card-list-item-demo> `
+              : nothing}
+            ${this.page === 'titanium-data-table'
+              ? html` <titanium-data-table-demo ?isActive=${this.page === 'titanium-data-table'}></titanium-data-table-demo> `
               : nothing}
             ${this.page === 'titanium-data-table-item'
               ? html` <titanium-data-table-item-demo ?isActive=${this.page === 'titanium-data-table-item'}></titanium-data-table-item-demo> `
