@@ -52,6 +52,7 @@ export default class CodeBlockElement extends LitElement {
   static styles = [
     css`
       :host {
+        display: block;
         position: relative;
       }
 
@@ -98,7 +99,7 @@ export default class CodeBlockElement extends LitElement {
     CodeBlockStyles,
   ];
 
-  context() {
+  content() {
     return html`
       <div content>
         <pre class="language-${this.language}"><code id="output"></code></pre>
@@ -110,10 +111,10 @@ export default class CodeBlockElement extends LitElement {
   render() {
     return html`
       ${this.hideOpenButton
-        ? this.context()
+        ? this.content()
         : html`<details ?open=${this.open}>
             <summary>Show code</summary>
-            ${this.context()}
+            ${this.content()}
           </details> `}
     `;
   }
