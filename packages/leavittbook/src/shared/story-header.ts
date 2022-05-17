@@ -1,5 +1,5 @@
 import { css, html, LitElement, PropertyValues } from 'lit';
-import { customElement, property, query, state } from 'lit/decorators.js';
+import { customElement, property, query } from 'lit/decorators.js';
 import { h1, h2, p } from '@leavittsoftware/titanium-styles';
 import '@leavittsoftware/titanium-chip';
 import { CountUp } from 'countup.js';
