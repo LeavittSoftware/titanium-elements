@@ -165,6 +165,10 @@ export class MyAppElement extends LitElement {
         flex-direction: column;
       }
 
+      titanium-snackbar {
+        z-index: 7;
+      }
+
       titanium-toolbar {
         display: flex;
         justify-content: space-between;
