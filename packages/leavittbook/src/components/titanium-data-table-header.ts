@@ -15,6 +15,8 @@ export class TitaniumDateTableHeaderDemoElement extends LitElement {
   #defaultStory() {
     return html`
       <div>
+        <h1>Default</h1>
+        <p>Examples using large, right, no-sort, and width attributes</p>
         <titanium-data-table-header large column-name="Name" large title="Name"></titanium-data-table-header>
         <titanium-data-table-header column-name="SName" desktop title="Short Name"></titanium-data-table-header>
         <titanium-data-table-header column-name="person_type" right desktop title="Type"></titanium-data-table-header>
