@@ -7,7 +7,6 @@ import '@material/mwc-icon';
 import '@material/mwc-drawer';
 import '@material/mwc-top-app-bar-fixed';
 import '@leavittsoftware/titanium-sw-notifier/lib/titanium-sw-notifier';
-import '@leavittsoftware/titanium-tab-control/lib/titanium-tab-control';
 import '@leavittsoftware/titanium-side-menu/lib/titanium-side-menu-item';
 import '@leavittsoftware/titanium-dialog/lib/confirm-dialog';
 import '@leavittsoftware/profile-picture/lib/profile-picture-menu';
