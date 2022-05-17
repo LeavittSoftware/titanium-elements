@@ -92,6 +92,7 @@ export class MyAppElement extends LitElement {
     page('/titanium-full-page-loading-indicator', () =>
       this.#changePage('titanium-full-page-loading-indicator', () => import('./components/titanium-full-page-loading-indicator.js'))
     );
+    page('/titanium-page-control', () => this.#changePage('titanium-page-control', () => import('./components/titanium-page-control-demo.js')));
     page('/titanium-progress', () => this.#changePage('titanium-progress', () => import('./components/titanium-progress.js')));
     page('/titanium-search-input', () => this.#changePage('titanium-search-input', () => import('./components/titanium-search-input-demo.js')));
     page('/titanium-side-menu-item', () => this.#changePage('titanium-side-menu-item', () => import('./components/titanium-side-menu-item-demo.js')));
@@ -375,6 +376,10 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-header</span>
               </a>
+              <a href="/titanium-page-control" ?selected=${!!this.page?.includes('titanium-page-control')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-page-control</span>
+              </a>
               <a href="/titanium-progress" ?selected=${!!this.page?.includes('titanium-progress')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-progress</span>
@@ -464,6 +469,9 @@ export class MyAppElement extends LitElement {
               ? html` <titanium-error-page-demo ?isActive=${this.page === 'titanium-error-page'}></titanium-error-page-demo> `
               : nothing}
             ${this.page === 'titanium-header' ? html` <titanium-header-demo ?isActive=${this.page === 'titanium-header'}></titanium-header-demo> ` : nothing}
+            ${this.page === 'titanium-page-control'
+              ? html` <titanium-page-control-demo ?isActive=${this.page === 'titanium-page-control'}></titanium-page-control-demo> `
+              : nothing}
             ${this.page === 'titanium-progress'
               ? html` <titanium-progress-demo ?isActive=${this.page === 'titanium-progress'}></titanium-progress-demo> `
               : nothing}
