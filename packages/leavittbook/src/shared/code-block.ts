@@ -98,18 +98,23 @@ export default class CodeBlockElement extends LitElement {
     CodeBlockStyles,
   ];
 
-  render() {
+  context() {
     return html`
-      ${this.hideOpenButton
-        ? nothing
-        : html`<details ?open=${this.open}>
-            <summary>Show code</summary>
-          </details>`}
       <div content>
         <pre class="language-${this.language}"><code id="output"></code></pre>
         <mwc-icon-button @click=${() => this.#copyToClipboard(this.#snippet)} icon="content_copy"></mwc-icon-button>
       </div>
-      ${this.hideOpenButton ? nothing : html`  </details>`}
+    `;
+  }
+
+  render() {
+    return html`
+      ${this.hideOpenButton
+        ? this.context()
+        : html`<details ?open=${this.open}>
+            <summary>Show code</summary>
+            ${this.context()}
+          </details> `}
     `;
   }
 }
