@@ -84,8 +84,8 @@ export class MyAppElement extends LitElement {
     page('/titanium-header', () => this.#changePage('titanium-header', () => import('./components/titanium-header.js')));
     page('/titanium-button', () => this.#changePage('titanium-button', () => import('./components/titanium-button.js')));
     page('/titanium-chip', () => this.#changePage('titanium-chip', () => import('./components/titanium-chip-demo.js')));
-    page('/titanium-data-table-header', () => this.#changePage('titanium-data-table-header', () => import('./components/titanium-data-table-header.js')));
     page('/titanium-chip-multi-select', () => this.#changePage('titanium-chip-multi-select', () => import('./components/titanium-chip-multi-select-demo.js')));
+    page('/titanium-data-table-header', () => this.#changePage('titanium-data-table-header', () => import('./components/titanium-data-table-header.js')));
     page('/titanium-input-validator', () => this.#changePage('titanium-input-validator', () => import('./components/titanium-input-validator-demo.js')));
     page('/titanium-card-list-item', () => this.#changePage('titanium-card-list-item', () => import('./components/titanium-card-list-item-demo.js')));
     page('/titanium-dialog-base', () => this.#changePage('titanium-dialog-base', () => import('./components/titanium-dialog-base-demo.js')));
@@ -339,6 +339,10 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-chip-multi-select</span>
               </a>
+              <a href="/titanium-data-table-header" ?selected=${!!this.page?.includes('titanium-data-table-header')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-data-table-header</span>
+              </a>
               <a href="/titanium-data-table-item" ?selected=${!!this.page?.includes('titanium-data-table-item')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-data-table-item</span>
@@ -454,6 +458,9 @@ export class MyAppElement extends LitElement {
               : nothing}
             ${this.page === 'titanium-card-list-item'
               ? html` <titanium-card-list-item-demo ?isActive=${this.page === 'titanium-card-list-item'}></titanium-card-list-item-demo> `
+              : nothing}
+            ${this.page === 'titanium-data-table-header'
+              ? html` <titanium-data-table-header-demo ?isActive=${this.page === 'titanium-data-table-header'}></titanium-data-table-header-demo> `
               : nothing}
             ${this.page === 'titanium-data-table-item'
               ? html` <titanium-data-table-item-demo ?isActive=${this.page === 'titanium-data-table-item'}></titanium-data-table-item-demo> `
