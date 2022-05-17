@@ -1,9 +1,10 @@
 /* eslint-disable no-var */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { LitElement, html, PropertyValues, css, TemplateResult } from 'lit';
+import { LitElement, html, PropertyValues, css, TemplateResult, nothing } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import 'prismjs/prism.js';
 import 'prismjs/components/prism-markup.js';
+import 'prismjs/components/prism-bash.js';
 import '@material/mwc-icon-button';
 import CodeBlockStyles from './code-block-styles';
 import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar';
@@ -14,6 +15,8 @@ declare var Prism: any;
 export default class CodeBlockElement extends LitElement {
   @property({ type: String }) language = 'html';
   @property({ type: Boolean }) lineNumbers = false;
+  @property({ type: Boolean }) open = false;
+  @property({ type: Boolean, attribute: 'hide-open-button' }) hideOpenButton = false;
   @property({ type: Object }) snippet: TemplateResult<1>;
   @query('#output') output: HTMLElement;
 
@@ -50,19 +53,20 @@ export default class CodeBlockElement extends LitElement {
     css`
       :host {
         position: relative;
-        max-width: 800px;
       }
 
       mwc-icon-button {
-        position: absolute;
-        right: 8px;
-        top: 8px;
         --mdc-icon-button-size: 36px;
         --mdc-icon-size: 20px;
       }
 
       div[content] {
         position: relative;
+        display: grid;
+        grid: 'code button' / 1fr auto;
+        background-color: #f9f9f9;
+        padding: 4px 12px 4px 24px;
+        border-radius: 8px;
       }
 
       details {
@@ -96,13 +100,16 @@ export default class CodeBlockElement extends LitElement {
 
   render() {
     return html`
-      <details>
-        <summary>Show code</summary>
-        <div content>
-          <pre class="language-${this.language}"><code id="output"></code></pre>
-          <mwc-icon-button @click=${() => this.#copyToClipboard(this.#snippet)} icon="content_copy"></mwc-icon-button>
-        </div>
-      </details>
+      ${this.hideOpenButton
+        ? nothing
+        : html`<details ?open=${this.open}>
+            <summary>Show code</summary>
+          </details>`}
+      <div content>
+        <pre class="language-${this.language}"><code id="output"></code></pre>
+        <mwc-icon-button @click=${() => this.#copyToClipboard(this.#snippet)} icon="content_copy"></mwc-icon-button>
+      </div>
+      ${this.hideOpenButton ? nothing : html`  </details>`}
     `;
   }
 }
