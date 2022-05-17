@@ -74,7 +74,12 @@ export class TitaniumSearchInputDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="Titanium search-input" tagName="titanium-search-input" klass="TitaniumSearchInputElement"></story-header>
+      <story-header
+        name="Titanium search-input"
+        packageName="titanium-search-input"
+        tagName="titanium-search-input"
+        klass="TitaniumSearchInputElement"
+      ></story-header>
       <titanium-card>
         ${this.#defaultStory()}
         <code-block .snippet=${this.#defaultStory()}> </code-block>

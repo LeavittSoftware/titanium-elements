@@ -31,7 +31,12 @@ export class TitaniumTwoLineFormFieldDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="Titanium twoline formfield" tagName="titanium-twoline-formfield" klass="TitaniumTwoLineFormFieldElement"></story-header>
+      <story-header
+        name="Titanium twoline formfield"
+        packageName="titanium-twoline-formfield"
+        tagName="titanium-twoline-formfield"
+        klass="TitaniumTwoLineFormFieldElement"
+      ></story-header>
       <titanium-card>
         ${this.#defaultStory()}
         <code-block .snippet=${this.#defaultStory()}> </code-block>

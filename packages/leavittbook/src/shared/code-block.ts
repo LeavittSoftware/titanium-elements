@@ -1,6 +1,6 @@
 /* eslint-disable no-var */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { LitElement, html, PropertyValues, css, TemplateResult, nothing } from 'lit';
+import { LitElement, html, PropertyValues, css, TemplateResult } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import 'prismjs/prism.js';
 import 'prismjs/components/prism-markup.js';

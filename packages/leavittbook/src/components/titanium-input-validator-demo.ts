@@ -69,7 +69,12 @@ export class TitaniumInputValidatorDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="Titanium Input Validator" tagName="titanium-input-validator" klass="TitaniumInputValidatorElement"></story-header>
+      <story-header
+        name="Titanium Input Validator"
+        packageName="titanium-input-validator"
+        tagName="titanium-input-validator"
+        klass="TitaniumInputValidatorElement"
+      ></story-header>
       <titanium-card>
         ${this.#defaultStory()}
         <code-block .snippet=${this.#defaultStory()}> </code-block>

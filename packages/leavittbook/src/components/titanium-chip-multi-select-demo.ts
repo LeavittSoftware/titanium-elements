@@ -98,7 +98,12 @@ export class TitaniumChipMultiSelectDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="Titanium chip multi-select" tagName="titanium-chip-multi-select" klass="TitaniumChipMultiSelectElement"></story-header>
+      <story-header
+        name="Titanium chip multi-select"
+        packageName="titanium-chip-multi-select"
+        tagName="titanium-chip-multi-select"
+        klass="TitaniumChipMultiSelectElement"
+      ></story-header>
       <titanium-card>
         ${this.#defaultStory()}
         <code-block .snippet=${this.#defaultStory()}> </code-block>

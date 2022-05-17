@@ -24,7 +24,7 @@ export class TitaniumErrorPageDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="Titanium error page" tagName="titanium-error-page" klass="TitaniumErrorPageElement"></story-header>
+      <story-header name="Titanium error page" packageName="titanium-error-page" tagName="titanium-error-page" klass="TitaniumErrorPageElement"></story-header>
       ${this.#defaultStory()}
       <code-block .snippet=${this.#defaultStory()}> </code-block>
       <api-docs src="./custom-elements.json" selected="titanium-error-page"></api-docs>

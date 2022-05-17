@@ -143,7 +143,7 @@ export class TitaniumDialogBaseDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="Titanium Dialog Base" tagName="titanium-dialog-base" klass="TitaniumDialogBaseElement"></story-header>
+      <story-header name="Titanium Dialog Base" packageName="titanium-dialog" tagName="titanium-dialog-base" klass="TitaniumDialogBaseElement"></story-header>
       <titanium-card>
         ${this.#defaultStory()}
         <code-block .snippet=${this.#defaultStory()}> </code-block>

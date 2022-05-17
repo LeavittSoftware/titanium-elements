@@ -68,7 +68,7 @@ export class TitaniumChipDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="Titanium chip" tagName="titanium-chip" klass="TitaniumChipElement"></story-header>
+      <story-header name="Titanium chip" packageName="titanium-chip" tagName="titanium-chip" klass="TitaniumChipElement"></story-header>
       <titanium-card>
         ${this.#defaultStory()}
         <code-block .snippet=${this.#defaultStory()}> </code-block>

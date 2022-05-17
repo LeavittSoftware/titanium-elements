@@ -67,7 +67,12 @@ export class TitaniumSideMenuItemDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="Titanium Side Menu Item" tagName="titanium-side-menu-item" klass="TitaniumSideMenuItemElement"></story-header>
+      <story-header
+        name="Titanium Side Menu Item"
+        packageName="titanium-side-menu"
+        tagName="titanium-side-menu-item"
+        klass="TitaniumSideMenuItemElement"
+      ></story-header>
       <titanium-card>
         ${this.#defaultStory()}
         <code-block .snippet=${this.#defaultStory()}> </code-block>
