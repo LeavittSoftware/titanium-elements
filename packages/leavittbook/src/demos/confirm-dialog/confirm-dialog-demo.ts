@@ -20,7 +20,7 @@ export class ConfirmDialogDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="Confirm Dialog" packageName="titanium-dialog" tagName="confirm-dialog" klass="ConfirmDialogElement"></story-header>
+      <story-header name="Confirm Dialog" packageName="titanium-dialog" className="ConfirmDialogElement"></story-header>
       <playground-ide line-numbers resizable project-src="../src/demos/confirm-dialog/project.json"> </playground-ide>
       <api-docs src="./custom-elements.json" selected="confirm-dialog"></api-docs>
     `;
