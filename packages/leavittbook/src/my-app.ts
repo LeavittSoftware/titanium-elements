@@ -96,7 +96,9 @@ export class MyAppElement extends LitElement {
     page('/titanium-full-page-loading-indicator', () =>
       this.#changePage('titanium-full-page-loading-indicator', () => import('./components/titanium-full-page-loading-indicator.js'))
     );
-    page('/titanium-page-control', () => this.#changePage('titanium-page-control', () => import('./components/titanium-page-control-demo.js')));
+    page('/titanium-page-control', () =>
+      this.#changePage('titanium-page-control', () => import('./demos/titanium-page-control/titanium-page-control-demo.js'))
+    );
     page('/titanium-progress', () => this.#changePage('titanium-progress', () => import('./components/titanium-progress.js')));
     page('/titanium-search-input', () => this.#changePage('titanium-search-input', () => import('./components/titanium-search-input-demo.js')));
     page('/titanium-side-menu-item', () => this.#changePage('titanium-side-menu-item', () => import('./components/titanium-side-menu-item-demo.js')));
