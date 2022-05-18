@@ -34,11 +34,9 @@ declare const ResizeObserver: any;
  * @slot footer - slot for additional footer items. Slotting here overwrites footer-buttons.
  * @slot footer-buttons - slot for footer action buttons
  *
- * @cssprop {Color} --app-text-color - No results text color
- * @cssprop {Color} --app-dark-text-color - Heading and table control color
- * @cssprop {Color} --app-light-text-color - Select all checkbox fill color
- * @cssprop {Color} --app-border-color - Table border color
- * @cssprop {Color} --titanium-data-table-font-family - Set the font family used on the data table and paging control
+ * @cssprop {Color} [--app-text-color=#5f6368] - No results, Heading, table, and select all checkbox text color
+ * @cssprop {Color} [--app-border-color=#dadce0] - Table border color
+ * @cssprop {Color} [--titanium-data-table-font-family=Roboto, Noto, sans-serif] - Set the font family used on the data table and paging control
  */
 @customElement('titanium-data-table')
 export class TitaniumDataTableElement extends LitElement {
@@ -83,7 +81,7 @@ export class TitaniumDataTableElement extends LitElement {
   @property({ type: Boolean, attribute: 'single-select', reflect: true }) singleSelect: boolean;
 
   /**
-   * Disables all item section on the data-table.
+   * Disables all item selection on the data-table.
    */
   @property({ type: Boolean, attribute: 'disable-select' }) disableSelect: boolean = false;
 
@@ -103,8 +101,15 @@ export class TitaniumDataTableElement extends LitElement {
   @property({ type: Boolean }) private isLoading: boolean;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+  /**
+   * @ignore
+   */
   @query('slot[name="items"]') itemsSlot: HTMLSlotElement;
   @query('slot[name="table-headers"]') private tableHeaders: HTMLSlotElement;
+  /**
+   * @ignore
+   */
   @query('div[items-slot]') itemsContainer: HTMLDivElement;
 
   /**
@@ -112,27 +117,48 @@ export class TitaniumDataTableElement extends LitElement {
    */
   @property({ type: Boolean, reflect: true, attribute: 'narrow' }) protected narrow: boolean = false;
 
+  /**
+   * @ignore
+   */
   @query('mwc-checkbox') checkbox: Checkbox;
+  /**
+   * @ignore
+   */
   @queryAsync('titanium-page-control') pageControl: TitaniumPageControlElement;
 
   private _openCount = 0;
 
+  /**
+   *  returns internal pageControl's current take
+   */
   public async getTake(): Promise<number> {
     return (await this.pageControl).take;
   }
 
+  /**
+   *  returns internal pageControl's current page
+   */
   public async getPage(): Promise<number> {
     return (await this.pageControl).page;
   }
 
+  /**
+   *  sets internal pageControl's current take
+   */
   public async setTake(take: number): Promise<void> {
     (await this.pageControl).take = take;
   }
 
+  /**
+   *  sets internal pageControl's current page
+   */
   public async setPage(page: number): Promise<void> {
     (await this.pageControl).page = page;
   }
 
+  /**
+   *  resets internal pageControl's current page to 0
+   */
   public async resetPage() {
     await this.setPage(0);
   }
@@ -173,6 +199,9 @@ export class TitaniumDataTableElement extends LitElement {
         const temp = this.items[e.originIndex];
         this.items.splice(e.originIndex, 1);
         this.items.splice(hoverIndex, 0, temp);
+        /**
+         * @ignore
+         */
         this.dispatchEvent(new DataTableItemsReorderedEvent());
       }
     });
@@ -184,11 +213,17 @@ export class TitaniumDataTableElement extends LitElement {
     await this.pageControl.updateComplete;
   }
 
+  /**
+   * @ignore
+   */
   updateChildrenIsNarrow() {
     (this.itemsSlot.assignedElements() as Array<TitaniumDataTableItemElement & HTMLElement>).forEach(o => (o.narrow = this.narrow));
     (this.tableHeaders.assignedElements() as Array<TitaniumDataTableHeaderElement & HTMLElement>).forEach(o => (o.narrow = this.narrow));
   }
 
+  /**
+   *  de-select all table items and clear this.selected
+   */
   clearSelection() {
     this.deselectAll();
     // Ensure the collection is empty, deselect can cause a race condition
@@ -234,6 +269,9 @@ export class TitaniumDataTableElement extends LitElement {
     this.dispatchEvent(new CustomEvent('selected-changed', { composed: true, detail: this.selected }));
   }
 
+  /**
+   *  display linear progress bar while promise is active
+   */
   async loadWhile(promise: Promise<unknown>) {
     this.isLoading = true;
     this._openCount++;
@@ -251,6 +289,9 @@ export class TitaniumDataTableElement extends LitElement {
     this._getTableItems().forEach(o => o.deselect());
   }
 
+  /**
+   *  select all table items
+   */
   selectAll() {
     if (!this.singleSelect) {
       this._getTableItems().forEach(o => o.select());

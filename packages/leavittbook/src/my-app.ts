@@ -68,6 +68,7 @@ export class MyAppElement extends LitElement {
     page('/titanium-full-page-loading-indicator', () =>
       this.#changePage('titanium-full-page-loading-indicator', () => import('./components/titanium-full-page-loading-indicator.js'))
     );
+    page('/leavitt-date-range', () => this.#changePage('leavitt-date-range', () => import('./demos/leavitt-date-range/leavitt-date-range-demo.js')));
     page('/titanium-data-table-item', () =>
       this.#changePage('titanium-data-table-item', () => import('./demos/titanium-data-table-item/titanium-data-table-item-demo.js'))
     );
@@ -87,6 +88,7 @@ export class MyAppElement extends LitElement {
     page('/titanium-attachment-input', () =>
       this.#changePage('titanium-attachment-input', () => import('./demos/titanium-attachment-input/titanium-attachment-input-demo.js'))
     );
+    page('/titanium-data-table', () => this.#changePage('titanium-data-table', () => import('./demos/titanium-data-table/titanium-data-table-demo.js')));
     page('/titanium-data-table-item', () =>
       this.#changePage('titanium-data-table-item', () => import('./demos/titanium-data-table-item/titanium-data-table-item-demo.js'))
     );
@@ -334,6 +336,10 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-chip-multi-select</span>
               </a>
+              <a href="/titanium-data-table" ?selected=${this.page === 'titanium-data-table'}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-data-table</span>
+              </a>
               <a href="/titanium-data-table-item" ?selected=${!!this.page?.includes('titanium-data-table-item')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-data-table-item</span>
@@ -405,6 +411,10 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>profile-picture</span>
               </a>
+              <a href="/leavitt-date-range" ?selected=${!!this.page?.includes('leavitt-date-range')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>leavitt-date-range</span>
+              </a>
               <a href="/leavitt-file-explorer" ?selected=${!!this.page?.includes('leavitt-file-explorer')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>leavitt-file-explorer</span>
@@ -444,6 +454,9 @@ export class MyAppElement extends LitElement {
             ? html` <leavitt-file-explorer-demo ?isActive=${this.page === 'leavitt-file-explorer'}></leavitt-file-explorer-demo> `
             : nothing}
           ${this.page === 'mwc-datefield' ? html` <mwc-datefield-demo ?isActive=${this.page === 'mwc-datefield'}></mwc-datefield-demo> ` : nothing}
+          ${this.page === 'leavitt-date-range'
+            ? html` <leavitt-date-range-demo ?isActive=${this.page === 'leavitt-date-range'}></leavitt-date-range-demo> `
+            : nothing}
           ${this.page === 'leavitt-person-select'
             ? html` <leavitt-person-select-demo ?isActive=${this.page === 'leavitt-person-select'}></leavitt-person-select-demo> `
             : nothing}
@@ -461,6 +474,9 @@ export class MyAppElement extends LitElement {
             : nothing}
           ${this.page === 'titanium-card-list-item'
             ? html` <titanium-card-list-item-demo ?isActive=${this.page === 'titanium-card-list-item'}></titanium-card-list-item-demo> `
+            : nothing}
+          ${this.page === 'titanium-data-table'
+            ? html` <titanium-data-table-demo ?isActive=${this.page === 'titanium-data-table'}></titanium-data-table-demo> `
             : nothing}
           ${this.page === 'titanium-data-table-item'
             ? html` <titanium-data-table-item-demo ?isActive=${this.page === 'titanium-data-table-item'}></titanium-data-table-item-demo> `
