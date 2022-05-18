@@ -1,4 +1,4 @@
-import { css, html, LitElement, PropertyValues } from 'lit';
+import { css, html, LitElement, nothing, PropertyValues } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { h1, h2, p } from '@leavittsoftware/titanium-styles';
 import '@leavittsoftware/titanium-chip';
@@ -10,6 +10,7 @@ export default class StoryHeaderElement extends LitElement {
   @property({ type: String }) tagName: string;
   @property({ type: String }) packageName: string;
   @property({ type: String }) klass: string;
+  @property({ type: String }) deprecatedReason: string;
 
   @query('span.major') private major: HTMLDivElement;
   @query('span.minor') private minor: HTMLDivElement;
@@ -121,6 +122,10 @@ export default class StoryHeaderElement extends LitElement {
       titanium-chip[blue] {
         --titanium-chip-label-background-color: var(--app-primary-color);
       }
+
+      titanium-chip[deprecated] {
+        --titanium-chip-label-background-color: var(--app-accent-color-red);
+      }
     `,
   ];
   render() {
@@ -138,6 +143,7 @@ export default class StoryHeaderElement extends LitElement {
         <titanium-chip readonly blue>
           <span slot="label"><span class="downloads"></span></span>
         </titanium-chip>
+        ${this.deprecatedReason ? html`<titanium-chip readonly deprecated label="Deprecated (${this.deprecatedReason})"></titanium-chip>` : nothing}
       </chip-container>
     `;
   }
