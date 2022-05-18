@@ -20,12 +20,7 @@ export class TitaniumPageControlDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header
-        name="Titanium Page Control"
-        packageName="titanium-data-table"
-        tagName="titanium-page-control"
-        klass="TitaniumPageControlElement"
-      ></story-header>
+      <story-header name="Titanium Page Control" packageName="titanium-data-table" className="TitaniumPageControlElement"></story-header>
       <playground-ide line-numbers resizable project-src="../src/demos/titanium-page-control/project.json"> </playground-ide>
       <api-docs src="./custom-elements.json" selected="titanium-page-control"></api-docs>
     `;
