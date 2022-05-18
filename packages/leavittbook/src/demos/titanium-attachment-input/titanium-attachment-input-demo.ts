@@ -20,12 +20,7 @@ export class TitaniumAttachmentInputDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header
-        name="Titanium Attachment Input"
-        packageName="titanium-attachment-input"
-        tagName="titanium-attachment-input"
-        klass="TitaniumAttachmentInputElement"
-      ></story-header>
+      <story-header name="Titanium Attachment Input" packageName="titanium-attachment-input" className="TitaniumAttachmentInputElement"></story-header>
       <playground-ide line-numbers resizable project-src="../src/demos/titanium-attachment-input/project.json"> </playground-ide>
       <api-docs src="./custom-elements.json" selected="titanium-attachment-input"></api-docs>
     `;
