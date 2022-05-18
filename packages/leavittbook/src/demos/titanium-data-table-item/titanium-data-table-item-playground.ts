@@ -54,7 +54,7 @@ export class TitaniumDataTableItemPlayground extends LitElement {
         <titanium-data-table-item enable-dragging><row-item></row-item></titanium-data-table-item>
       </div>
 
-      <h1>Default</h1>
+      <h1>Methods</h1>
       <p>Select, Deselect, Toggle</p>
       <div>
         <titanium-data-table-item select-demo>Item</titanium-data-table-item>
