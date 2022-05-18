@@ -24,7 +24,12 @@ export class TitaniumAccessDeniedDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="Titanium access denied page" tagName="titanium-access-denied-page" klass="TitaniumAccessDeniedPageElement"></story-header>
+      <story-header
+        name="Titanium access denied page"
+        packageName="titanium-access-denied-page"
+        tagName="titanium-access-denied-page"
+        klass="TitaniumAccessDeniedPageElement"
+      ></story-header>
       ${this.#defaultStory()}
       <code-block .snippet=${this.#defaultStory()}> </code-block>
       <api-docs src="./custom-elements.json" selected="titanium-access-denied-page"></api-docs>
