@@ -8,7 +8,6 @@ import '@material/mwc-drawer';
 import '@material/mwc-top-app-bar-fixed';
 import '@leavittsoftware/titanium-sw-notifier/lib/titanium-sw-notifier';
 import '@leavittsoftware/titanium-side-menu/lib/titanium-side-menu-item';
-import '@leavittsoftware/titanium-dialog/lib/confirm-dialog';
 import '@leavittsoftware/profile-picture/lib/profile-picture-menu';
 import './shared/story-header';
 
@@ -23,8 +22,6 @@ import {
   PendingStateEvent,
   TitaniumFullPageLoadingIndicatorElement,
 } from '@leavittsoftware/titanium-loading-indicator/lib/titanium-full-page-loading-indicator';
-import { ConfirmDialogOpenEvent } from '@leavittsoftware/titanium-dialog/lib/confirm-dialog-open-event';
-import ConfirmDialogElement from '@leavittsoftware/titanium-dialog/lib/confirm-dialog';
 import { Drawer } from '@material/mwc-drawer';
 
 const LGLogo = new URL('../images/lg-logo.svg', import.meta.url).href;
@@ -36,7 +33,6 @@ export class MyAppElement extends LitElement {
   @state() private page: string | undefined;
   @state() private isDesktop: boolean = false;
 
-  @query('confirm-dialog') private confirmDialog: ConfirmDialogElement;
   @query('titanium-full-page-loading-indicator') private loadingIndicator: TitaniumFullPageLoadingIndicatorElement & LitElement;
   @query('mwc-drawer') private drawer: Drawer;
 
@@ -48,10 +44,6 @@ export class MyAppElement extends LitElement {
     });
 
     await this.loadingIndicator.updateComplete;
-
-    this.addEventListener(ConfirmDialogOpenEvent.eventType, async (e: ConfirmDialogOpenEvent) => {
-      this.confirmDialog.handleEvent(e);
-    });
 
     this.addEventListener(ChangePathEvent.eventName, (event: ChangePathEvent) => {
       page.show(event.detail.path);
@@ -68,7 +60,7 @@ export class MyAppElement extends LitElement {
     page('/titanium-full-page-loading-indicator', () =>
       this.#changePage('titanium-full-page-loading-indicator', () => import('./components/titanium-full-page-loading-indicator.js'))
     );
-    page('/titanium-data-table-item', () => this.#changePage('titanium-data-table-item', () => import('./components/titanium-data-table-item-demo.js')));
+    page('/leavitt-date-range', () => this.#changePage('leavitt-date-range', () => import('./demos/leavitt-date-range/leavitt-date-range-demo.js')));
     page('/leavitt-file-explorer', () => this.#changePage('leavitt-file-explorer', () => import('./components/leavitt-file-explorer.js')));
     page('/leavitt-person-select', () => this.#changePage('leavitt-person-select', () => import('./components/leavitt-person-select.js')));
     page('/leavitt-person-company-select', () =>
@@ -77,25 +69,29 @@ export class MyAppElement extends LitElement {
     page('/leavitt-person-group-select', () =>
       this.#changePage('leavitt-person-group-select', () => import('./components/leavitt-person-group-select-demo.js'))
     );
-    page('/mwc-datefield', () => this.#changePage('mwc-datefield', () => import('./components/mwc-datefield-demo.js')));
-    page('/profile-picture', () => this.#changePage('profile-picture', () => import('./components/profile-picture-demo.js')));
+    page('/mwc-datefield', () => this.#changePage('mwc-datefield', () => import('./demos/mwc-datefield/mwc-datefield-demo.js')));
+    page('/profile-picture', () => this.#changePage('profile-picture', () => import('./demos/profile-picture/profile-picture-demo.js')));
     page('/titanium-access-denied-page', () => this.#changePage('titanium-access-denied-page', () => import('./components/titanium-access-denied-page.js')));
     page('/titanium-attachment-input', () =>
       this.#changePage('titanium-attachment-input', () => import('./demos/titanium-attachment-input/titanium-attachment-input-demo.js'))
     );
+    page('/titanium-data-table', () => this.#changePage('titanium-data-table', () => import('./demos/titanium-data-table/titanium-data-table-demo.js')));
     page('/titanium-data-table-item', () => this.#changePage('titanium-data-table-item', () => import('./components/titanium-data-table-item-demo.js')));
     page('/titanium-error-page', () => this.#changePage('titanium-error-page', () => import('./components/titanium-error-page.js')));
     page('/titanium-header', () => this.#changePage('titanium-header', () => import('./components/titanium-header.js')));
-    page('/titanium-button', () => this.#changePage('titanium-button', () => import('./components/titanium-button.js')));
+    page('/titanium-button', () => this.#changePage('titanium-button', () => import('./demos/titanium-button/titanium-button-demo.js')));
     page('/titanium-chip', () => this.#changePage('titanium-chip', () => import('./demos/titanium-chip/titanium-chip-demo.js')));
-    page('/titanium-chip-multi-select', () => this.#changePage('titanium-chip-multi-select', () => import('./components/titanium-chip-multi-select-demo.js')));
+    page('/titanium-chip-multi-select', () =>
+      this.#changePage('titanium-chip-multi-select', () => import('./demos/titanium-chip-multi-select/titanium-chip-multi-select-demo.js'))
+    );
     page('/titanium-data-table-header', () =>
       this.#changePage('titanium-data-table-header', () => import('./demos/titanium-data-table-header/titanium-data-table-header-demo.js'))
     );
     page('/titanium-input-validator', () => this.#changePage('titanium-input-validator', () => import('./components/titanium-input-validator-demo.js')));
     page('/titanium-card-list-item', () => this.#changePage('titanium-card-list-item', () => import('./components/titanium-card-list-item-demo.js')));
-    page('/titanium-dialog-base', () => this.#changePage('titanium-dialog-base', () => import('./components/titanium-dialog-base-demo.js')));
-    page('/titanium-dialog', () => this.#changePage('titanium-dialog', () => import('./components/titanium-dialog-demo.js')));
+    page('/titanium-dialog-base', () => this.#changePage('titanium-dialog-base', () => import('./demos/titanium-dialog-base/titanium-dialog-base-demo.js')));
+    page('/titanium-dialog', () => this.#changePage('titanium-dialog', () => import('./demos/titanium-dialog/titanium-dialog-demo.js')));
+    page('/confirm-dialog', () => this.#changePage('confirm-dialog', () => import('./demos/confirm-dialog/confirm-dialog-demo.js')));
     page('/titanium-full-page-loading-indicator', () =>
       this.#changePage('titanium-full-page-loading-indicator', () => import('./components/titanium-full-page-loading-indicator.js'))
     );
@@ -320,14 +316,7 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>mwc-datefield</span>
               </a>
-              <a href="/profile-picture" ?selected=${!!this.page?.includes('profile-picture')}>
-                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-                <span>profile-picture</span>
-              </a>
-              <a href="/titanium-button" ?selected=${!!this.page?.includes('titanium-button')}>
-                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-                <span>titanium-button</span>
-              </a>
+
               <a href="/titanium-chip" ?selected=${this.page === 'titanium-chip'}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-chip</span>
@@ -335,6 +324,10 @@ export class MyAppElement extends LitElement {
               <a href="/titanium-chip-multi-select" ?selected=${this.page === 'titanium-chip-multi-select'}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-chip-multi-select</span>
+              </a>
+              <a href="/titanium-data-table" ?selected=${this.page === 'titanium-data-table'}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-data-table</span>
               </a>
               <a href="/titanium-data-table-header" ?selected=${!!this.page?.includes('titanium-data-table-header')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
@@ -372,6 +365,10 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-dialog</span>
               </a>
+              <a href="/confirm-dialog" ?selected=${this.page === 'confirm-dialog'}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>confirm-dialog</span>
+              </a>
               <a href="/titanium-header" ?selected=${!!this.page?.includes('titanium-header')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-header</span>
@@ -402,10 +399,19 @@ export class MyAppElement extends LitElement {
               </a>
             </details>
           </section>
+
           <section>
             <details open>
               <summary>Leavitt</summary>
               <!-- Leavitt menu -->
+              <a href="/profile-picture" ?selected=${!!this.page?.includes('profile-picture')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>profile-picture</span>
+              </a>
+              <a href="/leavitt-date-range" ?selected=${!!this.page?.includes('leavitt-date-range')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>leavitt-date-range</span>
+              </a>
               <a href="/leavitt-file-explorer" ?selected=${!!this.page?.includes('leavitt-file-explorer')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>leavitt-file-explorer</span>
@@ -425,9 +431,12 @@ export class MyAppElement extends LitElement {
             </details>
           </section>
           <section>
-            <details open>
+            <details>
               <summary>Deprecated</summary>
-              <!-- Deprecated menu -->
+              <a href="/titanium-button" ?selected=${!!this.page?.includes('titanium-button')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-button</span>
+              </a>
             </details>
           </section>
         </div>
@@ -442,6 +451,9 @@ export class MyAppElement extends LitElement {
             ? html` <leavitt-file-explorer-demo ?isActive=${this.page === 'leavitt-file-explorer'}></leavitt-file-explorer-demo> `
             : nothing}
           ${this.page === 'mwc-datefield' ? html` <mwc-datefield-demo ?isActive=${this.page === 'mwc-datefield'}></mwc-datefield-demo> ` : nothing}
+          ${this.page === 'leavitt-date-range'
+            ? html` <leavitt-date-range-demo ?isActive=${this.page === 'leavitt-date-range'}></leavitt-date-range-demo> `
+            : nothing}
           ${this.page === 'leavitt-person-select'
             ? html` <leavitt-person-select-demo ?isActive=${this.page === 'leavitt-person-select'}></leavitt-person-select-demo> `
             : nothing}
@@ -459,6 +471,9 @@ export class MyAppElement extends LitElement {
             : nothing}
           ${this.page === 'titanium-card-list-item'
             ? html` <titanium-card-list-item-demo ?isActive=${this.page === 'titanium-card-list-item'}></titanium-card-list-item-demo> `
+            : nothing}
+          ${this.page === 'titanium-data-table'
+            ? html` <titanium-data-table-demo ?isActive=${this.page === 'titanium-data-table'}></titanium-data-table-demo> `
             : nothing}
           ${this.page === 'titanium-data-table-header'
             ? html` <titanium-data-table-header-demo ?isActive=${this.page === 'titanium-data-table-header'}></titanium-data-table-header-demo> `
@@ -503,11 +518,11 @@ export class MyAppElement extends LitElement {
             ? html` <titanium-dialog-base-demo ?isActive=${this.page === 'titanium-dialog-base'}></titanium-dialog-base-demo> `
             : nothing}
           ${this.page === 'titanium-dialog' ? html` <titanium-dialog-demo ?isActive=${this.page === 'titanium-dialog'}></titanium-dialog-demo> ` : nothing}
+          ${this.page === 'confirm-dialog' ? html` <confirm-dialog-demo ?isActive=${this.page === 'confirm-dialog'}></confirm-dialog-demo> ` : nothing}
         </div>
       </mwc-drawer>
       <titanium-snackbar></titanium-snackbar>
       <titanium-sw-notifier></titanium-sw-notifier>
-      <confirm-dialog></confirm-dialog>
     `;
   }
 }
