@@ -39,6 +39,12 @@ export class TitaniumDataTableItemPlayground extends LitElement {
         gap: 0;
         flex-direction: column;
       }
+
+      div[methods] {
+        display: flex;
+        gap: 24px;
+        flex-direction: column;
+      }
     `,
   ];
 
@@ -56,11 +62,13 @@ export class TitaniumDataTableItemPlayground extends LitElement {
 
       <h1>Methods</h1>
       <p>Select, Deselect, Toggle</p>
-      <div>
+      <div methods>
         <titanium-data-table-item select-demo>Item</titanium-data-table-item>
-        <titanium-button raised @click=${() => this.selectItem.select()}>select()</titanium-button>
-        <titanium-button raised @click=${() => this.selectItem.deselect()}>deselect()</titanium-button>
-        <titanium-button raised @click=${() => this.selectItem.toggleSelected()}>toggleSelected()</titanium-button>
+        <section>
+          <titanium-button raised @click=${() => this.selectItem.select()}>select()</titanium-button>
+          <titanium-button raised @click=${() => this.selectItem.deselect()}>deselect()</titanium-button>
+          <titanium-button raised @click=${() => this.selectItem.toggleSelected()}>toggleSelected()</titanium-button>
+        </section>
       </div>
     `;
   }

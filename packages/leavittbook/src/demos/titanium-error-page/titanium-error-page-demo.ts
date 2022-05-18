@@ -13,7 +13,7 @@ export class TitaniumErrorDemoElement extends LitElement {
     StoryStyles,
     css`
       playground-ide {
-        height: 900px;
+        height: 600px;
       }
     `,
   ];

@@ -13,7 +13,7 @@ export class TitaniumInputValidatorDemoElement extends LitElement {
     StoryStyles,
     css`
       playground-ide {
-        height: 900px;
+        height: 500px;
       }
     `,
   ];
