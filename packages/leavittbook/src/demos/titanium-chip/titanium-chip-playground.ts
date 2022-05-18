@@ -2,10 +2,11 @@
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/titanium-styles';
+import '@leavittsoftware/profile-picture';
+import '@material/mwc-icon';
 
 /* playground-fold-end */
 import '@leavittsoftware/titanium-chip';
-import '@material/mwc-icon';
 
 /* playground-fold */
 @customElement('titanium-chip-playground')
@@ -53,15 +54,10 @@ export class TitaniumChipPlayground extends LitElement {
         <titanium-chip name="PayWith" selectable label="Check"> <mwc-icon slot="chip-icon">savings</mwc-icon></titanium-chip>
       </div>
 
-      <h1>Images</h1>
-      <p>Examples using the image src attribute as well as fallbackSrc</p>
+      <h1>Profile pictures</h1>
+      <p>Slot in the profile picture element</p>
       <div>
-        <titanium-chip label="Image" src="https://cdn.leavitt.com/user-771130-32.jpeg"></titanium-chip>
-        <titanium-chip
-          label="Fallback image"
-          src="https://cdn.leavitt.com/user-77asd0-32.jpeg"
-          fallbackSrc="https://www.leavitt.com/application/themes/lg/img/logo/leavitt-group-logo.svg"
-        ></titanium-chip>
+        <titanium-chip label="The Rock"><profile-picture slot="chip-icon" personId="915608" size="28"></profile-picture ></profile-picture></titanium-chip>
       </div>
 
       <h1>Icons</h1>
