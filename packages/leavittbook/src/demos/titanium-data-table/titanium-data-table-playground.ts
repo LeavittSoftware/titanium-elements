@@ -1,9 +1,8 @@
-import { LitElement, html, css } from 'lit';
-import { customElement, query, state } from 'lit/decorators.js';
-import { h1, h2, h3, h5, p } from '@leavittsoftware/titanium-styles';
-import StoryStyles from '../styles/story-styles';
-import '@leavittsoftware/titanium-card';
-import '@leavittsoftware/titanium-data-table';
+/* playground-fold */
+import { css, html, LitElement } from 'lit';
+import { customElement, state, query } from 'lit/decorators.js';
+import { h1, p } from '@leavittsoftware/titanium-styles';
+
 import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-item';
 import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-header';
 import '@leavittsoftware/titanium-search-input';
@@ -13,12 +12,14 @@ import '@material/mwc-button';
 import '@material/mwc-menu';
 import '@material/mwc-list/mwc-list-item';
 import '@material/mwc-switch';
-import '@material/mwc-formfield';
 
-import '../shared/code-block';
-import '../shared/story-header';
-import '@api-viewer/docs';
-import '@material/mwc-icon';
+import '@material/mwc-formfield';
+import '@material/mwc-select';
+import '@material/mwc-dialog';
+import '@leavittsoftware/titanium-chip';
+import { FilterController } from '@leavittsoftware/titanium-data-table/lib/filter-controller';
+import { Select } from '@material/mwc-select';
+import { Dialog } from '@material/mwc-dialog';
 
 import { getSearchTokens } from '@leavittsoftware/titanium-helpers/lib/titanium-search-token';
 import { TitaniumDataTableElement } from '@leavittsoftware/titanium-data-table/lib/titanium-data-table.js';
@@ -28,10 +29,12 @@ import { ActionDetail } from '@material/mwc-list/mwc-list-foundation';
 import { repeat } from 'lit/directives/repeat.js';
 import { DOMEvent } from '@leavittsoftware/leavitt-elements/lib/dom-event';
 import { TitaniumSearchInput } from '@leavittsoftware/titanium-search-input';
-import { FilterKeys, DataTableDemoFilterModalElement } from './data-table-demo-filter-modal';
-import './data-table-demo-filter-modal';
-import { FilterController } from '@leavittsoftware/titanium-data-table/lib/filter-controller';
+/* playground-fold-end */
+import '@leavittsoftware/titanium-data-table';
+import '@material/mwc-icon';
 
+/* playground-fold */
+type FilterKeys = 'Appearance';
 type Car = { Name: string; Appearance: 'plaid' | 'ugly' | 'slick' };
 
 const allTeslas: Array<Car> = [
@@ -47,8 +50,8 @@ const allTeslas: Array<Car> = [
   { Name: 'Gen. 2 Roadster', Appearance: 'slick' },
 ];
 
-@customElement('titanium-data-table-demo')
-export class TitaniumDataTableDemoElement extends LitElement {
+@customElement('titanium-data-table-playground')
+export class TitaniumDataTablePlayground extends LitElement {
   @state() private allItems: Array<Partial<Car>> = [];
   @state() private items: Array<Partial<Car>> = [];
   @state() private draggableItems: Array<Partial<Car>> = [];
@@ -131,12 +134,19 @@ export class TitaniumDataTableDemoElement extends LitElement {
 
   static styles = [
     h1,
-    h2,
-    h3,
-    h5,
     p,
-    StoryStyles,
     css`
+      :host {
+        display: flex;
+        flex-direction: column;
+        --mdc-icon-font: 'Material Icons Outlined';
+        margin: 24px 12px;
+      }
+
+      div {
+        margin: 24px 0 36px 0;
+      }
+
       mwc-button,
       mwc-formfield {
         margin: 4px;
@@ -144,30 +154,24 @@ export class TitaniumDataTableDemoElement extends LitElement {
     `,
   ];
 
-  #defaultStory() {
+  render() {
+    /* playground-fold-end */
     return html`
+      <h1>Default</h1>
+      <p>Examples using disabled, closeable, and readonly attribute</p>
       <div>
-        <h1>Default</h1>
         <titanium-data-table></titanium-data-table>
       </div>
-    `;
-  }
 
-  #propsStory() {
-    return html`
+      <h1>Prop examples</h1>
+      <p>Table with header, pagesSize, count, searchTerm</p>
       <div>
-        <h1>Prop examples</h1>
-        <p>Table with header, pagesSize, count, searchTerm</p>
         <titanium-data-table header="My Header" .pageSizes=${[1, 2, 3, 4]} .count=${3} searchTerm="www.google.com"></titanium-data-table>
       </div>
-    `;
-  }
 
-  #fullStory() {
-    return html`
+      <h1>Full working example</h1>
+      <p>Table with items and method controls</p>
       <div>
-        <h1>Full working example</h1>
-        <p>Table with items and method controls</p>
         <titanium-data-table
           full-story
           header="Tesla Motors"
@@ -340,14 +344,10 @@ export class TitaniumDataTableDemoElement extends LitElement {
           >clear Selection</mwc-button
         >
       </div>
-    `;
-  }
 
-  #draggableStory() {
-    return html`
+      <h1>Draggable</h1>
+      <p>Table with draggable items</p>
       <div>
-        <h1>Draggable</h1>
-        <p>Table with draggable items</p>
         <titanium-data-table
           header="Draggable"
           .items=${this.draggableItems}
@@ -391,27 +391,97 @@ export class TitaniumDataTableDemoElement extends LitElement {
       </div>
     `;
   }
+}
+
+@customElement('data-table-demo-filter-modal')
+export class DataTableDemoFilterModalElement extends LitElement {
+  @state() private filterController: FilterController<FilterKeys>;
+  @state() private appearance: string;
+
+  @query('mwc-dialog') private dialog!: Dialog;
+
+  async firstUpdated() {
+    this.filterController.onFilterValueUpdated = () => {
+      this.requestUpdate('filterController');
+    };
+  }
+
+  public async open() {
+    this.dialog.show();
+  }
+
+  static styles = [
+    css`
+      :host {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        color: var(--app-text-color, #5f6368);
+      }
+
+      mwc-dialog {
+        --mdc-dialog-min-width: 450px;
+      }
+
+      @media (max-width: 600px) {
+        mwc-dialog {
+          --mdc-dialog-min-width: inherit;
+        }
+      }
+
+      mwc-select {
+        --mdc-menu-min-width: calc(var(--mdc-dialog-min-width) - 50px);
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+    `,
+  ];
 
   render() {
     return html`
-      <story-header name="Titanium data table" tagName="titanium-data-table" klass="TitaniumDataTableElement"></story-header>
-      <titanium-card>
-        ${this.#defaultStory()}
-        <code-block .snippet=${this.#defaultStory()}> </code-block>
-      </titanium-card>
-      <titanium-card>
-        ${this.#propsStory()}
-        <code-block .snippet=${this.#propsStory()}> </code-block>
-      </titanium-card>
-      <titanium-card>
-        ${this.#fullStory()}
-        <code-block .snippet=${this.#fullStory()}> </code-block>
-      </titanium-card>
-      <titanium-card>
-        ${this.#draggableStory()}
-        <code-block .snippet=${this.#draggableStory()}> </code-block>
-      </titanium-card>
-      <api-docs src="./custom-elements.json" selected="titanium-data-table"></api-docs>
+      <titanium-chip
+        ?hidden=${!this.filterController.getValue('Appearance')}
+        label="${this.filterController.getValue('Appearance') ?? ''}"
+        closeable
+        @titanium-chip-close=${() => {
+          this.filterController.setValue('Appearance', null);
+          this.requestUpdate('filterController');
+        }}
+      ></titanium-chip>
+
+      <mwc-dialog heading="Filter items by">
+        <main>
+          <form>
+            <mwc-select
+              fixedMenuPosition
+              .value=${this.filterController.getValue('Appearance') ?? ''}
+              @selected=${(e: DOMEvent<Select>) => {
+                this.appearance = e.target.value;
+              }}
+              label="Appearance"
+              outlined
+            >
+              <mwc-list-item></mwc-list-item>
+              <mwc-list-item value="ugly" ?selected=${this.filterController.getValue('Appearance') === 'ugly'}>ugly</mwc-list-item>
+              <mwc-list-item value="plaid" ?selected=${this.filterController.getValue('Appearance') === 'plaid'}>plaid</mwc-list-item>
+              <mwc-list-item value="slick" ?selected=${this.filterController.getValue('Appearance') === 'slick'}>slick</mwc-list-item>
+            </mwc-select>
+          </form>
+        </main>
+        <mwc-button slot="secondaryAction" label="Close" @click=${() => this.dialog.close()}></mwc-button>
+        <mwc-button
+          slot="primaryAction"
+          label="Apply"
+          @click=${() => {
+            this.filterController.setValue('Appearance', this.appearance || null);
+            this.requestUpdate('filterController');
+            this.dialog.close();
+          }}
+        ></mwc-button>
+      </mwc-dialog>
     `;
   }
 }
