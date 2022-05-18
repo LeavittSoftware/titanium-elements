@@ -317,10 +317,6 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>mwc-datefield</span>
               </a>
-              <a href="/profile-picture" ?selected=${!!this.page?.includes('profile-picture')}>
-                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-                <span>profile-picture</span>
-              </a>
 
               <a href="/titanium-chip" ?selected=${this.page === 'titanium-chip'}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
@@ -397,6 +393,10 @@ export class MyAppElement extends LitElement {
             <details open>
               <summary>Leavitt</summary>
               <!-- Leavitt menu -->
+              <a href="/profile-picture" ?selected=${!!this.page?.includes('profile-picture')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>profile-picture</span>
+              </a>
               <a href="/leavitt-file-explorer" ?selected=${!!this.page?.includes('leavitt-file-explorer')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>leavitt-file-explorer</span>

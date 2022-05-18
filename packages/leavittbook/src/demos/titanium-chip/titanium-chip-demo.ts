@@ -20,7 +20,7 @@ export class TitaniumChipDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="Titanium chip" packageName="titanium-chip" tagName="titanium-chip" klass="TitaniumChipElement"></story-header>
+      <story-header name="Titanium chip" packageName="titanium-chip" className="TitaniumChipElement"></story-header>
       <playground-ide line-numbers resizable project-src="../src/demos/titanium-chip/project.json"> </playground-ide>
       <api-docs src="./custom-elements.json" selected="titanium-chip"></api-docs>
     `;

@@ -1,15 +1,21 @@
 import { css, html, LitElement, nothing, PropertyValues } from 'lit';
-import { customElement, property, query } from 'lit/decorators.js';
-import { h1, h2, p } from '@leavittsoftware/titanium-styles';
+import { customElement, property, query, state } from 'lit/decorators.js';
+import { h1, p } from '@leavittsoftware/titanium-styles';
 import '@leavittsoftware/titanium-chip';
 import { CountUp } from 'countup.js';
+
+type CustomElementDeclaration = {
+  name?: string;
+  description?: string;
+  tagName?: string;
+  kind?: string;
+};
 
 @customElement('story-header')
 export default class StoryHeaderElement extends LitElement {
   @property({ type: String }) name: string;
-  @property({ type: String }) tagName: string;
   @property({ type: String }) packageName: string;
-  @property({ type: String }) klass: string;
+  @property({ type: String }) className: string;
   @property({ type: String }) deprecatedReason: string;
 
   @query('span.major') private major: HTMLDivElement;
@@ -17,7 +23,21 @@ export default class StoryHeaderElement extends LitElement {
   @query('span.rev') private rev: HTMLDivElement;
   @query('span.downloads') private downloads: HTMLDivElement;
 
+  @state()
+  customElementsJSON: { modules: [{ declarations: Array<CustomElementDeclaration> }] } | null = null;
+
+  @state()
+  customElementDeclaration: CustomElementDeclaration | null = null;
+
+  async firstUpdated() {
+    this.customElementsJSON = await this.readCustomElementsJson('/custom-elements.json');
+  }
+
   async updated(changedProps: PropertyValues<this>) {
+    if ((changedProps.has('className') || changedProps.has('customElementsJSON')) && this.className && this.customElementsJSON) {
+      this.customElementDeclaration = this.customElementsJSON?.modules.flatMap(o => o.declarations).find(o => o.name === this.className) ?? null;
+    }
+
     if (changedProps.has('packageName') && this.packageName) {
       const [version, downloadCount] = (await this.getVersion(this.packageName)) ?? [];
 
@@ -41,20 +61,26 @@ export default class StoryHeaderElement extends LitElement {
     }
   }
 
+  private async readCustomElementsJson(path: string) {
+    try {
+      const response = await fetch(path, {
+        method: 'GET',
+      });
+      const text = await response.text();
+      return text.length ? JSON.parse(text) : {};
+    } catch (error) {
+      console.warn(error);
+    }
+    return null;
+  }
+
   private async getVersion(packageName: string): Promise<[string, number] | null> {
     try {
       const response = await fetch(`https://api.npms.io/v2/package/@leavittsoftware%2F${packageName}`, {
         method: 'GET',
       });
       const text = await response.text();
-      let json;
-      try {
-        json = text.length ? JSON.parse(text) : {};
-      } catch (error) {
-        console.warn(error);
-        return null;
-      }
-
+      const json = text.length ? JSON.parse(text) : {};
       return [
         json.collected.metadata.version as string,
         json.collected.npm.downloads.reduce((previousValue, currentValue) => currentValue.count + previousValue, 0) as number,
@@ -67,31 +93,32 @@ export default class StoryHeaderElement extends LitElement {
 
   static styles = [
     h1,
-    h2,
+
     p,
     css`
       :host {
         display: block;
-        padding-bottom: 24px;
-        border-bottom: 1px solid var(--app-border-color);
-        margin-bottom: 48px;
+        padding-bottom: 48px;
       }
 
-      h1,
-      h2 {
+      h1 {
         padding: 0;
         margin: 0;
       }
 
-      h2 {
+      [code] {
         font-family: Consolas, monospace;
         color: var(--app-light-text-color);
-        font-size: 20px;
+        font-size: 18px;
+      }
+
+      p[desc] {
+        margin-top: 12px;
       }
 
       h1 {
         font-size: 36px;
-        line-height: 65px;
+        line-height: 44px;
         font-weight: 400;
         padding: 0;
         margin: 0;
@@ -132,10 +159,13 @@ export default class StoryHeaderElement extends LitElement {
     return html`
       <h1>${this.name}</h1>
       <info-container>
-        <h2>${'<'}${this.tagName}${'>'}</h2>
-        <h2>|</h2>
-        <h2>${this.klass}</h2>
+        ${this.customElementDeclaration?.tagName
+          ? html`<p code>${'<'}${this.customElementDeclaration?.tagName}${'>'}</p>
+              <p>|</p>`
+          : ''}
+        <p code>${this.className}</p>
       </info-container>
+      <p desc>${this.customElementDeclaration?.description}</p>
       <chip-container>
         <titanium-chip readonly black>
           <span slot="label"><span class="major"></span><span class="minor"></span><span class="rev"></span></span>

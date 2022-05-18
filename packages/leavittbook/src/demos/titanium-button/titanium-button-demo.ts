@@ -20,14 +20,7 @@ export class TitaniumButtonDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header
-        name="Titanium button"
-        deprecatedReason="use mwc-button"
-        packageName="titanium-button"
-        packageName="titanium-button"
-        tagName="titanium-button"
-        klass="TitaniumButtonElement"
-      ></story-header>
+      <story-header name="Titanium button" deprecatedReason="use mwc-button" packageName="titanium-button" className="TitaniumButtonElement"></story-header>
       <playground-ide line-numbers resizable project-src="../src/demos/titanium-button/project.json"> </playground-ide>
       <api-docs src="./custom-elements.json" selected="titanium-button"></api-docs>
     `;

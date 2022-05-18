@@ -20,7 +20,7 @@ export class ProfilePictureDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="Profile picture" packageName="profile-picture" tagName="profile-picture" klass="ProfilePictureElement"></story-header>
+      <story-header name="Profile picture" packageName="profile-picture" className="ProfilePictureElement"></story-header>
       <playground-ide line-numbers resizable project-src="../src/demos/profile-picture/project.json"> </playground-ide>
       <api-docs src="./custom-elements.json" selected="profile-picture"></api-docs>
     `;
