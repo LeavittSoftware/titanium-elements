@@ -7,15 +7,15 @@ import '@material/mwc-button';
 import '@material/mwc-textfield';
 /* playground-fold-end */
 
-import '@leavittsoftware/titanium-dialog';
+import '@leavittsoftware/titanium-dialog/lib/titanium-dialog-base';
 
 /* playground-fold */
-@customElement('titanium-dialog-playground')
+@customElement('titanium-dialog-base-playground')
 export class TitaniumDialogPlayground extends LitElement {
-  @query('titanium-dialog[default]') defaultDialog;
-  @query('titanium-dialog[fullwidth]') fullWidthAndHeighDialog;
-  @query('titanium-dialog[max-width]') maxWidthDialog;
-  @query('titanium-dialog[focus-trap]') focusTrapDialog;
+  @query('titanium-dialog-base[default]') defaultDialog;
+  @query('titanium-dialog-base[fullwidth]') fullWidthAndHeighDialog;
+  @query('titanium-dialog-base[max-width]') maxWidthDialog;
+  @query('titanium-dialog-base[focus-trap]') focusTrapDialog;
 
   static styles = [
     h1,
@@ -40,7 +40,7 @@ export class TitaniumDialogPlayground extends LitElement {
 
       [focus-trap],
       [max-width] {
-        --titanium-dialog-max-width: 350px;
+        --titanium-dialog-base-max-width: 350px;
       }
 
       p,
@@ -79,21 +79,26 @@ export class TitaniumDialogPlayground extends LitElement {
     return html`
       <div>
         <h1>Default</h1>
-        <p>titanium-dialog with no configuration set</p>
+        <p>titanium-dialog-base with no configuration set</p>
         <mwc-button @click=${() => this.defaultDialog?.open()} label="Fake Donation"></mwc-button>
 
-        <titanium-dialog default header="Donations">
-          <mwc-textfield slot="content" outlined label="Donation amount"></mwc-textfield>
-        </titanium-dialog>
+        <titanium-dialog-base default>
+          <custom-container>
+            <h1>Donations</h1>
+            <mwc-textfield outlined label="Donation amount"></mwc-textfield>
+            <mwc-button @click=${() => this.defaultDialog?.close()} label="Submit"></mwc-button>
+          </custom-container>
+        </titanium-dialog-base>
       </div>
 
       <div>
         <h1>Full width & height</h1>
-        <p>titanium-dialog with the fullwidth and fullheight attribute set</p>
+        <p>titanium-dialog-base with the fullwidth and fullheight attribute set</p>
         <mwc-button @click=${() => this.fullWidthAndHeighDialog?.open()} label="The Roman System Of Goverment"></mwc-button>
 
-        <titanium-dialog header="The Roman System Of Goverment" fullwidth fullheight>
-          <custom-container slot="content">
+        <titanium-dialog-base fullwidth fullheight>
+          <custom-container>
+            <h1>The Roman System Of Goverment</h1>
             <p>
               Roman political history has an unusual meaning and value for us, because the Romans had to face so many of the problems which confront us today,
               and their experience ran through such a wide range. Few peoples can boast of an unbroken history of a thousand years, and perhaps none has tried
@@ -103,17 +108,19 @@ export class TitaniumDialogPlayground extends LitElement {
               the points of strength and of weakness in an aristocracy, a plutocracy, a parliamentary government, a democratic empire, and an autocracy. We may
               also trace in the history of Rome the development of a city-state into a world-wide empire. -Frank Frost Abbott
             </p>
+            <mwc-button @click=${() => this.fullWidthAndHeighDialog?.close()} label="close"></mwc-button>
           </custom-container>
-        </titanium-dialog>
+        </titanium-dialog-base>
       </div>
 
       <div>
         <h1>Max Width</h1>
-        <p>titanium-dialog with a max-width applied via css variable</p>
+        <p>titanium-dialog-base with a max-width applied via css variable</p>
         <mwc-button @click=${() => this.maxWidthDialog?.open()} label="THE PRACTICE & SCIENCE OF DRAWING"></mwc-button>
 
-        <titanium-dialog header="THE PRACTICE & SCIENCE OF DRAWING" max-width>
-          <custom-container slot="content">
+        <titanium-dialog-base max-width>
+          <custom-container>
+            <h1>THE PRACTICE & SCIENCE OF DRAWING</h1>
             <p>
               There is much foolish talk about conventional art, as if art could ever get away from conventions, if it would. The convention will be more
               natural or more abstract according to the nature of the thing to be conveyed and the medium employed to express it. But naturalism is just as much
@@ -122,21 +129,19 @@ export class TitaniumDialogPlayground extends LitElement {
               real natural chairs, tables, and floors, real clothes, and even real hair. Realism everywhere, but no life. And we all know the result. There is
               more expression of life in a few lines scribbled on paper by a good artist than in all the reality of the popular show. - Harold Speed
             </p>
+            <mwc-button @click=${() => this.maxWidthDialog?.close()} label="Close"></mwc-button>
           </custom-container>
-        </titanium-dialog>
+        </titanium-dialog-base>
       </div>
 
       <div>
         <h1>Focus Trap</h1>
-        <p>
-          titanium-dialog with the focus-trap attribute applied - this will prevent tabbing outside of the dialog
-          <br />
-          <story-note> Note: with focus-trap enabled there will be no close button provided by default </story-note>
-        </p>
+        <p>titanium-dialog-base with the focus-trap attribute applied - this will prevent tabbing outside of the dialog</p>
         <mwc-button @click=${() => this.focusTrapDialog?.open()} label="Tarzan of the Apes"></mwc-button>
 
-        <titanium-dialog header="Tarzan of the Apes" focus-trap>
-          <custom-container slot="content">
+        <titanium-dialog-base focus-trap>
+          <custom-container>
+            <h1>Tarzan of the Apes</h1>
             <p>
               Clayton was the type of Englishman that one likes best to associate with the noblest monuments of historic achievement upon a thousand victorious
               battlefields—a strong, virile man—mentally, morally, and physically. In stature he was above the average height; his eyes were gray, his features
@@ -144,12 +149,9 @@ export class TitaniumDialogPlayground extends LitElement {
               seek transference from the army to the Colonial Office and so we find him, still young, entrusted with a delicate and important commission in the
               service of the Queen. - Edgar Rice Burroughs
             </p>
+            <mwc-button @click=${() => this.focusTrapDialog?.close()} label="Close"></mwc-button>
           </custom-container>
-          <span slot="actions">
-            <mwc-button @click=${() => this.focusTrapDialog?.close()} label="Cancel"></mwc-button>
-            <mwc-button @click=${() => this.focusTrapDialog?.close()} autofocus label="Ok"></mwc-button>
-          </span>
-        </titanium-dialog>
+        </titanium-dialog-base>
       </div>
     `;
   }
