@@ -105,7 +105,12 @@ export class LeavittPersonCompanySelectDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="Leavitt person company select" tagName="leavitt-person-company-select" klass="LeavittPersonCompanySelectElement"></story-header>
+      <story-header
+        name="Leavitt person company select"
+        packageName="leavitt-elements"
+        tagName="leavitt-person-company-select"
+        klass="LeavittPersonCompanySelectElement"
+      ></story-header>
       <titanium-card>
         ${this.#defaultStory()}
         <code-block .snippet=${this.#defaultStory()}> </code-block>

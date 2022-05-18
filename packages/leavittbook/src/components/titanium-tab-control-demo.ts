@@ -58,7 +58,12 @@ export class TitaniumTabControlDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="Titanium tab control" tagName="titanium-tab-control" klass="TitaniumTabControlElement"></story-header>
+      <story-header
+        name="Titanium tab control"
+        packageName="titanium-tab-control"
+        tagName="titanium-tab-control"
+        klass="TitaniumTabControlElement"
+      ></story-header>
       <titanium-card>
         ${this.#defaultStory()}
         <code-block .snippet=${this.#defaultStory()}> </code-block>

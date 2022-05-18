@@ -33,7 +33,7 @@ export class TitaniumProgressDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="Titanium progress" tagName="titanium-progress" klass="TitaniumProgressElement"></story-header>
+      <story-header name="Titanium progress" packageName="titanium-progress" tagName="titanium-progress" klass="TitaniumProgressElement"></story-header>
       <titanium-card>
         ${this.#defaultStory()}
         <code-block .snippet=${this.#defaultStory()}> </code-block>

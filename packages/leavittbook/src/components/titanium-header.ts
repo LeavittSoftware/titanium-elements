@@ -34,7 +34,7 @@ export class TitaniumHeaderDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="Titanium header" tagName="titanium-header" klass="TitaniumHeaderElement"></story-header>
+      <story-header name="Titanium header" packageName="titanium-header" tagName="titanium-header" klass="TitaniumHeaderElement"></story-header>
       <titanium-card>
         ${this.#defaultStory()}
         <code-block .snippet=${this.#defaultStory()}> </code-block>

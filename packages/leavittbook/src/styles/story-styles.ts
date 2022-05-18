@@ -5,6 +5,11 @@ const StoryStyles = css`
     margin-bottom: 36px;
   }
 
+  playground-ide {
+    height: 650px;
+    --playground-preview-width: 60%;
+  }
+
   h1 {
     margin-bottom: 0;
   }
