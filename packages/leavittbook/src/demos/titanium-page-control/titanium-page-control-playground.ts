@@ -71,6 +71,11 @@ export class TitaniumPageControlPlayground extends LitElement {
         <titanium-page-control></titanium-page-control>
       </div>
 
+      <h1>Disabled</h1>
+      <div>
+        <titanium-page-control disabled></titanium-page-control>
+      </div>
+
       <h1>Full example</h1>
       ${this.filteredData?.map(item => html` <p example-item>${item?.name}, ${item?.id}</p> `)}
       <div>
