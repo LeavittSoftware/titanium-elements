@@ -39,15 +39,41 @@ export const DateRanges = {
 };
 export type DateRangeType = keyof typeof DateRanges | 'custom';
 
+/**
+ *  Date range selector that allows selection from a list of pre-defined ranges or a custom range
+ *
+ *  @element leavitt-date-range
+ *
+ *  @fires date-range-changed - Fired when a range selection is made or cleared or the start or end date are changed to a valid combination
+ *
+ */
 @customElement('leavitt-date-range')
 export class LeavittDateRangeElement extends LitElement {
+  /**
+   *  The currently selected range. Automatically changed to 'custom' if the start or end date is changed by the user
+   */
   @property({ type: String }) range: DateRangeType = 'custom';
+  /**
+   *  The current start date. Automatically changed if the range select is changed to anything except 'custom'
+   */
   @property({ type: String }) startDate: string = '';
+  /**
+   *  The current end date. Automatically changed if the range select is changed to anything except 'custom'
+   */
   @property({ type: String }) endDate: string = '';
 
+  /**
+   * @ignore
+   */
   @query('mwc-datefield[start-date]') startDateField: DateField & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
+  /**
+   * @ignore
+   */
   @query('mwc-datefield[end-date]') endDateField: DateField & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
 
+  /**
+   * resets the validity of the start and end date inputs
+   */
   async reset() {
     if (this.startDateField) {
       this.startDateField.isUiValid = true;
@@ -62,6 +88,9 @@ export class LeavittDateRangeElement extends LitElement {
     }
   }
 
+  /**
+   * forces layout on start and end date inputs
+   */
   async layout() {
     return Promise.all([this.startDateField.layout(), this.endDateField.layout()]);
   }
@@ -149,6 +178,9 @@ export class LeavittDateRangeElement extends LitElement {
           }
 
           if (this._checkValidity()) {
+            /**
+             * @ignore
+             */
             this.dispatchEvent(new DateRangeChangedEvent(this.range, this.startDate, this.endDate));
           }
         }}

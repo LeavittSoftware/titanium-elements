@@ -69,6 +69,7 @@ export class MyAppElement extends LitElement {
       this.#changePage('titanium-full-page-loading-indicator', () => import('./components/titanium-full-page-loading-indicator.js'))
     );
     page('/titanium-data-table-item', () => this.#changePage('titanium-data-table-item', () => import('./components/titanium-data-table-item-demo.js')));
+    page('/leavitt-date-range', () => this.#changePage('leavitt-date-range', () => import('./demos/leavitt-date-range/leavitt-date-range-demo.js')));
     page('/leavitt-file-explorer', () => this.#changePage('leavitt-file-explorer', () => import('./components/leavitt-file-explorer.js')));
     page('/leavitt-person-select', () => this.#changePage('leavitt-person-select', () => import('./components/leavitt-person-select.js')));
     page('/leavitt-person-company-select', () =>
@@ -399,6 +400,10 @@ export class MyAppElement extends LitElement {
             <details open>
               <summary>Leavitt</summary>
               <!-- Leavitt menu -->
+              <a href="/leavitt-date-range" ?selected=${!!this.page?.includes('leavitt-date-range')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>leavitt-date-range</span>
+              </a>
               <a href="/leavitt-file-explorer" ?selected=${!!this.page?.includes('leavitt-file-explorer')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>leavitt-file-explorer</span>
@@ -435,6 +440,9 @@ export class MyAppElement extends LitElement {
             ? html` <leavitt-file-explorer-demo ?isActive=${this.page === 'leavitt-file-explorer'}></leavitt-file-explorer-demo> `
             : nothing}
           ${this.page === 'mwc-datefield' ? html` <mwc-datefield-demo ?isActive=${this.page === 'mwc-datefield'}></mwc-datefield-demo> ` : nothing}
+          ${this.page === 'leavitt-date-range'
+            ? html` <leavitt-date-range-demo ?isActive=${this.page === 'leavitt-date-range'}></leavitt-date-range-demo> `
+            : nothing}
           ${this.page === 'leavitt-person-select'
             ? html` <leavitt-person-select-demo ?isActive=${this.page === 'leavitt-person-select'}></leavitt-person-select-demo> `
             : nothing}
