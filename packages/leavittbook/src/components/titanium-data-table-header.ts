@@ -16,12 +16,14 @@ export class TitaniumDateTableHeaderDemoElement extends LitElement {
     return html`
       <div>
         <h1>Default</h1>
-        <p>Examples using large, right, no-sort, and width attributes</p>
-        <titanium-data-table-header large column-name="Name" large title="Name"></titanium-data-table-header>
-        <titanium-data-table-header column-name="SName" desktop title="Short Name"></titanium-data-table-header>
-        <titanium-data-table-header column-name="person_type" right desktop title="Type"></titanium-data-table-header>
-        <titanium-data-table-header no-sort desktop center width="105px" title="Phone Number"></titanium-data-table-header>
-        <titanium-data-table-header no-sort width="75px" right title="Locations"></titanium-data-table-header>
+        <p>Examples using left, center, right, large, no-sort, desktop, and width attributes</p>
+        <titanium-data-table-header left column-name="Left" title="Left"></titanium-data-table-header>
+        <titanium-data-table-header center column-name="Center" title="Center"></titanium-data-table-header>
+        <titanium-data-table-header right column-name="Right" title="Right"></titanium-data-table-header>
+        <titanium-data-table-header large column-name="Large" title="Large"></titanium-data-table-header>
+        <titanium-data-table-header no-sort column-name="NoSort" title="No sort"></titanium-data-table-header>
+        <titanium-data-table-header desktop column-name="Desktop" title="Desktop"></titanium-data-table-header>
+        <titanium-data-table-header width="200px" column-name="Width" title="Width"></titanium-data-table-header>
       </div>
     `;
   }
