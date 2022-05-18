@@ -79,7 +79,7 @@ export class TitaniumToolbarDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="Titanium toolbar" tagName="titanium-toolbar" klass="TitaniumToolbarElement"></story-header>
+      <story-header name="Titanium toolbar" packageName="titanium-toolbar" tagName="titanium-toolbar" klass="TitaniumToolbarElement"></story-header>
       <titanium-card>
         ${this.#defaultStory()}
         <code-block .snippet=${this.#defaultStory()}> </code-block>

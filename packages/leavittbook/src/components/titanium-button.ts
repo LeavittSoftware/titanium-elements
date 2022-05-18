@@ -66,7 +66,13 @@ export class TitaniumButtonDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="Titanium button" tagName="titanium-button" klass="TitaniumButtonElement"></story-header>
+      <story-header
+        name="Titanium button"
+        packageName="titanium-button"
+        packageName="titanium-button"
+        tagName="titanium-button"
+        klass="TitaniumButtonElement"
+      ></story-header>
       <titanium-card>
         ${this.#defaultStory()}
         <code-block .snippet=${this.#defaultStory()}> </code-block>

@@ -90,7 +90,12 @@ export class TitaniumAttachmentInputDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="Titanium Attachment Input" tagName="titanium-attachment-input" klass="TitaniumAttachmentInputElement"></story-header>
+      <story-header
+        name="Titanium Attachment Input"
+        packageName="titanium-attachment-input"
+        tagName="titanium-attachment-input"
+        klass="TitaniumAttachmentInputElement"
+      ></story-header>
       <titanium-card>
         ${this.#defaultStory()}
         <code-block .snippet=${this.#defaultStory()}> </code-block>
