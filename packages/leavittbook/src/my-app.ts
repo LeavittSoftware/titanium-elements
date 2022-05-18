@@ -66,7 +66,10 @@ export class MyAppElement extends LitElement {
     });
     page('/getting-started', () => this.#changePage('getting-started', () => import('./getting-started.js')));
     page('/titanium-full-page-loading-indicator', () =>
-      this.#changePage('titanium-full-page-loading-indicator', () => import('./components/titanium-full-page-loading-indicator.js'))
+      this.#changePage(
+        'titanium-full-page-loading-indicator',
+        () => import('./demos/titanium-full-page-loading-indicator/titanium-full-page-loading-indicator-demo.js')
+      )
     );
     page('/leavitt-date-range', () => this.#changePage('leavitt-date-range', () => import('./demos/leavitt-date-range/leavitt-date-range-demo.js')));
     page('/titanium-data-table-item', () =>
@@ -106,7 +109,10 @@ export class MyAppElement extends LitElement {
     page('/titanium-dialog-base', () => this.#changePage('titanium-dialog-base', () => import('./components/titanium-dialog-base-demo.js')));
     page('/titanium-dialog', () => this.#changePage('titanium-dialog', () => import('./components/titanium-dialog-demo.js')));
     page('/titanium-full-page-loading-indicator', () =>
-      this.#changePage('titanium-full-page-loading-indicator', () => import('./components/titanium-full-page-loading-indicator.js'))
+      this.#changePage(
+        'titanium-full-page-loading-indicator',
+        () => import('./demos/titanium-full-page-loading-indicator/titanium-full-page-loading-indicator-demo.js')
+      )
     );
     page('/titanium-progress', () => this.#changePage('titanium-progress', () => import('./components/titanium-progress.js')));
     page('/titanium-search-input', () => this.#changePage('titanium-search-input', () => import('./components/titanium-search-input-demo.js')));
