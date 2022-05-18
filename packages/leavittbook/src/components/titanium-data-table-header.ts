@@ -30,7 +30,12 @@ export class TitaniumDateTableHeaderDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="Titanium data table header" tagName="titanium-data-table-header" klass="TitaniumDataTableHeaderElement"></story-header>
+      <story-header
+        name="Titanium data table header"
+        tagName="titanium-data-table-header"
+        packageName="titanium-data-table"
+        klass="TitaniumDataTableHeaderElement"
+      ></story-header>
       <titanium-card>
         ${this.#defaultStory()}
         <code-block .snippet=${this.#defaultStory()}> </code-block>

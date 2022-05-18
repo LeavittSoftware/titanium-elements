@@ -458,6 +458,9 @@ export class MyAppElement extends LitElement {
           ${this.page === 'titanium-card-list-item'
             ? html` <titanium-card-list-item-demo ?isActive=${this.page === 'titanium-card-list-item'}></titanium-card-list-item-demo> `
             : nothing}
+          ${this.page === 'titanium-data-table-header'
+            ? html` <titanium-data-table-header-demo ?isActive=${this.page === 'titanium-data-table-header'}></titanium-data-table-header-demo> `
+            : nothing}
           ${this.page === 'titanium-data-table-item'
             ? html` <titanium-data-table-item-demo ?isActive=${this.page === 'titanium-data-table-item'}></titanium-data-table-item-demo> `
             : nothing}
