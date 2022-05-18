@@ -84,6 +84,9 @@ export class MyAppElement extends LitElement {
     page('/titanium-chip-multi-select', () =>
       this.#changePage('titanium-chip-multi-select', () => import('./demos/titanium-chip-multi-select/titanium-chip-multi-select-demo.js'))
     );
+    page('/titanium-data-table-header', () =>
+      this.#changePage('titanium-data-table-header', () => import('./demos/titanium-data-table-header/titanium-data-table-header-demo.js'))
+    );
     page('/titanium-input-validator', () => this.#changePage('titanium-input-validator', () => import('./components/titanium-input-validator-demo.js')));
     page('/titanium-card-list-item', () => this.#changePage('titanium-card-list-item', () => import('./components/titanium-card-list-item-demo.js')));
     page('/titanium-dialog-base', () => this.#changePage('titanium-dialog-base', () => import('./demos/titanium-dialog-base/titanium-dialog-base-demo.js')));
@@ -326,6 +329,10 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-data-table</span>
               </a>
+              <a href="/titanium-data-table-header" ?selected=${!!this.page?.includes('titanium-data-table-header')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-data-table-header</span>
+              </a>
               <a href="/titanium-data-table-item" ?selected=${!!this.page?.includes('titanium-data-table-item')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-data-table-item</span>
@@ -467,6 +474,9 @@ export class MyAppElement extends LitElement {
             : nothing}
           ${this.page === 'titanium-data-table'
             ? html` <titanium-data-table-demo ?isActive=${this.page === 'titanium-data-table'}></titanium-data-table-demo> `
+            : nothing}
+          ${this.page === 'titanium-data-table-header'
+            ? html` <titanium-data-table-header-demo ?isActive=${this.page === 'titanium-data-table-header'}></titanium-data-table-header-demo> `
             : nothing}
           ${this.page === 'titanium-data-table-item'
             ? html` <titanium-data-table-item-demo ?isActive=${this.page === 'titanium-data-table-item'}></titanium-data-table-item-demo> `
