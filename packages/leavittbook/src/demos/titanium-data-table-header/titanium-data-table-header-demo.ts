@@ -20,12 +20,7 @@ export class TitaniumDataTableHeaderDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header
-        name="Titanium data table header"
-        tagName="titanium-data-table-header"
-        packageName="titanium-data-table"
-        klass="TitaniumDataTableHeaderElement"
-      ></story-header>
+      <story-header name="Titanium data table header" packageName="titanium-data-table" className="TitaniumDataTableHeaderElement"></story-header>
       <playground-ide line-numbers resizable project-src="../src/demos/titanium-data-table-header/project.json"> </playground-ide>
       <api-docs src="./custom-elements.json" selected="titanium-data-table-header"></api-docs>
     `;
