@@ -1,6 +1,11 @@
 import { css } from 'lit';
 
 const StoryStyles = css`
+  :host {
+    --playground-tab-bar-indicator-color: var(--app-accent-color-blue);
+    --playground-highlight-color: var(--app-accent-color-blue);
+  }
+
   titanium-card {
     margin-bottom: 36px;
   }
