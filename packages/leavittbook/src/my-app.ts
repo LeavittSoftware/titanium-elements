@@ -99,7 +99,9 @@ export class MyAppElement extends LitElement {
     page('/titanium-chip-multi-select', () =>
       this.#changePage('titanium-chip-multi-select', () => import('./demos/titanium-chip-multi-select/titanium-chip-multi-select-demo.js'))
     );
-    page('/titanium-input-validator', () => this.#changePage('titanium-input-validator', () => import('./components/titanium-input-validator-demo.js')));
+    page('/titanium-input-validator', () =>
+      this.#changePage('titanium-input-validator', () => import('./demos/titanium-input-validator/titanium-input-validator-demo.js'))
+    );
     page('/titanium-card-list-item', () => this.#changePage('titanium-card-list-item', () => import('./components/titanium-card-list-item-demo.js')));
     page('/titanium-dialog-base', () => this.#changePage('titanium-dialog-base', () => import('./components/titanium-dialog-base-demo.js')));
     page('/titanium-dialog', () => this.#changePage('titanium-dialog', () => import('./components/titanium-dialog-demo.js')));
