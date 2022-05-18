@@ -20,7 +20,7 @@ export class LeavittDateRangeDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="Date Range" packageName="leavitt-elements" tagName="leavitt-date-range" klass="LeavittDateRangeElement"></story-header>
+      <story-header name="Date Range" packageName="leavitt-elements" className="LeavittDateRangeElement"></story-header>
       <playground-ide line-numbers resizable project-src="../src/demos/leavitt-date-range/project.json"> </playground-ide>
       <api-docs src="./custom-elements.json" selected="leavitt-date-range"></api-docs>
     `;
