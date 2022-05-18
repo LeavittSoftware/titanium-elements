@@ -62,8 +62,8 @@ export class DateFieldPlayground extends LitElement {
       <div>
         <mwc-datefield></mwc-datefield>
         <mwc-datefield label="initial value" value="2022-05-10"></mwc-datefield>
-        <mwc-datefield label="prefix" prefix="before"></mwc-datefield>
-        <mwc-datefield label="suffix" prefix="after"></mwc-datefield>
+        <mwc-datefield label="prefix" prefix="$$$"></mwc-datefield>
+        <mwc-datefield label="suffix" suffix="MST"></mwc-datefield>
         <mwc-datefield label="icon" icon="schedule"></mwc-datefield>
         <mwc-datefield label="disabled" disabled></mwc-datefield>
         <mwc-datefield label="helper text" helper="I can help"></mwc-datefield>
@@ -76,8 +76,8 @@ export class DateFieldPlayground extends LitElement {
       <div>
         <mwc-datefield></mwc-datefield>
         <mwc-datefield date-type="datetime-local" label="initial value" value="2022-05-10T20:47"></mwc-datefield>
-        <mwc-datefield date-type="datetime-local" label="prefix" prefix="before"></mwc-datefield>
-        <mwc-datefield date-type="datetime-local" label="suffix" prefix="after"></mwc-datefield>
+        <mwc-datefield date-type="datetime-local" label="prefix" prefix="$$$"></mwc-datefield>
+        <mwc-datefield date-type="datetime-local" label="suffix" suffix="MST"></mwc-datefield>
         <mwc-datefield date-type="datetime-local" label="icon" icon="schedule"></mwc-datefield>
         <mwc-datefield date-type="datetime-local" label="disabled" disabled></mwc-datefield>
         <mwc-datefield date-type="datetime-local" label="helper text" helper="I can help"></mwc-datefield>
