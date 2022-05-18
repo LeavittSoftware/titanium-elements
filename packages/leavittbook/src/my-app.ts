@@ -8,7 +8,6 @@ import '@material/mwc-drawer';
 import '@material/mwc-top-app-bar-fixed';
 import '@leavittsoftware/titanium-sw-notifier/lib/titanium-sw-notifier';
 import '@leavittsoftware/titanium-side-menu/lib/titanium-side-menu-item';
-import '@leavittsoftware/titanium-dialog/lib/confirm-dialog';
 import '@leavittsoftware/profile-picture/lib/profile-picture-menu';
 import './shared/story-header';
 
@@ -23,8 +22,6 @@ import {
   PendingStateEvent,
   TitaniumFullPageLoadingIndicatorElement,
 } from '@leavittsoftware/titanium-loading-indicator/lib/titanium-full-page-loading-indicator';
-import { ConfirmDialogOpenEvent } from '@leavittsoftware/titanium-dialog/lib/confirm-dialog-open-event';
-import ConfirmDialogElement from '@leavittsoftware/titanium-dialog/lib/confirm-dialog';
 import { Drawer } from '@material/mwc-drawer';
 
 const LGLogo = new URL('../images/lg-logo.svg', import.meta.url).href;
@@ -36,7 +33,6 @@ export class MyAppElement extends LitElement {
   @state() private page: string | undefined;
   @state() private isDesktop: boolean = false;
 
-  @query('confirm-dialog') private confirmDialog: ConfirmDialogElement;
   @query('titanium-full-page-loading-indicator') private loadingIndicator: TitaniumFullPageLoadingIndicatorElement & LitElement;
   @query('mwc-drawer') private drawer: Drawer;
 
@@ -48,10 +44,6 @@ export class MyAppElement extends LitElement {
     });
 
     await this.loadingIndicator.updateComplete;
-
-    this.addEventListener(ConfirmDialogOpenEvent.eventType, async (e: ConfirmDialogOpenEvent) => {
-      this.confirmDialog.handleEvent(e);
-    });
 
     this.addEventListener(ChangePathEvent.eventName, (event: ChangePathEvent) => {
       page.show(event.detail.path);
@@ -105,9 +97,13 @@ export class MyAppElement extends LitElement {
     page('/titanium-input-validator', () =>
       this.#changePage('titanium-input-validator', () => import('./demos/titanium-input-validator/titanium-input-validator-demo.js'))
     );
+    page('/titanium-data-table-header', () =>
+      this.#changePage('titanium-data-table-header', () => import('./demos/titanium-data-table-header/titanium-data-table-header-demo.js'))
+    );
     page('/titanium-card-list-item', () => this.#changePage('titanium-card-list-item', () => import('./components/titanium-card-list-item-demo.js')));
-    page('/titanium-dialog-base', () => this.#changePage('titanium-dialog-base', () => import('./components/titanium-dialog-base-demo.js')));
-    page('/titanium-dialog', () => this.#changePage('titanium-dialog', () => import('./components/titanium-dialog-demo.js')));
+    page('/titanium-dialog-base', () => this.#changePage('titanium-dialog-base', () => import('./demos/titanium-dialog-base/titanium-dialog-base-demo.js')));
+    page('/titanium-dialog', () => this.#changePage('titanium-dialog', () => import('./demos/titanium-dialog/titanium-dialog-demo.js')));
+    page('/confirm-dialog', () => this.#changePage('confirm-dialog', () => import('./demos/confirm-dialog/confirm-dialog-demo.js')));
     page('/titanium-full-page-loading-indicator', () =>
       this.#changePage(
         'titanium-full-page-loading-indicator',
@@ -348,6 +344,10 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-data-table</span>
               </a>
+              <a href="/titanium-data-table-header" ?selected=${!!this.page?.includes('titanium-data-table-header')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-data-table-header</span>
+              </a>
               <a href="/titanium-data-table-item" ?selected=${!!this.page?.includes('titanium-data-table-item')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-data-table-item</span>
@@ -379,6 +379,10 @@ export class MyAppElement extends LitElement {
               <a href="/titanium-dialog" ?selected=${this.page === 'titanium-dialog'}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-dialog</span>
+              </a>
+              <a href="/confirm-dialog" ?selected=${this.page === 'confirm-dialog'}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>confirm-dialog</span>
               </a>
               <a href="/titanium-header" ?selected=${!!this.page?.includes('titanium-header')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
@@ -486,6 +490,9 @@ export class MyAppElement extends LitElement {
           ${this.page === 'titanium-data-table'
             ? html` <titanium-data-table-demo ?isActive=${this.page === 'titanium-data-table'}></titanium-data-table-demo> `
             : nothing}
+          ${this.page === 'titanium-data-table-header'
+            ? html` <titanium-data-table-header-demo ?isActive=${this.page === 'titanium-data-table-header'}></titanium-data-table-header-demo> `
+            : nothing}
           ${this.page === 'titanium-data-table-item'
             ? html` <titanium-data-table-item-demo ?isActive=${this.page === 'titanium-data-table-item'}></titanium-data-table-item-demo> `
             : nothing}
@@ -526,11 +533,11 @@ export class MyAppElement extends LitElement {
             ? html` <titanium-dialog-base-demo ?isActive=${this.page === 'titanium-dialog-base'}></titanium-dialog-base-demo> `
             : nothing}
           ${this.page === 'titanium-dialog' ? html` <titanium-dialog-demo ?isActive=${this.page === 'titanium-dialog'}></titanium-dialog-demo> ` : nothing}
+          ${this.page === 'confirm-dialog' ? html` <confirm-dialog-demo ?isActive=${this.page === 'confirm-dialog'}></confirm-dialog-demo> ` : nothing}
         </div>
       </mwc-drawer>
       <titanium-snackbar></titanium-snackbar>
       <titanium-sw-notifier></titanium-sw-notifier>
-      <confirm-dialog></confirm-dialog>
     `;
   }
 }
