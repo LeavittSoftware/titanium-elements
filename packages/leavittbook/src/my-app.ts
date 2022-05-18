@@ -321,10 +321,7 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>profile-picture</span>
               </a>
-              <a href="/titanium-button" ?selected=${!!this.page?.includes('titanium-button')}>
-                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-                <span>titanium-button</span>
-              </a>
+
               <a href="/titanium-chip" ?selected=${this.page === 'titanium-chip'}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-chip</span>
@@ -395,6 +392,7 @@ export class MyAppElement extends LitElement {
               </a>
             </details>
           </section>
+
           <section>
             <details open>
               <summary>Leavitt</summary>
@@ -418,9 +416,12 @@ export class MyAppElement extends LitElement {
             </details>
           </section>
           <section>
-            <details open>
+            <details>
               <summary>Deprecated</summary>
-              <!-- Deprecated menu -->
+              <a href="/titanium-button" ?selected=${!!this.page?.includes('titanium-button')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-button</span>
+              </a>
             </details>
           </section>
         </div>
