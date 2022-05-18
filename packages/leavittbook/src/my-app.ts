@@ -77,7 +77,7 @@ export class MyAppElement extends LitElement {
     page('/leavitt-person-group-select', () =>
       this.#changePage('leavitt-person-group-select', () => import('./components/leavitt-person-group-select-demo.js'))
     );
-    page('/mwc-datefield', () => this.#changePage('mwc-datefield', () => import('./components/mwc-datefield-demo.js')));
+    page('/mwc-datefield', () => this.#changePage('mwc-datefield', () => import('./demos/mwc-datefield/mwc-datefield-demo.js')));
     page('/profile-picture', () => this.#changePage('profile-picture', () => import('./components/profile-picture-demo.js')));
     page('/titanium-access-denied-page', () => this.#changePage('titanium-access-denied-page', () => import('./components/titanium-access-denied-page.js')));
     page('/titanium-attachment-input', () =>
