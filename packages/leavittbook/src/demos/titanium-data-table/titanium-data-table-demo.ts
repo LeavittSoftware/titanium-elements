@@ -20,7 +20,7 @@ export class TitaniumDataTableDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="Titanium data table" packageName="titanium-data-table" tagName="titanium-data-table" klass="TitaniumDataTableElement"></story-header>
+      <story-header name="Titanium data table" packageName="titanium-data-table" className="TitaniumDataTableElement"></story-header>
       <playground-ide line-numbers resizable project-src="../src/demos/titanium-data-table/project.json"> </playground-ide>
       <api-docs src="./custom-elements.json" selected="titanium-data-table"></api-docs>
     `;
