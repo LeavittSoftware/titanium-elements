@@ -1,17 +1,17 @@
-import { LitElement, html, css } from 'lit';
+/* playground-fold */
+import { css, html, LitElement } from 'lit';
 import { customElement, query } from 'lit/decorators.js';
-import { h1, h2, h3, h5, p } from '@leavittsoftware/titanium-styles';
-import StoryStyles from '../styles/story-styles';
-import '@leavittsoftware/titanium-card';
-import '@leavittsoftware/titanium-dialog';
-import '@material/mwc-textfield';
+import { h1, p } from '@leavittsoftware/titanium-styles';
+import '@material/mwc-icon';
 import '@material/mwc-button';
-import '../shared/code-block';
-import '../shared/story-header';
-import '@api-viewer/docs';
+import '@material/mwc-textfield';
+/* playground-fold-end */
 
-@customElement('titanium-dialog-demo')
-export class TitaniumDialogDemoElement extends LitElement {
+import '@leavittsoftware/titanium-dialog';
+
+/* playground-fold */
+@customElement('titanium-dialog-playground')
+export class TitaniumDialogPlayground extends LitElement {
   @query('titanium-dialog[default]') defaultDialog;
   @query('titanium-dialog[fullwidth]') fullWidthAndHeighDialog;
   @query('titanium-dialog[max-width]') maxWidthDialog;
@@ -19,15 +19,32 @@ export class TitaniumDialogDemoElement extends LitElement {
 
   static styles = [
     h1,
-    h2,
-    h3,
-    h5,
     p,
-    StoryStyles,
     css`
+      :host {
+        display: flex;
+        flex-direction: column;
+        --mdc-icon-font: 'Material Icons Outlined';
+        margin: 24px 12px;
+      }
+
+      div {
+        border: 1px solid var(--app-border-color);
+        padding: 24px;
+        border-radius: 8px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin: 24px 0 36px 0;
+      }
+
       [focus-trap],
       [max-width] {
         --titanium-dialog-max-width: 350px;
+      }
+
+      h1 {
+        width: 100%;
       }
 
       mwc-button {
@@ -56,7 +73,8 @@ export class TitaniumDialogDemoElement extends LitElement {
     `,
   ];
 
-  #defaultStory() {
+  render() {
+    /* playground-fold-end */
     return html`
       <div>
         <h1>Default</h1>
@@ -67,11 +85,7 @@ export class TitaniumDialogDemoElement extends LitElement {
           <mwc-textfield slot="content" outlined label="Donation amount"></mwc-textfield>
         </titanium-dialog>
       </div>
-    `;
-  }
 
-  #fullscreenStory() {
-    return html`
       <div>
         <h1>Full width & height</h1>
         <p>titanium-dialog with the fullwidth and fullheight attribute set</p>
@@ -91,11 +105,7 @@ export class TitaniumDialogDemoElement extends LitElement {
           </custom-container>
         </titanium-dialog>
       </div>
-    `;
-  }
 
-  #maxWidthStory() {
-    return html`
       <div>
         <h1>Max Width</h1>
         <p>titanium-dialog with a max-width applied via css variable</p>
@@ -114,11 +124,7 @@ export class TitaniumDialogDemoElement extends LitElement {
           </custom-container>
         </titanium-dialog>
       </div>
-    `;
-  }
 
-  #focusTrapStory() {
-    return html`
       <div>
         <h1>Focus Trap</h1>
         <p>
@@ -144,33 +150,6 @@ export class TitaniumDialogDemoElement extends LitElement {
           </span>
         </titanium-dialog>
       </div>
-    `;
-  }
-
-  render() {
-    return html`
-      <story-header name="Titanium Dialog" packageName="titanium-dialog" tagName="titanium-dialog" klass="TitaniumDialogElement"></story-header>
-      <titanium-card>
-        ${this.#defaultStory()}
-        <code-block .snippet=${this.#defaultStory()}> </code-block>
-      </titanium-card>
-
-      <titanium-card>
-        ${this.#fullscreenStory()}
-        <code-block .snippet=${this.#fullscreenStory()}> </code-block>
-      </titanium-card>
-
-      <titanium-card>
-        ${this.#maxWidthStory()}
-        <code-block .snippet=${this.#maxWidthStory()}> </code-block>
-      </titanium-card>
-
-      <titanium-card>
-        ${this.#focusTrapStory()}
-        <code-block .snippet=${this.#focusTrapStory()}> </code-block>
-      </titanium-card>
-
-      <api-docs src="./custom-elements.json" selected="titanium-dialog"></api-docs>
     `;
   }
 }

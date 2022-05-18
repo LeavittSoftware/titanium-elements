@@ -86,7 +86,7 @@ export class MyAppElement extends LitElement {
     page('/titanium-input-validator', () => this.#changePage('titanium-input-validator', () => import('./components/titanium-input-validator-demo.js')));
     page('/titanium-card-list-item', () => this.#changePage('titanium-card-list-item', () => import('./components/titanium-card-list-item-demo.js')));
     page('/titanium-dialog-base', () => this.#changePage('titanium-dialog-base', () => import('./components/titanium-dialog-base-demo.js')));
-    page('/titanium-dialog', () => this.#changePage('titanium-dialog', () => import('./components/titanium-dialog-demo.js')));
+    page('/titanium-dialog', () => this.#changePage('titanium-dialog', () => import('./demos/titanium-dialog/titanium-dialog-demo.js')));
     page('/confirm-dialog', () => this.#changePage('confirm-dialog', () => import('./demos/confirm-dialog/confirm-dialog-demo.js')));
     page('/titanium-full-page-loading-indicator', () =>
       this.#changePage('titanium-full-page-loading-indicator', () => import('./components/titanium-full-page-loading-indicator.js'))
