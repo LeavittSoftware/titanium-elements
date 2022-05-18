@@ -52,7 +52,12 @@ export class LeavittFileExplorerDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="Leavitt file explorer" tagName="leavitt-file-explorer" klass="LeavittFileExplorerElement"></story-header>
+      <story-header
+        name="Leavitt file explorer"
+        packageName="leavitt-file-explorer"
+        tagName="leavitt-file-explorer"
+        klass="LeavittFileExplorerElement"
+      ></story-header>
       <titanium-card>
         ${this.#defaultStory()}
         <code-block .snippet=${this.#defaultStory()}> </code-block>

@@ -112,7 +112,7 @@ export class MWCDatefieldDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="datefield" tagName="mwc-datefield" klass="DateField"></story-header>
+      <story-header name="datefield" packageName="leavitt-elements" tagName="mwc-datefield" klass="DateField"></story-header>
       <titanium-card>
         ${this.#defaultStory()}
         <code-block .snippet=${this.#defaultStory()}> </code-block>
