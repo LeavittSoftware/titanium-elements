@@ -51,7 +51,9 @@
     "lit": ">=2.2.2",
     "page": "^1.11.6",
     "prismjs": "^1.17.1",
-    "api-viewer-element": "1.0.0-pre.3"
+    "api-viewer-element": "1.0.0-pre.3",
+    "playground-elements": "^0.16.1",
+    "countup.js": "^2.1.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.16.11",

@@ -2,21 +2,21 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, query } from 'lit/decorators.js';
 import { h1, h2, h3, h5, p } from '@leavittsoftware/titanium-styles';
-import { LeavittPersonCompanySelectElement } from '@leavittsoftware/leavitt-elements/lib/leavitt-person-company-select';
+import { LeavittPersonGroupSelectElement } from '@leavittsoftware/leavitt-elements/lib/leavitt-person-group-select';
 
 import StoryStyles from '../styles/story-styles';
 import api3UserService from '../services/api3-user-service.js';
 
 import '@leavittsoftware/titanium-button';
 import '@leavittsoftware/titanium-card';
-import '@leavittsoftware/leavitt-elements/lib/leavitt-person-company-select';
+import '@leavittsoftware/leavitt-elements/lib/leavitt-person-group-select';
 import '../shared/code-block';
 import '../shared/story-header';
 import '@api-viewer/docs';
 
-@customElement('leavitt-person-company-select-demo')
-export class LeavittPersonCompanySelectDemoElement extends LitElement {
-  @query('leavitt-person-company-select[id="1"]') defaultSelect!: LeavittPersonCompanySelectElement;
+@customElement('leavitt-person-group-select-demo')
+export class LeavittPersonGroupSelectDemoElement extends LitElement {
+  @query('leavitt-person-group-select[id="1"]') defaultSelect!: LeavittPersonGroupSelectElement;
 
   static styles = [h1, h2, h3, h5, p, StoryStyles, css``];
 
@@ -35,7 +35,7 @@ export class LeavittPersonCompanySelectDemoElement extends LitElement {
         <p>Default select styles</p>
         <titanium-button raised @click=${this.focus}>Focus</titanium-button>
         <titanium-button raised @click=${this.reset}>Reset</titanium-button>
-        <leavitt-person-company-select id="1" .apiService=${api3UserService}></leavitt-person-company-select>
+        <leavitt-person-group-select id="1" .apiService=${api3UserService}></leavitt-person-group-select>
       </div>
     `;
   }
@@ -45,7 +45,7 @@ export class LeavittPersonCompanySelectDemoElement extends LitElement {
       <div>
         <h1>Required</h1>
         <p>Required select styles</p>
-        <leavitt-person-company-select required .apiService=${api3UserService} validationMessage="Select a person or company"></leavitt-person-company-select>
+        <leavitt-person-group-select required .apiService=${api3UserService} validationMessage="Select a person or group"></leavitt-person-group-select>
       </div>
     `;
   }
@@ -55,7 +55,7 @@ export class LeavittPersonCompanySelectDemoElement extends LitElement {
       <div>
         <h1>Shaped</h1>
         <p>Shaped select styles</p>
-        <leavitt-person-company-select shaped .apiService=${api3UserService}></leavitt-person-company-select>
+        <leavitt-person-group-select shaped .apiService=${api3UserService}></leavitt-person-group-select>
       </div>
     `;
   }
@@ -65,7 +65,7 @@ export class LeavittPersonCompanySelectDemoElement extends LitElement {
       <div>
         <h1>Shallow</h1>
         <p>Shallow select styles</p>
-        <leavitt-person-company-select shallow .apiService=${api3UserService}></leavitt-person-company-select>
+        <leavitt-person-group-select shallow .apiService=${api3UserService}></leavitt-person-group-select>
       </div>
     `;
   }
@@ -75,13 +75,13 @@ export class LeavittPersonCompanySelectDemoElement extends LitElement {
       <div>
         <h1>Pre-selected</h1>
         <p>Pre-selected styles</p>
-        <leavitt-person-company-select
+        <leavitt-person-group-select
           .apiService=${api3UserService}
           .selected=${{
-            Name: 'Leavitt Group Enterprises',
-            type: 'Company',
+            Name: 'LGE Programmer Basic Access',
+            type: 'PeopleGroup',
           } as any}
-        ></leavitt-person-company-select>
+        ></leavitt-person-group-select>
       </div>
     `;
   }
@@ -91,14 +91,14 @@ export class LeavittPersonCompanySelectDemoElement extends LitElement {
       <div>
         <h1>Disabled pre-selected</h1>
         <p>Disabled pre-selected styles</p>
-        <leavitt-person-company-select
+        <leavitt-person-group-select
           disabled
           .selected=${{
-            Name: 'Leavitt Group Enterprises',
-            type: 'Company',
+            Name: 'LGE Programmer Basic Access',
+            type: 'PeopleGroup',
           } as any}
           .apiService=${api3UserService}
-        ></leavitt-person-company-select>
+        ></leavitt-person-group-select>
       </div>
     `;
   }
@@ -106,10 +106,10 @@ export class LeavittPersonCompanySelectDemoElement extends LitElement {
   render() {
     return html`
       <story-header
-        name="Leavitt person company select"
+        name="Leavitt person group select"
         packageName="leavitt-elements"
-        tagName="leavitt-person-company-select"
-        klass="LeavittPersonCompanySelectElement"
+        tagName="leavitt-person-group-select"
+        klass="LeavittPersonGroupSelectElement"
       ></story-header>
       <titanium-card>
         ${this.#defaultStory()}
@@ -135,7 +135,7 @@ export class LeavittPersonCompanySelectDemoElement extends LitElement {
         ${this.#disabledPreselectedStory()}
         <code-block .snippet=${this.#disabledPreselectedStory()}> </code-block>
       </titanium-card>
-      <api-docs src="./custom-elements.json" selected="leavitt-person-company-select"></api-docs>
+      <api-docs src="./custom-elements.json" selected="leavitt-person-group-select"></api-docs>
     `;
   }
 }

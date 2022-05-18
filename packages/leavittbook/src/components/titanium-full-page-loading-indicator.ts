@@ -51,6 +51,7 @@ export class TitaniumFullPageLoadingIndicatorDemoElement extends LitElement {
       <story-header
         name="Titanium full page loading indicator"
         tagName="titanium-full-page-loading-indicator"
+        packageName="titanium-loading-indicator"
         klass="TitaniumFullPageLoadingIndicatorElement"
       ></story-header>
       <titanium-card>

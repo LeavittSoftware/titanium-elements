@@ -21,6 +21,10 @@ export default class GettingStartedElement extends LitElement {
       h2 {
         margin: 24px 0 4px 0;
       }
+
+      code-block {
+        margin: 6px 0 24px 0;
+      }
     `,
   ];
   render() {
@@ -28,8 +32,8 @@ export default class GettingStartedElement extends LitElement {
       <titanium-header header="Getting started" subHeader="Leavitt Group open-source custom elements" no-nav></titanium-header>
       <h2>TLDR;</h2>
       <p>
-        A collection of mostly <a target="_blank" href="https://lit.dev/">Lit HTML</a> based custom web elements to supplement or extend
-        <a target="_blank" href="https://github.com/material-components/material-web">Google's Material Web elements.</a>. These elements are open-source and
+        A collection of mostly <a target="_blank" href="https://lit.dev/">Lit HTML</a> based custom web elements that supplement or extend
+        <a target="_blank" href="https://github.com/material-components/material-web">Google's Material Web elements</a>. These elements are open-source and
         free for anyone to use. The elements prefixed with <code>titanium-</code> are less specific general use components. The elements prefixed with
         <code>leavitt-</code> are more specific to the Leavitt Group, many require authentication, and therefore their use is limited to the Leavitt Group and
         its affiliates.
@@ -45,6 +49,15 @@ export default class GettingStartedElement extends LitElement {
       <code-block hide-open-button open .snippet=${html`import '@leavittsoftware/titanium-chip';`}></code-block>
       <p>Use the element:</p>
       <code-block hide-open-button open .snippet=${html`<titanium-chip></titanium-chip>`}></code-block>
+
+      <h2>Styling</h2>
+      <p>Elements are styled via CSS variables. See each elements docs for the list of available mixins.</p>
+
+      <h2>Contributions</h2>
+      <p>
+        Make sure new commits follow the <a href="https://www.conventionalcommits.org/en/v1.0.0/"> Conventional Commits</a> convention as they are required to
+        generate the changelog. Releases are automated upon merging into the master branch.
+      </p>
     `;
   }
 }

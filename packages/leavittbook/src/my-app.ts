@@ -7,7 +7,6 @@ import '@material/mwc-icon';
 import '@material/mwc-drawer';
 import '@material/mwc-top-app-bar-fixed';
 import '@leavittsoftware/titanium-sw-notifier/lib/titanium-sw-notifier';
-import '@leavittsoftware/titanium-tab-control/lib/titanium-tab-control';
 import '@leavittsoftware/titanium-side-menu/lib/titanium-side-menu-item';
 import '@leavittsoftware/titanium-dialog/lib/confirm-dialog';
 import '@leavittsoftware/profile-picture/lib/profile-picture-menu';
@@ -75,16 +74,21 @@ export class MyAppElement extends LitElement {
     page('/leavitt-person-company-select', () =>
       this.#changePage('leavitt-person-company-select', () => import('./components/leavitt-person-company-select-demo.js'))
     );
+    page('/leavitt-person-group-select', () =>
+      this.#changePage('leavitt-person-group-select', () => import('./components/leavitt-person-group-select-demo.js'))
+    );
     page('/mwc-datefield', () => this.#changePage('mwc-datefield', () => import('./components/mwc-datefield-demo.js')));
     page('/profile-picture', () => this.#changePage('profile-picture', () => import('./components/profile-picture-demo.js')));
     page('/titanium-access-denied-page', () => this.#changePage('titanium-access-denied-page', () => import('./components/titanium-access-denied-page.js')));
-    page('/titanium-attachment-input', () => this.#changePage('titanium-attachment-input', () => import('./components/titanium-attachment-input-demo.js')));
+    page('/titanium-attachment-input', () =>
+      this.#changePage('titanium-attachment-input', () => import('./demos/titanium-attachment-input/titanium-attachment-input-demo.js'))
+    );
     page('/titanium-data-table', () => this.#changePage('titanium-data-table', () => import('./components/titanium-data-table-demo.js')));
     page('/titanium-data-table-item', () => this.#changePage('titanium-data-table-item', () => import('./components/titanium-data-table-item-demo.js')));
     page('/titanium-error-page', () => this.#changePage('titanium-error-page', () => import('./components/titanium-error-page.js')));
     page('/titanium-header', () => this.#changePage('titanium-header', () => import('./components/titanium-header.js')));
     page('/titanium-button', () => this.#changePage('titanium-button', () => import('./components/titanium-button.js')));
-    page('/titanium-chip', () => this.#changePage('titanium-chip', () => import('./components/titanium-chip-demo.js')));
+    page('/titanium-chip', () => this.#changePage('titanium-chip', () => import('./demos/titanium-chip/titanium-chip-demo.js')));
     page('/titanium-chip-multi-select', () => this.#changePage('titanium-chip-multi-select', () => import('./components/titanium-chip-multi-select-demo.js')));
     page('/titanium-input-validator', () => this.#changePage('titanium-input-validator', () => import('./components/titanium-input-validator-demo.js')));
     page('/titanium-card-list-item', () => this.#changePage('titanium-card-list-item', () => import('./components/titanium-card-list-item-demo.js')));
@@ -164,6 +168,10 @@ export class MyAppElement extends LitElement {
 
         display: flex;
         flex-direction: column;
+      }
+
+      titanium-snackbar {
+        z-index: 7;
       }
 
       titanium-toolbar {
@@ -257,19 +265,6 @@ export class MyAppElement extends LitElement {
 
       div[app-content] {
         margin: 0 24px;
-      }
-
-      width-limiter {
-        display: flex;
-        flex-direction: column;
-        max-width: 1200px;
-        width: 100%;
-        margin: 0 auto;
-      }
-
-      width-limiter > * {
-        max-width: 1200px;
-        width: 100%;
       }
 
       titanium-error-page {
@@ -409,7 +404,6 @@ export class MyAppElement extends LitElement {
             <details open>
               <summary>Leavitt</summary>
               <!-- Leavitt menu -->
-
               <a href="/leavitt-file-explorer" ?selected=${!!this.page?.includes('leavitt-file-explorer')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>leavitt-file-explorer</span>
@@ -422,6 +416,10 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>leavitt-person-company-select</span>
               </a>
+              <a href="/leavitt-person-group-select" ?selected=${!!this.page?.includes('leavitt-person-group-select')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>leavitt-person-group-select</span>
+              </a>
             </details>
           </section>
           <section>
@@ -432,78 +430,74 @@ export class MyAppElement extends LitElement {
           </section>
         </div>
         <div app-content slot="appContent">
-          <width-limiter large>
-            ${this.page === 'getting-started' ? html`<getting-started></getting-started>` : nothing}
-            ${this.page === 'error' ? html`<div>Oops, something went wrong.</div>` : nothing}
-            <!-- Stories -->
-            ${this.page === 'titanium-attachment-input'
-              ? html` <titanium-attachment-input-demo ?isActive=${this.page === 'titanium-attachment-input'}></titanium-attachment-input-demo> `
-              : nothing}
-            ${this.page === 'leavitt-file-explorer'
-              ? html` <leavitt-file-explorer-demo ?isActive=${this.page === 'leavitt-file-explorer'}></leavitt-file-explorer-demo> `
-              : nothing}
-            ${this.page === 'mwc-datefield' ? html` <mwc-datefield-demo ?isActive=${this.page === 'mwc-datefield'}></mwc-datefield-demo> ` : nothing}
-            ${this.page === 'leavitt-person-select'
-              ? html` <leavitt-person-select-demo ?isActive=${this.page === 'leavitt-person-select'}></leavitt-person-select-demo> `
-              : nothing}
-            ${this.page === 'leavitt-person-company-select'
-              ? html` <leavitt-person-company-select-demo ?isActive=${this.page === 'leavitt-person-company-select'}></leavitt-person-company-select-demo> `
-              : nothing}
-            ${this.page === 'profile-picture' ? html` <profile-picture-demo ?isActive=${this.page === 'profile-picture'}></profile-picture-demo> ` : nothing}
-            ${this.page === 'titanium-button' ? html` <titanium-button-demo ?isActive=${this.page === 'titanium-button'}></titanium-button-demo> ` : nothing}
-            ${this.page === 'titanium-chip' ? html` <titanium-chip-demo ?isActive=${this.page === 'titanium-chip'}></titanium-chip-demo> ` : nothing}
-            ${this.page === 'titanium-input-validator'
-              ? html` <titanium-input-validator-demo ?isActive=${this.page === 'titanium-input-validator'}></titanium-input-validator-demo> `
-              : nothing}
-            ${this.page === 'titanium-card-list-item'
-              ? html` <titanium-card-list-item-demo ?isActive=${this.page === 'titanium-card-list-item'}></titanium-card-list-item-demo> `
-              : nothing}
-            ${this.page === 'titanium-data-table'
-              ? html` <titanium-data-table-demo ?isActive=${this.page === 'titanium-data-table'}></titanium-data-table-demo> `
-              : nothing}
-            ${this.page === 'titanium-data-table-item'
-              ? html` <titanium-data-table-item-demo ?isActive=${this.page === 'titanium-data-table-item'}></titanium-data-table-item-demo> `
-              : nothing}
-            ${this.page === 'titanium-access-denied-page'
-              ? html` <titanium-access-denied-page-demo ?isActive=${this.page === 'titanium-access-denied-page'}></titanium-access-denied-page-demo> `
-              : nothing}
-            ${this.page === 'titanium-error-page'
-              ? html` <titanium-error-page-demo ?isActive=${this.page === 'titanium-error-page'}></titanium-error-page-demo> `
-              : nothing}
-            ${this.page === 'titanium-header' ? html` <titanium-header-demo ?isActive=${this.page === 'titanium-header'}></titanium-header-demo> ` : nothing}
-            ${this.page === 'titanium-progress'
-              ? html` <titanium-progress-demo ?isActive=${this.page === 'titanium-progress'}></titanium-progress-demo> `
-              : nothing}
-            ${this.page === 'titanium-search-input'
-              ? html` <titanium-search-input-demo ?isActive=${this.page === 'titanium-search-input'}></titanium-search-input-demo> `
-              : nothing}
-            ${this.page === 'titanium-side-menu-item'
-              ? html` <titanium-side-menu-item-demo ?isActive=${this.page === 'titanium-side-menu-item'}></titanium-side-menu-item-demo> `
-              : nothing}
-            ${this.page === 'titanium-tab-control'
-              ? html` <titanium-tab-control-demo ?isActive=${this.page === 'titanium-tab-control'}></titanium-tab-control-demo> `
-              : nothing}
-            ${this.page === 'titanium-toolbar'
-              ? html` <titanium-toolbar-demo ?isActive=${this.page === 'titanium-toolbar'}></titanium-toolbar-demo> `
-              : nothing}
-            ${this.page === 'titanium-twoline-formfield'
-              ? html` <titanium-twoline-formfield-demo ?isActive=${this.page === 'titanium-twoline-formfield'}></titanium-twoline-formfield-demo> `
-              : nothing}
-            ${this.page === 'titanium-full-page-loading-indicator'
-              ? html`
-                  <titanium-full-page-loading-indicator-demo
-                    ?isActive=${this.page === 'titanium-full-page-loading-indicator'}
-                  ></titanium-full-page-loading-indicator-demo>
-                `
-              : nothing}
-            ${this.page === 'titanium-chip-multi-select'
-              ? html` <titanium-chip-multi-select-demo ?isActive=${this.page === 'titanium-chip-multi-select'}></titanium-chip-multi-select-demo> `
-              : nothing}
-            ${this.page === 'titanium-dialog-base'
-              ? html` <titanium-dialog-base-demo ?isActive=${this.page === 'titanium-dialog-base'}></titanium-dialog-base-demo> `
-              : nothing}
-            ${this.page === 'titanium-dialog' ? html` <titanium-dialog-demo ?isActive=${this.page === 'titanium-dialog'}></titanium-dialog-demo> ` : nothing}
-          </width-limiter>
+          ${this.page === 'getting-started' ? html`<getting-started></getting-started>` : nothing}
+          ${this.page === 'error' ? html`<div>Oops, something went wrong.</div>` : nothing}
+          <!-- Stories -->
+          ${this.page === 'titanium-attachment-input'
+            ? html` <titanium-attachment-input-demo ?isActive=${this.page === 'titanium-attachment-input'}></titanium-attachment-input-demo> `
+            : nothing}
+          ${this.page === 'leavitt-file-explorer'
+            ? html` <leavitt-file-explorer-demo ?isActive=${this.page === 'leavitt-file-explorer'}></leavitt-file-explorer-demo> `
+            : nothing}
+          ${this.page === 'mwc-datefield' ? html` <mwc-datefield-demo ?isActive=${this.page === 'mwc-datefield'}></mwc-datefield-demo> ` : nothing}
+          ${this.page === 'leavitt-person-select'
+            ? html` <leavitt-person-select-demo ?isActive=${this.page === 'leavitt-person-select'}></leavitt-person-select-demo> `
+            : nothing}
+          ${this.page === 'leavitt-person-company-select'
+            ? html` <leavitt-person-company-select-demo ?isActive=${this.page === 'leavitt-person-company-select'}></leavitt-person-company-select-demo> `
+            : nothing}
+          ${this.page === 'leavitt-person-group-select'
+            ? html` <leavitt-person-group-select-demo ?isActive=${this.page === 'leavitt-person-group-select'}></leavitt-person-group-select-demo> `
+            : nothing}
+          ${this.page === 'profile-picture' ? html` <profile-picture-demo ?isActive=${this.page === 'profile-picture'}></profile-picture-demo> ` : nothing}
+          ${this.page === 'titanium-button' ? html` <titanium-button-demo ?isActive=${this.page === 'titanium-button'}></titanium-button-demo> ` : nothing}
+          ${this.page === 'titanium-chip' ? html` <titanium-chip-demo ?isActive=${this.page === 'titanium-chip'}></titanium-chip-demo> ` : nothing}
+          ${this.page === 'titanium-input-validator'
+            ? html` <titanium-input-validator-demo ?isActive=${this.page === 'titanium-input-validator'}></titanium-input-validator-demo> `
+            : nothing}
+          ${this.page === 'titanium-card-list-item'
+            ? html` <titanium-card-list-item-demo ?isActive=${this.page === 'titanium-card-list-item'}></titanium-card-list-item-demo> `
+            : nothing}
+          ${this.page === 'titanium-data-table-item'
+            ? html` <titanium-data-table-item-demo ?isActive=${this.page === 'titanium-data-table-item'}></titanium-data-table-item-demo> `
+            : nothing}
+          ${this.page === 'titanium-access-denied-page'
+            ? html` <titanium-access-denied-page-demo ?isActive=${this.page === 'titanium-access-denied-page'}></titanium-access-denied-page-demo> `
+            : nothing}
+          ${this.page === 'titanium-error-page'
+            ? html` <titanium-error-page-demo ?isActive=${this.page === 'titanium-error-page'}></titanium-error-page-demo> `
+            : nothing}
+          ${this.page === 'titanium-header' ? html` <titanium-header-demo ?isActive=${this.page === 'titanium-header'}></titanium-header-demo> ` : nothing}
+          ${this.page === 'titanium-progress'
+            ? html` <titanium-progress-demo ?isActive=${this.page === 'titanium-progress'}></titanium-progress-demo> `
+            : nothing}
+          ${this.page === 'titanium-search-input'
+            ? html` <titanium-search-input-demo ?isActive=${this.page === 'titanium-search-input'}></titanium-search-input-demo> `
+            : nothing}
+          ${this.page === 'titanium-side-menu-item'
+            ? html` <titanium-side-menu-item-demo ?isActive=${this.page === 'titanium-side-menu-item'}></titanium-side-menu-item-demo> `
+            : nothing}
+          ${this.page === 'titanium-tab-control'
+            ? html` <titanium-tab-control-demo ?isActive=${this.page === 'titanium-tab-control'}></titanium-tab-control-demo> `
+            : nothing}
+          ${this.page === 'titanium-toolbar' ? html` <titanium-toolbar-demo ?isActive=${this.page === 'titanium-toolbar'}></titanium-toolbar-demo> ` : nothing}
+          ${this.page === 'titanium-twoline-formfield'
+            ? html` <titanium-twoline-formfield-demo ?isActive=${this.page === 'titanium-twoline-formfield'}></titanium-twoline-formfield-demo> `
+            : nothing}
+          ${this.page === 'titanium-full-page-loading-indicator'
+            ? html`
+                <titanium-full-page-loading-indicator-demo
+                  ?isActive=${this.page === 'titanium-full-page-loading-indicator'}
+                ></titanium-full-page-loading-indicator-demo>
+              `
+            : nothing}
+          ${this.page === 'titanium-chip-multi-select'
+            ? html` <titanium-chip-multi-select-demo ?isActive=${this.page === 'titanium-chip-multi-select'}></titanium-chip-multi-select-demo> `
+            : nothing}
+          ${this.page === 'titanium-dialog-base'
+            ? html` <titanium-dialog-base-demo ?isActive=${this.page === 'titanium-dialog-base'}></titanium-dialog-base-demo> `
+            : nothing}
+          ${this.page === 'titanium-dialog' ? html` <titanium-dialog-demo ?isActive=${this.page === 'titanium-dialog'}></titanium-dialog-demo> ` : nothing}
         </div>
       </mwc-drawer>
       <titanium-snackbar></titanium-snackbar>
