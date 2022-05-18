@@ -6,11 +6,11 @@ import '@leavittsoftware/profile-picture';
 import '@material/mwc-icon';
 
 /* playground-fold-end */
-import '@leavittsoftware/titanium-access-denied-page';
+import '@leavittsoftware/titanium-error-page';
 
 /* playground-fold */
-@customElement('titanium-access-denied-page-playground')
-export class TitaniumAccessDeniedPlayground extends LitElement {
+@customElement('titanium-error-page-playground')
+export class TitaniumErrorPagePlayground extends LitElement {
   static styles = [
     h1,
     p,
@@ -38,9 +38,9 @@ export class TitaniumAccessDeniedPlayground extends LitElement {
     /* playground-fold-end */
     return html`
       <h1>Default</h1>
-      <p>Access denied page sample</p>
+      <p>Error page sample</p>
       <div>
-        <titanium-access-denied-page message="You can customize this message"></titanium-access-denied-page>
+        <titanium-error-page message="You can customize this message"></titanium-error-page>
       </div>
     `;
   }
