@@ -1,5 +1,5 @@
 /* playground-fold */
-import { css, html, LitElement, PropertyValueMap } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { customElement, query, queryAll, state } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/titanium-styles';
 import '@material/mwc-switch';
