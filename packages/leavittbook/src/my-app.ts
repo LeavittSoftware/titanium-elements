@@ -88,7 +88,9 @@ export class MyAppElement extends LitElement {
     page('/titanium-header', () => this.#changePage('titanium-header', () => import('./components/titanium-header.js')));
     page('/titanium-button', () => this.#changePage('titanium-button', () => import('./demos/titanium-button/titanium-button-demo.js')));
     page('/titanium-chip', () => this.#changePage('titanium-chip', () => import('./demos/titanium-chip/titanium-chip-demo.js')));
-    page('/titanium-chip-multi-select', () => this.#changePage('titanium-chip-multi-select', () => import('./components/titanium-chip-multi-select-demo.js')));
+    page('/titanium-chip-multi-select', () =>
+      this.#changePage('titanium-chip-multi-select', () => import('./demos/titanium-chip-multi-select/titanium-chip-multi-select-demo.js'))
+    );
     page('/titanium-input-validator', () => this.#changePage('titanium-input-validator', () => import('./components/titanium-input-validator-demo.js')));
     page('/titanium-card-list-item', () => this.#changePage('titanium-card-list-item', () => import('./components/titanium-card-list-item-demo.js')));
     page('/titanium-dialog-base', () => this.#changePage('titanium-dialog-base', () => import('./components/titanium-dialog-base-demo.js')));

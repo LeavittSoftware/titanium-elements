@@ -1,42 +1,49 @@
-import { LitElement, html, css } from 'lit';
+/* playground-fold */
+import { css, html, LitElement } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { h1, h2, h3, h5, p } from '@leavittsoftware/titanium-styles';
-import StoryStyles from '../styles/story-styles';
-import '@leavittsoftware/titanium-card';
+import { h1, p } from '@leavittsoftware/titanium-styles';
+import '@material/mwc-button';
 import '@leavittsoftware/titanium-chip';
-import '@leavittsoftware/titanium-button';
-import '@leavittsoftware/titanium-chip-multi-select';
-import '../shared/code-block';
-import '../shared/story-header';
-import '@api-viewer/docs';
-import '@material/mwc-icon';
-import { repeat } from 'lit/directives/repeat.js';
-
 const chipLabels = ['Dog', 'Cat', 'Lion', 'Hedgehog', 'Turtle', 'Monkey', 'Owl', 'Peacock', 'Pigeon', 'Spider', 'Tortoise', 'Zebra'];
 
-@customElement('titanium-chip-multi-select-demo')
-export class TitaniumChipMultiSelectDemoElement extends LitElement {
+/* playground-fold-end */
+import '@leavittsoftware/titanium-chip-multi-select';
+import { repeat } from 'lit/directives/repeat.js';
+
+/* playground-fold */
+@customElement('titanium-chip-multi-select-playground')
+export class TitaniumChipMultiSelectPlayground extends LitElement {
   @state() private demoItems: string[] = chipLabels.slice(0, 4);
 
   static styles = [
     h1,
-    h2,
-    h3,
-    h5,
     p,
-    StoryStyles,
     css`
-      titanium-chip-multi-select {
-        margin: 16px;
+      :host {
+        display: flex;
+        flex-direction: column;
+        --mdc-icon-font: 'Material Icons Outlined';
+        margin: 24px 12px;
+      }
+
+      div {
+        border: 1px solid var(--app-border-color);
+        padding: 24px;
+        border-radius: 8px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin: 24px 0 36px 0;
       }
     `,
   ];
 
-  #defaultStory() {
+  render() {
+    /* playground-fold-end */
     return html`
+      <h1>Default</h1>
+      <p>Examples using hasItems,noItemsText,helper,and disabled</p>
       <div>
-        <h1>Default</h1>
-        <p>Examples using hasItems,noItemsText,helper,and disabled</p>
         <titanium-chip-multi-select label="Default" hasItems
           >${repeat(
             chipLabels.slice(0, 4),
@@ -60,14 +67,10 @@ export class TitaniumChipMultiSelectDemoElement extends LitElement {
           )}</titanium-chip-multi-select
         >
       </div>
-    `;
-  }
 
-  #demoStory() {
-    return html`
+      <h1>Demo</h1>
+      <p>Demonstrates handling adding and removing chips</p>
       <div>
-        <h1>Demo</h1>
-        <p>Demonstrates handling adding and removing chips</p>
         <titanium-chip-multi-select label="Service Animals" hasItems>
           <mwc-button
             slot="button"
@@ -93,26 +96,6 @@ export class TitaniumChipMultiSelectDemoElement extends LitElement {
           )}</titanium-chip-multi-select
         >
       </div>
-    `;
-  }
-
-  render() {
-    return html`
-      <story-header
-        name="Titanium chip multi-select"
-        packageName="titanium-chip-multi-select"
-        tagName="titanium-chip-multi-select"
-        klass="TitaniumChipMultiSelectElement"
-      ></story-header>
-      <titanium-card>
-        ${this.#defaultStory()}
-        <code-block .snippet=${this.#defaultStory()}> </code-block>
-      </titanium-card>
-      <titanium-card>
-        ${this.#demoStory()}
-        <code-block .snippet=${this.#demoStory()}> </code-block>
-      </titanium-card>
-      <api-docs src="./custom-elements.json" selected="titanium-chip-multi-select"></api-docs>
     `;
   }
 }
