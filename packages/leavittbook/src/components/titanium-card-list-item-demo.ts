@@ -45,7 +45,13 @@ export class TitaniumCardListItemDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="Titanium card list item" tagName="titanium-card-list-item" klass="TitaniumCardListItemElement"></story-header>
+      <story-header
+        name="Titanium card list item"
+        packageName="titanium-card"
+        packageName="titanium-card"
+        tagName="titanium-card-list-item"
+        klass="TitaniumCardListItemElement"
+      ></story-header>
       <titanium-card>
         ${this.#defaultStory()}
         <code-block .snippet=${this.#defaultStory()}> </code-block>
