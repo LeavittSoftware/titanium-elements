@@ -58,6 +58,26 @@ export class TitaniumAddressInputDemoElement extends LitElement {
     `;
   }
 
+  #outlinedStory() {
+    return html`
+      <div>
+        <h1>Outlined</h1>
+        <p>Outlined address input styles</p>
+        <titanium-address-input outlined googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"></titanium-address-input>
+      </div>
+    `;
+  }
+
+  #iconStory() {
+    return html`
+      <div>
+        <h1>Icon</h1>
+        <p>Icon address input styles</p>
+        <titanium-address-input icon="home" googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"></titanium-address-input>
+      </div>
+    `;
+  }
+
   #helperStory() {
     return html`
       <div>
@@ -76,7 +96,7 @@ export class TitaniumAddressInputDemoElement extends LitElement {
         <titanium-address-input
           googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"
           helper="Address for something"
-          helper-persistent
+          helperPersistent
         ></titanium-address-input>
       </div>
     `;
@@ -92,6 +112,14 @@ export class TitaniumAddressInputDemoElement extends LitElement {
       <titanium-card>
         ${this.#requiredStory()}
         <code-block .snippet=${this.#requiredStory()}> </code-block>
+      </titanium-card>
+      <titanium-card>
+        ${this.#outlinedStory()}
+        <code-block .snippet=${this.#outlinedStory()}> </code-block>
+      </titanium-card>
+      <titanium-card>
+        ${this.#iconStory()}
+        <code-block .snippet=${this.#iconStory()}> </code-block>
       </titanium-card>
       <titanium-card>
         ${this.#helperStory()}

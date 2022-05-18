@@ -13,11 +13,13 @@ import { GoogleAddressInput } from './google-address-input';
  * @element titanium-address-input
  *
  * @fires location-changed - Fired when address changes. details contains the selected item <T> or null.
+ *
+ * @cssprop {Color} [--app-link-color=#3b95ff] - Color of manual switch link
  */
 @customElement('titanium-address-input')
 export class TitaniumAddressInput extends LitElement {
   /**
-   *  Displays error state if no image is empty and input is blurred.
+   *  Displays error state if select is empty or invalid and input is blurred.
    */
   @property({ type: Boolean }) required: boolean;
 
@@ -103,7 +105,7 @@ export class TitaniumAddressInput extends LitElement {
   }
 
   /**
-   *  Resets the inputs state.
+   *  Resets the input's state.
    */
   public reset() {
     return this.input.reset();
