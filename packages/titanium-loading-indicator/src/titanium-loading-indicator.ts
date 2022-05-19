@@ -6,9 +6,9 @@ import { property, customElement } from 'lit/decorators.js';
  *
  * @element titanium-loading-indicator
  *
- * @slot - Overwrites the default "Loading..." text
+ * @slot default - Overwrites the default "Loading..." text
  *
- * @cssprop {Color} --app-text-color - Loading text and icon color
+ * @cssprop {Color} [--app-text-color=#6200ee] - Loading text and icon color
  *
  */
 @customElement('titanium-loading-indicator')
