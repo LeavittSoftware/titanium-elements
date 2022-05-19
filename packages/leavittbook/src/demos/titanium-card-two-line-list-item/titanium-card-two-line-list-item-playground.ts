@@ -2,11 +2,11 @@
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/titanium-styles';
+import '@leavittsoftware/titanium-card';
+import '@material/mwc-icon';
 
 /* playground-fold-end */
 import '@leavittsoftware/titanium-card/lib/titanium-card-two-line-list-item';
-import '@leavittsoftware/titanium-card';
-import '@material/mwc-icon';
 
 /* playground-fold */
 @customElement('titanium-card-two-line-list-item-playground')
