@@ -53,7 +53,7 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
   @property({ attribute: false }) apiService: ApiService;
 
   /**
-   *  Odata parts for the Company API call
+   *  Odata parts for the Person API call
    */
   @property({ type: Array }) odataParts: Array<string> = ['top=15', 'orderby=FirstName', 'select=FirstName,LastName,CompanyName,Id', 'count=true'];
 
@@ -207,6 +207,9 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
       this.textfield.reportValidity();
     }
     if (previouslySelected !== this.selected) {
+      /**
+       *  @ignore
+       */
       this.dispatchEvent(new LeavittPersonSelectSelectedEvent(this.selected));
     }
   }
