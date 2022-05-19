@@ -22,7 +22,6 @@ export class TitaniumStylesDemoElement extends LitElement {
     return html`
       <story-header name="Titanium styles" packageName="titanium-styles"></story-header>
       <playground-ide line-numbers resizable project-src="../src/demos/titanium-styles/project.json"> </playground-ide>
-      <api-docs src="./custom-elements.json" selected="titanium-styles"></api-docs>
     `;
   }
 }
