@@ -38,19 +38,44 @@ export type SnackbarOptions = {
  *
  * @cssprop {Color} [--titanium-snackbar-background-color=#323232] - Snackbar background color
  * @cssprop {Color} [--titanium-snackbar-text-color=#f1f1f1] - Color of the text in the snackbar
+ * @cssprop {Color} [--app-light-text-color=#707175] - Color used on http error and status
  *
  */
 
 @customElement('titanium-snackbar')
 export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
+  /**
+   * True when opened
+   */
   @property({ type: Boolean, reflect: true }) protected opened: boolean;
+  /**
+   * True when closing
+   */
   @property({ type: Boolean, reflect: true }) protected closing: boolean;
+  /**
+   * True when opening
+   */
   @property({ type: Boolean, reflect: true }) protected opening: boolean;
+  /**
+   * Hides the action button
+   */
   @property({ type: Boolean, reflect: true }) protected noaction: boolean;
+  /**
+   * Styles the snackbar as informational (green)
+   */
   @property({ type: Boolean, reflect: true }) protected informational: boolean;
+  /**
+   * Styles the snackbar as an error (red)
+   */
   @property({ type: Boolean, reflect: true }) protected error: boolean;
 
+  /**
+   * Text used on the button
+   */
   @property({ type: String }) private actionText: string;
+  /**
+   * Message used in the snackbar.
+   */
   @property({ type: String }) private message: string | TemplateResult;
 
   private _animationTimer: number;
@@ -58,6 +83,9 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
   private _resolve;
   private _closeTimeoutHandle: number;
 
+  /**
+   * @ignore
+   */
   _isComponent = true;
 
   constructor() {
