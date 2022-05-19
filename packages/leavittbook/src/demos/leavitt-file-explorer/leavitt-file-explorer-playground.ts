@@ -7,7 +7,6 @@ import '@material/mwc-button';
 import '@leavittsoftware/user-manager';
 import ApiService from '@leavittsoftware/api-service/lib/api-service';
 import { AuthenticatedTokenProvider } from '@leavittsoftware/api-service/lib/authenticated-token-provider';
-import { isDevelopment } from '@leavittsoftware/titanium-helpers/lib/titanium-dev-detection';
 
 /* playground-fold-end */
 import '@leavittsoftware/leavitt-file-explorer';
@@ -32,7 +31,7 @@ export class LeavittFileExplorerPlaygroundElement extends LitElement {
   constructor() {
     super();
     this.fileExplorerApiService = new ApiService(new AuthenticatedTokenProvider());
-    this.fileExplorerApiService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
+    this.fileExplorerApiService.baseUrl = 'https://devapi3.leavitt.com/';
     this.fileExplorerApiService.addHeader('X-LGAppName', 'FileExplorer');
   }
 

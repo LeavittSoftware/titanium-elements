@@ -7,7 +7,6 @@ import '@material/mwc-button';
 import '@leavittsoftware/user-manager';
 import ApiService from '@leavittsoftware/api-service/lib/api-service';
 import { AuthenticatedTokenProvider } from '@leavittsoftware/api-service/lib/authenticated-token-provider';
-import { isDevelopment } from '@leavittsoftware/titanium-helpers/lib/titanium-dev-detection';
 
 /* playground-fold-end */
 import '@leavittsoftware/leavitt-elements/lib/leavitt-person-select';
@@ -41,7 +40,7 @@ export class LeavittPersonSelectPlaygroundElement extends LitElement {
   constructor() {
     super();
     this.apiService = new ApiService(new AuthenticatedTokenProvider());
-    this.apiService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
+    this.apiService.baseUrl = 'https://devapi3.leavitt.com/';
     this.apiService.addHeader('X-LGAppName', 'Testing');
   }
 
