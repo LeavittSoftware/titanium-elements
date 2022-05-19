@@ -74,7 +74,7 @@ export class MyAppElement extends LitElement {
       this.#changePage('leavitt-person-select', () => import('./demos/leavitt-person-select/leavitt-person-select-demo.js'))
     );
     page('/leavitt-person-company-select', () =>
-      this.#changePage('leavitt-person-company-select', () => import('./components/leavitt-person-company-select-demo.js'))
+      this.#changePage('leavitt-person-company-select', () => import('./demos/leavitt-person-company-select/leavitt-person-company-select-demo.js'))
     );
     page('/leavitt-person-group-select', () =>
       this.#changePage('leavitt-person-group-select', () => import('./demos/leavitt-person-group-select/leavitt-person-group-select-demo.js'))
