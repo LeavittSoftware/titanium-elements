@@ -130,7 +130,7 @@ export class MyAppElement extends LitElement {
     page('/titanium-side-menu-item', () =>
       this.#changePage('titanium-side-menu-item', () => import('./demos/titanium-side-menu-item/titanium-side-menu-item-demo.js'))
     );
-    page('/titanium-tab-control', () => this.#changePage('titanium-tab-control', () => import('./components/titanium-tab-control-demo.js')));
+    page('/titanium-tab-control', () => this.#changePage('titanium-tab-control', () => import('./demos/titanium-tab-control/titanium-tab-control-demo.js')));
     page('/titanium-toolbar', () => this.#changePage('titanium-toolbar', () => import('./components/titanium-toolbar-demo.js')));
     page('/titanium-twoline-formfield', () => this.#changePage('titanium-twoline-formfield', () => import('./components/titanium-twoline-formfield.js')));
     page('/titanium-styles', () => this.#changePage('titanium-styles', () => import('./demos/titanium-styles/titanium-styles-demo.js')));
