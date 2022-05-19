@@ -122,6 +122,7 @@ export class MyAppElement extends LitElement {
     page('/titanium-tab-control', () => this.#changePage('titanium-tab-control', () => import('./components/titanium-tab-control-demo.js')));
     page('/titanium-toolbar', () => this.#changePage('titanium-toolbar', () => import('./components/titanium-toolbar-demo.js')));
     page('/titanium-twoline-formfield', () => this.#changePage('titanium-twoline-formfield', () => import('./components/titanium-twoline-formfield.js')));
+    page('/titanium-styles', () => this.#changePage('titanium-styles', () => import('./demos/titanium-styles/titanium-styles-demo.js')));
 
     page('*', () => {
       this.#changePage('error');
@@ -414,6 +415,10 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-side-menu-item</span>
               </a>
+              <a href="/titanium-styles" ?selected=${!!this.page?.includes('titanium-styles')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-styles</span>
+              </a>
               <a href="/titanium-tab-control" ?selected=${this.page === 'titanium-tab-control'}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-tab-control</span>
@@ -556,6 +561,7 @@ export class MyAppElement extends LitElement {
             : nothing}
           ${this.page === 'titanium-dialog' ? html` <titanium-dialog-demo ?isActive=${this.page === 'titanium-dialog'}></titanium-dialog-demo> ` : nothing}
           ${this.page === 'confirm-dialog' ? html` <confirm-dialog-demo ?isActive=${this.page === 'confirm-dialog'}></confirm-dialog-demo> ` : nothing}
+          ${this.page === 'titanium-styles' ? html` <titanium-styles-demo ?isActive=${this.page === 'titanium-styles'}></titanium-styles-demo> ` : nothing}
         </div>
       </mwc-drawer>
       <titanium-snackbar></titanium-snackbar>
