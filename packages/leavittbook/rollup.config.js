@@ -85,13 +85,11 @@ export default {
     copy({
       targets: [
         { src: 'manifest.json', dest: 'dist' },
-        { src: 'service-worker.js', dest: 'dist/esm-bundled' },
-        { src: 'service-worker.js', dest: 'dist/es5-bundled' },
-        { src: 'service-worker.js', dest: 'dist/es6-bundled' },
         { src: 'manifest', dest: 'dist' },
         { src: 'fonts', dest: 'dist' },
         { src: 'images', dest: 'dist' },
         { src: 'custom-elements.json', dest: 'dist' },
+        { src: 'src/demos/*', dest: 'dist/src/demos' },
       ],
     }),
     cleanup({

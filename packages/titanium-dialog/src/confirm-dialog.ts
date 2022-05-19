@@ -13,6 +13,10 @@ export default class ConfirmDialogElement extends LitElement {
   @state() private header: string;
   @query('mwc-dialog') private dialog!: Dialog;
 
+  /**
+   * This method is used to set up the event listener to capture the confirm dialog open event
+   * You can skip using this method and set up the event listener yourself (recommended)
+   */
   listenOn(el: HTMLElement) {
     el.addEventListener(ConfirmDialogOpenEvent.eventType, async (event: ConfirmDialogOpenEvent) => {
       this.header = event.header;
@@ -28,6 +32,11 @@ export default class ConfirmDialogElement extends LitElement {
 
   private dialogOpenPromise: ((confirmed: boolean) => void) | null = null;
 
+  /**
+   * This method is used after capturing the confirm dialog open event
+   * usually in the same class where the confirm-dialog element is used.
+   * After capturing the event pass it directly into this method `this.dialog.handleEvent(e);`
+   */
   async handleEvent(event: ConfirmDialogOpenEvent) {
     this.header = event.header;
     this.text = event.text;
