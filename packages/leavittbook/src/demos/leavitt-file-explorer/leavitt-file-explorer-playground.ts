@@ -15,7 +15,7 @@ import { LeavittFileExplorerElement } from '@leavittsoftware/leavitt-file-explor
 
 /* playground-fold */
 @customElement('leavitt-file-explorer-playground')
-export class LeavittFileExplorerPlayground extends LitElement {
+export class LeavittFileExplorerPlaygroundElement extends LitElement {
   @state() fileExplorerApiService: ApiService;
   @query('leavitt-file-explorer[reload]') private reloadFileExplorer!: LeavittFileExplorerElement;
 
