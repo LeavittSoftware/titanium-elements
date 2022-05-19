@@ -428,6 +428,10 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-twoline-formfield</span>
               </a>
+              <a href="/titanium-snackbar" ?selected=${!!this.page?.includes('titanium-snackbar')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-snackbar</span>
+              </a>
             </details>
           </section>
 
@@ -558,6 +562,9 @@ export class MyAppElement extends LitElement {
             : nothing}
           ${this.page === 'titanium-dialog' ? html` <titanium-dialog-demo ?isActive=${this.page === 'titanium-dialog'}></titanium-dialog-demo> ` : nothing}
           ${this.page === 'confirm-dialog' ? html` <confirm-dialog-demo ?isActive=${this.page === 'confirm-dialog'}></confirm-dialog-demo> ` : nothing}
+          ${this.page === 'titanium-snackbar'
+            ? html` <titanium-snackbar-demo ?isActive=${this.page === 'titanium-snackbar'}></titanium-snackbar-demo> `
+            : nothing}
         </div>
       </mwc-drawer>
       <titanium-snackbar></titanium-snackbar>
