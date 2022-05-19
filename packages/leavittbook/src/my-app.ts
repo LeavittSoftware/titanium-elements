@@ -78,7 +78,7 @@ export class MyAppElement extends LitElement {
     page('/titanium-data-table', () => this.#changePage('titanium-data-table', () => import('./demos/titanium-data-table/titanium-data-table-demo.js')));
     page('/titanium-data-table-item', () => this.#changePage('titanium-data-table-item', () => import('./components/titanium-data-table-item-demo.js')));
     page('/titanium-error-page', () => this.#changePage('titanium-error-page', () => import('./components/titanium-error-page.js')));
-    page('/titanium-header', () => this.#changePage('titanium-header', () => import('./components/titanium-header.js')));
+    page('/titanium-header', () => this.#changePage('titanium-header', () => import('./demos/titanium-header/titanium-header-demo.js')));
     page('/titanium-button', () => this.#changePage('titanium-button', () => import('./demos/titanium-button/titanium-button-demo.js')));
     page('/titanium-chip', () => this.#changePage('titanium-chip', () => import('./demos/titanium-chip/titanium-chip-demo.js')));
     page('/titanium-chip-multi-select', () =>
