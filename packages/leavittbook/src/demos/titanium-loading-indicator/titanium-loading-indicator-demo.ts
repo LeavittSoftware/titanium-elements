@@ -13,7 +13,7 @@ export class TitaniumLoadingIndicatorDemoElement extends LitElement {
     StoryStyles,
     css`
       playground-ide {
-        height: 400px;
+        height: 800px;
       }
     `,
   ];

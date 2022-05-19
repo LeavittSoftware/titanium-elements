@@ -38,6 +38,20 @@ export class TitaniumLoadingIndicatorPlayground extends LitElement {
       <h1>Default</h1>
       <p>Default loading indicator</p>
       <div><titanium-loading-indicator></titanium-loading-indicator></div>
+
+      <h1>Disabled</h1>
+      <p>Disabled loading indicator</p>
+      <div><titanium-loading-indicator disabled></titanium-loading-indicator></div>
+
+      <h1>Viewbox</h1>
+      <p>Default viewbox override</p>
+      <div><titanium-loading-indicator viewbox="0 0 50 50"></titanium-loading-indicator></div>
+
+      <h1>Slot</h1>
+      <p>Default text override</p>
+      <div>
+        <titanium-loading-indicator><slot>Please wait a moment...</slot></titanium-loading-indicator>
+      </div>
     `;
   }
 }
