@@ -36,8 +36,8 @@ export type SnackbarOptions = {
  * import { TitaniumSnackbarSingleton as AppSnackbar } from '@leavittsoftware/titanium-snackbar';
  * AppSnackbar.open('Hello world');
  *
- * @cssprop {Color} --titanium-snackbar-background-color - Snackbar background color
- * @cssprop {Color} --titanium-snackbar-text-color - Color of the text in the snackbar
+ * @cssprop {Color} [--titanium-snackbar-background-color=#323232] - Snackbar background color
+ * @cssprop {Color} [--titanium-snackbar-text-color=#f1f1f1] - Color of the text in the snackbar
  *
  */
 
