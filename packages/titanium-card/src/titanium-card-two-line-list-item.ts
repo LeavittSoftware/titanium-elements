@@ -9,11 +9,11 @@ import { TitaniumCardListItemElement } from './titanium-card-list-item';
  *
  * @fires item-click - Fired when the item is clicked
  *
- * @cssprop {Color} --app-border-color - Border color
- * @cssprop {Color} --app-dark-text-color - Link & Subheader text color
- * @cssprop {Color} --app-text-color - Link, svg & header text/fill color
+ * @cssprop {Color} [--app-border-color=#dadce0] - Border color
+ * @cssprop {Color} [--app-dark-text-color=#202124] - Link & Subheader text color
+ * @cssprop {Color} [--app-text-color=#5f6368] --app-text-color - Link, svg & header text/fill color
  *
- * @slot - Item content (text)
+ * @slot default - Item content (text)
  */
 @customElement('titanium-card-two-line-list-item')
 export class TitaniumCardTwoLineListItemElement extends TitaniumCardListItemElement {

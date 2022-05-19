@@ -101,6 +101,9 @@ export class MyAppElement extends LitElement {
       this.#changePage('titanium-data-table-header', () => import('./demos/titanium-data-table-header/titanium-data-table-header-demo.js'))
     );
     page('/titanium-card-list-item', () => this.#changePage('titanium-card-list-item', () => import('./components/titanium-card-list-item-demo.js')));
+    page('/titanium-card-two-line-list-item', () =>
+      this.#changePage('titanium-card-two-line-list-item', () => import('./demos/titanium-card-two-line-list-item/titanium-card-two-line-list-item-demo.js'))
+    );
     page('/titanium-dialog-base', () => this.#changePage('titanium-dialog-base', () => import('./demos/titanium-dialog-base/titanium-dialog-base-demo.js')));
     page('/titanium-dialog', () => this.#changePage('titanium-dialog', () => import('./demos/titanium-dialog/titanium-dialog-demo.js')));
     page('/confirm-dialog', () => this.#changePage('confirm-dialog', () => import('./demos/confirm-dialog/confirm-dialog-demo.js')));
@@ -367,6 +370,10 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-card-list-item</span>
               </a>
+              <a href="/titanium-card-two-line-list-item" ?selected=${!!this.page?.includes('titanium-card-two-line-list-item')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-card-two-line-list-item</span>
+              </a>
               <a href="/titanium-error-page" ?selected=${!!this.page?.includes('titanium-error-page')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-error-page</span>
@@ -497,6 +504,11 @@ export class MyAppElement extends LitElement {
             : nothing}
           ${this.page === 'titanium-card-list-item'
             ? html` <titanium-card-list-item-demo ?isActive=${this.page === 'titanium-card-list-item'}></titanium-card-list-item-demo> `
+            : nothing}
+          ${this.page === 'titanium-card-two-line-list-item'
+            ? html`
+                <titanium-card-two-line-list-item-demo ?isActive=${this.page === 'titanium-card-two-line-list-item'}></titanium-card-two-line-list-item-demo>
+              `
             : nothing}
           ${this.page === 'titanium-data-table'
             ? html` <titanium-data-table-demo ?isActive=${this.page === 'titanium-data-table'}></titanium-data-table-demo> `
