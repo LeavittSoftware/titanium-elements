@@ -104,7 +104,9 @@ export class MyAppElement extends LitElement {
     page('/titanium-data-table-header', () =>
       this.#changePage('titanium-data-table-header', () => import('./demos/titanium-data-table-header/titanium-data-table-header-demo.js'))
     );
-    page('/titanium-card-list-item', () => this.#changePage('titanium-card-list-item', () => import('./components/titanium-card-list-item-demo.js')));
+    page('/titanium-card-list-item', () =>
+      this.#changePage('titanium-card-list-item', () => import('./demos/titanium-card-list-item/titanium-card-list-item-demo.js'))
+    );
     page('/titanium-card-two-line-list-item', () =>
       this.#changePage('titanium-card-two-line-list-item', () => import('./demos/titanium-card-two-line-list-item/titanium-card-two-line-list-item-demo.js'))
     );
