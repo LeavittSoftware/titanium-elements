@@ -9,9 +9,9 @@ import { property, customElement } from 'lit/decorators.js';
  * @fires sort-direction-changed - Fired if sort direction is changed (detail: 'desc' | 'asc')
  * @fires sort-by-changed - Fired when the close button is clicked (detail: {string} column name of currently sorted header )
  *
- * @cssprop {Color} --app-text-color - Inactive sort icon color
- * @cssprop {Color} --app-light-text-color - Inactive text color
- * @cssprop {Color} --app-dark-text-color - Active text color
+ * @cssprop {Color} [--app-text-color=#5f6368] --app-text-color - Inactive sort icon color
+ * @cssprop {Color} [--app-light-text-color=#80868b] - Inactive text color
+ * @cssprop {Color} [--app-dark-text-color=#202124] - Active text color
  */
 @customElement('titanium-data-table-header')
 export class TitaniumDataTableHeaderElement extends LitElement {

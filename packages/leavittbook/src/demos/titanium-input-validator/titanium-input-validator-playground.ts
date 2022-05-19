@@ -1,32 +1,45 @@
-import { LitElement, html, css } from 'lit';
+/* playground-fold */
+import { css, html, LitElement } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
-import { h1, h2, h3, h5, p } from '@leavittsoftware/titanium-styles';
-import StoryStyles from '../styles/story-styles';
-import '@leavittsoftware/titanium-card';
-import '@leavittsoftware/titanium-input-validator';
+import { h1, p } from '@leavittsoftware/titanium-styles';
+import '@leavittsoftware/profile-picture';
 import '@material/mwc-icon-button';
 import '@material/mwc-button';
-import '../shared/code-block';
-import '../shared/story-header';
-import '@api-viewer/docs';
+
+/* playground-fold-end */
+import '@leavittsoftware/titanium-input-validator';
 import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar';
 
-@customElement('titanium-input-validator-demo')
-export class TitaniumInputValidatorDemoElement extends LitElement {
+/* playground-fold */
+@customElement('titanium-input-validator-playground')
+export class TitaniumInputValidatorPlayground extends LitElement {
   @state() iconSelected = '';
   @query('titanium-input-validator') validator;
+
   static styles = [
     h1,
-    h2,
-    h3,
-    h5,
     p,
-    StoryStyles,
     css`
+      :host {
+        display: flex;
+        flex-direction: column;
+        --mdc-icon-font: 'Material Icons Outlined';
+        margin: 24px 12px;
+      }
+
+      div {
+        border: 1px solid var(--app-border-color);
+        padding: 24px;
+        border-radius: 8px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin: 24px 0 36px 0;
+      }
+
       titanium-input-validator {
         align-items: center;
         border: 1px solid var(--app-border-color);
-        border-radius: 12px;
         padding: 8px;
         width: 170px;
         margin-bottom: 12px;
@@ -38,16 +51,17 @@ export class TitaniumInputValidatorDemoElement extends LitElement {
       }
 
       mwc-icon-button[selected] {
-        color: var(--app-accent-color-blue);
+        color: cornflowerblue;
       }
     `,
   ];
 
-  #defaultStory() {
+  render() {
+    /* playground-fold-end */
     return html`
+      <h1>Default</h1>
+      <p>A validator example for a custom selectable icon button input</p>
       <div>
-        <h1>Default</h1>
-        <p>A validator example for a custom selectable icon button input</p>
         <titanium-input-validator .evaluator=${() => this.iconSelected === 'cruelty_free'} validationMessage="Bunny is not selected">
           <p>Please select the bunny</p>
           <icon-container>
@@ -64,23 +78,6 @@ export class TitaniumInputValidatorDemoElement extends LitElement {
         <mwc-button @click=${() => this.validator?.reportValidity()} label="Report Validity"></mwc-button>
         <mwc-button @click=${() => TitaniumSnackbarSingleton.open(`Check Validity is ${this.validator?.checkValidity()}`)} label="Check Validity"></mwc-button>
       </div>
-    `;
-  }
-
-  render() {
-    return html`
-      <story-header
-        name="Titanium Input Validator"
-        packageName="titanium-input-validator"
-        tagName="titanium-input-validator"
-        klass="TitaniumInputValidatorElement"
-      ></story-header>
-      <titanium-card>
-        ${this.#defaultStory()}
-        <code-block .snippet=${this.#defaultStory()}> </code-block>
-      </titanium-card>
-
-      <api-docs src="./custom-elements.json" selected="titanium-input-validator"></api-docs>
     `;
   }
 }
