@@ -119,6 +119,7 @@ export class MyAppElement extends LitElement {
     page('/titanium-tab-control', () => this.#changePage('titanium-tab-control', () => import('./components/titanium-tab-control-demo.js')));
     page('/titanium-toolbar', () => this.#changePage('titanium-toolbar', () => import('./components/titanium-toolbar-demo.js')));
     page('/titanium-twoline-formfield', () => this.#changePage('titanium-twoline-formfield', () => import('./components/titanium-twoline-formfield.js')));
+    page('/titanium-shadow-text', () => this.#changePage('titanium-shadow-text', () => import('./demos/titanium-shadow-text/titanium-shadow-text-demo.js')));
 
     page('*', () => {
       this.#changePage('error');
@@ -334,7 +335,6 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>mwc-datefield</span>
               </a>
-
               <a href="/titanium-chip" ?selected=${this.page === 'titanium-chip'}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-chip</span>
@@ -418,6 +418,10 @@ export class MyAppElement extends LitElement {
               <a href="/titanium-twoline-formfield" ?selected=${!!this.page?.includes('titanium-twoline-formfield')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-twoline-formfield</span>
+              </a>
+              <a href="/titanium-shadow-text" ?selected=${!!this.page?.includes('titanium-shadow-text')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-shadow-text</span>
               </a>
             </details>
           </section>
@@ -544,6 +548,9 @@ export class MyAppElement extends LitElement {
             : nothing}
           ${this.page === 'titanium-dialog' ? html` <titanium-dialog-demo ?isActive=${this.page === 'titanium-dialog'}></titanium-dialog-demo> ` : nothing}
           ${this.page === 'confirm-dialog' ? html` <confirm-dialog-demo ?isActive=${this.page === 'confirm-dialog'}></confirm-dialog-demo> ` : nothing}
+          ${this.page === 'titanium-shadow-text'
+            ? html` <titanium-shadow-text-demo ?isActive=${this.page === 'titanium-shadow-text'}></titanium-shadow-text-demo> `
+            : nothing}
         </div>
       </mwc-drawer>
       <titanium-snackbar></titanium-snackbar>
