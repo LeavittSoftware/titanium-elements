@@ -104,8 +104,8 @@ export class MyAppElement extends LitElement {
     page('/titanium-card-two-line-list-item', () =>
       this.#changePage('titanium-card-two-line-list-item', () => import('./demos/titanium-card-two-line-list-item/titanium-card-two-line-list-item-demo.js'))
     );
-    page('/titanium-dialog-base', () => this.#changePage('titanium-dialog-base', () => import('./components/titanium-dialog-base-demo.js')));
-    page('/titanium-dialog', () => this.#changePage('titanium-dialog', () => import('./components/titanium-dialog-demo.js')));
+    page('/titanium-dialog-base', () => this.#changePage('titanium-dialog-base', () => import('./demos/titanium-dialog-base/titanium-dialog-base-demo.js')));
+    page('/titanium-dialog', () => this.#changePage('titanium-dialog', () => import('./demos/titanium-dialog/titanium-dialog-demo.js')));
     page('/confirm-dialog', () => this.#changePage('confirm-dialog', () => import('./demos/confirm-dialog/confirm-dialog-demo.js')));
     page('/titanium-full-page-loading-indicator', () =>
       this.#changePage(
