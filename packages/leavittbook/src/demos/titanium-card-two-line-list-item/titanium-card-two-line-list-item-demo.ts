@@ -20,12 +20,7 @@ export class TitaniumCardTwoLineListDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header
-        name="Titanium card two line list item"
-        packageName="titanium-card"
-        tagName="titanium-card-two-line-list-item"
-        klass="TitaniumCardTwoLineListItemElement"
-      ></story-header>
+      <story-header name="Titanium card two line list item" packageName="titanium-card" className="TitaniumCardTwoLineListItemElement"></story-header>
       <playground-ide line-numbers resizable project-src="../src/demos/titanium-card-two-line-list-item/project.json"> </playground-ide>
       <api-docs src="./custom-elements.json" selected="titanium-card-two-line-list-item"></api-docs>
     `;
