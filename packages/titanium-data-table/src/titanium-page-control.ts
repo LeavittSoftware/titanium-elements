@@ -14,8 +14,8 @@ import '@material/mwc-list/mwc-list-item';
  *
  * @fires action - Fired when take or page is changed by click or keyboard action. Replaces `take-changed` and `page-changed`.
  *
- * @cssprop {Color} --app-dark-text-color - page control text color
- * @cssprop {Color} --titanium-page-control-font-family - page control font family
+ * @cssprop {Color} [--app-dark-text-color=#202124] - page control text color
+ * @cssprop [--titanium-page-control-font-family=Roboto, Noto, sans-serif] - page control font family
  */
 @customElement('titanium-page-control')
 export class TitaniumPageControlElement extends LitElement {
