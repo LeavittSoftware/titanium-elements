@@ -67,8 +67,12 @@ export class MyAppElement extends LitElement {
     page('/titanium-data-table-item', () =>
       this.#changePage('titanium-data-table-item', () => import('./demos/titanium-data-table-item/titanium-data-table-item-demo.js'))
     );
-    page('/leavitt-file-explorer', () => this.#changePage('leavitt-file-explorer', () => import('./components/leavitt-file-explorer.js')));
-    page('/leavitt-person-select', () => this.#changePage('leavitt-person-select', () => import('./components/leavitt-person-select.js')));
+    page('/leavitt-file-explorer', () =>
+      this.#changePage('leavitt-file-explorer', () => import('./demos/leavitt-file-explorer/leavitt-file-explorer-demo.js'))
+    );
+    page('/leavitt-person-select', () =>
+      this.#changePage('leavitt-person-select', () => import('./demos/leavitt-person-select/leavitt-person-select-demo.js'))
+    );
     page('/leavitt-person-company-select', () =>
       this.#changePage('leavitt-person-company-select', () => import('./components/leavitt-person-company-select-demo.js'))
     );
