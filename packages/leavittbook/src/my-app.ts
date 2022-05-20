@@ -92,6 +92,9 @@ export class MyAppElement extends LitElement {
       this.#changePage('titanium-data-table-item', () => import('./demos/titanium-data-table-item/titanium-data-table-item-demo.js'))
     );
     page('/titanium-error-page', () => this.#changePage('titanium-error-page', () => import('./demos/titanium-error-page/titanium-error-page-demo.js')));
+    page('/titanium-address-input', () =>
+      this.#changePage('titanium-address-input', () => import('./demos/titanium-address-input/titanium-address-input-demo.js'))
+    );
     page('/titanium-header', () => this.#changePage('titanium-header', () => import('./demos/titanium-header/titanium-header-demo.js')));
     page('/titanium-button', () => this.#changePage('titanium-button', () => import('./demos/titanium-button/titanium-button-demo.js')));
     page('/titanium-chip', () => this.#changePage('titanium-chip', () => import('./demos/titanium-chip/titanium-chip-demo.js')));
@@ -378,6 +381,10 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-access-denied-page</span>
               </a>
+              <a href="/titanium-address-input" ?selected=${!!this.page?.includes('titanium-address-input')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-address-input</span>
+              </a>
               <a href="/titanium-card-list-item" ?selected=${!!this.page?.includes('titanium-card-list-item')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-card-list-item</span>
@@ -537,6 +544,9 @@ export class MyAppElement extends LitElement {
             : nothing}
           ${this.page === 'titanium-access-denied-page'
             ? html` <titanium-access-denied-page-demo ?isActive=${this.page === 'titanium-access-denied-page'}></titanium-access-denied-page-demo> `
+            : nothing}
+          ${this.page === 'titanium-address-input'
+            ? html` <titanium-address-input-demo ?isActive=${this.page === 'titanium-address-input'}></titanium-address-input-demo> `
             : nothing}
           ${this.page === 'titanium-error-page'
             ? html` <titanium-error-page-demo ?isActive=${this.page === 'titanium-error-page'}></titanium-error-page-demo> `
