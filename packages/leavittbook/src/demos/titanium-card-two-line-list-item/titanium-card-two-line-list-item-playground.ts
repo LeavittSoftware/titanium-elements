@@ -28,6 +28,10 @@ export class TitaniumCardTwoLineListItemPlayground extends LitElement {
         gap: 12px;
         margin: 24px 0 36px 0;
       }
+
+      titanium-card {
+        padding-bottom: 0;
+      }
     `,
   ];
 
