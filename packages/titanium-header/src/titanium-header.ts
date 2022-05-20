@@ -11,8 +11,8 @@ import { property, customElement } from 'lit/decorators.js';
  *
  * @fires titanium-header-back-click - Fired when the back button is clicked
  *
- * @cssprop {Color} --app-dark-text-color - Header text color
- * @cssprop {Color} --app-text-color - Sub-header text color
+ * @cssprop {Color} [--app-dark-text-color=#202124] - Header text color
+ * @cssprop {Color} [--app-text-color=#5f6368] - Sub-header text color
  */
 @customElement('titanium-header')
 export class TitaniumHeader extends LitElement {
@@ -64,6 +64,7 @@ export class TitaniumHeader extends LitElement {
 
         padding: 0 52px 8px 52px;
         position: relative;
+        color: var(--app-dark-text-color, #202124);
       }
 
       h3 {
