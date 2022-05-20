@@ -128,7 +128,7 @@ export class MyAppElement extends LitElement {
     page('/titanium-page-control', () =>
       this.#changePage('titanium-page-control', () => import('./demos/titanium-page-control/titanium-page-control-demo.js'))
     );
-    page('/titanium-progress', () => this.#changePage('titanium-progress', () => import('./components/titanium-progress.js')));
+    page('/titanium-progress', () => this.#changePage('titanium-progress', () => import('./demos/titanium-progress/titanium-progress-demo.js')));
     page('/titanium-search-input', () =>
       this.#changePage('titanium-search-input', () => import('./demos/titanium-search-input/titanium-search-input-demo.js'))
     );
@@ -136,7 +136,7 @@ export class MyAppElement extends LitElement {
       this.#changePage('titanium-side-menu-item', () => import('./demos/titanium-side-menu-item/titanium-side-menu-item-demo.js'))
     );
     page('/titanium-tab-control', () => this.#changePage('titanium-tab-control', () => import('./demos/titanium-tab-control/titanium-tab-control-demo.js')));
-    page('/titanium-toolbar', () => this.#changePage('titanium-toolbar', () => import('./components/titanium-toolbar-demo.js')));
+    page('/titanium-toolbar', () => this.#changePage('titanium-toolbar', () => import('./demos/titanium-toolbar/titanium-toolbar-demo.js')));
     page('/titanium-twoline-formfield', () => this.#changePage('titanium-twoline-formfield', () => import('./components/titanium-twoline-formfield.js')));
     page('/titanium-styles', () => this.#changePage('titanium-styles', () => import('./demos/titanium-styles/titanium-styles-demo.js')));
     page('/titanium-snackbar', () => this.#changePage('titanium-snackbar', () => import('./demos/titanium-snackbar/titanium-snackbar-demo.js')));
