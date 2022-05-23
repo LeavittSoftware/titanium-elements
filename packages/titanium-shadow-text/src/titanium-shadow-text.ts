@@ -14,6 +14,9 @@ import { property, customElement } from 'lit/decorators.js';
  */
 @customElement('titanium-shadow-text')
 export class TitaniumShadowTextElement extends LitElement {
+  /**
+   * Text that will be rendered in the shadow dom
+   */
   @property({ type: String }) text: string | null | undefined = '';
   static styles = css`
     :host {
