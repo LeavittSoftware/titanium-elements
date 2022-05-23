@@ -26,6 +26,7 @@ export class TitaniumCardListItemPlayground extends LitElement {
 
       titanium-card {
         margin-bottom: 24px;
+        padding-bottom: 0;
       }
     `,
   ];
@@ -36,7 +37,7 @@ export class TitaniumCardListItemPlayground extends LitElement {
       <titanium-card>
         <h1>Default</h1>
         <p>Default card list item</p>
-        <titanium-card-list-item title="Default">
+        <titanium-card-list-item full-width title="Default">
           <div>Default List Item</div>
           <div spacer></div>
           <mwc-icon>navigate_next</mwc-icon>
@@ -46,7 +47,7 @@ export class TitaniumCardListItemPlayground extends LitElement {
       <titanium-card>
         <h1>Disabled</h1>
         <p>Disabled card list item</p>
-        <titanium-card-list-item title="Disabled" disabled>
+        <titanium-card-list-item full-width title="Disabled" disabled>
           <div>Disabled List Item</div>
           <div spacer></div>
           <mwc-icon>navigate_next</mwc-icon>

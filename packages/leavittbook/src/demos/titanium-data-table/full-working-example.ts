@@ -1,7 +1,7 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement, state, query } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/titanium-styles';
+import { h1, h2, p } from '@leavittsoftware/titanium-styles';
 
 import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-item';
 import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-header';
@@ -29,9 +29,10 @@ import { ActionDetail } from '@material/mwc-list/mwc-list-foundation';
 import { repeat } from 'lit/directives/repeat.js';
 import { DOMEvent } from '@leavittsoftware/leavitt-elements/lib/dom-event';
 import { TitaniumSearchInput } from '@leavittsoftware/titanium-search-input';
-/* playground-fold-end */
-import '@leavittsoftware/titanium-data-table';
 import '@material/mwc-icon';
+/* playground-fold-end */
+
+import '@leavittsoftware/titanium-data-table';
 
 /* playground-fold */
 type FilterKeys = 'Appearance';
@@ -50,11 +51,10 @@ const allTeslas: Array<Car> = [
   { Name: 'Gen. 2 Roadster', Appearance: 'slick' },
 ];
 
-@customElement('titanium-data-table-playground')
-export class TitaniumDataTablePlayground extends LitElement {
+@customElement('titanium-data-table-full-playground')
+export class TitaniumDataTableFullPlayground extends LitElement {
   @state() private allItems: Array<Partial<Car>> = [];
   @state() private items: Array<Partial<Car>> = [];
-  @state() private draggableItems: Array<Partial<Car>> = [];
   @state() private selected: Array<Partial<Car>> = [];
   @state() private searchTerm: string = '';
   @state() private resultTotal: number = 0;
@@ -66,7 +66,7 @@ export class TitaniumDataTablePlayground extends LitElement {
   @state() private disableSelect: boolean = false;
   @state() private disablePaging: boolean = false;
 
-  @query('titanium-data-table[full-story]') private dataTable!: TitaniumDataTableElement;
+  @query('titanium-data-table') private dataTable!: TitaniumDataTableElement;
   @query('data-table-demo-filter-modal') private filterModal!: DataTableDemoFilterModalElement;
 
   constructor() {
@@ -83,7 +83,6 @@ export class TitaniumDataTablePlayground extends LitElement {
   firstUpdated() {
     this.#reset();
     this.items = this.allItems.slice(0);
-    this.draggableItems = this.allItems.slice(0);
     this.filterController.loadFromQueryString();
   }
 
@@ -134,6 +133,7 @@ export class TitaniumDataTablePlayground extends LitElement {
 
   static styles = [
     h1,
+    h2,
     p,
     css`
       :host {
@@ -143,7 +143,7 @@ export class TitaniumDataTablePlayground extends LitElement {
         margin: 24px 12px;
       }
 
-      div {
+      titanium-data-table {
         margin: 24px 0 36px 0;
       }
 
@@ -157,152 +157,142 @@ export class TitaniumDataTablePlayground extends LitElement {
   render() {
     /* playground-fold-end */
     return html`
-      <h1>Default</h1>
-      <p>Examples using disabled, closeable, and readonly attribute</p>
-      <div>
-        <titanium-data-table></titanium-data-table>
-      </div>
-
-      <h1>Prop examples</h1>
-      <p>Table with header, pagesSize, count, searchTerm</p>
-      <div>
-        <titanium-data-table header="My Header" .pageSizes=${[1, 2, 3, 4]} .count=${3} searchTerm="www.google.com"></titanium-data-table>
-      </div>
-
       <h1>Full working example</h1>
       <p>Table with items and method controls</p>
-      <div>
-        <titanium-data-table
-          full-story
-          header="Tesla Motors"
-          @selected-changed=${(e: CustomEvent<Array<Partial<{ Name: string }>>>) => {
-            this.selected = [...e.detail];
+
+      <titanium-data-table
+        header="Tesla Motors"
+        @selected-changed=${(e: CustomEvent<Array<Partial<{ Name: string }>>>) => {
+          this.selected = [...e.detail];
+        }}
+        @paging-changed=${() => {
+          this.#reload();
+        }}
+        .count=${this.resultTotal}
+        .items=${this.items}
+        .searchTerm=${this.searchTerm}
+        ?single-select=${this.singleSelect}
+        ?disable-select=${this.disableSelect}
+        ?disable-paging=${this.disablePaging}
+      >
+        <titanium-search-input
+          slot="search-button"
+          placeholder="Search"
+          .value=${this.searchTerm}
+          @value-changed=${(event: DOMEvent<TitaniumSearchInput>) => {
+            this.searchTerm = event.target.value;
+            this.dataTable.resetPage();
+            this.#doSearchDebouncer.debounce(this.searchTerm);
           }}
-          @paging-changed=${() => {
+        ></titanium-search-input>
+
+        <div slot="table-actions" style="position: relative;">
+          <mwc-icon-button
+            table-action-button
+            @click=${() => this.shadowRoot?.querySelector<Menu>('mwc-menu[table-action-menu]')?.show()}
+            id="button"
+            icon="more_vert"
+            label="Open Menu"
+          ></mwc-icon-button>
+          <mwc-menu
+            table-action-menu
+            .anchor=${this.shadowRoot?.querySelector<HTMLElement>('mwc-icon-button[table-action-button]') ?? null}
+            corner="BOTTOM_END"
+            menuCorner="END"
+            @action=${(e: CustomEvent<ActionDetail>) => {
+              switch (e.detail.index) {
+                case 0:
+                  this.#reset();
+                  break;
+              }
+            }}
+          >
+            <mwc-list-item graphic="icon">
+              <span>Reload list (reset)</span>
+              <mwc-icon slot="graphic">refresh</mwc-icon>
+            </mwc-list-item>
+          </mwc-menu>
+        </div>
+
+        <mwc-button
+          slot="add-button"
+          outlined
+          icon="add"
+          label="Add item"
+          @click=${() => {
+            const car = allTeslas[this.allItems.length % allTeslas.length];
+            const newItem: Partial<Car> = { Name: car.Name, Appearance: car.Appearance };
+            this.allItems.push(newItem);
             this.#reload();
           }}
-          .count=${this.resultTotal}
-          .items=${this.items}
-          .searchTerm=${this.searchTerm}
-          ?single-select=${this.singleSelect}
-          ?disable-select=${this.disableSelect}
-          ?disable-paging=${this.disablePaging}
-        >
-          <titanium-search-input
-            slot="search-button"
-            placeholder="Search"
-            .value=${this.searchTerm}
-            @value-changed=${(event: DOMEvent<TitaniumSearchInput>) => {
-              this.searchTerm = event.target.value;
-              this.dataTable.resetPage();
-              this.#doSearchDebouncer.debounce(this.searchTerm);
-            }}
-          ></titanium-search-input>
+        ></mwc-button>
 
-          <div slot="table-actions" style="position: relative;">
-            <mwc-icon-button
-              table-action-button
-              @click=${() => this.shadowRoot?.querySelector<Menu>('mwc-menu[table-action-menu]')?.show()}
-              id="button"
-              icon="more_vert"
-              label="Open Menu"
-            ></mwc-icon-button>
-            <mwc-menu
-              table-action-menu
-              .anchor=${this.shadowRoot?.querySelector<HTMLElement>('mwc-icon-button[table-action-button]') ?? null}
-              corner="BOTTOM_END"
-              menuCorner="END"
-              @action=${(e: CustomEvent<ActionDetail>) => {
-                switch (e.detail.index) {
-                  case 0:
-                    this.#reset();
-                    break;
-                }
+        <data-table-demo-filter-modal slot="filters" .filterController=${this.filterController}></data-table-demo-filter-modal>
+
+        <mwc-icon-button
+          slot="filter-button"
+          @click=${async () => {
+            this.filterModal.open();
+          }}
+          title="Apply filters"
+          icon="filter_list"
+        ></mwc-icon-button>
+
+        <mwc-icon-button
+          slot="selected-actions"
+          delete
+          title=${`Delete the selected item${this.selected.length > 1 ? 's' : ''}`}
+          @click=${() => {
+            this.allItems = this.allItems.filter(f => !this.selected.includes(f));
+            this.resultTotal = this.resultTotal - this.selected.length;
+            this.#reload();
+          }}
+          icon="delete"
+        ></mwc-icon-button>
+
+        <titanium-data-table-header
+          slot="table-headers"
+          large
+          column-name="Name"
+          title="Name"
+          @sort-by-changed=${this.#onSortByChange}
+          .sortBy=${this.sortBy}
+          .sortDirection=${this.sortDirection}
+          @sort-direction-changed=${this.#onSortDirectionChange}
+        ></titanium-data-table-header>
+
+        <titanium-data-table-header
+          slot="table-headers"
+          column-name="Appearance"
+          title="Appearance"
+          @sort-by-changed=${this.#onSortByChange}
+          .sortBy=${this.sortBy}
+          .sortDirection=${this.sortDirection}
+          @sort-direction-changed=${this.#onSortDirectionChange}
+        ></titanium-data-table-header>
+
+        ${repeat(
+          this.items ?? [],
+          item => item.Name,
+          item => html`
+            <titanium-data-table-item
+              ?disable-select=${this.disableSelect}
+              @titanium-data-table-item-navigate=${() => {
+                //todo
+                this.dataTable.clearSelection();
               }}
+              .item=${item}
+              slot="items"
             >
-              <mwc-list-item graphic="icon">
-                <span>Reload list (reset)</span>
-                <mwc-icon slot="graphic">refresh</mwc-icon>
-              </mwc-list-item>
-            </mwc-menu>
-          </div>
+              <row-item large ellipsis title=${item.Name ?? ''}>${item.Name ?? '-'}</row-item>
+              <row-item title=${item.Appearance ?? ''}>${item.Appearance ?? '-'}</row-item>
+            </titanium-data-table-item>
+          `
+        )}
+      </titanium-data-table>
 
-          <mwc-button
-            slot="add-button"
-            outlined
-            icon="add"
-            label="Add item"
-            @click=${() => {
-              const car = allTeslas[this.allItems.length % allTeslas.length];
-              const newItem: Partial<Car> = { Name: car.Name, Appearance: car.Appearance };
-              this.allItems.push(newItem);
-              this.#reload();
-            }}
-          ></mwc-button>
-
-          <data-table-demo-filter-modal slot="filters" .filterController=${this.filterController}></data-table-demo-filter-modal>
-
-          <mwc-icon-button
-            slot="filter-button"
-            @click=${async () => {
-              this.filterModal.open();
-            }}
-            title="Apply filters"
-            icon="filter_list"
-          ></mwc-icon-button>
-
-          <mwc-icon-button
-            slot="selected-actions"
-            delete
-            title=${`Delete the selected item${this.selected.length > 1 ? 's' : ''}`}
-            @click=${() => {
-              this.allItems = this.allItems.filter(f => !this.selected.includes(f));
-              this.resultTotal = this.resultTotal - this.selected.length;
-              this.#reload();
-            }}
-            icon="delete"
-          ></mwc-icon-button>
-
-          <titanium-data-table-header
-            slot="table-headers"
-            large
-            column-name="Name"
-            title="Name"
-            @sort-by-changed=${this.#onSortByChange}
-            .sortBy=${this.sortBy}
-            .sortDirection=${this.sortDirection}
-            @sort-direction-changed=${this.#onSortDirectionChange}
-          ></titanium-data-table-header>
-
-          <titanium-data-table-header
-            slot="table-headers"
-            column-name="Appearance"
-            title="Appearance"
-            @sort-by-changed=${this.#onSortByChange}
-            .sortBy=${this.sortBy}
-            .sortDirection=${this.sortDirection}
-            @sort-direction-changed=${this.#onSortDirectionChange}
-          ></titanium-data-table-header>
-
-          ${repeat(
-            this.items ?? [],
-            item => item.Name,
-            item => html`
-              <titanium-data-table-item
-                ?disable-select=${this.disableSelect}
-                @titanium-data-table-item-navigate=${() => {
-                  //todo
-                  this.dataTable.clearSelection();
-                }}
-                .item=${item}
-                slot="items"
-              >
-                <row-item large ellipsis title=${item.Name ?? ''}>${item.Name ?? '-'}</row-item>
-                <row-item title=${item.Appearance ?? ''}>${item.Appearance ?? '-'}</row-item>
-              </titanium-data-table-item>
-            `
-          )}
-        </titanium-data-table>
+      <div>
+        <h2>Knobs</h2>
         <mwc-formfield label="Single Select">
           <mwc-switch
             .selected=${this.singleSelect}
@@ -343,51 +333,6 @@ export class TitaniumDataTablePlayground extends LitElement {
           }}
           >clear Selection</mwc-button
         >
-      </div>
-
-      <h1>Draggable</h1>
-      <p>Table with draggable items</p>
-      <div>
-        <titanium-data-table
-          header="Draggable"
-          .items=${this.draggableItems}
-          @titanium-data-table-items-reorder=${async () => {
-            this.draggableItems = this.draggableItems;
-            await this.requestUpdate('draggableItems');
-          }}
-        >
-          <titanium-data-table-header
-            slot="table-headers"
-            large
-            column-name="Name"
-            title="Name"
-            @sort-by-changed=${this.#onSortByChange}
-            .sortBy=${this.sortBy}
-            .sortDirection=${this.sortDirection}
-            @sort-direction-changed=${this.#onSortDirectionChange}
-          ></titanium-data-table-header>
-
-          <titanium-data-table-header
-            slot="table-headers"
-            column-name="Appearance"
-            title="Appearance"
-            @sort-by-changed=${this.#onSortByChange}
-            .sortBy=${this.sortBy}
-            .sortDirection=${this.sortDirection}
-            @sort-direction-changed=${this.#onSortDirectionChange}
-          ></titanium-data-table-header>
-
-          ${repeat(
-            this.draggableItems ?? [],
-            item => item.Name,
-            item => html`
-              <titanium-data-table-item enable-dragging .item=${item} slot="items">
-                <row-item large ellipsis title=${item.Name ?? ''}>${item.Name ?? '-'}</row-item>
-                <row-item title=${item.Appearance ?? ''}>${item.Appearance ?? '-'}</row-item>
-              </titanium-data-table-item>
-            `
-          )}
-        </titanium-data-table>
       </div>
     `;
   }
