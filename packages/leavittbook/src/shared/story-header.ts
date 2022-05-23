@@ -167,12 +167,16 @@ export default class StoryHeaderElement extends LitElement {
       </info-container>
       <p desc>${this.customElementDeclaration?.description}</p>
       <chip-container>
-        <titanium-chip readonly black>
-          <span slot="label"><span class="major"></span><span class="minor"></span><span class="rev"></span></span>
-        </titanium-chip>
-        <titanium-chip readonly blue>
-          <span slot="label"><span class="downloads"></span></span>
-        </titanium-chip>
+        ${this.packageName
+          ? html`
+              <titanium-chip readonly black>
+                <span slot="label"><span class="major"></span><span class="minor"></span><span class="rev"></span></span>
+              </titanium-chip>
+              <titanium-chip readonly blue>
+                <span slot="label"><span class="downloads"></span></span>
+              </titanium-chip>
+            `
+          : nothing}
         ${this.deprecatedReason ? html`<titanium-chip readonly deprecated label="Deprecated (${this.deprecatedReason})"></titanium-chip>` : nothing}
       </chip-container>
     `;

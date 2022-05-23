@@ -63,6 +63,8 @@ export class MyAppElement extends LitElement {
         () => import('./demos/titanium-full-page-loading-indicator/titanium-full-page-loading-indicator-demo.js')
       )
     );
+    page('/available-cdn-icons', () => this.#changePage('available-cdn-icons', () => import('./demos/available-cdn-icons/available-cdn-icons-demo.js')));
+
     page('/leavitt-date-range', () => this.#changePage('leavitt-date-range', () => import('./demos/leavitt-date-range/leavitt-date-range-demo.js')));
     page('/titanium-data-table-item', () =>
       this.#changePage('titanium-data-table-item', () => import('./demos/titanium-data-table-item/titanium-data-table-item-demo.js'))
@@ -483,6 +485,7 @@ export class MyAppElement extends LitElement {
             <details open>
               <summary>Leavitt</summary>
               <!-- Leavitt menu -->
+
               <a href="/leavitt-date-range" ?selected=${!!this.page?.includes('leavitt-date-range')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>leavitt-date-range</span>
@@ -506,6 +509,10 @@ export class MyAppElement extends LitElement {
               <a href="/profile-picture" ?selected=${!!this.page?.includes('profile-picture')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>profile-picture</span>
+              </a>
+              <a href="/available-cdn-icons" ?selected=${!!this.page?.includes('available-cdn-icons')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>cdn icons</span>
               </a>
             </details>
           </section>
@@ -531,6 +538,10 @@ export class MyAppElement extends LitElement {
           ${this.page === 'getting-started' ? html`<getting-started></getting-started>` : nothing}
           ${this.page === 'error' ? html`<div>Oops, something went wrong.</div>` : nothing}
           <!-- Stories -->
+
+          ${this.page === 'available-cdn-icons'
+            ? html` <available-cdn-icons-demo ?isActive=${this.page === 'available-cdn-icons'}></available-cdn-icons-demo> `
+            : nothing}
           ${this.page === 'titanium-attachment-input'
             ? html` <titanium-attachment-input-demo ?isActive=${this.page === 'titanium-attachment-input'}></titanium-attachment-input-demo> `
             : nothing}
