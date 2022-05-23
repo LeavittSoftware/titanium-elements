@@ -4,7 +4,6 @@ import { customElement } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/titanium-styles';
 
 /* playground-fold-end */
-import '@leavittsoftware/titanium-button';
 
 /* playground-fold */
 @customElement('available-cdn-icons-playground')
