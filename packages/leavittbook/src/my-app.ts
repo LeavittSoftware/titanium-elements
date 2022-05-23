@@ -349,15 +349,34 @@ export class MyAppElement extends LitElement {
             <details open>
               <summary>Titanium</summary>
               <!-- Titanium menu -->
-              <a href="/titanium-attachment-input" ?selected=${!!this.page?.includes('titanium-attachment-input')}>
+              <a href="/confirm-dialog" ?selected=${this.page === 'confirm-dialog'}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-                <span>titanium-attachment-input</span>
+                <span>confirm-dialog</span>
               </a>
               <a href="/mwc-datefield" ?selected=${!!this.page?.includes('mwc-datefield')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>mwc-datefield</span>
               </a>
-
+              <a href="/titanium-access-denied-page" ?selected=${!!this.page?.includes('titanium-access-denied-page')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-access-denied-page</span>
+              </a>
+              <a href="/titanium-address-input" ?selected=${!!this.page?.includes('titanium-address-input')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-address-input</span>
+              </a>
+              <a href="/titanium-attachment-input" ?selected=${!!this.page?.includes('titanium-attachment-input')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-attachment-input</span>
+              </a>
+              <a href="/titanium-card-list-item" ?selected=${!!this.page?.includes('titanium-card-list-item')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-card-list-item</span>
+              </a>
+              <a href="/titanium-card-two-line-list-item" ?selected=${!!this.page?.includes('titanium-card-two-line-list-item')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-card-two-line-list-item</span>
+              </a>
               <a href="/titanium-chip" ?selected=${this.page === 'titanium-chip'}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-chip</span>
@@ -378,25 +397,13 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-data-table-item</span>
               </a>
-              <a href="/titanium-input-validator" ?selected=${!!this.page?.includes('titanium-input-validator')}>
+              <a href="/titanium-dialog-base" ?selected=${!!this.page?.includes('titanium-dialog-base')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-                <span>titanium-input-validator</span>
+                <span>titanium-dialog-base</span>
               </a>
-              <a href="/titanium-access-denied-page" ?selected=${!!this.page?.includes('titanium-access-denied-page')}>
+              <a href="/titanium-dialog" ?selected=${this.page === 'titanium-dialog'}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-                <span>titanium-access-denied-page</span>
-              </a>
-              <a href="/titanium-address-input" ?selected=${!!this.page?.includes('titanium-address-input')}>
-                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-                <span>titanium-address-input</span>
-              </a>
-              <a href="/titanium-card-list-item" ?selected=${!!this.page?.includes('titanium-card-list-item')}>
-                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-                <span>titanium-card-list-item</span>
-              </a>
-              <a href="/titanium-card-two-line-list-item" ?selected=${!!this.page?.includes('titanium-card-two-line-list-item')}>
-                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-                <span>titanium-card-two-line-list-item</span>
+                <span>titanium-dialog</span>
               </a>
               <a href="/titanium-error-page" ?selected=${!!this.page?.includes('titanium-error-page')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
@@ -406,33 +413,21 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-full-page-loading-indicator</span>
               </a>
-              <a href="/titanium-loading-indicator" ?selected=${!!this.page?.includes('titanium-loading-indicator')}>
-                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-                <span>titanium-loading-indicator</span>
-              </a>
-              <a href="/titanium-dialog-base" ?selected=${!!this.page?.includes('titanium-dialog-base')}>
-                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-                <span>titanium-dialog-base</span>
-              </a>
-              <a href="/titanium-dialog" ?selected=${this.page === 'titanium-dialog'}>
-                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-                <span>titanium-dialog</span>
-              </a>
-              <a href="/confirm-dialog" ?selected=${this.page === 'confirm-dialog'}>
-                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-                <span>confirm-dialog</span>
-              </a>
               <a href="/titanium-header" ?selected=${!!this.page?.includes('titanium-header')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-header</span>
               </a>
+              <a href="/titanium-input-validator" ?selected=${!!this.page?.includes('titanium-input-validator')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-input-validator</span>
+              </a>
+              <a href="/titanium-loading-indicator" ?selected=${!!this.page?.includes('titanium-loading-indicator')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-loading-indicator</span>
+              </a>
               <a href="/titanium-page-control" ?selected=${!!this.page?.includes('titanium-page-control')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-page-control</span>
-              </a>
-              <a href="/titanium-progress" ?selected=${!!this.page?.includes('titanium-progress')}>
-                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-                <span>titanium-progress</span>
               </a>
               <a href="/titanium-search-input" ?selected=${!!this.page?.includes('titanium-search-input')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
@@ -441,6 +436,10 @@ export class MyAppElement extends LitElement {
               <a href="/titanium-side-menu-item" ?selected=${!!this.page?.includes('titanium-side-menu-item')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-side-menu-item</span>
+              </a>
+              <a href="/titanium-snackbar" ?selected=${!!this.page?.includes('titanium-snackbar')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-snackbar</span>
               </a>
               <a href="/titanium-styles" ?selected=${!!this.page?.includes('titanium-styles')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
@@ -458,10 +457,6 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-twoline-formfield</span>
               </a>
-              <a href="/titanium-snackbar" ?selected=${!!this.page?.includes('titanium-snackbar')}>
-                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-                <span>titanium-snackbar</span>
-              </a>
             </details>
           </section>
 
@@ -469,10 +464,6 @@ export class MyAppElement extends LitElement {
             <details open>
               <summary>Leavitt</summary>
               <!-- Leavitt menu -->
-              <a href="/profile-picture" ?selected=${!!this.page?.includes('profile-picture')}>
-                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-                <span>profile-picture</span>
-              </a>
               <a href="/leavitt-date-range" ?selected=${!!this.page?.includes('leavitt-date-range')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>leavitt-date-range</span>
@@ -480,10 +471,6 @@ export class MyAppElement extends LitElement {
               <a href="/leavitt-file-explorer" ?selected=${!!this.page?.includes('leavitt-file-explorer')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>leavitt-file-explorer</span>
-              </a>
-              <a href="/leavitt-person-select" ?selected=${!!this.page?.includes('leavitt-person-select')}>
-                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-                <span>leavitt-person-select</span>
               </a>
               <a href="/leavitt-person-company-select" ?selected=${!!this.page?.includes('leavitt-person-company-select')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
@@ -493,6 +480,14 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>leavitt-person-group-select</span>
               </a>
+              <a href="/leavitt-person-select" ?selected=${!!this.page?.includes('leavitt-person-select')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>leavitt-person-select</span>
+              </a>
+              <a href="/profile-picture" ?selected=${!!this.page?.includes('profile-picture')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>profile-picture</span>
+              </a>
             </details>
           </section>
           <section>
@@ -501,6 +496,10 @@ export class MyAppElement extends LitElement {
               <a href="/titanium-button" ?selected=${!!this.page?.includes('titanium-button')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-button</span>
+              </a>
+              <a href="/titanium-progress" ?selected=${!!this.page?.includes('titanium-progress')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-progress</span>
               </a>
             </details>
           </section>
