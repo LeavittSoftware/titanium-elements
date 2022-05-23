@@ -1,9 +1,7 @@
 {
   "section": "Basics",
   "files": {
-    "full-working-example.ts": {},
-    "draggable.ts": {},
-    "props.ts": {},
+    "titanium-twoline-formfield-playground.ts": {},
     "index.html": {}
   },
   "order": 0
