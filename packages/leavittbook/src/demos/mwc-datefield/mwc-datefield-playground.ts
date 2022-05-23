@@ -74,7 +74,7 @@ export class DateFieldPlayground extends LitElement {
       <h1>Time</h1>
       <p>date field with time styles</p>
       <div>
-        <mwc-datefield></mwc-datefield>
+        <mwc-datefield date-type="datetime-local"></mwc-datefield>
         <mwc-datefield date-type="datetime-local" label="initial value" value="2022-05-10T20:47"></mwc-datefield>
         <mwc-datefield date-type="datetime-local" label="prefix" prefix="$$$"></mwc-datefield>
         <mwc-datefield date-type="datetime-local" label="suffix" suffix="MST"></mwc-datefield>
