@@ -125,6 +125,9 @@ export class MyAppElement extends LitElement {
     page('/titanium-loading-indicator', () =>
       this.#changePage('titanium-loading-indicator', () => import('./demos/titanium-loading-indicator/titanium-loading-indicator-demo.js'))
     );
+    page('/titanium-offline-notice', () =>
+      this.#changePage('titanium-offline-notice', () => import('./demos/titanium-offline-notice/titanium-offline-notice-demo.js'))
+    );
     page('/titanium-page-control', () =>
       this.#changePage('titanium-page-control', () => import('./demos/titanium-page-control/titanium-page-control-demo.js'))
     );
@@ -418,6 +421,10 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-header</span>
               </a>
+              <a href="/titanium-offline-notice" ?selected=${!!this.page?.includes('titanium-offline-notice')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-offline-notice</span>
+              </a>
               <a href="/titanium-input-validator" ?selected=${!!this.page?.includes('titanium-input-validator')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-input-validator</span>
@@ -593,6 +600,9 @@ export class MyAppElement extends LitElement {
             : nothing}
           ${this.page === 'titanium-loading-indicator'
             ? html` <titanium-loading-indicator-demo ?isActive=${this.page === 'titanium-loading-indicator'}></titanium-loading-indicator-demo> `
+            : nothing}
+          ${this.page === 'titanium-offline-notice'
+            ? html` <titanium-offline-notice-demo ?isActive=${this.page === 'titanium-offline-notice'}></titanium-offline-notice-demo> `
             : nothing}
           ${this.page === 'titanium-chip-multi-select'
             ? html` <titanium-chip-multi-select-demo ?isActive=${this.page === 'titanium-chip-multi-select'}></titanium-chip-multi-select-demo> `
