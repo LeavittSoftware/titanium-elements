@@ -138,6 +138,8 @@ export class MyAppElement extends LitElement {
     page('/titanium-side-menu-item', () =>
       this.#changePage('titanium-side-menu-item', () => import('./demos/titanium-side-menu-item/titanium-side-menu-item-demo.js'))
     );
+
+    page('/titanium-svg-button', () => this.#changePage('titanium-svg-button', () => import('./demos/titanium-svg-button/titanium-svg-button-demo.js')));
     page('/titanium-tab-control', () => this.#changePage('titanium-tab-control', () => import('./demos/titanium-tab-control/titanium-tab-control-demo.js')));
     page('/titanium-toolbar', () => this.#changePage('titanium-toolbar', () => import('./demos/titanium-toolbar/titanium-toolbar-demo.js')));
     page('/titanium-twoline-formfield', () =>
@@ -513,6 +515,10 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-progress</span>
               </a>
+              <a href="/titanium-svg-button" ?selected=${!!this.page?.includes('titanium-svg-button')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-svg-button</span>
+              </a>
             </details>
           </section>
         </div>
@@ -583,6 +589,9 @@ export class MyAppElement extends LitElement {
             : nothing}
           ${this.page === 'titanium-side-menu-item'
             ? html` <titanium-side-menu-item-demo ?isActive=${this.page === 'titanium-side-menu-item'}></titanium-side-menu-item-demo> `
+            : nothing}
+          ${this.page === 'titanium-svg-button'
+            ? html` <titanium-svg-button-demo ?isActive=${this.page === 'titanium-svg-button'}></titanium-svg-button-demo> `
             : nothing}
           ${this.page === 'titanium-tab-control'
             ? html` <titanium-tab-control-demo ?isActive=${this.page === 'titanium-tab-control'}></titanium-tab-control-demo> `
