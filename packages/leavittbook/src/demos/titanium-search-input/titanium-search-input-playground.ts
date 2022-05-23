@@ -14,7 +14,7 @@ import { TitaniumSearchInput } from '@leavittsoftware/titanium-search-input';
 /* playground-fold */
 @customElement('titanium-search-input-playground')
 export class TitaniumSearchInputItemPlayground extends LitElement {
-  @query('titanium-search-input[methods]') private methodsSearch!: TitaniumSearchInput;
+  @query('titanium-search-input[methods-demo]') private methodsSearch!: TitaniumSearchInput;
 
   static styles = [
     h1,
@@ -73,7 +73,7 @@ export class TitaniumSearchInputItemPlayground extends LitElement {
       <p>Demonstrates public methods</p>
       <titanium-card>
         <div row>
-          <titanium-search-input methods prevent-collapse></titanium-search-input>
+          <titanium-search-input methods-demo prevent-collapse></titanium-search-input>
           <mwc-button
             raised
             @click=${() => {
