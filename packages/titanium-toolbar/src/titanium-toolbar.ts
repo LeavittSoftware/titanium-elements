@@ -33,6 +33,7 @@ export class TitaniumToolbarElement extends LitElement {
 
       flex-direction: row;
       align-items: center;
+
       height: 48px;
       padding: 0 14px;
       background-color: var(--titanium-toolbar-color, #fff);
