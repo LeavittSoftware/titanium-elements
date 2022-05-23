@@ -132,6 +132,9 @@ export class MyAppElement extends LitElement {
       this.#changePage('titanium-page-control', () => import('./demos/titanium-page-control/titanium-page-control-demo.js'))
     );
     page('/titanium-progress', () => this.#changePage('titanium-progress', () => import('./demos/titanium-progress/titanium-progress-demo.js')));
+    page('/titanium-single-select', () =>
+      this.#changePage('titanium-single-select', () => import('./demos/titanium-single-select/titanium-single-select-demo.js'))
+    );
     page('/titanium-search-input', () =>
       this.#changePage('titanium-search-input', () => import('./demos/titanium-search-input/titanium-search-input-demo.js'))
     );
@@ -515,6 +518,10 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-progress</span>
               </a>
+              <a href="/titanium-single-select" ?selected=${!!this.page?.includes('titanium-single-select')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-single-select</span>
+              </a>
               <a href="/titanium-svg-button" ?selected=${!!this.page?.includes('titanium-svg-button')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-svg-button</span>
@@ -580,6 +587,9 @@ export class MyAppElement extends LitElement {
           ${this.page === 'titanium-header' ? html` <titanium-header-demo ?isActive=${this.page === 'titanium-header'}></titanium-header-demo> ` : nothing}
           ${this.page === 'titanium-progress'
             ? html` <titanium-progress-demo ?isActive=${this.page === 'titanium-progress'}></titanium-progress-demo> `
+            : nothing}
+          ${this.page === 'titanium-single-select'
+            ? html` <titanium-single-select-demo ?isActive=${this.page === 'titanium-single-select'}></titanium-single-select-demo> `
             : nothing}
           ${this.page === 'titanium-page-control'
             ? html` <titanium-page-control-demo ?isActive=${this.page === 'titanium-page-control'}></titanium-page-control-demo> `
