@@ -1,8 +1,24 @@
 import { css, html, LitElement } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
 
+/**
+ * A simple offline notice.
+ *
+ * @element titanium-offline-notice
+ *
+ * @fires is-online-changed - Fired when online status is changed.
+ *
+ * @cssprop [--titanium-offline-notice-background-color=#ef5350] - Offline notice background color
+ * @cssprop [--titanium-offline-notice-top-offset=48px] - Offline notice top offset
+ * @cssprop [--titanium-offline-notice-height=48px] - Offline notice height
+ * @cssprop [--titanium-offline-notice-max-content-width=inherit] - Offline notice max width
+ *
+ */
 @customElement('titanium-offline-notice')
 export class TitaniumOfflineNoticeElement extends LitElement {
+  /**
+   * Sets element display to none if online
+   */
   @property({ type: Boolean, reflect: true }) isOnline: boolean = true;
 
   connectedCallback() {
@@ -17,8 +33,14 @@ export class TitaniumOfflineNoticeElement extends LitElement {
     super.disconnectedCallback();
   }
 
+  /**
+   * Sets isOnline to navigator.onLine and fires event
+   */
   onlineStatusChanged() {
     this.isOnline = navigator.onLine;
+    /**
+     * Fired when online status is changed
+     */
     this.dispatchEvent(new CustomEvent('is-online-changed', { composed: true, detail: this.isOnline }));
   }
 
