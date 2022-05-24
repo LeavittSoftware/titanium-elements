@@ -545,7 +545,7 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>leavitt-person-select</span>
               </a>
-              <a href="/profile-picture" ?selected=${!!this.page?.includes('profile-picture')}>
+              <a href="/profile-picture" ?selected=${this.page == 'profile-picture'}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>profile-picture</span>
               </a>

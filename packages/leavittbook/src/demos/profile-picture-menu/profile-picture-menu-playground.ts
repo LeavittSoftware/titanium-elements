@@ -38,7 +38,7 @@ export class ProfilePictureMenuPlayground extends LitElement {
       <h1>Default</h1>
       <p>Default profile picture styles</p>
       <div>
-        <profile-picture-menu></profile-picture-menu>
+        <profile-picture-menu name="Testboii Testeri" email="testboi-tester@leavitt.com" company="Kasey Quality Assurance Inc."></profile-picture-menu>
       </div>
     `;
   }
