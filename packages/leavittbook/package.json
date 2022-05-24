@@ -33,6 +33,7 @@
     "@leavittsoftware/titanium-tab-control": "*",
     "@leavittsoftware/titanium-toolbar": "*",
     "@leavittsoftware/titanium-input-validator": "*",
+    "@leavittsoftware/titanium-youtube-input": "*",
     "@leavittsoftware/user-manager": "*",
     "@leavittsoftware/leavitt-file-explorer": "*",
     "@material/mwc-checkbox": "*",
