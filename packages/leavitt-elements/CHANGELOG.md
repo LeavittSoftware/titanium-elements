@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@5.5.1...@leavittsoftware/leavitt-elements@5.5.2) (2022-05-16)
+
+
+### Bug Fixes
+
+* add tolower to search terms ([f761b43](https://github.com/LeavittSoftware/titanium-elements/commit/f761b4342b9093b78558d1b56ed41cdc55012be8))
+
+
+
+
+
+## 5.5.1 (2022-05-09)
+
+
+### Bug Fixes
+
+* makes abort toast actually get ignored ([#233](https://github.com/LeavittSoftware/titanium-elements/issues/233)) ([81422fd](https://github.com/LeavittSoftware/titanium-elements/commit/81422fd7b05dac465c0d2c1d6854fd0a8dba1d0e))
+* type error ([617e1eb](https://github.com/LeavittSoftware/titanium-elements/commit/617e1ebc5b0f09d5fe265dba070ce09b22300d54))
+
+
+
+
+
 # [5.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@5.4.0...@leavittsoftware/leavitt-elements@5.5.0) (2022-04-29)
 
 

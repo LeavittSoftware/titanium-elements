@@ -6,7 +6,7 @@ import { css, html, LitElement } from 'lit';
 import { property, customElement, query } from 'lit/decorators.js';
 import { DateField } from './mwc-datefield';
 import { Select } from '@material/mwc-select';
-import dayjs, { Dayjs, OpUnitType } from 'dayjs/esm';
+import dayjs, { Dayjs, QUnitType } from 'dayjs/esm';
 import quarterOfYear from 'dayjs/esm/plugin/quarterOfYear';
 import { Debouncer } from '@leavittsoftware/titanium-helpers/lib/titanium-debouncer';
 import { DateRangeChangedEvent } from './DateRangeChangedEvent';
@@ -14,7 +14,7 @@ import { DOMEvent } from './dom-event';
 
 dayjs.extend(quarterOfYear);
 
-const quarter = 'quarter' as OpUnitType;
+const quarter = 'quarter' as QUnitType;
 const today: Dayjs = dayjs();
 const yesterday: Dayjs = today.subtract(1, 'day');
 const lastWeek: Dayjs = today.subtract(1, 'week');
