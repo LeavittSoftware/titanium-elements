@@ -34,7 +34,7 @@ jobs:
       - name: Run build:leavittbook
         run: npm run build:leavittbook
       - name: Deploy 🚀
-        if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop')
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/master')
         uses: JamesIves/github-pages-deploy-action@4.1.7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
