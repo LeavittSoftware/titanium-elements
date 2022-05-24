@@ -144,7 +144,9 @@ export class MyAppElement extends LitElement {
     page('/titanium-side-menu-item', () =>
       this.#changePage('titanium-side-menu-item', () => import('./demos/titanium-side-menu-item/titanium-side-menu-item-demo.js'))
     );
-
+    page('/titanium-single-action-card', () =>
+      this.#changePage('titanium-single-action-card', () => import('./demos/titanium-single-action-card/titanium-single-action-card-demo.js'))
+    );
     page('/titanium-svg-button', () => this.#changePage('titanium-svg-button', () => import('./demos/titanium-svg-button/titanium-svg-button-demo.js')));
     page('/titanium-tab-control', () => this.#changePage('titanium-tab-control', () => import('./demos/titanium-tab-control/titanium-tab-control-demo.js')));
     page('/titanium-toolbar', () => this.#changePage('titanium-toolbar', () => import('./demos/titanium-toolbar/titanium-toolbar-demo.js')));
@@ -461,6 +463,10 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-side-menu-item</span>
               </a>
+              <a href="/titanium-single-action-card" ?selected=${!!this.page?.includes('titanium-single-action-card')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-single-action-card</span>
+              </a>
               <a href="/titanium-snackbar" ?selected=${!!this.page?.includes('titanium-snackbar')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-snackbar</span>
@@ -616,6 +622,9 @@ export class MyAppElement extends LitElement {
             : nothing}
           ${this.page === 'titanium-side-menu-item'
             ? html` <titanium-side-menu-item-demo ?isActive=${this.page === 'titanium-side-menu-item'}></titanium-side-menu-item-demo> `
+            : nothing}
+          ${this.page === 'titanium-single-action-card'
+            ? html` <titanium-single-action-card-demo ?isActive=${this.page === 'titanium-single-action-card'}></titanium-single-action-card-demo> `
             : nothing}
           ${this.page === 'titanium-svg-button'
             ? html` <titanium-svg-button-demo ?isActive=${this.page === 'titanium-svg-button'}></titanium-svg-button-demo> `
