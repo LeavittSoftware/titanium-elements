@@ -103,6 +103,9 @@ export class MyAppElement extends LitElement {
     page('/titanium-header', () => this.#changePage('titanium-header', () => import('./demos/titanium-header/titanium-header-demo.js')));
     page('/titanium-icon', () => this.#changePage('titanium-icon', () => import('./demos/titanium-icon/titanium-icon-demo.js')));
     page('/titanium-button', () => this.#changePage('titanium-button', () => import('./demos/titanium-button/titanium-button-demo.js')));
+    page('/titanium-menu-surface', () =>
+      this.#changePage('titanium-menu-surface', () => import('./demos/titanium-menu-surface/titanium-menu-surface-demo.js'))
+    );
     page('/titanium-chip', () => this.#changePage('titanium-chip', () => import('./demos/titanium-chip/titanium-chip-demo.js')));
     page('/titanium-chip-multi-select', () =>
       this.#changePage('titanium-chip-multi-select', () => import('./demos/titanium-chip-multi-select/titanium-chip-multi-select-demo.js'))
@@ -539,6 +542,10 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-button</span>
               </a>
+              <a href="/titanium-menu-surface" ?selected=${!!this.page?.includes('titanium-menu-surface')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-menu-surface</span>
+              </a>
               <a href="/titanium-progress" ?selected=${!!this.page?.includes('titanium-progress')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-progress</span>
@@ -590,6 +597,9 @@ export class MyAppElement extends LitElement {
             : nothing}
           ${this.page === 'profile-picture' ? html` <profile-picture-demo ?isActive=${this.page === 'profile-picture'}></profile-picture-demo> ` : nothing}
           ${this.page === 'titanium-button' ? html` <titanium-button-demo ?isActive=${this.page === 'titanium-button'}></titanium-button-demo> ` : nothing}
+          ${this.page === 'titanium-menu-surface'
+            ? html` <titanium-menu-surface-demo ?isActive=${this.page === 'titanium-menu-surface'}></titanium-menu-surface-demo> `
+            : nothing}
           ${this.page === 'titanium-chip' ? html` <titanium-chip-demo ?isActive=${this.page === 'titanium-chip'}></titanium-chip-demo> ` : nothing}
           ${this.page === 'titanium-input-validator'
             ? html` <titanium-input-validator-demo ?isActive=${this.page === 'titanium-input-validator'}></titanium-input-validator-demo> `
