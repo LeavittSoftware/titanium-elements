@@ -56,14 +56,23 @@ export class TitaniumYouTubeInputElement extends LitElement {
     };
   }
 
+  /**
+   *  Runs checkValidity() method, and if it returns false, then it reports to the user that the input is invalid.
+   */
   reportValidity() {
     return this.input.reportValidity();
   }
 
+  /**
+   *  Returns true if the input passes validity checks.
+   */
   checkValidity() {
     return this.input.checkValidity();
   }
 
+  /**
+   *  Resets the inputs state.
+   */
   reset() {
     this.input.isUiValid = true;
     this.input.mdcFoundation?.setValid?.(true);

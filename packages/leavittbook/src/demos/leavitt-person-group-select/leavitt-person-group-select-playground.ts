@@ -102,31 +102,32 @@ export class LeavittPersonGroupSelectPlaygroundElement extends LitElement {
       <p>Demonstrates public methods</p>
       <div>
         <leavitt-person-group-select methods-demo required .apiService=${this.apiService}></leavitt-person-group-select>
-        <section buttons></section>
-        <mwc-button
-          lowercase
-          outlined
-          @click=${() => {
-            this.methodsSelect.reset();
-          }}
-          label="reset()"
-        ></mwc-button>
-        <mwc-button
-          lowercase
-          outlined
-          @click=${() => {
-            this.methodsSelect.focus();
-          }}
-          label="focus()"
-        ></mwc-button>
-        <mwc-button
-          lowercase
-          outlined
-          @click=${() => {
-            this.methodsSelect.reportValidity();
-          }}
-          label="reportValidity()"
-        ></mwc-button>
+        <section buttons>
+          <mwc-button
+            lowercase
+            outlined
+            @click=${() => {
+              this.methodsSelect.reset();
+            }}
+            label="reset()"
+          ></mwc-button>
+          <mwc-button
+            lowercase
+            outlined
+            @click=${() => {
+              this.methodsSelect.focus();
+            }}
+            label="focus()"
+          ></mwc-button>
+          <mwc-button
+            lowercase
+            outlined
+            @click=${() => {
+              this.methodsSelect.reportValidity();
+            }}
+            label="reportValidity()"
+          ></mwc-button>
+        </section>
       </div>
     `;
   }
