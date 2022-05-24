@@ -152,6 +152,7 @@ export class MyAppElement extends LitElement {
       this.#changePage('titanium-twoline-formfield', () => import('./demos/titanium-twoline-formfield/titanium-twoline-formfield-demo.js'))
     );
     page('/titanium-styles', () => this.#changePage('titanium-styles', () => import('./demos/titanium-styles/titanium-styles-demo.js')));
+    page('/titanium-select', () => this.#changePage('titanium-select', () => import('./demos/titanium-select/titanium-select-demo.js')));
     page('/titanium-snackbar', () => this.#changePage('titanium-snackbar', () => import('./demos/titanium-snackbar/titanium-snackbar-demo.js')));
     page('/titanium-shadow-text', () => this.#changePage('titanium-shadow-text', () => import('./demos/titanium-shadow-text/titanium-shadow-text-demo.js')));
 
@@ -534,6 +535,10 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-progress</span>
               </a>
+              <a href="/titanium-select" ?selected=${!!this.page?.includes('titanium-select')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-select</span>
+              </a>
               <a href="/titanium-svg-button" ?selected=${!!this.page?.includes('titanium-svg-button')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-svg-button</span>
@@ -649,6 +654,7 @@ export class MyAppElement extends LitElement {
           ${this.page === 'titanium-dialog' ? html` <titanium-dialog-demo ?isActive=${this.page === 'titanium-dialog'}></titanium-dialog-demo> ` : nothing}
           ${this.page === 'confirm-dialog' ? html` <confirm-dialog-demo ?isActive=${this.page === 'confirm-dialog'}></confirm-dialog-demo> ` : nothing}
           ${this.page === 'titanium-styles' ? html` <titanium-styles-demo ?isActive=${this.page === 'titanium-styles'}></titanium-styles-demo> ` : nothing}
+          ${this.page === 'titanium-select' ? html` <titanium-select-demo ?isActive=${this.page === 'titanium-select'}></titanium-select-demo> ` : nothing}
           ${this.page === 'titanium-snackbar'
             ? html` <titanium-snackbar-demo ?isActive=${this.page === 'titanium-snackbar'}></titanium-snackbar-demo> `
             : nothing}
