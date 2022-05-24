@@ -156,6 +156,9 @@ export class MyAppElement extends LitElement {
       this.#changePage('titanium-svg-button-menu', () => import('./demos/titanium-svg-button-menu/titanium-svg-button-menu-demo.js'))
     );
     page('/titanium-tab-control', () => this.#changePage('titanium-tab-control', () => import('./demos/titanium-tab-control/titanium-tab-control-demo.js')));
+    page('/titanium-toggle-button', () =>
+      this.#changePage('titanium-toggle-button', () => import('./demos/titanium-toggle-button/titanium-toggle-button-demo.js'))
+    );
     page('/titanium-toolbar', () => this.#changePage('titanium-toolbar', () => import('./demos/titanium-toolbar/titanium-toolbar-demo.js')));
     page('/titanium-twoline-formfield', () =>
       this.#changePage('titanium-twoline-formfield', () => import('./demos/titanium-twoline-formfield/titanium-twoline-formfield-demo.js'))
@@ -488,6 +491,10 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-tab-control</span>
               </a>
+              <a href="/titanium-toggle-button" ?selected=${!!this.page?.includes('titanium-toggle-button')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-toggle-button</span>
+              </a>
               <a href="/titanium-toolbar" ?selected=${!!this.page?.includes('titanium-toolbar')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-toolbar</span>
@@ -662,6 +669,9 @@ export class MyAppElement extends LitElement {
             : nothing}
           ${this.page === 'titanium-tab-control'
             ? html` <titanium-tab-control-demo ?isActive=${this.page === 'titanium-tab-control'}></titanium-tab-control-demo> `
+            : nothing}
+          ${this.page === 'titanium-toggle-button'
+            ? html` <titanium-toggle-button-demo ?isActive=${this.page === 'titanium-toggle-button'}></titanium-toggle-button-demo> `
             : nothing}
           ${this.page === 'titanium-toolbar' ? html` <titanium-toolbar-demo ?isActive=${this.page === 'titanium-toolbar'}></titanium-toolbar-demo> ` : nothing}
           ${this.page === 'titanium-twoline-formfield'
