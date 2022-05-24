@@ -12,9 +12,9 @@ import { Corner } from '@leavittsoftware/titanium-popup-surface';
  *
  * @element titanium-svg-button-menu
  *
- * @cssprop {Color} --app-hover-color - Item hover color
- * @cssprop {Color} --app-text-color - Item text color
- * @cssprop {Color} --app-border-color - Item divider (hr) color
+ * @cssprop {Color} [--app-hover-color=#f9f9f9] - Item hover color
+ * @cssprop {Color} [--app-text-color=#5f6368] - Item text color
+ * @cssprop {Color} [--app-border-color=#dadce0] - Item divider (hr) color
  */
 
 @customElement('titanium-svg-button-menu')
