@@ -86,6 +86,7 @@ export class MyAppElement extends LitElement {
     );
     page('/mwc-datefield', () => this.#changePage('mwc-datefield', () => import('./demos/mwc-datefield/mwc-datefield-demo.js')));
     page('/profile-picture', () => this.#changePage('profile-picture', () => import('./demos/profile-picture/profile-picture-demo.js')));
+    page('/profile-picture-menu', () => this.#changePage('profile-picture-menu', () => import('./demos/profile-picture-menu/profile-picture-menu-demo.js')));
     page('/titanium-access-denied-page', () =>
       this.#changePage('titanium-access-denied-page', () => import('./demos/titanium-access-denied-page/titanium-access-denied-page-demo.js'))
     );
@@ -544,9 +545,17 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>leavitt-person-select</span>
               </a>
-              <a href="/profile-picture" ?selected=${!!this.page?.includes('profile-picture')}>
+              <a href="/profile-picture" ?selected=${this.page == 'profile-picture'}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>profile-picture</span>
+              </a>
+              <a href="/profile-picture-menu" ?selected=${!!this.page?.includes('profile-picture-menu')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>profile-picture-menu</span>
+              </a>
+              <a href="/available-cdn-icons" ?selected=${!!this.page?.includes('available-cdn-icons')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>cdn icons</span>
               </a>
             </details>
           </section>
@@ -615,6 +624,9 @@ export class MyAppElement extends LitElement {
             ? html` <leavitt-person-group-select-demo ?isActive=${this.page === 'leavitt-person-group-select'}></leavitt-person-group-select-demo> `
             : nothing}
           ${this.page === 'profile-picture' ? html` <profile-picture-demo ?isActive=${this.page === 'profile-picture'}></profile-picture-demo> ` : nothing}
+          ${this.page === 'profile-picture-menu'
+            ? html` <profile-picture-menu-demo ?isActive=${this.page === 'profile-picture-menu'}></profile-picture-menu-demo> `
+            : nothing}
           ${this.page === 'titanium-button' ? html` <titanium-button-demo ?isActive=${this.page === 'titanium-button'}></titanium-button-demo> ` : nothing}
           ${this.page === 'titanium-menu-surface'
             ? html` <titanium-menu-surface-demo ?isActive=${this.page === 'titanium-menu-surface'}></titanium-menu-surface-demo> `
