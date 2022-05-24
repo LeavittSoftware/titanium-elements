@@ -33,13 +33,13 @@ jobs:
         run: npm run lint:leavittbook
       - name: Run build:leavittbook
         run: npm run build:leavittbook
-      - name: Publishing to server ${{ env.SERVER_HOST }}...
+      - name: Deploy 🚀
         if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop')
-        uses: Burnett01/rsync-deployments@4.1
+        uses: JamesIves/github-pages-deploy-action@4.1.7
         with:
-          switches: -avzr --delete
-          path: packages/leavittbook/dist/
-          remote_path: /var/www/${{ env.PROJECT_PATH }}
-          remote_host: ${{ env.SERVER_HOST }}
-          remote_key: ${{ secrets.LGUTWEB0607_KEY }}
-          remote_user: programming
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages # The branch the action should deploy to.
+          folder: packages/leavittbook/dist # The folder that the build-storybook script generates files.
+          clean: true # Automatically remove deleted files from the deploy branch
+          target-folder: / # The folder that we serve our Storybook files from
+          single-commit: true # Only deploy the latest commit
