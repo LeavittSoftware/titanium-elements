@@ -46,6 +46,13 @@ export class TitaniumYoutubeInputPlayground extends LitElement {
         gap: 12px;
         margin: 24px 0 36px 0;
       }
+
+      section[buttons] {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
     `,
   ];
 
@@ -62,16 +69,28 @@ export class TitaniumYoutubeInputPlayground extends LitElement {
         <titanium-youtube-input disabled label="Video" youtube-video-key="OmJ-4B-mS-Y"></titanium-youtube-input>
       </div>
 
-      <h1>Required</h1>
+      <h1>Methods</h1>
       <div>
         <titanium-youtube-input required validationMessage="This video is required" label="Video"></titanium-youtube-input>
         <br />
-        <mwc-button
-          @click=${() => {
-            this.requiredInput?.reportValidity();
-          }}
-          label="Validate"
-        ></mwc-button>
+        <section buttons>
+          <mwc-button
+            lowercase
+            outlined
+            @click=${() => {
+              this.requiredInput.reset();
+            }}
+            label="reset()"
+          ></mwc-button>
+          <mwc-button
+            lowercase
+            outlined
+            @click=${() => {
+              this.requiredInput.reportValidity();
+            }}
+            label="reportValidity()"
+          ></mwc-button>
+        </section>
       </div>
     `;
   }
