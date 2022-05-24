@@ -357,6 +357,10 @@ export class MyAppElement extends LitElement {
             <mwc-icon><span class="material-icons-outlined"> home </span></mwc-icon>
             <span>Getting started</span>
           </a>
+          <a href="/available-cdn-icons" ?selected=${!!this.page?.includes('available-cdn-icons')}>
+            <mwc-icon><span class="material-icons-outlined"> photo_camera </span></mwc-icon>
+            <span>Icons</span>
+          </a>
           <section>
             <details open>
               <summary>Titanium</summary>
@@ -516,10 +520,6 @@ export class MyAppElement extends LitElement {
               <a href="/profile-picture" ?selected=${!!this.page?.includes('profile-picture')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>profile-picture</span>
-              </a>
-              <a href="/available-cdn-icons" ?selected=${!!this.page?.includes('available-cdn-icons')}>
-                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-                <span>cdn icons</span>
               </a>
             </details>
           </section>
