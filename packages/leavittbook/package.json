@@ -12,6 +12,7 @@
     "@leavittsoftware/titanium-attachment-input": "*",
     "@leavittsoftware/titanium-card": "*",
     "@leavittsoftware/titanium-button": "*",
+    "@leavittsoftware/titanium-svg-button": "*",
     "@leavittsoftware/titanium-twoline-formfield": "*",
     "@leavittsoftware/titanium-chip": "*",
     "@leavittsoftware/titanium-chip-multi-select": "*",
