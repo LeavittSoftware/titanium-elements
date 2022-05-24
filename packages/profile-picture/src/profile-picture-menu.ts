@@ -61,6 +61,9 @@ export class ProfilePictureMenuElement extends LitElement {
     this.popup.forceRefreshPicture();
   }
 
+  /**
+   * Sets properties based on user manager instance
+   */
   setUserProps() {
     this.personId = GetUserManagerInstance().personId;
     this.email = GetUserManagerInstance().email;

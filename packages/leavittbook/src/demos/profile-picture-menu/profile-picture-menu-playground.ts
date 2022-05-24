@@ -38,7 +38,7 @@ export class ProfilePictureMenuPlayground extends LitElement {
       <h1>Default</h1>
       <p>Default profile picture styles</p>
       <div>
-        <profile-picture-menu personId="915608" size="32"></profile-picture-menu>
+        <profile-picture-menu></profile-picture-menu>
       </div>
     `;
   }
