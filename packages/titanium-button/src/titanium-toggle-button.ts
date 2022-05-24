@@ -6,7 +6,7 @@ import { Ripple } from '@material/mwc-ripple';
 /**
  * Material design inspired button.
  *
- * @element titanium-button
+ * @element titanium-toggle-button
  *
  * @slot default - main slot for button content
  *
