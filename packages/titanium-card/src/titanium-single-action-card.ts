@@ -11,8 +11,8 @@ import { Ripple } from '@material/mwc-ripple';
  *
  * @fires action-click - Fired when the single action button is clicked
  *
- * @cssprop {Color} --app-border-color - Card border color
- * @cssprop {Color} --app-link-color - Link text color
+ * @cssprop {Color} [--app-border-color=#dadce0] - Card border color
+ * @cssprop {Color} [--app-link-color=#1a73e8] - Link text color
  */
 
 @customElement('titanium-single-action-card')
@@ -83,6 +83,9 @@ export class TitaniumSingleActionCardElement extends TitaniumCardElement {
     `,
   ];
 
+  /**
+   * Gets href for button action
+   */
   getHref(disabled: boolean, title: string) {
     return disabled ? undefined : title ? `#${title}` : '#';
   }

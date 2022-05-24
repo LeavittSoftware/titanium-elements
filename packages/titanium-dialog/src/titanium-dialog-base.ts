@@ -6,13 +6,13 @@ import { property, customElement } from 'lit/decorators.js';
  *
  * @element titanium-dialog-base
  *
- * @slot - dialog content
+ * @slot default - dialog content
  *
  * @fires titanium-dialog-opened - Fired after open animation is complete
  *
- * @cssprop {Color} --titanium-dialog-background-color - Background color of the dialog
+ * @cssprop  [--titanium-dialog-background-color=#ffffff] - Background color of the dialog
  *
- * @cssprop {<length> | <percentage> | none | max-content | min-content | fit-content | fill-available} --titanium-dialog-max-width - Max-width of dialog container
+ * @cssprop {<length> | <percentage> | none | max-content | min-content | fit-content | fill-available} [--titanium-dialog-max-width=none] - Max-width of dialog container
  *
  */
 @customElement('titanium-dialog-base')
