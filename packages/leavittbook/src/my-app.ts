@@ -102,6 +102,8 @@ export class MyAppElement extends LitElement {
     );
     page('/titanium-header', () => this.#changePage('titanium-header', () => import('./demos/titanium-header/titanium-header-demo.js')));
     page('/titanium-icon', () => this.#changePage('titanium-icon', () => import('./demos/titanium-icon/titanium-icon-demo.js')));
+    page('/titanium-header', () => this.#changePage('titanium-header', () => import('./demos/titanium-header/titanium-header-demo.js')));
+    page('/titanium-image-input', () => this.#changePage('titanium-image-input', () => import('./demos/titanium-image-input/titanium-image-input-demo.js')));
     page('/titanium-button', () => this.#changePage('titanium-button', () => import('./demos/titanium-button/titanium-button-demo.js')));
     page('/titanium-chip', () => this.#changePage('titanium-chip', () => import('./demos/titanium-chip/titanium-chip-demo.js')));
     page('/titanium-chip-multi-select', () =>
@@ -437,6 +439,10 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-icon</span>
               </a>
+              <a href="/titanium-image-input" ?selected=${!!this.page?.includes('titanium-image-input')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-image-input</span>
+              </a>
               <a href="/titanium-offline-notice" ?selected=${!!this.page?.includes('titanium-offline-notice')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-offline-notice</span>
@@ -605,6 +611,9 @@ export class MyAppElement extends LitElement {
             : nothing}
           ${this.page === 'titanium-header' ? html` <titanium-header-demo ?isActive=${this.page === 'titanium-header'}></titanium-header-demo> ` : nothing}
           ${this.page === 'titanium-icon' ? html` <titanium-icon-demo ?isActive=${this.page === 'titanium-icon'}></titanium-icon-demo> ` : nothing}
+          ${this.page === 'titanium-image-input'
+            ? html` <titanium-image-input-demo ?isActive=${this.page === 'titanium-image-input'}></titanium-image-input-demo> `
+            : nothing}
           ${this.page === 'titanium-progress'
             ? html` <titanium-progress-demo ?isActive=${this.page === 'titanium-progress'}></titanium-progress-demo> `
             : nothing}
