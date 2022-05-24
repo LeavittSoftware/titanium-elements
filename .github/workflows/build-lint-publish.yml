@@ -1,0 +1,45 @@
+name: Build Lint Publish
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'develop'
+      - 'master'
+  pull_request:
+    branches: ['*']
+env:
+  PROD_SERVER: LGUTWEB07
+jobs:
+  build-lint-publish:
+    runs-on: [self-hosted, linux]
+    steps:
+      - uses: actions/checkout@v2
+      - run: echo "REPOSITORY_NAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
+        shell: bash
+      - name: 'Determine if master'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        run: |
+          echo "SERVER_HOST=${{ env.PROD_SERVER }}" >> $GITHUB_ENV
+          echo "PROJECT_PATH=components.leavitt.com" >> $GITHUB_ENV
+      - name: 'Determine if develop'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+        run: |
+          echo "SERVER_HOST=${{ env.PROD_SERVER }}" >> $GITHUB_ENV
+          echo "PROJECT_PATH=components.leavitt.com" >> $GITHUB_ENV
+      - name: NPM install
+        run: npm install
+      - name: Lint
+        run: npm run lint:leavittbook
+      - name: Run build:leavittbook
+        run: npm run build:leavittbook
+      - name: Deploy 🚀
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/master')
+        uses: JamesIves/github-pages-deploy-action@4.1.7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages # The branch the action should deploy to.
+          folder: packages/leavittbook/dist # The folder that the build-storybook script generates files.
+          clean: true # Automatically remove deleted files from the deploy branch
+          target-folder: / # The folder that we serve our Storybook files from
+          single-commit: true # Only deploy the latest commit

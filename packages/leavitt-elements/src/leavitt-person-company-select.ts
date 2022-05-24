@@ -19,6 +19,10 @@ import { SelectedDetail } from '@material/mwc-list';
 import Fuse from 'fuse.js';
 import { MenuSurface } from '@material/mwc-menu/mwc-menu-surface';
 
+/**
+ * @class
+ * @ignore
+ */
 export class LeavittPersonCompanySelectSelectedEvent extends Event {
   static eventType = 'selected';
   selected: SelectableEntity | null;
@@ -41,6 +45,7 @@ export type SelectableEntity = Person | Company | CustomEntity;
  *
  *  @fires selected - Fired when selection is made or cleared
  *
+ *   @fires change - Fired when input is typed in
  */
 @customElement('leavitt-person-company-select')
 export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
@@ -114,6 +119,9 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
     }
   }
 
+  /**
+   *  Resets the inputs state.
+   */
   reset() {
     if (this.textfield) {
       this.textfield.value = '';
@@ -126,14 +134,23 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
     this.searchTerm = '';
   }
 
+  /**
+   *  Sets focus on the input.
+   */
   focus() {
     this.textfield.focus();
   }
 
+  /**
+   *  Returns true if the input passes validity checks.
+   */
   checkValidity() {
     return this.textfield.checkValidity();
   }
 
+  /**
+   *  Runs checkValidity() method, and if it returns false, then it reports to the user that the input is invalid.
+   */
   reportValidity() {
     return this.textfield.reportValidity();
   }
@@ -142,12 +159,18 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
     const previouslySelected = this.selected;
     this.selected = selected;
     if (previouslySelected !== this.selected) {
+      /**
+       * @ignore
+       */
       this.dispatchEvent(new LeavittPersonCompanySelectSelectedEvent(this.selected));
     }
   }
 
   private abortController: AbortController = new AbortController();
 
+  /**
+   * @ignore
+   */
   async #doSearch(searchTerm: string) {
     if (!searchTerm) {
       return null;
@@ -165,11 +188,15 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
       keys: ['Name', 'FirstName', 'LastName', 'ShortName'],
     };
 
-    const fuse = new Fuse(entities, options);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const fuse = new Fuse(entities, options as any);
     const fuseResults = fuse.search(searchTerm).sort((a, b) => (b?.score ?? 0) - (a?.score ?? 0));
     return { entities: [...fuseResults.map(o => o.item), { Name: searchTerm, type: 'CustomEntity' } as CustomEntity], count: odataCount + 1 };
   }
 
+  /**
+   * @ignore
+   */
   async #doPersonSearch(searchTerm: string) {
     if (!searchTerm) {
       return null;
@@ -193,6 +220,9 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
     return null;
   }
 
+  /**
+   * @ignore
+   */
   async #doCompanySearch(searchTerm: string) {
     if (!searchTerm) {
       return null;
