@@ -13,10 +13,12 @@ export type TitaniumImageInputOptions = Cropper.Options & { shape?: ' square' | 
  *
  * @element titanium-image-input
  *
- * @cssprop {Color} --app-border-color - Border color.
- * @cssprop {Color} --app-primary-color - Focused border color.
- * @cssprop {Color} --titanium-input-error-color - Error color, text and outline.
- * @cssprop {Color} --titanium-input-placeholder-color - Color of icon button and placeholder text.
+ * @fires change - Fired when image is attached or removed from input.
+ *
+ * @cssprop {Color} [--app-border-color=rgba(0, 0, 0, 0.38)] - Border color.
+ * @cssprop {Color} [--app-primary-color=#3b95ff] - Focused border color.
+ * @cssprop {Color} [--titanium-input-error-color=#b00020] - Error color, text and outline.
+ * @cssprop {Color} [--titanium-input-placeholder-color=#7d7d7d] - Color of icon button and placeholder text.
  *
  */
 @customElement('titanium-image-input')

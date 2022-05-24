@@ -71,7 +71,6 @@ export class TitaniumImageInputPlaygroundElement extends LitElement {
         <titanium-image-input label="Tall aspect ratio" .options=${{ aspectRatio: 220 / 850 }}></titanium-image-input>
         <titanium-image-input label="Wide aspect ratio" .options=${{ aspectRatio: 848 / 100 }}></titanium-image-input>
         <titanium-image-input label="Circle crop" .options=${{ shape: 'circle' }}></titanium-image-input>
-        <titanium-image-input></titanium-image-input>
       </div>
 
       <h1>Methods</h1>
