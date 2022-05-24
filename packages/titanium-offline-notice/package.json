@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-offline-notice",
   "description": "",
   "author": "Leavitt Software",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "license": "MIT",
   "main": "lib/titanium-offline-notice.js",
   "typings": "lib/titanium-offline-notice.d.ts",

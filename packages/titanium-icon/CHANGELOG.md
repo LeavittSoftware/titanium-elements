@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.1.1 (2022-05-24)
+
+
+### Bug Fixes
+
+* **titanium-icon:** fix imports from lit-element ([3815842](https://github.com/LeavittSoftware/titanium-elements/commit/38158428e890c23b8084922495e35e3004832bce))
+
+
+
+
+
 # 0.1.0 (2022-04-21)
 
 

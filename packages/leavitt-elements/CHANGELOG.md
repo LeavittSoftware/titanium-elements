@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.6.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@5.5.2...@leavittsoftware/leavitt-elements@5.6.0) (2022-05-24)
+
+
+### Features
+
+* **storybook:** replace storybook with simple demo site ([6a4921a](https://github.com/LeavittSoftware/titanium-elements/commit/6a4921a2fcff4f9eaafac9fa448f3af2510c5170))
+
+
+
+
+
 ## [5.5.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@5.5.1...@leavittsoftware/leavitt-elements@5.5.2) (2022-05-16)
 
 

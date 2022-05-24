@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.2.2 (2022-05-24)
+
+
+### Bug Fixes
+
+* **titanium-header:** add missing color css ([b675c65](https://github.com/LeavittSoftware/titanium-elements/commit/b675c65511203043cc94869330ceee1127b00206))
+
+
+
+
+
 ## 3.2.1 (2022-03-01)
 
 
