@@ -6,16 +6,16 @@ import { Ripple } from '@material/mwc-ripple';
 /**
  * Material design inspired button.
  *
- * @element titanium-button
+ * @element titanium-toggle-button
  *
- * @slot - main slot for button content
+ * @slot default - main slot for button content
  *
  * @fires selected-changed - Fired when user interaction causes selected prop to change.
  *
- * @cssprop {Color} --app-link-color - Button slotted text color
- * @cssprop {Color} --app-selected-color - Button selected background color
- * @cssprop {Color} --titanium-selected-text-color - Button slotted text color for when in the selected state
- * @cssprop {Color} --app-primary-color - Button BG color
+ * @cssprop {Color} [--app-link-color=#1a73e8] - Button slotted text color
+ * @cssprop {Color} [--app-text-color=#5f6368] - Button selected background color
+ * @cssprop {Color} [--app-text-color=#fff] - Button slotted text color for when in the selected state
+ * @cssprop {Color} [--app-primary-color=#3b95ff] - Button BG color
  */
 @customElement('titanium-toggle-button')
 export class TitaniumToggleButtonElement extends LitElement {

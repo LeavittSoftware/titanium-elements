@@ -15,12 +15,12 @@ import { CheckableElement, SingleSelectionController } from '@material/mwc-radio
  * @fires titanium-chip-close - Fired when the close button is clicked
  * @fires checked - Fired when item is checked. Selectable attribute must be present.
  *
- * @cssprop {Color} --app-border-color - Chip border color
- * @cssprop {Color} --app-text-color - Label color
- * @cssprop {Color} --titanium-chip-label-background-color - Chip background color
- * @cssprop {Color} --app-hover-color - Hover background color
- * @cssprop {Color} --titanium-side-menu-item-selected-background-color - Selected BG color
- * @cssprop {Color} --titanium-side-menu-item-selected-color - Checked text and icon color
+ * @cssprop {Color} [--app-border-color=#dadce0] - Chip border color
+ * @cssprop {Color} [--app-text-color=#5f6368] - Label color
+ * @cssprop {Color} [--titanium-chip-label-background-color=#fff] - Chip background color
+ * @cssprop {Color} [--app-hover-color=#f9f9f9] - Hover background color
+ * @cssprop {Color} [--titanium-side-menu-item-selected-background-color=#e8f0fe] - Selected BG color
+ * @cssprop {Color} [--titanium-side-menu-item-selected-color=#1967d2] - Checked text and icon color
  */
 @customElement('titanium-chip')
 export class TitaniumChipElement extends LitElement implements CheckableElement {
@@ -101,6 +101,9 @@ export class TitaniumChipElement extends LitElement implements CheckableElement 
     });
   }
 
+  /**
+   *  Toggles disable on the chip
+   */
   disable() {
     this.disabled = !this.disabled;
   }

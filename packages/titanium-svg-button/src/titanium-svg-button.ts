@@ -8,10 +8,10 @@ import { Ripple } from '@material/mwc-ripple';
  *
  * @element titanium-svg-button
  *
- * @cssprop {Length} --titanium-svg-button-size - Size of the SVG button (default: 42px)
- * @cssprop {Color} --app-text-color - Icon fill color
- * @cssprop {Color} --app-primary-color - Ripple color
- * @cssprop {Length} --titanium-svg-button-svg-size - Size of the SVG in the button (default: 60%)
+ * @cssprop {Length} [--titanium-svg-button-size=42px] - Size of the SVG button (default: 42px)
+ * @cssprop {Color} [--app-text-color=#5f6368] - Icon fill color
+ * @cssprop {Color} [--app-primary-color=#3b95ff] - Ripple color
+ * @cssprop {Length} [--titanium-svg-button-svg-size=60%] - Size of the SVG in the button (default: 60%)
  */
 
 @customElement('titanium-svg-button')

@@ -20,6 +20,10 @@ import { SelectedDetail } from '@material/mwc-list';
 import { DOMEvent } from './dom-event';
 import { MenuSurface } from '@material/mwc-menu/mwc-menu-surface';
 
+/**
+ * @class
+ * @ignore
+ */
 export class LeavittPersonGroupSelectSelectedEvent extends Event {
   static eventType = 'selected';
   person: Partial<CorePerson> | null;
@@ -42,6 +46,7 @@ type PeopleGroup = CorePeopleGroup & { type: 'PeopleGroup' };
  *
  *  @fires selected - Fired when selection is made or cleared
  *
+ *  @fires change - Fired when input is typed in
  */
 @customElement('leavitt-person-group-select')
 export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
@@ -104,6 +109,9 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
     this.textfield.layout();
   }
 
+  /**
+   *  Resets the inputs state.
+   */
   reset() {
     if (this.textfield) {
       this.textfield.value = '';
@@ -127,20 +135,32 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
     }
   }
 
+  /**
+   *  Sets focus on the input.
+   */
   focus() {
     this.textfield.focus();
   }
 
+  /**
+   *  Returns true if the input passes validity checks.
+   */
   checkValidity() {
     return this.textfield.checkValidity();
   }
 
+  /**
+   *  Runs checkValidity() method, and if it returns false, then it reports to the user that the input is invalid.
+   */
   reportValidity() {
     return this.textfield.reportValidity();
   }
 
   private abortController: AbortController = new AbortController();
 
+  /**
+   * @ignore
+   */
   private async doSearch(searchTerm: string) {
     if (!searchTerm) {
       return null;
@@ -158,11 +178,15 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
       keys: ['Name', 'FirstName', 'LastName'],
     };
 
-    const fuse = new Fuse(entities, options);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const fuse = new Fuse(entities, options as any);
     const fuseResults = fuse.search(searchTerm).sort((a, b) => (b?.score ?? 0) - (a?.score ?? 0));
     return { entities: fuseResults.map(o => o.item), count: odataCount };
   }
 
+  /**
+   * @ignore
+   */
   private async doPersonSearch(searchTerm: string) {
     if (!searchTerm) {
       return null;
@@ -186,6 +210,9 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
     return null;
   }
 
+  /**
+   * @ignore
+   */
   private async doGroupSearch(searchTerm: string) {
     if (!searchTerm) {
       return null;
@@ -215,6 +242,9 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
       this.textfield.reportValidity();
     }
     if (previouslySelected !== this.selected) {
+      /**
+       * @ignore
+       */
       this.dispatchEvent(new LeavittPersonGroupSelectSelectedEvent(this.selected));
     }
   }
