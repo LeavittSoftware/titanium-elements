@@ -43,7 +43,6 @@ export class AvailableCdnIconsPlayground extends LitElement {
         <img src="https://cdn.leavitt.com/icons/icon-scoreboard-details.svg" height="48" />
         <img src="https://cdn.leavitt.com/icons/icon-carousel.svg" height="48" />
         <img src="https://cdn.leavitt.com/icons/icon-name-division.svg" height="48" />
-        <img src="https://cdn.leavitt.com/icons/icon-reminder.svg" height="48" />
         <img src="https://cdn.leavitt.com/icons/icon-company-manager.svg" height="48" />
         <img src="https://cdn.leavitt.com/icons/icon-domo.svg" height="48" />
         <img src="https://cdn.leavitt.com/icons/icon-employees.svg" height="48" />
@@ -51,9 +50,7 @@ export class AvailableCdnIconsPlayground extends LitElement {
         <img src="https://cdn.leavitt.com/icons/icon-pcms.svg" height="48" />
         <img src="https://cdn.leavitt.com/icons/icon-permissions.svg" height="48" />
         <img src="https://cdn.leavitt.com/icons/icon-prod-budgets.svg" height="48" />
-        <img src="https://cdn.leavitt.com/icons/icon-email-initial.svg" height="48" />
         <img src="https://cdn.leavitt.com/icons/icon-email-recipients.svg" height="48" />
-        <img src="https://cdn.leavitt.com/icons/icon-email-reminder.svg" height="48" />
         <img src="https://cdn.leavitt.com/icons/icon-event-details.svg" height="48" />
         <img src="https://cdn.leavitt.com/icons/icon-participants.svg" height="48" />
         <img src="https://cdn.leavitt.com/icons/icon-app-accounts.svg" height="48" />
@@ -97,24 +94,18 @@ export class AvailableCdnIconsPlayground extends LitElement {
         <img src="https://cdn.leavitt.com/icons/icon-app-tv.svg " height="48" />
         <img src="https://cdn.leavitt.com/icons/icon-app-vital.svg" height="48" />
         <img src="https://cdn.leavitt.com/icons/icon-carousel.svg" height="48" />
-        <img src="https://cdn.leavitt.com/icons/icon-company-manager.svg" height="48" />
         <img src="https://cdn.leavitt.com/icons/icon-delete-logo.svg" height="48" />
         <img src="https://cdn.leavitt.com/icons/icon-department.svg" height="48" />
-        <img src="https://cdn.leavitt.com/icons/icon-domo.svg" height="48" />
         <img src="https://cdn.leavitt.com/icons/icon-email-initial.svg" height="48" />
-        <img src="https://cdn.leavitt.com/icons/icon-email-recipients.svg" height="48" />
         <img src="https://cdn.leavitt.com/icons/icon-email-reminder.svg" height="48" />
         <img src="https://cdn.leavitt.com/icons/icon-employees.svg" height="48" />
         <img src="https://cdn.leavitt.com/icons/icon-enterprise.svg" height="48" />
         <img src="https://cdn.leavitt.com/icons/icon-event-details.svg" height="48" />
         <img src="https://cdn.leavitt.com/icons/icon-icon-logs.svg" height="48" />
-        <img src="https://cdn.leavitt.com/icons/icon-log-parser.svg" height="48" />
         <img src="https://cdn.leavitt.com/icons/icon-logo.svg" height="48" />
         <img src="https://cdn.leavitt.com/icons/icon-marketing.svg" height="48" />
         <img src="https://cdn.leavitt.com/icons/icon-name-division.svg" height="48" />
-        <img src="https://cdn.leavitt.com/icons/icon-participants.svg" height="48" />
         <img src="https://cdn.leavitt.com/icons/icon-pcms.svg" height="48" />
-        <img src="https://cdn.leavitt.com/icons/icon-permissions.svg" height="48" />
         <img src="https://cdn.leavitt.com/icons/icon-phone.svg" height="48" />
         <img src="https://cdn.leavitt.com/icons/icon-prod-budgets.svg" height="48" />
         <img src="https://cdn.leavitt.com/icons/icon-reminder.svg" height="48" />

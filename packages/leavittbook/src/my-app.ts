@@ -103,7 +103,12 @@ export class MyAppElement extends LitElement {
     );
     page('/titanium-header', () => this.#changePage('titanium-header', () => import('./demos/titanium-header/titanium-header-demo.js')));
     page('/titanium-icon', () => this.#changePage('titanium-icon', () => import('./demos/titanium-icon/titanium-icon-demo.js')));
+    page('/titanium-header', () => this.#changePage('titanium-header', () => import('./demos/titanium-header/titanium-header-demo.js')));
+    page('/titanium-image-input', () => this.#changePage('titanium-image-input', () => import('./demos/titanium-image-input/titanium-image-input-demo.js')));
     page('/titanium-button', () => this.#changePage('titanium-button', () => import('./demos/titanium-button/titanium-button-demo.js')));
+    page('/titanium-menu-surface', () =>
+      this.#changePage('titanium-menu-surface', () => import('./demos/titanium-menu-surface/titanium-menu-surface-demo.js'))
+    );
     page('/titanium-chip', () => this.#changePage('titanium-chip', () => import('./demos/titanium-chip/titanium-chip-demo.js')));
     page('/titanium-chip-multi-select', () =>
       this.#changePage('titanium-chip-multi-select', () => import('./demos/titanium-chip-multi-select/titanium-chip-multi-select-demo.js'))
@@ -148,14 +153,20 @@ export class MyAppElement extends LitElement {
     page('/titanium-side-menu-item', () =>
       this.#changePage('titanium-side-menu-item', () => import('./demos/titanium-side-menu-item/titanium-side-menu-item-demo.js'))
     );
-
+    page('/titanium-single-action-card', () =>
+      this.#changePage('titanium-single-action-card', () => import('./demos/titanium-single-action-card/titanium-single-action-card-demo.js'))
+    );
     page('/titanium-svg-button', () => this.#changePage('titanium-svg-button', () => import('./demos/titanium-svg-button/titanium-svg-button-demo.js')));
+    page('/titanium-svg-button-menu', () =>
+      this.#changePage('titanium-svg-button-menu', () => import('./demos/titanium-svg-button-menu/titanium-svg-button-menu-demo.js'))
+    );
     page('/titanium-tab-control', () => this.#changePage('titanium-tab-control', () => import('./demos/titanium-tab-control/titanium-tab-control-demo.js')));
     page('/titanium-toolbar', () => this.#changePage('titanium-toolbar', () => import('./demos/titanium-toolbar/titanium-toolbar-demo.js')));
     page('/titanium-twoline-formfield', () =>
       this.#changePage('titanium-twoline-formfield', () => import('./demos/titanium-twoline-formfield/titanium-twoline-formfield-demo.js'))
     );
     page('/titanium-styles', () => this.#changePage('titanium-styles', () => import('./demos/titanium-styles/titanium-styles-demo.js')));
+    page('/titanium-select', () => this.#changePage('titanium-select', () => import('./demos/titanium-select/titanium-select-demo.js')));
     page('/titanium-snackbar', () => this.#changePage('titanium-snackbar', () => import('./demos/titanium-snackbar/titanium-snackbar-demo.js')));
     page('/titanium-shadow-text', () => this.#changePage('titanium-shadow-text', () => import('./demos/titanium-shadow-text/titanium-shadow-text-demo.js')));
     page('/titanium-card', () => this.#changePage('titanium-card', () => import('./demos/titanium-card/titanium-card-demo.js')));
@@ -362,6 +373,10 @@ export class MyAppElement extends LitElement {
             <mwc-icon><span class="material-icons-outlined"> home </span></mwc-icon>
             <span>Getting started</span>
           </a>
+          <a href="/available-cdn-icons" ?selected=${!!this.page?.includes('available-cdn-icons')}>
+            <mwc-icon><span class="material-icons-outlined"> photo_camera </span></mwc-icon>
+            <span>Icons</span>
+          </a>
           <section>
             <details open>
               <summary>Titanium</summary>
@@ -442,6 +457,10 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-icon</span>
               </a>
+              <a href="/titanium-image-input" ?selected=${!!this.page?.includes('titanium-image-input')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-image-input</span>
+              </a>
               <a href="/titanium-offline-notice" ?selected=${!!this.page?.includes('titanium-offline-notice')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-offline-notice</span>
@@ -469,6 +488,10 @@ export class MyAppElement extends LitElement {
               <a href="/titanium-side-menu-item" ?selected=${!!this.page?.includes('titanium-side-menu-item')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-side-menu-item</span>
+              </a>
+              <a href="/titanium-single-action-card" ?selected=${!!this.page?.includes('titanium-single-action-card')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-single-action-card</span>
               </a>
               <a href="/titanium-snackbar" ?selected=${!!this.page?.includes('titanium-snackbar')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
@@ -543,17 +566,29 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-button</span>
               </a>
+              <a href="/titanium-menu-surface" ?selected=${!!this.page?.includes('titanium-menu-surface')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-menu-surface</span>
+              </a>
               <a href="/titanium-progress" ?selected=${!!this.page?.includes('titanium-progress')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-progress</span>
+              </a>
+              <a href="/titanium-select" ?selected=${!!this.page?.includes('titanium-select')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-select</span>
               </a>
               <a href="/titanium-single-select" ?selected=${!!this.page?.includes('titanium-single-select')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-single-select</span>
               </a>
-              <a href="/titanium-svg-button" ?selected=${!!this.page?.includes('titanium-svg-button')}>
+              <a href="/titanium-svg-button" ?selected=${!!this.page?.includes('titanium-svg-button') && !this.page?.includes('titanium-svg-button-menu')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-svg-button</span>
+              </a>
+              <a href="/titanium-svg-button-menu" ?selected=${!!this.page?.includes('titanium-svg-button-menu')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-svg-button-menu</span>
               </a>
             </details>
           </section>
@@ -593,6 +628,9 @@ export class MyAppElement extends LitElement {
             ? html` <profile-picture-menu-demo ?isActive=${this.page === 'profile-picture-menu'}></profile-picture-menu-demo> `
             : nothing}
           ${this.page === 'titanium-button' ? html` <titanium-button-demo ?isActive=${this.page === 'titanium-button'}></titanium-button-demo> ` : nothing}
+          ${this.page === 'titanium-menu-surface'
+            ? html` <titanium-menu-surface-demo ?isActive=${this.page === 'titanium-menu-surface'}></titanium-menu-surface-demo> `
+            : nothing}
           ${this.page === 'titanium-chip' ? html` <titanium-chip-demo ?isActive=${this.page === 'titanium-chip'}></titanium-chip-demo> ` : nothing}
           ${this.page === 'titanium-input-validator'
             ? html` <titanium-input-validator-demo ?isActive=${this.page === 'titanium-input-validator'}></titanium-input-validator-demo> `
@@ -625,6 +663,9 @@ export class MyAppElement extends LitElement {
             : nothing}
           ${this.page === 'titanium-header' ? html` <titanium-header-demo ?isActive=${this.page === 'titanium-header'}></titanium-header-demo> ` : nothing}
           ${this.page === 'titanium-icon' ? html` <titanium-icon-demo ?isActive=${this.page === 'titanium-icon'}></titanium-icon-demo> ` : nothing}
+          ${this.page === 'titanium-image-input'
+            ? html` <titanium-image-input-demo ?isActive=${this.page === 'titanium-image-input'}></titanium-image-input-demo> `
+            : nothing}
           ${this.page === 'titanium-progress'
             ? html` <titanium-progress-demo ?isActive=${this.page === 'titanium-progress'}></titanium-progress-demo> `
             : nothing}
@@ -640,8 +681,14 @@ export class MyAppElement extends LitElement {
           ${this.page === 'titanium-side-menu-item'
             ? html` <titanium-side-menu-item-demo ?isActive=${this.page === 'titanium-side-menu-item'}></titanium-side-menu-item-demo> `
             : nothing}
+          ${this.page === 'titanium-single-action-card'
+            ? html` <titanium-single-action-card-demo ?isActive=${this.page === 'titanium-single-action-card'}></titanium-single-action-card-demo> `
+            : nothing}
           ${this.page === 'titanium-svg-button'
             ? html` <titanium-svg-button-demo ?isActive=${this.page === 'titanium-svg-button'}></titanium-svg-button-demo> `
+            : nothing}
+          ${this.page === 'titanium-svg-button-menu'
+            ? html` <titanium-svg-button-menu-demo ?isActive=${this.page === 'titanium-svg-button-menu'}></titanium-svg-button-menu-demo> `
             : nothing}
           ${this.page === 'titanium-tab-control'
             ? html` <titanium-tab-control-demo ?isActive=${this.page === 'titanium-tab-control'}></titanium-tab-control-demo> `
@@ -672,6 +719,7 @@ export class MyAppElement extends LitElement {
           ${this.page === 'titanium-dialog' ? html` <titanium-dialog-demo ?isActive=${this.page === 'titanium-dialog'}></titanium-dialog-demo> ` : nothing}
           ${this.page === 'confirm-dialog' ? html` <confirm-dialog-demo ?isActive=${this.page === 'confirm-dialog'}></confirm-dialog-demo> ` : nothing}
           ${this.page === 'titanium-styles' ? html` <titanium-styles-demo ?isActive=${this.page === 'titanium-styles'}></titanium-styles-demo> ` : nothing}
+          ${this.page === 'titanium-select' ? html` <titanium-select-demo ?isActive=${this.page === 'titanium-select'}></titanium-select-demo> ` : nothing}
           ${this.page === 'titanium-snackbar'
             ? html` <titanium-snackbar-demo ?isActive=${this.page === 'titanium-snackbar'}></titanium-snackbar-demo> `
             : nothing}
