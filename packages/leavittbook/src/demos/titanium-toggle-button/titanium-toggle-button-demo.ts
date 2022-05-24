@@ -20,7 +20,12 @@ export class TitaniumToggleButtonDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="Titanium toggle button" packageName="titanium-button" className="TitaniumToggleButtonElement"></story-header>
+      <story-header
+        name="Titanium toggle button"
+        deprecatedReason="Use titanium-chip-multi-select"
+        packageName="titanium-button"
+        className="TitaniumToggleButtonElement"
+      ></story-header>
       <playground-ide line-numbers resizable project-src="../src/demos/titanium-toggle-button/project.json"> </playground-ide>
       <api-docs src="./custom-elements.json" selected="titanium-toggle-button"></api-docs>
     `;

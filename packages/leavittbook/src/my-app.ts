@@ -491,10 +491,7 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-tab-control</span>
               </a>
-              <a href="/titanium-toggle-button" ?selected=${!!this.page?.includes('titanium-toggle-button')}>
-                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-                <span>titanium-toggle-button</span>
-              </a>
+
               <a href="/titanium-toolbar" ?selected=${!!this.page?.includes('titanium-toolbar')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-toolbar</span>
@@ -563,6 +560,10 @@ export class MyAppElement extends LitElement {
               <a href="/titanium-select" ?selected=${!!this.page?.includes('titanium-select')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-select</span>
+              </a>
+              <a href="/titanium-toggle-button" ?selected=${!!this.page?.includes('titanium-toggle-button')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-toggle-button</span>
               </a>
               <a href="/titanium-single-select" ?selected=${!!this.page?.includes('titanium-single-select')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
