@@ -20,7 +20,7 @@ export class TitaniumSingleActionCardDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="Titanium single action card" packageName="titanium-single-action-card" className="TitaniumSingleActionCardElement"></story-header>
+      <story-header name="Titanium single action card" packageName="titanium-card" className="TitaniumSingleActionCardElement"></story-header>
       <playground-ide line-numbers resizable project-src="../src/demos/titanium-single-action-card/project.json"> </playground-ide>
       <api-docs src="./custom-elements.json" selected="titanium-single-action-card"></api-docs>
     `;
