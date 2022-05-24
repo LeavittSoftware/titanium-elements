@@ -10,21 +10,30 @@ import ApiService from '@leavittsoftware/api-service/lib/api-service';
 import { AuthenticatedTokenProvider } from '@leavittsoftware/api-service/lib/authenticated-token-provider';
 
 /* playground-fold-end */
-import '@leavittsoftware/leavitt-elements/lib/leavitt-person-company-select';
-import { LeavittPersonCompanySelectElement } from '@leavittsoftware/leavitt-elements/lib/leavitt-person-company-select';
+import '@leavittsoftware/leavitt-elements/lib/leavitt-company-select';
+import { LeavittCompanyElement } from '@leavittsoftware/leavitt-elements/lib/leavitt-company-select';
 
 /* playground-fold */
-@customElement('leavitt-person-company-select-playground')
+@customElement('leavitt-company-select-playground')
 export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
   @state() apiService: ApiService;
-  @queryAll('leavitt-person-company-select') private inputs!: NodeListOf<LeavittPersonCompanySelectElement>;
-  @query('leavitt-person-company-select[methods-demo]') private methodsSelect!: LeavittPersonCompanySelectElement;
+  @query('leavitt-company-select[methods-demo]') private methodsSelect!: LeavittCompanyElement;
+  @queryAll('leavitt-company-select') private inputs!: NodeListOf<LeavittCompanyElement>;
 
   constructor() {
     super();
     this.apiService = new ApiService(new AuthenticatedTokenProvider());
     this.apiService.baseUrl = 'https://devapi3.leavitt.com/';
     this.apiService.addHeader('X-LGAppName', 'Testing');
+  }
+
+  async firstUpdated() {
+    //Fix MWC floating label problem
+    requestAnimationFrame(() => {
+      Array.from(this.inputs).forEach(async o => {
+        o.layout();
+      });
+    });
   }
 
   static styles = [
@@ -58,16 +67,6 @@ export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
     `,
   ];
 
-  async firstUpdated() {
-    // Fix MWC floating label problem
-    requestAnimationFrame(() => {
-      Array.from(this.inputs).forEach(() => {
-        //TODO: add method to input
-        //   o.layout();
-      });
-    });
-  }
-
   render() {
     /* playground-fold-end */
     return html`
@@ -75,34 +74,31 @@ export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
       <h1>Default</h1>
       <p>Examples using required,shaped,shallow,preselected, and disabled</p>
       <div>
-        <leavitt-person-company-select label="default" .apiService=${this.apiService}></leavitt-person-company-select>
-        <leavitt-person-company-select label="shaped" shaped .apiService=${this.apiService}></leavitt-person-company-select>
-        <leavitt-person-company-select label="shallow" shallow .apiService=${this.apiService}></leavitt-person-company-select>
-        <leavitt-person-company-select
+        <leavitt-company-select label="default" .apiService=${this.apiService}></leavitt-company-select>
+        <leavitt-company-select label="shaped" shaped .apiService=${this.apiService}></leavitt-company-select>
+        <leavitt-company-select label="shallow" shallow .apiService=${this.apiService}></leavitt-company-select>
+        <leavitt-company-select
           label="pre-selected"
-          .selected=${{
-            Name: 'Leavitt Group Enterprises',
-            type: 'CustomEntity' as const,
-          }}
+          .selected=${{ Id: 57, Name: 'Leavitt Group Enterprises' }}
           .apiService=${this.apiService}
-        ></leavitt-person-company-select>
-        <leavitt-person-company-select
+        ></leavitt-company-select>
+        <leavitt-company-select
           label="disabled pre-selected"
           .selected=${{
+            Id: 57,
             Name: 'Leavitt Group Enterprises',
-            type: 'CustomEntity' as const,
           }}
           disabled
           .apiService=${this.apiService}
-        ></leavitt-person-company-select>
-        <leavitt-person-company-select label="placeholder" placeholder="placeholder text" .apiService=${this.apiService}></leavitt-person-company-select>
-        <leavitt-person-company-select label="required" required validationMessage="required" .apiService=${this.apiService}></leavitt-person-company-select>
+        ></leavitt-company-select>
+        <leavitt-company-select label="placeholder" placeholder="placeholder text" .apiService=${this.apiService}></leavitt-company-select>
+        <leavitt-company-select label="required" required validationMessage="required" .apiService=${this.apiService}></leavitt-company-select>
       </div>
 
       <h1>Methods</h1>
       <p>Demonstrates public methods</p>
-      <div row>
-        <leavitt-person-company-select required methods-demo .apiService=${this.apiService}></leavitt-person-company-select>
+      <div>
+        <leavitt-company-select methods-demo required .apiService=${this.apiService}></leavitt-company-select>
         <section buttons>
           <mwc-button
             lowercase
@@ -127,6 +123,22 @@ export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
               this.methodsSelect.reportValidity();
             }}
             label="reportValidity()"
+          ></mwc-button>
+          <mwc-button
+            lowercase
+            outlined
+            @click=${() => {
+              this.methodsSelect.layout();
+            }}
+            label="layout()"
+          ></mwc-button>
+          <mwc-button
+            lowercase
+            outlined
+            @click=${() => {
+              this.methodsSelect.reloadCompanies();
+            }}
+            label="reloadCompanies()"
           ></mwc-button>
         </section>
       </div>

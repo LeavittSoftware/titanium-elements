@@ -210,6 +210,9 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
     }
 
     if (previouslySelected?.Id !== this.selected?.Id) {
+      /**
+       * @ignore
+       */
       this.dispatchEvent(new LeavittCompanySelectSelectedEvent(company));
     }
   }

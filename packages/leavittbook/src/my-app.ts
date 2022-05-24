@@ -65,6 +65,9 @@ export class MyAppElement extends LitElement {
     );
     page('/available-cdn-icons', () => this.#changePage('available-cdn-icons', () => import('./demos/available-cdn-icons/available-cdn-icons-demo.js')));
 
+    page('/leavitt-company-select', () =>
+      this.#changePage('leavitt-company-select', () => import('./demos/leavitt-company-select/leavitt-company-select-demo.js'))
+    );
     page('/leavitt-date-range', () => this.#changePage('leavitt-date-range', () => import('./demos/leavitt-date-range/leavitt-date-range-demo.js')));
     page('/titanium-data-table-item', () =>
       this.#changePage('titanium-data-table-item', () => import('./demos/titanium-data-table-item/titanium-data-table-item-demo.js'))
@@ -491,6 +494,10 @@ export class MyAppElement extends LitElement {
               <summary>Leavitt</summary>
               <!-- Leavitt menu -->
 
+              <a href="/leavitt-company-select" ?selected=${!!this.page?.includes('leavitt-company-select')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>leavitt-company-select</span>
+              </a>
               <a href="/leavitt-date-range" ?selected=${!!this.page?.includes('leavitt-date-range')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>leavitt-date-range</span>
@@ -559,6 +566,9 @@ export class MyAppElement extends LitElement {
             : nothing}
           ${this.page === 'leavitt-person-select'
             ? html` <leavitt-person-select-demo ?isActive=${this.page === 'leavitt-person-select'}></leavitt-person-select-demo> `
+            : nothing}
+          ${this.page === 'leavitt-company-select'
+            ? html` <leavitt-company-select-demo ?isActive=${this.page === 'leavitt-company-select'}></leavitt-company-select-demo> `
             : nothing}
           ${this.page === 'leavitt-person-company-select'
             ? html` <leavitt-person-company-select-demo ?isActive=${this.page === 'leavitt-person-company-select'}></leavitt-person-company-select-demo> `
