@@ -64,6 +64,7 @@ export class TitaniumHeader extends LitElement {
 
         padding: 0 52px 8px 52px;
         position: relative;
+        color: var(--app-dark-text-color, #202124);
       }
 
       h3 {
