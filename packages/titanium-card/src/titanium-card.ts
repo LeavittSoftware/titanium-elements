@@ -5,9 +5,9 @@ import { property, customElement } from 'lit/decorators.js';
  *
  * @element titanium-card
  *
- * @cssprop {Color} --app-border-color - Card border color
+ * @cssprop {Color} [--app-border-color=#dadce0] - Card border color
  *
- * @slot - Card content
+ * @slot Default - Card content
  */
 @customElement('titanium-card')
 export class TitaniumCardElement extends LitElement {
