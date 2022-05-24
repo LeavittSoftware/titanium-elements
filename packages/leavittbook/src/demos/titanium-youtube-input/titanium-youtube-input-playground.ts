@@ -1,10 +1,9 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement, query, queryAll } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/titanium-styles';
+import { h1, p, button } from '@leavittsoftware/titanium-styles';
 import '@leavittsoftware/profile-picture';
 import '@material/mwc-button';
-import '@material/mwc-icon';
 import { TitaniumYouTubeInputElement } from '@leavittsoftware/titanium-youtube-input';
 
 /* playground-fold-end */
@@ -29,6 +28,7 @@ export class TitaniumYoutubeInputPlayground extends LitElement {
   static styles = [
     h1,
     p,
+    button,
     css`
       :host {
         display: flex;
