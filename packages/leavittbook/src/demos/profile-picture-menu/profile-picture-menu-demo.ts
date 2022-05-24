@@ -20,7 +20,7 @@ export class ProfilePictureMenuDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="Profile picture menu" packageName="profile-picture-menu" className="ProfilePictureMenuElement"></story-header>
+      <story-header name="Profile picture menu" packageName="profile-picture" className="ProfilePictureMenuElement"></story-header>
       <playground-ide line-numbers resizable project-src="../src/demos/profile-picture-menu/project.json"> </playground-ide>
       <api-docs src="./custom-elements.json" selected="profile-picture-menu"></api-docs>
     `;
