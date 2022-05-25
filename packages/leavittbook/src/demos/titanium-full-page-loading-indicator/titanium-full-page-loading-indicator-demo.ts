@@ -5,18 +5,12 @@ import StoryStyles from '../../styles/story-styles';
 import '../../shared/story-header';
 
 import '@api-viewer/docs';
-import 'playground-elements/playground-ide';
+import '../../shared/smart-demo';
+import './titanium-full-page-loading-indicator-playground';
 
 @customElement('titanium-full-page-loading-indicator-demo')
 export class TitaniumFullPageLoadingIndicatorDemoElement extends LitElement {
-  static styles = [
-    StoryStyles,
-    css`
-      playground-ide {
-        height: 400px;
-      }
-    `,
-  ];
+  static styles = [StoryStyles, css``];
 
   render() {
     return html`
@@ -25,7 +19,9 @@ export class TitaniumFullPageLoadingIndicatorDemoElement extends LitElement {
         packageName="titanium-loading-indicator"
         className="TitaniumFullPageLoadingIndicatorElement"
       ></story-header>
-      <playground-ide line-numbers resizable project-src="../src/demos/titanium-full-page-loading-indicator/project.json"> </playground-ide>
+      <smart-demo line-numbers resizable project-src="../src/demos/titanium-full-page-loading-indicator/project.json"
+        ><titanium-full-page-loading-indicator-playground></titanium-full-page-loading-indicator-playground>
+      </smart-demo>
       <api-docs src="./custom-elements.json" selected="titanium-full-page-loading-indicator"></api-docs>
     `;
   }

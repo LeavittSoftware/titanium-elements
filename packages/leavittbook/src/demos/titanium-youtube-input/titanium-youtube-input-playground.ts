@@ -18,9 +18,9 @@ export class TitaniumYoutubeInputPlayground extends LitElement {
   async firstUpdated() {
     // Fix MWC floating label problem
     requestAnimationFrame(() => {
-      Array.from(this.inputs).forEach(() => {
+      Array.from(this.inputs).forEach(o => {
         //TODO: add method to input
-        //   o.layout();
+        o.layout();
       });
     });
   }
@@ -89,6 +89,14 @@ export class TitaniumYoutubeInputPlayground extends LitElement {
               this.requiredInput.reportValidity();
             }}
             label="reportValidity()"
+          ></mwc-button>
+          <mwc-button
+            lowercase
+            outlined
+            @click=${() => {
+              this.requiredInput.layout();
+            }}
+            label="layout()"
           ></mwc-button>
         </section>
       </div>

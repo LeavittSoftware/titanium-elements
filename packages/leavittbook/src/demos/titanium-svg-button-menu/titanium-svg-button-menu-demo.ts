@@ -5,18 +5,12 @@ import StoryStyles from '../../styles/story-styles';
 import '../../shared/story-header';
 
 import '@api-viewer/docs';
-import 'playground-elements/playground-ide';
+import '../../shared/smart-demo';
+import './titanium-svg-button-menu-playground';
 
 @customElement('titanium-svg-button-menu-demo')
 export class TitaniumSVGButtonMenuDemoElement extends LitElement {
-  static styles = [
-    StoryStyles,
-    css`
-      playground-ide {
-        height: 550px;
-      }
-    `,
-  ];
+  static styles = [StoryStyles, css``];
 
   render() {
     return html`
@@ -26,7 +20,9 @@ export class TitaniumSVGButtonMenuDemoElement extends LitElement {
         packageName="titanium-svg-button"
         className="TitaniumSvgButtonMenuElement"
       ></story-header>
-      <playground-ide line-numbers resizable project-src="../src/demos/titanium-svg-button-menu/project.json"> </playground-ide>
+      <smart-demo line-numbers resizable project-src="../src/demos/titanium-svg-button-menu/project.json"
+        ><titanium-svg-button-menu-playground></titanium-svg-button-menu-playground>
+      </smart-demo>
       <api-docs src="./custom-elements.json" selected="titanium-svg-button-menu"></api-docs>
     `;
   }

@@ -5,23 +5,19 @@ import StoryStyles from '../../styles/story-styles';
 import '../../shared/story-header';
 
 import '@api-viewer/docs';
-import 'playground-elements/playground-ide';
+import '../../shared/smart-demo';
+import './titanium-search-input-playground';
 
 @customElement('titanium-search-input-demo')
 export class TitaniumSearchInputItemDemoElement extends LitElement {
-  static styles = [
-    StoryStyles,
-    css`
-      playground-ide {
-        height: 600px;
-      }
-    `,
-  ];
+  static styles = [StoryStyles, css``];
 
   render() {
     return html`
       <story-header name="Titanium Search Input" packageName="titanium-search-input" className="TitaniumSearchInputItemElement"></story-header>
-      <playground-ide line-numbers resizable project-src="../src/demos/titanium-search-input/project.json"> </playground-ide>
+      <smart-demo line-numbers resizable project-src="../src/demos/titanium-search-input/project.json"
+        ><titanium-search-input-playground></titanium-search-input-playground>
+      </smart-demo>
       <api-docs src="./custom-elements.json" selected="titanium-search-input"></api-docs>
     `;
   }

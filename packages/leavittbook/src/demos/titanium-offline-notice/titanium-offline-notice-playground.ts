@@ -41,6 +41,7 @@ export class TitaniumOfflineNoticePlayground extends LitElement {
       }
 
       titanium-offline-notice {
+        position: relative;
         margin: 36px 0;
       }
     `,

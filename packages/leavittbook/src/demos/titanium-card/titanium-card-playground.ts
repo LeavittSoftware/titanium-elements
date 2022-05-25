@@ -25,7 +25,7 @@ export class TitaniumChipPlayground extends LitElement {
       }
 
       titanium-card {
-        margin: 24px;
+        margin: 12px 0;
       }
 
       img[card-image] {

@@ -1,7 +1,6 @@
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { h1, h2, p, a } from '@leavittsoftware/titanium-styles';
-import './shared/code-block';
 import '@leavittsoftware/titanium-chip';
 import '@leavittsoftware/titanium-header';
 
@@ -22,8 +21,14 @@ export default class GettingStartedElement extends LitElement {
         margin: 24px 0 4px 0;
       }
 
-      code-block {
-        margin: 6px 0 24px 0;
+      code {
+        margin: 12px 0;
+        background-color: var(--app-hover-color);
+        padding: 6px;
+      }
+
+      code[block] {
+        display: inline-block;
       }
     `,
   ];
@@ -44,11 +49,11 @@ export default class GettingStartedElement extends LitElement {
 
       <h2>Installation</h2>
       <p>NPM install the element you want to use:</p>
-      <code-block hide-open-button language="bash" open .snippet=${html`npm i @leavittsoftware/titanium-chip`}></code-block>
+      <code block>npm i @leavittsoftware/titanium-chip</code>
       <p>Include the element on your page.</p>
-      <code-block hide-open-button open .snippet=${html`import '@leavittsoftware/titanium-chip';`}></code-block>
+      <code block>import '@leavittsoftware/titanium-chip';</code>
       <p>Use the element:</p>
-      <code-block hide-open-button open .snippet=${html`<titanium-chip></titanium-chip>`}></code-block>
+      <code block>${'<titanium-chip></titanium-chip>'}</code>
 
       <h2>Styling</h2>
       <p>Elements are styled via CSS variables. See each element's docs for the list of available mixins.</p>

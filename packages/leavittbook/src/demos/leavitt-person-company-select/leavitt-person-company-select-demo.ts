@@ -6,20 +6,14 @@ import StoryStyles from '../../styles/story-styles';
 import '../../shared/story-header';
 
 import '@api-viewer/docs';
-import 'playground-elements/playground-ide';
+import '../../shared/smart-demo';
+import './leavitt-person-company-select-playground';
 
 @customElement('leavitt-person-company-select-demo')
 export class LeavittPersonCompanySelectDemoElement extends LitElement {
   @state() refreshToken: string | null = null;
 
-  static styles = [
-    StoryStyles,
-    css`
-      playground-ide {
-        height: 700px;
-      }
-    `,
-  ];
+  static styles = [StoryStyles, css``];
 
   async firstUpdated() {
     const userManager = await GetUserManagerInstance();
@@ -31,13 +25,14 @@ export class LeavittPersonCompanySelectDemoElement extends LitElement {
     return html`
       <story-header name="Leavitt Person/Company Select" packageName="leavitt-elements" className="LeavittPersonCompanySelectElement"></story-header>
       ${this.refreshToken
-        ? html`<playground-ide
+        ? html`<smart-demo
             html-file=${`index.html?#${encodeURIComponent(this.refreshToken)}`}
             line-numbers
             resizable
             project-src="../src/demos/leavitt-person-company-select/project.json"
           >
-          </playground-ide>`
+            <leavitt-person-company-select-playground></leavitt-person-company-select-playground>
+          </smart-demo>`
         : nothing}
       <api-docs src="./custom-elements.json" selected="leavitt-person-company-select"></api-docs>
     `;

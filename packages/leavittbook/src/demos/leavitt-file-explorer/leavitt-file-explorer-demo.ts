@@ -6,20 +6,14 @@ import StoryStyles from '../../styles/story-styles';
 import '../../shared/story-header';
 
 import '@api-viewer/docs';
-import 'playground-elements/playground-ide';
+import '../../shared/smart-demo';
+import './leavitt-file-explorer-playground';
 
 @customElement('leavitt-file-explorer-demo')
 export class LeavittFileExplorerDemoElement extends LitElement {
   @state() refreshToken: string | null = null;
 
-  static styles = [
-    StoryStyles,
-    css`
-      playground-ide {
-        height: 1500px;
-      }
-    `,
-  ];
+  static styles = [StoryStyles, css``];
 
   async firstUpdated() {
     const userManager = await GetUserManagerInstance();
@@ -31,13 +25,13 @@ export class LeavittFileExplorerDemoElement extends LitElement {
     return html`
       <story-header name="Leavitt File Explorer" packageName="leavitt-file-explorer" className="LeavittFileExplorerElement"></story-header>
       ${this.refreshToken
-        ? html`<playground-ide
+        ? html`<smart-demo
             html-file=${`index.html?#${encodeURIComponent(this.refreshToken)}`}
             line-numbers
             resizable
             project-src="../src/demos/leavitt-file-explorer/project.json"
-          >
-          </playground-ide>`
+            ><leavitt-file-explorer-playground></leavitt-file-explorer-playground>
+          </smart-demo>`
         : nothing}
       <api-docs src="./custom-elements.json" selected="leavitt-file-explorer"></api-docs>
     `;

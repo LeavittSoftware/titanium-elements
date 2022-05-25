@@ -29,6 +29,7 @@ export class TitaniumToolbarPlayground extends LitElement {
 
       titanium-toolbar {
         display: flex;
+        position: relative;
         background-color: aliceblue;
         justify-content: space-between;
       }

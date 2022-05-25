@@ -23,7 +23,7 @@ export class TitaniumSingleActionCardPlayground extends LitElement {
       }
 
       titanium-single-action-card {
-        margin: 24px;
+        margin: 12px 0;
       }
 
       img[card-image] {

@@ -22,6 +22,13 @@ export class LeavittFileExplorerPlaygroundElement extends LitElement {
     h1,
     p,
     css`
+      :host {
+        display: flex;
+        flex-direction: column;
+        --mdc-icon-font: 'Material Icons Outlined';
+        margin: 24px 12px;
+      }
+
       div {
         margin: 24px 0 36px 0;
       }

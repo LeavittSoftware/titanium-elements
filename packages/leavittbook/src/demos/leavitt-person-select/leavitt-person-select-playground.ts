@@ -29,9 +29,9 @@ export class LeavittPersonSelectPlaygroundElement extends LitElement {
   async firstUpdated() {
     // Fix MWC floating label problem
     requestAnimationFrame(() => {
-      Array.from(this.inputs).forEach(() => {
+      Array.from(this.inputs).forEach(o => {
         //TODO: add method to input
-        //   o.layout();
+        o.layout();
       });
     });
   }

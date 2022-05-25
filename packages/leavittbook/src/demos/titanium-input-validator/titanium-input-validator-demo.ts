@@ -5,23 +5,19 @@ import StoryStyles from '../../styles/story-styles';
 import '../../shared/story-header';
 
 import '@api-viewer/docs';
-import 'playground-elements/playground-ide';
+import '../../shared/smart-demo';
+import './titanium-input-validator-playground';
 
 @customElement('titanium-input-validator-demo')
 export class TitaniumInputValidatorDemoElement extends LitElement {
-  static styles = [
-    StoryStyles,
-    css`
-      playground-ide {
-        height: 500px;
-      }
-    `,
-  ];
+  static styles = [StoryStyles, css``];
 
   render() {
     return html`
       <story-header name="Titanium Input Validator" packageName="titanium-input-validator" className="TitaniumInputValidatorElement"></story-header>
-      <playground-ide line-numbers resizable project-src="../src/demos/titanium-input-validator/project.json"> </playground-ide>
+      <smart-demo line-numbers resizable project-src="../src/demos/titanium-input-validator/project.json"
+        ><titanium-input-validator-playground></titanium-input-validator-playground>
+      </smart-demo>
       <api-docs src="./custom-elements.json" selected="titanium-input-validator"></api-docs>
     `;
   }

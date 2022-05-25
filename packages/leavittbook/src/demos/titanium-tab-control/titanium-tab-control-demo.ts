@@ -5,23 +5,19 @@ import StoryStyles from '../../styles/story-styles';
 import '../../shared/story-header';
 
 import '@api-viewer/docs';
-import 'playground-elements/playground-ide';
+import '../../shared/smart-demo';
+import './titanium-tab-control-playground';
 
 @customElement('titanium-tab-control-demo')
 export class TitaniumTabControlDemoElement extends LitElement {
-  static styles = [
-    StoryStyles,
-    css`
-      playground-ide {
-        height: 900px;
-      }
-    `,
-  ];
+  static styles = [StoryStyles, css``];
 
   render() {
     return html`
       <story-header name="Titanium tab control" packageName="titanium-tab-control" className="TitaniumTabControlElement"></story-header>
-      <playground-ide line-numbers resizable project-src="../src/demos/titanium-tab-control/project.json"> </playground-ide>
+      <smart-demo line-numbers resizable project-src="../src/demos/titanium-tab-control/project.json"
+        ><titanium-tab-control-playground></titanium-tab-control-playground>
+      </smart-demo>
       <api-docs src="./custom-elements.json" selected="titanium-tab-control"></api-docs>
     `;
   }

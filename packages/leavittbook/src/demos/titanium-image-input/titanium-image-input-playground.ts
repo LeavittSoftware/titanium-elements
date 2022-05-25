@@ -1,6 +1,6 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
-import { customElement, query, queryAll } from 'lit/decorators.js';
+import { customElement, query } from 'lit/decorators.js';
 import { h1, p, button } from '@leavittsoftware/titanium-styles';
 
 import '@material/mwc-button';
@@ -13,18 +13,7 @@ import { TitaniumImageInputElement } from '@leavittsoftware/titanium-image-input
 /* playground-fold */
 @customElement('titanium-image-input-playground')
 export class TitaniumImageInputPlaygroundElement extends LitElement {
-  @queryAll('titanium-image-input') private inputs!: NodeListOf<TitaniumImageInputElement>;
   @query('titanium-image-input[methods-demo]') private methodsPersonSelect!: TitaniumImageInputElement;
-
-  async firstUpdated() {
-    // Fix MWC floating label problem
-    requestAnimationFrame(() => {
-      Array.from(this.inputs).forEach(() => {
-        //TODO: add method to input
-        //   o.layout();
-      });
-    });
-  }
 
   static styles = [
     h1,

@@ -4,5 +4,10 @@
     "leavitt-person-company-select-playground.ts": {},
     "index.html": {}
   },
+  "importMap": {
+    "imports": {
+      "@leavittsoftware/leavitt-elements/lib/leavitt-person-company-select": "http://localhost:8000/node_modules/@leavittsoftware/leavitt-elements/lib/leavitt-person-company-select.js"
+    }
+  },
   "order": 0
 }

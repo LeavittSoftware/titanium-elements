@@ -30,6 +30,13 @@ export class LeavittDateRangePlaygroundElement extends LitElement {
     h1,
     p,
     css`
+      :host {
+        display: flex;
+        flex-direction: column;
+        --mdc-icon-font: 'Material Icons Outlined';
+        margin: 24px 12px;
+      }
+
       div {
         border: 1px solid var(--app-border-color);
         padding: 24px;
