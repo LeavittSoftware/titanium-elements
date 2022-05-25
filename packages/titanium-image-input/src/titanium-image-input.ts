@@ -35,7 +35,7 @@ export class TitaniumImageInputElement extends LitElement {
   private allowedFileType = ['image/svg+xml', 'image/png', 'image/jpeg', 'image/gif'];
 
   /**
-   *  Displays error state if no image is empty and input is blurred.
+   *  Displays error state if image input is empty and input is blurred.
    */
   @property({ type: Boolean }) required: boolean = false;
 
