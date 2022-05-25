@@ -9,7 +9,7 @@ import { SiteErrorEvent } from '../events';
 export default class SmartDemoElement extends LitElement {
   @property({ type: String }) selectedTab: 'simple' | 'playground' = 'simple';
   @property({ type: String, attribute: 'project-src' }) projectSrc;
-  @property({ type: String, attribute: 'html-file' }) htmlFile;
+  @property({ type: String, attribute: 'html-file' }) htmlFile = 'index.html';
   @property({ type: Boolean, attribute: 'line-numbers' }) lineNumbers;
   @property({ type: Boolean, attribute: 'line-wrapping' }) lineWrapping;
   @property({ type: Boolean }) resizable;
@@ -51,10 +51,7 @@ export default class SmartDemoElement extends LitElement {
 
   render() {
     return html`
-      <mwc-tab-bar
-        @MDCTabBar:activated=${(o: CustomEvent<{ index: number }>) =>
-          o.detail.index === 0 ? (this.selectedTab = 'simple') : (this.selectedTab = 'playground')}
-      >
+      <mwc-tab-bar @MDCTabBar:activated=${(o: CustomEvent<{ index: number }>) => (this.selectedTab = o.detail.index === 0 ? 'simple' : 'playground')}>
         <mwc-tab label="Demo" stacked icon="preview"></mwc-tab>
         <mwc-tab label="Playground (BETA)" stacked icon="family_restroom"></mwc-tab>
       </mwc-tab-bar>
@@ -63,8 +60,8 @@ export default class SmartDemoElement extends LitElement {
             ?line-numbers=${this.lineNumbers}
             ?line-wrapping=${this.lineNumbers}
             ?resizable=${this.resizable}
-            project-src=${this.projectSrc}
-            html-file=${this.htmlFile}
+            .projectSrc=${this.projectSrc}
+            .htmlFile=${this.htmlFile}
           >
           </playground-ide>`
         : html`<main><slot></slot></main>`}
