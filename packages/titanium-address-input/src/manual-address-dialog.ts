@@ -4,7 +4,6 @@ import { property, customElement, query, queryAll } from 'lit/decorators.js';
 import '@material/mwc-button';
 import '@material/mwc-dialog';
 import { validateStreet } from './Address';
-import './manual-address-form';
 
 import { Address } from './Address';
 import { Dialog } from '@material/mwc-dialog';
