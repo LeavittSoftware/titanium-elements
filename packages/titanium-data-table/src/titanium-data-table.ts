@@ -100,8 +100,6 @@ export class TitaniumDataTableElement extends LitElement {
    */
   @property({ type: Boolean }) private isLoading: boolean;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
   /**
    * @ignore
    */

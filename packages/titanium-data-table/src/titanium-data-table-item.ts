@@ -91,8 +91,6 @@ export class TitaniumDataTableItemElement extends LitElement {
   }
 
   firstUpdated() {
-    // Set width of each slotted row with based on width
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const elements = this.shadowRoot?.querySelector<HTMLSlotElement>('slot')?.assignedElements();
     elements?.forEach(e => {
       const element = e as HTMLElement;

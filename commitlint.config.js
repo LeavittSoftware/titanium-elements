@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const lernaScopesConfig = require('@commitlint/config-lerna-scopes');
 
 const customScopes = ['release', 'tooling'];
