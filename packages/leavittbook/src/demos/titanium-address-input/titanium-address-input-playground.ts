@@ -69,7 +69,7 @@ export class TitaniumAddressInputPlayground extends LitElement {
     /* playground-fold-end */
     return html`
       <h1>Default</h1>
-      <p>Examples using default, required, outlined, icon, helper, and helperPersistent</p>
+      <p>Attribute examples</p>
       <div>
         <titanium-address-input outlined googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"></titanium-address-input>
         <titanium-address-input
@@ -82,7 +82,7 @@ export class TitaniumAddressInputPlayground extends LitElement {
       </div>
 
       <h1>Pre-filled</h1>
-      <p>Populates input with pre selected address (using setLocation in firstUpdated)</p>
+      <p>Populates input with pre-selected address (using setLocation in firstUpdated)</p>
       <div>
         <titanium-address-input
           outlined
