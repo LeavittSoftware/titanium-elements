@@ -122,7 +122,7 @@ export class TitaniumDataTableElement extends LitElement {
   /**
    * @ignore
    */
-  @queryAsync('titanium-page-control') pageControl: TitaniumPageControlElement;
+  @queryAsync('titanium-page-control') pageControl: Promise<TitaniumPageControlElement | null>;
 
   private _openCount = 0;
 
@@ -130,28 +130,34 @@ export class TitaniumDataTableElement extends LitElement {
    *  returns internal pageControl's current take
    */
   public async getTake(): Promise<number> {
-    return (await this.pageControl).take;
+    return (await this.pageControl)?.take ?? 0;
   }
 
   /**
    *  returns internal pageControl's current page
    */
   public async getPage(): Promise<number> {
-    return (await this.pageControl).page;
+    return (await this.pageControl)?.page ?? 0;
   }
 
   /**
    *  sets internal pageControl's current take
    */
   public async setTake(take: number): Promise<void> {
-    (await this.pageControl).take = take;
+    const control = await this.pageControl;
+    if (control) {
+      control.take = take;
+    }
   }
 
   /**
    *  sets internal pageControl's current page
    */
   public async setPage(page: number): Promise<void> {
-    (await this.pageControl).page = page;
+    const control = await this.pageControl;
+    if (control) {
+      control.page = page;
+    }
   }
 
   /**
@@ -208,7 +214,9 @@ export class TitaniumDataTableElement extends LitElement {
     this.tableHeaders.addEventListener('slotchange', () => this.updateChildrenIsNarrow());
     this.itemsSlot.addEventListener('slotchange', () => this.updateChildrenIsNarrow());
 
-    await this.pageControl.updateComplete;
+    await (
+      await this.pageControl
+    )?.updateComplete;
   }
 
   /**
