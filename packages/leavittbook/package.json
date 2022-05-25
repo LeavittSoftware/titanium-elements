@@ -31,6 +31,8 @@
     "@leavittsoftware/titanium-side-menu": "^0.5.3",
     "@leavittsoftware/titanium-single-select": "^2.2.1",
     "@leavittsoftware/titanium-snackbar": "^3.4.19",
+    "@leavittsoftware/titanium-select": "^0.5.1",
+    "@leavittsoftware/titanium-progress": "^0.2.1",
     "@leavittsoftware/titanium-styles": "^0.3.1",
     "@leavittsoftware/titanium-svg-button": "^4.5.2",
     "@leavittsoftware/titanium-sw-notifier": "^2.1.19",

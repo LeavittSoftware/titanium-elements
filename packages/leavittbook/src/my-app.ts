@@ -564,10 +564,6 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>profile-picture-menu</span>
               </a>
-              <a href="/available-cdn-icons" ?selected=${!!this.page?.includes('available-cdn-icons')}>
-                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-                <span>cdn icons</span>
-              </a>
             </details>
           </section>
           <section>
