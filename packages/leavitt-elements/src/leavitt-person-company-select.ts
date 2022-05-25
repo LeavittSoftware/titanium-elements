@@ -36,7 +36,7 @@ export class LeavittPersonCompanySelectSelectedEvent extends Event {
 type Person = CorePerson & { type: 'Person' };
 type Company = CoreCompany & { type: 'Company' };
 type CustomEntity = { Name: string; type: 'CustomEntity' };
-export type SelectableEntity = Person | Company | CustomEntity;
+export type SelectableEntity = Partial<Person> | Partial<Company> | CustomEntity;
 
 /**
  *  Single select input that searches both Leavitt Group employees and companies
@@ -51,7 +51,7 @@ export type SelectableEntity = Person | Company | CustomEntity;
 export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
   @state() protected count: number = 0;
   @state() protected searchTerm: string;
-  @state() protected suggestions: Array<Person | Company | CustomEntity> = [];
+  @state() protected suggestions: Array<SelectableEntity> = [];
   @query('mwc-menu') protected menu: Menu;
   @query('mwc-textfield') protected textfield: TextField & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
 
@@ -162,7 +162,7 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
     return this.textfield.reportValidity();
   }
 
-  private setSelected(selected: Person | Company | CustomEntity | null) {
+  private setSelected(selected: SelectableEntity | null) {
     const previouslySelected = this.selected;
     this.selected = selected;
     if (previouslySelected !== this.selected) {
