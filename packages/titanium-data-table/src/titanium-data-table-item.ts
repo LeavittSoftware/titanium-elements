@@ -155,7 +155,7 @@ export class TitaniumDataTableItemElement extends LitElement {
   }
 
   private get items() {
-    return this.dataTable.itemsSlot?.assignedElements() as TitaniumDataTableItemElement[];
+    return (this.dataTable.itemsSlot?.assignedElements() as TitaniumDataTableItemElement[]) ?? [];
   }
 
   private get itemsContainer() {
