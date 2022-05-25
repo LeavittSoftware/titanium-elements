@@ -110,6 +110,13 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
   }
 
   /**
+   *  Runs layout() method on textfield.
+   */
+  layout() {
+    this.textfield.layout();
+  }
+
+  /**
    *  Resets the inputs state.
    */
   reset() {

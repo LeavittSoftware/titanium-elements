@@ -135,6 +135,13 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
   }
 
   /**
+   *  Runs layout() method on textfield.
+   */
+  layout() {
+    this.textfield.layout();
+  }
+
+  /**
    *  Sets focus on the input.
    */
   focus() {

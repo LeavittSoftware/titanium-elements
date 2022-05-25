@@ -57,6 +57,13 @@ export class TitaniumYouTubeInputElement extends LitElement {
   }
 
   /**
+   *  Runs layout() method on textfield.
+   */
+  layout() {
+    this.input.layout();
+  }
+
+  /**
    *  Runs checkValidity() method, and if it returns false, then it reports to the user that the input is invalid.
    */
   reportValidity() {
