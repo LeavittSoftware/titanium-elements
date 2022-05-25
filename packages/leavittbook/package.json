@@ -1,7 +1,7 @@
 {
   "license": "BSD-3-Clause",
   "name": "@leavittsoftware/leavittbook",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "dependencies": {
     "@leavittsoftware/api-service": "^9.4.3",
     "@leavittsoftware/leavitt-elements": "^5.7.0",
@@ -27,7 +27,7 @@
     "@leavittsoftware/titanium-offline-notice": "^2.1.2",
     "@leavittsoftware/titanium-popup-surface": "^0.4.1",
     "@leavittsoftware/titanium-progress": "^0.2.1",
-    "@leavittsoftware/titanium-search-input": "^3.2.0",
+    "@leavittsoftware/titanium-search-input": "^3.2.1",
     "@leavittsoftware/titanium-select": "^0.5.1",
     "@leavittsoftware/titanium-shadow-text": "^0.1.1",
     "@leavittsoftware/titanium-side-menu": "^0.5.3",
