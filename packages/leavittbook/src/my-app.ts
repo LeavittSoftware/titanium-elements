@@ -247,6 +247,10 @@ export class MyAppElement extends LitElement {
         z-index: 7;
       }
 
+      titanium-full-page-loading-indicator {
+        z-index: 8;
+      }
+
       titanium-toolbar {
         display: flex;
         justify-content: space-between;
