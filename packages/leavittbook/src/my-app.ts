@@ -280,7 +280,8 @@ export class MyAppElement extends LitElement {
       }
 
       mwc-drawer {
-        padding-top: 48px;
+        margin-top: 48px;
+        --mdc-drawer-width: 290px;
       }
 
       div[drawer-content] {
