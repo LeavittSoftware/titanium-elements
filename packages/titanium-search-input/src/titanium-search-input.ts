@@ -47,6 +47,14 @@ export class TitaniumSearchInput extends LitElement {
    * Focuses the input
    */
   focus() {
+    if (this.preventCollapse) {
+      this._focus();
+    } else {
+      this._handleSearchClick();
+    }
+  }
+
+  _focus() {
     this._input.focus();
   }
 
@@ -68,7 +76,7 @@ export class TitaniumSearchInput extends LitElement {
 
     this.value = '';
     this.dispatchEvent(new CustomEvent('value-changed', { detail: this.value }));
-    this.focus();
+    this._focus();
   }
 
   private async _handleSearchClick() {
@@ -78,7 +86,7 @@ export class TitaniumSearchInput extends LitElement {
 
     this.collapsed = false;
     await this.updateComplete;
-    this.focus();
+    this._focus();
   }
 
   private _lostFocus() {

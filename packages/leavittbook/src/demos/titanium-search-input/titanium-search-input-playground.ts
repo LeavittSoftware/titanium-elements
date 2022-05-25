@@ -14,7 +14,8 @@ import { TitaniumSearchInput } from '@leavittsoftware/titanium-search-input';
 /* playground-fold */
 @customElement('titanium-search-input-playground')
 export class TitaniumSearchInputItemPlayground extends LitElement {
-  @query('titanium-search-input[methods-demo]') private methodsSearch!: TitaniumSearchInput;
+  @query('titanium-search-input[method-focused]') private methodFocus!: TitaniumSearchInput;
+  @query('titanium-search-input[method-focused-collapsed]') private methodsFocusedCollapsed!: TitaniumSearchInput;
 
   static styles = [
     h1,
@@ -73,13 +74,23 @@ export class TitaniumSearchInputItemPlayground extends LitElement {
       <p>Demonstrates public methods</p>
       <titanium-card>
         <div row>
-          <titanium-search-input methods-demo prevent-collapse></titanium-search-input>
+          <titanium-search-input prevent-collapse method-focused></titanium-search-input>
           <mwc-button
             raised
             @click=${() => {
-              this.methodsSearch.focus();
+              this.methodFocus.focus();
             }}
             label="Focus"
+          ></mwc-button>
+        </div>
+        <div row>
+          <titanium-search-input method-focused-collapsed></titanium-search-input>
+          <mwc-button
+            raised
+            @click=${() => {
+              this.methodsFocusedCollapsed.focus();
+            }}
+            label="Focus Collapsed"
           ></mwc-button>
         </div>
       </titanium-card>
