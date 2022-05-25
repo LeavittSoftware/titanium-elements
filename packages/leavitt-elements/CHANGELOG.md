@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.7.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@5.6.0...@leavittsoftware/leavitt-elements@5.7.0) (2022-05-25)
+
+
+### Features
+
+* **leavitt-elements:** add layout() method to selects youtube input ([af1a19a](https://github.com/LeavittSoftware/titanium-elements/commit/af1a19a085b87f4a765981574db401f3ce5adb62))
+
+
+
+
+
 # [5.6.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@5.5.2...@leavittsoftware/leavitt-elements@5.6.0) (2022-05-24)
 
 

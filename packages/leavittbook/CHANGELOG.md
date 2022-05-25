@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@1.1.0...@leavittsoftware/leavittbook@1.2.0) (2022-05-25)
+
+
+### Features
+
+* **leavittbook:** add standard demo outside of iframe; place playground in beta tab ([dfa67bc](https://github.com/LeavittSoftware/titanium-elements/commit/dfa67bc84ad81d3dea78ea5fc80d4cde46ec1af1))
+
+
+
+
+
 # 1.1.0 (2022-05-24)
 
 

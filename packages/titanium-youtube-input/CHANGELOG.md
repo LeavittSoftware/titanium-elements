@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-youtube-input@0.1.2...@leavittsoftware/titanium-youtube-input@0.2.0) (2022-05-25)
+
+
+### Features
+
+* **leavitt-elements:** add layout() method to selects youtube input ([af1a19a](https://github.com/LeavittSoftware/titanium-elements/commit/af1a19a085b87f4a765981574db401f3ce5adb62))
+
+
+
+
+
 ## 0.1.2 (2022-05-24)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-youtube-input
