@@ -40,6 +40,7 @@
     "build:watch": "tsc --build --preserveWatchOutput -w",
     "build": "tsc --build --preserveWatchOutput",
     "lint": "lerna run lint --stream",
+    "nuke": "rm -rf node_modules && rm -rf packages/leavittbook/node_modules && rm -f packages/leavittbook/package-lock.json&& rm -f package-lock.json && npm i",
     "leavittbook": "cd packages/leavittbook && npm start",
     "lint:leavittbook": "cd packages/leavittbook && npm run lint",
     "build:leavittbook": "npm run bootstrap && npm run build && cd packages/leavittbook && npm run build",
