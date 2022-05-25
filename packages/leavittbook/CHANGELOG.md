@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@1.2.1...@leavittsoftware/leavittbook@1.2.2) (2022-05-25)
+
+
+### Bug Fixes
+
+* **leavittbook:** correctly default htmlFile to index ([32abc4f](https://github.com/LeavittSoftware/titanium-elements/commit/32abc4fe73f91b75c6ba018e5b25fbb9dae944cd))
+* **leavittbook:** duplicate menu item;  missing packages ([d9aa9e9](https://github.com/LeavittSoftware/titanium-elements/commit/d9aa9e9ce54b7e4502328addd4d65b670c912020))
+
+
+
+
+
 ## [1.2.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@1.2.0...@leavittsoftware/leavittbook@1.2.1) (2022-05-25)
 
 
