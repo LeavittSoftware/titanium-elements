@@ -1,7 +1,7 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement, query, property, state } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/titanium-styles';
+import { h1, p, button } from '@leavittsoftware/titanium-styles';
 import '@material/mwc-icon';
 import '@material/mwc-button';
 /* playground-fold-end */
@@ -9,6 +9,7 @@ import '@material/mwc-button';
 import '@leavittsoftware/titanium-address-input';
 import { TitaniumAddressInput } from '@leavittsoftware/titanium-address-input';
 import { Address } from '@leavittsoftware/titanium-address-input/lib/Address';
+import { DOMEvent } from '@leavittsoftware/leavitt-elements/lib/dom-event';
 
 /* playground-fold */
 @customElement('titanium-address-input-playground')
@@ -22,11 +23,11 @@ export class TitaniumAddressInputPlayground extends LitElement {
   };
   @query('titanium-address-input[layout]') private layoutInput!: TitaniumAddressInput;
   @query('titanium-address-input[set-location]') private setLocationInput!: TitaniumAddressInput;
-  @query('titanium-address-input[reset]') private resetInput!: TitaniumAddressInput;
 
   static styles = [
     h1,
     p,
+    button,
     css`
       :host {
         display: flex;
@@ -44,6 +45,19 @@ export class TitaniumAddressInputPlayground extends LitElement {
         gap: 12px;
         margin: 24px 0 36px 0;
       }
+
+      section[buttons] {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      @media (min-width: 450px) {
+        titanium-address-input {
+          min-width: 400px;
+        }
+      }
     `,
   ];
 
@@ -55,46 +69,40 @@ export class TitaniumAddressInputPlayground extends LitElement {
     /* playground-fold-end */
     return html`
       <h1>Default</h1>
-      <p>Examples using default, required, outlined, icon, helper, and helperPersistent</p>
+      <p>Attribute examples</p>
       <div>
-        <titanium-address-input googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"></titanium-address-input>
+        <titanium-address-input outlined googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"></titanium-address-input>
         <titanium-address-input
+          outlined
           googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"
+          label="Required"
           required
           validation-message="Please input an address"
         ></titanium-address-input>
-        <titanium-address-input outlined googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"></titanium-address-input>
-        <titanium-address-input icon="home" googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"></titanium-address-input>
-        <titanium-address-input googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k" helper="Address for something"></titanium-address-input>
+      </div>
+
+      <h1>Pre-filled</h1>
+      <p>Populates input with pre-selected address (using setLocation in firstUpdated)</p>
+      <div>
         <titanium-address-input
+          outlined
+          set-location
           googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"
-          helper="Address for something"
-          helperPersistent
+          @location-changed=${(o: DOMEvent<TitaniumAddressInput>) => (this.setLocationResult = JSON.stringify(o.target.location))}
         ></titanium-address-input>
+        <p>${this.setLocationResult}</p>
       </div>
 
-      <h1>SetLocation()</h1>
-      <p>Populates input with pre selected address (using setLocation in firstUpdated)</p>
+      <h1>Functions</h1>
+      <p>Available functions</p>
       <div>
-        <titanium-address-input set-location googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"></titanium-address-input>
-        <mwc-button outlined @click=${() => (this.setLocationResult = JSON.stringify(this.setLocationInput.setLocation(this.address)))}
-          >Set Location</mwc-button
-        >
-        <span>${this.setLocationResult}</span>
-      </div>
-
-      <h1>Layout</h1>
-      <p>Layout the input</p>
-      <div>
-        <titanium-address-input layout googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"></titanium-address-input>
-        <mwc-button outlined @click=${() => this.layoutInput.layout()}>Layout</mwc-button>
-      </div>
-
-      <h1>Reset</h1>
-      <p>Reset the input</p>
-      <div>
-        <titanium-address-input reset googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"></titanium-address-input>
-        <mwc-button outlined @click=${() => this.resetInput.reset()}>Reset</mwc-button>
+        <titanium-address-input outlined required layout googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"></titanium-address-input>
+        <section buttons>
+          <mwc-button lowercase outlined @click=${() => this.layoutInput.layout()}>layout()</mwc-button>
+          <mwc-button lowercase outlined @click=${() => this.layoutInput.reportValidity()}>reportValidity()</mwc-button>
+          <mwc-button lowercase outlined @click=${() => this.layoutInput.reset()}>reset()</mwc-button>
+          <mwc-button lowercase outlined @click=${() => this.layoutInput.setLocation(structuredClone(this.address))}>setLocation(this.address)</mwc-button>
+        </section>
       </div>
     `;
   }

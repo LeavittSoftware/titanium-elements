@@ -140,11 +140,11 @@ export class TitaniumAttachmentInputElement extends LitElement {
   }
 
   private addFiles(files: FileList) {
-    const extensions = this.allowedExtensions.split(',');
+    const extensions = this.allowedExtensions?.toLowerCase()?.split(',');
 
     for (let index = 0; index < files.length; index++) {
       const file = files[index];
-      if (!extensions.some(ext => file.name.endsWith(ext))) {
+      if (!extensions.some(ext => file.name?.toLowerCase()?.endsWith(ext))) {
         this.dispatchEvent(new Event('file-type-error', { bubbles: true, composed: true }));
       } else {
         this.files = [...this.files, file];

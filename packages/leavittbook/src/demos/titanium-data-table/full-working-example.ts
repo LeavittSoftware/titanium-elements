@@ -36,19 +36,19 @@ import '@leavittsoftware/titanium-data-table';
 
 /* playground-fold */
 type FilterKeys = 'Appearance';
-type Car = { Name: string; Appearance: 'plaid' | 'ugly' | 'slick' };
+type Car = { Name: string; Appearance: 'Plaid' | 'Ugly' | 'Slick' };
 
 const allTeslas: Array<Car> = [
-  { Name: 'Model 3', Appearance: 'slick' },
-  { Name: 'Model X', Appearance: 'slick' },
-  { Name: 'Model Y', Appearance: 'slick' },
-  { Name: 'Model S', Appearance: 'slick' },
-  { Name: 'Cybertruck', Appearance: 'ugly' },
-  { Name: 'Tesla Semi', Appearance: 'ugly' },
-  { Name: 'Model X Plaid', Appearance: 'plaid' },
-  { Name: 'Model S Plaid', Appearance: 'plaid' },
-  { Name: 'Model S Plaid+', Appearance: 'plaid' },
-  { Name: 'Gen. 2 Roadster', Appearance: 'slick' },
+  { Name: 'Model 3', Appearance: 'Slick' },
+  { Name: 'Model X', Appearance: 'Slick' },
+  { Name: 'Model Y', Appearance: 'Slick' },
+  { Name: 'Model S', Appearance: 'Slick' },
+  { Name: 'Cybertruck', Appearance: 'Ugly' },
+  { Name: 'Tesla Semi', Appearance: 'Ugly' },
+  { Name: 'Model X Plaid', Appearance: 'Plaid' },
+  { Name: 'Model S Plaid', Appearance: 'Plaid' },
+  { Name: 'Model S Plaid+', Appearance: 'Plaid' },
+  { Name: 'Gen. 2 Roadster', Appearance: 'Slick' },
 ];
 
 @customElement('titanium-data-table-full-playground')
@@ -91,7 +91,7 @@ export class TitaniumDataTableFullPlayground extends LitElement {
   }
 
   #reset() {
-    this.allItems = allTeslas.map(o => ({ Name: o.Name, Appearance: o.Appearance })).slice(0, 3);
+    this.allItems = allTeslas.map(o => ({ Name: o.Name, Appearance: o.Appearance }));
     this.#reload();
   }
 
@@ -162,6 +162,7 @@ export class TitaniumDataTableFullPlayground extends LitElement {
 
       <titanium-data-table
         header="Tesla Motors"
+        .pageSizes=${[3, 5, 10, 15, 100]}
         @selected-changed=${(e: CustomEvent<Array<Partial<{ Name: string }>>>) => {
           this.selected = [...e.detail];
         }}

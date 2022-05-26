@@ -87,7 +87,7 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
   @property({ type: Boolean }) disabled: boolean = false;
 
   /**
-   *  Displays error state if no image is empty and input is blurred.
+   *  Displays error state if input is empty and input is blurred.
    */
   @property({ type: Boolean }) required: boolean = false;
 

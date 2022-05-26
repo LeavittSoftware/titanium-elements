@@ -247,6 +247,10 @@ export class MyAppElement extends LitElement {
         z-index: 7;
       }
 
+      titanium-full-page-loading-indicator {
+        z-index: 8;
+      }
+
       titanium-toolbar {
         display: flex;
         justify-content: space-between;
@@ -280,7 +284,8 @@ export class MyAppElement extends LitElement {
       }
 
       mwc-drawer {
-        padding-top: 48px;
+        margin-top: 48px;
+        --mdc-drawer-width: 290px;
       }
 
       div[drawer-content] {
