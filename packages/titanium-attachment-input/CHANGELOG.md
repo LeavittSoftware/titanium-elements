@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.3.2 (2022-05-26)
+
+
+### Bug Fixes
+
+* **titanium-attachment-input:** extension check is no longer case sensitive ([56c02d2](https://github.com/LeavittSoftware/titanium-elements/commit/56c02d2509fe83ba1f44cdbffba1aea50279acaa)), closes [#323](https://github.com/LeavittSoftware/titanium-elements/issues/323)
+
+
+
+
+
 ## 0.3.1 (2022-05-24)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-attachment-input

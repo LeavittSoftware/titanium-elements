@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.9.2 (2022-05-26)
+
+
+### Bug Fixes
+
+* **titanium-address-input:** floating label bug on inputs in dialog if prefilled; refactor to use mwc-dialog ([4e9e656](https://github.com/LeavittSoftware/titanium-elements/commit/4e9e6562f4cfb93242a1040b937d151d06edefc2))
+
+
+
+
+
 ## 1.9.1 (2022-05-24)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-address-input

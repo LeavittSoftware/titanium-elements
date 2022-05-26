@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 12.4.2 (2022-05-26)
+
+
+### Bug Fixes
+
+* **titanium-data-table:** add proper type and null checking to page control ([0238f32](https://github.com/LeavittSoftware/titanium-elements/commit/0238f329d7857b2ec11129e02288701d625c80a2)), closes [#332](https://github.com/LeavittSoftware/titanium-elements/issues/332)
+* **titanium-data-table:** items getter fallback to [] ([371a1e9](https://github.com/LeavittSoftware/titanium-elements/commit/371a1e93914738cc30d60f37071c5352a1b95de9)), closes [#329](https://github.com/LeavittSoftware/titanium-elements/issues/329)
+
+
+
+
+
 ## 12.4.1 (2022-05-24)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-data-table

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.7.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@5.7.0...@leavittsoftware/leavitt-elements@5.7.1) (2022-05-26)
+
+
+### Bug Fixes
+
+* **leavitt-elements:** makes leavitt-person-company-select person and company props partial ([72869b2](https://github.com/LeavittSoftware/titanium-elements/commit/72869b202d29a6f641b4b9ad405d5e8caf1fed4d)), closes [#354](https://github.com/LeavittSoftware/titanium-elements/issues/354)
+
+
+
+
+
 # [5.7.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@5.6.0...@leavittsoftware/leavitt-elements@5.7.0) (2022-05-25)
 
 

@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-address-input",
   "description": "",
   "author": "Leavitt Software",
-  "version": "1.9.1",
+  "version": "1.9.2",
   "license": "MIT",
   "main": "lib/titanium-address-input.js",
   "typings": "lib/titanium-address-input.d.ts",
@@ -21,10 +21,10 @@
   "dependencies": {
     "@googlemaps/js-api-loader": "*",
     "@material/mwc-button": "*",
+    "@material/mwc-dialog": "*",
     "@material/mwc-list": "*",
     "@material/mwc-select": "*",
     "@material/mwc-textfield": "*",
-    "@material/mwc-dialog": "*",
     "tslib": "^2.3.1"
   },
   "peerDependencies": {
