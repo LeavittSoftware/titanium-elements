@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/leavitt-elements",
-  "version": "5.7.1",
+  "version": "5.7.2",
   "description": "",
   "main": "lib/leavitt-person-select.js",
   "typings": "lib/leavitt-person-select.d.ts",
@@ -13,7 +13,7 @@
     "@leavittsoftware/lg-core-typescript": "*",
     "@leavittsoftware/profile-picture": "^4.8.3",
     "@leavittsoftware/titanium-helpers": "^4.4.1",
-    "@leavittsoftware/titanium-snackbar": "^3.4.19",
+    "@leavittsoftware/titanium-snackbar": "^3.5.0",
     "@material/mwc-linear-progress": "*",
     "@material/mwc-list": "*",
     "@material/mwc-menu": "*",

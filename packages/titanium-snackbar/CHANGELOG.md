@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.5.0 (2022-06-01)
+
+
+### Features
+
+* increase font add more stories for snackbar update lerna ([98035ee](https://github.com/LeavittSoftware/titanium-elements/commit/98035ee0090c6486745c4098961f38410c4638cc))
+
+
+
+
+
 ## 3.4.19 (2022-05-24)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-snackbar

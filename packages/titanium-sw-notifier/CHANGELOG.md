@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.1.20 (2022-06-01)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-sw-notifier
+
+
+
+
+
 ## 2.1.19 (2022-05-24)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-sw-notifier
