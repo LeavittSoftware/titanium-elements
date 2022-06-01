@@ -8,6 +8,7 @@ import '@material/mwc-icon';
 /* playground-fold-end */
 import '@leavittsoftware/titanium-snackbar';
 import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar';
+import { HttpError } from '@leavittsoftware/api-service/lib/HttpError';
 
 /* playground-fold */
 @customElement('titanium-snackbar-playground')
@@ -60,6 +61,37 @@ export class TitaniumSnackbarPlayground extends LitElement {
       <div>
         <h1>Error</h1>
         <mwc-button @click=${() => TitaniumSnackbarSingleton?.open('Error snackbar', { style: 'error' })} outlined label="Error"></mwc-button>
+      </div>
+
+      <div>
+        <h1>HTTP error</h1>
+        <mwc-button
+          @click=${() =>
+            TitaniumSnackbarSingleton?.open({
+              action: 'GET',
+              message: 'Network error. Check your connection and try again.',
+              statusCode: undefined,
+              type: 'HttpError',
+            } as Partial<HttpError> as string)}
+          outlined
+          label="Error"
+        ></mwc-button>
+      </div>
+
+      <div>
+        <h1>HTTP error with detail</h1>
+        <mwc-button
+          @click=${() =>
+            TitaniumSnackbarSingleton?.open({
+              action: 'GET',
+              message: 'Network error. Check your connection and try again.',
+              statusCode: undefined,
+              type: 'HttpError',
+              detail: 'Major Outage. This was probably caused by a network outage in your area. Please contact your ISP for further assistance.',
+            } as Partial<HttpError> as string)}
+          outlined
+          label="Error"
+        ></mwc-button>
       </div>
 
       <titanium-snackbar></titanium-snackbar>
