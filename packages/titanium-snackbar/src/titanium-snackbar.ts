@@ -290,7 +290,7 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
     }
 
     http-error [detail] {
-      font-size: 10px;
+      font-size: 12px;
       overflow-y: auto;
       overflow-y: auto;
       max-height: 400px;
