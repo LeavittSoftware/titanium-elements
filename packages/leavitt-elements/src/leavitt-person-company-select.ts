@@ -103,6 +103,11 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
     return {};
   };
 
+  /**
+   *  Sets the dropdown menu's position to fixed. This is useful when the select is inside of a stacking context e.g. inside of an mwc-dialog. Note, that --mdc-menu-min-width or --mdc-menu-max-width may have to be set to resize the menu to the width anchor.
+   */
+  @property({ type: Boolean }) fixedMenuPosition = false;
+
   firstUpdated() {
     this.menu.anchor = this.textfield;
     this.textfield.layout();
@@ -367,7 +372,7 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
           : ''}
       </div>
       <mwc-menu
-        fixed
+        ?fixed=${this.fixedMenuPosition}
         activatable
         corner="BOTTOM_LEFT"
         defaultFocus="NONE"
