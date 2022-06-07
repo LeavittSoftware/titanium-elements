@@ -6,7 +6,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { h1, h2, h5, p, a, ellipsis } from '@leavittsoftware/titanium-styles';
 
 import dayjs from 'dayjs/esm';
-import { FileExplorerFileDto } from '@leavittsoftware/lg-core-typescript/api2.leavitt.com';
+import { FileExplorerFileDto } from '@leavittsoftware/lg-core-typescript/api3.leavitt.com';
 import { getCdnDownloadUrl, getCdnInlineUrl } from '@leavittsoftware/titanium-helpers/lib/leavitt-cdn';
 import { middleEllipsis } from './text-helpers';
 import { ifDefined } from 'lit-html/directives/if-defined.js';

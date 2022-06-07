@@ -5,7 +5,7 @@ import '@leavittsoftware/titanium-dialog/lib/titanium-dialog-base';
 
 import './leavitt-file-detail';
 
-import { FileExplorerFileDto } from '@leavittsoftware/lg-core-typescript/api2.leavitt.com';
+import { FileExplorerFileDto } from '@leavittsoftware/lg-core-typescript/api3.leavitt.com';
 import fileExplorerEvents from './file-explorer-events';
 
 @customElement('leavitt-file-modal')

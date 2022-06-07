@@ -7,7 +7,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { h1, h2, h5, p, a, ellipsis } from '@leavittsoftware/titanium-styles';
 
 import dayjs from 'dayjs/esm';
-import { FileExplorerFolderDto } from '@leavittsoftware/lg-core-typescript/api2.leavitt.com';
+import { FileExplorerFolderDto } from '@leavittsoftware/lg-core-typescript/api3.leavitt.com';
 
 @customElement('leavitt-folder-detail')
 export class LeavittFolderDetailElement extends LitElement {
