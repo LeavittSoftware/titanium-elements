@@ -6,7 +6,7 @@ import { HTTPStatusCodes } from './status-codes';
 
 export type onProgressCallback = (event: ProgressEvent, request: XMLHttpRequest) => void;
 export type ApiServiceOptions = { appNameHeaderKey: string };
-export type ApiServiceRequestOptions = { abortController: AbortController };
+export type ApiServiceRequestOptions = { abortController?: AbortController; sendAsFormData?: boolean };
 export default class ApiService {
   constructor(tokenProvider: BearerTokenProvider, options?: ApiServiceOptions) {
     this._tokenProvider = tokenProvider;
@@ -32,7 +32,7 @@ export default class ApiService {
 
   async uploadFile<T>(urlPath: string, file: File, onprogress: onProgressCallback, options: ApiServiceRequestOptions | null = null): Promise<ODataResponse<T>> {
     return new Promise(async (resolve, reject) => {
-      if (options?.abortController.signal && options?.abortController.signal.aborted) {
+      if (options?.abortController?.signal && options?.abortController.signal.aborted) {
         reject(new AbortError());
       }
       const DONE_STATE = 4;
@@ -48,12 +48,12 @@ export default class ApiService {
           reject(new AbortError());
         };
 
-        if (options?.abortController.signal) {
+        if (options?.abortController?.signal) {
           options?.abortController.signal.addEventListener('abort', () => xhr.abort());
 
           xhr.onreadystatechange = function () {
             if (xhr.readyState === DONE_STATE) {
-              options?.abortController.signal.removeEventListener('abort', () => xhr.abort());
+              options?.abortController?.signal.removeEventListener('abort', () => xhr.abort());
             }
           };
         }
@@ -108,6 +108,9 @@ export default class ApiService {
     }
 
     const headers = { ...this.headers };
+    if (options?.sendAsFormData) {
+      delete headers['Content-Type'];
+    }
 
     const token = await this._tokenProvider._getBearerTokenAsync();
     if (token !== null) {
@@ -118,7 +121,7 @@ export default class ApiService {
     try {
       response = await fetch(`${this.baseUrl}${urlPath}`, {
         method: 'POST',
-        body: JSON.stringify(body),
+        body: options?.sendAsFormData ? this.objectToFormData(body) : JSON.stringify(body),
         headers: headers,
         signal: options?.abortController?.signal,
       });
@@ -325,6 +328,26 @@ export default class ApiService {
     } catch (error) {
       return Promise.reject(`The server sent back invalid JSON. ${error}`);
     }
+  }
+
+  // Based on https://gist.github.com/ghinda/8442a57f22099bdb2e34
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private objectToFormData(obj: any, namespace?: string): FormData {
+    const formData = new FormData();
+
+    for (const prop in obj) {
+      if (!obj.hasOwnProperty(prop)) {
+        continue;
+      }
+
+      const formKey = namespace ? `${namespace}[${prop}]` : prop;
+      if (typeof obj[prop] === 'object' && !(obj[prop] instanceof File)) {
+        Array.from(this.objectToFormData(obj[prop], formKey)).map(([key, value]) => formData.append(key, value));
+      } else {
+        formData.append(formKey, obj[prop]);
+      }
+    }
+    return formData;
   }
 }
 
