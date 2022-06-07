@@ -21,10 +21,10 @@
   "dependencies": {
     "@googlemaps/js-api-loader": "*",
     "@material/mwc-button": "*",
-    "@material/mwc-dialog": "*",
     "@material/mwc-list": "*",
     "@material/mwc-select": "*",
     "@material/mwc-textfield": "*",
+    "@leavittsoftware/titanium-dialog": "^3.6.5",
     "tslib": "^2.3.1"
   },
   "peerDependencies": {
