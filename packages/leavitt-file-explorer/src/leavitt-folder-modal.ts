@@ -1,8 +1,8 @@
 import { css, html, LitElement, PropertyValues } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 
-import { TitaniumDialogBaseElement } from '@leavittsoftware/titanium-dialog/lib/titanium-dialog-base';
-import '@leavittsoftware/titanium-dialog/lib/titanium-dialog-base';
+import { TitaniumNativeDialogBaseElement } from '@leavittsoftware/titanium-dialog/lib/titanium-native-dialog-base';
+import '@leavittsoftware/titanium-dialog/lib/titanium-native-dialog-base';
 
 import './leavitt-folder-detail';
 
@@ -16,7 +16,7 @@ export class LeavittFolderModalElement extends LitElement {
   @state() private state: 'view' | 'edit' = 'view';
   @state() private folder: FileExplorerFolderDto | null = null;
 
-  @query('titanium-dialog-base') private dialog!: TitaniumDialogBaseElement;
+  @query('titanium-native-dialog-base') private dialog!: TitaniumNativeDialogBaseElement;
 
   async updated(changedProps: PropertyValues<this>) {
     if (changedProps.has('enableEditing') && this.enableEditing) {
@@ -48,7 +48,7 @@ export class LeavittFolderModalElement extends LitElement {
 
   render() {
     return html`
-      <titanium-dialog-base fullwidth>
+      <titanium-native-dialog-base fullwidth>
         ${this.state == 'view'
           ? html`
               <leavitt-folder-detail
@@ -65,7 +65,7 @@ export class LeavittFolderModalElement extends LitElement {
                 @cancel-click=${() => (this.state = 'view')}
               ></leavitt-folder-edit>
             `}
-      </titanium-dialog-base>
+      </titanium-native-dialog-base>
     `;
   }
 }
