@@ -20,7 +20,7 @@
     "@material/mwc-textfield": "*",
     "dayjs": "*",
     "fuse.js": "*",
-    "tslib": "^2.3.1"
+    "tslib": "^2.4.0"
   },
   "peerDependencies": {
     "lit": ">=2.0.0"

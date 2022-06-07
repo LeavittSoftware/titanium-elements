@@ -10,7 +10,7 @@
   ],
   "dependencies": {
     "@material/mwc-formfield": "*",
-    "tslib": "^2.3.1"
+    "tslib": "^2.4.0"
   },
   "peerDependencies": {
     "lit": ">=2.0.0"
