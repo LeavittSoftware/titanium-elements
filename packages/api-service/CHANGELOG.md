@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 9.5.0 (2022-06-07)
+
+
+### Features
+
+* **api-service:** add sendAsFormData option to allow posting as multipart/form-data ([ed93b91](https://github.com/LeavittSoftware/titanium-elements/commit/ed93b911493f471ee8e7d262cac3a18d27552d36))
+
+
+
+
+
 ## 9.4.3 (2022-05-24)
 
 **Note:** Version bump only for package @leavittsoftware/api-service

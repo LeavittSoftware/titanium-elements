@@ -16,7 +16,7 @@ import { button, h1, a, ellipsis } from '@leavittsoftware/titanium-styles';
 import { FormatBytes } from './format-bytes';
 import dayjs from 'dayjs/esm';
 import { LeavittFolderModalElement } from './leavitt-folder-modal';
-import { FileExplorerFolderDto, FileExplorerPathDto, FileExplorerFileDto, FileExplorerDto } from '@leavittsoftware/lg-core-typescript/api2.leavitt.com';
+import { FileExplorerFolderDto, FileExplorerPathDto, FileExplorerFileDto, FileExplorerDto } from '@leavittsoftware/lg-core-typescript/api3.leavitt.com';
 import { FileExplorerAttachment, FileExplorerFolder } from '@leavittsoftware/lg-core-typescript/lg.core';
 import { LeavittAddFolderModalElement } from './leavitt-add-folder-modal';
 import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar';
