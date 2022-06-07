@@ -176,7 +176,6 @@ export class TitaniumNativeDialogBaseElement extends LitElement {
         left: 0;
         right: 0;
 
-        height: auto;
         margin: auto;
         border-radius: 8px;
         padding: 0;
