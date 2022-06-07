@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@2.1.3...@leavittsoftware/leavitt-file-explorer@2.1.4) (2022-06-07)
+
+
+### Bug Fixes
+
+* **leavitt-file-explorer:** fix model imports ([8919834](https://github.com/LeavittSoftware/titanium-elements/commit/8919834af3dea1bca2d0ee2a16a7a4ba9e98927c))
+
+
+
+
+
 ## [2.1.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@2.1.2...@leavittsoftware/leavitt-file-explorer@2.1.3) (2022-06-01)
 
 **Note:** Version bump only for package @leavittsoftware/leavitt-file-explorer

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.8.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@5.7.2...@leavittsoftware/leavitt-elements@5.8.0) (2022-06-07)
+
+
+### Features
+
+* **leavitt-elements:** expose fixedMenuPosition in elements with menu ([7bb7fbc](https://github.com/LeavittSoftware/titanium-elements/commit/7bb7fbc3dfbf78356587da7f9e4baf78c715b856)), closes [#389](https://github.com/LeavittSoftware/titanium-elements/issues/389)
+
+
+
+
+
 ## [5.7.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@5.7.1...@leavittsoftware/leavitt-elements@5.7.2) (2022-06-01)
 
 **Note:** Version bump only for package @leavittsoftware/leavitt-elements
