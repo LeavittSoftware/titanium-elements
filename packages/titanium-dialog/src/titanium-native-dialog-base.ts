@@ -251,11 +251,13 @@ export class TitaniumNativeDialogBaseElement extends LitElement {
         background-color: rgba(0, 0, 0, 0.5);
       }
 
-      @supports (backdrop-filter: blur(10px)) {
+      @supports ((backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px))) {
         ::backdrop {
           background-color: rgba(255, 255, 255, 0.7);
-          transition: backdrop-filter 0.5s ease;
+          -webkit-backdrop-filter: blur(10px);
           backdrop-filter: blur(10px);
+          /* Not supported yet */
+          transition: backdrop-filter 0.5s ease;
         }
       }
 
