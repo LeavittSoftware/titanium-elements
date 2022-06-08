@@ -104,7 +104,16 @@ export class ManualAddressDialogElement extends LitElement {
 
   render() {
     return html`
-      <titanium-dialog disable-scroll header=${this.label} @opened=${() => this.streetInput.focus()} .disableClosingAnimation=${this.disableClosingAnimation}>
+      <titanium-dialog
+        disable-scroll
+        header=${this.label}
+        @opened=${e => {
+          if (e.target.nodeName === 'DIALOG') {
+            this.streetInput.focus();
+          }
+        }}
+        .disableClosingAnimation=${this.disableClosingAnimation}
+      >
         <mwc-textfield
           street
           outlined
