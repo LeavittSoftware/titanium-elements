@@ -64,19 +64,13 @@ export class TitaniumDialogElement extends TitaniumNativeDialogBaseElement {
     h1,
     p,
     css`
-      dialog {
-        grid:
-          'header'
-          'content' 1fr
-          'footer';
-      }
-
       h1 {
         display: block;
         padding: 18px 24px 9px;
       }
 
       main {
+        flex: 1 1 auto;
         padding: 0 24px 16px 24px;
       }
 

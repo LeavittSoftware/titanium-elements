@@ -166,7 +166,9 @@ export class TitaniumNativeDialogBaseElement extends LitElement {
       }
 
       dialog {
-        display: grid;
+        /* Safari has issues with display: grid */
+        display: flex;
+        flex-direction: column;        
 
         overflow: initial;
 

@@ -41,6 +41,7 @@ export class ImageCropperDialogElement extends LitElement {
         height: 400px;
         padding: 12px 24px 24px 24px;
         align-self: center;
+        overflow-y: auto;
       }
 
       section[crop] {
