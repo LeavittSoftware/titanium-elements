@@ -161,14 +161,10 @@ export class TitaniumNativeDialogBaseElement extends LitElement {
 
   static styles = [
     css`
-      :host {
-        z-index: 7;
-      }
-
       dialog {
         /* Safari has issues with display: grid */
         display: flex;
-        flex-direction: column;        
+        flex-direction: column;
 
         overflow: initial;
 
@@ -195,7 +191,6 @@ export class TitaniumNativeDialogBaseElement extends LitElement {
 
         animation: scale-down 75ms cubic-bezier(0.25, -0.5, 0.1, 1.5) forwards, fade-out 150ms cubic-bezier(0.25, -0.5, 0.1, 1.5) forwards;
         animation-timing-function: cubic-bezier(0.25, -0.5, 0.1, 1.5);
-        z-index: 7;
       }
 
       :host([disabled-closing-animation]) dialog:not([open]) {
