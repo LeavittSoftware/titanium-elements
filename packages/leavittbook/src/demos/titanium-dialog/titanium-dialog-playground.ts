@@ -47,12 +47,15 @@ export class TitaniumDialogPlayground extends LitElement {
       }
 
       titanium-dialog[select] {
-        --titanium-dialog-min-width: 550px;
         --titanium-dialog-max-width: 550px;
       }
 
       p,
       h1 {
+        width: 100%;
+      }
+
+      mwc-select {
         width: 100%;
       }
 
