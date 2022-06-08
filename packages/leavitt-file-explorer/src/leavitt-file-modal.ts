@@ -1,7 +1,7 @@
 import { css, html, LitElement, PropertyValues } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
-import { TitaniumDialogBaseElement } from '@leavittsoftware/titanium-dialog/lib/titanium-dialog-base';
-import '@leavittsoftware/titanium-dialog/lib/titanium-dialog-base';
+import { TitaniumNativeDialogBaseElement } from '@leavittsoftware/titanium-dialog/lib/titanium-native-dialog-base';
+import '@leavittsoftware/titanium-dialog/lib/titanium-native-dialog-base';
 
 import './leavitt-file-detail';
 
@@ -15,7 +15,7 @@ export class LeavittFileModalElement extends LitElement {
   @state() private state: 'view' | 'edit' = 'view';
   @state() private file: FileExplorerFileDto | null = null;
 
-  @query('titanium-dialog-base') private dialog!: TitaniumDialogBaseElement;
+  @query('titanium-native-dialog-base') private dialog!: TitaniumNativeDialogBaseElement;
 
   async updated(changedProps: PropertyValues<this>) {
     if (changedProps.has('enableEditing') && this.enableEditing) {
@@ -49,7 +49,7 @@ export class LeavittFileModalElement extends LitElement {
 
   render() {
     return html`
-      <titanium-dialog-base fullwidth>
+      <titanium-native-dialog-base full-width full-height>
         ${this.state == 'view'
           ? html`
               <leavitt-file-detail
@@ -62,7 +62,7 @@ export class LeavittFileModalElement extends LitElement {
           : html`
               <leavitt-file-edit .file=${this.file} @cancel-click=${() => (this.state = 'view')} @save-click=${() => (this.state = 'view')}></leavitt-file-edit>
             `}
-      </titanium-dialog-base>
+      </titanium-native-dialog-base>
     `;
   }
 }

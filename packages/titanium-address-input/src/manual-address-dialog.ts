@@ -2,42 +2,49 @@ import { css, html, LitElement } from 'lit';
 import { property, customElement, query, queryAll } from 'lit/decorators.js';
 
 import '@material/mwc-button';
-import '@material/mwc-dialog';
+import '@material/mwc-select';
+import '@leavittsoftware/titanium-dialog';
 import { validateStreet } from './Address';
 
 import { Address } from './Address';
-import { Dialog } from '@material/mwc-dialog';
 import { TextField } from '@material/mwc-textfield';
 import { Select } from '@material/mwc-select';
+import { TitaniumDialogElement } from '@leavittsoftware/titanium-dialog';
 
 @customElement('manual-address-dialog')
 export class ManualAddressDialogElement extends LitElement {
-  @query('mwc-dialog') private dialog: Dialog;
+  @query('titanium-dialog') private dialog!: TitaniumDialogElement;
 
   @property({ type: String }) label: string = '';
   @property({ type: String }) street: string = '';
   @property({ type: String }) city: string = '';
   @property({ type: String }) state: string = '';
   @property({ type: String }) zip: string = '';
+  @property({ type: Boolean, attribute: 'disabled-closing-animation' }) disableClosingAnimation: boolean = false;
 
   @query('mwc-textfield[street]') private streetInput: TextField;
   @queryAll('mwc-textfield, mwc-select') private allInputs: NodeListOf<(TextField | Select) & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean }>;
 
-  openResolver;
   public async open(location: Partial<Address> | null) {
-    return new Promise<Partial<Address> | null>(res => {
-      this.openResolver = res;
+    this.reset();
+    if (location) {
+      this.street = location?.street ?? '';
+      this.city = location?.city ?? '';
+      this.state = location?.state ?? '';
+      this.zip = location?.zip ?? '';
+    }
 
-      this.reset();
-      if (location) {
-        this.street = location?.street ?? '';
-        this.city = location?.city ?? '';
-        this.state = location?.state ?? '';
-        this.zip = location?.zip ?? '';
-      }
-
-      this.dialog.show();
-    });
+    const reason = await this.dialog.open();
+    if (reason === 'update') {
+      const address: Partial<Address> = {
+        street: this.street,
+        city: this.city,
+        state: this.state,
+        zip: this.zip,
+      };
+      return address;
+    }
+    return null;
   }
 
   layout() {
@@ -74,13 +81,13 @@ export class ManualAddressDialogElement extends LitElement {
   }
 
   static styles = css`
-    mwc-dialog {
-      --mdc-dialog-min-width: 450px;
+    titanium-dialog {
+      --titanium-dialog-max-width: 450px;
     }
 
     @media (max-width: 600px) {
-      mwc-dialog {
-        --mdc-dialog-min-width: inherit;
+      titanium-dialog {
+        --titanium-dialog-max-width: inherit;
       }
     }
 
@@ -97,25 +104,17 @@ export class ManualAddressDialogElement extends LitElement {
 
   render() {
     return html`
-      <mwc-dialog
-        scrimClickAction="scrim"
-        escapeKeyAction="esc"
-        @closed=${(o: CustomEvent<{ action: string }>) => {
-          if (o.detail.action === 'close') {
-            const address: Partial<Address> = {
-              street: this.street,
-              city: this.city,
-              state: this.state,
-              zip: this.zip,
-            };
-            return this.openResolver(address);
+      <titanium-dialog
+        disable-scroll
+        header=${this.label}
+        @opened=${e => {
+          if (e.target.nodeName === 'DIALOG') {
+            this.streetInput.focus();
           }
-          return this.openResolver(null);
         }}
-        heading=${this.label}
+        .disableClosingAnimation=${this.disableClosingAnimation}
       >
         <mwc-textfield
-          dialogInitialFocus
           street
           outlined
           icon="markunread_mailbox"
@@ -144,7 +143,6 @@ export class ManualAddressDialogElement extends LitElement {
           outlined
           icon="location_on"
           label="State"
-          fixedMenuPosition
           required
         >
           <mwc-list-item graphic="icon" value="AL">Alabama</mwc-list-item>
@@ -220,17 +218,23 @@ export class ManualAddressDialogElement extends LitElement {
           }}
           label="Zip"
         ></mwc-textfield>
-        <mwc-button slot="secondaryAction" dialogAction="cancel" label="Cancel"></mwc-button>
+        <mwc-button
+          slot="secondaryAction"
+          @click=${() => {
+            this.dialog.close('close');
+          }}
+          label="Cancel"
+        ></mwc-button>
         <mwc-button
           slot="primaryAction"
           label="Update"
           @click=${() => {
             if (this.validate()) {
-              this.dialog.close();
+              this.dialog.close('update');
             }
           }}
         ></mwc-button>
-      </mwc-dialog>
+      </titanium-dialog>
     `;
   }
 }

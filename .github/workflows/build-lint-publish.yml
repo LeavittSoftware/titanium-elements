@@ -1,4 +1,4 @@
-name: Build Lint Publish
+name: Test-Publish LeavittBook
 
 on:
   workflow_dispatch:

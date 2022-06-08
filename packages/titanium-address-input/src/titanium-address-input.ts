@@ -63,6 +63,8 @@ export class TitaniumAddressInput extends LitElement {
    */
   @property({ type: Boolean }) helperPersistent: boolean;
 
+  @property({ type: Boolean, attribute: 'disabled-closing-animation' }) disableClosingAnimation: boolean = false;
+
   @query('manual-address-dialog') private dialog: ManualAddressDialogElement;
   @query('google-address-input') private input: GoogleAddressInput;
 
@@ -70,6 +72,7 @@ export class TitaniumAddressInput extends LitElement {
     :host {
       display: grid;
       grid-auto-flow: row;
+      align-content: start;
     }
 
     a {
@@ -154,7 +157,7 @@ export class TitaniumAddressInput extends LitElement {
         >I can't find my address</a
       >
 
-      <manual-address-dialog .label=${this.label}></manual-address-dialog>
+      <manual-address-dialog .label=${this.label} .disableClosingAnimation=${this.disableClosingAnimation}></manual-address-dialog>
     `;
   }
 }

@@ -1,17 +1,17 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 import '@material/mwc-button';
-import '@material/mwc-dialog';
+import './titanium-dialog';
 
-import { Dialog } from '@material/mwc-dialog';
 import { ConfirmDialogOpenEvent } from './confirm-dialog-open-event';
 import { p } from '@leavittsoftware/titanium-styles';
+import { TitaniumDialogElement } from './titanium-dialog';
 
 @customElement('confirm-dialog')
 export default class ConfirmDialogElement extends LitElement {
   @state() private text: string;
   @state() private header: string;
-  @query('mwc-dialog') private dialog!: Dialog;
+  @query('titanium-dialog') private dialog!: TitaniumDialogElement;
 
   /**
    * This method is used to set up the event listener to capture the confirm dialog open event
@@ -22,15 +22,9 @@ export default class ConfirmDialogElement extends LitElement {
       this.header = event.header;
       this.text = event.text;
 
-      if (this.dialogOpenPromise) {
-        this.dialog.close();
-        this.dialogOpenPromise(false);
-      }
-      this.dialogOpenPromise = event.resolver;
+      event.resolver((await this.dialog.open()) === 'confirmed');
     });
   }
-
-  private dialogOpenPromise: ((confirmed: boolean) => void) | null = null;
 
   /**
    * This method is used after capturing the confirm dialog open event
@@ -41,44 +35,37 @@ export default class ConfirmDialogElement extends LitElement {
     this.header = event.header;
     this.text = event.text;
 
-    if (this.dialogOpenPromise) {
-      this.dialog.close();
-      this.dialogOpenPromise(false);
-    }
-    this.dialogOpenPromise = event.resolver;
-    this.dialog.show();
+    event.resolver((await this.dialog.open()) === 'confirmed');
   }
 
   static styles = [
     p,
     css`
       :host {
-        --mdc-dialog-max-width: 350px;
+        --titanium-dialog-max-width: 350px;
       }
     `,
   ];
 
   render() {
     return html`
-      <mwc-dialog heading=${this.header}>
+      <titanium-dialog full-width focus-trap header=${this.header}>
         <p>${this.text}</p>
         <mwc-button
           slot="secondaryAction"
           @click=${() => {
-            this.dialog.close();
-            this.dialogOpenPromise?.(false);
+            this.dialog.close('cancel');
           }}
           label="CANCEL"
         ></mwc-button>
         <mwc-button
           slot="primaryAction"
           @click=${() => {
-            this.dialog.close();
-            this.dialogOpenPromise?.(true);
+            this.dialog.close('confirmed');
           }}
           label="CONFIRM"
         ></mwc-button>
-      </mwc-dialog>
+      </titanium-dialog>
     `;
   }
 }

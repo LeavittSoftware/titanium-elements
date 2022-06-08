@@ -1,8 +1,7 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import '@material/mwc-tab-bar';
-import { PropertyValues } from '@leavittsoftware/api-service/node_modules/lit';
 import { SiteErrorEvent } from '../events';
 
 @customElement('smart-demo')

@@ -1,10 +1,10 @@
-import '@leavittsoftware/titanium-dialog/lib/titanium-dialog-base';
+import '@leavittsoftware/titanium-dialog/lib/titanium-native-dialog-base';
 import '@material/mwc-button';
 import '@material/mwc-icon-button';
 
 import { css, html, LitElement } from 'lit';
 import { property, customElement, query } from 'lit/decorators.js';
-import { TitaniumDialogBaseElement } from '@leavittsoftware/titanium-dialog/lib/titanium-dialog-base';
+import { TitaniumNativeDialogBaseElement } from '@leavittsoftware/titanium-dialog/lib/titanium-native-dialog-base';
 import Cropper from 'cropperjs';
 import { cropperCSS } from './cropper-styles';
 import { h1 } from '@leavittsoftware/titanium-styles';
@@ -12,7 +12,7 @@ import { TitaniumImageInputOptions } from './titanium-image-input';
 
 @customElement('image-cropper-dialog')
 export class ImageCropperDialogElement extends LitElement {
-  @query('titanium-dialog-base') dialog: TitaniumDialogBaseElement;
+  @query('titanium-native-dialog-base') dialog: TitaniumNativeDialogBaseElement;
   @query('cropper-container > img') img: HTMLImageElement;
 
   @property({ type: Object }) options: TitaniumImageInputOptions = { aspectRatio: 1 };
@@ -41,6 +41,7 @@ export class ImageCropperDialogElement extends LitElement {
         height: 400px;
         padding: 12px 24px 24px 24px;
         align-self: center;
+        overflow-y: auto;
       }
 
       section[crop] {
@@ -224,7 +225,7 @@ export class ImageCropperDialogElement extends LitElement {
 
   render() {
     return html`
-      <titanium-dialog-base>
+      <titanium-native-dialog-base>
         <h1 select>Crop photo</h1>
         <main>
           <section crop>
@@ -261,7 +262,7 @@ export class ImageCropperDialogElement extends LitElement {
             }}
           ></mwc-button>
         </dialog-actions>
-      </titanium-dialog-base>
+      </titanium-native-dialog-base>
     `;
   }
 }

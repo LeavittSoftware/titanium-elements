@@ -21,10 +21,10 @@
   "dependencies": {
     "@leavittsoftware/titanium-styles": "^0.3.1",
     "@material/mwc-icon-button": "*",
-    "tslib": "^2.3.1"
+    "tslib": "^2.4.0"
   },
   "peerDependencies": {
-    "lit": ">=2.0.0"
+    "lit": ">=2.2.5"
   },
   "scripts": {
     "build:watch": "tsc --watch",

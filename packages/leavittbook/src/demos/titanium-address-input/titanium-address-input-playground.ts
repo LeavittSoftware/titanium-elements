@@ -53,6 +53,24 @@ export class TitaniumAddressInputPlayground extends LitElement {
         gap: 12px;
       }
 
+      [locked] {
+        display: block;
+        position: relative;
+        height: 300px;
+        max-width: 650px;
+        width: 100%;
+      }
+
+      [absolute] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        will-change: transform;
+        width: 100%;
+      }
+
       @media (min-width: 450px) {
         titanium-address-input {
           min-width: 400px;
@@ -80,6 +98,18 @@ export class TitaniumAddressInputPlayground extends LitElement {
           validation-message="Please input an address"
         ></titanium-address-input>
       </div>
+
+      <h1>Absolute container</h1>
+      <section locked>
+        <div absolute>
+          <titanium-address-input
+            disabled-closing-animation
+            label="Business address"
+            outlined
+            googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"
+          ></titanium-address-input>
+        </div>
+      </section>
 
       <h1>Pre-filled</h1>
       <p>Populates input with pre-selected address (using setLocation in firstUpdated)</p>
