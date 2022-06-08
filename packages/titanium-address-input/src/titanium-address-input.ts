@@ -49,6 +49,11 @@ export class TitaniumAddressInput extends LitElement {
   @property({ type: String }) icon: string;
 
   /**
+   *  Sets trailing icon.
+   */
+  @property({ type: String }) iconTrailing: string;
+
+  /**
    *  Sets google maps api key.
    */
   @property({ type: String }) googleMapsApiKey: string;
@@ -132,6 +137,7 @@ export class TitaniumAddressInput extends LitElement {
         .required=${this.required}
         .outlined=${this.outlined}
         .location=${this.location}
+        .iconTrailing=${this.iconTrailing}
         .icon=${this.icon}
         .validationMessage=${this.validationMessage}
         .label=${this.label}
