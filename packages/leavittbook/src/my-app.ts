@@ -15,7 +15,7 @@ import { installMediaQueryWatcher } from '@leavittsoftware/titanium-helpers/lib/
 import { css, html, LitElement, nothing } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import page from 'page';
-import { h1, p } from '@leavittsoftware/titanium-styles';
+import { h1, h2, p } from '@leavittsoftware/titanium-styles';
 import { ChangePathEvent, RedirectPathEvent } from './events';
 
 import {
@@ -202,6 +202,7 @@ export class MyAppElement extends LitElement {
 
   static styles = [
     h1,
+    h2,
     p,
     css`
       :host {
@@ -373,7 +374,7 @@ export class MyAppElement extends LitElement {
               </a>`
             : html`<mwc-icon-button icon="menu" @click=${() => (this.drawer.open = !this.drawer.open)}></mwc-icon-button>`}
         </menu-group>
-        <h3 title="Leavittbook" ?hidden=${this.isDesktop} @click=${() => page.show('/')} main-title>Leavittbook</h3>
+        <h2 title="Leavittbook" ?hidden=${this.isDesktop} @click=${() => page.show('/')} main-title>Leavittbook</h2>
         <profile-picture-menu size="36"></profile-picture-menu>
       </titanium-toolbar>
       <mwc-drawer ?open=${this.isDesktop} hasHeader type=${this.isDesktop ? 'dismissible' : 'modal'}>
