@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.11.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-address-input@1.10.0...@leavittsoftware/titanium-address-input@1.11.0) (2022-06-08)
+
+
+### Features
+
+* adds ability to set the trailingIcon ([35d4a2d](https://github.com/LeavittSoftware/titanium-elements/commit/35d4a2d9ba5f169370e780aa79680ea2ae45571f))
+
+
+
+
+
 # 1.10.0 (2022-06-08)
 
 
