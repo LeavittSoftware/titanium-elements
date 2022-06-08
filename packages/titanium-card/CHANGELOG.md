@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.2.4 (2022-06-08)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-card
+
+
+
+
+
 ## 2.2.3 (2022-05-24)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-card

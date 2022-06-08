@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.3.11 (2022-06-08)
+
+
+### Bug Fixes
+
+* use safari supported display ([89e8fae](https://github.com/LeavittSoftware/titanium-elements/commit/89e8fae7296a46824de708cb834c88c57d25ba5e))
+
+
+
+
+
 ## 1.3.10 (2022-05-26)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-image-input

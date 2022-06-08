@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 12.4.3 (2022-06-08)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-data-table
+
+
+
+
+
 ## 12.4.2 (2022-05-26)
 
 

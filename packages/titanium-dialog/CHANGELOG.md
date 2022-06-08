@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.0.0 (2022-06-08)
+
+
+### Bug Fixes
+
+* **titanium-dialog:** default height to auto for content scrolling ([19115a7](https://github.com/LeavittSoftware/titanium-elements/commit/19115a7e81203758acbd41cd4827df21843e7999))
+* use safari supported display ([89e8fae](https://github.com/LeavittSoftware/titanium-elements/commit/89e8fae7296a46824de708cb834c88c57d25ba5e))
+
+
+### Features
+
+* **titanium-dialog:** add blur support for Safari ([8edf28c](https://github.com/LeavittSoftware/titanium-elements/commit/8edf28ca5adae81ae7377a9061600d3e13c8ae88))
+* **titanium-dialog:** converts dialog base to use native HTML dialog ([74f58b4](https://github.com/LeavittSoftware/titanium-elements/commit/74f58b424ea728f2862b4fba36bfdea1f87c0460))
+
+
+### BREAKING CHANGES
+
+* **titanium-dialog:** content slot removed, use default slot. 
+Adds primaryAction and secondaryAction button slots; adds disable-scroll attribute; add new css props for min/max-heights and widths. 
+
+
+
+
+
 ## 3.6.5 (2022-05-24)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-dialog

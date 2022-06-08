@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@1.4.1...@leavittsoftware/leavittbook@2.0.0) (2022-06-08)
+
+
+### Bug Fixes
+
+* **leavittbook:** fix bad import ([0bc96c5](https://github.com/LeavittSoftware/titanium-elements/commit/0bc96c5b49fcc8d75d4c54a0243db12c5fda0915))
+* **leavittbook:** styles mobile header text ([2c1ce35](https://github.com/LeavittSoftware/titanium-elements/commit/2c1ce355c30e7b0b2734c1cc81c61737d367cbb4))
+
+
+### Features
+
+* improve demos ([c5ec346](https://github.com/LeavittSoftware/titanium-elements/commit/c5ec3467486ee56d1ddeb5b04e8bc6b848edee74))
+* **titanium-dialog:** converts dialog base to use native HTML dialog ([74f58b4](https://github.com/LeavittSoftware/titanium-elements/commit/74f58b424ea728f2862b4fba36bfdea1f87c0460))
+
+
+### BREAKING CHANGES
+
+* **titanium-dialog:** content slot removed, use default slot. 
+Adds primaryAction and secondaryAction button slots; adds disable-scroll attribute; add new css props for min/max-heights and widths. 
+
+
+
+
+
 ## [1.4.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@1.4.0...@leavittsoftware/leavittbook@1.4.1) (2022-06-07)
 
 **Note:** Version bump only for package @leavittsoftware/leavittbook

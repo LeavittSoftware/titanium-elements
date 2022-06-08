@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 1.10.0 (2022-06-08)
+
+
+### Bug Fixes
+
+* **titanium-address-input:** prevent focus on state select open ([588a7b7](https://github.com/LeavittSoftware/titanium-elements/commit/588a7b753c3caf544c7b85d6ea9e239543363d50))
+
+
+### Features
+
+* **titanium-address-input:** swap backing dialog for titanium ([4f3d0f0](https://github.com/LeavittSoftware/titanium-elements/commit/4f3d0f0f3b1cf7b67e1a5e9468b295cc77ba5ec7))
+
+
+
+
+
 ## 1.9.2 (2022-05-26)
 
 
