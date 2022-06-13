@@ -65,6 +65,11 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
   @property({ type: Array }) odataParts: Array<string> = ['orderby=Name', 'select=Name,ShortName,MarkUrl,Id'];
 
   /**
+   *  Path used to get companies from API
+   */
+  @property({ type: String }) getPath: string = 'Companies';
+
+  /**
    *  The person object selected by the user.
    */
   @property({ type: Object }) selected: Partial<Company> | null = null;
@@ -150,7 +155,7 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
 
   private async getCompanies() {
     try {
-      const get = this.apiService?.getAsync<Partial<Company>>(`Companies?${this.odataParts.join('&')}`);
+      const get = this.apiService?.getAsync<Partial<Company>>(`${this.getPath}?${this.odataParts.join('&')}`);
       const result = await get;
       return result?.toList() ?? [];
     } catch (error) {
