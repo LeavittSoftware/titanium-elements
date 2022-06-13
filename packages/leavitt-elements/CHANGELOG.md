@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 5.9.0 (2022-06-13)
+
+
+### Features
+
+* **leavitt-company-select:** add prop for companies get path ([#396](https://github.com/LeavittSoftware/titanium-elements/issues/396)) ([0c6a8e6](https://github.com/LeavittSoftware/titanium-elements/commit/0c6a8e67fdca377a264767f6239b8a107e0c37ea))
+
+
+
+
+
 ## [5.8.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@5.8.0...@leavittsoftware/leavitt-elements@5.8.1) (2022-06-08)
 
 **Note:** Version bump only for package @leavittsoftware/leavitt-elements
