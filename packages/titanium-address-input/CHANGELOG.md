@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.11.1 (2022-06-17)
+
+
+### Bug Fixes
+
+* manual address dialog adds missing import ([8fe2250](https://github.com/LeavittSoftware/titanium-elements/commit/8fe2250e4c03fcb0f58619e15c69859710ca85e3))
+
+
+
+
+
 # [1.11.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-address-input@1.10.0...@leavittsoftware/titanium-address-input@1.11.0) (2022-06-08)
 
 
