@@ -3,6 +3,7 @@ import { property, customElement, query, queryAll } from 'lit/decorators.js';
 
 import '@material/mwc-button';
 import '@material/mwc-select';
+import '@material/mwc-list/mwc-list-item';
 import '@leavittsoftware/titanium-dialog';
 import { validateStreet } from './Address';
 
