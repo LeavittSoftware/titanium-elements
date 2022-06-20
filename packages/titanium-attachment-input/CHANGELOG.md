@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.4.0 (2022-06-20)
+
+
+### Bug Fixes
+
+* **titanium-attachment-input:** update to use IDatabaseAttachment ([6a2bd20](https://github.com/LeavittSoftware/titanium-elements/commit/6a2bd2001895dce883fec00899fb1b1999085afd))
+
+
+### BREAKING CHANGES
+
+* **titanium-attachment-input:** must update model to use IDatabaseAttachment in lg.net
+
+
+
+
+
 ## 0.3.3 (2022-06-08)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-attachment-input
