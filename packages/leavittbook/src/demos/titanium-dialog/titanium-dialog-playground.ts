@@ -134,11 +134,19 @@ export class TitaniumDialogPlayground extends LitElement {
       </div>
 
       <div>
-        <h1>Select in a non-scrolling dialog</h1>
+        <h1>Select disable-scroll dialog</h1>
         <p>mwc-select in a dialog</p>
         <mwc-button @click=${() => this.selectDialog?.open?.()} label="THE PRACTICE & SCIENCE OF DRAWING"></mwc-button>
         <titanium-dialog select disable-scroll header="Select in a dialog example">
           <main>
+            <p>
+              There is much foolish talk about conventional art, as if art could ever get away from conventions, if it would. The convention will be more
+              natural or more abstract according to the nature of the thing to be conveyed and the medium employed to express it. But naturalism is just as much
+              a convention as any of the other isms that art has lately been so assailed with. For a really unconventional art there is Madame Tussaud's
+              Waxworks. There, even the convention of a frame and flat surface are done away with, besides the painted symbols to represent things. They have
+              real natural chairs, tables, and floors, real clothes, and even real hair. Realism everywhere, but no life. And we all know the result. There is
+              more expression of life in a few lines scribbled on paper by a good artist than in all the reality of the popular show. - Harold Speed
+            </p>
             <mwc-select outlined label="filled">
               <mwc-list-item></mwc-list-item>
               <mwc-list-item value="0">Item 0</mwc-list-item>
