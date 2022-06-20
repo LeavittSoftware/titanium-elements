@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.2.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@4.2.0...@leavittsoftware/titanium-dialog@4.2.1) (2022-06-20)
+
+
+### Bug Fixes
+
+* **titanium-dialog:** null check overflow names ([b825315](https://github.com/LeavittSoftware/titanium-elements/commit/b8253158b86b26a88a610590d767c2cfac1835d0))
+
+
+
+
+
 # 4.2.0 (2022-06-20)
 
 
