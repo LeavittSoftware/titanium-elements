@@ -2,7 +2,7 @@ import '@material/mwc-icon-button';
 
 import { css, html, LitElement } from 'lit';
 import { property, customElement, query, state } from 'lit/decorators.js';
-import { Attachment } from '@leavittsoftware/lg-core-typescript/lg.core';
+import { IDatabaseAttachment } from '@leavittsoftware/lg-core-typescript/lg.net.core';
 
 /**
  * Material design inspired file input.
@@ -72,9 +72,9 @@ export class TitaniumAttachmentInputElement extends LitElement {
   /**
    *  Optional: a preselected attachment used to populate the label and allow clearing
    */
-  @property({ type: Object }) attachment: null | Partial<Attachment> = null;
+  @property({ type: Object }) attachment: null | Partial<IDatabaseAttachment> = null;
 
-  @state() protected originalAttachment: null | Partial<Attachment> = null;
+  @state() protected originalAttachment: null | Partial<IDatabaseAttachment> = null;
 
   @query('input') protected input: HTMLInputElement;
 
@@ -88,7 +88,7 @@ export class TitaniumAttachmentInputElement extends LitElement {
   /**
    *  Use to preset input to existing attachment.
    */
-  setAttachment(attachment: Partial<Attachment>) {
+  setAttachment(attachment: Partial<IDatabaseAttachment>) {
     this.originalAttachment = attachment;
     this.attachment = this._clone(this.originalAttachment);
   }
