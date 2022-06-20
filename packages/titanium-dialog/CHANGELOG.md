@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.2.0 (2022-06-20)
+
+
+### Features
+
+* **titanium-dialog:** allow for custom node names ([dc39729](https://github.com/LeavittSoftware/titanium-elements/commit/dc39729f4bd03edb13d5c9e00bd45a9ca5b456c6))
+
+
+
+
+
 # 4.1.0 (2022-06-20)
 
 
