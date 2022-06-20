@@ -43,20 +43,37 @@ export class TitaniumDialogElement extends TitaniumNativeDialogBaseElement {
   /**
    * Prevents dialog content from scrolling.
    */
-  @property({ type: Boolean, reflect: true, attribute: 'disable-scroll' }) protected disableScroll: boolean = false;
+  @property({ type: Boolean, reflect: true, attribute: 'disable-scroll' }) disableScroll: boolean = false;
 
-  @property({ type: Boolean, reflect: true }) protected scrolls: boolean = false;
+  @property({ type: Boolean, reflect: true, attribute: 'prevent-scroll' }) protected preventScroll: boolean = false;
+
+  @property({ type: Boolean, reflect: true, attribute: 'is-scrolling' }) protected isScrolling: boolean = false;
   @query('main', true) protected mainElement!: HTMLElement;
 
   async firstUpdated() {
     await super.firstUpdated();
     const observer = new ResizeObserver(() => {
       if (!this.disableScroll) {
-        this.scrolls = this.mainElement.scrollHeight > this.mainElement.offsetHeight;
+        this.isScrolling = this.mainElement.scrollHeight > this.mainElement.offsetHeight;
       }
     });
 
     observer.observe(this.mainElement);
+
+    // experimental: mwc-select support
+    // if the dialog doesn't have overflowing content (scrolling y),
+    // turn off overflow-y when the select is opened
+    this.addEventListener('opening', e => {
+      if (!this.disableScroll && e.target instanceof Element && e.target?.nodeName === 'MWC-SELECT' && !this.isScrolling) {
+        this.preventScroll = true;
+      }
+    });
+
+    this.addEventListener('closed', e => {
+      if (!this.disableScroll && e.target instanceof Element && e.target.nodeName === 'MWC-SELECT' && !this.isScrolling) {
+        this.preventScroll = false;
+      }
+    });
   }
 
   static styles = [
@@ -78,16 +95,20 @@ export class TitaniumDialogElement extends TitaniumNativeDialogBaseElement {
         overflow-y: auto;
       }
 
-      :host([scrolls]) h1 {
+      :host([prevent-scroll]) main {
+        overflow-y: inherit !important;
+      }
+
+      :host([is-scrolling]) h1 {
         border-bottom: 1px solid var(--app-border-color, #dadce0);
         padding: 16px 24px;
       }
 
-      :host([scrolls]:not([disableSmoothScroll])) main {
+      :host([is-scrolling]:not([disableSmoothScroll])) main {
         -webkit-overflow-scrolling: touch;
       }
 
-      :host([scrolls]) footer {
+      :host([is-scrolling]) footer {
         border-top: 1px solid var(--app-border-color, #dadce0);
       }
 
