@@ -49,7 +49,7 @@ export class TitaniumDialogElement extends TitaniumNativeDialogBaseElement {
 
   @property({ type: Boolean, reflect: true, attribute: 'is-scrolling' }) protected isScrolling: boolean = false;
 
-  @property({ type: String }) overflowNodeNames: 'MWC-SELECT';
+  @property({ type: String }) overflowNodeNames = 'MWC-SELECT';
 
   @query('main', true) protected mainElement!: HTMLElement;
 
@@ -67,13 +67,13 @@ export class TitaniumDialogElement extends TitaniumNativeDialogBaseElement {
     // if the dialog doesn't have overflowing content (scrolling y),
     // turn off overflow-y when the select is opened
     this.addEventListener('opening', e => {
-      if (!this.disableScroll && e.target instanceof Element && this.overflowNodeNames.split(',').includes(e.target?.nodeName) && !this.isScrolling) {
+      if (!this.disableScroll && e.target instanceof Element && this.overflowNodeNames?.split(',')?.includes(e.target?.nodeName) && !this.isScrolling) {
         this.preventScroll = true;
       }
     });
 
     this.addEventListener('closed', e => {
-      if (!this.disableScroll && e.target instanceof Element && this.overflowNodeNames.split(',').includes(e.target?.nodeName) && !this.isScrolling) {
+      if (!this.disableScroll && e.target instanceof Element && this.overflowNodeNames?.split(',')?.includes(e.target?.nodeName) && !this.isScrolling) {
         this.preventScroll = false;
       }
     });
