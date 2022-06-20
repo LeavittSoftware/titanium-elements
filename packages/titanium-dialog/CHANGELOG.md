@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.1.0 (2022-06-20)
+
+
+### Bug Fixes
+
+* prevent fade out animation when dialog is closed ([5b41d8a](https://github.com/LeavittSoftware/titanium-elements/commit/5b41d8af4f3d6673470d26478bf57dc6c493dae4))
+
+
+### Features
+
+* **titanium-dialog:** adds better mwc-select support ([28348ad](https://github.com/LeavittSoftware/titanium-elements/commit/28348adb0fd1c5ab765f690b262a23ca8ab549cd))
+
+
+
+
+
 # 4.0.0 (2022-06-08)
 
 

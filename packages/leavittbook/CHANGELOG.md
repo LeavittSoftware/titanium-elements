@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.0.3...@leavittsoftware/leavittbook@2.1.0) (2022-06-20)
+
+
+### Features
+
+* **titanium-dialog:** adds better mwc-select support ([28348ad](https://github.com/LeavittSoftware/titanium-elements/commit/28348adb0fd1c5ab765f690b262a23ca8ab549cd))
+
+
+
+
+
 ## [2.0.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.0.2...@leavittsoftware/leavittbook@2.0.3) (2022-06-17)
 
 **Note:** Version bump only for package @leavittsoftware/leavittbook
