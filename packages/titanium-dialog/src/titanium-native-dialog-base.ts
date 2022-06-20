@@ -189,31 +189,26 @@ export class TitaniumNativeDialogBaseElement extends LitElement {
         box-sizing: border-box;
         border: 1px solid var(--app-border-color);
 
-        animation: scale-down 75ms cubic-bezier(0.25, -0.5, 0.1, 1.5) forwards, fade-out 150ms cubic-bezier(0.25, -0.5, 0.1, 1.5) forwards;
+        transition: opacity 150ms;
+        animation: scale-down 150ms cubic-bezier(0.25, -0.5, 0.1, 1.5) forwards;
         animation-timing-function: cubic-bezier(0.25, -0.5, 0.1, 1.5);
       }
 
       :host([disabled-closing-animation]) dialog:not([open]) {
         opacity: 0;
         animation: none;
+        transition: none;
       }
 
-      dialog:not([inert]):not([open]) {
+      dialog[inert],
+      dialog:not([open]),
+      dialog[closing] {
         opacity: 0;
+        pointer-events: none;
       }
 
       dialog[open] {
         animation: fade-in 75ms cubic-bezier(0.25, -0.5, 0.1, 1.5), scale-up 150ms cubic-bezier(0.25, 0, 0.3, 1) forwards, forwards;
-      }
-
-      dialog:not([open]) {
-        pointer-events: none;
-      }
-
-      @keyframes fade-out {
-        to {
-          opacity: 0;
-        }
       }
 
       @keyframes fade-in {
