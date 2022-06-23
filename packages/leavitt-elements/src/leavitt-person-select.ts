@@ -11,7 +11,7 @@ import { TextField } from '@material/mwc-textfield';
 import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar/lib/titanium-snackbar';
 
 import { getSearchTokens, Debouncer, LoadWhile } from '@leavittsoftware/titanium-helpers';
-import { Person } from '@leavittsoftware/lg-core-typescript/lg.core';
+import { Person } from '@leavittsoftware/lg-core-typescript/lg.net.core';
 import ApiService from '@leavittsoftware/api-service/lib/api-service';
 import { DOMEvent } from './dom-event';
 import { SelectedDetail } from '@material/mwc-menu/mwc-menu-base';
@@ -43,7 +43,7 @@ export class LeavittPersonSelectSelectedEvent extends Event {
 export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
   @state() protected count: number = 0;
   @state() protected searchTerm: string;
-  @state() protected suggestions: Array<Person> = [];
+  @state() protected suggestions: Array<Partial<Person>> = [];
   @query('mwc-menu') protected menu: Menu;
   @query('mwc-textfield') protected textfield: TextField & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
 
@@ -60,7 +60,7 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
   /**
    *  The person object selected by the user.
    */
-  @property({ type: Object }) selected: Person | null = null;
+  @property({ type: Object }) selected: Partial<Person> | null = null;
 
   /**
    *  Message to show in the error color when the element is invalid.
@@ -212,7 +212,7 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
     return JSON.parse(JSON.stringify(obj));
   }
 
-  private setSelected(person: Person | null) {
+  private setSelected(person: Partial<Person> | null) {
     const previouslySelected = this.selected;
     this.selected = person;
     if (this.selected) {
