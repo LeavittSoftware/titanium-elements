@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 5.9.1 (2022-06-23)
+
+
+### Bug Fixes
+
+* **leavitt-elements:** use Partial<Person> in and out; get person from .net ([5916bf9](https://github.com/LeavittSoftware/titanium-elements/commit/5916bf9074bd54bc4626dd3130d94dc2c2270e12))
+
+
+
+
+
 # 5.9.0 (2022-06-13)
 
 
