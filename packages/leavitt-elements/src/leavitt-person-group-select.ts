@@ -229,13 +229,17 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
     if (!searchTerm) {
       return null;
     }
+    const filterParts = ['not IsExpired'];
+
     try {
       const odataParts = ['top=100', 'count=true', 'select=Name,Id,Description'];
       const searchTokens = getSearchTokens(searchTerm);
       if (searchTokens.length > 0) {
-        const searchFilter = searchTokens.map((token: string) => `contains(Name, '${token}')`).join(' and ');
-        odataParts.push(`$filter=${searchFilter}`);
+        filterParts.push(searchTokens.map((token: string) => `contains(Name, '${token}')`).join(' and '));
       }
+
+      odataParts.push(`filter=${filterParts.join(' and ')}`);
+
       const results = await this.apiService?.getAsync<PeopleGroup>(`PeopleGroups?${odataParts.join('&')}`, { abortController: this.abortController });
       results?.entities.forEach(p => (p.type = 'PeopleGroup'));
       return results;
