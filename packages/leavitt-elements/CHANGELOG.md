@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.9.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@5.9.1...@leavittsoftware/leavitt-elements@5.9.2) (2022-06-27)
+
+
+### Bug Fixes
+
+* **leavitt-elements:** filter out inactive groups ([b8c7dbd](https://github.com/LeavittSoftware/titanium-elements/commit/b8c7dbd423b6f32e8602ec23d04b21ab6fd7acc1))
+* **leavitt-elements:** use Partial<Person> in and out; get person from .net ([5916bf9](https://github.com/LeavittSoftware/titanium-elements/commit/5916bf9074bd54bc4626dd3130d94dc2c2270e12))
+
+
+
+
+
 ## 5.9.1 (2022-06-23)
 
 
