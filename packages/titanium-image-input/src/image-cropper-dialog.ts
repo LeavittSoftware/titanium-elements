@@ -225,7 +225,7 @@ export class ImageCropperDialogElement extends LitElement {
 
   render() {
     return html`
-      <titanium-native-dialog-base>
+      <titanium-native-dialog-base focus-trap>
         <h1 select>Crop photo</h1>
         <main>
           <section crop>
