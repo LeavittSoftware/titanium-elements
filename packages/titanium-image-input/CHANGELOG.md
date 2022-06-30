@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.3.15 (2022-06-30)
+
+
+### Bug Fixes
+
+* **titanium-image-input:** add focus trap ([#400](https://github.com/LeavittSoftware/titanium-elements/issues/400)) ([a3b8562](https://github.com/LeavittSoftware/titanium-elements/commit/a3b8562ecc4d4b5e50b28081d873b79fb7436d7e))
+
+
+
+
+
 ## [1.3.14](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-image-input@1.3.13...@leavittsoftware/titanium-image-input@1.3.14) (2022-06-20)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-image-input
