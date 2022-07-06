@@ -356,7 +356,7 @@ export class TitaniumAttachmentInputElement extends LitElement {
             ?multiple=${this.multiple}
             accept=${this.allowedExtensions
               .split(',')
-              .map(o => `.${o}`)
+              .map(o => `.${o.trim()}`)
               .join(',')}
             @change=${e => {
               this.addFiles(e.target.files);
