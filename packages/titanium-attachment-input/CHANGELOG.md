@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.4.1 (2022-07-07)
+
+
+### Bug Fixes
+
+* **titanium-attachment-input:** removes space ([#401](https://github.com/LeavittSoftware/titanium-elements/issues/401)) ([04f8a9a](https://github.com/LeavittSoftware/titanium-elements/commit/04f8a9ae24a8809ac0b1615ae1100b74bcc8a96c))
+
+
+
+
+
 # 0.4.0 (2022-06-20)
 
 
