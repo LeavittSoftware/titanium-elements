@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-search-input",
   "description": "",
   "author": "Leavitt Software",
-  "version": "3.2.2",
+  "version": "3.2.3",
   "license": "MIT",
   "main": "lib/titanium-search-input.js",
   "typings": "lib/titanium-search-input.d.ts",

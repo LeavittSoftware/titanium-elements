@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.2.2 (2022-07-26)
+
+
+### Bug Fixes
+
+* bump lit and fix build ([994287c](https://github.com/LeavittSoftware/titanium-elements/commit/994287cc92267fe41093ee8ded6640521bd3facb))
+* **titanium-dialog:** defaults to inert ([3a32ca3](https://github.com/LeavittSoftware/titanium-elements/commit/3a32ca3cf02f4c873dd787603c40ea943973c155))
+
+
+
+
+
 ## [4.2.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@4.2.0...@leavittsoftware/titanium-dialog@4.2.1) (2022-06-20)
 
 

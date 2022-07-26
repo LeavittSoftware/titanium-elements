@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-icon",
   "description": "",
   "author": "Leavitt Software",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "license": "MIT",
   "main": "lib/titanium-icon.js",
   "typings": "lib/titanium-icon.d.ts",

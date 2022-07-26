@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.1.12 (2022-07-26)
+
+
+### Bug Fixes
+
+* bump lit and fix build ([994287c](https://github.com/LeavittSoftware/titanium-elements/commit/994287cc92267fe41093ee8ded6640521bd3facb))
+
+
+
+
+
 ## [2.1.11](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@2.1.10...@leavittsoftware/leavitt-file-explorer@2.1.11) (2022-06-27)
 
 **Note:** Version bump only for package @leavittsoftware/leavitt-file-explorer

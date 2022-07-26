@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.8](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.1.7...@leavittsoftware/leavittbook@2.1.8) (2022-07-26)
+
+
+### Bug Fixes
+
+* bump lit and fix build ([994287c](https://github.com/LeavittSoftware/titanium-elements/commit/994287cc92267fe41093ee8ded6640521bd3facb))
+* **leavittbook:** fixes build ([f6bab49](https://github.com/LeavittSoftware/titanium-elements/commit/f6bab490b0bb31ed083523c501826e934ebb0433))
+
+
+
+
+
 ## [2.1.7](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.1.6...@leavittsoftware/leavittbook@2.1.7) (2022-07-07)
 
 **Note:** Version bump only for package @leavittsoftware/leavittbook

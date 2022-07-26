@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.11.5 (2022-07-26)
+
+
+### Bug Fixes
+
+* bump lit and fix build ([994287c](https://github.com/LeavittSoftware/titanium-elements/commit/994287cc92267fe41093ee8ded6640521bd3facb))
+
+
+
+
+
 ## [1.11.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-address-input@1.11.3...@leavittsoftware/titanium-address-input@1.11.4) (2022-06-20)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-address-input
