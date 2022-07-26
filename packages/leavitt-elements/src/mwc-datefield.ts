@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { css, CSSResult } from 'lit';
+import { css } from 'lit';
 import { TextField } from '@material/mwc-textfield';
 import { property, customElement } from 'lit/decorators.js';
 import { NotchedOutline } from '@material/mwc-notched-outline';
