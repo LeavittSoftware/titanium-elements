@@ -13,7 +13,7 @@
   ],
   "dependencies": {
     "@leavittsoftware/lg-core-typescript": "*",
-    "lit": ">=2.2.5",
+    "lit": ">=2.2.8",
     "tslib": "^2.4.0"
   },
   "keywords": [

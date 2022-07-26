@@ -28,7 +28,7 @@
     "tslib": "^2.4.0"
   },
   "peerDependencies": {
-    "lit": ">=2.2.5"
+    "lit": ">=2.2.8"
   },
   "devDependencies": {
     "@types/googlemaps": "^3.43.0"

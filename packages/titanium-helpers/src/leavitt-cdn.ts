@@ -1,4 +1,4 @@
-import { IDatabaseAttachment } from '@leavittsoftware/lg-core-typescript/lg.net.core';
+import { IDatabaseAttachment } from '@leavittsoftware/lg-core-typescript/lg.net.system';
 
 /*
  * Requires CdnFileName,PreviewExtension,PreviewSizes,Extension
