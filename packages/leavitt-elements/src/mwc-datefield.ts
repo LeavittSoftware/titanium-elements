@@ -1,4 +1,5 @@
-import { css, CSSResult } from 'lit';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { css } from 'lit';
 import { TextField } from '@material/mwc-textfield';
 import { property, customElement } from 'lit/decorators.js';
 import { NotchedOutline } from '@material/mwc-notched-outline';
@@ -66,6 +67,6 @@ export class DateField extends TextField {
         }
       `,
       ...super.styles,
-    ] as CSSResult[];
+    ] as any;
   }
 }

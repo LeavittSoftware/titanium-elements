@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { css, html } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
 import { Formfield } from '@material/mwc-formfield';
@@ -38,7 +39,7 @@ export class TitaniumTwoLineFormFieldElement extends Formfield {
         font-size: 12px;
       }
     `,
-  ];
+  ] as any;
 
   protected render() {
     const classes = {

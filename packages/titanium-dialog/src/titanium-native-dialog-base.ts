@@ -282,6 +282,7 @@ export class TitaniumNativeDialogBaseElement extends LitElement {
 
   render() {
     return html` <dialog
+      inert
       @opening=${e => {
         if (e.target.nodeName === 'DIALOG') {
           //Prevent document scroll

@@ -2,7 +2,7 @@ import '@material/mwc-icon-button';
 
 import { css, html, LitElement } from 'lit';
 import { property, customElement, query, state } from 'lit/decorators.js';
-import { IDatabaseAttachment } from '@leavittsoftware/lg-core-typescript/lg.net.core';
+import { IDatabaseAttachment } from '@leavittsoftware/lg-core-typescript/lg.net.system';
 
 /**
  * Material design inspired file input.

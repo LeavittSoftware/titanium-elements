@@ -33,7 +33,7 @@ export class MyAppElement extends LitElement {
   @state() private page: string | undefined;
   @state() private isDesktop: boolean = false;
 
-  @query('titanium-full-page-loading-indicator') private loadingIndicator: TitaniumFullPageLoadingIndicatorElement & LitElement;
+  @query('titanium-full-page-loading-indicator') private loadingIndicator: TitaniumFullPageLoadingIndicatorElement;
   @query('mwc-drawer') private drawer: Drawer;
 
   public async firstUpdated() {
