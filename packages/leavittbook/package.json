@@ -1,7 +1,7 @@
 {
   "license": "BSD-3-Clause",
   "name": "@leavittsoftware/leavittbook",
-  "version": "2.1.8",
+  "version": "2.1.9",
   "dependencies": {
     "@leavittsoftware/api-service": "^9.5.2",
     "@leavittsoftware/leavitt-elements": "^5.9.3",
@@ -15,6 +15,7 @@
     "@leavittsoftware/titanium-card": "^2.2.5",
     "@leavittsoftware/titanium-chip": "^4.0.5",
     "@leavittsoftware/titanium-chip-multi-select": "^1.1.8",
+    "@leavittsoftware/titanium-color-input": "^3.2.5",
     "@leavittsoftware/titanium-data-table": "^12.4.4",
     "@leavittsoftware/titanium-dialog": "^4.2.2",
     "@leavittsoftware/titanium-error-page": "^0.2.3",
@@ -40,7 +41,6 @@
     "@leavittsoftware/titanium-toolbar": "^0.2.4",
     "@leavittsoftware/titanium-twoline-formfield": "^0.1.2",
     "@leavittsoftware/titanium-youtube-input": "^0.2.2",
-    "@leavittsoftware/titanium-color-input": "*",
     "@leavittsoftware/user-manager": "^9.8.8",
     "@material/mwc-button": "*",
     "@material/mwc-checkbox": "*",
