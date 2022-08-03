@@ -25,6 +25,22 @@ export class TitaniumColorInput extends LitElement {
    */
   @property({ type: String }) label: string;
   /**
+   *  Passes iconTrailing to the inner mwc-textfield
+   */
+  @property({ type: String }) iconTrailing: string;
+  /**
+   *  Passes icon to the inner mwc-textfield
+   */
+  @property({ type: String }) icon: string;
+  /**
+   *  Passes helper to the inner mwc-textfield
+   */
+  @property({ type: String }) helper: string;
+  /**
+   *  passes helperPersistent to the inner mwc-textfield
+   */
+  @property({ type: Boolean }) helperPersistent: boolean;
+  /**
    *  Set to true if value is required to be a valid color
    */
   @property({ type: Boolean }) required: boolean;
@@ -82,6 +98,10 @@ export class TitaniumColorInput extends LitElement {
         .value=${this.value ?? ''}
         .validityTransform=${(val: string, state: ValidityState) => ({ ...state, valid: state.valid && (val.length === 0 || isCssColor(val)) })}
         .required=${this.required}
+        .icon=${this.icon}
+        .iconTrailing=${this.iconTrailing}
+        .helper=${this.helper}
+        .helperPersistent=${this.helperPersistent}
         validationMessage=${this.validationMessage}
         @input=${e => {
           e.stopPropagation();
