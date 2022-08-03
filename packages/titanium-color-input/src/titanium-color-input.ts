@@ -7,6 +7,7 @@ type MwcInput<T> = T & { mdcFoundation: { setValid(): boolean }; isUiValid: bool
 
 /**
  * Material design input with color display and validation.
+ * Most properties and events supported by mwc-textfield will also be supported.
  *
  * @element titanium-color-input
  *
@@ -49,7 +50,7 @@ export class TitaniumColorInput extends LitElement {
    */
   @property({ type: String }) validationMessage: string = 'Please use a valid CSS color string';
   @query('color-preview') private colorPreview!: HTMLElement;
-  @query('mwc-textfield') private  input!: MwcInput<TextField>;
+  @query('mwc-textfield') private input!: MwcInput<TextField>;
 
   static styles = css`
     :host {
