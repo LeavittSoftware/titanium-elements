@@ -61,7 +61,7 @@
     "api-viewer-element": "1.0.0-pre.3",
     "countup.js": "^2.2.0",
     "dayjs": "*",
-    "lit": ">=2.2.8",
+    "lit": ">=2.3.0",
     "page": "^1.11.6",
     "playground-elements": "^0.16.1"
   },

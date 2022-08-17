@@ -19,7 +19,7 @@
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
   "peerDependencies": {
-    "lit": ">=2.2.8"
+    "lit": ">=2.3.0"
   },
   "dependencies": {
     "tslib": "^2.4.0"
