@@ -38,10 +38,7 @@ export default class TitaniumShowHideElement extends LitElement {
       // We then display the count of the remaining hidden items on the button
       const items = (this.itemsContainer.children?.[0] as HTMLSlotElement)?.assignedElements();
       this.hiddenItemCount = items.filter(o => !this.#isWithin(this.collapsedContainer, o)).length;
-      // Can only detect hasHiddenItems when collapsed.
-      if (this.collapsed) {
-        this.hasHiddenItems = !!this.hiddenItemCount;
-      }
+      this.hasHiddenItems = !!this.hiddenItemCount;
     });
 
     resizeObserver.observe(this.itemsContainer);
@@ -53,7 +50,7 @@ export default class TitaniumShowHideElement extends LitElement {
 
     return (
       elementRect.top >= containerRect.top &&
-      elementRect.bottom <= containerRect.bottom &&
+      elementRect.bottom <= containerRect.top + this.collapseHeight &&
       elementRect.left >= containerRect.left &&
       elementRect.right <= containerRect.right
     );
@@ -103,7 +100,7 @@ export default class TitaniumShowHideElement extends LitElement {
     return html`
       <style>
         :host([collapsed]) collapsed-box {
-          max-height: ${this.collapseHeight}px;
+          height: ${this.collapseHeight}px;
         }
       </style>
       <collapsed-box>
@@ -111,7 +108,7 @@ export default class TitaniumShowHideElement extends LitElement {
           <slot></slot>
         </items-container>
       </collapsed-box>
-      <mwc-button outlined lowercase @click=${() => (this.collapsed = !this.collapsed)} ?hidden=${!this.hasHiddenItems && this.collapsed}>
+      <mwc-button outlined lowercase @click=${() => (this.collapsed = !this.collapsed)} ?hidden=${!this.hasHiddenItems}>
         ${this.collapsed ? `Show more (${this.hiddenItemCount})` : 'Show less'}</mwc-button
       >
     `;
