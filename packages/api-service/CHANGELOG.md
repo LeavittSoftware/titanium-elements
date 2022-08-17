@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 9.5.3 (2022-08-17)
+
+**Note:** Version bump only for package @leavittsoftware/api-service
+
+
+
+
+
 ## 9.5.2 (2022-07-26)
 
 

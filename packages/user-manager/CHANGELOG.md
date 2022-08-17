@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 9.8.9 (2022-08-17)
+
+**Note:** Version bump only for package @leavittsoftware/user-manager
+
+
+
+
+
 ## 9.8.8 (2022-07-26)
 
 

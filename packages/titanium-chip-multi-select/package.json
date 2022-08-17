@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-chip-multi-select",
   "description": "",
   "author": "Leavitt Software",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "license": "MIT",
   "main": "lib/titanium-chip-multi-select.js",
   "typings": "lib/titanium-chip-multi-select.d.ts",
@@ -19,7 +19,7 @@
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
   "dependencies": {
-    "@leavittsoftware/titanium-chip": "^4.0.5",
+    "@leavittsoftware/titanium-chip": "^4.0.6",
     "tslib": "^2.4.0"
   },
   "peerDependencies": {

@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-sw-notifier",
   "description": "",
   "author": "Leavitt Software",
-  "version": "2.1.23",
+  "version": "2.1.24",
   "license": "MIT",
   "main": "lib/titanium-sw-notifier.js",
   "typings": "lib/titanium-sw-notifier.d.ts",
@@ -19,7 +19,7 @@
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
   "dependencies": {
-    "@leavittsoftware/titanium-snackbar": "^3.5.3",
+    "@leavittsoftware/titanium-snackbar": "^3.5.4",
     "tslib": "^2.4.0"
   },
   "peerDependencies": {
