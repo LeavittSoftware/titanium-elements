@@ -177,6 +177,7 @@ export class MyAppElement extends LitElement {
       this.#changePage('titanium-youtube-input', () => import('./demos/titanium-youtube-input/titanium-youtube-input-demo.js'))
     );
     page('/titanium-color-input', () => this.#changePage('titanium-color-input', () => import('./demos/titanium-color-input/titanium-color-input-demo.js')));
+    page('/titanium-show-hide', () => this.#changePage('titanium-show-hide', () => import('./demos/titanium-show-hide/titanium-show-hide-demo.js')));
 
     page('*', () => {
       this.#changePage('error');
@@ -535,6 +536,10 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-color-input</span>
               </a>
+              <a href="/titanium-show-hide" ?selected=${!!this.page?.includes('titanium-show-hide')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-show-hide</span>
+              </a>
             </details>
           </section>
 
@@ -757,6 +762,9 @@ export class MyAppElement extends LitElement {
             : nothing}
           ${this.page === 'titanium-color-input'
             ? html` <titanium-color-input-demo ?isActive=${this.page === 'titanium-color-input'}></titanium-color-input-demo> `
+            : nothing}
+          ${this.page === 'titanium-show-hide'
+            ? html` <titanium-show-hide-demo ?isActive=${this.page === 'titanium-show-hide'}></titanium-show-hide-demo> `
             : nothing}
         </div>
       </mwc-drawer>
