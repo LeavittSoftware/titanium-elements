@@ -5,12 +5,12 @@ import { button } from '@leavittsoftware/titanium-styles';
 import '@material/mwc-button';
 
 /**
- * Collapsible Container
+ * Titanium Show Hide
  *
- * @element collapsible-container
+ * @element titanium-show-hide
  *
  * @slot - main slot for content. Please note that component is assuming that the slotted content is not deeply nested.
- * Please place your items directly in the collapsible-container element default slot for this component to function properly.
+ * Please place your items directly in the titanium-show-hide element default slot for this component to function properly.
  *
  * @cssprop [--titanium-show-hide-flex-direction=column] - flex direction for the parent of the slotted in content
  * @cssprop [--titanium-show-hide-flex-wrap=wrap] - flex wrap for the parent of the slotted in content
