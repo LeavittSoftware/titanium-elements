@@ -12,9 +12,9 @@ import '@material/mwc-button';
  * @slot - main slot for content. Please note that component is assuming that the slotted content is not deeply nested.
  * Please place your items directly in the collapsible-container element default slot for this component to function properly.
  *
- * @cssprop [--collapsible-container-flex-direction=column] - flex direction for the parent of the slotted in content
- * @cssprop [--collapsible-container-flex-wrap=wrap] - flex wrap for the parent of the slotted in content
- * @cssprop [--collapsible-container-gap=8px] - flex direction of the for the parent of the slotted in content
+ * @cssprop [--titanium-show-hide-flex-direction=column] - flex direction for the parent of the slotted in content
+ * @cssprop [--titanium-show-hide-flex-wrap=wrap] - flex wrap for the parent of the slotted in content
+ * @cssprop [--titanium-show-hide-gap=8px] - flex direction of the for the parent of the slotted in content
  */
 @customElement('titanium-show-hide')
 export default class TitaniumShowHideElement extends LitElement {
@@ -26,9 +26,9 @@ export default class TitaniumShowHideElement extends LitElement {
   @property({ type: Number, attribute: 'collapse-height' }) collapseHeight: number = 120;
   @property({ type: Boolean, reflect: true, attribute: 'disable-fade' }) disableFade: boolean = false;
   @property({ type: Boolean, reflect: true, attribute: 'collapsed' }) collapsed: boolean = true;
+  @property({ type: Boolean, reflect: true, attribute: 'has-hidden-items' }) private hasHiddenItems: boolean = false;
 
   @state() private hiddenItemCount: number = 0;
-  @property({ type: Boolean, reflect: true, attribute: 'has-hidden-items' }) private hasHiddenItems: boolean = false;
   @query('items-container') private itemsContainer: HTMLElement;
   @query('collapsed-box') private collapsedContainer: HTMLElement;
 
@@ -38,7 +38,10 @@ export default class TitaniumShowHideElement extends LitElement {
       // We then display the count of the remaining hidden items on the button
       const items = (this.itemsContainer.children?.[0] as HTMLSlotElement)?.assignedElements();
       this.hiddenItemCount = items.filter(o => !this.#isWithin(this.collapsedContainer, o)).length;
-      this.hasHiddenItems = !!this.hiddenItemCount;
+      // Can only detect hasHiddenItems when collapsed.
+      if (this.collapsed) {
+        this.hasHiddenItems = !!this.hiddenItemCount;
+      }
     });
 
     resizeObserver.observe(this.itemsContainer);
@@ -80,9 +83,9 @@ export default class TitaniumShowHideElement extends LitElement {
 
       items-container {
         display: flex;
-        flex-direction: var(--collapsible-container-flex-direction, column);
-        flex-wrap: var(--collapsible-container-flex-wrap, wrap);
-        gap: var(--collapsible-container-gap, 8px);
+        flex-direction: var(--titanium-show-hide-flex-direction, column);
+        flex-wrap: var(--titanium-show-hide-flex-wrap, wrap);
+        gap: var(--titanium-show-hide-gap, 8px);
       }
 
       mwc-button {
@@ -108,8 +111,8 @@ export default class TitaniumShowHideElement extends LitElement {
           <slot></slot>
         </items-container>
       </collapsed-box>
-      <mwc-button outlined lowercase @click=${() => (this.collapsed = !this.collapsed)} ?hidden=${!this.hasHiddenItems}
-        >${this.collapsed ? `Show more (${this.hiddenItemCount})` : 'Show less'}</mwc-button
+      <mwc-button outlined lowercase @click=${() => (this.collapsed = !this.collapsed)} ?hidden=${!this.hasHiddenItems && this.collapsed}>
+        ${this.collapsed ? `Show more (${this.hiddenItemCount})` : 'Show less'}</mwc-button
       >
     `;
   }
