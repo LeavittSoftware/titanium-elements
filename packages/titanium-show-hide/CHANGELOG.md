@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-show-hide@1.1.0...@leavittsoftware/titanium-show-hide@1.1.1) (2022-08-22)
+
+
+### Bug Fixes
+
+* **titanium-show-hide:** remove min height ([d8875d5](https://github.com/LeavittSoftware/titanium-elements/commit/d8875d569da007dff23763a931846842cb2b4fbe))
+
+
+
+
+
 # 1.1.0 (2022-08-17)
 
 
