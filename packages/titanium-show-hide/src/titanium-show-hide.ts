@@ -100,7 +100,7 @@ export default class TitaniumShowHideElement extends LitElement {
     return html`
       <style>
         :host([collapsed]) collapsed-box {
-          height: ${this.collapseHeight}px;
+          max-height: ${this.collapseHeight}px;
         }
       </style>
       <collapsed-box>
