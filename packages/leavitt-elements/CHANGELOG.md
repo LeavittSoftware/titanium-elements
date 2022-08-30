@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 5.10.0 (2022-08-30)
+
+
+### Features
+
+* **leavitt-elements:** restrict date picker to 4 digit years ([7268705](https://github.com/LeavittSoftware/titanium-elements/commit/7268705ab46aa5a8667fdde0f330947f72f2098c))
+
+
+
+
+
 ## 5.9.4 (2022-08-17)
 
 **Note:** Version bump only for package @leavittsoftware/leavitt-elements
