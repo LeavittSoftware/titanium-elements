@@ -50,6 +50,10 @@ export class DateField extends TextField {
      *  @ignore
      */
     this.outlined = true;
+    /**
+     *  @ignore
+     */
+    this.max = '2999-12-31';
   }
 
   static get styles() {
