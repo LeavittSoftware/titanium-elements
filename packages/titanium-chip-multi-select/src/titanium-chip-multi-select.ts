@@ -53,6 +53,7 @@ export class TitaniumChipMultiSelectElement extends LitElement {
     css`
       :host {
         display: block;
+        --mdc-shape-small: 24px;
       }
 
       main {
@@ -64,18 +65,6 @@ export class TitaniumChipMultiSelectElement extends LitElement {
         border-radius: 4px;
         position: relative;
         padding: 16px 12px 12px 12px;
-      }
-
-      div[chips] {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        overflow: hidden;
-      }
-
-      div[button] {
-        grid-area: button;
-        --mdc-shape-small: 24px;
       }
 
       div[empty-text] {
@@ -143,8 +132,8 @@ export class TitaniumChipMultiSelectElement extends LitElement {
   protected render() {
     return html`
       <main>
-        <div button><slot name="button"></slot></div>
-        <div chips><slot></slot></div>
+        <slot name="button"></slot>
+        <slot></slot>
         ${!this.hasItems ? html` <div empty-text>${this.noItemsText}</div>` : ''}
         <label>${this.label}</label>
       </main>
