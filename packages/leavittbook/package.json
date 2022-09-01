@@ -1,7 +1,7 @@
 {
   "license": "BSD-3-Clause",
   "name": "@leavittsoftware/leavittbook",
-  "version": "2.1.13",
+  "version": "2.1.14",
   "dependencies": {
     "@leavittsoftware/api-service": "^9.5.3",
     "@leavittsoftware/leavitt-elements": "^5.10.0",
@@ -14,7 +14,7 @@
     "@leavittsoftware/titanium-button": "^1.7.5",
     "@leavittsoftware/titanium-card": "^2.2.6",
     "@leavittsoftware/titanium-chip": "^4.0.6",
-    "@leavittsoftware/titanium-chip-multi-select": "^1.1.9",
+    "@leavittsoftware/titanium-chip-multi-select": "^1.1.10",
     "@leavittsoftware/titanium-color-input": "^3.2.7",
     "@leavittsoftware/titanium-data-table": "^12.4.5",
     "@leavittsoftware/titanium-dialog": "^4.2.3",
