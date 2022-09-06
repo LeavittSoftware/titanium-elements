@@ -98,7 +98,18 @@ export class ProfilePictureMenuElement extends LitElement {
         })}
         class="popup--anchor"
       >
-        <profile-picture shape="circle" .personId=${this.personId} .size=${this.size} @click=${() => this.popup.open()}></profile-picture>
+        <profile-picture
+          shape="circle"
+          .personId=${this.personId}
+          .size=${this.size}
+          @click=${() => {
+            if (this.personId) {
+              this.popup.open();
+            } else {
+              GetUserManagerInstance().authenticateAsync();
+            }
+          }}
+        ></profile-picture>
         <profile-picture-menu-popup
           anchor-margin-bottom="5"
           anchor-corner="9"
