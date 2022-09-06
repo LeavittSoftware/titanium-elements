@@ -25,9 +25,10 @@ export class ProfilePictureMenuPlayground extends LitElement {
         padding: 24px;
         border-radius: 8px;
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
         gap: 12px;
         margin: 24px 0 36px 0;
+        align-items: flex-end;
       }
     `,
   ];
