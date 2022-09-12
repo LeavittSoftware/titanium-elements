@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.1.15...@leavittsoftware/leavittbook@2.2.0) (2022-09-12)
+
+
+### Bug Fixes
+
+* profile picture menu demo layout bug ([416a5ee](https://github.com/LeavittSoftware/titanium-elements/commit/416a5ee15e64a8127db8ffb2dce745610013634e))
+
+
+### Features
+
+* move leavitt-date-range to titanium-date-range-selector ([382cba8](https://github.com/LeavittSoftware/titanium-elements/commit/382cba88b29724520320603a5f207e706816e8ed))
+
+
+
+
+
 ## [2.1.15](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.1.14...@leavittsoftware/leavittbook@2.1.15) (2022-09-06)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.11.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@5.10.1...@leavittsoftware/leavitt-elements@5.11.0) (2022-09-12)
+
+
+### Features
+
+* move leavitt-date-range to titanium-date-range-selector ([382cba8](https://github.com/LeavittSoftware/titanium-elements/commit/382cba88b29724520320603a5f207e706816e8ed))
+
+
+
+
+
 ## 5.10.1 (2022-09-06)
 
 **Note:** Version bump only for package @leavittsoftware/leavitt-elements
