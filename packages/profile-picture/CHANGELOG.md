@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.9.0 (2022-09-06)
+
+
+### Features
+
+* do not open the menu if user is not authenticated; instead force auth ([302106b](https://github.com/LeavittSoftware/titanium-elements/commit/302106babe81e8d2abd007d03f87425de13134c8))
+
+
+
+
+
 ## 4.8.6 (2022-08-17)
 
 **Note:** Version bump only for package @leavittsoftware/profile-picture
