@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 4.3.0 (2022-09-12)
+
+
+### Features
+
+* add date range selector to node names ([0926336](https://github.com/LeavittSoftware/titanium-elements/commit/0926336c7d6ad8fe6c20e4010aeb72f3be3f9ebf))
+
+
+
+
+
 ## 4.2.3 (2022-08-17)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-dialog
