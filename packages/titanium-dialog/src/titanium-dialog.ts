@@ -49,7 +49,7 @@ export class TitaniumDialogElement extends TitaniumNativeDialogBaseElement {
 
   @property({ type: Boolean, reflect: true, attribute: 'is-scrolling' }) protected isScrolling: boolean = false;
 
-  @property({ type: String }) overflowNodeNames = 'MWC-SELECT';
+  @property({ type: String }) overflowNodeNames = 'MWC-SELECT,TITANIUM-DATE-RANGE-SELECTOR';
 
   @query('main', true) protected mainElement!: HTMLElement;
 
