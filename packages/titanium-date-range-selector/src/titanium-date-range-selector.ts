@@ -267,13 +267,13 @@ export class TitaniumDateRangeSelector extends LitElement {
 
       <mwc-datefield
         start-date
-        label="From"
+        label="After"
         value=${this.startDate ?? ''}
         @change=${(e: DOMEvent<DateField>) => (this.startDate = e.target.value ?? '')}
       ></mwc-datefield>
       <mwc-datefield
         end-date
-        label="Until"
+        label="Before"
         value=${this.endDate ?? ''}
         @change=${(e: DOMEvent<DateField>) => (this.endDate = e.target.value ?? '')}
       ></mwc-datefield>
