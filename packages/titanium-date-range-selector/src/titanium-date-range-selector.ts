@@ -5,13 +5,13 @@ import '@leavittsoftware/leavitt-elements/lib/mwc-datefield';
 
 import { css, html, LitElement, PropertyValues } from 'lit';
 import { property, customElement, query } from 'lit/decorators.js';
-import { DateField } from '@leavittsoftware/leavitt-elements/lib/mwc-datefield';
+import { DateField } from '@leavittsoftware/leavitt-elements/src/mwc-datefield';
 import { Select } from '@material/mwc-select';
 import dayjs, { Dayjs, QUnitType } from 'dayjs/esm';
 import quarterOfYear from 'dayjs/esm/plugin/quarterOfYear';
 import { Debouncer } from '@leavittsoftware/titanium-helpers/lib/titanium-debouncer';
 import { DateRangeChangedEvent } from './date-range-change-event';
-import { DOMEvent } from '@leavittsoftware/leavitt-elements/lib/dom-event';
+import { DOMEvent } from '@leavittsoftware/leavitt-elements/src/dom-event';
 
 dayjs.extend(quarterOfYear);
 
