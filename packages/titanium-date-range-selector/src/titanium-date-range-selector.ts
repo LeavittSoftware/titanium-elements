@@ -154,7 +154,7 @@ export class TitaniumDateRangeSelector extends LitElement {
     const ro = new ResizeObserver(entries => {
       for (const entry of entries) {
         const cr = entry.contentRect;
-        this.size = cr.width < 350 ? 'small' : cr.width < 550 ? 'medium' : undefined;
+        this.size = cr.width < 380 ? 'small' : cr.width < 580 ? 'medium' : undefined;
       }
     });
 
