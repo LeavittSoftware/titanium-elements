@@ -1,30 +1,26 @@
 /* playground-fold */
 import { LitElement, html, css } from 'lit';
-import { customElement, query, state, queryAll } from 'lit/decorators.js';
+import { customElement, query, state } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/titanium-styles';
 import '@material/mwc-switch';
 import '@material/mwc-formfield';
 import '@material/mwc-button';
 /* playground-fold-end */
 
-import '@leavittsoftware/leavitt-elements/lib/leavitt-date-range';
-import { LeavittDateRangeElement } from '@leavittsoftware/leavitt-elements/lib/leavitt-date-range';
+import '@leavittsoftware/titanium-date-range-selector';
+import { TitaniumDateRangeSelector } from '@leavittsoftware/titanium-date-range-selector/lib/titanium-date-range-selector';
+import dayjs from 'dayjs/esm';
+
 /* playground-fold */
-@customElement('leavitt-date-range-playground')
-export class LeavittDateRangePlaygroundElement extends LitElement {
-  @query('leavitt-date-range[layout-demo]') private layoutInput!: LeavittDateRangeElement;
+@customElement('titanium-date-range-selector-playground')
+export class TitaniumDateRangePlaygroundElement extends LitElement {
+  @query('titanium-date-range-selector[events]') private eventsDemoInput!: TitaniumDateRangeSelector;
+  @query('titanium-date-range-selectore[layout-demo]') private layoutInput!: TitaniumDateRangeSelector;
+
+  @state() private startDate: string = '2020-01-02';
+  @state() private endDate: string = '2020-01-04';
   @state() private showLayoutInput: boolean = false;
   @state() eventFired: boolean = false;
-  @queryAll('leavitt-date-range:not([layout-demo])') private inputs!: NodeListOf<LeavittDateRangeElement>;
-
-  async firstUpdated() {
-    //Fix MWC floating label problem
-    requestAnimationFrame(() => {
-      Array.from(this.inputs).forEach(async o => {
-        o.layout();
-      });
-    });
-  }
 
   static styles = [
     h1,
@@ -42,7 +38,7 @@ export class LeavittDateRangePlaygroundElement extends LitElement {
         padding: 24px;
         border-radius: 8px;
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
         gap: 12px;
         margin: 24px 0 36px 0;
       }
@@ -54,7 +50,7 @@ export class LeavittDateRangePlaygroundElement extends LitElement {
       }
 
       [event-text],
-      leavitt-date-range,
+      titanium-date-range-selector,
       mwc-button,
       mwc-formfield {
         margin: 10px;
@@ -92,22 +88,40 @@ export class LeavittDateRangePlaygroundElement extends LitElement {
       <h1>Events</h1>
       <p>Demonstrates when the date-range-changed event is fired</p>
       <div>
-        <leavitt-date-range
+        <titanium-date-range-selector
+          events
+          .startDate=${this.startDate}
+          .endDate=${this.endDate}
           @date-range-changed=${() => {
             this.eventFired = true;
             setTimeout(() => (this.eventFired = false), 1000);
           }}
-        ></leavitt-date-range>
+        ></titanium-date-range-selector>
         <span event-text ?event-fired=${this.eventFired}>date-range-changed</span>
+        <mwc-button
+          raised
+          @click=${() => {
+            this.startDate = '';
+            this.endDate = '';
+          }}
+          >Bind to ''</mwc-button
+        >
+        <mwc-button
+          raised
+          @click=${() => {
+            this.eventsDemoInput.reset();
+          }}
+          >reset()</mwc-button
+        >
       </div>
 
       <h1>Default</h1>
       <p>Examples using default, range, startDate, and endDate</p>
       <div>
-        <leavitt-date-range></leavitt-date-range>
-        <leavitt-date-range range="thisWeek"></leavitt-date-range>
-        <leavitt-date-range startDate="2022-05-17"></leavitt-date-range>
-        <leavitt-date-range endDate="2022-05-17"></leavitt-date-range>
+        <titanium-date-range-selector label="Created date"></titanium-date-range-selector>
+        <titanium-date-range-selector range="thisWeek"></titanium-date-range-selector>
+        <titanium-date-range-selector startDate=${dayjs().format('YYYY-MM-DD')} endDate=${dayjs().format('YYYY-MM-DD')}></titanium-date-range-selector>
+        <titanium-date-range-selector endDate="2022-05-17"></titanium-date-range-selector>
       </div>
 
       <h1>Methods</h1>
@@ -123,7 +137,7 @@ export class LeavittDateRangePlaygroundElement extends LitElement {
         </mwc-formfield>
 
         <span row ?hidden=${!this.showLayoutInput}>
-          <leavitt-date-range layout-demo></leavitt-date-range>
+          <titanium-date-range-selector layout-demo label="Reporting date"></titanium-date-range-selector>
           <mwc-button
             raised
             @click=${() => {

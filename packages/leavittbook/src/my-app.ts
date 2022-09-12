@@ -68,7 +68,9 @@ export class MyAppElement extends LitElement {
     page('/leavitt-company-select', () =>
       this.#changePage('leavitt-company-select', () => import('./demos/leavitt-company-select/leavitt-company-select-demo.js'))
     );
-    page('/leavitt-date-range', () => this.#changePage('leavitt-date-range', () => import('./demos/leavitt-date-range/leavitt-date-range-demo.js')));
+    page('/titanium-date-range-selector', () =>
+      this.#changePage('titanium-date-range-selector', () => import('./demos/titanium-date-range-selector/titanium-date-range-selector-demo.js'))
+    );
     page('/titanium-data-table-item', () =>
       this.#changePage('titanium-data-table-item', () => import('./demos/titanium-data-table-item/titanium-data-table-item-demo.js'))
     );
@@ -447,6 +449,10 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-data-table-item</span>
               </a>
+              <a href="/titanium-date-range-selector" ?selected=${!!this.page?.includes('titanium-date-range-selector')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-date-range-selector</span>
+              </a>
               <a href="/titanium-dialog-base" ?selected=${!!this.page?.includes('titanium-dialog-base')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-dialog-base</span>
@@ -552,10 +558,6 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>leavitt-company-select</span>
               </a>
-              <a href="/leavitt-date-range" ?selected=${!!this.page?.includes('leavitt-date-range')}>
-                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
-                <span>leavitt-date-range</span>
-              </a>
               <a href="/leavitt-file-explorer" ?selected=${!!this.page?.includes('leavitt-file-explorer')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>leavitt-file-explorer</span>
@@ -635,8 +637,8 @@ export class MyAppElement extends LitElement {
             ? html` <leavitt-file-explorer-demo ?isActive=${this.page === 'leavitt-file-explorer'}></leavitt-file-explorer-demo> `
             : nothing}
           ${this.page === 'mwc-datefield' ? html` <mwc-datefield-demo ?isActive=${this.page === 'mwc-datefield'}></mwc-datefield-demo> ` : nothing}
-          ${this.page === 'leavitt-date-range'
-            ? html` <leavitt-date-range-demo ?isActive=${this.page === 'leavitt-date-range'}></leavitt-date-range-demo> `
+          ${this.page === 'titanium-date-range-selector'
+            ? html` <titanium-date-range-selector-demo ?isActive=${this.page === 'titanium-date-range-selector'}></titanium-date-range-selector-demo> `
             : nothing}
           ${this.page === 'leavitt-person-select'
             ? html` <leavitt-person-select-demo ?isActive=${this.page === 'leavitt-person-select'}></leavitt-person-select-demo> `

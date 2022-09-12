@@ -18,6 +18,7 @@
     "@leavittsoftware/titanium-color-input": "^3.2.7",
     "@leavittsoftware/titanium-data-table": "^12.4.5",
     "@leavittsoftware/titanium-dialog": "^4.2.3",
+    "@leavittsoftware/titanium-date-range-selector": "^1.0.0",
     "@leavittsoftware/titanium-error-page": "^0.2.4",
     "@leavittsoftware/titanium-header": "^3.2.5",
     "@leavittsoftware/titanium-helpers": "^4.4.4",
@@ -64,6 +65,16 @@
     "lit": ">=2.3.0",
     "page": "^1.11.6",
     "playground-elements": "^0.16.3"
+  },
+  "overrides": {
+    "playground-elements": {
+      "@material/mwc-button": "$@material/mwc-button",
+      "@material/mwc-icon-button": "$@material/mwc-icon-button",
+      "@material/mwc-linear-progress": "$@material/mwc-linear-progress",
+      "@material/mwc-list": "$@material/mwc-list",
+      "@material/mwc-menu": "$@material/mwc-menu",
+      "@material/mwc-textfield": "$@material/mwc-textfield"
+    }
   },
   "devDependencies": {
     "@babel/preset-env": "^7.18.10",
