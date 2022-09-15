@@ -8,7 +8,7 @@ export class ODataResponse<T> {
   }
 
   private getEntity<T>(json): T {
-    if (json.value !== null && json.value !== 'undefined' && !Array.isArray(json.value)) {
+    if (json.value !== null && typeof json.value !== 'undefined' && !Array.isArray(json.value)) {
       return json.value as T;
     }
 
