@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.5.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@9.5.4...@leavittsoftware/api-service@9.5.5) (2022-09-15)
+
+
+### Bug Fixes
+
+* **api-service:** fix falsey values in "json.value" from skipping entity check ([f6b21c6](https://github.com/LeavittSoftware/titanium-elements/commit/f6b21c64d0f2def2b553ccafe883bdb519adab56))
+* **api-service:** fix falsey values in "json.value" from skipping entity check ([9491e25](https://github.com/LeavittSoftware/titanium-elements/commit/9491e25c2e5d9cb8dffe7ac4d92b801cc1ece3d1))
+
+
+
+
+
 ## 9.5.4 (2022-09-15)
 
 
