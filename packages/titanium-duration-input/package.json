@@ -1,0 +1,37 @@
+{
+  "name": "@leavittsoftware/titanium-duration-input",
+  "description": "",
+  "author": "Leavitt Software",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "lib/titanium-duration-input.js",
+  "typings": "lib/titanium-duration-input.d.ts",
+  "homepage": "https://github.com/LeavittSoftware/titanium-elements/tree/master/packages/titanium-duration-input",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "keywords": [
+    "web component"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LeavittSoftware/titanium-elements.git"
+  },
+  "dependencies": {
+    "@material/mwc-textfield": "*",
+    "luxon": "3.0.3",
+    "tslib": "^2.4.0"
+  },
+  "peerDependencies": {
+    "lit": ">=2.3.0"
+  },
+  "scripts": {
+    "build:watch": "tsc --watch",
+    "build": "tsc ",
+    "lint": "eslint ./src/**/*.ts"
+  },
+  "bugs": {
+    "url": "https://github.com/LeavittSoftware/titanium-elements/issues"
+  }
+}
