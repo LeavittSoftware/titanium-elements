@@ -1,150 +1,65 @@
-import { html, LitElement } from 'lit';
-import { property, customElement, query } from 'lit/decorators.js';
-
-import '@material/mwc-textfield';
+import { property, customElement } from 'lit/decorators.js';
 import { TextField } from '@material/mwc-textfield';
-import { Duration } from 'luxon';
+
 import humanInterval from './human-interval';
+import dayjs from 'dayjs/esm';
+import duration from 'dayjs/esm/plugin/duration';
+dayjs.extend(duration);
 
 /**
- * Human readable duration input
+ * titanium-duration-input is a human readable duration textfield that extends mwc-textfield. This means that the API is the same as TextField.
+ * [mwc-textfield documentation](https://www.npmjs.com/package/@material/mwc-textfield).
+ * This input is expecting a dayjs duration and will return a dayjs duration.
  *
  * @element titanium-duration-input
  *
+ * @fires duration-changed The duration can be accessed via event.target.duration
  *
  */
 
-const TICKS_PER_MILLISECOND = 10000;
-
 @customElement('titanium-duration-input')
-export class TitaniumDurationInputElement extends LitElement {
+export class TitaniumDurationInputElement extends TextField {
   /**
-   * Main input value
+   *  Dayjs duration object. This is the main property you will interact with because the value
+   *  property of this component is actually the human readable string and not the duration you most likely
+   *  want to work with.
    */
-  @property({ type: String }) value: string | null | undefined;
+  @property({ type: String }) duration: duration.Duration | null | undefined;
 
-  /**
-   *  Displays error state if value is empty and input is blurred.
-   */
-  @property({ type: Boolean }) required: boolean;
+  constructor() {
+    super();
+    this.helper = 'Enter a duration e.g. "3 hours and 30 minutes"';
+    this.validityTransform = (newValue, nativeValidity) => ({
+      valid: !isNaN(humanInterval(newValue)) && nativeValidity?.valid,
+    });
 
-  /**
-   * Disables the input
-   */
-  @property({ type: Boolean }) disabled: boolean;
-
-  /**
-   * Disables the input
-   */
-  @property({ type: Boolean }) helperPersistent: boolean;
-
-  /**
-   *  Message to show in the error color when the textfield is invalid. (Helper text will not be visible)
-   */
-  @property({ type: String }) validationMessage: string;
-
-  /**
-   *  helper text displayed to user
-   */
-  @property({ type: String }) helper: string = 'Enter a duration e.g. "3 hours and 30 minutes"';
-
-  /**
-   *  Sets floating label value.
-   */
-  @property({ type: String }) label: string = '';
-
-  /**
-   *  Sets icon value.
-   */
-  @property({ type: String }) icon: string = '';
-
-  @query('mwc-textfield') private input!: TextField & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
+    this.addEventListener('change', () => {
+      const millis = humanInterval(this.value);
+      this.duration = isNaN(millis) ? null : dayjs.duration(millis, 'ms');
+      this.dispatchEvent(new CustomEvent('duration-changed', { bubbles: true, composed: true }));
+    });
+  }
 
   firstUpdated() {
-    this.input.validityTransform = (newValue, nativeValidity) => {
-      if (!nativeValidity.valid) {
-        return {};
-      } else {
-        const len = newValue?.length ?? 0;
-        const isValid = (len > 6 && len < 12) || (len === 0 && !this.required);
-        return {
-          valid: isValid,
-          customError: !isValid,
-        };
-      }
-    };
+    super.firstUpdated();
+    this.value = this.duration ? this._getReadableTime(this.duration) : '';
   }
 
-  #getReadableTime(time: number): string {
-    console.log(time);
-    try {
-      const units = Object.entries(
-        Duration.fromMillis(time / TICKS_PER_MILLISECOND)
-          .shiftTo('years', 'months', 'weeks', 'days', 'hours', 'minutes', 'seconds')
-          .toObject()
-      );
-      return units
-        .filter(value => value[1] !== 0)
-        .map(value => `${value[1]} ${value[1] === 1 ? value[0].slice(0, -1) : value[0]}`)
-        .join(' and ');
-    } catch {
+  private _getReadableTime(d: duration.Duration | null | undefined): string {
+    if (d === null || d === undefined) {
       return '';
     }
-  }
 
-  /**
-   *  Runs layout() method on textfield.
-   */
-  layout() {
-    this.input.layout();
-  }
-
-  /**
-   *  Runs checkValidity() method, and if it returns false, then it reports to the user that the input is invalid.
-   */
-  reportValidity() {
-    return this.input.reportValidity();
-  }
-
-  /**
-   *  Returns true if the input passes validity checks.
-   */
-  checkValidity() {
-    return this.input.checkValidity();
-  }
-
-  /**
-   *  Resets the inputs state.
-   */
-  reset() {
-    this.input.isUiValid = true;
-    this.input.mdcFoundation?.setValid?.(true);
-  }
-
-  render() {
-    return html`
-      <mwc-textfield
-        .label=${this.label}
-        .required=${this.required}
-        .validationMessage=${this.validationMessage}
-        .icon=${this.icon}
-        outlined
-        helper=${this.helper}
-        .value=${this.value ? this.#getReadableTime(Number(this.value)) : ''}
-        @change=${event => {
-          const millis = humanInterval(event.target.value);
-          if (millis && !isNaN(millis)) {
-            this.value = String(millis * TICKS_PER_MILLISECOND);
-            this.dispatchEvent(new CustomEvent('changed', { bubbles: true, composed: true }));
-          }
-        }}
-        .validityTransform=${(newValue, nativeValidity) => {
-          const millis = humanInterval(newValue);
-          return {
-            valid: !isNaN(millis) && nativeValidity?.valid,
-          };
-        }}
-      ></mwc-textfield>
-    `;
+    return Object.entries({
+      years: d.get('years'),
+      weeks: d.get('weeks'),
+      days: d.get('days'),
+      hours: d.get('hours'),
+      minutes: d.get('minutes'),
+      seconds: d.get('seconds'),
+    })
+      .filter(value => value[1] !== 0)
+      .map(value => `${value[1]} ${value[1] === 1 ? value[0].slice(0, -1) : value[0]}`)
+      .join(' and ');
   }
 }

@@ -1,19 +1,20 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
-import { customElement, query, state } from 'lit/decorators.js';
+import { customElement, state } from 'lit/decorators.js';
 import { h1, p, button } from '@leavittsoftware/titanium-styles';
 import '@leavittsoftware/profile-picture';
 import '@material/mwc-button';
-import { TitaniumDurationInputElement } from '@leavittsoftware/titanium-duration-input';
 
 /* playground-fold-end */
 import '@leavittsoftware/titanium-duration-input';
+import dayjs from 'dayjs/esm';
+import duration from 'dayjs/esm/plugin/duration';
+dayjs.extend(duration);
 
 /* playground-fold */
 @customElement('titanium-duration-input-playground')
 export class TitaniumDurationInputPlayground extends LitElement {
-  @query('titanium-duration-input[required]') requiredInput: TitaniumDurationInputElement;
-  @state() duration: number = 1500000000;
+  @state() duration: duration.Duration = dayjs.duration(144000);
 
   static styles = [
     h1,
@@ -31,17 +32,11 @@ export class TitaniumDurationInputPlayground extends LitElement {
         border: 1px solid var(--app-border-color);
         padding: 24px;
         border-radius: 8px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
         margin: 24px 0 36px 0;
       }
 
-      section[buttons] {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 12px;
+      p {
+        margin-top: 24px;
       }
     `,
   ];
@@ -53,13 +48,15 @@ export class TitaniumDurationInputPlayground extends LitElement {
       <div>
         <titanium-duration-input
           label="Duration"
-          .value=${this.duration}
-          @changed=${event => {
-            this.duration = event.target.value;
+          helperPersistent
+          .duration=${this.duration}
+          outlined
+          @duration-changed=${event => {
+            console.log(event.target.duration);
+            this.duration = event.target.duration;
           }}
         ></titanium-duration-input>
-        <p>${this.duration}</p>
-        <titanium-duration-input label="Duration"></titanium-duration-input>
+        <p>Duration is: ${this.duration ? html`${this.duration.asSeconds()} seconds` : String(this.duration)}</p>
       </div>
     `;
   }
