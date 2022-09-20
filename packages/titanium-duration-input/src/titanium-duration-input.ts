@@ -4,6 +4,7 @@ import { TextField } from '@material/mwc-textfield';
 import humanInterval from './human-interval';
 import dayjs from 'dayjs/esm';
 import duration from 'dayjs/esm/plugin/duration';
+import { PropertyValues } from 'lit';
 dayjs.extend(duration);
 
 /**
@@ -13,7 +14,7 @@ dayjs.extend(duration);
  *
  * @element titanium-duration-input
  *
- * @fires duration-changed The duration can be accessed via event.target.duration
+ * @fires duration-change The duration can be accessed via event.target.duration
  *
  */
 
@@ -36,13 +37,17 @@ export class TitaniumDurationInputElement extends TextField {
     this.addEventListener('change', () => {
       const millis = humanInterval(this.value);
       this.duration = isNaN(millis) ? null : dayjs.duration(millis, 'ms');
-      this.dispatchEvent(new CustomEvent('duration-changed', { bubbles: true, composed: true }));
+      this.dispatchEvent(new CustomEvent('duration-change', { bubbles: true, composed: true }));
     });
   }
 
-  firstUpdated() {
-    super.firstUpdated();
-    this.value = this.duration ? this._getReadableTime(this.duration) : '';
+  updated(changedProperties: PropertyValues<this>) {
+    if (changedProperties.has('duration') && changedProperties.get('duration') !== this.duration) {
+      if (this.duration) {
+        this.value = this._getReadableTime(this.duration);
+        this.layout();
+      }
+    }
   }
 
   private _getReadableTime(d: duration.Duration | null | undefined): string {

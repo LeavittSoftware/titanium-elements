@@ -14,7 +14,14 @@ dayjs.extend(duration);
 /* playground-fold */
 @customElement('titanium-duration-input-playground')
 export class TitaniumDurationInputPlayground extends LitElement {
-  @state() duration: duration.Duration = dayjs.duration(144000);
+  @state() duration: duration.Duration = dayjs.duration(14400);
+
+  async firstUpdated() {
+    await this.updateComplete;
+    setTimeout(() => {
+      this.duration = dayjs.duration(244000);
+    }, 2000);
+  }
 
   static styles = [
     h1,
@@ -51,7 +58,7 @@ export class TitaniumDurationInputPlayground extends LitElement {
           helperPersistent
           .duration=${this.duration}
           outlined
-          @duration-changed=${event => {
+          @duration-change=${event => {
             this.duration = event.target.duration;
           }}
         ></titanium-duration-input>
