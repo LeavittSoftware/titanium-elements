@@ -52,7 +52,6 @@ export class TitaniumDurationInputPlayground extends LitElement {
           .duration=${this.duration}
           outlined
           @duration-changed=${event => {
-            console.log(event.target.duration);
             this.duration = event.target.duration;
           }}
         ></titanium-duration-input>
