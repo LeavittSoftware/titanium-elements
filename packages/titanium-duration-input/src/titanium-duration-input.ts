@@ -44,13 +44,16 @@ export class TitaniumDurationInputElement extends TextField {
   updated(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('duration') && changedProperties.get('duration') !== this.duration) {
       if (this.duration) {
-        this.value = this._getReadableTime(this.duration);
+        this.value = this.#getReadableTime(this.duration);
         this.layout();
       }
     }
   }
 
-  private _getReadableTime(d: duration.Duration | null | undefined): string {
+  /**
+   * @ignore
+   */
+  #getReadableTime(d: duration.Duration | null | undefined): string {
     if (d === null || d === undefined) {
       return '';
     }

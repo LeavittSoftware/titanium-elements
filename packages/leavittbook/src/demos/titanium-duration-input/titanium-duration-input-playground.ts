@@ -64,6 +64,12 @@ export class TitaniumDurationInputPlayground extends LitElement {
         ></titanium-duration-input>
         <p>Duration is: ${this.duration ? html`${this.duration.asSeconds()} seconds` : String(this.duration)}</p>
       </div>
+
+      <h1>Required</h1>
+      <div>
+        <titanium-duration-input required validationMessage="This duration is required" label="Duration" helperPersistent outlined></titanium-duration-input>
+        <p>Duration is: ${this.duration ? html`${this.duration.asSeconds()} seconds` : String(this.duration)}</p>
+      </div>
     `;
   }
 }
