@@ -59,12 +59,12 @@ export class TitaniumDurationInputElement extends TextField {
     }
 
     return Object.entries({
-      years: d.get('years'),
-      weeks: d.get('weeks'),
-      days: d.get('days'),
-      hours: d.get('hours'),
-      minutes: d.get('minutes'),
-      seconds: d.get('seconds'),
+      years: d.years(),
+      months: d.months(),
+      days: d.days(),
+      hours: d.hours(),
+      minutes: d.minutes(),
+      seconds: d.seconds(),
     })
       .filter(value => value[1] !== 0)
       .map(value => `${value[1]} ${value[1] === 1 ? value[0].slice(0, -1) : value[0]}`)
