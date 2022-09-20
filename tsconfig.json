@@ -40,7 +40,8 @@
     { "path": "packages/titanium-twoline-formfield" },
     { "path": "packages/titanium-shadow-text" },
     { "path": "packages/titanium-color-input" },
-    { "path": "packages/titanium-show-hide" }
+    { "path": "packages/titanium-show-hide" },
+    { "path": "packages/titanium-duration-input" }
   ],
   "files": []
 }
