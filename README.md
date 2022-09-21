@@ -54,6 +54,10 @@ Types enable JavaScript developers to use highly-productive development tools an
   - Add your component tags in the main content
 - [ ] Write your stories in the playground.ts file
 
+### Important
+
+- [ ] Publish to NPM after the PR has been approved but before it gets merged
+
 ### Publishing to NPM
 
 - [ ] Create NPM account and get invited to the leavittsoftware org

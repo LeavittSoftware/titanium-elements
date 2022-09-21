@@ -23,7 +23,7 @@ export class TitaniumDurationInputElement extends TextField {
   /**
    *  Dayjs duration object. This is the main property you will interact with because the value
    *  property of this component is actually the human readable string and not the duration you most likely
-   *  want to work with.
+   *  want to work with. When changed a duration-change event will be dispatched.
    */
   @property({ type: String }) duration: duration.Duration | null | undefined;
 
