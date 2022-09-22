@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-header@3.3.0...@leavittsoftware/titanium-header@4.0.0) (2022-09-22)
+
+
+### Features
+
+* **titanium-header:** add mobile styles; remove bottom padding ([4d29829](https://github.com/LeavittSoftware/titanium-elements/commit/4d29829058cf6b9084a3f7b50bda7578bde1a6a1))
+
+
+### BREAKING CHANGES
+
+* **titanium-header:** removes bottom padding
+
+
+
+
+
 # 3.3.0 (2022-09-22)
 
 
