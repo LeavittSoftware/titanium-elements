@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.2.6...@leavittsoftware/leavittbook@2.3.0) (2022-09-22)
+
+
+### Features
+
+* **titanium-header:** next version of style changes ([0d1cc7c](https://github.com/LeavittSoftware/titanium-elements/commit/0d1cc7c9ec76b0ef9f85e3a6146a897fe99629e6))
+
+
+
+
+
 ## [2.2.6](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.2.5...@leavittsoftware/leavittbook@2.2.6) (2022-09-21)
 
 **Note:** Version bump only for package @leavittsoftware/leavittbook
