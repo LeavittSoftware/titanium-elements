@@ -41,7 +41,6 @@ export class TitaniumHeader extends LitElement {
     css`
       :host {
         display: block;
-        padding-bottom: 24px;
         -webkit-font-smoothing: antialiased;
         text-align: center;
       }
@@ -73,12 +72,25 @@ export class TitaniumHeader extends LitElement {
         font-family: Metropolis, Roboto, Noto, sans-serif;
         font-weight: 300;
         font-size: 16px;
+        line-height: 20px;
       }
 
       mwc-icon-button {
         position: absolute;
         top: -11px;
         left: 0;
+      }
+
+      @media (max-width: 830px) {
+        h1 {
+          font-size: 30px;
+          line-height: 32px;
+        }
+
+        h3 {
+          font-size: 14px;
+          line-height: 16px;
+        }
       }
     `,
   ];
