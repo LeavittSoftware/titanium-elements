@@ -59,8 +59,9 @@ export class TitaniumHeader extends LitElement {
       }
 
       h1 {
-        line-height: 32px;
-        font-size: 28px;
+        font-size: 40px;
+        line-height: 42px;
+        font-weight: 200;
 
         padding: 0 52px 8px 52px;
         position: relative;
@@ -69,6 +70,9 @@ export class TitaniumHeader extends LitElement {
 
       h3 {
         color: var(--app-text-color, #5f6368);
+        font-family: Metropolis, Roboto, Noto, sans-serif;
+        font-weight: 300;
+        font-size: 16px;
       }
 
       mwc-icon-button {
