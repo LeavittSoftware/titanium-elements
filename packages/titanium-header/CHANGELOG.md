@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-header@4.0.0...@leavittsoftware/titanium-header@4.1.0) (2022-09-22)
+
+
+### Features
+
+* **titanium-header:** increase mobile media query to 920px ([57039ad](https://github.com/LeavittSoftware/titanium-elements/commit/57039ad84ac037c8d5aabdda24617ecc402bc02e))
+
+
+
+
+
 # [4.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-header@3.3.0...@leavittsoftware/titanium-header@4.0.0) (2022-09-22)
 
 
