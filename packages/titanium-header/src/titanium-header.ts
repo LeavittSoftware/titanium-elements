@@ -81,7 +81,7 @@ export class TitaniumHeader extends LitElement {
         left: 0;
       }
 
-      @media (max-width: 830px) {
+      @media (max-width: 920px) {
         h1 {
           font-size: 30px;
           line-height: 32px;
