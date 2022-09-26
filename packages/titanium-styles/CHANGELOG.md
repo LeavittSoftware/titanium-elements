@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.4.0 (2022-09-26)
+
+
+### Features
+
+* **titanium-styles:** lower font weight for h1 ([0c6f9cc](https://github.com/LeavittSoftware/titanium-elements/commit/0c6f9cc85123071871d6753bd959a0ce26516692))
+
+
+
+
+
 ## 0.3.4 (2022-08-17)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-styles
