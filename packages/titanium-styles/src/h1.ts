@@ -7,7 +7,7 @@ export const h1 = css`
     font-family: var(--titanium-styles-h1-font-family, Metropolis, Roboto, Noto, sans-serif);
     -webkit-font-smoothing: antialiased;
     letter-spacing: -0.264px;
-    font-weight: 400;
+    font-weight: 300;
     font-size: 22px;
     line-height: 28px;
 
