@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.20](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-image-input@1.3.19...@leavittsoftware/titanium-image-input@1.3.20) (2022-09-27)
+
+
+### Bug Fixes
+
+* **titanium-image-input:** return an actual File; do not override aspect ratio ([5b02a14](https://github.com/LeavittSoftware/titanium-elements/commit/5b02a1409917fcc40704088f2bfef1577a267fbf))
+
+
+
+
+
 ## 1.3.19 (2022-09-26)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-image-input
