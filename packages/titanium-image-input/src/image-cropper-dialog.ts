@@ -15,7 +15,7 @@ export class ImageCropperDialogElement extends LitElement {
   @query('titanium-native-dialog-base') dialog: TitaniumNativeDialogBaseElement;
   @query('cropper-container > img') img: HTMLImageElement;
 
-  @property({ type: Object }) options: TitaniumImageInputOptions = { aspectRatio: 1 };
+  @property({ type: Object }) options: TitaniumImageInputOptions = {};
   @property({ type: Object }) file: File | null = null;
   @property({ type: String }) fileName: string = '';
   @property({ type: String }) previewDataUrl: string | null = null;
@@ -169,17 +169,14 @@ export class ImageCropperDialogElement extends LitElement {
 
     this.cropper = new Cropper(this.img, {
       viewMode: 2,
-      ...this.options,
       aspectRatio: this.options.shape === 'circle' ? 1 : this.options.aspectRatio,
+      ...this.options,
     });
   }
 
-  public blobToFile = (blob: Blob, fileName: string): File => {
-    const file = blob as Blob & { lastModified: Date; name: string };
-    file.lastModified = new Date();
-    file.name = fileName.slice(0, fileName.lastIndexOf('.')) + '.png';
-    return blob as File;
-  };
+  public blobToFile(blob: Blob, fileName: string): File {
+    return new File([blob], fileName.slice(0, fileName.lastIndexOf('.')) + '.png', { lastModified: new Date().getTime() });
+  }
 
   private async applyCircleMask(dataUrl: string) {
     const canvas = document.createElement('canvas');
@@ -256,8 +253,7 @@ export class ImageCropperDialogElement extends LitElement {
               this.previewDataUrl = this.options.shape === 'circle' ? await this.applyCircleMask(canvas.toDataURL()) : canvas.toDataURL();
               const response = await fetch(this.previewDataUrl);
               const blob = await response.blob();
-              this.blobToFile(blob, this.fileName);
-              this.file = blob as File;
+              this.file = this.blobToFile(blob, this.fileName);
               this.dialog.close('cropped');
             }}
           ></mwc-button>
