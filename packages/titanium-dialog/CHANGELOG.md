@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@4.3.1...@leavittsoftware/titanium-dialog@4.4.0) (2022-09-29)
+
+
+### Features
+
+* **titanium-dialog:** add dialog css vars ([f526deb](https://github.com/LeavittSoftware/titanium-elements/commit/f526deb4e6a25adcbeab4f6ae8cf34f0cb9b8e16))
+
+
+
+
+
 ## 4.3.1 (2022-09-26)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-dialog
