@@ -259,12 +259,12 @@ export class TitaniumNativeDialogBaseElement extends LitElement {
 
       :host([full-width]) dialog,
       :host([fullWidth]) dialog {
-        width: calc(100vw - 32px);
+        width: calc(100vw - var(--titanium-dialog-full-width-offset, 32px));
       }
 
       :host([full-height]) dialog,
       :host([fullHeight]) dialog {
-        height: calc(100vh - 32px);
+        height: calc(100vh - var(--titanium-dialog-full-height-offset, 32px));
       }
     `,
   ];
