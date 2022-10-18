@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.7](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.3.6...@leavittsoftware/leavittbook@2.3.7) (2022-10-18)
+
+### Bug Fixes
+
+- **titanium-dialog:** stop events from leaving the dialog ([de75277](https://github.com/LeavittSoftware/titanium-elements/commit/de75277e3151063b1ae919a2ea685ad9189959c0))
+
 ## [2.3.6](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.3.5...@leavittsoftware/leavittbook@2.3.6) (2022-10-18)
 
 **Note:** Version bump only for package @leavittsoftware/leavittbook
