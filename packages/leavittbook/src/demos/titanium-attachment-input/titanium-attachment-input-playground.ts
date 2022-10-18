@@ -16,6 +16,7 @@ export class TitaniumAttachmentInputPlayground extends LitElement {
   @state() private hasChanges: boolean = false;
   @query('titanium-attachment-input[get-files]') private getFilesInput!: TitaniumAttachmentInputElement;
   @query('titanium-attachment-input[preselect]') private preselectFilesInput!: TitaniumAttachmentInputElement;
+  @query('titanium-attachment-input[preselect-disabled]') private preselectDisabledFileInput!: TitaniumAttachmentInputElement;
   @query('titanium-attachment-input[reset]') private resetInput!: TitaniumAttachmentInputElement;
 
   static styles = [
@@ -43,6 +44,7 @@ export class TitaniumAttachmentInputPlayground extends LitElement {
 
   firstUpdated() {
     this.preselectFilesInput.setAttachment({ Id: 3, Name: 'preselected', Extension: 'png' });
+    this.preselectDisabledFileInput.setAttachment({ Id: 3, Name: 'preselected', Extension: 'png' });
   }
 
   render() {
@@ -71,6 +73,7 @@ export class TitaniumAttachmentInputPlayground extends LitElement {
       <p>populate input with pre selected attachments (using setAttachment in firstUpdated)</p>
       <div>
         <titanium-attachment-input multiple placeholder="Select Files" preselect></titanium-attachment-input>
+        <titanium-attachment-input multiple placeholder="Select Files" preselect-disabled disabled></titanium-attachment-input>
       </div>
 
       <h1>Has Changes</h1>
