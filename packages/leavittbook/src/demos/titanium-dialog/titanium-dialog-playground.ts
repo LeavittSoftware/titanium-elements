@@ -82,6 +82,10 @@ export class TitaniumDialogPlayground extends LitElement {
         padding-top: 2px;
         display: block;
       }
+
+      div[full-height-demo]:hover {
+        cursor: crosshair;
+      }
     `,
   ];
 
@@ -97,7 +101,7 @@ export class TitaniumDialogPlayground extends LitElement {
         </titanium-dialog>
       </div>
 
-      <div>
+      <div full-height-demo>
         <h1>Full width & height with buttons</h1>
         <p>titanium-dialog with the fullwidth and fullheight attribute set</p>
         <mwc-button @click=${() => this.fullWidthAndHeighDialog?.open()} label="The Roman System Of Government"></mwc-button>
