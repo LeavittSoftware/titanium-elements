@@ -185,6 +185,7 @@ export class TitaniumAttachmentInputElement extends LitElement {
       :host([disabled]) attachment-input {
         border-color: rgba(0, 0, 0, 0.06);
         color: rgba(0, 0, 0, 0.06);
+        --mdc-theme-text-disabled-on-light: rgba(0, 0, 0, 0.06);
       }
 
       :host(:not([disabled])) attachment-input:hover {
