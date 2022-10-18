@@ -166,6 +166,8 @@ export class TitaniumNativeDialogBaseElement extends LitElement {
         display: flex;
         flex-direction: column;
 
+        cursor: default;
+
         overflow: initial;
 
         position: fixed;
@@ -282,6 +284,23 @@ export class TitaniumNativeDialogBaseElement extends LitElement {
 
   render() {
     return html` <dialog
+      @click=${(e: MouseEvent) => e.stopPropagation()}
+      @dblclick=${(e: MouseEvent) => e.stopPropagation()}
+      @mousedown=${(e: MouseEvent) => e.stopPropagation()}
+      @mouseup=${(e: MouseEvent) => e.stopPropagation()}
+      @mouseout=${(e: MouseEvent) => e.stopPropagation()}
+      @mouseleave=${(e: MouseEvent) => e.stopPropagation()}
+      @mouseenter=${(e: MouseEvent) => e.stopPropagation()}
+      @mouseover=${(e: MouseEvent) => e.stopPropagation()}
+      @mousemove=${(e: MouseEvent) => e.stopPropagation()}
+      @mousewheel=${(e: MouseEvent) => e.stopPropagation()}
+      @touch=${(e: TouchEvent) => e.stopPropagation()}
+      @touchstart=${(e: TouchEvent) => e.stopPropagation()}
+      @touchend=${(e: TouchEvent) => e.stopPropagation()}
+      @touchcancel=${(e: TouchEvent) => e.stopPropagation()}
+      @keydown=${(e: KeyboardEvent) => e.stopPropagation()}
+      @keypress=${(e: KeyboardEvent) => e.stopPropagation()}
+      @keyup=${(e: KeyboardEvent) => e.stopPropagation()}
       inert
       @opening=${e => {
         if (e.target.nodeName === 'DIALOG') {
