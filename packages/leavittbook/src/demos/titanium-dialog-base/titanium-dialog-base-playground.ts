@@ -54,7 +54,7 @@ export class TitaniumDialogPlayground extends LitElement {
       <div>
         <h1>Default</h1>
         <p>titanium-native-dialog-base with no configuration set</p>
-        <mwc-button @click=${() => this.defaultDialog?.open()} label="Fake Donation"></mwc-button>
+        <mwc-button @click=${async () => alert('Close reason:' + (await this.defaultDialog?.open()))} label="Fake Donation"></mwc-button>
 
         <titanium-native-dialog-base default>
           <main style="background: aliceblue;padding: 24px;">
@@ -67,11 +67,11 @@ export class TitaniumDialogPlayground extends LitElement {
       <div>
         <h1>Focus Trap</h1>
         <p>titanium-native-dialog-base with the focus-trap attribute applied - this will prevent tabbing outside of the dialog</p>
-        <mwc-button @click=${() => this.focusTrapDialog?.open()} label="Tarzan of the Apes"></mwc-button>
+        <mwc-button @click=${async () => alert('Close reason:' + (await this.focusTrapDialog?.open()))} label="Tarzan of the Apes"></mwc-button>
 
         <titanium-native-dialog-base focus-trap>
           <custom-container>
-            <mwc-button @click=${() => this.focusTrapDialog?.close()} label="Only one way to close"></mwc-button>
+            <mwc-button @click=${() => this.focusTrapDialog?.close('button')} label="Only one way to close"></mwc-button>
           </custom-container>
         </titanium-native-dialog-base>
       </div>

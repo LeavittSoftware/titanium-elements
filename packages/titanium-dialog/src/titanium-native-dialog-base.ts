@@ -117,6 +117,10 @@ export class TitaniumNativeDialogBaseElement extends LitElement {
     }
   }
 
+  protected closeDialog = () => {
+    this.close('navigate-away');
+  };
+
   protected async dialogClose({ target: dialog }) {
     dialog.setAttribute('inert', '');
     dialog.dispatchEvent(new Event('closing'));
@@ -133,6 +137,7 @@ export class TitaniumNativeDialogBaseElement extends LitElement {
   open() {
     return new Promise<string>(resolve => {
       this._resolve = resolve;
+      window.addEventListener('popstate', this.closeDialog, false);
       this.dialog.showModal();
     });
   }
@@ -154,6 +159,7 @@ export class TitaniumNativeDialogBaseElement extends LitElement {
     if (!this.dialog.open) {
       return;
     }
+    window.removeEventListener('popstate', this.closeDialog);
     this.dialog.close(reason);
 
     this._resolve(reason);
