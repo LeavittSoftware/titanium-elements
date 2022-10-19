@@ -298,12 +298,17 @@ export class TitaniumNativeDialogBaseElement extends LitElement {
     }
   }
 
+  // mwc-ripple depends on listening for mouseup events on the window
+  // to support ripple inside the dialog, we will not intercept these two
+  // events...for now.
+  //
+  // @mouseup=${(e: MouseEvent) => e.stopPropagation()}
+  // @touchend=${(e: MouseEvent) => e.stopPropagation()}
   render() {
     return html` <dialog
       @click=${(e: MouseEvent) => e.stopPropagation()}
       @dblclick=${(e: MouseEvent) => e.stopPropagation()}
       @mousedown=${(e: MouseEvent) => e.stopPropagation()}
-      @mouseup=${(e: MouseEvent) => e.stopPropagation()}
       @mouseout=${(e: MouseEvent) => e.stopPropagation()}
       @mouseleave=${(e: MouseEvent) => e.stopPropagation()}
       @mouseenter=${(e: MouseEvent) => e.stopPropagation()}
@@ -312,7 +317,6 @@ export class TitaniumNativeDialogBaseElement extends LitElement {
       @mousewheel=${(e: MouseEvent) => e.stopPropagation()}
       @touch=${(e: TouchEvent) => e.stopPropagation()}
       @touchstart=${(e: TouchEvent) => e.stopPropagation()}
-      @touchend=${(e: TouchEvent) => e.stopPropagation()}
       @touchcancel=${(e: TouchEvent) => e.stopPropagation()}
       @keydown=${(e: KeyboardEvent) => e.stopPropagation()}
       @keypress=${(e: KeyboardEvent) => e.stopPropagation()}
