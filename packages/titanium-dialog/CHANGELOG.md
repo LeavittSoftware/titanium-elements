@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.4.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@4.4.2...@leavittsoftware/titanium-dialog@4.4.3) (2022-10-19)
+
+### Bug Fixes
+
+- **titanium-dialog:** add support for ripple inside the dialog ([fa88400](https://github.com/LeavittSoftware/titanium-elements/commit/fa88400607066bc4d695c46113462584a0db1f86))
+
 ## [4.4.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@4.4.1...@leavittsoftware/titanium-dialog@4.4.2) (2022-10-19)
 
 ### Bug Fixes
