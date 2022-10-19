@@ -58,6 +58,7 @@ export class TitaniumNativeDialogBaseElement extends LitElement {
 
     this.dialog.addEventListener('click', this.lightDismiss);
     this.dialog.addEventListener('close', this.dialogClose);
+    this.dialog.addEventListener('cancel', this.onCancel);
 
     this.dialogAttrObserver.observe(this.dialog, {
       attributes: true,
@@ -105,6 +106,7 @@ export class TitaniumNativeDialogBaseElement extends LitElement {
         if (removedNode.nodeName === 'DIALOG') {
           removedNode.removeEventListener('click', this.lightDismiss);
           removedNode.removeEventListener('close', this.dialogClose);
+          removedNode.removeEventListener('cancel', this.onCancel);
           removedNode.dispatchEvent(new Event('removed'));
         }
       });
@@ -116,6 +118,14 @@ export class TitaniumNativeDialogBaseElement extends LitElement {
       dialog.close('backdrop');
     }
   }
+
+  protected onCancel = (e: Event) => {
+    e.preventDefault();
+
+    if (!this.focusTrap) {
+      this.close('cancel');
+    }
+  };
 
   protected closeDialog = () => {
     this.close('navigate-away');
