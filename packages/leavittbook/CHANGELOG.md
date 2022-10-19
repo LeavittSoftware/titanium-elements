@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.8](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.3.7...@leavittsoftware/leavittbook@2.3.8) (2022-10-19)
+
+### Bug Fixes
+
+- **titanium-dialog:** close dialog when navigating away from page ([ce104db](https://github.com/LeavittSoftware/titanium-elements/commit/ce104dbd8234bcf31e3b101c45f0162203809637))
+
 ## [2.3.7](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.3.6...@leavittsoftware/leavittbook@2.3.7) (2022-10-18)
 
 ### Bug Fixes

@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.4.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@4.4.1...@leavittsoftware/titanium-dialog@4.4.2) (2022-10-19)
+
+### Bug Fixes
+
+- **titanium-dialog:** close dialog when navigating away from page ([ce104db](https://github.com/LeavittSoftware/titanium-elements/commit/ce104dbd8234bcf31e3b101c45f0162203809637))
+- **titanium-dialog:** prevent esc key from closing dialogs that are focus trapped ([29f4c57](https://github.com/LeavittSoftware/titanium-elements/commit/29f4c5759fd1c5fc04c8c30dac386a2f421b42b1))
+
 ## [4.4.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@4.4.0...@leavittsoftware/titanium-dialog@4.4.1) (2022-10-18)
 
 ### Bug Fixes
