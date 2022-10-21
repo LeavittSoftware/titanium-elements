@@ -68,6 +68,11 @@ export class TitaniumAddressInput extends LitElement {
    */
   @property({ type: Boolean }) helperPersistent: boolean;
 
+  /**
+   *  Sets whether or not the county textfield displays in the manual address dialog
+   */
+  @property({ type: Boolean }) showCounty: boolean = false;
+
   @property({ type: Boolean, attribute: 'disabled-closing-animation' }) disableClosingAnimation: boolean = false;
 
   @query('manual-address-dialog') private dialog: ManualAddressDialogElement;
@@ -163,7 +168,11 @@ export class TitaniumAddressInput extends LitElement {
         >I can't find my address</a
       >
 
-      <manual-address-dialog .label=${this.label} .disableClosingAnimation=${this.disableClosingAnimation}></manual-address-dialog>
+      <manual-address-dialog
+        .showCounty=${this.showCounty}
+        .label=${this.label}
+        .disableClosingAnimation=${this.disableClosingAnimation}
+      ></manual-address-dialog>
     `;
   }
 }
