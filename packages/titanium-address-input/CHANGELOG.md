@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-address-input@1.12.0...@leavittsoftware/titanium-address-input@1.12.1) (2022-10-24)
+
+### Bug Fixes
+
+- **titanium-address-input:** adds missing attr ([#422](https://github.com/LeavittSoftware/titanium-elements/issues/422)) ([3fd62fa](https://github.com/LeavittSoftware/titanium-elements/commit/3fd62fa7878df228337fbce40b1d172cbdb7e6b5))
+
 # [1.12.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-address-input@1.11.12...@leavittsoftware/titanium-address-input@1.12.0) (2022-10-24)
 
 ### Features
