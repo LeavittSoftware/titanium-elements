@@ -123,11 +123,18 @@ export class GoogleAddressInput extends LitElement {
 
     this.dispatchEvent(new CustomEvent('value-changed', { composed: true, detail: { value: this.inputValue } }));
 
+    const neighborhood = place.address_components.find(o => o.types.some(p => p === 'neighborhood'));
+
     const stateComponent = place.address_components.find(o => o.types.some(p => p === 'administrative_area_level_1'));
     const streetNumberComponent = place.address_components.find(o => o.types.some(p => p === 'street_number'));
     const streetAddressComponent = place.address_components.find(o => o.types.some(p => p === 'route'));
+
+    // GOOGLE flip-flops neighborhood and locality, neither can be used for a accurate city. formatted_address however seems to
+    // always show the accurate city.
     const cityComponent =
-      place.address_components.find(o => o.types.some(p => p === 'neighborhood')) ?? place.address_components.find(o => o.types.some(p => p === 'locality'));
+      neighborhood?.short_name && place.formatted_address.includes(neighborhood.short_name + ',')
+        ? neighborhood
+        : place.address_components.find(o => o.types.some(p => p === 'locality'));
     const zipCodeComponent = place.address_components.find(o => o.types.some(p => p === 'postal_code'));
     const countyComponent = place.address_components.find(o => o.types.some(p => p === 'administrative_area_level_2'));
     const countryComponent = place.address_components.find(o => o.types.some(p => p === 'country'));
