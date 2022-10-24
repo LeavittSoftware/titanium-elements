@@ -138,7 +138,7 @@ export class TitaniumAddressInputPlayground extends LitElement {
       <h1>County textfield</h1>
       <p>County textfield available in the manual address dialog</p>
       <div>
-        <titanium-address-input ?showCounty=${true} outlined required googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"></titanium-address-input>
+        <titanium-address-input show-county outlined required googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"></titanium-address-input>
       </div>
     `;
   }
