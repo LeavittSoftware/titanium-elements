@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-address-input@1.11.12...@leavittsoftware/titanium-address-input@1.12.0) (2022-10-24)
+
+### Features
+
+- **titanium-address-input:** adds county textfield ([#421](https://github.com/LeavittSoftware/titanium-elements/issues/421)) ([ea953a4](https://github.com/LeavittSoftware/titanium-elements/commit/ea953a4348a9236d1d1e5a6aa1bed5f5bcde4a62))
+
 ## [1.11.12](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-address-input@1.11.11...@leavittsoftware/titanium-address-input@1.11.12) (2022-10-19)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-address-input

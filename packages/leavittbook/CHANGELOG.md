@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.3.9...@leavittsoftware/leavittbook@2.4.0) (2022-10-24)
+
+### Features
+
+- **titanium-address-input:** adds county textfield ([#421](https://github.com/LeavittSoftware/titanium-elements/issues/421)) ([ea953a4](https://github.com/LeavittSoftware/titanium-elements/commit/ea953a4348a9236d1d1e5a6aa1bed5f5bcde4a62))
+
 ## [2.3.9](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.3.8...@leavittsoftware/leavittbook@2.3.9) (2022-10-19)
 
 **Note:** Version bump only for package @leavittsoftware/leavittbook
