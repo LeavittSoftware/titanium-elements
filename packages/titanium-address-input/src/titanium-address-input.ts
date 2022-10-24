@@ -71,7 +71,7 @@ export class TitaniumAddressInput extends LitElement {
   /**
    *  Sets whether or not the county textfield displays in the manual address dialog
    */
-  @property({ type: Boolean }) showCounty: boolean = false;
+  @property({ type: Boolean, attribute: 'show-county' }) showCounty: boolean = false;
 
   @property({ type: Boolean, attribute: 'disabled-closing-animation' }) disableClosingAnimation: boolean = false;
 
