@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-address-input@1.12.1...@leavittsoftware/titanium-address-input@1.12.2) (2022-10-24)
+
+### Bug Fixes
+
+- **titanium-address-input:** hack around getting the actual city ([8496ebd](https://github.com/LeavittSoftware/titanium-elements/commit/8496ebdc888ddcd6f7fbafbd6230806aeeadd562))
+
 ## [1.12.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-address-input@1.12.0...@leavittsoftware/titanium-address-input@1.12.1) (2022-10-24)
 
 ### Bug Fixes
