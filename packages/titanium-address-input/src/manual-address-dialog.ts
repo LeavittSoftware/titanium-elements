@@ -22,7 +22,7 @@ export class ManualAddressDialogElement extends LitElement {
   @property({ type: String }) county: string = '';
   @property({ type: String }) state: string = '';
   @property({ type: String }) zip: string = '';
-  @property({ type: Boolean }) showCounty: boolean;
+  @property({ type: Boolean, attribute: 'show-county' }) showCounty: boolean;
   @property({ type: Boolean, attribute: 'disabled-closing-animation' }) disableClosingAnimation: boolean = false;
 
   @query('mwc-textfield[street]') private streetInput: TextField;
