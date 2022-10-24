@@ -1,4 +1,4 @@
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, nothing } from 'lit';
 import { property, customElement, query, queryAll } from 'lit/decorators.js';
 
 import '@material/mwc-button';
@@ -19,8 +19,10 @@ export class ManualAddressDialogElement extends LitElement {
   @property({ type: String }) label: string = '';
   @property({ type: String }) street: string = '';
   @property({ type: String }) city: string = '';
+  @property({ type: String }) county: string = '';
   @property({ type: String }) state: string = '';
   @property({ type: String }) zip: string = '';
+  @property({ type: Boolean, attribute: 'show-county' }) showCounty: boolean;
   @property({ type: Boolean, attribute: 'disabled-closing-animation' }) disableClosingAnimation: boolean = false;
 
   @query('mwc-textfield[street]') private streetInput: TextField;
@@ -33,6 +35,7 @@ export class ManualAddressDialogElement extends LitElement {
       this.city = location?.city ?? '';
       this.state = location?.state ?? '';
       this.zip = location?.zip ?? '';
+      this.county = location?.county ?? '';
     }
 
     const reason = await this.dialog.open();
@@ -42,6 +45,7 @@ export class ManualAddressDialogElement extends LitElement {
         city: this.city,
         state: this.state,
         zip: this.zip,
+        county: this.county,
       };
       return address;
     }
@@ -73,6 +77,7 @@ export class ManualAddressDialogElement extends LitElement {
     this.city = '';
     this.state = '';
     this.zip = '';
+    this.county = '';
 
     await this.updateComplete;
     this.allInputs.forEach(input => {
@@ -136,6 +141,19 @@ export class ManualAddressDialogElement extends LitElement {
           }}
           label="City"
         ></mwc-textfield>
+        ${!this.showCounty
+          ? nothing
+          : html`<mwc-textfield
+              icon="explore"
+              outlined
+              required
+              .value=${this.county || ''}
+              @input=${event => {
+                this.county = event.target.value;
+              }}
+              label="County"
+            ></mwc-textfield>`}
+
         <mwc-select
           .value=${this.state || ''}
           @selected=${event => {

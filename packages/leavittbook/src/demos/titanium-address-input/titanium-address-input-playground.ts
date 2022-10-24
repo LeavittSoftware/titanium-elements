@@ -134,6 +134,12 @@ export class TitaniumAddressInputPlayground extends LitElement {
           <mwc-button lowercase outlined @click=${() => this.layoutInput.setLocation(structuredClone(this.address))}>setLocation(this.address)</mwc-button>
         </section>
       </div>
+
+      <h1>County textfield</h1>
+      <p>County textfield available in the manual address dialog</p>
+      <div>
+        <titanium-address-input show-county outlined required googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"></titanium-address-input>
+      </div>
     `;
   }
 }
