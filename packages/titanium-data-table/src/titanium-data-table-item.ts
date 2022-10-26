@@ -74,7 +74,6 @@ export class TitaniumDataTableItemElement extends LitElement {
 
   private mouseEvent = e => this.startItemDrag(e, 'mouse');
   private touchEvent = e => {
-    e.preventDefault();
     this.startItemDrag(e, 'touch');
   };
 
@@ -325,7 +324,7 @@ export class TitaniumDataTableItemElement extends LitElement {
     };
 
     if (type === 'mouse') {
-      document.addEventListener('mouseout', cancelDragHandler);
+      window.addEventListener('mouseout', cancelDragHandler);
     }
     document.addEventListener(upEvent, dragCompleteHandler);
     document.addEventListener(moveEvent, moveItemHandler);
@@ -399,8 +398,11 @@ export class TitaniumDataTableItemElement extends LitElement {
       min-height: 48px;
     }
 
-    :host([enable-dragging]) div[item-footer] ::slotted(*) {
-      pointer-events: none;
+    /* Do not apply :hover style on touch devices */
+    @media (hover: hover) and (pointer: fine) {
+      :host([enable-dragging]) div[item-footer] ::slotted(*) {
+        pointer-events: none;
+      }
     }
 
     ::slotted(row-item) {
