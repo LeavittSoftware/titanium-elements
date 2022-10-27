@@ -1,8 +1,6 @@
 ﻿import { css, html, LitElement } from 'lit';
-import { property, customElement, query } from 'lit/decorators.js';
+import { property, customElement } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import '@material/mwc-ripple';
-import { Ripple } from '@material/mwc-ripple';
 
 /**
  * A list item for use inside a titanium-card
@@ -28,8 +26,6 @@ export class TitaniumCardListItemElement extends LitElement {
    */
   @property({ type: Boolean, reflect: true, attribute: 'disabled' }) disabled: boolean = false;
 
-  @query('mwc-ripple') private ripple: Ripple;
-
   static styles = [
     css`
       :host {
@@ -39,6 +35,18 @@ export class TitaniumCardListItemElement extends LitElement {
         font-family: Roboto, sans-serif;
         -moz-osx-font-smoothing: grayscale;
         -webkit-font-smoothing: antialiased;
+
+        transition: background 0.4s;
+        background-position: center;
+      }
+
+      :host(:focus:not([disabled])),
+      :host(:hover:not([disabled])) {
+        background-color: var(--app-hover-color, #f9f9f9);
+      }
+
+      :host(:active:not([disabled])) {
+        background-color: var(--app-active-color, #eee);
       }
 
       a {
@@ -107,20 +115,10 @@ export class TitaniumCardListItemElement extends LitElement {
         href=${this.title}
         @click=${(e: Event) => {
           e.preventDefault();
-          this.ripple.startPress();
           this.dispatchEvent(new Event('item-click'));
         }}
-        @mouseenter=${() => this.ripple.startHover()}
-        @mouseleave=${() => this.ripple.endHover()}
-        @focus=${() => this.ripple.startFocus()}
-        @blur=${() => this.ripple.endFocus()}
-        @mousedown=${e => this.ripple.startPress(e)}
-        @mouseup=${() => this.ripple.endPress()}
-        @keydown=${e => (e.which === 32 ? this.ripple.startPress() : '')}
-        @keyup=${() => this.ripple.endPress()}
       >
         ${this.slottedContent()}
-        <mwc-ripple></mwc-ripple>
       </a>
     `;
   }

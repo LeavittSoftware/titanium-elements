@@ -9,7 +9,6 @@
     "src"
   ],
   "dependencies": {
-    "@material/mwc-ripple": "*",
     "tslib": "^2.4.0"
   },
   "peerDependencies": {

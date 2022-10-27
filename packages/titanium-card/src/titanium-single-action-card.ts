@@ -1,9 +1,7 @@
 ﻿import { css, html } from 'lit';
-import { property, customElement, query } from 'lit/decorators.js';
+import { property, customElement } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { TitaniumCardElement } from './titanium-card';
-import '@material/mwc-ripple';
-import { Ripple } from '@material/mwc-ripple';
 /**
  * A card with a built-in button on the bottom
  *
@@ -34,8 +32,6 @@ export class TitaniumSingleActionCardElement extends TitaniumCardElement {
    * Disables the button on the card.
    */
   @property({ type: Boolean, reflect: true, attribute: 'disable-action' }) disableAction: boolean = false;
-
-  @query('mwc-ripple') private ripple: Ripple;
 
   static styles = [
     ...TitaniumCardElement.styles,
@@ -68,12 +64,13 @@ export class TitaniumSingleActionCardElement extends TitaniumCardElement {
         --mdc-theme-primary: var(--app-primary-color, #3b95ff);
       }
 
-      a:hover {
-        background-color: none;
+      :host(:not([disable-action])) a:focus,
+      :host(:not([disable-action])) a:hover {
+        background-color: var(--app-hover-color, #f9f9f9);
       }
 
-      mwc-ripple {
-        overflow: hidden;
+      :host(:not([disable-action])) a:active {
+        background-color: var(--app-active-color, #eee);
       }
 
       :host([disable-action]) a {
@@ -96,14 +93,6 @@ export class TitaniumSingleActionCardElement extends TitaniumCardElement {
       <a
         title=${this.buttonTitle}
         href=${ifDefined(this.getHref(this.disableAction, this.buttonTitle))}
-        @mouseenter=${() => this.ripple.startHover()}
-        @mouseleave=${() => this.ripple.endHover()}
-        @focus=${() => this.ripple.startFocus()}
-        @blur=${() => this.ripple.endFocus()}
-        @mousedown=${e => this.ripple.startPress(e)}
-        @mouseup=${() => this.ripple.endPress()}
-        @keydown=${e => (e.which === 32 ? this.ripple.startPress() : '')}
-        @keyup=${() => this.ripple.endPress()}
         @click=${(e: Event) => {
           e.preventDefault();
           if (!this.disableAction) {
@@ -112,7 +101,6 @@ export class TitaniumSingleActionCardElement extends TitaniumCardElement {
         }}
       >
         ${this.buttonTitle}
-        <mwc-ripple></mwc-ripple>
       </a>
     `;
   }

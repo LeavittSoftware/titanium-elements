@@ -1,7 +1,5 @@
-import '@material/mwc-ripple';
 import { css, html, LitElement } from 'lit';
-import { property, customElement, query } from 'lit/decorators.js';
-import { Ripple } from '@material/mwc-ripple';
+import { property, customElement } from 'lit/decorators.js';
 
 /**
  * Material design inspired button.
@@ -43,8 +41,6 @@ export class TitaniumToggleButtonElement extends LitElement {
    * Increases border radius of button
    */
   @property({ type: Boolean, reflect: true }) shaped: boolean = false;
-
-  @query('mwc-ripple') private ripple: Ripple;
 
   static styles = css`
     :host {
@@ -127,33 +123,11 @@ export class TitaniumToggleButtonElement extends LitElement {
       color: rgba(0, 0, 0, 0.37);
       cursor: default;
     }
-
-    mwc-ripple {
-      border-radius: 4px;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      right: 0;
-      overflow: hidden;
-    }
-
-    :host([shaped]) mwc-ripple {
-      border-radius: 18px;
-    }
   `;
 
   render() {
     return html`
       <button
-        @mouseenter=${() => this.ripple.startHover()}
-        @mouseleave=${() => this.ripple.endHover()}
-        @focus=${() => this.ripple.startFocus()}
-        @blur=${() => this.ripple.endFocus()}
-        @mousedown=${e => this.ripple.startPress(e)}
-        @mouseup=${() => this.ripple.endPress()}
-        @keydown=${e => (e.which === 32 ? this.ripple.startPress() : '')}
-        @keyup=${() => this.ripple.endPress()}
         ?disabled=${this.disabled}
         @click=${() => {
           this.selected = !this.selected;
@@ -161,7 +135,6 @@ export class TitaniumToggleButtonElement extends LitElement {
         }}
       >
         <slot></slot>
-        <mwc-ripple ?disabled=${this.disabled} primary></mwc-ripple>
       </button>
     `;
   }

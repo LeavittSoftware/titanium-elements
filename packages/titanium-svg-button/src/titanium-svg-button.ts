@@ -1,7 +1,5 @@
-import '@material/mwc-ripple';
 import { css, html, LitElement } from 'lit';
-import { property, customElement, query } from 'lit/decorators.js';
-import { Ripple } from '@material/mwc-ripple';
+import { property, customElement } from 'lit/decorators.js';
 
 /**
  * Material design inspired SVG button.
@@ -25,8 +23,6 @@ export class TitaniumSvgButton extends LitElement {
    * Disables the button
    */
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
-
-  @query('mwc-ripple') private ripple: Ripple;
 
   static styles = css`
     :host {
@@ -84,16 +80,6 @@ export class TitaniumSvgButton extends LitElement {
       fill: var(--app-text-color, #5f6368);
     }
 
-    mwc-ripple {
-      border-radius: 50%;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      right: 0;
-      overflow: hidden;
-    }
-
     :host([disabled]) svg {
       fill: rgba(0, 0, 0, 0.37);
     }
@@ -101,21 +87,10 @@ export class TitaniumSvgButton extends LitElement {
 
   render() {
     return html`
-      <button
-        ?disabled=${this.disabled}
-        @mouseenter=${() => this.ripple.startHover()}
-        @mouseleave=${() => this.ripple.endHover()}
-        @focus=${() => this.ripple.startFocus()}
-        @blur=${() => this.ripple.endFocus()}
-        @mousedown=${e => this.ripple.startPress(e)}
-        @mouseup=${() => this.ripple.endPress()}
-        @keydown=${e => (e.which === 32 ? this.ripple.startPress() : '')}
-        @keyup=${() => this.ripple.endPress()}
-      >
+      <button ?disabled=${this.disabled}>
         <svg viewBox="0 0 24 24">
           <path d="${this.path}" />
         </svg>
-        <mwc-ripple ?disabled=${this.disabled} unbounded primary></mwc-ripple>
       </button>
     `;
   }

@@ -11,7 +11,6 @@
   "dependencies": {
     "@leavittsoftware/titanium-styles": "^0.4.0",
     "@material/mwc-button": "*",
-    "@material/mwc-ripple": "*",
     "tslib": "^2.4.0"
   },
   "peerDependencies": {
