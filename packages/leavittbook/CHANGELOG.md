@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.4.2...@leavittsoftware/leavittbook@2.4.3) (2022-10-27)
+
+### Bug Fixes
+
+- **titanium-data-table:** allow touch events on draggable items on mobile ([bbe9fc1](https://github.com/LeavittSoftware/titanium-elements/commit/bbe9fc13550b7b1f2a61c55531e557bfba95934d))
+
 ## [2.4.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.4.1...@leavittsoftware/leavittbook@2.4.2) (2022-10-24)
 
 **Note:** Version bump only for package @leavittsoftware/leavittbook
