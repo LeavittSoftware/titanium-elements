@@ -66,6 +66,13 @@ export class TitaniumChipMultiSelectPlayground extends LitElement {
             o => html`<titanium-chip disabled label=${o}></titanium-chip>`
           )}</titanium-chip-multi-select
         >
+
+        <titanium-chip-multi-select label="Required" required
+          ><mwc-button slot="button" label="Add Animal" icon="add" outlined></mwc-button
+        ></titanium-chip-multi-select>
+        <titanium-chip-multi-select label="isUiInvalid" isUiInvalid
+          ><mwc-button slot="button" label="Add Animal" icon="add" outlined></mwc-button
+        ></titanium-chip-multi-select>
       </div>
 
       <h1>Demo</h1>

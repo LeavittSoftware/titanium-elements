@@ -1,4 +1,4 @@
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 /**
@@ -12,6 +12,8 @@ import { customElement, property } from 'lit/decorators.js';
  *
  * @cssprop {Color} [--mdc-text-field-outlined-idle-border-color=rgba(0, 0, 0, 0.38)] - Container border color
  * @cssprop {Color} [--app-light-text-color=#80868b] - No items text color
+ * @cssprop {Color} [--app-primary-color=#1a73e8] - Focused outline color
+ * @cssprop {Color} [--mdc-theme-error=#b00020] - Text and outline color in invalid state
  * @cssprop {Color} [--mdc-text-field-disabled-ink-color=rgba(0, 0, 0, 0.38)] - Disabled helper text color
  * @cssprop {Color} [--mdc-text-field-label-ink-color=rgba(0, 0, 0, 0.6)] - Helper text color
  * @cssprop [--mdc-typography-caption-font-family=var(--mdc-typography-font-family, Roboto, sans-serif)] - Helper font-family
@@ -35,6 +37,11 @@ export class TitaniumChipMultiSelectElement extends LitElement {
   @property({ type: String }) noItemsText: string = 'No items';
 
   /**
+   *  Adds the * to the label
+   */
+  @property({ type: Boolean }) required: boolean = false;
+
+  /**
    *  Indicates whether or not to show the no items text
    */
   @property({ type: Boolean }) hasItems: boolean;
@@ -48,6 +55,11 @@ export class TitaniumChipMultiSelectElement extends LitElement {
    *  Whether or not the input should appear disabled (chips, buttons and anything else slotted will still have to be disabled individually).
    */
   @property({ type: Boolean }) disabled: boolean;
+
+  /**
+   *  Whether or not the input should appear invalidated
+   */
+  @property({ type: Boolean, reflect: true }) isUiValid: boolean = true;
 
   static styles = [
     css`
@@ -108,6 +120,25 @@ export class TitaniumChipMultiSelectElement extends LitElement {
         color: var(--mdc-text-field-disabled-ink-color, rgba(0, 0, 0, 0.38));
       }
 
+      :host(:not([disabled]):not([isUiValid])) label,
+      :host(:not([disabled]):not([isUiValid])) div[empty-text],
+      :host(:not([disabled]):not([isUiValid])) div[helper] {
+        color: var(--mdc-theme-error, #b00020);
+      }
+
+      :host(:not([disabled]):not([isUiValid])) main {
+        border: 1px solid var(--mdc-theme-error, #b00020);
+      }
+
+      :host(:not([disabled]):focus-within) main {
+        border-width: 2px;
+        margin: -1px;
+      }
+
+      :host(:not([disabled])[isUiValid]:focus-within) main {
+        border-color: var(--app-primary-color, #1a73e8);
+      }
+
       div[helper] {
         color: var(--mdc-text-field-label-ink-color, rgba(0, 0, 0, 0.6));
         -webkit-font-smoothing: antialiased;
@@ -135,7 +166,7 @@ export class TitaniumChipMultiSelectElement extends LitElement {
         <slot name="button"></slot>
         <slot></slot>
         ${!this.hasItems ? html` <div empty-text>${this.noItemsText}</div>` : ''}
-        <label>${this.label}</label>
+        <label>${this.label}${this.required ? '*' : nothing}</label>
       </main>
       <div helper>${this.helper}</div>
     `;

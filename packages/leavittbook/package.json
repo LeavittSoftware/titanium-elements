@@ -36,6 +36,7 @@
     "@leavittsoftware/titanium-show-hide": "^1.1.2",
     "@leavittsoftware/titanium-side-menu": "^0.5.6",
     "@leavittsoftware/titanium-single-select": "^2.2.5",
+    "@leavittsoftware/titanium-smart-attachment-input": "^1.0.0",
     "@leavittsoftware/titanium-snackbar": "^3.5.6",
     "@leavittsoftware/titanium-styles": "^0.4.0",
     "@leavittsoftware/titanium-svg-button": "^4.6.0",

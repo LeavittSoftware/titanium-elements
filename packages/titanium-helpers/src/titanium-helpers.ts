@@ -7,3 +7,5 @@ export { getSearchTokens } from './titanium-search-token';
 export { Debouncer } from './titanium-debouncer';
 export { LoadWhile } from './titanium-load-while';
 export { join } from './titanium-join';
+export { delay } from './delay';
+export { middleEllipsis } from './middle-ellipsis';

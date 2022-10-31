@@ -23,7 +23,7 @@
     "@leavittsoftware/titanium-styles": "^0.4.0",
     "@material/mwc-button": "*",
     "@material/mwc-icon-button": "*",
-    "cropperjs": "^1.5.7",
+    "cropperjs": "*",
     "tslib": "^2.4.0"
   },
   "peerDependencies": {
