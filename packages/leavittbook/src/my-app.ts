@@ -149,6 +149,9 @@ export class MyAppElement extends LitElement {
     page('/titanium-single-select', () =>
       this.#changePage('titanium-single-select', () => import('./demos/titanium-single-select/titanium-single-select-demo.js'))
     );
+    page('/titanium-smart-attachment-input', () =>
+      this.#changePage('titanium-smart-attachment-input', () => import('./demos/titanium-smart-attachment-input/titanium-smart-attachment-input-demo.js'))
+    );
     page('/titanium-search-input', () =>
       this.#changePage('titanium-search-input', () => import('./demos/titanium-search-input/titanium-search-input-demo.js'))
     );
@@ -512,6 +515,10 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-side-menu-item</span>
               </a>
+              <a href="/titanium-smart-attachment-input" ?selected=${!!this.page?.includes('titanium-smart-attachment-input')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-smart-attachment-input</span>
+              </a>
               <a href="/titanium-single-action-card" ?selected=${!!this.page?.includes('titanium-single-action-card')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-single-action-card</span>
@@ -764,6 +771,9 @@ export class MyAppElement extends LitElement {
             : nothing}
           ${this.page === 'titanium-shadow-text'
             ? html` <titanium-shadow-text-demo ?isActive=${this.page === 'titanium-shadow-text'}></titanium-shadow-text-demo> `
+            : nothing}
+          ${this.page === 'titanium-smart-attachment-input'
+            ? html` <titanium-smart-attachment-input-demo ?isActive=${this.page === 'titanium-smart-attachment-input'}></titanium-smart-attachment-input-demo> `
             : nothing}
           ${this.page === 'titanium-card' ? html` <titanium-card-demo ?isActive=${this.page === 'titanium-card'}></titanium-card-demo> ` : nothing}
           ${this.page === 'titanium-youtube-input'

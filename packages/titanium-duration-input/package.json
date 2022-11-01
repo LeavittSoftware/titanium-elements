@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@material/mwc-textfield": "*",
-    "dayjs": "1.11.5",
+    "dayjs": "*",
     "tslib": "^2.4.0"
   },
   "peerDependencies": {

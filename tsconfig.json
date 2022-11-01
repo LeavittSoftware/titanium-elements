@@ -26,6 +26,7 @@
     { "path": "packages/titanium-select" },
     { "path": "packages/titanium-side-menu" },
     { "path": "packages/titanium-single-select" },
+    { "path": "packages/titanium-smart-attachment-input" },
     { "path": "packages/titanium-snackbar" },
     { "path": "packages/titanium-svg-button" },
     { "path": "packages/titanium-sw-notifier" },
