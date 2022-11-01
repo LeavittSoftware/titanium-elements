@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.4.3...@leavittsoftware/leavittbook@2.5.0) (2022-11-01)
+
+### Features
+
+- adds titanium-smart-attachment-input ([7069df2](https://github.com/LeavittSoftware/titanium-elements/commit/7069df2eabf89e6285b5b6cd1c4d4b6eef8cbb3b))
+
 ## [2.4.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.4.2...@leavittsoftware/leavittbook@2.4.3) (2022-10-27)
 
 ### Bug Fixes
