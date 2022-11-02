@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-smart-attachment-input@1.2.1...@leavittsoftware/titanium-smart-attachment-input@1.3.0) (2022-11-02)
+
+### Features
+
+- add optional id to smart attachment ([f38cfe9](https://github.com/LeavittSoftware/titanium-elements/commit/f38cfe909844a377f6021c1b23218bde1c63d2e3))
+
 ## [1.2.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-smart-attachment-input@1.2.0...@leavittsoftware/titanium-smart-attachment-input@1.2.1) (2022-11-02)
 
 ### Bug Fixes
