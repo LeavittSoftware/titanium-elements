@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/titanium-smart-attachment-input",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "",
   "main": "lib/titanium-smart-attachment-input.js",
   "typings": "lib/titanium-smart-attachment-input.d.ts",
@@ -10,6 +10,7 @@
     "images"
   ],
   "dependencies": {
+    "@leavittsoftware/lg-core-typescript": "*",
     "@leavittsoftware/titanium-chip": "^4.0.6",
     "@leavittsoftware/titanium-chip-multi-select": "^1.2.0",
     "@leavittsoftware/titanium-dialog": "^4.4.3",
@@ -17,7 +18,6 @@
     "@leavittsoftware/titanium-styles": "^0.4.0",
     "@material/mwc-button": "*",
     "@material/mwc-icon-button": "*",
-    "@leavittsoftware/lg-core-typescript": "*",
     "bowser": "*",
     "browser-image-resizer": "*",
     "cropperjs": "*",
