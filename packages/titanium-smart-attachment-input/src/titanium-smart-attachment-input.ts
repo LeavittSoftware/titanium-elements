@@ -158,6 +158,7 @@ export class TitaniumSmartAttachmentInputElement extends LitElement {
    *  Resets the inputs state.
    */
   reset() {
+    this.#originalFiles = [];
     this.previewSrc = undefined;
     this.files = [];
     this.isOver = false;
