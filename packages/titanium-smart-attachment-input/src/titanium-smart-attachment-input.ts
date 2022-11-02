@@ -125,8 +125,8 @@ export class TitaniumSmartAttachmentInputElement extends LitElement {
   /**
    *  Use to preset input to existing image.
    */
-  setFiles(...files: { fileName: string; previewSrc?: string; downloadSrc?: string }[]) {
-    this.files = [...files].map(o => ({ file: new File([''], o.fileName), previewSrc: o.previewSrc, downloadSrc: o.downloadSrc }));
+  setFiles(...files: { fileName: string; previewSrc?: string; downloadSrc?: string; id?: number }[]) {
+    this.files = [...files].map(o => ({ file: new File([''], o.fileName), previewSrc: o.previewSrc, downloadSrc: o.downloadSrc, id: o.id }));
     this.#originalFiles = structuredClone(this.files);
   }
 
@@ -136,7 +136,7 @@ export class TitaniumSmartAttachmentInputElement extends LitElement {
   setFilesFromDatabaseAttachments(...attachments: Partial<IDatabaseAttachment>[]) {
     this.files = [...attachments]
       .filter(o => o.Name && o.Extension)
-      .map(o => ({ file: new File([''], `${o?.Name}.${o?.Extension}`), previewSrc: getCdnInlineUrl(o, 512), downloadSrc: getCdnDownloadUrl(o) }));
+      .map(o => ({ id: o.Id, file: new File([''], `${o?.Name}.${o?.Extension}`), previewSrc: getCdnInlineUrl(o, 512), downloadSrc: getCdnDownloadUrl(o) }));
     this.#originalFiles = structuredClone(this.files);
   }
 
