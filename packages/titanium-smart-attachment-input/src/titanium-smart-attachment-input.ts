@@ -133,7 +133,7 @@ export class TitaniumSmartAttachmentInputElement extends LitElement {
   /**
    *  Use to preset input to existing image.
    */
-  setFilesFromDatabaseAttachments(...attachments: IDatabaseAttachment[]) {
+  setFilesFromDatabaseAttachments(...attachments: Partial<IDatabaseAttachment>[]) {
     this.files = [...attachments]
       .filter(o => o.Name && o.Extension)
       .map(o => ({ file: new File([''], `${o?.Name}.${o?.Extension}`), previewSrc: getCdnInlineUrl(o, 512), downloadSrc: getCdnDownloadUrl(o) }));
