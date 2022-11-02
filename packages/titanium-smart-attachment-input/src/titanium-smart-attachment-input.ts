@@ -12,6 +12,8 @@ import { SmartAttachment } from './smart-attachment';
 import { getExtension, getFileIcon, imageFormats } from './image-formats';
 import { ImagePreviewDialog } from './image-preview-dialog';
 import { delay, middleEllipsis } from '@leavittsoftware/titanium-helpers';
+import { IDatabaseAttachment } from '@leavittsoftware/lg-core-typescript/lg.net.system';
+import { getCdnDownloadUrl, getCdnInlineUrl } from '@leavittsoftware/titanium-helpers/lib/leavitt-cdn';
 
 export type TitaniumSmartInputOptions = Cropper.Options & { shape?: ' square' | 'circle' };
 
@@ -125,6 +127,16 @@ export class TitaniumSmartAttachmentInputElement extends LitElement {
    */
   setFiles(...files: { fileName: string; previewSrc?: string; downloadSrc?: string }[]) {
     this.files = [...files].map(o => ({ file: new File([''], o.fileName), previewSrc: o.previewSrc, downloadSrc: o.downloadSrc }));
+    this.#originalFiles = structuredClone(this.files);
+  }
+
+  /**
+   *  Use to preset input to existing image.
+   */
+  setFilesFromDatabaseAttachments(...attachments: IDatabaseAttachment[]) {
+    this.files = [...attachments]
+      .filter(o => o.Name && o.Extension)
+      .map(o => ({ file: new File([''], `${o?.Name}.${o?.Extension}`), previewSrc: getCdnInlineUrl(o, 512), downloadSrc: getCdnDownloadUrl(o) }));
     this.#originalFiles = structuredClone(this.files);
   }
 
