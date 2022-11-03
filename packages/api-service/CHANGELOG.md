@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 10.0.0 (2022-11-03)
+
+### Bug Fixes
+
+- **api-service:** repeat array keys without indexes ([7ae98c4](https://github.com/LeavittSoftware/titanium-elements/commit/7ae98c419bea715f4dc48cac60b7e28737d8bccc))
+
+### BREAKING CHANGES
+
+- **api-service:** This could break FormData posts that where expecting Arrays to be keyed.
+
 ## 9.5.6 (2022-11-01)
 
 **Note:** Version bump only for package @leavittsoftware/api-service
