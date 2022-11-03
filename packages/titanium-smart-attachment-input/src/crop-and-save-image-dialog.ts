@@ -264,11 +264,11 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
   render() {
     return html`
       <titanium-native-dialog-base focus-trap>
-        <h1 select>Crop and save receipt</h1>
+        <h1 select>Crop and save image</h1>
         <main>
           <loading-animation ?hidden=${!this.isLoading}>
             <img src=${LoaderGif} />
-            <p>Uploading receipt...</p>
+            <p>Uploading image...</p>
           </loading-animation>
           <section crop ?hidden=${this.isLoading}>
             <cropper-container ?circle=${this.options.shape === 'circle'}>
