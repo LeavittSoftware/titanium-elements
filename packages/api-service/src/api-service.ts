@@ -342,7 +342,8 @@ export default class ApiService {
 
       const formKey = namespace ? `${namespace}[${prop}]` : prop;
       if (typeof obj[prop] === 'object' && !(obj[prop] instanceof File)) {
-        Array.from(this.objectToFormData(obj[prop], formKey)).map(([key, value]) => formData.append(key, value));
+        //Repeat array keys without indexes, do not use index based keys... ex. Files[0]
+        Array.from(this.objectToFormData(obj[prop], formKey)).map(([key, value]) => formData.append(Array.isArray(obj[prop]) ? formKey : key, value));
       } else {
         formData.append(formKey, obj[prop]);
       }
