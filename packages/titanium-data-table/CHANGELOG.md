@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 12.4.8 (2022-11-04)
+
+### Bug Fixes
+
+- prevent native page scrolling on sort; only allow mouse 1 sorting ([02b6b51](https://github.com/LeavittSoftware/titanium-elements/commit/02b6b517b5bba0d1c25f5bb23f5f2985aaceebc4))
+
 ## 12.4.7 (2022-10-27)
 
 ### Bug Fixes
