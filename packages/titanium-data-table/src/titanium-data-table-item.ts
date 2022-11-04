@@ -201,6 +201,14 @@ export class TitaniumDataTableItemElement extends LitElement {
   }
 
   private startItemDrag(event, type: 'touch' | 'mouse') {
+    //only allow primary mouse for drag
+    if (type === 'mouse' && event.which !== 1) {
+      return;
+    }
+
+    //Prevent native scrolling
+    event.preventDefault();
+
     this.dragging = true;
     this.originIndex = this.items.indexOf(this);
 
