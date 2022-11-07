@@ -44,6 +44,11 @@ export class TitaniumAddressInput extends LitElement {
   @property({ type: String }) label: string = 'Address';
 
   /**
+   *  Sets link text to open manual-address-dialog.
+   */
+  @property({ type: String }) linkLabel: string = "I can't find my address";
+
+  /**
    *  Sets icon.
    */
   @property({ type: String }) icon: string;
@@ -164,8 +169,8 @@ export class TitaniumAddressInput extends LitElement {
             this.input.focus();
           }
         }}
-        title="I can't find my address"
-        >I can't find my address</a
+        title=${this.linkLabel}
+        >${this.linkLabel}</a
       >
 
       <manual-address-dialog

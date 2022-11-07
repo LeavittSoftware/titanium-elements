@@ -94,6 +94,7 @@ export class TitaniumAddressInputPlayground extends LitElement {
           outlined
           googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"
           label="Required"
+          linkLabel="Can't Find Address"
           required
           validation-message="Please input an address"
         ></titanium-address-input>
