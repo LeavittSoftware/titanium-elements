@@ -11,8 +11,16 @@ interface Subscription<TEntityTypes, TEventTypes> {
 export class EventBus<TEntityTypes, TEventTypes> {
   private _subscribers: Array<Subscription<TEntityTypes, TEventTypes>> = [];
 
-  subscribe<TArg>(entityType: TEntityTypes, eventTypes: TEventTypes, callback: EventCallback<TArg>) {
-    this._addSubscription(entityType, eventTypes, callback);
+  subscribe<TArg>(entityType: TEntityTypes | TEntityTypes[], eventTypes: TEventTypes | TEventTypes[], callback: EventCallback<TArg>) {
+    if (Array.isArray(entityType)) {
+      entityType.forEach(o => this.subscribe(o, eventTypes, callback));
+    } else {
+      if (Array.isArray(eventTypes)) {
+        eventTypes.forEach(o => this.subscribe(entityType, o, callback));
+      } else {
+        this._addSubscription(entityType, eventTypes, callback);
+      }
+    }
   }
 
   subscribeAll(entityType: TEntityTypes | TEntityTypes[], callback: () => void) {
@@ -32,11 +40,15 @@ export class EventBus<TEntityTypes, TEventTypes> {
     this._subscribers.push(subscription);
   }
 
-  unsubscribe(entityType: TEntityTypes | TEntityTypes[], eventTypes: TEventTypes, callback: EventCallback<TEntityTypes>) {
+  unsubscribe(entityType: TEntityTypes | TEntityTypes[], eventTypes: TEventTypes | TEventTypes[], callback: EventCallback<TEntityTypes>) {
     if (Array.isArray(entityType)) {
-      entityType.forEach(o => this._removeSubscription(o, eventTypes, callback));
+      entityType.forEach(o => this.unsubscribe(o, eventTypes, callback));
     } else {
-      this._removeSubscription(entityType, eventTypes, callback);
+      if (Array.isArray(eventTypes)) {
+        eventTypes.forEach(o => this.unsubscribe(entityType, o, callback));
+      } else {
+        this._removeSubscription(entityType, eventTypes, callback);
+      }
     }
   }
 
