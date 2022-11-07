@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.6.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.5.6...@leavittsoftware/leavittbook@2.6.0) (2022-11-07)
+
+### Features
+
+- make "can't find my address" text a property ([3812d0b](https://github.com/LeavittSoftware/titanium-elements/commit/3812d0b8adfe025e36ea0549623dc2beb06a6bc9))
+
 ## [2.5.6](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.5.5...@leavittsoftware/leavittbook@2.5.6) (2022-11-04)
 
 **Note:** Version bump only for package @leavittsoftware/leavittbook

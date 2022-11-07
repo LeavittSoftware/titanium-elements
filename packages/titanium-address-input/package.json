@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-address-input",
   "description": "",
   "author": "Leavitt Software",
-  "version": "1.12.2",
+  "version": "1.13.0",
   "license": "MIT",
   "main": "lib/titanium-address-input.js",
   "typings": "lib/titanium-address-input.d.ts",

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 1.13.0 (2022-11-07)
+
+### Features
+
+- make "can't find my address" text a property ([3812d0b](https://github.com/LeavittSoftware/titanium-elements/commit/3812d0b8adfe025e36ea0549623dc2beb06a6bc9))
+
 ## [1.12.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-address-input@1.12.1...@leavittsoftware/titanium-address-input@1.12.2) (2022-10-24)
 
 ### Bug Fixes
