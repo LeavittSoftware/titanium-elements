@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 5.12.0 (2022-11-07)
+
+### Features
+
+- allow arrays as params in subscribe and unsubscribe ([ef63495](https://github.com/LeavittSoftware/titanium-elements/commit/ef63495a796abad672e856514370d9e7cfa0ea1e))
+
 ## 5.11.5 (2022-11-04)
 
 **Note:** Version bump only for package @leavittsoftware/leavitt-elements
