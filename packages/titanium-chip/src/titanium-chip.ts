@@ -123,6 +123,7 @@ export class TitaniumChipElement extends LitElement implements CheckableElement 
   static styles = css`
     :host {
       display: inline-flex;
+      vertical-align: bottom;
       flex-direction: row;
       align-items: center;
       position: relative;
