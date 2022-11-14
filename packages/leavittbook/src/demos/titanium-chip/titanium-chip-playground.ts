@@ -31,6 +31,14 @@ export class TitaniumChipPlayground extends LitElement {
         gap: 12px;
         margin: 24px 0 36px 0;
       }
+
+      span {
+        border: 1px solid var(--app-border-color);
+        padding: 24px;
+        border-radius: 8px;
+        gap: 12px;
+        margin: 24px 0 36px 0;
+      }
     `,
   ];
 
@@ -66,6 +74,14 @@ export class TitaniumChipPlayground extends LitElement {
         <titanium-chip label="Offline"> <mwc-icon slot="chip-icon">offline_bolt</mwc-icon></titanium-chip>
         <titanium-chip label="Online"> <mwc-icon slot="chip-icon">bolt</mwc-icon></titanium-chip>
       </div>
+
+      <h1>Variable type</h1>
+      <p>Examples using various chip types together without a flex container</p>
+      <span>
+        <titanium-chip label="The Rock"><profile-picture slot="chip-icon" personId="915608" size="28"></profile-picture ></profile-picture></titanium-chip>
+        <titanium-chip label="Online"> <mwc-icon slot="chip-icon">bolt</mwc-icon></titanium-chip>
+        <titanium-chip label="Default"></titanium-chip>
+      </span>
     `;
   }
 }
