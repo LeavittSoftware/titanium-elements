@@ -1,7 +1,7 @@
 {
   "license": "BSD-3-Clause",
   "name": "@leavittsoftware/leavittbook",
-  "version": "2.6.1",
+  "version": "2.6.2",
   "dependencies": {
     "@leavittsoftware/api-service": "^10.0.1",
     "@leavittsoftware/leavitt-elements": "^5.12.0",
@@ -13,8 +13,8 @@
     "@leavittsoftware/titanium-attachment-input": "^0.4.4",
     "@leavittsoftware/titanium-button": "^1.8.0",
     "@leavittsoftware/titanium-card": "^2.3.0",
-    "@leavittsoftware/titanium-chip": "^4.0.6",
-    "@leavittsoftware/titanium-chip-multi-select": "^1.2.0",
+    "@leavittsoftware/titanium-chip": "^4.0.7",
+    "@leavittsoftware/titanium-chip-multi-select": "^1.2.1",
     "@leavittsoftware/titanium-color-input": "^3.2.7",
     "@leavittsoftware/titanium-data-table": "^12.4.8",
     "@leavittsoftware/titanium-date-range-selector": "^1.1.8",
@@ -36,7 +36,7 @@
     "@leavittsoftware/titanium-show-hide": "^1.1.2",
     "@leavittsoftware/titanium-side-menu": "^0.5.6",
     "@leavittsoftware/titanium-single-select": "^2.2.5",
-    "@leavittsoftware/titanium-smart-attachment-input": "^1.3.2",
+    "@leavittsoftware/titanium-smart-attachment-input": "^1.3.3",
     "@leavittsoftware/titanium-snackbar": "^3.5.9",
     "@leavittsoftware/titanium-styles": "^0.4.0",
     "@leavittsoftware/titanium-svg-button": "^4.6.0",

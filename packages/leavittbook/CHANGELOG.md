@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.6.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.6.1...@leavittsoftware/leavittbook@2.6.2) (2022-11-14)
+
+### Bug Fixes
+
+- **titanium-chip:** aligns chips without a container ([#432](https://github.com/LeavittSoftware/titanium-elements/issues/432)) ([1fe2c09](https://github.com/LeavittSoftware/titanium-elements/commit/1fe2c09e452dfe7f5a69b2c753825eadf0946eb9))
+
 ## [2.6.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.6.0...@leavittsoftware/leavittbook@2.6.1) (2022-11-07)
 
 **Note:** Version bump only for package @leavittsoftware/leavittbook
