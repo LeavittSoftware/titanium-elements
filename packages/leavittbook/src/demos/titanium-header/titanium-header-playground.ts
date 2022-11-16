@@ -41,7 +41,7 @@ export class TitaniumHeaderItemPlayground extends LitElement {
       <h1>Back Arrow</h1>
       <titanium-card>
         <titanium-header
-          header="Meats"
+          header="Meats and cheese and dairy and things"
           subHeader="Your favorite meats"
           @titanium-header-back-click=${() => {
             alert('back clicked');

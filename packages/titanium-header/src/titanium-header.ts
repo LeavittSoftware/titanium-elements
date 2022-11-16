@@ -77,7 +77,7 @@ export class TitaniumHeader extends LitElement {
 
       mwc-icon-button {
         position: absolute;
-        top: -11px;
+        top: -3px;
         left: 0;
       }
 
@@ -90,6 +90,10 @@ export class TitaniumHeader extends LitElement {
         h3 {
           font-size: 14px;
           line-height: 16px;
+        }
+
+        mwc-icon-button {
+          top: -9px;
         }
       }
     `,
