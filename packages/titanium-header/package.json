@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-header",
   "description": "",
   "author": "Leavitt Software",
-  "version": "4.1.1",
+  "version": "4.2.0",
   "license": "MIT",
   "main": "lib/titanium-header.js",
   "typings": "lib/titanium-header.d.ts",
