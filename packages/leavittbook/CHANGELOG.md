@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.7.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.6.2...@leavittsoftware/leavittbook@2.7.0) (2022-11-16)
+
+### Features
+
+- better back button placement ([5e4cb1d](https://github.com/LeavittSoftware/titanium-elements/commit/5e4cb1dc3ad08995c5a65556e3d2fbc73144d12d))
+
 ## [2.6.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.6.1...@leavittsoftware/leavittbook@2.6.2) (2022-11-14)
 
 ### Bug Fixes
