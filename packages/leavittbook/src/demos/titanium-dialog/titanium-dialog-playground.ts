@@ -141,7 +141,7 @@ export class TitaniumDialogPlayground extends LitElement {
         <h1>Select disable-scroll dialog</h1>
         <p>mwc-select in a dialog</p>
         <mwc-button @click=${() => this.selectDialog?.open?.()} label="THE PRACTICE & SCIENCE OF DRAWING"></mwc-button>
-        <titanium-dialog select disable-scroll header="Select in a dialog example">
+        <titanium-dialog select header="Select in a dialog example">
           <main>
             <p>
               There is much foolish talk about conventional art, as if art could ever get away from conventions, if it would. The convention will be more
@@ -152,6 +152,19 @@ export class TitaniumDialogPlayground extends LitElement {
               more expression of life in a few lines scribbled on paper by a good artist than in all the reality of the popular show. - Harold Speed
             </p>
             <mwc-select outlined label="filled">
+              <mwc-list-item></mwc-list-item>
+              <mwc-list-item value="0">Item 0</mwc-list-item>
+              <mwc-list-item value="1">Item 1</mwc-list-item>
+              <mwc-list-item value="2">Item 2</mwc-list-item>
+              <mwc-list-item value="3">Item 3</mwc-list-item>
+              <mwc-list-item value="4">Item 4</mwc-list-item>
+              <mwc-list-item value="5">Item 5</mwc-list-item>
+              <mwc-list-item value="6">Item 6</mwc-list-item>
+              <mwc-list-item value="7">Item 7</mwc-list-item>
+              <mwc-list-item value="8">Item 8</mwc-list-item>
+            </mwc-select>
+
+            <mwc-select outlined label="outlined">
               <mwc-list-item></mwc-list-item>
               <mwc-list-item value="0">Item 0</mwc-list-item>
               <mwc-list-item value="1">Item 1</mwc-list-item>

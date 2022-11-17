@@ -66,15 +66,20 @@ export class TitaniumDialogElement extends TitaniumNativeDialogBaseElement {
     // experimental: mwc-select support
     // if the dialog doesn't have overflowing content (scrolling y),
     // turn off overflow-y when the select is opened
+    let count = 0;
     this.addEventListener('opening', e => {
       if (!this.disableScroll && e.target instanceof Element && this.overflowNodeNames?.split(',')?.includes(e.target?.nodeName) && !this.isScrolling) {
         this.preventScroll = true;
+        count++;
       }
     });
 
     this.addEventListener('closed', e => {
       if (!this.disableScroll && e.target instanceof Element && this.overflowNodeNames?.split(',')?.includes(e.target?.nodeName) && !this.isScrolling) {
-        this.preventScroll = false;
+        count--;
+        if (count === 0) {
+          this.preventScroll = false;
+        }
       }
     });
   }
