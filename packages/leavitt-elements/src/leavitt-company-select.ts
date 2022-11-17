@@ -70,7 +70,7 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
   @property({ type: String }) getPath: string = 'Companies';
 
   /**
-   *  The person object selected by the user.
+   *  The company object selected by the user.
    */
   @property({ type: Object }) selected: Partial<Company> | null = null;
 
@@ -214,6 +214,7 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
       this.textfield.reportValidity();
     }
 
+    await this.updateComplete;
     if (previouslySelected?.Id !== this.selected?.Id) {
       /**
        * @ignore
