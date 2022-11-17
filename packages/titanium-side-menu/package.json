@@ -22,7 +22,7 @@
     "lit": ">=2.3.0"
   },
   "dependencies": {
-    "tslib": "^2.4.0"
+    "tslib": "^2.4.1"
   },
   "scripts": {
     "build:watch": "tsc --watch",

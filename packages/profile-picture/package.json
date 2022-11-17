@@ -23,7 +23,7 @@
     "@leavittsoftware/titanium-popup-surface": "^0.4.4",
     "@leavittsoftware/user-manager": "^9.8.10",
     "@material/mwc-button": "*",
-    "tslib": "^2.4.0"
+    "tslib": "^2.4.1"
   },
   "peerDependencies": {
     "lit": ">=2.3.0"

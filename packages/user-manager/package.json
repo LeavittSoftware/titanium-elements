@@ -21,7 +21,7 @@
   "dependencies": {
     "@leavittsoftware/titanium-helpers": "^4.5.0",
     "jwt-decode": "^3.1.2",
-    "tslib": "^2.4.0"
+    "tslib": "^2.4.1"
   },
   "peerDependencies": {
     "lit": ">=2.3.0"

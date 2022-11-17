@@ -21,7 +21,7 @@
   "dependencies": {
     "@leavittsoftware/titanium-helpers": "^4.5.0",
     "@leavittsoftware/user-manager": "^9.8.10",
-    "tslib": "^2.4.0"
+    "tslib": "^2.4.1"
   },
   "peerDependencies": {
     "lit": ">=2.3.0"

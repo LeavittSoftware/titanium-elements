@@ -25,7 +25,7 @@
     "@material/mwc-list": "*",
     "@material/mwc-select": "*",
     "dayjs": "*",
-    "tslib": "^2.4.0"
+    "tslib": "^2.4.1"
   },
   "peerDependencies": {
     "lit": ">=2.3.0"
