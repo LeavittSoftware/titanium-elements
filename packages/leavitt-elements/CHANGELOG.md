@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 5.12.1 (2022-11-17)
+
+### Bug Fixes
+
+- **leavitt-elements:** wait for input to render before notifying change ([0836bc4](https://github.com/LeavittSoftware/titanium-elements/commit/0836bc4e93fea22c530d4692757544c0a0e7fc31))
+
 # 5.12.0 (2022-11-07)
 
 ### Features

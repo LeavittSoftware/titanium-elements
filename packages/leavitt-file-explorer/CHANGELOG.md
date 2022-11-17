@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.1.29 (2022-11-17)
+
+**Note:** Version bump only for package @leavittsoftware/leavitt-file-explorer
+
 ## 2.1.28 (2022-11-07)
 
 **Note:** Version bump only for package @leavittsoftware/leavitt-file-explorer

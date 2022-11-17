@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/titanium-styles",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "",
   "main": "lib/titanium-styles.js",
   "typings": "lib/titanium-style.d.ts",

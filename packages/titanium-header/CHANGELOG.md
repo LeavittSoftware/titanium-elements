@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-header@4.2.0...@leavittsoftware/titanium-header@4.3.0) (2022-11-17)
+
+### Features
+
+- better back button placement ([5e4cb1d](https://github.com/LeavittSoftware/titanium-elements/commit/5e4cb1dc3ad08995c5a65556e3d2fbc73144d12d))
+
 # 4.2.0 (2022-11-16)
 
 ### Features

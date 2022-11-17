@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.9.3 (2022-11-17)
+
+**Note:** Version bump only for package @leavittsoftware/profile-picture
+
 ## 4.9.2 (2022-11-01)
 
 **Note:** Version bump only for package @leavittsoftware/profile-picture

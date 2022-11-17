@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-address-input",
   "description": "",
   "author": "Leavitt Software",
-  "version": "1.13.0",
+  "version": "1.13.1",
   "license": "MIT",
   "main": "lib/titanium-address-input.js",
   "typings": "lib/titanium-address-input.d.ts",
@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "*",
-    "@leavittsoftware/titanium-dialog": "^4.4.3",
+    "@leavittsoftware/titanium-dialog": "^4.4.4",
     "@material/mwc-button": "*",
     "@material/mwc-list": "*",
     "@material/mwc-select": "*",

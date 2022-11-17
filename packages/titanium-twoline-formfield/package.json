@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/titanium-twoline-formfield",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "",
   "main": "lib/titanium-twoline-formfield.js",
   "typings": "lib/titanium-twoline-formfield.d.ts",

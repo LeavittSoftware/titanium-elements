@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-shadow-text",
   "description": "",
   "author": "Leavitt Software",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "license": "MIT",
   "main": "lib/titanium-shadow-text.js",
   "typings": "lib/titanium-shadow-text.d.ts",
