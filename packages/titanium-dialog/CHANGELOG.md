@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.4.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@4.4.4...@leavittsoftware/titanium-dialog@4.4.5) (2022-11-17)
+
+### Bug Fixes
+
+- **titanium-dialog:** clicking from select to select wont remove overflow ([26657d8](https://github.com/LeavittSoftware/titanium-elements/commit/26657d8aa10089fe5d742aeb4f094ac4dd0cc561))
+
 ## 4.4.4 (2022-11-17)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-dialog

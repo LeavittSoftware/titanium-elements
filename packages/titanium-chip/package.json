@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-chip",
   "description": "",
   "author": "Leavitt Software",
-  "version": "4.0.8",
+  "version": "4.0.9",
   "license": "MIT",
   "main": "lib/titanium-chip.js",
   "typings": "lib/titanium-chip.d.ts",

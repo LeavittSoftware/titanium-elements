@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-input-validator",
   "description": "",
   "author": "Leavitt Software",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "license": "MIT",
   "main": "lib/titanium-input-validator.js",
   "typings": "lib/titanium-input-validator.d.ts",

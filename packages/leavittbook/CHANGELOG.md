@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.9.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.8.0...@leavittsoftware/leavittbook@2.9.0) (2022-11-17)
+
+### Bug Fixes
+
+- **titanium-dialog:** clicking from select to select wont remove overflow ([26657d8](https://github.com/LeavittSoftware/titanium-elements/commit/26657d8aa10089fe5d742aeb4f094ac4dd0cc561))
+
+### Features
+
+- better back button placement ([5e4cb1d](https://github.com/LeavittSoftware/titanium-elements/commit/5e4cb1dc3ad08995c5a65556e3d2fbc73144d12d))
+
 # [2.8.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.7.0...@leavittsoftware/leavittbook@2.8.0) (2022-11-17)
 
 ### Features
