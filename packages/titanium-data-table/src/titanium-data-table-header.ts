@@ -162,6 +162,7 @@ export class TitaniumDataTableHeaderElement extends LitElement {
       height: 18px;
       width: 18px;
       margin-left: 4px;
+      flex-shrink: 0;
     }
 
     :host([no-sort]) sort-icon {
