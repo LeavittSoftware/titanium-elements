@@ -45,6 +45,10 @@ export class ProfilePictureElement extends LitElement {
       this.style.width = this.size + 'px';
       this.style.height = this.size + 'px';
     }
+
+    if (changedProps.has('personId')) {
+      this.hasError = false;
+    }
   }
 
   /**
