@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 12.4.11 (2022-11-18)
+
+### Bug Fixes
+
+- **titanium-data-table:** fix shrinking on sort-icon ([8db00c7](https://github.com/LeavittSoftware/titanium-elements/commit/8db00c7d45d00dc5aa928b1ab190df085a9b1db9))
+- **titanium-data-table:** text align right ([8ff3ea4](https://github.com/LeavittSoftware/titanium-elements/commit/8ff3ea489748cc6cc2acea4398b06f414cfcfc4a))
+
 ## [12.4.10](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@12.4.9...@leavittsoftware/titanium-data-table@12.4.10) (2022-11-17)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-data-table
