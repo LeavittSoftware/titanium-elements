@@ -156,6 +156,7 @@ export class TitaniumDataTableHeaderElement extends LitElement {
 
     :host([right]) {
       flex-direction: row-reverse;
+      text-align: right;
     }
 
     sort-icon {
