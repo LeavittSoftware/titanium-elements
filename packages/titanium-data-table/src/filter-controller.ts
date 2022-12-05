@@ -40,7 +40,7 @@ export class FilterController<TKey extends string> {
     const odataFilters: Array<string> = [];
     this.filters.forEach(o => {
       const odata = o.getOdataFilter();
-      if (odata !== null) {
+      if (odata) {
         odataFilters.push(odata);
       }
     });
