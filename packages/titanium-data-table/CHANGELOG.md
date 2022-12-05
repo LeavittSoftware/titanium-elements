@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.4.12](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@12.4.11...@leavittsoftware/titanium-data-table@12.4.12) (2022-12-05)
+
+### Bug Fixes
+
+- **titanium-data-table:** do not allow non-truthy filters ([f096869](https://github.com/LeavittSoftware/titanium-elements/commit/f0968697c7f7ccced0e2fd02292d5919faabe5d7))
+
 ## 12.4.11 (2022-11-18)
 
 ### Bug Fixes

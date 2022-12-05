@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 1.2.0 (2022-12-05)
+
+### Features
+
+- add a range label helper ([88b87ac](https://github.com/LeavittSoftware/titanium-elements/commit/88b87ac6ed3673526409428fd6cc2444caea989e))
+
 ## [1.1.11](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-date-range-selector@1.1.10...@leavittsoftware/titanium-date-range-selector@1.1.11) (2022-11-18)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-date-range-selector
