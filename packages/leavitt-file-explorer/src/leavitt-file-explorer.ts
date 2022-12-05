@@ -17,7 +17,7 @@ import { FormatBytes } from './format-bytes';
 import dayjs from 'dayjs/esm';
 import { LeavittFolderModalElement } from './leavitt-folder-modal';
 import { FileExplorerFolderDto, FileExplorerPathDto, FileExplorerFileDto, FileExplorerDto } from '@leavittsoftware/lg-core-typescript/api3.leavitt.com';
-import { FileExplorerAttachment, FileExplorerFolder } from '@leavittsoftware/lg-core-typescript/lg.core';
+import { FileExplorerAttachment, FileExplorerFolder } from '@leavittsoftware/lg-core-typescript/lg.net.core';
 import { LeavittAddFolderModalElement } from './leavitt-add-folder-modal';
 import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar';
 import { LeavittFileModalElement } from './leavitt-file-modal';
