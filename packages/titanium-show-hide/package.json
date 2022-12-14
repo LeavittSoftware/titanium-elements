@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-show-hide",
   "description": "",
   "author": "Leavitt Software",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "license": "MIT",
   "main": "lib/titanium-show-hide.js",
   "typings": "lib/titanium-show-hide.d.ts",
@@ -19,7 +19,7 @@
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
   "dependencies": {
-    "@leavittsoftware/titanium-styles": "^0.4.2",
+    "@leavittsoftware/titanium-styles": "^0.5.0",
     "@material/mwc-button": "*",
     "tslib": "^2.4.1"
   },
