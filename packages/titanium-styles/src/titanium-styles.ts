@@ -1,9 +1,16 @@
 export { h1 } from './h1';
+export { h1 as heading1 } from './h1';
 export { h2 } from './h2';
+export { h2 as heading2 } from './h2';
 export { h3 } from './h3';
+export { h3 as heading3 } from './h3';
 export { h4 } from './h4';
+export { h4 as heading4 } from './h4';
 export { h5 } from './h5';
+export { h5 as heading5 } from './h5';
 export { p } from './p';
+export { p as paragraph } from './p';
 export { a } from './a';
+export { a as link } from './a';
 export { ellipsis } from './ellipsis';
 export { button } from './button';
