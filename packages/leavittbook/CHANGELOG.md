@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.10.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.9.4...@leavittsoftware/leavittbook@2.10.0) (2022-12-14)
+
+### Features
+
+- **titanium-address-input:** adds a disabled state to address input ([b4f35c2](https://github.com/LeavittSoftware/titanium-elements/commit/b4f35c251a75e5099c51b62ae5b5eea41a0e7a7e))
+
 ## [2.9.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.9.3...@leavittsoftware/leavittbook@2.9.4) (2022-12-14)
 
 **Note:** Version bump only for package @leavittsoftware/leavittbook

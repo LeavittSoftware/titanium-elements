@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/titanium-dialog",
-  "version": "4.4.6",
+  "version": "4.4.7",
   "description": "",
   "main": "lib/titanium-dialog.js",
   "typings": "lib/titanium-dialog.d.ts",
@@ -9,7 +9,7 @@
     "src"
   ],
   "dependencies": {
-    "@leavittsoftware/titanium-styles": "^0.5.0",
+    "@leavittsoftware/titanium-styles": "^0.5.1",
     "@material/mwc-button": "*",
     "@material/mwc-dialog": "*",
     "tslib": "^2.4.1"
