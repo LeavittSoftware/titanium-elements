@@ -24,6 +24,11 @@ export class TitaniumAddressInput extends LitElement {
   @property({ type: Boolean }) required: boolean;
 
   /**
+   *  Disables input
+   */
+  @property({ type: Boolean, reflect: true }) disabled: boolean = false;
+
+  /**
    *  Sets outlined styles.
    */
   @property({ type: Boolean }) outlined: boolean;
@@ -106,6 +111,12 @@ export class TitaniumAddressInput extends LitElement {
     a:hover {
       text-decoration: none;
     }
+
+    a[disabled] {
+      pointer-events: none;
+      cursor: default;
+      color: #b9b9b9;
+    }
   `;
 
   /**
@@ -144,6 +155,7 @@ export class TitaniumAddressInput extends LitElement {
   render() {
     return html`
       <google-address-input
+        .disabled=${this.disabled}
         .required=${this.required}
         .outlined=${this.outlined}
         .location=${this.location}
@@ -160,6 +172,7 @@ export class TitaniumAddressInput extends LitElement {
         }}
       ></google-address-input>
       <a
+        ?disabled=${this.disabled}
         href="#find-my-address"
         @click=${async e => {
           e.preventDefault();

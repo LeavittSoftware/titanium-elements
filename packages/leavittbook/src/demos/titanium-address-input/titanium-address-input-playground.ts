@@ -90,6 +90,7 @@ export class TitaniumAddressInputPlayground extends LitElement {
       <p>Attribute examples</p>
       <div>
         <titanium-address-input outlined googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"></titanium-address-input>
+        <titanium-address-input outlined disabled googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"></titanium-address-input>
         <titanium-address-input
           outlined
           googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"
