@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@10.1.0...@leavittsoftware/api-service@10.2.0) (2022-12-15)
+
+### Bug Fixes
+
+- **api-service:** better support for undefined in objectToFormData ([6914af4](https://github.com/LeavittSoftware/titanium-elements/commit/6914af43e8e652cf14327bf47143a92a5c3d682a))
+
+### Features
+
+- **api-service:** adds nested object support to objectToFormData ([38ad803](https://github.com/LeavittSoftware/titanium-elements/commit/38ad803ac6eef891b1048ec3c579ba79036c7299))
+
 # 10.1.0 (2022-12-15)
 
 ### Features
