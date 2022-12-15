@@ -54,7 +54,7 @@ export class TitaniumChipMultiSelectElement extends LitElement {
   /**
    *  Whether or not the input should appear disabled (chips, buttons and anything else slotted will still have to be disabled individually).
    */
-  @property({ type: Boolean }) disabled: boolean;
+  @property({ type: Boolean, reflect: true }) disabled: boolean;
 
   /**
    *  Whether or not the input should appear invalidated

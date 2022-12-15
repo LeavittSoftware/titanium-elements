@@ -249,7 +249,7 @@ export class TitaniumSmartAttachmentInputElement extends LitElement {
       <titanium-chip-multi-select
         .isUiValid=${this.isUiValid}
         .required=${this.required}
-        .disabled=${this.disabled}
+        ?disabled=${this.disabled}
         @drop=${(e: DragEvent) => {
           const files = e.dataTransfer?.files ?? new FileList();
           this.handleNewFile(files);
