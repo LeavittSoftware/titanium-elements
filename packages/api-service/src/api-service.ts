@@ -330,25 +330,37 @@ export default class ApiService {
     }
   }
 
-  // Based on https://gist.github.com/ghinda/8442a57f22099bdb2e34
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private objectToFormData(obj: any, namespace?: string): FormData {
-    const formData = new FormData();
+  private objectToFormData(obj: any, form?: FormData, namespace?: string): FormData {
+    const fd = form || new FormData();
+    let formKey: string;
 
-    for (const prop in obj) {
-      if (!obj.hasOwnProperty(prop)) {
-        continue;
+    for (const property in obj) {
+      if (property === 'Files') {
       }
 
-      const formKey = namespace ? `${namespace}[${prop}]` : prop;
-      if (typeof obj[prop] === 'object' && !(obj[prop] instanceof File)) {
-        //Repeat array keys without indexes, do not use index based keys... ex. Files[0]
-        Array.from(this.objectToFormData(obj[prop], formKey)).map(([key, value]) => formData.append(Array.isArray(obj[prop]) ? formKey : key, value));
-      } else {
-        formData.append(formKey, obj[prop]);
+      if (obj.hasOwnProperty(property)) {
+        if (namespace) {
+          if (obj[property] instanceof File) {
+            // don't include array notation in FormData keys for Files in arrays
+            formKey = namespace;
+          } else {
+            formKey = namespace + '[' + property + ']';
+          }
+        } else {
+          formKey = property;
+        }
+
+        if (typeof obj[property] === 'object' && !(obj[property] instanceof File)) {
+          this.objectToFormData(obj[property], fd, formKey);
+        } else {
+          // if it's a string or a File object
+          fd.append(formKey, obj[property]);
+        }
       }
     }
-    return formData;
+
+    return fd;
   }
 }
 
