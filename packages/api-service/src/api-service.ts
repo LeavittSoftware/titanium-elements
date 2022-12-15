@@ -336,10 +336,10 @@ export default class ApiService {
     let formKey: string;
 
     for (const property in obj) {
-      if (property === 'Files') {
-      }
-
       if (obj.hasOwnProperty(property)) {
+        if (typeof obj[property] === 'undefined') {
+          continue;
+        }
         if (namespace) {
           if (obj[property] instanceof File) {
             // don't include array notation in FormData keys for Files in arrays
