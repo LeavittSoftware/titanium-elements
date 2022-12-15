@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.3.8 (2022-12-15)
+
+### Bug Fixes
+
+- disabled no item text wrong color ([a86f4fa](https://github.com/LeavittSoftware/titanium-elements/commit/a86f4fa3c7ff1cd3c6692f69602afccf5a1144c9))
+
 ## [1.3.7](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-smart-attachment-input@1.3.6...@leavittsoftware/titanium-smart-attachment-input@1.3.7) (2022-12-14)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-smart-attachment-input
