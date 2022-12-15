@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 10.1.0 (2022-12-15)
+
+### Features
+
+- **api-service:** adds nested object support to objectToFormData ([38ad803](https://github.com/LeavittSoftware/titanium-elements/commit/38ad803ac6eef891b1048ec3c579ba79036c7299))
+
 ## [10.0.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/api-service@10.0.2...@leavittsoftware/api-service@10.0.3) (2022-11-17)
 
 **Note:** Version bump only for package @leavittsoftware/api-service
