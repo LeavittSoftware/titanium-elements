@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.10.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.10.4...@leavittsoftware/leavittbook@2.10.5) (2022-12-16)
+
+### Bug Fixes
+
+- **titanium-smart-attachment-input:** make not closeable w disable ([#435](https://github.com/LeavittSoftware/titanium-elements/issues/435)) ([8f7a9ad](https://github.com/LeavittSoftware/titanium-elements/commit/8f7a9ad444cb114b9ba32e10dde02f83984565a8))
+
 ## [2.10.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.10.3...@leavittsoftware/leavittbook@2.10.4) (2022-12-16)
 
 **Note:** Version bump only for package @leavittsoftware/leavittbook

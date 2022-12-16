@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-smart-attachment-input@1.4.0...@leavittsoftware/titanium-smart-attachment-input@1.4.1) (2022-12-16)
+
+### Bug Fixes
+
+- **titanium-smart-attachment-input:** make not closeable w disable ([#435](https://github.com/LeavittSoftware/titanium-elements/issues/435)) ([8f7a9ad](https://github.com/LeavittSoftware/titanium-elements/commit/8f7a9ad444cb114b9ba32e10dde02f83984565a8))
+
 # [1.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-smart-attachment-input@1.3.8...@leavittsoftware/titanium-smart-attachment-input@1.4.0) (2022-12-16)
 
 ### Bug Fixes
