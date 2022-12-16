@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-chip-multi-select@1.2.4...@leavittsoftware/titanium-chip-multi-select@1.2.5) (2022-12-16)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-chip-multi-select
+
 ## 1.2.4 (2022-12-15)
 
 ### Bug Fixes
