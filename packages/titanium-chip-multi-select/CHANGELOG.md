@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.2.4 (2022-12-15)
+
+### Bug Fixes
+
+- disabled no item text wrong color ([a86f4fa](https://github.com/LeavittSoftware/titanium-elements/commit/a86f4fa3c7ff1cd3c6692f69602afccf5a1144c9))
+
 ## [1.2.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-chip-multi-select@1.2.2...@leavittsoftware/titanium-chip-multi-select@1.2.3) (2022-11-17)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-chip-multi-select
