@@ -291,7 +291,7 @@ export class TitaniumSmartAttachmentInputElement extends LitElement {
           (o, i) =>
             html`<titanium-chip
               label=${middleEllipsis(o.file.name)}
-              closeable
+              ?closeable=${!this.disabled}
               ?readonly=${!o.previewSrc && !o.downloadSrc}
               @titanium-chip-close=${() => {
                 this.files.splice(i, 1);
