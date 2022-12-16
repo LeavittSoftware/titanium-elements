@@ -266,7 +266,7 @@ export class TitaniumSmartAttachmentInputElement extends LitElement {
         @dragleave=${() => {
           this.isOver = false;
         }}
-        label=${this.label}
+        label="${this.label} ${this.files.length ? ` (${this.files.length})` : ''}"
         noItemsText=${this.noItemsText}
         .hasItems=${!!this.files.length}
       >
