@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 13.0.0 (2022-12-21)
+
+### Features
+
+- **titanium-data-table:** vNext of filter controller ([ecd1856](https://github.com/LeavittSoftware/titanium-elements/commit/ecd1856a792df0e69c03e287025ef3c4fa6a485a))
+
+### BREAKING CHANGES
+
+- **titanium-data-table:** filterController takes a required path that determines if it should examine query parameters for changes. Change callbacks are also combined into one sub/unsub pattern (subscribeToFilterChange).
+
 ## [12.4.14](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@12.4.13...@leavittsoftware/titanium-data-table@12.4.14) (2022-12-14)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-data-table

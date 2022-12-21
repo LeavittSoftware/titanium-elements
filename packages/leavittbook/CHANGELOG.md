@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.10.5...@leavittsoftware/leavittbook@3.0.0) (2022-12-21)
+
+### Features
+
+- **titanium-data-table:** vNext of filter controller ([ecd1856](https://github.com/LeavittSoftware/titanium-elements/commit/ecd1856a792df0e69c03e287025ef3c4fa6a485a))
+
+### BREAKING CHANGES
+
+- **titanium-data-table:** filterController takes a required path that determines if it should examine query parameters for changes. Change callbacks are also combined into one sub/unsub pattern (subscribeToFilterChange).
+
 ## [2.10.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@2.10.4...@leavittsoftware/leavittbook@2.10.5) (2022-12-16)
 
 ### Bug Fixes
