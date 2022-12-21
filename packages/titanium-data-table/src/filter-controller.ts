@@ -1,8 +1,45 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
+
 import { Filter } from './filter';
+import { parse } from 'regexparam';
 
 export class FilterController<TKey extends string> {
-  private _filters: Map<string, Filter> = new Map();
+  #filters: Map<string, Filter> = new Map();
+  #valueUpdateCallbacks: Array<() => void> = [];
+
+  subscribeToFilterChange(callback: () => void) {
+    this.#valueUpdateCallbacks.push(callback);
+  }
+
+  unsubscribeFromFilterChange(callback: () => void) {
+    this.#valueUpdateCallbacks = this.#valueUpdateCallbacks.filter(o => o != callback);
+  }
+
+  #notifyChange() {
+    this.#valueUpdateCallbacks.forEach(o => o());
+  }
+
+  /**
+   *
+   */
+  constructor(path: string) {
+    const pushState = history.pushState.bind(history);
+    history.pushState = (...args) => {
+      pushState(...args);
+      const pathRegex = parse(path);
+      if (pathRegex.pattern.test(window.location.pathname)) {
+        this.loadFromQueryString();
+      }
+    };
+    const replaceState = history.replaceState.bind(history);
+    history.replaceState = (...args) => {
+      replaceState(...args);
+      const pathRegex = parse(path);
+      if (pathRegex.pattern.test(window.location.pathname)) {
+        this.loadFromQueryString();
+      }
+    };
+  }
 
   /**
    * Set values of filters based on query string data
@@ -13,7 +50,7 @@ export class FilterController<TKey extends string> {
     const urlParams = new URLSearchParams(location.search);
     let hasChanges = false;
 
-    this._filters.forEach(filter => {
+    this.#filters.forEach(filter => {
       let value: string | null = null;
       if (urlParams.has(filter.key)) {
         value = urlParams.get(filter.key);
@@ -26,14 +63,14 @@ export class FilterController<TKey extends string> {
     });
 
     if (hasChanges) {
-      this.onFilterValueUpdated();
+      this.#notifyChange();
     }
 
     return hasChanges;
   }
 
   get filters(): Filter[] {
-    return Array.from(this._filters.values());
+    return Array.from(this.#filters.values());
   }
 
   getActiveFilterOdata() {
@@ -48,8 +85,8 @@ export class FilterController<TKey extends string> {
   }
 
   setValue(key: TKey, value: string | null) {
-    if (this._filters.has(key)) {
-      const filter = this._filters.get(key);
+    if (this.#filters.has(key)) {
+      const filter = this.#filters.get(key);
       if (filter && filter?.value !== value) {
         filter.value = value;
         this.batchNotifyFiltersChanged();
@@ -58,39 +95,33 @@ export class FilterController<TKey extends string> {
   }
 
   getValue(key: TKey) {
-    if (!this._filters.has(key)) {
+    if (!this.#filters.has(key)) {
       return null;
     }
-    const filter = this._filters.get(key);
+    const filter = this.#filters.get(key);
     return filter?.value;
   }
 
   setFilter(key: TKey, oDataFilter: (value: string) => string, initialValue: string | null = null) {
-    this._filters.set(key, new Filter(key, oDataFilter, initialValue));
+    this.#filters.set(key, new Filter(key, oDataFilter, initialValue));
   }
 
   getFilter(key: TKey) {
-    return this._filters.get(key);
+    return this.#filters.get(key);
   }
-
-  // this will be called by any update to the filter values changed only by the user
-  onFilterValueChanged: () => void = () => {};
-  // this will be called by any update to the filter values changed programmatically or by the user
-  onFilterValueUpdated: () => void = () => {};
 
   private _notifyTimer: number;
   private batchNotifyFiltersChanged() {
     clearTimeout(this._notifyTimer);
     this._setQueryString();
     this._notifyTimer = window.setTimeout(() => {
-      this.onFilterValueChanged();
-      this.onFilterValueUpdated();
+      this.#notifyChange();
     }, 50);
   }
 
   private _setQueryString() {
     const urlParams = new URLSearchParams(location.search);
-    this._filters.forEach(filter => {
+    this.#filters.forEach(filter => {
       if (typeof filter.value !== 'undefined' && filter.value !== null) {
         urlParams.set(filter.key, String(filter.value));
       } else {

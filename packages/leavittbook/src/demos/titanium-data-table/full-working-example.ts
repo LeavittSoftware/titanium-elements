@@ -1,8 +1,3 @@
-/* playground-fold */
-import { css, html, LitElement } from 'lit';
-import { customElement, state, query } from 'lit/decorators.js';
-import { h1, h2, p } from '@leavittsoftware/titanium-styles';
-
 import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-item';
 import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-header';
 import '@leavittsoftware/titanium-search-input';
@@ -12,27 +7,31 @@ import '@material/mwc-button';
 import '@material/mwc-menu';
 import '@material/mwc-list/mwc-list-item';
 import '@material/mwc-switch';
-
 import '@material/mwc-formfield';
 import '@material/mwc-select';
 import '@material/mwc-dialog';
 import '@leavittsoftware/titanium-chip';
-import { FilterController } from '@leavittsoftware/titanium-data-table/lib/filter-controller';
-import { Select } from '@material/mwc-select';
-import { Dialog } from '@material/mwc-dialog';
-
-import { getSearchTokens } from '@leavittsoftware/titanium-helpers/lib/titanium-search-token';
-import { TitaniumDataTableElement } from '@leavittsoftware/titanium-data-table/lib/titanium-data-table.js';
-import { Debouncer } from '@leavittsoftware/titanium-helpers';
-import { Menu } from '@material/mwc-menu';
-import { ActionDetail } from '@material/mwc-list/mwc-list-foundation';
-import { repeat } from 'lit/directives/repeat.js';
-import { DOMEvent } from '@leavittsoftware/leavitt-elements/lib/dom-event';
-import { TitaniumSearchInput } from '@leavittsoftware/titanium-search-input';
 import '@material/mwc-icon';
-/* playground-fold-end */
-
 import '@leavittsoftware/titanium-data-table';
+
+/* playground-fold */
+import { LitElement, css, html } from 'lit';
+import { customElement, query, state } from 'lit/decorators.js';
+import { h1, h2, p } from '@leavittsoftware/titanium-styles';
+
+import { ActionDetail } from '@material/mwc-list/mwc-list-foundation';
+import { DOMEvent } from '@leavittsoftware/leavitt-elements/lib/dom-event';
+import { Debouncer } from '@leavittsoftware/titanium-helpers';
+import { Dialog } from '@material/mwc-dialog';
+import { FilterController } from '@leavittsoftware/titanium-data-table/lib/filter-controller';
+import { Menu } from '@material/mwc-menu';
+import { Select } from '@material/mwc-select';
+import { TitaniumDataTableElement } from '@leavittsoftware/titanium-data-table/lib/titanium-data-table.js';
+import { TitaniumSearchInput } from '@leavittsoftware/titanium-search-input';
+import { getSearchTokens } from '@leavittsoftware/titanium-helpers/lib/titanium-search-token';
+import { repeat } from 'lit/directives/repeat.js';
+
+/* playground-fold-end */
 
 /* playground-fold */
 type FilterKeys = 'Appearance';
@@ -71,19 +70,21 @@ export class TitaniumDataTableFullPlayground extends LitElement {
 
   constructor() {
     super();
-    this.filterController = new FilterController();
+    this.filterController = new FilterController('/titanium-data-table');
     this.filterController.setFilter('Appearance', val => `BasketId eq ${val}`);
 
-    this.filterController.onFilterValueChanged = () => {
-      this.dataTable.resetPage();
-      this.#reload();
-    };
+    this.filterController.subscribeToFilterChange(async () => {
+      if (this.dataTable) {
+        this.dataTable?.resetPage();
+        this.#reload();
+      }
+    });
+    this.filterController.loadFromQueryString();
   }
 
   firstUpdated() {
     this.#reset();
     this.items = this.allItems.slice(0);
-    this.filterController.loadFromQueryString();
   }
 
   #reload() {
@@ -347,9 +348,9 @@ export class DataTableDemoFilterModalElement extends LitElement {
   @query('mwc-dialog') private dialog!: Dialog;
 
   async firstUpdated() {
-    this.filterController.onFilterValueUpdated = () => {
+    this.filterController.subscribeToFilterChange(async () => {
       this.requestUpdate('filterController');
-    };
+    });
   }
 
   public async open() {
@@ -411,9 +412,9 @@ export class DataTableDemoFilterModalElement extends LitElement {
               outlined
             >
               <mwc-list-item></mwc-list-item>
-              <mwc-list-item value="ugly" ?selected=${this.filterController.getValue('Appearance') === 'ugly'}>ugly</mwc-list-item>
-              <mwc-list-item value="plaid" ?selected=${this.filterController.getValue('Appearance') === 'plaid'}>plaid</mwc-list-item>
-              <mwc-list-item value="slick" ?selected=${this.filterController.getValue('Appearance') === 'slick'}>slick</mwc-list-item>
+              <mwc-list-item value="Ugly" ?selected=${this.filterController.getValue('Appearance') === 'Ugly'}>ugly</mwc-list-item>
+              <mwc-list-item value="Plaid" ?selected=${this.filterController.getValue('Appearance') === 'Plaid'}>plaid</mwc-list-item>
+              <mwc-list-item value="Slick" ?selected=${this.filterController.getValue('Appearance') === 'Slick'}>slick</mwc-list-item>
             </mwc-select>
           </form>
         </main>
