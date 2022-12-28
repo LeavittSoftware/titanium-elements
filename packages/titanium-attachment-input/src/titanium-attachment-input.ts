@@ -7,7 +7,7 @@ import { IDatabaseAttachment } from '@leavittsoftware/lg-core-typescript/lg.net.
 /**
  * Material design inspired file input.
  *
- * @element titanium-attachment input
+ * @element titanium-attachment-input
  *
  * @fires file-type-error - Fired when the user tries to select files with the wrong allowedFileType
  * @fires change - Fired when files are selected or unselected
@@ -90,7 +90,7 @@ export class TitaniumAttachmentInputElement extends LitElement {
    */
   setAttachment(attachment: Partial<IDatabaseAttachment>) {
     this.originalAttachment = attachment;
-    this.attachment = this._clone(this.originalAttachment);
+    this.attachment = structuredClone(this.originalAttachment);
   }
 
   /**
@@ -139,7 +139,7 @@ export class TitaniumAttachmentInputElement extends LitElement {
     this.input.value = '';
   }
 
-  private addFiles(files: FileList) {
+  #addFiles(files: FileList) {
     const extensions = this.allowedExtensions?.toLowerCase()?.split(',');
 
     for (let index = 0; index < files.length; index++) {
@@ -148,18 +148,14 @@ export class TitaniumAttachmentInputElement extends LitElement {
         this.dispatchEvent(new Event('file-type-error', { bubbles: true, composed: true }));
       } else {
         this.files = [...this.files, file];
-        this._notifyChange();
+        this.#notifyChange();
         this.reportValidity();
       }
     }
   }
 
-  private _notifyChange() {
+  #notifyChange() {
     this.dispatchEvent(new Event('change'));
-  }
-
-  private _clone<T>(obj: T): T {
-    return JSON.parse(JSON.stringify(obj));
   }
 
   static styles = [
@@ -302,7 +298,7 @@ export class TitaniumAttachmentInputElement extends LitElement {
         @click=${() => (!this.disabled ? this.input.click() : '')}
         @drop=${(e: DragEvent) => {
           const files = e.dataTransfer?.files || new FileList();
-          this.addFiles(files);
+          this.#addFiles(files);
           e.preventDefault();
           this.isOver = false;
         }}
@@ -334,7 +330,7 @@ export class TitaniumAttachmentInputElement extends LitElement {
                 e.stopPropagation();
                 this.reset();
                 this.reportValidity();
-                this._notifyChange();
+                this.#notifyChange();
               }}
               .disabled=${this.disabled}
             ></mwc-icon-button>`
@@ -360,7 +356,7 @@ export class TitaniumAttachmentInputElement extends LitElement {
               .map(o => `.${o.trim()}`)
               .join(',')}
             @change=${e => {
-              this.addFiles(e.target.files);
+              this.#addFiles(e.target.files);
             }}
           />
         </label>
