@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-color-input",
   "description": "",
   "author": "Leavitt Software",
-  "version": "3.2.9",
+  "version": "4.0.0",
   "license": "MIT",
   "main": "lib/titanium-color-input.js",
   "typings": "lib/titanium-color-input.d.ts",

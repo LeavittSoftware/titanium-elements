@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-single-select",
   "description": "",
   "author": "Leavitt Software",
-  "version": "2.2.7",
+  "version": "3.0.0",
   "license": "MIT",
   "main": "lib/titanium-single-select.js",
   "typings": "lib/titanium-single-select.d.ts",
@@ -19,8 +19,8 @@
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
   "dependencies": {
-    "@leavittsoftware/titanium-progress": "^0.2.6",
-    "@leavittsoftware/titanium-svg-button": "^4.6.2",
+    "@leavittsoftware/titanium-progress": "^0.3.0",
+    "@leavittsoftware/titanium-svg-button": "^5.0.0",
     "tslib": "^2.4.1"
   },
   "peerDependencies": {

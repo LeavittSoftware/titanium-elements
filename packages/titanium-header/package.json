@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-header",
   "description": "",
   "author": "Leavitt Software",
-  "version": "4.3.3",
+  "version": "5.0.0",
   "license": "MIT",
   "main": "lib/titanium-header.js",
   "typings": "lib/titanium-header.d.ts",
@@ -19,7 +19,7 @@
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
   "dependencies": {
-    "@leavittsoftware/titanium-styles": "^0.5.1",
+    "@leavittsoftware/titanium-styles": "^0.6.0",
     "@material/mwc-icon-button": "*",
     "tslib": "^2.4.1"
   },

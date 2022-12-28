@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/titanium-error-page",
-  "version": "0.2.6",
+  "version": "0.3.0",
   "description": "",
   "main": "lib/titanium-error-page.js",
   "typings": "lib/titanium-error-page.d.ts",
