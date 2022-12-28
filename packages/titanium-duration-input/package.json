@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-duration-input",
   "description": "",
   "author": "Leavitt Software",
-  "version": "1.1.2",
+  "version": "2.0.0",
   "license": "MIT",
   "main": "lib/titanium-duration-input.js",
   "typings": "lib/titanium-duration-input.d.ts",

@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [14.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@13.0.0...@leavittsoftware/titanium-data-table@14.0.0) (2022-12-28)
+
+### Build System
+
+- set typescript target to es2022 ([f05300f](https://github.com/LeavittSoftware/titanium-elements/commit/f05300fb73bb634f2e7d0ae6a8c1b08132ee2b6a))
+
+### BREAKING CHANGES
+
+- some browsers might not support all features of ES2022
+
 # 13.0.0 (2022-12-21)
 
 ### Features

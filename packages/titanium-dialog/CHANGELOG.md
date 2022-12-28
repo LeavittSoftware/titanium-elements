@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 5.0.0 (2022-12-28)
+
+### Build System
+
+- set typescript target to es2022 ([f05300f](https://github.com/LeavittSoftware/titanium-elements/commit/f05300fb73bb634f2e7d0ae6a8c1b08132ee2b6a))
+
+### BREAKING CHANGES
+
+- some browsers might not support all features of ES2022
+
 ## [4.4.7](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@4.4.6...@leavittsoftware/titanium-dialog@4.4.7) (2022-12-14)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-dialog
