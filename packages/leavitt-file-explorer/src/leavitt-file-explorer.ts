@@ -71,11 +71,11 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
   @property({ type: Boolean, reflect: true, attribute: 'prevent-navigation-up' }) preventNavigationUp: boolean = false;
 
   @property({ type: String, reflect: true, attribute: 'display' })
-  private get display() {
+  protected get display() {
     return (window.localStorage.getItem('leavitt-file-explorer-display') as 'grid' | 'list') || 'grid';
   }
 
-  private set display(val: 'grid' | 'list') {
+  protected set display(val: 'grid' | 'list') {
     localStorage.setItem('leavitt-file-explorer-display', val);
     this.requestUpdate('display');
   }
@@ -85,24 +85,24 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
    */
   @property({ attribute: false }) apiService: ApiService | null;
 
-  @property({ type: String }) private state: 'no-permission' | 'files' | 'no-files' | 'error' = 'files';
+  @property({ type: String }) protected state: 'no-permission' | 'files' | 'no-files' | 'error' = 'files';
   @state() isAdmin: boolean = false;
 
-  @state() private fileExplorer: FileExplorerDto | null = null;
-  @state() private files: FileExplorerFileDto[] = [];
-  @state() private folders: FileExplorerFolderDto[] = [];
+  @state() protected fileExplorer: FileExplorerDto | null = null;
+  @state() protected files: FileExplorerFileDto[] = [];
+  @state() protected folders: FileExplorerFolderDto[] = [];
 
-  @state() private path: FileExplorerPathDto[] = [];
-  @state() private selected: ((FileExplorerFolderDto | FileExplorerFileDto) & { type: 'folder' | 'file' })[] = [];
+  @state() protected path: FileExplorerPathDto[] = [];
+  @state() protected selected: ((FileExplorerFolderDto | FileExplorerFileDto) & { type: 'folder' | 'file' })[] = [];
 
-  @query('leavitt-folder-modal') private folderDialog!: LeavittFolderModalElement;
-  @query('leavitt-add-folder-modal') private addFolderModal!: LeavittAddFolderModalElement;
-  @query('leavitt-file-modal') private fileDialog!: LeavittFileModalElement;
-  @query('input[files]') private fileInput!: HTMLInputElement;
-  @query('input[folders]') private folderInput!: HTMLInputElement;
-  @query('confirm-dialog') private confirmDialog: ConfirmDialogElement;
-  @query('mwc-button[upload]') private uploadButton: Button;
-  @query('mwc-menu') private uploadMenu: Menu;
+  @query('leavitt-folder-modal') protected folderDialog!: LeavittFolderModalElement;
+  @query('leavitt-add-folder-modal') protected addFolderModal!: LeavittAddFolderModalElement;
+  @query('leavitt-file-modal') protected fileDialog!: LeavittFileModalElement;
+  @query('input[files]') protected fileInput!: HTMLInputElement;
+  @query('input[folders]') protected folderInput!: HTMLInputElement;
+  @query('confirm-dialog') protected confirmDialog: ConfirmDialogElement;
+  @query('mwc-button[upload]') protected uploadButton: Button;
+  @query('mwc-menu') protected uploadMenu: Menu;
 
   #originalFolderId = 0;
 

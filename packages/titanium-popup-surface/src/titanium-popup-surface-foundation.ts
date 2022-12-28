@@ -104,16 +104,16 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
   /** Used to set the menu-surface calculations based on a fixed position menu. */
   @property({ type: Boolean, reflect: true, attribute: 'fixed-position' }) isFixedPosition = false;
 
-  private openAnimationEndTimerId_ = 0;
-  private closeAnimationEndTimerId_ = 0;
-  private animationRequestId_ = 0;
-  private isOpen_ = false;
+  #openAnimationEndTimerId_ = 0;
+  #closeAnimationEndTimerId_ = 0;
+  #animationRequestId_ = 0;
+  #isOpen_ = false;
 
-  private position_: MenuPoint = { x: 0, y: 0 };
+  #position_: MenuPoint = { x: 0, y: 0 };
 
-  private dimensions_!: MenuDimensions;
-  private measurements_!: AutoLayoutMeasurements;
-  private previousFocus_?: HTMLElement | SVGElement | null;
+  #dimensions_!: MenuDimensions;
+  #measurements_!: AutoLayoutMeasurements;
+  #previousFocus_?: HTMLElement | SVGElement | null;
 
   static styles = [
     css`
@@ -175,20 +175,20 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.addEventListener('keydown', this.handleKeydown);
+    this.addEventListener('keydown', this.#handleKeydown);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.removeEventListener('keydown', this.handleKeydown);
+    this.removeEventListener('keydown', this.#handleKeydown);
   }
 
-  private registerBodyListener() {
-    document.body.addEventListener('click', this.handleBodyClick);
+  #registerBodyListener() {
+    document.body.addEventListener('click', this.#handleBodyClick);
   }
 
-  private unregisterBodyListener() {
-    document.body.removeEventListener('click', this.handleBodyClick);
+  #unregisterBodyListener() {
+    document.body.removeEventListener('click', this.#handleBodyClick);
   }
 
   firstUpdated() {
@@ -196,15 +196,15 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
     this.anchorElement = parentEl && parentEl.classList.contains('popup--anchor') ? parentEl : null;
   }
 
-  private autoPosition_() {
-    this.measurements_ = this.getAutoLayoutMeasurements_();
-    const corner = this.getOriginCorner_();
-    const maxMenuSurfaceHeight = this.getMenuSurfaceMaxHeight_(corner);
-    const verticalAlignment = this.hasBit_(corner, CornerBit.BOTTOM) ? 'bottom' : 'top';
-    let horizontalAlignment = this.hasBit_(corner, CornerBit.RIGHT) ? 'right' : 'left';
-    const horizontalOffset = this.getHorizontalOriginOffset_(corner);
-    const verticalOffset = this.getVerticalOriginOffset_(corner);
-    const { anchorSize, surfaceSize } = this.measurements_;
+  #autoPosition_() {
+    this.#measurements_ = this.#getAutoLayoutMeasurements_();
+    const corner = this.#getOriginCorner_();
+    const maxMenuSurfaceHeight = this.#getMenuSurfaceMaxHeight_(corner);
+    const verticalAlignment = this.#hasBit_(corner, CornerBit.BOTTOM) ? 'bottom' : 'top';
+    let horizontalAlignment = this.#hasBit_(corner, CornerBit.RIGHT) ? 'right' : 'left';
+    const horizontalOffset = this.#getHorizontalOriginOffset_(corner);
+    const verticalOffset = this.#getVerticalOriginOffset_(corner);
+    const { anchorSize, surfaceSize } = this.#measurements_;
 
     const position: Partial<MenuDistance> = {
       [horizontalAlignment]: horizontalOffset,
@@ -219,10 +219,10 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
 
     // If the menu-surface has been hoisted to the body, it's no longer relative to the anchor element
     if (this.isHoistedElement || this.isFixedPosition) {
-      this.adjustPositionForHoistedElement_(position);
+      this.#adjustPositionForHoistedElement_(position);
     }
 
-    this.setTransformOrigin(`${horizontalAlignment} ${verticalAlignment}`);
+    this.#setTransformOrigin(`${horizontalAlignment} ${verticalAlignment}`);
 
     //set position
     this.style.left = 'left' in position ? `${position.left}px` : '';
@@ -235,10 +235,10 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
   }
 
   destroy() {
-    clearTimeout(this.openAnimationEndTimerId_);
-    clearTimeout(this.closeAnimationEndTimerId_);
+    clearTimeout(this.#openAnimationEndTimerId_);
+    clearTimeout(this.#closeAnimationEndTimerId_);
     // Cancel any currently running animations.
-    cancelAnimationFrame(this.animationRequestId_);
+    cancelAnimationFrame(this.#animationRequestId_);
   }
 
   /**
@@ -260,47 +260,47 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
 
   /** Sets the menu-surface position on the page. */
   setAbsolutePosition(x: number, y: number) {
-    this.position_.x = Number.isFinite(x) ? x : 0;
-    this.position_.y = Number.isFinite(y) ? y : 0;
+    this.#position_.x = Number.isFinite(x) ? x : 0;
+    this.#position_.y = Number.isFinite(y) ? y : 0;
   }
 
   isOpen() {
-    return this.isOpen_;
+    return this.#isOpen_;
   }
 
   /**
    * Open the pop-over
    */
   open() {
-    if (this.isOpen_) {
+    if (this.#isOpen_) {
       return;
     }
 
-    this.saveFocus();
+    this.#saveFocus();
 
     if (!this.isQuickOpen) {
       this.opening = true;
     }
 
-    this.animationRequestId_ = requestAnimationFrame(async () => {
+    this.#animationRequestId_ = requestAnimationFrame(async () => {
       this.opened = true;
       await this.updateComplete;
-      this.dimensions_ = this.getInnerDimensions();
-      this.autoPosition_();
+      this.#dimensions_ = this.#getInnerDimensions();
+      this.#autoPosition_();
       if (this.isQuickOpen) {
-        this.registerBodyListener();
+        this.#registerBodyListener();
         this.dispatchEvent(new CustomEvent<boolean>('opened-changed', { detail: true }));
       } else {
-        this.openAnimationEndTimerId_ = window.setTimeout(() => {
-          this.openAnimationEndTimerId_ = 0;
+        this.#openAnimationEndTimerId_ = window.setTimeout(() => {
+          this.#openAnimationEndTimerId_ = 0;
           this.opening = false;
-          this.registerBodyListener();
+          this.#registerBodyListener();
           this.dispatchEvent(new CustomEvent<boolean>('opened-changed', { detail: true }));
         }, 120);
       }
     });
 
-    this.isOpen_ = true;
+    this.#isOpen_ = true;
   }
 
   /**
@@ -315,32 +315,32 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
       this.opened = false;
       await this.updateComplete;
       if (this.isQuickOpen) {
-        this.unregisterBodyListener();
+        this.#unregisterBodyListener();
         this.dispatchEvent(new CustomEvent<boolean>('opened-changed', { detail: false }));
       } else {
-        this.closeAnimationEndTimerId_ = window.setTimeout(() => {
-          this.closeAnimationEndTimerId_ = 0;
+        this.#closeAnimationEndTimerId_ = window.setTimeout(() => {
+          this.#closeAnimationEndTimerId_ = 0;
           this.closing = false;
-          this.unregisterBodyListener();
+          this.#unregisterBodyListener();
           this.dispatchEvent(new CustomEvent<boolean>('opened-changed', { detail: false }));
         }, 75);
       }
     });
 
-    this.isOpen_ = false;
+    this.#isOpen_ = false;
     if (!skipRestoreFocus) {
-      this.maybeRestoreFocus_();
+      this.#maybeRestoreFocus_();
     }
   }
 
-  private handleBodyClick = (evt: MouseEvent) => {
+  #handleBodyClick = (evt: MouseEvent) => {
     if (evt.composedPath().includes(this)) {
       return;
     }
     this.close();
   };
 
-  private handleKeydown = (evt: KeyboardEvent) => {
+  #handleKeydown = (evt: KeyboardEvent) => {
     const { keyCode, key } = evt;
 
     const isEscape = key === 'Escape' || keyCode === 27;
@@ -352,23 +352,23 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
   /**
    * @return Measurements used to position menu surface popup.
    */
-  private getAutoLayoutMeasurements_(): AutoLayoutMeasurements {
-    const anchorRect = this.getAnchorDimensions() || {
-      top: this.position_.y,
-      right: this.position_.x,
-      bottom: this.position_.y,
-      left: this.position_.x,
+  #getAutoLayoutMeasurements_(): AutoLayoutMeasurements {
+    const anchorRect = this.#getAnchorDimensions() || {
+      top: this.#position_.y,
+      right: this.#position_.x,
+      bottom: this.#position_.y,
+      left: this.#position_.x,
       width: 0,
       height: 0,
     };
-    const bodySize = this.getBodyDimensions();
-    const viewportSize = this.getWindowDimensions();
-    const windowScroll = this.getWindowScroll();
+    const bodySize = this.#getBodyDimensions();
+    const viewportSize = this.#getWindowDimensions();
+    const windowScroll = this.#getWindowScroll();
 
     return {
       anchorSize: anchorRect,
       bodySize,
-      surfaceSize: this.dimensions_,
+      surfaceSize: this.#dimensions_,
       viewportDistance: {
         top: anchorRect.top,
         right: viewportSize.width - anchorRect.right,
@@ -380,7 +380,7 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
     };
   }
 
-  private setTransformOrigin(origin) {
+  #setTransformOrigin(origin) {
     const propertyName = `${getTransformPropertyName(window)}-origin`;
     this.style.setProperty(propertyName, origin);
   }
@@ -389,12 +389,12 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
    * @param corner Origin corner of the menu surface.
    * @return Maximum height of the menu surface, based on available space. 0 indicates should not be set.
    */
-  private getMenuSurfaceMaxHeight_(corner: Corner): number {
-    const { viewportDistance } = this.measurements_;
+  #getMenuSurfaceMaxHeight_(corner: Corner): number {
+    const { viewportDistance } = this.#measurements_;
 
     let maxHeight = 0;
-    const isBottomAligned = this.hasBit_(corner, CornerBit.BOTTOM);
-    const isBottomAnchored = this.hasBit_(this.anchorCorner, CornerBit.BOTTOM);
+    const isBottomAligned = this.#hasBit_(corner, CornerBit.BOTTOM);
+    const isBottomAnchored = this.#hasBit_(this.anchorCorner, CornerBit.BOTTOM);
 
     /** Margin left to the edge of the viewport when menu-surface is at maximum possible height. */
     const MARGIN_TO_EDGE = 32;
@@ -403,12 +403,12 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
     if (isBottomAligned) {
       maxHeight = viewportDistance.top + this.anchorMarginTop - MARGIN_TO_EDGE;
       if (!isBottomAnchored) {
-        maxHeight += this.measurements_.anchorSize.height;
+        maxHeight += this.#measurements_.anchorSize.height;
       }
     } else {
-      maxHeight = viewportDistance.bottom - this.anchorMarginBottom + this.measurements_.anchorSize.height - MARGIN_TO_EDGE;
+      maxHeight = viewportDistance.bottom - this.anchorMarginBottom + this.#measurements_.anchorSize.height - MARGIN_TO_EDGE;
       if (isBottomAnchored) {
-        maxHeight -= this.measurements_.anchorSize.height;
+        maxHeight -= this.#measurements_.anchorSize.height;
       }
     }
     return maxHeight;
@@ -418,12 +418,12 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
    * @param corner Origin corner of the menu surface.
    * @return Horizontal offset of menu surface origin corner from corresponding anchor corner.
    */
-  private getHorizontalOriginOffset_(corner: Corner): number {
-    const { anchorSize } = this.measurements_;
+  #getHorizontalOriginOffset_(corner: Corner): number {
+    const { anchorSize } = this.#measurements_;
 
     // isRightAligned corresponds to using the 'right' property on the surface.
-    const isRightAligned = this.hasBit_(corner, CornerBit.RIGHT);
-    const avoidHorizontalOverlap = this.hasBit_(this.anchorCorner, CornerBit.RIGHT);
+    const isRightAligned = this.#hasBit_(corner, CornerBit.RIGHT);
+    const avoidHorizontalOverlap = this.#hasBit_(this.anchorCorner, CornerBit.RIGHT);
 
     if (isRightAligned) {
       const rightOffset = avoidHorizontalOverlap ? anchorSize.width - this.anchorMarginLeft : this.anchorMarginRight;
@@ -432,7 +432,7 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
       // when we calculate the right value (`adjustPositionForHoistedElement_`) based on the element position,
       // the right property is correct.
       if (this.isHoistedElement || this.isFixedPosition) {
-        return rightOffset - (this.measurements_.viewportSize.width - this.measurements_.bodySize.width);
+        return rightOffset - (this.#measurements_.viewportSize.width - this.#measurements_.bodySize.width);
       }
 
       return rightOffset;
@@ -445,10 +445,10 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
    * @param corner Origin corner of the menu surface.
    * @return Vertical offset of menu surface origin corner from corresponding anchor corner.
    */
-  private getVerticalOriginOffset_(corner: Corner): number {
-    const { anchorSize } = this.measurements_;
-    const isBottomAligned = this.hasBit_(corner, CornerBit.BOTTOM);
-    const avoidVerticalOverlap = this.hasBit_(this.anchorCorner, CornerBit.BOTTOM);
+  #getVerticalOriginOffset_(corner: Corner): number {
+    const { anchorSize } = this.#measurements_;
+    const isBottomAligned = this.#hasBit_(corner, CornerBit.BOTTOM);
+    const avoidVerticalOverlap = this.#hasBit_(this.anchorCorner, CornerBit.BOTTOM);
 
     let y = 0;
     if (isBottomAligned) {
@@ -460,8 +460,8 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
   }
 
   /** Calculates the offsets for positioning the menu-surface when the menu-surface has been hoisted to the body. */
-  private adjustPositionForHoistedElement_(position: Partial<MenuDistance>) {
-    const { windowScroll, viewportDistance } = this.measurements_;
+  #adjustPositionForHoistedElement_(position: Partial<MenuDistance>) {
+    const { windowScroll, viewportDistance } = this.#measurements_;
 
     const props = Object.keys(position) as Array<keyof Partial<MenuDistance>>;
 
@@ -495,28 +495,28 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
    * The last focused element when the menu surface was opened should regain focus, if the user is
    * focused on or within the menu surface when it is closed.
    */
-  private maybeRestoreFocus_() {
+  #maybeRestoreFocus_() {
     const isRootFocused = document.activeElement === this;
-    const childHasFocus = document.activeElement && this.isElementInContainer(document.activeElement);
+    const childHasFocus = document.activeElement && this.#isElementInContainer(document.activeElement);
     if (isRootFocused || childHasFocus) {
-      this.restoreFocus();
+      this.#restoreFocus();
     }
   }
 
-  private isElementInContainer(el): boolean {
+  #isElementInContainer(el): boolean {
     return this.shadowRoot?.contains(el) ?? false;
   }
 
   /**
    * Computes the corner of the anchor from which to animate and position the menu surface.
    */
-  private getOriginCorner_(): Corner {
+  #getOriginCorner_(): Corner {
     // Defaults: open from the top left.
     let corner = Corner.TOP_LEFT;
 
-    const { viewportDistance, anchorSize, surfaceSize } = this.measurements_;
+    const { viewportDistance, anchorSize, surfaceSize } = this.#measurements_;
 
-    const isBottomAligned = this.hasBit_(this.anchorCorner, CornerBit.BOTTOM);
+    const isBottomAligned = this.#hasBit_(this.anchorCorner, CornerBit.BOTTOM);
     const availableTop = isBottomAligned ? viewportDistance.top + anchorSize.height + this.anchorMarginBottom : viewportDistance.top + this.anchorMarginTop;
     const availableBottom = isBottomAligned
       ? viewportDistance.bottom - this.anchorMarginBottom
@@ -525,12 +525,12 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
     const topOverflow = surfaceSize.height - availableTop;
     const bottomOverflow = surfaceSize.height - availableBottom;
     if (bottomOverflow > 0 && topOverflow < bottomOverflow) {
-      corner = this.setBit_(corner, CornerBit.BOTTOM);
+      corner = this.#setBit_(corner, CornerBit.BOTTOM);
     }
 
     const isRtl = true;
-    const isFlipRtl = this.hasBit_(this.anchorCorner, CornerBit.FLIP_RTL);
-    const avoidHorizontalOverlap = this.hasBit_(this.anchorCorner, CornerBit.RIGHT);
+    const isFlipRtl = this.#hasBit_(this.anchorCorner, CornerBit.FLIP_RTL);
+    const avoidHorizontalOverlap = this.#hasBit_(this.anchorCorner, CornerBit.RIGHT);
     const isAlignedRight = (avoidHorizontalOverlap && !isRtl) || (!avoidHorizontalOverlap && isFlipRtl && isRtl);
     const availableLeft = isAlignedRight ? viewportDistance.left + anchorSize.width + this.anchorMarginRight : viewportDistance.left + this.anchorMarginLeft;
     const availableRight = isAlignedRight ? viewportDistance.right - this.anchorMarginRight : viewportDistance.right + anchorSize.width - this.anchorMarginLeft;
@@ -543,49 +543,49 @@ export class TitaniumPopupSurfaceFoundation extends LitElement {
       (avoidHorizontalOverlap && !isAlignedRight && leftOverflow < 0) ||
       (rightOverflow > 0 && leftOverflow < rightOverflow)
     ) {
-      corner = this.setBit_(corner, CornerBit.RIGHT);
+      corner = this.#setBit_(corner, CornerBit.RIGHT);
     }
 
     return corner;
   }
 
-  private saveFocus() {
-    this.previousFocus_ = document.activeElement as HTMLElement | SVGElement | null;
+  #saveFocus() {
+    this.#previousFocus_ = document.activeElement as HTMLElement | SVGElement | null;
   }
 
-  private restoreFocus() {
+  #restoreFocus() {
     if (this.contains(document.activeElement)) {
-      if (this.previousFocus_ && this.previousFocus_.focus) {
-        this.previousFocus_.focus();
+      if (this.#previousFocus_ && this.#previousFocus_.focus) {
+        this.#previousFocus_.focus();
       }
     }
   }
 
-  private getInnerDimensions() {
+  #getInnerDimensions() {
     return { width: this.offsetWidth, height: this.offsetHeight };
   }
 
-  private hasBit_(corner: Corner, bit: CornerBit): boolean {
+  #hasBit_(corner: Corner, bit: CornerBit): boolean {
     return Boolean(corner & bit);
   }
 
-  private setBit_(corner: Corner, bit: CornerBit): Corner {
+  #setBit_(corner: Corner, bit: CornerBit): Corner {
     return corner | bit;
   }
 
-  private getAnchorDimensions() {
+  #getAnchorDimensions() {
     return this.anchorElement ? this.anchorElement.getBoundingClientRect() : null;
   }
 
-  private getWindowDimensions() {
+  #getWindowDimensions() {
     return { width: window.innerWidth, height: window.innerHeight };
   }
 
-  private getBodyDimensions() {
+  #getBodyDimensions() {
     return { width: document.body.clientWidth, height: document.body.clientHeight };
   }
 
-  private getWindowScroll() {
+  #getWindowScroll() {
     return { x: window.pageXOffset, y: window.pageYOffset };
   }
 }

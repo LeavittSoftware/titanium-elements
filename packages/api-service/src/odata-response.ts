@@ -1,5 +1,5 @@
 export class ODataResponse<T> {
-  private static getMetadata(json): Map<string, unknown> {
+  static #getMetadata(json): Map<string, unknown> {
     const metadata = new Map<string, unknown>();
     Object.keys(json)
       .filter(key => key.indexOf('@odata') === 0)
@@ -7,7 +7,7 @@ export class ODataResponse<T> {
     return metadata;
   }
 
-  private getEntity<T>(json): T {
+  #getEntity<T>(json): T {
     if (json.value !== null && typeof json.value !== 'undefined' && !Array.isArray(json.value)) {
       return json.value as T;
     }
@@ -15,7 +15,7 @@ export class ODataResponse<T> {
     return json as T;
   }
 
-  private static getEntities<T>(json): T[] {
+  static #getEntities<T>(json): T[] {
     if (Array.isArray(json.value)) {
       return json.value as T[];
     }
@@ -53,9 +53,9 @@ export class ODataResponse<T> {
   constructor(response: Response, json) {
     this.status = response.status;
     this.headers = response.headers;
-    this.metadata = ODataResponse.getMetadata(json);
-    this.entities = ODataResponse.getEntities(json);
-    this.entity = this.entities.length === 0 ? this.getEntity(json) : null;
+    this.metadata = ODataResponse.#getMetadata(json);
+    this.entities = ODataResponse.#getEntities(json);
+    this.entity = this.entities.length === 0 ? this.#getEntity(json) : null;
   }
 
   public get containsMultipleEntities(): boolean {

@@ -23,9 +23,9 @@ export class LeavittFileEditElement extends LitElement {
 
   @property({ type: Object }) file: Partial<FileExplorerFileDto> | null = null;
 
-  @state() private fileName: string;
+  @state() protected fileName: string;
 
-  @query('mwc-textfield') private nameTextField!: TextField;
+  @query('mwc-textfield') protected nameTextField!: TextField;
 
   updated(changedProps: PropertyValues<this>) {
     if (changedProps.has('file')) {

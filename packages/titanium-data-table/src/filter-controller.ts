@@ -89,7 +89,7 @@ export class FilterController<TKey extends string> {
       const filter = this.#filters.get(key);
       if (filter && filter?.value !== value) {
         filter.value = value;
-        this.batchNotifyFiltersChanged();
+        this.#batchNotifyFiltersChanged();
       }
     }
   }
@@ -110,16 +110,16 @@ export class FilterController<TKey extends string> {
     return this.#filters.get(key);
   }
 
-  private _notifyTimer: number;
-  private batchNotifyFiltersChanged() {
-    clearTimeout(this._notifyTimer);
-    this._setQueryString();
-    this._notifyTimer = window.setTimeout(() => {
+  #notifyTimer: number;
+  #batchNotifyFiltersChanged() {
+    clearTimeout(this.#notifyTimer);
+    this.#setQueryString();
+    this.#notifyTimer = window.setTimeout(() => {
       this.#notifyChange();
     }, 50);
   }
 
-  private _setQueryString() {
+  #setQueryString() {
     const urlParams = new URLSearchParams(location.search);
     this.#filters.forEach(filter => {
       if (typeof filter.value !== 'undefined' && filter.value !== null) {

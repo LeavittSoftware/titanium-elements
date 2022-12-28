@@ -170,17 +170,17 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
     return this.textfield.reportValidity();
   }
 
-  private abortController: AbortController = new AbortController();
+  #abortController: AbortController = new AbortController();
 
-  private async doSearch(searchTerm: string) {
+  async #doSearch(searchTerm: string) {
     if (!searchTerm) {
       return;
     }
-    this.abortController.abort();
-    this.abortController = new AbortController();
+    this.#abortController.abort();
+    this.#abortController = new AbortController();
     try {
       const searchTokens = getSearchTokens(searchTerm);
-      const odataParts = this.clone(this.odataParts);
+      const odataParts = structuredClone(this.odataParts);
       if (searchTokens.length > 0) {
         const searchFilter = searchTokens
           .map((token: string) => `(startswith(tolower(FirstName), '${token.toLowerCase()}') or startswith(tolower(LastName), '${token.toLowerCase()}'))`)
@@ -193,7 +193,7 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
         }
       }
 
-      const get = this.apiService.getAsync<Person>(`${this.apiControllerName}?${odataParts.join('&')}`, { abortController: this.abortController });
+      const get = this.apiService.getAsync<Person>(`${this.apiControllerName}?${odataParts.join('&')}`, { abortController: this.#abortController });
       this.loadWhile(get);
       const result = await get;
       this.suggestions = result?.entities ?? [];
@@ -208,11 +208,7 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
     this.count = 0;
   }
 
-  private clone<T>(obj: T): T {
-    return JSON.parse(JSON.stringify(obj));
-  }
-
-  private setSelected(person: Partial<Person> | null) {
+  #setSelected(person: Partial<Person> | null) {
     const previouslySelected = this.selected;
     this.selected = person;
     if (this.selected) {
@@ -226,15 +222,15 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
     }
   }
 
-  private doSearchDebouncer = new Debouncer((searchTerm: string) => this.doSearch(searchTerm));
+  #doSearchDebouncer = new Debouncer((searchTerm: string) => this.#doSearch(searchTerm));
 
-  private async onInput(term: string) {
-    this.setSelected(null);
+  async #onInput(term: string) {
+    this.#setSelected(null);
     this.searchTerm = term;
     this.menu.open = !!this.searchTerm;
     this.suggestions = [];
     this.count = 0;
-    this.doSearchDebouncer.debounce(term);
+    this.#doSearchDebouncer.debounce(term);
   }
 
   static styles = css`
@@ -305,11 +301,11 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
           if (e.key == 'Escape') {
             e.stopPropagation();
             this.textfield.value = '';
-            this.setSelected(null);
+            this.#setSelected(null);
           }
         }}
         @input=${async (e: DOMEvent<TextField>) => {
-          this.loadWhile(this.onInput(e.target.value));
+          this.loadWhile(this.#onInput(e.target.value));
         }}
         @focus=${() => {
           if (this.selected) {
@@ -336,7 +332,7 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
 
           if (selectedIndex > -1) {
             const selected = this.suggestions?.[selectedIndex] ?? null;
-            this.setSelected(selected);
+            this.#setSelected(selected);
           }
         }}
       >

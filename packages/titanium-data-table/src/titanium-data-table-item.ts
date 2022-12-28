@@ -65,16 +65,16 @@ export class TitaniumDataTableItemElement extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'dragged' }) protected dragged: boolean;
   @property({ type: Boolean, reflect: true, attribute: 'dragging' }) protected dragging: boolean;
 
-  @state() private nudgeHeight: number;
-  @state() private hoverIndex: number | null = null;
-  @state() private originIndex: number | null = null;
+  @state() protected nudgeHeight: number;
+  @state() protected hoverIndex: number | null = null;
+  @state() protected originIndex: number | null = null;
 
   @query('mwc-checkbox') checkbox: Checkbox;
   @query('item-content') itemContent: HTMLDivElement;
 
-  private mouseEvent = e => this.startItemDrag(e, 'mouse');
-  private touchEvent = e => {
-    this.startItemDrag(e, 'touch');
+  protected mouseEvent = e => this.#startItemDrag(e, 'mouse');
+  protected touchEvent = e => {
+    this.#startItemDrag(e, 'touch');
   };
 
   async updated(changed: PropertyValues<this>) {
@@ -147,22 +147,22 @@ export class TitaniumDataTableItemElement extends LitElement {
     }
   }
 
-  private get dataTable() {
+  protected get dataTable() {
     return this.parentElement as TitaniumDataTableElement;
   }
 
-  private get items() {
+  protected get items() {
     return (this.dataTable.itemsSlot?.assignedElements() as TitaniumDataTableItemElement[]) ?? [];
   }
 
-  private get itemsContainer() {
+  protected get itemsContainer() {
     return this.dataTable.itemsContainer;
   }
 
   /**
    *  Return index of item over
    */
-  private getIndexOver(itemEndPositions: number[], hoverPosition: number) {
+  #getIndexOver(itemEndPositions: number[], hoverPosition: number) {
     for (let index = 0; index < itemEndPositions.length; index++) {
       const endPosition = itemEndPositions[index];
       if (hoverPosition <= endPosition) {
@@ -175,7 +175,7 @@ export class TitaniumDataTableItemElement extends LitElement {
   /**
    *  Given the origin and hover index determine items that will be affected
    */
-  private determineRange(originIndex: number | null, hoverIndex: number | null) {
+  #determineRange(originIndex: number | null, hoverIndex: number | null) {
     //PREF: ONLY UPDATE ITEMS BETWEEN ORIGIN AND HOVER (+1 and -1)
     const high = Math.max(hoverIndex ?? 0, originIndex ?? 0) + 1;
     let low = Math.min(hoverIndex ?? 0, originIndex ?? 0) - 1;
@@ -184,23 +184,23 @@ export class TitaniumDataTableItemElement extends LitElement {
     return [high, low];
   }
 
-  private notifySiblingsDrag(originIndex: number | null, hoverIndex: number | null, dragging: boolean, itemHeight: number) {
-    const range = this.determineRange(originIndex, hoverIndex);
+  #notifySiblingsDrag(originIndex: number | null, hoverIndex: number | null, dragging: boolean, itemHeight: number) {
+    const range = this.#determineRange(originIndex, hoverIndex);
     for (let index = range[1]; index <= range[0]; index++) {
       const o = this.items?.[index];
       o?.updateDragProps(dragging, this.originIndex, this.hoverIndex, itemHeight);
     }
   }
 
-  private notifySiblingDragStop(originIndex: number | null, hoverIndex: number | null) {
-    const range = this.determineRange(originIndex, hoverIndex);
+  #notifySiblingDragStop(originIndex: number | null, hoverIndex: number | null) {
+    const range = this.#determineRange(originIndex, hoverIndex);
     for (let index = range[1]; index <= range[0]; index++) {
       const o = this.items?.[index];
       o?.updateDragProps(false, null, null, 0);
     }
   }
 
-  private startItemDrag(event, type: 'touch' | 'mouse') {
+  #startItemDrag(event, type: 'touch' | 'mouse') {
     //only allow primary mouse for drag
     if (type === 'mouse' && event.which !== 1) {
       return;
@@ -234,8 +234,8 @@ export class TitaniumDataTableItemElement extends LitElement {
       const transformY = pageY - startY;
 
       this.style.transform = `translateY(${transformY}px)`;
-      this.hoverIndex = this.getIndexOver(itemEndPositions, itemAbsoluteTop);
-      this.notifySiblingsDrag(this.originIndex, this.hoverIndex, this.dragging, itemHeight);
+      this.hoverIndex = this.#getIndexOver(itemEndPositions, itemAbsoluteTop);
+      this.#notifySiblingsDrag(this.originIndex, this.hoverIndex, this.dragging, itemHeight);
 
       //Scroll on when item approaches bottom/top of viewport
       if (clientY < 5) {
@@ -269,7 +269,7 @@ export class TitaniumDataTableItemElement extends LitElement {
       this.dragging = false;
 
       const onTransitionEnd = () => {
-        this.notifySiblingDragStop(this.originIndex, this.hoverIndex);
+        this.#notifySiblingDragStop(this.originIndex, this.hoverIndex);
         this.originIndex = null;
         this.hoverIndex = null;
 
@@ -303,7 +303,7 @@ export class TitaniumDataTableItemElement extends LitElement {
            */
           this.dispatchEvent(new DataTableItemDropEvent(this.originIndex, this.hoverIndex));
         }
-        this.notifySiblingDragStop(this.originIndex, this.hoverIndex);
+        this.#notifySiblingDragStop(this.originIndex, this.hoverIndex);
         this.originIndex = null;
         this.hoverIndex = null;
 

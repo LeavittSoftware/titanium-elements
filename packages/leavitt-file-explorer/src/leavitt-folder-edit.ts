@@ -20,8 +20,8 @@ export class LeavittFolderEditElement extends LitElement {
   @property({ attribute: false }) apiService: ApiService | null;
 
   @property({ type: Object }) folder: FileExplorerFolderDto | null = null;
-  @state() private folderName: string;
-  @query('mwc-textfield') private nameTextField!: TextField;
+  @state() protected folderName: string;
+  @query('mwc-textfield') protected nameTextField!: TextField;
 
   async firstUpdated() {
     await this.updateComplete;

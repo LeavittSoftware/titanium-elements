@@ -7,41 +7,41 @@ export class TitanuimServiceWorkerNotifierElement extends LitElement {
   @property({ type: String }) notificationsStatus: string;
   @property({ type: String }) scriptUrl: string = 'service-worker.js';
 
-  private _newWorker: ServiceWorker | null;
-  private _refreshing = false;
+  #newWorker: ServiceWorker | null;
+  #refreshing = false;
 
   async connectedCallback() {
     if ('serviceWorker' in navigator) {
       const reg = await navigator.serviceWorker.getRegistration();
       if (reg) {
         reg.addEventListener('updatefound', () => {
-          this._newWorker = reg.installing;
-          this._newWorker?.addEventListener('statechange', () => {
-            if (this._newWorker?.state === 'installed' && navigator.serviceWorker.controller) {
-              this._showUpdatedSnackbar();
+          this.#newWorker = reg.installing;
+          this.#newWorker?.addEventListener('statechange', () => {
+            if (this.#newWorker?.state === 'installed' && navigator.serviceWorker.controller) {
+              this.#showUpdatedSnackbar();
             }
           });
         });
 
         if (reg.waiting && navigator.serviceWorker.controller) {
-          this._newWorker = reg.waiting;
-          this._showUpdatedSnackbar();
+          this.#newWorker = reg.waiting;
+          this.#showUpdatedSnackbar();
         }
       }
 
       navigator.serviceWorker.addEventListener('controllerchange', () => {
-        if (this._refreshing) {
+        if (this.#refreshing) {
           return;
         }
         window.location.reload();
-        this._refreshing = true;
+        this.#refreshing = true;
       });
     }
   }
 
-  private async _showUpdatedSnackbar() {
+  async #showUpdatedSnackbar() {
     await AppSnackbar.open('Site has been updated', { actionText: 'RELOAD' });
-    this._newWorker?.postMessage({ type: 'SKIP_WAITING' });
+    this.#newWorker?.postMessage({ type: 'SKIP_WAITING' });
   }
 
   render() {

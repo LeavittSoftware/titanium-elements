@@ -16,7 +16,7 @@ import { LeavittFileExplorerElement } from '@leavittsoftware/leavitt-file-explor
 @customElement('leavitt-file-explorer-playground')
 export class LeavittFileExplorerPlaygroundElement extends LitElement {
   @state() fileExplorerApiService: ApiService;
-  @query('leavitt-file-explorer[reload]') private reloadFileExplorer!: LeavittFileExplorerElement;
+  @query('leavitt-file-explorer[reload]') protected reloadFileExplorer!: LeavittFileExplorerElement;
 
   static styles = [
     h1,

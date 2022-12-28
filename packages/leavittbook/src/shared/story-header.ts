@@ -18,10 +18,10 @@ export default class StoryHeaderElement extends LitElement {
   @property({ type: String }) className: string;
   @property({ type: String }) deprecatedReason: string;
 
-  @query('span.major') private major: HTMLDivElement;
-  @query('span.minor') private minor: HTMLDivElement;
-  @query('span.rev') private rev: HTMLDivElement;
-  @query('span.downloads') private downloads: HTMLDivElement;
+  @query('span.major') protected major: HTMLDivElement;
+  @query('span.minor') protected minor: HTMLDivElement;
+  @query('span.rev') protected rev: HTMLDivElement;
+  @query('span.downloads') protected downloads: HTMLDivElement;
 
   @state()
   customElementsJSON: { modules: [{ declarations: Array<CustomElementDeclaration> }] } | null = null;
@@ -30,7 +30,7 @@ export default class StoryHeaderElement extends LitElement {
   customElementDeclaration: CustomElementDeclaration | null = null;
 
   async firstUpdated() {
-    this.customElementsJSON = await this.readCustomElementsJson('/custom-elements.json');
+    this.customElementsJSON = await this.#readCustomElementsJson('/custom-elements.json');
   }
 
   async updated(changedProps: PropertyValues<this>) {
@@ -39,7 +39,7 @@ export default class StoryHeaderElement extends LitElement {
     }
 
     if (changedProps.has('packageName') && this.packageName) {
-      const [version, downloadCount] = (await this.getVersion(this.packageName)) ?? [];
+      const [version, downloadCount] = (await this.#getVersion(this.packageName)) ?? [];
 
       if (version) {
         const [major, minor, rev] = version.split('.').map(o => Number(o));
@@ -61,7 +61,7 @@ export default class StoryHeaderElement extends LitElement {
     }
   }
 
-  private async readCustomElementsJson(path: string) {
+  async #readCustomElementsJson(path: string) {
     try {
       const response = await fetch(path, {
         method: 'GET',
@@ -74,7 +74,7 @@ export default class StoryHeaderElement extends LitElement {
     return null;
   }
 
-  private async getVersion(packageName: string): Promise<[string, number] | null> {
+  async #getVersion(packageName: string): Promise<[string, number] | null> {
     try {
       const response = await fetch(`https://api.npms.io/v2/package/@leavittsoftware%2F${packageName}`, {
         method: 'GET',

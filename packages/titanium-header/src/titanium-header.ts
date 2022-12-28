@@ -31,7 +31,7 @@ export class TitaniumHeader extends LitElement {
    */
   @property({ type: Boolean, reflect: true, attribute: 'no-nav' }) noNav: boolean = false;
 
-  private _handleBackClick() {
+  #handleBackClick() {
     this.dispatchEvent(new CustomEvent('titanium-header-back-click', { composed: true }));
   }
 
@@ -101,7 +101,7 @@ export class TitaniumHeader extends LitElement {
 
   render() {
     return html`
-      <h1><mwc-icon-button icon="arrow_back" @click="${this._handleBackClick}" large></mwc-icon-button>${this.header}</h1>
+      <h1><mwc-icon-button icon="arrow_back" @click="${this.#handleBackClick}" large></mwc-icon-button>${this.header}</h1>
       <h3>${this.subHeader}</h3>
     `;
   }

@@ -12,7 +12,7 @@ import '@leavittsoftware/titanium-youtube-input';
 /* playground-fold */
 @customElement('titanium-youtube-input-playground')
 export class TitaniumYoutubeInputPlayground extends LitElement {
-  @queryAll('titanium-youtube-input') private inputs!: NodeListOf<TitaniumYouTubeInputElement>;
+  @queryAll('titanium-youtube-input') protected inputs!: NodeListOf<TitaniumYouTubeInputElement>;
   @query('titanium-youtube-input[required]') requiredInput: TitaniumYouTubeInputElement;
 
   async firstUpdated() {

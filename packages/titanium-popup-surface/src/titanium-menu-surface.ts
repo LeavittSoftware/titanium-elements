@@ -11,60 +11,60 @@ export class TitaniumMenuSurfaceElement extends TitaniumPopupSurfaceFoundation {
 
   open() {
     super.open();
-    document.body.addEventListener('keydown', this.keydownHandler);
+    document.body.addEventListener('keydown', this.#keydownHandler);
 
-    this.addListenersToItems();
+    this.#addListenersToItems();
   }
 
   close(skipRestoreFocus = false) {
     super.close(skipRestoreFocus);
-    this.removeListenersFromItems();
-    document.body.removeEventListener('keydown', this.keydownHandler);
+    this.#removeListenersFromItems();
+    document.body.removeEventListener('keydown', this.#keydownHandler);
   }
 
-  private get items(): Element[] {
+  get #items(): Element[] {
     return this.mainSlot?.assignedElements({ flatten: true }).filter(o => o.getAttribute('role') === 'menuitem') ?? [];
   }
 
-  private setSelectedAtIndex(index: number) {
-    const element = this.items[index] as HTMLElement;
+  #setSelectedAtIndex(index: number) {
+    const element = this.#items[index] as HTMLElement;
     if (element) {
       element.setAttribute('aria-checked', 'aria-checked');
       element.setAttribute('tabindex', '1');
-      (this.items[index] as HTMLElement)?.focus();
+      (this.#items[index] as HTMLElement)?.focus();
     }
   }
 
-  private removeSelectedAtIndex(index: number) {
-    const element = this.items[index] as HTMLElement;
+  #removeSelectedAtIndex(index: number) {
+    const element = this.#items[index] as HTMLElement;
     if (element) {
       element.removeAttribute('aria-checked');
       element.removeAttribute('tabindex');
     }
   }
 
-  private getSelectedItemIndex() {
-    return this.items.indexOf(this.items.filter(o => o.getAttribute('tabindex') === '1')[0]);
+  #getSelectedItemIndex() {
+    return this.#items.indexOf(this.#items.filter(o => o.getAttribute('tabindex') === '1')[0]);
   }
 
   selectNextItem() {
-    const selectedItemIndex = this.getSelectedItemIndex();
-    const nextIndex = selectedItemIndex === -1 ? 0 : selectedItemIndex === this.items.length - 1 ? 0 : selectedItemIndex + 1;
-    this.removeSelectedAtIndex(selectedItemIndex);
-    this.setSelectedAtIndex(nextIndex);
+    const selectedItemIndex = this.#getSelectedItemIndex();
+    const nextIndex = selectedItemIndex === -1 ? 0 : selectedItemIndex === this.#items.length - 1 ? 0 : selectedItemIndex + 1;
+    this.#removeSelectedAtIndex(selectedItemIndex);
+    this.#setSelectedAtIndex(nextIndex);
   }
 
   selectPreviousItem() {
-    const selectedItemIndex = this.getSelectedItemIndex();
-    const previousIndex = selectedItemIndex < 1 ? this.items.length - 1 : selectedItemIndex - 1;
-    this.removeSelectedAtIndex(selectedItemIndex);
-    this.setSelectedAtIndex(previousIndex);
+    const selectedItemIndex = this.#getSelectedItemIndex();
+    const previousIndex = selectedItemIndex < 1 ? this.#items.length - 1 : selectedItemIndex - 1;
+    this.#removeSelectedAtIndex(selectedItemIndex);
+    this.#setSelectedAtIndex(previousIndex);
   }
 
-  private keydownHandler = this.handleKeydownEvent.bind(this);
+  #keydownHandler = this.#handleKeydownEvent.bind(this);
 
-  private addListenersToItems() {
-    this.items.forEach(i => {
+  #addListenersToItems() {
+    this.#items.forEach(i => {
       const item = i as Element & {
         ___titaniumClickHandler: EventListenerOrEventListenerObject;
         ___titaniumKeydownHandler: EventListenerOrEventListenerObject;
@@ -85,8 +85,8 @@ export class TitaniumMenuSurfaceElement extends TitaniumPopupSurfaceFoundation {
     });
   }
 
-  private removeListenersFromItems() {
-    this.items.forEach(i => {
+  #removeListenersFromItems() {
+    this.#items.forEach(i => {
       const item = i as Element & {
         ___titaniumClickHandler: EventListenerOrEventListenerObject;
         ___titaniumKeydownHandler: EventListenerOrEventListenerObject;
@@ -96,7 +96,7 @@ export class TitaniumMenuSurfaceElement extends TitaniumPopupSurfaceFoundation {
     });
   }
 
-  private handleKeydownEvent(evt: KeyboardEvent) {
+  #handleKeydownEvent(evt: KeyboardEvent) {
     const { key, keyCode } = evt;
     const isTab = key === 'Tab' || keyCode === 9;
     if (isTab) {

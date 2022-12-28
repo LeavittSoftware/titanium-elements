@@ -53,7 +53,7 @@ export class TitaniumPageControlElement extends LitElement {
    * Disables the page control select and page navigation buttons when true
    */
   @property({ type: Boolean }) disabled: boolean;
-  @queryAsync('mwc-select') private select: Select;
+  @queryAsync('mwc-select') protected select: Select;
 
   /**
    * Gets or sets take value and assigns it to local storage.
@@ -86,7 +86,7 @@ export class TitaniumPageControlElement extends LitElement {
     }
   }
 
-  private _getPageStats(page: number, count: number) {
+  #getPageStats(page: number, count: number) {
     if (!count) {
       return '0-0 of 0';
     }
@@ -96,24 +96,24 @@ export class TitaniumPageControlElement extends LitElement {
     return `${startOfPage}-${endOfPage} of ${count}`;
   }
 
-  private _handleNextPageClick() {
+  #handleNextPageClick() {
     const nextPage = this.page + 1;
     if (nextPage * this.take >= this.count) {
       return;
     }
-    this._setPage(this.page + 1);
+    this.#setPage(this.page + 1);
     this.dispatchEvent(new CustomEvent('action', { composed: true }));
   }
 
-  private _handleLastPageClick() {
+  #handleLastPageClick() {
     if (this.page === 0) {
       return;
     }
-    this._setPage(this.page - 1);
+    this.#setPage(this.page - 1);
     this.dispatchEvent(new CustomEvent('action', { composed: true }));
   }
 
-  private _setPage(value: number) {
+  #setPage(value: number) {
     this.page = value;
   }
 
@@ -195,16 +195,16 @@ export class TitaniumPageControlElement extends LitElement {
             )}
           </mwc-select>
         </take-control>
-        <pagination-text>${this._getPageStats(this.page, this.count)}</pagination-text>
+        <pagination-text>${this.#getPageStats(this.page, this.count)}</pagination-text>
         <table-paging>
           <mwc-icon-button
             icon="keyboard_arrow_left"
-            @click=${this._handleLastPageClick}
+            @click=${this.#handleLastPageClick}
             ?disabled=${this.page === 0 || !this.count || this.disabled}
           ></mwc-icon-button>
           <mwc-icon-button
             icon="keyboard_arrow_right"
-            @click=${this._handleNextPageClick}
+            @click=${this.#handleNextPageClick}
             ?disabled=${!this.count || (this.page + 1) * this.take >= this.count || this.disabled}
           ></mwc-icon-button>
         </table-paging>

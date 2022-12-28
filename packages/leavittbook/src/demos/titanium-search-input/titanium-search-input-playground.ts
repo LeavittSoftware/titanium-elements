@@ -14,8 +14,8 @@ import { TitaniumSearchInput } from '@leavittsoftware/titanium-search-input';
 /* playground-fold */
 @customElement('titanium-search-input-playground')
 export class TitaniumSearchInputItemPlayground extends LitElement {
-  @query('titanium-search-input[method-focused]') private methodFocus!: TitaniumSearchInput;
-  @query('titanium-search-input[method-focused-collapsed]') private methodsFocusedCollapsed!: TitaniumSearchInput;
+  @query('titanium-search-input[method-focused]') protected methodFocus!: TitaniumSearchInput;
+  @query('titanium-search-input[method-focused-collapsed]') protected methodsFocusedCollapsed!: TitaniumSearchInput;
 
   static styles = [
     h1,

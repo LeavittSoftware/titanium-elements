@@ -24,13 +24,13 @@ export class ProfilePictureElement extends LitElement {
    */
   @property({ type: Number }) size: number = 120;
 
-  @state() private cacheBust: number = 0;
-  @state() private hasError = false;
+  @state() protected cacheBust: number = 0;
+  @state() protected hasError = false;
 
-  private _availableSizes = new Set([32, 64, 128, 256, 512]);
+  #availableSizes = new Set([32, 64, 128, 256, 512]);
 
-  private determineSize(size: number) {
-    const availableSizes = [...this._availableSizes];
+  #determineSize(size: number) {
+    const availableSizes = [...this.#availableSizes];
     for (let index = 0; index < availableSizes.length; index++) {
       const availableSize = availableSizes[index];
       if (size <= availableSize) {
@@ -86,7 +86,7 @@ export class ProfilePictureElement extends LitElement {
         height="${this.size}px"
         alt="User profile picture"
         @error=${() => (this.hasError = true)}
-        src="https://cdn.leavitt.com/user-${this.hasError ? 0 : this.personId}-${this.determineSize(this.size)}.jpeg${this.cacheBust > 0
+        src="https://cdn.leavitt.com/user-${this.hasError ? 0 : this.personId}-${this.#determineSize(this.size)}.jpeg${this.cacheBust > 0
           ? `?c=${this.cacheBust}`
           : ''}"
       />

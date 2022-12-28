@@ -73,8 +73,8 @@ export class TitaniumSelectElement<T> extends LitElement {
    */
   @property({ type: String }) itemIdentifierPath: string = 'Id';
 
-  @query('mwc-textfield') private textfield: TextFieldExt;
-  @property({ type: Boolean }) private focused: boolean = false;
+  @query('mwc-textfield') protected textfield: TextFieldExt;
+  @property({ type: Boolean }) protected focused: boolean = false;
 
   /**
    *  Property name in the options object where the unique option Id is stored.

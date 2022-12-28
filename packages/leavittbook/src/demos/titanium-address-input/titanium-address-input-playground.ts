@@ -14,15 +14,15 @@ import { DOMEvent } from '@leavittsoftware/leavitt-elements/lib/dom-event';
 /* playground-fold */
 @customElement('titanium-address-input-playground')
 export class TitaniumAddressInputPlayground extends LitElement {
-  @state() private setLocationResult: string | null = null;
+  @state() protected setLocationResult: string | null = null;
   @property({ type: Object }) address: Partial<Address> | null = {
     street: '11 North Main Street',
     city: 'Cedar City',
     state: 'UT',
     zip: '84720',
   };
-  @query('titanium-address-input[layout]') private layoutInput!: TitaniumAddressInput;
-  @query('titanium-address-input[set-location]') private setLocationInput!: TitaniumAddressInput;
+  @query('titanium-address-input[layout]') protected layoutInput!: TitaniumAddressInput;
+  @query('titanium-address-input[set-location]') protected setLocationInput!: TitaniumAddressInput;
 
   static styles = [
     h1,

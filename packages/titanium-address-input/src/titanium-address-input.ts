@@ -85,8 +85,8 @@ export class TitaniumAddressInput extends LitElement {
 
   @property({ type: Boolean, attribute: 'disabled-closing-animation' }) disableClosingAnimation: boolean = false;
 
-  @query('manual-address-dialog') private dialog: ManualAddressDialogElement;
-  @query('google-address-input') private input: GoogleAddressInput;
+  @query('manual-address-dialog') protected dialog: ManualAddressDialogElement;
+  @query('google-address-input') protected input: GoogleAddressInput;
 
   static styles = css`
     :host {

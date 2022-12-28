@@ -1,13 +1,13 @@
 export class Debouncer<T, A> {
-  private _debouncePromise: Promise<T> | undefined;
-  private _debounceResolve: { (arg0: T): void; (value?: T | PromiseLike<T> | undefined): void };
-  private timer: number = 0;
-  private work: (...args: A[]) => Promise<T>;
-  private interval: number;
+  #debouncePromise: Promise<T> | undefined;
+  #debounceResolve: { (arg0: T): void; (value?: T | PromiseLike<T> | undefined): void };
+  #timer: number = 0;
+  #work: (...args: A[]) => Promise<T>;
+  #interval: number;
 
   constructor(promise: (...args: A[]) => Promise<T>, interval: number = 300) {
-    this.work = promise;
-    this.interval = interval;
+    this.#work = promise;
+    this.#interval = interval;
   }
 
   /**
@@ -18,18 +18,18 @@ export class Debouncer<T, A> {
    *
    */
   debounce(...args: A[]) {
-    clearTimeout(this.timer);
-    this.timer = window.setTimeout(async () => {
-      const workResult = await this.work(...args);
-      this._debounceResolve(workResult);
-      this._debouncePromise = undefined;
-    }, this.interval);
+    clearTimeout(this.#timer);
+    this.#timer = window.setTimeout(async () => {
+      const workResult = await this.#work(...args);
+      this.#debounceResolve(workResult);
+      this.#debouncePromise = undefined;
+    }, this.#interval);
 
-    if (!this._debouncePromise) {
-      this._debouncePromise = new Promise<T>(async res => {
-        this._debounceResolve = res;
+    if (!this.#debouncePromise) {
+      this.#debouncePromise = new Promise<T>(async res => {
+        this.#debounceResolve = res;
       });
     }
-    return this._debouncePromise;
+    return this.#debouncePromise;
   }
 }

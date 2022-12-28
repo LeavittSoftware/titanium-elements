@@ -9,7 +9,7 @@ import '@leavittsoftware/titanium-select';
 /* playground-fold */
 @customElement('titanium-select-playground')
 export class TitaniumSelectPlayground extends LitElement {
-  @state() private data = [
+  @state() protected data = [
     { Id: 'Alice', Name: 'Alice' },
     { Id: 'Bob', Name: 'Bob' },
     { Id: 'Charlie', Name: 'Charlie' },

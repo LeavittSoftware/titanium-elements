@@ -14,9 +14,9 @@ import { DateField } from '@leavittsoftware/leavitt-elements/lib/mwc-datefield';
 /* playground-fold */
 @customElement('mwc-datefield-playground')
 export class DateFieldPlayground extends LitElement {
-  @query('mwc-datefield[layout-demo]') private layoutInput!: DateField;
-  @queryAll('mwc-datefield:not([layout-demo])') private inputs!: NodeListOf<DateField>;
-  @state() private showLayoutInput: boolean = false;
+  @query('mwc-datefield[layout-demo]') protected layoutInput!: DateField;
+  @queryAll('mwc-datefield:not([layout-demo])') protected inputs!: NodeListOf<DateField>;
+  @state() protected showLayoutInput: boolean = false;
 
   static styles = [
     h1,

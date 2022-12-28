@@ -46,9 +46,9 @@ export class TitaniumNativeDialogBaseElement extends LitElement {
    */
   @property({ type: Boolean, attribute: 'focus-trap', reflect: true }) focusTrap: boolean = false;
 
-  @query('dialog') private dialog!: HTMLElement & { open: boolean; showModal: () => void; close(returnValue: string): void; returnValue: string };
+  @query('dialog') protected dialog!: HTMLElement & { open: boolean; showModal: () => void; close(returnValue: string): void; returnValue: string };
 
-  private _resolve: { (value?: string | PromiseLike<string> | undefined): void; (reason: string): void };
+  #resolve: { (value?: string | PromiseLike<string> | undefined): void; (reason: string): void };
 
   protected async firstUpdated() {
     // const htmlNode = document.querySelector('html');
@@ -146,7 +146,7 @@ export class TitaniumNativeDialogBaseElement extends LitElement {
    */
   open() {
     return new Promise<string>(resolve => {
-      this._resolve = resolve;
+      this.#resolve = resolve;
       window.addEventListener('popstate', this.closeDialog, false);
       this.dialog.showModal();
     });
@@ -172,7 +172,7 @@ export class TitaniumNativeDialogBaseElement extends LitElement {
     window.removeEventListener('popstate', this.closeDialog);
     this.dialog.close(reason);
 
-    this._resolve(reason);
+    this.#resolve(reason);
   }
 
   static styles = [
@@ -337,7 +337,7 @@ export class TitaniumNativeDialogBaseElement extends LitElement {
       @closed=${e => {
         if (e.target.nodeName === 'DIALOG') {
           this.setBodyOverflow('');
-          this._resolve(this.dialog.returnValue);
+          this.#resolve(this.dialog.returnValue);
           this.dispatchEvent(new Event('closed'));
         }
       }}

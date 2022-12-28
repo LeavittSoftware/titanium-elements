@@ -10,7 +10,7 @@ import '@leavittsoftware/titanium-single-select/lib/titanium-single-select-item'
 /* playground-fold */
 @customElement('titanium-single-select-playground')
 export class TitaniumSingleSelectPlayground extends LitElement {
-  @state() private data = [
+  @state() protected data = [
     { FirstName: 'Alice', LastName: 'Smith', FullName: 'Alice Smith' },
     { FirstName: 'Bob', LastName: 'Silverstone', FullName: 'Bob Silverstone' },
     { FirstName: 'Charlie', LastName: 'Tu', FullName: 'Charlie Tu' },

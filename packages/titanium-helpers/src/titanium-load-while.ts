@@ -10,17 +10,17 @@ export const LoadWhile = <C extends Constructor<HTMLElement>>(base: C) =>
     /**
      *  @internal
      */
-    _promiseCount = 0;
+    #promiseCount = 0;
     isLoading: boolean;
     async loadWhile(promise: Promise<unknown>) {
       this.isLoading = true;
-      this._promiseCount++;
+      this.#promiseCount++;
       try {
         await promise;
       } catch (error) {
       } finally {
-        this._promiseCount--;
-        if (this._promiseCount === 0) {
+        this.#promiseCount--;
+        if (this.#promiseCount === 0) {
           this.isLoading = false;
         }
       }

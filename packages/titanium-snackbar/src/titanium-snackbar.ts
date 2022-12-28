@@ -72,16 +72,16 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
   /**
    * Text used on the button
    */
-  @property({ type: String }) private actionText: string;
+  @property({ type: String }) protected actionText: string;
   /**
    * Message used in the snackbar.
    */
-  @property({ type: String }) private message: string | TemplateResult;
+  @property({ type: String }) protected message: string | TemplateResult;
 
-  private _animationTimer: number;
-  private _animationFrame: number;
-  private _resolve;
-  private _closeTimeoutHandle: number;
+  #animationTimer: number;
+  #animationFrame: number;
+  #resolve;
+  #closeTimeoutHandle: number;
 
   /**
    * @ignore
@@ -111,7 +111,7 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
   open(message: string | TemplateResult | HttpError, options?: SnackbarOptions) {
     return new Promise(resolve => {
       //reset
-      clearTimeout(this._closeTimeoutHandle);
+      clearTimeout(this.#closeTimeoutHandle);
       this.noaction = false;
       this.informational = false;
       this.error = false;
@@ -120,10 +120,10 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
       if (typeof message !== 'string' && (message as HttpError)?.type === 'HttpError') {
         const error = message as HttpError;
         this.message = html` <http-error>
-          <span error>${this.addNewLineBreaks(error.message)}</span>
+          <span error>${this.#addNewLineBreaks(error.message)}</span>
           <span status>${error.statusCode}</span>
           <span action>${error.action}</span>
-          ${error.detail ? html` <code detail>${this.addNewLineBreaks(error.detail)}</code>` : nothing}
+          ${error.detail ? html` <code detail>${this.#addNewLineBreaks(error.detail)}</code>` : nothing}
         </http-error>`;
       } else if (message) {
         this.message = message as string | TemplateResult;
@@ -147,21 +147,21 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
         }
 
         if (options.autoHide) {
-          this._closeTimeoutHandle = window.setTimeout(() => {
+          this.#closeTimeoutHandle = window.setTimeout(() => {
             this.close();
           }, 5000);
         }
       }
 
-      this._resolve = resolve;
+      this.#resolve = resolve;
       this.closing = false;
       this.opened = false;
       this.opening = true;
 
-      this.runNextAnimationFrame_(() => {
+      this.#runNextAnimationFrame_(() => {
         this.opened = true;
-        this._animationTimer = window.setTimeout(() => {
-          this.handleAnimationTimerEnd_();
+        this.#animationTimer = window.setTimeout(() => {
+          this.#handleAnimationTimerEnd_();
         }, 150);
       });
     });
@@ -175,38 +175,38 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
       return;
     }
 
-    cancelAnimationFrame(this._animationFrame);
-    this._animationFrame = 0;
+    cancelAnimationFrame(this.#animationFrame);
+    this.#animationFrame = 0;
 
     this.closing = true;
     this.opened = false;
     this.opening = false;
-    clearTimeout(this._animationTimer);
-    this._animationTimer = window.setTimeout(() => {
-      this.handleAnimationTimerEnd_();
+    clearTimeout(this.#animationTimer);
+    this.#animationTimer = window.setTimeout(() => {
+      this.#handleAnimationTimerEnd_();
     }, 75);
 
-    this._resolve();
+    this.#resolve();
   }
 
   /**
    * Runs the given logic on the next animation frame, using setTimeout to factor in Firefox reflow behavior.
    */
-  private runNextAnimationFrame_(callback: () => void) {
-    cancelAnimationFrame(this._animationFrame);
-    this._animationFrame = requestAnimationFrame(() => {
-      this._animationFrame = 0;
-      clearTimeout(this._animationFrame);
-      this._animationFrame = window.setTimeout(callback, 0);
+  #runNextAnimationFrame_(callback: () => void) {
+    cancelAnimationFrame(this.#animationFrame);
+    this.#animationFrame = requestAnimationFrame(() => {
+      this.#animationFrame = 0;
+      clearTimeout(this.#animationFrame);
+      this.#animationFrame = window.setTimeout(callback, 0);
     });
   }
 
-  private handleAnimationTimerEnd_() {
+  #handleAnimationTimerEnd_() {
     this.opening = false;
     this.closing = false;
   }
 
-  private addNewLineBreaks(text: string) {
+  #addNewLineBreaks(text: string) {
     const lines = text.split('\n');
     const l = lines.length;
 
@@ -341,7 +341,7 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
       <mwc-button
         ?hidden=${this.noaction}
         @click=${() => {
-          clearTimeout(this._closeTimeoutHandle);
+          clearTimeout(this.#closeTimeoutHandle);
           this.close();
         }}
         .label=${this.actionText}

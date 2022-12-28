@@ -126,7 +126,7 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
    *  Force the list of companies to reload from remote
    */
   async reloadCompanies() {
-    this.companies = await this.getCompanies();
+    this.companies = await this.#getCompanies();
   }
 
   async updated(changedProps: PropertyValues<this>) {
@@ -153,7 +153,7 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
     }
   }
 
-  private async getCompanies() {
+  async #getCompanies() {
     try {
       const get = this.apiService?.getAsync<Partial<Company>>(`${this.getPath}?${this.odataParts.join('&')}`);
       const result = await get;
@@ -207,7 +207,7 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
     this.textfield.layout();
   }
 
-  private async setSelected(company: Partial<Company> | null) {
+  async #setSelected(company: Partial<Company> | null) {
     const previouslySelected = this.selected;
     this.selected = company;
     if (this.selected) {
@@ -223,8 +223,8 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
     }
   }
 
-  private onInput(searchTerm: string) {
-    this.setSelected(null);
+  #onInput(searchTerm: string) {
+    this.#setSelected(null);
     this.searchTerm = searchTerm;
 
     const options = {
@@ -308,11 +308,11 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
           if (e.key == 'Escape') {
             e.stopPropagation();
             this.searchTerm = '';
-            this.setSelected(null);
+            this.#setSelected(null);
           }
         }}
         @input=${async (e: DOMEvent<TextField>) => {
-          this.onInput(e.target.value);
+          this.#onInput(e.target.value);
         }}
         @focus=${() => {
           if (this.selected) {
@@ -339,7 +339,7 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
 
           if (selectedIndex > -1) {
             const selected = this.suggestions?.[selectedIndex] ?? null;
-            this.setSelected(selected);
+            this.#setSelected(selected);
           }
         }}
       >

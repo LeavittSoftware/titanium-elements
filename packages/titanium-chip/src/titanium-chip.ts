@@ -86,12 +86,12 @@ export class TitaniumChipElement extends LitElement implements CheckableElement 
       return;
     }
     this._checked = isChecked;
-    this._selectionController?.update(this);
+    this.#selectionController?.update(this);
     this.requestUpdate('checked', oldValue);
     this.dispatchEvent(new Event('checked', { bubbles: true, composed: true }));
   }
 
-  protected _selectionController?: SingleSelectionController;
+  #selectionController?: SingleSelectionController;
 
   firstUpdated() {
     this.addEventListener('click', () => {
@@ -110,14 +110,14 @@ export class TitaniumChipElement extends LitElement implements CheckableElement 
 
   connectedCallback() {
     super.connectedCallback();
-    this._selectionController = SingleSelectionController.getController(this);
-    this._selectionController.register(this);
-    this._selectionController.update(this);
+    this.#selectionController = SingleSelectionController.getController(this);
+    this.#selectionController.register(this);
+    this.#selectionController.update(this);
   }
 
   disconnectedCallback() {
-    this._selectionController?.unregister(this);
-    this._selectionController = undefined;
+    this.#selectionController?.unregister(this);
+    this.#selectionController = undefined;
   }
 
   static styles = css`

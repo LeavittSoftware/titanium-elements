@@ -16,7 +16,7 @@ import '@material/mwc-icon';
 type Car = { Name: string; Appearance: 'plaid' | 'ugly' | 'slick' };
 @customElement('draggable-playground')
 export class DraggablePlayground extends LitElement {
-  @state() private draggableItems: Array<Partial<Car>> = [];
+  @state() protected draggableItems: Array<Partial<Car>> = [];
 
   firstUpdated() {
     this.draggableItems = [

@@ -14,7 +14,7 @@ import { TitaniumDialogElement } from '@leavittsoftware/titanium-dialog';
 
 @customElement('manual-address-dialog')
 export class ManualAddressDialogElement extends LitElement {
-  @query('titanium-dialog') private dialog!: TitaniumDialogElement;
+  @query('titanium-dialog') protected dialog!: TitaniumDialogElement;
 
   @property({ type: String }) label: string = '';
   @property({ type: String }) street: string = '';
@@ -25,8 +25,8 @@ export class ManualAddressDialogElement extends LitElement {
   @property({ type: Boolean, attribute: 'show-county' }) showCounty: boolean;
   @property({ type: Boolean, attribute: 'disabled-closing-animation' }) disableClosingAnimation: boolean = false;
 
-  @query('mwc-textfield[street]') private streetInput: TextField;
-  @queryAll('mwc-textfield, mwc-select') private allInputs: NodeListOf<(TextField | Select) & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean }>;
+  @query('mwc-textfield[street]') protected streetInput: TextField;
+  @queryAll('mwc-textfield, mwc-select') protected allInputs: NodeListOf<(TextField | Select) & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean }>;
 
   public async open(location: Partial<Address> | null) {
     this.reset();

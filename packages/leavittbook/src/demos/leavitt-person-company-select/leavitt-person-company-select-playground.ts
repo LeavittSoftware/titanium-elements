@@ -17,8 +17,8 @@ import { LeavittPersonCompanySelectElement } from '@leavittsoftware/leavitt-elem
 @customElement('leavitt-person-company-select-playground')
 export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
   @state() apiService: ApiService;
-  @queryAll('leavitt-person-company-select') private inputs!: NodeListOf<LeavittPersonCompanySelectElement>;
-  @query('leavitt-person-company-select[methods-demo]') private methodsSelect!: LeavittPersonCompanySelectElement;
+  @queryAll('leavitt-person-company-select') protected inputs!: NodeListOf<LeavittPersonCompanySelectElement>;
+  @query('leavitt-person-company-select[methods-demo]') protected methodsSelect!: LeavittPersonCompanySelectElement;
 
   constructor() {
     super();

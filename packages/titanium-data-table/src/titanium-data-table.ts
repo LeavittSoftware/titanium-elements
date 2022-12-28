@@ -98,13 +98,13 @@ export class TitaniumDataTableElement extends LitElement {
   /**
    * When set to true, the loading state is shown.
    */
-  @property({ type: Boolean }) private isLoading: boolean;
+  @property({ type: Boolean }) protected isLoading: boolean;
 
   /**
    * @ignore
    */
   @query('slot[name="items"]') itemsSlot: HTMLSlotElement;
-  @query('slot[name="table-headers"]') private tableHeaders: HTMLSlotElement;
+  @query('slot[name="table-headers"]') protected tableHeaders: HTMLSlotElement;
   /**
    * @ignore
    */
@@ -123,8 +123,7 @@ export class TitaniumDataTableElement extends LitElement {
    * @ignore
    */
   @queryAsync('titanium-page-control') pageControl: Promise<TitaniumPageControlElement | null>;
-
-  private _openCount = 0;
+  #openCount = 0;
 
   /**
    *  returns internal pageControl's current take
@@ -169,7 +168,7 @@ export class TitaniumDataTableElement extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.addEventListener('titanium-data-table-item-selected-changed', this._handleItemSelectionChange.bind(this));
+    this.addEventListener('titanium-data-table-item-selected-changed', this.#handleItemSelectionChange.bind(this));
   }
 
   async firstUpdated() {
@@ -231,13 +230,13 @@ export class TitaniumDataTableElement extends LitElement {
    *  de-select all table items and clear this.selected
    */
   clearSelection() {
-    this.deselectAll();
+    this.#deselectAll();
     // Ensure the collection is empty, deselect can cause a race condition
     // between deselecting and UI drawing new items.
 
     if (this.selected.length > 0) {
       this.selected = [];
-      this._notifySelectedChanged();
+      this.#notifySelectedChanged();
     }
   }
 
@@ -249,12 +248,12 @@ export class TitaniumDataTableElement extends LitElement {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private _handleItemSelectionChange(e: any) {
+  #handleItemSelectionChange(e: any) {
     e.stopPropagation();
 
     if (e.detail.isSelected) {
       if (this.singleSelect) {
-        this._getTableItems()
+        this.#getTableItems()
           .filter(o => o.item !== e.detail.item)
           .forEach(o => o.deselect());
 
@@ -263,15 +262,15 @@ export class TitaniumDataTableElement extends LitElement {
 
       this.selected.push(e.detail.item);
       this.requestUpdate();
-      this._notifySelectedChanged();
+      this.#notifySelectedChanged();
     } else {
       this.selected.splice(this.selected.indexOf(e.detail.item), 1);
       this.requestUpdate();
-      this._notifySelectedChanged();
+      this.#notifySelectedChanged();
     }
   }
 
-  private _notifySelectedChanged() {
+  #notifySelectedChanged() {
     this.dispatchEvent(new CustomEvent('selected-changed', { composed: true, detail: this.selected }));
   }
 
@@ -280,19 +279,19 @@ export class TitaniumDataTableElement extends LitElement {
    */
   async loadWhile(promise: Promise<unknown>) {
     this.isLoading = true;
-    this._openCount++;
+    this.#openCount++;
     try {
       await promise;
     } finally {
-      this._openCount--;
-      if (this._openCount === 0) {
+      this.#openCount--;
+      if (this.#openCount === 0) {
         this.isLoading = false;
       }
     }
   }
 
-  private deselectAll() {
-    this._getTableItems().forEach(o => o.deselect());
+  #deselectAll() {
+    this.#getTableItems().forEach(o => o.deselect());
   }
 
   /**
@@ -300,11 +299,11 @@ export class TitaniumDataTableElement extends LitElement {
    */
   selectAll() {
     if (!this.singleSelect) {
-      this._getTableItems().forEach(o => o.select());
+      this.#getTableItems().forEach(o => o.select());
     }
   }
 
-  private _getTableItems(): Array<TitaniumDataTableItemElement> {
+  #getTableItems(): Array<TitaniumDataTableItemElement> {
     return (this.itemsSlot.assignedElements() as Array<TitaniumDataTableItemElement & HTMLElement>).filter(
       o => typeof o.select === 'function' && typeof o.deselect === 'function'
     ) as Array<TitaniumDataTableItemElement>;
@@ -604,7 +603,7 @@ export class TitaniumDataTableElement extends LitElement {
                   ?checked=${this.selected.length > 0}
                   ?indeterminate=${this.selected.length !== 0 && this.selected.length !== this.items.length}
                   @click=${() => {
-                    this.selected.length > 0 ? this.deselectAll() : this.selectAll();
+                    this.selected.length > 0 ? this.#deselectAll() : this.selectAll();
                     this.checkbox.focus();
                   }}
                 ></mwc-checkbox>

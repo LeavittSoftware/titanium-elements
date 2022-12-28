@@ -168,20 +168,20 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
     return this.textfield.reportValidity();
   }
 
-  private abortController: AbortController = new AbortController();
+  #abortController: AbortController = new AbortController();
 
   /**
    * @ignore
    */
-  private async doSearch(searchTerm: string) {
+  async #doSearch(searchTerm: string) {
     if (!searchTerm) {
       return null;
     }
 
-    this.abortController.abort();
-    this.abortController = new AbortController();
+    this.#abortController.abort();
+    this.#abortController = new AbortController();
 
-    const results = await Promise.all([this.doPersonSearch(searchTerm), this.doGroupSearch(searchTerm)]);
+    const results = await Promise.all([this.#doPersonSearch(searchTerm), this.#doGroupSearch(searchTerm)]);
     const entities = [...(results[0]?.entities ?? []), ...(results[1]?.entities ?? [])];
     const odataCount = (results[0]?.odataCount ?? 0) + (results[1]?.odataCount ?? 0);
 
@@ -199,7 +199,7 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
   /**
    * @ignore
    */
-  private async doPersonSearch(searchTerm: string) {
+  async #doPersonSearch(searchTerm: string) {
     if (!searchTerm) {
       return null;
     }
@@ -211,7 +211,7 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
         const searchFilter = searchTokens.map((token: string) => `(startswith(FirstName, '${token}') or startswith(LastName, '${token}'))`).join(' and ');
         odataParts.push(`$filter=${searchFilter}`);
       }
-      const results = await this.apiService?.getAsync<Person>(`People?${odataParts.join('&')}`, { abortController: this.abortController });
+      const results = await this.apiService?.getAsync<Person>(`People?${odataParts.join('&')}`, { abortController: this.#abortController });
       results?.entities.forEach(p => (p.type = 'Person'));
       return results;
     } catch (error) {
@@ -225,7 +225,7 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
   /**
    * @ignore
    */
-  private async doGroupSearch(searchTerm: string) {
+  async #doGroupSearch(searchTerm: string) {
     if (!searchTerm) {
       return null;
     }
@@ -240,7 +240,7 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
 
       odataParts.push(`filter=${filterParts.join(' and ')}`);
 
-      const results = await this.apiService?.getAsync<PeopleGroup>(`PeopleGroups?${odataParts.join('&')}`, { abortController: this.abortController });
+      const results = await this.apiService?.getAsync<PeopleGroup>(`PeopleGroups?${odataParts.join('&')}`, { abortController: this.#abortController });
       results?.entities.forEach(p => (p.type = 'PeopleGroup'));
       return results;
     } catch (error) {
@@ -251,7 +251,7 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
     return null;
   }
 
-  private setSelected(entity: Partial<Person | PeopleGroup> | null) {
+  #setSelected(entity: Partial<Person | PeopleGroup> | null) {
     const previouslySelected = this.selected;
     this.selected = entity;
     if (this.selected) {
@@ -265,18 +265,18 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
     }
   }
 
-  private doSearchDebouncer = new Debouncer((searchTerm: string) => this.doSearch(searchTerm));
+  #doSearchDebouncer = new Debouncer((searchTerm: string) => this.#doSearch(searchTerm));
 
-  private async onInput(term: string) {
+  async #onInput(term: string) {
     if (this.selected !== null) {
-      this.setSelected(null);
+      this.#setSelected(null);
     }
     this.dispatchEvent(new Event('change'));
     this.searchTerm = term;
     this.menu.open = !!this.searchTerm;
     this.suggestions = [];
     this.count = 0;
-    const result = await this.doSearchDebouncer.debounce(term);
+    const result = await this.#doSearchDebouncer.debounce(term);
     this.suggestions = result?.entities ?? [];
     this.count = result?.count ?? 0;
   }
@@ -350,11 +350,11 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
           if (e.key == 'Escape') {
             e.stopPropagation();
             this.textfield.value = '';
-            this.setSelected(null);
+            this.#setSelected(null);
           }
         }}
         @input=${async (e: DOMEvent<TextField>) => {
-          this.loadWhile(this.onInput(e.target.value));
+          this.loadWhile(this.#onInput(e.target.value));
         }}
         @focus=${() => {
           if (this.selected) {
@@ -387,7 +387,7 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
 
           if (selectedIndex > -1) {
             const selected = this.suggestions?.[selectedIndex] ?? null;
-            this.setSelected(selected);
+            this.#setSelected(selected);
           }
         }}
       >

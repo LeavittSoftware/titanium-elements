@@ -22,9 +22,9 @@ export class LeavittAddFolderModalElement extends LitElement {
   @property({ type: Number }) fileExplorerId: number;
   @property({ type: Number }) parentFolderId: number;
 
-  @state() private name: string = '';
-  @query('titanium-dialog') private titaniumDialog!: TitaniumDialogElement;
-  @query('mwc-textfield') private nameTextField!: TextField & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
+  @state() protected name: string = '';
+  @query('titanium-dialog') protected titaniumDialog!: TitaniumDialogElement;
+  @query('mwc-textfield') protected nameTextField!: TextField & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
 
   async #reset() {
     this.name = '';

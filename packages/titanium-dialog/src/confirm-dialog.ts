@@ -9,9 +9,9 @@ import { TitaniumDialogElement } from './titanium-dialog';
 
 @customElement('confirm-dialog')
 export default class ConfirmDialogElement extends LitElement {
-  @state() private text: string;
-  @state() private header: string;
-  @query('titanium-dialog') private dialog!: TitaniumDialogElement;
+  @state() protected text: string;
+  @state() protected header: string;
+  @query('titanium-dialog') protected dialog!: TitaniumDialogElement;
 
   /**
    * This method is used to set up the event listener to capture the confirm dialog open event

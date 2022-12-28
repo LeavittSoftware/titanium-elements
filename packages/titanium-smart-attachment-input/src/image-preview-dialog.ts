@@ -15,11 +15,11 @@ import { middleEllipsis } from '@leavittsoftware/titanium-helpers';
  */
 @customElement('image-preview-dialog')
 export class ImagePreviewDialog extends LitElement {
-  @state() private imageUrl: string | undefined;
-  @state() private downloadSrc: string | undefined;
-  @state() private filename: string | undefined;
+  @state() protected imageUrl: string | undefined;
+  @state() protected downloadSrc: string | undefined;
+  @state() protected filename: string | undefined;
 
-  @query('titanium-native-dialog-base ') private dialog!: TitaniumNativeDialogBaseElement;
+  @query('titanium-native-dialog-base ') protected dialog!: TitaniumNativeDialogBaseElement;
 
   async open(imageUrl: string, downloadSrc?: string, filename?: string) {
     this.imageUrl = undefined; //prevent ghost images

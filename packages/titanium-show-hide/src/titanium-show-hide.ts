@@ -26,11 +26,11 @@ export default class TitaniumShowHideElement extends LitElement {
   @property({ type: Number, attribute: 'collapse-height' }) collapseHeight: number = 120;
   @property({ type: Boolean, reflect: true, attribute: 'disable-fade' }) disableFade: boolean = false;
   @property({ type: Boolean, reflect: true, attribute: 'collapsed' }) collapsed: boolean = true;
-  @property({ type: Boolean, reflect: true, attribute: 'has-hidden-items' }) private hasHiddenItems: boolean = false;
+  @property({ type: Boolean, reflect: true, attribute: 'has-hidden-items' }) protected hasHiddenItems: boolean = false;
 
-  @state() private hiddenItemCount: number = 0;
-  @query('items-container') private itemsContainer: HTMLElement;
-  @query('collapsed-box') private collapsedContainer: HTMLElement;
+  @state() protected hiddenItemCount: number = 0;
+  @query('items-container') protected itemsContainer: HTMLElement;
+  @query('collapsed-box') protected collapsedContainer: HTMLElement;
 
   firstUpdated() {
     const resizeObserver = new ResizeObserver(() => {

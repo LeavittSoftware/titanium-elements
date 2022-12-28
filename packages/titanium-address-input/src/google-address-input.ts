@@ -8,8 +8,8 @@ import { Address, addressToString, validateStreet } from './Address';
 
 @customElement('google-address-input')
 export class GoogleAddressInput extends LitElement {
-  @property({ type: Object }) private autocomplete: google.maps.places.Autocomplete;
-  @property({ type: String }) private inputValue: string = '';
+  @property({ type: Object }) protected autocomplete: google.maps.places.Autocomplete;
+  @property({ type: String }) protected inputValue: string = '';
   @property({ type: Boolean }) required: boolean;
   @property({ type: Boolean }) disabled: boolean;
   @property({ type: Boolean }) outlined: boolean;
@@ -46,7 +46,7 @@ export class GoogleAddressInput extends LitElement {
     });
 
     await loader.load();
-    this._setUpAutocomplete();
+    this.#setUpAutocomplete();
 
     this.input.validityTransform = () => {
       if (this.required) {
@@ -75,7 +75,7 @@ export class GoogleAddressInput extends LitElement {
   public async reset() {
     //Hack to get around lack of a reset method on mwc-textfield
     // Update when API is available
-    this._clearAddress();
+    this.#clearAddress();
     this.location = null;
     await this.updateComplete;
     this.input?.mdcFoundation?.setValid(true);
@@ -99,21 +99,21 @@ export class GoogleAddressInput extends LitElement {
     this.input.layout();
   }
 
-  private async _setUpAutocomplete() {
+  async #setUpAutocomplete() {
     await this.input.updateComplete;
     this.autocomplete = new google.maps.places.Autocomplete(this.input.formElement, {
       fields: ['address_components', 'formatted_address', 'geometry'],
       types: ['address'],
     });
-    google.maps.event.addListener(this.autocomplete, 'place_changed', this._onPlaceChanged.bind(this));
+    google.maps.event.addListener(this.autocomplete, 'place_changed', this.#onPlaceChanged.bind(this));
   }
 
-  private _clearAddress() {
+  #clearAddress() {
     this.inputValue = '';
     this.dispatchEvent(new CustomEvent('value-changed', { composed: true, detail: { value: this.inputValue } }));
   }
 
-  private _onPlaceChanged() {
+  #onPlaceChanged() {
     const place: google.maps.places.PlaceResult = this.autocomplete.getPlace();
 
     if (!place || !place.address_components || !place.formatted_address) {

@@ -33,7 +33,7 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
    *  Configurable CropperJs options.
    */
   @property({ type: Object }) options: CropperOptions = {};
-  @state() private fileName: string = '';
+  @state() protected fileName: string = '';
 
   #cropper: null | Cropper;
   #mimeType = '';

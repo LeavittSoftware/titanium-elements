@@ -52,21 +52,21 @@ const allTeslas: Array<Car> = [
 
 @customElement('titanium-data-table-full-playground')
 export class TitaniumDataTableFullPlayground extends LitElement {
-  @state() private allItems: Array<Partial<Car>> = [];
-  @state() private items: Array<Partial<Car>> = [];
-  @state() private selected: Array<Partial<Car>> = [];
-  @state() private searchTerm: string = '';
-  @state() private resultTotal: number = 0;
-  @state() private sortDirection: '' | 'asc' | 'desc' = 'asc';
-  @state() private sortBy: string = 'Name';
-  @state() private filterController: FilterController<FilterKeys>;
+  @state() protected allItems: Array<Partial<Car>> = [];
+  @state() protected items: Array<Partial<Car>> = [];
+  @state() protected selected: Array<Partial<Car>> = [];
+  @state() protected searchTerm: string = '';
+  @state() protected resultTotal: number = 0;
+  @state() protected sortDirection: '' | 'asc' | 'desc' = 'asc';
+  @state() protected sortBy: string = 'Name';
+  @state() protected filterController: FilterController<FilterKeys>;
 
-  @state() private singleSelect: boolean = false;
-  @state() private disableSelect: boolean = false;
-  @state() private disablePaging: boolean = false;
+  @state() protected singleSelect: boolean = false;
+  @state() protected disableSelect: boolean = false;
+  @state() protected disablePaging: boolean = false;
 
-  @query('titanium-data-table') private dataTable!: TitaniumDataTableElement;
-  @query('data-table-demo-filter-modal') private filterModal!: DataTableDemoFilterModalElement;
+  @query('titanium-data-table') protected dataTable!: TitaniumDataTableElement;
+  @query('data-table-demo-filter-modal') protected filterModal!: DataTableDemoFilterModalElement;
 
   constructor() {
     super();
@@ -342,10 +342,10 @@ export class TitaniumDataTableFullPlayground extends LitElement {
 
 @customElement('data-table-demo-filter-modal')
 export class DataTableDemoFilterModalElement extends LitElement {
-  @state() private filterController: FilterController<FilterKeys>;
-  @state() private appearance: string;
+  @state() protected filterController: FilterController<FilterKeys>;
+  @state() protected appearance: string;
 
-  @query('mwc-dialog') private dialog!: Dialog;
+  @query('mwc-dialog') protected dialog!: Dialog;
 
   async firstUpdated() {
     this.filterController.subscribeToFilterChange(async () => {

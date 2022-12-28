@@ -13,7 +13,7 @@ import { repeat } from 'lit/directives/repeat.js';
 /* playground-fold */
 @customElement('titanium-chip-multi-select-playground')
 export class TitaniumChipMultiSelectPlayground extends LitElement {
-  @state() private demoItems: string[] = chipLabels.slice(0, 4);
+  @state() protected demoItems: string[] = chipLabels.slice(0, 4);
 
   static styles = [
     h1,

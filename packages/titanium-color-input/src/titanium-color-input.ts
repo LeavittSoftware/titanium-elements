@@ -49,8 +49,8 @@ export class TitaniumColorInput extends LitElement {
    *  Validation message passed to the textfield
    */
   @property({ type: String }) validationMessage: string = 'Please use a valid CSS color string';
-  @query('color-preview') private colorPreview!: HTMLElement;
-  @query('mwc-textfield') private input!: MwcInput<TextField>;
+  @query('color-preview') protected colorPreview!: HTMLElement;
+  @query('mwc-textfield') protected input!: MwcInput<TextField>;
 
   static styles = css`
     :host {

@@ -9,18 +9,18 @@ export type ApiServiceOptions = { appNameHeaderKey: string };
 export type ApiServiceRequestOptions = { abortController?: AbortController; sendAsFormData?: boolean };
 export default class ApiService {
   constructor(tokenProvider: BearerTokenProvider, options?: ApiServiceOptions) {
-    this._tokenProvider = tokenProvider;
+    this.#tokenProvider = tokenProvider;
     this.addHeader('Content-Type', 'application/json');
 
-    this._appNameHeaderKey = options?.appNameHeaderKey ? options?.appNameHeaderKey : 'X-LGAppName';
-    this.addHeader(this._appNameHeaderKey, 'General');
+    this.#appNameHeaderKey = options?.appNameHeaderKey ? options?.appNameHeaderKey : 'X-LGAppName';
+    this.addHeader(this.#appNameHeaderKey, 'General');
   }
 
   headers = {};
   baseUrl: string = 'https://api2.leavitt.com/';
 
-  private _tokenProvider: BearerTokenProvider;
-  private _appNameHeaderKey: string;
+  #tokenProvider: BearerTokenProvider;
+  #appNameHeaderKey: string;
 
   addHeader(key: string, value: string) {
     this.headers[key] = value;
@@ -64,7 +64,7 @@ export default class ApiService {
         xhr.open('POST', `${this.baseUrl}${urlPath}`, true);
 
         const headers = { ...this.headers };
-        const token = await this._tokenProvider._getBearerTokenAsync();
+        const token = await this.#tokenProvider._getBearerTokenAsync();
         if (token !== null) {
           headers['Authorization'] = `Bearer ${token}`;
         }
@@ -82,7 +82,7 @@ export default class ApiService {
           () => {
             try {
               const response = { text: () => xhr.response, status: xhr.status } as Response;
-              const result = this.parseResponse<T>(response, 'UPLOAD', urlPath);
+              const result = this.#parseResponse<T>(response, 'UPLOAD', urlPath);
               return resolve(result);
             } catch (error) {
               return reject(error);
@@ -92,7 +92,7 @@ export default class ApiService {
         );
         xhr.send(file);
       } catch (error) {
-        return Promise.reject(this.rewriteFetchErrors(error, 'UPLOAD', urlPath));
+        return Promise.reject(this.#rewriteFetchErrors(error, 'UPLOAD', urlPath));
       }
     });
   }
@@ -112,7 +112,7 @@ export default class ApiService {
       delete headers['Content-Type'];
     }
 
-    const token = await this._tokenProvider._getBearerTokenAsync();
+    const token = await this.#tokenProvider._getBearerTokenAsync();
     if (token !== null) {
       headers['Authorization'] = `Bearer ${token}`;
     }
@@ -121,15 +121,15 @@ export default class ApiService {
     try {
       response = await fetch(`${this.baseUrl}${urlPath}`, {
         method: 'POST',
-        body: options?.sendAsFormData ? this.objectToFormData(body) : JSON.stringify(body),
+        body: options?.sendAsFormData ? this.#objectToFormData(body) : JSON.stringify(body),
         headers: headers,
         signal: options?.abortController?.signal,
       });
     } catch (error) {
-      return Promise.reject(this.rewriteFetchErrors(error, 'POST', urlPath));
+      return Promise.reject(this.#rewriteFetchErrors(error, 'POST', urlPath));
     }
 
-    return await this.parseResponse(response, 'POST', urlPath);
+    return await this.#parseResponse(response, 'POST', urlPath);
   }
 
   async patchAsync<T>(urlPath: string, body: unknown | ODataDto, options: ApiServiceRequestOptions | null = null): Promise<ODataResponse<T>> {
@@ -142,7 +142,7 @@ export default class ApiService {
     }
 
     const headers = { ...this.headers };
-    const token = await this._tokenProvider._getBearerTokenAsync();
+    const token = await this.#tokenProvider._getBearerTokenAsync();
     if (token !== null) {
       headers['Authorization'] = `Bearer ${token}`;
     }
@@ -156,9 +156,9 @@ export default class ApiService {
         signal: options?.abortController?.signal,
       });
     } catch (error) {
-      return Promise.reject(this.rewriteFetchErrors(error, 'PATCH', urlPath));
+      return Promise.reject(this.#rewriteFetchErrors(error, 'PATCH', urlPath));
     }
-    return await this.parseResponse(response, 'PATCH', urlPath);
+    return await this.#parseResponse(response, 'PATCH', urlPath);
   }
 
   async patchReturnDtoAsync<T>(urlPath: string, body: unknown | ODataDto, options: ApiServiceRequestOptions | null = null): Promise<ODataResponse<T>> {
@@ -171,7 +171,7 @@ export default class ApiService {
     }
 
     const headers = { ...this.headers };
-    const token = await this._tokenProvider._getBearerTokenAsync();
+    const token = await this.#tokenProvider._getBearerTokenAsync();
     if (token !== null) {
       headers['Authorization'] = `Bearer ${token}`;
     }
@@ -185,14 +185,14 @@ export default class ApiService {
         signal: options?.abortController?.signal,
       });
     } catch (error) {
-      return Promise.reject(this.rewriteFetchErrors(error, 'PATCH', urlPath));
+      return Promise.reject(this.#rewriteFetchErrors(error, 'PATCH', urlPath));
     }
-    return await this.parseResponse(response, 'PATCH', urlPath);
+    return await this.#parseResponse(response, 'PATCH', urlPath);
   }
 
   async deleteAsync<T>(urlPath: string, options: ApiServiceRequestOptions | null = null): Promise<ODataResponse<T>> {
     const headers = { ...this.headers };
-    const token = await this._tokenProvider._getBearerTokenAsync();
+    const token = await this.#tokenProvider._getBearerTokenAsync();
     if (token !== null) {
       headers['Authorization'] = `Bearer ${token}`;
     }
@@ -201,15 +201,15 @@ export default class ApiService {
     try {
       response = await fetch(`${this.baseUrl}${urlPath}`, { method: 'DELETE', headers: headers, signal: options?.abortController?.signal });
     } catch (error) {
-      return Promise.reject(this.rewriteFetchErrors(error, 'DELETE', urlPath));
+      return Promise.reject(this.#rewriteFetchErrors(error, 'DELETE', urlPath));
     }
 
-    return await this.parseResponse(response, 'DELETE', urlPath);
+    return await this.#parseResponse(response, 'DELETE', urlPath);
   }
 
   async getAsync<T>(urlPath: string, options: ApiServiceRequestOptions | null = null): Promise<ODataResponse<T>> {
     const headers = { ...this.headers };
-    const token = await this._tokenProvider._getBearerTokenAsync();
+    const token = await this.#tokenProvider._getBearerTokenAsync();
     if (token !== null) {
       headers['Authorization'] = `Bearer ${token}`;
     }
@@ -222,13 +222,13 @@ export default class ApiService {
         signal: options?.abortController?.signal,
       });
     } catch (error) {
-      return Promise.reject(this.rewriteFetchErrors(error, 'GET', urlPath));
+      return Promise.reject(this.#rewriteFetchErrors(error, 'GET', urlPath));
     }
 
-    return await this.parseResponse(response, 'GET', urlPath);
+    return await this.#parseResponse(response, 'GET', urlPath);
   }
 
-  private distinct<T>(value: T, index: number, array: T[]) {
+  #distinct<T>(value: T, index: number, array: T[]) {
     return array.indexOf(value) === index;
   }
 
@@ -253,7 +253,7 @@ export default class ApiService {
         type: 'HttpError',
         action: httpErrors
           .map(o => o.action)
-          .filter(this.distinct)
+          .filter(this.#distinct)
           .join(', '),
         message: `${httpErrors.length} of ${apiCalls.length} actions failed`,
         detail: Array.from(errorMessageToCount.keys())
@@ -261,11 +261,11 @@ export default class ApiService {
           .join('\n'),
         baseUrl: httpErrors
           .map(o => o.baseUrl)
-          .filter(this.distinct)
+          .filter(this.#distinct)
           .join(', '),
         path: httpErrors
           .map(o => o.path)
-          .filter(this.distinct)
+          .filter(this.#distinct)
           .join(', '),
       };
       return Promise.reject(newError);
@@ -274,7 +274,7 @@ export default class ApiService {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private rewriteFetchErrors(error: any, action: string, urlPath: string, statusCode: number | undefined = undefined) {
+  #rewriteFetchErrors(error: any, action: string, urlPath: string, statusCode: number | undefined = undefined) {
     const message = error?.message?.includes('Failed to fetch')
       ? 'Network error. Check your connection and try again.'
       : error?.name === 'AbortError'
@@ -293,7 +293,7 @@ export default class ApiService {
     return httpError;
   }
 
-  private async parseResponse<T>(response: Response, action: string, urlPath: string) {
+  async #parseResponse<T>(response: Response, action: string, urlPath: string) {
     const text = await response.text();
     let json;
     try {
@@ -331,7 +331,7 @@ export default class ApiService {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private objectToFormData(obj: any, form?: FormData, namespace?: string): FormData {
+  #objectToFormData(obj: any, form?: FormData, namespace?: string): FormData {
     const fd = form || new FormData();
     let formKey: string;
 
@@ -352,7 +352,7 @@ export default class ApiService {
         }
 
         if (typeof obj[property] === 'object' && !(obj[property] instanceof File)) {
-          this.objectToFormData(obj[property], fd, formKey);
+          this.#objectToFormData(obj[property], fd, formKey);
         } else {
           // if it's a string or a File object
           fd.append(formKey, obj[property]);

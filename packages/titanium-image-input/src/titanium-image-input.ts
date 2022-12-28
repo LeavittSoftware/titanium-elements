@@ -31,8 +31,8 @@ export class TitaniumImageInputElement extends LitElement {
   @query('input') protected input: HTMLInputElement;
   @query('image-cropper-dialog') protected cropperDialog: ImageCropperDialogElement;
 
-  private _originalSrc: null | string = null;
-  private allowedFileType = ['image/svg+xml', 'image/png', 'image/jpeg', 'image/gif'];
+  #originalSrc: null | string = null;
+  #allowedFileType = ['image/svg+xml', 'image/png', 'image/jpeg', 'image/gif'];
 
   /**
    *  Displays error state if image input is empty and input is blurred.
@@ -82,7 +82,7 @@ export class TitaniumImageInputElement extends LitElement {
    *  Use to preset input to existing image.
    */
   setImage(url: string) {
-    this._originalSrc = url;
+    this.#originalSrc = url;
     this.previewSrc = url;
   }
 
@@ -94,7 +94,7 @@ export class TitaniumImageInputElement extends LitElement {
       return true;
     }
 
-    if (this._originalSrc) {
+    if (this.#originalSrc) {
       if (this.hasChanges()) {
         //Original was replaced or removed, make sure user set an image.  OK
         return !!this.file;
@@ -119,8 +119,8 @@ export class TitaniumImageInputElement extends LitElement {
    *  Returns true if the input's image has changed from empty or since the last call to setImage().
    */
   hasChanges() {
-    if (this._originalSrc) {
-      return this._originalSrc !== this.previewSrc;
+    if (this.#originalSrc) {
+      return this.#originalSrc !== this.previewSrc;
     }
     return !!this.previewSrc;
   }
@@ -135,15 +135,15 @@ export class TitaniumImageInputElement extends LitElement {
     this.isUiValid = true;
   }
 
-  private _handleNewFile(files: FileList) {
+  #handleNewFile(files: FileList) {
     if (files && files.length > 0) {
       const file = files[0];
-      if (this.allowedFileType.includes(file.type)) {
+      if (this.#allowedFileType.includes(file.type)) {
         if (URL) {
-          this.openCropper(URL.createObjectURL(file), file.name);
+          this.#openCropper(URL.createObjectURL(file), file.name);
         } else if (FileReader) {
           const reader = new FileReader();
-          reader.onload = () => this.openCropper(reader.result as string, file.name);
+          reader.onload = () => this.#openCropper(reader.result as string, file.name);
           reader.readAsDataURL(file);
         }
       } else {
@@ -152,18 +152,18 @@ export class TitaniumImageInputElement extends LitElement {
     }
   }
 
-  private _notifyChange() {
+  #notifyChange() {
     this.dispatchEvent(new Event('change'));
   }
 
-  private async openCropper(file: string, filename: string) {
+  async #openCropper(file: string, filename: string) {
     this.input.value = '';
     const result = await this.cropperDialog.open(file, filename);
     if (result == 'cropped') {
       this.previewSrc = this.cropperDialog.previewDataUrl ?? undefined;
       this.file = this.cropperDialog.file;
       this.reportValidity();
-      this._notifyChange();
+      this.#notifyChange();
     }
   }
 
@@ -304,7 +304,7 @@ export class TitaniumImageInputElement extends LitElement {
         @click=${() => (!this.disabled ? this.input.click() : '')}
         @drop=${e => {
           const files = e.dataTransfer.files;
-          this._handleNewFile(files);
+          this.#handleNewFile(files);
           e.preventDefault();
           this.isOver = false;
         }}
@@ -330,7 +330,7 @@ export class TitaniumImageInputElement extends LitElement {
                 e.stopPropagation();
                 this.reset();
                 this.reportValidity();
-                this._notifyChange();
+                this.#notifyChange();
               }}
               .disabled=${this.disabled}
             ></mwc-icon-button>`
@@ -353,7 +353,7 @@ export class TitaniumImageInputElement extends LitElement {
             accept="image/*"
             @change=${e => {
               const files = e.target.files;
-              this._handleNewFile(files);
+              this.#handleNewFile(files);
             }}
           />
         </label>

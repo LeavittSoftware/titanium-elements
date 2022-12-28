@@ -15,78 +15,78 @@ export class TitaniumFullPageLoadingIndicatorElement extends LitElement {
   @property({ type: Boolean, reflect: true }) protected opening: boolean;
   @property({ type: Boolean, reflect: true }) protected closing: boolean;
 
-  private _animationTimer: number;
-  private _animationFrame: number;
-  private _openDelayTimer: number;
-  private _closeDelayTimer: number;
-  private _openDelay: number = 75;
-  private _minTimeOpen: number = 350;
-  private _timeOpen;
-  private _openCount = 0;
+  #animationTimer: number;
+  #animationFrame: number;
+  #openDelayTimer: number;
+  #closeDelayTimer: number;
+  #openDelay: number = 75;
+  #minTimeOpen: number = 350;
+  #timeOpen;
+  #openCount = 0;
 
   firstUpdated() {
     window.addEventListener(PendingStateEvent.eventType, async (e: PendingStateEvent) => {
-      this._open();
-      this._openCount++;
+      this.#open();
+      this.#openCount++;
       try {
         await e.detail.promise;
       } catch {
       } finally {
-        this._openCount--;
-        if (this._openCount === 0) {
-          this._close();
+        this.#openCount--;
+        if (this.#openCount === 0) {
+          this.#close();
         }
       }
     });
   }
 
-  private _open() {
-    window.clearTimeout(this._openDelayTimer);
+  #open() {
+    window.clearTimeout(this.#openDelayTimer);
 
     //If re-opened while close timer is running, prevent the close
-    window.clearTimeout(this._closeDelayTimer);
+    window.clearTimeout(this.#closeDelayTimer);
 
-    this._openDelayTimer = window.setTimeout(() => {
-      this._timeOpen = performance.now();
+    this.#openDelayTimer = window.setTimeout(() => {
+      this.#timeOpen = performance.now();
       this.closing = false;
       this.opened = false;
       this.opening = true;
 
       document.body.style.overflow = 'hidden';
 
-      this.runNextAnimationFrame_(() => {
+      this.#runNextAnimationFrame_(() => {
         if (this.closing) {
           return;
         }
         this.opened = true;
-        this._animationTimer = window.setTimeout(() => {
-          this.handleAnimationTimerEnd_();
+        this.#animationTimer = window.setTimeout(() => {
+          this.#handleAnimationTimerEnd_();
         }, 50);
       });
-    }, this._openDelay);
+    }, this.#openDelay);
   }
 
-  private _close() {
-    window.clearTimeout(this._openDelayTimer);
-    const totalTimeOpened = performance.now() - this._timeOpen;
-    const closeDelay = Math.max(this._minTimeOpen - totalTimeOpened, 0);
+  #close() {
+    window.clearTimeout(this.#openDelayTimer);
+    const totalTimeOpened = performance.now() - this.#timeOpen;
+    const closeDelay = Math.max(this.#minTimeOpen - totalTimeOpened, 0);
 
-    this._closeDelayTimer = window.setTimeout(() => {
-      cancelAnimationFrame(this._animationFrame);
-      this._animationFrame = 0;
+    this.#closeDelayTimer = window.setTimeout(() => {
+      cancelAnimationFrame(this.#animationFrame);
+      this.#animationFrame = 0;
 
       this.closing = true;
       this.opened = false;
       this.opening = false;
-      clearTimeout(this._animationTimer);
-      this._animationTimer = window.setTimeout(() => {
-        this.handleAnimationTimerEnd_();
+      clearTimeout(this.#animationTimer);
+      this.#animationTimer = window.setTimeout(() => {
+        this.#handleAnimationTimerEnd_();
         document.body.style.overflow = '';
       }, 150);
     }, closeDelay);
   }
 
-  private handleAnimationTimerEnd_() {
+  #handleAnimationTimerEnd_() {
     this.opening = false;
     this.closing = false;
   }
@@ -94,12 +94,12 @@ export class TitaniumFullPageLoadingIndicatorElement extends LitElement {
   /**
    * Runs the given logic on the next animation frame, using setTimeout to factor in Firefox reflow behavior.
    */
-  private runNextAnimationFrame_(callback: () => void) {
-    cancelAnimationFrame(this._animationFrame);
-    this._animationFrame = requestAnimationFrame(() => {
-      this._animationFrame = 0;
-      clearTimeout(this._animationFrame);
-      this._animationFrame = window.setTimeout(callback, 0);
+  #runNextAnimationFrame_(callback: () => void) {
+    cancelAnimationFrame(this.#animationFrame);
+    this.#animationFrame = requestAnimationFrame(() => {
+      this.#animationFrame = 0;
+      clearTimeout(this.#animationFrame);
+      this.#animationFrame = window.setTimeout(callback, 0);
     });
   }
 

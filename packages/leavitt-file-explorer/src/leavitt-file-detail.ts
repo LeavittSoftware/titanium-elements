@@ -16,8 +16,8 @@ export class LeavittFileDetailElement extends LitElement {
   @property({ type: Object }) file: FileExplorerFileDto | null = null;
   @property({ type: Boolean }) enableEditing: boolean = false;
 
-  @state() private isCopying: boolean = false;
-  @state() private hasClipboard: boolean = false;
+  @state() protected isCopying: boolean = false;
+  @state() protected hasClipboard: boolean = false;
 
   firstUpdated() {
     if (navigator.clipboard) {

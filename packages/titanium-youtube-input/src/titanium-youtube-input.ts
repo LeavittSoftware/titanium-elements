@@ -39,7 +39,7 @@ export class TitaniumYouTubeInputElement extends LitElement {
    */
   @property({ type: String }) label: string = 'YouTube Video Key';
 
-  @query('mwc-textfield') private input!: TextField & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
+  @query('mwc-textfield') protected input!: TextField & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
 
   firstUpdated() {
     this.input.validityTransform = (newValue, nativeValidity) => {
@@ -85,7 +85,7 @@ export class TitaniumYouTubeInputElement extends LitElement {
     this.input.mdcFoundation?.setValid?.(true);
   }
 
-  private _getYouTubeKey(value: string) {
+  #getYouTubeKey(value: string) {
     // https://stackoverflow.com/a/8260383
     const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
     const match = value.match(regExp);
@@ -96,17 +96,17 @@ export class TitaniumYouTubeInputElement extends LitElement {
     return key ? key : value;
   }
 
-  private async _clearYouTubeInputValue() {
+  async #clearYouTubeInputValue() {
     this.youTubeVideoKey = '';
     return this.updateComplete;
   }
 
-  private async _youTubeKeyChanged(event) {
+  async #youTubeKeyChanged(event) {
     if (event && event.target && event.target.value) {
       const value = event.target.value;
       // Clears the input before resetting it with just the key
-      await this._clearYouTubeInputValue();
-      this.youTubeVideoKey = this._getYouTubeKey(value);
+      await this.#clearYouTubeInputValue();
+      this.youTubeVideoKey = this.#getYouTubeKey(value);
     } else {
       this.youTubeVideoKey = '';
     }
@@ -140,7 +140,7 @@ export class TitaniumYouTubeInputElement extends LitElement {
         ?disabled=${this.disabled}
         .validationMessage=${this.validationMessage}
         .label=${this.label}
-        @input="${this._youTubeKeyChanged}"
+        @input="${this.#youTubeKeyChanged}"
         .value=${this.youTubeVideoKey || ''}
       ></mwc-textfield>
       ${this.youTubeVideoKey &&

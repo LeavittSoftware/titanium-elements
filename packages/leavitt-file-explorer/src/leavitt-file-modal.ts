@@ -12,10 +12,10 @@ import fileExplorerEvents from './file-explorer-events';
 export class LeavittFileModalElement extends LitElement {
   @property({ type: Boolean }) enableEditing: boolean = false;
 
-  @state() private state: 'view' | 'edit' = 'view';
-  @state() private file: FileExplorerFileDto | null = null;
+  @state() protected state: 'view' | 'edit' = 'view';
+  @state() protected file: FileExplorerFileDto | null = null;
 
-  @query('titanium-native-dialog-base') private dialog!: TitaniumNativeDialogBaseElement;
+  @query('titanium-native-dialog-base') protected dialog!: TitaniumNativeDialogBaseElement;
 
   async updated(changedProps: PropertyValues<this>) {
     if (changedProps.has('enableEditing') && this.enableEditing) {

@@ -52,7 +52,7 @@ export class UserManager extends LitElement {
 
   @property({ type: Boolean }) isActiveEmployee: boolean;
 
-  private _isAuthenticating: boolean;
+  #isAuthenticating: boolean;
 
   constructor() {
     super();
@@ -65,7 +65,7 @@ export class UserManager extends LitElement {
   }
 
   async firstUpdated() {
-    if (!this.disableAutoload || this._getTokenfromUrl('refreshToken')) {
+    if (!this.disableAutoload || this.#getTokenfromUrl('refreshToken')) {
       try {
         await this.authenticateAsync();
       } catch (error) {}
@@ -73,21 +73,21 @@ export class UserManager extends LitElement {
     console.log('UserManager Ready.');
   }
 
-  private _redirectToLogin(continueUrl: string) {
+  #redirectToLogin(continueUrl: string) {
     const redirectUrl = `${isDevelopment ? this.redirectDevUrl : this.redirectUrl}?continue=${encodeURIComponent(continueUrl)}`;
     if (document.location) {
       document.location.href = redirectUrl;
     }
   }
 
-  private _redirectToSignOut(continueUrl: string) {
+  #redirectToSignOut(continueUrl: string) {
     const redirectUrl = `${isDevelopment ? this.redirectDevUrl : this.redirectUrl}sign-out/?continue=${encodeURIComponent(continueUrl)}`;
     if (document.location) {
       document.location.href = redirectUrl;
     }
   }
 
-  private _getHashParametersFromUrl(): Array<{ key: string; value: string }> {
+  #getHashParametersFromUrl(): Array<{ key: string; value: string }> {
     const hashParams = [] as Array<{ key: string; value: string }>;
     if (window.location.hash) {
       let hash = window.location.hash.substring(1);
@@ -106,7 +106,7 @@ export class UserManager extends LitElement {
     return hashParams;
   }
 
-  private _getClaimScopes(localStorageKey: string): Array<string> {
+  #getClaimScopes(localStorageKey: string): Array<string> {
     try {
       return JSON.parse(window.localStorage.getItem(localStorageKey) || '[]');
     } catch (error) {
@@ -115,14 +115,14 @@ export class UserManager extends LitElement {
     }
   }
 
-  private _clearHashFromUrl() {
+  #clearHashFromUrl() {
     if (document.location && document.location.hash && document.location.hash.indexOf('refreshToken') > -1) {
       document.location.hash = '';
     }
   }
 
-  private _getTokenfromUrl(tokenName: string): string | null {
-    const hashParameters = this._getHashParametersFromUrl();
+  #getTokenfromUrl(tokenName: string): string | null {
+    const hashParameters = this.#getHashParametersFromUrl();
     const accessTokenArray = hashParameters.filter(value => value.key === tokenName);
     if (accessTokenArray.length === 0) {
       return null;
@@ -131,7 +131,7 @@ export class UserManager extends LitElement {
     }
   }
 
-  private _decodeAccessToken(accessToken: string): LssJwtToken | null {
+  #decodeAccessToken(accessToken: string): LssJwtToken | null {
     if (!accessToken) {
       return null;
     }
@@ -150,7 +150,7 @@ export class UserManager extends LitElement {
     return token;
   }
 
-  private _validateToken(accessToken: LssJwtToken): boolean {
+  #validateToken(accessToken: LssJwtToken): boolean {
     const currentDate = new Date();
     currentDate.setSeconds(currentDate.getSeconds() + 30);
 
@@ -165,28 +165,28 @@ export class UserManager extends LitElement {
     return true;
   }
 
-  private _getAccessTokenFromLocalStorage(): string {
+  #getAccessTokenFromLocalStorage(): string {
     return window.localStorage.getItem('LG-AUTH-AT') || '';
   }
 
-  private _saveAccessTokenToLocalStorage(accessToken: string): void {
+  #saveAccessTokenToLocalStorage(accessToken: string): void {
     window.localStorage.setItem('LG-AUTH-AT', accessToken);
   }
 
-  private _getRefreshTokenFromLocalStorage(): string {
+  #getRefreshTokenFromLocalStorage(): string {
     return window.localStorage.getItem('LG-AUTH-RT') || '';
   }
 
-  private _saveRefreshTokenToLocalStorage(accessToken: string | null): void {
+  #saveRefreshTokenToLocalStorage(accessToken: string | null): void {
     window.localStorage.setItem('LG-AUTH-RT', accessToken || '');
   }
 
-  private async _getAccessTokenFromApiAsync(refreshToken: string, uri: string): Promise<string> {
+  async #getAccessTokenFromApiAsync(refreshToken: string, uri: string): Promise<string> {
     if (!window.navigator.onLine) {
       return Promise.reject('Computer not connected. Make sure your computer is connected to the internet.');
     }
 
-    const claimScopes = this._getClaimScopes('LgClaimScopes');
+    const claimScopes = this.#getClaimScopes('LgClaimScopes');
     // eslint-disable-next-line @typescript-eslint/naming-convention
     const body = { grant_type: 'refresh_token', refresh_token: refreshToken } as { grant_type: string; refresh_token: string; claim_scopes: string[] };
 
@@ -225,7 +225,7 @@ export class UserManager extends LitElement {
     return Promise.reject('Not authenticated');
   }
 
-  private _setLocalProperties(_jwtToken: LssJwtToken) {
+  #setLocalProperties(_jwtToken: LssJwtToken) {
     this.personId = Number(_jwtToken.nameid);
     this.refreshTokenId = Number(_jwtToken.RefreshTokenId);
     this.fullname = _jwtToken.unique_name;
@@ -242,35 +242,35 @@ export class UserManager extends LitElement {
     this.dispatchEvent(new UserManagerUpdatedEvent());
   }
 
-  private async _getTokenAsync(): Promise<LssJwtToken> {
-    const refreshTokenFromUrl = this._getTokenfromUrl('refreshToken');
+  async #getTokenAsync(): Promise<LssJwtToken> {
+    const refreshTokenFromUrl = this.#getTokenfromUrl('refreshToken');
 
     //If a new refresh token is sent, clear the access token incase one is still valid from another user
-    let accessToken = refreshTokenFromUrl ? '' : this._getAccessTokenFromLocalStorage();
-    const refreshToken = refreshTokenFromUrl || this._getRefreshTokenFromLocalStorage() || null;
-    this._clearHashFromUrl();
+    let accessToken = refreshTokenFromUrl ? '' : this.#getAccessTokenFromLocalStorage();
+    const refreshToken = refreshTokenFromUrl || this.#getRefreshTokenFromLocalStorage() || null;
+    this.#clearHashFromUrl();
 
     // validate uri access token
-    const jwtToken = this._decodeAccessToken(accessToken);
-    if (jwtToken && this._validateToken(jwtToken)) {
-      this._saveAccessTokenToLocalStorage(accessToken);
-      this._saveRefreshTokenToLocalStorage(refreshToken);
-      this._setLocalProperties(jwtToken);
+    const jwtToken = this.#decodeAccessToken(accessToken);
+    if (jwtToken && this.#validateToken(jwtToken)) {
+      this.#saveAccessTokenToLocalStorage(accessToken);
+      this.#saveRefreshTokenToLocalStorage(refreshToken);
+      this.#setLocalProperties(jwtToken);
       return Promise.resolve(jwtToken);
     }
 
     if (refreshToken != null) {
       try {
-        accessToken = await this._getAccessTokenFromApiAsync(refreshToken, this.tokenUri);
+        accessToken = await this.#getAccessTokenFromApiAsync(refreshToken, this.tokenUri);
       } catch (error) {
         return Promise.reject(error);
       }
 
-      const jwtToken = this._decodeAccessToken(accessToken);
-      if (jwtToken && this._validateToken(jwtToken)) {
-        this._saveAccessTokenToLocalStorage(accessToken);
-        this._saveRefreshTokenToLocalStorage(refreshToken);
-        this._setLocalProperties(jwtToken);
+      const jwtToken = this.#decodeAccessToken(accessToken);
+      if (jwtToken && this.#validateToken(jwtToken)) {
+        this.#saveAccessTokenToLocalStorage(accessToken);
+        this.#saveRefreshTokenToLocalStorage(refreshToken);
+        this.#setLocalProperties(jwtToken);
         return Promise.resolve(jwtToken);
       }
     }
@@ -280,7 +280,7 @@ export class UserManager extends LitElement {
 
   async getAccessTokenAsync() {
     await this.authenticateAsync();
-    return this._getAccessTokenFromLocalStorage();
+    return this.#getAccessTokenFromLocalStorage();
   }
 
   /**
@@ -291,7 +291,7 @@ export class UserManager extends LitElement {
    */
   async isAuthenticatedAsync(): Promise<boolean> {
     try {
-      await this._getTokenAsync();
+      await this.#getTokenAsync();
     } catch (error) {
       return false;
     }
@@ -301,7 +301,7 @@ export class UserManager extends LitElement {
   async authenticateAsync(): Promise<LssJwtToken> {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
-    if (this._isAuthenticating) {
+    if (this.#isAuthenticating) {
       return new Promise<LssJwtToken>((resolve, reject) => {
         const listener = function listener(e) {
           self.removeEventListener('token', listener);
@@ -317,21 +317,21 @@ export class UserManager extends LitElement {
     return new Promise<LssJwtToken>(async (resolve, reject) => {
       let jwtToken;
       try {
-        this._isAuthenticating = true;
-        jwtToken = await this._getTokenAsync();
+        this.#isAuthenticating = true;
+        jwtToken = await this.#getTokenAsync();
       } catch (error) {
         if (error === 'Not authenticated') {
           if (document.location) {
-            this._redirectToLogin(document.location.href);
+            this.#redirectToLogin(document.location.href);
           }
-          this._isAuthenticating = false;
+          this.#isAuthenticating = false;
           this.dispatchEvent(new CustomEvent('token', { detail: { rejected: true, message: error } }));
           return; // Wait for the redirect to happen with a unreturned promise
         }
-        this._isAuthenticating = false;
+        this.#isAuthenticating = false;
         reject(error);
       }
-      this._isAuthenticating = false;
+      this.#isAuthenticating = false;
       self.dispatchEvent(new CustomEvent('token', { detail: jwtToken }));
       resolve(jwtToken);
     });
@@ -359,7 +359,7 @@ export class UserManager extends LitElement {
     });
     this.roles = [];
     if (document.location) {
-      this._redirectToSignOut(document.location.href);
+      this.#redirectToSignOut(document.location.href);
     }
     return;
   }

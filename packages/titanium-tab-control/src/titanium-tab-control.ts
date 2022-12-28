@@ -31,29 +31,26 @@ export class TitaniumTabControlElement extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    window.addEventListener('resize', this._updateMenu.bind(this));
+    window.addEventListener('resize', this.#updateMenu.bind(this));
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    window.removeEventListener('resize', this._updateMenu);
+    window.removeEventListener('resize', this.#updateMenu);
   }
 
   firstUpdated() {
     this.addEventListener('selected', (e: CustomEvent<TitaniumTabControlItemElement>) => {
       this.container.scrollLeft = e.detail.offsetLeft - (this.offsetWidth - e.detail.offsetWidth) / 2;
     });
-    this.container.addEventListener('scroll', this._updateMenu.bind(this));
-    this._updateMenu();
+    this.container.addEventListener('scroll', this.#updateMenu.bind(this));
+    this.#updateMenu();
   }
 
-  private timeoutHandle: number;
-  /**
-   * @ignore
-   */
-  _updateMenu() {
-    clearTimeout(this.timeoutHandle);
-    this.timeoutHandle = window.setTimeout(() => {
+  #timeoutHandle: number;
+  #updateMenu() {
+    clearTimeout(this.#timeoutHandle);
+    this.#timeoutHandle = window.setTimeout(() => {
       this.leftNav.style.display = this.container.scrollLeft === 0 ? 'none' : 'flex';
       this.rightNav.style.display = this.container.scrollLeft >= this.container.scrollWidth - this.container.offsetWidth ? 'none' : 'flex';
     }, 50);

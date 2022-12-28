@@ -167,7 +167,7 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
     return this.textfield.reportValidity();
   }
 
-  private setSelected(selected: SelectableEntity | null) {
+  #setSelected(selected: SelectableEntity | null) {
     const previouslySelected = this.selected;
     this.selected = selected;
     if (previouslySelected !== this.selected) {
@@ -178,7 +178,7 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
     }
   }
 
-  private abortController: AbortController = new AbortController();
+  #abortController: AbortController = new AbortController();
 
   /**
    * @ignore
@@ -188,8 +188,8 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
       return null;
     }
 
-    this.abortController.abort();
-    this.abortController = new AbortController();
+    this.#abortController.abort();
+    this.#abortController = new AbortController();
 
     const results = await Promise.all([this.#doPersonSearch(searchTerm), this.#doCompanySearch(searchTerm)]);
     const entities = [...(results[0]?.entities ?? []), ...(results[1]?.entities ?? [])];
@@ -221,7 +221,7 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
         const searchFilter = searchTokens.map((token: string) => `(startswith(FirstName, '${token}') or startswith(LastName, '${token}'))`).join(' and ');
         odataParts.push(`$filter=${searchFilter}`);
       }
-      const results = await this.apiService?.getAsync<Person>(`People?${odataParts.join('&')}`, { abortController: this.abortController });
+      const results = await this.apiService?.getAsync<Person>(`People?${odataParts.join('&')}`, { abortController: this.#abortController });
       results?.entities.forEach(p => (p.type = 'Person'));
       return results;
     } catch (error) {
@@ -246,7 +246,7 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
         const searchFilter = searchTokens.map((token: string) => `(contains(Name, '${token}') OR (contains(Shortname, '${token}')))`).join(' and ');
         odataParts.push(`$filter=${searchFilter}`);
       }
-      const results = await this.apiService?.getAsync<Company>(`Companies?${odataParts.join('&')}`, { abortController: this.abortController });
+      const results = await this.apiService?.getAsync<Company>(`Companies?${odataParts.join('&')}`, { abortController: this.#abortController });
       results?.entities.forEach(p => (p.type = 'Company'));
       return results;
     } catch (error) {
@@ -261,7 +261,7 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
 
   async #onInput(term: string) {
     if (this.selected !== null) {
-      this.setSelected(null);
+      this.#setSelected(null);
     }
     this.dispatchEvent(new Event('change'));
     this.searchTerm = term;
@@ -348,7 +348,7 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
           if (e.key == 'Escape') {
             e.stopPropagation();
             this.textfield.value = '';
-            this.setSelected(null);
+            this.#setSelected(null);
           }
         }}
         @input=${async (e: DOMEvent<TextField>) => {
@@ -386,7 +386,7 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
           const selectedIndex = e.detail.index;
 
           if (selectedIndex > -1) {
-            this.setSelected(this.suggestions?.[selectedIndex] ?? null);
+            this.#setSelected(this.suggestions?.[selectedIndex] ?? null);
             this.textfield.isUiValid = true;
             this.textfield.mdcFoundation?.setValid?.(true);
           }

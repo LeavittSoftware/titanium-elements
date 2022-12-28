@@ -13,9 +13,9 @@ import { TitaniumPageControlElement } from '@leavittsoftware/titanium-data-table
 @customElement('titanium-page-control-playground')
 export class TitaniumPageControlPlayground extends LitElement {
   @query('titanium-page-control[main]') pageControl: TitaniumPageControlElement;
-  @state() private count: number = 25;
-  @state() private data;
-  @state() private filteredData;
+  @state() protected count: number = 25;
+  @state() protected data;
+  @state() protected filteredData;
 
   firstUpdated() {
     this.data = Array(25)

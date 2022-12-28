@@ -13,7 +13,7 @@ import { TitaniumImageInputElement } from '@leavittsoftware/titanium-image-input
 /* playground-fold */
 @customElement('titanium-image-input-playground')
 export class TitaniumImageInputPlaygroundElement extends LitElement {
-  @query('titanium-image-input[methods-demo]') private methodsPersonSelect!: TitaniumImageInputElement;
+  @query('titanium-image-input[methods-demo]') protected methodsPersonSelect!: TitaniumImageInputElement;
 
   static styles = [
     h1,

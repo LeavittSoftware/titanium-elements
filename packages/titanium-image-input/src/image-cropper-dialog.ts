@@ -20,7 +20,7 @@ export class ImageCropperDialogElement extends LitElement {
   @property({ type: String }) fileName: string = '';
   @property({ type: String }) previewDataUrl: string | null = null;
 
-  private cropper: null | Cropper;
+  #cropper: null | Cropper;
 
   static styles = [
     h1,
@@ -155,19 +155,19 @@ export class ImageCropperDialogElement extends LitElement {
   async open(url: string, filename: string) {
     this.reset();
     this.fileName = filename;
-    this._setCropperImage(url);
+    this.#setCropperImage(url);
     return await this.dialog.open();
   }
 
   reset() {
     this.img.src = '';
-    this.cropper?.destroy();
+    this.#cropper?.destroy();
   }
 
-  private _setCropperImage(url: string) {
+  #setCropperImage(url: string) {
     this.img.src = url;
 
-    this.cropper = new Cropper(this.img, {
+    this.#cropper = new Cropper(this.img, {
       viewMode: 2,
       aspectRatio: this.options.shape === 'circle' ? 1 : this.options.aspectRatio,
       ...this.options,
@@ -178,7 +178,7 @@ export class ImageCropperDialogElement extends LitElement {
     return new File([blob], fileName.slice(0, fileName.lastIndexOf('.')) + '.png', { lastModified: new Date().getTime() });
   }
 
-  private async applyCircleMask(dataUrl: string) {
+  async #applyCircleMask(dataUrl: string) {
     const canvas = document.createElement('canvas');
     const image = new Image();
 
@@ -230,8 +230,8 @@ export class ImageCropperDialogElement extends LitElement {
               <img />
             </cropper-container>
             <crop-buttons>
-              <mwc-icon-button label="Rotate right" title="Rotate right" icon="rotate_right" @click=${() => this.cropper?.rotate(90)}></mwc-icon-button>
-              <mwc-icon-button label="Rotate left" title="Rotate left" icon="rotate_left" @click=${() => this.cropper?.rotate(-90)}></mwc-icon-button>
+              <mwc-icon-button label="Rotate right" title="Rotate right" icon="rotate_right" @click=${() => this.#cropper?.rotate(90)}></mwc-icon-button>
+              <mwc-icon-button label="Rotate left" title="Rotate left" icon="rotate_left" @click=${() => this.#cropper?.rotate(-90)}></mwc-icon-button>
             </crop-buttons>
           </section>
         </main>
@@ -246,11 +246,11 @@ export class ImageCropperDialogElement extends LitElement {
           <mwc-button
             label="DONE"
             @click=${async () => {
-              const canvas = this.cropper?.getCroppedCanvas();
+              const canvas = this.#cropper?.getCroppedCanvas();
               if (!canvas) {
                 return;
               }
-              this.previewDataUrl = this.options.shape === 'circle' ? await this.applyCircleMask(canvas.toDataURL()) : canvas.toDataURL();
+              this.previewDataUrl = this.options.shape === 'circle' ? await this.#applyCircleMask(canvas.toDataURL()) : canvas.toDataURL();
               const response = await fetch(this.previewDataUrl);
               const blob = await response.blob();
               this.file = this.blobToFile(blob, this.fileName);

@@ -14,12 +14,12 @@ import dayjs from 'dayjs/esm';
 /* playground-fold */
 @customElement('titanium-date-range-selector-playground')
 export class TitaniumDateRangePlaygroundElement extends LitElement {
-  @query('titanium-date-range-selector[events]') private eventsDemoInput!: TitaniumDateRangeSelector;
-  @query('titanium-date-range-selectore[layout-demo]') private layoutInput!: TitaniumDateRangeSelector;
+  @query('titanium-date-range-selector[events]') protected eventsDemoInput!: TitaniumDateRangeSelector;
+  @query('titanium-date-range-selectore[layout-demo]') protected layoutInput!: TitaniumDateRangeSelector;
 
-  @state() private startDate: string = '2020-01-02';
-  @state() private endDate: string = '2020-01-04';
-  @state() private showLayoutInput: boolean = false;
+  @state() protected startDate: string = '2020-01-02';
+  @state() protected endDate: string = '2020-01-04';
+  @state() protected showLayoutInput: boolean = false;
   @state() eventFired: boolean = false;
 
   static styles = [

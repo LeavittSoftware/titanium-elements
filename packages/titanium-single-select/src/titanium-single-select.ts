@@ -61,21 +61,21 @@ export class TitaniumSingleSelectElement<T> extends LitElement {
   @property({ type: String }) protected inputValue: string = '';
   @property({ type: Boolean, reflect: true }) protected invalid: boolean = true;
 
-  @property({ type: Boolean }) private _isLoading: boolean;
-  @query('search-suggestions ') private searchSuggestions: HTMLSlotElement;
-  @query('input-container ') private inputContainer: HTMLSlotElement;
-  @query('slot') private slotElement: HTMLSlotElement;
+  @property({ type: Boolean }) protected isLoading: boolean;
+  @query('search-suggestions ') protected searchSuggestions: HTMLSlotElement;
+  @query('input-container ') protected inputContainer: HTMLSlotElement;
+  @query('slot') protected slotElement: HTMLSlotElement;
 
-  private _blurTimeoutHandle: number;
-  private _openCount = 0;
+  #blurTimeoutHandle: number;
+  #openCount = 0;
 
   firstUpdated() {
-    this.slotElement.addEventListener('titanium-single-select-item-blur', () => this._blurHandler());
+    this.slotElement.addEventListener('titanium-single-select-item-blur', () => this.#blurHandler());
     this.slotElement.addEventListener('titanium-single-select-item-keydown', (e: CustomEvent<{ event: KeyboardEvent; value: T }>) =>
-      this._onKeyDown(e.detail.event, e.detail.value)
+      this.#onKeyDown(e.detail.event, e.detail.value)
     );
     this.slotElement.addEventListener('titanium-single-select-item-click', (e: CustomEvent<{ event: MouseEvent; value: T }>) =>
-      this._setSelected(e.detail.value)
+      this.#setSelected(e.detail.value)
     );
   }
 
@@ -88,37 +88,37 @@ export class TitaniumSingleSelectElement<T> extends LitElement {
       if (this.open) {
         //Make sure the input is above the click trap;
         this.inputContainer.style.zIndex = '9';
-        this._subscribeToResize();
-        this.positionSuggestions();
+        this.#subscribeToResize();
+        this.#positionSuggestions();
       } else {
         this.inputContainer.style.zIndex = '';
-        this._unsubscribeToResize();
+        this.#unsubscribeToResize();
       }
     }
   }
 
   async loadWhile(promise: Promise<unknown>) {
-    this._isLoading = true;
-    this._openCount++;
+    this.isLoading = true;
+    this.#openCount++;
     try {
       await promise;
     } finally {
-      this._openCount--;
-      if (this._openCount === 0) {
-        this._isLoading = false;
+      this.#openCount--;
+      if (this.#openCount === 0) {
+        this.isLoading = false;
       }
     }
   }
 
-  private get searchSuggestionElements(): unknown[] {
-    return this.querySlotted(this.shadowRoot, 'titanium-single-select-item');
+  get #searchSuggestionElements(): unknown[] {
+    return this.#querySlotted(this.shadowRoot, 'titanium-single-select-item');
   }
 
-  private _handleValueChange() {
-    this._setInputValue(this.input.value);
+  #handleValueChange() {
+    this.#setInputValue(this.input.value);
   }
 
-  private _setInputValue(value: string) {
+  #setInputValue(value: string) {
     this.inputValue = value;
     this.dispatchEvent(
       new CustomEvent<string>('input-changed', {
@@ -128,23 +128,23 @@ export class TitaniumSingleSelectElement<T> extends LitElement {
     );
   }
 
-  private positionSuggestions() {
+  #positionSuggestions() {
     this.searchSuggestions.style.width = `${this.input.offsetWidth - 2}px`;
   }
 
-  private _resizeHandler() {
-    this.positionSuggestions();
+  #resizeHandler() {
+    this.#positionSuggestions();
   }
 
-  private _subscribeToResize() {
-    window.addEventListener('resize', () => this._resizeHandler());
+  #subscribeToResize() {
+    window.addEventListener('resize', () => this.#resizeHandler());
   }
 
-  private _unsubscribeToResize() {
-    window.addEventListener('resize', () => this._resizeHandler());
+  #unsubscribeToResize() {
+    window.addEventListener('resize', () => this.#resizeHandler());
   }
 
-  private _setSelected(value: T | null) {
+  #setSelected(value: T | null) {
     this.selected = value;
     this.open = false;
     this.inputValue = '';
@@ -156,14 +156,14 @@ export class TitaniumSingleSelectElement<T> extends LitElement {
     );
   }
 
-  private _inputOnFocus() {
+  #inputOnFocus() {
     this.open = true;
   }
 
-  private _blurHandler() {
-    clearTimeout(this._blurTimeoutHandle);
-    this._blurTimeoutHandle = window.setTimeout(() => {
-      const activeElement = this.getActiveElement();
+  #blurHandler() {
+    clearTimeout(this.#blurTimeoutHandle);
+    this.#blurTimeoutHandle = window.setTimeout(() => {
+      const activeElement = this.#getActiveElement();
 
       if (!activeElement || (activeElement.tagName !== 'TITANIUM-SINGLE-SELECT-ITEM' && activeElement.id !== 'searchInput')) {
         this.open = false;
@@ -171,7 +171,7 @@ export class TitaniumSingleSelectElement<T> extends LitElement {
     }, 300);
   }
 
-  private _onKeyDown(e: KeyboardEvent, value: T) {
+  #onKeyDown(e: KeyboardEvent, value: T) {
     this.open = true;
     switch (e.keyCode) {
       case 27: {
@@ -181,17 +181,17 @@ export class TitaniumSingleSelectElement<T> extends LitElement {
         break;
       }
       case 40: {
-        this.focusNextElement();
+        this.#focusNextElement();
         e.preventDefault();
         break;
       }
       case 38: {
-        this.focusPreviousElement();
+        this.#focusPreviousElement();
         e.preventDefault();
         break;
       }
       case 13: {
-        this._setSelected(value);
+        this.#setSelected(value);
         e.preventDefault();
         break;
       }
@@ -200,7 +200,7 @@ export class TitaniumSingleSelectElement<T> extends LitElement {
     }
   }
 
-  private querySlotted(root, selector) {
+  #querySlotted(root, selector) {
     const slots = root.querySelectorAll('slot');
     let matched = [];
     slots.forEach(slot => {
@@ -214,13 +214,13 @@ export class TitaniumSingleSelectElement<T> extends LitElement {
   }
 
   //#region Element selection
-  private focusNextElement() {
-    const items = [].slice.call(this.searchSuggestionElements);
+  #focusNextElement() {
+    const items = [].slice.call(this.#searchSuggestionElements);
     if (!items) {
       return;
     }
 
-    const activeElement = this.getActiveElement();
+    const activeElement = this.#getActiveElement();
     const nextIndex = items.indexOf(activeElement) + 1;
     if (nextIndex > items.length - 1) {
       this.input.focus();
@@ -229,13 +229,13 @@ export class TitaniumSingleSelectElement<T> extends LitElement {
     }
   }
 
-  private focusPreviousElement() {
-    const items = [].slice.call(this.searchSuggestionElements);
+  #focusPreviousElement() {
+    const items = [].slice.call(this.#searchSuggestionElements);
     if (!items) {
       return;
     }
 
-    const activeElement = this.getActiveElement();
+    const activeElement = this.#getActiveElement();
     const previousIndex = items.indexOf(activeElement) - 1;
     if (previousIndex === -2) {
       items[items.length - 1].focus();
@@ -248,17 +248,17 @@ export class TitaniumSingleSelectElement<T> extends LitElement {
   //#endregion
 
   //#region Determine Active Element In Shadow Root
-  private getActiveElement() {
-    return this._getActiveShadowElement(document.activeElement);
+  #getActiveElement() {
+    return this.#getActiveShadowElement(document.activeElement);
   }
 
-  private _getActiveShadowElement(element: Element | null): Element | null {
+  #getActiveShadowElement(element: Element | null): Element | null {
     if (!element) {
       return null;
     }
 
     if (element.shadowRoot && element.shadowRoot.activeElement) {
-      return this._getActiveShadowElement(element.shadowRoot.activeElement);
+      return this.#getActiveShadowElement(element.shadowRoot.activeElement);
     }
 
     return element;
@@ -269,9 +269,9 @@ export class TitaniumSingleSelectElement<T> extends LitElement {
   reset() {
     if (this.input) {
       this.input.value = '';
-      this._setInputValue(this.input.value);
+      this.#setInputValue(this.input.value);
       this.open = false;
-      this._setSelected(null);
+      this.#setSelected(null);
     }
   }
 
@@ -508,14 +508,14 @@ export class TitaniumSingleSelectElement<T> extends LitElement {
         <input
           autocomplete="off"
           aria-label="Search"
-          @keydown=${this._onKeyDown}
+          @keydown=${this.#onKeyDown}
           ?disabled=${this.disabled}
           id="searchInput"
           tabindex="0"
-          @blur=${this._blurHandler}
-          @focus=${this._inputOnFocus}
+          @blur=${this.#blurHandler}
+          @focus=${this.#inputOnFocus}
           placeholder=${this.placeholder}
-          @input=${this._handleValueChange}
+          @input=${this.#handleValueChange}
           value=${this.inputValue}
           size="8"
         />
@@ -529,12 +529,12 @@ export class TitaniumSingleSelectElement<T> extends LitElement {
           ?hidden=${!this.open && !this.inputValue}
           path="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
         ></titanium-svg-button>
-        <hr ?hidden=${this._isLoading || !this.open} />
-        <titanium-progress ?hidden=${!this._isLoading || !this.open} ?disabled=${!this._isLoading}></titanium-progress>
+        <hr ?hidden=${this.isLoading || !this.open} />
+        <titanium-progress ?hidden=${!this.isLoading || !this.open} ?disabled=${!this.isLoading}></titanium-progress>
       </input-container>
       <search-suggestions id="suggestions" tabindex="-1">
         <informatory-text ?hidden=${this.totalCount > 0 || this.inputValue !== ''}>${this.hintText}</informatory-text>
-        <informatory-text ?hidden=${this.inputValue === '' || this._isLoading}> ${this.totalCount} results for '${this.inputValue}' </informatory-text>
+        <informatory-text ?hidden=${this.inputValue === '' || this.isLoading}> ${this.totalCount} results for '${this.inputValue}' </informatory-text>
         <slot></slot>
       </search-suggestions>
     `;

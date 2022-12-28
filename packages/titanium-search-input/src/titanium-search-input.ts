@@ -40,9 +40,9 @@ export class TitaniumSearchInput extends LitElement {
    *  Whether the input should prevent collapse.
    */
   @property({ type: Boolean, reflect: true, attribute: 'prevent-collapse' }) preventCollapse: boolean = false;
-  @property({ type: Boolean, reflect: true }) private collapsed: boolean = true;
+  @property({ type: Boolean, reflect: true }) protected collapsed: boolean = true;
 
-  @query('input') private _input: HTMLInputElement;
+  @query('input') protected input: HTMLInputElement;
   /**
    * Focuses the input
    */
@@ -50,26 +50,26 @@ export class TitaniumSearchInput extends LitElement {
     if (this.preventCollapse) {
       this._focus();
     } else {
-      this._handleSearchClick();
+      this.#handleSearchClick();
     }
   }
 
   _focus() {
-    this._input.focus();
+    this.input.focus();
   }
 
   firstUpdated() {
     this.collapsed = !this.value;
   }
 
-  private _onValueChange() {
-    if (this.value !== this._input.value) {
-      this.value = this._input.value;
+  #onValueChange() {
+    if (this.value !== this.input.value) {
+      this.value = this.input.value;
       this.dispatchEvent(new CustomEvent('value-changed', { detail: this.value }));
     }
   }
 
-  private _onClearClick() {
+  #onClearClick() {
     if (this.disabled) {
       return;
     }
@@ -79,7 +79,7 @@ export class TitaniumSearchInput extends LitElement {
     this._focus();
   }
 
-  private async _handleSearchClick() {
+  async #handleSearchClick() {
     if (this.preventCollapse) {
       return;
     }
@@ -89,7 +89,7 @@ export class TitaniumSearchInput extends LitElement {
     this._focus();
   }
 
-  private _lostFocus() {
+  #lostFocus() {
     if (this.preventCollapse) {
       return;
     }
@@ -209,20 +209,20 @@ export class TitaniumSearchInput extends LitElement {
   render() {
     return html`
       <input-container>
-        <mwc-icon-button ?disabled=${this.disabled} search @click=${this._handleSearchClick} icon="search"></mwc-icon-button>
+        <mwc-icon-button ?disabled=${this.disabled} search @click=${this.#handleSearchClick} icon="search"></mwc-icon-button>
         <input
           type="text"
           ?disabled=${this.disabled || (this.collapsed && !this.preventCollapse)}
           placeholder=${this.placeholder}
           autocomplete="off"
           .value=${this.value}
-          @keyup=${this._onValueChange}
-          @focusout=${this._lostFocus}
-          @change=${this._onValueChange}
+          @keyup=${this.#onValueChange}
+          @focusout=${this.#lostFocus}
+          @change=${this.#onValueChange}
         />
         ${this.hideClearButton || !this.value
           ? ''
-          : html` <mwc-icon-button clear @click=${this._onClearClick} ?disabled=${this.disabled} icon="close"></mwc-icon-button> `}
+          : html` <mwc-icon-button clear @click=${this.#onClearClick} ?disabled=${this.disabled} icon="close"></mwc-icon-button> `}
       </input-container>
     `;
   }

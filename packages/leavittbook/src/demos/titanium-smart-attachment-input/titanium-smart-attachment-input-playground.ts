@@ -12,12 +12,12 @@ import { TitaniumSmartAttachmentInputElement } from '@leavittsoftware/titanium-s
 /* playground-fold */
 @customElement('titanium-smart-attachment-input-playground')
 export class TitaniumSmartAttachmentInputPlayground extends LitElement {
-  @state() private getFilesResult: string | null = null;
-  @state() private hasChanges: boolean = false;
-  @query('titanium-smart-attachment-input[get-files]') private getFilesInput!: TitaniumSmartAttachmentInputElement;
-  @query('titanium-smart-attachment-input[preselect]') private preselectFilesInput!: TitaniumSmartAttachmentInputElement;
-  @query('titanium-smart-attachment-input[preselect-disabled]') private preselectDisabledFilesInput!: TitaniumSmartAttachmentInputElement;
-  @query('titanium-smart-attachment-input[reset]') private resetInput!: TitaniumSmartAttachmentInputElement;
+  @state() protected getFilesResult: string | null = null;
+  @state() protected hasChanges: boolean = false;
+  @query('titanium-smart-attachment-input[get-files]') protected getFilesInput!: TitaniumSmartAttachmentInputElement;
+  @query('titanium-smart-attachment-input[preselect]') protected preselectFilesInput!: TitaniumSmartAttachmentInputElement;
+  @query('titanium-smart-attachment-input[preselect-disabled]') protected preselectDisabledFilesInput!: TitaniumSmartAttachmentInputElement;
+  @query('titanium-smart-attachment-input[reset]') protected resetInput!: TitaniumSmartAttachmentInputElement;
 
   static styles = [
     h1,

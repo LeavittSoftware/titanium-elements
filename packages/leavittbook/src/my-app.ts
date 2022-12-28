@@ -30,11 +30,11 @@ const LGLogo = new URL('../images/lg-logo.svg', import.meta.url).href;
 export class MyAppElement extends LitElement {
   @property({ type: Boolean, reflect: true }) public isOnline: boolean = true;
 
-  @state() private page: string | undefined;
-  @state() private isDesktop: boolean = false;
+  @state() protected page: string | undefined;
+  @state() protected isDesktop: boolean = false;
 
-  @query('titanium-full-page-loading-indicator') private loadingIndicator: TitaniumFullPageLoadingIndicatorElement;
-  @query('mwc-drawer') private drawer: Drawer;
+  @query('titanium-full-page-loading-indicator') protected loadingIndicator: TitaniumFullPageLoadingIndicatorElement;
+  @query('mwc-drawer') protected drawer: Drawer;
 
   public async firstUpdated() {
     page.start();
