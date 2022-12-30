@@ -21,8 +21,13 @@
   "dependencies": {
     "@googlemaps/js-api-loader": "*",
     "@leavittsoftware/titanium-dialog": "^6.0.0",
+    "@leavittsoftware/titanium-snackbar": "^5.0.0",
+    "@leavittsoftware/titanium-helpers": "^6.0.0",
     "@material/mwc-button": "*",
+    "@material/mwc-linear-progress": "*",
     "@material/mwc-list": "*",
+    "@material/mwc-icon": "*",
+    "@material/mwc-menu": "*",
     "@material/mwc-select": "*",
     "@material/mwc-textfield": "*",
     "tslib": "^2.4.1"

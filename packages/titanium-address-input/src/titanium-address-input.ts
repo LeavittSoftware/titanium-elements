@@ -56,7 +56,7 @@ export class TitaniumAddressInput extends LitElement {
   /**
    *  Sets icon.
    */
-  @property({ type: String }) icon: string;
+  @property({ type: String }) icon: string = 'place';
 
   /**
    *  Sets trailing icon.
@@ -85,8 +85,8 @@ export class TitaniumAddressInput extends LitElement {
 
   @property({ type: Boolean, attribute: 'disabled-closing-animation' }) disableClosingAnimation: boolean = false;
 
-  @query('manual-address-dialog') protected dialog: ManualAddressDialogElement;
-  @query('google-address-input') protected input: GoogleAddressInput;
+  @query('manual-address-dialog') protected dialog!: ManualAddressDialogElement;
+  @query('google-address-input') protected input!: GoogleAddressInput;
 
   static styles = css`
     :host {
@@ -116,6 +116,11 @@ export class TitaniumAddressInput extends LitElement {
       pointer-events: none;
       cursor: default;
       color: #b9b9b9;
+    }
+
+    google-address-input[hasHelperOffset] + a {
+      margin-top: -19px;
+      z-index: 1;
     }
   `;
 

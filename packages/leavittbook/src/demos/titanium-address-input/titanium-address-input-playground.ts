@@ -90,14 +90,27 @@ export class TitaniumAddressInputPlayground extends LitElement {
       <p>Attribute examples</p>
       <div>
         <titanium-address-input outlined googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"></titanium-address-input>
-        <titanium-address-input outlined disabled googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"></titanium-address-input>
+        <titanium-address-input outlined label="Disabled" disabled googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"></titanium-address-input>
         <titanium-address-input
           outlined
+          label="iconTrailing"
+          iconTrailing="map"
           googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"
-          label="Required"
+        ></titanium-address-input>
+        <titanium-address-input
+          outlined
+          helperPersistent
+          helper="Place must have a street number."
+          googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"
+        ></titanium-address-input>
+        <titanium-address-input
+          style="--google-address-input-helper-offset: 110px"
+          outlined
+          googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"
+          label="Required w/validation message"
           linkLabel="Can't Find Address"
           required
-          validation-message="Please input an address"
+          validationMessage="Please input an address"
         ></titanium-address-input>
       </div>
 
