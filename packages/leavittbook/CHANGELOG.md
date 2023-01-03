@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@5.0.0...@leavittsoftware/leavittbook@5.1.0) (2022-12-30)
+
+### Features
+
+- google-address-input gets a custom suggestion UI ([99e51be](https://github.com/LeavittSoftware/titanium-elements/commit/99e51be3f72d9daef0d16b0ce09924aef3645ab3))
+
 # [5.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@4.0.0...@leavittsoftware/leavittbook@5.0.0) (2022-12-28)
 
 ### Build System
