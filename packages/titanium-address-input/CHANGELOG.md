@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-address-input@3.1.0...@leavittsoftware/titanium-address-input@3.2.0) (2023-01-03)
+
+### Bug Fixes
+
+- **titanium-address-input:** add additional sub locality fallback ([989541b](https://github.com/LeavittSoftware/titanium-elements/commit/989541b7842d18354646403d8b5f25fdb1989544))
+
+### Features
+
+- google-address-input gets a custom suggestion UI ([99e51be](https://github.com/LeavittSoftware/titanium-elements/commit/99e51be3f72d9daef0d16b0ce09924aef3645ab3))
+
 # [3.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-address-input@3.0.0...@leavittsoftware/titanium-address-input@3.1.0) (2022-12-30)
 
 ### Features
