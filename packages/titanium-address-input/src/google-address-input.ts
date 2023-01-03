@@ -1,16 +1,16 @@
-import { css, html, LitElement, PropertyValues } from 'lit';
-import { property, customElement, query, state } from 'lit/decorators.js';
 import '@material/mwc-textfield';
 import '@material/mwc-list/mwc-list-item.js';
 import '@material/mwc-linear-progress';
 import '@material/mwc-menu';
 import '@material/mwc-icon';
 
+import { css, html, LitElement, PropertyValues } from 'lit';
+import { property, customElement, query, state } from 'lit/decorators.js';
+
 import { Menu } from '@material/mwc-menu';
 import { Loader } from '@googlemaps/js-api-loader';
 import { TextField } from '@material/mwc-textfield';
 import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar';
-
 import { Debouncer, LoadWhile } from '@leavittsoftware/titanium-helpers';
 import { SelectedDetail } from '@material/mwc-menu/mwc-menu-base';
 import { MenuSurface } from '@material/mwc-menu/mwc-menu-surface';
@@ -268,10 +268,10 @@ export class GoogleAddressInput extends LoadWhile(LitElement) {
 
     // GOOGLE flip-flops neighborhood and locality, neither can be used for a accurate city. formatted_address however seems to
     // always show the accurate city.
+    const locality = place.address_components.find(o => o.types.some(p => p === 'locality'));
+    const sublocality = place.address_components.find(o => o.types.some(p => p === 'sublocality'));
     const cityComponent =
-      neighborhood?.short_name && place.formatted_address.includes(neighborhood.short_name + ',')
-        ? neighborhood
-        : place.address_components.find(o => o.types.some(p => p === 'locality'));
+      neighborhood?.short_name && place.formatted_address.includes(neighborhood.short_name + ',') ? neighborhood : locality ? locality : sublocality;
     const zipCodeComponent = place.address_components.find(o => o.types.some(p => p === 'postal_code'));
     const countyComponent = place.address_components.find(o => o.types.some(p => p === 'administrative_area_level_2'));
     const countryComponent = place.address_components.find(o => o.types.some(p => p === 'country'));
