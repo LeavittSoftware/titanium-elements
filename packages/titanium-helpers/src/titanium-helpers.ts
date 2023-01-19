@@ -8,4 +8,6 @@ export { Debouncer } from './titanium-debouncer';
 export { LoadWhile } from './titanium-load-while';
 export { join } from './titanium-join';
 export { delay } from './delay';
-export { middleEllipsis } from './middle-ellipsis';
+export { notNullOrUndefined } from './not-null-or-undefined';
+export { notNull } from './not-null';
+export { notUndefined } from './not-undefined';
