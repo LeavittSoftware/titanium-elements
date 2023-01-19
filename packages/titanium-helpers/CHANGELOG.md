@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.1.0 (2023-01-19)
+
+### Bug Fixes
+
+- **titanium-helpers:** restore removed export ([23bb71e](https://github.com/LeavittSoftware/titanium-elements/commit/23bb71e09bd26140fe2c97703e2d0ec9cc824590))
+
+### Features
+
+- **titanium-helpers:** add type guards ([a4779db](https://github.com/LeavittSoftware/titanium-elements/commit/a4779db008c32bff879d348a909fb8c30e1d067d))
+
 # [6.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-helpers@5.0.0...@leavittsoftware/titanium-helpers@6.0.0) (2022-12-28)
 
 ### Build System

@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.0.1 (2023-01-19)
+
+**Note:** Version bump only for package @leavittsoftware/profile-picture
+
 # [6.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/profile-picture@5.0.0...@leavittsoftware/profile-picture@6.0.0) (2022-12-28)
 
 ### Build System

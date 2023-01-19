@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.0.1 (2023-01-19)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-sw-notifier
+
 # [4.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-sw-notifier@3.0.0...@leavittsoftware/titanium-sw-notifier@4.0.0) (2022-12-28)
 
 ### Build System
