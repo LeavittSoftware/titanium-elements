@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@7.0.1...@leavittsoftware/leavitt-elements@7.0.2) (2023-01-25)
+
+### Bug Fixes
+
+- **leavitt-elements:** throw warning if making duplicate calls ([be4da89](https://github.com/LeavittSoftware/titanium-elements/commit/be4da899e050b35b21827decf919291bd3c2f9a0))
+
 ## 7.0.1 (2023-01-19)
 
 **Note:** Version bump only for package @leavittsoftware/leavitt-elements
