@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@5.1.3...@leavittsoftware/leavittbook@5.2.0) (2023-01-25)
+
+### Features
+
+- add TemplateResult support in confirmation dialogs ([3b47076](https://github.com/LeavittSoftware/titanium-elements/commit/3b470765ef3fe3ebb2ed4461623b91d1b514ab98))
+
 ## [5.1.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@5.1.2...@leavittsoftware/leavittbook@5.1.3) (2023-01-25)
 
 ### Bug Fixes
