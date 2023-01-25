@@ -18,6 +18,7 @@ import { LeavittCompanyElement } from '@leavittsoftware/leavitt-elements/lib/lea
 export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
   @state() apiService: ApiService;
   @query('leavitt-company-select[methods-demo]') protected methodsSelect!: LeavittCompanyElement;
+  @query('leavitt-company-select[duplicate-api-calls]') protected duplicateAPICallsSelect!: LeavittCompanyElement;
   @queryAll('leavitt-company-select') protected inputs!: NodeListOf<LeavittCompanyElement>;
 
   constructor() {
@@ -34,6 +35,8 @@ export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
         o.layout();
       });
     });
+
+    this.duplicateAPICallsSelect.reloadCompanies();
   }
 
   static styles = [
@@ -93,6 +96,13 @@ export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
         ></leavitt-company-select>
         <leavitt-company-select label="placeholder" placeholder="placeholder text" .apiService=${this.apiService}></leavitt-company-select>
         <leavitt-company-select label="required" required validationMessage="required" .apiService=${this.apiService}></leavitt-company-select>
+        <leavitt-company-select
+          duplicate-api-calls
+          label="Duplicate api calls"
+          helperPersistent
+          helper="Check the console to view the warning"
+          .apiService=${this.apiService}
+        ></leavitt-company-select>
       </div>
 
       <h1>Methods</h1>

@@ -126,6 +126,13 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
    *  Force the list of companies to reload from remote
    */
   async reloadCompanies() {
+    if (!this.disableAutoLoad) {
+      console.warn('leavitt-company-select reloadCompanies method has been called manually without setting disableAutoLoad');
+    }
+    this.companies = await this.#getCompanies();
+  }
+
+  async #reloadCompanies() {
     this.companies = await this.#getCompanies();
   }
 
@@ -149,7 +156,7 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
     this.textfield.layout();
 
     if (!this.disableAutoLoad && !this.companies.length && this.apiService) {
-      this.reloadCompanies();
+      this.#reloadCompanies();
     }
   }
 
