@@ -40,6 +40,10 @@ export class ConfirmDialogPlayground extends LitElement {
         gap: 12px;
         margin: 24px 0 36px 0;
       }
+
+      mwc-button {
+        margin-bottom: 24px;
+      }
     `,
   ];
 
@@ -60,6 +64,20 @@ export class ConfirmDialogPlayground extends LitElement {
           alert('Universe deletion successful');
         }}
         label="Do Not Push"
+      ></mwc-button>
+
+      <mwc-button
+        outlined
+        @click=${async () => {
+          const confirmationDialogEvent = new ConfirmDialogOpenEvent('Delete the universe?', html`<b>Are you sure</b> you would like to delete the universe?`);
+          this.dispatchEvent(confirmationDialogEvent);
+          if (!(await confirmationDialogEvent.dialogResult)) {
+            alert('Universe deletion failed');
+            return;
+          }
+          alert('Universe deletion successful');
+        }}
+        label="HTML support"
       ></mwc-button>
 
       <confirm-dialog> </confirm-dialog>

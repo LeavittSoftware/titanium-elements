@@ -1,4 +1,4 @@
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, TemplateResult } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 import '@material/mwc-button';
 import './titanium-dialog';
@@ -9,7 +9,7 @@ import { TitaniumDialogElement } from './titanium-dialog';
 
 @customElement('confirm-dialog')
 export default class ConfirmDialogElement extends LitElement {
-  @state() protected text: string;
+  @state() protected text: string | TemplateResult;
   @state() protected header: string;
   @query('titanium-dialog') protected dialog!: TitaniumDialogElement;
 
@@ -42,7 +42,11 @@ export default class ConfirmDialogElement extends LitElement {
     p,
     css`
       :host {
-        --titanium-dialog-max-width: 350px;
+        --titanium-dialog-max-width: 550px;
+      }
+
+      b {
+        font-weight: 500;
       }
     `,
   ];
