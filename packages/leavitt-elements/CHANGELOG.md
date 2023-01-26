@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 8.0.0 (2023-01-26)
+
+### Features
+
+- user FullName vs First + Last; Person select gets a overridable searchTermToOData ([875ea9a](https://github.com/LeavittSoftware/titanium-elements/commit/875ea9a794bb26cfcf4b3b00e102867c62dbf7f5))
+
+### BREAKING CHANGES
+
+- must provide FullName for pre-selection person object to correctly render. Inputs will return Person object with FullName populated vs fullname. Search uses contain vs startwith.
+
 ## [7.0.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@7.0.1...@leavittsoftware/leavitt-elements@7.0.2) (2023-01-25)
 
 ### Bug Fixes

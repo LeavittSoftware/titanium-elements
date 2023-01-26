@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@5.2.0...@leavittsoftware/leavittbook@6.0.0) (2023-01-26)
+
+### Features
+
+- user FullName vs First + Last; Person select gets a overridable searchTermToOData ([875ea9a](https://github.com/LeavittSoftware/titanium-elements/commit/875ea9a794bb26cfcf4b3b00e102867c62dbf7f5))
+
+### BREAKING CHANGES
+
+- must provide FullName for pre-selection person object to correctly render. Inputs will return Person object with FullName populated vs fullname. Search uses contain vs startwith.
+
 # [5.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@5.1.3...@leavittsoftware/leavittbook@5.2.0) (2023-01-25)
 
 ### Features

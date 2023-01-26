@@ -1,11 +1,11 @@
 {
   "license": "BSD-3-Clause",
   "name": "@leavittsoftware/leavittbook",
-  "version": "5.2.0",
+  "version": "6.0.0",
   "dependencies": {
     "@leavittsoftware/api-service": "^12.0.1",
-    "@leavittsoftware/leavitt-elements": "^7.0.2",
-    "@leavittsoftware/leavitt-file-explorer": "^4.0.3",
+    "@leavittsoftware/leavitt-elements": "^8.0.0",
+    "@leavittsoftware/leavitt-file-explorer": "^4.0.4",
     "@leavittsoftware/lg-core-typescript": "*",
     "@leavittsoftware/profile-picture": "^6.0.1",
     "@leavittsoftware/titanium-access-denied-page": "^0.3.1",
@@ -17,7 +17,7 @@
     "@leavittsoftware/titanium-chip-multi-select": "^2.0.1",
     "@leavittsoftware/titanium-color-input": "^5.0.0",
     "@leavittsoftware/titanium-data-table": "^15.0.0",
-    "@leavittsoftware/titanium-date-range-selector": "^2.0.3",
+    "@leavittsoftware/titanium-date-range-selector": "^2.0.4",
     "@leavittsoftware/titanium-dialog": "^6.1.0",
     "@leavittsoftware/titanium-duration-input": "^2.0.1",
     "@leavittsoftware/titanium-error-page": "^0.3.1",
