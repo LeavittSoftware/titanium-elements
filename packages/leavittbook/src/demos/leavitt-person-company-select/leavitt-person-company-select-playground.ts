@@ -81,15 +81,16 @@ export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
           label="pre-selected"
           .selected=${{
             Name: 'Leavitt Group Enterprises',
-            type: 'CustomEntity' as const,
+            type: 'CustomEntity',
           }}
           .apiService=${this.apiService}
         ></leavitt-person-company-select>
         <leavitt-person-company-select
           label="disabled pre-selected"
           .selected=${{
-            Name: 'Leavitt Group Enterprises',
-            type: 'CustomEntity' as const,
+            FullName: 'Aaron Drabeck',
+            Id: 11056,
+            type: 'Person',
           }}
           disabled
           .apiService=${this.apiService}

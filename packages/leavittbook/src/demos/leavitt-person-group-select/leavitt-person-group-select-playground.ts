@@ -88,8 +88,9 @@ export class LeavittPersonGroupSelectPlaygroundElement extends LitElement {
         <leavitt-person-group-select
           label="disabled pre-selected"
           .selected=${{
-            Name: 'LGE Programmer Basic Access',
-            type: 'PeopleGroup',
+            FullName: 'Aaron Drabeck',
+            Id: 11056,
+            type: 'Person',
           }}
           disabled
           .apiService=${this.apiService}

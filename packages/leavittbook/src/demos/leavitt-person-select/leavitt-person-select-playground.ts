@@ -75,11 +75,7 @@ export class LeavittPersonSelectPlaygroundElement extends LitElement {
       <p>Default person select</p>
       <div>
         <leavitt-person-select label="default" .apiService=${this.apiService}></leavitt-person-select>
-        <leavitt-person-select
-          label="default"
-          .selected=${{ Id: 11056, FirstName: 'Aaron', LastName: 'Drabeck' }}
-          .apiService=${this.apiService}
-        ></leavitt-person-select>
+        <leavitt-person-select label="default" .selected=${{ Id: 11056, FullName: 'Aaron Drabeck' }} .apiService=${this.apiService}></leavitt-person-select>
         <leavitt-person-select label="placeholder" placeholder="My placeholder" .apiService=${this.apiService}></leavitt-person-select>
         <leavitt-person-select label="disabled" disabled .apiService=${this.apiService}></leavitt-person-select>
         <leavitt-person-select label="helper" helper="helper text" .apiService=${this.apiService}></leavitt-person-select>

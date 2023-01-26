@@ -1,6 +1,5 @@
 import { css, html, LitElement, PropertyValues } from 'lit';
 import { property, customElement, query, state } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
 import '@leavittsoftware/profile-picture';
 import '@material/mwc-textfield';
 import '@material/mwc-list/mwc-list-item.js';
@@ -139,11 +138,7 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
   async updated(changedProps: PropertyValues<this>) {
     if (changedProps.has('selected') && this.selected) {
       this.textfield.value =
-        (this.selected?.type === 'Person'
-          ? `${this.selected?.FirstName} ${this.selected?.LastName}`
-          : this.selected?.type === 'PeopleGroup'
-          ? this.selected?.Name
-          : '') ?? '';
+        (this.selected?.type === 'Person' ? `${this.selected?.FullName}` : this.selected?.type === 'PeopleGroup' ? this.selected?.Name : '') ?? '';
     }
   }
 
@@ -187,7 +182,7 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
 
     const options = {
       includeScore: true,
-      keys: ['Name', 'FirstName', 'LastName'],
+      keys: ['Name', 'FullName'],
     };
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -205,11 +200,11 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
     }
 
     try {
-      const odataParts = ['top=100', 'count=true', 'select=FirstName,LastName,Id,CompanyName'];
+      const odataParts = ['top=100', 'count=true', 'select=FullName,Id,CompanyName'];
       const searchTokens = getSearchTokens(searchTerm);
       if (searchTokens.length > 0) {
-        const searchFilter = searchTokens.map((token: string) => `(startswith(FirstName, '${token}') or startswith(LastName, '${token}'))`).join(' and ');
-        odataParts.push(`$filter=${searchFilter}`);
+        const searchFilter = searchTokens.map((token: string) => `contains(tolower(FullName), '${token.toLowerCase()}')`).join(' and ');
+        odataParts.push(`filter=${searchFilter}`);
       }
       const results = await this.apiService?.getAsync<Person>(`People?${odataParts.join('&')}`, { abortController: this.#abortController });
       results?.entities.forEach(p => (p.type = 'Person'));
@@ -235,7 +230,7 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
       const odataParts = ['top=100', 'count=true', 'select=Name,Id,Description'];
       const searchTokens = getSearchTokens(searchTerm);
       if (searchTokens.length > 0) {
-        filterParts.push(searchTokens.map((token: string) => `contains(Name, '${token}')`).join(' and '));
+        filterParts.push(searchTokens.map((token: string) => `contains(tolower(Name), '${token.toLowerCase()}')`).join(' and '));
       }
 
       odataParts.push(`filter=${filterParts.join(' and ')}`);
@@ -399,8 +394,8 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
           suggestion.type == 'Person'
             ? html`
                 <mwc-list-item twoline graphic="avatar">
-                  <span title="${suggestion?.FirstName} ${suggestion?.LastName}">${suggestion?.FirstName} ${suggestion?.LastName}</span>
-                  <span title=${ifDefined(suggestion?.CompanyName ?? undefined)} slot="secondary">${suggestion?.CompanyName}</span>
+                  <span>${suggestion?.FullName}</span>
+                  <span slot="secondary">${suggestion?.CompanyName}</span>
                   <profile-picture slot="graphic" .personId=${suggestion?.Id || 0} shape="circle" size="40"></profile-picture>
                 </mwc-list-item>
               `

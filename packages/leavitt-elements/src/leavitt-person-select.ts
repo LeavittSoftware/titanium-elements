@@ -55,7 +55,7 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
   /**
    *  Odata parts for the Person API call
    */
-  @property({ type: Array }) odataParts: Array<string> = ['top=15', 'orderby=FirstName', 'select=FirstName,LastName,CompanyName,Id', 'count=true'];
+  @property({ type: Array }) odataParts: Array<string> = ['top=15', 'orderby=FullName', 'select=FullName,CompanyName,Id', 'count=true'];
 
   /**
    *  The person object selected by the user.
@@ -152,7 +152,7 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
 
   async updated(changedProps: PropertyValues<this>) {
     if (changedProps.has('selected') && this.selected) {
-      this.textfield.value = `${this.selected.FirstName} ${this.selected.LastName}`;
+      this.textfield.value = `${this.selected.FullName}`;
     }
   }
 
@@ -170,6 +170,14 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
     return this.textfield.reportValidity();
   }
 
+  searchTermToOData(searchTerm: string): string | null {
+    const searchTokens = getSearchTokens(searchTerm);
+    if (searchTokens.length < 1) {
+      return null;
+    }
+    return searchTokens.map((token: string) => `contains(tolower(FullName), '${token.toLowerCase()}')`).join(' and ');
+  }
+
   #abortController: AbortController = new AbortController();
 
   async #doSearch(searchTerm: string) {
@@ -179,21 +187,18 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
     this.#abortController.abort();
     this.#abortController = new AbortController();
     try {
-      const searchTokens = getSearchTokens(searchTerm);
-      const odataParts = structuredClone(this.odataParts);
-      if (searchTokens.length > 0) {
-        const searchFilter = searchTokens
-          .map((token: string) => `(startswith(tolower(FirstName), '${token.toLowerCase()}') or startswith(tolower(LastName), '${token.toLowerCase()}'))`)
-          .join(' and ');
-        const existingFilterIndex = odataParts.findIndex(o => o.startsWith('filter=') || o.startsWith('$filter='));
+      const searchOData = this.searchTermToOData(searchTerm);
+      const oDataParts = structuredClone(this.odataParts);
+      if (searchOData) {
+        const existingFilterIndex = oDataParts.findIndex(o => o.startsWith('filter=') || o.startsWith('$filter='));
         if (existingFilterIndex > -1) {
-          odataParts[existingFilterIndex] = [odataParts[existingFilterIndex], searchFilter].join(' and ');
+          oDataParts[existingFilterIndex] = [oDataParts[existingFilterIndex], searchOData].join(' and ');
         } else {
-          odataParts.push(`filter=${searchFilter}`);
+          oDataParts.push(`filter=${searchOData}`);
         }
       }
 
-      const get = this.apiService.getAsync<Person>(`${this.apiControllerName}?${odataParts.join('&')}`, { abortController: this.#abortController });
+      const get = this.apiService.getAsync<Person>(`${this.apiControllerName}?${oDataParts.join('&')}`, { abortController: this.#abortController });
       this.loadWhile(get);
       const result = await get;
       this.suggestions = result?.entities ?? [];
@@ -343,7 +348,7 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
         ${this.suggestions.map(
           person => html`
             <mwc-list-item twoline graphic="avatar">
-              <span>${person.FirstName} ${person.LastName}</span>
+              <span>${person.FullName}</span>
               <span slot="secondary">${person.CompanyName}</span>
               <profile-picture slot="graphic" .personId=${person?.Id || 0} shape="circle" size="40"></profile-picture>
             </mwc-list-item>

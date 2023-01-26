@@ -1,4 +1,3 @@
-import { ifDefined } from 'lit/directives/if-defined.js';
 import '@leavittsoftware/profile-picture';
 import '@material/mwc-textfield';
 import '@material/mwc-list/mwc-list-item';
@@ -117,7 +116,7 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
     if (changedProps.has('selected') && this.selected) {
       this.textfield.value =
         (this.selected?.type === 'Person'
-          ? `${this.selected?.FirstName} ${this.selected?.LastName}`
+          ? `${this.selected?.FullName}`
           : this.selected?.type === 'Company' || this.selected?.type === 'CustomEntity'
           ? this.selected?.Name
           : '') ?? '';
@@ -197,7 +196,7 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
 
     const options = {
       includeScore: true,
-      keys: ['Name', 'FirstName', 'LastName', 'ShortName'],
+      keys: ['Name', 'FullName', 'ShortName'],
     };
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -215,10 +214,10 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
     }
 
     try {
-      const odataParts = ['top=100', 'count=true', 'select=FirstName,LastName,Id,CompanyName'];
+      const odataParts = ['top=100', 'count=true', 'select=FullName,Id,CompanyName'];
       const searchTokens = getSearchTokens(searchTerm);
       if (searchTokens.length > 0) {
-        const searchFilter = searchTokens.map((token: string) => `(startswith(FirstName, '${token}') or startswith(LastName, '${token}'))`).join(' and ');
+        const searchFilter = searchTokens.map((token: string) => `contains(tolower(FullName), '${token.toLowerCase()}')`).join(' and ');
         odataParts.push(`$filter=${searchFilter}`);
       }
       const results = await this.apiService?.getAsync<Person>(`People?${odataParts.join('&')}`, { abortController: this.#abortController });
@@ -400,8 +399,8 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
           suggestion.type == 'Person'
             ? html`
                 <mwc-list-item twoline graphic="medium">
-                  <span title="${suggestion?.FirstName} ${suggestion?.LastName}">${suggestion?.FirstName} ${suggestion?.LastName}</span>
-                  <span title=${ifDefined(suggestion?.CompanyName ?? undefined)} slot="secondary">${suggestion?.CompanyName}</span>
+                  <span>${suggestion?.FullName}</span>
+                  <span slot="secondary">${suggestion?.CompanyName}</span>
                   <profile-picture slot="graphic" .personId=${suggestion?.Id || 0} shape="circle" size="40"></profile-picture>
                 </mwc-list-item>
               `
