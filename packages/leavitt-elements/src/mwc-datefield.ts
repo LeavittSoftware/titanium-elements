@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { css } from 'lit';
 import { TextField } from '@material/mwc-textfield';
 import { property, customElement } from 'lit/decorators.js';
 import { NotchedOutline } from '@material/mwc-notched-outline';
@@ -62,23 +61,5 @@ export class DateField extends TextField {
      *  @ignore
      */
     this.max = '2999-12-31';
-  }
-
-  static get styles() {
-    return [
-      css`
-        input::-webkit-calendar-picker-indicator {
-          display: block !important;
-          position: absolute;
-          top: 0;
-          right: 0;
-          opacity: 0;
-          width: 48px;
-          height: 100%;
-          cursor: pointer;
-        }
-      `,
-      ...super.styles,
-    ] as any;
   }
 }
