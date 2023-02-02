@@ -3,6 +3,7 @@ import { css } from 'lit';
 import { TextField } from '@material/mwc-textfield';
 import { property, customElement } from 'lit/decorators.js';
 import { NotchedOutline } from '@material/mwc-notched-outline';
+import Bowser from 'bowser';
 
 /**
  *  Date/Time Field input that extends mwc TextField
@@ -21,6 +22,13 @@ export class DateField extends TextField {
     if (changedProps.has('dateType')) {
       this.placeholder = this.dateType === 'date' ? 'yyyy-mm-dd' : 'yyyy-mm-dd MM:hh:ss';
       this.type = this.dateType;
+    }
+  }
+
+  firstUpdated() {
+    const bowser = Bowser.getParser(window.navigator.userAgent);
+    if (bowser.getBrowserName(true) === 'safari') {
+      this.iconTrailing = '';
     }
   }
 
