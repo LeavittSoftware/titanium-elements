@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { css } from 'lit';
 import { TextField } from '@material/mwc-textfield';
 import { property, customElement } from 'lit/decorators.js';
 import { NotchedOutline } from '@material/mwc-notched-outline';
+import Bowser from 'bowser';
 
 /**
  *  Date/Time Field input that extends mwc TextField
@@ -21,6 +21,13 @@ export class DateField extends TextField {
     if (changedProps.has('dateType')) {
       this.placeholder = this.dateType === 'date' ? 'yyyy-mm-dd' : 'yyyy-mm-dd MM:hh:ss';
       this.type = this.dateType;
+    }
+  }
+
+  firstUpdated() {
+    const bowser = Bowser.getParser(window.navigator.userAgent);
+    if (bowser.getBrowserName(true) === 'safari') {
+      this.iconTrailing = '';
     }
   }
 
@@ -54,23 +61,5 @@ export class DateField extends TextField {
      *  @ignore
      */
     this.max = '2999-12-31';
-  }
-
-  static get styles() {
-    return [
-      css`
-        input::-webkit-calendar-picker-indicator {
-          display: block !important;
-          position: absolute;
-          top: 0;
-          right: 0;
-          opacity: 0;
-          width: 48px;
-          height: 100%;
-          cursor: pointer;
-        }
-      `,
-      ...super.styles,
-    ] as any;
   }
 }
