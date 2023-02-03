@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-date-range-selector",
   "description": "",
   "author": "Leavitt Software",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "license": "MIT",
   "main": "lib/titanium-date-range-selector.js",
   "typings": "lib/titanium-date-range-selector.d.ts",
@@ -19,7 +19,7 @@
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
   "dependencies": {
-    "@leavittsoftware/leavitt-elements": "^8.0.0",
+    "@leavittsoftware/leavitt-elements": "^8.0.1",
     "@leavittsoftware/titanium-helpers": "^6.1.0",
     "@leavittsoftware/titanium-icon": "^0.2.1",
     "@material/mwc-list": "*",

@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/leavitt-elements",
-  "version": "8.0.0",
+  "version": "8.0.1",
   "description": "",
   "main": "lib/leavitt-person-select.js",
   "typings": "lib/leavitt-person-select.d.ts",
@@ -18,10 +18,10 @@
     "@material/mwc-list": "*",
     "@material/mwc-menu": "*",
     "@material/mwc-textfield": "*",
+    "bowser": "*",
     "dayjs": "*",
     "fuse.js": "*",
-    "tslib": "^2.4.1",
-    "bowser": "*"
+    "tslib": "^2.4.1"
   },
   "peerDependencies": {
     "lit": ">=2.5.0"

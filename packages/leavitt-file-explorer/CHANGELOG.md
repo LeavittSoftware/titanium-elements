@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@4.0.4...@leavittsoftware/leavitt-file-explorer@4.0.5) (2023-02-03)
+
+**Note:** Version bump only for package @leavittsoftware/leavitt-file-explorer
+
 ## [4.0.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@4.0.3...@leavittsoftware/leavitt-file-explorer@4.0.4) (2023-01-26)
 
 **Note:** Version bump only for package @leavittsoftware/leavitt-file-explorer

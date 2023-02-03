@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@8.0.0...@leavittsoftware/leavitt-elements@8.0.1) (2023-02-03)
+
+### Bug Fixes
+
+- **leavitt-elements:** remove code ([201cb5f](https://github.com/LeavittSoftware/titanium-elements/commit/201cb5f6d9a4c653a07d9d9c9e89711acf805c23))
+- **leavitt-elements:** remove icon on safari ([60b3d0b](https://github.com/LeavittSoftware/titanium-elements/commit/60b3d0ba5ba03b4871e4e96c911038ad1d53610f))
+
 # 8.0.0 (2023-01-26)
 
 ### Features
