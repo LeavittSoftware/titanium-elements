@@ -85,6 +85,10 @@ export class LeavittAddFolderModalElement extends LitElement {
       display: grid;
     }
 
+    mwc-textfield {
+      margin-top: 12px;
+    }
+
     @media (max-width: 520px) {
       main {
         min-width: 0;
@@ -95,33 +99,30 @@ export class LeavittAddFolderModalElement extends LitElement {
   render() {
     return html`
       <titanium-dialog header="Add folder" fullwidth>
-        <div slot="content">
-          <main>
-            <mwc-textfield
-              @keyup=${(event: KeyboardEvent) => {
-                if (event.key === 'Enter') {
-                  this.#save();
-                }
-              }}
-              @input=${event => {
-                this.name = event.target.value;
-              }}
-              .value=${this.name || ''}
-              required
-              outlined
-              label="Name"
-            ></mwc-textfield>
-          </main>
-        </div>
-        <div slot="actions">
-          <mwc-button
-            @click=${() => {
-              this.titaniumDialog.close('cancel');
+        <main>
+          <mwc-textfield
+            @keyup=${(event: KeyboardEvent) => {
+              if (event.key === 'Enter') {
+                this.#save();
+              }
             }}
-            label="CANCEL"
-          ></mwc-button>
-          <mwc-button @click=${() => this.#save()} label="SAVE"></mwc-button>
-        </div>
+            @input=${event => {
+              this.name = event.target.value;
+            }}
+            .value=${this.name || ''}
+            required
+            outlined
+            label="Name"
+          ></mwc-textfield>
+        </main>
+        <mwc-button
+          slot="secondaryAction"
+          @click=${() => {
+            this.titaniumDialog.close('cancel');
+          }}
+          label="CANCEL"
+        ></mwc-button>
+        <mwc-button slot="primaryAction" @click=${() => this.#save()} label="SAVE"></mwc-button>
       </titanium-dialog>
     `;
   }
