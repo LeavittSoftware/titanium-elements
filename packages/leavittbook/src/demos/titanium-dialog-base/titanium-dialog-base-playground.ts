@@ -15,6 +15,7 @@ import '@leavittsoftware/titanium-dialog/lib/titanium-native-dialog-base';
 export class TitaniumDialogPlayground extends LitElement {
   @query('titanium-native-dialog-base[default]') defaultDialog;
   @query('titanium-native-dialog-base[focus-trap]') focusTrapDialog;
+  @query('titanium-native-dialog-base[allow-events]') allowEventsDialog;
 
   static styles = [
     h1,
@@ -72,6 +73,28 @@ export class TitaniumDialogPlayground extends LitElement {
         <titanium-native-dialog-base focus-trap>
           <custom-container>
             <mwc-button @click=${() => this.focusTrapDialog?.close('button')} label="Only one way to close"></mwc-button>
+          </custom-container>
+        </titanium-native-dialog-base>
+      </div>
+
+      <div
+        @click=${() => {
+          console.log('click outside modal');
+        }}
+      >
+        <h1>Allow events</h1>
+        <p>titanium-native-dialog-base with the allowMouseAndKeyboardEvents property set</p>
+        <mwc-button @click=${async () => await this.allowEventsDialog?.open()} label="Allow events"></mwc-button>
+
+        <titanium-native-dialog-base allow-events allow-mouse-and-keyboard-events>
+          <custom-container>
+            <mwc-button
+              @click=${() => {
+                console.log('click inside modal');
+              }}
+              >Click me</mwc-button
+            >
+            <mwc-button @click=${() => this.allowEventsDialog?.close('button')} label="Close"></mwc-button>
           </custom-container>
         </titanium-native-dialog-base>
       </div>

@@ -46,6 +46,11 @@ export class TitaniumNativeDialogBaseElement extends LitElement {
    */
   @property({ type: Boolean, attribute: 'focus-trap', reflect: true }) focusTrap: boolean = false;
 
+  /**
+   * Allows propagation of mouse, keyboard, and touch events. This could have unintended side-effects because of the native dialog implementation.
+   */
+  @property({ type: Boolean, attribute: 'allow-mouse-and-keyboard-events', reflect: true }) allowMouseAndKeyboardEvents: boolean = false;
+
   @query('dialog') protected dialog!: HTMLElement & { open: boolean; showModal: () => void; close(returnValue: string): void; returnValue: string };
 
   #resolve: { (value?: string | PromiseLike<string> | undefined): void; (reason: string): void };
@@ -306,21 +311,21 @@ export class TitaniumNativeDialogBaseElement extends LitElement {
   // @touchend=${(e: MouseEvent) => e.stopPropagation()}
   render() {
     return html` <dialog
-      @click=${(e: MouseEvent) => e.stopPropagation()}
-      @dblclick=${(e: MouseEvent) => e.stopPropagation()}
-      @mousedown=${(e: MouseEvent) => e.stopPropagation()}
-      @mouseout=${(e: MouseEvent) => e.stopPropagation()}
-      @mouseleave=${(e: MouseEvent) => e.stopPropagation()}
-      @mouseenter=${(e: MouseEvent) => e.stopPropagation()}
-      @mouseover=${(e: MouseEvent) => e.stopPropagation()}
-      @mousemove=${(e: MouseEvent) => e.stopPropagation()}
-      @mousewheel=${(e: MouseEvent) => e.stopPropagation()}
-      @touch=${(e: TouchEvent) => e.stopPropagation()}
-      @touchstart=${(e: TouchEvent) => e.stopPropagation()}
-      @touchcancel=${(e: TouchEvent) => e.stopPropagation()}
-      @keydown=${(e: KeyboardEvent) => e.stopPropagation()}
-      @keypress=${(e: KeyboardEvent) => e.stopPropagation()}
-      @keyup=${(e: KeyboardEvent) => e.stopPropagation()}
+      @click=${(e: MouseEvent) => !this.allowMouseAndKeyboardEvents && e.stopPropagation()}
+      @dblclick=${(e: MouseEvent) => !this.allowMouseAndKeyboardEvents && e.stopPropagation()}
+      @mousedown=${(e: MouseEvent) => !this.allowMouseAndKeyboardEvents && e.stopPropagation()}
+      @mouseout=${(e: MouseEvent) => !this.allowMouseAndKeyboardEvents && e.stopPropagation()}
+      @mouseleave=${(e: MouseEvent) => !this.allowMouseAndKeyboardEvents && e.stopPropagation()}
+      @mouseenter=${(e: MouseEvent) => !this.allowMouseAndKeyboardEvents && e.stopPropagation()}
+      @mouseover=${(e: MouseEvent) => !this.allowMouseAndKeyboardEvents && e.stopPropagation()}
+      @mousemove=${(e: MouseEvent) => !this.allowMouseAndKeyboardEvents && e.stopPropagation()}
+      @mousewheel=${(e: MouseEvent) => !this.allowMouseAndKeyboardEvents && e.stopPropagation()}
+      @touch=${(e: TouchEvent) => !this.allowMouseAndKeyboardEvents && e.stopPropagation()}
+      @touchstart=${(e: TouchEvent) => !this.allowMouseAndKeyboardEvents && e.stopPropagation()}
+      @touchcancel=${(e: TouchEvent) => !this.allowMouseAndKeyboardEvents && e.stopPropagation()}
+      @keydown=${(e: KeyboardEvent) => !this.allowMouseAndKeyboardEvents && e.stopPropagation()}
+      @keypress=${(e: KeyboardEvent) => !this.allowMouseAndKeyboardEvents && e.stopPropagation()}
+      @keyup=${(e: KeyboardEvent) => !this.allowMouseAndKeyboardEvents && e.stopPropagation()}
       inert
       @opening=${e => {
         if (e.target.nodeName === 'DIALOG') {
