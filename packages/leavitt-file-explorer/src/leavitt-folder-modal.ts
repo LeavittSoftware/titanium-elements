@@ -48,7 +48,7 @@ export class LeavittFolderModalElement extends LitElement {
 
   render() {
     return html`
-      <titanium-native-dialog-base full-width full-height>
+      <titanium-native-dialog-base full-width>
         ${this.state == 'view'
           ? html`
               <leavitt-folder-detail
