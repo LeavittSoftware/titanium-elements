@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.6](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@4.0.5...@leavittsoftware/leavitt-file-explorer@4.0.6) (2023-02-06)
+
+### Bug Fixes
+
+- **leavitt-file-explorer:** adds better support for native dialog ([#444](https://github.com/LeavittSoftware/titanium-elements/issues/444)) ([9a49ff9](https://github.com/LeavittSoftware/titanium-elements/commit/9a49ff9d015c9d39daf3ea78993fc30d2c5970e7))
+
 ## [4.0.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@4.0.4...@leavittsoftware/leavitt-file-explorer@4.0.5) (2023-02-03)
 
 **Note:** Version bump only for package @leavittsoftware/leavitt-file-explorer

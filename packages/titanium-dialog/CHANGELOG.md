@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.2.0 (2023-02-06)
+
+### Features
+
+- **titanium-dialog:** adds optional flag for allow events ([#443](https://github.com/LeavittSoftware/titanium-elements/issues/443)) ([3d06cdc](https://github.com/LeavittSoftware/titanium-elements/commit/3d06cdcbed357d78d8b4ed99bde26f5bf7d002b3))
+
 # 6.1.0 (2023-01-25)
 
 ### Features
