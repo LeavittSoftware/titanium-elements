@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 8.0.2 (2023-02-07)
+
+### Bug Fixes
+
+- **leavitt-elements:** undo breaking changes on datefield ([479d513](https://github.com/LeavittSoftware/titanium-elements/commit/479d513b7760973784c561c8235357aeb6ed9005))
+
 ## [8.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@8.0.0...@leavittsoftware/leavitt-elements@8.0.1) (2023-02-03)
 
 ### Bug Fixes
