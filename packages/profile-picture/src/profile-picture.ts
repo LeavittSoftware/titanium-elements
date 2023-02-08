@@ -20,6 +20,11 @@ export class ProfilePictureElement extends LitElement {
   @property({ reflect: true, type: String }) shape: 'circle' | 'square' = 'circle';
 
   /**
+   * Shows a colored ring around the picture
+   */
+  @property({ reflect: true, type: Boolean, attribute: 'show-ring' }) showRing: boolean;
+
+  /**
    * Size in pixels of profile picture
    */
   @property({ type: Number }) size: number = 120;
@@ -73,6 +78,16 @@ export class ProfilePictureElement extends LitElement {
     }
 
     :host([shape='circle']) img {
+      border-radius: 50%;
+    }
+
+    :host([show-ring]) {
+      justify-self: center;
+      border: 3px solid var(--profile-picture-ring-color, var(--app-accent-color-blue, #4285f4));
+      padding: 3px;
+    }
+
+    :host([show-ring][shape='circle']) {
       border-radius: 50%;
     }
   `;

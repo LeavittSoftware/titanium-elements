@@ -47,6 +47,14 @@ export class ProfilePicturePlayground extends LitElement {
         <profile-picture personId="915608" shape="square"></profile-picture>
       </div>
 
+      <h1>Color ring</h1>
+      <p>Color ring variant</p>
+      <div>
+        <profile-picture personId="915608" shape="square" show-ring></profile-picture>
+        <profile-picture personId="915608" show-ring></profile-picture>
+        <profile-picture personId="915608" show-ring style="--profile-picture-ring-color: purple"></profile-picture>
+      </div>
+
       <h1>Sizes</h1>
       <p>Sizes include 32, 64, 128, 256, and 512px</p>
       <div>
