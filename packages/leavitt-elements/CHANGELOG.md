@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.0.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@8.0.2...@leavittsoftware/leavitt-elements@8.0.3) (2023-02-08)
+
+**Note:** Version bump only for package @leavittsoftware/leavitt-elements
+
 ## 8.0.2 (2023-02-07)
 
 ### Bug Fixes

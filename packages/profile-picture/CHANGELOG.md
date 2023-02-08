@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.1.0 (2023-02-08)
+
+### Features
+
+- profile picture gets a show-ring attribute ([80ee14e](https://github.com/LeavittSoftware/titanium-elements/commit/80ee14ee10926a5158210876eede12cfbb4a4af8))
+
 ## 6.0.1 (2023-01-19)
 
 **Note:** Version bump only for package @leavittsoftware/profile-picture
