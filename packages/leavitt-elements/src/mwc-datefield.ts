@@ -28,8 +28,11 @@ export class DateField extends TextField {
   firstUpdated() {
     super.firstUpdated();
     const bowser = Bowser.getParser(window.navigator.userAgent);
-    if (bowser.getBrowserName(true) === 'safari') {
-      this.iconTrailing = '';
+    if (bowser.getBrowserName(true) === 'chrome') {
+      //Chrome mobile get normal mwc training icon
+      //Chrome desktop gets native calendar icon positioned over blank reserved icon space
+      //FF && Safari bring unstyled native calendar icons
+      this.iconTrailing = bowser.getPlatformType() === 'mobile' ? 'event' : 'a';
     }
   }
 
@@ -54,7 +57,7 @@ export class DateField extends TextField {
     /**
      *  @ignore
      */
-    this.iconTrailing = 'event';
+    this.iconTrailing = '';
     /**
      *  @ignore
      */
@@ -71,11 +74,12 @@ export class DateField extends TextField {
         input::-webkit-calendar-picker-indicator {
           display: block !important;
           position: absolute;
-          top: 0;
-          right: 0;
-          opacity: 0;
-          width: 48px;
+          top: 15px;
+          right: 9px;
+          opacity: 1;
+          width: 26px;
           height: 100%;
+          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 24 24"><path fill="%23757575" d="M12 12H17V17H12V12M19 3H18V1H16V3H8V1H6V3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3M19 5V7H5V5H19M5 19V9H19V19H5Z"/></svg>');
           cursor: pointer;
         }
       `,
