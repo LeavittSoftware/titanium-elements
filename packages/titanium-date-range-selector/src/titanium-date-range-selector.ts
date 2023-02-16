@@ -35,6 +35,7 @@ export type DateRangeKey =
   | 'lastMonth'
   | 'lastQuarter'
   | 'lastYear'
+  | 'last12Months'
   | 'lastYearToDate'
   | 'allTime'
   | 'custom';
@@ -93,6 +94,12 @@ DateRanges.set('lastYear', {
   name: 'Last year',
   startDate: lastYear.startOf('year').format('YYYY-MM-DD'),
   endDate: lastYear.endOf('year').format('YYYY-MM-DD'),
+  icon: 'calendar_today',
+});
+DateRanges.set('last12Months', {
+  name: 'Last 12 months',
+  startDate: today.add(-1, 'year').format('YYYY-MM-DD'),
+  endDate: today.format('YYYY-MM-DD'),
   icon: 'calendar_today',
 });
 DateRanges.set('lastYearToDate', {
