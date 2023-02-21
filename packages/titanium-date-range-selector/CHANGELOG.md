@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-date-range-selector@2.0.8...@leavittsoftware/titanium-date-range-selector@2.1.0) (2023-02-21)
+
+### Features
+
+- add last 12 month option to date range ([34b16f8](https://github.com/LeavittSoftware/titanium-elements/commit/34b16f883b7a94b86d167ce16f7623456963586e))
+
 ## [2.0.8](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-date-range-selector@2.0.7...@leavittsoftware/titanium-date-range-selector@2.0.8) (2023-02-10)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-date-range-selector
