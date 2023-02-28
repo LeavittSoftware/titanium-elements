@@ -39,82 +39,135 @@ export type DateRangeKey =
   | 'lastYearToDate'
   | 'allTime'
   | 'custom';
-export const DateRanges = new Map<DateRangeKey, { startDate: string; endDate: string; icon: string; name: string }>();
-DateRanges.set('today', { name: 'Today', startDate: today.format('YYYY-MM-DD'), endDate: today.format('YYYY-MM-DD'), icon: 'today' });
-
-DateRanges.set('thisWeek', {
-  name: 'This week',
-  startDate: today.startOf('week').format('YYYY-MM-DD'),
-  endDate: today.endOf('week').format('YYYY-MM-DD'),
-  icon: 'calendar_view_week',
-});
-DateRanges.set('thisMonth', {
-  name: 'This month',
-  startDate: today.startOf('month').format('YYYY-MM-DD'),
-  endDate: today.endOf('month').format('YYYY-MM-DD'),
-  icon: 'calendar_month',
-});
-DateRanges.set('thisQuarter', {
-  name: 'This quarter',
-  startDate: today.startOf(quarter).format('YYYY-MM-DD'),
-  endDate: today.endOf(quarter).format('YYYY-MM-DD'),
-  icon: 'event',
-});
-DateRanges.set('thisYear', {
-  name: 'This year',
-  startDate: today.startOf('year').format('YYYY-MM-DD'),
-  endDate: today.endOf('year').format('YYYY-MM-DD'),
-  icon: 'calendar_today',
-});
-DateRanges.set('thisYearToDate', {
-  name: 'This year to date',
-  startDate: today.startOf('year').format('YYYY-MM-DD'),
-  endDate: today.format('YYYY-MM-DD'),
-  icon: 'calendar_view_day',
-});
-DateRanges.set('lastWeek', {
-  name: 'Last week',
-  startDate: lastWeek.startOf('week').format('YYYY-MM-DD'),
-  endDate: lastWeek.endOf('week').format('YYYY-MM-DD'),
-  icon: 'calendar_view_week',
-});
-DateRanges.set('lastMonth', {
-  name: 'Last month',
-  startDate: lastMonth.startOf('month').format('YYYY-MM-DD'),
-  endDate: lastMonth.endOf('month').format('YYYY-MM-DD'),
-  icon: 'calendar_month',
-});
-DateRanges.set('lastQuarter', {
-  name: 'Last quarter',
-  startDate: lastQuarter.startOf(quarter).format('YYYY-MM-DD'),
-  endDate: lastQuarter.endOf(quarter).format('YYYY-MM-DD'),
-  icon: 'event',
-});
-DateRanges.set('lastYear', {
-  name: 'Last year',
-  startDate: lastYear.startOf('year').format('YYYY-MM-DD'),
-  endDate: lastYear.endOf('year').format('YYYY-MM-DD'),
-  icon: 'calendar_today',
-});
-DateRanges.set('last12Months', {
-  name: 'Last 12 months',
-  startDate: today.add(-1, 'year').format('YYYY-MM-DD'),
-  endDate: today.format('YYYY-MM-DD'),
-  icon: 'calendar_today',
-});
-DateRanges.set('lastYearToDate', {
-  name: 'Last year to date',
-  startDate: lastYear.startOf('year').format('YYYY-MM-DD'),
-  endDate: today.format('YYYY-MM-DD'),
-  icon: 'calendar_view_day',
-});
-DateRanges.set('yesterday', {
-  name: 'Yesterday',
-  startDate: yesterday.format('YYYY-MM-DD'),
-  endDate: yesterday.format('YYYY-MM-DD'),
-  icon: 'event_repeat',
-});
-DateRanges.set('allTime', { name: 'All time', startDate: '', endDate: '', icon: 'watch_later' });
+export type DateRangeOption = { startDate: string; endDate: string; icon: string; name: string; isDefault?: boolean };
+export const DateRanges = new Map<DateRangeKey, DateRangeOption>([
+  [
+    'today',
+    {
+      name: 'Today',
+      startDate: today.format('YYYY-MM-DD'),
+      endDate: today.format('YYYY-MM-DD'),
+      icon: 'today',
+    },
+  ],
+  [
+    'thisWeek',
+    {
+      name: 'This week',
+      startDate: today.startOf('week').format('YYYY-MM-DD'),
+      endDate: today.endOf('week').format('YYYY-MM-DD'),
+      icon: 'calendar_view_week',
+    },
+  ],
+  [
+    'thisMonth',
+    {
+      name: 'This month',
+      startDate: today.startOf('month').format('YYYY-MM-DD'),
+      endDate: today.endOf('month').format('YYYY-MM-DD'),
+      icon: 'calendar_month',
+    },
+  ],
+  [
+    'thisQuarter',
+    {
+      name: 'This quarter',
+      startDate: today.startOf(quarter).format('YYYY-MM-DD'),
+      endDate: today.endOf(quarter).format('YYYY-MM-DD'),
+      icon: 'event',
+    },
+  ],
+  [
+    'thisYear',
+    {
+      name: 'This year',
+      startDate: today.startOf('year').format('YYYY-MM-DD'),
+      endDate: today.endOf('year').format('YYYY-MM-DD'),
+      icon: 'calendar_today',
+    },
+  ],
+  [
+    'thisYearToDate',
+    {
+      name: 'This year to date',
+      startDate: today.startOf('year').format('YYYY-MM-DD'),
+      endDate: today.format('YYYY-MM-DD'),
+      icon: 'calendar_view_day',
+    },
+  ],
+  [
+    'lastWeek',
+    {
+      name: 'Last week',
+      startDate: lastWeek.startOf('week').format('YYYY-MM-DD'),
+      endDate: lastWeek.endOf('week').format('YYYY-MM-DD'),
+      icon: 'calendar_view_week',
+    },
+  ],
+  [
+    'lastMonth',
+    {
+      name: 'Last month',
+      startDate: lastMonth.startOf('month').format('YYYY-MM-DD'),
+      endDate: lastMonth.endOf('month').format('YYYY-MM-DD'),
+      icon: 'calendar_month',
+    },
+  ],
+  [
+    'lastQuarter',
+    {
+      name: 'Last quarter',
+      startDate: lastQuarter.startOf(quarter).format('YYYY-MM-DD'),
+      endDate: lastQuarter.endOf(quarter).format('YYYY-MM-DD'),
+      icon: 'event',
+    },
+  ],
+  [
+    'lastYear',
+    {
+      name: 'Last year',
+      startDate: lastYear.startOf('year').format('YYYY-MM-DD'),
+      endDate: lastYear.endOf('year').format('YYYY-MM-DD'),
+      icon: 'calendar_today',
+    },
+  ],
+  [
+    'last12Months',
+    {
+      name: 'Last 12 months',
+      startDate: today.add(-1, 'year').format('YYYY-MM-DD'),
+      endDate: today.format('YYYY-MM-DD'),
+      icon: 'calendar_today',
+    },
+  ],
+  [
+    'lastYearToDate',
+    {
+      name: 'Last year to date',
+      startDate: lastYear.startOf('year').format('YYYY-MM-DD'),
+      endDate: today.format('YYYY-MM-DD'),
+      icon: 'calendar_view_day',
+    },
+  ],
+  [
+    'yesterday',
+    {
+      name: 'Yesterday',
+      startDate: yesterday.format('YYYY-MM-DD'),
+      endDate: yesterday.format('YYYY-MM-DD'),
+      icon: 'event_repeat',
+    },
+  ],
+  [
+    'allTime',
+    {
+      name: 'All time',
+      startDate: '',
+      endDate: '',
+      icon: 'watch_later',
+    },
+  ],
+]);
 
 /**
  *  Date range selector that allows selection from a list of pre-defined ranges or a custom range
@@ -134,7 +187,12 @@ export class TitaniumDateRangeSelector extends LitElement {
   /**
    *  The selected selected range.
    */
-  @property({ type: String }) range: DateRangeKey = 'custom';
+  @property({ type: String }) range: string = 'custom';
+
+  /**
+   *  Override default ranges with custom options. Needs to contain, at least, 'allTime'.
+   */
+  @property({ type: Object }) customDateRanges: Map<string, DateRangeOption> | null = null;
 
   /**
    *  The selected start date.
@@ -195,7 +253,7 @@ export class TitaniumDateRangeSelector extends LitElement {
 
   #dateChangedDebouncer = new Debouncer(async () => {
     //Keep range selector up to date with new date selection
-    this.range = Array.from(DateRanges).find(o => o[1].startDate === this.startDate && o[1].endDate === this.endDate)?.[0] || 'custom';
+    this.range = Array.from(this.customDateRanges ?? DateRanges).find(o => o[1].startDate === this.startDate && o[1].endDate === this.endDate)?.[0] || 'custom';
     this.#notifyChangeIfValid();
   }, 300);
 
@@ -244,16 +302,20 @@ export class TitaniumDateRangeSelector extends LitElement {
     }
   `;
 
+  #getRange(key: DateRangeKey | string) {
+    return !!this.customDateRanges ? this.customDateRanges.get(key) : DateRanges.get(key as DateRangeKey);
+  }
+
   render() {
     return html`
       <mwc-select
         .label=${this.label}
-        icon=${DateRanges.get(this.range)?.icon || 'date_range'}
+        icon=${this.#getRange(this.range)?.icon || 'date_range'}
         .value=${this.range}
         outlined
         @selected=${async (event: DOMEvent<Select>) => {
           this.range = event.target.value as DateRangeKey;
-          const date = DateRanges.get(this.range);
+          const date = this.#getRange(this.range);
           if (date && event.target.value !== 'custom') {
             this.startDate = date.startDate ?? '';
             this.endDate = date.endDate ?? '';
@@ -264,7 +326,7 @@ export class TitaniumDateRangeSelector extends LitElement {
           <titanium-icon slot="graphic" icon="date_range"></titanium-icon>
           Custom range</mwc-list-item
         >
-        ${Array.from(DateRanges).map(
+        ${Array.from(this.customDateRanges ?? DateRanges).map(
           o => html`<mwc-list-item graphic="icon" value=${o[0]}>
             <titanium-icon slot="graphic" icon=${o[1].icon}></titanium-icon>
             ${o[1].name}</mwc-list-item
