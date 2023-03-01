@@ -8,7 +8,7 @@ import '@material/mwc-button';
 /* playground-fold-end */
 
 import '@leavittsoftware/titanium-date-range-selector';
-import { TitaniumDateRangeSelector } from '@leavittsoftware/titanium-date-range-selector/lib/titanium-date-range-selector';
+import { DateRanges, TitaniumDateRangeSelector } from '@leavittsoftware/titanium-date-range-selector/lib/titanium-date-range-selector';
 import dayjs from 'dayjs/esm';
 
 /* playground-fold */
@@ -122,6 +122,26 @@ export class TitaniumDateRangePlaygroundElement extends LitElement {
         <titanium-date-range-selector range="thisWeek"></titanium-date-range-selector>
         <titanium-date-range-selector startDate=${dayjs().format('YYYY-MM-DD')} endDate=${dayjs().format('YYYY-MM-DD')}></titanium-date-range-selector>
         <titanium-date-range-selector endDate="2022-05-17"></titanium-date-range-selector>
+        <titanium-date-range-selector
+          label="Custom override"
+          .customDateRanges=${new Map([...DateRanges, ['allTime', { name: 'All time, but different', startDate: '', endDate: '', icon: 'dashboard' }]])}
+        ></titanium-date-range-selector>
+        <titanium-date-range-selector
+          label="Completely custom items"
+          range="lastWeekend"
+          .customDateRanges=${new Map([
+            [
+              'lastWeekend',
+              {
+                name: 'Last weekend',
+                startDate: dayjs().subtract(1, 'week').endOf('week').subtract(1, 'day').format('YYYY-MM-DD'),
+                endDate: dayjs().startOf('week').format('YYYY-MM-DD'),
+                icon: 'weekend',
+              },
+            ],
+            ['allTime', { name: 'All time, but different', startDate: '', endDate: '', icon: 'dashboard' }],
+          ])}
+        ></titanium-date-range-selector>
       </div>
 
       <h1>Methods</h1>
