@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@6.2.2...@leavittsoftware/leavittbook@6.3.0) (2023-03-01)
+
+### Features
+
+- **titanium-date-range-selector:** allow custom range options ([9d155b5](https://github.com/LeavittSoftware/titanium-elements/commit/9d155b511324b982e8eab59df3be5c9b3d046525))
+
 ## [6.2.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@6.2.1...@leavittsoftware/leavittbook@6.2.2) (2023-02-21)
 
 **Note:** Version bump only for package @leavittsoftware/leavittbook
