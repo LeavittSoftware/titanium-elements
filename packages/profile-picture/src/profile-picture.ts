@@ -29,6 +29,11 @@ export class ProfilePictureElement extends LitElement {
    */
   @property({ type: Number }) size: number = 120;
 
+  /**
+   * Is element resizable
+   */
+  @property({ type: Boolean }) responsive: boolean = false;
+
   @state() protected cacheBust: number = 0;
   @state() protected hasError = false;
 
@@ -46,7 +51,7 @@ export class ProfilePictureElement extends LitElement {
   }
 
   updated(changedProps) {
-    if (changedProps.has('size') && changedProps.get('size') !== this.size) {
+    if (changedProps.has('size') && changedProps.get('size') !== this.size && !this.responsive) {
       this.style.width = this.size + 'px';
       this.style.height = this.size + 'px';
     }
@@ -74,6 +79,7 @@ export class ProfilePictureElement extends LitElement {
     img {
       display: block;
       width: 100%;
+      aspect-ratio: 1;
       image-rendering: -webkit-optimize-contrast;
     }
 
@@ -97,8 +103,6 @@ export class ProfilePictureElement extends LitElement {
       <img
         loading="lazy"
         draggable="false"
-        width="${this.size}px"
-        height="${this.size}px"
         alt="User profile picture"
         @error=${() => (this.hasError = true)}
         src="https://cdn.leavitt.com/user-${this.hasError ? 0 : this.personId}-${this.#determineSize(this.size)}.jpeg${this.cacheBust > 0
