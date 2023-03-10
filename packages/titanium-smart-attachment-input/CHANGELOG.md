@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.1.0 (2023-03-10)
+
+### Features
+
+- use cropperjs for resizing; workaround cropper js bug returning corrupt images ([974bb0a](https://github.com/LeavittSoftware/titanium-elements/commit/974bb0a3a6f5bf8d6b2e3a10652c7ad96168b384))
+
 ## 3.0.3 (2023-02-06)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-smart-attachment-input
