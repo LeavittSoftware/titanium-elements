@@ -11,7 +11,7 @@ export const getSearchTokens = (inputText: string, allowedComplexityLevel = 3) =
   if (tokens.length > allowedComplexityLevel) {
     // if user types more than
     // three words, do not tokenize
-    tokens = [inputText.trim()];
+    tokens = [escapeTerm(inputText.trim())];
   }
   return tokens;
 };
