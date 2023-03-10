@@ -19,7 +19,6 @@
     "@material/mwc-button": "*",
     "@material/mwc-icon-button": "*",
     "bowser": "*",
-    "browser-image-resizer": "*",
     "cropperjs": "*",
     "tslib": "^2.4.1"
   },

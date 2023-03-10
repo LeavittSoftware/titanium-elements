@@ -1,4 +1,3 @@
-import { readAndCompressImage } from 'browser-image-resizer/src';
 import '@leavittsoftware/titanium-dialog/lib/titanium-native-dialog-base';
 import '@material/mwc-button';
 import '@material/mwc-icon-button';
@@ -295,24 +294,19 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
             @click=${async () => {
               this.isLoading = true;
               await this.updateComplete;
-              const canvas = this.#cropper?.getCroppedCanvas();
+
+              //WORKAROUND: The first call to this func can result in a corrupt image, esp seen in Android when picture comes from camera
+              this.#cropper?.getCroppedCanvas();
+
+              const canvas = this.#cropper?.getCroppedCanvas({ maxWidth: 1200, maxHeight: 1080 });
               if (!canvas) {
                 return;
               }
               const previewDataUrl =
                 this.options.shape === 'circle' ? await this.#applyCircleMask(canvas.toDataURL(this.#mimeType)) : canvas.toDataURL(this.#mimeType);
               const response = await fetch(previewDataUrl);
-              const blob = await response.blob();
-              const file = this.blobToFile(blob, this.#changeFileExtension(this.fileName, this.#extension));
-              const config = {
-                quality: 0.9,
-                maxWidth: 1200,
-                maxHeight: 1080,
-                mimeType: this.#mimeType,
-              };
-
-              const newFile = this.blobToFile(await readAndCompressImage(file, config), this.#changeFileExtension(this.fileName, this.#extension));
-              const save = this.#saveCroppedImageFunc?.(newFile, previewDataUrl) || Promise.resolve();
+              const file = this.blobToFile(await response.blob(), this.#changeFileExtension(this.fileName, this.#extension));
+              const save = this.#saveCroppedImageFunc?.(file, previewDataUrl) || Promise.resolve();
               this.loadWhile(save);
               await save;
               this.isLoading = false;
