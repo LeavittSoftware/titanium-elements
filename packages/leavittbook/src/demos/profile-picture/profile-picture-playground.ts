@@ -67,8 +67,8 @@ export class ProfilePicturePlayground extends LitElement {
       <h1>Responsive</h1>
       <p>Size can be adjusted further using responsive units</p>
       <div>
-        <profile-picture personId="915608" size="256" responsive style="width: 20vh;"></profile-picture>
-        <profile-picture personId="915608" size="256" responsive style="width: 20vw;"></profile-picture>
+        <profile-picture personId="915608" size="256" useIntrisicImageSize style="width: 20vh;"></profile-picture>
+        <profile-picture personId="915608" size="256" useIntrisicImageSize style="width: 20vw;"></profile-picture>
       </div>
     `;
   }

@@ -30,7 +30,7 @@ export class ProfilePictureElement extends LitElement {
   @property({ type: Number }) size: number = 120;
 
   /**
-   *  Setting true will cause the size attribute to only determine what size image to fetch from CDN and not set any CSS size styles on the image. Therefore the image will be displayed at its intrinsic size unless further overridden by the consumer. 
+   *  Setting true will cause the size attribute to only determine what size image to fetch from CDN and not set any CSS size styles on the image. Therefore the image will be displayed at its intrinsic size unless further overridden by the consumer.
    */
   @property({ type: Boolean }) useIntrinsicImageSize: boolean = false;
 
@@ -51,7 +51,7 @@ export class ProfilePictureElement extends LitElement {
   }
 
   updated(changedProps) {
-    if (changedProps.has('size') && changedProps.get('size') !== this.size && !this.responsive) {
+    if (changedProps.has('size') && changedProps.get('size') !== this.size && !this.useIntrinsicImageSize) {
       this.style.width = this.size + 'px';
       this.style.height = this.size + 'px';
     }
