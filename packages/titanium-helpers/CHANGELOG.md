@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.1.1 (2023-03-10)
+
+### Bug Fixes
+
+- **titanium-helpers:** use escape term for large complexity levels ([#453](https://github.com/LeavittSoftware/titanium-elements/issues/453)) ([d70614b](https://github.com/LeavittSoftware/titanium-elements/commit/d70614b18a4d50db2742640eeffb3dffceed3fff))
+
 # 6.1.0 (2023-01-19)
 
 ### Bug Fixes
