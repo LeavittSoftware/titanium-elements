@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.2.0 (2023-03-10)
+
+### Bug Fixes
+
+- **profile-picture:** fix attribute references ([28cea44](https://github.com/LeavittSoftware/titanium-elements/commit/28cea4446513d6a7487c531693db3224c9952163))
+
+### Features
+
+- **profile-picture:** allow profile picture to be sized responsively ([e77f37d](https://github.com/LeavittSoftware/titanium-elements/commit/e77f37d927f85077ff30301e4ba482506fc3df4c))
+
 # 6.1.0 (2023-02-08)
 
 ### Features
