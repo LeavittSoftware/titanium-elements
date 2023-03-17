@@ -30,3 +30,10 @@ export function getFileIcon(extension: string) {
   }
   return new URL('../images/icon-other.png', import.meta.url).href;
 }
+
+export function getFileBgIcon(extension: string) {
+  if (extension.toLowerCase() === 'pdf') {
+    return new URL('../images/icon-pdf-bg.png', import.meta.url).href;
+  }
+  return new URL('../images/icon-other-bg.png', import.meta.url).href;
+}
