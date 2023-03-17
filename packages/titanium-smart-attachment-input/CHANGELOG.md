@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-smart-attachment-input@3.2.1...@leavittsoftware/titanium-smart-attachment-input@3.3.0) (2023-03-17)
+
+### Features
+
+- export bg icons ([2df4292](https://github.com/LeavittSoftware/titanium-elements/commit/2df4292da28c477c7857ef31c3c906d5c62034ad))
+
 ## [3.2.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-smart-attachment-input@3.2.0...@leavittsoftware/titanium-smart-attachment-input@3.2.1) (2023-03-17)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-smart-attachment-input
