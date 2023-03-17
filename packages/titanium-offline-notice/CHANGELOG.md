@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.0.2 (2023-03-17)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-offline-notice
+
 ## [3.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-offline-notice@3.0.0...@leavittsoftware/titanium-offline-notice@3.0.1) (2022-12-28)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-offline-notice

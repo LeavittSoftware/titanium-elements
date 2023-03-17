@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 5.0.1 (2023-03-17)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-color-input
+
 # [5.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-color-input@4.0.0...@leavittsoftware/titanium-color-input@5.0.0) (2022-12-28)
 
 ### Build System
