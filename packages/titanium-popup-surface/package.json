@@ -5,8 +5,8 @@
   "main": "lib/titanium-popup-surface-foundation.js",
   "typings": "lib/titanium-popup-surface-foundation.d.ts",
   "files": [
-    "lib",
-    "src"
+    "./lib",
+    "./src"
   ],
   "dependencies": {
     "tslib": "^2.4.1"

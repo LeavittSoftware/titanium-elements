@@ -8,8 +8,8 @@
   "typings": "lib/titanium-shadow-text.d.ts",
   "homepage": "https://github.com/LeavittSoftware/titanium-elements/tree/master/packages/titanium-shadow-text",
   "files": [
-    "lib",
-    "src"
+    "./lib",
+    "./src"
   ],
   "keywords": [
     "web component"

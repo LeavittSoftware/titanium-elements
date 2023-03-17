@@ -8,8 +8,8 @@
   "typings": "lib/user-manager.d.ts",
   "homepage": "https://github.com/LeavittSoftware/titanium-elements/tree/master/packages/user-manager",
   "files": [
-    "lib",
-    "src"
+    "./lib",
+    "./src"
   ],
   "keywords": [
     "web component"

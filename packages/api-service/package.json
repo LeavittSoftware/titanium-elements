@@ -8,8 +8,8 @@
   "typings": "lib/api-service-element.d.ts",
   "homepage": "https://github.com/LeavittSoftware/titanium-elements/tree/master/packages/api-service",
   "files": [
-    "lib",
-    "src"
+    "./lib",
+    "./src"
   ],
   "keywords": [
     "web component"

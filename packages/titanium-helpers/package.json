@@ -8,8 +8,8 @@
   "typings": "lib/titanium-helpers.d.ts",
   "homepage": "https://github.com/LeavittSoftware/titanium-elements/tree/master/packages/titanium-helpers",
   "files": [
-    "lib",
-    "src"
+    "./lib",
+    "./src"
   ],
   "dependencies": {
     "@leavittsoftware/lg-core-typescript": "*",

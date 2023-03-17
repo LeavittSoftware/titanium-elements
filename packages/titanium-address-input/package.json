@@ -8,8 +8,8 @@
   "typings": "lib/titanium-address-input.d.ts",
   "homepage": "https://github.com/LeavittSoftware/titanium-elements/tree/master/packages/titanium-address-input",
   "files": [
-    "lib",
-    "src"
+    "./lib",
+    "./src"
   ],
   "keywords": [
     "web component"

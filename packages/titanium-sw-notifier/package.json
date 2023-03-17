@@ -8,8 +8,8 @@
   "typings": "lib/titanium-sw-notifier.d.ts",
   "homepage": "https://github.com/LeavittSoftware/titanium-elements/tree/master/packages/titanium-sw-notifier#readme",
   "files": [
-    "lib",
-    "src"
+    "./lib",
+    "./src"
   ],
   "keywords": [
     "web component"

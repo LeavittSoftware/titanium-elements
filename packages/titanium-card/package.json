@@ -5,8 +5,8 @@
   "main": "lib/titanium-card.js",
   "typings": "lib/titanium-card.d.ts",
   "files": [
-    "lib",
-    "src"
+    "./lib",
+    "./src"
   ],
   "dependencies": {
     "@leavittsoftware/titanium-styles": "^0.6.1",

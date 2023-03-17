@@ -8,8 +8,8 @@
   "typings": "lib/titanium-input-validator.d.ts",
   "homepage": "https://github.com/LeavittSoftware/titanium-elements/tree/master/packages/titanium-input-validator",
   "files": [
-    "lib",
-    "src"
+    "./lib",
+    "./src"
   ],
   "keywords": [
     "web component"

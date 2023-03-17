@@ -5,8 +5,8 @@
   "main": "lib/titanium-button.js",
   "typings": "lib/titanium-button.d.ts",
   "files": [
-    "lib",
-    "src"
+    "./lib",
+    "./src"
   ],
   "dependencies": {
     "tslib": "^2.4.1"

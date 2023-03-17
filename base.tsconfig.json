@@ -3,6 +3,7 @@
     "target": "es2022",
     "module": "esNext",
     "moduleResolution": "node",
+    "declarationMap": true,
     "lib": ["esnext", "dom", "dom.iterable"],
     "experimentalDecorators": true,
     "noImplicitAny": false,

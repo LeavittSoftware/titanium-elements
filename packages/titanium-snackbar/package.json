@@ -5,8 +5,8 @@
   "main": "lib/titanium-snackbar.js",
   "typings": "lib/titanium-snackbar.d.ts",
   "files": [
-    "lib",
-    "src"
+    "./lib",
+    "./src"
   ],
   "dependencies": {
     "@leavittsoftware/api-service": "^12.0.2",

@@ -5,8 +5,8 @@
   "main": "lib/titanium-dialog.js",
   "typings": "lib/titanium-dialog.d.ts",
   "files": [
-    "lib",
-    "src"
+    "./lib",
+    "./src"
   ],
   "dependencies": {
     "@leavittsoftware/titanium-styles": "^0.6.1",

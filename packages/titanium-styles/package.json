@@ -5,8 +5,8 @@
   "main": "lib/titanium-styles.js",
   "typings": "lib/titanium-style.d.ts",
   "files": [
-    "lib",
-    "src"
+    "./lib",
+    "./src"
   ],
   "dependencies": {
     "tslib": "^2.4.1"

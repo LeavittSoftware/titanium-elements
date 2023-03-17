@@ -5,8 +5,8 @@
   "main": "lib/titanium-access-denied-page.js",
   "typings": "lib/titanium-access-denied-page.d.ts",
   "files": [
-    "lib",
-    "src"
+    "./lib",
+    "./src"
   ],
   "dependencies": {
     "tslib": "^2.4.1"

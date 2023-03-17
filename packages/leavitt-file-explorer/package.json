@@ -5,8 +5,8 @@
   "main": "lib/leavitt-file-explorer.js",
   "typings": "lib/leavitt-file-explorer.d.ts",
   "files": [
-    "lib",
-    "src"
+    "./lib",
+    "./src"
   ],
   "dependencies": {
     "@leavittsoftware/api-service": "^12.0.2",

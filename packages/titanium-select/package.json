@@ -5,8 +5,8 @@
   "main": "lib/titanium-select.js",
   "typings": "lib/titanium-select.d.ts",
   "files": [
-    "lib",
-    "src"
+    "./lib",
+    "./src"
   ],
   "dependencies": {
     "@material/mwc-textfield": "*",
