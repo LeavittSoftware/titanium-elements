@@ -178,6 +178,7 @@ export class TitaniumSmartAttachmentInputElement extends LitElement {
   }
 
   async handleNewFile(files: FileList) {
+    let shouldNotify = false;
     for (let i = 0; i < (files?.length ?? 0); i++) {
       const file = files?.item(i);
       if (file) {
@@ -188,7 +189,7 @@ export class TitaniumSmartAttachmentInputElement extends LitElement {
           });
           if (cropResult === 'cropped') {
             this.reportValidity();
-            this.#notifyChange();
+            shouldNotify = true;
           }
           await delay(500);
         } else {
@@ -204,9 +205,12 @@ export class TitaniumSmartAttachmentInputElement extends LitElement {
           }
           this.files = [...this.files, _file];
           this.reportValidity();
-          this.#notifyChange();
+          shouldNotify = true;
         }
       }
+    }
+    if (shouldNotify) {
+      this.#notifyChange();
     }
   }
 
