@@ -57,6 +57,10 @@ export class EventBus<TEntityTypes, TEventTypes> {
   }
 
   dispatch<TArg>(entityType: TEntityTypes, eventTypes: TEventTypes, object?: TArg) {
-    this.#subscribers.filter(s => s.entityType === entityType && (s.eventTypes === 'All' || s.eventTypes === eventTypes)).forEach(s => s.callback(object));
+    setTimeout(
+      () =>
+        this.#subscribers.filter(s => s.entityType === entityType && (s.eventTypes === 'All' || s.eventTypes === eventTypes)).forEach(s => s.callback(object)),
+      0
+    );
   }
 }
