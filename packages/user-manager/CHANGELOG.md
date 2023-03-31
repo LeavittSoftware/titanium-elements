@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 11.1.0 (2023-03-31)
+
+### Features
+
+- add public isRefreshTokenValid func ([dedea0d](https://github.com/LeavittSoftware/titanium-elements/commit/dedea0d4b1c1ff2e4448cbc386dd472b8f571c3b))
+
 ## 11.0.3 (2023-03-17)
 
 **Note:** Version bump only for package @leavittsoftware/user-manager

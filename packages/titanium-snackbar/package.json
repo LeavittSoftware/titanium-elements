@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/titanium-snackbar",
-  "version": "5.0.3",
+  "version": "5.0.4",
   "description": "",
   "main": "lib/titanium-snackbar.js",
   "typings": "lib/titanium-snackbar.d.ts",
@@ -9,7 +9,7 @@
     "./src"
   ],
   "dependencies": {
-    "@leavittsoftware/api-service": "^12.0.3",
+    "@leavittsoftware/api-service": "^12.0.4",
     "@material/mwc-button": "*",
     "tslib": "^2.4.1"
   },
