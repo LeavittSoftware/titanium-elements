@@ -73,6 +73,14 @@ export class UserManager extends LitElement {
     console.log('UserManager Ready.');
   }
 
+  async isRefreshTokenValid(refreshToken: string) {
+    try {
+      await this.#getAccessTokenFromApiAsync(refreshToken, this.tokenUri);
+      return true;
+    } catch (error) {}
+    return false;
+  }
+
   #redirectToLogin(continueUrl: string) {
     const redirectUrl = `${isDevelopment ? this.redirectDevUrl : this.redirectUrl}?continue=${encodeURIComponent(continueUrl)}`;
     if (document.location) {
