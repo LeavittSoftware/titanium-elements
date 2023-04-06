@@ -155,6 +155,12 @@ export class TitaniumAddressInputPlayground extends LitElement {
       <div>
         <titanium-address-input show-county outlined required googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"></titanium-address-input>
       </div>
+
+      <h1>Street2 textfield</h1>
+      <p>Street2 textfield available in the manual address dialog</p>
+      <div>
+        <titanium-address-input show-street2 show-county outlined required googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"></titanium-address-input>
+      </div>
     `;
   }
 }

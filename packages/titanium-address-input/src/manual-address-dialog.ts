@@ -18,11 +18,13 @@ export class ManualAddressDialogElement extends LitElement {
 
   @property({ type: String }) label: string = '';
   @property({ type: String }) street: string = '';
+  @property({ type: String }) street2: string = '';
   @property({ type: String }) city: string = '';
   @property({ type: String }) county: string = '';
   @property({ type: String }) state: string = '';
   @property({ type: String }) zip: string = '';
   @property({ type: Boolean, attribute: 'show-county' }) showCounty: boolean;
+  @property({ type: Boolean, attribute: 'show-street2' }) showStreet2: boolean;
   @property({ type: Boolean, attribute: 'disabled-closing-animation' }) disableClosingAnimation: boolean = false;
 
   @query('mwc-textfield[street]') protected streetInput: TextField;
@@ -32,6 +34,7 @@ export class ManualAddressDialogElement extends LitElement {
     this.reset();
     if (location) {
       this.street = location?.street ?? '';
+      this.street2 = location?.street2 ?? '';
       this.city = location?.city ?? '';
       this.state = location?.state ?? '';
       this.zip = location?.zip ?? '';
@@ -42,6 +45,7 @@ export class ManualAddressDialogElement extends LitElement {
     if (reason === 'update') {
       const address: Partial<Address> = {
         street: this.street,
+        street2: this.street2,
         city: this.city,
         state: this.state,
         zip: this.zip,
@@ -74,6 +78,7 @@ export class ManualAddressDialogElement extends LitElement {
 
   async reset() {
     this.street = '';
+    this.street2 = '';
     this.city = '';
     this.state = '';
     this.zip = '';
@@ -131,6 +136,19 @@ export class ManualAddressDialogElement extends LitElement {
           }}
           label="Street"
         ></mwc-textfield>
+        ${this.showStreet2
+          ? html` <mwc-textfield
+              street2
+              outlined
+              icon="meeting_room"
+              required
+              .value=${this.street2 || ''}
+              @input=${event => {
+                this.street2 = event.target.value;
+              }}
+              label="Street 2"
+            ></mwc-textfield>`
+          : nothing}
         <mwc-textfield
           icon="location_city"
           outlined

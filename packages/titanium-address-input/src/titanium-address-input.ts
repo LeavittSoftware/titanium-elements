@@ -79,6 +79,11 @@ export class TitaniumAddressInput extends LitElement {
   @property({ type: Boolean }) helperPersistent: boolean;
 
   /**
+   *  Sets whether or not the street2 textfield displays in the manual address dialog
+   */
+  @property({ type: Boolean, attribute: 'show-street2' }) showStreet2: boolean = false;
+
+  /**
    *  Sets whether or not the county textfield displays in the manual address dialog
    */
   @property({ type: Boolean, attribute: 'show-county' }) showCounty: boolean = false;
@@ -193,6 +198,7 @@ export class TitaniumAddressInput extends LitElement {
 
       <manual-address-dialog
         .showCounty=${this.showCounty}
+        .showStreet2=${this.showStreet2}
         .label=${this.label}
         .disableClosingAnimation=${this.disableClosingAnimation}
       ></manual-address-dialog>
