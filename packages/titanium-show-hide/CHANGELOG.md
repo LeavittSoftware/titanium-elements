@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.1.0 (2023-04-06)
+
+### Features
+
+- add shadow parts ([7841862](https://github.com/LeavittSoftware/titanium-elements/commit/78418629a02be3230c1d66732ee3777a1cd17ad7))
+
 ## 3.0.1 (2023-03-17)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-show-hide

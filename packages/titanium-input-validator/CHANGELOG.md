@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.3.0 (2023-04-06)
+
+### Features
+
+- add a public reset method ([8a2899b](https://github.com/LeavittSoftware/titanium-elements/commit/8a2899b5790764dccbaca442b26f768ddab17625))
+
 ## 0.2.2 (2023-03-17)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-input-validator
