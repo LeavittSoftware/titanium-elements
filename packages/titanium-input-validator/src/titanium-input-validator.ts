@@ -50,6 +50,10 @@ export class TitaniumInputValidatorElement extends LitElement {
     return isValid;
   }
 
+  reset() {
+    this.isUiValid = true;
+  }
+
   static styles = css`
     :host {
       display: inline-flex;
