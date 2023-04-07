@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@6.4.6...@leavittsoftware/leavittbook@6.5.0) (2023-04-06)
+
+### Features
+
+- add support for Street 2 ([93674d7](https://github.com/LeavittSoftware/titanium-elements/commit/93674d7e4a15e2f2ec4aa97e7c9c49bf5ebe7e54))
+
 ## [6.4.6](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@6.4.5...@leavittsoftware/leavittbook@6.4.6) (2023-04-06)
 
 **Note:** Version bump only for package @leavittsoftware/leavittbook
