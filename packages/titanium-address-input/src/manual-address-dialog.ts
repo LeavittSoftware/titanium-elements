@@ -141,7 +141,6 @@ export class ManualAddressDialogElement extends LitElement {
               street2
               outlined
               icon="meeting_room"
-              required
               .value=${this.street2 || ''}
               @input=${event => {
                 this.street2 = event.target.value;
