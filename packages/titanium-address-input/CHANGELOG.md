@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-address-input@3.3.0...@leavittsoftware/titanium-address-input@3.4.0) (2023-04-07)
+
+### Bug Fixes
+
+- street2 should not be required ([455dd2b](https://github.com/LeavittSoftware/titanium-elements/commit/455dd2be0bf3bf73f1fa4a3c21dc228f46ecabf8))
+
+### Features
+
+- add support for Street 2 ([93674d7](https://github.com/LeavittSoftware/titanium-elements/commit/93674d7e4a15e2f2ec4aa97e7c9c49bf5ebe7e54))
+
 # [3.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-address-input@3.2.6...@leavittsoftware/titanium-address-input@3.3.0) (2023-04-06)
 
 ### Features
