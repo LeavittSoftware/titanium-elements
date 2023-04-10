@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 2.1.0 (2023-04-10)
+
+### Features
+
+- add reset method and properly reset input ([c16fe82](https://github.com/LeavittSoftware/titanium-elements/commit/c16fe82fb3278caa99fbca492dc4200ea5562858))
+
 ## 2.0.2 (2023-03-17)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-duration-input

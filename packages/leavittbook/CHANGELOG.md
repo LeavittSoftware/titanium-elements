@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.5.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@6.5.1...@leavittsoftware/leavittbook@6.5.2) (2023-04-10)
+
+**Note:** Version bump only for package @leavittsoftware/leavittbook
+
 ## [6.5.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@6.5.0...@leavittsoftware/leavittbook@6.5.1) (2023-04-07)
 
 **Note:** Version bump only for package @leavittsoftware/leavittbook
