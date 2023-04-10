@@ -49,6 +49,7 @@ export class TitaniumDurationInputElement extends TextField {
       } else {
         this.duration = null;
         this.value = '';
+        this.layout();
       }
     }
   }
