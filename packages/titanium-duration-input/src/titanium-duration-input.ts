@@ -46,8 +46,20 @@ export class TitaniumDurationInputElement extends TextField {
       if (this.duration) {
         this.value = this.#getReadableTime(this.duration);
         this.layout();
+      } else {
+        this.duration = null;
+        this.value = '';
       }
     }
+  }
+
+  async reset() {
+    this.duration = null;
+    this.value = '';
+    await this.updateComplete;
+
+    this.isUiValid = true;
+    this.mdcFoundation?.setValid?.(true);
   }
 
   /**
