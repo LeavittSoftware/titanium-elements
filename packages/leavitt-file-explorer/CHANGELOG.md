@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.0.14 (2023-04-11)
+
+### Bug Fixes
+
+- remove explicit max height on file modal ([55c4971](https://github.com/LeavittSoftware/titanium-elements/commit/55c49714c33ac227aee099d15743a06809162515))
+
 ## 4.0.13 (2023-03-31)
 
 **Note:** Version bump only for package @leavittsoftware/leavitt-file-explorer

@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/leavitt-file-explorer",
-  "version": "4.0.13",
+  "version": "4.0.14",
   "description": "",
   "main": "lib/leavitt-file-explorer.js",
   "typings": "lib/leavitt-file-explorer.d.ts",
