@@ -43,7 +43,6 @@ export class LeavittFileModalElement extends LitElement {
     :host {
       display: block;
       --titanium-dialog-max-width: 850px;
-      --titanium-dialog-max-height: 850px;
     }
   `;
 
