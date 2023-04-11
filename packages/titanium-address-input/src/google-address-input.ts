@@ -55,7 +55,7 @@ export class GoogleAddressInput extends LoadWhile(LitElement) {
   /**
    *  Sets placeholder text value.
    */
-  @property({ type: String }) placeholder: string = 'Search for a address';
+  @property({ type: String }) placeholder: string = 'Search for an address';
 
   /**
    *  Leading icon to display in input
