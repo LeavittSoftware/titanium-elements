@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.4.1 (2023-04-12)
+
+### Bug Fixes
+
+- **titanium-address-input:** fix grammar ([#456](https://github.com/LeavittSoftware/titanium-elements/issues/456)) ([3668d62](https://github.com/LeavittSoftware/titanium-elements/commit/3668d62991989f3928dca06c79264cd5feb10a75))
+
 # [3.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-address-input@3.3.0...@leavittsoftware/titanium-address-input@3.4.0) (2023-04-07)
 
 ### Bug Fixes
