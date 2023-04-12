@@ -381,6 +381,8 @@ export class GoogleAddressInput extends LoadWhile(LitElement) {
           }
         }}
         @input=${async e => {
+          const userInput = e.target.value;
+
           if (this.location) {
             this.setLocation(null);
             await this.updateComplete;
@@ -388,7 +390,6 @@ export class GoogleAddressInput extends LoadWhile(LitElement) {
 
           this.suggestions = [];
           this.count = 0;
-          const userInput = e.target.value;
 
           //Let the input run validation on empty
           //then re-bind in user input and start searching

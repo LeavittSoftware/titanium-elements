@@ -9,6 +9,7 @@ import { property, customElement, query } from 'lit/decorators.js';
  * @slot default - dialog content
  *
  * @fires titanium-dialog-opened - Fired after open animation is complete
+ * @fires titanium-dialog-closed - Fired after closing animation is complete
  * @fires opening - Fired when opening animation begins
  * @fires opened - Fired after open animation is complete
  * @fires closing - Fired when closing animation begins
@@ -143,6 +144,7 @@ export class TitaniumNativeDialogBaseElement extends LitElement {
     await TitaniumNativeDialogBaseElement.animationsComplete(dialog);
 
     dialog.dispatchEvent(new Event('closed'));
+    dialog.dispatchEvent(new Event('titanium-dialog-closed'));
   }
 
   /**
