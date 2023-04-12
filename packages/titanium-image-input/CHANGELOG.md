@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.0.4 (2023-04-12)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-image-input
+
 ## 3.0.3 (2023-03-17)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-image-input

@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.0.15 (2023-04-12)
+
+**Note:** Version bump only for package @leavittsoftware/leavitt-file-explorer
+
 ## 4.0.14 (2023-04-11)
 
 ### Bug Fixes

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.3.0 (2023-04-12)
+
+### Features
+
+- add titanium-dialog-closed event on titanium-dialog ([bd5220b](https://github.com/LeavittSoftware/titanium-elements/commit/bd5220b78a0e73dfe1ee57c585b5dfbe5f7a15e2)), closes [#457](https://github.com/LeavittSoftware/titanium-elements/issues/457)
+
 ## 6.2.1 (2023-03-17)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-dialog

@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.3.1 (2023-04-12)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-smart-attachment-input
+
 # [3.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-smart-attachment-input@3.2.1...@leavittsoftware/titanium-smart-attachment-input@3.3.0) (2023-03-17)
 
 ### Features

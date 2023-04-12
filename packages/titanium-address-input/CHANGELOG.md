@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-address-input@3.4.1...@leavittsoftware/titanium-address-input@3.4.2) (2023-04-12)
+
+### Bug Fixes
+
+- FireFox 'undefined' written to input on key press after address was selected ([7b3e9bb](https://github.com/LeavittSoftware/titanium-elements/commit/7b3e9bb0e0e9755a8e17047f800f62fd5becaf49)), closes [#458](https://github.com/LeavittSoftware/titanium-elements/issues/458)
+
 ## 3.4.1 (2023-04-12)
 
 ### Bug Fixes
