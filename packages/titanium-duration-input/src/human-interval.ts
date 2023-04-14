@@ -1,6 +1,8 @@
 // https://github.com/agenda/human-interval
 // Does not support esm
 
+import duration from 'dayjs/esm/plugin/duration';
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const units: any = {};
 units.second = 1000;
@@ -65,5 +67,23 @@ const humanInterval = time => {
 };
 
 humanInterval.languageMap = languageMap;
+
+export function durationToString(d: duration.Duration | null | undefined): string {
+  if (d === null || d === undefined) {
+    return '';
+  }
+
+  return Object.entries({
+    years: d.years(),
+    months: d.months(),
+    days: d.days(),
+    hours: d.hours(),
+    minutes: d.minutes(),
+    seconds: d.seconds(),
+  })
+    .filter(value => value[1] !== 0)
+    .map(value => `${value[1]} ${value[1] === 1 ? value[0].slice(0, -1) : value[0]}`)
+    .join(' and ');
+}
 
 export default humanInterval;
