@@ -1,7 +1,7 @@
 import { property, customElement } from 'lit/decorators.js';
 import { TextField } from '@material/mwc-textfield';
 
-import humanInterval from './human-interval';
+import humanInterval, { durationToString } from './human-interval';
 import dayjs from 'dayjs/esm';
 import duration from 'dayjs/esm/plugin/duration';
 import { PropertyValues } from 'lit';
@@ -44,7 +44,7 @@ export class TitaniumDurationInputElement extends TextField {
   updated(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('duration') && changedProperties.get('duration') !== this.duration) {
       if (this.duration) {
-        this.value = this.#getReadableTime(this.duration);
+        this.value = durationToString(this.duration);
         this.layout();
       } else {
         this.duration = null;
@@ -61,26 +61,5 @@ export class TitaniumDurationInputElement extends TextField {
 
     this.isUiValid = true;
     this.mdcFoundation?.setValid?.(true);
-  }
-
-  /**
-   * @ignore
-   */
-  #getReadableTime(d: duration.Duration | null | undefined): string {
-    if (d === null || d === undefined) {
-      return '';
-    }
-
-    return Object.entries({
-      years: d.years(),
-      months: d.months(),
-      days: d.days(),
-      hours: d.hours(),
-      minutes: d.minutes(),
-      seconds: d.seconds(),
-    })
-      .filter(value => value[1] !== 0)
-      .map(value => `${value[1]} ${value[1] === 1 ? value[0].slice(0, -1) : value[0]}`)
-      .join(' and ');
   }
 }
