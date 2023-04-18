@@ -1,5 +1,6 @@
 import { css, html, LitElement, PropertyValues } from 'lit';
 import { property, customElement, query, state } from 'lit/decorators.js';
+import { repeat } from 'lit/directives/repeat.js';
 import '@material/mwc-textfield';
 import '@material/mwc-list/mwc-list-item.js';
 import '@material/mwc-linear-progress';
@@ -141,13 +142,8 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
       this.suggestions = this.companies;
     }
 
-    if (changedProps.has('selected') && this.selected) {
-      {
-        const company = this.companies.find(o => o.Id === this.selected?.Id);
-        if (company) {
-          this.selected = company;
-        }
-      }
+    if (changedProps.has('selected')) {
+      this.selected = this.companies.find(o => o.Id === this.selected?.Id) ?? null;
     }
   }
 
@@ -180,8 +176,15 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
       this.textfield.isUiValid = true;
       this.textfield.mdcFoundation?.setValid?.(true);
     }
-    this.searchTerm = '';
+    this.softReset();
     this.selected = null;
+  }
+
+  /**
+   *  Resets search term and results.
+   */
+  softReset() {
+    this.searchTerm = '';
     this.suggestions = this.companies;
   }
 
@@ -218,6 +221,7 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
     const previouslySelected = this.selected;
     this.selected = company;
     if (this.selected) {
+      this.softReset();
       this.textfield.reportValidity();
     }
 
@@ -359,7 +363,9 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
         ${!this.isLoading && !this.searchTerm
           ? html`<div summary>Showing ${this.suggestions.length} compan${this.companies.length === 1 ? 'y' : 'ies'}</div>`
           : ''}
-        ${this.suggestions.map(
+        ${repeat(
+          this.suggestions,
+          s => s.Id,
           company => html`
             <mwc-list-item twoline graphic="medium" ?selected=${this.selected?.Id === company.Id} value=${String(company.Id)}>
               <span>${company.Name}</span>
