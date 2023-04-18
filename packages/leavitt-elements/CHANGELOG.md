@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 8.0.9 (2023-04-18)
+
+### Bug Fixes
+
+- reset search suggestions when a company is picked; expose softReset ([8507a7e](https://github.com/LeavittSoftware/titanium-elements/commit/8507a7e39012429e238e7ba8047cbc1d25223f68))
+
 ## 8.0.8 (2023-03-31)
 
 **Note:** Version bump only for package @leavittsoftware/leavitt-elements
