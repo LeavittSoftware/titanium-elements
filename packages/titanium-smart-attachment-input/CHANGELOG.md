@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.3.2 (2023-04-18)
+
+### Bug Fixes
+
+- enforce max of one file when not using multiple attribute ([3f701b7](https://github.com/LeavittSoftware/titanium-elements/commit/3f701b745f263bb65d94467df0e59e78285b99af)), closes [#460](https://github.com/LeavittSoftware/titanium-elements/issues/460)
+
 ## 3.3.1 (2023-04-12)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-smart-attachment-input
