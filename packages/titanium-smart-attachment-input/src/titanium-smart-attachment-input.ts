@@ -185,7 +185,12 @@ export class TitaniumSmartAttachmentInputElement extends LitElement {
         const shouldCrop = this.croppableImageFormats.some(o => file.name.endsWith(o));
         if (shouldCrop) {
           const cropResult = await this.cropperDialog.open(URL.createObjectURL(file), file.name, async (croppedImage, previewDataUrl) => {
-            this.files = [...this.files, { file: croppedImage, previewSrc: previewDataUrl ?? undefined }];
+            const croppedFile = { file: croppedImage, previewSrc: previewDataUrl ?? undefined };
+            if (this.multiple) {
+              this.files = [...this.files, croppedFile];
+            } else {
+              this.files = [croppedFile];
+            }
           });
           if (cropResult === 'cropped') {
             this.reportValidity();
@@ -203,7 +208,11 @@ export class TitaniumSmartAttachmentInputElement extends LitElement {
               }
             } catch (error) {}
           }
-          this.files = [...this.files, _file];
+          if (this.multiple) {
+            this.files = [...this.files, _file];
+          } else {
+            this.files = [_file];
+          }
           this.reportValidity();
           shouldNotify = true;
         }
