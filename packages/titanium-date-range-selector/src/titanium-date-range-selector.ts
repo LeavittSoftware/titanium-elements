@@ -40,6 +40,134 @@ export type DateRangeKey =
   | 'allTime'
   | 'custom';
 export type DateRangeOption = { startDate: string; endDate: string; icon: string; name: string; isDefault?: boolean };
+export const DateTimeRanges = new Map<DateRangeKey, DateRangeOption>([
+  [
+    'today',
+    {
+      name: 'Today',
+      startDate: today.set('hours', 0).set('minutes', 0).set('seconds', 0).format('YYYY-MM-DDTHH:mm:ss'),
+      endDate: today.set('hours', 23).set('minutes', 59).set('seconds', 59).format('YYYY-MM-DDTHH:mm:ss'),
+      icon: 'today',
+    },
+  ],
+  [
+    'thisWeek',
+    {
+      name: 'This week',
+      startDate: today.startOf('week').set('hours', 0).set('minutes', 0).set('seconds', 0).format('YYYY-MM-DDTHH:mm:ss'),
+      endDate: today.endOf('week').set('hours', 23).set('minutes', 59).set('seconds', 59).format('YYYY-MM-DDTHH:mm:ss'),
+      icon: 'calendar_view_week',
+    },
+  ],
+  [
+    'thisMonth',
+    {
+      name: 'This month',
+      startDate: today.startOf('month').set('hours', 0).set('minutes', 0).set('seconds', 0).format('YYYY-MM-DDTHH:mm:ss'),
+      endDate: today.endOf('month').set('hours', 23).set('minutes', 59).set('seconds', 59).format('YYYY-MM-DDTHH:mm:ss'),
+      icon: 'calendar_month',
+    },
+  ],
+  [
+    'thisQuarter',
+    {
+      name: 'This quarter',
+      startDate: today.startOf(quarter).set('hours', 0).set('minutes', 0).set('seconds', 0).format('YYYY-MM-DDTHH:mm:ss'),
+      endDate: today.endOf(quarter).set('hours', 23).set('minutes', 59).set('seconds', 59).format('YYYY-MM-DDTHH:mm:ss'),
+      icon: 'event',
+    },
+  ],
+  [
+    'thisYear',
+    {
+      name: 'This year',
+      startDate: today.startOf('year').set('hours', 0).set('minutes', 0).set('seconds', 0).format('YYYY-MM-DDTHH:mm:ss'),
+      endDate: today.endOf('year').set('hours', 23).set('minutes', 59).set('seconds', 59).format('YYYY-MM-DDTHH:mm:ss'),
+      icon: 'calendar_today',
+    },
+  ],
+  [
+    'thisYearToDate',
+    {
+      name: 'This year to date',
+      startDate: today.startOf('year').set('hours', 0).set('minutes', 0).set('seconds', 0).format('YYYY-MM-DDTHH:mm:ss'),
+      endDate: today.set('hours', 23).set('minutes', 59).set('seconds', 59).format('YYYY-MM-DDTHH:mm:ss'),
+      icon: 'calendar_view_day',
+    },
+  ],
+  [
+    'lastWeek',
+    {
+      name: 'Last week',
+      startDate: lastWeek.startOf('week').set('hours', 0).set('minutes', 0).set('seconds', 0).format('YYYY-MM-DDTHH:mm:ss'),
+      endDate: lastWeek.endOf('week').set('hours', 23).set('minutes', 59).set('seconds', 59).format('YYYY-MM-DDTHH:mm:ss'),
+      icon: 'calendar_view_week',
+    },
+  ],
+  [
+    'lastMonth',
+    {
+      name: 'Last month',
+      startDate: lastMonth.startOf('month').set('hours', 0).set('minutes', 0).set('seconds', 0).format('YYYY-MM-DDTHH:mm:ss'),
+      endDate: lastMonth.endOf('month').set('hours', 23).set('minutes', 59).set('seconds', 59).format('YYYY-MM-DDTHH:mm:ss'),
+      icon: 'calendar_month',
+    },
+  ],
+  [
+    'lastQuarter',
+    {
+      name: 'Last quarter',
+      startDate: lastQuarter.startOf(quarter).set('hours', 0).set('minutes', 0).set('seconds', 0).format('YYYY-MM-DDTHH:mm:ss'),
+      endDate: lastQuarter.endOf(quarter).set('hours', 23).set('minutes', 59).set('seconds', 59).format('YYYY-MM-DDTHH:mm:ss'),
+      icon: 'event',
+    },
+  ],
+  [
+    'lastYear',
+    {
+      name: 'Last year',
+      startDate: lastYear.startOf('year').set('hours', 0).set('minutes', 0).set('seconds', 0).format('YYYY-MM-DDTHH:mm:ss'),
+      endDate: lastYear.endOf('year').set('hours', 23).set('minutes', 59).set('seconds', 59).format('YYYY-MM-DDTHH:mm:ss'),
+      icon: 'calendar_today',
+    },
+  ],
+  [
+    'last12Months',
+    {
+      name: 'Last 12 months',
+      startDate: today.add(-1, 'year').set('hours', 0).set('minutes', 0).set('seconds', 0).format('YYYY-MM-DDTHH:mm:ss'),
+      endDate: today.set('hours', 23).set('minutes', 59).set('seconds', 59).format('YYYY-MM-DDTHH:mm:ss'),
+      icon: 'calendar_today',
+    },
+  ],
+  [
+    'lastYearToDate',
+    {
+      name: 'Last year to date',
+      startDate: lastYear.startOf('year').set('hours', 0).set('minutes', 0).set('seconds', 0).format('YYYY-MM-DDTHH:mm:ss'),
+      endDate: today.set('hours', 23).set('minutes', 59).set('seconds', 59).format('YYYY-MM-DDTHH:mm:ss'),
+      icon: 'calendar_view_day',
+    },
+  ],
+  [
+    'yesterday',
+    {
+      name: 'Yesterday',
+      startDate: yesterday.set('hours', 0).set('minutes', 0).set('seconds', 0).format('YYYY-MM-DDTHH:mm:ss'),
+      endDate: yesterday.set('hours', 23).set('minutes', 59).set('seconds', 59).format('YYYY-MM-DDTHH:mm:ss'),
+      icon: 'event_repeat',
+    },
+  ],
+  [
+    'allTime',
+    {
+      name: 'All time',
+      startDate: '',
+      endDate: '',
+      icon: 'watch_later',
+    },
+  ],
+]);
 export const DateRanges = new Map<DateRangeKey, DateRangeOption>([
   [
     'today',
@@ -185,6 +313,11 @@ export class TitaniumDateRangeSelector extends LitElement {
   @property({ type: String }) label: string = '';
 
   /**
+   *  Controls the display of the time picker.
+   */
+  @property({ type: Boolean }) enableTime: boolean = false;
+
+  /**
    *  The selected selected range.
    */
   @property({ type: String }) range: string = 'custom';
@@ -253,7 +386,10 @@ export class TitaniumDateRangeSelector extends LitElement {
 
   #dateChangedDebouncer = new Debouncer(async () => {
     //Keep range selector up to date with new date selection
-    this.range = Array.from(this.customDateRanges ?? DateRanges).find(o => o[1].startDate === this.startDate && o[1].endDate === this.endDate)?.[0] || 'custom';
+    this.range =
+      Array.from(this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges).find(
+        o => o[1].startDate === this.startDate && o[1].endDate === this.endDate
+      )?.[0] || 'custom';
     this.#notifyChangeIfValid();
   }, 300);
 
@@ -303,7 +439,13 @@ export class TitaniumDateRangeSelector extends LitElement {
   `;
 
   #getRange(key: DateRangeKey | string) {
-    return !!this.customDateRanges ? this.customDateRanges.get(key) : DateRanges.get(key as DateRangeKey);
+    if (!!this.customDateRanges) {
+      return this.customDateRanges.get(key);
+    }
+    if (this.enableTime) {
+      return DateTimeRanges.get(key as DateRangeKey);
+    }
+    return DateRanges.get(key as DateRangeKey);
   }
 
   render() {
@@ -337,13 +479,15 @@ export class TitaniumDateRangeSelector extends LitElement {
       <mwc-datefield
         start-date
         label="After"
-        value=${this.startDate ?? ''}
+        .dateType=${this.enableTime ? 'datetime-local' : 'date'}
+        .value=${this.startDate ?? ''}
         @change=${(e: DOMEvent<DateField>) => (this.startDate = e.target.value ?? '')}
       ></mwc-datefield>
       <mwc-datefield
         end-date
         label="Before"
-        value=${this.endDate ?? ''}
+        .dateType=${this.enableTime ? 'datetime-local' : 'date'}
+        .value=${this.endDate ?? ''}
         @change=${(e: DOMEvent<DateField>) => (this.endDate = e.target.value ?? '')}
       ></mwc-datefield>
     `;

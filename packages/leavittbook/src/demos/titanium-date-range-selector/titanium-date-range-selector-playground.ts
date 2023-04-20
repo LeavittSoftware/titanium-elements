@@ -144,6 +144,12 @@ export class TitaniumDateRangePlaygroundElement extends LitElement {
         ></titanium-date-range-selector>
       </div>
 
+      <h1>Time</h1>
+      <p>Examples using enable time</p>
+      <div>
+        <titanium-date-range-selector label="Created date" ?enableTime=${true}></titanium-date-range-selector>
+      </div>
+
       <h1>Methods</h1>
       <p>Call layout() on date ranges that are initially hidden to float the label</p>
       <div>
