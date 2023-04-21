@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.17](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@4.0.16...@leavittsoftware/leavitt-file-explorer@4.0.17) (2023-04-21)
+
+### Bug Fixes
+
+- properly read status codes for known error states. api3 compatible ([#465](https://github.com/LeavittSoftware/titanium-elements/issues/465)) ([24d0ea0](https://github.com/LeavittSoftware/titanium-elements/commit/24d0ea081d5f650f6f87f2d34dac87cb6e513b70))
+
 ## 4.0.16 (2023-04-18)
 
 **Note:** Version bump only for package @leavittsoftware/leavitt-file-explorer
