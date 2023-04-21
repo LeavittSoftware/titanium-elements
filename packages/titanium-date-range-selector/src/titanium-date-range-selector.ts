@@ -39,7 +39,83 @@ export type DateRangeKey =
   | 'lastYearToDate'
   | 'allTime'
   | 'custom';
+
+export type DateRangeTimeKey = 'lastTwentyFour' | 'lastTwelve' | 'lastSix' | 'lastThree' | 'lastHour' | 'lastThirty' | 'lastFifteen' | 'lastTen' | 'custom';
 export type DateRangeOption = { startDate: string; endDate: string; icon: string; name: string; isDefault?: boolean };
+export const DateTimeRanges = new Map<DateRangeTimeKey, DateRangeOption>([
+  [
+    'lastTen',
+    {
+      name: 'Last ten minutes',
+      startDate: today.subtract(10, 'minutes').format('YYYY-MM-DDTHH:mm'),
+      endDate: today.format('YYYY-MM-DDTHH:mm'),
+      icon: 'timer',
+    },
+  ],
+  [
+    'lastFifteen',
+    {
+      name: 'Last fifteen minutes',
+      startDate: today.subtract(15, 'minutes').format('YYYY-MM-DDTHH:mm'),
+      endDate: today.format('YYYY-MM-DDTHH:mm'),
+      icon: 'timer',
+    },
+  ],
+  [
+    'lastThirty',
+    {
+      name: 'Last thirty minutes',
+      startDate: today.subtract(30, 'minutes').format('YYYY-MM-DDTHH:mm'),
+      endDate: today.format('YYYY-MM-DDTHH:mm'),
+      icon: 'timer',
+    },
+  ],
+  [
+    'lastHour',
+    {
+      name: 'Last hour',
+      startDate: today.subtract(1, 'hour').format('YYYY-MM-DDTHH:mm'),
+      endDate: today.format('YYYY-MM-DDTHH:mm'),
+      icon: 'alarm',
+    },
+  ],
+  [
+    'lastThree',
+    {
+      name: 'Last three hours',
+      startDate: today.subtract(3, 'hour').format('YYYY-MM-DDTHH:mm'),
+      endDate: today.format('YYYY-MM-DDTHH:mm'),
+      icon: 'alarm',
+    },
+  ],
+  [
+    'lastSix',
+    {
+      name: 'Last six hours',
+      startDate: today.subtract(6, 'hour').format('YYYY-MM-DDTHH:mm'),
+      endDate: today.format('YYYY-MM-DDTHH:mm'),
+      icon: 'alarm',
+    },
+  ],
+  [
+    'lastTwelve',
+    {
+      name: 'Last twelve hours',
+      startDate: today.subtract(12, 'hour').format('YYYY-MM-DDTHH:mm'),
+      endDate: today.format('YYYY-MM-DDTHH:mm'),
+      icon: 'schedule',
+    },
+  ],
+  [
+    'lastTwentyFour',
+    {
+      name: 'Last twenty-four hours',
+      startDate: today.subtract(24, 'hour').format('YYYY-MM-DDTHH:mm'),
+      endDate: today.format('YYYY-MM-DDTHH:mm'),
+      icon: 'schedule',
+    },
+  ],
+]);
 export const DateRanges = new Map<DateRangeKey, DateRangeOption>([
   [
     'today',
@@ -185,6 +261,11 @@ export class TitaniumDateRangeSelector extends LitElement {
   @property({ type: String }) label: string = '';
 
   /**
+   *  Controls the display of the time picker.
+   */
+  @property({ type: Boolean }) enableTime: boolean = false;
+
+  /**
    *  The selected selected range.
    */
   @property({ type: String }) range: string = 'custom';
@@ -242,7 +323,7 @@ export class TitaniumDateRangeSelector extends LitElement {
 
   reportValidity() {
     if (!!this.startDate && !!this.endDate && dayjs(this.startDate).isAfter(dayjs(this.endDate))) {
-      this.startDateField.setCustomValidity('Start date must be before end date');
+      this.startDateField.setCustomValidity('From date must be before to date');
       this.startDateField.reportValidity();
       return false;
     }
@@ -253,7 +334,10 @@ export class TitaniumDateRangeSelector extends LitElement {
 
   #dateChangedDebouncer = new Debouncer(async () => {
     //Keep range selector up to date with new date selection
-    this.range = Array.from(this.customDateRanges ?? DateRanges).find(o => o[1].startDate === this.startDate && o[1].endDate === this.endDate)?.[0] || 'custom';
+    this.range =
+      Array.from(this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges).find(
+        o => o[1].startDate === this.startDate && o[1].endDate === this.endDate
+      )?.[0] || 'custom';
     this.#notifyChangeIfValid();
   }, 300);
 
@@ -303,7 +387,13 @@ export class TitaniumDateRangeSelector extends LitElement {
   `;
 
   #getRange(key: DateRangeKey | string) {
-    return !!this.customDateRanges ? this.customDateRanges.get(key) : DateRanges.get(key as DateRangeKey);
+    if (!!this.customDateRanges) {
+      return this.customDateRanges.get(key);
+    }
+    if (this.enableTime) {
+      return DateTimeRanges.get(key as DateRangeTimeKey);
+    }
+    return DateRanges.get(key as DateRangeKey);
   }
 
   render() {
@@ -326,7 +416,7 @@ export class TitaniumDateRangeSelector extends LitElement {
           <titanium-icon slot="graphic" icon="date_range"></titanium-icon>
           Custom range</mwc-list-item
         >
-        ${Array.from(this.customDateRanges ?? DateRanges).map(
+        ${Array.from(this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges).map(
           o => html`<mwc-list-item graphic="icon" value=${o[0]}>
             <titanium-icon slot="graphic" icon=${o[1].icon}></titanium-icon>
             ${o[1].name}</mwc-list-item
@@ -336,14 +426,17 @@ export class TitaniumDateRangeSelector extends LitElement {
 
       <mwc-datefield
         start-date
-        label="After"
-        value=${this.startDate ?? ''}
+        label="From"
+        .dateType=${this.enableTime ? 'datetime-local' : 'date'}
+        .value=${this.startDate ?? ''}
         @change=${(e: DOMEvent<DateField>) => (this.startDate = e.target.value ?? '')}
       ></mwc-datefield>
+
       <mwc-datefield
         end-date
-        label="Before"
-        value=${this.endDate ?? ''}
+        label="To"
+        .dateType=${this.enableTime ? 'datetime-local' : 'date'}
+        .value=${this.endDate ?? ''}
         @change=${(e: DOMEvent<DateField>) => (this.endDate = e.target.value ?? '')}
       ></mwc-datefield>
     `;
