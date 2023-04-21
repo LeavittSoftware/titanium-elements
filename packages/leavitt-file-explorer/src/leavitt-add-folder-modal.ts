@@ -53,7 +53,7 @@ export class LeavittAddFolderModalElement extends LitElement {
     };
 
     try {
-      const post = this.apiService?.postAsync<FileExplorerFolder>('FileExplorerFolders?$expand=CreatorPerson($select=FirstName,LastName)', dto);
+      const post = this.apiService?.postAsync<FileExplorerFolder>('FileExplorerFolders?expand=CreatorPerson(select=FirstName,LastName)', dto);
       if (post) {
         this.dispatchEvent(new PendingStateEvent(post));
       }
