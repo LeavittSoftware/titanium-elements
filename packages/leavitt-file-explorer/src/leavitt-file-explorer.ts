@@ -177,11 +177,12 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
    */
   async #getExplorerData(fileExplorerId: number, folderId: number | null) {
     try {
-      const get = this.apiService?.getAsync<FileExplorerDto>(`FileExplorers(${fileExplorerId})/Default.FileExplorerView(folderId=${folderId})`);
+      const get = this.apiService?.getAsync<FileExplorerDto>(`FileExplorers(${fileExplorerId})/FileExplorerView(folderId=${folderId})`);
       if (get) {
         this.loadWhile(get);
       }
       const result = await get;
+
       if (result?.status == 200 && result.entity) {
         this.fileExplorer = result.entity;
         this.folders = result.entity.Folders as FileExplorerFolderDto[];
@@ -205,12 +206,12 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
         this.isAdmin = result.entity.CanEdit;
         this.state = this.folders.length > 0 || this.files.length > 0 ? 'files' : 'no-files';
       }
-      if (result?.status == 401 || result?.status == 404) {
+    } catch (error) {
+      if (error?.statusCode == 401 || error?.statusCode == 404) {
         this.path = [{ Name: 'Files' } as FileExplorerPathDto];
         this.state = 'no-permission';
+        return;
       }
-    } catch (error) {
-      console.warn(error);
       this.path = [{ Name: 'Files' } as FileExplorerPathDto];
       this.state = 'error';
     }
@@ -354,8 +355,8 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
    */
   async #uploadFiles(files: FileList | null) {
     const uri = this.folderId
-      ? `FileExplorerFolders(${this.folderId})/Default.UploadAttachment?$expand=Creator($select=Firstname,Lastname)`
-      : `FileExplorers(${this.fileExplorerId})/Default.UploadAttachment?$expand=Creator($select=Firstname,Lastname)`;
+      ? `FileExplorerFolders(${this.folderId})/UploadAttachment?expand=Creator(select=Firstname,Lastname)`
+      : `FileExplorers(${this.fileExplorerId})/UploadAttachment?expand=Creator(select=Firstname,Lastname)`;
 
     const failedFiles: string[] = [];
     const requests = Array.from(files ?? []).map(file => async () => {
@@ -406,8 +407,8 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
         const folderId = (await directoryToIdMap).get(path);
 
         const uri = folderId
-          ? `FileExplorerFolders(${folderId})/Default.UploadAttachment?$expand=Creator($select=Firstname,Lastname)`
-          : `FileExplorers(${this.fileExplorerId})/Default.UploadAttachment?$expand=Creator($select=Firstname,Lastname)`;
+          ? `FileExplorerFolders(${folderId})/UploadAttachment?expand=Creator(select=Firstname,Lastname)`
+          : `FileExplorers(${this.fileExplorerId})/UploadAttachment?expand=Creator(select=Firstname,Lastname)`;
 
         const result = (await this.apiService?.uploadFile<FileExplorerAttachment>(uri, file, () => console.log))?.entity;
         if (result) {
@@ -447,7 +448,7 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
     };
 
     try {
-      const post = this.apiService?.postAsync<FileExplorerFolder>('FileExplorerFolders?$expand=CreatorPerson($select=FirstName,LastName)', dto);
+      const post = this.apiService?.postAsync<FileExplorerFolder>('FileExplorerFolders?expand=CreatorPerson(select=FirstName,LastName)', dto);
       if (post) {
         /**
          *  @ignore
