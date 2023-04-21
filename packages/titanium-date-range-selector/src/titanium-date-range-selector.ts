@@ -39,132 +39,80 @@ export type DateRangeKey =
   | 'lastYearToDate'
   | 'allTime'
   | 'custom';
+
+export type DateRangeTimeKey = 'lastTwentyFour' | 'lastTwelve' | 'lastSix' | 'lastThree' | 'lastHour' | 'lastThirty' | 'lastFifteen' | 'lastTen' | 'custom';
 export type DateRangeOption = { startDate: string; endDate: string; icon: string; name: string; isDefault?: boolean };
-export const DateTimeRanges = new Map<DateRangeKey, DateRangeOption>([
+export const DateTimeRanges = new Map<DateRangeTimeKey, DateRangeOption>([
   [
-    'today',
+    'lastTen',
     {
-      name: 'Today',
-      startDate: today.set('hours', 0).set('minutes', 0).set('seconds', 0).format('YYYY-MM-DDTHH:mm:ss'),
-      endDate: today.set('hours', 23).set('minutes', 59).set('seconds', 59).format('YYYY-MM-DDTHH:mm:ss'),
-      icon: 'today',
+      name: 'Last ten minutes',
+      startDate: today.subtract(10, 'minutes').format('YYYY-MM-DDTHH:mm'),
+      endDate: today.format('YYYY-MM-DDTHH:mm'),
+      icon: 'timer',
     },
   ],
   [
-    'thisWeek',
+    'lastFifteen',
     {
-      name: 'This week',
-      startDate: today.startOf('week').set('hours', 0).set('minutes', 0).set('seconds', 0).format('YYYY-MM-DDTHH:mm:ss'),
-      endDate: today.endOf('week').set('hours', 23).set('minutes', 59).set('seconds', 59).format('YYYY-MM-DDTHH:mm:ss'),
-      icon: 'calendar_view_week',
+      name: 'Last fifteen minutes',
+      startDate: today.subtract(15, 'minutes').format('YYYY-MM-DDTHH:mm'),
+      endDate: today.format('YYYY-MM-DDTHH:mm'),
+      icon: 'timer',
     },
   ],
   [
-    'thisMonth',
+    'lastThirty',
     {
-      name: 'This month',
-      startDate: today.startOf('month').set('hours', 0).set('minutes', 0).set('seconds', 0).format('YYYY-MM-DDTHH:mm:ss'),
-      endDate: today.endOf('month').set('hours', 23).set('minutes', 59).set('seconds', 59).format('YYYY-MM-DDTHH:mm:ss'),
-      icon: 'calendar_month',
+      name: 'Last thirty minutes',
+      startDate: today.subtract(30, 'minutes').format('YYYY-MM-DDTHH:mm'),
+      endDate: today.format('YYYY-MM-DDTHH:mm'),
+      icon: 'timer',
     },
   ],
   [
-    'thisQuarter',
+    'lastHour',
     {
-      name: 'This quarter',
-      startDate: today.startOf(quarter).set('hours', 0).set('minutes', 0).set('seconds', 0).format('YYYY-MM-DDTHH:mm:ss'),
-      endDate: today.endOf(quarter).set('hours', 23).set('minutes', 59).set('seconds', 59).format('YYYY-MM-DDTHH:mm:ss'),
-      icon: 'event',
+      name: 'Last hour',
+      startDate: today.subtract(1, 'hour').format('YYYY-MM-DDTHH:mm'),
+      endDate: today.format('YYYY-MM-DDTHH:mm'),
+      icon: 'alarm',
     },
   ],
   [
-    'thisYear',
+    'lastThree',
     {
-      name: 'This year',
-      startDate: today.startOf('year').set('hours', 0).set('minutes', 0).set('seconds', 0).format('YYYY-MM-DDTHH:mm:ss'),
-      endDate: today.endOf('year').set('hours', 23).set('minutes', 59).set('seconds', 59).format('YYYY-MM-DDTHH:mm:ss'),
-      icon: 'calendar_today',
+      name: 'Last three hours',
+      startDate: today.subtract(3, 'hour').format('YYYY-MM-DDTHH:mm'),
+      endDate: today.format('YYYY-MM-DDTHH:mm'),
+      icon: 'alarm',
     },
   ],
   [
-    'thisYearToDate',
+    'lastSix',
     {
-      name: 'This year to date',
-      startDate: today.startOf('year').set('hours', 0).set('minutes', 0).set('seconds', 0).format('YYYY-MM-DDTHH:mm:ss'),
-      endDate: today.set('hours', 23).set('minutes', 59).set('seconds', 59).format('YYYY-MM-DDTHH:mm:ss'),
-      icon: 'calendar_view_day',
+      name: 'Last six hours',
+      startDate: today.subtract(6, 'hour').format('YYYY-MM-DDTHH:mm'),
+      endDate: today.format('YYYY-MM-DDTHH:mm'),
+      icon: 'alarm',
     },
   ],
   [
-    'lastWeek',
+    'lastTwelve',
     {
-      name: 'Last week',
-      startDate: lastWeek.startOf('week').set('hours', 0).set('minutes', 0).set('seconds', 0).format('YYYY-MM-DDTHH:mm:ss'),
-      endDate: lastWeek.endOf('week').set('hours', 23).set('minutes', 59).set('seconds', 59).format('YYYY-MM-DDTHH:mm:ss'),
-      icon: 'calendar_view_week',
+      name: 'Last twelve hours',
+      startDate: today.subtract(12, 'hour').format('YYYY-MM-DDTHH:mm'),
+      endDate: today.format('YYYY-MM-DDTHH:mm'),
+      icon: 'schedule',
     },
   ],
   [
-    'lastMonth',
+    'lastTwentyFour',
     {
-      name: 'Last month',
-      startDate: lastMonth.startOf('month').set('hours', 0).set('minutes', 0).set('seconds', 0).format('YYYY-MM-DDTHH:mm:ss'),
-      endDate: lastMonth.endOf('month').set('hours', 23).set('minutes', 59).set('seconds', 59).format('YYYY-MM-DDTHH:mm:ss'),
-      icon: 'calendar_month',
-    },
-  ],
-  [
-    'lastQuarter',
-    {
-      name: 'Last quarter',
-      startDate: lastQuarter.startOf(quarter).set('hours', 0).set('minutes', 0).set('seconds', 0).format('YYYY-MM-DDTHH:mm:ss'),
-      endDate: lastQuarter.endOf(quarter).set('hours', 23).set('minutes', 59).set('seconds', 59).format('YYYY-MM-DDTHH:mm:ss'),
-      icon: 'event',
-    },
-  ],
-  [
-    'lastYear',
-    {
-      name: 'Last year',
-      startDate: lastYear.startOf('year').set('hours', 0).set('minutes', 0).set('seconds', 0).format('YYYY-MM-DDTHH:mm:ss'),
-      endDate: lastYear.endOf('year').set('hours', 23).set('minutes', 59).set('seconds', 59).format('YYYY-MM-DDTHH:mm:ss'),
-      icon: 'calendar_today',
-    },
-  ],
-  [
-    'last12Months',
-    {
-      name: 'Last 12 months',
-      startDate: today.add(-1, 'year').set('hours', 0).set('minutes', 0).set('seconds', 0).format('YYYY-MM-DDTHH:mm:ss'),
-      endDate: today.set('hours', 23).set('minutes', 59).set('seconds', 59).format('YYYY-MM-DDTHH:mm:ss'),
-      icon: 'calendar_today',
-    },
-  ],
-  [
-    'lastYearToDate',
-    {
-      name: 'Last year to date',
-      startDate: lastYear.startOf('year').set('hours', 0).set('minutes', 0).set('seconds', 0).format('YYYY-MM-DDTHH:mm:ss'),
-      endDate: today.set('hours', 23).set('minutes', 59).set('seconds', 59).format('YYYY-MM-DDTHH:mm:ss'),
-      icon: 'calendar_view_day',
-    },
-  ],
-  [
-    'yesterday',
-    {
-      name: 'Yesterday',
-      startDate: yesterday.set('hours', 0).set('minutes', 0).set('seconds', 0).format('YYYY-MM-DDTHH:mm:ss'),
-      endDate: yesterday.set('hours', 23).set('minutes', 59).set('seconds', 59).format('YYYY-MM-DDTHH:mm:ss'),
-      icon: 'event_repeat',
-    },
-  ],
-  [
-    'allTime',
-    {
-      name: 'All time',
-      startDate: '',
-      endDate: '',
-      icon: 'watch_later',
+      name: 'Last twenty-four hours',
+      startDate: today.subtract(24, 'hour').format('YYYY-MM-DDTHH:mm'),
+      endDate: today.format('YYYY-MM-DDTHH:mm'),
+      icon: 'schedule',
     },
   ],
 ]);
@@ -375,7 +323,7 @@ export class TitaniumDateRangeSelector extends LitElement {
 
   reportValidity() {
     if (!!this.startDate && !!this.endDate && dayjs(this.startDate).isAfter(dayjs(this.endDate))) {
-      this.startDateField.setCustomValidity('Start date must be before end date');
+      this.startDateField.setCustomValidity('From date must be before to date');
       this.startDateField.reportValidity();
       return false;
     }
@@ -443,7 +391,7 @@ export class TitaniumDateRangeSelector extends LitElement {
       return this.customDateRanges.get(key);
     }
     if (this.enableTime) {
-      return DateTimeRanges.get(key as DateRangeKey);
+      return DateTimeRanges.get(key as DateRangeTimeKey);
     }
     return DateRanges.get(key as DateRangeKey);
   }
@@ -468,7 +416,7 @@ export class TitaniumDateRangeSelector extends LitElement {
           <titanium-icon slot="graphic" icon="date_range"></titanium-icon>
           Custom range</mwc-list-item
         >
-        ${Array.from(this.customDateRanges ?? DateRanges).map(
+        ${Array.from(this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges).map(
           o => html`<mwc-list-item graphic="icon" value=${o[0]}>
             <titanium-icon slot="graphic" icon=${o[1].icon}></titanium-icon>
             ${o[1].name}</mwc-list-item
@@ -478,14 +426,15 @@ export class TitaniumDateRangeSelector extends LitElement {
 
       <mwc-datefield
         start-date
-        label="After"
+        label="From"
         .dateType=${this.enableTime ? 'datetime-local' : 'date'}
         .value=${this.startDate ?? ''}
         @change=${(e: DOMEvent<DateField>) => (this.startDate = e.target.value ?? '')}
       ></mwc-datefield>
+
       <mwc-datefield
         end-date
-        label="Before"
+        label="To"
         .dateType=${this.enableTime ? 'datetime-local' : 'date'}
         .value=${this.endDate ?? ''}
         @change=${(e: DOMEvent<DateField>) => (this.endDate = e.target.value ?? '')}
