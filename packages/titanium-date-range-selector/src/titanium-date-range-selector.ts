@@ -40,7 +40,17 @@ export type DateRangeKey =
   | 'allTime'
   | 'custom';
 
-export type DateRangeTimeKey = 'lastTwentyFour' | 'lastTwelve' | 'lastSix' | 'lastThree' | 'lastHour' | 'lastThirty' | 'lastFifteen' | 'lastTen' | 'custom';
+export type DateRangeTimeKey =
+  | 'lastTwentyFour'
+  | 'lastTwelve'
+  | 'lastSix'
+  | 'lastThree'
+  | 'lastHour'
+  | 'lastThirty'
+  | 'lastFifteen'
+  | 'lastTen'
+  | 'allTime'
+  | 'custom';
 export type DateRangeOption = { startDate: string; endDate: string; icon: string; name: string; isDefault?: boolean };
 export const DateTimeRanges = new Map<DateRangeTimeKey, DateRangeOption>([
   [
@@ -113,6 +123,15 @@ export const DateTimeRanges = new Map<DateRangeTimeKey, DateRangeOption>([
       startDate: today.subtract(24, 'hour').format('YYYY-MM-DDTHH:mm'),
       endDate: today.format('YYYY-MM-DDTHH:mm'),
       icon: 'schedule',
+    },
+  ],
+  [
+    'allTime',
+    {
+      name: 'All time',
+      startDate: '',
+      endDate: '',
+      icon: 'watch_later',
     },
   ],
 ]);
