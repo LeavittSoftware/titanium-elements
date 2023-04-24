@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.7](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-date-range-selector@2.3.6...@leavittsoftware/titanium-date-range-selector@2.3.7) (2023-04-24)
+
+### Bug Fixes
+
+- add all time option because filter relies on it. add label support ([#466](https://github.com/LeavittSoftware/titanium-elements/issues/466)) ([582196c](https://github.com/LeavittSoftware/titanium-elements/commit/582196cab5c764c23aff08bd90aaf1d81f4351b3))
+
 ## [2.3.6](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-date-range-selector@2.3.5...@leavittsoftware/titanium-date-range-selector@2.3.6) (2023-04-21)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-date-range-selector
