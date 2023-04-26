@@ -41,8 +41,9 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
 
   firstUpdated() {
     const bowser = Bowser.getParser(window.navigator.userAgent);
-    this.#mimeType = bowser.getBrowserName(true) === 'safari' ? 'image/png' : 'image/webp';
-    this.#extension = bowser.getBrowserName(true) === 'safari' ? 'png' : 'webp';
+    const os = bowser?.getOS?.()?.name ?? '';
+    this.#mimeType = os === 'iOS' || os === 'macOS' ? 'image/png' : 'image/webp';
+    this.#extension = os === 'iOS' || os === 'macOS' ? 'png' : 'webp';
   }
 
   static styles = [
@@ -285,39 +286,39 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
             label="CANCEL"
             ?disabled=${this.isLoading}
             @click=${() => {
-              this.reset();
-              this.dialog.close('cancel');
-            }}
+        this.reset();
+        this.dialog.close('cancel');
+      }}
           ></mwc-button>
           <mwc-button
             label="SAVE"
             ?disabled=${this.isLoading}
             @click=${async () => {
-              this.isLoading = true;
-              await this.updateComplete;
-              const canvas = this.#cropper?.getCroppedCanvas();
-              if (!canvas) {
-                return;
-              }
-              const previewDataUrl =
-                this.options.shape === 'circle' ? await this.#applyCircleMask(canvas.toDataURL(this.#mimeType)) : canvas.toDataURL(this.#mimeType);
-              const response = await fetch(previewDataUrl);
-              const blob = await response.blob();
-              const file = this.blobToFile(blob, this.#changeFileExtension(this.fileName, this.#extension));
-              const config = {
-                quality: 0.9,
-                maxWidth: 1200,
-                maxHeight: 1080,
-                mimeType: this.#mimeType,
-              };
+        this.isLoading = true;
+        await this.updateComplete;
+        const canvas = this.#cropper?.getCroppedCanvas();
+        if (!canvas) {
+          return;
+        }
+        const previewDataUrl =
+          this.options.shape === 'circle' ? await this.#applyCircleMask(canvas.toDataURL(this.#mimeType)) : canvas.toDataURL(this.#mimeType);
+        const response = await fetch(previewDataUrl);
+        const blob = await response.blob();
+        const file = this.blobToFile(blob, this.#changeFileExtension(this.fileName, this.#extension));
+        const config = {
+          quality: 0.9,
+          maxWidth: 1200,
+          maxHeight: 1080,
+          mimeType: this.#mimeType,
+        };
 
-              const newFile = this.blobToFile(await readAndCompressImage(file, config), this.#changeFileExtension(this.fileName, this.#extension));
-              const save = this.#saveCroppedImageFunc?.(newFile, previewDataUrl) || Promise.resolve();
-              this.loadWhile(save);
-              await save;
-              this.isLoading = false;
-              this.dialog.close('cropped');
-            }}
+        const newFile = this.blobToFile(await readAndCompressImage(file, config), this.#changeFileExtension(this.fileName, this.#extension));
+        const save = this.#saveCroppedImageFunc?.(newFile, previewDataUrl) || Promise.resolve();
+        this.loadWhile(save);
+        await save;
+        this.isLoading = false;
+        this.dialog.close('cropped');
+      }}
           ></mwc-button>
         </dialog-actions>
       </titanium-native-dialog-base>
