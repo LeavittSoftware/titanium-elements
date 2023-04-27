@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.3.3 (2023-04-27)
+
+### Bug Fixes
+
+- check on OS instead of browser ([#469](https://github.com/LeavittSoftware/titanium-elements/issues/469)) ([036cfac](https://github.com/LeavittSoftware/titanium-elements/commit/036cfac1703ac6dc97f031cfaad728a190784a79))
+
 ## 3.3.2 (2023-04-18)
 
 ### Bug Fixes
