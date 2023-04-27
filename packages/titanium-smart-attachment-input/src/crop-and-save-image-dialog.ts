@@ -40,8 +40,9 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
 
   firstUpdated() {
     const bowser = Bowser.getParser(window.navigator.userAgent);
-    this.#mimeType = bowser.getBrowserName(true) === 'safari' ? 'image/png' : 'image/webp';
-    this.#extension = bowser.getBrowserName(true) === 'safari' ? 'png' : 'webp';
+    const os = bowser?.getOS?.()?.name ?? '';
+    this.#mimeType = os === 'iOS' || os === 'macOS' ? 'image/png' : 'image/webp';
+    this.#extension = os === 'iOS' || os === 'macOS' ? 'png' : 'webp';
   }
 
   static styles = [
