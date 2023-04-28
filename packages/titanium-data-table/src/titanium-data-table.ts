@@ -568,34 +568,34 @@ export class TitaniumDataTableElement extends LitElement {
     return html`
       <header>
         <section row-one>
-          <div head ellipsis>
+          <div head ellipsis part="table-header-text-container">
             <slot name="table-header-text"> <h1 ellipsis>${this.header}</h1></slot>
           </div>
-          <div menu>
+          <div menu part="table-actions-container">
             <slot name="table-actions"></slot>
           </div>
         </section>
         <section row-two>
-          <div search-filter>
+          <div search-filter part="filters-container">
             <slot name="search-button"></slot>
             <slot name="filter-button"></slot>
             <slot name="filters"></slot>
           </div>
-          <div add-button>
+          <div add-button part="add-button-container">
             <slot name="add-button"></slot>
           </div>
         </section>
 
         <selected-actions ?hidden="${this.selected.length === 0}">
           <h2 ellipsis>${this.selected.length} item${this.selected.length > 1 ? 's' : ''} selected</h2>
-          <div buttons>
+          <div buttons part="selected-actions-container">
             <slot name="selected-actions"></slot>
           </div>
         </selected-actions>
       </header>
 
       <table-container>
-        <table-header>
+        <table-header part="table-header-container">
           ${this.disableSelect || this.singleSelect
             ? ''
             : html`
@@ -613,7 +613,7 @@ export class TitaniumDataTableElement extends LitElement {
         <mwc-linear-progress ?hidden=${!this.isLoading} ?closed=${!this.isLoading} indeterminate></mwc-linear-progress>
 
         <main>
-          <div items-slot>
+          <div items-slot part="items-container">
             <slot name="items"></slot>
           </div>
           <table-message ?hidden=${this.isLoading || this.items.length > 0}
@@ -631,7 +631,7 @@ export class TitaniumDataTableElement extends LitElement {
           <content-veil ?opened=${this.isLoading}></content-veil>
         </main>
       </table-container>
-      <footer>
+      <footer part="footer-container">
         <slot name="footer">
           ${this.disablePaging
             ? ''

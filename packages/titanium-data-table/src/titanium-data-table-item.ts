@@ -489,7 +489,7 @@ export class TitaniumDataTableItemElement extends LitElement {
           transform: translate3d(0, -${this.nudgeHeight}px, 0);
         }
       </style>
-      <main>
+      <main part="main">
         ${this.disableSelect
           ? ''
           : html`
@@ -513,7 +513,7 @@ export class TitaniumDataTableItemElement extends LitElement {
 
         <slot></slot>
       </main>
-      <div item-footer>
+      <div item-footer part="item-footer-container">
         <slot name="item-footer"></slot>
       </div>
     `;
