@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 15.1.0 (2023-04-28)
+
+### Features
+
+- expose css parts for all slot containers ([a65b59a](https://github.com/LeavittSoftware/titanium-elements/commit/a65b59aaef26581e99b08fd85d43fad0ae0d8bed))
+
 ## 15.0.1 (2023-03-17)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-data-table
