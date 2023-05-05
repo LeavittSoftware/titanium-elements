@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.5.14](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@6.5.13...@leavittsoftware/leavittbook@6.5.14) (2023-05-05)
+
+### Bug Fixes
+
+- white background overflow on company select ([b354977](https://github.com/LeavittSoftware/titanium-elements/commit/b35497717696e42931d9593843a625bb236ecd58))
+
 ## [6.5.13](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@6.5.12...@leavittsoftware/leavittbook@6.5.13) (2023-04-28)
 
 **Note:** Version bump only for package @leavittsoftware/leavittbook

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 8.0.10 (2023-05-05)
+
+### Bug Fixes
+
+- white background overflow on company select ([b354977](https://github.com/LeavittSoftware/titanium-elements/commit/b35497717696e42931d9593843a625bb236ecd58))
+
 ## 8.0.9 (2023-04-18)
 
 ### Bug Fixes
