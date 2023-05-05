@@ -274,8 +274,16 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
       --mdc-shape-small: 28px;
     }
 
+    :host([shaped]) mwc-textfield {
+      border-radius: 28px;
+    }
+
     :host([shallow]) {
       --mdc-shape-small: 12px;
+    }
+
+    :host([shallow]) mwc-textfield {
+      border-radius: 12px;
     }
 
     mwc-linear-progress {

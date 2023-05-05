@@ -76,7 +76,7 @@ export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
       <user-manager disableAutoload></user-manager>
       <h1>Default</h1>
       <p>Examples using required,shaped,shallow,preselected, and disabled</p>
-      <div>
+      <div style="background-color: #eee ">
         <leavitt-company-select label="default" .apiService=${this.apiService}></leavitt-company-select>
         <leavitt-company-select label="shaped" shaped .apiService=${this.apiService}></leavitt-company-select>
         <leavitt-company-select label="shallow" shallow .apiService=${this.apiService}></leavitt-company-select>
