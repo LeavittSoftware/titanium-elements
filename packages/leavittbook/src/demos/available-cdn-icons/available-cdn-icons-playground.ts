@@ -116,6 +116,13 @@ export class AvailableCdnIconsPlayground extends LitElement {
         <img src="https://cdn.leavitt.com/icons/icon-success.svg " height="48" />
         <img src="https://cdn.leavitt.com/icons/icon-biz-card.svg " height="48" />
         <img src="https://cdn.leavitt.com/icons/icon-template.svg " height="48" />
+        <img src="https://cdn.leavitt.com/icons/icon-dev-sales.svg " height="48" />
+        <img src="https://cdn.leavitt.com/icons/icon-meetings.svg " height="48" />
+        <img src="https://cdn.leavitt.com/icons/icon-new-hire.svg " height="48" />
+        <img src="https://cdn.leavitt.com/icons/icon-onboarding.svg " height="48" />
+        <img src="https://cdn.leavitt.com/icons/icon-pathways.svg " height="48" />
+        <img src="https://cdn.leavitt.com/icons/icon-program.svg " height="48" />
+        <img src="https://cdn.leavitt.com/icons/icon-sales-culture.svg " height="48" />
       </div>
     `;
   }
