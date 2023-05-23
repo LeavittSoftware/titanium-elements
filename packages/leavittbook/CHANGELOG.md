@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.6.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@6.5.14...@leavittsoftware/leavittbook@6.6.0) (2023-05-23)
+
+### Features
+
+- add icon ([e97d428](https://github.com/LeavittSoftware/titanium-elements/commit/e97d428baf7f9bcdb54ed7456bec4ef4f23f8ffe))
+
 ## [6.5.14](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@6.5.13...@leavittsoftware/leavittbook@6.5.14) (2023-05-05)
 
 ### Bug Fixes

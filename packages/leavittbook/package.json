@@ -1,11 +1,11 @@
 {
   "license": "BSD-3-Clause",
   "name": "@leavittsoftware/leavittbook",
-  "version": "6.5.14",
+  "version": "6.6.0",
   "dependencies": {
     "@leavittsoftware/api-service": "^12.0.4",
     "@leavittsoftware/leavitt-elements": "^8.0.10",
-    "@leavittsoftware/leavitt-file-explorer": "^4.0.18",
+    "@leavittsoftware/leavitt-file-explorer": "^4.0.19",
     "@leavittsoftware/lg-core-typescript": "*",
     "@leavittsoftware/profile-picture": "^6.2.3",
     "@leavittsoftware/titanium-access-denied-page": "^0.3.2",
