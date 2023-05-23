@@ -4,8 +4,7 @@ import '@material/mwc-button';
 import { css, html, LitElement, PropertyValues } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 
-import { FileExplorerFileDto } from '@leavittsoftware/lg-core-typescript/lg.core.repository';
-import { FileExplorerAttachment } from '@leavittsoftware/lg-core-typescript/lg.core';
+import { FileExplorerAttachment, FileExplorerFileDto } from '@leavittsoftware/lg-core-typescript';
 import { TextField } from '@material/mwc-textfield';
 import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar';
 import { h1 } from '@leavittsoftware/titanium-styles';
