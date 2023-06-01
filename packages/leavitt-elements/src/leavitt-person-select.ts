@@ -73,6 +73,11 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
   @property({ type: String }) label: string = 'Person';
 
   /**
+   *  Path to personId.
+   */
+  @property({ type: String }) pathToPersonId: string = 'Id';
+
+  /**
    *  Set the name of the API controller to use
    */
   @property({ type: String }) apiControllerName: string = 'People';
@@ -320,7 +325,9 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
           }
         }}
       ></mwc-textfield>
-      ${this.selected ? html` <profile-picture selected .personId=${this.selected?.Id || 0} shape="circle" size="24"></profile-picture>` : ''}
+      ${this.selected
+        ? html` <profile-picture selected .personId=${this.selected?.[this.pathToPersonId] || 0} shape="circle" size="24"></profile-picture>`
+        : ''}
       <mwc-menu
         ?fixed=${this.fixedMenuPosition}
         activatable
@@ -350,7 +357,7 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
             <mwc-list-item twoline graphic="avatar">
               <span>${person.FullName}</span>
               <span slot="secondary">${person.CompanyName}</span>
-              <profile-picture slot="graphic" .personId=${person?.Id || 0} shape="circle" size="40"></profile-picture>
+              <profile-picture slot="graphic" .personId=${person?.[this.pathToPersonId] || 0} shape="circle" size="40"></profile-picture>
             </mwc-list-item>
           `
         )}
