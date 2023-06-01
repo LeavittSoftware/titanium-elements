@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 8.1.0 (2023-06-01)
+
+### Features
+
+- add pathToPersonId prop ([f944280](https://github.com/LeavittSoftware/titanium-elements/commit/f944280dcee4cc469bb02133822f35a50f1dc35b))
+
 ## 8.0.10 (2023-05-05)
 
 ### Bug Fixes
