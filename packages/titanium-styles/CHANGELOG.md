@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-styles@0.7.0...@leavittsoftware/titanium-styles@0.7.1) (2023-06-05)
+
+### Bug Fixes
+
+- export data-row ([b2e754a](https://github.com/LeavittSoftware/titanium-elements/commit/b2e754a4d242e2784f74a4432d0ec28f5100d405))
+
 # 0.7.0 (2023-06-05)
 
 ### Features
