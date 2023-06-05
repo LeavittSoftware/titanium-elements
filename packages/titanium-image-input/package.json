@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-image-input",
   "description": "",
   "author": "Leavitt Software",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "license": "MIT",
   "main": "lib/titanium-image-input.js",
   "typings": "lib/titanium-image-input.d.ts",
@@ -19,8 +19,8 @@
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
   "dependencies": {
-    "@leavittsoftware/titanium-dialog": "^6.3.0",
-    "@leavittsoftware/titanium-styles": "^0.6.2",
+    "@leavittsoftware/titanium-dialog": "^6.3.1",
+    "@leavittsoftware/titanium-styles": "^0.7.0",
     "@material/mwc-button": "*",
     "@material/mwc-icon-button": "*",
     "cropperjs": "*",

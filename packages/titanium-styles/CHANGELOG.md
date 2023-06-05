@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.7.0 (2023-06-05)
+
+### Features
+
+- adds new data-row styles with demo ([910590f](https://github.com/LeavittSoftware/titanium-elements/commit/910590fda060f2fc5d4245b3911da394a624cc83))
+
 ## 0.6.2 (2023-03-17)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-styles
