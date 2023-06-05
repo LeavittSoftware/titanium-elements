@@ -4,11 +4,11 @@ export const h5 = css`
   [heading5],
   h5 {
     letter-spacing: 0.07272727em;
-    font-family: var(--titanium-styles-h5-font-family, Roboto, Noto, sans-serif);
-    font-size: 11px;
-    font-weight: 500;
-    line-height: 13px;
-    text-transform: uppercase;
+    font-family: var(--titanium-styles-h5-font-family, Metropolis, Roboto, Noto, sans-serif);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0.1px;
     hyphens: auto;
     word-break: break-word;
     word-wrap: break-word;
