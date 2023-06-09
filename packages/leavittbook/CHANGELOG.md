@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.8.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@6.7.1...@leavittsoftware/leavittbook@6.8.0) (2023-06-09)
+
+### Bug Fixes
+
+- add back in the item count ([044b82e](https://github.com/LeavittSoftware/titanium-elements/commit/044b82efb33596938108ac7654443c86c64f9d68))
+- use better prop names for show hide button labels ([34db1f5](https://github.com/LeavittSoftware/titanium-elements/commit/34db1f5bd3faee19b8c37ae16176ebcf1e8d6b74))
+
+### Features
+
+- **titanium-show-hide:** allow for more button configuration ([5cf50c2](https://github.com/LeavittSoftware/titanium-elements/commit/5cf50c235cec900057f3d4039c604d9fbca5b838))
+
 ## [6.7.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@6.7.0...@leavittsoftware/leavittbook@6.7.1) (2023-06-05)
 
 **Note:** Version bump only for package @leavittsoftware/leavittbook

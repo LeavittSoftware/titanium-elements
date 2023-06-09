@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-show-hide@3.1.4...@leavittsoftware/titanium-show-hide@3.2.0) (2023-06-09)
+
+### Bug Fixes
+
+- add back in the item count ([044b82e](https://github.com/LeavittSoftware/titanium-elements/commit/044b82efb33596938108ac7654443c86c64f9d68))
+- use better prop names for show hide button labels ([34db1f5](https://github.com/LeavittSoftware/titanium-elements/commit/34db1f5bd3faee19b8c37ae16176ebcf1e8d6b74))
+
+### Features
+
+- **titanium-show-hide:** allow for more button configuration ([5cf50c2](https://github.com/LeavittSoftware/titanium-elements/commit/5cf50c235cec900057f3d4039c604d9fbca5b838))
+
 ## [3.1.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-show-hide@3.1.3...@leavittsoftware/titanium-show-hide@3.1.4) (2023-06-05)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-show-hide
