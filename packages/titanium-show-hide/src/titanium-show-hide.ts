@@ -121,7 +121,7 @@ export default class TitaniumShowHideElement extends LitElement {
         @click=${() => (this.collapsed = !this.collapsed)}
         ?hidden=${!this.hasHiddenItems}
       >
-        ${this.collapsed ? this.collapsedButtonLabel : this.expandedButtonLabel}</mwc-button
+        ${this.collapsed ? `${this.collapsedButtonLabel} ${this.showCountWithLabel ? `(${this.hiddenItemCount})` : ''}` : this.expandedButtonLabel}</mwc-button
       >
     `;
   }
