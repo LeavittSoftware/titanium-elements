@@ -161,8 +161,8 @@ export class TitaniumColorInputPlayground extends LitElement {
         left: -2px;
       }
 
-      titanium-show-hide[start] {
-        --titanium-show-hide-button-alignment: start;
+      titanium-show-hide[start]::part(button) {
+        align-self: start;
       }
     `,
   ];
@@ -263,7 +263,7 @@ export class TitaniumColorInputPlayground extends LitElement {
       <h1>Show hide text</h1>
       <p>Reveal some more text. Sets custom collapsed/expanded text and custom button alignment.</p>
       <div main>
-        <titanium-show-hide start buttonType="flat" collapsedText="Read more" expandedText="Read less">
+        <titanium-show-hide start buttonType="flat" collapsedButtonLabel="Read more" expandedButtonLabel="Read less">
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum arcu, semper ac aliquet eu, porttitor vel turpis. Nullam non dolor ac massa
             pharetra vulputate vel ac libero. In hac habitasse platea dictumst. Praesent lacus mi, vehicula eu euismod sit amet, accumsan porta massa. Morbi

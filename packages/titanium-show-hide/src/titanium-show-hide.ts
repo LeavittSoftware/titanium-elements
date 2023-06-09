@@ -15,7 +15,6 @@ import '@material/mwc-button';
  * @cssprop [--titanium-show-hide-flex-direction=column] - flex direction for the parent of the slotted in content
  * @cssprop [--titanium-show-hide-flex-wrap=wrap] - flex wrap for the parent of the slotted in content
  * @cssprop [--titanium-show-hide-gap=8px] - flex direction of the for the parent of the slotted in content
- * @cssprop [--titanium-show-hide-button-alignment=center] - flex alignment of the button
  */
 @customElement('titanium-show-hide')
 export default class TitaniumShowHideElement extends LitElement {
@@ -28,8 +27,9 @@ export default class TitaniumShowHideElement extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'disable-fade' }) disableFade: boolean = false;
   @property({ type: Boolean, reflect: true, attribute: 'collapsed' }) collapsed: boolean = true;
   @property({ type: Boolean, reflect: true, attribute: 'has-hidden-items' }) protected hasHiddenItems: boolean = false;
-  @property({ type: String }) collapsedText: string;
-  @property({ type: String }) expandedText: string;
+  @property({ type: String }) collapsedButtonLabel: string = 'Show more';
+  @property({ type: String }) expandedButtonLabel: string = 'Show less';
+  @property({ type: Boolean }) showCountWithLabel: boolean = true;
   @property({ type: String }) buttonType: 'flat' | 'raised' | 'unelevated' | 'outlined' = 'outlined';
 
   @state() protected hiddenItemCount: number = 0;
@@ -90,7 +90,7 @@ export default class TitaniumShowHideElement extends LitElement {
       }
 
       mwc-button {
-        align-self: var(--titanium-show-hide-button-alignment, center);
+        align-self: center;
         margin-top: 12px;
       }
 
@@ -121,13 +121,7 @@ export default class TitaniumShowHideElement extends LitElement {
         @click=${() => (this.collapsed = !this.collapsed)}
         ?hidden=${!this.hasHiddenItems}
       >
-        ${this.collapsed
-          ? this.collapsedText
-            ? this.collapsedText
-            : `Show more (${this.hiddenItemCount})`
-          : this.expandedText
-          ? this.expandedText
-          : 'Show less'}</mwc-button
+        ${this.collapsed ? this.collapsedButtonLabel : this.expandedButtonLabel}</mwc-button
       >
     `;
   }
