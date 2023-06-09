@@ -15,6 +15,7 @@ import '@material/mwc-button';
  * @cssprop [--titanium-show-hide-flex-direction=column] - flex direction for the parent of the slotted in content
  * @cssprop [--titanium-show-hide-flex-wrap=wrap] - flex wrap for the parent of the slotted in content
  * @cssprop [--titanium-show-hide-gap=8px] - flex direction of the for the parent of the slotted in content
+ * @cssprop [--titanium-show-hide-button-alignment=center] - flex alignment of the button
  */
 @customElement('titanium-show-hide')
 export default class TitaniumShowHideElement extends LitElement {
@@ -27,6 +28,9 @@ export default class TitaniumShowHideElement extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'disable-fade' }) disableFade: boolean = false;
   @property({ type: Boolean, reflect: true, attribute: 'collapsed' }) collapsed: boolean = true;
   @property({ type: Boolean, reflect: true, attribute: 'has-hidden-items' }) protected hasHiddenItems: boolean = false;
+  @property({ type: String }) collapsedText: string;
+  @property({ type: String }) expandedText: string;
+  @property({ type: String }) buttonType: 'flat' | 'raised' | 'unelevated' | 'outlined' = 'outlined';
 
   @state() protected hiddenItemCount: number = 0;
   @query('items-container') protected itemsContainer: HTMLElement;
@@ -86,7 +90,7 @@ export default class TitaniumShowHideElement extends LitElement {
       }
 
       mwc-button {
-        align-self: center;
+        align-self: var(--titanium-show-hide-button-alignment, center);
         margin-top: 12px;
       }
 
@@ -108,8 +112,22 @@ export default class TitaniumShowHideElement extends LitElement {
           <slot></slot>
         </items-container>
       </collapsed-box>
-      <mwc-button part="button" outlined lowercase @click=${() => (this.collapsed = !this.collapsed)} ?hidden=${!this.hasHiddenItems}>
-        ${this.collapsed ? `Show more (${this.hiddenItemCount})` : 'Show less'}</mwc-button
+      <mwc-button
+        .outlined=${this.buttonType === 'outlined'}
+        .raised=${this.buttonType === 'raised'}
+        .unelevated=${this.buttonType === 'unelevated'}
+        part="button"
+        lowercase
+        @click=${() => (this.collapsed = !this.collapsed)}
+        ?hidden=${!this.hasHiddenItems}
+      >
+        ${this.collapsed
+          ? this.collapsedText
+            ? this.collapsedText
+            : `Show more (${this.hiddenItemCount})`
+          : this.expandedText
+          ? this.expandedText
+          : 'Show less'}</mwc-button
       >
     `;
   }
