@@ -48,6 +48,11 @@ export class TitaniumToolbarElement extends LitElement {
       font-size: 22px;
       letter-spacing: 0.9px;
       color: var(--app-text-color);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin: 0px;
+      font-weight: 400;
     }
 
     [hidden] {
