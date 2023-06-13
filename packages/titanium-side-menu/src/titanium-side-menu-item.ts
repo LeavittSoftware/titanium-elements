@@ -104,6 +104,6 @@ export class TitaniumSideMenuItemElement extends LitElement {
   `;
 
   render() {
-    return html` <a href=${this.href} target=${ifDefined(this.target)}><slot></slot></a> `;
+    return html` <a part="anchor" href=${this.href} target=${ifDefined(this.target)}><slot></slot></a> `;
   }
 }

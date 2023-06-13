@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.7.0 (2023-06-09)
+
+### Features
+
+- **titanium-side-menu-item:** add shadow part for anchor ([ba1665b](https://github.com/LeavittSoftware/titanium-elements/commit/ba1665b72ab2f7fc737dd2620626a8433094d229))
+
 ## 0.6.2 (2023-03-17)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-side-menu
