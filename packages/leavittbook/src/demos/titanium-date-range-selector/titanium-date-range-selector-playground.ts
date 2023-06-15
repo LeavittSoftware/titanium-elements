@@ -41,6 +41,9 @@ export class TitaniumDateRangePlaygroundElement extends LitElement {
         flex-direction: column;
         gap: 12px;
         margin: 24px 0 36px 0;
+        container-type: inline-size;
+        z-index: 1;
+        position: relative;
       }
 
       [row] {

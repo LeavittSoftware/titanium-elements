@@ -304,7 +304,6 @@ export class TitaniumDateRangeSelector extends LitElement {
    */
   @property({ type: String }) endDate: string = '';
 
-  @property({ type: String, reflect: true }) protected size: 'medium' | 'small' | undefined = undefined;
   @query('mwc-datefield[start-date]') protected startDateField: DateField & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
   @query('mwc-datefield[end-date]') protected endDateField: DateField & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
   @query('mwc-select') protected select!: Select;
@@ -313,17 +312,6 @@ export class TitaniumDateRangeSelector extends LitElement {
     if (changedProps.has('endDate') || changedProps.has('startDate')) {
       this.#dateChangedDebouncer.debounce();
     }
-  }
-
-  firstUpdated() {
-    const ro = new ResizeObserver(entries => {
-      for (const entry of entries) {
-        const cr = entry.contentRect;
-        this.size = cr.width < 380 ? 'small' : cr.width < 580 ? 'medium' : undefined;
-      }
-    });
-
-    ro.observe(this);
   }
 
   /**
@@ -389,19 +377,23 @@ export class TitaniumDateRangeSelector extends LitElement {
       grid-area: end;
     }
 
-    :host([size='medium']) {
-      grid-template-columns: 1fr 1fr;
-      grid-template-areas:
-        'select select'
-        'start end';
+    @container (max-width: 580px) {
+      :host {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+          'select select'
+          'start end';
+      }
     }
 
-    :host([size='small']) {
-      grid-template-columns: 1fr;
-      grid-template-areas:
-        'select'
-        'start'
-        'end';
+    @container (max-width: 380px) {
+      :host {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          'select'
+          'start'
+          'end';
+      }
     }
   `;
 
@@ -418,6 +410,7 @@ export class TitaniumDateRangeSelector extends LitElement {
   render() {
     return html`
       <mwc-select
+        part="select"
         .label=${this.label}
         icon=${this.#getRange(this.range)?.icon || 'date_range'}
         .value=${this.range}
@@ -444,6 +437,7 @@ export class TitaniumDateRangeSelector extends LitElement {
       </mwc-select>
 
       <mwc-datefield
+        part="startDate"
         start-date
         label="From"
         .dateType=${this.enableTime ? 'datetime-local' : 'date'}
@@ -452,6 +446,7 @@ export class TitaniumDateRangeSelector extends LitElement {
       ></mwc-datefield>
 
       <mwc-datefield
+        part="endDate"
         end-date
         label="To"
         .dateType=${this.enableTime ? 'datetime-local' : 'date'}
