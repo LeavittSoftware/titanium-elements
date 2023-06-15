@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.4.0 (2023-06-13)
+
+### Features
+
+- improve main title styles ([e5349dd](https://github.com/LeavittSoftware/titanium-elements/commit/e5349ddb62ea082b2fcd2099e6afa3ea1d6751bd))
+
 ## 0.3.2 (2023-03-17)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-toolbar
