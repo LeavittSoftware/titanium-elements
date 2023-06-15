@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-show-hide",
   "description": "",
   "author": "Leavitt Software",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "license": "MIT",
   "main": "lib/titanium-show-hide.js",
   "typings": "lib/titanium-show-hide.d.ts",

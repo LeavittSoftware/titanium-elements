@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-show-hide@3.2.1...@leavittsoftware/titanium-show-hide@3.2.2) (2023-06-15)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-show-hide
+
 ## [3.2.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-show-hide@3.2.0...@leavittsoftware/titanium-show-hide@3.2.1) (2023-06-13)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-show-hide

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.3.0 (2023-06-15)
+
+### Features
+
+- adds 'link-to-profile' attribute to profile pictures ([6744475](https://github.com/LeavittSoftware/titanium-elements/commit/67444756046e20618383421915628df7bb278de6))
+
 ## 6.2.3 (2023-03-31)
 
 **Note:** Version bump only for package @leavittsoftware/profile-picture

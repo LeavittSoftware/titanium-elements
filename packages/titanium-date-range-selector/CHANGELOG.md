@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.3.10 (2023-06-15)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-date-range-selector
+
 ## 2.3.9 (2023-06-01)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-date-range-selector
