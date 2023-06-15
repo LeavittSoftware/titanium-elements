@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@6.9.0...@leavittsoftware/leavittbook@7.0.0) (2023-06-15)
+
+### Code Refactoring
+
+- date range input now uses container queries internally ([e7f5db6](https://github.com/LeavittSoftware/titanium-elements/commit/e7f5db6c5f6f954dc8d3f18a0e47edb3d514358a))
+
+### BREAKING CHANGES
+
+- you might have to set "container-type: inline-size;" on your containing element
+
 # [6.9.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@6.8.1...@leavittsoftware/leavittbook@6.9.0) (2023-06-15)
 
 ### Features

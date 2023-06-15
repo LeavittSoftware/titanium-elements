@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-date-range-selector@2.3.10...@leavittsoftware/titanium-date-range-selector@3.0.0) (2023-06-15)
+
+### Code Refactoring
+
+- date range input now uses container queries internally ([e7f5db6](https://github.com/LeavittSoftware/titanium-elements/commit/e7f5db6c5f6f954dc8d3f18a0e47edb3d514358a))
+
+### BREAKING CHANGES
+
+- you might have to set "container-type: inline-size;" on your containing element
+
 ## 2.3.10 (2023-06-15)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-date-range-selector

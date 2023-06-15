@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-date-range-selector",
   "description": "",
   "author": "Leavitt Software",
-  "version": "2.3.10",
+  "version": "3.0.0",
   "license": "MIT",
   "main": "lib/titanium-date-range-selector.js",
   "typings": "lib/titanium-date-range-selector.d.ts",
