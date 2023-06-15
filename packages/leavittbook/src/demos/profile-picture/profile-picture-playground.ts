@@ -52,23 +52,24 @@ export class ProfilePicturePlayground extends LitElement {
       <div>
         <profile-picture personId="915608" shape="square" show-ring></profile-picture>
         <profile-picture personId="915608" show-ring></profile-picture>
-        <profile-picture personId="915608" show-ring style="--profile-picture-ring-color: purple"></profile-picture>
+        <profile-picture link-to-profile personId="915608" show-ring style="--profile-picture-ring-color: purple"></profile-picture>
       </div>
 
       <h1>Sizes</h1>
       <p>Sizes include 32, 64, 128, 256, and 512px</p>
       <div>
+        <profile-picture link-to-profile personId="915608" size="24"></profile-picture>
         <profile-picture personId="915608" size="32"></profile-picture>
-        <profile-picture personId="915608" size="64"></profile-picture>
+        <profile-picture link-to-profile personId="915608" size="64"></profile-picture>
         <profile-picture personId="915608" size="128"></profile-picture>
-        <profile-picture personId="915608" size="256"></profile-picture>
+        <profile-picture link-to-profile personId="915608" size="256"></profile-picture>
       </div>
 
       <h1>Responsive</h1>
       <p>Size can be adjusted further using responsive units</p>
       <div>
         <profile-picture personId="915608" size="256" useIntrisicImageSize style="width: 20vh;"></profile-picture>
-        <profile-picture personId="915608" size="256" useIntrisicImageSize style="width: 20vw;"></profile-picture>
+        <profile-picture link-to-profile personId="915608" size="256" useIntrisicImageSize style="width: 20vw;"></profile-picture>
       </div>
     `;
   }

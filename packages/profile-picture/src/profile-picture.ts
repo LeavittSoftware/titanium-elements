@@ -1,4 +1,5 @@
-﻿import { css, html, LitElement } from 'lit';
+﻿import { isDevelopment } from '@leavittsoftware/titanium-helpers';
+import { css, html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 /**
@@ -23,6 +24,11 @@ export class ProfilePictureElement extends LitElement {
    * Shows a colored ring around the picture
    */
   @property({ reflect: true, type: Boolean, attribute: 'show-ring' }) showRing: boolean;
+
+  /**
+   * Makes the image a link to the respective profile page
+   */
+  @property({ reflect: true, type: Boolean, attribute: 'link-to-profile' }) linkToProfile: boolean;
 
   /**
    * Size in pixels of profile picture
@@ -74,6 +80,7 @@ export class ProfilePictureElement extends LitElement {
       display: inline-block;
       white-space: normal;
       flex-shrink: 0;
+      position: relative;
     }
 
     img {
@@ -83,6 +90,7 @@ export class ProfilePictureElement extends LitElement {
       image-rendering: -webkit-optimize-contrast;
     }
 
+    :host([shape='circle']) a:after,
     :host([shape='circle']) img {
       border-radius: 50%;
     }
@@ -96,9 +104,42 @@ export class ProfilePictureElement extends LitElement {
     :host([show-ring][shape='circle']) {
       border-radius: 50%;
     }
+
+    a:after,
+    a:before {
+      position: absolute;
+      opacity: 0;
+      transition: all 0.5s;
+      -webkit-transition: all 0.5s;
+    }
+
+    a:after {
+      content: '';
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    a:before {
+      content: '↗';
+      width: 100%;
+      color: #fff;
+      z-index: 1;
+      bottom: 0;
+      text-align: center;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+    }
+
+    a:hover:before,
+    a:hover:after {
+      opacity: 1;
+    }
   `;
 
-  render() {
+  renderProfilePicture() {
     return html`
       <img
         loading="lazy"
@@ -110,5 +151,14 @@ export class ProfilePictureElement extends LitElement {
           : ''}"
       />
     `;
+  }
+
+  render() {
+    if (this.linkToProfile) {
+      return html`<a target="_blank" href="https://${isDevelopment ? 'dev' : ''}directory.leavitt.com/profile/${this.personId}"
+        >${this.renderProfilePicture()}</a
+      > `;
+    }
+    return this.renderProfilePicture();
   }
 }
