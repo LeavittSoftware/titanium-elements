@@ -90,6 +90,10 @@ export class TitaniumSideMenuItemElement extends LitElement {
       border: 0;
     }
 
+    :host([sub]) a {
+      padding: 8px 16px 8px 75px;
+    }
+
     :host([selected]) a {
       background: var(--titanium-side-menu-item-selected-background-color, #e8f0fe);
       color: var(--titanium-side-menu-item-selected-color, #1967d2);
