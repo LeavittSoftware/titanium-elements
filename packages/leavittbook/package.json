@@ -45,6 +45,7 @@
     "@leavittsoftware/titanium-toolbar": "^0.4.1",
     "@leavittsoftware/titanium-twoline-formfield": "^0.2.2",
     "@leavittsoftware/titanium-youtube-input": "^0.4.1",
+    "@leavittsoftware/titanium-drawer": "^1.0.0",
     "@leavittsoftware/user-manager": "^11.1.0",
     "@material/mwc-button": "*",
     "@material/mwc-checkbox": "*",

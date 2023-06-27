@@ -99,6 +99,7 @@ export class MyAppElement extends LitElement {
     page('/titanium-data-table-item', () =>
       this.#changePage('titanium-data-table-item', () => import('./demos/titanium-data-table-item/titanium-data-table-item-demo.js'))
     );
+    page('/titanium-drawer', () => this.#changePage('titanium-drawer', () => import('./demos/titanium-drawer/titanium-drawer-demo.js')));
     page('/titanium-error-page', () => this.#changePage('titanium-error-page', () => import('./demos/titanium-error-page/titanium-error-page-demo.js')));
     page('/titanium-address-input', () =>
       this.#changePage('titanium-address-input', () => import('./demos/titanium-address-input/titanium-address-input-demo.js'))
@@ -467,6 +468,10 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-dialog</span>
               </a>
+              <a href="/titanium-drawer" ?selected=${this.page === 'titanium-drawer'}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>titanium-drawer</span>
+              </a>
               <a href="/titanium-error-page" ?selected=${!!this.page?.includes('titanium-error-page')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>titanium-error-page</span>
@@ -666,6 +671,7 @@ export class MyAppElement extends LitElement {
           ${this.page === 'leavitt-person-group-select'
             ? html` <leavitt-person-group-select-demo ?isActive=${this.page === 'leavitt-person-group-select'}></leavitt-person-group-select-demo> `
             : nothing}
+          ${this.page === 'titanium-drawer' ? html` <titanium-drawer-demo ?isActive=${this.page === 'titanium-drawer'}></titanium-drawer-demo> ` : nothing}
           ${this.page === 'profile-picture' ? html` <profile-picture-demo ?isActive=${this.page === 'profile-picture'}></profile-picture-demo> ` : nothing}
           ${this.page === 'profile-picture-menu'
             ? html` <profile-picture-menu-demo ?isActive=${this.page === 'profile-picture-menu'}></profile-picture-menu-demo> `
