@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.0.24 (2023-06-30)
+
+### Bug Fixes
+
+- **leavitt-file-explorer:** fix undefined apiService ([a5cf575](https://github.com/LeavittSoftware/titanium-elements/commit/a5cf5751f81a4a42f71bfba3ea3ebe2e6251eaf3))
+
 ## [4.0.23](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@4.0.22...@leavittsoftware/leavitt-file-explorer@4.0.23) (2023-06-15)
 
 **Note:** Version bump only for package @leavittsoftware/leavitt-file-explorer
