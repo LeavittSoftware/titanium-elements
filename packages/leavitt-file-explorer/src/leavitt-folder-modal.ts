@@ -8,10 +8,12 @@ import './leavitt-folder-detail';
 
 import { FileExplorerFolderDto } from '@leavittsoftware/lg-core-typescript/api3.leavitt.com';
 import fileExplorerEvents from './file-explorer-events';
+import ApiService from '@leavittsoftware/api-service/lib/api-service';
 
 @customElement('leavitt-folder-modal')
 export class LeavittFolderModalElement extends LitElement {
   @property({ type: Boolean }) enableEditing: boolean = false;
+  @property({ attribute: false }) apiService: ApiService | null;
 
   @state() protected state: 'view' | 'edit' = 'view';
   @state() protected folder: FileExplorerFolderDto | null = null;
@@ -61,6 +63,7 @@ export class LeavittFolderModalElement extends LitElement {
           : html`
               <leavitt-folder-edit
                 .folder=${this.folder}
+                .apiService=${this.apiService}
                 @save-click=${() => (this.state = 'view')}
                 @cancel-click=${() => (this.state = 'view')}
               ></leavitt-folder-edit>
