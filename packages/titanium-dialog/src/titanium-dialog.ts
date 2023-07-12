@@ -128,6 +128,9 @@ export class TitaniumDialogElement extends TitaniumNativeDialogBaseElement {
 
         padding: 8px;
         gap: 8px;
+
+        /* Fix for buttons overflowing dialog select when container-type: inline-size is set */
+        z-index: -1;
       }
     `,
   ];
