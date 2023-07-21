@@ -1,16 +1,11 @@
 {
-  "packages": ["packages/*"],
   "version": "independent",
   "command": {
-    "bootstrap": {
-      "npmClientArgs": ["--no-package-lock"]
-    },
     "publish": {
       "conventionalCommits": true,
-      "ignoreChanges": [".prettierrc", "appveyor.yml", "gulpfile.js", ".gitignore", "CODEOWNERS", "*.md", "tslint.json"],
+      "ignoreChanges": [".prettierrc", "gulpfile.js", ".gitignore", "CODEOWNERS", "*.md", "tslint.json"],
       "message": "chore(release): publish"
     }
   },
-
   "ignoreChanges": ["**/*.md", ".husky/**"]
 }

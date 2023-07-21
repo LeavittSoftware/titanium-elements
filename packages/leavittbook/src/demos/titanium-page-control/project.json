@@ -1,4 +1,6 @@
 {
+  "name": "titanium-page-control",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "section": "Basics",
   "files": {
     "titanium-page-control-playground.ts": {},

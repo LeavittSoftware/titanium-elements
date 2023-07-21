@@ -1,4 +1,6 @@
 {
+  "name": "titanium-full-page-loading-indicator",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "section": "Basics",
   "files": {
     "titanium-full-page-loading-indicator-playground.ts": {},

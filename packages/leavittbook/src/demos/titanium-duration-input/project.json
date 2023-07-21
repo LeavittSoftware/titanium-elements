@@ -1,4 +1,6 @@
 {
+  "name": "titanium-duration-input",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "section": "Basics",
   "files": {
     "titanium-duration-input-playground.ts": {},

@@ -1,4 +1,6 @@
 {
+  "name": "titanium-loading-indicator",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "section": "Basics",
   "files": {
     "titanium-loading-indicator-playground.ts": {},

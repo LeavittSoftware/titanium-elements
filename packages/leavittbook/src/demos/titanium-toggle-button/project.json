@@ -1,4 +1,6 @@
 {
+  "name": "titanium-toggle-button",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "section": "Basics",
   "files": {
     "titanium-toggle-button-playground.ts": {},

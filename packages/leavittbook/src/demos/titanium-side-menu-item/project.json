@@ -1,4 +1,6 @@
 {
+  "name": "titanium-side-menu-item",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "section": "Basics",
   "files": {
     "titanium-side-menu-item-playground.ts": {},

@@ -1,4 +1,6 @@
 {
+  "name": "titanium-access-denied-page",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "section": "Basics",
   "files": {
     "titanium-access-denied-page-playground.ts": {},
