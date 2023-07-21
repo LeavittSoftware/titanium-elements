@@ -1,4 +1,4 @@
-import { css, html, LitElement, nothing } from 'lit';
+import { css, html, LitElement, nothing, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 /**
@@ -60,6 +60,38 @@ export class TitaniumChipMultiSelectElement extends LitElement {
    *  Whether or not the input should appear invalidated
    */
   @property({ type: Boolean, reflect: true }) isUiValid: boolean = true;
+
+  updated(changedProps: PropertyValues<this>) {
+    if ((changedProps.get('hasItems') && changedProps.has('hasItems')) || (this.hasItems && changedProps.has('hasItems'))) {
+      this.reportValidity();
+    }
+  }
+
+  /**
+   *  Returns true if the input passes validity checks.
+   */
+  checkValidity() {
+    if (!this.required) {
+      return true;
+    }
+
+    return this.hasItems;
+  }
+
+  /**
+   *  Runs checkValidity() method, and if it returns false, then it reports to the user that the input is invalid.
+   */
+  reportValidity() {
+    this.isUiValid = this.checkValidity();
+    return this.isUiValid;
+  }
+
+  /**
+   *  Resets the inputs state.
+   */
+  reset() {
+    this.isUiValid = true;
+  }
 
   static styles = [
     css`
