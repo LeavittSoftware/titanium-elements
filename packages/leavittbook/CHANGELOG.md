@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@7.2.0...@leavittsoftware/leavittbook@7.3.0) (2023-07-21)
+
+
+### Features
+
+* **titanium-chip-multi-select:** add checkValidity, reset and reportValididty ([6b177c2](https://github.com/LeavittSoftware/titanium-elements/commit/6b177c2953bace20e36445f64d9857b47731b178))
+
+
+
+
+
 # [7.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@7.1.3...@leavittsoftware/leavittbook@7.2.0) (2023-07-21)
 
 ### Features
