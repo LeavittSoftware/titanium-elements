@@ -1,4 +1,4 @@
-import { CrudEventTypes, EventBus } from '@leavittsoftware/leavitt-elements/lib/event-bus';
+import { CrudEventTypes, EventBus } from '@leavittsoftware/leavitt-elements';
 
 const fileExplorerEvents = new EventBus<'FileExplorerFileDto' | 'FileExplorerFolder', CrudEventTypes>();
 

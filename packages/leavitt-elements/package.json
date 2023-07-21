@@ -2,8 +2,8 @@
   "name": "@leavittsoftware/leavitt-elements",
   "version": "8.1.1",
   "description": "",
-  "main": "lib/leavitt-person-select.js",
-  "typings": "lib/leavitt-person-select.d.ts",
+  "main": "lib/leavitt-elements.js",
+  "typings": "lib/leavitt-elements.d.ts",
   "files": [
     "./lib",
     "./src"
