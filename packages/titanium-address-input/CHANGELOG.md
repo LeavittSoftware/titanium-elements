@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.4.6 (2023-07-21)
+
+### Bug Fixes
+
+- accept undefined type in value ([13f75e8](https://github.com/LeavittSoftware/titanium-elements/commit/13f75e896c2972ed2bb33e8e0023f04e80bbd5cd))
+
 ## 3.4.5 (2023-07-12)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-address-input
