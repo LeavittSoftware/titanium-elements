@@ -33,18 +33,18 @@
     "typescript": "^5.1.6"
   },
   "scripts": {
-    "start": "npm i && run-p build:watch leavittbook",
+    "start": "run-p build:watch leavittbook",
     "build:watch": "tsc --build --preserveWatchOutput -w",
     "build": "tsc --build --preserveWatchOutput",
     "lint": "lerna run lint --stream",
     "nuke": "rm -rf node_modules && rm -rf packages/**/node_modules && rm -f packages/leavittbook/package-lock.json && rm -f package-lock.json",
     "leavittbook": "cd packages/leavittbook && npm start",
     "lint:leavittbook": "cd packages/leavittbook && npm run lint",
-    "build:leavittbook": "npm i && npm run build && cd packages/leavittbook && npm run build",
+    "build:leavittbook": "npm run build && cd packages/leavittbook && npm run build",
     "start:build-leavittbook": "web-dev-server --root-dir dist --app-index index.html --open --compatibility none --port 9090",
-    "lerna:publish": "npm i && npm run build && lerna publish --conventional-commits --yes",
-    "lerna:publish-force": "npm i && npm run build && lerna publish --conventional-commits --yes --force-publish=*",
-    "test:publish": "npm i && npm run build && lerna version --no-push --yes"
+    "lerna:publish": "npm run build && lerna publish --conventional-commits --yes",
+    "lerna:publish-force": "npm run build && lerna publish --conventional-commits --yes --force-publish=*",
+    "test:publish": "npm run build && lerna version --no-push --yes"
   },
   "lint-staged": {
     "*.ts": [
