@@ -41,7 +41,7 @@ export class TitaniumAddressInput extends LitElement {
   /**
    *  The address input or selected by the user.
    */
-  @property({ type: Object }) location: Partial<Address> | null;
+  @property({ type: Object }) location: Partial<Address> | null | undefined;
 
   /**
    *  Sets floating label value.

@@ -40,7 +40,7 @@ export class GoogleAddressInput extends LoadWhile(LitElement) {
   /**
    *  Get or Set location
    */
-  @property({ type: Object }) location: Partial<Address> | null;
+  @property({ type: Object }) location: Partial<Address> | null | undefined;
 
   /**
    *  Message to show in the error color when the element is invalid.

@@ -30,7 +30,7 @@ export class ManualAddressDialogElement extends LitElement {
   @query('mwc-textfield[street]') protected streetInput: TextField;
   @queryAll('mwc-textfield, mwc-select') protected allInputs: NodeListOf<(TextField | Select) & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean }>;
 
-  public async open(location: Partial<Address> | null) {
+  public async open(location: Partial<Address> | null | undefined) {
     this.reset();
     if (location) {
       this.street = location?.street ?? '';

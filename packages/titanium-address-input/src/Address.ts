@@ -12,7 +12,7 @@ export interface Address {
   longitude: number | null;
 }
 
-export function addressToString(location: Partial<Address> | null) {
+export function addressToString(location: Partial<Address> | null | undefined) {
   if (!location) {
     return '';
   }
