@@ -5,7 +5,10 @@
     { "path": "packages/titanium-helpers" },
     { "path": "packages/user-manager" },
     { "path": "packages/api-service" },
+    { "path": "packages/titanium-popup-surface" },
     { "path": "packages/titanium-snackbar" },
+    { "path": "packages/profile-picture" },
+    { "path": "packages/leavitt-elements" },
     { "path": "packages/titanium-styles" },
     { "path": "packages/titanium-access-denied-page" },
     { "path": "packages/titanium-button" },
@@ -22,7 +25,6 @@
     { "path": "packages/titanium-loading-indicator" },
     { "path": "packages/titanium-image-input" },
     { "path": "packages/titanium-offline-notice" },
-    { "path": "packages/titanium-popup-surface" },
     { "path": "packages/titanium-progress" },
     { "path": "packages/titanium-search-input" },
     { "path": "packages/titanium-select" },
@@ -33,9 +35,6 @@
     { "path": "packages/titanium-sw-notifier" },
     { "path": "packages/titanium-tab-control" },
     { "path": "packages/titanium-toolbar" },
-    { "path": "packages/leavitt-elements" },
-    { "path": "packages/leavitt-file-explorer" },
-    { "path": "packages/profile-picture" },
     { "path": "packages/titanium-youtube-input" },
     { "path": "packages/titanium-attachment-input" },
     { "path": "packages/titanium-input-validator" },
@@ -43,7 +42,8 @@
     { "path": "packages/titanium-shadow-text" },
     { "path": "packages/titanium-color-input" },
     { "path": "packages/titanium-show-hide" },
-    { "path": "packages/titanium-duration-input" }
+    { "path": "packages/titanium-duration-input" },
+    { "path": "packages/leavitt-file-explorer" }
   ],
   "files": []
 }
