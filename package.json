@@ -2,52 +2,49 @@
   "name": "root",
   "version": "0.0.2",
   "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
   "devDependencies": {
-    "@commitlint/cli": "^17.3.0",
-    "@commitlint/config-conventional": "^17.3.0",
-    "@commitlint/config-lerna-scopes": "^17.2.1",
     "@open-wc/building-rollup": "^2.2.1",
     "@rollup/plugin-babel": "^5.3.1",
-    "@rollup/plugin-node-resolve": "^13.3.0",
-    "@types/jest": "^29.2.4",
-    "@types/node": "^18.11.18",
-    "@typescript-eslint/eslint-plugin": "^5.47.1",
-    "@typescript-eslint/parser": "^5.47.1",
-    "@web/rollup-plugin-html": "^1.11.0",
-    "@web/rollup-plugin-import-meta-assets": "^1.0.7",
-    "eslint": "^8.30.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "husky": "^8.0.2",
-    "jest": "^29.3.1",
-    "lerna": "^6.3.0",
-    "lint-staged": "^13.1.0",
-    "lit": ">=2.5.0",
+    "@rollup/plugin-node-resolve": "^15.1.0",
+    "@types/jest": "^29.5.3",
+    "@types/node": "^20.4.2",
+    "@typescript-eslint/eslint-plugin": "^6.1.0",
+    "@typescript-eslint/parser": "^6.1.0",
+    "@web/rollup-plugin-html": "^2.0.0",
+    "@web/rollup-plugin-import-meta-assets": "^2.0.0",
+    "eslint": "^8.45.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "jest": "^29.6.1",
+    "lerna": "^7.1.4",
+    "lint-staged": "^13.2.3",
+    "lit": ">=2.7.6",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.8.1",
+    "prettier": "^3.0.0",
     "rollup": "^2.78.0",
     "rollup-plugin-cleanup": "^3.2.1",
     "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-workbox": "^6.2.0",
-    "ts-jest": "^29.0.3",
-    "typescript": "^4.9.4"
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.1.6"
   },
   "scripts": {
-    "start": "npm run bootstrap && run-p build:watch leavittbook",
-    "prepare": "husky install",
-    "bootstrap": "lerna bootstrap --ci --hoist",
+    "start": "npm i && run-p build:watch leavittbook",
     "build:watch": "tsc --build --preserveWatchOutput -w",
     "build": "tsc --build --preserveWatchOutput",
     "lint": "lerna run lint --stream",
     "nuke": "rm -rf node_modules && rm -rf packages/**/node_modules && rm -f packages/leavittbook/package-lock.json && rm -f package-lock.json",
     "leavittbook": "cd packages/leavittbook && npm start",
     "lint:leavittbook": "cd packages/leavittbook && npm run lint",
-    "build:leavittbook": "npm run bootstrap && npm run build && cd packages/leavittbook && npm run build",
+    "build:leavittbook": "npm i && npm run build && cd packages/leavittbook && npm run build",
     "start:build-leavittbook": "web-dev-server --root-dir dist --app-index index.html --open --compatibility none --port 9090",
-    "lerna:publish": "npm run bootstrap && npm run build && lerna publish --conventional-commits --yes",
-    "lerna:publish-force": "npm run bootstrap && npm run build && lerna publish --conventional-commits --yes --force-publish=*",
-    "test:publish": "npm run bootstrap && npm run build && lerna version --no-push --yes"
+    "lerna:publish": "npm i && npm run build && lerna publish --conventional-commits --yes",
+    "lerna:publish-force": "npm i && npm run build && lerna publish --conventional-commits --yes --force-publish=*",
+    "test:publish": "npm i && npm run build && lerna version --no-push --yes"
   },
   "lint-staged": {
     "*.ts": [
@@ -57,7 +54,7 @@
     ]
   },
   "dependencies": {
-    "tslib": "^2.4.1"
+    "tslib": "^2.6.0"
   },
   "customElements": "custom-elements.json"
 }

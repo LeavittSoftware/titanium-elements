@@ -1,4 +1,6 @@
 {
+  "name": "titanium-menu-surface",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "section": "Basics",
   "files": {
     "titanium-menu-surface-playground.ts": {},

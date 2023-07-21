@@ -1,4 +1,6 @@
 {
+  "name": "titanium-shadow-text",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "section": "Basics",
   "files": {
     "titanium-shadow-text-playground.ts": {},

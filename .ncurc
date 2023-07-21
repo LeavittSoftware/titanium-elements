@@ -1,0 +1,11 @@
+{
+  "upgrade": true,
+  "reject": [
+    "rollup",
+    "@rollup/plugin-babel",
+    "@rollup/plugin-json",
+    "rollup-plugin-workbox",
+    "@open-wc/building-rollup",
+    "rimraf"
+  ]
+}

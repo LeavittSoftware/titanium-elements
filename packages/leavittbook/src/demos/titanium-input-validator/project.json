@@ -1,4 +1,6 @@
 {
+  "name": "titanium-input-validator",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "section": "Basics",
   "files": {
     "titanium-input-validator-playground.ts": {},

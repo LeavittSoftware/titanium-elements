@@ -1,4 +1,6 @@
 {
+  "name": "mwc-datefield",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "section": "Basics",
   "files": {
     "mwc-datefield-playground.ts": {},

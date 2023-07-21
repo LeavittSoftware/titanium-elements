@@ -1,4 +1,6 @@
 {
+  "name": "titanium-youtube-input",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "section": "Basics",
   "files": {
     "titanium-youtube-input-playground.ts": {},

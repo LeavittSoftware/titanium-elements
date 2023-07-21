@@ -1,4 +1,6 @@
 {
+  "name": "titanium-search-input",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "section": "Basics",
   "files": {
     "titanium-search-input-playground.ts": {},

@@ -1,4 +1,6 @@
 {
+  "name": "titanium-card-two-line-list-item",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "section": "Basics",
   "files": {
     "titanium-card-two-line-list-item-playground.ts": {},

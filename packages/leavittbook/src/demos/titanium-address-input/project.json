@@ -1,4 +1,6 @@
 {
+  "name": "titanium-address-input",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "section": "Basics",
   "files": {
     "titanium-address-input-playground.ts": {},

@@ -1,4 +1,6 @@
 {
+  "name": "titanium-snackbar",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "section": "Basics",
   "files": {
     "titanium-snackbar-playground.ts": {},

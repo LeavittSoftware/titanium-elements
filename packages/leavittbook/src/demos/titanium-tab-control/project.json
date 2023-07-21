@@ -1,4 +1,6 @@
 {
+  "name": "titanium-tab-control",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "section": "Basics",
   "files": {
     "titanium-tab-control-playground.ts": {},

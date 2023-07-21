@@ -1,4 +1,6 @@
 {
+  "name": "titanium-date-range-selector",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "section": "Basics",
   "files": {
     "titanium-date-range-selector-playground.ts": {},

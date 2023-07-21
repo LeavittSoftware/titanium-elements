@@ -1,4 +1,6 @@
 {
+  "name": "titanium-attachment-input",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "section": "Basics",
   "files": {
     "titanium-attachment-input-playground.ts": {},

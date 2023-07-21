@@ -1,4 +1,6 @@
 {
+  "name": "titanium-image-input",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "section": "Basics",
   "files": {
     "titanium-image-input-playground.ts": {},

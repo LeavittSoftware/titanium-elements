@@ -1,4 +1,6 @@
 {
+  "name": "confirm-dialog",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "section": "Basics",
   "files": {
     "confirm-dialog-playground.ts": {},

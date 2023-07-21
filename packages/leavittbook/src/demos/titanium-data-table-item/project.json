@@ -1,4 +1,6 @@
 {
+  "name": "titanium-data-table-item",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "section": "Basics",
   "files": {
     "titanium-data-table-item-playground.ts": {},

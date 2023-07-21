@@ -1,4 +1,6 @@
 {
+  "name": "available-cdn-icons",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "section": "Basics",
   "files": {
     "available-cdn-icons-playground.ts": {},

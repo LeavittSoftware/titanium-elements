@@ -1,4 +1,6 @@
 {
+  "name": "titanium-dialog-base",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "section": "Basics",
   "files": {
     "titanium-dialog-base-playground.ts": {},

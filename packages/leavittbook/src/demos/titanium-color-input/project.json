@@ -1,4 +1,6 @@
 {
+  "name": "titanium-color-input",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "section": "Basics",
   "files": {
     "titanium-color-input-playground.ts": {},

@@ -1,4 +1,6 @@
 {
+  "name": "titanium-chip-multi-select",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "section": "Basics",
   "files": {
     "titanium-chip-multi-select-playground.ts": {},
