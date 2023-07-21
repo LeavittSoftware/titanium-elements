@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.4.5 (2023-07-12)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-address-input
+
 ## [3.4.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-address-input@3.4.3...@leavittsoftware/titanium-address-input@3.4.4) (2023-06-05)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-address-input

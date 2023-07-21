@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.1.0 (2023-07-18)
+
+### Features
+
+- expose css part ([3de2dab](https://github.com/LeavittSoftware/titanium-elements/commit/3de2dab48ae8a74b888eea7b68fc248232b64363))
+
 ## [3.0.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-card@3.0.3...@leavittsoftware/titanium-card@3.0.4) (2023-06-05)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-card

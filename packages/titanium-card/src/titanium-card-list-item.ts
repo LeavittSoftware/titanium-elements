@@ -110,6 +110,7 @@ export class TitaniumCardListItemElement extends LitElement {
   render() {
     return html`
       <a
+        part="link"
         draggable="false"
         title=${ifDefined(this.title)}
         href=${this.title}

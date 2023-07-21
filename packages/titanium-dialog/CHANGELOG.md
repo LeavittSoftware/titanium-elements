@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.3.3 (2023-07-12)
+
+### Bug Fixes
+
+- experimental fix for container-type: inline-size; mwc-select overflow issues ([e04467e](https://github.com/LeavittSoftware/titanium-elements/commit/e04467e761fa8178a9471a71a2113f72d0235f03))
+
 ## [6.3.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-dialog@6.3.1...@leavittsoftware/titanium-dialog@6.3.2) (2023-06-05)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-dialog
