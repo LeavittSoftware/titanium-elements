@@ -1,5 +1,7 @@
 import '@leavittsoftware/titanium-chip-multi-select';
 import '@leavittsoftware/titanium-chip';
+import '@leavittsoftware/titanium-dialog';
+import '@material/mwc-button';
 import './crop-and-save-image-dialog';
 import './image-preview-dialog';
 
@@ -14,6 +16,7 @@ import { ImagePreviewDialog } from './image-preview-dialog';
 import { delay, middleEllipsis } from '@leavittsoftware/titanium-helpers';
 import { IDatabaseAttachment } from '@leavittsoftware/lg-core-typescript/lg.net.system';
 import { getCdnDownloadUrl, getCdnInlineUrl } from '@leavittsoftware/titanium-helpers/lib/leavitt-cdn';
+import { TitaniumDialogElement } from '@leavittsoftware/titanium-dialog';
 
 export type TitaniumSmartInputOptions = Cropper.Options & { shape?: ' square' | 'circle' };
 
@@ -40,7 +43,7 @@ export type TitaniumSmartInputOptions = Cropper.Options & { shape?: ' square' | 
  */
 @customElement('titanium-smart-attachment-input')
 export class TitaniumSmartAttachmentInputElement extends LitElement {
-  @property({ type: Object }) protected files: SmartAttachment[] = [];
+  @property({ type: Array }) protected files: SmartAttachment[] = [];
   @property({ type: Boolean, reflect: true, attribute: 'is-over' }) protected isOver: boolean = false;
   @property({ type: Boolean, reflect: true }) protected isUiValid: boolean = true;
   @property({ type: String }) protected previewSrc: string | undefined = undefined;
@@ -48,6 +51,7 @@ export class TitaniumSmartAttachmentInputElement extends LitElement {
   @query('input') protected input: HTMLInputElement;
   @query('image-preview-dialog') protected imagePreviewDialog!: ImagePreviewDialog;
   @query('crop-and-save-image-dialog') protected cropperDialog!: CropAndSaveImageDialog;
+  @query('titanium-dialog[confirm-delete]') private confirmDeleteDialog: TitaniumDialogElement;
 
   #originalFiles: SmartAttachment[] = [];
 
@@ -70,6 +74,21 @@ export class TitaniumSmartAttachmentInputElement extends LitElement {
    *  Whether or not the input should be disabled
    */
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
+
+  /**
+   *  Requires user to confirm when delete of an attachment is requested
+   */
+  @property({ type: Boolean }) confirmDelete: boolean = false;
+
+  /**
+   *  Delete confirmation header text
+   */
+  @property({ type: String }) confirmDeleteHeader: string = 'Confirm delete';
+
+  /**
+   *  Delete confirmation paragraph text
+   */
+  @property({ type: String }) confirmDeleteText: string = 'Are you sure you would like to delete this attachment?';
 
   /**
    *  Add button label text
@@ -251,6 +270,10 @@ export class TitaniumSmartAttachmentInputElement extends LitElement {
         margin-left: 8px;
       }
 
+      titanium-dialog {
+        --titanium-dialog-max-width: 550px;
+      }
+
       [hidden] {
         display: none !important;
       }
@@ -306,7 +329,13 @@ export class TitaniumSmartAttachmentInputElement extends LitElement {
               label=${middleEllipsis(o.file.name)}
               ?closeable=${!this.disabled}
               ?readonly=${!o.previewSrc && !o.downloadSrc}
-              @titanium-chip-close=${() => {
+              @titanium-chip-close=${async () => {
+                if (this.confirmDelete) {
+                  const result = await this.confirmDeleteDialog.open();
+                  if (result !== 'confirmed') {
+                    return;
+                  }
+                }
                 this.files.splice(i, 1);
                 this.requestUpdate('files');
                 this.reportValidity();
@@ -339,6 +368,23 @@ export class TitaniumSmartAttachmentInputElement extends LitElement {
       </label>
       <crop-and-save-image-dialog .options=${this.options}></crop-and-save-image-dialog>
       <image-preview-dialog></image-preview-dialog>
+      <titanium-dialog confirm-delete full-width focus-trap header=${this.confirmDeleteHeader}>
+        <p>${this.confirmDeleteText}</p>
+        <mwc-button
+          slot="secondaryAction"
+          @click=${() => {
+            this.confirmDeleteDialog.close('cancel');
+          }}
+          label="CANCEL"
+        ></mwc-button>
+        <mwc-button
+          slot="primaryAction"
+          @click=${() => {
+            this.confirmDeleteDialog.close('confirmed');
+          }}
+          label="CONFIRM"
+        ></mwc-button>
+      </titanium-dialog>
     `;
   }
 }

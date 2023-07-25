@@ -113,6 +113,16 @@ export class TitaniumSmartAttachmentInputPlayground extends LitElement {
         <mwc-button outlined @click=${() => this.resetInput.reportValidity()}>Validate</mwc-button>
         <mwc-button outlined @click=${() => this.resetInput.reset()}>Reset</mwc-button>
       </div>
+
+      <h1>Confirm delete</h1>
+      <p>Confirmation modal on delete request</p>
+      <div>
+        <titanium-smart-attachment-input
+          confirmDelete
+          confirmDeleteHeader="Delete ducks"
+          confirmDeleteText="Are you sure you would like to delete the ducks"
+        ></titanium-smart-attachment-input>
+      </div>
     `;
   }
 }
