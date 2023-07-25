@@ -40,7 +40,7 @@ export type TitaniumSmartInputOptions = Cropper.Options & { shape?: ' square' | 
  */
 @customElement('titanium-smart-attachment-input')
 export class TitaniumSmartAttachmentInputElement extends LitElement {
-  @property({ type: Object }) protected files: SmartAttachment[] = [];
+  @property({ type: Array }) protected files: SmartAttachment[] = [];
   @property({ type: Boolean, reflect: true, attribute: 'is-over' }) protected isOver: boolean = false;
   @property({ type: Boolean, reflect: true }) protected isUiValid: boolean = true;
   @property({ type: String }) protected previewSrc: string | undefined = undefined;
