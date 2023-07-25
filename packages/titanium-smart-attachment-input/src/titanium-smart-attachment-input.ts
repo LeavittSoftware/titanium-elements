@@ -1,6 +1,7 @@
 import '@leavittsoftware/titanium-chip-multi-select';
 import '@leavittsoftware/titanium-chip';
 import '@leavittsoftware/titanium-dialog';
+import '@material/mwc-button';
 import './crop-and-save-image-dialog';
 import './image-preview-dialog';
 
