@@ -1,4 +1,5 @@
-﻿import { BearerTokenProvider } from './bearer-token-provider';
+﻿import { isDevelopment } from '@leavittsoftware/titanium-helpers/lib/titanium-dev-detection';
+import { BearerTokenProvider } from './bearer-token-provider';
 import { HttpError } from './HttpError';
 import { ODataDto } from './odata-dto';
 import { ODataResponse } from './odata-response';
@@ -28,6 +29,14 @@ export default class ApiService {
 
   deleteHeader(key: string) {
     delete this.headers[key];
+  }
+
+  #getFullUri(urlPath: string) {
+    if (this.baseUrl?.endsWith('/') && urlPath?.startsWith('/') && isDevelopment) {
+      alert(`API Service Warning: Malformed url, double slashes present. \r\n\r\n${this.baseUrl}${urlPath}`);
+    }
+
+    return `${this.baseUrl}${urlPath}`;
   }
 
   async uploadFile<T>(urlPath: string, file: File, onprogress: onProgressCallback, options: ApiServiceRequestOptions | null = null): Promise<ODataResponse<T>> {
@@ -61,7 +70,7 @@ export default class ApiService {
         xhr.upload.addEventListener('progress', e => {
           onprogress(e, xhr);
         });
-        xhr.open('POST', `${this.baseUrl}${urlPath}`, true);
+        xhr.open('POST', this.#getFullUri(urlPath), true);
 
         const headers = { ...this.headers };
         const token = await this.#tokenProvider._getBearerTokenAsync();
@@ -119,7 +128,7 @@ export default class ApiService {
 
     let response: Response;
     try {
-      response = await fetch(`${this.baseUrl}${urlPath}`, {
+      response = await fetch(this.#getFullUri(urlPath), {
         method: 'POST',
         body: options?.sendAsFormData ? this.#objectToFormData(body) : JSON.stringify(body),
         headers: headers,
@@ -149,7 +158,7 @@ export default class ApiService {
 
     let response: Response;
     try {
-      response = await fetch(`${this.baseUrl}${urlPath}`, {
+      response = await fetch(this.#getFullUri(urlPath), {
         method: 'PATCH',
         body: JSON.stringify(body),
         headers: headers,
@@ -178,7 +187,7 @@ export default class ApiService {
 
     let response: Response;
     try {
-      response = await fetch(`${this.baseUrl}${urlPath}`, {
+      response = await fetch(this.#getFullUri(urlPath), {
         method: 'PATCH',
         body: JSON.stringify(body),
         headers: { ...headers, Prefer: 'return=representation' },
@@ -199,7 +208,7 @@ export default class ApiService {
 
     let response: Response;
     try {
-      response = await fetch(`${this.baseUrl}${urlPath}`, { method: 'DELETE', headers: headers, signal: options?.abortController?.signal });
+      response = await fetch(this.#getFullUri(urlPath), { method: 'DELETE', headers: headers, signal: options?.abortController?.signal });
     } catch (error) {
       return Promise.reject(this.#rewriteFetchErrors(error, 'DELETE', urlPath));
     }
@@ -216,7 +225,7 @@ export default class ApiService {
 
     let response: Response;
     try {
-      response = await fetch(`${this.baseUrl}${urlPath}`, {
+      response = await fetch(this.#getFullUri(urlPath), {
         method: 'GET',
         headers: headers,
         signal: options?.abortController?.signal,
