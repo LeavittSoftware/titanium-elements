@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 12.1.0 (2023-08-04)
+
+
+### Features
+
+* api service will throw a warning on development if URL contains double slashed ([35e56c7](https://github.com/LeavittSoftware/titanium-elements/commit/35e56c7b06cc0dc47a456f2b87a9ffec8ca95017))
+
+
+
+
+
 ## 12.0.4 (2023-03-31)
 
 **Note:** Version bump only for package @leavittsoftware/api-service
