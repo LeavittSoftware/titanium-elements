@@ -33,7 +33,7 @@ export class TitaniumHeaderItemPlayground extends LitElement {
   render() {
     /* playground-fold-end */
     return html`
-      <h1>Default</h1>
+      <h1>No nav</h1>
       <titanium-card>
         <titanium-header header="Cheeses" subHeader="Your favorite cheeses" no-nav></titanium-header>
       </titanium-card>
@@ -47,6 +47,23 @@ export class TitaniumHeaderItemPlayground extends LitElement {
             alert('back clicked');
           }}
         ></titanium-header>
+      </titanium-card>
+
+      <h1>Icon</h1>
+      <titanium-card>
+        <titanium-header
+          header="Meats and cheese and dairy and things"
+          subHeader="Your favorite meats"
+          icon="stadium"
+          @titanium-header-back-click=${() => {
+            alert('back clicked');
+          }}
+        ></titanium-header>
+      </titanium-card>
+
+      <h1>Icon no-nav</h1>
+      <titanium-card>
+        <titanium-header header="Meats and cheese and dairy and things" subHeader="Your favorite meats" icon="stadium" no-nav></titanium-header>
       </titanium-card>
     `;
   }

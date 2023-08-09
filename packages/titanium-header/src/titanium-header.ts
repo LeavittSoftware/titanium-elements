@@ -1,7 +1,8 @@
+import '@material/mwc-icon';
 import '@material/mwc-icon-button';
 import { h1, h3 } from '@leavittsoftware/titanium-styles';
 
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, nothing } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
 
 /**
@@ -27,6 +28,11 @@ export class TitaniumHeader extends LitElement {
   @property({ type: String }) subHeader: string;
 
   /**
+   * Leading header icon
+   */
+  @property({ type: String }) icon: string;
+
+  /**
    *  Removes the back button
    */
   @property({ type: Boolean, reflect: true, attribute: 'no-nav' }) noNav: boolean = false;
@@ -40,21 +46,26 @@ export class TitaniumHeader extends LitElement {
     h3,
     css`
       :host {
-        display: block;
+        display: flex;
+        flex-direction: column;
         -webkit-font-smoothing: antialiased;
-        text-align: center;
-      }
-
-      :host([no-nav]) h1 {
-        padding: 0 0 8px 0;
+        padding: 0 52px 8px 52px;
+        position: relative;
       }
 
       :host([no-nav]) mwc-icon-button {
         display: none;
       }
 
-      :host([hidden]) {
-        display: none;
+      :host([no-nav]) {
+        padding: 0 0 8px 0;
+      }
+
+      header {
+        display: inline-flex;
+        justify-content: center;
+        gap: 12px;
+        padding: 0 0 8px 0;
       }
 
       h1 {
@@ -62,8 +73,7 @@ export class TitaniumHeader extends LitElement {
         line-height: 42px;
         font-weight: 200;
 
-        padding: 0 52px 8px 52px;
-        position: relative;
+        margin: 0;
         color: var(--app-dark-text-color, #202124);
       }
 
@@ -73,6 +83,12 @@ export class TitaniumHeader extends LitElement {
         font-weight: 300;
         font-size: 16px;
         line-height: 20px;
+        text-align: center;
+      }
+
+      mwc-icon {
+        --mdc-icon-size: var(--titanium-header-icon-size, 40px);
+        color: var(--app-dark-text-color, #202124);
       }
 
       mwc-icon-button {
@@ -92,16 +108,29 @@ export class TitaniumHeader extends LitElement {
           line-height: 16px;
         }
 
+        mwc-icon {
+          --mdc-icon-size: var(--titanium-header-icon-size, 30px);
+        }
+
         mwc-icon-button {
           top: -9px;
         }
+      }
+
+      :host([hidden]) {
+        display: none;
       }
     `,
   ];
 
   render() {
     return html`
-      <h1><mwc-icon-button icon="arrow_back" @click="${this.#handleBackClick}" large></mwc-icon-button>${this.header}</h1>
+      <header>
+        ${this.icon ? html`<mwc-icon>${this.icon}</mwc-icon>` : nothing}
+        <h1>${this.header}</h1>
+        <mwc-icon-button icon="arrow_back" @click="${this.#handleBackClick}" large></mwc-icon-button>
+      </header>
+
       <h3>${this.subHeader}</h3>
     `;
   }
