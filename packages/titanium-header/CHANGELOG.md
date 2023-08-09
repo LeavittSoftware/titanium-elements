@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.1.0 (2023-08-09)
+
+
+### Features
+
+* **titanium-header:** add icon support  ([cda2023](https://github.com/LeavittSoftware/titanium-elements/commit/cda2023639d2cb01658ec86f803962f256291b7f))
+
+
+
+
+
 ## [6.0.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-header@6.0.2...@leavittsoftware/titanium-header@6.0.3) (2023-06-05)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-header
