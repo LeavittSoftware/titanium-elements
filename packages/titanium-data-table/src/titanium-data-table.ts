@@ -566,7 +566,7 @@ export class TitaniumDataTableElement extends LitElement {
 
   render() {
     return html`
-      <header>
+      <header part="header">
         <section row-one>
           <div head ellipsis part="table-header-text-container">
             <slot name="table-header-text"> <h1 ellipsis>${this.header}</h1></slot>
