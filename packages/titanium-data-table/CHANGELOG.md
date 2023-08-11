@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 15.2.0 (2023-08-11)
+
+
+### Features
+
+* add header part on data table ([7a8462b](https://github.com/LeavittSoftware/titanium-elements/commit/7a8462b7f627642afcb880f57b017c2967fa906c))
+
+
+
+
+
 ## [15.1.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-data-table@15.1.2...@leavittsoftware/titanium-data-table@15.1.3) (2023-06-05)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-data-table
