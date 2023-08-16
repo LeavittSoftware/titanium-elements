@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.4.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@7.4.1...@leavittsoftware/leavittbook@7.4.2) (2023-08-16)
+
+
+### Bug Fixes
+
+* reset fully clears validation error state ([822a3db](https://github.com/LeavittSoftware/titanium-elements/commit/822a3db8af762133246f8c0273cad8d5691e7adb))
+
+
+
+
+
 ## [7.4.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@7.4.0...@leavittsoftware/leavittbook@7.4.1) (2023-08-11)
 
 **Note:** Version bump only for package @leavittsoftware/leavittbook

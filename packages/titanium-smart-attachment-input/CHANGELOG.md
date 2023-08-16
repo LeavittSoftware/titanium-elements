@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.3.9 (2023-08-16)
+
+
+### Bug Fixes
+
+* reset fully clears validation error state ([822a3db](https://github.com/LeavittSoftware/titanium-elements/commit/822a3db8af762133246f8c0273cad8d5691e7adb))
+
+
+
+
+
 ## 3.3.8 (2023-07-25)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-smart-attachment-input
