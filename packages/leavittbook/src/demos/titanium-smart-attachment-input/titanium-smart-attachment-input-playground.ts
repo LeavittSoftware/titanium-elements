@@ -110,7 +110,8 @@ export class TitaniumSmartAttachmentInputPlayground extends LitElement {
       <p>Reset the input</p>
       <div>
         <titanium-smart-attachment-input required reset></titanium-smart-attachment-input>
-        <mwc-button outlined @click=${() => this.resetInput.reportValidity()}>Validate</mwc-button>
+        <mwc-button outlined @click=${() => this.resetInput.reportValidity()}>reportValidity</mwc-button>
+        <mwc-button outlined @click=${() => alert(this.resetInput.checkValidity())}>checkValidity</mwc-button>
         <mwc-button outlined @click=${() => this.resetInput.reset()}>Reset</mwc-button>
       </div>
 

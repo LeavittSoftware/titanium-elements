@@ -17,6 +17,7 @@ import { delay, middleEllipsis } from '@leavittsoftware/titanium-helpers';
 import { IDatabaseAttachment } from '@leavittsoftware/lg-core-typescript/lg.net.system';
 import { getCdnDownloadUrl, getCdnInlineUrl } from '@leavittsoftware/titanium-helpers/lib/leavitt-cdn';
 import { TitaniumDialogElement } from '@leavittsoftware/titanium-dialog';
+import { TitaniumChipMultiSelectElement } from '@leavittsoftware/titanium-chip-multi-select';
 
 export type TitaniumSmartInputOptions = Cropper.Options & { shape?: ' square' | 'circle' };
 
@@ -45,13 +46,13 @@ export type TitaniumSmartInputOptions = Cropper.Options & { shape?: ' square' | 
 export class TitaniumSmartAttachmentInputElement extends LitElement {
   @property({ type: Array }) protected files: SmartAttachment[] = [];
   @property({ type: Boolean, reflect: true, attribute: 'is-over' }) protected isOver: boolean = false;
-  @property({ type: Boolean, reflect: true }) protected isUiValid: boolean = true;
   @property({ type: String }) protected previewSrc: string | undefined = undefined;
 
   @query('input') protected input: HTMLInputElement;
   @query('image-preview-dialog') protected imagePreviewDialog!: ImagePreviewDialog;
   @query('crop-and-save-image-dialog') protected cropperDialog!: CropAndSaveImageDialog;
   @query('titanium-dialog[confirm-delete]') private confirmDeleteDialog: TitaniumDialogElement;
+  @query('titanium-chip-multi-select') private chipMultiSelect: TitaniumChipMultiSelectElement;
 
   #originalFiles: SmartAttachment[] = [];
 
@@ -163,19 +164,14 @@ export class TitaniumSmartAttachmentInputElement extends LitElement {
    *  Returns true if the input passes validity checks.
    */
   checkValidity() {
-    if (!this.required) {
-      return true;
-    }
-
-    return this.files.length > 0;
+    return this.chipMultiSelect.checkValidity();
   }
 
   /**
    *  Runs checkValidity() method, and if it returns false, then it reports to the user that the input is invalid.
    */
   reportValidity() {
-    this.isUiValid = this.checkValidity();
-    return this.isUiValid;
+    return this.chipMultiSelect.reportValidity();
   }
 
   /**
@@ -188,12 +184,13 @@ export class TitaniumSmartAttachmentInputElement extends LitElement {
   /**
    *  Resets the inputs state.
    */
-  reset() {
+  async reset() {
     this.#originalFiles = [];
     this.previewSrc = undefined;
     this.files = [];
     this.isOver = false;
-    this.isUiValid = true;
+    await this.updateComplete;
+    this.chipMultiSelect.reset();
   }
 
   async handleNewFile(files: FileList) {
@@ -283,7 +280,6 @@ export class TitaniumSmartAttachmentInputElement extends LitElement {
   render() {
     return html`
       <titanium-chip-multi-select
-        .isUiValid=${this.isUiValid}
         .required=${this.required}
         ?disabled=${this.disabled}
         @drop=${(e: DragEvent) => {
