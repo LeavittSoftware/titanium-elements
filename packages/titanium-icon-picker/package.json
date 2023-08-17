@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-icon-picker",
   "description": "",
   "author": "Leavitt Software",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "license": "MIT",
   "main": "lib/titanium-icon-picker.js",
   "typings": "lib/titanium-icon-picker.d.ts",
@@ -19,8 +19,8 @@
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
   "dependencies": {
-    "@material/mwc-select": "*",
     "@leavittsoftware/titanium-icon": "^0.2.2",
+    "@material/mwc-select": "*",
     "tslib": "^2.4.1"
   },
   "peerDependencies": {
