@@ -1,4 +1,4 @@
-import { html, LitElement } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import '@material/mwc-select';
 import '@leavittsoftware/titanium-icon';
@@ -78,6 +78,16 @@ export class TitaniumIconPicker extends LitElement {
   reportValidity() {
     return this.select.reportValidity();
   }
+
+  static styles = css`
+    :host {
+      display: block;
+    }
+
+    mwc-select {
+      width: 100%;
+    }
+  `;
 
   render = () =>
     html` <mwc-select
