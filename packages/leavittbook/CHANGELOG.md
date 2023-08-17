@@ -3,62 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [7.4.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@7.4.1...@leavittsoftware/leavittbook@7.4.2) (2023-08-16)
+# [7.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@7.4.2...@leavittsoftware/leavittbook@7.5.0) (2023-08-17)
 
+### Features
+
+- adds titanium-icon-picker w/demo ([2e9b0a7](https://github.com/LeavittSoftware/titanium-elements/commit/2e9b0a7dcc525f99a3b4f5bff84a74b20b92ce01))
+
+## [7.4.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@7.4.1...@leavittsoftware/leavittbook@7.4.2) (2023-08-16)
 
 ### Bug Fixes
 
-* reset fully clears validation error state ([822a3db](https://github.com/LeavittSoftware/titanium-elements/commit/822a3db8af762133246f8c0273cad8d5691e7adb))
-
-
-
-
+- reset fully clears validation error state ([822a3db](https://github.com/LeavittSoftware/titanium-elements/commit/822a3db8af762133246f8c0273cad8d5691e7adb))
 
 ## [7.4.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@7.4.0...@leavittsoftware/leavittbook@7.4.1) (2023-08-11)
 
 **Note:** Version bump only for package @leavittsoftware/leavittbook
 
-
-
-
-
 # [7.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@7.3.2...@leavittsoftware/leavittbook@7.4.0) (2023-08-09)
-
 
 ### Features
 
-* **titanium-header:** add icon support  ([cda2023](https://github.com/LeavittSoftware/titanium-elements/commit/cda2023639d2cb01658ec86f803962f256291b7f))
-
-
-
-
+- **titanium-header:** add icon support ([cda2023](https://github.com/LeavittSoftware/titanium-elements/commit/cda2023639d2cb01658ec86f803962f256291b7f))
 
 ## [7.3.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@7.3.1...@leavittsoftware/leavittbook@7.3.2) (2023-08-04)
 
 **Note:** Version bump only for package @leavittsoftware/leavittbook
 
-
-
-
-
 ## [7.3.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@7.3.0...@leavittsoftware/leavittbook@7.3.1) (2023-07-25)
 
 **Note:** Version bump only for package @leavittsoftware/leavittbook
 
-
-
-
-
 # [7.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@7.2.0...@leavittsoftware/leavittbook@7.3.0) (2023-07-21)
-
 
 ### Features
 
-* **titanium-chip-multi-select:** add checkValidity, reset and reportValididty ([6b177c2](https://github.com/LeavittSoftware/titanium-elements/commit/6b177c2953bace20e36445f64d9857b47731b178))
-
-
-
-
+- **titanium-chip-multi-select:** add checkValidity, reset and reportValididty ([6b177c2](https://github.com/LeavittSoftware/titanium-elements/commit/6b177c2953bace20e36445f64d9857b47731b178))
 
 # [7.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@7.1.3...@leavittsoftware/leavittbook@7.2.0) (2023-07-21)
 

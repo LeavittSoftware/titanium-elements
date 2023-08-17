@@ -43,7 +43,9 @@
     { "path": "packages/titanium-color-input" },
     { "path": "packages/titanium-show-hide" },
     { "path": "packages/titanium-duration-input" },
-    { "path": "packages/leavitt-file-explorer" }
+    { "path": "packages/leavitt-file-explorer" },
+    { "path": "packages/titanium-select" },
+    { "path": "packages/titanium-icon-picker" }
   ],
   "files": []
 }

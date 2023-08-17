@@ -2,3 +2,5 @@ node_modules/
 \.vscode/
 packages/*/package-lock.json
 dist/
+
+package-lock.json
