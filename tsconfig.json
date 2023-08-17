@@ -15,6 +15,7 @@
     { "path": "packages/titanium-card" },
     { "path": "packages/titanium-chip" },
     { "path": "packages/titanium-chip-multi-select" },
+    { "path": "packages/titanium-chip-multi-select" },
     { "path": "packages/titanium-data-table" },
     { "path": "packages/titanium-date-range-selector" },
     { "path": "packages/titanium-drawer" },
@@ -43,7 +44,9 @@
     { "path": "packages/titanium-color-input" },
     { "path": "packages/titanium-show-hide" },
     { "path": "packages/titanium-duration-input" },
-    { "path": "packages/leavitt-file-explorer" }
+    { "path": "packages/leavitt-file-explorer" },
+    { "path": "packages/titanium-select" },
+    { "path": "packages/titanium-icon-picker" }
   ],
   "files": []
 }

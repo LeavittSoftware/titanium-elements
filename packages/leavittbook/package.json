@@ -25,6 +25,7 @@
     "@leavittsoftware/titanium-header": "^6.1.0",
     "@leavittsoftware/titanium-helpers": "^6.1.2",
     "@leavittsoftware/titanium-icon": "^0.2.2",
+    "@leavittsoftware/titanium-icon-picker": "^1.0.0",
     "@leavittsoftware/titanium-image-input": "^3.0.8",
     "@leavittsoftware/titanium-input-validator": "^0.3.2",
     "@leavittsoftware/titanium-loading-indicator": "^6.0.1",
