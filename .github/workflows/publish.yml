@@ -33,7 +33,7 @@ jobs:
           scope: leavittsoftware
 
       - name: Install
-        run: npm install
+        run: npm install --no-save
 
       - name: Configure CI Git User
         run: |
