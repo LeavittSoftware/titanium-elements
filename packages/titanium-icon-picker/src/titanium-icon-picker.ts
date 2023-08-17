@@ -100,6 +100,7 @@ export class TitaniumIconPicker extends LitElement {
       .value=${this.value ?? ''}
       @selected=${e => (this.value = e.target.value || null)}
     >
+      ${!this.required ? html`<mwc-list-item value=""></mwc-list-item>` : ''}
       ${MaterialIcons.map(
         (icon: string) => html`
           <mwc-list-item graphic="icon" value=${icon}><titanium-icon slot="graphic" icon=${icon}></titanium-icon> ${icon}</mwc-list-item>
