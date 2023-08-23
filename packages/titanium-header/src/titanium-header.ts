@@ -62,13 +62,13 @@ export class TitaniumHeader extends LitElement {
       }
 
       header {
-        display: inline-flex;
-        justify-content: center;
-        gap: 12px;
+        display: block;
+        text-align: center;
         padding: 0 0 8px 0;
       }
 
       h1 {
+        display: inline;
         font-size: 40px;
         line-height: 42px;
         font-weight: 200;
@@ -87,8 +87,11 @@ export class TitaniumHeader extends LitElement {
       }
 
       mwc-icon {
+        display: inline;
+        vertical-align: text-bottom;
         --mdc-icon-size: var(--titanium-header-icon-size, 40px);
         color: var(--app-dark-text-color, #202124);
+        margin-right: 8px;
       }
 
       mwc-icon-button {
