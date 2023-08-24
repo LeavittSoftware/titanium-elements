@@ -1,5 +1,5 @@
-import { css, html, LitElement } from 'lit';
-import { property, customElement, state } from 'lit/decorators.js';
+import { css, html, LitElement, nothing } from 'lit';
+import { property, customElement } from 'lit/decorators.js';
 
 /**
  * Input validator to make components use validation consistent with mwc-components.
@@ -14,17 +14,23 @@ import { property, customElement, state } from 'lit/decorators.js';
  * @cssprop {Color} [--mdc-theme-error=#b00020] - error color used for validation message
  */
 @customElement('titanium-input-validator')
-export class TitaniumInputValidatorElement extends LitElement {
+export class TitaniumInputValidator extends LitElement {
   /**
    *  Validation message displayed when the input is invalid
    */
   @property({ type: String }) validationMessage = '';
+
   /**
    *  Evaluator function that will be called to determine if the input is valid
    */
   @property({ type: Object }) evaluator = () => true;
 
-  @state() protected isUiValid = true;
+  /**
+   *  Sets floating label value.
+   */
+  @property({ type: String }) label: string = '';
+
+  @property({ type: Boolean, reflect: true, attribute: 'has-error' }) protected hasError = false;
 
   firstUpdated() {
     this.addEventListener(NotifyUserInputEvent.eventName, e => {
@@ -46,18 +52,61 @@ export class TitaniumInputValidatorElement extends LitElement {
    */
   reportValidity(): boolean {
     const isValid = this.checkValidity();
-    this.isUiValid = isValid;
+    this.hasError = !isValid;
     return isValid;
   }
 
   reset() {
-    this.isUiValid = true;
+    this.hasError = false;
   }
 
   static styles = css`
     :host {
-      display: inline-flex;
+      display: flex;
       flex-direction: column;
+    }
+
+    outlined-container {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--mdc-text-field-outlined-idle-border-color, rgba(0, 0, 0, 0.38));
+      padding: 1px;
+      border-radius: 4px;
+      position: relative;
+    }
+
+    label {
+      position: absolute;
+      top: -9px;
+      left: 12px;
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.54);
+      background: #fff;
+      padding: 0 4px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    :host([has-error]) outlined-container {
+      border-color: var(--mdc-theme-error, #b00020);
+    }
+
+    :host(:focus-within) outlined-container {
+      border-width: 2px;
+      padding: 0;
+    }
+
+    :host(:focus-within:not([has-error])) outlined-container {
+      border-color: var(--mdc-theme-primary, #1a73e8);
+    }
+
+    :host(:focus-within:not([has-error])) label {
+      color: var(--mdc-theme-primary, #1a73e8);
+    }
+
+    :host([has-error]) label {
+      color: var(--mdc-theme-error, #b00020);
     }
 
     error-message {
@@ -71,8 +120,13 @@ export class TitaniumInputValidatorElement extends LitElement {
     }
   `;
 
-  render = () => html`<slot></slot>
-    <error-message>${this.isUiValid ? '' : this.validationMessage}</error-message> `;
+  render = () => html`
+    <outlined-container part="outline">
+      ${this.label ? html`<label part="label">${this.label}</label>` : nothing}
+      <slot></slot>
+    </outlined-container>
+    ${this.validationMessage ? html` <error-message part="error">${this.hasError ? this.validationMessage : nothing}</error-message>` : nothing}
+  `;
 }
 
 export class NotifyUserInputEvent extends Event {

@@ -1,6 +1,6 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
-import { customElement, query, state } from 'lit/decorators.js';
+import { customElement, queryAll, state } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/titanium-styles';
 import '@leavittsoftware/profile-picture';
 import '@material/mwc-icon-button';
@@ -9,12 +9,13 @@ import '@material/mwc-button';
 /* playground-fold-end */
 import '@leavittsoftware/titanium-input-validator';
 import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar';
+import { TitaniumInputValidator } from '@leavittsoftware/titanium-input-validator';
 
 /* playground-fold */
 @customElement('titanium-input-validator-playground')
 export class TitaniumInputValidatorPlayground extends LitElement {
   @state() iconSelected = '';
-  @query('titanium-input-validator') validator;
+  @queryAll('titanium-input-validator') validators: NodeListOf<TitaniumInputValidator>;
 
   static styles = [
     h1,
@@ -37,14 +38,6 @@ export class TitaniumInputValidatorPlayground extends LitElement {
         margin: 24px 0 36px 0;
       }
 
-      titanium-input-validator {
-        align-items: center;
-        border: 1px solid var(--app-border-color);
-        padding: 8px;
-        width: 170px;
-        margin-bottom: 12px;
-      }
-
       icon-container {
         display: flex;
         flex-direction: row;
@@ -62,8 +55,19 @@ export class TitaniumInputValidatorPlayground extends LitElement {
       <h1>Default</h1>
       <p>A validator example for a custom selectable icon button input</p>
       <div>
-        <titanium-input-validator .evaluator=${() => this.iconSelected === 'cruelty_free'} validationMessage="Bunny is not selected">
-          <p>Please select the bunny</p>
+        <titanium-input-validator label="Bunnies" .evaluator=${() => this.iconSelected === 'cruelty_free'} validationMessage="Bunny is not selected">
+          <icon-container>
+            <mwc-icon-button
+              @click=${() => (this.iconSelected = 'cruelty_free')}
+              ?selected=${this.iconSelected === 'cruelty_free'}
+              icon="cruelty_free"
+            ></mwc-icon-button>
+            <mwc-icon-button @click=${() => (this.iconSelected = 'pets')} ?selected=${this.iconSelected === 'pets'} icon="pets"></mwc-icon-button>
+            <mwc-icon-button @click=${() => (this.iconSelected = 'person')} ?selected=${this.iconSelected === 'person'} icon="person"></mwc-icon-button>
+          </icon-container>
+        </titanium-input-validator>
+
+        <titanium-input-validator .evaluator=${() => this.iconSelected === 'cruelty_free'}>
           <icon-container>
             <mwc-icon-button
               @click=${() => (this.iconSelected = 'cruelty_free')}
@@ -75,8 +79,11 @@ export class TitaniumInputValidatorPlayground extends LitElement {
           </icon-container>
         </titanium-input-validator>
         <br />
-        <mwc-button @click=${() => this.validator?.reportValidity()} label="Report Validity"></mwc-button>
-        <mwc-button @click=${() => TitaniumSnackbarSingleton.open(`Check Validity is ${this.validator?.checkValidity()}`)} label="Check Validity"></mwc-button>
+        <mwc-button @click=${() => Array.from(this.validators).forEach(v => v.reportValidity())} label="Report Validity"></mwc-button>
+        <mwc-button
+          @click=${() => TitaniumSnackbarSingleton.open(`Check Validity is ${Array.from(this.validators).map(v => v.checkValidity())}`)}
+          label="Check Validity"
+        ></mwc-button>
       </div>
     `;
   }
