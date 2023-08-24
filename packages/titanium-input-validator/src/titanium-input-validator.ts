@@ -70,7 +70,6 @@ export class TitaniumInputValidator extends LitElement {
       display: flex;
       flex-direction: column;
       border: 1px solid var(--mdc-text-field-outlined-idle-border-color, rgba(0, 0, 0, 0.38));
-      padding: 1px;
       border-radius: 4px;
       position: relative;
     }
@@ -94,7 +93,7 @@ export class TitaniumInputValidator extends LitElement {
 
     :host(:focus-within) outlined-container {
       border-width: 2px;
-      padding: 0;
+      margin: -1px;
     }
 
     :host(:focus-within:not([has-error])) outlined-container {
