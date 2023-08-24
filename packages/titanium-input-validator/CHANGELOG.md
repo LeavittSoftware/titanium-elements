@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.4.0 (2023-08-24)
+
+### Features
+
+- input validator get outlined input styles ([5f4f064](https://github.com/LeavittSoftware/titanium-elements/commit/5f4f064e1ce7a4b50e135684ca00780928518aef))
+
+### BREAKING CHANGES
+
+- styles changed, outlined styles added. css parts exposed to override styles if need be. Added label prop.
+
 ## [0.3.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-input-validator@0.3.1...@leavittsoftware/titanium-input-validator@0.3.2) (2023-04-07)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-input-validator

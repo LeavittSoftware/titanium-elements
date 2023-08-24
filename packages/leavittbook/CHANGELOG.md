@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@7.6.1...@leavittsoftware/leavittbook@8.0.0) (2023-08-24)
+
+### Features
+
+- input validator get outlined input styles ([5f4f064](https://github.com/LeavittSoftware/titanium-elements/commit/5f4f064e1ce7a4b50e135684ca00780928518aef))
+
+### BREAKING CHANGES
+
+- styles changed, outlined styles added. css parts exposed to override styles if need be. Added label prop.
+
 ## [7.6.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@7.6.0...@leavittsoftware/leavittbook@7.6.1) (2023-08-23)
 
 **Note:** Version bump only for package @leavittsoftware/leavittbook
