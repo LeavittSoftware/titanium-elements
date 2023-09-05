@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.8.0 (2023-09-05)
+
+### Features
+
+- add new text-wrap: balance; ([f4ff96a](https://github.com/LeavittSoftware/titanium-elements/commit/f4ff96a2e6118809aef9c7bdbcba99c62c525ff7))
+
 ## [0.7.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-styles@0.7.0...@leavittsoftware/titanium-styles@0.7.1) (2023-06-05)
 
 ### Bug Fixes
