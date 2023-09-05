@@ -9,6 +9,7 @@ export const h4 = css`
     -webkit-font-smoothing: antialiased;
     letter-spacing: -0.264px;
     font-weight: 400;
+    text-wrap: balance;
     font-size: 14px;
     line-height: 18px;
     margin: 0;

@@ -10,6 +10,7 @@ export const h1 = css`
     font-weight: 300;
     font-size: 22px;
     line-height: 28px;
+    text-wrap: balance;
 
     margin: 0;
     padding: 0;

@@ -12,6 +12,7 @@ export const h5 = css`
     hyphens: auto;
     word-break: break-word;
     word-wrap: break-word;
+    text-wrap: balance;
     color: #5f6368;
     color: var(--app-text-color, #5f6368);
     margin: 0;

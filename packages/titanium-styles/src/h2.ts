@@ -11,7 +11,7 @@ export const h2 = css`
     font-weight: 400;
     font-size: 20px;
     line-height: 24px;
-
+    text-wrap: balance;
     margin: 0;
     padding: 0;
   }

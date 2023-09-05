@@ -11,6 +11,7 @@ export const h3 = css`
     font-weight: 400;
     font-size: 16px;
     line-height: 20px;
+    text-wrap: balance;
     margin: 0;
     padding: 0;
   }
