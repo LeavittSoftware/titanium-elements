@@ -333,7 +333,7 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
     return html`
       <mwc-textfield
         outlined
-        icon=${this.selected ? 'l' : 'search'}
+        icon=${this.selected ? ' ' : 'search'}
         .label=${this.label}
         .disabled=${this.disabled}
         .placeholder=${this.placeholder}

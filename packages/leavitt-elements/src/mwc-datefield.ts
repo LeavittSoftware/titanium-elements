@@ -32,7 +32,7 @@ export class DateField extends TextField {
       //Chrome mobile get normal mwc training icon
       //Chrome desktop gets native calendar icon positioned over blank reserved icon space
       //FF && Safari bring unstyled native calendar icons
-      this.iconTrailing = bowser.getPlatformType() === 'mobile' ? 'event' : 'a';
+      this.iconTrailing = bowser.getPlatformType() === 'mobile' ? 'event' : ' ';
     }
   }
 
