@@ -311,7 +311,7 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
     return html`
       <mwc-textfield
         outlined
-        icon=${this.selected?.Id ? 'l' : this.icon}
+        icon=${this.selected?.Id ? ' ' : this.icon}
         .label=${this.label}
         .disabled=${this.disabled}
         .placeholder=${this.placeholder}
