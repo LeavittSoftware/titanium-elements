@@ -3,21 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 8.1.4 (2023-09-06)
+
+### Bug Fixes
+
+- **leavitt-elements:** use actual whitespace character for placeholder icon ([104edc4](https://github.com/LeavittSoftware/titanium-elements/commit/104edc41be80d795bdf90fd24d7bb825f5624832))
+
 ## 8.1.3 (2023-08-04)
 
 **Note:** Version bump only for package @leavittsoftware/leavitt-elements
 
-
-
-
-
 ## 8.1.2 (2023-07-21)
 
 **Note:** Version bump only for package @leavittsoftware/leavitt-elements
-
-
-
-
 
 ## 8.1.1 (2023-06-15)
 
