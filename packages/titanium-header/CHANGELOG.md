@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 7.0.0 (2023-09-15)
+
+### Features
+
+- defaults back button to window history back ([0c55749](https://github.com/LeavittSoftware/titanium-elements/commit/0c55749d5c96a91b3d6b5fb0c0ea426ba6183243))
+
+### BREAKING CHANGES
+
+- the default behavior of the back button is now window.history.back. To disable that behavior and get a callback on titanium-header-back-click event, you must add the disable-default-back-button-behavior attribute.
+
 ## 6.1.2 (2023-09-05)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-header
