@@ -37,8 +37,17 @@ export class TitaniumHeader extends LitElement {
    */
   @property({ type: Boolean, reflect: true, attribute: 'no-nav' }) noNav: boolean = false;
 
+  /**
+   *  Lets user override back button behavior
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'disable-default-back-button-behavior' }) disableDefaultBackButtonBehavior: boolean = false;
+
   #handleBackClick() {
-    this.dispatchEvent(new CustomEvent('titanium-header-back-click', { composed: true }));
+    if (this.disableDefaultBackButtonBehavior) {
+      this.dispatchEvent(new CustomEvent('titanium-header-back-click', { composed: true }));
+    } else {
+      window.history.back();
+    }
   }
 
   static styles = [
