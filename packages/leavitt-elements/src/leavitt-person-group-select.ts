@@ -91,6 +91,16 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
   @property({ type: Boolean }) required: boolean = false;
 
   /**
+   *  Sets api path for people GET.
+   */
+  @property({ type: String }) peoplePath: string = 'People';
+
+  /**
+   *  Sets api path for groups GET.
+   */
+  @property({ type: String }) groupPath: string = 'PeopleGroups';
+
+  /**
    *  Callback called before each validation check. See the mwc-textfield's validation section for more details.
    */
   @property({ type: Object }) validityTransform = () => {
@@ -206,7 +216,7 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
         const searchFilter = searchTokens.map((token: string) => `contains(tolower(FullName), '${token.toLowerCase()}')`).join(' and ');
         odataParts.push(`filter=${searchFilter}`);
       }
-      const results = await this.apiService?.getAsync<Person>(`People?${odataParts.join('&')}`, { abortController: this.#abortController });
+      const results = await this.apiService?.getAsync<Person>(`${this.peoplePath}?${odataParts.join('&')}`, { abortController: this.#abortController });
       results?.entities.forEach(p => (p.type = 'Person'));
       return results;
     } catch (error) {
@@ -235,7 +245,7 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
 
       odataParts.push(`filter=${filterParts.join(' and ')}`);
 
-      const results = await this.apiService?.getAsync<PeopleGroup>(`PeopleGroups?${odataParts.join('&')}`, { abortController: this.#abortController });
+      const results = await this.apiService?.getAsync<PeopleGroup>(`${this.groupPath}?${odataParts.join('&')}`, { abortController: this.#abortController });
       results?.entities.forEach(p => (p.type = 'PeopleGroup'));
       return results;
     } catch (error) {
