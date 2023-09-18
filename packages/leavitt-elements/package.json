@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/leavitt-elements",
-  "version": "8.1.4",
+  "version": "8.2.0",
   "description": "",
   "main": "lib/leavitt-elements.js",
   "typings": "lib/leavitt-elements.d.ts",

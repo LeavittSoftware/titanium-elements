@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/leavitt-file-explorer",
-  "version": "4.0.30",
+  "version": "4.0.31",
   "description": "",
   "main": "lib/leavitt-file-explorer.js",
   "typings": "lib/leavitt-file-explorer.d.ts",
@@ -10,7 +10,7 @@
   ],
   "dependencies": {
     "@leavittsoftware/api-service": "^12.1.0",
-    "@leavittsoftware/leavitt-elements": "^8.1.4",
+    "@leavittsoftware/leavitt-elements": "^8.2.0",
     "@leavittsoftware/lg-core-typescript": "*",
     "@leavittsoftware/titanium-dialog": "^6.3.5",
     "@leavittsoftware/titanium-helpers": "^6.1.2",

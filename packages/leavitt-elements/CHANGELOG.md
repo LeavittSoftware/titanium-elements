@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@8.1.4...@leavittsoftware/leavitt-elements@8.2.0) (2023-09-18)
+
+### Features
+
+- **leavitt-elements:** allow setting controller paths for leavitt-person-group-select ([9eeb53b](https://github.com/LeavittSoftware/titanium-elements/commit/9eeb53bbc013d1181349a04fc8c784f07218fec4))
+
 ## 8.1.4 (2023-09-06)
 
 ### Bug Fixes
