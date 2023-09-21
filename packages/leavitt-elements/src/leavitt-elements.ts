@@ -6,5 +6,6 @@ export { LeavittPersonGroupSelectElement,LeavittPersonGroupSelectSelectedEvent }
 export { LeavittPersonSelectElement,LeavittPersonSelectSelectedEvent } from './leavitt-person-select';
 export { DateField } from './mwc-datefield';
 export { peopleGroupIcons } from './people-group-icons';
+export { LeavittUserFeedback } from './leavitt-user-feedback';
 
 

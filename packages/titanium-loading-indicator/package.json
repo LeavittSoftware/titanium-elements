@@ -4,8 +4,8 @@
   "author": "Leavitt Software",
   "version": "6.0.1",
   "license": "MIT",
-  "main": "lib/titanium-loading-indicator.js",
-  "typings": "lib/titanium-loading-indicator.d.ts",
+  "main": "lib/titanium-loading.js",
+  "typings": "lib/titanium-loading.d.ts",
   "homepage": "https://github.com/LeavittSoftware/titanium-elements/tree/master/packages/titanium-loading-indicator",
   "files": [
     "./lib",

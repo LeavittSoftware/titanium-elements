@@ -9,7 +9,7 @@ import { TitaniumDialogElement } from '@leavittsoftware/titanium-dialog';
 import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar';
 import { FileExplorerFolderDto } from '@leavittsoftware/lg-core-typescript/api3.leavitt.com';
 import { TextField } from '@material/mwc-textfield';
-import { PendingStateEvent } from '@leavittsoftware/titanium-loading-indicator/lib/titanium-full-page-loading-indicator';
+import { PendingStateEvent } from '@leavittsoftware/titanium-loading-indicator';
 import { FileExplorerFolder } from '@leavittsoftware/lg-core-typescript';
 import ApiService from '@leavittsoftware/api-service/lib/api-service';
 

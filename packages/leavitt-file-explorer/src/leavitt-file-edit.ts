@@ -9,7 +9,7 @@ import { TextField } from '@material/mwc-textfield';
 import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar';
 import { h1 } from '@leavittsoftware/titanium-styles';
 
-import { PendingStateEvent } from '@leavittsoftware/titanium-loading-indicator/lib/titanium-full-page-loading-indicator';
+import { PendingStateEvent } from '@leavittsoftware/titanium-loading-indicator';
 import fileExplorerEvents from './file-explorer-events';
 import ApiService from '@leavittsoftware/api-service/lib/api-service';
 

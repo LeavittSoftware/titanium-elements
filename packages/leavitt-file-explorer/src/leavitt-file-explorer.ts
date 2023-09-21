@@ -22,7 +22,7 @@ import { LeavittAddFolderModalElement } from './leavitt-add-folder-modal';
 import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar';
 import { LeavittFileModalElement } from './leavitt-file-modal';
 import { ConfirmDialogOpenEvent } from '@leavittsoftware/titanium-dialog/lib/confirm-dialog-open-event';
-import { PendingStateEvent } from '@leavittsoftware/titanium-loading-indicator/lib/titanium-full-page-loading-indicator';
+import { PendingStateEvent } from '@leavittsoftware/titanium-loading-indicator';
 import fileExplorerEvents from './file-explorer-events';
 import { join, LoadWhile } from '@leavittsoftware/titanium-helpers';
 import { getIcon } from './file-types';

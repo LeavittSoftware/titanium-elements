@@ -18,10 +18,7 @@ import page from 'page';
 import { h1, h2, p } from '@leavittsoftware/titanium-styles';
 import { ChangePathEvent, RedirectPathEvent } from './events';
 
-import {
-  PendingStateEvent,
-  TitaniumFullPageLoadingIndicatorElement,
-} from '@leavittsoftware/titanium-loading-indicator/lib/titanium-full-page-loading-indicator';
+import { PendingStateEvent, TitaniumFullPageLoadingIndicatorElement } from '@leavittsoftware/titanium-loading-indicator';
 import { Drawer } from '@material/mwc-drawer';
 
 const LGLogo = new URL('../images/lg-logo.svg', import.meta.url).href;
@@ -85,6 +82,10 @@ export class MyAppElement extends LitElement {
     );
     page('/leavitt-person-group-select', () =>
       this.#changePage('leavitt-person-group-select', () => import('./demos/leavitt-person-group-select/leavitt-person-group-select-demo.js'))
+    );
+
+    page('/leavitt-user-feedback', () =>
+      this.#changePage('leavitt-user-feedback', () => import('./demos/leavitt-user-feedback/leavitt-user-feedback-demo.js'))
     );
     page('/mwc-datefield', () => this.#changePage('mwc-datefield', () => import('./demos/mwc-datefield/mwc-datefield-demo.js')));
     page('/profile-picture', () => this.#changePage('profile-picture', () => import('./demos/profile-picture/profile-picture-demo.js')));
@@ -582,6 +583,7 @@ export class MyAppElement extends LitElement {
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>leavitt-company-select</span>
               </a>
+
               <a href="/leavitt-file-explorer" ?selected=${!!this.page?.includes('leavitt-file-explorer')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>leavitt-file-explorer</span>
@@ -597,6 +599,10 @@ export class MyAppElement extends LitElement {
               <a href="/leavitt-person-select" ?selected=${!!this.page?.includes('leavitt-person-select')}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
                 <span>leavitt-person-select</span>
+              </a>
+              <a href="/leavitt-user-feedback" ?selected=${!!this.page?.includes('leavitt-user-feedback')}>
+                <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
+                <span>leavitt-user-feedback</span>
               </a>
               <a href="/profile-picture" ?selected=${this.page == 'profile-picture'}>
                 <mwc-icon><span class="material-icons-outlined"> library_books </span></mwc-icon>
@@ -669,6 +675,9 @@ export class MyAppElement extends LitElement {
             : nothing}
           ${this.page === 'leavitt-company-select'
             ? html` <leavitt-company-select-demo ?isActive=${this.page === 'leavitt-company-select'}></leavitt-company-select-demo> `
+            : nothing}
+          ${this.page === 'leavitt-user-feedback'
+            ? html` <leavitt-user-feedback-demo ?isActive=${this.page === 'leavitt-user-feedback'}></leavitt-user-feedback-demo> `
             : nothing}
           ${this.page === 'leavitt-person-company-select'
             ? html` <leavitt-person-company-select-demo ?isActive=${this.page === 'leavitt-person-company-select'}></leavitt-person-company-select-demo> `

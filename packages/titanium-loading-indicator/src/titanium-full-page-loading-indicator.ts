@@ -1,6 +1,7 @@
 import { css, html, LitElement } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
 import '@leavittsoftware/titanium-progress';
+import { PendingStateEvent } from './pending-state-event';
 
 /**
  * A simple full-screen veil with loading indicator.
@@ -156,9 +157,3 @@ export class TitaniumFullPageLoadingIndicatorElement extends LitElement {
   }
 }
 
-export class PendingStateEvent extends CustomEvent<{ promise: Promise<unknown> }> {
-  static eventType = 'pending-state';
-  constructor(promise: Promise<unknown>) {
-    super(PendingStateEvent.eventType, { bubbles: true, composed: true, detail: { promise: promise } });
-  }
-}
