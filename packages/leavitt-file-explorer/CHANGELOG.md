@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@4.0.31...@leavittsoftware/leavitt-file-explorer@4.1.0) (2023-09-21)
+
+### Features
+
+- **leavitt-elements:** add user feedback page ([af52292](https://github.com/LeavittSoftware/titanium-elements/commit/af5229225f94b7e9b12aeb10e4e241076e8ad4b7))
+
 ## [4.0.31](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-file-explorer@4.0.30...@leavittsoftware/leavitt-file-explorer@4.0.31) (2023-09-18)
 
 **Note:** Version bump only for package @leavittsoftware/leavitt-file-explorer
