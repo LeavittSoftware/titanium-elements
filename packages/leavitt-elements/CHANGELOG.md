@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@8.2.0...@leavittsoftware/leavitt-elements@8.3.0) (2023-09-21)
+
+### Features
+
+- **leavitt-elements:** add user feedback page ([af52292](https://github.com/LeavittSoftware/titanium-elements/commit/af5229225f94b7e9b12aeb10e4e241076e8ad4b7))
+
 # [8.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@8.1.4...@leavittsoftware/leavitt-elements@8.2.0) (2023-09-18)
 
 ### Features

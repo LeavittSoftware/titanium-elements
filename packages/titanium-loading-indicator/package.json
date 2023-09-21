@@ -2,7 +2,7 @@
   "name": "@leavittsoftware/titanium-loading-indicator",
   "description": "",
   "author": "Leavitt Software",
-  "version": "6.0.1",
+  "version": "6.1.0",
   "license": "MIT",
   "main": "lib/titanium-loading.js",
   "typings": "lib/titanium-loading.d.ts",
