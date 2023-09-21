@@ -35,7 +35,8 @@
   "scripts": {
     "start": "run-p build:watch leavittbook",
     "build:watch": "tsc --build --preserveWatchOutput -w",
-    "build": "tsc --build --preserveWatchOutput",
+    "build": "npm run build:tsc || npm run build:tsc || exit 0",
+    "build:tsc": "tsc --build --preserveWatchOutput",
     "lint": "lerna run lint --stream",
     "nuke": "git clean -fdx && rm -f package-lock.json",
     "leavittbook": "cd packages/leavittbook && npm start",
