@@ -139,6 +139,12 @@ export class LeavittUserFeedback extends LoadWhile(LitElement) {
         overflow: hidden;
       }
 
+      @media(max-width: 768px){
+        mwc-tab-bar {
+          --mdc-typography-button-font-size: 11px;
+        }
+      }
+
       [hidden] {
         display: none !important;
       }
