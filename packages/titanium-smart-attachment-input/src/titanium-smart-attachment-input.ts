@@ -18,7 +18,6 @@ import { IDatabaseAttachment } from '@leavittsoftware/lg-core-typescript/lg.net.
 import { getCdnDownloadUrl, getCdnInlineUrl } from '@leavittsoftware/titanium-helpers/lib/leavitt-cdn';
 import { TitaniumDialogElement } from '@leavittsoftware/titanium-dialog';
 import { TitaniumChipMultiSelectElement } from '@leavittsoftware/titanium-chip-multi-select';
-import { uid } from 'uid';
 
 export type TitaniumSmartInputOptions = Cropper.Options & { shape?: ' square' | 'circle' };
 
@@ -165,7 +164,7 @@ export class TitaniumSmartAttachmentInputElement extends LitElement {
       .map(o => ({
         id: o.Id,
         file: new File([''], `${o?.Name}.${o?.Extension}`),
-        previewSrc: `${getCdnInlineUrl(o, 512)}${this.disableCache ? `?c=${uid()}` : ''}`,
+        previewSrc: `${getCdnInlineUrl(o, 512)}${this.disableCache ? `?c=${window?.crypto?.randomUUID()}` : ''}`,
         downloadSrc: getCdnDownloadUrl(o),
       }));
     this.#originalFiles = structuredClone(this.files);
