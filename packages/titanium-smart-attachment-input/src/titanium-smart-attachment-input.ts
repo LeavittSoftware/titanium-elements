@@ -18,6 +18,7 @@ import { IDatabaseAttachment } from '@leavittsoftware/lg-core-typescript/lg.net.
 import { getCdnDownloadUrl, getCdnInlineUrl } from '@leavittsoftware/titanium-helpers/lib/leavitt-cdn';
 import { TitaniumDialogElement } from '@leavittsoftware/titanium-dialog';
 import { TitaniumChipMultiSelectElement } from '@leavittsoftware/titanium-chip-multi-select';
+import { uid } from 'uid';
 
 export type TitaniumSmartInputOptions = Cropper.Options & { shape?: ' square' | 'circle' };
 
@@ -112,6 +113,11 @@ export class TitaniumSmartAttachmentInputElement extends LitElement {
   @property({ type: Object }) options: CropperOptions = {};
 
   /**
+   *  Setting this to true will add a cache busting query string to the image url.
+   */
+  @property({ type: Boolean }) disableCache: boolean = false;
+
+  /**
    *  Image formats here are sent to the cropper
    */
   @property({ type: Array }) croppableImageFormats: Array<string> = [
@@ -156,7 +162,12 @@ export class TitaniumSmartAttachmentInputElement extends LitElement {
   setFilesFromDatabaseAttachments(...attachments: Partial<IDatabaseAttachment>[]) {
     this.files = [...attachments]
       .filter(o => o.Name && o.Extension)
-      .map(o => ({ id: o.Id, file: new File([''], `${o?.Name}.${o?.Extension}`), previewSrc: getCdnInlineUrl(o, 512), downloadSrc: getCdnDownloadUrl(o) }));
+      .map(o => ({
+        id: o.Id,
+        file: new File([''], `${o?.Name}.${o?.Extension}`),
+        previewSrc: `${getCdnInlineUrl(o, 512)}${this.disableCache ? `?c=${uid()}` : ''}`,
+        downloadSrc: getCdnDownloadUrl(o),
+      }));
     this.#originalFiles = structuredClone(this.files);
   }
 

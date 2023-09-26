@@ -20,7 +20,8 @@
     "@material/mwc-icon-button": "*",
     "bowser": "*",
     "cropperjs": "*",
-    "tslib": "^2.4.1"
+    "tslib": "^2.4.1",
+    "uid": "2.0.2"
   },
   "peerDependencies": {
     "lit": ">=2.5.0"
