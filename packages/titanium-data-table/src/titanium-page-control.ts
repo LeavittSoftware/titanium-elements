@@ -158,7 +158,7 @@ export class TitaniumPageControlElement extends LitElement {
     }
 
     take-control mwc-select {
-      max-width: 100px;
+      max-width: var(--titanium-page-control-select-width, 100px);
       --mdc-shape-small: 24px;
     }
 
