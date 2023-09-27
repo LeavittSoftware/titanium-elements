@@ -38,38 +38,38 @@ export class ProfilePicturePlayground extends LitElement {
       <h1>Default</h1>
       <p>Default profile picture styles</p>
       <div>
-        <profile-picture personId="915608"></profile-picture>
+        <profile-picture></profile-picture>
       </div>
 
       <h1>Square</h1>
       <p>Square profile picture styles</p>
       <div>
-        <profile-picture personId="915608" shape="square"></profile-picture>
+        <profile-picture shape="square"></profile-picture>
       </div>
 
       <h1>Color ring</h1>
       <p>Color ring variant</p>
       <div>
-        <profile-picture personId="915608" shape="square" show-ring></profile-picture>
-        <profile-picture personId="915608" show-ring></profile-picture>
-        <profile-picture link-to-profile personId="915608" show-ring style="--profile-picture-ring-color: purple"></profile-picture>
+        <profile-picture shape="square" show-ring></profile-picture>
+        <profile-picture show-ring></profile-picture>
+        <profile-picture profile-picture-link-person-id="11056" show-ring style="--profile-picture-ring-color: purple"></profile-picture>
       </div>
 
       <h1>Sizes</h1>
       <p>Sizes include 32, 64, 128, 256, and 512px</p>
       <div>
-        <profile-picture link-to-profile personId="915608" size="24"></profile-picture>
-        <profile-picture personId="915608" size="32"></profile-picture>
-        <profile-picture link-to-profile personId="915608" size="64"></profile-picture>
-        <profile-picture personId="915608" size="128"></profile-picture>
-        <profile-picture link-to-profile personId="915608" size="256"></profile-picture>
+        <profile-picture profile-picture-link-person-id="11056" size="24"></profile-picture>
+        <profile-picture size="32"></profile-picture>
+        <profile-picture profile-picture-link-person-id="11056" size="64"></profile-picture>
+        <profile-picture size="128"></profile-picture>
+        <profile-picture profile-picture-link-person-id="11056" size="256"></profile-picture>
       </div>
 
       <h1>Responsive</h1>
       <p>Size can be adjusted further using responsive units</p>
       <div>
-        <profile-picture personId="915608" size="256" useIntrisicImageSize style="width: 20vh;"></profile-picture>
-        <profile-picture link-to-profile personId="915608" size="256" useIntrisicImageSize style="width: 20vw;"></profile-picture>
+        <profile-picture size="256" useIntrisicImageSize style="width: 20vh;"></profile-picture>
+        <profile-picture profile-picture-link-person-id="11056" size="256" useIntrisicImageSize style="width: 20vw;"></profile-picture>
       </div>
     `;
   }

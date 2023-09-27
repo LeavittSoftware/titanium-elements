@@ -4,15 +4,11 @@ import '@material/mwc-button';
 import { TitaniumPopupSurfaceFoundation } from '@leavittsoftware/titanium-popup-surface';
 import { GetUserManagerInstance } from '@leavittsoftware/user-manager';
 import { css, html } from 'lit';
-import { property, customElement, query } from 'lit/decorators.js';
-import { ProfilePictureElement } from './profile-picture';
+import { property, customElement } from 'lit/decorators.js';
 
 @customElement('profile-picture-menu-popup')
 export class ProfilePictureMenuPopupElement extends TitaniumPopupSurfaceFoundation {
-  /**
-   * Person id of user
-   */
-  @property({ type: Number }) personId: number = 0;
+  @property({ type: String }) profilePictureFileName: string | null;
 
   /**
    * Email address of user
@@ -28,15 +24,6 @@ export class ProfilePictureMenuPopupElement extends TitaniumPopupSurfaceFoundati
    * Full name of user
    */
   @property({ type: String }) name: string = '';
-
-  @query('profile-picture') profilePicture: ProfilePictureElement;
-
-  /**
-   * Reloads profile picture from server
-   */
-  forceRefreshPicture() {
-    this.profilePicture.refresh();
-  }
 
   static styles = [
     ...TitaniumPopupSurfaceFoundation.styles,
@@ -119,7 +106,7 @@ export class ProfilePictureMenuPopupElement extends TitaniumPopupSurfaceFoundati
   render() {
     return html`
       <main @mousedown=${(e: Event) => e.preventDefault()}>
-        <profile-picture shape="circle" .personId=${this.personId} size="90"></profile-picture>
+        <profile-picture shape="circle" .fileName=${this.profilePictureFileName} size="90"></profile-picture>
         <h1>${this.name}</h1>
         ${this.company ? html`<h2 company>${this.company}</h2>` : ''}
         <h2>${this.email}</h2>

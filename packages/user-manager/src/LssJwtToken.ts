@@ -9,6 +9,7 @@ export interface LssJwtToken {
   given_name: string;
   Company?: string;
   CompanyId?: string;
+  PicCdnFileName?: string;
   iss: string;
   nameid: string;
   nbf: number;

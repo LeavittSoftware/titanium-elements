@@ -34,6 +34,8 @@ export class UserManager extends LitElement {
 
   @property({ type: Number }) companyId: number | null;
 
+  @property({ type: String }) profilePictureFileName: string | null;
+
   @property({ type: String }) email: string;
 
   @property({ type: Number }) personId: number = 0;
@@ -246,6 +248,7 @@ export class UserManager extends LitElement {
 
     this.company = _jwtToken.Company ?? '';
     this.companyId = _jwtToken.CompanyId ? Number(_jwtToken.CompanyId) : 0;
+    this.profilePictureFileName = _jwtToken.PicCdnFileName || null;
 
     this.dispatchEvent(new UserManagerUpdatedEvent());
   }
@@ -355,6 +358,7 @@ export class UserManager extends LitElement {
     this.fullname = '';
     this.company = '';
     this.companyId = null;
+    this.profilePictureFileName = null;
     this.firstName = '';
     this.lastName = '';
     this.email = '';

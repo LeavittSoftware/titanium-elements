@@ -91,6 +91,7 @@ export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
             FullName: 'Aaron Drabeck',
             Id: 11056,
             type: 'Person',
+            ProfilePictureCdnFileName: 'zP6DJ9lM6HmkTAaku8ZIzQQdUBHYrX5pCCANvFxtpnagBhJPp7CGXOl-16xe',
           }}
           disabled
           .apiService=${this.apiService}

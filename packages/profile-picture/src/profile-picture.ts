@@ -1,6 +1,6 @@
 ﻿import { isDevelopment } from '@leavittsoftware/titanium-helpers';
 import { css, html, LitElement } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
 /**
  * Displays a Leavitt Group users profile picture
@@ -11,9 +11,9 @@ import { customElement, property, state } from 'lit/decorators.js';
 @customElement('profile-picture')
 export class ProfilePictureElement extends LitElement {
   /**
-   * Person id of user
+   * File name of the profile picture on CDN, no extension
    */
-  @property({ type: Number }) personId: number = 0;
+  @property({ reflect: true, type: String }) fileName: string | null;
 
   /**
    * Shape of profile picture
@@ -28,7 +28,7 @@ export class ProfilePictureElement extends LitElement {
   /**
    * Makes the image a link to the respective profile page
    */
-  @property({ reflect: true, type: Boolean, attribute: 'link-to-profile' }) linkToProfile: boolean;
+  @property({ reflect: true, type: Number, attribute: 'profile-picture-link-person-id' }) profilePictureLinkPersonId: number | null;
 
   /**
    * Size in pixels of profile picture
@@ -40,10 +40,7 @@ export class ProfilePictureElement extends LitElement {
    */
   @property({ type: Boolean }) useIntrinsicImageSize: boolean = false;
 
-  @state() protected cacheBust: number = 0;
-  @state() protected hasError = false;
-
-  #availableSizes = new Set([32, 64, 128, 256, 512]);
+  #availableSizes = new Set([32, 64, 128, 256, 512, 1024]);
 
   #determineSize(size: number) {
     const availableSizes = [...this.#availableSizes];
@@ -56,23 +53,21 @@ export class ProfilePictureElement extends LitElement {
     return 512;
   }
 
+  #getFilePath(cdnFileName: string | null, size: number) {
+    const requestedSize = this.#determineSize(size);
+
+    if (!cdnFileName) {
+      return `https://cdn.leavitt.com/user-0-${requestedSize}.webp`;
+    } else {
+      return `https://cdn.leavitt.com/${cdnFileName}-${requestedSize}.webp`;
+    }
+  }
+
   updated(changedProps) {
     if (changedProps.has('size') && changedProps.get('size') !== this.size && !this.useIntrinsicImageSize) {
       this.style.width = this.size + 'px';
       this.style.height = this.size + 'px';
     }
-
-    if (changedProps.has('personId')) {
-      this.hasError = false;
-    }
-  }
-
-  /**
-   * Reloads profile picture from server
-   */
-  refresh() {
-    this.hasError = false;
-    this.cacheBust = this.cacheBust > 0 ? this.cacheBust + 1 : 1;
   }
 
   static styles = css`
@@ -140,22 +135,12 @@ export class ProfilePictureElement extends LitElement {
   `;
 
   renderProfilePicture() {
-    return html`
-      <img
-        loading="lazy"
-        draggable="false"
-        alt="User profile picture"
-        @error=${() => (this.hasError = true)}
-        src="https://cdn.leavitt.com/user-${this.hasError ? 0 : this.personId}-${this.#determineSize(this.size)}.jpeg${this.cacheBust > 0
-          ? `?c=${this.cacheBust}`
-          : ''}"
-      />
-    `;
+    return html` <img loading="lazy" draggable="false" alt="User profile picture" src=${this.#getFilePath(this.fileName, this.size)} /> `;
   }
 
   render() {
-    if (this.linkToProfile) {
-      return html`<a target="_blank" href="https://${isDevelopment ? 'dev' : ''}directory.leavitt.com/profile/${this.personId}"
+    if (this.profilePictureLinkPersonId) {
+      return html`<a target="_blank" href="https://${isDevelopment ? 'dev' : ''}directory.leavitt.com/profile/${this.profilePictureLinkPersonId}"
         >${this.renderProfilePicture()}</a
       > `;
     }
