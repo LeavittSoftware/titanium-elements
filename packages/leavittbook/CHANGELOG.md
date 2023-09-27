@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@9.1.1...@leavittsoftware/leavittbook@9.2.0) (2023-09-27)
+
+### Features
+
+- adds the ability to cache bust smart attachment input ([#483](https://github.com/LeavittSoftware/titanium-elements/issues/483)) ([557cd4d](https://github.com/LeavittSoftware/titanium-elements/commit/557cd4d32475349b4a7ea9f2609dfc93648c55c2))
+
 ## [9.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@9.1.0...@leavittsoftware/leavittbook@9.1.1) (2023-09-21)
 
 **Note:** Version bump only for package @leavittsoftware/leavittbook

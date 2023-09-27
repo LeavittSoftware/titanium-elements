@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.3.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@8.3.1...@leavittsoftware/leavitt-elements@8.3.2) (2023-09-27)
+
+### Bug Fixes
+
+- reduce font size on mobile ([#482](https://github.com/LeavittSoftware/titanium-elements/issues/482)) ([412f189](https://github.com/LeavittSoftware/titanium-elements/commit/412f189a08564ce04080d1a41fc21f47c04e1c07))
+
 ## [8.3.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavitt-elements@8.3.0...@leavittsoftware/leavitt-elements@8.3.1) (2023-09-21)
 
 **Note:** Version bump only for package @leavittsoftware/leavitt-elements

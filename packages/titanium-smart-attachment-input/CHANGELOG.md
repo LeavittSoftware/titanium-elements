@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.4.0 (2023-09-27)
+
+### Features
+
+- adds the ability to cache bust smart attachment input ([#483](https://github.com/LeavittSoftware/titanium-elements/issues/483)) ([557cd4d](https://github.com/LeavittSoftware/titanium-elements/commit/557cd4d32475349b4a7ea9f2609dfc93648c55c2))
+
 ## 3.3.10 (2023-09-05)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-smart-attachment-input
