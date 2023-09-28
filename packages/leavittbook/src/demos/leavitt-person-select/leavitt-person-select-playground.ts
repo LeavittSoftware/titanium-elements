@@ -11,6 +11,7 @@ import { AuthenticatedTokenProvider } from '@leavittsoftware/api-service/lib/aut
 /* playground-fold-end */
 import '@leavittsoftware/leavitt-elements/lib/leavitt-person-select';
 import { LeavittPersonSelectElement } from '@leavittsoftware/leavitt-elements/lib/leavitt-person-select';
+import { Person } from '@leavittsoftware/lg-core-typescript';
 
 /* playground-fold */
 @customElement('leavitt-person-select-playground')
@@ -75,7 +76,15 @@ export class LeavittPersonSelectPlaygroundElement extends LitElement {
       <p>Default person select</p>
       <div>
         <leavitt-person-select label="default" .apiService=${this.apiService}></leavitt-person-select>
-        <leavitt-person-select label="default" .selected=${{ Id: 11056, FullName: 'Aaron Drabeck' }} .apiService=${this.apiService}></leavitt-person-select>
+        <leavitt-person-select
+          label="default"
+          .selected=${{
+            Id: 11056,
+            FullName: 'Aaron Drabeck',
+            ProfilePictureCdnFileName: 'zP6DJ9lM6HmkTAaku8ZIzQQdUBHYrX5pCCANvFxtpnagBhJPp7CGXOl-16xe',
+          } satisfies Partial<Person>}
+          .apiService=${this.apiService}
+        ></leavitt-person-select>
         <leavitt-person-select label="placeholder" placeholder="My placeholder" .apiService=${this.apiService}></leavitt-person-select>
         <leavitt-person-select label="disabled" disabled .apiService=${this.apiService}></leavitt-person-select>
         <leavitt-person-select label="helper" helper="helper text" .apiService=${this.apiService}></leavitt-person-select>

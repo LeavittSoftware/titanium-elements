@@ -11,7 +11,7 @@ import { TextField } from '@material/mwc-textfield';
 import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar/lib/titanium-snackbar';
 
 import { getSearchTokens, Debouncer, LoadWhile } from '@leavittsoftware/titanium-helpers';
-import { Person } from '@leavittsoftware/lg-core-typescript/lg.net.core';
+import { Person } from '@leavittsoftware/lg-core-typescript';
 import ApiService from '@leavittsoftware/api-service/lib/api-service';
 import { DOMEvent } from './dom-event';
 import { SelectedDetail } from '@material/mwc-menu/mwc-menu-base';
@@ -55,7 +55,12 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
   /**
    *  Odata parts for the Person API call
    */
-  @property({ type: Array }) odataParts: Array<string> = ['top=15', 'orderby=FullName', 'select=FullName,CompanyName,Id', 'count=true'];
+  @property({ type: Array }) odataParts: Array<string> = [
+    'top=15',
+    'orderby=FullName',
+    'select=FullName,CompanyName,Id,ProfilePictureCdnFileName',
+    'count=true',
+  ];
 
   /**
    *  The person object selected by the user.
@@ -73,9 +78,9 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
   @property({ type: String }) label: string = 'Person';
 
   /**
-   *  Path to personId.
+   *  Path to profile picture filename.
    */
-  @property({ type: String }) pathToPersonId: string = 'Id';
+  @property({ type: String }) pathToProfilePictureFileName: string = 'ProfilePictureCdnFileName';
 
   /**
    *  Set the name of the API controller to use
@@ -326,7 +331,7 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
         }}
       ></mwc-textfield>
       ${this.selected
-        ? html` <profile-picture selected .personId=${this.selected?.[this.pathToPersonId] || 0} shape="circle" size="24"></profile-picture>`
+        ? html` <profile-picture selected .fileName=${this.selected?.[this.pathToProfilePictureFileName] || 0} shape="circle" size="24"></profile-picture>`
         : ''}
       <mwc-menu
         ?fixed=${this.fixedMenuPosition}
@@ -357,7 +362,7 @@ export class LeavittPersonSelectElement extends LoadWhile(LitElement) {
             <mwc-list-item twoline graphic="avatar">
               <span>${person.FullName}</span>
               <span slot="secondary">${person.CompanyName}</span>
-              <profile-picture slot="graphic" .personId=${person?.[this.pathToPersonId] || 0} shape="circle" size="40"></profile-picture>
+              <profile-picture slot="graphic" .fileName=${person?.[this.pathToProfilePictureFileName] || 0} shape="circle" size="40"></profile-picture>
             </mwc-list-item>
           `
         )}

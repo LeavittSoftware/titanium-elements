@@ -214,7 +214,7 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
     }
 
     try {
-      const odataParts = ['top=100', 'count=true', 'select=FullName,Id,CompanyName'];
+      const odataParts = ['top=100', 'count=true', 'select=FullName,Id,CompanyName,ProfilePictureCdnFileName'];
       const searchTokens = getSearchTokens(searchTerm);
       if (searchTokens.length > 0) {
         const searchFilter = searchTokens.map((token: string) => `contains(tolower(FullName), '${token.toLowerCase()}')`).join(' and ');
@@ -363,7 +363,7 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
       ></mwc-textfield>
       <div icon>
         ${this.selected?.type === 'Person'
-          ? html`<profile-picture selected .personId=${this.selected?.Id || 0} shape="circle" size="24"></profile-picture>`
+          ? html`<profile-picture selected .fileName=${this.selected?.ProfilePictureCdnFileName || null} shape="circle" size="24"></profile-picture>`
           : this.selected?.type === 'Company'
           ? html`<img selected src=${this.selected?.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />`
           : this.selected?.type === 'CustomEntity'
@@ -401,7 +401,7 @@ export class LeavittPersonCompanySelectElement extends LoadWhile(LitElement) {
                 <mwc-list-item twoline graphic="medium">
                   <span>${suggestion?.FullName}</span>
                   <span slot="secondary">${suggestion?.CompanyName}</span>
-                  <profile-picture slot="graphic" .personId=${suggestion?.Id || 0} shape="circle" size="40"></profile-picture>
+                  <profile-picture slot="graphic" .fileName=${suggestion?.ProfilePictureCdnFileName || null} shape="circle" size="40"></profile-picture>
                 </mwc-list-item>
               `
             : suggestion.type == 'Company'

@@ -210,7 +210,7 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
     }
 
     try {
-      const odataParts = ['top=100', 'count=true', 'select=FullName,Id,CompanyName'];
+      const odataParts = ['top=100', 'count=true', 'select=FullName,Id,CompanyName,ProfilePictureCdnFileName'];
       const searchTokens = getSearchTokens(searchTerm);
       if (searchTokens.length > 0) {
         const searchFilter = searchTokens.map((token: string) => `contains(tolower(FullName), '${token.toLowerCase()}')`).join(' and ');
@@ -370,7 +370,7 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
         }}
       ></mwc-textfield>
       ${this.selected?.type === 'Person'
-        ? html`<profile-picture selected .personId=${this.selected?.Id || 0} shape="circle" size="24"></profile-picture>`
+        ? html`<profile-picture selected .fileName=${this.selected?.ProfilePictureCdnFileName || null} shape="circle" size="24"></profile-picture>`
         : this.selected?.type === 'PeopleGroup'
         ? html`<mwc-icon selected title=${peopleGroupIcons.get(this.selected['@odata.type'])?.displayName ?? 'People group'} slot="graphic"
             >${peopleGroupIcons.get(this.selected['@odata.type'])?.icon ?? 'task_alt'}</mwc-icon
@@ -406,7 +406,7 @@ export class LeavittPersonGroupSelectElement extends LoadWhile(LitElement) {
                 <mwc-list-item twoline graphic="avatar">
                   <span>${suggestion?.FullName}</span>
                   <span slot="secondary">${suggestion?.CompanyName}</span>
-                  <profile-picture slot="graphic" .personId=${suggestion?.Id || 0} shape="circle" size="40"></profile-picture>
+                  <profile-picture slot="graphic" .fileName=${suggestion?.ProfilePictureCdnFileName || 0} shape="circle" size="40"></profile-picture>
                 </mwc-list-item>
               `
             : suggestion.type == 'PeopleGroup'

@@ -65,7 +65,7 @@ export class TitaniumChipPlayground extends LitElement {
       <h1>Profile pictures</h1>
       <p>Slot in the profile picture element</p>
       <div>
-        <titanium-chip label="The Rock"><profile-picture slot="chip-icon" personId="915608" size="28"></profile-picture ></profile-picture></titanium-chip>
+        <titanium-chip label="The Rock"><profile-picture slot="chip-icon" size="28"></profile-picture ></profile-picture></titanium-chip>
       </div>
 
       <h1>Icons</h1>
@@ -78,7 +78,7 @@ export class TitaniumChipPlayground extends LitElement {
       <h1>Variable type</h1>
       <p>Examples using various chip types together without a flex container</p>
       <span>
-        <titanium-chip label="The Rock"><profile-picture slot="chip-icon" personId="915608" size="28"></profile-picture ></profile-picture></titanium-chip>
+        <titanium-chip label="The Rock"><profile-picture slot="chip-icon" size="28"></profile-picture ></profile-picture></titanium-chip>
         <titanium-chip label="Online"> <mwc-icon slot="chip-icon">bolt</mwc-icon></titanium-chip>
         <titanium-chip label="Default"></titanium-chip>
       </span>

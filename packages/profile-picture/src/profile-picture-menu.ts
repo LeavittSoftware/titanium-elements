@@ -7,7 +7,6 @@ import { css, html, LitElement } from 'lit';
 import { property, customElement, query } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { ProfilePictureMenuPopupElement } from './profile-picture-menu-popup';
-import { ProfilePictureElement } from './profile-picture';
 
 /**
  * Profile picture menu for the Leavitt Group
@@ -25,6 +24,8 @@ export class ProfilePictureMenuElement extends LitElement {
    */
   @property({ type: Number }) size: number = 40;
 
+  @property({ type: String }) profilePictureFileName: string | null;
+
   /**
    * Person id of user
    */
@@ -40,7 +41,6 @@ export class ProfilePictureMenuElement extends LitElement {
    */
   @property({ type: String }) company: string = '';
 
-  @query('profile-picture') profilePicture: ProfilePictureElement;
   @query('profile-picture-menu-popup') popup: ProfilePictureMenuPopupElement;
 
   /**
@@ -54,18 +54,11 @@ export class ProfilePictureMenuElement extends LitElement {
   }
 
   /**
-   * Reloads profile picture from server
-   */
-  forceRefreshPicture() {
-    this.profilePicture.refresh();
-    this.popup.forceRefreshPicture();
-  }
-
-  /**
    * Sets properties based on user manager instance
    */
   setUserProps() {
     this.personId = GetUserManagerInstance().personId;
+    this.profilePictureFileName = GetUserManagerInstance().profilePictureFileName;
     this.email = GetUserManagerInstance().email;
     this.company = GetUserManagerInstance().company;
     this.name = GetUserManagerInstance().fullname;
@@ -100,7 +93,7 @@ export class ProfilePictureMenuElement extends LitElement {
       >
         <profile-picture
           shape="circle"
-          .personId=${this.personId}
+          .fileName=${this.profilePictureFileName}
           .size=${this.size}
           @click=${() => {
             if (this.personId) {
@@ -113,7 +106,7 @@ export class ProfilePictureMenuElement extends LitElement {
         <profile-picture-menu-popup
           anchor-margin-bottom="5"
           anchor-corner="9"
-          .personId=${this.personId}
+          .profilePictureFileName=${this.profilePictureFileName}
           .name=${this.name}
           .email=${this.email}
           .company=${this.company}
