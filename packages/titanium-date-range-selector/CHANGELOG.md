@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.8](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-date-range-selector@3.0.7...@leavittsoftware/titanium-date-range-selector@3.0.8) (2023-09-28)
+
+**Note:** Version bump only for package @leavittsoftware/titanium-date-range-selector
+
 ## [3.0.7](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/titanium-date-range-selector@3.0.6...@leavittsoftware/titanium-date-range-selector@3.0.7) (2023-09-27)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-date-range-selector

@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@9.2.0...@leavittsoftware/leavittbook@10.0.0) (2023-09-28)
+
+### Features
+
+- change profile picture to drive off filename vs personId ([1b85c82](https://github.com/LeavittSoftware/titanium-elements/commit/1b85c82c53bdbdc65d6cd8ccdfb420f983026355))
+
+### BREAKING CHANGES
+
+- profile-picture personId property has been removed. Use fileName to supply profile picture file name off the CDN. link-to-profile was replaced by profile-picture-link-person-id where a person id must be supplied to construct a valid like to directory. All cache busting was removed because it is no longer needed with this approach. A profilePictureFileName was added to user manager to supply picture file name of logged in user.
+
 # [9.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@9.1.1...@leavittsoftware/leavittbook@9.2.0) (2023-09-27)
 
 ### Features
