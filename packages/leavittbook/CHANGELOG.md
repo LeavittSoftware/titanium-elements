@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@10.0.0...@leavittsoftware/leavittbook@10.1.0) (2023-09-29)
+
+### Features
+
+- **titanium-data-table:** adds css variable to set width of select in page-control ([b727286](https://github.com/LeavittSoftware/titanium-elements/commit/b727286c7864f1d55f04fa93ffd7b1fa034ebe93))
+
 # [10.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@9.2.0...@leavittsoftware/leavittbook@10.0.0) (2023-09-28)
 
 ### Features

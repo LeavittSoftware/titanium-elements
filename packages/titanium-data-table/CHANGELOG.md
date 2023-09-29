@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 15.3.0 (2023-09-29)
+
+### Features
+
+- **titanium-data-table:** adds css variable to set width of select in page-control ([b727286](https://github.com/LeavittSoftware/titanium-elements/commit/b727286c7864f1d55f04fa93ffd7b1fa034ebe93))
+
 ## 15.2.1 (2023-09-05)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-data-table
