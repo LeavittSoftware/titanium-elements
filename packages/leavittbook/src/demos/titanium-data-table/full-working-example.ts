@@ -146,6 +146,7 @@ export class TitaniumDataTableFullPlayground extends LitElement {
 
       titanium-data-table {
         margin: 24px 0 36px 0;
+        --titanium-page-control-select-width: 108px;
       }
 
       mwc-button,
