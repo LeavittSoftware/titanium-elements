@@ -3,7 +3,7 @@ import { customElement, property, query } from 'lit/decorators.js';
 import '@material/mwc-select';
 import '@leavittsoftware/titanium-icon';
 import '@material/mwc-list/mwc-list-item';
-import { MaterialIcon, MaterialIcons } from './material-icons';
+import { MaterialSymbol, MaterialSymbols } from './material-symbols';
 import { Select } from '@material/mwc-select';
 
 /**
@@ -17,7 +17,7 @@ export class TitaniumIconPicker extends LitElement {
   /**
    *  The selected icon
    */
-  @property({ type: String }) value: MaterialIcon | null = null;
+  @property({ type: String }) value: MaterialSymbol | null = null;
 
   /**
    *  Sets floating label value.
@@ -101,7 +101,7 @@ export class TitaniumIconPicker extends LitElement {
       @selected=${e => (this.value = e.target.value || null)}
     >
       ${!this.required ? html`<mwc-list-item value=""></mwc-list-item>` : ''}
-      ${MaterialIcons.map(
+      ${MaterialSymbols.map(
         (icon: string) => html`
           <mwc-list-item graphic="icon" value=${icon}><titanium-icon slot="graphic" icon=${icon}></titanium-icon> ${icon}</mwc-list-item>
         `
