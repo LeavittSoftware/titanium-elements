@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@10.1.0...@leavittsoftware/leavittbook@10.1.1) (2023-10-05)
+
+### Bug Fixes
+
+- leavittbook metadata and title ([#486](https://github.com/LeavittSoftware/titanium-elements/issues/486)) ([5dfcd23](https://github.com/LeavittSoftware/titanium-elements/commit/5dfcd235b9c47ebdc6a43eadd03dcc46b3591427))
+
 # [10.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@10.0.0...@leavittsoftware/leavittbook@10.1.0) (2023-09-29)
 
 ### Features
