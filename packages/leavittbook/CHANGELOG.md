@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [11.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@10.1.1...@leavittsoftware/leavittbook@11.0.0) (2023-10-06)
+
+### Features
+
+- replace material icons with symbols ([#487](https://github.com/LeavittSoftware/titanium-elements/issues/487)) ([a7285b5](https://github.com/LeavittSoftware/titanium-elements/commit/a7285b5f49e318cde28ed48b708c961ce19dbf05))
+
+### BREAKING CHANGES
+
+- applications using the titanium-icon-picker must now use the new material symbols font.
+
 ## [10.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/leavittbook@10.1.0...@leavittsoftware/leavittbook@10.1.1) (2023-10-05)
 
 ### Bug Fixes
