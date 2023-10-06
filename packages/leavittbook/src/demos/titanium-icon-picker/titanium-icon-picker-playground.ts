@@ -20,7 +20,7 @@ export class TitaniumIconPickerPlayground extends LitElement {
       :host {
         display: flex;
         flex-direction: column;
-        --mdc-icon-font: 'Material Icons Outlined';
+        --mdc-icon-font: 'Material Symbols Outlined';
         margin: 24px 12px;
       }
 
