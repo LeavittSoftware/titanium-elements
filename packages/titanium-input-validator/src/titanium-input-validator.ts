@@ -69,6 +69,9 @@ export class TitaniumInputValidator extends LitElement {
     outlined-container {
       display: flex;
       flex-direction: column;
+      height: inherit;
+      align-items: inherit;
+      justify-content: inherit;
       border: 1px solid var(--mdc-text-field-outlined-idle-border-color, rgba(0, 0, 0, 0.38));
       border-radius: 4px;
       position: relative;
