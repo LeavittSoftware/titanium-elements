@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 7.1.0 (2023-10-11)
+
+### Features
+
+- **titanium-header:** exposes shadow parts ([0eb7b58](https://github.com/LeavittSoftware/titanium-elements/commit/0eb7b58bbb531796f37dd85f2ce062c2377cdbfe))
+
 # 7.0.0 (2023-09-15)
 
 ### Features
