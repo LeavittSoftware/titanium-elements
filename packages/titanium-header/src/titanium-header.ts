@@ -137,13 +137,13 @@ export class TitaniumHeader extends LitElement {
 
   render() {
     return html`
-      <header>
-        ${this.icon ? html`<mwc-icon>${this.icon}</mwc-icon>` : nothing}
-        <h1>${this.header}</h1>
-        <mwc-icon-button icon="arrow_back" @click="${this.#handleBackClick}" large></mwc-icon-button>
+      <header part="header">
+        ${this.icon ? html`<mwc-icon part="icon">${this.icon}</mwc-icon>` : nothing}
+        <h1 part="h1">${this.header}</h1>
+        <mwc-icon-button part="button" icon="arrow_back" @click="${this.#handleBackClick}" large></mwc-icon-button>
       </header>
 
-      <h3>${this.subHeader}</h3>
+      <h3 part="h3">${this.subHeader}</h3>
     `;
   }
 }
