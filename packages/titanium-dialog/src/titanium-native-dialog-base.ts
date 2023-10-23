@@ -193,7 +193,6 @@ export class TitaniumNativeDialogBaseElement extends LitElement {
 
         overflow: initial;
 
-        position: fixed;
         top: 0;
         bottom: 0;
         left: 0;
