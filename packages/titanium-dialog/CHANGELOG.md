@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.3.6 (2023-10-24)
+
+### Bug Fixes
+
+- **titanium-dialog:** fix dialogs centering on 0,0 in safari ([1564eed](https://github.com/LeavittSoftware/titanium-elements/commit/1564eedd1ec67bad990f4b44ff61f82b5a2f9d81))
+
 ## 6.3.5 (2023-09-05)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-dialog
