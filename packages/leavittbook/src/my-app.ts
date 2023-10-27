@@ -323,8 +323,8 @@ export class MyApp extends LitElement {
       md-list-item {
         height: 26px;
         --md-list-item-one-line-container-height: 26px;
-        --md-list-item-label-text-line-height: 11px;
-        --md-list-item-label-text-size: 11px;
+        --md-list-item-label-text-size: 14px;
+        --md-list-item-label-text-weight: 400;
       }
 
       md-icon {
@@ -391,135 +391,127 @@ export class MyApp extends LitElement {
             <!-- Titanium menu -->
 
             <md-list-item ?selected=${this.page === 'confirm-dialog'} href="/confirm-dialog" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>confirm-dialog </span>
-            </md-list-item>
-
-            <md-list-item ?selected=${!!this.page?.includes('mwc-datefield')} href="/mwc-datefield" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>mwc-datefield </span>
+              <md-icon slot="start">library_books</md-icon> <span>Confirm dialog </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-access-denied-page'} href="/titanium-access-denied-page" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-access-denied-page </span>
+              <md-icon slot="start">library_books</md-icon> <span>Access denied page </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-address-input'} href="/titanium-address-input" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-address-input </span>
+              <md-icon slot="start">library_books</md-icon> <span>Address input </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-card'} href="/titanium-card" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-card </span>
+              <md-icon slot="start">library_books</md-icon> <span>Card </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-card-list-item'} href="/titanium-card-list-item" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-card-list-item </span>
+              <md-icon slot="start">library_books</md-icon> <span>Card list item </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-card-two-line-list-item'} href="/titanium-card-two-line-list-item" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-card-two-line-list-item </span>
+              <md-icon slot="start">library_books</md-icon> <span>Card two line list item </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-chip-multi-select'} href="/titanium-chip-multi-select" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-chip-multi-select </span>
+              <md-icon slot="start">library_books</md-icon> <span>Chip multi select </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-data-table'} href="/titanium-data-table" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-data-table </span>
+              <md-icon slot="start">library_books</md-icon> <span>Data table </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-data-table-header'} href="/titanium-data-table-header" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-data-table-header </span>
+              <md-icon slot="start">library_books</md-icon> <span>Data table header </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-data-table-item'} href="/titanium-data-table-item" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-data-table-item </span>
+              <md-icon slot="start">library_books</md-icon> <span>Data table item </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-date-range-selector'} href="/titanium-date-range-selector" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-date-range-selector </span>
-            </md-list-item>
-
-            <md-list-item ?selected=${!!this.page?.includes('titanium-dialog-base')} href="/titanium-dialog-base" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-dialog-base</span>
+              <md-icon slot="start">library_books</md-icon> <span>Date range selector </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-drawer'} href="/titanium-drawer" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-drawer</span>
+              <md-icon slot="start">library_books</md-icon> <span>Drawer</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-error-page')} href="/titanium-error-page" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-error-page</span>
+              <md-icon slot="start">library_books</md-icon> <span>Error page</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-full-page-loading-indicator')} href="/titanium-full-page-loading-indicator" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-full-page-loading-indicator</span>
+              <md-icon slot="start">library_books</md-icon> <span>Full page loading indicator</span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-header'} href="/titanium-header" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-header</span>
+              <md-icon slot="start">library_books</md-icon> <span>Header</span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-icon-picker'} href="/titanium-icon-picker" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-icon-picker</span>
+              <md-icon slot="start">library_books</md-icon> <span>Icon picker</span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-image-input'} href="/titanium-image-input" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-image-input</span>
+              <md-icon slot="start">library_books</md-icon> <span>Image input</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-offline-notice')} href="/titanium-offline-notice" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-offline-notice</span>
+              <md-icon slot="start">library_books</md-icon> <span>Offline notice</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-input-validator')} href="/titanium-input-validator" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-input-validator</span>
+              <md-icon slot="start">library_books</md-icon> <span>Input validator</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-loading-indicator')} href="/titanium-loading-indicator" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-loading-indicator</span>
+              <md-icon slot="start">library_books</md-icon> <span>Loading indicator</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-page-control')} href="/titanium-page-control" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-page-control</span>
+              <md-icon slot="start">library_books</md-icon> <span>Page control</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-search-input')} href="/titanium-search-input" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-search-input</span>
+              <md-icon slot="start">library_books</md-icon> <span>Search input</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-smart-attachment-input')} href="/titanium-smart-attachment-input" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-smart-attachment-input</span>
+              <md-icon slot="start">library_books</md-icon> <span>Smart attachment input</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-snackbar')} href="/titanium-snackbar" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-snackbar</span>
+              <md-icon slot="start">library_books</md-icon> <span>Snackbar</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-styles')} href="/titanium-styles" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-styles</span>
+              <md-icon slot="start">library_books</md-icon> <span>Styles</span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-tab-control'} href="/titanium-tab-control" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-tab-control</span>
+              <md-icon slot="start">library_books</md-icon> <span>Tab control</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-toolbar')} href="/titanium-toolbar" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-toolbar</span>
+              <md-icon slot="start">library_books</md-icon> <span>Toolbar</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-twoline-formfield')} href="/titanium-twoline-formfield" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-twoline-formfield</span>
+              <md-icon slot="start">library_books</md-icon> <span>Twoline formfield</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-youtube-input')} href="/titanium-youtube-input" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-youtube-input</span>
+              <md-icon slot="start">library_books</md-icon> <span>Youtube input</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-show-hide')} href="/titanium-show-hide" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-show-hide</span>
+              <md-icon slot="start">library_books</md-icon> <span>Show hide</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-duration-input')} href="/titanium-duration-input" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-duration-input</span>
+              <md-icon slot="start">library_books</md-icon> <span>Duration input</span>
             </md-list-item>
           </details>
         </section>
@@ -529,103 +521,112 @@ export class MyApp extends LitElement {
             <summary>Leavitt</summary>
             <!-- Leavitt menu -->
             <md-list-item ?selected=${this.page === 'leavitt-company-select'} href="/leavitt-company-select" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>leavitt-company-select </span>
+              <md-icon slot="start">library_books</md-icon> <span>Company select </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'leavitt-file-explorer'} href="/leavitt-file-explorer" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>leavitt-file-explorer </span>
+              <md-icon slot="start">library_books</md-icon> <span>File explorer </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'leavitt-person-company-select'} href="/leavitt-person-company-select" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>leavitt-person-company-select </span>
+              <md-icon slot="start">library_books</md-icon> <span>Person company select </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'leavitt-person-group-select'} href="/leavitt-person-group-select" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>leavitt-person-group-select </span>
+              <md-icon slot="start">library_books</md-icon> <span>Person group select </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'leavitt-person-select'} href="/leavitt-person-select" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>leavitt-person-select </span>
+              <md-icon slot="start">library_books</md-icon> <span>Person select </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'leavitt-user-feedback'} href="/leavitt-user-feedback" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>leavitt-user-feedback </span>
+              <md-icon slot="start">library_books</md-icon> <span>User feedback </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'profile-picture'} href="/profile-picture" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>profile-picture </span>
+              <md-icon slot="start">library_books</md-icon> <span>Profile picture </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'profile-picture-menu'} href="/profile-picture-menu" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>profile-picture-menu </span>
+              <md-icon slot="start">library_books</md-icon> <span>Profile picture menu </span>
             </md-list-item>
           </details>
         </section>
         <section>
           <details>
             <summary>Deprecated</summary>
+
+            <md-list-item ?selected=${!!this.page?.includes('mwc-datefield')} href="/mwc-datefield" type="link">
+              <md-icon slot="start">library_books</md-icon> <span>Datefield </span>
+            </md-list-item>
+
             <md-list-item ?selected=${this.page === 'titanium-color-input'} href="/titanium-color-input" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-color-input </span>
+              <md-icon slot="start">library_books</md-icon> <span>Color input </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-dialog'} href="/titanium-dialog" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-dialog </span>
+              <md-icon slot="start">library_books</md-icon> <span>Dialog </span>
+            </md-list-item>
+
+            <md-list-item ?selected=${!!this.page?.includes('titanium-dialog-base')} href="/titanium-dialog-base" type="link">
+              <md-icon slot="start">library_books</md-icon> <span>Dialog base</span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-attachment-input'} href="/titanium-attachment-input" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-attachment-input </span>
+              <md-icon slot="start">library_books</md-icon> <span>Attachment input </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-chip'} href="/titanium-chip" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-chip </span>
+              <md-icon slot="start">library_books</md-icon> <span>Chip </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-icon'} href="/titanium-icon" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-icon </span>
+              <md-icon slot="start">library_books</md-icon> <span>Icon </span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-shadow-text')} href="/titanium-shadow-text" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-shadow-text </span>
+              <md-icon slot="start">library_books</md-icon> <span>Shadow text </span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-single-action-card')} href="/titanium-single-action-card" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-single-action-card</span>
+              <md-icon slot="start">library_books</md-icon> <span>Single action card</span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-button'} href="/titanium-button" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-button </span>
+              <md-icon slot="start">library_books</md-icon> <span>Button </span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-side-menu-item')} href="/titanium-side-menu-item" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-side-menu-item </span>
+              <md-icon slot="start">library_books</md-icon> <span>Side menu item </span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-menu-surface')} href="/titanium-menu-surface" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-menu-surface</span>
+              <md-icon slot="start">library_books</md-icon> <span>Menu surface</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-progress')} href="/titanium-progress" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-progress</span>
+              <md-icon slot="start">library_books</md-icon> <span>Progress</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-select')} href="/titanium-select" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-select</span>
+              <md-icon slot="start">library_books</md-icon> <span>Select</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-toggle-button')} href="/titanium-toggle-button" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-toggle-button</span>
+              <md-icon slot="start">library_books</md-icon> <span>Toggle button</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-single-select')} href="/titanium-single-select" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-single-select</span>
+              <md-icon slot="start">library_books</md-icon> <span>Single select</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-svg-button')} href="/titanium-svg-button" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-svg-button</span>
+              <md-icon slot="start">library_books</md-icon> <span>Svg button</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-svg-button-menu')} href="/titanium-svg-button-menu" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>titanium-svg-button-menu</span>
+              <md-icon slot="start">library_books</md-icon> <span>Svg button menu</span>
             </md-list-item>
           </details>
         </section>

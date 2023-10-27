@@ -23,7 +23,7 @@ export const myAppStyles = css`
   md-list-item {
     border-radius: 24px;
     margin-left: 4px;
-    --md-list-item-label-text-font: Metropolis;
+    /* --md-list-item-label-text-font: Metropolis; */
     --md-list-item-label-text-size: 13px;
     --md-list-item-label-text-weight: 500;
     --md-list-item-one-line-container-height: 44px;
