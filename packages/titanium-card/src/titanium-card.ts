@@ -8,13 +8,14 @@ import { property, customElement } from 'lit/decorators.js';
  *
  * @element titanium-card
  *
+ * @cssprop {Number} [--md-elevation-level: 0] - Use md elevation to set elevation levels
+ * @cssprop {Color} [--md-elevation-shadow-color: --md-sys-color-shadow] - Use md elevation to set elevation levels
  * @cssprop {Color} [--md-sys-color-outline-variant] - Card border color
  *
  * @slot Default - Card content
  */
 @customElement('titanium-card')
 export class TitaniumCardElement extends LitElement {
-  @property({ type: String, reflect: true }) elevation: 'high' | undefined;
   @property({ type: Boolean, reflect: true, attribute: 'has-menu' }) hasMenu: boolean;
   @property({ type: Boolean, reflect: true, attribute: 'has-image' }) hasImage: boolean;
   @property({ type: Boolean, reflect: true, attribute: 'has-footer' }) hasFooter: boolean;
@@ -119,12 +120,6 @@ export class TitaniumCardElement extends LitElement {
       ::slotted([nav]) {
         margin: 16px -12px -12px 0;
         justify-self: right;
-      }
-
-      :host([elevation='high']) {
-        box-shadow:
-          0 1px 2px 0 rgb(60 64 67 / 30%),
-          0 1px 3px 1px rgb(60 64 67 / 15%);
       }
 
       @media (max-width: 400px) {

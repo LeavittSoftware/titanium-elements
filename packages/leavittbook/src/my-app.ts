@@ -168,12 +168,7 @@ export class MyApp extends LitElement {
     page('/titanium-data-table-header', () =>
       this.#changePage('titanium-data-table-header', () => import('./demos/titanium-data-table-header/titanium-data-table-header-demo.js'))
     );
-    page('/titanium-card-list-item', () =>
-      this.#changePage('titanium-card-list-item', () => import('./demos/titanium-card-list-item/titanium-card-list-item-demo.js'))
-    );
-    page('/titanium-card-two-line-list-item', () =>
-      this.#changePage('titanium-card-two-line-list-item', () => import('./demos/titanium-card-two-line-list-item/titanium-card-two-line-list-item-demo.js'))
-    );
+
     page('/titanium-dialog-base', () => this.#changePage('titanium-dialog-base', () => import('./demos/titanium-dialog-base/titanium-dialog-base-demo.js')));
     page('/titanium-dialog', () => this.#changePage('titanium-dialog', () => import('./demos/titanium-dialog/titanium-dialog-demo.js')));
     page('/confirm-dialog', () => this.#changePage('confirm-dialog', () => import('./demos/confirm-dialog/confirm-dialog-demo.js')));
@@ -205,9 +200,7 @@ export class MyApp extends LitElement {
     page('/titanium-side-menu-item', () =>
       this.#changePage('titanium-side-menu-item', () => import('./demos/titanium-side-menu-item/titanium-side-menu-item-demo.js'))
     );
-    page('/titanium-single-action-card', () =>
-      this.#changePage('titanium-single-action-card', () => import('./demos/titanium-single-action-card/titanium-single-action-card-demo.js'))
-    );
+
     page('/titanium-svg-button', () => this.#changePage('titanium-svg-button', () => import('./demos/titanium-svg-button/titanium-svg-button-demo.js')));
     page('/titanium-svg-button-menu', () =>
       this.#changePage('titanium-svg-button-menu', () => import('./demos/titanium-svg-button-menu/titanium-svg-button-menu-demo.js'))
@@ -406,14 +399,6 @@ export class MyApp extends LitElement {
               <md-icon slot="start">library_books</md-icon> <span>Card </span>
             </md-list-item>
 
-            <md-list-item ?selected=${this.page === 'titanium-card-list-item'} href="/titanium-card-list-item" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Card list item </span>
-            </md-list-item>
-
-            <md-list-item ?selected=${this.page === 'titanium-card-two-line-list-item'} href="/titanium-card-two-line-list-item" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Card two line list item </span>
-            </md-list-item>
-
             <md-list-item ?selected=${this.page === 'titanium-chip-multi-select'} href="/titanium-chip-multi-select" type="link">
               <md-icon slot="start">library_books</md-icon> <span>Chip multi select </span>
             </md-list-item>
@@ -589,10 +574,6 @@ export class MyApp extends LitElement {
               <md-icon slot="start">library_books</md-icon> <span>Shadow text </span>
             </md-list-item>
 
-            <md-list-item ?selected=${!!this.page?.includes('titanium-single-action-card')} href="/titanium-single-action-card" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Single action card</span>
-            </md-list-item>
-
             <md-list-item ?selected=${this.page === 'titanium-button'} href="/titanium-button" type="link">
               <md-icon slot="start">library_books</md-icon> <span>Button </span>
             </md-list-item>
@@ -678,14 +659,6 @@ export class MyApp extends LitElement {
         ${this.page === 'titanium-input-validator'
           ? html` <titanium-input-validator-demo ?isActive=${this.page === 'titanium-input-validator'}></titanium-input-validator-demo> `
           : nothing}
-        ${this.page === 'titanium-card-list-item'
-          ? html` <titanium-card-list-item-demo ?isActive=${this.page === 'titanium-card-list-item'}></titanium-card-list-item-demo> `
-          : nothing}
-        ${this.page === 'titanium-card-two-line-list-item'
-          ? html`
-              <titanium-card-two-line-list-item-demo ?isActive=${this.page === 'titanium-card-two-line-list-item'}></titanium-card-two-line-list-item-demo>
-            `
-          : nothing}
         ${this.page === 'titanium-data-table'
           ? html` <titanium-data-table-demo ?isActive=${this.page === 'titanium-data-table'}></titanium-data-table-demo> `
           : nothing}
@@ -726,9 +699,6 @@ export class MyApp extends LitElement {
           : nothing}
         ${this.page === 'titanium-side-menu-item'
           ? html` <titanium-side-menu-item-demo ?isActive=${this.page === 'titanium-side-menu-item'}></titanium-side-menu-item-demo> `
-          : nothing}
-        ${this.page === 'titanium-single-action-card'
-          ? html` <titanium-single-action-card-demo ?isActive=${this.page === 'titanium-single-action-card'}></titanium-single-action-card-demo> `
           : nothing}
         ${this.page === 'titanium-svg-button'
           ? html` <titanium-svg-button-demo ?isActive=${this.page === 'titanium-svg-button'}></titanium-svg-button-demo> `
