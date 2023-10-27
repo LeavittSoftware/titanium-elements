@@ -1,6 +1,8 @@
 import { css, html, LitElement } from 'lit';
 import { property, customElement, query } from 'lit/decorators.js';
-import '@material/mwc-icon-button';
+
+import '@material/web/iconbutton/icon-button';
+import '@material/web/icon/icon';
 
 /**
  * A styled input with built-in search and clear icons. .
@@ -11,7 +13,7 @@ import '@material/mwc-icon-button';
  *
  * @cssprop {Color} --app-text-color - Not active text color
  * @cssprop {Color} --app-dark-text-color - Focuses text color
- * @cssprop {Color} --app-border-color - Input border color
+ * @cssprop {Color} --md-sys-color-outline-variant - Input border color
  *
  */
 @customElement('titanium-search-input')
@@ -107,7 +109,8 @@ export class TitaniumSearchInput extends LitElement {
       -webkit-transition: width 250ms 0ms cubic-bezier(0.4, 0, 0.2, 1); /* Safari */
       transition: width 250ms 0ms cubic-bezier(0.4, 0, 0.2, 1);
       width: 250px;
-      --mdc-icon-button-size: 42px;
+      --md-icon-button-state-layer-width: 42px;
+      --md-icon-button-state-layer-height: 42px;
     }
 
     input-container {
@@ -116,17 +119,17 @@ export class TitaniumSearchInput extends LitElement {
       position: relative;
     }
 
-    mwc-icon-button {
+    md-icon-button {
       position: absolute;
       color: var(--app-text-color, #5f6368);
       top: 0;
     }
 
-    mwc-icon-button[clear] {
+    md-icon-button[clear] {
       right: 0;
     }
 
-    mwc-icon-button[search] {
+    md-icon-button[search] {
       left: 0;
     }
 
@@ -144,14 +147,16 @@ export class TitaniumSearchInput extends LitElement {
       margin: 0;
       padding-left: 46px !important;
       padding-right: 46px !important;
-      transition: background 100ms ease-in, width 100ms ease-out;
+      transition:
+        background 100ms ease-in,
+        width 100ms ease-out;
       color: var(--app-text-color, #5f6368);
       background-color: #fff;
       border-top-left-radius: 20px;
       border-top-right-radius: 20px;
       border-bottom-left-radius: 20px;
       border-bottom-right-radius: 20px;
-      border: 1px solid var(--app-border-color, #dadce0);
+      border: 1px solid var(--md-sys-color-outline-variant);
     }
 
     :host([shallow]) input-container input {
@@ -209,7 +214,7 @@ export class TitaniumSearchInput extends LitElement {
   render() {
     return html`
       <input-container>
-        <mwc-icon-button ?disabled=${this.disabled} search @click=${this.#handleSearchClick} icon="search"></mwc-icon-button>
+        <md-icon-button ?disabled=${this.disabled} search @click=${this.#handleSearchClick}><md-icon>search</md-icon></md-icon-button>
         <input
           type="text"
           ?disabled=${this.disabled || (this.collapsed && !this.preventCollapse)}
@@ -220,9 +225,10 @@ export class TitaniumSearchInput extends LitElement {
           @focusout=${this.#lostFocus}
           @change=${this.#onValueChange}
         />
+
         ${this.hideClearButton || !this.value
           ? ''
-          : html` <mwc-icon-button clear @click=${this.#onClearClick} ?disabled=${this.disabled} icon="close"></mwc-icon-button> `}
+          : html` <md-icon-button clear @click=${this.#onClearClick} ?disabled=${this.disabled}> <md-icon>close</md-icon></md-icon-button> `}
       </input-container>
     `;
   }
