@@ -11,8 +11,6 @@ import '@material/web/icon/icon';
  *
  * @fires value-changed - Fired when selection changes. details contains the selected item <T> or null.
  *
- * @cssprop {Color} --app-text-color - Not active text color
- * @cssprop {Color} --app-dark-text-color - Focuses text color
  * @cssprop {Color} --md-sys-color-outline-variant - Input border color
  *
  */
@@ -121,7 +119,6 @@ export class TitaniumSearchInput extends LitElement {
 
     md-icon-button {
       position: absolute;
-      color: var(--app-text-color, #5f6368);
       top: 0;
     }
 
@@ -150,7 +147,6 @@ export class TitaniumSearchInput extends LitElement {
       transition:
         background 100ms ease-in,
         width 100ms ease-out;
-      color: var(--app-text-color, #5f6368);
       background-color: #fff;
       border-top-left-radius: 20px;
       border-top-right-radius: 20px;
@@ -200,10 +196,6 @@ export class TitaniumSearchInput extends LitElement {
       outline: none;
       font-size: 16px;
       font-weight: 400;
-    }
-
-    input-container input:focus {
-      color: var(--app-dark-text-color, #202124);
     }
 
     [hidden] {
