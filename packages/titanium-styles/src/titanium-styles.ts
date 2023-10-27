@@ -14,4 +14,3 @@ export { a } from './a';
 export { a as link } from './a';
 export { dataRow } from './data-row';
 export { ellipsis } from './ellipsis';
-export { button } from './button';
