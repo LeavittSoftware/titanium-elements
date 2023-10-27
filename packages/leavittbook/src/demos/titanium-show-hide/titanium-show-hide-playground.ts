@@ -25,7 +25,6 @@ export class TitaniumColorInputPlayground extends LitElement {
       :host {
         display: flex;
         flex-direction: column;
-        --mdc-icon-font: 'Material Icons Outlined';
         margin: 24px 12px;
       }
 
@@ -39,9 +38,9 @@ export class TitaniumColorInputPlayground extends LitElement {
       }
 
       div[main] {
-        border: 1px solid var(--app-border-color);
-        padding: 12px 24px;
+        border: 1px solid var(--md-sys-color-outline-variant);
         border-radius: 8px;
+        padding: 12px 24px;
         display: flex;
         flex-direction: column;
         gap: 12px;
@@ -272,10 +271,7 @@ export class TitaniumColorInputPlayground extends LitElement {
       <h1>Show hide text</h1>
       <p>Reveal some more text. Sets custom collapsed/expanded text and custom button alignment.</p>
       <div main>
-        <titanium-show-hide
-          @collapsed-changed=${(e) => (this.collapsed = e.target.collapsed)}
-          start
-        >
+        <titanium-show-hide @collapsed-changed=${(e) => (this.collapsed = e.target.collapsed)} start>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum arcu, semper ac aliquet eu, porttitor vel turpis. Nullam non dolor ac massa
             pharetra vulputate vel ac libero. In hac habitasse platea dictumst. Praesent lacus mi, vehicula eu euismod sit amet, accumsan porta massa. Morbi
