@@ -1,17 +1,19 @@
 import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-item';
 import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-header';
+import '@material/web/dialog/dialog';
 import '@leavittsoftware/titanium-search-input';
-import '@material/mwc-icon';
-import '@material/mwc-icon-button';
-import '@material/mwc-button';
-import '@material/mwc-menu';
-import '@material/mwc-list/mwc-list-item';
-import '@material/mwc-switch';
-import '@material/mwc-formfield';
-import '@material/mwc-select';
-import '@material/mwc-dialog';
-import '@leavittsoftware/titanium-chip';
-import '@material/mwc-icon';
+import '@material/web/button/outlined-button';
+import '@material/web/button/filled-tonal-button';
+import '@material/web/icon/icon';
+import '@material/web/iconbutton/icon-button';
+import '@material/web/menu/menu';
+import '@material/web/menu/menu-item';
+import '@material/web/switch/switch';
+import '@material/web/chips/input-chip';
+import '@material/web/button/text-button';
+import '@material/web/select/outlined-select.js';
+import '@material/web/select/select-option.js';
+
 import '@leavittsoftware/titanium-data-table';
 
 /* playground-fold */
@@ -19,17 +21,16 @@ import { LitElement, css, html } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 import { h1, h2, p } from '@leavittsoftware/titanium-styles';
 
-import { ActionDetail } from '@material/mwc-list/mwc-list-foundation';
 import { DOMEvent } from '@leavittsoftware/leavitt-elements/lib/dom-event';
 import { Debouncer } from '@leavittsoftware/titanium-helpers';
-import { Dialog } from '@material/mwc-dialog';
 import { FilterController } from '@leavittsoftware/titanium-data-table/lib/filter-controller';
-import { Menu } from '@material/mwc-menu';
-import { Select } from '@material/mwc-select';
 import { TitaniumDataTableElement } from '@leavittsoftware/titanium-data-table/lib/titanium-data-table.js';
 import { TitaniumSearchInput } from '@leavittsoftware/titanium-search-input';
 import { getSearchTokens } from '@leavittsoftware/titanium-helpers/lib/titanium-search-token';
 import { repeat } from 'lit/directives/repeat.js';
+import { CloseMenuEvent, MdMenu, MenuItem } from '@material/web/menu/menu';
+import { MdIconButton } from '@material/web/iconbutton/icon-button';
+import { MdDialog } from '@material/web/dialog/dialog';
 
 /* playground-fold-end */
 
@@ -71,7 +72,7 @@ export class TitaniumDataTableFullPlayground extends LitElement {
   constructor() {
     super();
     this.filterController = new FilterController('/titanium-data-table');
-    this.filterController.setFilter('Appearance', val => `BasketId eq ${val}`);
+    this.filterController.setFilter('Appearance', (val) => `BasketId eq ${val}`);
 
     this.filterController.subscribeToFilterChange(async () => {
       if (this.dataTable) {
@@ -92,7 +93,7 @@ export class TitaniumDataTableFullPlayground extends LitElement {
   }
 
   #reset() {
-    this.allItems = allTeslas.map(o => ({ Name: o.Name, Appearance: o.Appearance }));
+    this.allItems = allTeslas.map((o) => ({ Name: o.Name, Appearance: o.Appearance }));
     this.#reload();
   }
 
@@ -117,11 +118,11 @@ export class TitaniumDataTableFullPlayground extends LitElement {
     const page = await this.dataTable.getPage();
     const sortDirection = this.sortDirection === 'asc' ? 1 : -1;
 
-    let filterItems = this.allItems.filter(o => searchTokens.every(st => o.Name?.trim().toLowerCase()?.includes(st.trim().toLowerCase())));
+    let filterItems = this.allItems.filter((o) => searchTokens.every((st) => o.Name?.trim().toLowerCase()?.includes(st.trim().toLowerCase())));
 
     const appearanceValue = this.filterController.getValue('Appearance');
     if (appearanceValue) {
-      filterItems = filterItems.filter(o => o.Appearance === appearanceValue);
+      filterItems = filterItems.filter((o) => o.Appearance === appearanceValue);
     }
 
     this.items = filterItems
@@ -147,11 +148,6 @@ export class TitaniumDataTableFullPlayground extends LitElement {
       titanium-data-table {
         margin: 24px 0 36px 0;
         --titanium-page-control-select-width: 108px;
-      }
-
-      mwc-button,
-      mwc-formfield {
-        margin: 4px;
       }
     `,
   ];
@@ -189,69 +185,68 @@ export class TitaniumDataTableFullPlayground extends LitElement {
           }}
         ></titanium-search-input>
 
-        <div slot="table-actions" style="position: relative;">
-          <mwc-icon-button
-            table-action-button
-            @click=${() => this.shadowRoot?.querySelector<Menu>('mwc-menu[table-action-menu]')?.show()}
-            id="button"
-            icon="more_vert"
-            label="Open Menu"
-          ></mwc-icon-button>
-          <mwc-menu
-            table-action-menu
-            .anchor=${this.shadowRoot?.querySelector<HTMLElement>('mwc-icon-button[table-action-button]') ?? null}
-            corner="BOTTOM_END"
-            menuCorner="END"
-            @action=${(e: CustomEvent<ActionDetail>) => {
-              switch (e.detail.index) {
-                case 0:
-                  this.#reset();
-                  break;
-              }
+      <md-icon-button
+            id="menu-anchor"
+            aria-haspopup="true"
+            aria-controls="menu"
+            aria-expanded="false"
+            @click=${(e: DOMEvent<MdIconButton>) => {
+              const root = (e.target as HTMLElement).getRootNode() as ShadowRoot;
+              const menu = root.querySelector('#menu') as MdMenu;
+              menu.open = !menu.open;
             }}
           >
-            <mwc-list-item graphic="icon">
-              <span>Reload list (reset)</span>
-              <mwc-icon slot="graphic">refresh</mwc-icon>
-            </mwc-list-item>
-          </mwc-menu>
+            <md-icon>more_vert</md-icon>
+          </md-icon-button>
+
+          <md-menu
+            id="menu"
+            anchor="menu-anchor"
+            @close-menu=${(e: CloseMenuEvent) => {
+              (e.detail.itemPath?.[0] as MenuItem & { action?: () => void })?.action?.();
+            }}
+          >
+            <md-menu-item headline="Reload list (reset)" .action=${() => this.#reset()}>
+              <md-icon refresh slot="start">refresh</md-icon>
+              Refresh
+            </md-menu-item>
+          </md-menu>
         </div>
 
-        <mwc-button
-          slot="add-button"
-          outlined
-          icon="add"
-          label="Add item"
-          @click=${() => {
-            const car = allTeslas[this.allItems.length % allTeslas.length];
-            const newItem: Partial<Car> = { Name: car.Name, Appearance: car.Appearance };
-            this.allItems.push(newItem);
-            this.#reload();
-          }}
-        ></mwc-button>
+        <md-filled-tonal-button slot="add-button" 
+        @click=${() => {
+          const car = allTeslas[this.allItems.length % allTeslas.length];
+          const newItem: Partial<Car> = { Name: car.Name, Appearance: car.Appearance };
+          this.allItems.push(newItem);
+          this.#reload();
+        }}>
+          <md-icon slot="icon">add</md-icon>
+          Add item
+        </md-filled-tonal-button>
 
         <data-table-demo-filter-modal slot="filters" .filterController=${this.filterController}></data-table-demo-filter-modal>
 
-        <mwc-icon-button
+        <md-icon-button
           slot="filter-button"
           @click=${async () => {
             this.filterModal.open();
           }}
-          title="Apply filters"
-          icon="filter_list"
-        ></mwc-icon-button>
+        >
+          <md-icon>filter_list</md-icon>
+        </md-icon-button>
 
-        <mwc-icon-button
+
+        <md-icon-button
           slot="selected-actions"
-          delete
-          title=${`Delete the selected item${this.selected.length > 1 ? 's' : ''}`}
+          ?disabled=${this.selected?.length > 1}
           @click=${() => {
-            this.allItems = this.allItems.filter(f => !this.selected.includes(f));
+            this.allItems = this.allItems.filter((f) => !this.selected.includes(f));
             this.resultTotal = this.resultTotal - this.selected.length;
             this.#reload();
           }}
-          icon="delete"
-        ></mwc-icon-button>
+        >
+          <md-icon>delete</md-icon>
+        </md-icon-button>
 
         <titanium-data-table-header
           slot="table-headers"
@@ -276,8 +271,8 @@ export class TitaniumDataTableFullPlayground extends LitElement {
 
         ${repeat(
           this.items ?? [],
-          item => item.Name,
-          item => html`
+          (item) => item.Name,
+          (item) => html`
             <titanium-data-table-item
               ?disable-select=${this.disableSelect}
               @titanium-data-table-item-navigate=${() => {
@@ -296,46 +291,46 @@ export class TitaniumDataTableFullPlayground extends LitElement {
 
       <div>
         <h2>Knobs</h2>
-        <mwc-formfield label="Single Select">
-          <mwc-switch
+        <label for="singleSelectSwitch">Single Select</label>
+          <md-switch
+          id="singleSelectSwitch"
             .selected=${this.singleSelect}
             @click=${() => {
               this.dataTable.clearSelection();
               this.singleSelect = !this.singleSelect;
             }}
-          ></mwc-switch>
-        </mwc-formfield>
-        <mwc-formfield label="Disable Select">
-          <mwc-switch
+          ></md-switch>
+
+        <label for="disableSelectSwitch">Disable Select</label>
+          <md-switch
+          id="disableSelectSwitch"
             .selected=${this.disableSelect}
             @click=${() => {
               this.dataTable.clearSelection();
               this.disableSelect = !this.disableSelect;
             }}
-          ></mwc-switch>
-        </mwc-formfield>
-        <mwc-formfield label="Disable Paging">
-          <mwc-switch
+          ></md-switch>
+
+          <label for="disablePagingSwitch">Disable Paging</label>
+          <md-switch
+          id="disablePagingSwitch"
             .selected=${this.disablePaging}
             @click=${() => {
               this.disablePaging = !this.disablePaging;
             }}
-          ></mwc-switch>
-        </mwc-formfield>
-        <mwc-button
+          ></md-switch>
+        <md-filled-tonal-button
           raised
           @click=${() => {
             this.dataTable.resetPage();
           }}
-          >reset Page</mwc-button
-        >
-        <mwc-button
+          >Reset page</md-filled-tonal-button        >
+        <md-filled-tonal-button
           raised
           @click=${() => {
             this.dataTable.clearSelection();
           }}
-          >clear Selection</mwc-button
-        >
+          >Clear selection</md-filled-tonal-button        >
       </div>
     `;
   }
@@ -343,10 +338,10 @@ export class TitaniumDataTableFullPlayground extends LitElement {
 
 @customElement('data-table-demo-filter-modal')
 export class DataTableDemoFilterModalElement extends LitElement {
-  @state() protected filterController: FilterController<FilterKeys>;
-  @state() protected appearance: string;
+  @state() protected accessor filterController: FilterController<FilterKeys>;
+  @state() protected accessor appearance: string;
 
-  @query('mwc-dialog') protected dialog!: Dialog;
+  @query('md-dialog') private accessor dialog!: MdDialog;
 
   async firstUpdated() {
     this.filterController.subscribeToFilterChange(async () => {
@@ -358,6 +353,30 @@ export class DataTableDemoFilterModalElement extends LitElement {
     this.dialog.show();
   }
 
+  #preventDialogOverflow() {
+    const dialog = this.dialog.shadowRoot?.querySelector('dialog');
+    const container = dialog?.querySelector<HTMLElement>('.container');
+    const scroller = container?.querySelector<HTMLElement>('.scroller');
+    if (scroller) {
+      scroller.style.overflow = 'initial';
+    }
+    if (container) {
+      container.style.overflow = 'initial';
+    }
+  }
+
+  #restoreDialogOverflow() {
+    const dialog = this.dialog.shadowRoot?.querySelector('dialog');
+    const container = dialog?.querySelector<HTMLElement>('.container');
+    const scroller = container?.querySelector<HTMLElement>('.scroller');
+    if (scroller) {
+      scroller.style.overflow = '';
+    }
+    if (container) {
+      container.style.overflow = '';
+    }
+  }
+
   static styles = [
     css`
       :host {
@@ -365,21 +384,18 @@ export class DataTableDemoFilterModalElement extends LitElement {
         flex-wrap: wrap;
         align-items: center;
         gap: 8px;
-        color: var(--app-text-color, #5f6368);
       }
 
-      mwc-dialog {
-        --mdc-dialog-min-width: 450px;
+      md-dialog {
+        width: 100%;
       }
 
-      @media (max-width: 600px) {
-        mwc-dialog {
-          --mdc-dialog-min-width: inherit;
-        }
+      md-dialog form {
+        container-type: inline-size;
       }
 
-      mwc-select {
-        --mdc-menu-min-width: calc(var(--mdc-dialog-min-width) - 50px);
+      md-outlined-select {
+        width: 100%;
       }
 
       [hidden] {
@@ -390,46 +406,60 @@ export class DataTableDemoFilterModalElement extends LitElement {
 
   render() {
     return html`
-      <titanium-chip
+      <md-input-chip
+        remove-only
         ?hidden=${!this.filterController.getValue('Appearance')}
         label="${this.filterController.getValue('Appearance') ?? ''}"
-        closeable
-        @titanium-chip-close=${() => {
+        @remove=${(e: Event) => {
+          e.preventDefault();
           this.filterController.setValue('Appearance', null);
           this.requestUpdate('filterController');
         }}
-      ></titanium-chip>
+      >
+        <md-icon slot="icon">conditions</md-icon>
+      </md-input-chip>
 
-      <mwc-dialog heading="Filter items by">
-        <main>
-          <form>
-            <mwc-select
-              fixedMenuPosition
-              .value=${this.filterController.getValue('Appearance') ?? ''}
-              @selected=${(e: DOMEvent<Select>) => {
-                this.appearance = e.target.value;
-              }}
-              label="Appearance"
-              outlined
-            >
-              <mwc-list-item></mwc-list-item>
-              <mwc-list-item value="Ugly" ?selected=${this.filterController.getValue('Appearance') === 'Ugly'}>ugly</mwc-list-item>
-              <mwc-list-item value="Plaid" ?selected=${this.filterController.getValue('Appearance') === 'Plaid'}>plaid</mwc-list-item>
-              <mwc-list-item value="Slick" ?selected=${this.filterController.getValue('Appearance') === 'Slick'}>slick</mwc-list-item>
-            </mwc-select>
-          </form>
-        </main>
-        <mwc-button slot="secondaryAction" label="Close" @click=${() => this.dialog.close()}></mwc-button>
-        <mwc-button
-          slot="primaryAction"
-          label="Apply"
-          @click=${() => {
-            this.filterController.setValue('Appearance', this.appearance || null);
-            this.requestUpdate('filterController');
-            this.dialog.close();
-          }}
-        ></mwc-button>
-      </mwc-dialog>
+      <md-dialog type="alert">
+        <div slot="headline">Filter items by</div>
+        <form slot="content" method="dialog">
+          <md-outlined-select
+            @opening=${() => this.#preventDialogOverflow()}
+            @closing=${() => this.#restoreDialogOverflow()}
+            label="Appearance"
+            hasLeadingIcon
+            .value=${this.filterController.getValue('Appearance') ?? ''}
+            @request-selection=${(e) => {
+              this.appearance = e.target.value;
+            }}
+          >
+            <md-icon slot="leading-icon">conditions</md-icon>
+
+            <md-select-option ?selected=${this.filterController.getValue('Appearance') === 'Ugly'} value="Ugly">
+              <div slot="headline">Ugly</div>
+              <md-icon slot="start" data-variant="icon">conditions</md-icon>
+            </md-select-option>
+            <md-select-option ?selected=${this.filterController.getValue('Appearance') === 'Plaid'} value="Plaid">
+              <div slot="headline">Plaid</div>
+              <md-icon slot="start" data-variant="icon">conditions</md-icon>
+            </md-select-option>
+            <md-select-option ?selected=${this.filterController.getValue('Appearance') === 'Slick'} value="Slick">
+              <div slot="headline">Slick</div>
+              <md-icon slot="start" data-variant="icon">conditions</md-icon>
+            </md-select-option>
+          </md-outlined-select>
+        </form>
+        <div slot="actions">
+          <md-text-button @click=${() => this.dialog.close('cancel')}> Close </md-text-button>
+          <md-filled-tonal-button
+            @click=${() => {
+              this.filterController.setValue('Appearance', this.appearance || null);
+              this.requestUpdate('filterController');
+              this.dialog.close();
+            }}
+            >Apply</md-filled-tonal-button
+          >
+        </div>
+      </md-dialog>
     `;
   }
 }

@@ -1,5 +1,7 @@
 import './titanium-page-control';
 import '@material/web/checkbox/checkbox';
+import '@material/web/progress/linear-progress';
+import '@material/web/icon/icon';
 
 import { css, html, LitElement } from 'lit';
 import { property, customElement, query, queryAsync } from 'lit/decorators.js';
@@ -18,10 +20,8 @@ declare const ResizeObserver: any;
  * @element titanium-data-table
  *
  * @fires selected-changed - Fired when a row or rows in the data table is selected. detail: array<unknown>
- * @fires page-changed - DEPRECATED Use `paging-changed` instead.
- * @fires take-changed - DEPRECATED Use `paging-changed` instead.
  * @fires titanium-data-table-items-reorder - Fired when table items are resorted by user.
- * @fires paging-changed - Fired when take or page is changed by click or keyboard action. Replaces `take-changed` and `page-changed`.
+ * @fires paging-changed - Fired when take or page is changed by click or keyboard action.
  *
  * @slot table-actions - item nonspecific table buttons such as add new item
  * @slot filter-button - filter button slot
@@ -33,8 +33,7 @@ declare const ResizeObserver: any;
  * @slot footer - slot for additional footer items. Slotting here overwrites footer-buttons.
  * @slot footer-buttons - slot for footer action buttons
  *
- * @cssprop {Color} [--app-text-color=#5f6368] - No results, Heading, table, and select all checkbox text color
- * @cssprop {Color} [--app-border-color=#dadce0] - Table border color
+ * @cssprop {Color} [var(--md-sys-color-outline-variant)] - Table border color
  * @cssprop {Color} [--titanium-data-table-font-family=Roboto, Noto, sans-serif] - Set the font family used on the data table and paging control
  */
 @customElement('titanium-data-table')
@@ -290,7 +289,6 @@ export class TitaniumDataTableElement extends LitElement {
 
         border: 1px solid var(--md-sys-color-outline-variant);
         border-radius: 8px;
-        --mdc-icon-button-size: 42px;
         font-family: var(--titanium-data-table-font-family, Roboto, Noto, sans-serif);
         --titanium-page-control-font-family: var(--titanium-data-table-font-family, Roboto, Noto, sans-serif);
         -webkit-font-smoothing: antialiased;
@@ -301,7 +299,7 @@ export class TitaniumDataTableElement extends LitElement {
         flex-direction: column;
         padding-bottom: 12px;
         gap: 12px;
-        border-bottom: 1px solid var(--app-border-color, #dadce0);
+        border-bottom: 1px solid var(--md-sys-color-outline-variant);
         position: relative;
       }
 
@@ -309,7 +307,6 @@ export class TitaniumDataTableElement extends LitElement {
 
       section[row-one] {
         display: grid;
-
         grid: 'head menu' / 1fr auto;
         gap: 8px;
         padding: 12px 12px 0 12px;
@@ -321,12 +318,10 @@ export class TitaniumDataTableElement extends LitElement {
 
       section[row-one] div[menu] {
         grid-area: menu;
-        color: var(--app-text-color, #5f6368);
       }
 
       div[search] {
         grid-area: search;
-        color: var(--app-text-color, #5f6368);
       }
 
       /* HEADER ROW TWO */
@@ -350,7 +345,6 @@ export class TitaniumDataTableElement extends LitElement {
         flex-wrap: wrap;
         align-items: center;
         gap: 8px;
-        color: var(--app-text-color, #5f6368);
       }
 
       section[row-two] div[add-button] {
@@ -367,7 +361,7 @@ export class TitaniumDataTableElement extends LitElement {
         display: grid;
         gap: 6px 24px;
         grid: 'selected-text buttons';
-        background-color: #e8f0fe;
+        background-color: var(--md-sys-color-secondary-container);
         position: absolute;
         top: 0px;
         left: 0px;
@@ -379,14 +373,13 @@ export class TitaniumDataTableElement extends LitElement {
       }
 
       selected-actions h2 {
-        color: #1e88e5;
+        color: var(--md-sys-color-on-secondary-container);
         font-size: 18px;
         font-weight: 400;
         align-self: end;
       }
 
       selected-actions div[buttons] {
-        color: var(--app-text-color, #5f6368);
         display: flex;
         flex-wrap: wrap;
         align-items: center;
@@ -398,14 +391,15 @@ export class TitaniumDataTableElement extends LitElement {
         display: flex;
         flex-direction: row;
         min-height: 48px;
-        border-bottom: 1px solid var(--app-border-color, #dadce0);
+        border-bottom: 1px solid var(--md-sys-color-outline-variant);
       }
 
       table-header ::slotted(titanium-data-table-header:last-of-type) {
         padding-right: 24px;
       }
 
-      mwc-linear-progress {
+      md-linear-progress {
+        width: 100%;
         margin-top: -4px;
       }
 
@@ -421,7 +415,7 @@ export class TitaniumDataTableElement extends LitElement {
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: #fff;
+        background-color: var(--md-sys-color-scrim);
         opacity: 0;
         -webkit-transition: opacity 75ms linear;
         -o-transition: opacity 75ms linear;
@@ -430,7 +424,7 @@ export class TitaniumDataTableElement extends LitElement {
       }
 
       content-veil[opened] {
-        opacity: 0.8;
+        opacity: 0.12;
         display: block;
       }
 
@@ -438,23 +432,17 @@ export class TitaniumDataTableElement extends LitElement {
         display: flex;
         place-items: center;
         justify-content: center;
+        gap: 8px;
         padding: 64px;
 
         font-size: 14px;
-        background-color: #fff;
         z-index: 10;
-        color: var(--app-text-color, #5f6368);
         line-height: 20px;
-        border-bottom: 1px solid var(--app-border-color, #dadce0);
+        border-bottom: 1px solid var(--md-sys-color-outline-variant);
       }
 
-      table-message svg {
-        display: block;
+      table-message md-icon {
         align-self: center;
-        margin: 0 8px;
-        height: 20px;
-        width: 20px;
-        fill: var(--app-text-color, #5f6368);
         flex-shrink: 0;
       }
 
@@ -465,7 +453,7 @@ export class TitaniumDataTableElement extends LitElement {
         padding: 12px;
         align-items: center;
         margin-top: -1px;
-        border-top: 1px solid var(--app-border-color, #dadce0);
+        border-top: 1px solid var(--md-sys-color-outline-variant);
       }
 
       titanium-page-control {
@@ -507,7 +495,7 @@ export class TitaniumDataTableElement extends LitElement {
       md-checkbox {
         flex-shrink: 0;
         align-self: center;
-        margin: 0 0 0 9px;
+        margin: 0 14px 0 20px;
       }
 
       :host([disable-select]) table-header ::slotted(titanium-data-table-header:first-of-type) {
@@ -599,13 +587,8 @@ export class TitaniumDataTableElement extends LitElement {
           <div items-slot part="items-container">
             <slot name="items"></slot>
           </div>
-          <table-message ?hidden=${this.isLoading || this.items.length > 0}
-            ><svg viewBox="0 0 24 24">
-              <path fill="none" d="M0 0h24v24H0V0z" />
-              <path
-                d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"
-              />
-            </svg>
+          <table-message ?hidden=${this.isLoading || this.items.length > 0}>
+            <md-icon>info</md-icon>
             ${this.searchTerm === '' || typeof this.searchTerm === 'undefined' || this.searchTerm === null
               ? 'No results'
               : `Your search of '${this.searchTerm}' did not match any results`}</table-message
