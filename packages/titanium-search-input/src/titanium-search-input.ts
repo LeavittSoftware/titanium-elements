@@ -147,7 +147,8 @@ export class TitaniumSearchInput extends LitElement {
       transition:
         background 100ms ease-in,
         width 100ms ease-out;
-      background-color: #fff;
+      color: var(--md-sys-color-on-background);
+      background-color: transparent;
       border-top-left-radius: 20px;
       border-top-right-radius: 20px;
       border-bottom-left-radius: 20px;
@@ -181,7 +182,6 @@ export class TitaniumSearchInput extends LitElement {
     }
 
     :host([disabled]) input-container input {
-      background-color: #fafafa;
       cursor: not-allowed;
       opacity: 0.6;
     }
