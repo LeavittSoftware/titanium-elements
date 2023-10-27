@@ -178,9 +178,7 @@ export class MyApp extends LitElement {
         () => import('./demos/titanium-full-page-loading-indicator/titanium-full-page-loading-indicator-demo.js')
       )
     );
-    page('/titanium-loading-indicator', () =>
-      this.#changePage('titanium-loading-indicator', () => import('./demos/titanium-loading-indicator/titanium-loading-indicator-demo.js'))
-    );
+
     page('/titanium-offline-notice', () =>
       this.#changePage('titanium-offline-notice', () => import('./demos/titanium-offline-notice/titanium-offline-notice-demo.js'))
     );
@@ -205,7 +203,6 @@ export class MyApp extends LitElement {
     page('/titanium-svg-button-menu', () =>
       this.#changePage('titanium-svg-button-menu', () => import('./demos/titanium-svg-button-menu/titanium-svg-button-menu-demo.js'))
     );
-    page('/titanium-tab-control', () => this.#changePage('titanium-tab-control', () => import('./demos/titanium-tab-control/titanium-tab-control-demo.js')));
     page('/titanium-toggle-button', () =>
       this.#changePage('titanium-toggle-button', () => import('./demos/titanium-toggle-button/titanium-toggle-button-demo.js'))
     );
@@ -396,7 +393,7 @@ export class MyApp extends LitElement {
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-card'} href="/titanium-card" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Card </span>
+              <md-icon slot="start">library_books</md-icon> <span>Card* </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-chip-multi-select'} href="/titanium-chip-multi-select" type="link">
@@ -404,15 +401,15 @@ export class MyApp extends LitElement {
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-data-table'} href="/titanium-data-table" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Data table </span>
+              <md-icon slot="start">library_books</md-icon> <span>Data table* </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-data-table-header'} href="/titanium-data-table-header" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Data table header </span>
+              <md-icon slot="start">library_books</md-icon> <span>Data table header* </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-data-table-item'} href="/titanium-data-table-item" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Data table item </span>
+              <md-icon slot="start">library_books</md-icon> <span>Data table item* </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-date-range-selector'} href="/titanium-date-range-selector" type="link">
@@ -420,19 +417,15 @@ export class MyApp extends LitElement {
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-drawer'} href="/titanium-drawer" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Drawer</span>
+              <md-icon slot="start">library_books</md-icon> <span>Drawer*</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-error-page')} href="/titanium-error-page" type="link">
               <md-icon slot="start">library_books</md-icon> <span>Error page</span>
             </md-list-item>
 
-            <md-list-item ?selected=${!!this.page?.includes('titanium-full-page-loading-indicator')} href="/titanium-full-page-loading-indicator" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Full page loading indicator</span>
-            </md-list-item>
-
             <md-list-item ?selected=${this.page === 'titanium-header'} href="/titanium-header" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Header</span>
+              <md-icon slot="start">library_books</md-icon> <span>Header*</span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-icon-picker'} href="/titanium-icon-picker" type="link">
@@ -456,7 +449,7 @@ export class MyApp extends LitElement {
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-page-control')} href="/titanium-page-control" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Page control</span>
+              <md-icon slot="start">library_books</md-icon> <span>Page control*</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-search-input')} href="/titanium-search-input" type="link">
@@ -472,15 +465,11 @@ export class MyApp extends LitElement {
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-styles')} href="/titanium-styles" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Styles</span>
-            </md-list-item>
-
-            <md-list-item ?selected=${this.page === 'titanium-tab-control'} href="/titanium-tab-control" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Tab control</span>
+              <md-icon slot="start">library_books</md-icon> <span>Styles*</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-toolbar')} href="/titanium-toolbar" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Toolbar</span>
+              <md-icon slot="start">library_books</md-icon> <span>Toolbar*</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-twoline-formfield')} href="/titanium-twoline-formfield" type="link">
@@ -492,7 +481,7 @@ export class MyApp extends LitElement {
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-show-hide')} href="/titanium-show-hide" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Show hide</span>
+              <md-icon slot="start">library_books</md-icon> <span>Show hide*</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-duration-input')} href="/titanium-duration-input" type="link">
@@ -705,9 +694,6 @@ export class MyApp extends LitElement {
           : nothing}
         ${this.page === 'titanium-svg-button-menu'
           ? html` <titanium-svg-button-menu-demo ?isActive=${this.page === 'titanium-svg-button-menu'}></titanium-svg-button-menu-demo> `
-          : nothing}
-        ${this.page === 'titanium-tab-control'
-          ? html` <titanium-tab-control-demo ?isActive=${this.page === 'titanium-tab-control'}></titanium-tab-control-demo> `
           : nothing}
         ${this.page === 'titanium-toggle-button'
           ? html` <titanium-toggle-button-demo ?isActive=${this.page === 'titanium-toggle-button'}></titanium-toggle-button-demo> `
