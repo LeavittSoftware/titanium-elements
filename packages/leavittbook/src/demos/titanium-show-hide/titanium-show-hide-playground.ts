@@ -38,7 +38,7 @@ export class TitaniumColorInputPlayground extends LitElement {
       }
 
       div[main] {
-        border: 1px solid var(--md-sys-color-outline-variant);
+        border: 1px solid var(--md-sys-color-surface-variant);
         border-radius: 8px;
         padding: 12px 24px;
         display: flex;
@@ -58,36 +58,37 @@ export class TitaniumColorInputPlayground extends LitElement {
         left: 0;
         bottom: 0;
         right: 0;
-        background: #449db7;
+        background: var(--md-sys-color-background);
+        color: var(--md-sys-color-on-background);
         height: 150px;
         max-height: 150px;
         overflow: hidden;
         width: 250px;
         z-index: 2;
         transform: rotateY(0deg);
+        border: 2px solid var(--md-sys-color-on-background);
       }
 
       credit-card h3 {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid var(--md-sys-color-on-background);
         padding-bottom: 6px;
         font-weight: 500;
-        color: rgba(255, 255, 255, 0.5);
+        color: var(--md-sys-color-on-background);
         font-family: 'Metropolis';
         margin: 0;
       }
 
       credit-card p {
-        font-size: 12px;
-        color: rgba(255, 255, 255, 0.2);
-        margin-top: 5px;
+        font-size: 11px;
+        margin: 8px 0 1px 2px;
       }
 
       card-number {
         display: inline-block;
-        background-color: #69b1c5;
-        font-size: 16px;
-        color: #fff;
-        padding: 4px;
+        background-color: var(--md-sys-color-primary);
+        font-size: 13px;
+        color: var(--md-sys-color-on-primary);
+        padding: 4px 12px;
         border-radius: 8px;
       }
 
@@ -95,7 +96,7 @@ export class TitaniumColorInputPlayground extends LitElement {
         position: absolute;
         bottom: 10px;
         right: 10px;
-        border: solid 1px rgba(255, 255, 255, 0.2);
+        border: solid 2px var(--md-sys-color-primary);
         border-radius: 10px;
         width: 40px;
         height: 50px;
@@ -105,7 +106,7 @@ export class TitaniumColorInputPlayground extends LitElement {
         width: 40px;
         height: 25px;
         border-radius: 6px;
-        background: #ccc;
+        background: var(--md-sys-color-surface-variant);
         position: relative;
         top: 13px;
       }
@@ -114,7 +115,7 @@ export class TitaniumColorInputPlayground extends LitElement {
         content: '';
         width: 30px;
         height: 5px;
-        background: rgba(255, 255, 255, 0.2);
+        background: var(--md-sys-color-surface-variant);
         border-radius: 3px;
         position: absolute;
         bottom: 2px;
@@ -128,7 +129,7 @@ export class TitaniumColorInputPlayground extends LitElement {
         left: 5px;
         border-radius: 3px;
         height: 5px;
-        background: rgba(255, 255, 255, 0.2);
+        background: var(--md-sys-color-surface-variant);
         position: absolute;
       }
 
@@ -146,7 +147,7 @@ export class TitaniumColorInputPlayground extends LitElement {
         width: 15px;
         height: 15px;
         border-radius: 15px;
-        background: #ff9d66;
+        background: var(--md-sys-color-surface-variant);
         position: absolute;
         right: -2px;
       }
@@ -156,7 +157,7 @@ export class TitaniumColorInputPlayground extends LitElement {
         width: 15px;
         height: 15px;
         border-radius: 15px;
-        background: #f57576;
+        background: var(--md-sys-color-primary);
         position: absolute;
         left: -2px;
       }
@@ -199,10 +200,8 @@ export class TitaniumColorInputPlayground extends LitElement {
   render() {
     /* playground-fold-end */
     return html`
-      <h1>Vertical</h1>
-      <p>Example with the css variable setting the flex direction to column (default)</p>
       <div main>
-        <h2>Credit Card Generator</h2>
+        <h2>Vertical Credit Card Generator</h2>
         <p>How many would you like?</p>
         <md-slider
           discrete
@@ -234,10 +233,8 @@ export class TitaniumColorInputPlayground extends LitElement {
         </titanium-show-hide>
       </div>
 
-      <h1>Horizontal</h1>
-      <p>Example with the css variable setting the flex direction to row</p>
       <div main>
-        <h2>Credit Card Generator</h2>
+        <h2>Horizontal Credit Card Generator</h2>
         <p>How many would you like?</p>
         <md-slider
           discrete
@@ -268,9 +265,9 @@ export class TitaniumColorInputPlayground extends LitElement {
           )}
         </titanium-show-hide>
       </div>
-      <h1>Show hide text</h1>
-      <p>Reveal some more text. Sets custom collapsed/expanded text and custom button alignment.</p>
       <div main>
+        <h2>Text Example</h2>
+        <p>Using a custom slotted button</p>
         <titanium-show-hide @collapsed-changed=${(e) => (this.collapsed = e.target.collapsed)} start>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum arcu, semper ac aliquet eu, porttitor vel turpis. Nullam non dolor ac massa
