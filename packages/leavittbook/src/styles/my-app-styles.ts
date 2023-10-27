@@ -95,9 +95,24 @@ export const myAppStyles = css`
     margin-top: 24px;
   }
 
-  profile-picture-menu {
+  right-panel {
     grid-area: profile;
     justify-self: end;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  right-panel md-outlined-icon-button {
+    height: 36px;
+    width: 36px;
+    margin: 0 !important;
+  }
+
+  right-panel md-outlined-icon-button md-icon {
+    height: 20px;
+    width: 20px;
+    font-size: 20px;
   }
 
   titanium-toolbar a {
@@ -142,6 +157,15 @@ export const myAppStyles = css`
     height: 26px;
     width: 148px;
     margin: 8px 14px 0px;
+  }
+
+  titanium-drawer h3 {
+    padding-bottom: 0;
+  }
+
+  titanium-drawer p {
+    margin-bottom: 12px;
+    margin-left: 24px;
   }
 
   titanium-full-page-loading-indicator {
