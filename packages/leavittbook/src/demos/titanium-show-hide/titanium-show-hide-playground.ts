@@ -2,8 +2,8 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 import { h1, h2, p } from '@leavittsoftware/titanium-styles';
-import '@material/mwc-button';
-import '@material/mwc-slider';
+import '@material/web/button/text-button';
+import '@material/web/slider/slider';
 
 /* playground-fold-end */
 import '@leavittsoftware/titanium-show-hide';
@@ -15,6 +15,7 @@ export class TitaniumColorInputPlayground extends LitElement {
   @query('titanium-show-hide[required]') requiredInput;
   @state() protected verticalStepValue = 10;
   @state() protected horizontalStepValue = 3;
+  @state() protected collapsed;
 
   static styles = [
     h1,
@@ -24,7 +25,6 @@ export class TitaniumColorInputPlayground extends LitElement {
       :host {
         display: flex;
         flex-direction: column;
-        --mdc-icon-font: 'Material Icons Outlined';
         margin: 24px 12px;
       }
 
@@ -38,9 +38,9 @@ export class TitaniumColorInputPlayground extends LitElement {
       }
 
       div[main] {
-        border: 1px solid var(--app-border-color);
-        padding: 12px 24px;
+        border: 1px solid var(--md-sys-color-outline-variant);
         border-radius: 8px;
+        padding: 12px 24px;
         display: flex;
         flex-direction: column;
         gap: 12px;
@@ -161,6 +161,12 @@ export class TitaniumColorInputPlayground extends LitElement {
         left: -2px;
       }
 
+      md-text-button {
+        margin-top: 12px;
+        max-width: 150px;
+        width: 100%;
+      }
+
       titanium-show-hide[start]::part(button) {
         align-self: start;
       }
@@ -198,31 +204,32 @@ export class TitaniumColorInputPlayground extends LitElement {
       <div main>
         <h2>Credit Card Generator</h2>
         <p>How many would you like?</p>
-        <mwc-slider
+        <md-slider
           discrete
           withTickMarks
           step="1"
           min="1"
           max="100"
-          @input=${event => (this.verticalStepValue = event.target.value)}
+          @input=${(event) => (this.verticalStepValue = event.target.value)}
           .value=${this.verticalStepValue}
         >
-        </mwc-slider>
+        </md-slider>
         <titanium-show-hide collapse-height="200">
           ${(new Array(this.verticalStepValue) as number[]).fill(0).map(
-            (_, idx) => html`<credit-card>
-              <h3>Credit Card ${idx + 1}</h3>
-              <p>CARD NUMBER</p>
-              <card-number>${this.#getCardNumber()}</card-number>
-              <mark-gold>
-                <div>
-                  <circle-one></circle-one>
-                  <circle-two></circle-two>
-                </div>
-              </mark-gold>
-              <p>CARD EXPIRATION</p>
-              <card-number>${dayjs().format('MM/YY')}</card-number>
-            </credit-card>`
+            (_, idx) =>
+              html`<credit-card>
+                <h3>Credit Card ${idx + 1}</h3>
+                <p>CARD NUMBER</p>
+                <card-number>${this.#getCardNumber()}</card-number>
+                <mark-gold>
+                  <div>
+                    <circle-one></circle-one>
+                    <circle-two></circle-two>
+                  </div>
+                </mark-gold>
+                <p>CARD EXPIRATION</p>
+                <card-number>${dayjs().format('MM/YY')}</card-number>
+              </credit-card>`
           )}
         </titanium-show-hide>
       </div>
@@ -232,38 +239,39 @@ export class TitaniumColorInputPlayground extends LitElement {
       <div main>
         <h2>Credit Card Generator</h2>
         <p>How many would you like?</p>
-        <mwc-slider
+        <md-slider
           discrete
           withTickMarks
           step="1"
           min="1"
           max="100"
-          @input=${event => (this.horizontalStepValue = event.target.value)}
+          @input=${(event) => (this.horizontalStepValue = event.target.value)}
           .value=${this.horizontalStepValue}
         >
-        </mwc-slider>
+        </md-slider>
         <titanium-show-hide horizontal collapse-height="200">
           ${(new Array(this.horizontalStepValue) as number[]).fill(0).map(
-            (_, idx) => html`<credit-card>
-              <h3>Credit Card ${idx + 1}</h3>
-              <p>CARD NUMBER</p>
-              <card-number>${this.#getCardNumber()}</card-number>
-              <mark-gold>
-                <div>
-                  <circle-one></circle-one>
-                  <circle-two></circle-two>
-                </div>
-              </mark-gold>
-              <p>CARD EXPIRATION</p>
-              <card-number>${dayjs().format('MM/YY')}</card-number>
-            </credit-card>`
+            (_, idx) =>
+              html`<credit-card>
+                <h3>Credit Card ${idx + 1}</h3>
+                <p>CARD NUMBER</p>
+                <card-number>${this.#getCardNumber()}</card-number>
+                <mark-gold>
+                  <div>
+                    <circle-one></circle-one>
+                    <circle-two></circle-two>
+                  </div>
+                </mark-gold>
+                <p>CARD EXPIRATION</p>
+                <card-number>${dayjs().format('MM/YY')}</card-number>
+              </credit-card>`
           )}
         </titanium-show-hide>
       </div>
       <h1>Show hide text</h1>
       <p>Reveal some more text. Sets custom collapsed/expanded text and custom button alignment.</p>
       <div main>
-        <titanium-show-hide start buttonType="flat" .showCountWithLabel=${false} collapsedButtonLabel="Read more" expandedButtonLabel="Read less">
+        <titanium-show-hide @collapsed-changed=${(e) => (this.collapsed = e.target.collapsed)} start>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum arcu, semper ac aliquet eu, porttitor vel turpis. Nullam non dolor ac massa
             pharetra vulputate vel ac libero. In hac habitasse platea dictumst. Praesent lacus mi, vehicula eu euismod sit amet, accumsan porta massa. Morbi
@@ -283,6 +291,7 @@ export class TitaniumColorInputPlayground extends LitElement {
             neque, molestie a nisi vel, tincidunt vehicula arcu. Ut ut lectus gravida, tristique mauris a, aliquet magna. Duis sodales in ipsum pretium
             hendrerit.
           </p>
+          <md-text-button slot="button"> ${this.collapsed ? 'Read more' : 'Read less'} </md-text-button>
         </titanium-show-hide>
       </div>
     `;

@@ -1,8 +1,7 @@
-import { css, html, LitElement } from 'lit';
-import { customElement, property, query, state } from 'lit/decorators.js';
-import { button } from '@leavittsoftware/titanium-styles';
+import { css, html, LitElement, PropertyValues } from 'lit';
+import { customElement, property, query } from 'lit/decorators.js';
 
-import '@material/mwc-button';
+import '@material/web/button/outlined-button';
 
 /**
  * Titanium Show Hide
@@ -27,14 +26,20 @@ export default class TitaniumShowHideElement extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'disable-fade' }) disableFade: boolean = false;
   @property({ type: Boolean, reflect: true, attribute: 'collapsed' }) collapsed: boolean = true;
   @property({ type: Boolean, reflect: true, attribute: 'has-hidden-items' }) protected hasHiddenItems: boolean = false;
-  @property({ type: String }) collapsedButtonLabel: string = 'Show more';
-  @property({ type: String }) expandedButtonLabel: string = 'Show less';
-  @property({ type: Boolean }) showCountWithLabel: boolean = true;
-  @property({ type: String }) buttonType: 'flat' | 'raised' | 'unelevated' | 'outlined' = 'outlined';
+  @property({ type: Number }) hiddenItemCount: number = 0;
 
-  @state() protected hiddenItemCount: number = 0;
   @query('items-container') protected itemsContainer: HTMLElement;
   @query('collapsed-box') protected collapsedContainer: HTMLElement;
+
+  updated(changedProps: PropertyValues<this>) {
+    if (changedProps.has('collapsed')) {
+      this.dispatchEvent(new Event('collapsed-changed'));
+    }
+
+    if (changedProps.has('hiddenItemCount')) {
+      this.dispatchEvent(new Event('hidden-item-count-changed'));
+    }
+  }
 
   firstUpdated() {
     const resizeObserver = new ResizeObserver(() => {
@@ -61,7 +66,6 @@ export default class TitaniumShowHideElement extends LitElement {
   }
 
   static styles = [
-    button,
     css`
       :host {
         display: flex;
@@ -89,9 +93,11 @@ export default class TitaniumShowHideElement extends LitElement {
         gap: var(--titanium-show-hide-gap, 8px);
       }
 
-      mwc-button {
-        align-self: center;
+      md-outlined-button {
+        max-width: 160px;
+        width: 100%;
         margin-top: 12px;
+        align-self: center;
       }
 
       [hidden] {
@@ -112,17 +118,11 @@ export default class TitaniumShowHideElement extends LitElement {
           <slot></slot>
         </items-container>
       </collapsed-box>
-      <mwc-button
-        .outlined=${this.buttonType === 'outlined'}
-        .raised=${this.buttonType === 'raised'}
-        .unelevated=${this.buttonType === 'unelevated'}
-        part="button"
-        lowercase
-        @click=${() => (this.collapsed = !this.collapsed)}
-        ?hidden=${!this.hasHiddenItems}
-      >
-        ${this.collapsed ? `${this.collapsedButtonLabel} ${this.showCountWithLabel ? `(${this.hiddenItemCount})` : ''}` : this.expandedButtonLabel}</mwc-button
-      >
+      <slot name="button" @click=${() => (this.collapsed = !this.collapsed)}>
+        <md-outlined-button part="button" ?hidden=${!this.hasHiddenItems}>
+          ${this.collapsed ? `Show more (${this.hiddenItemCount})` : 'Show less'}</md-outlined-button
+        >
+      </slot>
     `;
   }
 }

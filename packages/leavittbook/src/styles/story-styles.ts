@@ -19,11 +19,20 @@ const StoryStyles = css`
     max-width: inherit;
     margin-bottom: 48px;
     margin-top: 48px;
+    background-color: var(--md-sys-color-background);
+    border: 1px solid var(--md-sys-color-outline);
     --ave-primary-color: var(--app-secondary-color);
     --ave-header-color: #f5f5f5;
-    --ave-accent-color: var(--app-accent-color-red);
+    --ave-accent-color: var(--md-sys-color-primary);
+    --ave-secondary-color: var(--md-sys-color-primary);
+    --ave-item-color: var(--md-sys-color-on-background);
     --ave-monospace-font: 'Fira Code', monospace;
+    --ave-tab-color: var(--md-sys-color-on-background);
+    --ave-tab-selected-color: var(--md-sys-color-primary);
+    --ave-header-color: var(--md-sys-color-on-background);
+    --ave-header-background: var(--md-sys-color-surface-variant);
     font-family: 'Roboto';
+    color: inherit;
   }
 
   api-docs::part(select-label) {
@@ -31,10 +40,10 @@ const StoryStyles = css`
   }
 
   api-docs::part(docs-value) {
-    color: var(--app-light-text-color);
+    color: var(--md-sys-color-on-background);
     font-size: 13px;
-    background: #f9f9f9;
-    border: 1px solid var(--app-border-color);
+    background: var(--md-sys-color-background);
+    border: 1px solid var(--md-sys-color-outline);
     border-radius: 8px;
     padding: 2px 8px;
     margin: 12px 0;
@@ -55,7 +64,7 @@ const StoryStyles = css`
     word-break: break-word;
     word-wrap: break-word;
     color: #5f6368;
-    color: var(--app-text-color, #5f6368);
+    color: var(--md-sys-color-on-background);
     margin: 0;
     padding: 0;
   }
@@ -68,11 +77,15 @@ const StoryStyles = css`
     -webkit-font-smoothing: antialiased;
     font-size: 13px;
     font-weight: 400;
-    color: var(--app-text-color, #5f6368);
+    color: var(--md-sys-color-on-background);
     letter-spacing: 0.2px;
     line-height: 20px;
     margin: 0px;
     padding: 12px 0;
+  }
+
+  api-docs::part(header-title) {
+    font-size: 16px;
   }
 `;
 export default StoryStyles;
