@@ -496,11 +496,11 @@ export class MyApp extends LitElement {
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'profile-picture'} href="/profile-picture" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Profile picture </span>
+              <md-icon slot="start">library_books</md-icon> <span>Profile picture* </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'profile-picture-menu'} href="/profile-picture-menu" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Profile picture menu </span>
+              <md-icon slot="start">library_books</md-icon> <span>Profile picture menu* </span>
             </md-list-item>
           </details>
         </section>

@@ -20,9 +20,8 @@
   },
   "dependencies": {
     "@leavittsoftware/titanium-helpers": "^6.1.2",
-    "@leavittsoftware/titanium-popup-surface": "^0.6.1",
     "@leavittsoftware/user-manager": "^12.0.0",
-    "@material/mwc-button": "*",
+    "@material/web": "*",
     "tslib": "^2.4.1"
   },
   "peerDependencies": {

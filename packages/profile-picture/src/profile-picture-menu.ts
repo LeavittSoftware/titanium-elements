@@ -1,21 +1,20 @@
 import './profile-picture';
-import './profile-picture-menu-popup';
+import '@material/web/menu/menu';
+import '@material/web/button/outlined-button';
+import '@material/web/button/text-button';
 
 import { GetUserManagerInstance } from '@leavittsoftware/user-manager';
 import { UserManagerUpdatedEvent } from '@leavittsoftware/user-manager/lib/user-manager-events';
 import { css, html, LitElement } from 'lit';
 import { property, customElement, query } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import { ProfilePictureMenuPopupElement } from './profile-picture-menu-popup';
+import { MdMenu } from '@material/web/menu/menu';
 
 /**
  * Profile picture menu for the Leavitt Group
  *
  * @element profile-picture-menu
  *
- * @cssprop {Color} --app-dark-text-color - User's name color
- * @cssprop {Color} --app-text-color - Email address color
- * @cssprop {Color} --app-border-color - divider line color
  */
 @customElement('profile-picture-menu')
 export class ProfilePictureMenuElement extends LitElement {
@@ -41,12 +40,12 @@ export class ProfilePictureMenuElement extends LitElement {
    */
   @property({ type: String }) company: string = '';
 
-  @query('profile-picture-menu-popup') popup: ProfilePictureMenuPopupElement;
-
   /**
    * Full name of user
    */
   @property({ type: String }) name: string = '';
+
+  @query('md-menu') private menu: MdMenu;
 
   firstUpdated() {
     GetUserManagerInstance().addEventListener(UserManagerUpdatedEvent.eventName, () => this.setUserProps());
@@ -72,6 +71,11 @@ export class ProfilePictureMenuElement extends LitElement {
   }
 
   static styles = css`
+    :host {
+      display: block;
+      /* --md-menu-container-color: var(--md-sys-color-surface-variant); */
+    }
+
     div {
       display: inline-block;
       position: relative;
@@ -79,6 +83,60 @@ export class ProfilePictureMenuElement extends LitElement {
 
     profile-picture {
       cursor: pointer;
+    }
+
+    md-menu main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 300px;
+    }
+
+    md-menu main profile-picture {
+      margin: 24px 24px 20px;
+    }
+
+    md-menu h1 {
+      display: block;
+      font-family: Metropolis, 'Roboto', 'Noto', sans-serif;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 24px;
+      letter-spacing: 0.25px;
+      margin: 0;
+      padding: 0 24px 0 24px;
+    }
+
+    md-menu h2 {
+      display: flex;
+      font-family: Roboto, sans-serif;
+
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.25px;
+      margin: 0;
+      padding: 0 24px 12px 24px;
+    }
+
+    md-menu h2[company] {
+      padding-bottom: 12px;
+    }
+
+    md-menu slot-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    md-outlined-button {
+      margin: 12px 24px 24px 24px;
+    }
+
+    md-menu footer {
+      display: flex;
+      flex-direction: column;
+      align-items: end;
+      padding: 0 8px;
+      width: 300px;
     }
   `;
 
@@ -89,28 +147,36 @@ export class ProfilePictureMenuElement extends LitElement {
           height: `${this.size}px`,
           width: `${this.size}px`,
         })}
-        class="popup--anchor"
       >
         <profile-picture
+          id="profile-picture"
           shape="circle"
           .fileName=${this.profilePictureFileName}
           .size=${this.size}
           @click=${() => {
             if (this.personId) {
-              this.popup.open();
+              this.menu.show();
             } else {
               GetUserManagerInstance().authenticateAsync();
             }
           }}
         ></profile-picture>
-        <profile-picture-menu-popup
-          anchor-margin-bottom="5"
-          anchor-corner="9"
-          .profilePictureFileName=${this.profilePictureFileName}
-          .name=${this.name}
-          .email=${this.email}
-          .company=${this.company}
-        ></profile-picture-menu-popup>
+        <md-menu y-offset="4" anchor="profile-picture" menu-corner="start-end" anchor-corner="end-end">
+          <main>
+            <profile-picture shape="circle" .fileName=${this.profilePictureFileName} size="90"></profile-picture>
+            <h1>${this.name}</h1>
+            ${this.company ? html`<h2 company>${this.company}</h2>` : ''}
+            <h2>${this.email}</h2>
+            <slot-container>
+              <slot name="content"></slot>
+            </slot-container>
+            <md-outlined-button account href="https://accounts.leavitt.com/" target="_blank">Manage your Leavitt account</md-outlined-button>
+          </main>
+          <md-divider role="separator" tabindex="-1"></md-divider>
+          <footer>
+            <md-text-button @click=${() => GetUserManagerInstance().logout()}>Sign out</md-text-button>
+          </footer>
+        </md-menu>
       </div>
     `;
   }
