@@ -200,10 +200,8 @@ export class TitaniumColorInputPlayground extends LitElement {
   render() {
     /* playground-fold-end */
     return html`
-      <h1>Vertical</h1>
-      <p>Example with the css variable setting the flex direction to column (default)</p>
       <div main>
-        <h2>Credit Card Generator</h2>
+        <h2>Vertical Credit Card Generator</h2>
         <p>How many would you like?</p>
         <md-slider
           discrete
@@ -235,10 +233,8 @@ export class TitaniumColorInputPlayground extends LitElement {
         </titanium-show-hide>
       </div>
 
-      <h1>Horizontal</h1>
-      <p>Example with the css variable setting the flex direction to row</p>
       <div main>
-        <h2>Credit Card Generator</h2>
+        <h2>Horizontal Credit Card Generator</h2>
         <p>How many would you like?</p>
         <md-slider
           discrete
@@ -269,9 +265,9 @@ export class TitaniumColorInputPlayground extends LitElement {
           )}
         </titanium-show-hide>
       </div>
-      <h1>Show hide text</h1>
-      <p>Reveal some more text. Sets custom collapsed/expanded text and custom button alignment.</p>
       <div main>
+        <h2>Text Example</h2>
+        <p>Using a custom slotted button</p>
         <titanium-show-hide @collapsed-changed=${(e) => (this.collapsed = e.target.collapsed)} start>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum arcu, semper ac aliquet eu, porttitor vel turpis. Nullam non dolor ac massa
