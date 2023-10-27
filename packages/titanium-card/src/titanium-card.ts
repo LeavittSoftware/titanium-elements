@@ -1,12 +1,11 @@
 ﻿import { css, html, LitElement } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
 /**
- * A card with h1,h2,h3 and p styles on-board
+ * A material card filled or outlined
  *
  * @element titanium-card
  *
- * @cssprop {Color} [--app-border-color=#dadce0] - Card border color
- * @cssprop {Color} [--app-text-color=#5f6368] - Card text color
+ * @cssprop {Color} [--md-sys-color-outline-variant] - Card border color
  *
  * @slot Default - Card content
  */
@@ -16,6 +15,8 @@ export class TitaniumCardElement extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'has-menu' }) hasMenu: boolean;
   @property({ type: Boolean, reflect: true, attribute: 'has-image' }) hasImage: boolean;
   @property({ type: Boolean, reflect: true, attribute: 'has-footer' }) hasFooter: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'primary' }) primary: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'surface' }) surface: boolean;
 
   static styles = [
     css`
@@ -26,9 +27,23 @@ export class TitaniumCardElement extends LitElement {
         grid:
           'title' auto
           'body' 1fr;
-        border: 1px solid var(--app-border-color, #dadce0);
-        border-radius: 8px;
-        background-color: #fff;
+        border-radius: 12px;
+
+        border: 1px solid var(--md-sys-color-outline-variant);
+        background-color: var(--md-sys-color-surface);
+        color: var(--md-sys-color-on-surface);
+      }
+
+      :host([primary]) {
+        border: none;
+        background-color: var(--md-sys-color-primary-container);
+        color: var(--md-sys-color-on-primary-container);
+      }
+
+      :host([surface]) {
+        border: none;
+        background-color: var(--md-sys-color-surface-variant);
+        color: var(--md-sys-color-on-surface-variant);
       }
 
       :host([has-menu]) {
@@ -75,7 +90,6 @@ export class TitaniumCardElement extends LitElement {
         grid-area: menu;
         justify-self: right;
         margin: -12px -12px -12px 0;
-        color: var(--app-text-color, #5f6368);
       }
 
       ::slotted([card-title]) {
@@ -104,7 +118,9 @@ export class TitaniumCardElement extends LitElement {
       }
 
       :host([elevation='high']) {
-        box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
+        box-shadow:
+          0 1px 2px 0 rgb(60 64 67 / 30%),
+          0 1px 3px 1px rgb(60 64 67 / 15%);
       }
 
       @media (max-width: 400px) {

@@ -7,8 +7,8 @@ import { customElement, property, query } from 'lit/decorators.js';
  * @element titanium-drawer
  * @slot - Main drawer content slot
  * @csspart dialog - internal native dialog element
- * @cssprop {Color} [--app-text-color=#6200ee] Color of left border when open
- * @cssprop {Color} [--app-border-color=#dadce0] Default color of slotted h3 and h4
+ * @cssprop {Color} [--md-sys-color-outline-variant] Color of left border when open
+ * @cssprop {Color} [--md-sys-color-on-background] Color of slotted h3 and h4
  */
 @customElement('titanium-drawer')
 export class TitaniumDrawer extends LitElement {
@@ -107,6 +107,11 @@ export class TitaniumDrawer extends LitElement {
       display: block;
     }
 
+    dialog {
+      background-color: var(--md-sys-color-background);
+      color: var(--md-sys-color-on-background);
+    }
+
     dialog[loading] {
       visibility: hidden;
     }
@@ -124,7 +129,7 @@ export class TitaniumDrawer extends LitElement {
       min-height: 100vh;
       max-height: -webkit-fill-available;
 
-      border-right: 1px solid var(--app-border-color, #dadce0);
+      border-right: 1px solid var(--md-sys-color-outline-variant);
       padding-right: 8px;
       animation: show 0.25s ease normal;
     }
@@ -154,7 +159,7 @@ export class TitaniumDrawer extends LitElement {
 
     ::slotted(h3) {
       font-family: 'Metropolis';
-      color: var(--app-text-color, #5f6368);
+      color: var(--md-sys-color-on-background);
       margin: 0px;
       font-weight: 400;
       padding: 12px 0px 8px 24px;
@@ -164,7 +169,7 @@ export class TitaniumDrawer extends LitElement {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      color: var(--app-text-color, #5f6368);
+      color: var(--md-sys-color-on-background);
       font-weight: 400;
       cursor: pointer;
       margin: 0px;

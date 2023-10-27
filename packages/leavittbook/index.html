@@ -10,6 +10,8 @@
 
     <base href="/" />
 
+    <link rel="stylesheet" href="./theme.css" />
+
     <link rel="icon" href="manifest/favicon.ico" />
 
     <!-- See https://goo.gl/OOhYW5 -->
@@ -38,8 +40,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" defer async rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Material+Icons+Outlined&display=block" defer async rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400" rel="stylesheet" />
 
     <script>
@@ -83,8 +83,8 @@
         line-height: 1.5;
         min-height: calc(100vh - 48px);
         -webkit-font-smoothing: antialiased;
-        background-color: #fff;
-        color: #5f6368;
+        background-color: var(--md-sys-color-background);
+        color: var(--md-sys-color-on-background);
       }
     </style>
   </head>

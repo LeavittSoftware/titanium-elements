@@ -14,7 +14,7 @@ export const dataRow = [
       padding: 16px 24px 16px 0;
       margin-left: 24px;
 
-      border-bottom: 1px solid var(--app-border-color);
+      border-bottom: 1px solid var(--md-sys-color-outline-variant);
     }
 
     data-row:last-of-type {
@@ -27,7 +27,6 @@ export const dataRow = [
 
     data-row p {
       font-size: 16px;
-      color: var(--app-dark-text-color);
     }
 
     data-row h5 {

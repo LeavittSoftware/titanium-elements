@@ -6,7 +6,6 @@ export const a = css`
     text-decoration: none;
     font-size: 14px;
 
-    color: var(--app-link-color, #1a73e8);
     font-family: var(--titanium-styles-a-font-family, Metropolis, Roboto, Noto, sans-serif);
     font-weight: 400;
   }

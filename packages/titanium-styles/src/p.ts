@@ -8,7 +8,6 @@ export const p = css`
     -webkit-font-smoothing: antialiased;
     font-size: 14px;
     font-weight: 400;
-    color: var(--app-text-color, #5f6368);
     letter-spacing: 0.2px;
     line-height: 20px;
 

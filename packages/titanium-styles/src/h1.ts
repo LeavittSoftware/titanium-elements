@@ -3,7 +3,6 @@ import { css } from 'lit';
 export const h1 = css`
   [heading1],
   h1 {
-    color: var(--app-dark-text-color, #202124);
     font-family: var(--titanium-styles-h1-font-family, Metropolis, Roboto, Noto, sans-serif);
     -webkit-font-smoothing: antialiased;
     letter-spacing: -0.264px;

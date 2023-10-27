@@ -1,6 +1,6 @@
 ﻿{
   "compilerOptions": {
-    "target": "es2021",
+    "target": "es2022",
     "module": "esNext",
     "moduleResolution": "node",
     "lib": ["esnext", "dom", "dom.iterable"],
@@ -9,6 +9,7 @@
     "declaration": false,
     "sourceMap": true,
     "noImplicitReturns": true,
+    "useDefineForClassFields": false,
     "alwaysStrict": true,
     "allowJs": false,
     "noImplicitThis": true,

@@ -13,8 +13,6 @@ export const h5 = css`
     word-break: break-word;
     word-wrap: break-word;
     text-wrap: balance;
-    color: #5f6368;
-    color: var(--app-text-color, #5f6368);
     margin: 0;
     padding: 0;
   }

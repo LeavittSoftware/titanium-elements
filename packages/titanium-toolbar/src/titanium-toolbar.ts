@@ -7,8 +7,8 @@ import { property, customElement } from 'lit/decorators.js';
  *
  * @slot default - toolbar content (use main-title attribute on slotted title item)
  *
- * @cssprop {Color} [--titanium-toolbar-color=#fff] - Color of the toolbar background
- * @cssprop {Color} [--app-text-color=#5f6368] - main title text color
+ * @cssprop {Color} [--md-sys-color-background] - Color of the toolbar background
+ * @cssprop {Color} [--md-sys-color-on-background] - Color of the toolbar text
  */
 @customElement('titanium-toolbar')
 export class TitaniumToolbarElement extends LitElement {
@@ -22,7 +22,7 @@ export class TitaniumToolbarElement extends LitElement {
       display: flex;
 
       position: fixed;
-      z-index: 2;
+      z-index: 1;
       top: 0;
       left: 0;
       right: 0;
@@ -36,18 +36,22 @@ export class TitaniumToolbarElement extends LitElement {
 
       height: 48px;
       padding: 0 14px;
-      background-color: var(--titanium-toolbar-color, #fff);
+      background-color: var(--md-sys-color-background);
+      color: var(--md-sys-color-on-background);
     }
 
     :host([shadow]) {
-      box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+      box-shadow:
+        0px 2px 4px -1px rgb(from var(--md-sys-color-on-background) r g b / 0.2),
+        0px 4px 5px 0px rgb(from var(--md-sys-color-on-background) r g b / 0.14),
+        0px 1px 10px 0px rgb(from var(--md-sys-color-on-background) r g b / 0.12);
       transition: box-shadow 0.3s ease-in-out;
     }
 
     ::slotted([main-title]) {
       font-size: 22px;
       letter-spacing: 0.9px;
-      color: var(--app-text-color);
+      color: var(--md-sys-color-on-background);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;

@@ -12,8 +12,8 @@ import { property, customElement } from 'lit/decorators.js';
  *
  * @fires titanium-header-back-click - Fired when the back button is clicked
  *
- * @cssprop {Color} [--app-dark-text-color=#202124] - Header text color
- * @cssprop {Color} [--app-text-color=#5f6368] - Sub-header text color
+ * @cssprop {Color} [--md-sys-color-on-background] - Header text color
+ * @cssprop {Color} [--md-sys-color-on-surface-variant] - Sub-header text color
  */
 @customElement('titanium-header')
 export class TitaniumHeader extends LitElement {
@@ -83,11 +83,11 @@ export class TitaniumHeader extends LitElement {
         font-weight: 200;
 
         margin: 0;
-        color: var(--app-dark-text-color, #202124);
+        color: var(--md-sys-color-on-background);
       }
 
       h3 {
-        color: var(--app-text-color, #5f6368);
+        color: var(--md-sys-color-on-surface-variant);
         font-family: Metropolis, Roboto, Noto, sans-serif;
         font-weight: 300;
         font-size: 16px;
@@ -99,7 +99,7 @@ export class TitaniumHeader extends LitElement {
         display: inline;
         vertical-align: text-bottom;
         --mdc-icon-size: var(--titanium-header-icon-size, 40px);
-        color: var(--app-dark-text-color, #202124);
+        color: var(--md-sys-color-on-background);
         margin-right: 8px;
       }
 
