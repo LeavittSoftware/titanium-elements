@@ -6,6 +6,8 @@ import '@material/web/button/outlined-button';
 import '@material/web/button/filled-tonal-button';
 import '@material/web/icon/icon';
 import '@material/web/iconbutton/icon-button';
+import '@material/web/select/outlined-select.js';
+import '@material/web/select/select-option.js';
 import '@material/web/menu/menu';
 import '@material/web/menu/menu-item';
 import '@material/web/switch/switch';
@@ -149,6 +151,19 @@ export class TitaniumDataTableFullPlayground extends LitElement {
         margin: 24px 0 36px 0;
         --titanium-page-control-select-width: 108px;
       }
+
+      div[knobs] {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+        margin: 12px 0;
+      }
+
+      div[knobs] div {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
     `,
   ];
 
@@ -160,7 +175,7 @@ export class TitaniumDataTableFullPlayground extends LitElement {
 
       <titanium-data-table
         header="Tesla Motors"
-        .pageSizes=${[3, 5, 10, 15, 100]}
+        .pageSizes=${[3, 5, 10, 15, 100, 20000]}
         @selected-changed=${(e: CustomEvent<Array<Partial<{ Name: string }>>>) => {
           this.selected = [...e.detail];
         }}
@@ -289,19 +304,22 @@ export class TitaniumDataTableFullPlayground extends LitElement {
         )}
       </titanium-data-table>
 
-      <div>
-        <h2>Knobs</h2>
+      <h2>Knobs</h2>
+      <div knobs>
+        <div>
+        <md-switch
+              id="singleSelectSwitch"
+                .selected=${this.singleSelect}
+                @click=${() => {
+                  this.dataTable.clearSelection();
+                  this.singleSelect = !this.singleSelect;
+                }}
+              ></md-switch>
         <label for="singleSelectSwitch">Single Select</label>
-          <md-switch
-          id="singleSelectSwitch"
-            .selected=${this.singleSelect}
-            @click=${() => {
-              this.dataTable.clearSelection();
-              this.singleSelect = !this.singleSelect;
-            }}
-          ></md-switch>
-
-        <label for="disableSelectSwitch">Disable Select</label>
+              </div>
+         
+         
+              <div>
           <md-switch
           id="disableSelectSwitch"
             .selected=${this.disableSelect}
@@ -310,8 +328,10 @@ export class TitaniumDataTableFullPlayground extends LitElement {
               this.disableSelect = !this.disableSelect;
             }}
           ></md-switch>
+          <label for="disableSelectSwitch">Disable Select</label>
 
-          <label for="disablePagingSwitch">Disable Paging</label>
+          </div>
+          <div>
           <md-switch
           id="disablePagingSwitch"
             .selected=${this.disablePaging}
@@ -319,18 +339,17 @@ export class TitaniumDataTableFullPlayground extends LitElement {
               this.disablePaging = !this.disablePaging;
             }}
           ></md-switch>
+          <label for="disablePagingSwitch">Disable Paging</label>
+          </div>
+
         <md-filled-tonal-button
           raised
-          @click=${() => {
-            this.dataTable.resetPage();
-          }}
-          >Reset page</md-filled-tonal-button        >
+          @click=${() => this.dataTable.resetPage()}
+          >Reset page</md-filled-tonal-button>
         <md-filled-tonal-button
           raised
-          @click=${() => {
-            this.dataTable.clearSelection();
-          }}
-          >Clear selection</md-filled-tonal-button        >
+          @click=${() => this.dataTable.clearSelection()}
+          >Clear selection</md-filled-tonal-button >
       </div>
     `;
   }

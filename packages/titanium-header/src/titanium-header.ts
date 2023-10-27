@@ -1,5 +1,6 @@
-import '@material/mwc-icon';
-import '@material/mwc-icon-button';
+import '@material/web/icon/icon';
+import '@material/web/iconbutton/icon-button';
+
 import { h1, h3 } from '@leavittsoftware/titanium-styles';
 
 import { css, html, LitElement, nothing } from 'lit';
@@ -62,7 +63,7 @@ export class TitaniumHeader extends LitElement {
         position: relative;
       }
 
-      :host([no-nav]) mwc-icon-button {
+      :host([no-nav]) md-icon-button {
         display: none;
       }
 
@@ -95,17 +96,17 @@ export class TitaniumHeader extends LitElement {
         text-align: center;
       }
 
-      mwc-icon {
+      md-icon[header-icon] {
         display: inline;
         vertical-align: text-bottom;
-        --mdc-icon-size: var(--titanium-header-icon-size, 40px);
+        font-size: 40px;
         color: var(--md-sys-color-on-background);
         margin-right: 8px;
       }
 
-      mwc-icon-button {
+      md-icon-button {
         position: absolute;
-        top: -3px;
+        top: 0;
         left: 0;
       }
 
@@ -120,12 +121,8 @@ export class TitaniumHeader extends LitElement {
           line-height: 16px;
         }
 
-        mwc-icon {
-          --mdc-icon-size: var(--titanium-header-icon-size, 30px);
-        }
-
-        mwc-icon-button {
-          top: -9px;
+        md-icon[header-icon] {
+          font-size: 30px;
         }
       }
 
@@ -138,9 +135,9 @@ export class TitaniumHeader extends LitElement {
   render() {
     return html`
       <header part="header">
-        ${this.icon ? html`<mwc-icon part="icon">${this.icon}</mwc-icon>` : nothing}
+        ${this.icon ? html`<md-icon header-icon part="icon">${this.icon}</md-icon>` : nothing}
         <h1 part="h1">${this.header}</h1>
-        <mwc-icon-button part="button" icon="arrow_back" @click="${this.#handleBackClick}" large></mwc-icon-button>
+        <md-icon-button part="button" @click="${this.#handleBackClick}" large> <md-icon>arrow_back</md-icon></md-icon-button>
       </header>
 
       <h3 part="h3">${this.subHeader}</h3>
