@@ -10,7 +10,7 @@
   ],
   "dependencies": {
     "@leavittsoftware/titanium-styles": "^0.8.0",
-    "@material/mwc-button": "*",
+    "@material/web": "*",
     "tslib": "^2.4.1"
   },
   "peerDependencies": {
