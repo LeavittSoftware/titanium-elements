@@ -8,7 +8,6 @@ import '@material/mwc-button';
 /* playground-fold-end */
 
 import '@leavittsoftware/titanium-drawer';
-import '@leavittsoftware/titanium-side-menu';
 import { TitaniumDrawer } from '@leavittsoftware/titanium-drawer';
 
 /* playground-fold */

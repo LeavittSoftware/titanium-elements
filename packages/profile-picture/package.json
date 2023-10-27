@@ -6,7 +6,7 @@
   "license": "MIT",
   "main": "lib/profile-picture.js",
   "typings": "lib/profile-picture.d.ts",
-  "homepage": "https://github.com/LeavittSoftware/titanium-elements/tree/master/packages/titanium-svg-button",
+  "homepage": "https://github.com/LeavittSoftware/titanium-elements/tree/master/packages/titanium-profile-picture",
   "files": [
     "./lib",
     "./src"

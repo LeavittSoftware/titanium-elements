@@ -1,8 +1,8 @@
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { h1, h2, p, a } from '@leavittsoftware/titanium-styles';
-import '@leavittsoftware/titanium-chip';
 import '@leavittsoftware/titanium-header';
+import '@leavittsoftware/titanium-card';
 
 @customElement('getting-started')
 export default class GettingStartedElement extends LitElement {
@@ -49,11 +49,11 @@ export default class GettingStartedElement extends LitElement {
 
       <h2>Installation</h2>
       <p>NPM install the element you want to use:</p>
-      <code block>npm i @leavittsoftware/titanium-chip</code>
+      <code block>npm i @leavittsoftware/titanium-card</code>
       <p>Include the element on your page.</p>
-      <code block>import '@leavittsoftware/titanium-chip';</code>
+      <code block>import '@leavittsoftware/titanium-card';</code>
       <p>Use the element:</p>
-      <code block>${'<titanium-chip></titanium-chip>'}</code>
+      <code block>${'<titanium-card></titanium-card>'}</code>
 
       <h2>Styling</h2>
       <p>Elements are styled via CSS variables. See each element's docs for the list of available mixins.</p>

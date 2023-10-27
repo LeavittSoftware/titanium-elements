@@ -2,7 +2,7 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, query } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/titanium-styles';
-import '@leavittsoftware/titanium-button';
+import '@material/web/button/text-button';
 
 /* playground-fold-end */
 import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-item';
@@ -65,9 +65,9 @@ export class TitaniumDataTableItemPlayground extends LitElement {
       <div methods-demo>
         <titanium-data-table-item select-demo>Item</titanium-data-table-item>
         <section>
-          <titanium-button raised @click=${() => this.selectItem.select()}>select()</titanium-button>
-          <titanium-button raised @click=${() => this.selectItem.deselect()}>deselect()</titanium-button>
-          <titanium-button raised @click=${() => this.selectItem.toggleSelected()}>toggleSelected()</titanium-button>
+          <md-text-button raised @click=${() => this.selectItem.select()}>select()</md-text-button>
+          <md-text-button raised @click=${() => this.selectItem.deselect()}>deselect()</md-text-button>
+          <md-text-button raised @click=${() => this.selectItem.toggleSelected()}>toggleSelected()</md-text-button>
         </section>
       </div>
     `;
