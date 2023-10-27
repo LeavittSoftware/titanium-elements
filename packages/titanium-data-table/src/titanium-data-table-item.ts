@@ -1,8 +1,9 @@
 import { css, html, LitElement, PropertyValues } from 'lit';
 import { property, customElement, query, state } from 'lit/decorators.js';
-import '@material/mwc-checkbox';
-import { Checkbox } from '@material/mwc-checkbox';
 import { TitaniumDataTableElement } from './titanium-data-table';
+
+import '@material/web/checkbox/checkbox';
+import '@material/web/icon/icon';
 
 /**
  * A data table element to organize row data and handle row selection.
@@ -23,9 +24,9 @@ import { TitaniumDataTableElement } from './titanium-data-table';
  * @slot default - Main slot that should contain a list of row-item elements
  * @slot item-footer - Optional footer content below the row with the row-items
  *
- * @cssprop {Color} [--app-text-color=#5f6368] - Row text color
- * @cssprop {Color} [--app-hover-color=#f9f9f9] - Row hover color
- * @cssprop {Color} [--app-border-color=#dadce0] - Bottom division line
+ * @cssprop {Color} [--md-sys-color-secondary-container] - Row selected  color
+ * @cssprop {Color} [--md-sys-color-on-surface] - Row hover color
+ * @cssprop {Color} [--md-sys-color-outline-variant] - Bottom division line
  * @cssprop [--titanium-data-table-font-family=Roboto, Noto, sans-serif] - Set the font family of the data table item
  */
 @customElement('titanium-data-table-item')
@@ -69,7 +70,6 @@ export class TitaniumDataTableItemElement extends LitElement {
   @state() protected hoverIndex: number | null = null;
   @state() protected originIndex: number | null = null;
 
-  @query('mwc-checkbox') checkbox: Checkbox;
   @query('item-content') itemContent: HTMLDivElement;
 
   protected mouseEvent = e => this.#startItemDrag(e, 'mouse');
@@ -132,8 +132,8 @@ export class TitaniumDataTableItemElement extends LitElement {
    *  if not already checked, triggers click on checkbox which triggers this.selected to be set as well
    */
   select() {
-    if (this.checkbox && !this.checkbox.checked) {
-      this.checkbox.click();
+    if (!this.selected) {
+      this.#setSelected(true);
     }
   }
 
@@ -141,10 +141,14 @@ export class TitaniumDataTableItemElement extends LitElement {
    *  if already checked, triggers click on checkbox which triggers this.selected to be set to false as well
    */
   deselect() {
-    if (this.checkbox?.checked) {
-      this.checkbox.click();
-      this.checkbox.blur();
+    if (this.selected) {
+      this.#setSelected(false);
     }
+  }
+
+  #setSelected(value: boolean) {
+    this.selected = value;
+    this.dispatchEvent(new Event('titanium-data-table-item-selected-changed', { bubbles: true, composed: true }));
   }
 
   protected get dataTable() {
@@ -347,43 +351,43 @@ export class TitaniumDataTableItemElement extends LitElement {
       user-select: none;
       text-decoration: none;
 
-      background-color: #fff;
-
       font-family: var(--titanium-data-table-font-family, Roboto, Noto, sans-serif);
       -webkit-font-smoothing: antialiased;
 
       transition: none;
       margin-top: -1px;
       box-sizing: border-box;
-      border-bottom: 1px var(--app-border-color, #dadce0) solid;
-      border-top: 1px var(--app-border-color, #dadce0) solid;
+      border-bottom: 1px var(--md-sys-color-outline-variant) solid;
+      border-top: 1px var(--md-sys-color-outline-variant) solid;
       position: relative;
     }
 
     :host(:not([disable-select])[selected]) {
-      background-color: #e8f0fe;
+      background-color: var(--md-sys-color-secondary-container);
     }
 
     :host(:not([disable-select]):not([selected]):hover) {
-      background-color: var(--app-hover-color, #f9f9f9);
+      background-color: rgb(from var(--md-sys-color-on-surface, #1d1b20) r g b / 0.08);
     }
 
     :host([enable-dragging]) {
       cursor: grab;
     }
 
-    mwc-icon[drag] {
+    md-icon[drag] {
       display: none;
       color: var(--app-border-color, #dadce0);
       margin-right: -24px;
     }
 
-    :host([enable-dragging]:hover) mwc-icon[drag] {
+    :host([enable-dragging]:hover) md-icon[drag] {
       display: block;
     }
 
     :host([dragged]) {
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+      box-shadow:
+        0 3px 6px rgba(0, 0, 0, 0.16),
+        0 3px 6px rgba(0, 0, 0, 0.23);
       transition: none;
       overflow: hidden;
       z-index: 1 !important;
@@ -417,7 +421,6 @@ export class TitaniumDataTableItemElement extends LitElement {
       display: block;
       font-size: 14px;
       line-height: 18px;
-      color: var(--app-text-color, #5f6368);
       font-weight: 400;
       padding: 4px 8px;
       margin: 0;
@@ -453,10 +456,10 @@ export class TitaniumDataTableItemElement extends LitElement {
       text-align: right;
     }
 
-    mwc-checkbox {
+    md-checkbox {
       flex-shrink: 0;
       align-self: center;
-      margin: 0 0 0 9px;
+      margin: 0 14px 0 20px;
     }
 
     :host([disable-select]) ::slotted(row-item:first-of-type) {
@@ -468,7 +471,7 @@ export class TitaniumDataTableItemElement extends LitElement {
     }
 
     @media (max-width: 768px) {
-      :host([enable-dragging]) mwc-icon[drag] {
+      :host([enable-dragging]) md-icon[drag] {
         display: block;
       }
     }
@@ -493,22 +496,14 @@ export class TitaniumDataTableItemElement extends LitElement {
         ${this.disableSelect
           ? ''
           : html`
-              <mwc-icon drag>drag_indicator</mwc-icon>
-              <mwc-checkbox
+              <md-icon drag>drag_indicator</md-icon>
+              <md-checkbox
+                .checked=${this.selected}
                 @mousedown=${(e: MouseEvent) => e.stopPropagation()}
                 @touchstart=${(e: TouchEvent) => e.stopPropagation()}
                 @dblclick=${e => e.stopPropagation()}
-                @change=${() => {
-                  this.selected = this.checkbox.checked;
-                  this.dispatchEvent(
-                    new CustomEvent('titanium-data-table-item-selected-changed', {
-                      composed: true,
-                      bubbles: true,
-                      detail: { isSelected: this.selected, item: this.item, checkbox: this.checkbox },
-                    })
-                  );
-                }}
-              ></mwc-checkbox>
+                @change=${e => this.#setSelected(e.target.checked)}
+              ></md-checkbox>
             `}
 
         <slot></slot>

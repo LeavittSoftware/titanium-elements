@@ -1,6 +1,8 @@
 import { css, html, LitElement } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
 
+import '@material/web/icon/icon';
+
 /**
  * Material design data table header with styling and sorting capabilities
  *
@@ -9,9 +11,7 @@ import { property, customElement } from 'lit/decorators.js';
  * @fires sort-direction-changed - Fired if sort direction is changed (detail: 'desc' | 'asc')
  * @fires sort-by-changed - Fired when the close button is clicked (detail: {string} column name of currently sorted header )
  *
- * @cssprop {Color} [--app-text-color=#5f6368] --app-text-color - Inactive sort icon color
- * @cssprop {Color} [--app-light-text-color=#80868b] - Inactive text color
- * @cssprop {Color} [--app-dark-text-color=#202124] - Active text color
+ * @cssprop {font} [--titanium-data-table-font-family=Roboto, Noto, sans-serif] - Font family
  */
 @customElement('titanium-data-table-header')
 export class TitaniumDataTableHeaderElement extends LitElement {
@@ -118,8 +118,6 @@ export class TitaniumDataTableHeaderElement extends LitElement {
       padding: 8px;
       line-height: 28px;
       font-weight: 500;
-
-      color: var(--app-text-color, #5f6368);
     }
 
     :host(:not([width])) {
@@ -132,10 +130,6 @@ export class TitaniumDataTableHeaderElement extends LitElement {
       -ms-flex: 5;
       -webkit-flex: 5;
       flex: 5;
-    }
-
-    :host([active]) {
-      color: var(--app-text-color, #5f6368);
     }
 
     :host([hidden]) {
@@ -159,41 +153,37 @@ export class TitaniumDataTableHeaderElement extends LitElement {
       text-align: right;
     }
 
-    sort-icon {
+    md-icon {
+      display: block;
       height: 18px;
       width: 18px;
+      font-size: 18px;
       margin-left: 4px;
       flex-shrink: 0;
+      transform-origin: center;
+      transition: transform 150ms ease;
     }
 
-    :host([no-sort]) sort-icon {
+    :host([no-sort]) md-icon {
       display: none;
     }
 
-    :host([right]) sort-icon {
+    :host([right]) md-icon {
       margin-right: 4px;
       margin-left: 0;
     }
 
-    sort-icon svg {
-      display: none;
-      fill: var(--app-text-color, #5f6368);
+    md-icon {
+      visibility: hidden;
     }
 
-    :host([active][sort-direction='asc']) sort-icon svg {
+    :host([active][sort-direction='asc']) md-icon {
       transform: rotate(-180deg);
-      transition: transform 150ms ease;
     }
 
-    :host([active][sort-direction='desc']) sort-icon svg {
-      transform: rotate(-360deg);
-      transition: transform 150ms ease;
-    }
-
-    :host([active][sort-direction='asc']) sort-icon svg,
-    :host([active][sort-direction='desc']) sort-icon svg {
-      display: block;
-      fill: var(--app-text-color, #5f6368);
+    :host([active][sort-direction='asc']) md-icon,
+    :host([active][sort-direction='desc']) md-icon {
+      visibility: visible;
     }
 
     :host([narrow][desktop]) {
@@ -204,12 +194,7 @@ export class TitaniumDataTableHeaderElement extends LitElement {
   render() {
     return html`
       ${this.title}
-      <sort-icon>
-        <svg viewBox="0 0 24 24">
-          <path fill="none" d="M0 0h24v24H0V0z" />
-          <path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z" />
-        </svg>
-      </sort-icon>
+      <md-icon>arrow_downward</md-icon>
     `;
   }
 }

@@ -1,7 +1,5 @@
-import '@material/mwc-linear-progress';
-import '@material/mwc-checkbox';
 import './titanium-page-control';
-import { Checkbox } from '@material/mwc-checkbox';
+import '@material/web/checkbox/checkbox';
 
 import { css, html, LitElement } from 'lit';
 import { property, customElement, query, queryAsync } from 'lit/decorators.js';
@@ -9,6 +7,7 @@ import { DataTableItemDropEvent, TitaniumDataTableItemElement } from './titanium
 import { TitaniumDataTableHeaderElement } from './titanium-data-table-header';
 import { h1, ellipsis } from '@leavittsoftware/titanium-styles';
 import { TitaniumPageControlElement } from './titanium-page-control';
+import { MdCheckbox } from '@material/web/checkbox/checkbox';
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare const ResizeObserver: any;
@@ -118,7 +117,7 @@ export class TitaniumDataTableElement extends LitElement {
   /**
    * @ignore
    */
-  @query('mwc-checkbox') checkbox: Checkbox;
+  @query('md-checkbox') checkbox: MdCheckbox;
   /**
    * @ignore
    */
@@ -164,11 +163,6 @@ export class TitaniumDataTableElement extends LitElement {
    */
   public async resetPage() {
     await this.setPage(0);
-  }
-
-  connectedCallback() {
-    super.connectedCallback();
-    this.addEventListener('titanium-data-table-item-selected-changed', this.#handleItemSelectionChange.bind(this));
   }
 
   async firstUpdated() {
@@ -247,29 +241,6 @@ export class TitaniumDataTableElement extends LitElement {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  #handleItemSelectionChange(e: any) {
-    e.stopPropagation();
-
-    if (e.detail.isSelected) {
-      if (this.singleSelect) {
-        this.#getTableItems()
-          .filter(o => o.item !== e.detail.item)
-          .forEach(o => o.deselect());
-
-        e.detail?.checkbox?.focus?.();
-      }
-
-      this.selected.push(e.detail.item);
-      this.requestUpdate();
-      this.#notifySelectedChanged();
-    } else {
-      this.selected.splice(this.selected.indexOf(e.detail.item), 1);
-      this.requestUpdate();
-      this.#notifySelectedChanged();
-    }
-  }
-
   #notifySelectedChanged() {
     this.dispatchEvent(new CustomEvent('selected-changed', { composed: true, detail: this.selected }));
   }
@@ -317,8 +288,7 @@ export class TitaniumDataTableElement extends LitElement {
         display: flex;
         flex-direction: column;
 
-        background-color: #fff;
-        border: 1px solid var(--app-border-color, #dadce0);
+        border: 1px solid var(--md-sys-color-outline-variant);
         border-radius: 8px;
         --mdc-icon-button-size: 42px;
         font-family: var(--titanium-data-table-font-family, Roboto, Noto, sans-serif);
@@ -525,16 +495,6 @@ export class TitaniumDataTableElement extends LitElement {
         align-items: flex-end;
       }
 
-      div[add-button] ::slotted(mwc-button),
-      footer-buttons ::slotted(mwc-button) {
-        --mdc-shape-small: 24px;
-        --mdc-typography-font-family: 'Metropolis';
-        --mdc-typography-button-text-transform: none;
-        --mdc-typography-button-font-weight: 400;
-        --mdc-typography-button-font-size: 14px;
-        --mdc-typography-button-letter-spacing: 0.0107142857em;
-      }
-
       div[add-button] {
         display: flex;
         align-items: center;
@@ -544,7 +504,7 @@ export class TitaniumDataTableElement extends LitElement {
         position: relative;
       }
 
-      mwc-checkbox {
+      md-checkbox {
         flex-shrink: 0;
         align-self: center;
         margin: 0 0 0 9px;
@@ -594,23 +554,46 @@ export class TitaniumDataTableElement extends LitElement {
         </selected-actions>
       </header>
 
-      <table-container>
+      <table-container
+        @titanium-data-table-item-selected-changed=${e => {
+          e.stopPropagation();
+          const dataTableItem = e.target as TitaniumDataTableItemElement;
+
+          if (dataTableItem.selected) {
+            if (this.singleSelect) {
+              this.#getTableItems()
+                .filter(o => o.item !== dataTableItem.item)
+                .forEach(o => o.deselect());
+            }
+
+            this.selected.push(dataTableItem.item);
+            this.requestUpdate();
+            this.#notifySelectedChanged();
+          } else {
+            this.selected.splice(this.selected.indexOf(dataTableItem.item), 1);
+            this.requestUpdate();
+            this.#notifySelectedChanged();
+          }
+        }}
+      >
         <table-header part="table-header-container">
           ${this.disableSelect || this.singleSelect
             ? ''
             : html`
-                <mwc-checkbox
+                <md-checkbox
+                  title="${this.selected.length > 0 ? 'Deselect' : 'Select'} all checkboxes"
+                  aria-label="${this.selected.length > 0 ? 'Deselect' : 'Select'} all checkboxes"
                   ?checked=${this.selected.length > 0}
                   ?indeterminate=${this.selected.length !== 0 && this.selected.length !== this.items.length}
                   @click=${() => {
                     this.selected.length > 0 ? this.#deselectAll() : this.selectAll();
                     this.checkbox.focus();
                   }}
-                ></mwc-checkbox>
+                ></md-checkbox>
               `}
           <slot name="table-headers"></slot>
         </table-header>
-        <mwc-linear-progress ?hidden=${!this.isLoading} ?closed=${!this.isLoading} indeterminate></mwc-linear-progress>
+        <md-linear-progress ?hidden=${!this.isLoading} ?closed=${!this.isLoading} indeterminate></md-linear-progress>
 
         <main>
           <div items-slot part="items-container">

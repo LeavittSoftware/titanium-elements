@@ -20,11 +20,7 @@
   },
   "dependencies": {
     "@leavittsoftware/titanium-styles": "^0.8.0",
-    "@material/mwc-checkbox": "*",
-    "@material/mwc-icon-button": "*",
-    "@material/mwc-linear-progress": "*",
-    "@material/mwc-list": "*",
-    "@material/mwc-select": "*",
+    "@material/web": "*",
     "regexparam": "~2.0.1",
     "tslib": "^2.4.1"
   },
