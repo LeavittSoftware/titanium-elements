@@ -1,11 +1,11 @@
 import { css, html, LitElement } from 'lit';
 import { property, customElement, queryAsync } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
-import { Select } from '@material/mwc-select';
 
-import '@material/mwc-select';
-import '@material/mwc-icon-button';
-import '@material/mwc-list/mwc-list-item';
+import '@material/web/iconbutton/icon-button';
+import '@material/web/select/outlined-select.js';
+import '@material/web/select/select-option.js';
+import { MdOutlinedSelect } from '@material/web/select/outlined-select.js';
 
 /**
  * Material design page control with page size selector!
@@ -14,7 +14,6 @@ import '@material/mwc-list/mwc-list-item';
  *
  * @fires action - Fired when take or page is changed by click or keyboard action. Replaces `take-changed` and `page-changed`.
  *
- * @cssprop {Color} [--app-dark-text-color=#202124] - page control text color
  * @cssprop [--titanium-page-control-font-family=Roboto, Noto, sans-serif] - page control font family
  */
 @customElement('titanium-page-control')
@@ -53,7 +52,7 @@ export class TitaniumPageControlElement extends LitElement {
    * Disables the page control select and page navigation buttons when true
    */
   @property({ type: Boolean }) disabled: boolean;
-  @queryAsync('mwc-select') protected select: Select;
+  @queryAsync('md-select') protected select: MdOutlinedSelect;
 
   /**
    * Gets or sets take value and assigns it to local storage.
@@ -76,14 +75,6 @@ export class TitaniumPageControlElement extends LitElement {
     }
     localStorage.setItem(this.localStorageKey, String(val));
     this.requestUpdate('take');
-  }
-
-  async firstUpdated() {
-    //TODO: when height is allowed to be changed via css mixin on mwc-select, remove this
-    const selectAnchor = (await this.select)?.shadowRoot?.querySelector<HTMLElement>('.mdc-select')?.querySelector<HTMLElement>('.mdc-select__anchor');
-    if (selectAnchor) {
-      selectAnchor.style.height = '36px';
-    }
   }
 
   #getPageStats(page: number, count: number) {
@@ -124,10 +115,6 @@ export class TitaniumPageControlElement extends LitElement {
       -webkit-font-smoothing: antialiased;
     }
 
-    mwc-icon-button {
-      --mdc-icon-button-size: 32px;
-    }
-
     table-controls {
       display: flex;
       flex-direction: row;
@@ -141,7 +128,6 @@ export class TitaniumPageControlElement extends LitElement {
       font-weight: 400;
       letter-spacing: 0.011em;
       line-height: 20px;
-      color: var(--app-dark-text-color, #202124);
       gap: 8px;
     }
 
@@ -157,9 +143,11 @@ export class TitaniumPageControlElement extends LitElement {
       min-width: 0;
     }
 
-    take-control mwc-select {
-      max-width: var(--titanium-page-control-select-width, 100px);
-      --mdc-shape-small: 24px;
+    md-outlined-select {
+      min-width: 100px;
+      --md-outlined-field-top-space: 4px;
+      --md-outlined-field-bottom-space: 4px;
+      --md-outlined-select-text-field-container-shape: 24px;
     }
 
     pagination-text {
@@ -178,35 +166,32 @@ export class TitaniumPageControlElement extends LitElement {
       <table-controls>
         <take-control>
           <div ellipsis>${this.label}</div>
-          <mwc-select
-            outlined
-            @action=${e => {
+          <md-outlined-select
+            ?disabled=${this.disabled}
+            @request-selection=${e => {
               e.stopPropagation();
               this.take = Number(e.target.value);
               this.dispatchEvent(new CustomEvent('action', { composed: true }));
             }}
-            .value=${String(this.take)}
-            ?disabled=${this.disabled}
           >
             ${repeat(
               this.pageSizes,
               o => o,
-              o => html` <mwc-list-item ?selected=${this.take === o} value=${o}>${o}</mwc-list-item>`
+              o =>
+                html` <md-select-option ?selected=${this.take === o} value=${o}>
+                  <div slot="headline">${o}</div>
+                </md-select-option>`
             )}
-          </mwc-select>
+          </md-outlined-select>
         </take-control>
         <pagination-text>${this.#getPageStats(this.page, this.count)}</pagination-text>
         <table-paging>
-          <mwc-icon-button
-            icon="keyboard_arrow_left"
-            @click=${this.#handleLastPageClick}
-            ?disabled=${this.page === 0 || !this.count || this.disabled}
-          ></mwc-icon-button>
-          <mwc-icon-button
-            icon="keyboard_arrow_right"
-            @click=${this.#handleNextPageClick}
-            ?disabled=${!this.count || (this.page + 1) * this.take >= this.count || this.disabled}
-          ></mwc-icon-button>
+          <md-icon-button @click=${this.#handleLastPageClick} ?disabled=${this.page === 0 || !this.count || this.disabled}>
+            <md-icon>keyboard_arrow_left</md-icon>
+          </md-icon-button>
+          <md-icon-button @click=${this.#handleNextPageClick} ?disabled=${!this.count || (this.page + 1) * this.take >= this.count || this.disabled}>
+            <md-icon>keyboard_arrow_right</md-icon>
+          </md-icon-button>
         </table-paging>
       </table-controls>
     `;

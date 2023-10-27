@@ -6,6 +6,8 @@ import '@material/web/button/outlined-button';
 import '@material/web/button/filled-tonal-button';
 import '@material/web/icon/icon';
 import '@material/web/iconbutton/icon-button';
+import '@material/web/select/outlined-select.js';
+import '@material/web/select/select-option.js';
 import '@material/web/menu/menu';
 import '@material/web/menu/menu-item';
 import '@material/web/switch/switch';
@@ -160,7 +162,7 @@ export class TitaniumDataTableFullPlayground extends LitElement {
 
       <titanium-data-table
         header="Tesla Motors"
-        .pageSizes=${[3, 5, 10, 15, 100]}
+        .pageSizes=${[3, 5, 10, 15, 100, 20000]}
         @selected-changed=${(e: CustomEvent<Array<Partial<{ Name: string }>>>) => {
           this.selected = [...e.detail];
         }}
