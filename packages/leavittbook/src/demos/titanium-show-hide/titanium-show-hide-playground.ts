@@ -203,16 +203,7 @@ export class TitaniumColorInputPlayground extends LitElement {
       <div main>
         <h2>Vertical Credit Card Generator</h2>
         <p>How many would you like?</p>
-        <md-slider
-          discrete
-          withTickMarks
-          step="1"
-          min="1"
-          max="100"
-          @input=${(event) => (this.verticalStepValue = event.target.value)}
-          .value=${this.verticalStepValue}
-        >
-        </md-slider>
+        <md-slider @input=${(event) => (this.verticalStepValue = event.target.value)} .value=${this.verticalStepValue}> </md-slider>
         <titanium-show-hide collapse-height="200">
           ${(new Array(this.verticalStepValue) as number[]).fill(0).map(
             (_, idx) =>
@@ -236,16 +227,7 @@ export class TitaniumColorInputPlayground extends LitElement {
       <div main>
         <h2>Horizontal Credit Card Generator</h2>
         <p>How many would you like?</p>
-        <md-slider
-          discrete
-          withTickMarks
-          step="1"
-          min="1"
-          max="100"
-          @input=${(event) => (this.horizontalStepValue = event.target.value)}
-          .value=${this.horizontalStepValue}
-        >
-        </md-slider>
+        <md-slider @input=${(event) => (this.horizontalStepValue = event.target.value)} .value=${this.horizontalStepValue}> </md-slider>
         <titanium-show-hide horizontal collapse-height="200">
           ${(new Array(this.horizontalStepValue) as number[]).fill(0).map(
             (_, idx) =>

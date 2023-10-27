@@ -11,6 +11,8 @@ import '@material/web/button/outlined-button';
  * @slot - main slot for content. Please note that component is assuming that the slotted content is not deeply nested.
  * Please place your items directly in the titanium-show-hide element default slot for this component to function properly.
  *
+ * @slot [button] - slot for button to show/hide content. If you do not provide a button slot the component will create a default button.
+ *
  * @cssprop [--titanium-show-hide-flex-direction=column] - flex direction for the parent of the slotted in content
  * @cssprop [--titanium-show-hide-flex-wrap=wrap] - flex wrap for the parent of the slotted in content
  * @cssprop [--titanium-show-hide-gap=8px] - flex direction of the for the parent of the slotted in content
