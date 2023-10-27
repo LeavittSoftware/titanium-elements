@@ -1,7 +1,9 @@
 import { LitElement, html, css, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import '@material/mwc-tab-bar';
+import '@material/web/tabs/primary-tab';
+import '@material/web/tabs/tabs';
+import '@material/web/icon/icon';
 import { SiteErrorEvent } from '../events';
 
 @customElement('smart-demo')
@@ -50,10 +52,21 @@ export default class SmartDemoElement extends LitElement {
 
   render() {
     return html`
-      <mwc-tab-bar @MDCTabBar:activated=${(o: CustomEvent<{ index: number }>) => (this.selectedTab = o.detail.index === 0 ? 'simple' : 'playground')}>
-        <mwc-tab label="Demo" stacked icon="preview"></mwc-tab>
-        <mwc-tab label="Playground (BETA)" stacked icon="family_restroom"></mwc-tab>
-      </mwc-tab-bar>
+      <md-tabs
+        @change=${(event) => {
+          this.selectedTab = event.target.activeTabIndex === 0 ? 'simple' : 'playground';
+        }}
+      >
+        <md-primary-tab
+          >Demo
+          <md-icon slot="icon">preview</md-icon>
+        </md-primary-tab>
+        <md-primary-tab
+          >Playground (BETA)
+          <md-icon slot="icon">family_restroom</md-icon>
+        </md-primary-tab>
+      </md-tabs>
+
       ${this.selectedTab === 'playground'
         ? html` <playground-ide
             ?line-numbers=${this.lineNumbers}

@@ -1,5 +1,8 @@
-﻿import { css, html, LitElement } from 'lit';
+﻿import '@material/web/elevation/elevation';
+
+import { css, html, LitElement } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
+
 /**
  * A material card filled or outlined
  *
@@ -28,6 +31,7 @@ export class TitaniumCardElement extends LitElement {
           'title' auto
           'body' 1fr;
         border-radius: 12px;
+        position: relative;
 
         border: 1px solid var(--md-sys-color-outline-variant);
         background-color: var(--md-sys-color-surface);
@@ -145,6 +149,6 @@ export class TitaniumCardElement extends LitElement {
   ];
 
   render() {
-    return html` <slot></slot> `;
+    return html`<md-elevation></md-elevation> <slot></slot> `;
   }
 }
