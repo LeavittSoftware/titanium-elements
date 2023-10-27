@@ -1,7 +1,7 @@
 import { css, html, LitElement, nothing, PropertyValues } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/titanium-styles';
-import '@leavittsoftware/titanium-chip';
+import '@material/web/chips/suggestion-chip';
 import { CountUp } from 'countup.js';
 
 type CustomElementDeclaration = {
@@ -35,14 +35,14 @@ export default class StoryHeaderElement extends LitElement {
 
   async updated(changedProps: PropertyValues<this>) {
     if ((changedProps.has('className') || changedProps.has('customElementsJSON')) && this.className && this.customElementsJSON) {
-      this.customElementDeclaration = this.customElementsJSON?.modules.flatMap(o => o.declarations).find(o => o.name === this.className) ?? null;
+      this.customElementDeclaration = this.customElementsJSON?.modules.flatMap((o) => o.declarations).find((o) => o.name === this.className) ?? null;
     }
 
     if (changedProps.has('packageName') && this.packageName) {
       const [version, downloadCount] = (await this.#getVersion(this.packageName)) ?? [];
 
       if (version) {
-        const [major, minor, rev] = version.split('.').map(o => Number(o));
+        const [major, minor, rev] = version.split('.').map((o) => Number(o));
 
         const countUp = new CountUp(this.major, major, { suffix: '.', duration: 1 });
         const countUp2 = new CountUp(this.minor, minor, { suffix: '.', duration: 1 });
@@ -108,7 +108,6 @@ export default class StoryHeaderElement extends LitElement {
 
       [code] {
         font-family: Consolas, monospace;
-        color: var(--app-light-text-color);
         font-size: 18px;
       }
 
@@ -136,22 +135,16 @@ export default class StoryHeaderElement extends LitElement {
         gap: 6px;
       }
 
-      titanium-chip {
+      [tertiary] {
+        background-color: var(--md-sys-color-tertiary);
+        color: var(--md-sys-color-on-tertiary);
+      }
+
+      info-chip {
         height: 24px;
         padding: 0px 6px;
-        --app-text-color: #f5f5f5;
-      }
-
-      titanium-chip[black] {
-        --titanium-chip-label-background-color: #212121;
-      }
-
-      titanium-chip[blue] {
-        --titanium-chip-label-background-color: var(--app-primary-color);
-      }
-
-      titanium-chip[deprecated] {
-        --titanium-chip-label-background-color: var(--app-accent-color-red);
+        border: 1px var(--md-sys-color-outline-variant) solid;
+        border-radius: 12px;
       }
     `,
   ];
@@ -169,12 +162,13 @@ export default class StoryHeaderElement extends LitElement {
       <chip-container>
         ${this.packageName
           ? html`
-              <titanium-chip readonly black>
-                <span slot="label"><span class="major"></span><span class="minor"></span><span class="rev"></span></span>
-              </titanium-chip>
-              <titanium-chip readonly blue>
-                <span slot="label"><span class="downloads"></span></span>
-              </titanium-chip>
+              <info-chip tertiary>
+                <span>v<span class="major"></span><span class="minor"></span><span class="rev"></span></span
+              ></info-chip>
+
+              <info-chip>
+                <span slot="label"><span class="downloads"></span></span
+              ></info-chip>
             `
           : nothing}
         ${this.deprecatedReason ? html`<titanium-chip readonly deprecated label="Deprecated (${this.deprecatedReason})"></titanium-chip>` : nothing}
