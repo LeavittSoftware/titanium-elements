@@ -303,7 +303,7 @@ export class LeavittCompanySelect extends LitElement {
         id="menu"
         anchor="menu-anchor"
         corner="BOTTOM_LEFT"
-        default-focus="none"
+        default-focus="list-root"
         skip-restore-focus
         @close-menu=${(e: CloseMenuEvent) => {
           const selectedMenuItem = (e.detail.itemPath?.[0] ?? null) as MenuItem & { companyId: number };
