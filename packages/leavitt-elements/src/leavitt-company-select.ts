@@ -1,32 +1,23 @@
 import { css, html, LitElement, PropertyValues } from 'lit';
 import { property, customElement, query, state } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
-import '@material/mwc-textfield';
-import '@material/mwc-list/mwc-list-item.js';
-import '@material/mwc-linear-progress';
-import '@material/mwc-menu';
 
-import { Menu } from '@material/mwc-menu';
-import { TextField } from '@material/mwc-textfield';
+import '@material/web/icon/icon';
+import '@material/web/textfield/outlined-text-field';
+
+import '@material/web/menu/menu';
+import '@material/web/menu/menu-item';
+
 import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar/lib/titanium-snackbar';
 
-import { LoadWhile } from '@leavittsoftware/titanium-helpers';
 import { Company } from '@leavittsoftware/lg-core-typescript/lg.net.core';
 import ApiService from '@leavittsoftware/api-service/lib/api-service';
 import { DOMEvent } from './dom-event';
-import { SelectedDetail } from '@material/mwc-menu/mwc-menu-base';
 import Fuse from 'fuse.js';
-import { MenuSurface } from '@material/mwc-menu/mwc-menu-surface';
-
-export class LeavittCompanySelectSelectedEvent extends Event {
-  static eventType = 'selected';
-  company: Partial<Company | null>;
-
-  constructor(company: Partial<Company | null>, eventInitDict?: EventInit) {
-    super(LeavittCompanySelectSelectedEvent.eventType, eventInitDict);
-    this.company = company;
-  }
-}
+import { CloseMenuEvent, MenuItem } from '@material/web/menu/menu';
+import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
+import { LeavittCompanySelectSelectedEvent } from './leavitt-company-select-selected-event';
+import { Menu } from '@material/web/menu/internal/menu';
 
 /**
  *  Single select input that searches Leavitt Group companies
@@ -37,11 +28,11 @@ export class LeavittCompanySelectSelectedEvent extends Event {
  *
  */
 @customElement('leavitt-company-select')
-export class LeavittCompanyElement extends LoadWhile(LitElement) {
+export class LeavittCompanySelect extends LitElement {
   @state() protected searchTerm: string;
   @state() protected suggestions: Array<Partial<Company>> = [];
-  @query('mwc-menu') protected menu: Menu;
-  @query('mwc-textfield') protected textfield: TextField & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
+  @query('md-menu') protected menu: Menu | null;
+  @query('md-outlined-text-field') protected textfield: MdOutlinedTextField | null;
 
   @property({ type: Array }) companies: Array<Partial<Company>> = [];
 
@@ -49,11 +40,6 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
    *  Required
    */
   @property({ attribute: false }) apiService: ApiService;
-
-  /**
-   *  Sets the dropdown menu's position to fixed. This is useful when the select is inside of a stacking context e.g. inside of an mwc-dialog. Note, that --mdc-menu-min-width or --mdc-menu-max-width may have to be set to resize the menu to the width anchor.
-   */
-  @property({ type: Boolean }) fixedMenuPosition = false;
 
   /**
    *  Disables automatic loading of companies on firstUpdated
@@ -76,16 +62,6 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
   @property({ type: Object }) selected: Partial<Company> | null = null;
 
   /**
-   *  Message to show in the error color when the element is invalid.
-   */
-  @property({ type: String }) validationMessage: string;
-
-  /**
-   *  Leading icon to display in select. See mwc-icon. Note: for proper list spacing, each list item must have graphic="icon" or graphic="avatar" to be set.
-   */
-  @property({ type: String }) icon: string = 'search';
-
-  /**
    *  Sets floating label value.
    */
   @property({ type: String }) label: string = 'Company';
@@ -106,53 +82,34 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
   @property({ type: Boolean }) required: boolean = false;
 
   /**
-   *  Helper text to display below the select. Always displays by default.
-   */
-  @property({ type: String }) helper: string = '';
-
-  /**
-   *  Callback called before each validation check. See the mwc-textfield's validation section for more details.
-   */
-  @property({ type: Object }) validityTransform = () => {
-    if (this.required) {
-      return {
-        valid: !!this.selected,
-        valueMissing: !!this.selected,
-      };
-    }
-    return {};
-  };
-
-  /**
    *  Force the list of companies to reload from remote
    */
   async reloadCompanies() {
     if (!this.disableAutoLoad) {
       console.warn('leavitt-company-select reloadCompanies method has been called manually without setting disableAutoLoad');
     }
-    this.companies = await this.#getCompanies();
+    this.#reloadCompanies();
   }
 
   async #reloadCompanies() {
     this.companies = await this.#getCompanies();
+    this.selected = this.companies.find(o => o.Id === this.selected?.Id) ?? null;
   }
 
   async updated(changedProps: PropertyValues<this>) {
     if (changedProps.has('companies') && this.companies) {
       this.suggestions = this.companies;
     }
-
-    if (changedProps.has('selected')) {
-      this.selected = this.companies.find(o => o.Id === this.selected?.Id) ?? null;
-    }
   }
 
-  firstUpdated() {
-    this.menu.anchor = this.textfield;
-    this.textfield.layout();
-
+  async firstUpdated() {
     if (!this.disableAutoLoad && !this.companies.length && this.apiService) {
       this.#reloadCompanies();
+    }
+
+    if (this.textfield) {
+      const originalCheckValidity = this.textfield?.checkValidity;
+      this.textfield.checkValidity = () => !!this.selected && originalCheckValidity.bind(this.textfield);
     }
   }
 
@@ -167,17 +124,20 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
     return [];
   }
 
+  setCustomValidity(error: string) {
+    this.textfield?.setCustomValidity(error);
+  }
+
   /**
    *  Resets the inputs state.
    */
-  reset() {
-    if (this.textfield) {
-      this.textfield.value = '';
-      this.textfield.isUiValid = true;
-      this.textfield.mdcFoundation?.setValid?.(true);
-    }
+  async reset() {
     this.softReset();
     this.selected = null;
+    await this.updateComplete;
+    if (this.textfield) {
+      this.textfield.error = false;
+    }
   }
 
   /**
@@ -192,29 +152,21 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
    *  Sets focus on the input.
    */
   async focus() {
-    await this.textfield.updateComplete;
-    this.textfield.focus();
+    this.textfield?.focus();
   }
 
   /**
    *  Returns true if the input passes validity checks.
    */
   checkValidity() {
-    return this.textfield.checkValidity();
+    return this.textfield?.checkValidity();
   }
 
   /**
    *  Runs checkValidity() method, and if it returns false, then it reports to the user that the input is invalid.
    */
   reportValidity() {
-    return this.textfield.reportValidity();
-  }
-
-  /**
-   *  Runs layout() method on textfield.
-   */
-  layout() {
-    this.textfield.layout();
+    return this.textfield?.reportValidity();
   }
 
   async #setSelected(company: Partial<Company> | null) {
@@ -222,7 +174,7 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
     this.selected = company;
     if (this.selected) {
       this.softReset();
-      this.textfield.reportValidity();
+      this.textfield?.reportValidity();
     }
 
     await this.updateComplete;
@@ -234,7 +186,10 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
     }
   }
 
-  #onInput(searchTerm: string) {
+  async #onInput(searchTerm: string) {
+    this.menu?.close();
+    await this.updateComplete;
+
     this.#setSelected(null);
     this.searchTerm = searchTerm;
 
@@ -254,48 +209,41 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
       this.suggestions = this.companies;
     }
 
-    this.menu.open = !!this.searchTerm || !!this.suggestions.length;
+    if (this.menu) {
+      this.menu.open = !!this.searchTerm || !!this.suggestions.length;
+    }
   }
 
   static styles = css`
     :host {
-      display: inline-block;
+      display: block;
       position: relative;
-      --mdc-menu-max-width: 550px;
-      --mdc-list-item-graphic-size: 40px;
     }
 
-    mwc-textfield {
+    md-outlined-text-field {
       width: 100%;
-      background-color: var(--leavitt-company-select-background-color, #fff);
+    }
+
+    md-menu-item {
+      min-width: 300px;
     }
 
     :host([shaped]) {
-      --mdc-shape-small: 28px;
-    }
-
-    :host([shaped]) mwc-textfield {
-      border-radius: 28px;
+      --md-outlined-text-field-container-shape: 28px;
     }
 
     :host([shallow]) {
-      --mdc-shape-small: 12px;
+      --md-outlined-text-field-container-shape: 12px;
     }
 
-    :host([shallow]) mwc-textfield {
-      border-radius: 12px;
-    }
-
-    mwc-linear-progress {
-      margin: 0 12px;
-    }
-
-    img[selected] {
-      height: 24px;
+    img[leading] {
       width: 24px;
-      position: absolute;
-      top: 16px;
-      left: 12px;
+      height: 24px;
+    }
+
+    img[company-mark] {
+      width: 40px;
+      height: 40px;
     }
 
     [summary] {
@@ -309,80 +257,85 @@ export class LeavittCompanyElement extends LoadWhile(LitElement) {
 
   render() {
     return html`
-      <mwc-textfield
-        outlined
-        icon=${this.selected?.Id ? ' ' : this.icon}
+      <md-outlined-text-field
+        id="menu-anchor"
+        aria-haspopup="true"
+        aria-controls="menu"
         .label=${this.label}
         .disabled=${this.disabled}
         .placeholder=${this.placeholder}
-        .validationMessage=${this.validationMessage}
-        .validityTransform=${this.validityTransform}
         .value=${this.selected?.Name || this.searchTerm || ''}
-        .helper=${this.helper}
         .required=${this.required}
+        default-focus="0"
         @keydown=${(e: KeyboardEvent) => {
           if (this.suggestions.length > 0 && (e.key == 'Enter' || e.key == 'ArrowDown')) {
-            this.menu.focusItemAtIndex(0);
+            this.menu?.activateNextItem();
           }
           if (e.key == 'Escape') {
             e.stopPropagation();
-            this.searchTerm = '';
-            this.#setSelected(null);
+            this.reset();
+          }
+          if (e.key == 'Tab') {
+            if (this.menu?.open) {
+              this.menu.close();
+            }
           }
         }}
-        @input=${async (e: DOMEvent<TextField>) => {
-          this.#onInput(e.target.value);
-        }}
+        @input=${async (e: DOMEvent<MdOutlinedTextField>) => this.#onInput(e.target.value)}
         @focus=${() => {
           if (this.selected) {
-            this.textfield.select();
+            this.textfield?.select();
           } else {
-            this.menu.open = !!this.searchTerm || !!this.suggestions.length;
+            if (!!this.searchTerm || !!this.suggestions.length) {
+              this.menu?.show();
+            }
           }
         }}
-      ></mwc-textfield>
-      ${this.selected ? html`<img selected src=${this.selected.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />` : ''}
-      <mwc-menu
-        ?fixed=${this.fixedMenuPosition}
-        activatable
-        corner="BOTTOM_LEFT"
-        defaultFocus="NONE"
-        x="0"
-        y=${this.validationMessage ? '-19' : '0'}
-        @opened=${() =>
-          //Prevent previouslyFocused behavior of msc-menu on close
-          ((this.menu.mdcRoot as MenuSurface & { previouslyFocused: null }).previouslyFocused = null)}
-        @selected=${(e: CustomEvent<SelectedDetail<number>>) => {
-          e.stopPropagation();
-          const selectedIndex = e.detail.index;
+      >
+        ${this.selected
+          ? html`<img leading slot="leading-icon" src=${this.selected.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />`
+          : html`<slot name="leading-icon"><md-icon slot="leading-icon">search</md-icon></slot>`}
+      </md-outlined-text-field>
 
+      <md-menu
+        quick
+        id="menu"
+        anchor="menu-anchor"
+        corner="BOTTOM_LEFT"
+        default-focus="none"
+        skip-restore-focus
+        @close-menu=${(e: CloseMenuEvent) => {
+          const selectedMenuItem = (e.detail.itemPath?.[0] ?? null) as MenuItem & { companyId: number };
+          this.#setSelected(this.suggestions.find(o => o.Id === selectedMenuItem?.companyId) ?? null);
+        }}
+        @input=${e => {
+          // const requestingOptionEl = e.target as MdSelectOption & HTMLElement;
+          // e.stopPropagation();
+          const selectedIndex = e.detail.index;
           if (selectedIndex > -1) {
             const selected = this.suggestions?.[selectedIndex] ?? null;
             this.#setSelected(selected);
           }
         }}
       >
-        <mwc-linear-progress .closed=${!this.isLoading} indeterminate></mwc-linear-progress>
-        ${!this.isLoading && this.searchTerm
+        ${this.searchTerm
           ? html`<div summary>
               ${this.suggestions.length} result${this.suggestions.length === 1 ? '' : 's'} ${this.searchTerm ? `for '${this.searchTerm}'` : ''}
             </div>`
           : ''}
-        ${!this.isLoading && !this.searchTerm
-          ? html`<div summary>Showing ${this.suggestions.length} compan${this.companies.length === 1 ? 'y' : 'ies'}</div>`
-          : ''}
+        ${!this.searchTerm ? html`<div summary>Showing ${this.suggestions.length} compan${this.companies.length === 1 ? 'y' : 'ies'}</div>` : ''}
         ${repeat(
           this.suggestions,
           s => s.Id,
           company => html`
-            <mwc-list-item twoline graphic="medium" ?selected=${this.selected?.Id === company.Id} value=${String(company.Id)}>
-              <span>${company.Name}</span>
-              <span slot="secondary">${company.ShortName || '-'}</span>
-              <img company-mark slot="graphic" src=${company.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />
-            </mwc-list-item>
+            <md-menu-item ?selected=${this.selected?.Id === company.Id} .companyId=${company.Id}>
+              <span slot="headline">${company.Name}</span>
+              <span slot="supporting-text">${company.ShortName || '-'}</span>
+              <img company-mark slot="start" src=${company.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />
+            </md-menu-item>
           `
         )}
-      </mwc-menu>
+      </md-menu>
     `;
   }
 }
