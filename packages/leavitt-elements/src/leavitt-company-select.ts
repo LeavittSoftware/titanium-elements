@@ -134,9 +134,10 @@ export class LeavittCompanySelect extends LitElement {
   async reset() {
     this.softReset();
     this.selected = null;
-    await this.updateComplete;
+
     if (this.textfield) {
       this.textfield.error = false;
+      this.textfield.errorText = '';
     }
   }
 
@@ -144,6 +145,7 @@ export class LeavittCompanySelect extends LitElement {
    *  Resets search term and results.
    */
   softReset() {
+    this.textfield?.reset();
     this.searchTerm = '';
     this.suggestions = this.companies;
   }
@@ -174,7 +176,6 @@ export class LeavittCompanySelect extends LitElement {
     this.selected = company;
     if (this.selected) {
       this.softReset();
-      this.textfield?.reportValidity();
     }
 
     await this.updateComplete;
@@ -269,6 +270,8 @@ export class LeavittCompanySelect extends LitElement {
         default-focus="0"
         @keydown=${(e: KeyboardEvent) => {
           if (this.suggestions.length > 0 && (e.key == 'Enter' || e.key == 'ArrowDown')) {
+            // const listController = (this.menu as any)?.listController as any;
+            // listController.activateItem(listController.getPossibleItems()?.[1]);
             this.menu?.activateNextItem();
           }
           if (e.key == 'Escape') {
@@ -307,15 +310,6 @@ export class LeavittCompanySelect extends LitElement {
         @close-menu=${(e: CloseMenuEvent) => {
           const selectedMenuItem = (e.detail.itemPath?.[0] ?? null) as MenuItem & { companyId: number };
           this.#setSelected(this.suggestions.find(o => o.Id === selectedMenuItem?.companyId) ?? null);
-        }}
-        @input=${e => {
-          // const requestingOptionEl = e.target as MdSelectOption & HTMLElement;
-          // e.stopPropagation();
-          const selectedIndex = e.detail.index;
-          if (selectedIndex > -1) {
-            const selected = this.suggestions?.[selectedIndex] ?? null;
-            this.#setSelected(selected);
-          }
         }}
       >
         ${this.searchTerm
