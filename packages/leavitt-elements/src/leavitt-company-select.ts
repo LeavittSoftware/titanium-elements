@@ -273,11 +273,7 @@ export class LeavittCompanySelect extends LitElement {
             e.stopPropagation();
             this.menu?.activateNextItem();
           }
-          if (e.key == 'Escape') {
-            e.stopPropagation();
-            this.reset();
-          }
-          if (e.key == 'Tab') {
+          if (e.key == 'Tab' || e.key == 'Escape') {
             if (this.menu?.open) {
               this.menu.close();
             }
