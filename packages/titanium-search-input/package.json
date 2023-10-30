@@ -19,7 +19,7 @@
     "url": "https://github.com/LeavittSoftware/titanium-elements.git"
   },
   "dependencies": {
-    "@material/mwc-icon-button": "*",
+    "@material/web": "*",
     "tslib": "^2.4.1"
   },
   "peerDependencies": {
