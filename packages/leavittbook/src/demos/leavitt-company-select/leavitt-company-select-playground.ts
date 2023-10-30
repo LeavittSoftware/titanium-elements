@@ -17,7 +17,6 @@ import { LeavittCompanySelect } from '@leavittsoftware/leavitt-elements/lib/leav
 export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
   @state() apiService: ApiService;
   @query('leavitt-company-select[methods-demo]') protected methodsSelect!: LeavittCompanySelect;
-  @query('leavitt-company-select[duplicate-api-calls]') protected duplicateAPICallsSelect!: LeavittCompanySelect;
   @queryAll('leavitt-company-select') protected inputs!: NodeListOf<LeavittCompanySelect>;
 
   constructor() {
@@ -25,10 +24,6 @@ export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
     this.apiService = new ApiService(new AuthenticatedTokenProvider());
     this.apiService.baseUrl = 'https://devapi3.leavitt.com/';
     this.apiService.addHeader('X-LGAppName', 'Testing');
-  }
-
-  async firstUpdated() {
-    this.duplicateAPICallsSelect.reloadCompanies();
   }
 
   static styles = [
@@ -89,14 +84,6 @@ export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
         ></leavitt-company-select>
         <leavitt-company-select disableAutoLoad label="placeholder" placeholder="placeholder text" .apiService=${this.apiService}></leavitt-company-select>
         <leavitt-company-select disableAutoLoad label="required" required validationMessage="required" .apiService=${this.apiService}></leavitt-company-select>
-        <leavitt-company-select
-          disableAutoLoad
-          duplicate-api-calls
-          label="Duplicate api calls"
-          helperPersistent
-          helper="Check the console to view the warning"
-          .apiService=${this.apiService}
-        ></leavitt-company-select>
       </div>
 
       <h1>Methods</h1>
