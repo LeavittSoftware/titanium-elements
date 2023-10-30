@@ -12,7 +12,6 @@ import { LoadWhile, isDevelopment } from '@leavittsoftware/titanium-helpers';
 import { PendingStateEvent } from '@leavittsoftware/titanium-loading-indicator';
 import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar';
 import { h1, p } from '@leavittsoftware/titanium-styles';
-import { TextArea } from '@material/mwc-textarea';
 import { AuthenticatedTokenProvider } from '@leavittsoftware/api-service/lib/authenticated-token-provider';
 import { WebsiteBugDto, WebsiteFeedback } from '@leavittsoftware/lg-core-typescript';
 import { TitaniumSmartAttachmentInputElement } from '@leavittsoftware/titanium-smart-attachment-input';
@@ -34,9 +33,9 @@ export class LeavittUserFeedback extends LoadWhile(LitElement) {
 
   @state() private activeIndex: number = 0;
 
-  @queryAll('mwc-textarea') private allInputs: NodeListOf<TextArea & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean }>;
-  @query('mwc-textarea[feedback]') private commentTextArea: TextArea & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
-  @query('mwc-textarea[problem]') private problemTextArea: TextArea & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
+  @queryAll('mwc-textarea') private allInputs: NodeListOf<any & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean }>;
+  @query('mwc-textarea[feedback]') private commentTextArea: any & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
+  @query('mwc-textarea[problem]') private problemTextArea: any & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
   @query('titanium-smart-attachment-input') imageInput: TitaniumSmartAttachmentInputElement;
 
   async updated(changedProps: PropertyValues<this>) {
@@ -139,7 +138,7 @@ export class LeavittUserFeedback extends LoadWhile(LitElement) {
         overflow: hidden;
       }
 
-      @media(max-width: 768px){
+      @media (max-width: 768px) {
         mwc-tab-bar {
           --mdc-typography-button-font-size: 11px;
         }

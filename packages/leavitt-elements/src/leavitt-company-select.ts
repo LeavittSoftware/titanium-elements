@@ -270,8 +270,6 @@ export class LeavittCompanySelect extends LitElement {
         default-focus="0"
         @keydown=${(e: KeyboardEvent) => {
           if (this.suggestions.length > 0 && (e.key == 'Enter' || e.key == 'ArrowDown' || e.key == 'ArrowUp')) {
-            // const listController = (this.menu as any)?.listController as any;
-            // listController.activateItem(listController.getPossibleItems()?.[1]);
             this.menu?.activateNextItem();
           }
           if (e.key == 'Escape') {
