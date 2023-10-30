@@ -88,7 +88,7 @@ export class TitaniumInputValidator extends LitElement {
     }
 
     :host([has-error]) outlined-container {
-      border-color: var(--mdc-theme-error, #b00020);
+      border-color: var(--md-sys-color-error);
     }
 
     :host(:focus-within) outlined-container {
@@ -97,19 +97,19 @@ export class TitaniumInputValidator extends LitElement {
     }
 
     :host(:focus-within:not([has-error])) outlined-container {
-      border-color: var(--mdc-theme-primary, #1a73e8);
+      border-color: var(--md-sys-color-primary);
     }
 
     :host(:focus-within:not([has-error])) label {
-      color: var(--mdc-theme-primary, #1a73e8);
+      color: var(--md-sys-color-primary);
     }
 
     :host([has-error]) label {
-      color: var(--mdc-theme-error, #b00020);
+      color: var(--md-sys-color-error);
     }
 
     error-message {
-      color: var(--mdc-theme-error, #b00020);
+      color: var(--md-sys-color-error);
       letter-spacing: 0.0333333em;
       font-size: 12px;
       height: 19px;
