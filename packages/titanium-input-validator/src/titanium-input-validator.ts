@@ -69,7 +69,7 @@ export class TitaniumInputValidator extends LitElement {
     outlined-container {
       display: flex;
       flex-direction: column;
-      border: 1px solid var(--mdc-text-field-outlined-idle-border-color, rgba(0, 0, 0, 0.38));
+      border: 1px solid var(--md-sys-color-outline, #79747e);
       border-radius: 4px;
       position: relative;
     }
@@ -79,8 +79,8 @@ export class TitaniumInputValidator extends LitElement {
       top: -9px;
       left: 12px;
       font-size: 12px;
-      color: rgba(0, 0, 0, 0.54);
-      background: #fff;
+      color: var(--md-sys-color-on-background);
+      background: var(--md-sys-color-background);
       padding: 0 4px;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -88,28 +88,32 @@ export class TitaniumInputValidator extends LitElement {
     }
 
     :host([has-error]) outlined-container {
-      border-color: var(--md-sys-color-error);
+      border-color: var(--md-sys-color-error, #b3261e);
     }
 
     :host(:focus-within) outlined-container {
-      border-width: 2px;
-      margin: -1px;
+      border-width: 3px;
+      margin: -2px;
     }
 
     :host(:focus-within:not([has-error])) outlined-container {
       border-color: var(--md-sys-color-primary);
     }
 
+    :host(:not(:focus-within)) label {
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
     :host(:focus-within:not([has-error])) label {
       color: var(--md-sys-color-primary);
     }
-
+    
     :host([has-error]) label {
-      color: var(--md-sys-color-error);
+      color: var(--md-sys-color-error, #b3261e);
     }
 
     error-message {
-      color: var(--md-sys-color-error);
+      color: var(--md-sys-color-error, #b3261e);
       letter-spacing: 0.0333333em;
       font-size: 12px;
       height: 19px;
