@@ -323,7 +323,7 @@ export class LeavittCompanySelect extends LitElement {
             <md-menu-item ?selected=${this.selected?.Id === company.Id} .companyId=${company.Id}>
               <span slot="headline">${company.Name}</span>
               <span slot="supporting-text">${company.ShortName || '-'}</span>
-              <img company-mark slot="start" src=${company.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />
+              <img loading="lazy" company-mark slot="start" src=${company.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />
             </md-menu-item>
           `
         )}

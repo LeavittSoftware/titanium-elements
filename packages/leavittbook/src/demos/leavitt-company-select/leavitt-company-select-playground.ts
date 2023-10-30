@@ -68,15 +68,17 @@ export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
       <h1>Default</h1>
       <p>Examples using required,shaped,shallow,preselected, and disabled</p>
       <div style="background-color: #eee ">
-        <leavitt-company-select label="default" .apiService=${this.apiService}></leavitt-company-select>
-        <leavitt-company-select label="shaped" shaped .apiService=${this.apiService}></leavitt-company-select>
-        <leavitt-company-select label="shallow" shallow .apiService=${this.apiService}></leavitt-company-select>
+        <leavitt-company-select disableAutoLoad label="default" .apiService=${this.apiService}></leavitt-company-select>
+        <leavitt-company-select disableAutoLoad label="shaped" shaped .apiService=${this.apiService}></leavitt-company-select>
+        <leavitt-company-select disableAutoLoad label="shallow" shallow .apiService=${this.apiService}></leavitt-company-select>
         <leavitt-company-select
+          disableAutoLoad
           label="pre-selected"
           .selected=${{ Id: 57, Name: 'Leavitt Group Enterprises' }}
           .apiService=${this.apiService}
         ></leavitt-company-select>
         <leavitt-company-select
+          disableAutoLoad
           label="disabled pre-selected"
           .selected=${{
             Id: 57,
@@ -85,9 +87,10 @@ export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
           disabled
           .apiService=${this.apiService}
         ></leavitt-company-select>
-        <leavitt-company-select label="placeholder" placeholder="placeholder text" .apiService=${this.apiService}></leavitt-company-select>
-        <leavitt-company-select label="required" required validationMessage="required" .apiService=${this.apiService}></leavitt-company-select>
+        <leavitt-company-select disableAutoLoad label="placeholder" placeholder="placeholder text" .apiService=${this.apiService}></leavitt-company-select>
+        <leavitt-company-select disableAutoLoad label="required" required validationMessage="required" .apiService=${this.apiService}></leavitt-company-select>
         <leavitt-company-select
+          disableAutoLoad
           duplicate-api-calls
           label="Duplicate api calls"
           helperPersistent
@@ -100,7 +103,6 @@ export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
       <p>Demonstrates public methods</p>
       <div>
         <leavitt-company-select
-          disableAutoLoad
           .selected=${{ Id: 20248, Name: 'Software' }}
           style="width: 400px;"
           methods-demo
