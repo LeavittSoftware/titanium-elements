@@ -269,6 +269,7 @@ export class LeavittCompanySelect extends LitElement {
   static styles = css`
     :host {
       display: block;
+      position: relative;
     }
 
     md-outlined-text-field {
@@ -350,7 +351,7 @@ export class LeavittCompanySelect extends LitElement {
       >
         ${this.selected
           ? html`<img leading slot="leading-icon" src=${this.selected.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />`
-          : html`<slot name="leading-icon"><md-icon slot="leading-icon">search</md-icon></slot>`}
+          : html`<slot name="leading-icon" slot="leading-icon"><md-icon>search</md-icon></slot>`}
       </md-outlined-text-field>
 
       <md-menu
