@@ -64,7 +64,7 @@ export class TitaniumInputValidatorPlayground extends LitElement {
       <div>
         <form>
           <md-outlined-text-field label="Input example"> </md-outlined-text-field>
-          <titanium-input-validator label="Bunnies" .evaluator=${() => this.iconSelected === 'cruelty_free'} validationMessage="Bunny is not selected">
+          <titanium-input-validator label="Bunnies" .evaluator=${() => this.iconSelected === 'cruelty_free'} .errorText=${'Bunny is not selected'}>
             <button-container>
               <md-outlined-icon-button
                 type="button"
@@ -89,6 +89,7 @@ export class TitaniumInputValidatorPlayground extends LitElement {
         >
           Check Validity</md-filled-tonal-button
         >
+        <md-filled-tonal-button @click=${() => Array.from(this.validators).forEach((v) => v.reset())}> Reset</md-filled-tonal-button>
       </div>
     `;
   }
