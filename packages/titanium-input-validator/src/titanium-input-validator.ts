@@ -14,7 +14,12 @@ import { MdOutlinedField } from '@material/web/field/outlined-field';
 @customElement('titanium-input-validator')
 export class TitaniumInputValidator extends MdOutlinedField {
   @property({ type: Boolean }) populated: boolean = true;
-  @property({ type: Object }) evaluator;
+  @property({ type: Object }) evaluator: () => boolean;
+
+  firstUpdated() {
+    this.addEventListener('focusin', () => (this.focused = true));
+    this.addEventListener('focusout', () => (this.focused = false));
+  }
 
   reset() {
     this.error = false;
