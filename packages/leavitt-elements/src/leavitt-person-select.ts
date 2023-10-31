@@ -3,7 +3,7 @@ import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { Person } from '@leavittsoftware/lg-core-typescript';
-import { LeavittSingleSelectBase } from './leavitt-single-select-base';
+import { TitaniumSingleSelectBase } from './titanium-single-select-base';
 
 import '@leavittsoftware/profile-picture';
 
@@ -18,7 +18,7 @@ import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar';
  *
  */
 @customElement('leavitt-person-select')
-export class LeavittPersonSelect extends LeavittSingleSelectBase<Partial<Person>> {
+export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person>> {
   @property({ type: String }) accessor label: string = 'Person';
 
   @property({ type: String }) accessor placeholder: string = 'Search for a person';

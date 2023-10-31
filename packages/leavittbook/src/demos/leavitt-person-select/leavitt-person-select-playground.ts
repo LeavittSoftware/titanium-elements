@@ -93,24 +93,29 @@ export class LeavittPersonSelectPlaygroundElement extends LitElement {
         </section>
       </div>
 
-      <h1>Default</h1>
+      <h1>Attributes</h1>
       <p>Default person select</p>
       <div>
         <leavitt-person-select label="default" .apiService=${this.apiService}></leavitt-person-select>
+
         <leavitt-person-select
-          label="default"
+          label="prefilled"
           .selected=${{
             Id: 11056,
-            FullName: 'Aaron Drabeck',
+            FullName: 'Aaron D.',
             CompanyName: 'Leavitt Software Solutions',
             ProfilePictureCdnFileName: 'zP6DJ9lM6HmkTAaku8ZIzQQdUBHYrX5pCCANvFxtpnagBhJPp7CGXOl-16xe',
           } satisfies Partial<Person>}
           .apiService=${this.apiService}
         ></leavitt-person-select>
+
+        <leavitt-person-select label="shaped" shaped .apiService=${this.apiService}></leavitt-person-select>
+        <leavitt-person-select label="shallow" shallow .apiService=${this.apiService}></leavitt-person-select>
         <leavitt-person-select label="placeholder" placeholder="My placeholder" .apiService=${this.apiService}></leavitt-person-select>
-        <leavitt-person-select label="disabled" disabled .apiService=${this.apiService}></leavitt-person-select>
-        <leavitt-person-select label="helper" helper="helper text" .apiService=${this.apiService}></leavitt-person-select>
+        <leavitt-person-select label="Supporting text" supportingText="supporting text" .apiService=${this.apiService}></leavitt-person-select>
         <leavitt-person-select label="required" required validationMessage="required" .apiService=${this.apiService}></leavitt-person-select>
+        <leavitt-person-select label="disabled" disabled .apiService=${this.apiService}></leavitt-person-select>
+        <leavitt-person-select label="Suffix text" suffixText="Admin" .apiService=${this.apiService}></leavitt-person-select>
       </div>
     `;
   }

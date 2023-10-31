@@ -16,8 +16,8 @@ import { Menu } from '@material/web/menu/internal/menu';
 import { LoadWhile } from '@leavittsoftware/titanium-helpers';
 import { Identifier } from './identifier-interface';
 
-@customElement('leavitt-single-select-base')
-export class LeavittSingleSelectBase<T extends Identifier> extends LoadWhile(LitElement) {
+@customElement('titanium-single-select-base')
+export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(LitElement) {
   @state() protected searchTerm: string;
   @state() protected suggestions: Array<T> = [];
 
@@ -124,6 +124,7 @@ export class LeavittSingleSelectBase<T extends Identifier> extends LoadWhile(Lit
   softReset() {
     this.textfield?.reset();
     this.searchTerm = '';
+    this.suggestions = [];
   }
 
   /**
@@ -157,16 +158,16 @@ export class LeavittSingleSelectBase<T extends Identifier> extends LoadWhile(Lit
   }
 
   async #setSelected(entity: T | null) {
-    // const previouslySelected = this.selected;
+    const previouslySelected = this.selected;
     this.selected = entity;
     if (this.selected) {
       this.softReset();
     }
 
     await this.updateComplete;
-    // if (previouslySelected?.Id !== this.selected?.Id) {
-    //   this.dispatchEvent(new Event('selected'));
-    // }
+    if (previouslySelected?.Id !== this.selected?.Id) {
+      this.dispatchEvent(new Event('selected'));
+    }
   }
 
   protected onInputChanged(searchTerm: string) {
@@ -182,21 +183,6 @@ export class LeavittSingleSelectBase<T extends Identifier> extends LoadWhile(Lit
     this.count = 0;
     this.searchTerm = searchTerm;
     this.onInputChanged(searchTerm);
-    // const options = {
-    //   includeScore: true,
-    //   keys: ['Name', 'ShortName'],
-    //   shouldSort: true,
-    //   threshold: 0.3,
-    // };
-
-    // if (this.searchTerm) {
-    //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    //   const fuse = new Fuse(this.companies, options as any);
-    //   const fuseResults = fuse.search(searchTerm);
-    //   this.suggestions = fuseResults.map(o => o.item);
-    // } else {
-    //   this.suggestions = this.companies;
-    // }
 
     if (this.menu) {
       this.menu.open = !!this.searchTerm || !!this.suggestions.length;
@@ -215,7 +201,13 @@ export class LeavittSingleSelectBase<T extends Identifier> extends LoadWhile(Lit
       }
 
       md-linear-progress {
-        margin: 0px 12px;
+        margin: 0px 12px 4px 12px;
+        min-width: 276px;
+        width: calc(100% - 24px);
+      }
+
+      md-linear-progress[hide] {
+        visibility: hidden;
       }
 
       md-menu-item {
@@ -315,7 +307,7 @@ export class LeavittSingleSelectBase<T extends Identifier> extends LoadWhile(Lit
           this.#setSelected(this.suggestions.find(o => o?.Id === selectedMenuItem?.companyId) ?? null);
         }}
       >
-        <md-linear-progress ?indeterminate=${this.isLoading}></md-linear-progress>
+        <md-linear-progress ?indeterminate=${this.isLoading} ?hide=${!this.isLoading}></md-linear-progress>
         ${!!this.searchTerm && this.isLoading === false
           ? html`<div summary>Showing ${this.suggestions.length} of ${this.count} result${this.count === 1 ? '' : 's'} for '${this.searchTerm}'</div>`
           : ''}
