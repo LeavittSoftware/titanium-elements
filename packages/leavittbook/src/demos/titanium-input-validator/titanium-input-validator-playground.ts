@@ -40,16 +40,19 @@ export class TitaniumInputValidatorPlayground extends LitElement {
         margin: 24px 0 36px 0;
       }
 
+      form {
+        width: 100%;
+      }
+
+      md-outlined-text-field {
+        height: 65px;
+      }
+
       button-container {
         padding: 12px;
         display: flex;
         gap: 12px;
       }
-
-      md-icon {
-        pointer-events: none;
-      }
-
     `,
   ];
 
@@ -59,20 +62,27 @@ export class TitaniumInputValidatorPlayground extends LitElement {
       <h1>Default</h1>
       <p>A validator example for a custom selectable icon button input</p>
       <div>
-        <md-outlined-text-field label="Input example"> </md-outlined-text-field>
-        <titanium-input-validator label="Bunnies" .evaluator=${() => this.iconSelected === 'cruelty_free'} validationMessage="Bunny is not selected">
-          <button-container>
-            <md-outlined-icon-button @click=${() => (this.iconSelected = 'cruelty_free')} ?selected=${this.iconSelected === 'cruelty_free'}>
-              <md-icon>cruelty_free</md-icon>
-            </md-outlined-icon-button>
-            <md-outlined-icon-button @click=${() => (this.iconSelected = 'pets')} ?selected=${this.iconSelected === 'pets'}>
-              <md-icon>pets</md-icon>
-            </md-outlined-icon-button>
-            <md-outlined-icon-button @click=${() => (this.iconSelected = 'person')} ?selected=${this.iconSelected === 'person'}>
-              <md-icon>person</md-icon>
-            </md-outlined-icon-button>
-          </button-container>
-        </titanium-input-validator>
+        <form>
+          <md-outlined-text-field label="Input example"> </md-outlined-text-field>
+          <titanium-input-validator label="Bunnies" .evaluator=${() => this.iconSelected === 'cruelty_free'} validationMessage="Bunny is not selected">
+            <button-container>
+              <md-outlined-icon-button
+                type="button"
+                @click=${() => (this.iconSelected = 'cruelty_free')}
+                toggle
+                ?selected=${this.iconSelected === 'cruelty_free'}
+              >
+                <md-icon>cruelty_free</md-icon>
+              </md-outlined-icon-button>
+              <md-outlined-icon-button type="button" @click=${() => (this.iconSelected = 'pets')} toggle ?selected=${this.iconSelected === 'pets'}>
+                <md-icon>pets</md-icon>
+              </md-outlined-icon-button>
+              <md-outlined-icon-button type="button" @click=${() => (this.iconSelected = 'person')} toggle ?selected=${this.iconSelected === 'person'}>
+                <md-icon>person</md-icon>
+              </md-outlined-icon-button>
+            </button-container>
+          </titanium-input-validator>
+        </form>
         <md-filled-tonal-button @click=${() => Array.from(this.validators).forEach((v) => v.reportValidity())}>Report Validity</md-filled-tonal-button>
         <md-filled-tonal-button
           @click=${() => TitaniumSnackbarSingleton.open(`Check Validity is ${Array.from(this.validators).map((v) => v.checkValidity())}`)}

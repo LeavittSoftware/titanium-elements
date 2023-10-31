@@ -11,7 +11,12 @@ import { property, customElement } from 'lit/decorators.js';
  *     <custom-input @input=${() => this.dispatchEvent(new NotifyUserInputEvent())}></custom-input>
  * </titanium-input-validator>
  * @exports NotifyUserInputEvent - this is a custom event that the consumer of this component can fire to trigger validation
- * @cssprop {Color} [--mdc-theme-error=#b00020] - error color used for validation message
+ * 
+ * 
+ * @cssprop {Color} [--md-sys-color-on-background] - default label color
+ * @cssprop {Color} [--md-sys-color-primary] - primary color used for focus outline of the input and label
+ * @cssprop {Color} [--md-sys-color-outline] - outline color of the input
+ * @cssprop {Color} [--md-sys-color-error] - error color used for validation message
  */
 @customElement('titanium-input-validator')
 export class TitaniumInputValidator extends LitElement {
@@ -69,7 +74,7 @@ export class TitaniumInputValidator extends LitElement {
     outlined-container {
       display: flex;
       flex-direction: column;
-      border: 1px solid var(--md-sys-color-outline, #79747e);
+      border: 1px solid var(--md-sys-color-outline);
       border-radius: 4px;
       position: relative;
     }
@@ -88,7 +93,7 @@ export class TitaniumInputValidator extends LitElement {
     }
 
     :host([has-error]) outlined-container {
-      border-color: var(--md-sys-color-error, #b3261e);
+      border-color: var(--md-sys-color-error);
     }
 
     :host(:focus-within) outlined-container {
@@ -100,20 +105,16 @@ export class TitaniumInputValidator extends LitElement {
       border-color: var(--md-sys-color-primary);
     }
 
-    :host(:not(:focus-within)) label {
-      color: var(--md-sys-color-on-surface-variant);
-    }
-
     :host(:focus-within:not([has-error])) label {
       color: var(--md-sys-color-primary);
     }
     
     :host([has-error]) label {
-      color: var(--md-sys-color-error, #b3261e);
+      color: var(--md-sys-color-error);
     }
 
     error-message {
-      color: var(--md-sys-color-error, #b3261e);
+      color: var(--md-sys-color-error);
       letter-spacing: 0.0333333em;
       font-size: 12px;
       height: 19px;
