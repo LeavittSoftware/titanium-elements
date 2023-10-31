@@ -23,7 +23,13 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
 
   @property({ type: String }) accessor placeholder: string = 'Search for a person';
 
+  /**
+   *  Set the name of the API controller to use
+   */
+  @property({ type: String }) apiControllerName: string = 'People';
+
   @property({ type: String }) accessor pathToSelectedText: string = 'FullName';
+
   /**
    *  Required
    */
@@ -38,11 +44,6 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
     'select=FullName,CompanyName,Id,ProfilePictureCdnFileName',
     'count=true',
   ];
-
-  /**
-   *  Set the name of the API controller to use
-   */
-  @property({ type: String }) apiControllerName: string = 'People';
 
   #doSearchDebouncer = new Debouncer((searchTerm: string) => this.#doSearch(searchTerm));
   #abortController: AbortController = new AbortController();
@@ -99,7 +100,7 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
   }
 
   protected renderSuggestion(person: Partial<Person>) {
-    return html`<md-menu-item ?selected=${this.selected?.Id === person.Id} .companyId=${person.Id}>
+    return html`<md-menu-item .item=${person} ?selected=${this.selected?.Id === person.Id}>
       <profile-picture slot="start" .fileName=${person?.ProfilePictureCdnFileName ?? null} shape="circle" size="40"></profile-picture>
       <span slot="headline">${person.FullName}</span>
       <span slot="supporting-text">${person.CompanyName}</span>

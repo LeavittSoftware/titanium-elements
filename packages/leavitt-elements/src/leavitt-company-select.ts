@@ -1,6 +1,5 @@
-import { css, html, LitElement, PropertyValues } from 'lit';
-import { property, customElement, query, state } from 'lit/decorators.js';
-import { repeat } from 'lit/directives/repeat.js';
+import { css, html, PropertyValues } from 'lit';
+import { property, customElement } from 'lit/decorators.js';
 
 import '@material/web/icon/icon';
 import '@material/web/textfield/outlined-text-field';
@@ -12,12 +11,8 @@ import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar/li
 
 import { Company } from '@leavittsoftware/lg-core-typescript/lg.net.core';
 import ApiService from '@leavittsoftware/api-service/lib/api-service';
-import { DOMEvent } from './dom-event';
 import Fuse from 'fuse.js';
-import { CloseMenuEvent, MenuItem } from '@material/web/menu/menu';
-import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
-import { LeavittCompanySelectSelectedEvent } from './leavitt-company-select-selected-event';
-import { Menu } from '@material/web/menu/internal/menu';
+import { TitaniumSingleSelectBase } from './titanium-single-select-base';
 
 /**
  *  Single select input that searches Leavitt Group companies
@@ -28,11 +23,12 @@ import { Menu } from '@material/web/menu/internal/menu';
  *
  */
 @customElement('leavitt-company-select')
-export class LeavittCompanySelect extends LitElement {
-  @state() protected searchTerm: string;
-  @state() protected suggestions: Array<Partial<Company>> = [];
-  @query('md-menu') protected menu: Menu | null;
-  @query('md-outlined-text-field') protected textfield: MdOutlinedTextField | null;
+export class LeavittCompanySelect extends TitaniumSingleSelectBase<Partial<Company>> {
+  @property({ type: String }) accessor label: string = 'Company';
+
+  @property({ type: String }) accessor placeholder: string = 'Search for a company';
+
+  @property({ type: String }) accessor pathToSelectedText: string = 'Name';
 
   @property({ type: Array }) accessor companies: Array<Partial<Company>> = [];
 
@@ -52,76 +48,21 @@ export class LeavittCompanySelect extends LitElement {
   @property({ type: Array }) accessor odataParts: Array<string> = ['orderby=Name', 'select=Name,ShortName,MarkUrl,Id'];
 
   /**
-   *  Path used to get companies from API
+   *  Set the name of the API controller to use
    */
-  @property({ type: String }) accessor getPath: string = 'Companies';
+  @property({ type: String }) apiControllerName: string = 'Companies';
 
-  /**
-   *  The company object selected by the user.
-   */
-  @property({ type: Object }) accessor selected: Partial<Company> | null = null;
+  async firstUpdated() {
+    if (!this.disableAutoLoad && !this.companies.length && this.apiService) {
+      this.#reloadCompanies();
+    }
+  }
 
-  /**
-   *  Whether or not the input should be disabled.
-   */
-  @property({ type: Boolean }) accessor disabled: boolean = false;
-
-  /**
-   * Gets or sets whether or not the text field is in a visually invalid state.
-   *
-   * This error state overrides the error state controlled by
-   * `reportValidity()`.
-   */
-  @property({ type: Boolean }) accessor error: boolean = false;
-
-  @property({ type: String }) accessor errorText: string;
-
-  /**
-   *  Displays error state if input is empty and input is blurred.
-   */
-  @property({ type: Boolean }) accessor required: boolean = false;
-
-  /**
-   *  Sets floating label value.
-   */
-  @property({ type: String }) accessor label: string = 'Company';
-
-  /**
-   * An optional prefix to display before the input value.
-   */
-  @property({ type: String }) accessor prefixText: string;
-
-  /**
-   * An optional suffix to display after the input value.
-   */
-  @property({ type: String }) accessor suffixText: string;
-
-  /**
-   * Whether or not the text field has a leading icon. Used for SSR.
-   */
-  @property({ type: Boolean }) accessor hasLeadingIcon: boolean;
-
-  /**
-   * Whether or not the text field has a trailing icon. Used for SSR.
-   */
-  @property({ type: Boolean }) accessor hasTrailingIcon: boolean;
-
-  /**
-   * Conveys additional information below the text field, such as how it should
-   * be used.
-   */
-  @property({ type: String }) accessor supportingText: string;
-
-  /**
-   * Override the input text CSS `direction`. Useful for RTL languages that use
-   * LTR notation for fractions.
-   */
-  @property({ type: String }) accessor textDirection: string;
-
-  /**
-   *  Sets placeholder text value.
-   */
-  @property({ type: String }) accessor placeholder: string = 'Search for a company';
+  async updated(changedProps: PropertyValues<this>) {
+    if (changedProps.has('companies') && this.companies) {
+      this.suggestions = this.companies;
+    }
+  }
 
   /**
    *  Force the list of companies to reload from remote
@@ -138,26 +79,9 @@ export class LeavittCompanySelect extends LitElement {
     this.selected = this.companies.find(o => o.Id === this.selected?.Id) ?? null;
   }
 
-  async updated(changedProps: PropertyValues<this>) {
-    if (changedProps.has('companies') && this.companies) {
-      this.suggestions = this.companies;
-    }
-  }
-
-  async firstUpdated() {
-    if (!this.disableAutoLoad && !this.companies.length && this.apiService) {
-      this.#reloadCompanies();
-    }
-
-    if (this.textfield) {
-      const originalCheckValidity = this.textfield?.checkValidity;
-      this.textfield.checkValidity = () => !!this.selected && originalCheckValidity.bind(this.textfield);
-    }
-  }
-
   async #getCompanies() {
     try {
-      const get = this.apiService?.getAsync<Partial<Company>>(`${this.getPath}?${this.odataParts.join('&')}`);
+      const get = this.apiService?.getAsync<Partial<Company>>(`${this.apiControllerName}?${this.odataParts.join('&')}`);
       const result = await get;
       return result?.toList() ?? [];
     } catch (error) {
@@ -166,85 +90,17 @@ export class LeavittCompanySelect extends LitElement {
     return [];
   }
 
-  setCustomValidity(error: string) {
-    this.textfield?.setCustomValidity(error);
-  }
+  static styles = [
+    ...TitaniumSingleSelectBase.styles,
+    css`
+      img[company-mark] {
+        width: 40px;
+        height: 40px;
+      }
+    `,
+  ];
 
-  /**
-   *  Resets the inputs state.
-   */
-  async reset() {
-    this.softReset();
-    this.selected = null;
-
-    if (this.textfield) {
-      this.textfield.error = false;
-      this.textfield.errorText = '';
-    }
-  }
-
-  /**
-   *  Resets search term and results.
-   */
-  softReset() {
-    this.textfield?.reset();
-    this.searchTerm = '';
-    this.suggestions = this.companies;
-  }
-
-  /**
-   * Selects all the text in the text field.
-   *
-   * https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/select
-   */
-  async select() {
-    this.textfield?.select();
-  }
-
-  /**
-   *  Sets focus on the input.
-   */
-  async focus() {
-    this.textfield?.focus();
-  }
-
-  /**
-   *  Returns true if the input passes validity checks.
-   */
-  checkValidity() {
-    return this.textfield?.checkValidity();
-  }
-
-  /**
-   *  Runs checkValidity() method, and if it returns false, then it reports to the user that the input is invalid.
-   */
-  reportValidity() {
-    return this.textfield?.reportValidity();
-  }
-
-  async #setSelected(company: Partial<Company> | null) {
-    const previouslySelected = this.selected;
-    this.selected = company;
-    if (this.selected) {
-      this.softReset();
-    }
-
-    await this.updateComplete;
-    if (previouslySelected?.Id !== this.selected?.Id) {
-      /**
-       * @ignore
-       */
-      this.dispatchEvent(new LeavittCompanySelectSelectedEvent(company));
-    }
-  }
-
-  async #onInput(searchTerm: string) {
-    this.menu?.close();
-    await this.updateComplete;
-
-    this.#setSelected(null);
-    this.searchTerm = searchTerm;
-
+  protected onInputChanged(searchTerm: string) {
     const options = {
       includeScore: true,
       keys: ['Name', 'ShortName'],
@@ -260,131 +116,19 @@ export class LeavittCompanySelect extends LitElement {
     } else {
       this.suggestions = this.companies;
     }
-
-    if (this.menu) {
-      this.menu.open = !!this.searchTerm || !!this.suggestions.length;
-    }
+    this.count = this.suggestions.length;
   }
 
-  static styles = css`
-    :host {
-      display: block;
-      position: relative;
-    }
+  protected renderSelectedLeadingSlot(entity: Partial<Company>) {
+    return html` <img leading slot="leading-icon" src=${entity.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />`;
+  }
 
-    md-outlined-text-field {
-      width: 100%;
-    }
-
-    md-menu-item {
-      min-width: 300px;
-    }
-
-    :host([shaped]) {
-      --md-outlined-text-field-container-shape: 28px;
-    }
-
-    :host([shallow]) {
-      --md-outlined-text-field-container-shape: 12px;
-    }
-
-    img[leading] {
-      width: 24px;
-      height: 24px;
-    }
-
-    img[company-mark] {
-      width: 40px;
-      height: 40px;
-    }
-
-    [summary] {
-      padding: 0px 16px 4px 16px;
-      font-family: Roboto, Arial, sans-serif;
-      color: var(--app-light-text-color);
-      line-height: 18px;
-      font-size: 13px;
-    }
-  `;
-
-  render() {
-    return html`
-      <md-outlined-text-field
-        id="menu-anchor"
-        aria-haspopup="true"
-        aria-controls="menu"
-        .disabled=${this.disabled}
-        .error=${this.error}
-        .errorText=${this.errorText}
-        .label=${this.label}
-        .required=${this.required}
-        .prefixText=${this.prefixText}
-        .suffixText=${this.suffixText}
-        .hasLeadingIcon=${this.hasLeadingIcon}
-        .hasTrailingIcon=${this.hasTrailingIcon}
-        .supportingText=${this.supportingText}
-        .textDirection=${this.textDirection}
-        .placeholder=${this.placeholder}
-        .value=${this.selected?.Name || this.searchTerm || ''}
-        default-focus="0"
-        @keydown=${(e: KeyboardEvent) => {
-          if (this.suggestions.length > 0 && (e.key == 'Enter' || e.key == 'ArrowDown' || e.key == 'ArrowUp')) {
-            e.stopPropagation();
-            this.menu?.activateNextItem();
-          }
-          if (e.key == 'Tab' || e.key == 'Escape') {
-            if (this.menu?.open) {
-              this.menu.close();
-            }
-          }
-        }}
-        @input=${async (e: DOMEvent<MdOutlinedTextField>) => this.#onInput(e.target.value)}
-        @focus=${() => {
-          if (this.selected) {
-            this.select();
-          } else {
-            if (!!this.searchTerm || !!this.suggestions.length) {
-              this.menu?.show();
-            }
-          }
-        }}
-      >
-        ${this.selected
-          ? html`<img leading slot="leading-icon" src=${this.selected.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />`
-          : html`<slot name="leading-icon" slot="leading-icon"><md-icon>search</md-icon></slot>`}
-      </md-outlined-text-field>
-
-      <md-menu
-        quick
-        id="menu"
-        anchor="menu-anchor"
-        corner="BOTTOM_LEFT"
-        default-focus="list-root"
-        skip-restore-focus
-        @close-menu=${(e: CloseMenuEvent) => {
-          const selectedMenuItem = (e.detail.itemPath?.[0] ?? null) as MenuItem & { companyId: number };
-          this.#setSelected(this.suggestions.find(o => o.Id === selectedMenuItem?.companyId) ?? null);
-        }}
-      >
-        ${this.searchTerm
-          ? html`<div summary>
-              ${this.suggestions.length} result${this.suggestions.length === 1 ? '' : 's'} ${this.searchTerm ? `for '${this.searchTerm}'` : ''}
-            </div>`
-          : ''}
-        ${!this.searchTerm ? html`<div summary>Showing ${this.suggestions.length} compan${this.companies.length === 1 ? 'y' : 'ies'}</div>` : ''}
-        ${repeat(
-          this.suggestions,
-          s => s.Id,
-          company => html`
-            <md-menu-item ?selected=${this.selected?.Id === company.Id} .companyId=${company.Id}>
-              <slot name="trailing-icon" slot="trailing-icon"></slot>
-              <span slot="headline">${company.Name}</span>
-              <span slot="supporting-text">${company.ShortName || '-'}</span>
-              <img loading="lazy" company-mark slot="start" src=${company.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />
-            </md-menu-item>
-          `
-        )}
-      </md-menu>
-    `;
+  protected renderSuggestion(company: Partial<Company>) {
+    return html`<md-menu-item .item=${company} ?selected=${this.selected?.Id === company.Id}>
+      <slot name="trailing-icon" slot="trailing-icon"></slot>
+      <span slot="headline">${company.Name}</span>
+      <span slot="supporting-text">${company.ShortName || '-'}</span>
+      <img loading="lazy" company-mark slot="start" src=${company.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />
+    </md-menu-item>`;
   }
 }

@@ -95,7 +95,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
   @state() protected accessor count: number;
 
   async firstUpdated() {
-    if (this.textfield) {
+    if (this.textfield && this.required) {
       const originalCheckValidity = this.textfield?.checkValidity;
       this.textfield.checkValidity = () => !!this.selected && originalCheckValidity.bind(this.textfield);
     }
@@ -242,8 +242,12 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
     `,
   ];
 
+  // Override to create custom menu items for type T
   protected renderSuggestion(entity: T) {
-    return html`No suggestion template supplied ${entity}`;
+    return html`<md-menu-item .item=${entity} ?selected=${this.selected?.Id === entity.Id}>
+      <slot name="trailing-icon" slot="trailing-icon"></slot>
+      <span slot="headline">${entity.Id}</span>
+    </md-menu-item>`;
   }
 
   protected renderSelectedLeadingSlot(entity: T) {
@@ -303,12 +307,12 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
         default-focus="list-root"
         skip-restore-focus
         @close-menu=${(e: CloseMenuEvent) => {
-          const selectedMenuItem = (e.detail.itemPath?.[0] ?? null) as MenuItem & { companyId: number };
-          this.#setSelected(this.suggestions.find(o => o?.Id === selectedMenuItem?.companyId) ?? null);
+          const selectedMenuItem = (e.detail.itemPath?.[0] ?? null) as MenuItem & { item: T };
+          this.#setSelected(selectedMenuItem?.item);
         }}
       >
         <md-linear-progress ?indeterminate=${this.isLoading} ?hide=${!this.isLoading}></md-linear-progress>
-        ${!!this.searchTerm && this.isLoading === false
+        ${!!this.searchTerm && !this.isLoading
           ? html`<div summary>Showing ${this.suggestions.length} of ${this.count} result${this.count === 1 ? '' : 's'} for '${this.searchTerm}'</div>`
           : ''}
         ${repeat(
