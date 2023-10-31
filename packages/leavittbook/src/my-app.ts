@@ -362,7 +362,7 @@ export class MyApp extends LitElement {
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-access-denied-page'} href="/titanium-access-denied-page" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Access denied page </span>
+              <md-icon slot="start">library_books</md-icon> <span>Access denied page*</span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-address-input'} href="/titanium-address-input" type="link">
@@ -398,7 +398,7 @@ export class MyApp extends LitElement {
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-error-page')} href="/titanium-error-page" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Error page</span>
+              <md-icon slot="start">library_books</md-icon> <span>Error page*</span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-header'} href="/titanium-header" type="link">
@@ -430,7 +430,7 @@ export class MyApp extends LitElement {
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-search-input')} href="/titanium-search-input" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Search input</span>
+              <md-icon slot="start">library_books</md-icon> <span>Search input*</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-smart-attachment-input')} href="/titanium-smart-attachment-input" type="link">
