@@ -1,24 +1,24 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement, query, queryAll, state } from 'lit/decorators.js';
-import { h1, p, button } from '@leavittsoftware/titanium-styles';
+import { h1, p } from '@leavittsoftware/titanium-styles';
 
-import '@material/mwc-button';
+import '@material/web/button/outlined-button';
 import '@leavittsoftware/user-manager';
 import ApiService from '@leavittsoftware/api-service/lib/api-service';
 import { AuthenticatedTokenProvider } from '@leavittsoftware/api-service/lib/authenticated-token-provider';
 
 /* playground-fold-end */
 import '@leavittsoftware/leavitt-elements/lib/leavitt-person-select';
-import { LeavittPersonSelectElement } from '@leavittsoftware/leavitt-elements/lib/leavitt-person-select';
+import { LeavittPersonSelect } from '@leavittsoftware/leavitt-elements';
 import { Person } from '@leavittsoftware/lg-core-typescript';
 
 /* playground-fold */
 @customElement('leavitt-person-select-playground')
 export class LeavittPersonSelectPlaygroundElement extends LitElement {
   @state() apiService: ApiService;
-  @queryAll('leavitt-person-select') protected inputs!: NodeListOf<LeavittPersonSelectElement>;
-  @query('leavitt-person-select[methods-demo]') protected methodsPersonSelect!: LeavittPersonSelectElement;
+  @queryAll('leavitt-person-select') protected inputs!: NodeListOf<LeavittPersonSelect>;
+  @query('leavitt-person-select[methods-demo]') protected methodsPersonSelect!: LeavittPersonSelect;
 
   constructor() {
     super();
@@ -27,20 +27,9 @@ export class LeavittPersonSelectPlaygroundElement extends LitElement {
     this.apiService.addHeader('X-LGAppName', 'Testing');
   }
 
-  async firstUpdated() {
-    // Fix MWC floating label problem
-    requestAnimationFrame(() => {
-      Array.from(this.inputs).forEach(o => {
-        //TODO: add method to input
-        o.layout();
-      });
-    });
-  }
-
   static styles = [
     h1,
     p,
-    button,
     css`
       :host {
         display: flex;
@@ -72,6 +61,38 @@ export class LeavittPersonSelectPlaygroundElement extends LitElement {
     /* playground-fold-end */
     return html`
       <user-manager disableAutoload></user-manager>
+      <h1>Demo</h1>
+      <p>Demonstrates public methods</p>
+      <div row>
+        <leavitt-person-select required methods-demo .apiService=${this.apiService}></leavitt-person-select>
+        <section buttons>
+          <mwc-button
+            lowercase
+            outlined
+            @click=${() => {
+              this.methodsPersonSelect.reset();
+            }}
+            label="reset()"
+          ></mwc-button>
+          <mwc-button
+            lowercase
+            outlined
+            @click=${() => {
+              this.methodsPersonSelect.focus();
+            }}
+            label="focus()"
+          ></mwc-button>
+          <mwc-button
+            lowercase
+            outlined
+            @click=${() => {
+              this.methodsPersonSelect.reportValidity();
+            }}
+            label="reportValidity()"
+          ></mwc-button>
+        </section>
+      </div>
+
       <h1>Default</h1>
       <p>Default person select</p>
       <div>
@@ -81,6 +102,7 @@ export class LeavittPersonSelectPlaygroundElement extends LitElement {
           .selected=${{
             Id: 11056,
             FullName: 'Aaron Drabeck',
+            CompanyName: 'Leavitt Software Solutions',
             ProfilePictureCdnFileName: 'zP6DJ9lM6HmkTAaku8ZIzQQdUBHYrX5pCCANvFxtpnagBhJPp7CGXOl-16xe',
           } satisfies Partial<Person>}
           .apiService=${this.apiService}
@@ -89,36 +111,6 @@ export class LeavittPersonSelectPlaygroundElement extends LitElement {
         <leavitt-person-select label="disabled" disabled .apiService=${this.apiService}></leavitt-person-select>
         <leavitt-person-select label="helper" helper="helper text" .apiService=${this.apiService}></leavitt-person-select>
         <leavitt-person-select label="required" required validationMessage="required" .apiService=${this.apiService}></leavitt-person-select>
-      </div>
-
-      <h1>Methods</h1>
-      <p>Demonstrates public methods</p>
-      <div row>
-        <leavitt-person-select required methods-demo .apiService=${this.apiService}></leavitt-person-select>
-        <mwc-button
-          lowercase
-          outlined
-          @click=${() => {
-            this.methodsPersonSelect.reset();
-          }}
-          label="reset()"
-        ></mwc-button>
-        <mwc-button
-          lowercase
-          outlined
-          @click=${() => {
-            this.methodsPersonSelect.focus();
-          }}
-          label="focus()"
-        ></mwc-button>
-        <mwc-button
-          lowercase
-          outlined
-          @click=${() => {
-            this.methodsPersonSelect.reportValidity();
-          }}
-          label="reportValidity()"
-        ></mwc-button>
       </div>
     `;
   }

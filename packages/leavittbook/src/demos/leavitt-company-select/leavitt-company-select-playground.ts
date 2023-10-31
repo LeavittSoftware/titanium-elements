@@ -60,35 +60,9 @@ export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
     /* playground-fold-end */
     return html`
       <user-manager disableAutoload></user-manager>
-      <h1>Default</h1>
-      <p>Examples using required,shaped,shallow,preselected, and disabled</p>
-      <div style="background-color: #eee ">
-        <leavitt-company-select disableAutoLoad label="default" .apiService=${this.apiService}></leavitt-company-select>
-        <leavitt-company-select disableAutoLoad label="shaped" shaped .apiService=${this.apiService}></leavitt-company-select>
-        <leavitt-company-select disableAutoLoad label="shallow" shallow .apiService=${this.apiService}></leavitt-company-select>
-        <leavitt-company-select
-          disableAutoLoad
-          label="pre-selected"
-          .selected=${{ Id: 57, Name: 'Leavitt Group Enterprises' }}
-          .apiService=${this.apiService}
-        ></leavitt-company-select>
-        <leavitt-company-select
-          disableAutoLoad
-          label="disabled pre-selected"
-          .selected=${{
-            Id: 57,
-            Name: 'Leavitt Group Enterprises',
-          }}
-          disabled
-          .apiService=${this.apiService}
-        ></leavitt-company-select>
-        <leavitt-company-select disableAutoLoad label="placeholder" placeholder="placeholder text" .apiService=${this.apiService}></leavitt-company-select>
-        <leavitt-company-select disableAutoLoad label="required" required validationMessage="required" .apiService=${this.apiService}></leavitt-company-select>
-      </div>
-
       <h1>Methods</h1>
       <p>Demonstrates public methods</p>
-      <div>
+      <div row>
         <leavitt-company-select
           .selected=${{ Id: 20248, Name: 'Software' }}
           style="width: 400px;"
@@ -131,6 +105,33 @@ export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
           ></mwc-button>
         </section>
       </div>
+
+      <h1>Default</h1>
+      <p>Examples using required,shaped,shallow,preselected, and disabled</p>
+      <div style="background-color: #eee ">
+        <leavitt-company-select disableAutoLoad label="default" .apiService=${this.apiService}></leavitt-company-select>
+        <leavitt-company-select disableAutoLoad label="shaped" shaped .apiService=${this.apiService}></leavitt-company-select>
+        <leavitt-company-select disableAutoLoad label="shallow" shallow .apiService=${this.apiService}></leavitt-company-select>
+        <leavitt-company-select
+          disableAutoLoad
+          label="pre-selected"
+          .selected=${{ Id: 57, Name: 'Leavitt Group Enterprises' }}
+          .apiService=${this.apiService}
+        ></leavitt-company-select>
+        <leavitt-company-select
+          disableAutoLoad
+          label="disabled pre-selected"
+          .selected=${{
+            Id: 57,
+            Name: 'Leavitt Group Enterprises',
+          }}
+          disabled
+          .apiService=${this.apiService}
+        ></leavitt-company-select>
+        <leavitt-company-select disableAutoLoad label="placeholder" placeholder="placeholder text" .apiService=${this.apiService}></leavitt-company-select>
+        <leavitt-company-select disableAutoLoad label="required" required validationMessage="required" .apiService=${this.apiService}></leavitt-company-select>
+      </div>
+
       <titanium-snackbar></titanium-snackbar>
     `;
   }
