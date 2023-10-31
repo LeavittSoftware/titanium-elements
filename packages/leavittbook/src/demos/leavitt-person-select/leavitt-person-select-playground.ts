@@ -3,8 +3,9 @@ import { css, html, LitElement } from 'lit';
 import { customElement, query, queryAll, state } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/titanium-styles';
 
-import '@material/web/button/outlined-button';
 import '@leavittsoftware/user-manager';
+import '@material/web/button/text-button';
+
 import ApiService from '@leavittsoftware/api-service/lib/api-service';
 import { AuthenticatedTokenProvider } from '@leavittsoftware/api-service/lib/authenticated-token-provider';
 
@@ -18,7 +19,7 @@ import { Person } from '@leavittsoftware/lg-core-typescript';
 export class LeavittPersonSelectPlaygroundElement extends LitElement {
   @state() apiService: ApiService;
   @queryAll('leavitt-person-select') protected inputs!: NodeListOf<LeavittPersonSelect>;
-  @query('leavitt-person-select[methods-demo]') protected methodsPersonSelect!: LeavittPersonSelect;
+  @query('leavitt-person-select[methods-demo]') protected methodsSelect!: LeavittPersonSelect;
 
   constructor() {
     super();
@@ -66,30 +67,9 @@ export class LeavittPersonSelectPlaygroundElement extends LitElement {
       <div row>
         <leavitt-person-select required methods-demo .apiService=${this.apiService}></leavitt-person-select>
         <section buttons>
-          <mwc-button
-            lowercase
-            outlined
-            @click=${() => {
-              this.methodsPersonSelect.reset();
-            }}
-            label="reset()"
-          ></mwc-button>
-          <mwc-button
-            lowercase
-            outlined
-            @click=${() => {
-              this.methodsPersonSelect.focus();
-            }}
-            label="focus()"
-          ></mwc-button>
-          <mwc-button
-            lowercase
-            outlined
-            @click=${() => {
-              this.methodsPersonSelect.reportValidity();
-            }}
-            label="reportValidity()"
-          ></mwc-button>
+          <md-text-button @click=${() => this.methodsSelect.reset()}>reset()</md-text-button>
+          <md-text-button @click=${() => this.methodsSelect.focus()}>focus()</md-text-button>
+          <md-text-button @click=${() => this.methodsSelect.reportValidity()}>reportValidity()</md-text-button>
         </section>
       </div>
 

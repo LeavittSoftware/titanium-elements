@@ -5,6 +5,8 @@ import { h1, p } from '@leavittsoftware/titanium-styles';
 
 import '@leavittsoftware/user-manager';
 import '@leavittsoftware/titanium-snackbar';
+import '@material/web/button/text-button';
+
 import ApiService from '@leavittsoftware/api-service/lib/api-service';
 import { AuthenticatedTokenProvider } from '@leavittsoftware/api-service/lib/authenticated-token-provider';
 
@@ -71,38 +73,10 @@ export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
           .apiService=${this.apiService}
         ></leavitt-company-select>
         <section buttons>
-          <mwc-button
-            lowercase
-            outlined
-            @click=${() => {
-              this.methodsSelect.reset();
-            }}
-            label="reset()"
-          ></mwc-button>
-          <mwc-button
-            lowercase
-            outlined
-            @click=${() => {
-              this.methodsSelect.focus();
-            }}
-            label="focus()"
-          ></mwc-button>
-          <mwc-button
-            lowercase
-            outlined
-            @click=${() => {
-              this.methodsSelect.reportValidity();
-            }}
-            label="reportValidity()"
-          ></mwc-button>
-          <mwc-button
-            lowercase
-            outlined
-            @click=${() => {
-              this.methodsSelect.reloadCompanies();
-            }}
-            label="reloadCompanies()"
-          ></mwc-button>
+          <md-text-button @click=${() => this.methodsSelect.reset()}>reset()</md-text-button>
+          <md-text-button @click=${() => this.methodsSelect.focus()}>focus()</md-text-button>
+          <md-text-button @click=${() => this.methodsSelect.reportValidity()}>reportValidity()</md-text-button>
+          <md-text-button @click=${() => this.methodsSelect.reloadCompanies()}>reloadCompanies()</md-text-button>
         </section>
       </div>
 
