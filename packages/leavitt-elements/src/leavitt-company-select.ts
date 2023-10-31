@@ -34,52 +34,94 @@ export class LeavittCompanySelect extends LitElement {
   @query('md-menu') protected menu: Menu | null;
   @query('md-outlined-text-field') protected textfield: MdOutlinedTextField | null;
 
-  @property({ type: Array }) companies: Array<Partial<Company>> = [];
+  @property({ type: Array }) accessor companies: Array<Partial<Company>> = [];
 
   /**
    *  Required
    */
-  @property({ attribute: false }) apiService: ApiService;
+  @property({ attribute: false }) accessor apiService: ApiService;
 
   /**
    *  Disables automatic loading of companies on firstUpdated
    */
-  @property({ type: Boolean }) disableAutoLoad: boolean = false;
+  @property({ type: Boolean }) accessor disableAutoLoad: boolean = false;
 
   /**
    *  Odata parts for the Company API call
    */
-  @property({ type: Array }) odataParts: Array<string> = ['orderby=Name', 'select=Name,ShortName,MarkUrl,Id'];
+  @property({ type: Array }) accessor odataParts: Array<string> = ['orderby=Name', 'select=Name,ShortName,MarkUrl,Id'];
 
   /**
    *  Path used to get companies from API
    */
-  @property({ type: String }) getPath: string = 'Companies';
+  @property({ type: String }) accessor getPath: string = 'Companies';
 
   /**
    *  The company object selected by the user.
    */
-  @property({ type: Object }) selected: Partial<Company> | null = null;
-
-  /**
-   *  Sets floating label value.
-   */
-  @property({ type: String }) label: string = 'Company';
-
-  /**
-   *  Sets placeholder text value.
-   */
-  @property({ type: String }) placeholder: string = 'Search for a company';
+  @property({ type: Object }) accessor selected: Partial<Company> | null = null;
 
   /**
    *  Whether or not the input should be disabled.
    */
-  @property({ type: Boolean }) disabled: boolean = false;
+  @property({ type: Boolean }) accessor disabled: boolean = false;
+
+  /**
+   * Gets or sets whether or not the text field is in a visually invalid state.
+   *
+   * This error state overrides the error state controlled by
+   * `reportValidity()`.
+   */
+  @property({ type: Boolean }) accessor error: boolean = false;
+
+  @property({ type: String }) accessor errorText: string;
 
   /**
    *  Displays error state if input is empty and input is blurred.
    */
-  @property({ type: Boolean }) required: boolean = false;
+  @property({ type: Boolean }) accessor required: boolean = false;
+
+  /**
+   *  Sets floating label value.
+   */
+  @property({ type: String }) accessor label: string = 'Company';
+
+  /**
+   * An optional prefix to display before the input value.
+   */
+  @property({ type: String }) accessor prefixText: string;
+
+  /**
+   * An optional suffix to display after the input value.
+   */
+  @property({ type: String }) accessor suffixText: string;
+
+  /**
+   * Whether or not the text field has a leading icon. Used for SSR.
+   */
+  @property({ type: Boolean }) accessor hasLeadingIcon: boolean;
+
+  /**
+   * Whether or not the text field has a trailing icon. Used for SSR.
+   */
+  @property({ type: Boolean }) accessor hasTrailingIcon: boolean;
+
+  /**
+   * Conveys additional information below the text field, such as how it should
+   * be used.
+   */
+  @property({ type: String }) accessor supportingText: string;
+
+  /**
+   * Override the input text CSS `direction`. Useful for RTL languages that use
+   * LTR notation for fractions.
+   */
+  @property({ type: String }) accessor textDirection: string;
+
+  /**
+   *  Sets placeholder text value.
+   */
+  @property({ type: String }) accessor placeholder: string = 'Search for a company';
 
   /**
    *  Force the list of companies to reload from remote
@@ -151,6 +193,15 @@ export class LeavittCompanySelect extends LitElement {
   }
 
   /**
+   * Selects all the text in the text field.
+   *
+   * https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/select
+   */
+  async select() {
+    this.textfield?.select();
+  }
+
+  /**
    *  Sets focus on the input.
    */
   async focus() {
@@ -218,7 +269,6 @@ export class LeavittCompanySelect extends LitElement {
   static styles = css`
     :host {
       display: block;
-      position: relative;
     }
 
     md-outlined-text-field {
@@ -262,11 +312,19 @@ export class LeavittCompanySelect extends LitElement {
         id="menu-anchor"
         aria-haspopup="true"
         aria-controls="menu"
-        .label=${this.label}
         .disabled=${this.disabled}
+        .error=${this.error}
+        .errorText=${this.errorText}
+        .label=${this.label}
+        .required=${this.required}
+        .prefixText=${this.prefixText}
+        .suffixText=${this.suffixText}
+        .hasLeadingIcon=${this.hasLeadingIcon}
+        .hasTrailingIcon=${this.hasTrailingIcon}
+        .supportingText=${this.supportingText}
+        .textDirection=${this.textDirection}
         .placeholder=${this.placeholder}
         .value=${this.selected?.Name || this.searchTerm || ''}
-        .required=${this.required}
         default-focus="0"
         @keydown=${(e: KeyboardEvent) => {
           if (this.suggestions.length > 0 && (e.key == 'Enter' || e.key == 'ArrowDown' || e.key == 'ArrowUp')) {
@@ -282,7 +340,7 @@ export class LeavittCompanySelect extends LitElement {
         @input=${async (e: DOMEvent<MdOutlinedTextField>) => this.#onInput(e.target.value)}
         @focus=${() => {
           if (this.selected) {
-            this.textfield?.select();
+            this.select();
           } else {
             if (!!this.searchTerm || !!this.suggestions.length) {
               this.menu?.show();
@@ -318,6 +376,7 @@ export class LeavittCompanySelect extends LitElement {
           s => s.Id,
           company => html`
             <md-menu-item ?selected=${this.selected?.Id === company.Id} .companyId=${company.Id}>
+              <slot name="trailing-icon" slot="trailing-icon"></slot>
               <span slot="headline">${company.Name}</span>
               <span slot="supporting-text">${company.ShortName || '-'}</span>
               <img loading="lazy" company-mark slot="start" src=${company.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />
