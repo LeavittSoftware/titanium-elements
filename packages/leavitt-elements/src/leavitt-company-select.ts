@@ -100,7 +100,7 @@ export class LeavittCompanySelect extends TitaniumSingleSelectBase<Partial<Compa
     `,
   ];
 
-  protected onInputChanged(searchTerm: string) {
+  protected override onInputChanged(searchTerm: string) {
     const options = {
       includeScore: true,
       keys: ['Name', 'ShortName'],
@@ -119,11 +119,11 @@ export class LeavittCompanySelect extends TitaniumSingleSelectBase<Partial<Compa
     this.count = this.suggestions.length;
   }
 
-  protected renderSelectedLeadingSlot(entity: Partial<Company>) {
+  protected override renderSelectedLeadingSlot(entity: Partial<Company>) {
     return html` <img leading slot="leading-icon" src=${entity.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />`;
   }
 
-  protected renderSuggestion(company: Partial<Company>) {
+  protected override renderSuggestion(company: Partial<Company>) {
     return html`<md-menu-item .item=${company} ?selected=${this.selected?.Id === company.Id}>
       <slot name="trailing-icon" slot="trailing-icon"></slot>
       <span slot="headline">${company.Name}</span>

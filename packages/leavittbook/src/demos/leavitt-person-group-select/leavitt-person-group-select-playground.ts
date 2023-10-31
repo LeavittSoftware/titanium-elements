@@ -1,23 +1,24 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement, query, queryAll, state } from 'lit/decorators.js';
-import { h1, p, button } from '@leavittsoftware/titanium-styles';
+import { h1, p } from '@leavittsoftware/titanium-styles';
 
-import '@material/mwc-button';
+import '@material/web/button/text-button';
 import '@leavittsoftware/user-manager';
+
 import ApiService from '@leavittsoftware/api-service/lib/api-service';
 import { AuthenticatedTokenProvider } from '@leavittsoftware/api-service/lib/authenticated-token-provider';
 
 /* playground-fold-end */
 import '@leavittsoftware/leavitt-elements/lib/leavitt-person-group-select';
-import { LeavittPersonGroupSelectElement } from '@leavittsoftware/leavitt-elements/lib/leavitt-person-group-select';
+import { LeavittPersonGroupSelect } from '@leavittsoftware/leavitt-elements';
 
 /* playground-fold */
 @customElement('leavitt-person-group-select-playground')
 export class LeavittPersonGroupSelectPlaygroundElement extends LitElement {
   @state() apiService: ApiService;
-  @queryAll('leavitt-person-group-select)') protected inputs!: NodeListOf<LeavittPersonGroupSelectElement>;
-  @query('leavitt-person-group-select[methods-demo]') protected methodsSelect!: LeavittPersonGroupSelectElement;
+  @queryAll('leavitt-person-group-select)') protected inputs!: NodeListOf<LeavittPersonGroupSelect>;
+  @query('leavitt-person-group-select[methods-demo]') protected methodsSelect!: LeavittPersonGroupSelect;
 
   constructor() {
     super();
@@ -26,20 +27,9 @@ export class LeavittPersonGroupSelectPlaygroundElement extends LitElement {
     this.apiService.addHeader('X-LGAppName', 'Testing');
   }
 
-  async firstUpdated() {
-    // Fix MWC floating label problem
-    requestAnimationFrame(() => {
-      Array.from(this.inputs).forEach(o => {
-        //TODO: add method to input
-        o.layout();
-      });
-    });
-  }
-
   static styles = [
     h1,
     p,
-    button,
     css`
       :host {
         display: flex;
@@ -49,7 +39,7 @@ export class LeavittPersonGroupSelectPlaygroundElement extends LitElement {
       }
 
       div {
-        border: 1px solid var(--app-border-color);
+        border: 1px solid var(--md-sys-color-outline);
         padding: 24px;
         border-radius: 8px;
         display: flex;
@@ -81,6 +71,7 @@ export class LeavittPersonGroupSelectPlaygroundElement extends LitElement {
           label="pre-selected"
           .selected=${{
             Name: 'LGE Programmer Basic Access',
+            Id: 22,
             type: 'PeopleGroup',
           }}
           .apiService=${this.apiService}
@@ -88,7 +79,8 @@ export class LeavittPersonGroupSelectPlaygroundElement extends LitElement {
         <leavitt-person-group-select
           label="disabled pre-selected"
           .selected=${{
-            FullName: 'Aaron Drabeck',
+            Name: 'Aaron Drabeck',
+            ProfilePictureCdnFileName: 'zP6DJ9lM6HmkTAaku8ZIzQQdUBHYrX5pCCANvFxtpnagBhJPp7CGXOl-16xe',
             Id: 11056,
             type: 'Person',
           }}
@@ -104,30 +96,9 @@ export class LeavittPersonGroupSelectPlaygroundElement extends LitElement {
       <div>
         <leavitt-person-group-select methods-demo required .apiService=${this.apiService}></leavitt-person-group-select>
         <section buttons>
-          <mwc-button
-            lowercase
-            outlined
-            @click=${() => {
-              this.methodsSelect.reset();
-            }}
-            label="reset()"
-          ></mwc-button>
-          <mwc-button
-            lowercase
-            outlined
-            @click=${() => {
-              this.methodsSelect.focus();
-            }}
-            label="focus()"
-          ></mwc-button>
-          <mwc-button
-            lowercase
-            outlined
-            @click=${() => {
-              this.methodsSelect.reportValidity();
-            }}
-            label="reportValidity()"
-          ></mwc-button>
+          <md-text-button @click=${() => this.methodsSelect.reset()}>reset()</md-text-button>
+          <md-text-button @click=${() => this.methodsSelect.focus()}>focus()</md-text-button>
+          <md-text-button @click=${() => this.methodsSelect.reportValidity()}>reportValidity()</md-text-button>
         </section>
       </div>
     `;

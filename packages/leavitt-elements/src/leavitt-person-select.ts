@@ -91,15 +91,15 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
 
   // Overloaded base
 
-  protected onInputChanged(searchTerm: string) {
+  protected override onInputChanged(searchTerm: string) {
     this.#doSearchDebouncer.debounce(searchTerm);
   }
 
-  protected renderSelectedLeadingSlot(entity: Partial<Person>) {
+  protected override renderSelectedLeadingSlot(entity: Partial<Person>) {
     return html` <profile-picture slot="leading-icon" .fileName=${entity?.ProfilePictureCdnFileName || null} shape="circle" size="24"></profile-picture>`;
   }
 
-  protected renderSuggestion(person: Partial<Person>) {
+  protected override renderSuggestion(person: Partial<Person>) {
     return html`<md-menu-item .item=${person} ?selected=${this.selected?.Id === person.Id}>
       <profile-picture slot="start" .fileName=${person?.ProfilePictureCdnFileName ?? null} shape="circle" size="40"></profile-picture>
       <span slot="headline">${person.FullName}</span>
