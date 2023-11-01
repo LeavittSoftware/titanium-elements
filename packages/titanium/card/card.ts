@@ -15,7 +15,7 @@ import { property, customElement } from 'lit/decorators.js';
  * @slot Default - Card content
  */
 @customElement('titanium-card')
-export class TitaniumCardElement extends LitElement {
+export class TitaniumCard extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'has-menu' }) hasMenu: boolean;
   @property({ type: Boolean, reflect: true, attribute: 'has-image' }) hasImage: boolean;
   @property({ type: Boolean, reflect: true, attribute: 'has-footer' }) hasFooter: boolean;

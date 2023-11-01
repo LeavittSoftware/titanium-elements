@@ -4,7 +4,7 @@ import { customElement } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/titanium-styles';
 import '@material/mwc-icon';
 import '@material/mwc-button';
-import '@leavittsoftware/titanium-card';
+import '../../../../titanium/card/card';
 
 /* playground-fold-end */
 

@@ -10,7 +10,7 @@ import '@material/web/icon/icon';
 import '@material/web/list/list-item';
 
 /* playground-fold-end */
-import '@leavittsoftware/titanium-card';
+import '../../../../titanium/card/card';
 
 /* playground-fold */
 @customElement('titanium-card-playground')

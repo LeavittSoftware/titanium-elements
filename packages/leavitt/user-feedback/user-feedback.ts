@@ -1,5 +1,5 @@
 import '@leavittsoftware/titanium-header';
-import '@leavittsoftware/titanium-card';
+import '../../titanium/card/card';
 import '@leavittsoftware/titanium-smart-attachment-input';
 import '@material/mwc-button';
 import '@material/mwc-textarea';
