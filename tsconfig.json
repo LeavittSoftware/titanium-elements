@@ -26,5 +26,5 @@
     }
   },
   "include": ["**/*.ts"],
-  "exclude": ["leavittbook", "**/*.d.ts", "**/*.css.ts", "node_modules"]
+  "exclude": ["**/*.d.ts", "**/*.css.ts", "node_modules"]
 }
