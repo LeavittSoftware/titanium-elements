@@ -8,7 +8,7 @@ import { property, customElement } from 'lit/decorators.js';
  *
  */
 @customElement('titanium-access-denied-page')
-export class TitaniumAccessDeniedPageElement extends LitElement {
+export class TitaniumAccessDeniedPage extends LitElement {
   /**
    * Reason text for the denial of access
    */

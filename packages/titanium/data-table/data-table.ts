@@ -37,7 +37,7 @@ declare const ResizeObserver: any;
  * @cssprop {Color} [--titanium-data-table-font-family=Roboto, Noto, sans-serif] - Set the font family used on the data table and paging control
  */
 @customElement('titanium-data-table')
-export class TitaniumDataTableElement extends LitElement {
+export class TitaniumDataTable extends LitElement {
   /**
    * Table heading / title
    */

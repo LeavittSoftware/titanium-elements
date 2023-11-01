@@ -11,7 +11,7 @@ import { PendingStateEvent } from '../types/pending-state-event';
  *
  */
 @customElement('titanium-full-page-loading-indicator')
-export class TitaniumFullPageLoadingIndicatorElement extends LitElement {
+export class TitaniumFullPageLoadingIndicator extends LitElement {
   @property({ type: Boolean, reflect: true }) protected opened: boolean;
   @property({ type: Boolean, reflect: true }) protected opening: boolean;
   @property({ type: Boolean, reflect: true }) protected closing: boolean;

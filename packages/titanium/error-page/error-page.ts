@@ -9,7 +9,7 @@ import { property, customElement } from 'lit/decorators.js';
  */
 
 @customElement('titanium-error-page')
-export class TitaniumErrorPageElement extends LitElement {
+export class TitaniumErrorPage extends LitElement {
   /**
    * Reason text for the error
    */

@@ -30,7 +30,7 @@ import '@material/web/icon/icon';
  * @cssprop [--titanium-data-table-font-family=Roboto, Noto, sans-serif] - Set the font family of the data table item
  */
 @customElement('titanium-data-table-item')
-export class TitaniumDataTableItemElement extends LitElement {
+export class TitaniumDataTableItem extends LitElement {
   /**
    * The backing object that is displayed in this row.  Sent in navigate and selected events.
    */

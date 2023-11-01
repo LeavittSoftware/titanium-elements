@@ -19,7 +19,7 @@ dayjs.extend(duration);
  */
 
 @customElement('titanium-duration-input')
-export class TitaniumDurationInputElement extends TextField {
+export class TitaniumDurationInput extends TextField {
   /**
    *  Dayjs duration object. This is the main property you will interact with because the value
    *  property of this component is actually the human readable string and not the duration you most likely

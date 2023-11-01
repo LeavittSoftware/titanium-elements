@@ -10,7 +10,7 @@ import { property, customElement, query } from 'lit/decorators.js';
 import { button } from '@leavittsoftware/titanium-styles';
 import { CropAndSaveImageDialog, CropperOptions } from './crop-and-save-image-dialog';
 import { repeat } from 'lit/directives/repeat.js';
-import { SmartAttachment } from './smart-attachment';
+import { SmartAttachment } from './type/smart-attachment';
 import { getExtension, getFileIcon, imageFormats } from './image-formats';
 import { ImagePreviewDialog } from './image-preview-dialog';
 import { delay, middleEllipsis } from '@leavittsoftware/titanium-helpers';
@@ -43,7 +43,7 @@ export type TitaniumSmartInputOptions = Cropper.Options & { shape?: ' square' | 
  *
  */
 @customElement('titanium-smart-attachment-input')
-export class TitaniumSmartAttachmentInputElement extends LitElement {
+export class TitaniumSmartAttachmentInput extends LitElement {
   @property({ type: Array }) protected files: SmartAttachment[] = [];
   @property({ type: Boolean, reflect: true, attribute: 'is-over' }) protected isOver: boolean = false;
   @property({ type: String }) protected previewSrc: string | undefined = undefined;

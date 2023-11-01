@@ -14,7 +14,7 @@ import '@material/web/icon/icon';
  * @cssprop {font} [--titanium-data-table-font-family=Roboto, Noto, sans-serif] - Font family
  */
 @customElement('titanium-data-table-header')
-export class TitaniumDataTableHeaderElement extends LitElement {
+export class TitaniumDataTableHeader extends LitElement {
   /**
    * This displayed header name
    */

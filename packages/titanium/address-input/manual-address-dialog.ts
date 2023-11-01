@@ -13,7 +13,7 @@ import { Select } from '@material/mwc-select';
 import { TitaniumDialogElement } from '@leavittsoftware/titanium-dialog';
 
 @customElement('manual-address-dialog')
-export class ManualAddressDialogElement extends LitElement {
+export class ManualAddressDialog extends LitElement {
   @query('titanium-dialog') protected dialog!: TitaniumDialogElement;
 
   @property({ type: String }) label: string = '';

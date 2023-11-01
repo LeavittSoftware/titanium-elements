@@ -3,7 +3,7 @@ import { property, customElement } from 'lit/decorators.js';
 import { TitaniumSnackbarSingleton as AppSnackbar } from '@leavittsoftware/titanium-snackbar/lib/snackbar';
 
 @customElement('titanium-sw-notifier')
-export class TitanuimServiceWorkerNotifierElement extends LitElement {
+export class TitanuimServiceWorkerNotifier extends LitElement {
   @property({ type: String }) notificationsStatus: string;
   @property({ type: String }) scriptUrl: string = 'service-worker.js';
 

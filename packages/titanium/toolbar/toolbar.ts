@@ -11,7 +11,7 @@ import { property, customElement } from 'lit/decorators.js';
  * @cssprop {Color} [--md-sys-color-on-background] - Color of the toolbar text
  */
 @customElement('titanium-toolbar')
-export class TitaniumToolbarElement extends LitElement {
+export class TitaniumToolbar extends LitElement {
   /**
    * Adds a box shadow around the toolbar
    */

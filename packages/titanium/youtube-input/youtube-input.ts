@@ -13,7 +13,7 @@ import { TextField } from '@material/mwc-textfield';
  */
 
 @customElement('titanium-youtube-input')
-export class TitaniumYouTubeInputElement extends LitElement {
+export class TitaniumYouTubeInput extends LitElement {
   /**
    * Unique YouTube video key
    */

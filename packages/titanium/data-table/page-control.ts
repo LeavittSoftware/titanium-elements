@@ -17,7 +17,7 @@ import { MdOutlinedSelect } from '@material/web/select/outlined-select.js';
  * @cssprop [--titanium-page-control-font-family=Roboto, Noto, sans-serif] - page control font family
  */
 @customElement('titanium-page-control')
-export class TitaniumPageControlElement extends LitElement {
+export class TitaniumPageControl extends LitElement {
   /**
    * Available page sizes
    */
