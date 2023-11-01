@@ -53,8 +53,8 @@
     "clean:dev": "rimraf \"src/**/*.js.map\" \"src/**/*.js\"",
     "clean:modules": "rimraf \"./**/node_modules/!(rimraf|.bin)\" \"./package-lock.json\"",
     "clean:all": "npm run clean:dev && npm run clean:modules",
-    "docs": "cem analyze --globs \"../**/src/*.ts\" --exclude \"../**/node_modules/@leavittsoftware/**/src/*.ts\" --litelement",
-    "docs:watch": "cem analyze --watch --globs \"../**/src/*.ts\" --exclude \"../**/node_modules/@leavittsoftware/**/src/*.ts\" --litelement"
+    "docs": "cem analyze --globs \"../packages/**/src/*.ts\" --exclude \"../packages/**/node_modules/@leavittsoftware/**/src/*.ts\" --litelement",
+    "docs:watch": "cem analyze --watch --globs \"../packages/**/src/*.ts\" --exclude \"../packages/**/node_modules/@leavittsoftware/**/src/*.ts\" --litelement"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
