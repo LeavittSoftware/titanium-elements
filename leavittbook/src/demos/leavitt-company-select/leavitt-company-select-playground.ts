@@ -4,7 +4,6 @@ import { customElement, query, queryAll, state } from 'lit/decorators.js';
 import { h1, p } from '../../../../packages/titanium/styles/styles';
 
 import '../../../../packages/leavitt/user-manager/user-manager';
-import '../../../../packages/leavitt/snackbar/snackbar';
 import '@material/web/button/text-button';
 
 import ApiService from '../../../../packages/leavitt/api-service/api-service';
