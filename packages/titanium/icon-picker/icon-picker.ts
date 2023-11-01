@@ -1,10 +1,10 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
-import '@material/mwc-select';
-import '@leavittsoftware/titanium-icon';
-import '@material/mwc-list/mwc-list-item';
+// import '@material/mwc-select';
+// import '@leavittsoftware/titanium-icon';
+// import '@material/mwc-list/mwc-list-item';
 import { MaterialSymbol, MaterialSymbols } from './material-symbols';
-import { Select } from '@material/mwc-select';
+// import { Select } from '@material/mwc-select';
 
 /**
  * Titanium icon picker - a picker for material icons
@@ -39,7 +39,8 @@ export class TitaniumIconPicker extends LitElement {
    */
   @property({ type: Boolean }) required: boolean = false;
 
-  @query('mwc-select') protected select: Select & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @query('mwc-select') protected select: any & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
 
   async reset() {
     this.value = null;

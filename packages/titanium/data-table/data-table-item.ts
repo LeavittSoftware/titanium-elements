@@ -1,6 +1,6 @@
 import { css, html, LitElement, PropertyValues } from 'lit';
 import { property, customElement, query, state } from 'lit/decorators.js';
-import { TitaniumDataTableElement } from './data-table';
+import { TitaniumDataTable } from './data-table';
 
 import '@material/web/checkbox/checkbox';
 import '@material/web/icon/icon';
@@ -152,11 +152,11 @@ export class TitaniumDataTableItem extends LitElement {
   }
 
   protected get dataTable() {
-    return this.parentElement as TitaniumDataTableElement;
+    return this.parentElement as TitaniumDataTable;
   }
 
   protected get items() {
-    return (this.dataTable.itemsSlot?.assignedElements() as TitaniumDataTableItemElement[]) ?? [];
+    return (this.dataTable.itemsSlot?.assignedElements() as TitaniumDataTableItem[]) ?? [];
   }
 
   protected get itemsContainer() {

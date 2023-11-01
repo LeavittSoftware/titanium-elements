@@ -1,17 +1,17 @@
-import '@material/mwc-select';
-import '@leavittsoftware/titanium-icon';
-import '@material/mwc-list/mwc-list-item';
-import '@leavittsoftware/leavitt-elements/lib/mwc-datefield';
+// import '@material/mwc-select';
+// import '@leavittsoftware/titanium-icon';
+// import '@material/mwc-list/mwc-list-item';
+// import '@leavittsoftware/leavitt-elements/lib/mwc-datefield';
 
 import { css, html, LitElement, PropertyValues } from 'lit';
 import { property, customElement, query } from 'lit/decorators.js';
-import { DateField } from '@leavittsoftware/leavitt-elements/src/mwc-datefield';
+// import { DateField } from '@leavittsoftware/leavitt-elements/src/mwc-datefield';
 import { Select } from '@material/mwc-select';
 import dayjs, { Dayjs, QUnitType } from 'dayjs/esm';
 import quarterOfYear from 'dayjs/esm/plugin/quarterOfYear';
-import { Debouncer } from '@leavittsoftware/titanium-helpers/lib/titanium-debouncer';
+import { Debouncer } from '../../titanium/helpers/debouncer';
 import { DateRangeChangedEvent } from './date-range-change-event';
-import { DOMEvent } from '@leavittsoftware/leavitt-elements/src/dom-event';
+import { DOMEvent } from '../../titanium/types/dom-event';
 
 dayjs.extend(quarterOfYear);
 
@@ -304,8 +304,10 @@ export class TitaniumDateRangeSelector extends LitElement {
    */
   @property({ type: String }) endDate: string = '';
 
-  @query('mwc-datefield[start-date]') protected startDateField: DateField & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
-  @query('mwc-datefield[end-date]') protected endDateField: DateField & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @query('mwc-datefield[start-date]') protected startDateField: any & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @query('mwc-datefield[end-date]') protected endDateField: any & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
   @query('mwc-select') protected select!: Select;
 
   async updated(changedProps: PropertyValues<this>) {

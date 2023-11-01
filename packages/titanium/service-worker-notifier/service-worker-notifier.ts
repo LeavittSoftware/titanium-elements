@@ -1,6 +1,6 @@
 import { html, LitElement } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
-import { TitaniumSnackbarSingleton as AppSnackbar } from '@leavittsoftware/titanium-snackbar/lib/snackbar';
+import { TitaniumSnackbarSingleton } from '../../titanium/snackbar/snackbar';
 
 @customElement('titanium-sw-notifier')
 export class TitanuimServiceWorkerNotifier extends LitElement {
@@ -40,7 +40,7 @@ export class TitanuimServiceWorkerNotifier extends LitElement {
   }
 
   async #showUpdatedSnackbar() {
-    await AppSnackbar.open('Site has been updated', { actionText: 'RELOAD' });
+    await TitaniumSnackbarSingleton.open('Site has been updated', { actionText: 'RELOAD' });
     this.#newWorker?.postMessage({ type: 'SKIP_WAITING' });
   }
 

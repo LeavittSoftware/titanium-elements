@@ -1,8 +1,7 @@
 import '@material/web/icon/icon';
 import '@material/web/iconbutton/icon-button';
 
-import { h1, h3 } from '@leavittsoftware/titanium-styles';
-
+import { h1, h3 } from '../../titanium/styles/styles';
 import { css, html, LitElement, nothing } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
 

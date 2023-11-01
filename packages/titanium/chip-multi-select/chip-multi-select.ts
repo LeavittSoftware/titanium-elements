@@ -1,8 +1,8 @@
 import { css, html, LitElement, PropertyValues } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
-import { TitaniumInputValidator } from '@leavittsoftware/titanium-input-validator';
+import { TitaniumInputValidator } from '../../titanium/input-validator/input-validator';
 
-import '@leavittsoftware/titanium-input-validator';
+import '../../titanium/input-validator/input-validator';
 
 /**
  *  Multi select outlined themed input that styles

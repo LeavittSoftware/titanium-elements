@@ -1,11 +1,11 @@
 import { css, html, LitElement } from 'lit';
 import { property, customElement, queryAsync } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
+import { MdOutlinedSelect } from '@material/web/select/outlined-select.js';
 
 import '@material/web/iconbutton/icon-button';
 import '@material/web/select/outlined-select.js';
 import '@material/web/select/select-option.js';
-import { MdOutlinedSelect } from '@material/web/select/outlined-select.js';
 
 /**
  * Material design page control with page size selector!

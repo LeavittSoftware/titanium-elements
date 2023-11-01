@@ -5,10 +5,10 @@ import '@material/web/icon/icon';
 
 import { css, html, LitElement } from 'lit';
 import { property, customElement, query, queryAsync } from 'lit/decorators.js';
-import { DataTableItemDropEvent, TitaniumDataTableItemElement } from './data-table-item';
-import { TitaniumDataTableHeaderElement } from './data-table-header';
-import { h1, ellipsis } from '@leavittsoftware/titanium-styles';
-import { TitaniumPageControlElement } from './page-control';
+import { DataTableItemDropEvent, TitaniumDataTableItem } from './data-table-item';
+import { TitaniumDataTableHeader } from './data-table-header';
+import { h1, ellipsis } from '../../titanium/styles/styles';
+import { TitaniumPageControl } from './page-control';
 import { MdCheckbox } from '@material/web/checkbox/checkbox';
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -120,7 +120,7 @@ export class TitaniumDataTable extends LitElement {
   /**
    * @ignore
    */
-  @queryAsync('titanium-page-control') pageControl: Promise<TitaniumPageControlElement | null>;
+  @queryAsync('titanium-page-control') pageControl: Promise<TitaniumPageControl | null>;
   #openCount = 0;
 
   /**
@@ -215,8 +215,8 @@ export class TitaniumDataTable extends LitElement {
    * @ignore
    */
   updateChildrenIsNarrow() {
-    (this.itemsSlot.assignedElements() as Array<TitaniumDataTableItemElement & HTMLElement>).forEach(o => (o.narrow = this.narrow));
-    (this.tableHeaders.assignedElements() as Array<TitaniumDataTableHeaderElement & HTMLElement>).forEach(o => (o.narrow = this.narrow));
+    (this.itemsSlot.assignedElements() as Array<TitaniumDataTableItem & HTMLElement>).forEach(o => (o.narrow = this.narrow));
+    (this.tableHeaders.assignedElements() as Array<TitaniumDataTableHeader & HTMLElement>).forEach(o => (o.narrow = this.narrow));
   }
 
   /**
@@ -273,10 +273,10 @@ export class TitaniumDataTable extends LitElement {
     }
   }
 
-  #getTableItems(): Array<TitaniumDataTableItemElement> {
-    return (this.itemsSlot.assignedElements() as Array<TitaniumDataTableItemElement & HTMLElement>).filter(
+  #getTableItems(): Array<TitaniumDataTableItem> {
+    return (this.itemsSlot.assignedElements() as Array<TitaniumDataTableItem & HTMLElement>).filter(
       o => typeof o.select === 'function' && typeof o.deselect === 'function'
-    ) as Array<TitaniumDataTableItemElement>;
+    ) as Array<TitaniumDataTableItem>;
   }
 
   static styles = [
@@ -545,7 +545,7 @@ export class TitaniumDataTable extends LitElement {
       <table-container
         @titanium-data-table-item-selected-changed=${e => {
           e.stopPropagation();
-          const dataTableItem = e.target as TitaniumDataTableItemElement;
+          const dataTableItem = e.target as TitaniumDataTableItem;
 
           if (dataTableItem.selected) {
             if (this.singleSelect) {

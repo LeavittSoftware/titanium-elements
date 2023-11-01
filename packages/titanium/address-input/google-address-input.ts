@@ -1,8 +1,8 @@
-import '@material/mwc-textfield';
-import '@material/mwc-list/mwc-list-item.js';
-import '@material/mwc-linear-progress';
-import '@material/mwc-menu';
-import '@material/mwc-icon';
+// import '@material/mwc-textfield';
+// import '@material/mwc-list/mwc-list-item.js';
+// import '@material/mwc-linear-progress';
+// import '@material/mwc-menu';
+// import '@material/mwc-icon';
 
 import { css, html, LitElement, PropertyValues } from 'lit';
 import { property, customElement, query, state } from 'lit/decorators.js';
@@ -10,8 +10,8 @@ import { property, customElement, query, state } from 'lit/decorators.js';
 import { Menu } from '@material/mwc-menu';
 import { Loader } from '@googlemaps/js-api-loader';
 import { TextField } from '@material/mwc-textfield';
-import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar/lib/snackbar';
-import { Debouncer, LoadWhile } from '@leavittsoftware/titanium-helpers';
+import { TitaniumSnackbarSingleton } from '../../titanium/snackbar/snackbar';
+import { Debouncer, LoadWhile } from '../../titanium/helpers/helpers';
 import { SelectedDetail } from '@material/mwc-menu/mwc-menu-base';
 import { MenuSurface } from '@material/mwc-menu/mwc-menu-surface';
 import { Address, addressToString, validateStreet } from './Address';
