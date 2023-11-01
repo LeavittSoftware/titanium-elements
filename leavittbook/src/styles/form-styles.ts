@@ -14,8 +14,6 @@ export const formStyles = css`
   input-container mwc-select:not([validationMessage]),
   form:not([no-required]) mwc-formfield,
   input-container mwc-formfield,
-  form:not([no-required]) titanium-twoline-formfield,
-  input-container titanium-twoline-formfield,
   form:not([no-required]) mwc-textfield:not([validationMessage]),
   input-container mwc-textfield:not([validationMessage]),
   form:not([no-required]) mwc-textarea[outlined]:not([validationMessage]) {

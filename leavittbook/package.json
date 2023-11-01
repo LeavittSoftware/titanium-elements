@@ -40,7 +40,7 @@
     "@rollup/plugin-terser": "^0.4.4"
   },
   "scripts": {
-    "start": "concurrently --kill-others --names tsc,wds,docs  \"npm run tsc:watch\" \"web-dev-server\" \"npm run docs:watch\"",
+    "start": "concurrently --kill-others --names tsc,wds,docs  \"npm run tsc:watch\" \"web-dev-server\"",
     "start:build": "web-dev-server --root-dir dist --app-index index.html --open --compatibility none --port 9090",
     "tsc:watch": "tsc --watch",
     "build": "rimraf dist && tsc && npm run docs && rollup -c rollup.config.js",

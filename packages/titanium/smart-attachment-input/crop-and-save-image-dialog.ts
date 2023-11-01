@@ -15,7 +15,7 @@ import { h1, p } from '../../titanium/styles/styles';
 import { LoadWhile } from '../../titanium/helpers/load-while';
 import Bowser from 'bowser';
 
-const LoaderGif = new URL('../images/duck-loader.gif', import.meta.url).href;
+const LoaderGif = new URL('./images/duck-loader.gif', import.meta.url).href;
 
 /**
  * Crop and save image dialog
@@ -224,7 +224,7 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
     const canvas = document.createElement('canvas');
     const image = new Image();
 
-    const imagePromise = new Promise<string>(resolve => {
+    const imagePromise = new Promise<string>((resolve) => {
       image.onload = () => {
         // use min size so we get a square
         const size = Math.min(image.naturalWidth, image.naturalHeight);

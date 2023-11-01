@@ -33,9 +33,9 @@ export class LeavittUserFeedback extends LoadWhile(LitElement) {
 
   @state() private activeIndex: number = 0;
 
-  @queryAll('mwc-textarea') private allInputs: NodeListOf<any & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean }>;
-  @query('mwc-textarea[feedback]') private commentTextArea: any & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
-  @query('mwc-textarea[problem]') private problemTextArea: any & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
+  @queryAll('mwc-textarea') private allInputs: NodeListOf<HTMLInputElement & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean }>;
+  @query('mwc-textarea[feedback]') private commentTextArea: HTMLInputElement & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
+  @query('mwc-textarea[problem]') private problemTextArea: HTMLInputElement & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
   @query('titanium-smart-attachment-input') imageInput: TitaniumSmartAttachmentInput;
 
   async updated(changedProps: PropertyValues<this>) {
@@ -46,10 +46,8 @@ export class LeavittUserFeedback extends LoadWhile(LitElement) {
 
   reset() {
     this.imageInput?.reset();
-    this.allInputs.forEach(input => {
+    this.allInputs.forEach((input) => {
       input.value = '';
-      input.isUiValid = true;
-      input.mdcFoundation?.setValid?.(true);
     });
   }
 
@@ -61,7 +59,7 @@ export class LeavittUserFeedback extends LoadWhile(LitElement) {
     const dto: WebsiteBugDto = {
       SiteName: location.hostname,
       Description: this.problemTextArea.value,
-      Attachments: (this.imageInput.getFiles() ?? []).map(o => o.file),
+      Attachments: (this.imageInput.getFiles() ?? []).map((o) => o.file),
     };
 
     try {

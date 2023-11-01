@@ -1,4 +1,4 @@
-import '../../titanium/chip-multi-select';
+import '../chip-multi-select/chip-multi-select';
 // import '@/titanium-chip';
 // import '@/titanium-dialog';
 import '@material/mwc-button';
@@ -150,7 +150,7 @@ export class TitaniumSmartAttachmentInput extends LitElement {
    *  Use to preset input to existing image.
    */
   setFiles(...files: { fileName: string; previewSrc?: string; downloadSrc?: string; id?: number }[]) {
-    this.files = [...files].map(o => ({ file: new File([''], o.fileName), previewSrc: o.previewSrc, downloadSrc: o.downloadSrc, id: o.id }));
+    this.files = [...files].map((o) => ({ file: new File([''], o.fileName), previewSrc: o.previewSrc, downloadSrc: o.downloadSrc, id: o.id }));
     this.#originalFiles = structuredClone(this.files);
   }
 
@@ -159,8 +159,8 @@ export class TitaniumSmartAttachmentInput extends LitElement {
    */
   setFilesFromDatabaseAttachments(...attachments: Partial<IDatabaseAttachment>[]) {
     this.files = [...attachments]
-      .filter(o => o.Name && o.Extension)
-      .map(o => ({
+      .filter((o) => o.Name && o.Extension)
+      .map((o) => ({
         id: o.Id,
         file: new File([''], `${o?.Name}.${o?.Extension}`),
         previewSrc: `${getCdnInlineUrl(o, 512)}${this.disableCache ? `?c=${window?.crypto?.randomUUID()}` : ''}`,
@@ -207,7 +207,7 @@ export class TitaniumSmartAttachmentInput extends LitElement {
     for (let i = 0; i < (files?.length ?? 0); i++) {
       const file = files?.item(i);
       if (file) {
-        const shouldCrop = this.croppableImageFormats.some(o => file.name.endsWith(o));
+        const shouldCrop = this.croppableImageFormats.some((o) => file.name.endsWith(o));
         if (shouldCrop) {
           const cropResult = await this.cropperDialog.open(URL.createObjectURL(file), file.name, async (croppedImage, previewDataUrl) => {
             const croppedFile = { file: croppedImage, previewSrc: previewDataUrl ?? undefined };
@@ -224,7 +224,7 @@ export class TitaniumSmartAttachmentInput extends LitElement {
           await delay(500);
         } else {
           const _file: SmartAttachment = { file: file };
-          const isImage = imageFormats.some(o => file.name.endsWith(o));
+          const isImage = imageFormats.some((o) => file.name.endsWith(o));
           if (isImage) {
             try {
               const fileAsBase64 = await this.toBase64(file);
@@ -253,7 +253,7 @@ export class TitaniumSmartAttachmentInput extends LitElement {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => resolve(reader.result);
-      reader.onerror = error => reject(error);
+      reader.onerror = (error) => reject(error);
     });
   }
 
@@ -327,7 +327,7 @@ export class TitaniumSmartAttachmentInput extends LitElement {
         ></mwc-button>
         ${repeat(
           this.files,
-          o => o.file.name,
+          (o) => o.file.name,
           (o, i) =>
             html`<titanium-chip
               label=${middleEllipsis(o.file.name)}
@@ -364,7 +364,7 @@ export class TitaniumSmartAttachmentInput extends LitElement {
           name="image"
           ?multiple=${this.multiple}
           accept="${this.accept}"
-          @change=${e => {
+          @change=${(e) => {
             const files = e.target.files;
             this.handleNewFile(files);
           }}
