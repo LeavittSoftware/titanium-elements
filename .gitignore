@@ -1,8 +1,11 @@
 node_modules/
 \.vscode/
-packages/*/package-lock.json
-dist/
 package-lock.json
-**/*.js
-**/*.map
-**/*.d.ts
+packages/web/**/*.js
+packages/web/**/*.map
+packages/web/**/*.d.ts
+packages/leavittbook/src/**/*.js
+packages/leavittbook/src/**/*.map
+packages/leavittbook/src/**/*.d.ts
+packages/leavittbook/dist
+packages/leavittbook/custom-elements.json
