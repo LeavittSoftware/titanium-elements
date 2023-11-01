@@ -374,7 +374,7 @@ export class MyApp extends LitElement {
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-chip-multi-select'} href="/titanium-chip-multi-select" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Chip multi select </span>
+              <md-icon slot="start">library_books</md-icon> <span>Chip multi select* </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-data-table'} href="/titanium-data-table" type="link">
