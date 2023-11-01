@@ -178,9 +178,7 @@ export class MyApp extends LitElement {
     );
 
     page('/titanium-toolbar', () => this.#changePage('titanium-toolbar', () => import('./demos/titanium-toolbar/titanium-toolbar-demo.js')));
-    page('/titanium-twoline-formfield', () =>
-      this.#changePage('titanium-twoline-formfield', () => import('./demos/titanium-twoline-formfield/titanium-twoline-formfield-demo.js'))
-    );
+
     page('/titanium-styles', () => this.#changePage('titanium-styles', () => import('./demos/titanium-styles/titanium-styles-demo.js')));
     page('/titanium-snackbar', () => this.#changePage('titanium-snackbar', () => import('./demos/titanium-snackbar/titanium-snackbar-demo.js')));
     page('/titanium-card', () => this.#changePage('titanium-card', () => import('./demos/titanium-card/titanium-card-demo.js')));
@@ -428,10 +426,6 @@ export class MyApp extends LitElement {
               <md-icon slot="start">library_books</md-icon> <span>Toolbar*</span>
             </md-list-item>
 
-            <md-list-item ?selected=${!!this.page?.includes('titanium-twoline-formfield')} href="/titanium-twoline-formfield" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Twoline formfield</span>
-            </md-list-item>
-
             <md-list-item ?selected=${!!this.page?.includes('titanium-youtube-input')} href="/titanium-youtube-input" type="link">
               <md-icon slot="start">library_books</md-icon> <span>Youtube input</span>
             </md-list-item>
@@ -545,9 +539,6 @@ export class MyApp extends LitElement {
           ? html` <titanium-search-input-demo ?isActive=${this.page === 'titanium-search-input'}></titanium-search-input-demo> `
           : nothing}
         ${this.page === 'titanium-toolbar' ? html` <titanium-toolbar-demo ?isActive=${this.page === 'titanium-toolbar'}></titanium-toolbar-demo> ` : nothing}
-        ${this.page === 'titanium-twoline-formfield'
-          ? html` <titanium-twoline-formfield-demo ?isActive=${this.page === 'titanium-twoline-formfield'}></titanium-twoline-formfield-demo> `
-          : nothing}
         ${this.page === 'titanium-full-page-loading-indicator'
           ? html`
               <titanium-full-page-loading-indicator-demo
