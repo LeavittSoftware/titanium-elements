@@ -2,7 +2,7 @@ import { html, LitElement } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
 import { TitaniumSnackbarSingleton } from '../../titanium/snackbar/snackbar';
 
-@customElement('titanium-sw-notifier')
+@customElement('titanium-service-worker-notifier')
 export class TitanuimServiceWorkerNotifier extends LitElement {
   @property({ type: String }) notificationsStatus: string;
   @property({ type: String }) scriptUrl: string = 'service-worker.js';
