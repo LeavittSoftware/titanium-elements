@@ -1,6 +1,6 @@
 import { css, html, LitElement } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
-import '@leavittsoftware/titanium-progress';
+// import '@leavittsoftware/titanium-progress';
 import { PendingStateEvent } from '../types/pending-state-event';
 
 /**
