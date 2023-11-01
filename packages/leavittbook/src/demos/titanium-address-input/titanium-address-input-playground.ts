@@ -27,7 +27,6 @@ export class TitaniumAddressInputPlayground extends LitElement {
   static styles = [
     h1,
     p,
-    button,
     css`
       :host {
         display: flex;

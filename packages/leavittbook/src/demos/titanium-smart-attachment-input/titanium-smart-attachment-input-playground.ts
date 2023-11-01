@@ -7,7 +7,7 @@ import '@material/mwc-button';
 /* playground-fold-end */
 
 import '../../../../titanium/smart-attachment-input/smart-attachment-input';
-import { TitaniumSmartAttachmentInputElement } from '../../../../titanium/smart-attachment-input/smart-attachment-input';
+import { TitaniumSmartAttachmentInput } from '../../../../titanium/smart-attachment-input/smart-attachment-input';
 
 /* playground-fold */
 @customElement('titanium-smart-attachment-input-playground')
@@ -16,12 +16,12 @@ export class TitaniumSmartAttachmentInputPlayground extends LitElement {
   @state() protected hasChanges: boolean = false;
   @state() protected disableCacheUrl: string | null = null;
   @state() protected enableCacheUrl: string | null = null;
-  @query('titanium-smart-attachment-input[get-files]') protected getFilesInput!: TitaniumSmartAttachmentInputElement;
-  @query('titanium-smart-attachment-input[preselect]') protected preselectFilesInput!: TitaniumSmartAttachmentInputElement;
-  @query('titanium-smart-attachment-input[preselect-disabled]') protected preselectDisabledFilesInput!: TitaniumSmartAttachmentInputElement;
-  @query('titanium-smart-attachment-input[reset]') protected resetInput!: TitaniumSmartAttachmentInputElement;
-  @query('titanium-smart-attachment-input[disable-cache]') protected disableCacheInput!: TitaniumSmartAttachmentInputElement;
-  @query('titanium-smart-attachment-input[enable-cache]') protected enableCacheInput!: TitaniumSmartAttachmentInputElement;
+  @query('titanium-smart-attachment-input[get-files]') protected getFilesInput!: TitaniumSmartAttachmentInput;
+  @query('titanium-smart-attachment-input[preselect]') protected preselectFilesInput!: TitaniumSmartAttachmentInput;
+  @query('titanium-smart-attachment-input[preselect-disabled]') protected preselectDisabledFilesInput!: TitaniumSmartAttachmentInput;
+  @query('titanium-smart-attachment-input[reset]') protected resetInput!: TitaniumSmartAttachmentInput;
+  @query('titanium-smart-attachment-input[disable-cache]') protected disableCacheInput!: TitaniumSmartAttachmentInput;
+  @query('titanium-smart-attachment-input[enable-cache]') protected enableCacheInput!: TitaniumSmartAttachmentInput;
 
   static styles = [
     h1,

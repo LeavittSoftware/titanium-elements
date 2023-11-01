@@ -6,7 +6,7 @@ import { h1, p } from '../../../../titanium/styles/styles';
 import '@material/web/button/text-button';
 import '../../../../leavitt/user-manager/user-manager';
 import ApiService from '../../../../leavitt/api-service/api-service';
-import { AuthenticatedTokenProvider } from '../../../../leavitt/user-manager/authenticated-token-provider';
+import { AuthenticatedTokenProvider } from '../../../../leavitt/api-service/authenticated-token-provider';
 
 /* playground-fold-end */
 import '../../../../leavitt/person-company-select/person-company-select';

@@ -445,7 +445,7 @@ export class TitaniumDateRangeSelector extends LitElement {
         label="From"
         .dateType=${this.enableTime ? 'datetime-local' : 'date'}
         .value=${this.startDate ?? ''}
-        @change=${(e: DOMEvent<DateField>) => (this.startDate = e.target.value ?? '')}
+        @change=${e => (this.startDate = e.target.value ?? '')}
       ></mwc-datefield>
 
       <mwc-datefield
@@ -454,7 +454,7 @@ export class TitaniumDateRangeSelector extends LitElement {
         label="To"
         .dateType=${this.enableTime ? 'datetime-local' : 'date'}
         .value=${this.endDate ?? ''}
-        @change=${(e: DOMEvent<DateField>) => (this.endDate = e.target.value ?? '')}
+        @change=${e => (this.endDate = e.target.value ?? '')}
       ></mwc-datefield>
     `;
   }

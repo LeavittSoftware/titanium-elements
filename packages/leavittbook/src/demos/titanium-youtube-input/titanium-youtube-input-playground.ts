@@ -1,10 +1,10 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement, query, queryAll } from 'lit/decorators.js';
-import { h1, p, button } from '../../../../titanium/styles/styles';
+import { h1, p } from '../../../../titanium/styles/styles';
 import '../../../../leavitt/profile-picture/profile-picture';
 import '@material/mwc-button';
-import { TitaniumYouTubeInputElement } from '../../../../titanium/youtube-input/youtube-input';
+import { TitaniumYouTubeInput } from '../../../../titanium/youtube-input/youtube-input';
 
 /* playground-fold-end */
 import '../../../../titanium/youtube-input/youtube-input';
@@ -12,23 +12,12 @@ import '../../../../titanium/youtube-input/youtube-input';
 /* playground-fold */
 @customElement('titanium-youtube-input-playground')
 export class TitaniumYoutubeInputPlayground extends LitElement {
-  @queryAll('titanium-youtube-input') protected inputs!: NodeListOf<TitaniumYouTubeInputElement>;
-  @query('titanium-youtube-input[required]') requiredInput: TitaniumYouTubeInputElement;
-
-  async firstUpdated() {
-    // Fix MWC floating label problem
-    requestAnimationFrame(() => {
-      Array.from(this.inputs).forEach((o) => {
-        //TODO: add method to input
-        o.layout();
-      });
-    });
-  }
+  @queryAll('titanium-youtube-input') protected inputs!: NodeListOf<TitaniumYouTubeInput>;
+  @query('titanium-youtube-input[required]') requiredInput: TitaniumYouTubeInput;
 
   static styles = [
     h1,
     p,
-    button,
     css`
       :host {
         display: flex;

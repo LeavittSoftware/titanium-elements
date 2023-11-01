@@ -1,8 +1,8 @@
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { h1, h2, p, a } from '../../../titanium/styles/styles';
-import '../../../titanium/header/header';
-import '../../../titanium/card/card';
+import { h1, h2, p, a } from '../../titanium/styles/styles';
+import '../../titanium/header/header';
+import '../../titanium/card/card';
 
 @customElement('getting-started')
 export default class GettingStartedElement extends LitElement {

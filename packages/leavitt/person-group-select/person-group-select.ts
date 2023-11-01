@@ -3,7 +3,7 @@ import { css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { PeopleGroup as CorePeopleGroup, Person as CorePerson } from '@leavittsoftware/lg-core-typescript';
-import { TitaniumSingleSelectBase } from '../../titanium/single-select-base/titanium-single-select-base';
+import { TitaniumSingleSelectBase } from '../../titanium/single-select-base/single-select-base';
 
 import '../profile-picture/profile-picture';
 

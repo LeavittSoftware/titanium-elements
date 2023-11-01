@@ -7,12 +7,12 @@ import '@material/mwc-button';
 /* playground-fold-end */
 
 import '../../../../titanium/data-table/page-control';
-import { TitaniumPageControlElement } from '../../../../titanium/data-table/page-control';
+import { TitaniumPageControl } from '../../../../titanium/data-table/page-control';
 
 /* playground-fold */
 @customElement('titanium-page-control-playground')
 export class TitaniumPageControlPlayground extends LitElement {
-  @query('titanium-page-control[main]') pageControl: TitaniumPageControlElement;
+  @query('titanium-page-control[main]') pageControl: TitaniumPageControl;
   @state() protected count: number = 25;
   @state() protected data;
   @state() protected filteredData;

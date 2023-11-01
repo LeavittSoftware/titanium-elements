@@ -77,7 +77,7 @@ export class TitaniumDialog extends LitElement {
     });
 
     // prevent page load @keyframes playing
-    await TitaniumNativeDialogBaseElement.animationsComplete(this.dialog);
+    await TitaniumDialog.animationsComplete(this.dialog);
 
     // remove loading attribute
     this.dialog.removeAttribute('loading');
@@ -100,7 +100,7 @@ export class TitaniumDialog extends LitElement {
         dialog.removeAttribute('inert');
 
         dialog.dispatchEvent(new Event('opening'));
-        await TitaniumNativeDialogBaseElement.animationsComplete(dialog);
+        await TitaniumDialog.animationsComplete(dialog);
         dialog.dispatchEvent(new Event('opened'));
       }
     });
@@ -141,7 +141,7 @@ export class TitaniumDialog extends LitElement {
     dialog.setAttribute('inert', '');
     dialog.dispatchEvent(new Event('closing'));
 
-    await TitaniumNativeDialogBaseElement.animationsComplete(dialog);
+    await TitaniumDialog.animationsComplete(dialog);
 
     dialog.dispatchEvent(new Event('closed'));
     dialog.dispatchEvent(new Event('titanium-dialog-closed'));

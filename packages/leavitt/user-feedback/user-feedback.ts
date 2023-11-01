@@ -14,7 +14,7 @@ import { TitaniumSnackbarSingleton } from '../../titanium/snackbar/snackbar';
 import { h1, p } from '../../titanium/styles/styles';
 import { AuthenticatedTokenProvider } from '../api-service/authenticated-token-provider';
 import { WebsiteBugDto, WebsiteFeedback } from '@leavittsoftware/lg-core-typescript';
-import { TitaniumSmartAttachmentInputElement } from '../../titanium/smart-attachment-input/smart-attachment-input';
+import { TitaniumSmartAttachmentInput } from '../../titanium/smart-attachment-input/smart-attachment-input';
 import ApiService from '../api-service//api-service';
 
 const websiteBugApiService = new ApiService(new AuthenticatedTokenProvider());
@@ -36,7 +36,7 @@ export class LeavittUserFeedback extends LoadWhile(LitElement) {
   @queryAll('mwc-textarea') private allInputs: NodeListOf<any & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean }>;
   @query('mwc-textarea[feedback]') private commentTextArea: any & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
   @query('mwc-textarea[problem]') private problemTextArea: any & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
-  @query('titanium-smart-attachment-input') imageInput: TitaniumSmartAttachmentInputElement;
+  @query('titanium-smart-attachment-input') imageInput: TitaniumSmartAttachmentInput;
 
   async updated(changedProps: PropertyValues<this>) {
     if (changedProps.has('isActive') && this.isActive) {

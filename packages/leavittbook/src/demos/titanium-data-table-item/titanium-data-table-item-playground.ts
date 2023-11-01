@@ -6,12 +6,12 @@ import '@material/web/button/text-button';
 
 /* playground-fold-end */
 import '../../../../titanium/data-table/data-table-item';
-import { TitaniumDataTableItemElement } from '../../../../titanium/data-table/data-table-item';
+import { TitaniumDataTableItem } from '../../../../titanium/data-table/data-table-item';
 
 /* playground-fold */
 @customElement('titanium-data-table-item-playground')
 export class TitaniumDataTableItemPlayground extends LitElement {
-  @query('titanium-data-table-item[select-demo]') protected selectItem!: TitaniumDataTableItemElement;
+  @query('titanium-data-table-item[select-demo]') protected selectItem!: TitaniumDataTableItem;
 
   static styles = [
     h1,

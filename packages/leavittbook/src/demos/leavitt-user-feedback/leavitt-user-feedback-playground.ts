@@ -1,7 +1,7 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement, query, queryAll, state } from 'lit/decorators.js';
-import { h1, p, button } from '../../../../titanium/styles/styles';
+import { h1, p } from '../../../../titanium/styles/styles';
 
 import '@material/mwc-button';
 import ApiService from '../../../../leavitt/api-service/api-service';
@@ -21,7 +21,6 @@ export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
   static styles = [
     h1,
     p,
-    button,
     css`
       :host {
         display: flex;

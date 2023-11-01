@@ -4,5 +4,5 @@ packages/*/package-lock.json
 dist/
 package-lock.json
 **/*.js
-**/*.js.map
+**/*.map
 **/*.d.ts

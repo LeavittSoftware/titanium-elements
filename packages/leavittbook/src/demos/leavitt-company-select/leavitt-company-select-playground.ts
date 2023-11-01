@@ -8,7 +8,7 @@ import '../../../../leavitt/snackbar/snackbar';
 import '@material/web/button/text-button';
 
 import ApiService from '../../../../leavitt/api-service/api-service';
-import { AuthenticatedTokenProvider } from '../../../../leavitt/user-manager/authenticated-token-provider';
+import { AuthenticatedTokenProvider } from '../../../../leavitt/api-service/authenticated-token-provider';
 
 /* playground-fold-end */
 import '../../../../leavitt/company-select/company-select';

@@ -11,7 +11,7 @@ import { AuthenticatedTokenProvider } from '../../../../leavitt/api-service/auth
 
 /* playground-fold-end */
 import '../../../../leavitt/person-group-select/person-group-select';
-import { LeavittPersonGroupSelect } from '../../../../leavitt/file-explorer/file-explorerleavitt-elements';
+import { LeavittPersonGroupSelect } from '../../../../leavitt/person-group-select/person-group-select';
 
 /* playground-fold */
 @customElement('leavitt-person-group-select-playground')

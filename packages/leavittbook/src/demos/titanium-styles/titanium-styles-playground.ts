@@ -4,7 +4,7 @@ import { customElement } from 'lit/decorators.js';
 import '@material/mwc-button';
 
 /* playground-fold-end */
-import { dataRow, a, button, ellipsis, h1, h2, h3, h4, h5, p } from '../../../../titanium/styles/styles';
+import { dataRow, a, ellipsis, h1, h2, h3, h4, h5, p } from '../../../../titanium/styles/styles';
 
 /* playground-fold */
 @customElement('titanium-styles-playground')
@@ -12,7 +12,6 @@ export class TitaniumStylesPlayground extends LitElement {
   static styles = [
     dataRow,
     a,
-    button,
     ellipsis,
     h1,
     h2,
