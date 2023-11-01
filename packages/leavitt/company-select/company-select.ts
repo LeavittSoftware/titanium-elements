@@ -12,7 +12,7 @@ import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar/li
 import { Company } from '@leavittsoftware/lg-core-typescript/lg.net.core';
 import ApiService from '@leavittsoftware/api-service/lib/api-service';
 import Fuse from 'fuse.js';
-import { TitaniumSingleSelectBase } from '../../titanium/single-select-base/titanium-single-select-base';
+import { TitaniumSingleSelectBase } from '../../titanium/single-select-base/single-select-base';
 
 /**
  *  Single select input that searches Leavitt Group companies

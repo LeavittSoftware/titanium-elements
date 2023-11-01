@@ -1,6 +1,8 @@
 {
   "extends": "./base.tsconfig.json",
   "references": [
+    { "path": "packages/leavitt" },
+    { "path": "packages/titanium" },
     { "path": "packages/titanium-helpers" },
     { "path": "packages/user-manager" },
     { "path": "packages/api-service" },
@@ -27,7 +29,6 @@
     { "path": "packages/titanium-youtube-input" },
     { "path": "packages/titanium-input-validator" },
     { "path": "packages/titanium-twoline-formfield" },
-    { "path": "packages/leavitt-elements" },
     { "path": "packages/titanium-show-hide" },
     { "path": "packages/titanium-duration-input" },
     { "path": "packages/leavitt-file-explorer" },
