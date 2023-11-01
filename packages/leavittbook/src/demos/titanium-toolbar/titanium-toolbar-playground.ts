@@ -6,7 +6,7 @@ import '@leavittsoftware/profile-picture';
 import '@leavittsoftware/profile-picture/lib/profile-picture-menu';
 
 /* playground-fold-end */
-import '@leavittsoftware/titanium-toolbar';
+import '@leavittsoftware/titanium-toolbar/lib/toolbar';
 
 /* playground-fold */
 @customElement('titanium-toolbar-playground')

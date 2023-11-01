@@ -6,7 +6,7 @@ import '@material/web/button/text-button';
 import '@material/web/slider/slider';
 
 /* playground-fold-end */
-import '@leavittsoftware/titanium-show-hide';
+import '@leavittsoftware/titanium-show-hide/lib/show-hide';
 import dayjs from 'dayjs/esm';
 
 /* playground-fold */

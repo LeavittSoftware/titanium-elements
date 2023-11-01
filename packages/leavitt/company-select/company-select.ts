@@ -7,7 +7,7 @@ import '@material/web/textfield/outlined-text-field';
 import '@material/web/menu/menu';
 import '@material/web/menu/menu-item';
 
-import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar/lib/titanium-snackbar';
+import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar/lib/snackbar';
 
 import { Company } from '@leavittsoftware/lg-core-typescript/lg.net.core';
 import ApiService from '@leavittsoftware/api-service/lib/api-service';

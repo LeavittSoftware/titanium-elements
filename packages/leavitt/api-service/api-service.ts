@@ -1,4 +1,4 @@
-﻿import { isDevelopment } from '@leavittsoftware/titanium-helpers/lib/titanium-dev-detection';
+﻿import { isDevelopment } from '../../titanium/helpers/dev-detection';
 import { BearerTokenProvider } from './bearer-token-provider';
 import { HttpError } from './HttpError';
 import { ODataDto } from './odata-dto';

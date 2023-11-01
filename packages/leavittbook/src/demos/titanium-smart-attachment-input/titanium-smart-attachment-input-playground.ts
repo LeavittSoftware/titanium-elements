@@ -6,8 +6,8 @@ import '@material/mwc-icon';
 import '@material/mwc-button';
 /* playground-fold-end */
 
-import '@leavittsoftware/titanium-smart-attachment-input';
-import { TitaniumSmartAttachmentInputElement } from '@leavittsoftware/titanium-smart-attachment-input';
+import '@leavittsoftware/titanium-smart-attachment-input/lib/smart-attachment-input';
+import { TitaniumSmartAttachmentInputElement } from '@leavittsoftware/titanium-smart-attachment-input/lib/smart-attachment-input';
 
 /* playground-fold */
 @customElement('titanium-smart-attachment-input-playground')
@@ -134,7 +134,7 @@ export class TitaniumSmartAttachmentInputPlayground extends LitElement {
       <p>Currently ${this.hasChanges ? 'has changes' : 'has no changes'}</p>
       <div>
         <titanium-smart-attachment-input
-          @change=${e => {
+          @change=${(e) => {
             this.hasChanges = e.target.hasChanges();
           }}
         ></titanium-smart-attachment-input>

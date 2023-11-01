@@ -8,7 +8,7 @@ import '../../../../titanium/card/card';
 
 /* playground-fold-end */
 
-import '@leavittsoftware/titanium-header';
+import '@leavittsoftware/titanium-header/lib/header';
 
 /* playground-fold */
 @customElement('titanium-header-playground')

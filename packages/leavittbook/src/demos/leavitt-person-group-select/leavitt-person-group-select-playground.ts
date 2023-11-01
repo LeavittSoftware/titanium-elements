@@ -4,10 +4,10 @@ import { customElement, query, queryAll, state } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/titanium-styles';
 
 import '@material/web/button/text-button';
-import '@leavittsoftware/user-manager';
+import '../../../../leavitt/user-manager/user-manager';
 
-import ApiService from '@leavittsoftware/api-service/lib/api-service';
-import { AuthenticatedTokenProvider } from '@leavittsoftware/api-service/lib/authenticated-token-provider';
+import ApiService from '../../../../leavitt/api-service/api-service';
+import { AuthenticatedTokenProvider } from '../../../../leavitt/api-service/authenticated-token-provider';
 
 /* playground-fold-end */
 import '../../../../leavitt/person-group-select/person-group-select';

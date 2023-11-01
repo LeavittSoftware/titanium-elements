@@ -4,10 +4,10 @@ import { customElement, query, queryAll } from 'lit/decorators.js';
 import { h1, p, button } from '@leavittsoftware/titanium-styles';
 import '@leavittsoftware/profile-picture';
 import '@material/mwc-button';
-import { TitaniumYouTubeInputElement } from '@leavittsoftware/titanium-youtube-input';
+import { TitaniumYouTubeInputElement } from '@leavittsoftware/titanium-youtube-input/lib/youtube-input';
 
 /* playground-fold-end */
-import '@leavittsoftware/titanium-youtube-input';
+import '@leavittsoftware/titanium-youtube-input/lib/youtube-input';
 
 /* playground-fold */
 @customElement('titanium-youtube-input-playground')
@@ -18,7 +18,7 @@ export class TitaniumYoutubeInputPlayground extends LitElement {
   async firstUpdated() {
     // Fix MWC floating label problem
     requestAnimationFrame(() => {
-      Array.from(this.inputs).forEach(o => {
+      Array.from(this.inputs).forEach((o) => {
         //TODO: add method to input
         o.layout();
       });

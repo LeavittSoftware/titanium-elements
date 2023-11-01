@@ -8,8 +8,8 @@ import '../../../../titanium/card/card';
 
 /* playground-fold-end */
 
-import '@leavittsoftware/titanium-search-input';
-import { TitaniumSearchInput } from '@leavittsoftware/titanium-search-input';
+import '@leavittsoftware/titanium-search-input/lib/search-input';
+import { TitaniumSearchInput } from '@leavittsoftware/titanium-search-input/lib/search-input';
 
 /* playground-fold */
 @customElement('titanium-search-input-playground')

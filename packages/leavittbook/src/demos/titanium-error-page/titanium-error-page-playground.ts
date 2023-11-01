@@ -6,7 +6,7 @@ import '@leavittsoftware/profile-picture';
 import '@material/mwc-icon';
 
 /* playground-fold-end */
-import '@leavittsoftware/titanium-error-page';
+import '@leavittsoftware/titanium-error-page/lib/error-page';
 
 /* playground-fold */
 @customElement('titanium-error-page-playground')

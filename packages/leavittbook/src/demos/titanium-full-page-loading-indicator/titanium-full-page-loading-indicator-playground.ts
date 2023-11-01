@@ -5,7 +5,7 @@ import { h1, p } from '@leavittsoftware/titanium-styles';
 import '@material/mwc-button';
 
 /* playground-fold-end */
-import '@leavittsoftware/titanium-loading-indicator/lib/titanium-full-page-loading-indicator';
+import '@leavittsoftware/titanium-loading-indicator/lib/full-page-loading-indicator';
 
 /* playground-fold */
 @customElement('titanium-full-page-loading-indicator-playground')
@@ -41,10 +41,10 @@ export class TitaniumFullPageLoadingIndicatorPlayground extends LitElement {
       <div>
         <titanium-full-page-loading-indicator></titanium-full-page-loading-indicator>
         <mwc-button
-          @click=${e => {
+          @click=${(e) => {
             e.preventDefault();
-            const work = new Promise(r => setTimeout(r, 50));
-            const work2 = new Promise(r => setTimeout(r, 3000));
+            const work = new Promise((r) => setTimeout(r, 50));
+            const work2 = new Promise((r) => setTimeout(r, 3000));
             window.dispatchEvent(
               new CustomEvent('pending-state', {
                 composed: true,

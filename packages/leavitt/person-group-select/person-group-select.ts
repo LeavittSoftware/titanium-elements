@@ -9,7 +9,7 @@ import '@leavittsoftware/profile-picture';
 
 import { Debouncer, getSearchTokens } from '@leavittsoftware/titanium-helpers';
 import ApiService from '@leavittsoftware/api-service/lib/api-service';
-import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar';
+import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar/lib/snackbar';
 import Fuse from 'fuse.js';
 import { peopleGroupIcons } from './people-group-icons';
 

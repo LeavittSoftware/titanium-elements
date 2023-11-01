@@ -4,9 +4,9 @@ import { customElement, query } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/titanium-styles';
 
 /* playground-fold-end */
-import '@leavittsoftware/titanium-icon-picker';
-import { TitaniumIconPicker } from '@leavittsoftware/titanium-icon-picker';
-import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar';
+import '@leavittsoftware/titanium-icon-picker/lib/icon-picker';
+import { TitaniumIconPicker } from '@leavittsoftware/titanium-icon-picker/lib/icon-picker';
+import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar/lib/snackbar';
 
 /* playground-fold */
 @customElement('titanium-icon-picker-playground')

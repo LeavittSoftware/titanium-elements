@@ -6,7 +6,7 @@ import '@leavittsoftware/profile-picture';
 import '@material/mwc-button';
 
 /* playground-fold-end */
-import '@leavittsoftware/titanium-duration-input';
+import '@leavittsoftware/titanium-duration-input/lib/duration-input';
 import dayjs from 'dayjs/esm';
 import duration from 'dayjs/esm/plugin/duration';
 dayjs.extend(duration);
@@ -58,7 +58,7 @@ export class TitaniumDurationInputPlayground extends LitElement {
           helperPersistent
           .duration=${this.duration}
           outlined
-          @duration-change=${event => {
+          @duration-change=${(event) => {
             this.duration = event.target.duration;
           }}
         ></titanium-duration-input>

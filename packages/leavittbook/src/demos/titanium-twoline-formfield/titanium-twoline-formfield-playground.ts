@@ -7,7 +7,7 @@ import '@material/mwc-checkbox';
 import { Checkbox } from '@material/mwc-checkbox';
 
 /* playground-fold-end */
-import '@leavittsoftware/titanium-twoline-formfield';
+import '@leavittsoftware/titanium-twoline-formfield/lib/twoline-formfield';
 import { DOMEvent } from '../../../../titanium/types/dom-event';
 
 /* playground-fold */

@@ -1,7 +1,7 @@
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { h1, h2, p, a } from '@leavittsoftware/titanium-styles';
-import '@leavittsoftware/titanium-header';
+import '@leavittsoftware/titanium-header/lib/header';
 import '../../titanium/card/card';
 
 @customElement('getting-started')

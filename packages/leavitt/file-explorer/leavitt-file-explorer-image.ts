@@ -5,7 +5,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '@material/mwc-icon';
 
 import { Attachment } from '@leavittsoftware/lg-core-typescript/lg.net.core';
-import { getCdnInlineUrl } from '@leavittsoftware/titanium-helpers/lib/leavitt-cdn';
+import { getCdnInlineUrl } from '@leavittsoftware/web/packages/titanium/helpers/leavitt-cdn';
 import { getIcon } from './file-types';
 
 @customElement('leavitt-file-explorer-image')

@@ -8,9 +8,9 @@ import '@material/web/button/filled-tonal-button';
 import '@material/web/textfield/outlined-text-field';
 
 /* playground-fold-end */
-import '@leavittsoftware/titanium-input-validator';
-import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar';
-import { TitaniumInputValidator } from '@leavittsoftware/titanium-input-validator';
+import '@leavittsoftware/titanium-input-validator/lib/input-validator';
+import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar/lib/snackbar';
+import { TitaniumInputValidator } from '@leavittsoftware/titanium-input-validator/lib/input-validator';
 import { formStyles } from '../../styles/form-styles';
 
 /* playground-fold */

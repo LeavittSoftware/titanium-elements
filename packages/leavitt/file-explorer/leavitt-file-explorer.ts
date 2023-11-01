@@ -2,7 +2,7 @@ import { css, html, LitElement, nothing, PropertyValues } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 
 import '@material/mwc-icon-button';
-import '@leavittsoftware/titanium-loading-indicator';
+import '@leavittsoftware/titanium-loading-indicator/lib/loading';
 import '@material/mwc-linear-progress';
 import './leavitt-file-explorer-no-files';
 import './leavitt-file-explorer-no-permission';
@@ -19,12 +19,12 @@ import { LeavittFolderModalElement } from './leavitt-folder-modal';
 import { FileExplorerFolderDto, FileExplorerPathDto, FileExplorerFileDto, FileExplorerDto } from '@leavittsoftware/lg-core-typescript/api3.leavitt.com';
 import { FileExplorerAttachment, FileExplorerFolder } from '@leavittsoftware/lg-core-typescript/lg.net.core';
 import { LeavittAddFolderModalElement } from './leavitt-add-folder-modal';
-import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar';
+import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar/lib/snackbar';
 import { LeavittFileModalElement } from './leavitt-file-modal';
 import { ConfirmDialogOpenEvent } from '@leavittsoftware/titanium-dialog/lib/confirm-dialog-open-event';
-import { PendingStateEvent } from '@leavittsoftware/titanium-loading-indicator';
+import { PendingStateEvent } from '@leavittsoftware/titanium-loading-indicator/lib/loading';
 import fileExplorerEvents from './file-explorer-events';
-import { join, LoadWhile } from '@leavittsoftware/titanium-helpers';
+import { join, LoadWhile } from '@leavittsoftware/web/packages/titanium/helpers/helpers';
 import { getIcon } from './file-types';
 import ConfirmDialogElement from '@leavittsoftware/titanium-dialog/lib/confirm-dialog';
 import { ActionDetail } from '@material/mwc-list';
@@ -387,8 +387,10 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
     await uploadAll;
 
     if (failedFiles.length > 0) {
-      TitaniumSnackbarSingleton.open(html`Failed to upload ${failedFiles.length} file${failedFiles.length === 1 ? '' : 's'}: <br />
-        ${join(failedFiles, html`<br />`)}`);
+      TitaniumSnackbarSingleton.open(
+        html`Failed to upload ${failedFiles.length} file${failedFiles.length === 1 ? '' : 's'}: <br />
+          ${join(failedFiles, html`<br />`)}`
+      );
       console.warn(`Failed to upload ${failedFiles.length} file${failedFiles.length === 1 ? '' : 's'}: \r\n${failedFiles.join('\r\n')}`);
     }
     this.fileInput.value = '';
@@ -429,8 +431,10 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
     await uploadAll;
 
     if (failedFiles.length > 0) {
-      TitaniumSnackbarSingleton.open(html`Failed to upload ${failedFiles.length} file${failedFiles.length === 1 ? '' : 's'}: <br />
-        ${join(failedFiles, html`<br />`)}`);
+      TitaniumSnackbarSingleton.open(
+        html`Failed to upload ${failedFiles.length} file${failedFiles.length === 1 ? '' : 's'}: <br />
+          ${join(failedFiles, html`<br />`)}`
+      );
       console.warn(`Failed to upload ${failedFiles.length} file${failedFiles.length === 1 ? '' : 's'}: \r\n${failedFiles.join('\r\n')}`);
     }
     await this.reload();
@@ -931,27 +935,26 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
           <nav heading1 ellipsis>
             ${this.fileExplorer
               ? this.path.map(
-                  (o, i) =>
-                    html`
-                      ${i == this.path.length - 1
-                        ? html` <span ellipsis end title=${o?.Name ?? ''}> ${o.Name} </span> `
-                        : html`
-                            <a
-                              ?disabled=${this.isLoading}
-                              ellipsis
-                              title=${o.Name ?? ''}
-                              href="#"
-                              @click=${e => {
-                                e.preventDefault();
-                                this.folderId = o.FolderId ?? null;
-                                this.selected = [];
-                              }}
-                            >
-                              ${o.Name}</a
-                            >
-                            <mwc-icon>navigate_next</mwc-icon>
-                          `}
-                    `
+                  (o, i) => html`
+                    ${i == this.path.length - 1
+                      ? html` <span ellipsis end title=${o?.Name ?? ''}> ${o.Name} </span> `
+                      : html`
+                          <a
+                            ?disabled=${this.isLoading}
+                            ellipsis
+                            title=${o.Name ?? ''}
+                            href="#"
+                            @click=${e => {
+                              e.preventDefault();
+                              this.folderId = o.FolderId ?? null;
+                              this.selected = [];
+                            }}
+                          >
+                            ${o.Name}</a
+                          >
+                          <mwc-icon>navigate_next</mwc-icon>
+                        `}
+                  `
                 )
               : html`<span ellipsis end> File explorer</span>`}
           </nav>
@@ -999,108 +1002,106 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
         <h3 ?hidden=${this.folders.length === 0 || this.state != 'files'}>Folders (${this.folders.length})</h3>
         <section ?hidden=${this.folders.length === 0 || this.state != 'files'}>
           ${this.folders.map(
-            folder =>
-              html`
-                <folder-item
-                  role="button"
-                  ?selected=${this.selected.some(s => s?.Id === folder.Id && s.type === 'folder')}
-                  tabindex="0"
-                  aria-label=${folder.Name ?? ''}
-                  title="${folder.Name ?? ''}
+            folder => html`
+              <folder-item
+                role="button"
+                ?selected=${this.selected.some(s => s?.Id === folder.Id && s.type === 'folder')}
+                tabindex="0"
+                aria-label=${folder.Name ?? ''}
+                title="${folder.Name ?? ''}
 ${folder.FilesCount} file${folder.FilesCount === 1 ? '' : 's'}, ${folder.FoldersCount} folder${folder.FoldersCount === 1 ? '' : 's'}"
-                  @dblclick=${e => {
+                @dblclick=${e => {
+                  e.preventDefault();
+                  this.folderId = folder.Id ?? null;
+                  this.selected = [];
+                }}
+                @click=${e => {
+                  e.stopPropagation();
+                  this.#toggleSelected(folder, 'folder');
+                }}
+                @keydown=${(e: KeyboardEvent) => {
+                  if (e.key === 'Enter') {
                     e.preventDefault();
                     this.folderId = folder.Id ?? null;
                     this.selected = [];
-                  }}
-                  @click=${e => {
-                    e.stopPropagation();
+                  } else if (e.key == ' ') {
+                    e.preventDefault();
                     this.#toggleSelected(folder, 'folder');
-                  }}
-                  @keydown=${(e: KeyboardEvent) => {
-                    if (e.key === 'Enter') {
-                      e.preventDefault();
-                      this.folderId = folder.Id ?? null;
-                      this.selected = [];
-                    } else if (e.key == ' ') {
-                      e.preventDefault();
-                      this.#toggleSelected(folder, 'folder');
-                    }
-                  }}
-                >
-                  <icon-wrapper>
-                    <mwc-icon>folder_open</mwc-icon>
-                    <file-count>${this.#kFormatter(folder.FilesCount ?? 0) || ''}</file-count>
-                  </icon-wrapper>
-                  <span>${folder.Name}</span>
-                </folder-item>
-              `
+                  }
+                }}
+              >
+                <icon-wrapper>
+                  <mwc-icon>folder_open</mwc-icon>
+                  <file-count>${this.#kFormatter(folder.FilesCount ?? 0) || ''}</file-count>
+                </icon-wrapper>
+                <span>${folder.Name}</span>
+              </folder-item>
+            `
           )}
         </section>
         <h3 ?hidden=${this.files.length === 0 || this.state != 'files'}>Files (${this.files.length})</h3>
         <section ?hidden=${this.files.length === 0 || this.state != 'files'}>
           ${this.files.map(
-            file =>
-              html`
-                <file-item
-                  role="button"
-                  ?selected=${this.selected.some(s => s?.Id === file.Id && s.type === 'file')}
-                  tabindex="0"
-                  aria-label="${file.Name}.${file.Extension}"
-                  title="${file.Name}.${file.Extension}"
-                  @dblclick=${e => {
-                    e.preventDefault();
-                    if (this.display === 'list' && this.selected.length === 0) {
-                      this.fileDialog.open(file);
-                    }
-                  }}
+            file => html`
+              <file-item
+                role="button"
+                ?selected=${this.selected.some(s => s?.Id === file.Id && s.type === 'file')}
+                tabindex="0"
+                aria-label="${file.Name}.${file.Extension}"
+                title="${file.Name}.${file.Extension}"
+                @dblclick=${e => {
+                  e.preventDefault();
+                  if (this.display === 'list' && this.selected.length === 0) {
+                    this.fileDialog.open(file);
+                  }
+                }}
+                @click=${e => {
+                  e.stopPropagation();
+
+                  if (this.display === 'grid' && this.selected.length === 0) {
+                    this.fileDialog.open(file);
+                  } else {
+                    this.#toggleSelected(file, 'file');
+                  }
+                }}
+                @keydown=${(e: KeyboardEvent) => {
+                  if (e.key == ' ') {
+                    this.#toggleSelected(file, 'file');
+                  }
+                }}
+              >
+                <file-name>
+                  <mwc-icon>${getIcon(file.Extension ?? '')}</mwc-icon>
+                  <span name>${file.Name}</span>
+                  <span ext>${file.Extension}</span>
+                </file-name>
+                ${this.display === 'list'
+                  ? html`
+                      <span date>${dayjs(file.CreatedDate).format('MMM D, YYYY')}</span>
+                      <span size>${FormatBytes(file.Size)}</span>
+                    `
+                  : html`<image-wrapper> <leavitt-file-explorer-image .attachment=${file}></leavitt-file-explorer-image></image-wrapper>`}
+                <select-icon
                   @click=${e => {
                     e.stopPropagation();
-
-                    if (this.display === 'grid' && this.selected.length === 0) {
-                      this.fileDialog.open(file);
-                    } else {
-                      this.#toggleSelected(file, 'file');
-                    }
-                  }}
-                  @keydown=${(e: KeyboardEvent) => {
-                    if (e.key == ' ') {
-                      this.#toggleSelected(file, 'file');
-                    }
+                    this.#toggleSelected(file, 'file');
                   }}
                 >
-                  <file-name>
-                    <mwc-icon>${getIcon(file.Extension ?? '')}</mwc-icon>
-                    <span name>${file.Name}</span>
-                    <span ext>${file.Extension}</span>
-                  </file-name>
-                  ${this.display === 'list'
-                    ? html`
-                        <span date>${dayjs(file.CreatedDate).format('MMM D, YYYY')}</span>
-                        <span size>${FormatBytes(file.Size)}</span>
-                      `
-                    : html`<image-wrapper> <leavitt-file-explorer-image .attachment=${file}></leavitt-file-explorer-image></image-wrapper>`}
-                  <select-icon
-                    @click=${e => {
-                      e.stopPropagation();
-                      this.#toggleSelected(file, 'file');
-                    }}
-                  >
-                    <svg circle viewBox="0 0 24 24">
-                      <path
-                        fill="currentColor"
-                        d="M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"
-                      />
-                    </svg>
-                    <svg check viewBox="0 0 24 24">
-                      <path
-                        fill="currentColor"
-                        d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
-                      />
-                    </svg>
-                  </select-icon>
-                </file-item>
-              `
+                  <svg circle viewBox="0 0 24 24">
+                    <path
+                      fill="currentColor"
+                      d="M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"
+                    />
+                  </svg>
+                  <svg check viewBox="0 0 24 24">
+                    <path
+                      fill="currentColor"
+                      d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
+                    />
+                  </svg>
+                </select-icon>
+              </file-item>
+            `
           )}
         </section>
         <content-veil ?opened=${this.isLoading}></content-veil>

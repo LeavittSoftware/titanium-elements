@@ -1,8 +1,8 @@
 import { css, html, LitElement, PropertyValues } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 
-import { TitaniumNativeDialogBaseElement } from '@leavittsoftware/titanium-dialog/lib/titanium-native-dialog-base';
-import '@leavittsoftware/titanium-dialog/lib/titanium-native-dialog-base';
+import { TitaniumNativeDialogBaseElement } from '@leavittsoftware/titanium-elements/packages/titanium/dialog/dialog';
+import '@leavittsoftware/titanium-elements/packages/titanium/dialog/dialog';
 
 import './leavitt-folder-detail';
 

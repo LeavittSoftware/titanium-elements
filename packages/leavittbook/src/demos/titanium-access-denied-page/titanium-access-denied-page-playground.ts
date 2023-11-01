@@ -6,7 +6,7 @@ import '@leavittsoftware/profile-picture';
 import '@material/mwc-icon';
 
 /* playground-fold-end */
-import '@leavittsoftware/titanium-access-denied-page';
+import '@leavittsoftware/titanium-access-denied-page/lib/access-denied-page';
 
 /* playground-fold */
 @customElement('titanium-access-denied-page-playground')

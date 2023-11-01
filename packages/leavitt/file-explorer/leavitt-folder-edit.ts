@@ -6,10 +6,10 @@ import { customElement, property, query, state } from 'lit/decorators.js';
 
 import { FileExplorerFolderDto } from '@leavittsoftware/lg-core-typescript/api3.leavitt.com';
 import { TextField } from '@material/mwc-textfield';
-import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar';
+import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar/lib/snackbar';
 import { h1 } from '@leavittsoftware/titanium-styles';
 import fileExplorerEvents from './file-explorer-events';
-import { PendingStateEvent } from '@leavittsoftware/titanium-loading-indicator';
+import { PendingStateEvent } from '@leavittsoftware/titanium-loading-indicator/lib/loading';
 import ApiService from '@leavittsoftware/api-service/lib/api-service';
 
 @customElement('leavitt-folder-edit')

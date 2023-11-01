@@ -1,7 +1,7 @@
 import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-item';
 import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-header';
 import '@material/web/dialog/dialog';
-import '@leavittsoftware/titanium-search-input';
+import '@leavittsoftware/titanium-search-input/lib/search-input';
 import '@material/web/button/outlined-button';
 import '@material/web/button/filled-tonal-button';
 import '@material/web/icon/icon';
@@ -27,7 +27,7 @@ import { DOMEvent } from '../../../../titanium/types/dom-event';
 import { Debouncer } from '@leavittsoftware/titanium-helpers';
 import { FilterController } from '@leavittsoftware/titanium-data-table/lib/filter-controller';
 import { TitaniumDataTableElement } from '@leavittsoftware/titanium-data-table/lib/titanium-data-table.js';
-import { TitaniumSearchInput } from '@leavittsoftware/titanium-search-input';
+import { TitaniumSearchInput } from '@leavittsoftware/titanium-search-input/lib/search-input';
 import { getSearchTokens } from '@leavittsoftware/titanium-helpers/lib/titanium-search-token';
 import { repeat } from 'lit/directives/repeat.js';
 import { CloseMenuEvent, MdMenu, MenuItem } from '@material/web/menu/menu';

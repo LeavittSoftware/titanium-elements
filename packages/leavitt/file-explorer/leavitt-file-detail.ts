@@ -7,7 +7,7 @@ import { h1, h2, h5, p, a, ellipsis } from '@leavittsoftware/titanium-styles';
 
 import dayjs from 'dayjs/esm';
 import { FileExplorerFileDto } from '@leavittsoftware/lg-core-typescript/api3.leavitt.com';
-import { getCdnDownloadUrl, getCdnInlineUrl } from '@leavittsoftware/titanium-helpers/lib/leavitt-cdn';
+import { getCdnDownloadUrl, getCdnInlineUrl } from '@leavittsoftware/web/packages/titanium/helpers/leavitt-cdn';
 import { middleEllipsis } from './text-helpers';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
 

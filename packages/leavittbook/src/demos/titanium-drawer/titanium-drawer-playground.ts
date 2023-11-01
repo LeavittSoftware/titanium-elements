@@ -7,8 +7,8 @@ import '@material/mwc-button';
 
 /* playground-fold-end */
 
-import '@leavittsoftware/titanium-drawer';
-import { TitaniumDrawer } from '@leavittsoftware/titanium-drawer';
+import '../../../../titanium/drawer/drawer';
+import { TitaniumDrawer } from '../../../../titanium/drawer/drawer';
 
 /* playground-fold */
 @customElement('titanium-drawer-playground')

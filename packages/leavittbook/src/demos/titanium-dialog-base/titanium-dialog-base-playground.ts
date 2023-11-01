@@ -8,7 +8,7 @@ import '@material/mwc-textfield';
 import '@material/mwc-select';
 /* playground-fold-end */
 
-import '@leavittsoftware/titanium-dialog/lib/titanium-native-dialog-base';
+import '../../../../titanium/dialog/dialog';
 
 /* playground-fold */
 @customElement('titanium-dialog-base-playground')

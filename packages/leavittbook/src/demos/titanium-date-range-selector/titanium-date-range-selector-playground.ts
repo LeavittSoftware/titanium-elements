@@ -7,8 +7,8 @@ import '@material/mwc-formfield';
 import '@material/mwc-button';
 /* playground-fold-end */
 
-import '@leavittsoftware/titanium-date-range-selector';
-import { DateRanges, TitaniumDateRangeSelector } from '@leavittsoftware/titanium-date-range-selector/lib/titanium-date-range-selector';
+import '../../../../titanium/date-range-selector/date-range-selector';
+import { DateRanges, TitaniumDateRangeSelector } from '../../../../titanium/date-range-selector/date-range-selector';
 import dayjs from 'dayjs/esm';
 
 /* playground-fold */

@@ -21,7 +21,7 @@
     "importHelpers": true,
     "skipLibCheck": true,
     "paths": {
-      "@leavittsoftware/titanium-elements/*": ["./*"]
+      "@leavittsoftware/web/*": ["./*"]
     }
   },
   "include": ["**/*.ts"],

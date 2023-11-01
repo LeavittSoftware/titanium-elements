@@ -6,8 +6,8 @@ import '@leavittsoftware/profile-picture';
 import '@material/mwc-icon';
 
 /* playground-fold-end */
-import '@leavittsoftware/titanium-snackbar';
-import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar';
+import '@leavittsoftware/titanium-snackbar/lib/snackbar';
+import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar/lib/snackbar';
 import { HttpError } from '@leavittsoftware/api-service/lib/HttpError';
 
 /* playground-fold */
