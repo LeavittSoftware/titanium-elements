@@ -451,19 +451,19 @@ export class MyApp extends LitElement {
             <summary>Leavitt</summary>
             <!-- Leavitt menu -->
             <md-list-item ?selected=${this.page === 'leavitt-company-select'} href="/leavitt-company-select" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Company select </span>
+              <md-icon slot="start">library_books</md-icon> <span>Company select* </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'leavitt-person-company-select'} href="/leavitt-person-company-select" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Person company select </span>
+              <md-icon slot="start">library_books</md-icon> <span>Person company select* </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'leavitt-person-group-select'} href="/leavitt-person-group-select" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Person group select </span>
+              <md-icon slot="start">library_books</md-icon> <span>Person group select* </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'leavitt-person-select'} href="/leavitt-person-select" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Person select </span>
+              <md-icon slot="start">library_books</md-icon> <span>Person select* </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'leavitt-user-feedback'} href="/leavitt-user-feedback" type="link">
