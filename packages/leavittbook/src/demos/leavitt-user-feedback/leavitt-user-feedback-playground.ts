@@ -2,9 +2,8 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, query, queryAll, state } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
-
-// import '@material/mwc-button';
 import ApiService from '@leavittsoftware/web/leavitt/api-service/api-service';
+import '@leavittsoftware/web/titanium/snackbar/snackbar';
 
 /* playground-fold-end */
 import '@leavittsoftware/web/leavitt/user-feedback/user-feedback';
@@ -25,12 +24,11 @@ export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
       :host {
         display: flex;
         flex-direction: column;
-        --mdc-icon-font: 'Material Icons Outlined';
         margin: 24px 12px;
       }
 
       div {
-        border: 1px solid var(--app-border-color);
+        border: 1px solid var(--md-sys-color-outline);
         padding: 24px;
         border-radius: 8px;
         display: flex;
@@ -53,7 +51,7 @@ export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
     return html`
       <h1>Default</h1>
       <p></p>
-      <div style="background-color: #eee ">
+      <div>
         <leavitt-user-feedback></leavitt-user-feedback>
       </div>
       <titanium-snackbar></titanium-snackbar>
