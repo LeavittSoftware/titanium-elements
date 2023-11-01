@@ -26,7 +26,7 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
   /**
    *  Set the name of the API controller to use
    */
-  @property({ type: String }) apiControllerName: string = 'People';
+  @property({ type: String }) accessor apiControllerName: string = 'People';
 
   @property({ type: String }) accessor pathToSelectedText: string = 'FullName';
 

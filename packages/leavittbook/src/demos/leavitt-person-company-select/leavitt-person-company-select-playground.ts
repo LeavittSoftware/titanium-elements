@@ -1,24 +1,23 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement, query, queryAll, state } from 'lit/decorators.js';
-import { h1, p, button } from '@leavittsoftware/titanium-styles';
+import { h1, p } from '@leavittsoftware/titanium-styles';
 
-import '@material/mwc-button';
+import '@material/web/button/text-button';
 import '@leavittsoftware/user-manager';
-import '@leavittsoftware/titanium-snackbar';
 import ApiService from '@leavittsoftware/api-service/lib/api-service';
 import { AuthenticatedTokenProvider } from '@leavittsoftware/api-service/lib/authenticated-token-provider';
 
 /* playground-fold-end */
 import '@leavittsoftware/leavitt-elements/lib/leavitt-person-company-select';
-import { LeavittPersonCompanySelectElement } from '@leavittsoftware/leavitt-elements/lib/leavitt-person-company-select';
+import { LeavittPersonCompanySelect } from '@leavittsoftware/leavitt-elements/lib/leavitt-person-company-select';
 
 /* playground-fold */
 @customElement('leavitt-person-company-select-playground')
 export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
   @state() apiService: ApiService;
-  @queryAll('leavitt-person-company-select') protected inputs!: NodeListOf<LeavittPersonCompanySelectElement>;
-  @query('leavitt-person-company-select[methods-demo]') protected methodsSelect!: LeavittPersonCompanySelectElement;
+  @queryAll('leavitt-person-company-select') protected inputs!: NodeListOf<LeavittPersonCompanySelect>;
+  @query('leavitt-person-company-select[methods-demo]') protected methodsSelect!: LeavittPersonCompanySelect;
 
   constructor() {
     super();
@@ -30,7 +29,6 @@ export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
   static styles = [
     h1,
     p,
-    button,
     css`
       :host {
         display: flex;
@@ -40,7 +38,7 @@ export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
       }
 
       div {
-        border: 1px solid var(--app-border-color);
+        border: 1px solid var(--md-sys-color-outline);
         padding: 24px;
         border-radius: 8px;
         display: flex;
@@ -58,20 +56,22 @@ export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
     `,
   ];
 
-  async firstUpdated() {
-    // Fix MWC floating label problem
-    requestAnimationFrame(() => {
-      Array.from(this.inputs).forEach(o => {
-        o.layout();
-      });
-    });
-  }
-
   render() {
     /* playground-fold-end */
     return html`
       <user-manager disableAutoload></user-manager>
-      <h1>Default</h1>
+      <h1>Methods</h1>
+      <p>Demonstrates public methods</p>
+      <div row>
+        <leavitt-person-company-select required methods-demo .apiService=${this.apiService}></leavitt-person-company-select>
+        <section buttons>
+          <md-text-button @click=${() => this.methodsSelect.reset()}>reset()</md-text-button>
+          <md-text-button @click=${() => this.methodsSelect.focus()}>focus()</md-text-button>
+          <md-text-button @click=${() => this.methodsSelect.reportValidity()}>reportValidity()</md-text-button>
+        </section>
+      </div>
+
+      <h1>Attributes</h1>
       <p>Examples using required,shaped,shallow,preselected, and disabled</p>
       <div>
         <leavitt-person-company-select label="default" .apiService=${this.apiService}></leavitt-person-company-select>
@@ -81,7 +81,7 @@ export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
           label="pre-selected"
           .selected=${{
             Name: 'Leavitt Group Enterprises',
-            type: 'CustomEntity',
+            type: 'Company',
           }}
           .apiService=${this.apiService}
         ></leavitt-person-company-select>
@@ -100,37 +100,6 @@ export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
         <leavitt-person-company-select label="required" required validationMessage="required" .apiService=${this.apiService}></leavitt-person-company-select>
       </div>
 
-      <h1>Methods</h1>
-      <p>Demonstrates public methods</p>
-      <div row>
-        <leavitt-person-company-select required methods-demo .apiService=${this.apiService}></leavitt-person-company-select>
-        <section buttons>
-          <mwc-button
-            lowercase
-            outlined
-            @click=${() => {
-              this.methodsSelect.reset();
-            }}
-            label="reset()"
-          ></mwc-button>
-          <mwc-button
-            lowercase
-            outlined
-            @click=${() => {
-              this.methodsSelect.focus();
-            }}
-            label="focus()"
-          ></mwc-button>
-          <mwc-button
-            lowercase
-            outlined
-            @click=${() => {
-              this.methodsSelect.reportValidity();
-            }}
-            label="reportValidity()"
-          ></mwc-button>
-        </section>
-      </div>
       <titanium-snackbar></titanium-snackbar>
     `;
   }

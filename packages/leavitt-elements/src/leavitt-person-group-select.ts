@@ -17,7 +17,7 @@ export type Person = CorePerson & { type: 'Person'; Name: string };
 export type PeopleGroup = CorePeopleGroup & { type: 'PeopleGroup' };
 
 /**
- *  Single select input that searches Leavitt Group users
+ *  Single select input that searches Leavitt Group users and user groups
  *
  *  @element leavitt-person-select
  *
@@ -31,12 +31,12 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
   /**
    *  Set the name of the API controller to use
    */
-  @property({ type: String }) peopleApiControllerName: string = 'People';
+  @property({ type: String }) accessor peopleApiControllerName: string = 'People';
 
   /**
    *  Set the name of the API controller to use
    */
-  @property({ type: String }) groupApiControllerName: string = 'PeopleGroups';
+  @property({ type: String }) accessor groupApiControllerName: string = 'PeopleGroups';
 
   @property({ type: String }) accessor pathToSelectedText: string = 'Name';
 
@@ -64,7 +64,9 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
     this.#abortController.abort();
     this.#abortController = new AbortController();
 
-    const results = await Promise.all([this.#doPersonSearch(searchTerm), this.#doGroupSearch(searchTerm)]);
+    const all = Promise.all([this.#doPersonSearch(searchTerm), this.#doGroupSearch(searchTerm)]);
+    this.loadWhile(all);
+    const results = await all;
     const entities = [...(results[0]?.entities ?? []), ...(results[1]?.entities ?? [])];
     const odataCount = (results[0]?.odataCount ?? 0) + (results[1]?.odataCount ?? 0);
 
@@ -156,6 +158,7 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
 
   // Overloaded base
   protected override onInputChanged(searchTerm: string) {
+    this.isLoading = true;
     this.#doSearchDebouncer.debounce(searchTerm);
   }
 

@@ -50,7 +50,7 @@ export class LeavittCompanySelect extends TitaniumSingleSelectBase<Partial<Compa
   /**
    *  Set the name of the API controller to use
    */
-  @property({ type: String }) apiControllerName: string = 'Companies';
+  @property({ type: String }) accessor apiControllerName: string = 'Companies';
 
   async firstUpdated() {
     if (!this.disableAutoLoad && !this.companies.length && this.apiService) {
