@@ -9,8 +9,8 @@ import ApiService from '@leavittsoftware/api-service/lib/api-service';
 import { AuthenticatedTokenProvider } from '@leavittsoftware/api-service/lib/authenticated-token-provider';
 
 /* playground-fold-end */
-import '@leavittsoftware/leavitt-elements/lib/leavitt-person-company-select';
-import { LeavittPersonCompanySelect } from '@leavittsoftware/leavitt-elements/lib/leavitt-person-company-select';
+import '../../../../leavitt/person-company-select/person-company-select';
+import { LeavittPersonCompanySelect } from '../../../../leavitt/person-company-select/person-company-select';
 
 /* playground-fold */
 @customElement('leavitt-person-company-select-playground')

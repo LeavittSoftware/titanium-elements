@@ -23,7 +23,7 @@ import { LitElement, css, html } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 import { h1, h2, p } from '@leavittsoftware/titanium-styles';
 
-import { DOMEvent } from '@leavittsoftware/leavitt-elements/lib/dom-event';
+import { DOMEvent } from '../../../../titanium/types/dom-event';
 import { Debouncer } from '@leavittsoftware/titanium-helpers';
 import { FilterController } from '@leavittsoftware/titanium-data-table/lib/filter-controller';
 import { TitaniumDataTableElement } from '@leavittsoftware/titanium-data-table/lib/titanium-data-table.js';

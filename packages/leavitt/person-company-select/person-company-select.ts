@@ -2,8 +2,8 @@
 import { css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { PeopleGroup as CorePeopleGroup, Person as CorePerson } from '@leavittsoftware/lg-core-typescript';
-import { TitaniumSingleSelectBase } from './titanium-single-select-base';
+import { Company as CoreCompany, Person as CorePerson } from '@leavittsoftware/lg-core-typescript';
+import { TitaniumSingleSelectBase } from '../../titanium/single-select-base/titanium-single-select-base';
 
 import '@leavittsoftware/profile-picture';
 
@@ -11,22 +11,21 @@ import { Debouncer, getSearchTokens } from '@leavittsoftware/titanium-helpers';
 import ApiService from '@leavittsoftware/api-service/lib/api-service';
 import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar';
 import Fuse from 'fuse.js';
-import { peopleGroupIcons } from './people-group-icons';
 
 export type Person = CorePerson & { type: 'Person'; Name: string };
-export type PeopleGroup = CorePeopleGroup & { type: 'PeopleGroup' };
+export type Company = CoreCompany & { type: 'Company' };
 
 /**
- *  Single select input that searches Leavitt Group users and user groups
+ *  Single select input that searches Leavitt users and companies
  *
  *  @element leavitt-person-select
  *
  */
-@customElement('leavitt-person-group-select')
-export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<Partial<Person | PeopleGroup>>> {
-  @property({ type: String }) accessor label: string = 'Person or group';
+@customElement('leavitt-person-company-select')
+export class LeavittPersonCompanySelect extends TitaniumSingleSelectBase<Partial<Partial<Person | Company>>> {
+  @property({ type: String }) accessor label: string = 'Person or company';
 
-  @property({ type: String }) accessor placeholder: string = 'Search for a person or group';
+  @property({ type: String }) accessor placeholder: string = 'Search for a person or company';
 
   /**
    *  Set the name of the API controller to use
@@ -36,7 +35,7 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
   /**
    *  Set the name of the API controller to use
    */
-  @property({ type: String }) accessor groupApiControllerName: string = 'PeopleGroups';
+  @property({ type: String }) accessor companyApiControllerName: string = 'Companies';
 
   @property({ type: String }) accessor pathToSelectedText: string = 'Name';
 
@@ -64,7 +63,7 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
     this.#abortController.abort();
     this.#abortController = new AbortController();
 
-    const all = Promise.all([this.#doPersonSearch(searchTerm), this.#doGroupSearch(searchTerm)]);
+    const all = Promise.all([this.#doPersonSearch(searchTerm), this.#doCompanySearch(searchTerm)]);
     this.loadWhile(all);
     const results = await all;
     const entities = [...(results[0]?.entities ?? []), ...(results[1]?.entities ?? [])];
@@ -113,25 +112,20 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
   /**
    * @ignore
    */
-  async #doGroupSearch(searchTerm: string) {
+  async #doCompanySearch(searchTerm: string) {
     if (!searchTerm) {
       return null;
     }
-    const filterParts = ['not IsExpired'];
 
     try {
-      const odataParts = ['top=100', 'count=true', 'select=Name,Id,Description'];
+      const odataParts = ['top=100', 'count=true', 'select=Name,Shortname,MarkUrl,Id'];
       const searchTokens = getSearchTokens(searchTerm);
       if (searchTokens.length > 0) {
-        filterParts.push(searchTokens.map((token: string) => `contains(tolower(Name), '${token.toLowerCase()}')`).join(' and '));
+        const searchFilter = searchTokens.map((token: string) => `(contains(Name, '${token}') OR (contains(Shortname, '${token}')))`).join(' and ');
+        odataParts.push(`$filter=${searchFilter}`);
       }
-
-      odataParts.push(`filter=${filterParts.join(' and ')}`);
-
-      const results = await this.apiService?.getAsync<PeopleGroup>(`${this.groupApiControllerName}?${odataParts.join('&')}`, {
-        abortController: this.#abortController,
-      });
-      results?.entities.forEach(p => (p.type = 'PeopleGroup'));
+      const results = await this.apiService?.getAsync<Company>(`Companies?${odataParts.join('&')}`, { abortController: this.#abortController });
+      results?.entities.forEach(p => (p.type = 'Company'));
       return results;
     } catch (error) {
       if (!error?.message?.includes('Abort error')) {
@@ -144,14 +138,9 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
   static styles = [
     ...TitaniumSingleSelectBase.styles,
     css`
-      md-menu-item md-icon[group] {
+      img[company-mark] {
         width: 40px;
         height: 40px;
-        font-size: 40px;
-      }
-
-      md-icon[group] {
-        color: var(--md-sys-color-primary);
       }
     `,
   ];
@@ -162,24 +151,27 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
     this.#doSearchDebouncer.debounce(searchTerm);
   }
 
-  protected override renderSelectedLeadingSlot(entity: Partial<Partial<Person | PeopleGroup>>) {
+  protected override renderSelectedLeadingSlot(entity: Partial<Partial<Person | Company>>) {
     return entity.type === 'Person'
       ? html`<profile-picture slot="leading-icon" .fileName=${entity?.ProfilePictureCdnFileName || null} shape="circle" size="24"></profile-picture>`
-      : html`<md-icon group slot="leading-icon">${peopleGroupIcons.get(entity['@odata.type'])?.icon ?? 'task_alt'}</md-icon>`;
+      : entity.type === 'Company'
+      ? html`<img leading slot="leading-icon" src=${entity.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />`
+      : html``;
   }
 
-  protected override renderSuggestion(entity: Partial<Partial<Person | PeopleGroup>>) {
+  protected override renderSuggestion(entity: Partial<Partial<Person | Company>>) {
     return entity.type === 'Person'
       ? html`<md-menu-item .item=${entity} ?selected=${this.selected?.Id === entity.Id}>
           <profile-picture slot="start" .fileName=${entity?.ProfilePictureCdnFileName ?? null} shape="circle" size="40"></profile-picture>
           <span slot="headline">${entity.Name}</span>
           <span slot="supporting-text">${entity.CompanyName}</span>
         </md-menu-item>`
-      : entity.type === 'PeopleGroup'
+      : entity.type === 'Company'
       ? html`<md-menu-item .item=${entity} ?selected=${this.selected?.Id === entity.Id}>
-          <md-icon group slot="start">${peopleGroupIcons.get(entity['@odata.type'])?.icon ?? 'task_alt'}</md-icon>
+          <slot name="trailing-icon" slot="trailing-icon"></slot>
           <span slot="headline">${entity.Name}</span>
-          <span slot="supporting-text">${entity.Description || (peopleGroupIcons.get(entity['@odata.type'])?.displayName ?? 'People group')}</span>
+          <span slot="supporting-text">${entity.ShortName || '-'}</span>
+          <img loading="lazy" company-mark slot="start" src=${entity.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />
         </md-menu-item>`
       : html``;
   }

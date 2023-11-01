@@ -7,8 +7,8 @@ import '@material/mwc-button';
 import ApiService from '@leavittsoftware/api-service/lib/api-service';
 
 /* playground-fold-end */
-import '@leavittsoftware/leavitt-elements/lib/leavitt-user-feedback';
-import { LeavittUserFeedback } from '@leavittsoftware/leavitt-elements/lib/leavitt-user-feedback';
+import '../../../../leavitt/user-feedback/user-feedback';
+import { LeavittUserFeedback } from '../../../../leavitt/user-feedback/user-feedback';
 
 /* playground-fold */
 @customElement('leavitt-user-feedback-playground')

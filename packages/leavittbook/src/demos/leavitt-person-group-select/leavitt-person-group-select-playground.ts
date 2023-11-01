@@ -10,7 +10,7 @@ import ApiService from '@leavittsoftware/api-service/lib/api-service';
 import { AuthenticatedTokenProvider } from '@leavittsoftware/api-service/lib/authenticated-token-provider';
 
 /* playground-fold-end */
-import '@leavittsoftware/leavitt-elements/lib/leavitt-person-group-select';
+import '../../../../leavitt/person-group-select/person-group-select';
 import { LeavittPersonGroupSelect } from '@leavittsoftware/leavitt-elements';
 
 /* playground-fold */

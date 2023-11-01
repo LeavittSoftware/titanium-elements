@@ -11,8 +11,8 @@ import ApiService from '@leavittsoftware/api-service/lib/api-service';
 import { AuthenticatedTokenProvider } from '@leavittsoftware/api-service/lib/authenticated-token-provider';
 
 /* playground-fold-end */
-import '@leavittsoftware/leavitt-elements/lib/leavitt-company-select';
-import { LeavittCompanySelect } from '@leavittsoftware/leavitt-elements/lib/leavitt-company-select';
+import '../../../../leavitt/company-select/company-select';
+import { LeavittCompanySelect } from '../../../../leavitt/company-select/company-select';
 
 /* playground-fold */
 @customElement('leavitt-company-select-playground')

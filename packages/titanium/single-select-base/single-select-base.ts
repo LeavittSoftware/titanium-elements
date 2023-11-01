@@ -9,12 +9,12 @@ import '@material/web/textfield/outlined-text-field';
 import '@material/web/menu/menu';
 import '@material/web/menu/menu-item';
 
-import { DOMEvent } from './dom-event';
+import { DOMEvent } from '../types/dom-event';
 import { CloseMenuEvent, MenuItem } from '@material/web/menu/menu';
 import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
 import { Menu } from '@material/web/menu/internal/menu';
 import { LoadWhile } from '@leavittsoftware/titanium-helpers';
-import { Identifier } from './identifier-interface';
+import { Identifier } from '../types/identifier-interface';
 
 @customElement('titanium-single-select-base')
 export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(LitElement) {

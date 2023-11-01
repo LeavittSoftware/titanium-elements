@@ -9,7 +9,7 @@ import '@material/mwc-button';
 import '@leavittsoftware/titanium-address-input';
 import { TitaniumAddressInput } from '@leavittsoftware/titanium-address-input';
 import { Address } from '@leavittsoftware/titanium-address-input/lib/Address';
-import { DOMEvent } from '@leavittsoftware/leavitt-elements/lib/dom-event';
+import { DOMEvent } from '../../../../titanium/types/dom-event';
 
 /* playground-fold */
 @customElement('titanium-address-input-playground')
