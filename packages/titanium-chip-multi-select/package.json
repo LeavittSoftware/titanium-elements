@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@leavittsoftware/titanium-chip": "^6.0.1",
+    "@leavittsoftware/titanium-input-validator": "*",
     "tslib": "^2.4.1"
   },
   "peerDependencies": {

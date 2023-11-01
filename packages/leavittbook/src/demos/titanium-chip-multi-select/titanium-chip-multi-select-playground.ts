@@ -2,20 +2,25 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/titanium-styles';
-import '@material/mwc-button';
-import '@leavittsoftware/titanium-chip';
-const chipLabels = ['Dog', 'Cat', 'Lion', 'Hedgehog', 'Turtle', 'Monkey', 'Owl', 'Peacock', 'Pigeon', 'Spider', 'Tortoise', 'Zebra'];
-
-/* playground-fold-end */
-import '@leavittsoftware/titanium-chip-multi-select';
 import { repeat } from 'lit/directives/repeat.js';
-import { TitaniumChipMultiSelectElement } from '@leavittsoftware/titanium-chip-multi-select';
+import { TitaniumChipMultiSelect } from '@leavittsoftware/titanium-chip-multi-select';
+
+import '@material/mwc-button';
+import '@material/web/chips/input-chip';
+import '@material/web/icon/icon';
+import '@material/web/button/outlined-button';
+import '@leavittsoftware/titanium-chip-multi-select';
+
+const chipLabels = ['Dog', 'Cat', 'Lion', 'Hedgehog', 'Turtle', 'Monkey', 'Owl', 'Peacock', 'Pigeon', 'Spider', 'Tortoise', 'Zebra'];
+/* playground-fold-end */
 
 /* playground-fold */
 @customElement('titanium-chip-multi-select-playground')
 export class TitaniumChipMultiSelectPlayground extends LitElement {
   @state() protected demoItems: string[] = chipLabels.slice(0, 4);
-  @query('titanium-chip-multi-select[demo2]') titaniumChipMultiSelect: TitaniumChipMultiSelectElement;
+  @state() protected disabled: boolean = false;
+  @state() protected supportingText: string | null = 'Service animals are welcome.';
+  @query('titanium-chip-multi-select[demo2]') titaniumChipMultiSelect: TitaniumChipMultiSelect;
 
   static styles = [
     h1,
@@ -24,7 +29,6 @@ export class TitaniumChipMultiSelectPlayground extends LitElement {
       :host {
         display: flex;
         flex-direction: column;
-        --mdc-icon-font: 'Material Icons Outlined';
         margin: 24px 12px;
       }
 
@@ -33,9 +37,21 @@ export class TitaniumChipMultiSelectPlayground extends LitElement {
         padding: 24px;
         border-radius: 8px;
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
         gap: 12px;
         margin: 24px 0 36px 0;
+      }
+
+      button-container {
+        display: flex;
+        gap: 12px;
+        margin-top: 12px;
+        margin-bottom: 24px;
+        align-self: flex-end;
+      }
+
+      md-outlined-button span {
+        display: flex;
       }
     `,
   ];
@@ -44,110 +60,72 @@ export class TitaniumChipMultiSelectPlayground extends LitElement {
     /* playground-fold-end */
     return html`
       <h1>Default</h1>
-      <p>Examples using hasItems,noItemsText,helper,and disabled</p>
+      <p>Examples with options for supporting text, disabled, report validity, and reset</p>
       <div>
-        <titanium-chip-multi-select label="Default" hasItems
-          >${repeat(
-            chipLabels.slice(0, 4),
-            o => o,
-            o => html`<titanium-chip label=${o}></titanium-chip>`
-          )}</titanium-chip-multi-select
+        <titanium-chip-multi-select
+          demo2
+          required
+          label="Service Animals"
+          ?hasItems=${!!this.demoItems.length}
+          .supportingText=${this.supportingText ?? ''}
+          ?disabled=${this.disabled}
         >
-        <titanium-chip-multi-select label="Has No Items" ?hasItems=${false} noItemsText="I don't have any items"></titanium-chip-multi-select>
-        <titanium-chip-multi-select label="Helper Text" hasItems helper="my helper text"
-          >${repeat(
-            chipLabels.slice(0, 4),
-            o => o,
-            o => html`<titanium-chip label=${o}></titanium-chip>`
-          )}</titanium-chip-multi-select
-        >
-        <titanium-chip-multi-select label="Disabled" hasItems disabled
-          >${repeat(
-            chipLabels.slice(0, 4),
-            o => o,
-            o => html`<titanium-chip disabled label=${o}></titanium-chip>`
-          )}</titanium-chip-multi-select
-        >
-
-        <titanium-chip-multi-select label="Required" required .hasItems=${!![].length}
-          ><mwc-button slot="button" label="Add Animal" icon="add" outlined></mwc-button
-        ></titanium-chip-multi-select>
-      </div>
-
-      <h1>Demo</h1>
-      <p>Demonstrates handling adding and removing chips</p>
-      <div>
-        <titanium-chip-multi-select label="Service Animals" ?hasItems=${!!this.demoItems.length}>
-          <mwc-button
-            slot="button"
-            label="Add Animal"
-            icon="add"
-            outlined
+          <md-outlined-button
+            ?disabled=${this.disabled}
             @click=${async () => {
               this.demoItems.push(chipLabels[this.demoItems.length % chipLabels.length]);
               this.requestUpdate('demoItems');
             }}
-          ></mwc-button>
+          >
+            <md-icon slot="icon">add</md-icon>
+            <span>Add Animal</span>
+          </md-outlined-button>
           ${repeat(
             this.demoItems,
-            o => o,
+            (o) => o,
             (o, index) =>
-              html`<titanium-chip
+              html`<md-input-chip
                 label=${o}
                 closeable
-                @titanium-chip-close=${() => {
+                ?disabled=${this.disabled}
+                @remove=${(e: Event) => {
+                  e.preventDefault();
                   this.demoItems = this.demoItems.filter((_, i) => i !== index);
                 }}
-              ></titanium-chip>`
+              ></md-input-chip>`
           )}</titanium-chip-multi-select
         >
-      </div>
 
-      <h1>Required demo</h1>
-      <p>Demonstrates handling adding and removing chips</p>
-      <div>
-        <titanium-chip-multi-select demo2 required label="Service Animals" ?hasItems=${!!this.demoItems.length}>
-          <mwc-button
-            slot="button"
-            label="Add Animal"
-            icon="add"
-            outlined
+        <button-container>
+          <md-outlined-button
             @click=${async () => {
-              this.demoItems.push(chipLabels[this.demoItems.length % chipLabels.length]);
-              this.requestUpdate('demoItems');
+              this.supportingText = !!this.supportingText ? null : 'Service animals are welcome.';
             }}
-          ></mwc-button>
-          ${repeat(
-            this.demoItems,
-            o => o,
-            (o, index) =>
-              html`<titanium-chip
-                label=${o}
-                closeable
-                @titanium-chip-close=${() => {
-                  this.demoItems = this.demoItems.filter((_, i) => i !== index);
-                }}
-              ></titanium-chip>`
-          )}</titanium-chip-multi-select
-        >
-      </div>
-      <mwc-button
-        slot="button"
-        label="Report validity"
-        outlined
-        @click=${async () => {
-          this.titaniumChipMultiSelect.reportValidity();
-        }}
-      ></mwc-button>
+            >${this.supportingText ? 'Remove supporting text' : 'Set supporting text'}</md-outlined-button
+          >
 
-      <mwc-button
-        slot="button"
-        label="Reset"
-        outlined
-        @click=${async () => {
-          this.titaniumChipMultiSelect.reset();
-        }}
-      ></mwc-button>
+          <md-outlined-button
+            @click=${async () => {
+              this.disabled = !this.disabled;
+            }}
+            >${this.disabled ? 'Enable' : 'Disable'}</md-outlined-button
+          >
+
+          <md-outlined-button
+            @click=${async () => {
+              this.titaniumChipMultiSelect.reportValidity();
+            }}
+            >Report validity</md-outlined-button
+          >
+
+          <md-outlined-button
+            @click=${async () => {
+              this.titaniumChipMultiSelect.reset();
+            }}
+            >Reset</md-outlined-button
+          >
+        </button-container>
+      </div>
     `;
   }
 }

@@ -1,5 +1,8 @@
-import { css, html, LitElement, nothing, PropertyValues } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { css, html, LitElement, PropertyValues } from 'lit';
+import { customElement, property, query } from 'lit/decorators.js';
+import { TitaniumInputValidator } from '@leavittsoftware/titanium-input-validator';
+
+import '@leavittsoftware/titanium-input-validator';
 
 /**
  *  Multi select outlined themed input that styles
@@ -7,25 +10,12 @@ import { customElement, property } from 'lit/decorators.js';
  *
  *  @element titanium-chip-multi-select
  *
- * @slot default - Main slot (intended to be a list of &lt;titanium-chip&gt;)
- * @slot button - Optional slot shown before the chips (typically used as an add chip button)
+ * @slot default - Main slot (intended to be a &lt;md-outlined-button&gt; and a list of &lt;md-chip&gt;)
  *
- * @cssprop {Color} [--mdc-text-field-outlined-idle-border-color=rgba(0, 0, 0, 0.38)] - Container border color
- * @cssprop {Color} [--app-light-text-color=#80868b] - No items text color
- * @cssprop {Color} [--app-primary-color=#1a73e8] - Focused outline color
- * @cssprop {Color} [--mdc-theme-error=#b00020] - Text and outline color in invalid state
- * @cssprop {Color} [--mdc-text-field-disabled-ink-color=rgba(0, 0, 0, 0.38)] - Disabled helper text color
- * @cssprop {Color} [--mdc-text-field-label-ink-color=rgba(0, 0, 0, 0.6)] - Helper text color
- * @cssprop [--mdc-typography-caption-font-family=var(--mdc-typography-font-family, Roboto, sans-serif)] - Helper font-family
- * @cssprop [--mdc-typography-caption-font-size=0.75rem] - Helper font-size
- * @cssprop [--mdc-typography-caption-font-weight=400] - Helper font-weight
- * @cssprop [--mdc-typography-caption-letter-spacing=0.0333333em] - Helper letter-spacing
- * @cssprop [--mdc-typography-caption-text-decoration=inherit] - Helper text-decoration
- * @cssprop [--mdc-typography-caption-text-transform=inherit] - Helper text-transform
  */
 
 @customElement('titanium-chip-multi-select')
-export class TitaniumChipMultiSelectElement extends LitElement {
+export class TitaniumChipMultiSelect extends LitElement {
   /**
    *  Label of input to display to users
    */
@@ -47,19 +37,16 @@ export class TitaniumChipMultiSelectElement extends LitElement {
   @property({ type: Boolean }) hasItems: boolean;
 
   /**
-   *  Sets helper text
+   *  Sets supporting text
    */
-  @property({ type: String }) helper: string;
+  @property({ type: String }) supportingText: string;
 
   /**
    *  Whether or not the input should appear disabled (chips, buttons and anything else slotted will still have to be disabled individually).
    */
   @property({ type: Boolean, reflect: true }) disabled: boolean;
 
-  /**
-   *  Whether or not the input should appear invalidated
-   */
-  @property({ type: Boolean, reflect: true }) isUiValid: boolean = true;
+  @query('titanium-input-validator') validator: TitaniumInputValidator;
 
   updated(changedProps: PropertyValues<this>) {
     if ((changedProps.get('hasItems') && changedProps.has('hasItems')) || (this.hasItems && changedProps.has('hasItems'))) {
@@ -71,136 +58,66 @@ export class TitaniumChipMultiSelectElement extends LitElement {
    *  Returns true if the input passes validity checks.
    */
   checkValidity() {
-    if (!this.required) {
-      return true;
-    }
-
-    return this.hasItems;
+    return this.validator.checkValidity();
   }
 
   /**
    *  Runs checkValidity() method, and if it returns false, then it reports to the user that the input is invalid.
    */
   reportValidity() {
-    this.isUiValid = this.checkValidity();
-    return this.isUiValid;
+    return this.validator.reportValidity();
   }
 
   /**
    *  Resets the inputs state.
    */
   reset() {
-    this.isUiValid = true;
+    this.validator.reset();
   }
 
   static styles = [
     css`
       :host {
         display: block;
-        --mdc-shape-small: 24px;
+        width: 100%;
       }
 
-      main {
+      titanium-input-validator {
+        display: block;
+        width: 100%;
+      }
+
+      slot-container {
         display: flex;
         flex-wrap: wrap;
+        grid-gap: 12px;
         align-items: center;
-        gap: 12px;
-        border: 1px solid var(--mdc-text-field-outlined-idle-border-color, rgba(0, 0, 0, 0.38));
-        border-radius: 4px;
-        position: relative;
-        padding: 16px 12px 12px 12px;
       }
 
-      div[empty-text] {
-        font-size: 12px;
-        color: var(--app-light-text-color);
-        align-self: center;
+      ::slotted(md-outlined-button) {
+        line-height: 0;
       }
 
-      label {
-        position: absolute;
-        pointer-events: none;
-        top: 0;
-        left: 12px;
-
-        padding: 0 4px;
-
-        background: #fff;
-        color: rgba(0, 0, 0, 0.6);
-        transform: translateY(-9.25px) scale(1);
-
-        display: inline-block;
-        font-family: Roboto, sans-serif;
-        font-size: 12px;
-        font-weight: 400;
-        height: 16px;
-        -webkit-font-smoothing: antialiased;
-        letter-spacing: 0.009375em;
-        position: absolute;
-        transform-origin: left top;
-        line-height: 1.15rem;
-        text-align: left;
-        text-overflow: clip;
-        white-space: nowrap;
-        will-change: transform;
-        overflow: hidden;
-      }
-
-      :host([disabled]) label,
-      :host([disabled]) div[empty-text],
-      :host([disabled]) div[helper] {
-        color: var(--mdc-text-field-disabled-ink-color, rgba(0, 0, 0, 0.38));
-      }
-
-      :host(:not([disabled]):not([isUiValid])) label,
-      :host(:not([disabled]):not([isUiValid])) div[empty-text],
-      :host(:not([disabled]):not([isUiValid])) div[helper] {
-        color: var(--mdc-theme-error, #b00020);
-      }
-
-      :host(:not([disabled]):not([isUiValid])) main {
-        border: 1px solid var(--mdc-theme-error, #b00020);
-      }
-
-      :host(:not([disabled]):focus-within) main {
-        border-width: 2px;
-        margin: -1px;
-      }
-
-      :host(:not([disabled])[isUiValid]:focus-within) main {
-        border-color: var(--app-primary-color, #1a73e8);
-      }
-
-      div[helper] {
-        color: var(--mdc-text-field-label-ink-color, rgba(0, 0, 0, 0.6));
-        -webkit-font-smoothing: antialiased;
-        font-family: var(--mdc-typography-caption-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));
-        font-size: var(--mdc-typography-caption-font-size, 0.75rem);
-        font-weight: var(--mdc-typography-caption-font-weight, 400);
-        letter-spacing: var(--mdc-typography-caption-letter-spacing, 0.0333333em);
-        text-decoration: var(--mdc-typography-caption-text-decoration, inherit);
-        text-transform: var(--mdc-typography-caption-text-transform, inherit);
-        display: block;
-        line-height: 24px;
-        margin: 0px;
-        padding-right: 16px;
-        padding-left: 16px;
-        display: flex;
-        justify-content: space-between;
-        box-sizing: border-box;
+      span {
+        font-size: 13px;
       }
     `,
   ];
 
   protected render() {
     return html`
-      <main>
-        <slot name="button"></slot>
-        <slot></slot>
-        ${!this.hasItems ? html` <div empty-text>${this.noItemsText}</div>` : ''}
-        <label>${this.label}${this.required ? '*' : nothing}</label>
-      </main>
-      <div helper>${this.helper}</div>
+      <titanium-input-validator
+        ?disabled=${this.disabled}
+        .evaluator=${() => !!this.hasItems}
+        ?required=${this.required}
+        .label=${this.label}
+        .supportingText=${this.supportingText}
+      >
+        <slot-container>
+          <slot></slot>
+          ${!this.hasItems ? html` <span>${this.noItemsText}</span>` : ''}
+        </slot-container>
+      </titanium-input-validator>
     `;
   }
 }
