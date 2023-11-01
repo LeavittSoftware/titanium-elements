@@ -1,4 +1,4 @@
-name: Test-Publish LeavittBook
+name: Build project and publish LeavittBook on master
 
 on:
   workflow_dispatch:
@@ -8,31 +8,24 @@ on:
       - 'master'
   pull_request:
     branches: ['*']
-env:
-  PROD_SERVER: LGUTWEB07
 jobs:
-  build-lint-publish:
+  build-project-publish-leavittbook:
     runs-on: [self-hosted, linux]
     steps:
       - uses: actions/checkout@v2
+
       - run: echo "REPOSITORY_NAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
         shell: bash
-      - name: 'Determine if master'
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-        run: |
-          echo "SERVER_HOST=${{ env.PROD_SERVER }}" >> $GITHUB_ENV
-          echo "PROJECT_PATH=components.leavitt.com" >> $GITHUB_ENV
-      - name: 'Determine if develop'
-        if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
-        run: |
-          echo "SERVER_HOST=${{ env.PROD_SERVER }}" >> $GITHUB_ENV
-          echo "PROJECT_PATH=components.leavitt.com" >> $GITHUB_ENV
+
       - name: NPM install
         run: npm install
+
       - name: Lint
-        run: npm run lint:leavittbook
-      - name: Run build:leavittbook
-        run: npm run build:leavittbook
+        run: npm run lint
+
+      - name: Run build
+        run: npm run build
+
       - name: Deploy 🚀
         if: github.event_name == 'push' && (github.ref == 'refs/heads/master')
         uses: JamesIves/github-pages-deploy-action@4.1.7
