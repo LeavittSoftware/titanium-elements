@@ -1,4 +1,4 @@
-// import '@leavittsoftware/titanium-elements/packages/titanium/dialog/dialog';
+// import '@/titanium-elements/packages/titanium/dialog/dialog';
 // import '@material/mwc-button';
 // import '@material/mwc-icon-button';
 
@@ -8,7 +8,7 @@ export declare type CropperOptions = Cropper.Options & {
 
 import { css, html, LitElement } from 'lit';
 import { property, customElement, query, state } from 'lit/decorators.js';
-// import { TitaniumNativeDialogBaseElement } from '@leavittsoftware/titanium-elements/packages/titanium/dialog/dialog';
+// import { TitaniumNativeDialogBaseElement } from '@/titanium-elements/packages/titanium/dialog/dialog';
 import Cropper from 'cropperjs';
 import { cropperCSS } from './cropper-styles';
 import { h1, p } from '../../titanium/styles/styles';

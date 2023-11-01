@@ -4,13 +4,13 @@ import { property, customElement, query, queryAll } from 'lit/decorators.js';
 // import '@material/mwc-button';
 // import '@material/mwc-select';
 // import '@material/mwc-list/mwc-list-item';
-// import '@leavittsoftware/titanium-dialog';
+// import '/titanium-dialog';
 import { validateStreet } from './Address';
 
 import { Address } from './Address';
 // import { TextField } from '@material/mwc-textfield';
 // import { Select } from '@material/mwc-select';
-// import { TitaniumDialogElement } from '@leavittsoftware/titanium-dialog';
+// import { TitaniumDialogElement } from '/titanium-dialog';
 
 @customElement('manual-address-dialog')
 export class ManualAddressDialog extends LitElement {
@@ -29,8 +29,8 @@ export class ManualAddressDialog extends LitElement {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @query('mwc-textfield[street]') protected streetInput: any;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @queryAll('mwc-textfield, mwc-select') protected allInputs: NodeListOf<(any) & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean }>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @queryAll('mwc-textfield, mwc-select') protected allInputs: NodeListOf<any & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean }>;
 
   public async open(location: Partial<Address> | null | undefined) {
     this.reset();

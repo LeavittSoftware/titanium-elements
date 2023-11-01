@@ -1,11 +1,11 @@
 // import '@material/mwc-select';
-// import '@leavittsoftware/titanium-icon';
+// import '/titanium-icon';
 // import '@material/mwc-list/mwc-list-item';
-// import '@leavittsoftware/leavitt-elements/lib/mwc-datefield';
+// import 'leavitt-elements/lib/mwc-datefield';
 
 import { css, html, LitElement, PropertyValues } from 'lit';
 import { property, customElement, query } from 'lit/decorators.js';
-// import { DateField } from '@leavittsoftware/leavitt-elements/src/mwc-datefield';
+// import { DateField } from '/leavitt-elements/src/mwc-datefield';
 import { Select } from '@material/mwc-select';
 import dayjs, { Dayjs, QUnitType } from 'dayjs/esm';
 import quarterOfYear from 'dayjs/esm/plugin/quarterOfYear';
@@ -431,10 +431,11 @@ export class TitaniumDateRangeSelector extends LitElement {
           Custom range</mwc-list-item
         >
         ${Array.from(this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges).map(
-          o => html`<mwc-list-item graphic="icon" value=${o[0]}>
-            <titanium-icon slot="graphic" icon=${o[1].icon}></titanium-icon>
-            ${o[1].name}</mwc-list-item
-          >`
+          o =>
+            html`<mwc-list-item graphic="icon" value=${o[0]}>
+              <titanium-icon slot="graphic" icon=${o[1].icon}></titanium-icon>
+              ${o[1].name}</mwc-list-item
+            >`
         )}
       </mwc-select>
 

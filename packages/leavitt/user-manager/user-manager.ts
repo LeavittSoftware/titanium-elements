@@ -5,7 +5,7 @@ import { LitElement } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
 
 import { LssJwtToken } from './LssJwtToken';
-import { isDevelopment } from '@leavittsoftware/titanium-helpers/lib/titanium-dev-detection';
+import { isDevelopment } from '../../titanium/helpers/helpers';
 import { UserManagerUpdatedEvent } from './user-manager-events';
 
 let instance: null | UserManager = null;

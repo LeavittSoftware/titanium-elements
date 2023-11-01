@@ -33,8 +33,8 @@ export type SnackbarOptions = {
  * Only one snackbar is intended to be used per site.
  * Use TitaniumSnackbarSingleton export to fetch the instance of the snackbar when you need to use it.
  * ex.
- * import { TitaniumSnackbarSingleton as AppSnackbar } from '@leavittsoftware/titanium-snackbar';
- * AppSnackbar.open('Hello world');
+ * import { TitaniumSnackbarSingleton } from '@leavittsoftware/web/snackbar/snackbar';
+ * TitaniumSnackbarSingleton.open('Hello world');
  *
  * @cssprop {Color} [--titanium-snackbar-background-color=#323232] - Snackbar background color
  * @cssprop {Color} [--titanium-snackbar-text-color=#f1f1f1] - Color of the text in the snackbar
@@ -229,8 +229,14 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
       background: var(--titanium-snackbar-background-color, #323232);
       color: var(--titanium-snackbar-text-color, #f1f1f1);
       font-size: 14px;
-      -webkit-box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
-      box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
+      -webkit-box-shadow:
+        0 3px 5px -1px rgba(0, 0, 0, 0.2),
+        0 6px 10px 0 rgba(0, 0, 0, 0.14),
+        0 1px 18px 0 rgba(0, 0, 0, 0.12);
+      box-shadow:
+        0 3px 5px -1px rgba(0, 0, 0, 0.2),
+        0 6px 10px 0 rgba(0, 0, 0, 0.14),
+        0 1px 18px 0 rgba(0, 0, 0, 0.12);
 
       -webkit-box-sizing: border-box;
       box-sizing: border-box;
@@ -267,11 +273,22 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
     }
 
     :host([opening]) {
-      -webkit-transition: opacity 75ms linear, -webkit-transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1);
-      transition: opacity 75ms linear, -webkit-transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1);
-      -o-transition: opacity 75ms linear, transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1);
-      transition: opacity 75ms linear, transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1);
-      transition: opacity 75ms linear, transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1), -webkit-transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1);
+      -webkit-transition:
+        opacity 75ms linear,
+        -webkit-transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1);
+      transition:
+        opacity 75ms linear,
+        -webkit-transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1);
+      -o-transition:
+        opacity 75ms linear,
+        transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1);
+      transition:
+        opacity 75ms linear,
+        transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1);
+      transition:
+        opacity 75ms linear,
+        transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1),
+        -webkit-transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1);
     }
 
     :host([opened]) {

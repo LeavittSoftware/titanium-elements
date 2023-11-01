@@ -1,7 +1,7 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 // import '@material/mwc-select';
-// import '@leavittsoftware/titanium-icon';
+// import '/titanium-icon';
 // import '@material/mwc-list/mwc-list-item';
 import { MaterialSymbol, MaterialSymbols } from './material-symbols';
 // import { Select } from '@material/mwc-select';

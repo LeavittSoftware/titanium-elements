@@ -1,11 +1,11 @@
-import '@leavittsoftware/titanium-toolbar/lib/toolbar';
-import '@leavittsoftware/user-manager';
-import '@leavittsoftware/titanium-snackbar/lib/snackbar';
-import '@leavittsoftware/titanium-loading-indicator/lib/loading';
-import '@leavittsoftware/titanium-error-page/lib/error-page';
-import '@leavittsoftware/titanium-sw-notifier/lib/sw-notifier';
+import '../../../titanium/toolbar/toolbar';
+import '../../../leavitt/user-manager/user-manager';
+import '../../../titanium/snackbar/snackbar';
+import '../../../titanium/loading-indicator/loading-indicator';
+import '../../../titanium/error-page/error-page';
+import '../../../titanium/sw-notifier/sw-notifier';
 import '../../titanium/drawer/drawer';
-import '@leavittsoftware/profile-picture/lib/profile-picture-menu';
+import '../../../leavitt/profile-picture/profile-picture-menu';
 
 import '@material/web/icon/icon';
 import '@material/web/iconbutton/icon-button';
@@ -15,15 +15,15 @@ import '@material/web/list/list-item';
 
 import { ChangePathEvent, RedirectPathEvent, SiteErrorEvent } from './events';
 import { LitElement, css, html, nothing } from 'lit';
-import { PendingStateEvent, TitaniumFullPageLoadingIndicatorElement } from '@leavittsoftware/titanium-loading-indicator/lib/loading';
+import { PendingStateEvent, TitaniumFullPageLoadingIndicatorElement } from '../../../titanium/loading-indicator/loading-indicator';
 import { customElement, property, query, state } from 'lit/decorators.js';
-import { ConfirmDialogOpenEvent } from '@leavittsoftware/titanium-dialog/lib/confirm-dialog-open-event';
-import { installMediaQueryWatcher } from '@leavittsoftware/titanium-helpers';
+// import { ConfirmDialogOpenEvent } from '/titanium-dialog/lib/confirm-dialog-open-event';
+import { installMediaQueryWatcher } from '../../../titanium/helpers/helpers';
 import { myAppStyles } from './styles/my-app-styles';
 import { TitaniumDrawer } from '../../titanium/drawer/drawer';
-import { p } from '@leavittsoftware/titanium-styles';
+import { p } from '../../../titanium/styles/styles';
 
-import ConfirmDialogElement from '@leavittsoftware/titanium-dialog/lib/confirm-dialog';
+// import ConfirmDialogElement from '../../../titanium/dialog/lib/confirm-dialog';
 import page from 'page';
 
 const LGLogo = new URL('../images/lg-logo.svg', import.meta.url).href;
@@ -71,10 +71,10 @@ export class MyApp extends LitElement {
 
     await this.loadingIndicator.updateComplete;
 
-    this.addEventListener(ConfirmDialogOpenEvent.eventType, async (e: ConfirmDialogOpenEvent) => {
-      await import('@leavittsoftware/titanium-dialog/lib/confirm-dialog');
-      this.confirmDialog.handleEvent(e);
-    });
+    // this.addEventListener(ConfirmDialogOpenEvent.eventType, async (e: ConfirmDialogOpenEvent) => {
+    //   await import('ware/titanium-dialog/lib/confirm-dialog');
+    //   this.confirmDialog.handleEvent(e);
+    // });
 
     this.addEventListener(ChangePathEvent.eventName, (event: ChangePathEvent) => {
       page.show(event.detail.path);

@@ -1,10 +1,10 @@
-// import '@leavittsoftware/titanium-elements/packages/titanium/dialog/dialog';
+// import '@/titanium-elements/packages/titanium/dialog/dialog';
 
 import { h1, p } from '../../titanium/styles/styles';
 import { css, html, LitElement } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-// import { TitaniumNativeDialogBaseElement } from '@leavittsoftware/titanium-elements/packages/titanium/dialog/dialog';
+// import { TitaniumNativeDialogBaseElement } from '@/titanium-elements/packages/titanium/dialog/dialog';
 import { middleEllipsis } from '../../titanium/helpers/middle-ellipsis';
 
 /**

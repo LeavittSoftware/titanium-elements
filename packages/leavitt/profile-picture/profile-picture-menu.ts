@@ -3,8 +3,8 @@ import '@material/web/menu/menu';
 import '@material/web/button/outlined-button';
 import '@material/web/button/text-button';
 
-import { GetUserManagerInstance } from '@leavittsoftware/user-manager';
-import { UserManagerUpdatedEvent } from '@leavittsoftware/user-manager/lib/user-manager-events';
+import { GetUserManagerInstance } from '../user-manager/user-manager';
+import { UserManagerUpdatedEvent } from '../user-manager/user-manager-events';
 import { css, html, LitElement } from 'lit';
 import { property, customElement, query } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';

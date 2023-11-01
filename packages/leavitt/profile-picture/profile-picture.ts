@@ -1,4 +1,4 @@
-﻿import { isDevelopment } from '@leavittsoftware/titanium-helpers';
+﻿import { isDevelopment } from '../../helpers/helpers';
 import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 

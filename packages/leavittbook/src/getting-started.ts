@@ -1,8 +1,8 @@
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { h1, h2, p, a } from '@leavittsoftware/titanium-styles';
-import '@leavittsoftware/titanium-header/lib/header';
-import '../../titanium/card/card';
+import { h1, h2, p, a } from '../../../titanium/styles/styles';
+import '../../../titanium/header/header';
+import '../../../titanium/card/card';
 
 @customElement('getting-started')
 export default class GettingStartedElement extends LitElement {
@@ -51,7 +51,7 @@ export default class GettingStartedElement extends LitElement {
       <p>NPM install the element you want to use:</p>
       <code block>npm i @leavittsoftware/titanium-card</code>
       <p>Include the element on your page.</p>
-      <code block>import '@leavittsoftware/titanium-card';</code>
+      <code block>import '@leavittsoftware/web/titanium/card/card';</code>
       <p>Use the element:</p>
       <code block>${'<titanium-card></titanium-card>'}</code>
 

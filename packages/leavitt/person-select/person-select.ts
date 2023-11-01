@@ -5,11 +5,11 @@ import { customElement, property } from 'lit/decorators.js';
 import { Person } from '@leavittsoftware/lg-core-typescript';
 import { TitaniumSingleSelectBase } from '../../titanium/single-select-base/titanium-single-select-base';
 
-import '@leavittsoftware/profile-picture';
+import '../profile-picture/profile-picture';
 
-import { Debouncer, getSearchTokens } from '@leavittsoftware/titanium-helpers';
-import ApiService from '@leavittsoftware/api-service/lib/api-service';
-import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar/lib/snackbar';
+import { Debouncer, getSearchTokens } from '../../titanium/helpers/helpers';
+import ApiService from '../api-service/api-service';
+import { TitaniumSnackbarSingleton } from '../../titanium/snackbar/snackbar';
 
 /**
  *  Single select input that searches Leavitt Group users

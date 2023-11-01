@@ -1,6 +1,6 @@
 import { css, html, LitElement, nothing, PropertyValues } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/titanium-styles';
+import { h1, p } from '../../../titanium/styles/styles';
 import '@material/web/chips/suggestion-chip';
 import { CountUp } from 'countup.js';
 

@@ -1,4 +1,4 @@
-import { GetUserManagerInstance } from '@leavittsoftware/user-manager';
+import { GetUserManagerInstance } from '../user-manager/user-manager';
 import { BearerTokenProvider } from './bearer-token-provider';
 
 export class AuthenticatedTokenProvider implements BearerTokenProvider {

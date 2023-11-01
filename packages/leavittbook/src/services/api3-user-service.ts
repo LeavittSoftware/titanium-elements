@@ -1,6 +1,6 @@
-import ApiService from '@leavittsoftware/api-service/lib/api-service';
-import { AuthenticatedTokenProvider } from '@leavittsoftware/api-service/lib/authenticated-token-provider';
-import { isDevelopment } from '@leavittsoftware/titanium-helpers/lib/titanium-dev-detection';
+import ApiService from '../../../leavitt/api-service/api-service';
+import { AuthenticatedTokenProvider } from '../../../leavitt/api-service/authenticated-token-provider';
+import { isDevelopment } from '../../../titanium/helpers/helpers';
 
 const api3UserService = new ApiService(new AuthenticatedTokenProvider());
 api3UserService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';

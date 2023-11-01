@@ -1,6 +1,6 @@
-import '@leavittsoftware/titanium-header/lib/header';
+import '../../titanium/header/header';
 import '../../titanium/card/card';
-import '@leavittsoftware/titanium-smart-attachment-input/lib/smart-attachment-input';
+import '../../titanium/smart-attachment-input/smart-attachment-input';
 import '@material/mwc-button';
 import '@material/mwc-textarea';
 import '@material/mwc-tab-bar';
@@ -8,14 +8,14 @@ import '@material/mwc-tab';
 
 import { LitElement, PropertyValues, css, html } from 'lit';
 import { customElement, property, query, queryAll, state } from 'lit/decorators.js';
-import { LoadWhile, isDevelopment } from '@leavittsoftware/titanium-helpers';
-import { PendingStateEvent } from '@leavittsoftware/titanium-loading-indicator/lib/loading';
-import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar/lib/snackbar';
-import { h1, p } from '@leavittsoftware/titanium-styles';
-import { AuthenticatedTokenProvider } from '@leavittsoftware/api-service/lib/authenticated-token-provider';
+import { LoadWhile, isDevelopment } from '../../titanium/helpers/helpers';
+import { PendingStateEvent } from '../../titanium/types/pending-state-event';
+import { TitaniumSnackbarSingleton } from '../../titanium/snackbar/snackbar';
+import { h1, p } from '../../titanium/styles/styles';
+import { AuthenticatedTokenProvider } from '../api-service/authenticated-token-provider';
 import { WebsiteBugDto, WebsiteFeedback } from '@leavittsoftware/lg-core-typescript';
-import { TitaniumSmartAttachmentInputElement } from '@leavittsoftware/titanium-smart-attachment-input/lib/smart-attachment-input';
-import ApiService from '@leavittsoftware/api-service/lib/api-service';
+import { TitaniumSmartAttachmentInputElement } from '../../titanium/smart-attachment-input/smart-attachment-input';
+import ApiService from '../api-service//api-service';
 
 const websiteBugApiService = new ApiService(new AuthenticatedTokenProvider());
 websiteBugApiService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
