@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "lit": "3.0.1",
-    "@types/googlemaps": "^3.43.3",
+    "@types/google.maps": "^3.54.6",
     "tslib": "^2.6.2",
     "dayjs": "^1.11.10",
     "bowser": "^2.11.0",

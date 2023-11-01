@@ -22,9 +22,9 @@
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "@leavittsoftware/web/*": ["./*"]
+      "@leavittsoftware/web/*": ["packages/web/*"]
     }
   },
-  "include": ["**/*.ts"],
+  "include": ["packages/**/*.ts"],
   "exclude": ["**/*.d.ts", "**/*.css.ts", "node_modules"]
 }
