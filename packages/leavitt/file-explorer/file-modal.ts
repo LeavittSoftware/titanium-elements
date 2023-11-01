@@ -1,9 +1,9 @@
 import { css, html, LitElement, PropertyValues } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
-import { TitaniumNativeDialogBaseElement } from '../titanium/dialog/dialog';
-import '../titanium/dialog/dialog';
+import { TitaniumNativeDialogBaseElement } from '@leavittsoftware/titanium-elements/packages/titanium/dialog/dialog';
+import '@leavittsoftware/titanium-elements/packages/titanium/dialog/dialog';
 
-import './leavitt-file-detail';
+import './file-detail';
 
 import { FileExplorerFileDto } from '@leavittsoftware/lg-core-typescript/api3.leavitt.com';
 import fileExplorerEvents from './file-explorer-events';
@@ -20,7 +20,7 @@ export class LeavittFileModalElement extends LitElement {
   async updated(changedProps: PropertyValues<this>) {
     if (changedProps.has('enableEditing') && this.enableEditing) {
       //load admin elements
-      await import('./leavitt-file-edit');
+      await import('./file-edit');
     }
   }
 

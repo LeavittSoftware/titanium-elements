@@ -4,27 +4,27 @@ import { customElement, property, query, state } from 'lit/decorators.js';
 import '@material/mwc-icon-button';
 import '@leavittsoftware/titanium-loading-indicator/lib/loading';
 import '@material/mwc-linear-progress';
-import './leavitt-file-explorer-no-files';
-import './leavitt-file-explorer-no-permission';
-import './leavitt-file-explorer-error';
-import './leavitt-file-explorer-image';
-import './leavitt-folder-modal';
-import './leavitt-file-modal';
+import './file-explorer-no-files';
+import './file-explorer-no-permission';
+import './file-explorer-error';
+import './file-explorer-image';
+import './folder-modal';
+import './file-modal';
 
 import * as Throttle from 'promise-parallel-throttle';
 import { button, h1, a, ellipsis } from '@leavittsoftware/titanium-styles';
 import { FormatBytes } from './format-bytes';
 import dayjs from 'dayjs/esm';
-import { LeavittFolderModalElement } from './leavitt-folder-modal';
+import { LeavittFolderModalElement } from './folder-modal';
 import { FileExplorerFolderDto, FileExplorerPathDto, FileExplorerFileDto, FileExplorerDto } from '@leavittsoftware/lg-core-typescript/api3.leavitt.com';
 import { FileExplorerAttachment, FileExplorerFolder } from '@leavittsoftware/lg-core-typescript/lg.net.core';
-import { LeavittAddFolderModalElement } from './leavitt-add-folder-modal';
+import { LeavittAddFolderModalElement } from './add-folder-modal';
 import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar/lib/snackbar';
-import { LeavittFileModalElement } from './leavitt-file-modal';
+import { LeavittFileModalElement } from './file-modal';
 import { ConfirmDialogOpenEvent } from '@leavittsoftware/titanium-dialog/lib/confirm-dialog-open-event';
 import { PendingStateEvent } from '@leavittsoftware/titanium-loading-indicator/lib/loading';
 import fileExplorerEvents from './file-explorer-events';
-import { join, LoadWhile } from '../titanium/helpers/helpers';
+import { join, LoadWhile } from '@leavittsoftware/web/packages/titanium/helpers/helpers';
 import { getIcon } from './file-types';
 import ConfirmDialogElement from '@leavittsoftware/titanium-dialog/lib/confirm-dialog';
 import { ActionDetail } from '@material/mwc-list';
@@ -150,7 +150,7 @@ export class LeavittFileExplorerElement extends LoadWhile(LitElement) {
 
     if (changedProps.has('isAdmin') && this.isAdmin) {
       //load admin elements
-      await import('./leavitt-add-folder-modal');
+      await import('./add-folder-modal');
       await import('@material/mwc-menu');
       await import('@material/mwc-list/mwc-list-item');
       await this.updateComplete;
