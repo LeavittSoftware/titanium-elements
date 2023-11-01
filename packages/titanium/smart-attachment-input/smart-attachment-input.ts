@@ -1,4 +1,4 @@
-import '@leavittsoftware/titanium-chip-multi-select';
+import '@leavittsoftware/titanium-chip-multi-select/lib/chip-multi-select';
 import '@leavittsoftware/titanium-chip';
 import '@leavittsoftware/titanium-dialog';
 import '@material/mwc-button';
@@ -17,7 +17,7 @@ import { delay, middleEllipsis } from '@leavittsoftware/titanium-helpers';
 import { IDatabaseAttachment } from '@leavittsoftware/lg-core-typescript/lg.net.system';
 import { getCdnDownloadUrl, getCdnInlineUrl } from '@leavittsoftware/titanium-helpers/lib/leavitt-cdn';
 import { TitaniumDialogElement } from '@leavittsoftware/titanium-dialog';
-import { TitaniumChipMultiSelectElement } from '@leavittsoftware/titanium-chip-multi-select';
+import { TitaniumChipMultiSelectElement } from '@leavittsoftware/titanium-chip-multi-select/lib/chip-multi-select';
 
 export type TitaniumSmartInputOptions = Cropper.Options & { shape?: ' square' | 'circle' };
 

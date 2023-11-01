@@ -3,13 +3,13 @@ import { css, html, LitElement } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/titanium-styles';
 import { repeat } from 'lit/directives/repeat.js';
-import { TitaniumChipMultiSelect } from '@leavittsoftware/titanium-chip-multi-select';
+import { TitaniumChipMultiSelect } from '@leavittsoftware/titanium-chip-multi-select/lib/chip-multi-select';
 
 import '@material/mwc-button';
 import '@material/web/chips/input-chip';
 import '@material/web/icon/icon';
 import '@material/web/button/outlined-button';
-import '@leavittsoftware/titanium-chip-multi-select';
+import '@leavittsoftware/titanium-chip-multi-select/lib/chip-multi-select';
 
 const chipLabels = ['Dog', 'Cat', 'Lion', 'Hedgehog', 'Turtle', 'Monkey', 'Owl', 'Peacock', 'Pigeon', 'Spider', 'Tortoise', 'Zebra'];
 /* playground-fold-end */
