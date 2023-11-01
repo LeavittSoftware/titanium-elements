@@ -2,7 +2,7 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, queryAll, state } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/titanium-styles';
-import '@leavittsoftware/profile-picture';
+import '../../../../leavitt/profile-picture/profile-picture';
 import '@material/web/iconbutton/filled-icon-button';
 import '@material/web/button/filled-tonal-button';
 import '@material/web/textfield/outlined-text-field';
