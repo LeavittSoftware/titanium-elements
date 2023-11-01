@@ -1,12 +1,12 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
-import { h1, h2, p } from '../@leavittsoftware/web/titanium/styles/styles';
+import { h1, h2, p } from '@leavittsoftware/web/titanium/styles/styles';
 import '@material/web/button/text-button';
 import '@material/web/slider/slider';
 
 /* playground-fold-end */
-import '../@leavittsoftware/web/titanium/show-hide/show-hide';
+import '@leavittsoftware/web/titanium/show-hide/show-hide';
 import dayjs from 'dayjs/esm';
 
 /* playground-fold */

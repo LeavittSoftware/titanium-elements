@@ -1,6 +1,6 @@
 import { LitElement, html, css, nothing } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { GetUserManagerInstance } from '../@leavittsoftware/web/leavitt/user-manager/user-manager';
+import { GetUserManagerInstance } from '@leavittsoftware/web/leavitt/user-manager/user-manager';
 
 import StoryStyles from '../../styles/story-styles';
 import '../../shared/story-header';

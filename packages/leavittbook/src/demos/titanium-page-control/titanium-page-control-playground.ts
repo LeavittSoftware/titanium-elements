@@ -1,13 +1,13 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
-import { h1, p } from '../@leavittsoftware/web/titanium/styles/styles';
+import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
 import '@material/mwc-icon';
 import '@material/mwc-button';
 /* playground-fold-end */
 
-import '../@leavittsoftware/web/titanium/data-table/page-control';
-import { TitaniumPageControl } from '../@leavittsoftware/web/titanium/data-table/page-control';
+import '@leavittsoftware/web/titanium/data-table/page-control';
+import { TitaniumPageControl } from '@leavittsoftware/web/titanium/data-table/page-control';
 
 /* playground-fold */
 @customElement('titanium-page-control-playground')

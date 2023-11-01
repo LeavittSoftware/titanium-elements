@@ -1,6 +1,6 @@
-import '../@leavittsoftware/web/titanium/data-table/data-table-item';
-import '../@leavittsoftware/web/titanium/data-table/data-table-header';
-import '../@leavittsoftware/web/titanium/search-input/search-input';
+import '@leavittsoftware/web/titanium/data-table/data-table-item';
+import '@leavittsoftware/web/titanium/data-table/data-table-header';
+import '@leavittsoftware/web/titanium/search-input/search-input';
 import '@material/web/dialog/dialog';
 import '@material/web/button/outlined-button';
 import '@material/web/button/filled-tonal-button';
@@ -16,18 +16,18 @@ import '@material/web/button/text-button';
 import '@material/web/select/outlined-select.js';
 import '@material/web/select/select-option.js';
 
-import '../@leavittsoftware/web/titanium/data-table/data-table';
+import '@leavittsoftware/web/titanium/data-table/data-table';
 
 /* playground-fold */
 import { LitElement, css, html } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
-import { h1, h2, p } from '../@leavittsoftware/web/titanium/styles/styles';
+import { h1, h2, p } from '@leavittsoftware/web/titanium/styles/styles';
 
-import { DOMEvent } from '../@leavittsoftware/web/titanium/types/dom-event';
-import { Debouncer, getSearchTokens } from '../@leavittsoftware/web/titanium/helpers/helpers';
-import { FilterController } from '../@leavittsoftware/web/titanium/data-table/filter-controller';
-import { TitaniumDataTable } from '../@leavittsoftware/web/titanium/data-table/data-table';
-import { TitaniumSearchInput } from '../@leavittsoftware/web/titanium/search-input/search-input';
+import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
+import { Debouncer, getSearchTokens } from '@leavittsoftware/web/titanium/helpers/helpers';
+import { FilterController } from '@leavittsoftware/web/titanium/data-table/filter-controller';
+import { TitaniumDataTable } from '@leavittsoftware/web/titanium/data-table/data-table';
+import { TitaniumSearchInput } from '@leavittsoftware/web/titanium/search-input/search-input';
 import { repeat } from 'lit/directives/repeat.js';
 import { CloseMenuEvent, MdMenu, MenuItem } from '@material/web/menu/menu';
 import { MdIconButton } from '@material/web/iconbutton/icon-button';

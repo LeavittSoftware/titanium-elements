@@ -1,16 +1,16 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement, queryAll, state } from 'lit/decorators.js';
-import { h1, p } from '../@leavittsoftware/web/titanium/styles/styles';
-import '../@leavittsoftware/web/leavitt/profile-picture/profile-picture';
+import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
+import '@leavittsoftware/web/leavitt/profile-picture/profile-picture';
 import '@material/web/iconbutton/filled-icon-button';
 import '@material/web/button/filled-tonal-button';
 import '@material/web/textfield/outlined-text-field';
 
 /* playground-fold-end */
-import '../@leavittsoftware/web/titanium/input-validator/input-validator';
-import { TitaniumSnackbarSingleton } from '../@leavittsoftware/web/titanium/snackbar/snackbar';
-import { TitaniumInputValidator } from '../@leavittsoftware/web/titanium/input-validator/input-validator';
+import '@leavittsoftware/web/titanium/input-validator/input-validator';
+import { TitaniumSnackbarSingleton } from '@leavittsoftware/web/titanium/snackbar/snackbar';
+import { TitaniumInputValidator } from '@leavittsoftware/web/titanium/input-validator/input-validator';
 import { formStyles } from '../../styles/form-styles';
 
 /* playground-fold */

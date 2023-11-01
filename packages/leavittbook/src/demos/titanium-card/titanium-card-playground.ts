@@ -1,8 +1,8 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { h1, p } from '../@leavittsoftware/web/titanium/styles/styles';
-import '../@leavittsoftware/web/leavitt/profile-picture/profile-picture';
+import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
+import '@leavittsoftware/web/leavitt/profile-picture/profile-picture';
 
 import '@material/web/button/filled-tonal-button';
 import '@material/web/iconbutton/icon-button';
@@ -10,7 +10,7 @@ import '@material/web/icon/icon';
 import '@material/web/list/list-item';
 
 /* playground-fold-end */
-import '../@leavittsoftware/web/titanium/card/card';
+import '@leavittsoftware/web/titanium/card/card';
 
 /* playground-fold */
 @customElement('titanium-card-playground')

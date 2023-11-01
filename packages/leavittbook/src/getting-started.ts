@@ -1,8 +1,8 @@
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { h1, h2, p, a } from '../@leavittsoftware/web/titanium/styles/styles';
-import '../@leavittsoftware/web/titanium/header/header';
-import '../@leavittsoftware/web/titanium/card/card';
+import { h1, h2, p, a } from '@leavittsoftware/web/titanium/styles/styles';
+import '@leavittsoftware/web/titanium/header/header';
+import '@leavittsoftware/web/titanium/card/card';
 
 @customElement('getting-started')
 export default class GettingStartedElement extends LitElement {

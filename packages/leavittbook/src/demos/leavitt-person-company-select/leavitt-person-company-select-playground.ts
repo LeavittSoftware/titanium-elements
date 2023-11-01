@@ -1,16 +1,16 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement, query, queryAll, state } from 'lit/decorators.js';
-import { h1, p } from '../@leavittsoftware/web/titanium/styles/styles';
+import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
 
 import '@material/web/button/text-button';
-import '../@leavittsoftware/web/leavitt/user-manager/user-manager';
-import ApiService from '../@leavittsoftware/web/leavitt/api-service/api-service';
-import { AuthenticatedTokenProvider } from '../@leavittsoftware/web/leavitt/api-service/authenticated-token-provider';
+import '@leavittsoftware/web/leavitt/user-manager/user-manager';
+import ApiService from '@leavittsoftware/web/leavitt/api-service/api-service';
+import { AuthenticatedTokenProvider } from '@leavittsoftware/web/leavitt/api-service/authenticated-token-provider';
 
 /* playground-fold-end */
-import '../@leavittsoftware/web/leavitt/person-company-select/person-company-select';
-import { LeavittPersonCompanySelect } from '../@leavittsoftware/web/leavitt/person-company-select/person-company-select';
+import '@leavittsoftware/web/leavitt/person-company-select/person-company-select';
+import { LeavittPersonCompanySelect } from '@leavittsoftware/web/leavitt/person-company-select/person-company-select';
 
 /* playground-fold */
 @customElement('leavitt-person-company-select-playground')

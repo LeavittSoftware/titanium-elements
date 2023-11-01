@@ -10,7 +10,17 @@
     "**/*.scss"
   ],
   "dependencies": {
-    "tslib": "^2.4.1"
+    "tslib": "^2.6.2",
+    "@leavittsoftware/lg-core-typescript": "*",
+    "dayjs": "^1.11.10",
+    "@material/web": "*",
+    "countup.js": "^2.8.0",
+    "bowser": "^2.11.0",
+    "cropperjs": "*",
+    "regexparam": "~2.0.1",
+    "@googlemaps/js-api-loader": "*",
+    "jwt-decode": "^3.1.2",
+    "@types/googlemaps": "*"
   },
   "peerDependencies": {
     "lit": ">=3.0.0"

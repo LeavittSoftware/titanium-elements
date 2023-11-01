@@ -1,12 +1,12 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { h1, p } from '../@leavittsoftware/web/titanium/styles/styles';
-import '../@leavittsoftware/web/leavitt/profile-picture/profile-picture';
+import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
+import '@leavittsoftware/web/leavitt/profile-picture/profile-picture';
 import '@material/mwc-button';
 
 /* playground-fold-end */
-import '../@leavittsoftware/web/titanium/duration-input/duration-input';
+import '@leavittsoftware/web/titanium/duration-input/duration-input';
 import dayjs from 'dayjs/esm';
 import duration from 'dayjs/esm/plugin/duration';
 dayjs.extend(duration);

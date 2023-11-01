@@ -1,13 +1,13 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement, query, queryAll } from 'lit/decorators.js';
-import { h1, p } from '../@leavittsoftware/web/titanium/styles/styles';
-import '../@leavittsoftware/web/leavitt/profile-picture/profile-picture';
+import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
+import '@leavittsoftware/web/leavitt/profile-picture/profile-picture';
 import '@material/mwc-button';
-import { TitaniumYouTubeInput } from '../@leavittsoftware/web/titanium/youtube-input/youtube-input';
+import { TitaniumYouTubeInput } from '@leavittsoftware/web/titanium/youtube-input/youtube-input';
 
 /* playground-fold-end */
-import '../@leavittsoftware/web/titanium/youtube-input/youtube-input';
+import '@leavittsoftware/web/titanium/youtube-input/youtube-input';
 
 /* playground-fold */
 @customElement('titanium-youtube-input-playground')

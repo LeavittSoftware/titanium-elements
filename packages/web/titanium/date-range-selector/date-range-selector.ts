@@ -6,12 +6,9 @@
 import { css, html, LitElement, PropertyValues } from 'lit';
 import { property, customElement, query } from 'lit/decorators.js';
 // import { DateField } from '/leavitt-elements/src/mwc-datefield';
-import { Select } from '@material/mwc-select';
+// import { Select } from '@material/mwc-select';
 import dayjs, { Dayjs, QUnitType } from 'dayjs/esm';
 import quarterOfYear from 'dayjs/esm/plugin/quarterOfYear';
-import { Debouncer } from '../../titanium/helpers/debouncer';
-import { DateRangeChangedEvent } from './date-range-change-event';
-import { DOMEvent } from '../../titanium/types/dom-event';
 
 dayjs.extend(quarterOfYear);
 
@@ -308,11 +305,11 @@ export class TitaniumDateRangeSelector extends LitElement {
   @query('mwc-datefield[start-date]') protected startDateField: any & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @query('mwc-datefield[end-date]') protected endDateField: any & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
-  @query('mwc-select') protected select!: Select;
+  @query('mwc-select') protected select!: HTMLElement;
 
   async updated(changedProps: PropertyValues<this>) {
     if (changedProps.has('endDate') || changedProps.has('startDate')) {
-      this.#dateChangedDebouncer.debounce();
+      // this.#dateChangedDebouncer.debounce();
     }
   }
 
@@ -321,13 +318,6 @@ export class TitaniumDateRangeSelector extends LitElement {
    */
   async reset() {
     this.range = 'allTime';
-  }
-
-  /**
-   * forces layout on all inputs
-   */
-  async layout() {
-    return Promise.all([this.startDateField.layout(), this.endDateField.layout(), this.select.layout()]);
   }
 
   reportValidity() {
@@ -341,23 +331,23 @@ export class TitaniumDateRangeSelector extends LitElement {
     return true;
   }
 
-  #dateChangedDebouncer = new Debouncer(async () => {
-    //Keep range selector up to date with new date selection
-    this.range =
-      Array.from(this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges).find(
-        o => o[1].startDate === this.startDate && o[1].endDate === this.endDate
-      )?.[0] || 'custom';
-    this.#notifyChangeIfValid();
-  }, 300);
+  // #dateChangedDebouncer = new Debouncer(async () => {
+  //   //Keep range selector up to date with new date selection
+  //   this.range =
+  //     Array.from(this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges).find(
+  //       (o) => o[1].startDate === this.startDate && o[1].endDate === this.endDate
+  //     )?.[0] || 'custom';
+  //   this.#notifyChangeIfValid();
+  // }, 300);
 
-  #notifyChangeIfValid() {
-    if (this.reportValidity()) {
-      /**
-       * @ignore
-       */
-      this.dispatchEvent(new DateRangeChangedEvent(this.range, this.startDate, this.endDate));
-    }
-  }
+  // #notifyChangeIfValid() {
+  //   if (this.reportValidity()) {
+  //     /**
+  //      * @ignore
+  //      */
+  //     this.dispatchEvent(new DateRangeChangedEvent(this.range, this.startDate, this.endDate));
+  //   }
+  // }
 
   static styles = css`
     :host {
@@ -417,13 +407,13 @@ export class TitaniumDateRangeSelector extends LitElement {
         icon=${this.#getRange(this.range)?.icon || 'date_range'}
         .value=${this.range}
         outlined
-        @selected=${async (event: DOMEvent<Select>) => {
-          this.range = event.target.value as DateRangeKey;
-          const date = this.#getRange(this.range);
-          if (date && event.target.value !== 'custom') {
-            this.startDate = date.startDate ?? '';
-            this.endDate = date.endDate ?? '';
-          }
+        @selected=${async () => {
+          // this.range = event.target.value as DateRangeKey;
+          // const date = this.#getRange(this.range);
+          // if (date && event.target.value !== 'custom') {
+          //   this.startDate = date.startDate ?? '';
+          //   this.endDate = date.endDate ?? '';
+          // }
         }}
       >
         <mwc-list-item graphic="icon" value="custom">
@@ -431,7 +421,7 @@ export class TitaniumDateRangeSelector extends LitElement {
           Custom range</mwc-list-item
         >
         ${Array.from(this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges).map(
-          o =>
+          (o) =>
             html`<mwc-list-item graphic="icon" value=${o[0]}>
               <titanium-icon slot="graphic" icon=${o[1].icon}></titanium-icon>
               ${o[1].name}</mwc-list-item
@@ -445,7 +435,7 @@ export class TitaniumDateRangeSelector extends LitElement {
         label="From"
         .dateType=${this.enableTime ? 'datetime-local' : 'date'}
         .value=${this.startDate ?? ''}
-        @change=${e => (this.startDate = e.target.value ?? '')}
+        @change=${(e) => (this.startDate = e.target.value ?? '')}
       ></mwc-datefield>
 
       <mwc-datefield
@@ -454,7 +444,7 @@ export class TitaniumDateRangeSelector extends LitElement {
         label="To"
         .dateType=${this.enableTime ? 'datetime-local' : 'date'}
         .value=${this.endDate ?? ''}
-        @change=${e => (this.endDate = e.target.value ?? '')}
+        @change=${(e) => (this.endDate = e.target.value ?? '')}
       ></mwc-datefield>
     `;
   }

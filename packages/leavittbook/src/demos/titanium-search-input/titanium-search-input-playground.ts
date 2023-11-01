@@ -1,15 +1,15 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement, query } from 'lit/decorators.js';
-import { h1, p } from '../@leavittsoftware/web/titanium/styles/styles';
+import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
 import '@material/mwc-icon';
 import '@material/mwc-button';
-import '../@leavittsoftware/web/titanium/card/card';
+import '@leavittsoftware/web/titanium/card/card';
 
 /* playground-fold-end */
 
-import '../@leavittsoftware/web/titanium/search-input/search-input';
-import { TitaniumSearchInput } from '../@leavittsoftware/web/titanium/search-input/search-input';
+import '@leavittsoftware/web/titanium/search-input/search-input';
+import { TitaniumSearchInput } from '@leavittsoftware/web/titanium/search-input/search-input';
 
 /* playground-fold */
 @customElement('titanium-search-input-playground')

@@ -1,14 +1,14 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { h1, p } from '../@leavittsoftware/web/titanium/styles/styles';
-import '../@leavittsoftware/web/leavitt/profile-picture/profile-picture';
+import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
+import '@leavittsoftware/web/leavitt/profile-picture/profile-picture';
 import '@material/mwc-icon';
 
 /* playground-fold-end */
-import '../@leavittsoftware/web/titanium/snackbar/snackbar';
-import { TitaniumSnackbarSingleton } from '../@leavittsoftware/web/titanium/snackbar/snackbar';
-import { HttpError } from '../@leavittsoftware/web/leavitt/api-service/HttpError';
+import '@leavittsoftware/web/titanium/snackbar/snackbar';
+import { TitaniumSnackbarSingleton } from '@leavittsoftware/web/titanium/snackbar/snackbar';
+import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
 
 /* playground-fold */
 @customElement('titanium-snackbar-playground')

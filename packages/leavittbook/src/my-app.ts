@@ -1,11 +1,11 @@
-import '../@leavittsoftware/web/titanium/toolbar/toolbar';
-import '../@leavittsoftware/web/leavitt/user-manager/user-manager';
-import '../@leavittsoftware/web/titanium/snackbar/snackbar';
-import '../@leavittsoftware/web/titanium/full-page-loading-indicator/full-page-loading-indicator';
-import '../@leavittsoftware/web/titanium/error-page/error-page';
-import '../@leavittsoftware/web/titanium/service-worker-notifier/service-worker-notifier';
-import '../@leavittsoftware/web/titanium/drawer/drawer';
-import '../@leavittsoftware/web/leavitt/profile-picture/profile-picture-menu';
+import '@leavittsoftware/web/titanium/toolbar/toolbar';
+import '@leavittsoftware/web/leavitt/user-manager/user-manager';
+import '@leavittsoftware/web/titanium/snackbar/snackbar';
+import '@leavittsoftware/web/titanium/full-page-loading-indicator/full-page-loading-indicator';
+import '@leavittsoftware/web/titanium/error-page/error-page';
+import '@leavittsoftware/web/titanium/service-worker-notifier/service-worker-notifier';
+import '@leavittsoftware/web/titanium/drawer/drawer';
+import '@leavittsoftware/web/leavitt/profile-picture/profile-picture-menu';
 
 import '@material/web/icon/icon';
 import '@material/web/iconbutton/icon-button';
@@ -15,14 +15,14 @@ import '@material/web/list/list-item';
 
 import { ChangePathEvent, RedirectPathEvent, SiteErrorEvent } from './events';
 import { LitElement, css, html, nothing } from 'lit';
-import { TitaniumFullPageLoadingIndicator } from '../@leavittsoftware/web/titanium/full-page-loading-indicator/full-page-loading-indicator';
-import { PendingStateEvent } from '../@leavittsoftware/web/titanium/types/pending-state-event';
+import { TitaniumFullPageLoadingIndicator } from '@leavittsoftware/web/titanium/full-page-loading-indicator/full-page-loading-indicator';
+import { PendingStateEvent } from '@leavittsoftware/web/titanium/types/pending-state-event';
 import { customElement, property, query, state } from 'lit/decorators.js';
 // import { ConfirmDialogOpenEvent } from '/titanium-dialog/lib/confirm-dialog-open-event';
-import { installMediaQueryWatcher } from '../@leavittsoftware/web/titanium/helpers/helpers';
+import { installMediaQueryWatcher } from '@leavittsoftware/web/titanium/helpers/helpers';
 import { myAppStyles } from './styles/my-app-styles';
-import { TitaniumDrawer } from '../@leavittsoftware/web/titanium/drawer/drawer';
-import { p } from '../@leavittsoftware/web/titanium/styles/styles';
+import { TitaniumDrawer } from '@leavittsoftware/web/titanium/drawer/drawer';
+import { p } from '@leavittsoftware/web/titanium/styles/styles';
 
 // import ConfirmDialogElement from '@leavittsoftware/web/titanium/dialog/lib/confirm-dialog';
 import page from 'page';

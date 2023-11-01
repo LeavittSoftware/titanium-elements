@@ -1,14 +1,14 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { h1, p } from '../@leavittsoftware/web/titanium/styles/styles';
+import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
 import '@material/mwc-icon';
 import '@material/mwc-button';
-import '../@leavittsoftware/web/titanium/card/card';
+import '@leavittsoftware/web/titanium/card/card';
 
 /* playground-fold-end */
 
-import '../@leavittsoftware/web/titanium/header/header';
+import '@leavittsoftware/web/titanium/header/header';
 
 /* playground-fold */
 @customElement('titanium-header-playground')
