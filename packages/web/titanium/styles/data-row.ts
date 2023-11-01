@@ -1,5 +1,6 @@
 import { css } from 'lit';
-import { h5, p } from './styles';
+import { h5 } from './h5';
+import { p } from './p';
 
 export const dataRow = [
   h5,
