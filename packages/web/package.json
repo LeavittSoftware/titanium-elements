@@ -1,0 +1,26 @@
+{
+  "name": "@leavittsoftware/web",
+  "version": "1.0.0",
+  "license": "Apache-2.0",
+  "description": "",
+  "files": [
+    "**/*.js",
+    "**/*.js.map",
+    "**/*.d.ts",
+    "**/*.scss"
+  ],
+  "dependencies": {
+    "tslib": "^2.4.1"
+  },
+  "peerDependencies": {
+    "lit": ">=3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeavittSoftware/titanium-elements.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LeavittSoftware/titanium-elements/issues"
+  },
+  "homepage": "https://github.com/LeavittSoftware/titanium-elements/#readme"
+}

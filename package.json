@@ -1,11 +1,10 @@
 {
-  "name": "@leavittsoftware/web",
+  "name": "root",
   "type": "module",
   "version": "1.0.0",
   "license": "MIT",
   "workspaces": [
-    "packages/*",
-    "leavittbook"
+    "packages/*"
   ],
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.9.0",
@@ -41,8 +40,8 @@
   },
   "scripts": {
     "start": "concurrently --kill-others --names tsc,wds,cem  \"tsc --watch\" \"web-dev-server\" \"npm run cem:watch\"",
-    "build": "tsc && npm run cem && rimraf leavittbook/dist && cd leavittbook && rollup -c rollup.config.js",
-    "start:build": "web-dev-server --root-dir leavittbook/dist --app-index index.html --open --compatibility none --port 9090",
+    "build": "tsc && npm run cem  && cd packages/leavittbook && rimraf dist && rollup -c rollup.config.js",
+    "start:build": "web-dev-server --root-dir packages/leavittbook/dist --app-index index.html --open --compatibility none --port 9090",
     "nuke": "git clean -fdx && rm -f package-lock.json",
     "lint:eslint": "eslint --ext .ts  . --ignore-path .gitignore",
     "lint:prettier": "prettier \"**/*.ts\" --check --ignore-path .gitignore",
@@ -53,8 +52,8 @@
     "lerna:publish": "npm run build && lerna publish --conventional-commits --yes",
     "lerna:publish-force": "npm run build && lerna publish --conventional-commits --yes --force-publish=*",
     "test:publish": "npm run build && lerna version --no-push --yes",
-    "cem": "cem analyze --globs \"./packages/**/*.ts\" --litelement --outdir leavittbook",
-    "cem:watch": "cem analyze --watch --globs \"./packages/**/*.ts\" --litelement --outdir leavittbook"
+    "cem": "cem analyze --globs \"./packages/**/*.ts\" --litelement --outdir packages/leavittbook",
+    "cem:watch": "cem analyze --watch --globs \"./packages/**/*.ts\" --litelement --outdir packages/leavittbook"
   },
   "lint-staged": {
     "*.ts": [
