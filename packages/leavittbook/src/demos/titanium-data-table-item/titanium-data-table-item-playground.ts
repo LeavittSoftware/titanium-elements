@@ -1,12 +1,12 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement, query } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/titanium-styles';
+import { h1, p } from '../../../../titanium/styles/styles';
 import '@material/web/button/text-button';
 
 /* playground-fold-end */
-import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-item';
-import { TitaniumDataTableItemElement } from '@leavittsoftware/titanium-data-table/lib/titanium-data-table-item';
+import '../../../../titanium/data-table/data-table-item';
+import { TitaniumDataTableItemElement } from '../../../../titanium/data-table/data-table-item';
 
 /* playground-fold */
 @customElement('titanium-data-table-item-playground')

@@ -1,14 +1,14 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement, query, queryAll, state } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/titanium-styles';
+import { h1, p } from '../../../../titanium/styles/styles';
 
-import '@leavittsoftware/user-manager';
-import '@leavittsoftware/titanium-snackbar/lib/snackbar';
+import '../../../../leavitt/user-manager/user-manager';
+import '../../../../leavitt/snackbar/snackbar';
 import '@material/web/button/text-button';
 
-import ApiService from '@leavittsoftware/api-service/lib/api-service';
-import { AuthenticatedTokenProvider } from '@leavittsoftware/api-service/lib/authenticated-token-provider';
+import ApiService from '../../../../leavitt/api-service/api-service';
+import { AuthenticatedTokenProvider } from '../../../../leavitt/user-manager/authenticated-token-provider';
 
 /* playground-fold-end */
 import '../../../../leavitt/company-select/company-select';

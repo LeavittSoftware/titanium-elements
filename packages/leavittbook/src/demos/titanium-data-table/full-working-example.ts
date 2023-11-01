@@ -1,7 +1,7 @@
-import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-item';
-import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-header';
+import '../../../../titanium/data-table/data-table-item';
+import '../../../../titanium/data-table/data-table-header';
+import '../../../../titanium/search-input/search-input';
 import '@material/web/dialog/dialog';
-import '@leavittsoftware/titanium-search-input/lib/search-input';
 import '@material/web/button/outlined-button';
 import '@material/web/button/filled-tonal-button';
 import '@material/web/icon/icon';
@@ -16,19 +16,18 @@ import '@material/web/button/text-button';
 import '@material/web/select/outlined-select.js';
 import '@material/web/select/select-option.js';
 
-import '@leavittsoftware/titanium-data-table';
+import '../../../../titanium/data-table/data-table';
 
 /* playground-fold */
 import { LitElement, css, html } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
-import { h1, h2, p } from '@leavittsoftware/titanium-styles';
+import { h1, h2, p } from '../../../../titanium/styles/styles';
 
 import { DOMEvent } from '../../../../titanium/types/dom-event';
-import { Debouncer } from '@leavittsoftware/titanium-helpers';
-import { FilterController } from '@leavittsoftware/titanium-data-table/lib/filter-controller';
-import { TitaniumDataTableElement } from '@leavittsoftware/titanium-data-table/lib/titanium-data-table.js';
-import { TitaniumSearchInput } from '@leavittsoftware/titanium-search-input/lib/search-input';
-import { getSearchTokens } from '@leavittsoftware/titanium-helpers/lib/titanium-search-token';
+import { Debouncer, getSearchTokens } from '../../../../titanium/helpers/helpers';
+import { FilterController } from '../../../../titanium/data-table/filter-controller';
+import { TitaniumDataTable } from '../../../../titanium/data-table/data-table';
+import { TitaniumSearchInput } from '../../../../titanium/search-input/search-input';
 import { repeat } from 'lit/directives/repeat.js';
 import { CloseMenuEvent, MdMenu, MenuItem } from '@material/web/menu/menu';
 import { MdIconButton } from '@material/web/iconbutton/icon-button';
@@ -68,7 +67,7 @@ export class TitaniumDataTableFullPlayground extends LitElement {
   @state() protected disableSelect: boolean = false;
   @state() protected disablePaging: boolean = false;
 
-  @query('titanium-data-table') protected dataTable!: TitaniumDataTableElement;
+  @query('titanium-data-table') protected dataTable!: TitaniumDataTable;
   @query('data-table-demo-filter-modal') protected filterModal!: DataTableDemoFilterModalElement;
 
   constructor() {

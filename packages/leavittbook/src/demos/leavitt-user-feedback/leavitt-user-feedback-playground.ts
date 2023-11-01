@@ -1,10 +1,10 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement, query, queryAll, state } from 'lit/decorators.js';
-import { h1, p, button } from '@leavittsoftware/titanium-styles';
+import { h1, p, button } from '../../../../titanium/styles/styles';
 
 import '@material/mwc-button';
-import ApiService from '@leavittsoftware/api-service/lib/api-service';
+import ApiService from '../../../../leavitt/api-service/api-service';
 
 /* playground-fold-end */
 import '../../../../leavitt/user-feedback/user-feedback';

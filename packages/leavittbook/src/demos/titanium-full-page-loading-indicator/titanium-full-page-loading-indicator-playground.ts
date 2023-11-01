@@ -1,11 +1,11 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/titanium-styles';
+import { h1, p } from '../../../../titanium/styles/styles';
 import '@material/mwc-button';
 
 /* playground-fold-end */
-import '@leavittsoftware/titanium-loading-indicator/lib/full-page-loading-indicator';
+import '../../../../titanium/full-page-loading-indicator/full-page-loading-indicator';
 
 /* playground-fold */
 @customElement('titanium-full-page-loading-indicator-playground')

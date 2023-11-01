@@ -1,17 +1,17 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement, query, queryAll, state } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/titanium-styles';
+import { h1, p } from '../../../../titanium/styles/styles';
 
-import '@leavittsoftware/user-manager';
+import '../../../../leavitt/user-manager/user-manager';
 import '@material/web/button/text-button';
 
-import ApiService from '@leavittsoftware/api-service/lib/api-service';
-import { AuthenticatedTokenProvider } from '@leavittsoftware/api-service/lib/authenticated-token-provider';
+import ApiService from '../../../../leavitt/api-service/api-service';
+import { AuthenticatedTokenProvider } from '../../../../leavitt/api-service/authenticated-token-provider';
 
 /* playground-fold-end */
 import '../../../../leavitt/person-select/person-select';
-import { LeavittPersonSelect } from '@leavittsoftware/leavitt-elements';
+import { LeavittPersonSelect } from '../../../../leavitt/person-select/person-select';
 import { Person } from '@leavittsoftware/lg-core-typescript';
 
 /* playground-fold */

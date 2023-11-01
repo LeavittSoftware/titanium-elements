@@ -1,8 +1,8 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/titanium-styles';
-import '@leavittsoftware/profile-picture';
+import { h1, p } from '../../../../titanium/styles/styles';
+import '../../../../leavitt/profile-picture/profile-picture';
 
 import '@material/web/button/filled-tonal-button';
 import '@material/web/iconbutton/icon-button';

@@ -1,7 +1,7 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement, query, queryAll, state } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/titanium-styles';
+import { h1, p } from '../../../../titanium/styles/styles';
 
 import '@material/web/button/text-button';
 import '../../../../leavitt/user-manager/user-manager';
@@ -11,7 +11,7 @@ import { AuthenticatedTokenProvider } from '../../../../leavitt/api-service/auth
 
 /* playground-fold-end */
 import '../../../../leavitt/person-group-select/person-group-select';
-import { LeavittPersonGroupSelect } from '@leavittsoftware/leavitt-elements';
+import { LeavittPersonGroupSelect } from '../../../../leavitt/file-explorer/file-explorerleavitt-elements';
 
 /* playground-fold */
 @customElement('leavitt-person-group-select-playground')

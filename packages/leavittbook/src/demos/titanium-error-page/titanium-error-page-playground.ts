@@ -1,12 +1,12 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/titanium-styles';
-import '@leavittsoftware/profile-picture';
+import { h1, p } from '../../../../titanium/styles/styles';
+import '../../../../leavitt/profile-picture/profile-picture';
 import '@material/mwc-icon';
 
 /* playground-fold-end */
-import '@leavittsoftware/titanium-error-page/lib/error-page';
+import '../../../../titanium/error-page/error-page';
 
 /* playground-fold */
 @customElement('titanium-error-page-playground')

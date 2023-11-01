@@ -1,14 +1,14 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement, query, property, state } from 'lit/decorators.js';
-import { h1, p, button } from '@leavittsoftware/titanium-styles';
+import { h1, p } from '../../../../titanium/styles/styles';
 import '@material/mwc-icon';
 import '@material/mwc-button';
 /* playground-fold-end */
 
-import '@leavittsoftware/titanium-address-input';
-import { TitaniumAddressInput } from '@leavittsoftware/titanium-address-input';
-import { Address } from '@leavittsoftware/titanium-address-input/lib/Address';
+import '../../../../titanium/address-input/address-input';
+import { TitaniumAddressInput } from '../../../../titanium/address-input/address-input';
+import { Address } from '../../../../titanium/address-input/Address';
 import { DOMEvent } from '../../../../titanium/types/dom-event';
 
 /* playground-fold */

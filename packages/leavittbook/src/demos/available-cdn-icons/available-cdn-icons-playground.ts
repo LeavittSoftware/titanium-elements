@@ -1,7 +1,7 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/titanium-styles';
+import { h1, p } from '../../../../titanium/styles/styles';
 
 /* playground-fold-end */
 

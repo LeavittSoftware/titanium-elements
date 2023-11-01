@@ -1,12 +1,12 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { h1, p, button } from '@leavittsoftware/titanium-styles';
-import '@leavittsoftware/profile-picture';
+import { h1, p } from '../../../../titanium/styles/styles';
+import '../../../../leavitt/profile-picture/profile-picture';
 import '@material/mwc-button';
 
 /* playground-fold-end */
-import '@leavittsoftware/titanium-duration-input/lib/duration-input';
+import '../../../../titanium/duration-input/duration-input';
 import dayjs from 'dayjs/esm';
 import duration from 'dayjs/esm/plugin/duration';
 dayjs.extend(duration);
@@ -26,7 +26,6 @@ export class TitaniumDurationInputPlayground extends LitElement {
   static styles = [
     h1,
     p,
-    button,
     css`
       :host {
         display: flex;

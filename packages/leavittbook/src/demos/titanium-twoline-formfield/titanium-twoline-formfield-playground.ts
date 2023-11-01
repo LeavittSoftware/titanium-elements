@@ -1,13 +1,13 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/titanium-styles';
-import '@leavittsoftware/profile-picture';
+import { h1, p } from '../../../../titanium/styles/styles';
+import '../../../../leavitt/profile-picture/profile-picture';
 import '@material/mwc-checkbox';
 import { Checkbox } from '@material/mwc-checkbox';
 
 /* playground-fold-end */
-import '@leavittsoftware/titanium-twoline-formfield/lib/twoline-formfield';
+import '../../../../titanium/twoline-formfield/twoline-formfield';
 import { DOMEvent } from '../../../../titanium/types/dom-event';
 
 /* playground-fold */

@@ -1,14 +1,14 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { h1, h2, p } from '@leavittsoftware/titanium-styles';
+import { h1, h2, p } from '../../../../titanium/styles/styles';
 
-import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-item';
-import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-header';
+import '../../../../titanium/data-table/data-table-item';
+import '../../../../titanium/data-table/data-table-header';
 
 import { repeat } from 'lit/directives/repeat.js';
 /* playground-fold-end */
-import '@leavittsoftware/titanium-data-table';
+import '../../../../titanium/data-table/data-table';
 import '@material/mwc-icon';
 
 /* playground-fold */
@@ -75,8 +75,8 @@ export class DraggablePlayground extends LitElement {
 
           ${repeat(
             this.draggableItems ?? [],
-            item => item.Name,
-            item => html`
+            (item) => item.Name,
+            (item) => html`
               <titanium-data-table-item enable-dragging .item=${item} slot="items">
                 <row-item large ellipsis title=${item.Name ?? ''}>${item.Name ?? '-'}</row-item>
                 <row-item title=${item.Appearance ?? ''}>${item.Appearance ?? '-'}</row-item>
@@ -86,7 +86,7 @@ export class DraggablePlayground extends LitElement {
           )}
         </titanium-data-table>
         <h2>Results</h2>
-        <p>${this.draggableItems.map(o => o.Name).join(',')}</p>
+        <p>${this.draggableItems.map((o) => o.Name).join(',')}</p>
       </div>
     `;
   }

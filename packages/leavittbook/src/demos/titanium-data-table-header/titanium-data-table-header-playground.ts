@@ -1,10 +1,10 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/titanium-styles';
+import { h1, p } from '../../../../titanium/styles/styles';
 
 /* playground-fold-end */
-import '@leavittsoftware/titanium-data-table/lib/titanium-data-table-header';
+import '../../../../titanium/data-table/data-table-header';
 import '@material/mwc-icon';
 
 /* playground-fold */

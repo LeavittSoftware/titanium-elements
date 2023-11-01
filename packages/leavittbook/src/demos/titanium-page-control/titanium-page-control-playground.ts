@@ -1,13 +1,13 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/titanium-styles';
+import { h1, p } from '../../../../titanium/styles/styles';
 import '@material/mwc-icon';
 import '@material/mwc-button';
 /* playground-fold-end */
 
-import '@leavittsoftware/titanium-data-table/lib/titanium-page-control';
-import { TitaniumPageControlElement } from '@leavittsoftware/titanium-data-table/lib/titanium-page-control';
+import '../../../../titanium/data-table/page-control';
+import { TitaniumPageControlElement } from '../../../../titanium/data-table/page-control';
 
 /* playground-fold */
 @customElement('titanium-page-control-playground')
@@ -77,7 +77,7 @@ export class TitaniumPageControlPlayground extends LitElement {
       </div>
 
       <h1>Full example</h1>
-      ${this.filteredData?.map(item => html` <p example-item>${item?.name}, ${item?.id}</p> `)}
+      ${this.filteredData?.map((item) => html` <p example-item>${item?.name}, ${item?.id}</p> `)}
       <div>
         <titanium-page-control
           main

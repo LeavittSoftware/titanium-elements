@@ -1,13 +1,13 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/titanium-styles';
+import { h1, p } from '../../../../titanium/styles/styles';
 import '@material/mwc-icon';
 import '@material/mwc-button';
 /* playground-fold-end */
 
-import '@leavittsoftware/titanium-smart-attachment-input/lib/smart-attachment-input';
-import { TitaniumSmartAttachmentInputElement } from '@leavittsoftware/titanium-smart-attachment-input/lib/smart-attachment-input';
+import '../../../../titanium/smart-attachment-input/smart-attachment-input';
+import { TitaniumSmartAttachmentInputElement } from '../../../../titanium/smart-attachment-input/smart-attachment-input';
 
 /* playground-fold */
 @customElement('titanium-smart-attachment-input-playground')

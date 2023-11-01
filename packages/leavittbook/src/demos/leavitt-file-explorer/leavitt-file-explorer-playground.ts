@@ -1,16 +1,16 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/titanium-styles';
+import { h1, p } from '../../../../titanium/styles/styles';
 
 import '@material/mwc-button';
-import '@leavittsoftware/user-manager';
-import ApiService from '@leavittsoftware/api-service/lib/api-service';
-import { AuthenticatedTokenProvider } from '@leavittsoftware/api-service/lib/authenticated-token-provider';
+import '../../../../leavitt/user-manager/user-manager';
+import ApiService from '../../../../leavitt/api-service/api-service';
+import { AuthenticatedTokenProvider } from '../../../../leavitt/api-service/authenticated-token-provider';
 
 /* playground-fold-end */
-import '@leavittsoftware/leavitt-file-explorer';
-import { LeavittFileExplorerElement } from '@leavittsoftware/leavitt-file-explorer';
+import '../../../../leavitt/file-explorer/file-explorer';
+import { LeavittFileExplorerElement } from '../../../../leavitt/file-explorer/file-explorerleavitt-file-explorer';
 
 /* playground-fold */
 @customElement('leavitt-file-explorer-playground')

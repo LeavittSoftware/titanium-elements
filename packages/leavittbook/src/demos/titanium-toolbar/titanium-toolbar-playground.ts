@@ -1,12 +1,12 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/titanium-styles';
-import '@leavittsoftware/profile-picture';
-import '@leavittsoftware/profile-picture/lib/profile-picture-menu';
+import { h1, p } from '../../../../titanium/styles/styles';
+import '../../../../leavitt/profile-picture/profile-picture';
+import '../../../../leavitt/profile-picture/profile-picture-menu';
 
 /* playground-fold-end */
-import '@leavittsoftware/titanium-toolbar/lib/toolbar';
+import '../../../../titanium/toolbar/toolbar';
 
 /* playground-fold */
 @customElement('titanium-toolbar-playground')

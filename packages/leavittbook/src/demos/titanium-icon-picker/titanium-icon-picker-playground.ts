@@ -1,12 +1,12 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement, query } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/titanium-styles';
+import { h1, p } from '../../../../titanium/styles/styles';
 
 /* playground-fold-end */
-import '@leavittsoftware/titanium-icon-picker/lib/icon-picker';
-import { TitaniumIconPicker } from '@leavittsoftware/titanium-icon-picker/lib/icon-picker';
-import { TitaniumSnackbarSingleton } from '@leavittsoftware/titanium-snackbar/lib/snackbar';
+import '../../../../titanium/icon-picker/icon-picker';
+import { TitaniumIconPicker } from '../../../../titanium/icon-picker/icon-picker';
+import { TitaniumSnackbarSingleton } from '../../../../titanium//snackbar/snackbar';
 
 /* playground-fold */
 @customElement('titanium-icon-picker-playground')

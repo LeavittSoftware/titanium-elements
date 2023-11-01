@@ -1,7 +1,7 @@
 /* playground-fold */
 import { LitElement, html, css } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/titanium-styles';
+import { h1, p } from '../../../../titanium/styles/styles';
 import '@material/mwc-switch';
 import '@material/mwc-formfield';
 import '@material/mwc-button';
