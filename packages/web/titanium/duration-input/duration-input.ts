@@ -1,7 +1,6 @@
 import { property, customElement } from 'lit/decorators.js';
-import { TextField } from '@material/mwc-textfield';
-import { PropertyValues } from 'lit';
-import humanInterval, { durationToString } from './human-interval';
+// import { TextField } from '@material/mwc-textfield';
+import { LitElement, PropertyValues } from 'lit';
 
 import dayjs from 'dayjs/esm';
 import duration from 'dayjs/esm/plugin/duration';
@@ -19,47 +18,47 @@ dayjs.extend(duration);
  */
 
 @customElement('titanium-duration-input')
-export class TitaniumDurationInput extends TextField {
+export class TitaniumDurationInput extends LitElement {
   /**
    *  Dayjs duration object. This is the main property you will interact with because the value
    *  property of this component is actually the human readable string and not the duration you most likely
    *  want to work with. When changed a duration-change event will be dispatched.
    */
-  @property({ type: String }) duration: duration.Duration | null | undefined;
+  @property({ type: Object }) duration: duration.Duration | null | undefined;
 
   constructor() {
     super();
-    this.helper = 'Enter a duration e.g. "3 hours and 30 minutes"';
-    this.validityTransform = (newValue, nativeValidity) => ({
-      valid: !isNaN(humanInterval(newValue)) && nativeValidity?.valid,
-    });
+    // this.helper = 'Enter a duration e.g. "3 hours and 30 minutes"';
+    // this.validityTransform = (newValue, nativeValidity) => ({
+    //   valid: !isNaN(humanInterval(newValue)) && nativeValidity?.valid,
+    // });
 
-    this.addEventListener('change', () => {
-      const millis = humanInterval(this.value);
-      this.duration = isNaN(millis) ? null : dayjs.duration(millis, 'ms');
-      this.dispatchEvent(new CustomEvent('duration-change', { bubbles: true, composed: true }));
-    });
+    // this.addEventListener('change', () => {
+    //   const millis = humanInterval(this.value);
+    //   this.duration = isNaN(millis) ? null : dayjs.duration(millis, 'ms');
+    //   this.dispatchEvent(new CustomEvent('duration-change', { bubbles: true, composed: true }));
+    // });
   }
 
   updated(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('duration') && changedProperties.get('duration') !== this.duration) {
-      if (this.duration) {
-        this.value = durationToString(this.duration);
-        this.layout();
-      } else {
-        this.duration = null;
-        this.value = '';
-        this.layout();
-      }
+      // if (this.duration) {
+      //   this.value = durationToString(this.duration);
+      //   this.layout();
+      // } else {
+      //   this.duration = null;
+      //   this.value = '';
+      //   this.layout();
+      // }
     }
   }
 
   async reset() {
     this.duration = null;
-    this.value = '';
-    await this.updateComplete;
+    // this.value = '';
+    // await this.updateComplete;
 
-    this.isUiValid = true;
-    this.mdcFoundation?.setValid?.(true);
+    // this.isUiValid = true;
+    // this.mdcFoundation?.setValid?.(true);
   }
 }

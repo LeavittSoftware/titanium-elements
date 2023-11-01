@@ -5,7 +5,6 @@ import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
 import { repeat } from 'lit/directives/repeat.js';
 import { TitaniumChipMultiSelect } from '@leavittsoftware/web/titanium/chip-multi-select/chip-multi-select';
 
-import '@material/mwc-button';
 import '@material/web/chips/input-chip';
 import '@material/web/icon/icon';
 import '@material/web/button/outlined-button';

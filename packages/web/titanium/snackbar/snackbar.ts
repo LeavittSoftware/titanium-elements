@@ -1,4 +1,4 @@
-import '@material/mwc-button';
+// import '@material/mwc-button';
 import { HttpError } from '../../leavitt/api-service/HttpError';
 import { css, html, LitElement, nothing, TemplateResult } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
@@ -109,7 +109,7 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
    *
    */
   open(message: string | TemplateResult | HttpError, options?: SnackbarOptions) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       //reset
       clearTimeout(this.#closeTimeoutHandle);
       this.noaction = false;

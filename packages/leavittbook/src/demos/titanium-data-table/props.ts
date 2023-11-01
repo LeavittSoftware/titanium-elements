@@ -8,7 +8,6 @@ import '@leavittsoftware/web/titanium/data-table/data-table-header';
 
 /* playground-fold-end */
 import '@leavittsoftware/web/titanium/data-table/data-table';
-import '@material/mwc-icon';
 
 /* playground-fold */
 

@@ -1,8 +1,8 @@
 import { css, html, LitElement } from 'lit';
 import { property, customElement, query } from 'lit/decorators.js';
 
-import '@material/mwc-textfield';
-import { TextField } from '@material/mwc-textfield';
+// import '@material/mwc-textfield';
+// import { TextField } from '@material/mwc-textfield';
 /**
  * Material design YouTube url input.
  *
@@ -39,7 +39,7 @@ export class TitaniumYouTubeInput extends LitElement {
    */
   @property({ type: String }) label: string = 'YouTube Video Key';
 
-  @query('mwc-textfield') protected input!: TextField & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
+  @query('mwc-textfield') protected input!: any & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
 
   firstUpdated() {
     this.input.validityTransform = (newValue, nativeValidity) => {

@@ -3,7 +3,7 @@ import { css, html, LitElement } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
 import '@leavittsoftware/web/leavitt/profile-picture/profile-picture';
-import '@material/mwc-button';
+// import '@material/mwc-button';
 
 /* playground-fold-end */
 import '@leavittsoftware/web/titanium/duration-input/duration-input';

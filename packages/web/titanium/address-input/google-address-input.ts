@@ -7,13 +7,13 @@
 import { css, html, LitElement, PropertyValues } from 'lit';
 import { property, customElement, query, state } from 'lit/decorators.js';
 
-import { Menu } from '@material/mwc-menu';
+// import { Menu } from '@material/mwc-menu';
 import { Loader } from '@googlemaps/js-api-loader';
-import { TextField } from '@material/mwc-textfield';
+// import { TextField } from '@material/mwc-textfield';
 import { TitaniumSnackbarSingleton } from '../../titanium/snackbar/snackbar';
 import { Debouncer, LoadWhile } from '../../titanium/helpers/helpers';
-import { SelectedDetail } from '@material/mwc-menu/mwc-menu-base';
-import { MenuSurface } from '@material/mwc-menu/mwc-menu-surface';
+// import { SelectedDetail } from '@material/mwc-menu/mwc-menu-base';
+// import { MenuSurface } from '@material/mwc-menu/mwc-menu-surface';
 import { Address, addressToString, validateStreet } from './Address';
 /**
  *  Single select input that searches Places using the Google Places API
@@ -29,8 +29,8 @@ export class GoogleAddressInput extends LoadWhile(LitElement) {
   @state() protected count: number = 0;
   @state() protected searchTerm: string = '';
   @state() protected suggestions: google.maps.places.AutocompletePrediction[] = [];
-  @query('mwc-menu') protected menu: Menu;
-  @query('mwc-textfield') protected input: TextField & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
+  @query('mwc-menu') protected menu: any;
+  @query('mwc-textfield') protected input: any & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
 
   /**
    *  **REQUIRED** GoogleAPI key for Places API
@@ -134,11 +134,11 @@ export class GoogleAddressInput extends LoadWhile(LitElement) {
     };
 
     await this.updateComplete;
-    const helperLine = this.input.shadowRoot?.querySelector<HTMLDivElement>('.mdc-text-field-helper-line');
-    if (helperLine) {
-      this.hasHelperOffset = true;
-      helperLine.style.paddingRight = 'var(--google-address-input-helper-offset, 135px)';
-    }
+    // const helperLine = this.input.shadowRoot?.querySelector<HTMLDivElement>('.mdc-text-field-helper-line');
+    // if (helperLine) {
+    //   this.hasHelperOffset = true;
+    //   helperLine.style.paddingRight = 'var(--google-address-input-helper-offset, 135px)';
+    // }
   }
 
   async updated(changedProps: PropertyValues<this>) {
@@ -199,7 +199,7 @@ export class GoogleAddressInput extends LoadWhile(LitElement) {
   #abortController: AbortController = new AbortController();
 
   async #getSuggestions(searchTerm: string) {
-    return new Promise<google.maps.places.AutocompletePrediction[] | null>(res => {
+    return new Promise<google.maps.places.AutocompletePrediction[] | null>((res) => {
       this.#autoCompleteService.getPlacePredictions(
         {
           input: searchTerm,
@@ -261,20 +261,20 @@ export class GoogleAddressInput extends LoadWhile(LitElement) {
       return;
     }
 
-    const neighborhood = place.address_components.find(o => o.types.some(p => p === 'neighborhood'));
-    const stateComponent = place.address_components.find(o => o.types.some(p => p === 'administrative_area_level_1'));
-    const streetNumberComponent = place.address_components.find(o => o.types.some(p => p === 'street_number'));
-    const streetAddressComponent = place.address_components.find(o => o.types.some(p => p === 'route'));
+    const neighborhood = place.address_components.find((o) => o.types.some((p) => p === 'neighborhood'));
+    const stateComponent = place.address_components.find((o) => o.types.some((p) => p === 'administrative_area_level_1'));
+    const streetNumberComponent = place.address_components.find((o) => o.types.some((p) => p === 'street_number'));
+    const streetAddressComponent = place.address_components.find((o) => o.types.some((p) => p === 'route'));
 
     // GOOGLE flip-flops neighborhood and locality, neither can be used for a accurate city. formatted_address however seems to
     // always show the accurate city.
-    const locality = place.address_components.find(o => o.types.some(p => p === 'locality'));
-    const sublocality = place.address_components.find(o => o.types.some(p => p === 'sublocality'));
+    const locality = place.address_components.find((o) => o.types.some((p) => p === 'locality'));
+    const sublocality = place.address_components.find((o) => o.types.some((p) => p === 'sublocality'));
     const cityComponent =
       neighborhood?.short_name && place.formatted_address.includes(neighborhood.short_name + ',') ? neighborhood : locality ? locality : sublocality;
-    const zipCodeComponent = place.address_components.find(o => o.types.some(p => p === 'postal_code'));
-    const countyComponent = place.address_components.find(o => o.types.some(p => p === 'administrative_area_level_2'));
-    const countryComponent = place.address_components.find(o => o.types.some(p => p === 'country'));
+    const zipCodeComponent = place.address_components.find((o) => o.types.some((p) => p === 'postal_code'));
+    const countyComponent = place.address_components.find((o) => o.types.some((p) => p === 'administrative_area_level_2'));
+    const countryComponent = place.address_components.find((o) => o.types.some((p) => p === 'country'));
     const location: Address = {
       street: streetNumberComponent?.short_name
         ? `${streetNumberComponent?.short_name} ${streetAddressComponent?.short_name}`
@@ -380,7 +380,7 @@ export class GoogleAddressInput extends LoadWhile(LitElement) {
             this.location = null;
           }
         }}
-        @input=${async e => {
+        @input=${async (e) => {
           const userInput = e.target.value;
 
           if (this.location) {
@@ -418,8 +418,8 @@ export class GoogleAddressInput extends LoadWhile(LitElement) {
         y=${this.validationMessage ? '-19' : '0'}
         @opened=${() =>
           //Prevent previouslyFocused behavior of msc-menu on close
-          ((this.menu.mdcRoot as MenuSurface & { previouslyFocused: null }).previouslyFocused = null)}
-        @selected=${async (e: CustomEvent<SelectedDetail<number>>) => {
+          ((this.menu.mdcRoot as any & { previouslyFocused: null }).previouslyFocused = null)}
+        @selected=${async (e: CustomEvent<any>) => {
           e.stopPropagation();
           const selectedIndex = e.detail.index;
 
@@ -439,7 +439,7 @@ export class GoogleAddressInput extends LoadWhile(LitElement) {
           ? html`<div summary>Showing ${this.suggestions.length} of ${this.count} result${this.count === 1 ? '' : 's'} for '${this.searchTerm}'</div>`
           : ''}
         ${this.suggestions.map(
-          suggestion => html`
+          (suggestion) => html`
             <mwc-list-item twoline graphic="avatar">
               <span>${suggestion?.structured_formatting?.main_text || suggestion.description}</span>
               <span slot="secondary">${suggestion?.structured_formatting?.secondary_text}</span>
