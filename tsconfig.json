@@ -22,7 +22,7 @@
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "@leavittsoftware/web/*": ["packages/web/*"]
+      "@leavittsoftware/web/*": ["./packages/web/*"]
     }
   },
   "include": ["packages/**/*.ts"],

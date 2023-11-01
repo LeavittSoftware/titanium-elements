@@ -286,8 +286,8 @@ export class GoogleAddressInput extends LoadWhile(LitElement) {
       state: stateComponent?.short_name ?? '',
       fullState: stateComponent?.long_name ?? '',
       zip: zipCodeComponent?.short_name ?? '',
-      latitude: place.geometry?.location.lat() ?? null,
-      longitude: place.geometry?.location.lng() ?? null,
+      latitude: place.geometry?.location?.lat() ?? null,
+      longitude: place.geometry?.location?.lng() ?? null,
     };
 
     if (location.street || location.city || location.state || location.zip || location.fullStreet || location.fullState) {
