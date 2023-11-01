@@ -35,20 +35,12 @@
   },
   "dependencies": {
     "lit": "3.0.1",
-    "@types/google.maps": "^3.54.6",
     "tslib": "^2.6.2",
-    "dayjs": "^1.11.10",
-    "bowser": "^2.11.0",
     "@leavittsoftware/lg-core-typescript": "^5.209.0",
     "@material/web": "^1.0.1",
     "api-viewer-element": "1.0.0-pre.8",
-    "countup.js": "^2.8.0",
     "page": "^1.11.6",
-    "playground-elements": "^0.18.1",
-    "regexparam": "~2.0.1",
-    "@googlemaps/js-api-loader": "^1.16.2",
-    "jwt-decode": "^4.0.0",
-    "cropperjs": "^1.6.1"
+    "playground-elements": "^0.18.1"
   },
   "scripts": {
     "start": "concurrently --kill-others --names tsc,wds,cem  \"tsc --watch\" \"web-dev-server\" \"npm run cem:watch\"",
