@@ -9,13 +9,13 @@ export default /** @type {import('@web/dev-server').DevServerConfig} */ ({
   watch: !hmr,
   /** Resolve bare module imports */
   nodeResolve: true,
-  rootDir: 'leavittbook',
+  rootDir: 'packages/leavittbook',
 
   /** Compile JS for older browsers. Requires @web/dev-server-esbuild plugin */
   // esbuildTarget: 'auto'
 
   /** Set appIndex to enable SPA routing */
-  appIndex: 'leavittbook/index.html',
+  appIndex: 'packages/leavittbook/index.html',
 
   plugins: [
     nodeResolve(),
