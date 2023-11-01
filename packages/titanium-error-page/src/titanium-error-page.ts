@@ -6,7 +6,6 @@ import { property, customElement } from 'lit/decorators.js';
  *
  * @element titanium-error-page
  *
- * @cssprop {Color} --app-text-color - Text and heading color
  */
 
 @customElement('titanium-error-page')
@@ -38,14 +37,12 @@ export class TitaniumErrorPageElement extends LitElement {
     h1 {
       font-family: Metropolis, 'Roboto', 'Noto', sans-serif;
       font-weight: 600;
-      color: var(--app-text-color, #5f6368);
       font-size: 75px;
       line-height: 85px;
       margin: 0;
     }
 
     h2 {
-      color: var(--app-text-color, #5f6368);
       font-weight: 400;
       margin: 8px 0 0 4px;
       max-width: 75%;
