@@ -1,10 +1,10 @@
 import { property, customElement } from 'lit/decorators.js';
 import { TextField } from '@material/mwc-textfield';
+import { PropertyValues } from 'lit';
+import humanInterval, { durationToString } from './human-interval';
 
-import humanInterval, { durationToString } from '@leavittsoftware/titanium-duration-input/src/human-interval';
 import dayjs from 'dayjs/esm';
 import duration from 'dayjs/esm/plugin/duration';
-import { PropertyValues } from 'lit';
 dayjs.extend(duration);
 
 /**

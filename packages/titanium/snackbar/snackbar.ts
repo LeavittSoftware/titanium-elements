@@ -1,5 +1,5 @@
 import '@material/mwc-button';
-import { HttpError } from '@leavittsoftware/api-service/lib/HttpError';
+import { HttpError } from '../../leavitt/api-service/HttpError';
 import { css, html, LitElement, nothing, TemplateResult } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
 export class BasicSnackBar {

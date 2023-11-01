@@ -1,20 +1,20 @@
 import { css, html, LitElement, nothing } from 'lit';
 import { property, customElement, query, queryAll } from 'lit/decorators.js';
 
-import '@material/mwc-button';
-import '@material/mwc-select';
-import '@material/mwc-list/mwc-list-item';
-import '@leavittsoftware/titanium-dialog';
+// import '@material/mwc-button';
+// import '@material/mwc-select';
+// import '@material/mwc-list/mwc-list-item';
+// import '@leavittsoftware/titanium-dialog';
 import { validateStreet } from './Address';
 
 import { Address } from './Address';
-import { TextField } from '@material/mwc-textfield';
-import { Select } from '@material/mwc-select';
-import { TitaniumDialogElement } from '@leavittsoftware/titanium-dialog';
+// import { TextField } from '@material/mwc-textfield';
+// import { Select } from '@material/mwc-select';
+// import { TitaniumDialogElement } from '@leavittsoftware/titanium-dialog';
 
 @customElement('manual-address-dialog')
 export class ManualAddressDialog extends LitElement {
-  @query('titanium-dialog') protected dialog!: TitaniumDialogElement;
+  @query('titanium-dialog') protected dialog;
 
   @property({ type: String }) label: string = '';
   @property({ type: String }) street: string = '';
@@ -27,8 +27,10 @@ export class ManualAddressDialog extends LitElement {
   @property({ type: Boolean, attribute: 'show-street2' }) showStreet2: boolean;
   @property({ type: Boolean, attribute: 'disabled-closing-animation' }) disableClosingAnimation: boolean = false;
 
-  @query('mwc-textfield[street]') protected streetInput: TextField;
-  @queryAll('mwc-textfield, mwc-select') protected allInputs: NodeListOf<(TextField | Select) & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean }>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @query('mwc-textfield[street]') protected streetInput: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @queryAll('mwc-textfield, mwc-select') protected allInputs: NodeListOf<(any) & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean }>;
 
   public async open(location: Partial<Address> | null | undefined) {
     this.reset();

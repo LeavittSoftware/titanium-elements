@@ -4,7 +4,7 @@ import './google-address-input';
 import './manual-address-dialog';
 
 import { Address } from './Address';
-import { ManualAddressDialogElement } from './manual-address-dialog';
+import { ManualAddressDialog } from './manual-address-dialog';
 import { GoogleAddressInput } from './google-address-input';
 
 /**
@@ -90,7 +90,7 @@ export class TitaniumAddressInput extends LitElement {
 
   @property({ type: Boolean, attribute: 'disabled-closing-animation' }) disableClosingAnimation: boolean = false;
 
-  @query('manual-address-dialog') protected dialog!: ManualAddressDialogElement;
+  @query('manual-address-dialog') protected dialog!: ManualAddressDialog;
   @query('google-address-input') protected input!: GoogleAddressInput;
 
   static styles = css`

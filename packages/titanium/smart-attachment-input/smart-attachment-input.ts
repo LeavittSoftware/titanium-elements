@@ -1,23 +1,22 @@
-import '@leavittsoftware/titanium-chip-multi-select/lib/chip-multi-select';
-import '@leavittsoftware/titanium-chip';
-import '@leavittsoftware/titanium-dialog';
+import '../../titanium/chip-multi-select';
+// import '@leavittsoftware/titanium-chip';
+// import '@leavittsoftware/titanium-dialog';
 import '@material/mwc-button';
 import './crop-and-save-image-dialog';
 import './image-preview-dialog';
 
 import { css, html, LitElement } from 'lit';
 import { property, customElement, query } from 'lit/decorators.js';
-import { button } from '@leavittsoftware/titanium-styles';
 import { CropAndSaveImageDialog, CropperOptions } from './crop-and-save-image-dialog';
 import { repeat } from 'lit/directives/repeat.js';
 import { SmartAttachment } from './type/smart-attachment';
 import { getExtension, getFileIcon, imageFormats } from './image-formats';
 import { ImagePreviewDialog } from './image-preview-dialog';
-import { delay, middleEllipsis } from '@leavittsoftware/titanium-helpers';
+import { delay, middleEllipsis } from '../../titanium/helpers/helpers';
 import { IDatabaseAttachment } from '@leavittsoftware/lg-core-typescript/lg.net.system';
-import { getCdnDownloadUrl, getCdnInlineUrl } from '@leavittsoftware/titanium-helpers/lib/leavitt-cdn';
-import { TitaniumDialogElement } from '@leavittsoftware/titanium-dialog';
-import { TitaniumChipMultiSelectElement } from '@leavittsoftware/titanium-chip-multi-select/lib/chip-multi-select';
+import { getCdnDownloadUrl, getCdnInlineUrl } from '../../titanium/helpers/leavitt-cdn';
+// import { TitaniumDialogElement } from '@leavittsoftware/titanium-dialog';
+import { TitaniumChipMultiSelect } from '../../titanium/chip-multi-select/chip-multi-select';
 
 export type TitaniumSmartInputOptions = Cropper.Options & { shape?: ' square' | 'circle' };
 
@@ -51,8 +50,8 @@ export class TitaniumSmartAttachmentInput extends LitElement {
   @query('input') protected input: HTMLInputElement;
   @query('image-preview-dialog') protected imagePreviewDialog!: ImagePreviewDialog;
   @query('crop-and-save-image-dialog') protected cropperDialog!: CropAndSaveImageDialog;
-  @query('titanium-dialog[confirm-delete]') private confirmDeleteDialog: TitaniumDialogElement;
-  @query('titanium-chip-multi-select') private chipMultiSelect: TitaniumChipMultiSelectElement;
+  @query('titanium-dialog[confirm-delete]') private confirmDeleteDialog;
+  @query('titanium-chip-multi-select') private chipMultiSelect: TitaniumChipMultiSelect;
 
   #originalFiles: SmartAttachment[] = [];
 
@@ -263,7 +262,6 @@ export class TitaniumSmartAttachmentInput extends LitElement {
   }
 
   static styles = [
-    button,
     css`
       :host {
         display: block;

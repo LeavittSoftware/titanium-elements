@@ -1,11 +1,11 @@
-import '@leavittsoftware/titanium-elements/packages/titanium/dialog/dialog';
+// import '@leavittsoftware/titanium-elements/packages/titanium/dialog/dialog';
 
-import { h1, p } from '@leavittsoftware/titanium-styles';
+import { h1, p } from '../../titanium/styles/styles';
 import { css, html, LitElement } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { TitaniumNativeDialogBaseElement } from '@leavittsoftware/titanium-elements/packages/titanium/dialog/dialog';
-import { middleEllipsis } from '@leavittsoftware/titanium-helpers';
+// import { TitaniumNativeDialogBaseElement } from '@leavittsoftware/titanium-elements/packages/titanium/dialog/dialog';
+import { middleEllipsis } from '../../titanium/helpers/middle-ellipsis';
 
 /**
  * Image preview dialog
@@ -19,7 +19,7 @@ export class ImagePreviewDialog extends LitElement {
   @state() protected downloadSrc: string | undefined;
   @state() protected filename: string | undefined;
 
-  @query('titanium-native-dialog-base ') protected dialog!: TitaniumNativeDialogBaseElement;
+  @query('titanium-native-dialog-base ') protected dialog;
 
   async open(imageUrl: string, downloadSrc?: string, filename?: string) {
     this.imageUrl = undefined; //prevent ghost images

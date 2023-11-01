@@ -1,6 +1,6 @@
-import '@leavittsoftware/titanium-elements/packages/titanium/dialog/dialog';
-import '@material/mwc-button';
-import '@material/mwc-icon-button';
+// import '@leavittsoftware/titanium-elements/packages/titanium/dialog/dialog';
+// import '@material/mwc-button';
+// import '@material/mwc-icon-button';
 
 export declare type CropperOptions = Cropper.Options & {
   shape?: 'square' | 'circle';
@@ -8,11 +8,11 @@ export declare type CropperOptions = Cropper.Options & {
 
 import { css, html, LitElement } from 'lit';
 import { property, customElement, query, state } from 'lit/decorators.js';
-import { TitaniumNativeDialogBaseElement } from '@leavittsoftware/titanium-elements/packages/titanium/dialog/dialog';
+// import { TitaniumNativeDialogBaseElement } from '@leavittsoftware/titanium-elements/packages/titanium/dialog/dialog';
 import Cropper from 'cropperjs';
 import { cropperCSS } from './cropper-styles';
-import { h1, p } from '@leavittsoftware/titanium-styles';
-import { LoadWhile } from '@leavittsoftware/titanium-helpers';
+import { h1, p } from '../../titanium/styles/styles';
+import { LoadWhile } from '../../titanium/helpers/load-while';
 import Bowser from 'bowser';
 
 const LoaderGif = new URL('../images/duck-loader.gif', import.meta.url).href;
@@ -25,7 +25,7 @@ const LoaderGif = new URL('../images/duck-loader.gif', import.meta.url).href;
  */
 @customElement('crop-and-save-image-dialog')
 export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
-  @query('titanium-native-dialog-base') dialog: TitaniumNativeDialogBaseElement;
+  @query('titanium-native-dialog-base') dialog;
   @query('cropper-container > img') img: HTMLImageElement;
 
   /**

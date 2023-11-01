@@ -13,7 +13,7 @@ import { DOMEvent } from '../types/dom-event';
 import { CloseMenuEvent, MenuItem } from '@material/web/menu/menu';
 import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
 import { Menu } from '@material/web/menu/internal/menu';
-import { LoadWhile } from '@leavittsoftware/titanium-helpers';
+import { LoadWhile } from '../../titanium/helpers/load-while';
 import { Identifier } from '../types/identifier-interface';
 
 @customElement('titanium-single-select-base')
