@@ -399,7 +399,7 @@ export class MyApp extends LitElement {
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-full-page-loading-indicator')} href="/titanium-full-page-loading-indicator" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Full page loading indicator</span>
+              <md-icon slot="start">library_books</md-icon> <span>Full page loading indicator *</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-page-control')} href="/titanium-page-control" type="link">
