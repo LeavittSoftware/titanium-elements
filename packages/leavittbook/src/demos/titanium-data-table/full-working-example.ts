@@ -13,8 +13,6 @@ import '@material/web/menu/menu-item';
 import '@material/web/switch/switch';
 import '@material/web/chips/input-chip';
 import '@material/web/button/text-button';
-import '@material/web/select/outlined-select.js';
-import '@material/web/select/select-option.js';
 
 import '@leavittsoftware/web/titanium/data-table/data-table';
 

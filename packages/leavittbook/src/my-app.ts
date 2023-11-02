@@ -375,7 +375,7 @@ export class MyApp extends LitElement {
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-date-range-selector'} href="/titanium-date-range-selector" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Date range selector </span>
+              <md-icon slot="start">library_books</md-icon> <span>Date range selector *</span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-drawer'} href="/titanium-drawer" type="link">

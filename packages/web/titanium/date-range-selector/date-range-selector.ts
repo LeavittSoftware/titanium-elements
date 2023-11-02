@@ -1,14 +1,17 @@
-// import '@material/mwc-select';
-// import '/titanium-icon';
-// import '@material/mwc-list/mwc-list-item';
-// import 'leavitt-elements/lib/mwc-datefield';
+import '@material/web/textfield/outlined-text-field';
+import '@material/web/icon/icon';
+import '@material/web/select/outlined-select.js';
+import '@material/web/select/select-option.js';
 
 import { css, html, LitElement, PropertyValues } from 'lit';
 import { property, customElement, query } from 'lit/decorators.js';
-// import { DateField } from '/leavitt-elements/src/mwc-datefield';
-// import { Select } from '@material/mwc-select';
 import dayjs, { Dayjs, QUnitType } from 'dayjs/esm';
 import quarterOfYear from 'dayjs/esm/plugin/quarterOfYear';
+import { DOMEvent } from '../types/dom-event';
+import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
+import { MdOutlinedSelect } from '@material/web/select/outlined-select.js';
+import { Debouncer } from '../helpers/helpers';
+import { DateRangeChangedEvent } from './date-range-change-event';
 
 dayjs.extend(quarterOfYear);
 
@@ -274,42 +277,40 @@ export class TitaniumDateRangeSelector extends LitElement {
   /**
    *  Sets floating label value.
    */
-  @property({ type: String }) label: string = '';
+  @property({ type: String }) accessor label: string = '';
 
   /**
    *  Controls the display of the time picker.
    */
-  @property({ type: Boolean }) enableTime: boolean = false;
+  @property({ type: Boolean }) accessor enableTime: boolean = false;
 
   /**
    *  The selected selected range.
    */
-  @property({ type: String }) range: string = 'custom';
+  @property({ type: String }) accessor range: string = 'custom';
 
   /**
    *  Override default ranges with custom options. Needs to contain, at least, 'allTime'.
    */
-  @property({ type: Object }) customDateRanges: Map<string, DateRangeOption> | null = null;
+  @property({ type: Object }) accessor customDateRanges: Map<string, DateRangeOption> | null = null;
 
   /**
    *  The selected start date.
    */
-  @property({ type: String }) startDate: string = '';
+  @property({ type: String }) accessor startDate: string = '';
 
   /**
    *  The selected end date.
    */
-  @property({ type: String }) endDate: string = '';
+  @property({ type: String }) accessor endDate: string = '';
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @query('mwc-datefield[start-date]') protected startDateField: any & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @query('mwc-datefield[end-date]') protected endDateField: any & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
-  @query('mwc-select') protected select!: HTMLElement;
+  @query('md-outlined-text-field[start-date]') protected accessor startDateField: MdOutlinedTextField;
+  @query('md-outlined-text-field[end-date]') protected accessor endDateField: MdOutlinedTextField;
+  @query('md-outlined-select') protected accessor select!: MdOutlinedSelect;
 
   async updated(changedProps: PropertyValues<this>) {
     if (changedProps.has('endDate') || changedProps.has('startDate')) {
-      // this.#dateChangedDebouncer.debounce();
+      this.#dateChangedDebouncer.debounce();
     }
   }
 
@@ -331,61 +332,39 @@ export class TitaniumDateRangeSelector extends LitElement {
     return true;
   }
 
-  // #dateChangedDebouncer = new Debouncer(async () => {
-  //   //Keep range selector up to date with new date selection
-  //   this.range =
-  //     Array.from(this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges).find(
-  //       (o) => o[1].startDate === this.startDate && o[1].endDate === this.endDate
-  //     )?.[0] || 'custom';
-  //   this.#notifyChangeIfValid();
-  // }, 300);
+  #dateChangedDebouncer = new Debouncer(async () => {
+    //Keep range selector up to date with new date selection
+    this.range =
+      Array.from(this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges).find(
+        (o) => o[1].startDate === this.startDate && o[1].endDate === this.endDate
+      )?.[0] || 'custom';
+    this.#notifyChangeIfValid();
+  }, 300);
 
-  // #notifyChangeIfValid() {
-  //   if (this.reportValidity()) {
-  //     /**
-  //      * @ignore
-  //      */
-  //     this.dispatchEvent(new DateRangeChangedEvent(this.range, this.startDate, this.endDate));
-  //   }
-  // }
+  #notifyChangeIfValid() {
+    if (this.reportValidity()) {
+      /**
+       * @ignore
+       */
+      this.dispatchEvent(new DateRangeChangedEvent(this.range, this.startDate, this.endDate));
+    }
+  }
 
   static styles = css`
     :host {
-      display: grid;
-      grid-gap: 16px;
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-template-areas: 'select start end';
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
     }
 
-    mwc-select {
-      grid-area: select;
+    md-outlined-select {
+      flex-basis: 200px;
+      flex-grow: 9999;
     }
 
-    mwc-datefield[start-date] {
-      grid-area: start;
-    }
-
-    mwc-datefield[end-date] {
-      grid-area: end;
-    }
-
-    @container (max-width: 580px) {
-      :host {
-        grid-template-columns: 1fr 1fr;
-        grid-template-areas:
-          'select select'
-          'start end';
-      }
-    }
-
-    @container (max-width: 380px) {
-      :host {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-          'select'
-          'start'
-          'end';
-      }
+    md-outlined-text-field {
+      flex-basis: 200px;
+      flex-grow: 1;
     }
   `;
 
@@ -401,51 +380,50 @@ export class TitaniumDateRangeSelector extends LitElement {
 
   render() {
     return html`
-      <mwc-select
+      <md-outlined-select
         part="select"
         .label=${this.label}
-        icon=${this.#getRange(this.range)?.icon || 'date_range'}
         .value=${this.range}
-        outlined
-        @selected=${async () => {
-          // this.range = event.target.value as DateRangeKey;
-          // const date = this.#getRange(this.range);
-          // if (date && event.target.value !== 'custom') {
-          //   this.startDate = date.startDate ?? '';
-          //   this.endDate = date.endDate ?? '';
-          // }
+        @request-selection=${async (e: DOMEvent<MdOutlinedSelect>) => {
+          this.range = e.target.value as DateRangeKey;
+          const date = this.#getRange(this.range);
+          if (date && e.target.value !== 'custom') {
+            this.startDate = date.startDate ?? '';
+            this.endDate = date.endDate ?? '';
+          }
         }}
       >
-        <mwc-list-item graphic="icon" value="custom">
-          <titanium-icon slot="graphic" icon="date_range"></titanium-icon>
-          Custom range</mwc-list-item
-        >
+        <md-icon slot="leading-icon">${this.#getRange(this.range)?.icon || 'date_range'}</md-icon>
+        <md-select-option value="custom">
+          <md-icon slot="start">date_range</md-icon>
+          <div slot="headline">Custom range</div>
+        </md-select-option>
         ${Array.from(this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges).map(
           (o) =>
-            html`<mwc-list-item graphic="icon" value=${o[0]}>
-              <titanium-icon slot="graphic" icon=${o[1].icon}></titanium-icon>
-              ${o[1].name}</mwc-list-item
-            >`
+            html`<md-select-option value=${o[0]}>
+              <md-icon slot="start">${o[1].icon}</md-icon>
+              <div slot="headline">${o[1].name}</div>
+            </md-select-option>`
         )}
-      </mwc-select>
+      </md-outlined-select>
 
-      <mwc-datefield
+      <md-outlined-text-field
         part="startDate"
         start-date
         label="From"
-        .dateType=${this.enableTime ? 'datetime-local' : 'date'}
+        type=${this.enableTime ? 'datetime-local' : 'date'}
         .value=${this.startDate ?? ''}
-        @change=${(e) => (this.startDate = e.target.value ?? '')}
-      ></mwc-datefield>
+        @change=${(e: DOMEvent<MdOutlinedTextField>) => (this.startDate = e.target.value ?? '')}
+      ></md-outlined-text-field>
 
-      <mwc-datefield
+      <md-outlined-text-field
         part="endDate"
         end-date
         label="To"
-        .dateType=${this.enableTime ? 'datetime-local' : 'date'}
+        type=${this.enableTime ? 'datetime-local' : 'date'}
         .value=${this.endDate ?? ''}
-        @change=${(e) => (this.endDate = e.target.value ?? '')}
-      ></mwc-datefield>
+        @change=${(e: DOMEvent<MdOutlinedTextField>) => (this.endDate = e.target.value ?? '')}
+      ></md-outlined-text-field>
     `;
   }
 }
