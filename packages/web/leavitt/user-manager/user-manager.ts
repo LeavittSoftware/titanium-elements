@@ -1,5 +1,4 @@
-import jwt_decode from 'jwt-decode';
-// eslint-disable-next-line @typescript-eslint/naming-convention
+import { jwtDecode } from 'jwt-decode';
 
 import { LitElement } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
@@ -133,7 +132,7 @@ export class UserManager extends LitElement {
 
   #getTokenfromUrl(tokenName: string): string | null {
     const hashParameters = this.#getHashParametersFromUrl();
-    const accessTokenArray = hashParameters.filter(value => value.key === tokenName);
+    const accessTokenArray = hashParameters.filter((value) => value.key === tokenName);
     if (accessTokenArray.length === 0) {
       return null;
     } else {
@@ -148,7 +147,7 @@ export class UserManager extends LitElement {
 
     let token: LssJwtToken;
     try {
-      token = jwt_decode<LssJwtToken>(accessToken);
+      token = jwtDecode<LssJwtToken>(accessToken);
     } catch (error) {
       // Invalid JWT token format
       return null;
@@ -366,7 +365,7 @@ export class UserManager extends LitElement {
     this.roles = [];
     this.dispatchEvent(new UserManagerUpdatedEvent());
 
-    this.roles.forEach(o => {
+    this.roles.forEach((o) => {
       window.dispatchEvent(new CustomEvent('um-role-removed', { detail: { role: o } }));
     });
     this.roles = [];
