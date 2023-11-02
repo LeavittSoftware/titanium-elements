@@ -1,9 +1,12 @@
 import '../chip-multi-select/chip-multi-select';
-// import '@/titanium-chip';
-// import '@/titanium-dialog';
-// import '@material/mwc-button';
 import './crop-and-save-image-dialog';
 import './image-preview-dialog';
+
+import '@material/web/dialog/dialog';
+import '@material/web/icon/icon';
+import '@material/web/button/text-button';
+import '@material/web/button/outlined-button';
+import '@material/web/chips/input-chip';
 
 import { css, html, LitElement } from 'lit';
 import { property, customElement, query } from 'lit/decorators.js';
@@ -15,8 +18,9 @@ import { ImagePreviewDialog } from './image-preview-dialog';
 import { delay, middleEllipsis } from '../../titanium/helpers/helpers';
 import { IDatabaseAttachment } from '@leavittsoftware/lg-core-typescript/lg.net.system';
 import { getCdnDownloadUrl, getCdnInlineUrl } from '../../titanium/helpers/leavitt-cdn';
-// import { TitaniumDialogElement } from '@/titanium-dialog';
+
 import { TitaniumChipMultiSelect } from '../../titanium/chip-multi-select/chip-multi-select';
+import { MdDialog } from '@material/web/dialog/dialog';
 
 export type TitaniumSmartInputOptions = Cropper.Options & { shape?: ' square' | 'circle' };
 
@@ -50,7 +54,7 @@ export class TitaniumSmartAttachmentInput extends LitElement {
   @query('input') protected input: HTMLInputElement;
   @query('image-preview-dialog') protected imagePreviewDialog!: ImagePreviewDialog;
   @query('crop-and-save-image-dialog') protected cropperDialog!: CropAndSaveImageDialog;
-  @query('titanium-dialog[confirm-delete]') private confirmDeleteDialog;
+  @query('md-dialog[confirm-delete]') private confirmDeleteDialog: MdDialog;
   @query('titanium-chip-multi-select') private chipMultiSelect: TitaniumChipMultiSelect;
 
   #originalFiles: SmartAttachment[] = [];
@@ -101,6 +105,11 @@ export class TitaniumSmartAttachmentInput extends LitElement {
   @property({ type: String }) label: string = 'Attachments';
 
   /**
+   *  Sets supporting text
+   */
+  @property({ type: String }) supportingText: string;
+
+  /**
    *  Text to show when there are no attachments
    */
   @property({ type: String }) noItemsText: string = 'No attachments';
@@ -109,11 +118,6 @@ export class TitaniumSmartAttachmentInput extends LitElement {
    *  Configurable CropperJs options.
    */
   @property({ type: Object }) options: CropperOptions = {};
-
-  /**
-   *  Setting this to true will add a cache busting query string to the image url.
-   */
-  @property({ type: Boolean }) disableCache: boolean = false;
 
   /**
    *  Image formats here are sent to the cropper
@@ -163,7 +167,7 @@ export class TitaniumSmartAttachmentInput extends LitElement {
       .map((o) => ({
         id: o.Id,
         file: new File([''], `${o?.Name}.${o?.Extension}`),
-        previewSrc: `${getCdnInlineUrl(o, 512)}${this.disableCache ? `?c=${window?.crypto?.randomUUID()}` : ''}`,
+        previewSrc: getCdnInlineUrl(o, 512),
         downloadSrc: getCdnDownloadUrl(o),
       }));
     this.#originalFiles = structuredClone(this.files);
@@ -248,6 +252,15 @@ export class TitaniumSmartAttachmentInput extends LitElement {
     }
   }
 
+  #fileToDelete: SmartAttachment | null = null;
+  #deleteFile(file: SmartAttachment) {
+    const i = this.files.findIndex((o) => o === file);
+    this.files.splice(i, 1);
+    this.requestUpdate('files');
+    this.reportValidity();
+    this.#notifyChange();
+  }
+
   toBase64(file: File) {
     return new Promise<string | ArrayBuffer | null>((resolve, reject) => {
       const reader = new FileReader();
@@ -267,16 +280,22 @@ export class TitaniumSmartAttachmentInput extends LitElement {
         display: block;
       }
 
-      :host([is-over]) {
-        background-color: var(--app-hover-color);
+      :host([is-over]:not([disabled])) drop-scrim {
+        background-color: var(--md-sys-color-outline-variant);
+        opacity: 0.08;
       }
 
-      titanium-chip img {
-        margin-left: 8px;
+      titanium-chip-multi-select {
+        position: relative;
       }
 
-      titanium-dialog {
-        --titanium-dialog-max-width: 550px;
+      drop-scrim {
+        position: absolute;
+        pointer-events: none;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
       }
 
       [hidden] {
@@ -288,9 +307,14 @@ export class TitaniumSmartAttachmentInput extends LitElement {
   render() {
     return html`
       <titanium-chip-multi-select
+        .supportingText=${this.supportingText}
         .required=${this.required}
         ?disabled=${this.disabled}
         @drop=${(e: DragEvent) => {
+          if (this.disabled) {
+            return;
+          }
+
           const files = e.dataTransfer?.files ?? new FileList();
           this.handleNewFile(files);
           e.preventDefault();
@@ -310,40 +334,33 @@ export class TitaniumSmartAttachmentInput extends LitElement {
         noItemsText=${this.noItemsText}
         .hasItems=${!!this.files.length}
       >
-        <mwc-button
+        <drop-scrim></drop-scrim>
+        <md-outlined-button
           ?hidden=${!this.multiple && !!this.files.length}
           .disabled=${this.disabled}
-          lowercase
-          slot="button"
-          label=${this.addButtonLabel}
-          icon="add"
-          outlined
           @click=${() => {
             if (!this.disabled) {
               this.input.value = '';
               this.input.click();
             }
           }}
-        ></mwc-button>
+          >${this.addButtonLabel} <md-icon slot="icon">add</md-icon></md-outlined-button
+        >
         ${repeat(
           this.files,
           (o) => o.file.name,
-          (o, i) =>
-            html`<titanium-chip
+          (o) =>
+            html`<md-input-chip
               label=${middleEllipsis(o.file.name)}
               ?closeable=${!this.disabled}
-              ?readonly=${!o.previewSrc && !o.downloadSrc}
-              @titanium-chip-close=${async () => {
+              @remove=${async (e: Event) => {
+                e.preventDefault();
                 if (this.confirmDelete) {
-                  const result = await this.confirmDeleteDialog.open();
-                  if (result !== 'confirmed') {
-                    return;
-                  }
+                  this.#fileToDelete = o;
+                  this.confirmDeleteDialog?.show();
+                } else {
+                  this.#deleteFile(o);
                 }
-                this.files.splice(i, 1);
-                this.requestUpdate('files');
-                this.reportValidity();
-                this.#notifyChange();
               }}
               @click=${() => {
                 if (o.previewSrc || o.downloadSrc) {
@@ -351,8 +368,8 @@ export class TitaniumSmartAttachmentInput extends LitElement {
                 }
               }}
             >
-              <img draggable="false" slot="chip-icon" src="${o.previewSrc || getFileIcon(getExtension(o.file.name))}" />
-            </titanium-chip>`
+              <img draggable="false" slot="icon" src="${o.previewSrc || getFileIcon(getExtension(o.file.name))}" />
+            </md-input-chip>`
         )}
       </titanium-chip-multi-select>
 
@@ -372,23 +389,24 @@ export class TitaniumSmartAttachmentInput extends LitElement {
       </label>
       <crop-and-save-image-dialog .options=${this.options}></crop-and-save-image-dialog>
       <image-preview-dialog></image-preview-dialog>
-      <titanium-dialog confirm-delete full-width focus-trap header=${this.confirmDeleteHeader}>
-        <p>${this.confirmDeleteText}</p>
-        <mwc-button
-          slot="secondaryAction"
-          @click=${() => {
-            this.confirmDeleteDialog.close('cancel');
-          }}
-          label="CANCEL"
-        ></mwc-button>
-        <mwc-button
-          slot="primaryAction"
-          @click=${() => {
-            this.confirmDeleteDialog.close('confirmed');
-          }}
-          label="CONFIRM"
-        ></mwc-button>
-      </titanium-dialog>
+
+      <md-dialog confirm-delete>
+        <div slot="headline">${this.confirmDeleteHeader}</div>
+        <div slot="content"><p>${this.confirmDeleteText}</p></div>
+        <div slot="actions">
+          <md-text-button @click=${() => this.confirmDeleteDialog.close()}>Cancel</md-text-button>
+          <md-text-button
+            @click=${() => {
+              if (this.#fileToDelete) {
+                this.#deleteFile(this.#fileToDelete);
+              }
+
+              this.confirmDeleteDialog.close();
+            }}
+            >Confirm</md-text-button
+          >
+        </div>
+      </md-dialog>
     `;
   }
 }

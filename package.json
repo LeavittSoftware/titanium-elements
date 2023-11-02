@@ -40,7 +40,8 @@
     "@material/web": "^1.0.1",
     "api-viewer-element": "1.0.0-pre.8",
     "page": "^1.11.6",
-    "playground-elements": "^0.18.1"
+    "playground-elements": "^0.18.1",
+    "@leavittsoftware/web": "1.0.0"
   },
   "scripts": {
     "start": "concurrently --kill-others --names tsc,wds,cem  \"tsc --watch\" \"web-dev-server\" \"npm run cem:watch\"",

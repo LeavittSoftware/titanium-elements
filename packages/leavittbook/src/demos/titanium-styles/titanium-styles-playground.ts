@@ -28,7 +28,7 @@ export class TitaniumStylesPlayground extends LitElement {
       }
 
       div[basic] {
-        border: 1px solid var(--app-border-color);
+        border: 1px solid var(--md-sys-color-outline);
         padding: 24px;
         border-radius: 8px;
         display: flex;
@@ -38,7 +38,7 @@ export class TitaniumStylesPlayground extends LitElement {
       }
 
       div:last-of-type {
-        border: 1px solid var(--app-border-color);
+        border: 1px solid var(--md-sys-color-outline);
         border-radius: 8px;
         display: flex;
         flex-direction: column;

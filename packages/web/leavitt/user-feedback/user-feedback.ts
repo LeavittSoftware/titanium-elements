@@ -1,13 +1,14 @@
 import '../../titanium/header/header';
 import '../../titanium/card/card';
 import '../../titanium/smart-attachment-input/smart-attachment-input';
-// import '@material/mwc-button';
-// import '@material/mwc-textarea';
-// import '@material/mwc-tab-bar';
-// import '@material/mwc-tab';
+
+import '@material/web/button/filled-tonal-button';
+import '@material/web/textfield/outlined-text-field';
+import '@material/web/tabs/primary-tab';
+import '@material/web/tabs/tabs';
 
 import { LitElement, PropertyValues, css, html } from 'lit';
-import { customElement, property, query, queryAll, state } from 'lit/decorators.js';
+import { customElement, property, query, state } from 'lit/decorators.js';
 import { LoadWhile, isDevelopment } from '../../titanium/helpers/helpers';
 import { PendingStateEvent } from '../../titanium/types/pending-state-event';
 import { TitaniumSnackbarSingleton } from '../../titanium/snackbar/snackbar';
@@ -16,6 +17,7 @@ import { AuthenticatedTokenProvider } from '../api-service/authenticated-token-p
 import { WebsiteBugDto, WebsiteFeedback } from '@leavittsoftware/lg-core-typescript';
 import { TitaniumSmartAttachmentInput } from '../../titanium/smart-attachment-input/smart-attachment-input';
 import ApiService from '../api-service//api-service';
+import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
 
 const websiteBugApiService = new ApiService(new AuthenticatedTokenProvider());
 websiteBugApiService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
@@ -29,14 +31,12 @@ Object.freeze(feedbackApiService);
 
 @customElement('leavitt-user-feedback')
 export class LeavittUserFeedback extends LoadWhile(LitElement) {
-  @property({ type: Boolean }) isActive: boolean = false;
+  @property({ type: Boolean }) accessor isActive: boolean = false;
 
-  @state() private activeIndex: number = 0;
+  @state() private accessor activeIndex: number = 0;
 
-  @queryAll('mwc-textarea') private allInputs: NodeListOf<HTMLInputElement & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean }>;
-  @query('mwc-textarea[feedback]') private commentTextArea: HTMLInputElement & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
-  @query('mwc-textarea[problem]') private problemTextArea: HTMLInputElement & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
-  @query('titanium-smart-attachment-input') imageInput: TitaniumSmartAttachmentInput;
+  @query('md-outlined-text-field') private accessor textArea: MdOutlinedTextField;
+  @query('titanium-smart-attachment-input') private accessor imageInput: TitaniumSmartAttachmentInput | null;
 
   async updated(changedProps: PropertyValues<this>) {
     if (changedProps.has('isActive') && this.isActive) {
@@ -46,20 +46,18 @@ export class LeavittUserFeedback extends LoadWhile(LitElement) {
 
   reset() {
     this.imageInput?.reset();
-    this.allInputs.forEach((input) => {
-      input.value = '';
-    });
+    this.textArea?.reset();
   }
 
   async #submitProblem() {
-    if (!this.problemTextArea.reportValidity() || this.isLoading) {
+    if (!this.textArea.reportValidity() || this.isLoading) {
       return;
     }
 
     const dto: WebsiteBugDto = {
       SiteName: location.hostname,
-      Description: this.problemTextArea.value,
-      Attachments: (this.imageInput.getFiles() ?? []).map((o) => o.file),
+      Description: this.textArea.value,
+      Attachments: (this.imageInput?.getFiles() ?? []).map((o) => o.file),
     };
 
     try {
@@ -84,13 +82,13 @@ export class LeavittUserFeedback extends LoadWhile(LitElement) {
   }
 
   async #submitFeedback() {
-    if (!this.commentTextArea.reportValidity() || this.isLoading) {
+    if (!this.textArea.reportValidity() || this.isLoading) {
       return;
     }
 
     const dto = {
       SiteName: location.hostname,
-      Comment: this.commentTextArea.value,
+      Comment: this.textArea.value,
     } satisfies Partial<WebsiteFeedback>;
 
     try {
@@ -131,15 +129,9 @@ export class LeavittUserFeedback extends LoadWhile(LitElement) {
         padding-top: 0;
       }
 
-      mwc-tab-bar {
+      md-tabs {
         margin-bottom: 16px;
-        overflow: hidden;
-      }
-
-      @media (max-width: 768px) {
-        mwc-tab-bar {
-          --mdc-typography-button-font-size: 11px;
-        }
+        --md-primary-tab-container-shape: 12px;
       }
 
       [hidden] {
@@ -153,54 +145,56 @@ export class LeavittUserFeedback extends LoadWhile(LitElement) {
       <titanium-header header="Report a problem" subHeader="Report bugs and provide feedback for this site" no-nav></titanium-header>
 
       <titanium-card has-footer>
-        <mwc-tab-bar activeIndex=${this.activeIndex} full-width>
-          <mwc-tab
-            @click=${() => {
-              this.reset();
-              this.activeIndex = 0;
-            }}
-            label="Report a problem"
-          ></mwc-tab>
-          <mwc-tab
-            @click=${() => {
-              this.reset();
-              this.activeIndex = 1;
-            }}
-            label="Provide feedback"
-          ></mwc-tab>
-        </mwc-tab-bar>
+        <md-tabs
+          full-width
+          @change=${(event) => {
+            this.reset();
+            this.activeIndex = event.target.activeTabIndex;
+          }}
+        >
+          <md-primary-tab
+            >Report a problem
+            <md-icon slot="icon">person_alert</md-icon>
+          </md-primary-tab>
+          <md-primary-tab
+            >Provide feedback
+            <md-icon slot="icon">rate_review</md-icon>
+          </md-primary-tab>
+        </md-tabs>
 
         <main>
-          <form ?hidden=${this.activeIndex !== 0}>
-            <p full-width>
-              Please be specific and provide screenshots of the issue if possible in your report. Your report goes directly to our engineering teams so it can
-              be addressed as soon as possible.
-            </p>
-            <mwc-textarea problem label="Describe the issue" rows="5" required outlined></mwc-textarea>
-            <titanium-smart-attachment-input
-              multiple
-              full-width
-              label="Supporting files"
-              noItemsText="No files"
-              addButtonLabel="Add file"
-            ></titanium-smart-attachment-input>
-          </form>
-
-          <form ?hidden=${this.activeIndex !== 1}>
-            <p full-width>
-              User feedback is a valuable tool that empowers our users to share their thoughts, suggestions, and concerns, helping us improve the overall user
-              experience of our websites and tools. We welcome and appreciate user feedback as it enables us to make informed decisions and enhance our website
-              based on the needs and expectations of our users.
-            </p>
-            <p full-width>
-              Please be specific and provide as much detail as possible in your feedback. Your feedback goes directly to our development teams so it can be
-              carefully reviewed and planned into the next development cycle.
-            </p>
-            <mwc-textarea feedback label="Feedback" rows="5" required outlined></mwc-textarea>
-          </form>
+          ${this.activeIndex === 0
+            ? html` <form>
+                <p full-width>
+                  Please be specific and provide screenshots of the issue if possible in your report. Your report goes directly to our engineering teams so it
+                  can be addressed as soon as possible.
+                </p>
+                <md-outlined-text-field type="textarea" problem label="Describe the issue" rows="5" required outlined></md-outlined-text-field>
+                <titanium-smart-attachment-input
+                  multiple
+                  full-width
+                  label="Supporting files"
+                  noItemsText="No files"
+                  addButtonLabel="Add file"
+                ></titanium-smart-attachment-input>
+              </form>`
+            : html` <form>
+                <p full-width>
+                  User feedback is a valuable tool that empowers our users to share their thoughts, suggestions, and concerns, helping us improve the overall
+                  user experience of our websites and tools. We welcome and appreciate user feedback as it enables us to make informed decisions and enhance our
+                  website based on the needs and expectations of our users.
+                </p>
+                <p full-width>
+                  Please be specific and provide as much detail as possible in your feedback. Your feedback goes directly to our development teams so it can be
+                  carefully reviewed and planned into the next development cycle.
+                </p>
+                <md-outlined-text-field type="textarea" feedback label="Feedback" rows="5" required outlined></md-outlined-text-field>
+              </form>`}
         </main>
         <span nav card-footer>
-          <mwc-button @click=${() => (this.activeIndex === 0 ? this.#submitProblem() : this.#submitFeedback())} ?disabled=${this.isLoading}>Submit</mwc-button>
+          <md-filled-tonal-button @click=${() => (this.activeIndex === 0 ? this.#submitProblem() : this.#submitFeedback())} ?disabled=${this.isLoading}
+            >Submit</md-filled-tonal-button
+          >
         </span>
       </titanium-card>
     `;

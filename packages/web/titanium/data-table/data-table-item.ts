@@ -72,8 +72,8 @@ export class TitaniumDataTableItem extends LitElement {
 
   @query('item-content') itemContent: HTMLDivElement;
 
-  protected mouseEvent = e => this.#startItemDrag(e, 'mouse');
-  protected touchEvent = e => {
+  protected mouseEvent = (e) => this.#startItemDrag(e, 'mouse');
+  protected touchEvent = (e) => {
     this.#startItemDrag(e, 'touch');
   };
 
@@ -91,7 +91,7 @@ export class TitaniumDataTableItem extends LitElement {
 
   firstUpdated() {
     const elements = this.shadowRoot?.querySelector<HTMLSlotElement>('slot')?.assignedElements();
-    elements?.forEach(e => {
+    elements?.forEach((e) => {
       const element = e as HTMLElement;
       const width = element.getAttribute('width');
       if (width) {
@@ -224,12 +224,12 @@ export class TitaniumDataTableItem extends LitElement {
 
     //Cache the end positions of each item for variable height list items
     let cumulativeSum = 0;
-    const itemEndPositions = this.items.map(o => {
+    const itemEndPositions = this.items.map((o) => {
       cumulativeSum = cumulativeSum + (o.getBoundingClientRect().height - 1);
       return cumulativeSum;
     });
 
-    const moveItemHandler = event => {
+    const moveItemHandler = (event) => {
       // Translate and keep track of which index we are hovering over.
       const pageY = event.pageY ?? event.touches[0].pageY;
       const clientY = event.clientY ?? event.touches[0].clientY;
@@ -291,7 +291,7 @@ export class TitaniumDataTableItem extends LitElement {
 
     const dragCompleteHandler = () => {
       this.dragging = false;
-      this.items.forEach(o => (o.dragging = false));
+      this.items.forEach((o) => (o.dragging = false));
       document.removeEventListener(moveEvent, moveItemHandler);
 
       document.removeEventListener(upEvent, dragCompleteHandler);
@@ -319,13 +319,13 @@ export class TitaniumDataTableItem extends LitElement {
 
       //Count the nudged items heights to know final transform amount
       const finalTransformYUp = this.items
-        .filter(o => o.nudgeUp)
-        .map(o => (o.getBoundingClientRect().height > 0 ? o.getBoundingClientRect().height - 1 : 0))
+        .filter((o) => o.nudgeUp)
+        .map((o) => (o.getBoundingClientRect().height > 0 ? o.getBoundingClientRect().height - 1 : 0))
         .reduce((a, b) => a + b, 0);
 
       const finalTransformYDown = this.items
-        .filter(o => o.nudgeDown)
-        .map(o => -o.getBoundingClientRect().height - 1)
+        .filter((o) => o.nudgeDown)
+        .map((o) => -o.getBoundingClientRect().height - 1)
         .reduce((a, b) => a + b, 0);
 
       const finalTransformY = finalTransformYUp !== 0 ? finalTransformYUp : finalTransformYDown;
@@ -376,7 +376,7 @@ export class TitaniumDataTableItem extends LitElement {
 
     md-icon[drag] {
       display: none;
-      color: var(--app-border-color, #dadce0);
+      color: var(--md-sys-color-outline, #dadce0);
       margin-right: -24px;
     }
 
@@ -501,8 +501,8 @@ export class TitaniumDataTableItem extends LitElement {
                 .checked=${this.selected}
                 @mousedown=${(e: MouseEvent) => e.stopPropagation()}
                 @touchstart=${(e: TouchEvent) => e.stopPropagation()}
-                @dblclick=${e => e.stopPropagation()}
-                @change=${e => this.#setSelected(e.target.checked)}
+                @dblclick=${(e) => e.stopPropagation()}
+                @change=${(e) => this.#setSelected(e.target.checked)}
               ></md-checkbox>
             `}
 

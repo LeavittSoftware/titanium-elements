@@ -2,9 +2,8 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
-// import '@material/mwc-switch';
-// import '@material/mwc-formfield';
-// import '@material/mwc-button';
+import '@material/web/button/text-button';
+
 /* playground-fold-end */
 
 import '@leavittsoftware/web/titanium/date-range-selector/date-range-selector';
@@ -15,11 +14,9 @@ import dayjs from 'dayjs/esm';
 @customElement('titanium-date-range-selector-playground')
 export class TitaniumDateRangePlaygroundElement extends LitElement {
   @query('titanium-date-range-selector[events]') protected eventsDemoInput!: TitaniumDateRangeSelector;
-  @query('titanium-date-range-selectore[layout-demo]') protected layoutInput!: TitaniumDateRangeSelector;
 
   @state() protected startDate: string = '2020-01-02';
   @state() protected endDate: string = '2020-01-04';
-  @state() protected showLayoutInput: boolean = false;
   @state() eventFired: boolean = false;
 
   static styles = [
@@ -29,21 +26,17 @@ export class TitaniumDateRangePlaygroundElement extends LitElement {
       :host {
         display: flex;
         flex-direction: column;
-        --mdc-icon-font: 'Material Icons Outlined';
         margin: 24px 12px;
       }
 
       div {
-        border: 1px solid var(--app-border-color);
+        border: 1px solid var(--md-sys-color-outline);
         padding: 24px;
         border-radius: 8px;
         display: flex;
         flex-direction: column;
         gap: 12px;
         margin: 24px 0 36px 0;
-        container-type: inline-size;
-        z-index: 1;
-        position: relative;
       }
 
       [row] {
@@ -54,8 +47,7 @@ export class TitaniumDateRangePlaygroundElement extends LitElement {
 
       [event-text],
       titanium-date-range-selector,
-      mwc-button,
-      mwc-formfield {
+      md-text-button {
         margin: 10px;
       }
 
@@ -101,21 +93,16 @@ export class TitaniumDateRangePlaygroundElement extends LitElement {
           }}
         ></titanium-date-range-selector>
         <span event-text ?event-fired=${this.eventFired}>date-range-changed</span>
-        <mwc-button
-          raised
-          @click=${() => {
-            this.startDate = '';
-            this.endDate = '';
-          }}
-          >Bind to ''</mwc-button
-        >
-        <mwc-button
-          raised
-          @click=${() => {
-            this.eventsDemoInput.reset();
-          }}
-          >reset()</mwc-button
-        >
+        <section buttons>
+          <md-text-button
+            @click=${() => {
+              this.startDate = '';
+              this.endDate = '';
+            }}
+            >Bind to ''</md-text-button
+          >
+          <md-text-button @click=${() => this.eventsDemoInput.reset()}>reset()</md-text-button>
+        </section>
       </div>
 
       <h1>Default</h1>
@@ -151,37 +138,6 @@ export class TitaniumDateRangePlaygroundElement extends LitElement {
       <p>Examples using enable time</p>
       <div>
         <titanium-date-range-selector label="Created date" ?enableTime=${true}></titanium-date-range-selector>
-      </div>
-
-      <h1>Methods</h1>
-      <p>Call layout() on date ranges that are initially hidden to float the label</p>
-      <div>
-        <mwc-formfield label="Show date range">
-          <mwc-switch
-            .selected=${this.showLayoutInput}
-            @click=${() => {
-              this.showLayoutInput = !this.showLayoutInput;
-            }}
-          ></mwc-switch>
-        </mwc-formfield>
-
-        <span row ?hidden=${!this.showLayoutInput}>
-          <titanium-date-range-selector layout-demo label="Reporting date"></titanium-date-range-selector>
-          <mwc-button
-            raised
-            @click=${() => {
-              // this.layoutInput.layout();
-            }}
-            >layout()</mwc-button
-          >
-          <mwc-button
-            raised
-            @click=${() => {
-              this.layoutInput.reset();
-            }}
-            >reset()</mwc-button
-          >
-        </span>
       </div>
     `;
   }

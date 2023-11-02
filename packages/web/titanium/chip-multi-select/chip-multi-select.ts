@@ -108,7 +108,7 @@ export class TitaniumChipMultiSelect extends LitElement {
     return html`
       <titanium-input-validator
         ?disabled=${this.disabled}
-        .evaluator=${() => !!this.hasItems}
+        .evaluator=${() => !this.required || !!this.hasItems}
         ?required=${this.required}
         .label=${this.label}
         .supportingText=${this.supportingText}

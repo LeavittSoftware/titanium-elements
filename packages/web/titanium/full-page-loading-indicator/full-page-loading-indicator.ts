@@ -1,10 +1,9 @@
 import { css, html, LitElement } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
-// import '/titanium-progress';
 import { PendingStateEvent } from '../types/pending-state-event';
-
+import '@material/web/progress/linear-progress';
 /**
- * A simple full-screen veil with loading indicator.
+ * A simple full-screen veil with loading indicator that uses promise driven pending-state-events
  *
  * @element titanium-full-page-loading-indicator
  *
@@ -12,17 +11,22 @@ import { PendingStateEvent } from '../types/pending-state-event';
  */
 @customElement('titanium-full-page-loading-indicator')
 export class TitaniumFullPageLoadingIndicator extends LitElement {
-  @property({ type: Boolean, reflect: true }) protected opened: boolean;
-  @property({ type: Boolean, reflect: true }) protected opening: boolean;
-  @property({ type: Boolean, reflect: true }) protected closing: boolean;
+  @property({ type: Boolean, reflect: true }) protected accessor opened: boolean;
+  @property({ type: Boolean, reflect: true }) protected accessor opening: boolean;
+  @property({ type: Boolean, reflect: true }) protected accessor closing: boolean;
 
   #animationTimer: number;
   #animationFrame: number;
   #openDelayTimer: number;
   #closeDelayTimer: number;
+
+  //Promises faster than this do not cause the scrim to open at all
+  //Prevents flicker for fast promises
   #openDelay: number = 75;
+
+  // min time scrim has to remain open
   #minTimeOpen: number = 350;
-  #timeOpen;
+  #timeOpen: number;
   #openCount = 0;
 
   firstUpdated() {
@@ -114,8 +118,8 @@ export class TitaniumFullPageLoadingIndicator extends LitElement {
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: #eee;
       opacity: 0;
+      background: var(--md-sys-color-scrim, #000);
       -webkit-transition: opacity 75ms linear;
       -o-transition: opacity 75ms linear;
       transition: opacity 75ms linear;
@@ -141,11 +145,13 @@ export class TitaniumFullPageLoadingIndicator extends LitElement {
     }
 
     :host([opened]) {
-      opacity: 0.6;
+      opacity: 0.32;
+      backdrop-filter: blur(6px);
     }
 
-    titanium-progress {
+    md-linear-progress {
       position: absolute;
+      width: 100%;
       top: 0;
       right: 0;
       left: 0;
@@ -153,6 +159,6 @@ export class TitaniumFullPageLoadingIndicator extends LitElement {
   `;
 
   render() {
-    return html` <titanium-progress ?disabled=${!this.opening && !this.closing && !this.opened}></titanium-progress> `;
+    return html` <md-linear-progress ?indeterminate=${this.opened} ?hide=${!this.opening && !this.closing && !this.opened}></md-linear-progress> `;
   }
 }

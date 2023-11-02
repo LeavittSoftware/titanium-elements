@@ -375,7 +375,7 @@ export class MyApp extends LitElement {
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-date-range-selector'} href="/titanium-date-range-selector" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Date range selector </span>
+              <md-icon slot="start">library_books</md-icon> <span>Date range selector *</span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-drawer'} href="/titanium-drawer" type="link">
@@ -395,11 +395,11 @@ export class MyApp extends LitElement {
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-input-validator')} href="/titanium-input-validator" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Input validator</span>
+              <md-icon slot="start">library_books</md-icon> <span>Input validator *</span>
             </md-list-item>
 
-            <md-list-item ?selected=${!!this.page?.includes('titanium-loading-indicator')} href="/titanium-loading-indicator" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Loading indicator</span>
+            <md-list-item ?selected=${!!this.page?.includes('titanium-full-page-loading-indicator')} href="/titanium-full-page-loading-indicator" type="link">
+              <md-icon slot="start">library_books</md-icon> <span>Full page loading indicator *</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-page-control')} href="/titanium-page-control" type="link">
@@ -411,7 +411,7 @@ export class MyApp extends LitElement {
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-smart-attachment-input')} href="/titanium-smart-attachment-input" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Smart attachment input</span>
+              <md-icon slot="start">library_books</md-icon> <span>Smart attachment input *</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-snackbar')} href="/titanium-snackbar" type="link">
@@ -461,7 +461,7 @@ export class MyApp extends LitElement {
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'leavitt-user-feedback'} href="/leavitt-user-feedback" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>User feedback </span>
+              <md-icon slot="start">library_books</md-icon> <span>User feedback* </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'profile-picture'} href="/profile-picture" type="link">

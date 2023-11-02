@@ -84,11 +84,11 @@ export class TitaniumDialog extends LitElement {
   }
 
   static async animationsComplete(element: HTMLElement) {
-    return await Promise.allSettled(element.getAnimations().map(animation => animation.finished));
+    return await Promise.allSettled(element.getAnimations().map((animation) => animation.finished));
   }
 
-  protected dialogAttrObserver = new MutationObserver(mutations => {
-    mutations.forEach(async mutation => {
+  protected dialogAttrObserver = new MutationObserver((mutations) => {
+    mutations.forEach(async (mutation) => {
       if (mutation.attributeName === 'open') {
         const dialog = mutation.target as HTMLElement;
 
@@ -106,9 +106,9 @@ export class TitaniumDialog extends LitElement {
     });
   });
 
-  protected dialogDeleteObserver = new MutationObserver(mutations => {
-    mutations.forEach(mutation => {
-      mutation.removedNodes.forEach(removedNode => {
+  protected dialogDeleteObserver = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      mutation.removedNodes.forEach((removedNode) => {
         if (removedNode.nodeName === 'DIALOG') {
           removedNode.removeEventListener('click', this.lightDismiss);
           removedNode.removeEventListener('close', this.dialogClose);
@@ -152,7 +152,7 @@ export class TitaniumDialog extends LitElement {
    * Promise returns a string stating the reason for closing.
    */
   open() {
-    return new Promise<string>(resolve => {
+    return new Promise<string>((resolve) => {
       this.#resolve = resolve;
       window.addEventListener('popstate', this.closeDialog, false);
       this.dialog.showModal();
@@ -217,7 +217,7 @@ export class TitaniumDialog extends LitElement {
           0 1px 18px 0 rgba(0, 0, 0, 0.12);
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
-        border: 1px solid var(--app-border-color);
+        border: 1px solid var(--md-sys-color-outline);
 
         transition: opacity 150ms;
         animation: scale-down 150ms cubic-bezier(0.25, -0.5, 0.1, 1.5) forwards;
@@ -337,31 +337,31 @@ export class TitaniumDialog extends LitElement {
       @keypress=${(e: KeyboardEvent) => !this.allowMouseAndKeyboardEvents && e.stopPropagation()}
       @keyup=${(e: KeyboardEvent) => !this.allowMouseAndKeyboardEvents && e.stopPropagation()}
       inert
-      @opening=${e => {
+      @opening=${(e) => {
         if (e.target.nodeName === 'DIALOG') {
           //Prevent document scroll
           this.setBodyOverflow('hidden');
           this.dispatchEvent(new Event('opening'));
         }
       }}
-      @closing=${e => {
+      @closing=${(e) => {
         if (e.target.nodeName === 'DIALOG') {
           this.dispatchEvent(new Event('closing'));
         }
       }}
-      @closed=${e => {
+      @closed=${(e) => {
         if (e.target.nodeName === 'DIALOG') {
           this.setBodyOverflow('');
           this.#resolve(this.dialog.returnValue);
           this.dispatchEvent(new Event('closed'));
         }
       }}
-      @removed=${e => {
+      @removed=${(e) => {
         if (e.target.nodeName === 'DIALOG') {
           this.dispatchEvent(new Event('removed'));
         }
       }}
-      @opened=${e => {
+      @opened=${(e) => {
         if (e.target.nodeName === 'DIALOG') {
           this.dispatchEvent(new CustomEvent('titanium-dialog-opened'));
           this.afterOpen();
