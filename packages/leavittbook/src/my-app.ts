@@ -395,7 +395,7 @@ export class MyApp extends LitElement {
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-input-validator')} href="/titanium-input-validator" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Input validator</span>
+              <md-icon slot="start">library_books</md-icon> <span>Input validator *</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-full-page-loading-indicator')} href="/titanium-full-page-loading-indicator" type="link">

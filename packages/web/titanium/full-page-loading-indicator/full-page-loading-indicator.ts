@@ -118,7 +118,7 @@ export class TitaniumFullPageLoadingIndicator extends LitElement {
       left: 0;
       width: 100%;
       height: 100%;
-      opacity: 0.32;
+      opacity: 0;
       background: var(--md-sys-color-scrim, #000);
       -webkit-transition: opacity 75ms linear;
       -o-transition: opacity 75ms linear;
