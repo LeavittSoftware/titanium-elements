@@ -1,10 +1,10 @@
-import { css, html, LitElement } from 'lit';
-import { customElement, property, query } from 'lit/decorators.js';
-// import '@material/mwc-select';
-// import '/titanium-icon';
-// import '@material/mwc-list/mwc-list-item';
-import { MaterialSymbol, MaterialSymbols } from './material-symbols';
-// import { Select } from '@material/mwc-select';
+import { html } from 'lit';
+import { property, customElement } from 'lit/decorators.js';
+import Fuse from 'fuse.js';
+import { TitaniumSingleSelectBase } from '../../titanium/single-select-base/single-select-base';
+import { MaterialSymbols } from './material-symbols';
+
+export type MaterialIconDatabaseEntry = { Id: number; keywords: string; icon: string };
 
 /**
  * Titanium icon picker - a picker for material icons
@@ -13,99 +13,53 @@ import { MaterialSymbol, MaterialSymbols } from './material-symbols';
  *
  */
 @customElement('titanium-icon-picker')
-export class TitaniumIconPicker extends LitElement {
-  /**
-   *  The selected icon
-   */
-  @property({ type: String }) value: MaterialSymbol | null = null;
+export class TitaniumIconPicker extends TitaniumSingleSelectBase<MaterialIconDatabaseEntry> {
+  @property({ type: String }) accessor label: string = 'Icons';
 
-  /**
-   *  Sets floating label value.
-   */
-  @property({ type: String }) label: string = 'Icon';
+  @property({ type: String }) accessor placeholder: string = 'Search for a icon';
 
-  /**
-   *  Sets placeholder text value.
-   */
-  @property({ type: String }) placeholder: string = '';
+  @property({ type: String }) accessor pathToSelectedText: string = 'icon';
 
-  /**
-   *  Whether or not the input should be disabled.
-   */
-  @property({ type: Boolean }) disabled: boolean = false;
+  #iconDatabase: MaterialIconDatabaseEntry[];
 
-  /**
-   *  Displays error state if input is empty and input is blurred.
-   */
-  @property({ type: Boolean }) required: boolean = false;
+  async firstUpdated() {
+    this.#iconDatabase = MaterialSymbols.map((icon, i) => ({
+      Id: i + 1,
+      icon: icon,
+      keywords: icon,
+    }));
+  }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @query('mwc-select') protected select: any & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
+  protected override onInputChanged(searchTerm: string) {
+    const options = {
+      includeScore: true,
+      keys: ['keywords'],
+      shouldSort: true,
+      threshold: 0.3,
+    };
 
-  async reset() {
-    this.value = null;
-    await this.updateComplete;
-    if (this.select) {
-      this.select.value = '';
-      this.select.isUiValid = true;
-      this.select.mdcFoundation?.setValid?.(true);
+    if (this.searchTerm) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const fuse = new Fuse(this.#iconDatabase, options as any);
+      const fuseResults = fuse.search(searchTerm);
+      const results = fuseResults.map((o) => o.item);
+      this.count = results.length;
+      this.suggestions = results.slice(0, 75);
+    } else {
+      this.count = 0;
+      this.suggestions = this.#iconDatabase.slice(0, 50);
     }
   }
 
-  /**
-   *  Runs layout() method on textfield.
-   */
-  layout() {
-    this.select.layout();
+  protected override renderSelectedLeadingSlot(entity: MaterialIconDatabaseEntry) {
+    return html` <md-icon slot="leading-icon">${entity.icon}</md-icon> `;
   }
 
-  /**
-   *  Sets focus on the input.
-   */
-  focus() {
-    this.select.focus();
+  protected override renderSuggestion(entity: MaterialIconDatabaseEntry) {
+    return html`<md-menu-item .item=${entity} ?selected=${this.selected?.Id === entity.Id}>
+      <slot name="trailing-icon" slot="trailing-icon"></slot>
+      <span slot="headline">${entity.icon}</span>
+      <md-icon slot="start">${entity.icon}</md-icon>
+    </md-menu-item>`;
   }
-
-  /**
-   *  Returns true if the input passes validity checks.
-   */
-  checkValidity() {
-    return this.select.checkValidity();
-  }
-
-  /**
-   *  Runs checkValidity() method, and if it returns false, then it reports to the user that the input is invalid.
-   */
-  reportValidity() {
-    return this.select.reportValidity();
-  }
-
-  static styles = css`
-    :host {
-      display: block;
-    }
-
-    mwc-select {
-      width: 100%;
-    }
-  `;
-
-  render = () =>
-    html` <mwc-select
-      outlined
-      .label=${this.label}
-      .disabled=${this.disabled}
-      .placeholder=${this.placeholder}
-      .required=${this.required}
-      .icon=${this.value || ''}
-      .value=${this.value ?? ''}
-      @selected=${e => (this.value = e.target.value || null)}
-    >
-      ${!this.required ? html`<mwc-list-item value=""></mwc-list-item>` : ''}
-      ${MaterialSymbols.map(
-        (icon: string) => html`
-          <mwc-list-item graphic="icon" value=${icon}><titanium-icon slot="graphic" icon=${icon}></titanium-icon> ${icon}</mwc-list-item>
-        `
-      )}
-    </mwc-select>`;
 }

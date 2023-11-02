@@ -1,4 +1,5 @@
 export type MaterialSymbol = (typeof MaterialSymbols)[number];
+
 export const MaterialSymbols = [
   '10k',
   '10mp',
