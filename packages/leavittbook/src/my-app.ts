@@ -461,7 +461,7 @@ export class MyApp extends LitElement {
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'leavitt-user-feedback'} href="/leavitt-user-feedback" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>User feedback </span>
+              <md-icon slot="start">library_books</md-icon> <span>User feedback* </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'profile-picture'} href="/profile-picture" type="link">

@@ -1,11 +1,12 @@
-// import '@/titanium-elements/packages/titanium/dialog/dialog';
+import '@material/web/dialog/dialog';
+import '@material/web/icon/icon';
+import '@material/web/button/text-button';
 
-import { h1, p } from '../../titanium/styles/styles';
 import { css, html, LitElement } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-// import { TitaniumNativeDialogBaseElement } from '@/titanium-elements/packages/titanium/dialog/dialog';
 import { middleEllipsis } from '../../titanium/helpers/middle-ellipsis';
+import { MdDialog } from '@material/web/dialog/dialog';
 
 /**
  * Image preview dialog
@@ -19,98 +20,58 @@ export class ImagePreviewDialog extends LitElement {
   @state() protected downloadSrc: string | undefined;
   @state() protected filename: string | undefined;
 
-  @query('titanium-native-dialog-base ') protected dialog;
+  @query('md-dialog') protected dialog: MdDialog;
 
   async open(imageUrl: string, downloadSrc?: string, filename?: string) {
     this.imageUrl = undefined; //prevent ghost images
     this.filename = filename;
-    await this.updateComplete;
     this.downloadSrc = downloadSrc;
     this.imageUrl = imageUrl;
-    return await this.dialog.open();
+    return this.dialog.show();
   }
 
   static styles = [
-    h1,
-    p,
     css`
-      main {
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-      }
-
-      h1 {
+      div[header] {
         word-break: break-all;
-        padding: 18px 24px 12px 24px;
-        pointer-events: none;
       }
 
-      section {
-        display: flex;
-        flex: 1 1 auto;
-        overflow-y: auto;
-        overflow-x: auto;
-        margin: 0 24px;
+      md-dialog {
+        max-width: calc(100vw - 48px);
+        max-height: calc(100vh - 48px);
       }
 
       img {
-        height: 100%;
-      }
-
-      footer {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        padding: 12px 16px 8px 16px;
-        gap: 8px;
-      }
-
-      titanium-native-dialog-base {
-        --titanium-dialog-min-width: 30vw;
-      }
-
-      @media (max-width: 920px) {
-        titanium-native-dialog-base {
-          --titanium-dialog-max-height: 90vh;
-        }
+        width: 100%;
       }
     `,
   ];
 
   render() {
     return html`
-      <titanium-native-dialog-base>
-        <main>
-          <h1>${middleEllipsis(this.filename || 'Image preview', 60)}</h1>
-          <section>
-            <img draggable="false" src=${ifDefined(this.imageUrl)} />
-          </section>
-          <footer>
-            ${this.downloadSrc
-              ? html`<mwc-button
-                  icon="file_download"
-                  slot="secondaryAction"
-                  @click=${(e: MouseEvent) => {
-                    e.stopPropagation();
-                    window.open(this.downloadSrc);
-                  }}
-                  label="DOWNLOAD"
-                ></mwc-button>`
-              : html`<div></div>`}
+      <md-dialog>
+        <div header slot="headline">${middleEllipsis(this.filename || 'Image preview', 60)}</div>
+        <img slot="content" draggable="false" src=${ifDefined(this.imageUrl)} />
+        <div slot="actions">
+          ${this.downloadSrc
+            ? html`<md-text-button
+                @click=${(e: MouseEvent) => {
+                  e.stopPropagation();
+                  window.open(this.downloadSrc);
+                }}
+                ><md-icon slot="icon">file_download</md-icon>Download</md-text-button
+              >`
+            : html`<div></div>`}
 
-            <mwc-button
-              close
-              slot="primaryAction"
-              @click=${(e: MouseEvent) => {
-                e.stopPropagation();
-                this.dialog.close('close');
-              }}
-              label="CLOSE"
-            ></mwc-button>
-          </footer>
-        </main>
-      </titanium-native-dialog-base>
+          <md-text-button
+            @click=${(e: MouseEvent) => {
+              e.stopPropagation();
+              this.dialog.close('close');
+            }}
+            >Close</md-text-button
+          >
+        </div>
+      </md-dialog>
     `;
   }
 }

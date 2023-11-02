@@ -1,6 +1,7 @@
-// import '@/titanium-elements/packages/titanium/dialog/dialog';
-// import '@material/mwc-button';
-// import '@material/mwc-icon-button';
+import '@material/web/dialog/dialog';
+import '@material/web/icon/icon';
+import '@material/web/button/text-button';
+import '@material/web/iconbutton/icon-button';
 
 export declare type CropperOptions = Cropper.Options & {
   shape?: 'square' | 'circle';
@@ -8,12 +9,13 @@ export declare type CropperOptions = Cropper.Options & {
 
 import { css, html, LitElement } from 'lit';
 import { property, customElement, query, state } from 'lit/decorators.js';
-// import { TitaniumNativeDialogBaseElement } from '@/titanium-elements/packages/titanium/dialog/dialog';
 import Cropper from 'cropperjs';
 import { cropperCSS } from './cropper-styles';
 import { h1, p } from '../../titanium/styles/styles';
 import { LoadWhile } from '../../titanium/helpers/load-while';
 import Bowser from 'bowser';
+import { MdDialog } from '@material/web/dialog/dialog';
+import { DOMEvent } from '../types/dom-event';
 
 const LoaderGif = new URL('./images/duck-loader.gif', import.meta.url).href;
 
@@ -25,7 +27,7 @@ const LoaderGif = new URL('./images/duck-loader.gif', import.meta.url).href;
  */
 @customElement('crop-and-save-image-dialog')
 export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
-  @query('titanium-native-dialog-base') dialog;
+  @query('md-dialog') dialog: MdDialog;
   @query('cropper-container > img') img: HTMLImageElement;
 
   /**
@@ -54,18 +56,15 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
         display: block;
       }
 
-      h1 {
-        padding: 24px 24px 12px 24px;
+      md-dialog {
+        max-width: calc(100vw - 24px);
+        max-height: calc(100vh - 24px);
       }
 
       main {
         display: flex;
         position: relative;
-        width: 800px;
-        height: 400px;
-        padding: 12px 24px 24px 24px;
         align-self: center;
-        overflow-y: auto;
       }
 
       loading-animation {
@@ -82,14 +81,17 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
 
       section[crop] {
         display: grid;
-        grid-template-columns: 1fr 58px;
-        grid-template-areas: 'cropper buttons';
+        width: 100%;
+        grid: 'cropper buttons' / 1fr 58px;
       }
 
       cropper-container {
-        display: block;
         grid-area: cropper;
-        height: 400px;
+
+        display: block;
+        max-width: 800px;
+        max-height: 600px;
+        overflow: hidden;
       }
 
       cropper-container img {
@@ -109,45 +111,9 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
         gap: 8px;
       }
 
-      dialog-actions {
-        display: grid;
-        grid-auto-flow: column;
-        justify-content: end;
-
-        padding: 8px;
-        gap: 8px;
-      }
-
-      hr {
-        width: 100%;
-        border: 0;
-        border-top: 1px solid var(--app-border-color, #dadce0);
-        margin: 23px 0 0 0;
-        height: 1px;
-      }
-
-      @media (max-width: 1000px) {
-        main {
-          width: 450px;
-          height: 250px;
-        }
-
-        cropper-container {
-          height: 250px;
-        }
-      }
-
       @media (max-width: 600px) {
-        main {
-          height: 360px;
-          width: 330px;
-        }
-
         section[crop] {
-          display: grid;
-          grid-template-columns: 1fr;
-          grid-template-rows: 1fr 58px;
-          grid-template-areas:
+          grid:
             'cropper'
             'buttons';
         }
@@ -156,29 +122,6 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
           justify-content: end;
           grid-auto-flow: column;
           padding: 8px 0;
-        }
-
-        cropper-container {
-          height: 320px;
-        }
-
-        button[select-image] h5 {
-          font-size: 28px;
-        }
-      }
-
-      @media (max-width: 360px) {
-        main {
-          height: auto;
-          width: 250px;
-        }
-
-        cropper-container {
-          height: 320px;
-        }
-
-        button[select-image] h5 {
-          font-size: 28px;
         }
       }
 
@@ -189,13 +132,17 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
   ];
 
   #saveCroppedImageFunc: ((file: File, previewDataUrl: string) => Promise<void>) | undefined;
-
+  #resolve: (value: 'cropped' | 'cancel') => void;
   async open(url: string, filename: string, saveCroppedImageFunc?: (file: File, previewDataUrl: string) => Promise<void>) {
     this.#saveCroppedImageFunc = saveCroppedImageFunc;
+    this.dialog.returnValue = '';
     this.reset();
     this.fileName = filename;
     this.#setCropperImage(url);
-    return await this.dialog.open();
+    this.dialog.show();
+    return await new Promise<'cropped' | 'cancel'>((resolve) => {
+      this.#resolve = resolve;
+    });
   }
 
   reset() {
@@ -263,9 +210,17 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
   }
   render() {
     return html`
-      <titanium-native-dialog-base focus-trap>
-        <h1 select>Crop and save image</h1>
-        <main>
+      <md-dialog
+        focus-trap
+        @close=${(e: DOMEvent<MdDialog>) => {
+          if (e.target.returnValue === 'cancel' || e.target.returnValue === 'cropped') {
+            return this.#resolve(e.target.returnValue as 'cancel' | 'cropped');
+          }
+          e.preventDefault();
+        }}
+      >
+        <div slot="headline">Crop and save image</div>
+        <main slot="content">
           <loading-animation ?hidden=${!this.isLoading}>
             <img src=${LoaderGif} />
             <p>Uploading image...</p>
@@ -275,22 +230,25 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
               <img />
             </cropper-container>
             <crop-buttons>
-              <mwc-icon-button label="Rotate right" title="Rotate right" icon="rotate_right" @click=${() => this.#cropper?.rotate(90)}></mwc-icon-button>
-              <mwc-icon-button label="Rotate left" title="Rotate left" icon="rotate_left" @click=${() => this.#cropper?.rotate(-90)}></mwc-icon-button>
+              <md-icon-button label="Rotate right" title="Rotate right" @click=${() => this.#cropper?.rotate(90)}
+                ><md-icon>rotate_right</md-icon></md-icon-button
+              >
+              <md-icon-button label="Rotate left" title="Rotate left" @click=${() => this.#cropper?.rotate(-90)}>
+                <md-icon>rotate_left</md-icon>
+              </md-icon-button>
             </crop-buttons>
           </section>
         </main>
-        <dialog-actions>
-          <mwc-button
-            label="CANCEL"
+        <div slot="actions">
+          <md-text-button
             ?disabled=${this.isLoading}
             @click=${() => {
               this.reset();
               this.dialog.close('cancel');
             }}
-          ></mwc-button>
-          <mwc-button
-            label="SAVE"
+            >Cancel</md-text-button
+          >
+          <md-text-button
             ?disabled=${this.isLoading}
             @click=${async () => {
               this.isLoading = true;
@@ -313,9 +271,10 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
               this.isLoading = false;
               this.dialog.close('cropped');
             }}
-          ></mwc-button>
-        </dialog-actions>
-      </titanium-native-dialog-base>
+            >Save</md-text-button
+          >
+        </div>
+      </md-dialog>
     `;
   }
 }
