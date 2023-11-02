@@ -2,8 +2,7 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
-// import '@material/mwc-icon';
-// import '@material/mwc-button';
+import '@material/web/button/text-button';
 /* playground-fold-end */
 
 import '@leavittsoftware/web/titanium/smart-attachment-input/smart-attachment-input';
@@ -99,7 +98,7 @@ export class TitaniumSmartAttachmentInputPlayground extends LitElement {
       <p>Demonstrates results of calling getFiles()</p>
       <div>
         <titanium-smart-attachment-input get-files multiple placeholder="Select Files"></titanium-smart-attachment-input>
-        <mwc-button outlined @click=${() => (this.getFilesResult = JSON.stringify(this.getFilesInput.getFiles()))}>Get Files</mwc-button>
+        <md-text-button @click=${() => (this.getFilesResult = JSON.stringify(this.getFilesInput.getFiles()))}>GetFiles()</md-text-button>
         <span style="overflow-y: auto">${this.getFilesResult}</span>
       </div>
 
@@ -113,20 +112,16 @@ export class TitaniumSmartAttachmentInputPlayground extends LitElement {
       <h1>Has changes</h1>
       <p>Currently ${this.hasChanges ? 'has changes' : 'has no changes'}</p>
       <div>
-        <titanium-smart-attachment-input
-          @change=${(e) => {
-            this.hasChanges = e.target.hasChanges();
-          }}
-        ></titanium-smart-attachment-input>
+        <titanium-smart-attachment-input @change=${(e) => (this.hasChanges = e.target.hasChanges())}></titanium-smart-attachment-input>
       </div>
 
       <h1>Validate and Reset</h1>
       <p>Reset the input</p>
       <div>
         <titanium-smart-attachment-input required reset></titanium-smart-attachment-input>
-        <mwc-button outlined @click=${() => this.resetInput.reportValidity()}>reportValidity</mwc-button>
-        <mwc-button outlined @click=${() => alert(this.resetInput.checkValidity())}>checkValidity</mwc-button>
-        <mwc-button outlined @click=${() => this.resetInput.reset()}>Reset</mwc-button>
+        <md-text-button @click=${() => this.resetInput.reportValidity()}>reportValidity()</md-text-button>
+        <md-text-button @click=${() => alert(this.resetInput.checkValidity())}>checkValidity()</md-text-button>
+        <md-text-button @click=${() => this.resetInput.reset()}>Reset()</md-text-button>
       </div>
 
       <h1>Confirm delete</h1>
