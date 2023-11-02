@@ -45,7 +45,7 @@ export default class SmartDemoElement extends LitElement {
       }
 
       main {
-        border: 1px solid var(--app-border-color);
+        border: 1px solid var(--md-sys-color-outline);
       }
     `,
   ];

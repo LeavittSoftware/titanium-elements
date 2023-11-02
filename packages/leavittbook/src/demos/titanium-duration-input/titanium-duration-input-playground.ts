@@ -35,7 +35,7 @@ export class TitaniumDurationInputPlayground extends LitElement {
       }
 
       div {
-        border: 1px solid var(--app-border-color);
+        border: 1px solid var(--md-sys-color-outline);
         padding: 24px;
         border-radius: 8px;
         margin: 24px 0 36px 0;

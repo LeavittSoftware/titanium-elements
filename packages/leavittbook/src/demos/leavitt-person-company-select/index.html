@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <head>
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css?family=Material+Icons+Outlined&display=block" rel="stylesheet" />
@@ -16,7 +16,7 @@
       --app-light-text-color: #707175;
       --app-dark-text-color: #202124;
       --app-hover-color: #f9f9f9;
-      --app-border-color: #dadce0;
+      --md-sys-color-outline: #dadce0;
       --app-menu-text-color: #5f6368;
       --app-link-color: #1a73e8;
       --material-primary-color: var(--app-secondary-color);
@@ -24,8 +24,8 @@
       --material-error-text-color: #da3227;
       --mdc-theme-primary: var(--app-primary-color);
       --mdc-theme-secondary: var(--app-secondary-color);
-      --mdc-text-field-outlined-idle-border-color: var(--app-border-color);
-      --mdc-select-outlined-idle-border-color: var(--app-border-color);
+      --mdc-text-field-outlined-idle-border-color: var(--md-sys-color-outline);
+      --mdc-select-outlined-idle-border-color: var(--md-sys-color-outline);
       --mdc-icon-font: 'Material Icons Outlined';
     }
 
@@ -33,25 +33,31 @@
       font-family: 'Metropolis';
       font-weight: 600;
       font-display: swap;
-      src: local('Metropolis'), url('https://www.leavitt.com/fonts/metropolis-bold.otf') format('opentype');
+      src:
+        local('Metropolis'),
+        url('https://www.leavitt.com/fonts/metropolis-bold.otf') format('opentype');
     }
 
     @font-face {
       font-family: 'Metropolis';
       font-weight: 500;
       font-display: swap;
-      src: local('Metropolis'), url('https://www.leavitt.com/fonts/metropolis-semibold.otf') format('opentype');
+      src:
+        local('Metropolis'),
+        url('https://www.leavitt.com/fonts/metropolis-semibold.otf') format('opentype');
     }
 
     @font-face {
       font-family: 'Metropolis';
       font-weight: 400;
       font-display: swap;
-      src: local('Metropolis'), url('https://www.leavitt.com/fonts/metropolis-medium.otf') format('opentype');
+      src:
+        local('Metropolis'),
+        url('https://www.leavitt.com/fonts/metropolis-medium.otf') format('opentype');
     }
   </style>
   <script>
-    window.localStorage.setItem('LG-AUTH-RT',decodeURIComponent(window.location.hash.substring(1)));
+    window.localStorage.setItem('LG-AUTH-RT', decodeURIComponent(window.location.hash.substring(1)));
   </script>
 
   <script type="module" src="./leavitt-person-company-select-playground.js"></script>

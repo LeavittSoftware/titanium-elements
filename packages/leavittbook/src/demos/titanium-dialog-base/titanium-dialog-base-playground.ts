@@ -29,7 +29,7 @@ export class TitaniumDialogPlayground extends LitElement {
       }
 
       div {
-        border: 1px solid var(--app-border-color);
+        border: 1px solid var(--md-sys-color-outline);
         padding: 24px;
         border-radius: 8px;
         display: flex;

@@ -398,8 +398,8 @@ export class MyApp extends LitElement {
               <md-icon slot="start">library_books</md-icon> <span>Input validator</span>
             </md-list-item>
 
-            <md-list-item ?selected=${!!this.page?.includes('titanium-loading-indicator')} href="/titanium-loading-indicator" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Loading indicator</span>
+            <md-list-item ?selected=${!!this.page?.includes('titanium-full-page-loading-indicator')} href="/titanium-full-page-loading-indicator" type="link">
+              <md-icon slot="start">library_books</md-icon> <span>Full page loading indicator</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-page-control')} href="/titanium-page-control" type="link">
@@ -411,7 +411,7 @@ export class MyApp extends LitElement {
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-smart-attachment-input')} href="/titanium-smart-attachment-input" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Smart attachment input</span>
+              <md-icon slot="start">library_books</md-icon> <span>Smart attachment input *</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-snackbar')} href="/titanium-snackbar" type="link">

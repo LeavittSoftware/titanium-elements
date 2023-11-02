@@ -2,7 +2,7 @@
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
-// import '@material/mwc-button';
+import '@material/web/button/text-button';
 
 /* playground-fold-end */
 import '@leavittsoftware/web/titanium/full-page-loading-indicator/full-page-loading-indicator';
@@ -22,7 +22,7 @@ export class TitaniumFullPageLoadingIndicatorPlayground extends LitElement {
       }
 
       div {
-        border: 1px solid var(--app-border-color);
+        border: 1px solid var(--md-sys-color-outline);
         padding: 24px;
         border-radius: 8px;
         display: flex;
@@ -40,7 +40,7 @@ export class TitaniumFullPageLoadingIndicatorPlayground extends LitElement {
       <p>Default titanium full page loading indicator</p>
       <div>
         <titanium-full-page-loading-indicator></titanium-full-page-loading-indicator>
-        <mwc-button
+        <md-text-button
           @click=${(e) => {
             e.preventDefault();
             const work = new Promise((r) => setTimeout(r, 50));
@@ -60,9 +60,8 @@ export class TitaniumFullPageLoadingIndicatorPlayground extends LitElement {
               })
             );
           }}
-          label="Open loading veil for 2 seconds"
-        >
-        </mwc-button>
+          >Open loading veil for 2 seconds
+        </md-text-button>
       </div>
     `;
   }
