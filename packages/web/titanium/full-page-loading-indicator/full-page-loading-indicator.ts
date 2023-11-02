@@ -3,7 +3,7 @@ import { property, customElement } from 'lit/decorators.js';
 import { PendingStateEvent } from '../types/pending-state-event';
 import '@material/web/progress/linear-progress';
 /**
- * A simple full-screen veil with loading indicator.
+ * A simple full-screen veil with loading indicator that uses promise driven pending-state-events
  *
  * @element titanium-full-page-loading-indicator
  *
@@ -19,9 +19,14 @@ export class TitaniumFullPageLoadingIndicator extends LitElement {
   #animationFrame: number;
   #openDelayTimer: number;
   #closeDelayTimer: number;
+
+  //Promises faster than this do not cause the scrim to open at all
+  //Prevents flicker for fast promises
   #openDelay: number = 75;
+
+  // min time scrim has to remain open
   #minTimeOpen: number = 350;
-  #timeOpen;
+  #timeOpen: number;
   #openCount = 0;
 
   firstUpdated() {

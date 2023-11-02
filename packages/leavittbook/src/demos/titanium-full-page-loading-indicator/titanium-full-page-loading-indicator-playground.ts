@@ -35,8 +35,8 @@ export class TitaniumFullPageLoadingIndicatorPlayground extends LitElement {
   render() {
     /* playground-fold-end */
     return html`
-      <h1>Default</h1>
-      <p>Default titanium full page loading indicator</p>
+      <h1>Demo</h1>
+      <p>A promise driven pending-state-events loading scrim</p>
       <div>
         <titanium-full-page-loading-indicator></titanium-full-page-loading-indicator>
         <md-text-button
