@@ -1,6 +1,8 @@
-import { css, html, LitElement } from 'lit';
-import { property, customElement, query } from 'lit/decorators.js';
-
+import { PropertyValues } from 'lit';
+import { property, customElement } from 'lit/decorators.js';
+import '@material/web/textfield/outlined-text-field';
+import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
+import { MdOutlinedField } from '@material/web/field/outlined-field';
 // import '@material/mwc-textfield';
 // import { TextField } from '@material/mwc-textfield';
 /**
@@ -13,76 +15,45 @@ import { property, customElement, query } from 'lit/decorators.js';
  */
 
 @customElement('titanium-youtube-input')
-export class TitaniumYouTubeInput extends LitElement {
+export class TitaniumYouTubeInput extends MdOutlinedTextField {
   /**
    * Unique YouTube video key
    */
   @property({ type: String, attribute: 'youtube-video-key' }) youTubeVideoKey: string | null | undefined;
 
   /**
-   *  Displays error state if value is empty and input is blurred.
-   */
-  @property({ type: Boolean }) required: boolean;
-
-  /**
-   * Disables the input
-   */
-  @property({ type: Boolean }) disabled: boolean;
-
-  /**
-   *  	Message to show in the error color when the textfield is invalid. (Helper text will not be visible)
-   */
-  @property({ type: String }) validationMessage: string;
-
-  /**
    *  Sets floating label value.
    */
   @property({ type: String }) label: string = 'YouTube Video Key';
-
-  @query('mwc-textfield') protected input!: any & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean };
+  @property({ type: String }) value: string = '';
 
   firstUpdated() {
-    this.input.validityTransform = (newValue, nativeValidity) => {
-      if (!nativeValidity.valid) {
-        return {};
-      } else {
-        const len = newValue?.length ?? 0;
-        const isValid = (len > 6 && len < 12) || (len === 0 && !this.required);
-        return {
-          valid: isValid,
-          customError: !isValid,
-        };
-      }
-    };
+    const leadingSlot: HTMLSlotElement | null = this.shadowRoot?.querySelector('slot[name="leading-icon"]') || null;
+    if (leadingSlot) {
+      leadingSlot.append(this.#createDefaultImage());
+    }
+    this.hasLeadingIcon = true;
+    const field: MdOutlinedField | null = this.shadowRoot?.querySelector('md-outlined-field') || null;
+    if (field) {
+      field.populated = true;
+    }
   }
 
-  /**
-   *  Runs layout() method on textfield.
-   */
-  layout() {
-    this.input.layout();
+  #createDefaultImage() {
+    const image = document.createElement('img');
+    image.style.maxHeight = '36px';
+    image.style.borderRadius = '8px';
+    image.style.marginLeft = '8px';
+    image.title = 'video thumbnail';
+    image.src = `https://img.youtube.com/vi/default.jpg`;
+    image.setAttribute('youtube-image', '');
+    return image;
   }
 
-  /**
-   *  Runs checkValidity() method, and if it returns false, then it reports to the user that the input is invalid.
-   */
-  reportValidity() {
-    return this.input.reportValidity();
-  }
-
-  /**
-   *  Returns true if the input passes validity checks.
-   */
-  checkValidity() {
-    return this.input.checkValidity();
-  }
-
-  /**
-   *  Resets the inputs state.
-   */
-  reset() {
-    this.input.isUiValid = true;
-    this.input.mdcFoundation?.setValid?.(true);
+  updated(changedProps: PropertyValues<this>) {
+    if (changedProps.has('value')) {
+      this.#youTubeKeyChanged(this.value);
+    }
   }
 
   #getYouTubeKey(value: string) {
@@ -96,57 +67,17 @@ export class TitaniumYouTubeInput extends LitElement {
     return key ? key : value;
   }
 
-  async #clearYouTubeInputValue() {
-    this.youTubeVideoKey = '';
-    return this.updateComplete;
-  }
+  async #youTubeKeyChanged(value) {
+    this.youTubeVideoKey = !!value ? this.#getYouTubeKey(value) : '';
+    const leadingSlot: HTMLSlotElement | null = this.shadowRoot?.querySelector('slot[name="leading-icon"]') || null;
+    Array.from(leadingSlot?.children ?? [])?.forEach((node) => {
+      if (node.hasAttribute('youtube-image')) {
+        (node as HTMLImageElement).src = `https://img.youtube.com/vi/${
+          (this.youTubeVideoKey?.length || 0) === 11 ? this.youTubeVideoKey + '/' : ''
+        }default.jpg`;
+      }
+    });
 
-  async #youTubeKeyChanged(event) {
-    if (event && event.target && event.target.value) {
-      const value = event.target.value;
-      // Clears the input before resetting it with just the key
-      await this.#clearYouTubeInputValue();
-      this.youTubeVideoKey = this.#getYouTubeKey(value);
-    } else {
-      this.youTubeVideoKey = '';
-    }
-
-    // values changed
     this.dispatchEvent(new CustomEvent('video-changed', { detail: { key: this.youTubeVideoKey } }));
-  }
-
-  static styles = css`
-    :host {
-      display: block;
-      position: relative;
-    }
-
-    img {
-      position: absolute;
-      top: 7px;
-      right: 7px;
-      max-height: 42px;
-    }
-
-    mwc-textfield {
-      display: flex;
-    }
-  `;
-  render() {
-    return html`
-      <mwc-textfield
-        outlined
-        ?required=${this.required}
-        ?disabled=${this.disabled}
-        .validationMessage=${this.validationMessage}
-        .label=${this.label}
-        @input="${this.#youTubeKeyChanged}"
-        .value=${this.youTubeVideoKey || ''}
-      ></mwc-textfield>
-      ${this.youTubeVideoKey &&
-      html`
-        <img title="video thumbnail" src="https://img.youtube.com/vi/${this.youTubeVideoKey.length === 11 ? this.youTubeVideoKey + '/' : ''}default.jpg" />
-      `}
-    `;
   }
 }

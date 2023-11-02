@@ -2,9 +2,9 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, query, queryAll } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
-import '@leavittsoftware/web/leavitt/profile-picture/profile-picture';
-// import '@material/mwc-button';
 import { TitaniumYouTubeInput } from '@leavittsoftware/web/titanium/youtube-input/youtube-input';
+import '@leavittsoftware/web/leavitt/profile-picture/profile-picture';
+import '@material/web/button/outlined-button';
 
 /* playground-fold-end */
 import '@leavittsoftware/web/titanium/youtube-input/youtube-input';
@@ -50,12 +50,12 @@ export class TitaniumYoutubeInputPlayground extends LitElement {
     return html`
       <h1>Default</h1>
       <div>
-        <titanium-youtube-input label="Video" youtube-video-key="OmJ-4B-mS-Y"></titanium-youtube-input>
+        <titanium-youtube-input label="Video" value="OmJ-4B-mS-Y"></titanium-youtube-input>
       </div>
 
       <h1>Disabled</h1>
       <div>
-        <titanium-youtube-input disabled label="Video" youtube-video-key="OmJ-4B-mS-Y"></titanium-youtube-input>
+        <titanium-youtube-input disabled label="Video" value="OmJ-4B-mS-Y"></titanium-youtube-input>
       </div>
 
       <h1>Methods</h1>
@@ -63,30 +63,22 @@ export class TitaniumYoutubeInputPlayground extends LitElement {
         <titanium-youtube-input required validationMessage="This video is required" label="Video"></titanium-youtube-input>
         <br />
         <section buttons>
-          <mwc-button
+          <md-outlined-button
             lowercase
             outlined
             @click=${() => {
               this.requiredInput.reset();
             }}
-            label="reset()"
-          ></mwc-button>
-          <mwc-button
+            >Reset</md-outlined-button
+          >
+          <md-outlined-button
             lowercase
             outlined
             @click=${() => {
               this.requiredInput.reportValidity();
             }}
-            label="reportValidity()"
-          ></mwc-button>
-          <mwc-button
-            lowercase
-            outlined
-            @click=${() => {
-              this.requiredInput.layout();
-            }}
-            label="layout()"
-          ></mwc-button>
+            >Report validity</md-outlined-button
+          >
         </section>
       </div>
     `;
