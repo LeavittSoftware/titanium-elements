@@ -4,7 +4,6 @@ import { customElement, query, queryAll } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
 import { TitaniumYouTubeInput } from '@leavittsoftware/web/titanium/youtube-input/youtube-input';
 
-import '@leavittsoftware/web/leavitt/profile-picture/profile-picture';
 import '@material/web/button/outlined-button';
 
 /* playground-fold-end */
@@ -24,7 +23,6 @@ export class TitaniumYoutubeInputPlayground extends LitElement {
       :host {
         display: flex;
         flex-direction: column;
-        --mdc-icon-font: 'Material Icons Outlined';
         margin: 24px 12px;
       }
 

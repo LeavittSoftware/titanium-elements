@@ -1,9 +1,10 @@
 import { property, customElement } from 'lit/decorators.js';
-// import { TextField } from '@material/mwc-textfield';
-import { LitElement, PropertyValues } from 'lit';
+import { PropertyValues } from 'lit';
 
 import dayjs from 'dayjs/esm';
 import duration from 'dayjs/esm/plugin/duration';
+import { ExtendableOutlinedTextField } from '../extendable-outlined-text-field/extendable-outlined-text-field';
+import humanInterval from './human-interval';
 dayjs.extend(duration);
 
 /**
@@ -18,47 +19,70 @@ dayjs.extend(duration);
  */
 
 @customElement('titanium-duration-input')
-export class TitaniumDurationInput extends LitElement {
+export class TitaniumDurationInput extends ExtendableOutlinedTextField {
   /**
    *  Dayjs duration object. This is the main property you will interact with because the value
    *  property of this component is actually the human readable string and not the duration you most likely
    *  want to work with. When changed a duration-change event will be dispatched.
    */
-  @property({ type: Object }) duration: duration.Duration | null | undefined;
+  @property({ type: Object }) duration: duration.Duration | null = null;
 
-  constructor() {
-    super();
-    // this.helper = 'Enter a duration e.g. "3 hours and 30 minutes"';
-    // this.validityTransform = (newValue, nativeValidity) => ({
-    //   valid: !isNaN(humanInterval(newValue)) && nativeValidity?.valid,
-    // });
-
-    // this.addEventListener('change', () => {
-    //   const millis = humanInterval(this.value);
-    //   this.duration = isNaN(millis) ? null : dayjs.duration(millis, 'ms');
-    //   this.dispatchEvent(new CustomEvent('duration-change', { bubbles: true, composed: true }));
-    // });
+  firstUpdated() {
+    this.label = 'Duration';
+    this.supportingText = 'Enter a duration e.g. "3 hours and 30 minutes"';
   }
 
-  updated(changedProperties: PropertyValues<this>) {
-    if (changedProperties.has('duration') && changedProperties.get('duration') !== this.duration) {
-      // if (this.duration) {
-      //   this.value = durationToString(this.duration);
-      //   this.layout();
-      // } else {
-      //   this.duration = null;
-      //   this.value = '';
-      //   this.layout();
-      // }
+  updated(changedProps: PropertyValues<this>) {
+    if (changedProps.has('value')) {
+      this.#customReportValidity(this.input.value);
+
+      const dur = this.#textToInterval(this.input.value);
+      if (dur?.asMilliseconds() != this.duration?.asMilliseconds()) {
+        this.duration = dur;
+        this.dispatchEvent(new Event('duration-change'));
+      }
     }
   }
 
-  async reset() {
-    this.duration = null;
-    // this.value = '';
-    // await this.updateComplete;
+  checkValidity() {
+    return super.checkValidity() && this.#customCheckValidity(this.input.value);
+  }
 
-    // this.isUiValid = true;
-    // this.mdcFoundation?.setValid?.(true);
+  reportValidity() {
+    this.#customReportValidity(this.input.value);
+    return super.reportValidity();
+  }
+
+  #customCheckValidity(input: string) {
+    if (input && !this.#textToInterval(input)) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  #customReportValidity(input: string) {
+    if (!this.#customCheckValidity(input)) {
+      this.error = true;
+      this.errorText = 'Duration was entered in an incorrect format';
+    } else {
+      this.error = false;
+      this.errorText = '';
+    }
+  }
+
+  #textToInterval(input: string) {
+    if (!input) {
+      return null;
+    }
+    const ms = humanInterval(input);
+    return isNaN(ms) ? null : dayjs.duration(ms, 'ms');
+  }
+
+  override async reset() {
+    super.reset();
+    this.error = false;
+    this.errorText = '';
+    this.duration = null;
   }
 }
