@@ -391,7 +391,7 @@ export class MyApp extends LitElement {
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-icon-picker'} href="/titanium-icon-picker" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Icon picker</span>
+              <md-icon slot="start">library_books</md-icon> <span>Icon picker *</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-input-validator')} href="/titanium-input-validator" type="link">
