@@ -165,7 +165,6 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
       this.errorText = 'Please correct the missing zip code';
       return false;
     }
-
     return true;
   }
 
@@ -173,8 +172,8 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
     if (!this.customCheckValidity()) {
       this.error = true;
     } else {
-      this.error = false;
       this.errorText = '';
+      this.error = false;
     }
   }
 

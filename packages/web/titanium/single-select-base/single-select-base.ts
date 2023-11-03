@@ -188,9 +188,9 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
     this.selected = entity;
     if (this.selected) {
       this.softReset();
-      if (this.textfield) {
+      setTimeout(() => {
         this.reportValidity();
-      }
+      }, 0);
     }
 
     if (previouslySelected?.Id !== this.selected?.Id) {
