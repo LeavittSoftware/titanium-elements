@@ -1,13 +1,13 @@
 import { css, html, LitElement, nothing } from 'lit';
 import { property, customElement, query, queryAll } from 'lit/decorators.js';
+import { validateStreet } from './utils/validate-street';
+import { AddressInputAddress } from './types/address-input-address';
 
 // import '@material/mwc-button';
 // import '@material/mwc-select';
 // import '@material/mwc-list/mwc-list-item';
 // import '/titanium-dialog';
-import { validateStreet } from './Address';
 
-import { Address } from './Address';
 // import { TextField } from '@material/mwc-textfield';
 // import { Select } from '@material/mwc-select';
 // import { TitaniumDialogElement } from '/titanium-dialog';
@@ -32,7 +32,7 @@ export class ManualAddressDialog extends LitElement {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @queryAll('mwc-textfield, mwc-select') protected allInputs: NodeListOf<any & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean }>;
 
-  public async open(location: Partial<Address> | null | undefined) {
+  public async open(location: Partial<AddressInputAddress> | null | undefined) {
     this.reset();
     if (location) {
       this.street = location?.street ?? '';
@@ -45,7 +45,7 @@ export class ManualAddressDialog extends LitElement {
 
     const reason = await this.dialog.open();
     if (reason === 'update') {
-      const address: Partial<Address> = {
+      const address: Partial<AddressInputAddress> = {
         street: this.street,
         street2: this.street2,
         city: this.city,
@@ -59,18 +59,18 @@ export class ManualAddressDialog extends LitElement {
   }
 
   layout() {
-    this.allInputs.forEach(input => {
+    this.allInputs.forEach((input) => {
       input.layout();
     });
   }
 
   async firstUpdated() {
-    this.streetInput.validityTransform = newValue => (validateStreet(newValue) ? {} : { valid: false });
+    this.streetInput.validityTransform = (newValue) => (validateStreet(newValue) ? {} : { valid: false });
   }
 
   validate() {
     let valid = true;
-    this.allInputs.forEach(input => {
+    this.allInputs.forEach((input) => {
       if (!input.reportValidity()) {
         valid = false;
       }
@@ -87,7 +87,7 @@ export class ManualAddressDialog extends LitElement {
     this.county = '';
 
     await this.updateComplete;
-    this.allInputs.forEach(input => {
+    this.allInputs.forEach((input) => {
       input.isUiValid = true;
       input.mdcFoundation?.setValid?.(true);
     });
@@ -120,7 +120,7 @@ export class ManualAddressDialog extends LitElement {
       <titanium-dialog
         disable-scroll
         header=${this.label}
-        @opened=${e => {
+        @opened=${(e) => {
           if (e.target.nodeName === 'DIALOG') {
             this.streetInput.focus();
           }
@@ -133,7 +133,7 @@ export class ManualAddressDialog extends LitElement {
           icon="markunread_mailbox"
           required
           .value=${this.street || ''}
-          @input=${event => {
+          @input=${(event) => {
             this.street = event.target.value;
           }}
           label="Street"
@@ -144,7 +144,7 @@ export class ManualAddressDialog extends LitElement {
               outlined
               icon="meeting_room"
               .value=${this.street2 || ''}
-              @input=${event => {
+              @input=${(event) => {
                 this.street2 = event.target.value;
               }}
               label="Street 2"
@@ -155,7 +155,7 @@ export class ManualAddressDialog extends LitElement {
           outlined
           required
           .value=${this.city || ''}
-          @input=${event => {
+          @input=${(event) => {
             this.city = event.target.value;
           }}
           label="City"
@@ -167,7 +167,7 @@ export class ManualAddressDialog extends LitElement {
               outlined
               required
               .value=${this.county || ''}
-              @input=${event => {
+              @input=${(event) => {
                 this.county = event.target.value;
               }}
               label="County"
@@ -175,7 +175,7 @@ export class ManualAddressDialog extends LitElement {
 
         <mwc-select
           .value=${this.state || ''}
-          @selected=${event => {
+          @selected=${(event) => {
             this.state = event.target.value;
           }}
           outlined
@@ -251,7 +251,7 @@ export class ManualAddressDialog extends LitElement {
           inputmode="numeric"
           required
           .value=${this.zip || ''}
-          @input=${event => {
+          @input=${(event) => {
             this.zip = event.target.value;
           }}
           label="Zip"

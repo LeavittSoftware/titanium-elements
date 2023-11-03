@@ -3,9 +3,9 @@ import { property, customElement, query } from 'lit/decorators.js';
 import './google-address-input';
 import './manual-address-dialog';
 
-import { Address } from './Address';
 import { ManualAddressDialog } from './manual-address-dialog';
 import { GoogleAddressInput } from './google-address-input';
+import { AddressInputAddress } from './types/address-input-address';
 
 /**
  * An input with built-in google address search and manual address entering. .
@@ -41,7 +41,7 @@ export class TitaniumAddressInput extends LitElement {
   /**
    *  The address input or selected by the user.
    */
-  @property({ type: Object }) location: Partial<Address> | null | undefined;
+  @property({ type: Object }) location: Partial<AddressInputAddress> | null | undefined;
 
   /**
    *  Sets floating label value.
@@ -150,16 +150,9 @@ export class TitaniumAddressInput extends LitElement {
     return this.input.reset();
   }
 
-  /**
-   *  Runs layout() method on textfield.
-   */
-  public layout() {
-    return this.input.layout();
-  }
-
-  public setLocation(location: Partial<Address> | null) {
+  public setLocation(location: Partial<AddressInputAddress> | null) {
     this.location = location;
-    this.dispatchEvent(new CustomEvent<Partial<Address> | null>('location-changed', { composed: true, detail: location }));
+    this.dispatchEvent(new CustomEvent<Partial<AddressInputAddress> | null>('location-changed', { composed: true, detail: location }));
   }
 
   render() {
@@ -176,7 +169,7 @@ export class TitaniumAddressInput extends LitElement {
         .googleMapsApiKey=${this.googleMapsApiKey}
         .helper=${this.helper}
         .helperPersistent=${this.helperPersistent}
-        @location-changed=${event => {
+        @location-changed=${(event) => {
           const location = event.detail;
           this.setLocation(location);
         }}
@@ -184,7 +177,7 @@ export class TitaniumAddressInput extends LitElement {
       <a
         ?disabled=${this.disabled}
         href="#find-my-address"
-        @click=${async e => {
+        @click=${async (e) => {
           e.preventDefault();
           const customAddress = await this.dialog.open(this.location);
           if (customAddress) {

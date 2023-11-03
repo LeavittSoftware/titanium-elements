@@ -4,7 +4,7 @@ import { customElement, query, queryAll, state } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
 
 import '@leavittsoftware/web/leavitt/user-manager/user-manager';
-import '@material/web/button/text-button';
+import '@material/web/button/outlined-button';
 
 import ApiService from '@leavittsoftware/web/leavitt/api-service/api-service';
 import { AuthenticatedTokenProvider } from '@leavittsoftware/web/leavitt/api-service/authenticated-token-provider';
@@ -12,6 +12,7 @@ import { AuthenticatedTokenProvider } from '@leavittsoftware/web/leavitt/api-ser
 /* playground-fold-end */
 import '@leavittsoftware/web/leavitt/company-select/company-select';
 import { LeavittCompanySelect } from '@leavittsoftware/web/leavitt/company-select/company-select';
+import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
 
 /* playground-fold */
 @customElement('leavitt-company-select-playground')
@@ -34,7 +35,7 @@ export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
       :host {
         display: flex;
         flex-direction: column;
-        --mdc-icon-font: 'Material Icons Outlined';
+
         margin: 24px 12px;
       }
 
@@ -65,6 +66,7 @@ export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
       <p>Demonstrates public methods</p>
       <div row>
         <leavitt-company-select
+          @selected=${(e: DOMEvent<LeavittCompanySelect>) => console.log('selected change 1', e.target.selected)}
           .selected=${{ Id: 20248, Name: 'Software' }}
           style="width: 400px;"
           methods-demo
@@ -72,10 +74,12 @@ export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
           .apiService=${this.apiService}
         ></leavitt-company-select>
         <section buttons>
-          <md-text-button @click=${() => this.methodsSelect.reset()}>reset()</md-text-button>
-          <md-text-button @click=${() => this.methodsSelect.focus()}>focus()</md-text-button>
-          <md-text-button @click=${() => this.methodsSelect.reportValidity()}>reportValidity()</md-text-button>
-          <md-text-button @click=${() => this.methodsSelect.reloadCompanies()}>reloadCompanies()</md-text-button>
+          <md-outlined-button @click=${() => this.methodsSelect.reset()}>reset()</md-outlined-button>
+          <md-outlined-button @click=${() => this.methodsSelect.focus()}>focus()</md-outlined-button>
+          <md-outlined-button @click=${() => this.methodsSelect.reportValidity()}>reportValidity()</md-outlined-button>
+          <md-outlined-button @click=${() => (this.methodsSelect.required = !this.methodsSelect.required)}>Toggle required</md-outlined-button>
+
+          <md-outlined-button @click=${() => this.methodsSelect.reloadCompanies()}>reloadCompanies()</md-outlined-button>
         </section>
       </div>
 

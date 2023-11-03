@@ -43,10 +43,6 @@ export default class SmartDemoElement extends LitElement {
         /* --playground-tab-bar-foreground-color: #fff; */
         --playground-tab-bar-background: white;
       }
-
-      main {
-        border: 1px solid var(--md-sys-color-outline);
-      }
     `,
   ];
 

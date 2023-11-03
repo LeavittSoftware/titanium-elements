@@ -16,7 +16,7 @@ export class TitaniumDataTableHeaderPlayground extends LitElement {
       :host {
         display: flex;
         flex-direction: column;
-        --mdc-icon-font: 'Material Icons Outlined';
+
         margin: 24px 12px;
       }
 

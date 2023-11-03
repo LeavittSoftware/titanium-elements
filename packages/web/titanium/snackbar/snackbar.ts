@@ -104,7 +104,6 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
       //reset
       clearTimeout(this.#closeTimeoutHandle);
       this.noaction = false;
-      this.error = false;
       this.actionText = 'DISMISS';
 
       if (typeof message !== 'string' && (message as HttpError)?.type === 'HttpError') {

@@ -106,7 +106,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
   }
 
   /**
-   *  Resets the inputs state.
+   *  Resets the selected entity, search term and suggestions.
    */
   async reset() {
     this.softReset();
@@ -119,10 +119,12 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
   }
 
   /**
-   *  Resets search term and results.
+   *  Resets search term and suggestions.
    */
   softReset() {
-    this.textfield?.reset();
+    if (this.textfield) {
+      this.textfield.reset();
+    }
     this.searchTerm = '';
     this.suggestions = [];
   }
@@ -147,24 +149,50 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
    *  Returns true if the input passes validity checks.
    */
   checkValidity() {
-    return this.textfield?.checkValidity();
+    return this.textfield?.checkValidity() && this.customCheckValidity();
   }
 
   /**
    *  Runs checkValidity() method, and if it returns false, then it reports to the user that the input is invalid.
    */
   reportValidity() {
-    return this.textfield?.reportValidity();
+    var result = this.textfield?.reportValidity();
+    this.customReportValidity();
+    return result;
   }
 
-  async #setSelected(entity: T | null) {
+  protected customCheckValidity() {
+    this.errorText = 'Please fill out this field';
+    if (!this.selected && this.textfield?.value) {
+      return false;
+    }
+
+    if (!this.required && !this.selected) {
+      return true;
+    }
+
+    return !!this.selected;
+  }
+
+  protected customReportValidity() {
+    if (!this.customCheckValidity()) {
+      this.error = true;
+    } else {
+      this.error = false;
+      this.errorText = '';
+    }
+  }
+
+  protected async setSelected(entity: T | null) {
     const previouslySelected = this.selected;
     this.selected = entity;
     if (this.selected) {
       this.softReset();
+      if (this.textfield) {
+        this.reportValidity();
+      }
     }
 
-    await this.updateComplete;
     if (previouslySelected?.Id !== this.selected?.Id) {
       this.dispatchEvent(new Event('selected'));
     }
@@ -178,7 +206,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
     this.menu?.close();
     await this.updateComplete;
 
-    this.#setSelected(null);
+    this.setSelected(null);
     this.suggestions = [];
     this.count = 0;
     this.searchTerm = searchTerm;
@@ -250,8 +278,9 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
     </md-menu-item>`;
   }
 
-  protected renderSelectedLeadingSlot(entity: T) {
-    return html`No leading slot template supplied ${entity}`;
+  protected renderSelectedLeadingSlot(_entity: T) {}
+  protected renderLeadingSlot() {
+    return html`<slot name="leading-icon" slot="leading-icon"><md-icon>search</md-icon></slot>`;
   }
 
   render() {
@@ -296,7 +325,8 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
           }
         }}
       >
-        ${this.selected ? this.renderSelectedLeadingSlot(this.selected) : html`<slot name="leading-icon" slot="leading-icon"><md-icon>search</md-icon></slot>`}
+        ${this.selected ? this.renderSelectedLeadingSlot(this.selected) : this.renderLeadingSlot()}
+        <slot name="trailing-icon" slot="trailing-icon"></slot>
       </md-outlined-text-field>
 
       <md-menu
@@ -308,7 +338,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
         skip-restore-focus
         @close-menu=${(e: CloseMenuEvent) => {
           const selectedMenuItem = (e.detail.itemPath?.[0] ?? null) as MenuItem & { item: T };
-          this.#setSelected(selectedMenuItem?.item);
+          this.setSelected(selectedMenuItem?.item);
         }}
       >
         <md-linear-progress ?indeterminate=${this.isLoading} ?hide=${!this.isLoading}></md-linear-progress>
@@ -317,8 +347,8 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
           : ''}
         ${repeat(
           this.suggestions,
-          item => item?.Id,
-          item => this.renderSuggestion(item)
+          (item) => item?.Id,
+          (item) => this.renderSuggestion(item)
         )}
       </md-menu>
     `;
