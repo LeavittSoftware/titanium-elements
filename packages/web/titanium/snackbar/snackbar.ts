@@ -1,7 +1,8 @@
-// import '@material/mwc-button';
 import { HttpError } from '../../leavitt/api-service/HttpError';
 import { css, html, LitElement, nothing, TemplateResult } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
+import '@material/web/button/text-button';
+
 export class BasicSnackBar {
   _isComponent = false;
   open(message: string | TemplateResult, options?: SnackbarOptions) {
@@ -21,7 +22,6 @@ export let TitaniumSnackbarSingleton = new BasicSnackBar();
 export type SnackbarOptions = {
   actionText?: string | null;
   autoHide?: boolean;
-  style?: 'informational' | 'error';
   noAction?: boolean;
 };
 
@@ -60,14 +60,6 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
    * Hides the action button
    */
   @property({ type: Boolean, reflect: true }) protected noaction: boolean;
-  /**
-   * Styles the snackbar as informational (green)
-   */
-  @property({ type: Boolean, reflect: true }) protected informational: boolean;
-  /**
-   * Styles the snackbar as an error (red)
-   */
-  @property({ type: Boolean, reflect: true }) protected error: boolean;
 
   /**
    * Text used on the button
@@ -104,7 +96,6 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
    * optional options object:
    * actionText?: string | null;
    * autoHide?: boolean;
-   * style?: 'informational' | 'error';
    * noAction?: boolean;
    *
    */
@@ -113,7 +104,6 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
       //reset
       clearTimeout(this.#closeTimeoutHandle);
       this.noaction = false;
-      this.informational = false;
       this.error = false;
       this.actionText = 'DISMISS';
 
@@ -130,14 +120,6 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
       }
 
       if (options) {
-        if (options.style === 'informational') {
-          this.informational = true;
-        }
-
-        if (options.style === 'error') {
-          this.error = true;
-        }
-
         if (options.actionText) {
           this.actionText = options.actionText;
         }
@@ -226,8 +208,8 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
       margin: 16px;
       padding: 8px;
       border-radius: 4px;
-      background: var(--titanium-snackbar-background-color, #323232);
-      color: var(--titanium-snackbar-text-color, #f1f1f1);
+      background: var(--md-sys-color-inverse-surface);
+      color: var(--md-sys-color-inverse-on-surface);
       font-size: 14px;
       -webkit-box-shadow:
         0 3px 5px -1px rgba(0, 0, 0, 0.2),
@@ -245,16 +227,6 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
       transform: scale(0.8);
       z-index: 2;
       opacity: 0;
-    }
-
-    :host([informational]) {
-      background-color: #43a047;
-      color: #fff;
-    }
-
-    :host([error]) {
-      background-color: #d32f2f;
-      color: #fff;
     }
 
     :host([opening]),
@@ -312,7 +284,6 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
       overflow-y: auto;
       max-height: 400px;
       grid-column: 1 / -1;
-      color: #929397;
     }
 
     http-error [error] {
@@ -323,13 +294,12 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
       grid-area: status;
       font-size: 12px;
       justify-self: end;
-      color: var(--app-light-text-color, #707175);
     }
 
     http-error [action] {
       grid-area: action;
+
       font-size: 12px;
-      color: var(--app-light-text-color, #707175);
     }
 
     span[main] {
@@ -338,13 +308,9 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
       margin: 12px;
     }
 
-    mwc-button {
+    md-text-button {
+      --md-text-button-label-text-color: var(--md-sys-color-inverse-primary);
       align-self: flex-end;
-    }
-
-    :host([error]) mwc-button,
-    :host([informational]) mwc-button {
-      --mdc-theme-primary: #fff;
     }
 
     [hidden] {
@@ -355,15 +321,14 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
   render() {
     return html`
       <span main>${this.message}</span>
-      <mwc-button
+      <md-text-button
         ?hidden=${this.noaction}
         @click=${() => {
           clearTimeout(this.#closeTimeoutHandle);
           this.close();
         }}
-        .label=${this.actionText}
-      >
-      </mwc-button>
+        >${this.actionText}
+      </md-text-button>
     `;
   }
 }

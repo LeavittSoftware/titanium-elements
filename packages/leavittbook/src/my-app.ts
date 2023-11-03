@@ -382,8 +382,16 @@ export class MyApp extends LitElement {
               <md-icon slot="start">library_books</md-icon> <span>Drawer*</span>
             </md-list-item>
 
+            <md-list-item ?selected=${!!this.page?.includes('titanium-duration-input')} href="/titanium-duration-input" type="link">
+              <md-icon slot="start">library_books</md-icon> <span>Duration input *</span>
+            </md-list-item>
+
             <md-list-item ?selected=${!!this.page?.includes('titanium-error-page')} href="/titanium-error-page" type="link">
               <md-icon slot="start">library_books</md-icon> <span>Error page*</span>
+            </md-list-item>
+
+            <md-list-item ?selected=${!!this.page?.includes('titanium-full-page-loading-indicator')} href="/titanium-full-page-loading-indicator" type="link">
+              <md-icon slot="start">library_books</md-icon> <span>Full page loading indicator *</span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-header'} href="/titanium-header" type="link">
@@ -398,10 +406,6 @@ export class MyApp extends LitElement {
               <md-icon slot="start">library_books</md-icon> <span>Input validator *</span>
             </md-list-item>
 
-            <md-list-item ?selected=${!!this.page?.includes('titanium-full-page-loading-indicator')} href="/titanium-full-page-loading-indicator" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Full page loading indicator *</span>
-            </md-list-item>
-
             <md-list-item ?selected=${!!this.page?.includes('titanium-page-control')} href="/titanium-page-control" type="link">
               <md-icon slot="start">library_books</md-icon> <span>Page control*</span>
             </md-list-item>
@@ -410,12 +414,16 @@ export class MyApp extends LitElement {
               <md-icon slot="start">library_books</md-icon> <span>Search input*</span>
             </md-list-item>
 
+            <md-list-item ?selected=${!!this.page?.includes('titanium-show-hide')} href="/titanium-show-hide" type="link">
+              <md-icon slot="start">library_books</md-icon> <span>Show hide*</span>
+            </md-list-item>
+
             <md-list-item ?selected=${!!this.page?.includes('titanium-smart-attachment-input')} href="/titanium-smart-attachment-input" type="link">
               <md-icon slot="start">library_books</md-icon> <span>Smart attachment input *</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-snackbar')} href="/titanium-snackbar" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Snackbar</span>
+              <md-icon slot="start">library_books</md-icon> <span>Snackbar*</span>
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-styles')} href="/titanium-styles" type="link">
@@ -427,15 +435,7 @@ export class MyApp extends LitElement {
             </md-list-item>
 
             <md-list-item ?selected=${!!this.page?.includes('titanium-youtube-input')} href="/titanium-youtube-input" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Youtube input</span>
-            </md-list-item>
-
-            <md-list-item ?selected=${!!this.page?.includes('titanium-show-hide')} href="/titanium-show-hide" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Show hide*</span>
-            </md-list-item>
-
-            <md-list-item ?selected=${!!this.page?.includes('titanium-duration-input')} href="/titanium-duration-input" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>Duration input</span>
+              <md-icon slot="start">library_books</md-icon> <span>Youtube input *</span>
             </md-list-item>
           </details>
         </section>
@@ -460,16 +460,16 @@ export class MyApp extends LitElement {
               <md-icon slot="start">library_books</md-icon> <span>Person select* </span>
             </md-list-item>
 
-            <md-list-item ?selected=${this.page === 'leavitt-user-feedback'} href="/leavitt-user-feedback" type="link">
-              <md-icon slot="start">library_books</md-icon> <span>User feedback* </span>
-            </md-list-item>
-
             <md-list-item ?selected=${this.page === 'profile-picture'} href="/profile-picture" type="link">
               <md-icon slot="start">library_books</md-icon> <span>Profile picture* </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'profile-picture-menu'} href="/profile-picture-menu" type="link">
               <md-icon slot="start">library_books</md-icon> <span>Profile picture menu* </span>
+            </md-list-item>
+
+            <md-list-item ?selected=${this.page === 'leavitt-user-feedback'} href="/leavitt-user-feedback" type="link">
+              <md-icon slot="start">library_books</md-icon> <span>User feedback* </span>
             </md-list-item>
           </details>
         </section>
