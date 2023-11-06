@@ -28,24 +28,24 @@ export class TitaniumDrawer extends LitElement {
     let touchstartX = 0;
     let touchendX = 0;
 
-    this.addEventListener('touchstart', e => {
+    this.addEventListener('touchstart', (e) => {
       touchstartX = e.changedTouches[0].screenX;
     });
 
-    this.addEventListener('touchend', e => {
+    this.addEventListener('touchend', (e) => {
       touchendX = e.changedTouches[0].screenX;
       if (touchendX < touchstartX) {
         this.close();
       }
     });
 
-    this.dialog?.addEventListener('click', e => {
+    this.dialog?.addEventListener('click', (e) => {
       if (e.target instanceof Element && e.target?.nodeName === 'DIALOG') {
         this.close();
       }
     });
 
-    this.dialog?.addEventListener('cancel', event => {
+    this.dialog?.addEventListener('cancel', (event) => {
       event.preventDefault();
       this.close();
     });
@@ -61,7 +61,7 @@ export class TitaniumDrawer extends LitElement {
   }
 
   static async animationsComplete(element: HTMLElement) {
-    return await Promise.allSettled(element.getAnimations().map(animation => animation.finished));
+    return await Promise.allSettled(element.getAnimations().map((animation) => animation.finished));
   }
 
   /**

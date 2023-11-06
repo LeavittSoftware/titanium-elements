@@ -1,0 +1,16 @@
+export type DateRangeKey =
+  | 'today'
+  | 'yesterday'
+  | 'thisWeek'
+  | 'thisMonth'
+  | 'thisQuarter'
+  | 'thisYear'
+  | 'thisYearToDate'
+  | 'lastWeek'
+  | 'lastMonth'
+  | 'lastQuarter'
+  | 'lastYear'
+  | 'last12Months'
+  | 'lastYearToDate'
+  | 'allTime'
+  | 'custom';

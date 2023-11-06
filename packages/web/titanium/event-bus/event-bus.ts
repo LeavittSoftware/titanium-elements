@@ -13,10 +13,10 @@ export class EventBus<TEntityTypes, TEventTypes> {
 
   subscribe<TArg>(entityType: TEntityTypes | TEntityTypes[], eventTypes: TEventTypes | TEventTypes[], callback: EventCallback<TArg>) {
     if (Array.isArray(entityType)) {
-      entityType.forEach(o => this.subscribe(o, eventTypes, callback));
+      entityType.forEach((o) => this.subscribe(o, eventTypes, callback));
     } else {
       if (Array.isArray(eventTypes)) {
-        eventTypes.forEach(o => this.subscribe(entityType, o, callback));
+        eventTypes.forEach((o) => this.subscribe(entityType, o, callback));
       } else {
         this.#addSubscription(entityType, eventTypes, callback);
       }
@@ -25,7 +25,7 @@ export class EventBus<TEntityTypes, TEventTypes> {
 
   subscribeAll(entityType: TEntityTypes | TEntityTypes[], callback: () => void) {
     if (Array.isArray(entityType)) {
-      entityType.forEach(o => this.#addSubscription(o, 'All', callback));
+      entityType.forEach((o) => this.#addSubscription(o, 'All', callback));
     } else {
       this.#addSubscription(entityType, 'All', callback);
     }
@@ -42,10 +42,10 @@ export class EventBus<TEntityTypes, TEventTypes> {
 
   unsubscribe(entityType: TEntityTypes | TEntityTypes[], eventTypes: TEventTypes | TEventTypes[], callback: EventCallback<TEntityTypes>) {
     if (Array.isArray(entityType)) {
-      entityType.forEach(o => this.unsubscribe(o, eventTypes, callback));
+      entityType.forEach((o) => this.unsubscribe(o, eventTypes, callback));
     } else {
       if (Array.isArray(eventTypes)) {
-        eventTypes.forEach(o => this.unsubscribe(entityType, o, callback));
+        eventTypes.forEach((o) => this.unsubscribe(entityType, o, callback));
       } else {
         this.#removeSubscription(entityType, eventTypes, callback);
       }
@@ -53,10 +53,10 @@ export class EventBus<TEntityTypes, TEventTypes> {
   }
 
   #removeSubscription(entityType: TEntityTypes, eventTypes: TEventTypes, callback: EventCallback<TEntityTypes>) {
-    this.#subscribers = this.#subscribers.filter(s => s.callback !== callback || s.entityType !== entityType || s.eventTypes !== eventTypes);
+    this.#subscribers = this.#subscribers.filter((s) => s.callback !== callback || s.entityType !== entityType || s.eventTypes !== eventTypes);
   }
 
   dispatch<TArg>(entityType: TEntityTypes, eventTypes: TEventTypes, object?: TArg) {
-    this.#subscribers.filter(s => s.entityType === entityType && (s.eventTypes === 'All' || s.eventTypes === eventTypes)).forEach(s => s.callback(object));
+    this.#subscribers.filter((s) => s.entityType === entityType && (s.eventTypes === 'All' || s.eventTypes === eventTypes)).forEach((s) => s.callback(object));
   }
 }

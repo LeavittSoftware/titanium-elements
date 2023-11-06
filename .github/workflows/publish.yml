@@ -7,6 +7,9 @@ name: Publish
 on:
   push:
     branches: [master]
+    paths:
+      - '.github/workflows/publish.yml'
+      - 'packages/web/**'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:

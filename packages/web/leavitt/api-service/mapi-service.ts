@@ -1,4 +1,4 @@
-import { isDevelopment } from '../../titanium/helpers/dev-detection';
+import { isDevelopment } from '../../titanium/helpers/is-development';
 import ApiService from './api-service';
 import { AuthenticatedTokenProvider } from './authenticated-token-provider';
 import { NoAuthenticationTokenProvider } from './no-authentication-token-provider';

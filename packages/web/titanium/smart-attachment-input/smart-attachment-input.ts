@@ -17,10 +17,11 @@ import { getExtension, getFileIcon, imageFormats } from './image-formats';
 import { ImagePreviewDialog } from './image-preview-dialog';
 import { delay, middleEllipsis } from '../../titanium/helpers/helpers';
 import { IDatabaseAttachment } from '@leavittsoftware/lg-core-typescript/lg.net.system';
-import { getCdnDownloadUrl, getCdnInlineUrl } from '../../titanium/helpers/leavitt-cdn';
+import { getCdnDownloadUrl } from '../helpers/get-cdn-download-url';
 
 import { TitaniumChipMultiSelect } from '../../titanium/chip-multi-select/chip-multi-select';
 import { MdDialog } from '@material/web/dialog/dialog';
+import { getCdnInlineUrl } from '../helpers/get-cdn-Inline-url';
 
 export type TitaniumSmartInputOptions = Cropper.Options & { shape?: ' square' | 'circle' };
 

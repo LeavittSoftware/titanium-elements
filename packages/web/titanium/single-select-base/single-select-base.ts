@@ -156,7 +156,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
    *  Runs checkValidity() method, and if it returns false, then it reports to the user that the input is invalid.
    */
   reportValidity() {
-    var result = this.textfield?.reportValidity();
+    const result = this.textfield?.reportValidity();
     this.customReportValidity();
     return result;
   }
@@ -278,6 +278,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
     </md-menu-item>`;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected renderSelectedLeadingInputSlot(_entity: T) {}
 
   protected renderTrailingInputSlot() {

@@ -166,7 +166,7 @@ export class TitaniumDataTable extends LitElement {
 
   async firstUpdated() {
     if (typeof ResizeObserver === 'function') {
-      const ro = new ResizeObserver(entries => {
+      const ro = new ResizeObserver((entries) => {
         for (const entry of entries) {
           const cr = entry.contentRect;
           this.narrow = cr.width < 560;
@@ -177,7 +177,7 @@ export class TitaniumDataTable extends LitElement {
       ro.observe(this);
     } else {
       const mql = window.matchMedia('(max-width: 768px)');
-      mql.addEventListener('change', e => {
+      mql.addEventListener('change', (e) => {
         this.narrow = e.matches;
         this.updateChildrenIsNarrow();
       });
@@ -215,8 +215,8 @@ export class TitaniumDataTable extends LitElement {
    * @ignore
    */
   updateChildrenIsNarrow() {
-    (this.itemsSlot.assignedElements() as Array<TitaniumDataTableItem & HTMLElement>).forEach(o => (o.narrow = this.narrow));
-    (this.tableHeaders.assignedElements() as Array<TitaniumDataTableHeader & HTMLElement>).forEach(o => (o.narrow = this.narrow));
+    (this.itemsSlot.assignedElements() as Array<TitaniumDataTableItem & HTMLElement>).forEach((o) => (o.narrow = this.narrow));
+    (this.tableHeaders.assignedElements() as Array<TitaniumDataTableHeader & HTMLElement>).forEach((o) => (o.narrow = this.narrow));
   }
 
   /**
@@ -261,7 +261,7 @@ export class TitaniumDataTable extends LitElement {
   }
 
   #deselectAll() {
-    this.#getTableItems().forEach(o => o.deselect());
+    this.#getTableItems().forEach((o) => o.deselect());
   }
 
   /**
@@ -269,13 +269,13 @@ export class TitaniumDataTable extends LitElement {
    */
   selectAll() {
     if (!this.singleSelect) {
-      this.#getTableItems().forEach(o => o.select());
+      this.#getTableItems().forEach((o) => o.select());
     }
   }
 
   #getTableItems(): Array<TitaniumDataTableItem> {
     return (this.itemsSlot.assignedElements() as Array<TitaniumDataTableItem & HTMLElement>).filter(
-      o => typeof o.select === 'function' && typeof o.deselect === 'function'
+      (o) => typeof o.select === 'function' && typeof o.deselect === 'function'
     ) as Array<TitaniumDataTableItem>;
   }
 
@@ -543,15 +543,15 @@ export class TitaniumDataTable extends LitElement {
       </header>
 
       <table-container
-        @titanium-data-table-item-selected-changed=${e => {
+        @titanium-data-table-item-selected-changed=${(e) => {
           e.stopPropagation();
           const dataTableItem = e.target as TitaniumDataTableItem;
 
           if (dataTableItem.selected) {
             if (this.singleSelect) {
               this.#getTableItems()
-                .filter(o => o.item !== dataTableItem.item)
-                .forEach(o => o.deselect());
+                .filter((o) => o.item !== dataTableItem.item)
+                .forEach((o) => o.deselect());
             }
 
             this.selected.push(dataTableItem.item);

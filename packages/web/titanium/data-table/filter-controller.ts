@@ -12,11 +12,11 @@ export class FilterController<TKey extends string> {
   }
 
   unsubscribeFromFilterChange(callback: () => void) {
-    this.#valueUpdateCallbacks = this.#valueUpdateCallbacks.filter(o => o != callback);
+    this.#valueUpdateCallbacks = this.#valueUpdateCallbacks.filter((o) => o != callback);
   }
 
   #notifyChange() {
-    this.#valueUpdateCallbacks.forEach(o => o());
+    this.#valueUpdateCallbacks.forEach((o) => o());
   }
 
   /**
@@ -50,7 +50,7 @@ export class FilterController<TKey extends string> {
     const urlParams = new URLSearchParams(location.search);
     let hasChanges = false;
 
-    this.#filters.forEach(filter => {
+    this.#filters.forEach((filter) => {
       let value: string | null = null;
       if (urlParams.has(filter.key)) {
         value = urlParams.get(filter.key);
@@ -75,7 +75,7 @@ export class FilterController<TKey extends string> {
 
   getActiveFilterOdata() {
     const odataFilters: Array<string> = [];
-    this.filters.forEach(o => {
+    this.filters.forEach((o) => {
       const odata = o.getOdataFilter();
       if (odata) {
         odataFilters.push(odata);
@@ -121,7 +121,7 @@ export class FilterController<TKey extends string> {
 
   #setQueryString() {
     const urlParams = new URLSearchParams(location.search);
-    this.#filters.forEach(filter => {
+    this.#filters.forEach((filter) => {
       if (typeof filter.value !== 'undefined' && filter.value !== null) {
         urlParams.set(filter.key, String(filter.value));
       } else {
