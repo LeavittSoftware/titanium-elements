@@ -168,7 +168,7 @@ export class TitaniumPageControl extends LitElement {
           <div ellipsis>${this.label}</div>
           <md-outlined-select
             ?disabled=${this.disabled}
-            @request-selection=${e => {
+            @request-selection=${(e) => {
               e.stopPropagation();
               this.take = Number(e.target.value);
               this.dispatchEvent(new CustomEvent('action', { composed: true }));
@@ -176,8 +176,8 @@ export class TitaniumPageControl extends LitElement {
           >
             ${repeat(
               this.pageSizes,
-              o => o,
-              o =>
+              (o) => o,
+              (o) =>
                 html` <md-select-option ?selected=${this.take === o} value=${o}>
                   <div slot="headline">${o}</div>
                 </md-select-option>`

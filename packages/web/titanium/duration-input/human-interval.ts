@@ -26,7 +26,7 @@ const languageMap = {
   ten: 10,
 };
 
-const swapLanguageToDecimals = time => {
+const swapLanguageToDecimals = (time) => {
   const language = languageMap;
   const languageMapRegex = new RegExp('(' + Object.keys(language).join('|') + ')', 'g');
   const matches = time.match(languageMapRegex);
@@ -34,14 +34,14 @@ const swapLanguageToDecimals = time => {
     return time;
   }
 
-  matches.forEach(match => {
+  matches.forEach((match) => {
     const matchStr = language[match] > 1 ? language[match] : language[match].toString().slice(1);
     time = time.replace(match, matchStr);
   });
   return time;
 };
 
-const processUnits = time => {
+const processUnits = (time) => {
   if (time.match(/(second|minute|hour|day|week|month|year)s?/) === null) {
     return undefined;
   }
@@ -52,7 +52,7 @@ const processUnits = time => {
   return units[unit] * num;
 };
 
-const humanInterval = time => {
+const humanInterval = (time) => {
   if (!time) {
     return time;
   }
@@ -81,8 +81,8 @@ export function durationToString(d: duration.Duration | null | undefined): strin
     minutes: d.minutes(),
     seconds: d.seconds(),
   })
-    .filter(value => value[1] !== 0)
-    .map(value => `${value[1]} ${value[1] === 1 ? value[0].slice(0, -1) : value[0]}`)
+    .filter((value) => value[1] !== 0)
+    .map((value) => `${value[1]} ${value[1] === 1 ? value[0].slice(0, -1) : value[0]}`)
     .join(' and ');
 }
 

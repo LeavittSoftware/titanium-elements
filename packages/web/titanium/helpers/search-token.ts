@@ -6,8 +6,8 @@ export const getSearchTokens = (inputText: string, allowedComplexityLevel = 3) =
   }
   let tokens = inputText
     .split(' ')
-    .map(token => escapeTerm(token.trim()))
-    .filter(token => token.length > 0);
+    .map((token) => escapeTerm(token.trim()))
+    .filter((token) => token.length > 0);
   if (tokens.length > allowedComplexityLevel) {
     // if user types more than
     // three words, do not tokenize
