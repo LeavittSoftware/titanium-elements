@@ -2,8 +2,11 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, query } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
-// import '@material/mwc-icon';
-// import '@material/mwc-button';
+import { myAppStyles } from '../../styles/my-app-styles';
+import '@material/web/icon/icon';
+import '@material/web/button/outlined-button';
+import '@material/web/list/list';
+import '@material/web/list/list-item';
 
 /* playground-fold-end */
 
@@ -19,21 +22,38 @@ export class TitaniumDrawerPlayground extends LitElement {
   static styles = [
     h1,
     p,
+    myAppStyles,
     css`
       :host {
         display: flex;
         flex-direction: column;
-
         margin: 24px 12px;
       }
 
       div {
-        margin: 24px 0 36px 0;
+        margin: 24px 0 12px 0;
         width: 280px;
       }
 
+      md-outlined-button {
+        margin-bottom: 12px;
+      }
+
+      md-icon {
+        height: 16px;
+        width: 16px;
+        font-size: 16px;
+      }
+
+      md-list-item {
+        height: 26px;
+        --md-list-item-one-line-container-height: 26px;
+        --md-list-item-label-text-size: 14px;
+        --md-list-item-label-text-weight: 400;
+      }
+
       titanium-drawer[two]::part(dialog) {
-        border: 1px solid grey;
+        border: 1px solid var(--md-sys-color-outline-variant);
         border-radius: 8px;
       }
     `,
@@ -43,56 +63,40 @@ export class TitaniumDrawerPlayground extends LitElement {
     /* playground-fold-end */
     return html`
       <h1>Basic drawer</h1>
-      <p>Basic </p>
+      <p>Basic</p>
       <div>
-        <mwc-button label="Open" @click=${() => this.drawerOne.open()}></titanium-drawer></mwc-button>
+        <md-outlined-button @click=${() => this.drawerOne.open()}><span>Open</span></md-outlined-button>
         <titanium-drawer one>
-          <titanium-side-menu-item href="#default">Home</titanium-side-menu-item>
-          <titanium-side-menu-item href="#disabled" disabled>Fruits</titanium-side-menu-item>
-          <titanium-side-menu-item href="#selected" selected>Vegetables</titanium-side-menu-item>
+          <md-list-item href="#default" type="link">Default</md-list-item>
+          <md-list-item href="#disabled" type="link" disabled>Disabled</md-list-item>
+          <md-list-item href="#selected" type="link" selected>Selected</md-list-item>
         </titanium-drawer>
-
-
-    
       </div>
+
       <h1>Always show slotted content</h1>
       <p>Show drawer content when closed</p>
+
       <div>
-        <mwc-button label="Open" @click=${() => this.drawerTwo.open()} ></titanium-drawer></mwc-button>
-        <titanium-drawer two always-show-content >
+        <md-outlined-button @click=${() => this.drawerTwo.open()}><span>Open</span></md-outlined-button>
+        <titanium-drawer two always-show-content>
           <h3>Fruits</h3>
-          <titanium-side-menu-item href="/titanium-drawer" >
-            <mwc-icon>restaurant</mwc-icon>
-            <span>Fruits</span>
-          </titanium-side-menu-item>
-            <h4 sub>Walnut</h4>
-            <titanium-side-menu-item sub  href="/titanium-drawer">
-              <span>Edit fruit</span>
-            </titanium-side-menu-item>
-            <titanium-side-menu-item sub  href="/titanium-drawer">
-              <span>Assign farmers</span>
-            </titanium-side-menu-item>
-        
+          <md-list-item href="/titanium-drawer" type="link"> <md-icon slot="start">restaurant</md-icon><span>Fruits</span> </md-list-item>
+          <h4 sub>Walnut</h4>
+          <md-list-item sub href="/titanium-drawer" type="link">
+            <span>Edit fruit</span>
+          </md-list-item>
+          <md-list-item sub href="/titanium-drawer" type="link">
+            <span>Assign farmers</span>
+          </md-list-item>
 
           <h4>Administration</h4>
-          <titanium-side-menu-item href="/titanium-drawer">
-            <mwc-icon>home</mwc-icon>
-            <span>Rules</span>
-          </titanium-side-menu-item>
+          <md-list-item href="/titanium-drawer" type="link"> <md-icon slot="start">home</md-icon><span>Rules</span> </md-list-item>
           <menu-divider></menu-divider>
-          <titanium-side-menu-item href="/titanium-drawer">
-            <mwc-icon>question_answer</mwc-icon>
-            <span>Feedback</span>
-          </titanium-side-menu-item>
-          <titanium-side-menu-item href="/titanium-drawer">
-            <mwc-icon>apps</mwc-icon>
-            <span>Back to my apps</span>
-            <mwc-icon ext>exit_to_app</mwc-icon>
-          </titanium-side-menu-item>
+          <md-list-item href="/titanium-drawer" type="link"> <md-icon slot="start">question_answer</md-icon><span>Feedback</span> </md-list-item>
+          <md-list-item href="/titanium-drawer" type="link">
+            <md-icon slot="start">apps</md-icon><span>Back to my apps</span><md-icon slot="end">exit_to_app</md-icon>
+          </md-list-item>
         </titanium-drawer>
-
-
-    
       </div>
     `;
   }
