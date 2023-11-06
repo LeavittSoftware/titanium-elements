@@ -60,6 +60,7 @@ export default {
     }),
     copy({
       targets: [
+        { src: 'custom-elements.json', dest: 'dist' },
         { src: 'theme.css', dest: 'dist' },
         { src: 'manifest.json', dest: 'dist' },
         { src: 'manifest', dest: 'dist' },
