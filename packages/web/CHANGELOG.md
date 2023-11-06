@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.2.1...@leavittsoftware/web@1.2.2) (2023-11-06)
+
+### Bug Fixes
+
+- add missing dependency ([dab2fb6](https://github.com/LeavittSoftware/titanium-elements/commit/dab2fb6e6d0e741f63988a7bddabb726f86ab4df))
+
 ## [1.2.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.2.0...@leavittsoftware/web@1.2.1) (2023-11-06)
 
 **Note:** Version bump only for package @leavittsoftware/web
