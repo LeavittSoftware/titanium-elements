@@ -1,4 +1,4 @@
-﻿import { isDevelopment } from '../../titanium/helpers/dev-detection';
+﻿import { isDevelopment } from '../../titanium/helpers/is-development';
 import { BearerTokenProvider } from './bearer-token-provider';
 import { HttpError } from './HttpError';
 import { ODataDto } from './odata-dto';

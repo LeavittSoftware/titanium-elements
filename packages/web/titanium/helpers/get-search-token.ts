@@ -1,4 +1,4 @@
-import { escapeTerm } from './odata-helpers';
+import { escapeTerm } from './escape-term';
 
 export const getSearchTokens = (inputText: string, allowedComplexityLevel = 3) => {
   if (typeof inputText === 'undefined' || inputText === null || inputText.length === 0) {
