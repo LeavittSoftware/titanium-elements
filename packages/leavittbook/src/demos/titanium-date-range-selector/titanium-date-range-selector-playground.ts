@@ -7,8 +7,9 @@ import '@material/web/button/text-button';
 /* playground-fold-end */
 
 import '@leavittsoftware/web/titanium/date-range-selector/date-range-selector';
-import { DateRanges, TitaniumDateRangeSelector } from '@leavittsoftware/web/titanium/date-range-selector/date-range-selector';
+import { TitaniumDateRangeSelector } from '@leavittsoftware/web/titanium/date-range-selector/date-range-selector';
 import dayjs from 'dayjs/esm';
+import { DateRanges } from '@leavittsoftware/web/titanium/date-range-selector/types/date-ranges';
 
 /* playground-fold */
 @customElement('titanium-date-range-selector-playground')

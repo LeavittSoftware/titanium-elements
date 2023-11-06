@@ -14,7 +14,7 @@ export default class NpmStats extends LitElement {
   async firstUpdated() {
     const stats = await this.#getStats(this.#package);
     if (stats) {
-      const [major, minor, rev] = stats.version?.split('.').map((o) => Number(o));
+      const [major, minor, rev] = stats.version?.split('.')?.map((o) => Number(o)) ?? [];
       const countUp = new CountUp(this.major, major, { suffix: '.', duration: 1 });
       const countUp2 = new CountUp(this.minor, minor, { suffix: '.', duration: 1 });
       const countUp3 = new CountUp(this.rev, rev, { duration: 1 });
@@ -38,7 +38,7 @@ export default class NpmStats extends LitElement {
       });
       const text = await response.text();
       const json = text.length ? JSON.parse(text) : {};
-      var latest = Object.entries(json.downloads)?.findLast((o) => o);
+      const latest = Object.entries(json.downloads)?.findLast((o) => o);
       return { version: latest?.[0] as string, downloads: latest?.[1] as number };
     } catch (error) {
       console.warn(error);

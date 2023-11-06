@@ -1,4 +1,4 @@
-﻿import { isDevelopment } from '../../titanium/helpers/dev-detection';
+﻿import { isDevelopment } from '../../titanium/helpers/is-development';
 import { BearerTokenProvider } from './bearer-token-provider';
 import { HttpError } from './HttpError';
 import { ODataDto } from './odata-dto';
@@ -67,7 +67,7 @@ export default class ApiService {
           };
         }
 
-        xhr.upload.addEventListener('progress', e => {
+        xhr.upload.addEventListener('progress', (e) => {
           onprogress(e, xhr);
         });
         xhr.open('POST', this.#getFullUri(urlPath), true);
@@ -245,7 +245,7 @@ export default class ApiService {
     const errorMessageToCount: Map<string, number> = new Map();
     const httpErrors: HttpError[] = [];
 
-    const requests = apiCalls.map(async call => {
+    const requests = apiCalls.map(async (call) => {
       try {
         await call();
       } catch (httpError) {
@@ -261,19 +261,19 @@ export default class ApiService {
       const newError: HttpError = {
         type: 'HttpError',
         action: httpErrors
-          .map(o => o.action)
+          .map((o) => o.action)
           .filter(this.#distinct)
           .join(', '),
         message: `${httpErrors.length} of ${apiCalls.length} actions failed`,
         detail: Array.from(errorMessageToCount.keys())
-          .map(o => `${errorMessageToCount.get(o)} error(s):  ${o}`)
+          .map((o) => `${errorMessageToCount.get(o)} error(s):  ${o}`)
           .join('\n'),
         baseUrl: httpErrors
-          .map(o => o.baseUrl)
+          .map((o) => o.baseUrl)
           .filter(this.#distinct)
           .join(', '),
         path: httpErrors
-          .map(o => o.path)
+          .map((o) => o.path)
           .filter(this.#distinct)
           .join(', '),
       };

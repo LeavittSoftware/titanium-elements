@@ -54,7 +54,7 @@ export class TitaniumAddressInput extends GoogleAddressInput {
         title="Can't find address"
         @click=${async (e: MouseEvent) => {
           e.preventDefault();
-          var address = await this.manualAddressDialog.open(this.selected);
+          const address = await this.manualAddressDialog.open(this.selected);
           if (address) {
             this.selected = { Id: '0', ...address };
             this.reportValidity();

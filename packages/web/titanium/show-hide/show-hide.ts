@@ -48,7 +48,7 @@ export default class TitaniumShowHideElement extends LitElement {
       // Look at the reserved space in the container and see how many items we can show without exceeding the collapse height.
       // We then display the count of the remaining hidden items on the button
       const items = (this.itemsContainer.children?.[0] as HTMLSlotElement)?.assignedElements();
-      this.hiddenItemCount = items.filter(o => !this.#isWithin(this.collapsedContainer, o)).length;
+      this.hiddenItemCount = items.filter((o) => !this.#isWithin(this.collapsedContainer, o)).length;
       this.hasHiddenItems = !!this.hiddenItemCount;
     });
 
