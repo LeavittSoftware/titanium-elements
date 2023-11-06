@@ -279,11 +279,12 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
   }
 
   protected renderSelectedLeadingInputSlot(_entity: T) {}
+
   protected renderTrailingInputSlot() {
     return html`<slot name="trailing-icon" slot="trailing-icon"></slot>`;
   }
 
-  protected renderLeadingSlot() {
+  protected renderLeadingInputSlot() {
     return html`<slot name="leading-icon" slot="leading-icon"><md-icon>search</md-icon></slot>`;
   }
 
@@ -333,9 +334,8 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
           }
         }}
       >
-        ${this.selected ? this.renderSelectedLeadingInputSlot(this.selected) : this.renderLeadingSlot()} ${this.renderTrailingInputSlot()}
+        ${this.selected ? this.renderSelectedLeadingInputSlot(this.selected) : this.renderLeadingInputSlot()} ${this.renderTrailingInputSlot()}
       </md-outlined-text-field>
-      ${this.renderTrailingSlot()}
       <md-menu
         quick
         id="menu"
@@ -358,6 +358,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
           (item) => this.renderSuggestion(item)
         )}
       </md-menu>
+      ${this.renderTrailingSlot()}
     `;
   }
 }
