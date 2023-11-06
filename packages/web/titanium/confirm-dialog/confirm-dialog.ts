@@ -1,7 +1,6 @@
 import { css, html, LitElement, TemplateResult } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 import '@material/web/dialog/dialog';
-import '@material/web/button/filled-tonal-button';
 import '@material/web/button/text-button';
 
 import { ConfirmDialogOpenEvent } from './confirm-dialog-open-event';
@@ -81,11 +80,11 @@ export default class TitaniumConfirmDialog extends LitElement {
             }}
             >CANCEL</md-text-button
           >
-          <md-filled-tonal-button
+          <md-text-button
             @click=${() => {
               this.dialog.close('confirmed');
             }}
-            >CONFIRM</md-filled-tonal-button
+            >CONFIRM</md-text-button
           >
         </div>
       </md-dialog>
