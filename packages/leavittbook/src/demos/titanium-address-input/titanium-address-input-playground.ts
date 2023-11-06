@@ -20,8 +20,7 @@ export class TitaniumAddressInputPlayground extends LitElement {
   @state() protected setLocationResult: string | null = null;
 
   @query('google-address-input[demo-a]') protected googleAddressInputDemoA!: GoogleAddressInput;
-  @query('titanium-address-input[layout]') protected layoutInput!: TitaniumAddressInput;
-  @query('titanium-address-input[set-location]') protected setLocationInput!: TitaniumAddressInput;
+  @query('titanium-address-input[demo-a]') protected titaniumAddressInputDemoA!: TitaniumAddressInput;
 
   static styles = [
     h1,
@@ -137,34 +136,51 @@ export class TitaniumAddressInputPlayground extends LitElement {
 
       <h1>Titanium address input</h1>
 
-      <titanium-address-input googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"
-        ><md-icon slot="trailing-icon">map</md-icon><md-icon slot="leading-icon">map</md-icon></titanium-address-input
-      >
-      <titanium-address-input label="Disabled" disabled googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"></titanium-address-input>
-      <titanium-address-input label="iconTrailing" googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"> </titanium-address-input>
-      <titanium-address-input
-        helperPersistent
-        helper="Place must have a street number."
-        googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"
-      ></titanium-address-input>
-      <titanium-address-input
-        style="--google-address-input-helper-offset: 110px"
-        googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"
-        label="Required w/validation message"
-        linkLabel="Can't Find Address"
-        required
-        validationMessage="Please input an address"
-      ></titanium-address-input>
+      <component-demo>
+        <h2>Main demo</h2>
+        <titanium-address-input
+          demo-a
+          @selected=${(e: DOMEvent<GoogleAddressInput>) => console.log('selected change 1', e.target.selected)}
+          googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"
+        >
+        </titanium-address-input>
 
-      <h1>County textfield</h1>
-      <p>County textfield available in the manual address dialog</p>
+        <section actions>
+          <md-outlined-button @click=${() => this.titaniumAddressInputDemoA.reportValidity()}>reportValidity()</md-outlined-button>
+          <md-outlined-button @click=${() => (this.titaniumAddressInputDemoA.required = !this.titaniumAddressInputDemoA.required)}
+            >Toggle required</md-outlined-button
+          >
 
-      <titanium-address-input show-county required googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"></titanium-address-input>
+          <md-outlined-button @click=${() => (this.titaniumAddressInputDemoA.disabled = !this.titaniumAddressInputDemoA.disabled)}
+            >Toggle disabled</md-outlined-button
+          >
 
-      <h1>Street2 textfield</h1>
-      <p>Street2 textfield available in the manual address dialog</p>
+          <md-outlined-button
+            @click=${() => (this.titaniumAddressInputDemoA.supportingText = this.titaniumAddressInputDemoA.supportingText ? '' : 'Select an address above')}
+            >Toggle supporting text</md-outlined-button
+          >
 
-      <titanium-address-input show-street2 show-county required googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"></titanium-address-input>
+          <md-outlined-button @click=${() => (this.titaniumAddressInputDemoA.showCounty = !this.titaniumAddressInputDemoA.showCounty)}
+            >Toggle showCounty text</md-outlined-button
+          >
+
+          <md-outlined-button @click=${() => (this.titaniumAddressInputDemoA.showStreet2 = !this.titaniumAddressInputDemoA.showCounty)}
+            >Toggle showStreet2 text</md-outlined-button
+          >
+          <md-outlined-button
+            @click=${() =>
+              (this.titaniumAddressInputDemoA.selected = {
+                Id: '1',
+                street: '11 North Main Street',
+                city: 'Cedar City',
+                state: 'UT',
+                zip: '84720',
+              })}
+            >Prefill an address</md-outlined-button
+          >
+          <md-outlined-button @click=${() => this.titaniumAddressInputDemoA.reset()}>reset()</md-outlined-button>
+        </section>
+      </component-demo>
     `;
   }
 }

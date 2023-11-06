@@ -76,7 +76,7 @@ export class LeavittCompanySelect extends TitaniumSingleSelectBase<Partial<Compa
 
   async #reloadCompanies() {
     this.companies = await this.#getCompanies();
-    this.selected = this.companies.find(o => o.Id === this.selected?.Id) ?? null;
+    this.selected = this.companies.find((o) => o.Id === this.selected?.Id) ?? null;
   }
 
   async #getCompanies() {
@@ -112,14 +112,14 @@ export class LeavittCompanySelect extends TitaniumSingleSelectBase<Partial<Compa
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const fuse = new Fuse(this.companies, options as any);
       const fuseResults = fuse.search(searchTerm);
-      this.suggestions = fuseResults.map(o => o.item);
+      this.suggestions = fuseResults.map((o) => o.item);
     } else {
       this.suggestions = this.companies;
     }
     this.count = this.suggestions.length;
   }
 
-  protected override renderSelectedLeadingSlot(entity: Partial<Company>) {
+  protected override renderSelectedLeadingInputSlot(entity: Partial<Company>) {
     return html` <img leading slot="leading-icon" src=${entity.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />`;
   }
 

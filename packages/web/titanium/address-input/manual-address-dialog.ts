@@ -1,71 +1,53 @@
 import { css, html, LitElement, nothing } from 'lit';
-import { property, customElement, query, queryAll } from 'lit/decorators.js';
-import { validateStreet } from './utils/validate-street';
+import { property, customElement, query, queryAll, state } from 'lit/decorators.js';
 import { AddressInputAddress } from './types/address-input-address';
 
-// import '@material/mwc-button';
-// import '@material/mwc-select';
-// import '@material/mwc-list/mwc-list-item';
-// import '/titanium-dialog';
-
-// import { TextField } from '@material/mwc-textfield';
-// import { Select } from '@material/mwc-select';
-// import { TitaniumDialogElement } from '/titanium-dialog';
+import '@material/web/icon/icon';
+import '@material/web/select/outlined-select';
+import '@material/web/select/select-option';
+import '@material/web/dialog/dialog';
+import '@material/web/textfield/outlined-text-field';
+import { MdDialog } from '@material/web/dialog/dialog';
+import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
+import { MdOutlinedSelect } from '@material/web/select/outlined-select';
+import { DOMEvent } from '../types/dom-event';
+import { formStyles } from '../../../leavittbook/src/styles/form-styles';
+import { allowDialogOverflow, preventDialogOverflow } from '../hacks/dialog-overflow-hacks';
 
 @customElement('manual-address-dialog')
 export class ManualAddressDialog extends LitElement {
-  @query('titanium-dialog') protected dialog;
+  @query('md-dialog') protected dialog: MdDialog;
 
   @property({ type: String }) label: string = '';
-  @property({ type: String }) street: string = '';
-  @property({ type: String }) street2: string = '';
-  @property({ type: String }) city: string = '';
-  @property({ type: String }) county: string = '';
-  @property({ type: String }) state: string = '';
-  @property({ type: String }) zip: string = '';
   @property({ type: Boolean, attribute: 'show-county' }) showCounty: boolean;
   @property({ type: Boolean, attribute: 'show-street2' }) showStreet2: boolean;
-  @property({ type: Boolean, attribute: 'disabled-closing-animation' }) disableClosingAnimation: boolean = false;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @query('mwc-textfield[street]') protected streetInput: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @queryAll('mwc-textfield, mwc-select') protected allInputs: NodeListOf<any & { mdcFoundation: { setValid(): boolean }; isUiValid: boolean }>;
+  @state() protected street: string = '';
+  @state() protected street2: string = '';
+  @state() protected city: string = '';
+  @state() protected county: string = '';
+  @state() protected state: string = '';
+  @state() protected zip: string = '';
 
-  public async open(location: Partial<AddressInputAddress> | null | undefined) {
+  @queryAll('md-outlined-text-field, md-outlined-select') protected allInputs: NodeListOf<MdOutlinedTextField | MdOutlinedSelect>;
+
+  resolve: (value: Partial<AddressInputAddress> | null) => void;
+
+  public async open(address: AddressInputAddress | null | undefined) {
     this.reset();
-    if (location) {
-      this.street = location?.street ?? '';
-      this.street2 = location?.street2 ?? '';
-      this.city = location?.city ?? '';
-      this.state = location?.state ?? '';
-      this.zip = location?.zip ?? '';
-      this.county = location?.county ?? '';
-    }
+    await this.updateComplete;
 
-    const reason = await this.dialog.open();
-    if (reason === 'update') {
-      const address: Partial<AddressInputAddress> = {
-        street: this.street,
-        street2: this.street2,
-        city: this.city,
-        state: this.state,
-        zip: this.zip,
-        county: this.county,
-      };
-      return address;
-    }
-    return null;
-  }
+    this.street = address?.street ?? '';
+    this.street2 = address?.street2 ?? '';
+    this.city = address?.city ?? '';
+    this.state = address?.state ?? '';
+    this.zip = address?.zip ?? '';
+    this.county = address?.county ?? '';
 
-  layout() {
-    this.allInputs.forEach((input) => {
-      input.layout();
+    this.dialog.show();
+    return new Promise<Partial<AddressInputAddress> | null>((res) => {
+      this.resolve = res;
     });
-  }
-
-  async firstUpdated() {
-    this.streetInput.validityTransform = (newValue) => (validateStreet(newValue) ? {} : { valid: false });
   }
 
   validate() {
@@ -86,193 +68,166 @@ export class ManualAddressDialog extends LitElement {
     this.zip = '';
     this.county = '';
 
-    await this.updateComplete;
-    this.allInputs.forEach((input) => {
-      input.isUiValid = true;
-      input.mdcFoundation?.setValid?.(true);
-    });
+    this.allInputs.forEach((input) => input.reset());
   }
 
-  static styles = css`
-    titanium-dialog {
-      --titanium-dialog-max-width: 450px;
-    }
-
-    @media (max-width: 600px) {
-      titanium-dialog {
-        --titanium-dialog-max-width: inherit;
+  static styles = [
+    formStyles,
+    css`
+      md-dialog {
+        width: -webkit-fill-available;
+        max-width: min(0% + 550px, 100% - 48px);
       }
-    }
-
-    mwc-textfield:first-of-type {
-      margin-top: 12px;
-    }
-
-    mwc-textfield,
-    mwc-select {
-      margin-top: 24px;
-      width: 100%;
-    }
-  `;
+    `,
+  ];
 
   render() {
     return html`
-      <titanium-dialog
-        disable-scroll
-        header=${this.label}
-        @opened=${(e) => {
-          if (e.target.nodeName === 'DIALOG') {
-            this.streetInput.focus();
+      <md-dialog
+        @closing=${(e: DOMEvent<MdDialog>) => {
+          if (e.target.returnValue !== 'apply') {
+            this.resolve(null);
           }
         }}
-        .disableClosingAnimation=${this.disableClosingAnimation}
       >
-        <mwc-textfield
-          street
-          outlined
-          icon="markunread_mailbox"
-          required
-          .value=${this.street || ''}
-          @input=${(event) => {
-            this.street = event.target.value;
-          }}
-          label="Street"
-        ></mwc-textfield>
-        ${this.showStreet2
-          ? html` <mwc-textfield
-              street2
-              outlined
-              icon="meeting_room"
-              .value=${this.street2 || ''}
-              @input=${(event) => {
-                this.street2 = event.target.value;
-              }}
-              label="Street 2"
-            ></mwc-textfield>`
-          : nothing}
-        <mwc-textfield
-          icon="location_city"
-          outlined
-          required
-          .value=${this.city || ''}
-          @input=${(event) => {
-            this.city = event.target.value;
-          }}
-          label="City"
-        ></mwc-textfield>
-        ${!this.showCounty
-          ? nothing
-          : html`<mwc-textfield
-              icon="explore"
-              outlined
-              required
-              .value=${this.county || ''}
-              @input=${(event) => {
-                this.county = event.target.value;
-              }}
-              label="County"
-            ></mwc-textfield>`}
+        <div slot="headline">${this.label}</div>
+        <form slot="content">
+          <md-outlined-text-field
+            label="Street"
+            required
+            .value=${this.street || ''}
+            @change=${(e: DOMEvent<MdOutlinedTextField>) => (this.street = e.target.value)}
+          >
+            <md-icon slot="leading-icon">markunread_mailbox</md-icon>
+          </md-outlined-text-field>
+          ${this.showStreet2
+            ? html` <md-outlined-text-field
+                label="Street 2"
+                .value=${this.street2 || ''}
+                @change=${(e: DOMEvent<MdOutlinedTextField>) => (this.street2 = e.target.value)}
+              >
+                <md-icon slot="leading-icon">meeting_room</md-icon></md-outlined-text-field
+              >`
+            : nothing}
+          <md-outlined-text-field label="City" required .value=${this.city || ''} @change=${(e: DOMEvent<MdOutlinedTextField>) => (this.city = e.target.value)}
+            ><md-icon slot="leading-icon">location_city</md-icon></md-outlined-text-field
+          >
+          ${!this.showCounty
+            ? nothing
+            : html`<md-outlined-text-field
+                label="County"
+                required
+                .value=${this.county || ''}
+                @change=${(e: DOMEvent<MdOutlinedTextField>) => (this.county = e.target.value)}
+                ><md-icon slot="leading-icon">explore</md-icon></md-outlined-text-field
+              >`}
 
-        <mwc-select
-          .value=${this.state || ''}
-          @selected=${(event) => {
-            this.state = event.target.value;
-          }}
-          outlined
-          icon="location_on"
-          label="State"
-          required
-        >
-          <mwc-list-item graphic="icon" value="AL">Alabama</mwc-list-item>
-          <mwc-list-item graphic="icon" value="AK">Alaska</mwc-list-item>
-          <mwc-list-item graphic="icon" value="AS">American Samoa</mwc-list-item>
-          <mwc-list-item graphic="icon" value="AZ">Arizona</mwc-list-item>
-          <mwc-list-item graphic="icon" value="AR">Arkansas</mwc-list-item>
-          <mwc-list-item graphic="icon" value="CA">California</mwc-list-item>
-          <mwc-list-item graphic="icon" value="CO">Colorado</mwc-list-item>
-          <mwc-list-item graphic="icon" value="CT">Connecticut</mwc-list-item>
-          <mwc-list-item graphic="icon" value="DE">Delaware</mwc-list-item>
-          <mwc-list-item graphic="icon" value="DC">District of Columbia</mwc-list-item>
-          <mwc-list-item graphic="icon" value="FM">Federated States of Micronesia</mwc-list-item>
-          <mwc-list-item graphic="icon" value="FL">Florida</mwc-list-item>
-          <mwc-list-item graphic="icon" value="GA">Georgia</mwc-list-item>
-          <mwc-list-item graphic="icon" value="GU">Guam</mwc-list-item>
-          <mwc-list-item graphic="icon" value="HI">Hawaii</mwc-list-item>
-          <mwc-list-item graphic="icon" value="ID">Idaho</mwc-list-item>
-          <mwc-list-item graphic="icon" value="IL">Illinois</mwc-list-item>
-          <mwc-list-item graphic="icon" value="IN">Indiana</mwc-list-item>
-          <mwc-list-item graphic="icon" value="IA">Iowa</mwc-list-item>
-          <mwc-list-item graphic="icon" value="KS">Kansas</mwc-list-item>
-          <mwc-list-item graphic="icon" value="KY">Kentucky</mwc-list-item>
-          <mwc-list-item graphic="icon" value="LA">Louisiana</mwc-list-item>
-          <mwc-list-item graphic="icon" value="ME">Maine</mwc-list-item>
-          <mwc-list-item graphic="icon" value="MH">Marshall Islands</mwc-list-item>
-          <mwc-list-item graphic="icon" value="MD">Maryland</mwc-list-item>
-          <mwc-list-item graphic="icon" value="MA">Massachusetts</mwc-list-item>
-          <mwc-list-item graphic="icon" value="MI">Michigan</mwc-list-item>
-          <mwc-list-item graphic="icon" value="MN">Minnesota</mwc-list-item>
-          <mwc-list-item graphic="icon" value="MS">Mississippi</mwc-list-item>
-          <mwc-list-item graphic="icon" value="MO">Missouri</mwc-list-item>
-          <mwc-list-item graphic="icon" value="MT">Montana</mwc-list-item>
-          <mwc-list-item graphic="icon" value="NE">Nebraska</mwc-list-item>
-          <mwc-list-item graphic="icon" value="NV">Nevada</mwc-list-item>
-          <mwc-list-item graphic="icon" value="NH">New Hampshire</mwc-list-item>
-          <mwc-list-item graphic="icon" value="NJ">New Jersey</mwc-list-item>
-          <mwc-list-item graphic="icon" value="NM">New Mexico</mwc-list-item>
-          <mwc-list-item graphic="icon" value="NY">New York</mwc-list-item>
-          <mwc-list-item graphic="icon" value="NC">North Carolina</mwc-list-item>
-          <mwc-list-item graphic="icon" value="ND">North Dakota</mwc-list-item>
-          <mwc-list-item graphic="icon" value="MP">Northern Mariana Islands</mwc-list-item>
-          <mwc-list-item graphic="icon" value="OH">Ohio</mwc-list-item>
-          <mwc-list-item graphic="icon" value="OK">Oklahoma</mwc-list-item>
-          <mwc-list-item graphic="icon" value="OR">Oregon</mwc-list-item>
-          <mwc-list-item graphic="icon" value="PW">Palau</mwc-list-item>
-          <mwc-list-item graphic="icon" value="PA">Pennsylvania</mwc-list-item>
-          <mwc-list-item graphic="icon" value="PR">Puerto Rico</mwc-list-item>
-          <mwc-list-item graphic="icon" value="RI">Rhode Island</mwc-list-item>
-          <mwc-list-item graphic="icon" value="SC">South Carolina</mwc-list-item>
-          <mwc-list-item graphic="icon" value="SD">South Dakota</mwc-list-item>
-          <mwc-list-item graphic="icon" value="TN">Tennessee</mwc-list-item>
-          <mwc-list-item graphic="icon" value="TX">Texas</mwc-list-item>
-          <mwc-list-item graphic="icon" value="UT">Utah</mwc-list-item>
-          <mwc-list-item graphic="icon" value="VT">Vermont</mwc-list-item>
-          <mwc-list-item graphic="icon" value="VI">Virgin Islands</mwc-list-item>
-          <mwc-list-item graphic="icon" value="VA">Virginia</mwc-list-item>
-          <mwc-list-item graphic="icon" value="WA">Washington</mwc-list-item>
-          <mwc-list-item graphic="icon" value="WV">West Virginia</mwc-list-item>
-          <mwc-list-item graphic="icon" value="WI">Wisconsin</mwc-list-item>
-          <mwc-list-item graphic="icon" value="WY">Wyoming</mwc-list-item>
-        </mwc-select>
-        <mwc-textfield
-          outlined
-          icon="map"
-          type="text"
-          pattern="^\\d{5}$|^\\d{5}-\\d{4}$"
-          inputmode="numeric"
-          required
-          .value=${this.zip || ''}
-          @input=${(event) => {
-            this.zip = event.target.value;
-          }}
-          label="Zip"
-        ></mwc-textfield>
-        <mwc-button
-          slot="secondaryAction"
-          @click=${() => {
-            this.dialog.close('close');
-          }}
-          label="Cancel"
-        ></mwc-button>
-        <mwc-button
-          slot="primaryAction"
-          label="Update"
-          @click=${() => {
-            if (this.validate()) {
-              this.dialog.close('update');
-            }
-          }}
-        ></mwc-button>
-      </titanium-dialog>
+          <md-outlined-select
+            @opening=${() => preventDialogOverflow(this.dialog)}
+            @closing=${() => allowDialogOverflow(this.dialog)}
+            label="State"
+            required
+            .value=${this.state || ''}
+            @request-selection=${(e: DOMEvent<MdOutlinedSelect>) => {
+              e.stopPropagation();
+              this.state = e.target.value;
+            }}
+          >
+            <md-icon slot="location_on">location_on</md-icon>
+            <md-select-option value="AL">
+              <div slot="headline">Alabama</div>
+            </md-select-option>
+
+            <md-select-option value="AK"> <div slot="headline">Alaska</div></md-select-option>
+            <md-select-option value="AS"> <div slot="headline">American Samoa</div></md-select-option>
+            <md-select-option value="AZ"> <div slot="headline">Arizona</div></md-select-option>
+            <md-select-option value="AR"> <div slot="headline">Arkansas</div></md-select-option>
+            <md-select-option value="CA"> <div slot="headline">California</div></md-select-option>
+            <md-select-option value="CO"> <div slot="headline">Colorado</div></md-select-option>
+            <md-select-option value="CT"> <div slot="headline">Connecticut</div></md-select-option>
+            <md-select-option value="DE"> <div slot="headline">Delaware</div></md-select-option>
+            <md-select-option value="DC"> <div slot="headline">District of Columbia</div></md-select-option>
+            <md-select-option value="FM"> <div slot="headline">Federated States of Micronesia</div></md-select-option>
+            <md-select-option value="FL"> <div slot="headline">Florida</div></md-select-option>
+            <md-select-option value="GA"> <div slot="headline">Georgia</div></md-select-option>
+            <md-select-option value="GU"> <div slot="headline">Guam</div></md-select-option>
+            <md-select-option value="HI"> <div slot="headline">Hawaii</div></md-select-option>
+            <md-select-option value="ID"> <div slot="headline">Idaho</div></md-select-option>
+            <md-select-option value="IL"> <div slot="headline">Illinois</div></md-select-option>
+            <md-select-option value="IN"> <div slot="headline">Indiana</div></md-select-option>
+            <md-select-option value="IA"> <div slot="headline">Iowa</div></md-select-option>
+            <md-select-option value="KS"> <div slot="headline">Kansas</div></md-select-option>
+            <md-select-option value="KY"> <div slot="headline">Kentucky</div></md-select-option>
+            <md-select-option value="LA"> <div slot="headline">Louisiana</div></md-select-option>
+            <md-select-option value="ME"> <div slot="headline">Maine</div></md-select-option>
+            <md-select-option value="MH"> <div slot="headline">Marshall Islands</div></md-select-option>
+            <md-select-option value="MD"> <div slot="headline">Maryland</div></md-select-option>
+            <md-select-option value="MA"> <div slot="headline">Massachusetts</div></md-select-option>
+            <md-select-option value="MI"> <div slot="headline">Michigan</div></md-select-option>
+            <md-select-option value="MN"> <div slot="headline">Minnesota</div></md-select-option>
+            <md-select-option value="MS"> <div slot="headline">Mississippi</div></md-select-option>
+            <md-select-option value="MO"> <div slot="headline">Missouri</div></md-select-option>
+            <md-select-option value="MT"> <div slot="headline">Montana</div></md-select-option>
+            <md-select-option value="NE"> <div slot="headline">Nebraska</div></md-select-option>
+            <md-select-option value="NV"> <div slot="headline">Nevada</div></md-select-option>
+            <md-select-option value="NH"> <div slot="headline">New Hampshire</div></md-select-option>
+            <md-select-option value="NJ"> <div slot="headline">New Jersey</div></md-select-option>
+            <md-select-option value="NM"> <div slot="headline">New Mexico</div></md-select-option>
+            <md-select-option value="NY"> <div slot="headline">New York</div></md-select-option>
+            <md-select-option value="NC"> <div slot="headline">North Carolina</div></md-select-option>
+            <md-select-option value="ND"> <div slot="headline">North Dakota</div></md-select-option>
+            <md-select-option value="MP"> <div slot="headline">Northern Mariana Islands</div></md-select-option>
+            <md-select-option value="OH"> <div slot="headline">Ohio</div></md-select-option>
+            <md-select-option value="OK"> <div slot="headline">Oklahoma</div></md-select-option>
+            <md-select-option value="OR"> <div slot="headline">Oregon</div></md-select-option>
+            <md-select-option value="PW"> <div slot="headline">Palau</div></md-select-option>
+            <md-select-option value="PA"> <div slot="headline">Pennsylvania</div></md-select-option>
+            <md-select-option value="PR"> <div slot="headline">Puerto Rico</div></md-select-option>
+            <md-select-option value="RI"> <div slot="headline">Rhode Island</div></md-select-option>
+            <md-select-option value="SC"> <div slot="headline">South Carolina</div></md-select-option>
+            <md-select-option value="SD"> <div slot="headline">South Dakota</div></md-select-option>
+            <md-select-option value="TN"> <div slot="headline">Tennessee</div></md-select-option>
+            <md-select-option value="TX"> <div slot="headline">Texas</div></md-select-option>
+            <md-select-option value="UT"> <div slot="headline">Utah</div></md-select-option>
+            <md-select-option value="VT"> <div slot="headline">Vermont</div></md-select-option>
+            <md-select-option value="VI"> <div slot="headline">Virgin Islands</div></md-select-option>
+            <md-select-option value="VA"> <div slot="headline">Virginia</div></md-select-option>
+            <md-select-option value="WA"> <div slot="headline">Washington</div></md-select-option>
+            <md-select-option value="WV"> <div slot="headline">West Virginia</div></md-select-option>
+            <md-select-option value="WI"> <div slot="headline">Wisconsin</div></md-select-option>
+            <md-select-option value="WY"> <div slot="headline">Wyoming</div></md-select-option>
+          </md-outlined-select>
+          <md-outlined-text-field
+            label="Zip"
+            pattern="^\\d{5}$|^\\d{5}-\\d{4}$"
+            required
+            .value=${this.zip || ''}
+            @change=${(e: DOMEvent<MdOutlinedTextField>) => (this.zip = e.target.value)}
+            ><md-icon slot="leading-icon">map</md-icon></md-outlined-text-field
+          >
+        </form>
+
+        <div slot="actions">
+          <md-text-button @click=${() => this.dialog.close('cancel')}> Cancel </md-text-button>
+          <md-text-button
+            @click=${() => {
+              if (this.validate()) {
+                this.dialog.close('apply');
+                const address: Partial<AddressInputAddress> = {
+                  street: this.street,
+                  street2: this.street2,
+                  city: this.city,
+                  state: this.state,
+                  zip: this.zip,
+                  county: this.county,
+                };
+                this.resolve(address);
+              }
+            }}
+            >Update</md-text-button
+          >
+        </div>
+      </md-dialog>
     `;
   }
 }

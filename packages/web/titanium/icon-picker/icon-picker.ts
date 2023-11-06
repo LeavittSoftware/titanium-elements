@@ -51,7 +51,7 @@ export class TitaniumIconPicker extends TitaniumSingleSelectBase<MaterialIconDat
     }
   }
 
-  protected override renderSelectedLeadingSlot(entity: MaterialIconDatabaseEntry) {
+  protected override renderSelectedLeadingInputSlot(entity: MaterialIconDatabaseEntry) {
     return html` <md-icon slot="leading-icon">${entity.icon}</md-icon> `;
   }
 

@@ -78,7 +78,7 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const fuse = new Fuse(entities, options as any);
     const fuseResults = fuse.search(searchTerm).sort((a, b) => (b?.score ?? 0) - (a?.score ?? 0));
-    this.suggestions = fuseResults.map(o => o.item) ?? [];
+    this.suggestions = fuseResults.map((o) => o.item) ?? [];
     this.count = odataCount ?? 0;
   }
 
@@ -100,7 +100,7 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
       const results = await this.apiService?.getAsync<Person>(`${this.peopleApiControllerName}?${odataParts.join('&')}`, {
         abortController: this.#abortController,
       });
-      results?.entities.forEach(p => (p.type = 'Person'));
+      results?.entities.forEach((p) => (p.type = 'Person'));
       return results;
     } catch (error) {
       if (!error?.message?.includes('Abort error')) {
@@ -131,7 +131,7 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
       const results = await this.apiService?.getAsync<PeopleGroup>(`${this.groupApiControllerName}?${odataParts.join('&')}`, {
         abortController: this.#abortController,
       });
-      results?.entities.forEach(p => (p.type = 'PeopleGroup'));
+      results?.entities.forEach((p) => (p.type = 'PeopleGroup'));
       return results;
     } catch (error) {
       if (!error?.message?.includes('Abort error')) {
@@ -162,7 +162,7 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
     this.#doSearchDebouncer.debounce(searchTerm);
   }
 
-  protected override renderSelectedLeadingSlot(entity: Partial<Partial<Person | PeopleGroup>>) {
+  protected override renderSelectedLeadingInputSlot(entity: Partial<Partial<Person | PeopleGroup>>) {
     return entity.type === 'Person'
       ? html`<profile-picture slot="leading-icon" .fileName=${entity?.ProfilePictureCdnFileName || null} shape="circle" size="24"></profile-picture>`
       : html`<md-icon group slot="leading-icon">${peopleGroupIcons.get(entity['@odata.type'])?.icon ?? 'task_alt'}</md-icon>`;

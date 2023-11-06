@@ -278,9 +278,17 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
     </md-menu-item>`;
   }
 
-  protected renderSelectedLeadingSlot(_entity: T) {}
+  protected renderSelectedLeadingInputSlot(_entity: T) {}
+  protected renderTrailingInputSlot() {
+    return html`<slot name="trailing-icon" slot="trailing-icon"></slot>`;
+  }
+
   protected renderLeadingSlot() {
     return html`<slot name="leading-icon" slot="leading-icon"><md-icon>search</md-icon></slot>`;
+  }
+
+  protected renderTrailingSlot() {
+    return html``;
   }
 
   render() {
@@ -325,15 +333,14 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
           }
         }}
       >
-        ${this.selected ? this.renderSelectedLeadingSlot(this.selected) : this.renderLeadingSlot()}
-        <slot name="trailing-icon" slot="trailing-icon"></slot>
+        ${this.selected ? this.renderSelectedLeadingInputSlot(this.selected) : this.renderLeadingSlot()} ${this.renderTrailingInputSlot()}
       </md-outlined-text-field>
-
+      ${this.renderTrailingSlot()}
       <md-menu
         quick
         id="menu"
         anchor="menu-anchor"
-        corner="BOTTOM_LEFT"
+        anchor-corner="end-start"
         default-focus="list-root"
         skip-restore-focus
         @close-menu=${(e: CloseMenuEvent) => {

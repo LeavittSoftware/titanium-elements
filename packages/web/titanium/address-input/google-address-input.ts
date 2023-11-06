@@ -35,7 +35,6 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
 
   #doSearchDebouncer = new Debouncer((searchTerm: string) => this.#doSearch(searchTerm));
   #abortController: AbortController = new AbortController();
-
   #placesService: google.maps.places.PlacesService;
   #autoCompleteService: google.maps.places.AutocompleteService;
 
@@ -202,7 +201,7 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
     return html`<slot name="leading-icon" slot="leading-icon"><md-icon>place</md-icon></slot>`;
   }
 
-  protected override renderSelectedLeadingSlot(_item: AddressInputAddress) {
+  protected override renderSelectedLeadingInputSlot(_item: AddressInputAddress) {
     return html` <md-icon slot="leading-icon">place</md-icon> `;
   }
 

@@ -66,7 +66,7 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
       const searchOData = this.searchTermToOData(searchTerm);
       const oDataParts = structuredClone(this.odataParts);
       if (searchOData) {
-        const existingFilterIndex = oDataParts.findIndex(o => o.startsWith('filter=') || o.startsWith('$filter='));
+        const existingFilterIndex = oDataParts.findIndex((o) => o.startsWith('filter=') || o.startsWith('$filter='));
         if (existingFilterIndex > -1) {
           oDataParts[existingFilterIndex] = [oDataParts[existingFilterIndex], searchOData].join(' and ');
         } else {
@@ -95,7 +95,7 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
     this.#doSearchDebouncer.debounce(searchTerm);
   }
 
-  protected override renderSelectedLeadingSlot(entity: Partial<Person>) {
+  protected override renderSelectedLeadingInputSlot(entity: Partial<Person>) {
     return html` <profile-picture slot="leading-icon" .fileName=${entity?.ProfilePictureCdnFileName || null} shape="circle" size="24"></profile-picture>`;
   }
 

@@ -77,7 +77,7 @@ export class LeavittPersonCompanySelect extends TitaniumSingleSelectBase<Partial
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const fuse = new Fuse(entities, options as any);
     const fuseResults = fuse.search(searchTerm).sort((a, b) => (b?.score ?? 0) - (a?.score ?? 0));
-    this.suggestions = fuseResults.map(o => o.item) ?? [];
+    this.suggestions = fuseResults.map((o) => o.item) ?? [];
     this.count = odataCount ?? 0;
   }
 
@@ -99,7 +99,7 @@ export class LeavittPersonCompanySelect extends TitaniumSingleSelectBase<Partial
       const results = await this.apiService?.getAsync<Person>(`${this.peopleApiControllerName}?${odataParts.join('&')}`, {
         abortController: this.#abortController,
       });
-      results?.entities.forEach(p => (p.type = 'Person'));
+      results?.entities.forEach((p) => (p.type = 'Person'));
       return results;
     } catch (error) {
       if (!error?.message?.includes('Abort error')) {
@@ -125,7 +125,7 @@ export class LeavittPersonCompanySelect extends TitaniumSingleSelectBase<Partial
         odataParts.push(`$filter=${searchFilter}`);
       }
       const results = await this.apiService?.getAsync<Company>(`Companies?${odataParts.join('&')}`, { abortController: this.#abortController });
-      results?.entities.forEach(p => (p.type = 'Company'));
+      results?.entities.forEach((p) => (p.type = 'Company'));
       return results;
     } catch (error) {
       if (!error?.message?.includes('Abort error')) {
@@ -151,7 +151,7 @@ export class LeavittPersonCompanySelect extends TitaniumSingleSelectBase<Partial
     this.#doSearchDebouncer.debounce(searchTerm);
   }
 
-  protected override renderSelectedLeadingSlot(entity: Partial<Partial<Person | Company>>) {
+  protected override renderSelectedLeadingInputSlot(entity: Partial<Partial<Person | Company>>) {
     return entity.type === 'Person'
       ? html`<profile-picture slot="leading-icon" .fileName=${entity?.ProfilePictureCdnFileName || null} shape="circle" size="24"></profile-picture>`
       : entity.type === 'Company'
