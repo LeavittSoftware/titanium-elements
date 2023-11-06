@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/web",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "license": "Apache-2.0",
   "description": "",
   "files": [
@@ -10,17 +10,17 @@
     "**/*.scss"
   ],
   "dependencies": {
-    "tslib": "^2.6.2",
-    "@leavittsoftware/lg-core-typescript": "*",
-    "dayjs": "^1.11.10",
-    "@material/web": "*",
-    "countup.js": "^2.8.0",
-    "bowser": "^2.11.0",
-    "cropperjs": "*",
-    "regexparam": "~2.0.1",
     "@googlemaps/js-api-loader": "*",
+    "@leavittsoftware/lg-core-typescript": "*",
+    "@material/web": "*",
+    "@types/google.maps": "*",
+    "bowser": "^2.11.0",
+    "countup.js": "^2.8.0",
+    "cropperjs": "*",
+    "dayjs": "^1.11.10",
     "jwt-decode": "^4.0.0",
-    "@types/google.maps": "*"
+    "regexparam": "~2.0.1",
+    "tslib": "^2.6.2"
   },
   "peerDependencies": {
     "lit": ">=3.0.0"
