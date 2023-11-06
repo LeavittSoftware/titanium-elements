@@ -1,18 +1,18 @@
-import { css, html, LitElement, TemplateResult } from 'lit';
-import { customElement, query, state } from 'lit/decorators.js';
 import '@material/web/dialog/dialog';
 import '@material/web/button/text-button';
 
+import { css, html, LitElement, TemplateResult } from 'lit';
+import { customElement, query, state } from 'lit/decorators.js';
 import { ConfirmDialogOpenEvent } from './confirm-dialog-open-event';
-import { p } from '../styles/p';
 import { MdDialog } from '@material/web/dialog/dialog';
 import { DOMEvent } from '../types/dom-event';
+import { p } from '../styles/p';
 
 @customElement('titanium-confirm-dialog')
 export default class TitaniumConfirmDialog extends LitElement {
-  @state() protected text: string | TemplateResult;
-  @state() protected headline: string;
-  @query('md-dialog') protected dialog!: MdDialog;
+  @state() protected accessor text: string | TemplateResult;
+  @state() protected accessor headline: string;
+  @query('md-dialog') protected accessor dialog!: MdDialog;
   #resolve: (value: 'confirmed' | 'cancel') => void;
 
   /**
@@ -65,27 +65,17 @@ export default class TitaniumConfirmDialog extends LitElement {
     return html`
       <md-dialog
         @close=${(e: DOMEvent<MdDialog>) => {
-          if (e.target.returnValue === 'cancel' || e.target.returnValue === 'confirmed') {
-            return this.#resolve(e.target.returnValue as 'cancel' | 'confirmed');
+          if (e.target.returnValue === 'confirmed') {
+            return this.#resolve('confirmed');
           }
-          e.preventDefault();
+          return this.#resolve('cancel');
         }}
       >
         <div slot="headline">${this.headline}</div>
         <p slot="content">${this.text}</p>
         <div slot="actions">
-          <md-text-button
-            @click=${() => {
-              this.dialog.close('cancel');
-            }}
-            >CANCEL</md-text-button
-          >
-          <md-text-button
-            @click=${() => {
-              this.dialog.close('confirmed');
-            }}
-            >CONFIRM</md-text-button
-          >
+          <md-text-button @click=${() => this.dialog.close('cancel')}>Cancel</md-text-button>
+          <md-text-button @click=${() => this.dialog.close('confirmed')}>Confirm</md-text-button>
         </div>
       </md-dialog>
     `;
