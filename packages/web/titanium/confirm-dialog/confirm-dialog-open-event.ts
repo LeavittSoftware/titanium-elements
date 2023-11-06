@@ -11,7 +11,7 @@ export class ConfirmDialogOpenEvent extends Event {
     super(ConfirmDialogOpenEvent.eventType, { bubbles: true, composed: true });
     this.header = header;
     this.text = text;
-    this.dialogResult = new Promise(res => {
+    this.dialogResult = new Promise((res) => {
       this.resolver = res;
     });
   }
