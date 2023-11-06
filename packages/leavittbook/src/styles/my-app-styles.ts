@@ -81,7 +81,7 @@ export const myAppStyles = css`
     height: 48px;
   }
 
-  titanium-toolbar mwc-icon-button[hamburger] {
+  titanium-toolbar md-icon-button[hamburger] {
     grid-area: main-menu-button;
     width: 48px;
     margin: 0 0 0 -12px;

@@ -8,9 +8,7 @@ import humanInterval from './human-interval';
 dayjs.extend(duration);
 
 /**
- * titanium-duration-input is a human readable duration textfield that extends mwc-textfield. This means that the API is the same as TextField.
- * [mwc-textfield documentation](https://www.npmjs.com/package/@material/mwc-textfield).
- * This input is expecting a dayjs duration and will return a dayjs duration.
+ * titanium-duration-input is a human readable duration textfield.
  *
  * @element titanium-duration-input
  *

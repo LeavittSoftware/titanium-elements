@@ -2,7 +2,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { MdOutlinedField } from '@material/web/field/outlined-field';
 
 /**
- * Input validator to make components use validation consistent with mwc-components.
+ * Input validator to make components use validation consistent with material 3 outlined styling
  *
  * @element titanium-input-validator
  * @slot default - The slotted element should fire the NotifyUserInputEvent when it is ready to be validated

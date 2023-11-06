@@ -1,7 +1,6 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-// import '@material/mwc-button';
 
 /* playground-fold-end */
 import { dataRow, a, ellipsis, h1, h2, h3, h4, h5, p } from '@leavittsoftware/web/titanium/styles/styles';
@@ -64,7 +63,6 @@ export class TitaniumStylesPlayground extends LitElement {
           vel sapien. Phasellus sit amet mi a tellus commodo molestie eu nec tellus. In hac habitasse platea dictumst.
         </p>
         <h2 ellipsis="" style="max-width: 130px">Ellipsis text sit amet, consectetur adipiscing elit. Duis</h2>
-        <mwc-button outlined="" lowercase="" label="Lowercase button style"></mwc-button>
       </div>
 
       <div data-row-container>

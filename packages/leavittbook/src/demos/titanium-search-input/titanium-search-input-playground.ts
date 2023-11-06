@@ -2,9 +2,9 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, query } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
-// import '@material/mwc-icon';
-// import '@material/mwc-button';
 import '@leavittsoftware/web/titanium/card/card';
+
+import '@material/web/button/outlined-button';
 
 /* playground-fold-end */
 
@@ -15,7 +15,6 @@ import { TitaniumSearchInput } from '@leavittsoftware/web/titanium/search-input/
 @customElement('titanium-search-input-playground')
 export class TitaniumSearchInputItemPlayground extends LitElement {
   @query('titanium-search-input[method-focused]') protected methodFocus!: TitaniumSearchInput;
-  @query('titanium-search-input[method-focused-collapsed]') protected methodsFocusedCollapsed!: TitaniumSearchInput;
 
   static styles = [
     h1,
@@ -24,21 +23,24 @@ export class TitaniumSearchInputItemPlayground extends LitElement {
       :host {
         display: flex;
         flex-direction: column;
-
         margin: 24px 12px;
       }
 
-      div[row] {
+      div {
+        border: 1px solid var(--md-sys-color-outline);
+        padding: 24px;
+        border-radius: 8px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin: 24px 0 36px 0;
+      }
+
+      section[buttons] {
         display: flex;
         align-items: center;
-      }
-
-      mwc-button {
-        margin-left: 16px;
-      }
-
-      titanium-card {
-        margin: 24px 0;
+        flex-wrap: wrap;
+        gap: 12px;
       }
     `,
   ];
@@ -47,51 +49,33 @@ export class TitaniumSearchInputItemPlayground extends LitElement {
     /* playground-fold-end */
     return html`
       <h1>Default</h1>
-      <titanium-card>
-        <p>Default search input styles</p>
+      <div>
         <titanium-search-input></titanium-search-input>
-      </titanium-card>
+      </div>
 
       <h1>Disabled</h1>
-      <titanium-card>
-        <p>Disabled search input styles</p>
+      <div>
         <titanium-search-input disabled></titanium-search-input>
-      </titanium-card>
+      </div>
 
-      <h1>Placeholder</h1>
-      <titanium-card>
-        <p>Placeholder search input styles with clear button hidden</p>
+      <h1>Placeholder text</h1>
+      <div>
         <titanium-search-input placeholder="Search for something" hide-clear-button></titanium-search-input>
-      </titanium-card>
+      </div>
 
       <h1>Collapse Prevented</h1>
-      <titanium-card>
-        <p>Collapse prevented search input styles</p>
+      <div>
         <titanium-search-input prevent-collapse></titanium-search-input>
-      </titanium-card>
+      </div>
 
       <h1>Methods</h1>
       <p>Demonstrates public methods</p>
       <titanium-card>
-        <div row>
-          <titanium-search-input prevent-collapse method-focused></titanium-search-input>
-          <mwc-button
-            raised
-            @click=${() => {
-              this.methodFocus.focus();
-            }}
-            label="Focus"
-          ></mwc-button>
-        </div>
-        <div row>
-          <titanium-search-input method-focused-collapsed></titanium-search-input>
-          <mwc-button
-            raised
-            @click=${() => {
-              this.methodsFocusedCollapsed.focus();
-            }}
-            label="Focus Collapsed"
-          ></mwc-button>
+        <div>
+          <titanium-search-input method-focused></titanium-search-input>
+          <section buttons>
+            <md-outlined-button @click=${() => this.methodFocus.focus()}>Focus</md-outlined-button>
+          </section>
         </div>
       </titanium-card>
     `;
