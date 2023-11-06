@@ -1,19 +1,17 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
-import { customElement, query, state } from 'lit/decorators.js';
+import { customElement, state } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
 
 import '@material/web/button/outlined-button';
 
 /* playground-fold-end */
 import '@leavittsoftware/web/titanium/confirm-dialog/confirm-dialog';
-import TitaniumConfirmDialog from '@leavittsoftware/web/titanium/confirm-dialog/confirm-dialog';
 import { ConfirmDialogOpenEvent } from '@leavittsoftware/web/titanium/confirm-dialog/confirm-dialog-open-event';
 
 /* playground-fold */
 @customElement('titanium-confirm-dialog-playground')
 export class TitaniumConfirmDialogPlayground extends LitElement {
-  @query('titanium-confirm-dialog') protected dialog!: TitaniumConfirmDialog;
   @state() private confirmed = false;
 
   async #open() {
