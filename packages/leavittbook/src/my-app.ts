@@ -217,24 +217,17 @@ export class MyApp extends LitElement {
     myAppStyles,
     p,
     css`
-      menu-group {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 12px;
+      md-list-item {
+        height: 26px;
+        --md-list-item-one-line-container-height: 26px;
+        --md-list-item-label-text-size: 14px;
+        --md-list-item-label-text-weight: 400;
       }
 
-      mwc-drawer {
-        margin-top: 48px;
-        --mdc-drawer-width: 290px;
-      }
-
-      div[drawer-content] {
-        margin-top: 24px;
-      }
-
-      details {
-        user-select: none;
+      md-icon {
+        height: 16px;
+        width: 16px;
+        font-size: 16px;
       }
 
       summary {
@@ -251,48 +244,12 @@ export class MyApp extends LitElement {
         margin-right: 12px;
       }
 
+      details {
+        user-select: none;
+      }
+
       summary:hover {
         background: var(--app-hover-color);
-      }
-
-      titanium-drawer a {
-        display: flex;
-        text-decoration: none;
-        color: var(--app-light-text-color);
-        font-size: 14px;
-        line-height: 16px;
-        align-items: center;
-        gap: 6px;
-        padding: 4px 24px;
-        border-radius: 0px 50px 50px 0px;
-      }
-
-      titanium-drawer a mwc-icon {
-        --mdc-icon-size: 16px;
-      }
-
-      titanium-drawer a:hover {
-        background-color: var(--app-hover-color);
-        transition: 0.3s ease;
-      }
-
-      md-list-item {
-        height: 26px;
-        --md-list-item-one-line-container-height: 26px;
-        --md-list-item-label-text-size: 14px;
-        --md-list-item-label-text-weight: 400;
-      }
-
-      md-icon {
-        height: 16px;
-        width: 16px;
-        font-size: 16px;
-      }
-
-      titanium-drawer a[selected] {
-        background-color: #e8f0fe;
-        fill: #1967d2;
-        color: #1967d2;
       }
     `,
   ];

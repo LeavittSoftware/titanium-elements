@@ -33,10 +33,6 @@ export class TitaniumIconPickerPlayground extends LitElement {
         gap: 12px;
         margin: 24px 0 36px 0;
       }
-
-      mwc-select {
-        min-width: 400px;
-      }
     `,
   ];
 
