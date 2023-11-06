@@ -44,12 +44,12 @@ export default class GettingStartedElement extends LitElement {
         its affiliates.
       </p>
 
-      <h2>Support</h2>
+      <h2>Browser support</h2>
       <p>Chrome, Safari, Firefox, and Edge</p>
 
       <h2>Installation</h2>
-      <p>NPM install the element you want to use:</p>
-      <code block>npm i @leavittsoftware/titanium-card</code>
+      <p>NPM install:</p>
+      <code block>npm i @leavittsoftware/web</code>
       <p>Include the element on your page.</p>
       <code block>import '@leavittsoftware/web/titanium/card/card';</code>
       <p>Use the element:</p>

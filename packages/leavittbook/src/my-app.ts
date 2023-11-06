@@ -12,6 +12,7 @@ import '@material/web/iconbutton/icon-button';
 import '@material/web/iconbutton/outlined-icon-button';
 import '@material/web/list/list';
 import '@material/web/list/list-item';
+import './shared/npm-stats';
 
 import { ChangePathEvent, RedirectPathEvent, SiteErrorEvent } from './events';
 import { LitElement, css, html, nothing } from 'lit';
@@ -217,6 +218,11 @@ export class MyApp extends LitElement {
     myAppStyles,
     p,
     css`
+      npm-stats {
+        margin: 0 12px 12px 24px;
+        gap: 12px;
+      }
+
       md-list-item {
         height: 26px;
         --md-list-item-one-line-container-height: 26px;
@@ -287,8 +293,10 @@ export class MyApp extends LitElement {
 
       <titanium-drawer ?always-show-content=${this.isWideViewPort && !this.collapseMainMenu}>
         <a logo href="/" title="Back to home"><img src=${this.themePreference === 'dark' ? LGLogoWhite : LGLogo} /></a>
-        <h3>Component library</h3>
+        <h3>Titanium elements</h3>
         <p>Leavitt group custom elements</p>
+
+        <npm-stats></npm-stats>
 
         <md-list-item ?selected=${!!this.page?.includes('getting-started')} href="/getting-started" type="link">
           <md-icon slot="start">home</md-icon> <span>Getting started </span>
