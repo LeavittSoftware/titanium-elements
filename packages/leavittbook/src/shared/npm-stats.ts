@@ -38,7 +38,7 @@ export default class NpmStats extends LitElement {
       });
       const text = await response.text();
       const json = text.length ? JSON.parse(text) : {};
-      var latest = Object.entries(json.downloads)?.findLast((o) => o);
+      const latest = Object.entries(json.downloads)?.findLast((o) => o);
       return { version: latest?.[0] as string, downloads: latest?.[1] as number };
     } catch (error) {
       console.warn(error);
