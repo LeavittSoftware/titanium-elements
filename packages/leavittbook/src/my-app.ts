@@ -19,13 +19,13 @@ import { LitElement, css, html, nothing } from 'lit';
 import { TitaniumFullPageLoadingIndicator } from '@leavittsoftware/web/titanium/full-page-loading-indicator/full-page-loading-indicator';
 import { PendingStateEvent } from '@leavittsoftware/web/titanium/types/pending-state-event';
 import { customElement, property, query, state } from 'lit/decorators.js';
-// import { ConfirmDialogOpenEvent } from '/titanium-dialog/lib/confirm-dialog-open-event';
+import { ConfirmDialogOpenEvent } from '@leavittsoftware/web/titanium/confirm-dialog/confirm-dialog-open-event';
 import { installMediaQueryWatcher } from '@leavittsoftware/web/titanium/helpers/helpers';
 import { myAppStyles } from './styles/my-app-styles';
 import { TitaniumDrawer } from '@leavittsoftware/web/titanium/drawer/drawer';
 import { p } from '@leavittsoftware/web/titanium/styles/styles';
 
-// import ConfirmDialogElement from '@leavittsoftware/web/titanium/dialog/lib/confirm-dialog';
+import TitaniumConfirmDialog from '@leavittsoftware/web/titanium/confirm-dialog/confirm-dialog';
 import page from 'page';
 
 const LGLogo = new URL('../images/lg-logo.svg', import.meta.url).href;
@@ -38,7 +38,7 @@ export class MyApp extends LitElement {
   @state() private accessor isWideViewPort: boolean = false;
   @property({ type: Boolean, reflect: true, attribute: 'collapse-main-menu' }) private accessor collapseMainMenu: boolean = false;
 
-  // @query('confirm-dialog') private accessor confirmDialog: ConfirmDialogElement;
+  @query('titanium-confirm-dialog') private accessor confirmDialog: TitaniumConfirmDialog;
   @query('titanium-full-page-loading-indicator') private accessor loadingIndicator: TitaniumFullPageLoadingIndicator;
   @query('titanium-drawer') private accessor drawer: TitaniumDrawer;
 
@@ -73,10 +73,10 @@ export class MyApp extends LitElement {
 
     await this.loadingIndicator.updateComplete;
 
-    // this.addEventListener(ConfirmDialogOpenEvent.eventType, async (e: ConfirmDialogOpenEvent) => {
-    //   await import('ware/titanium-dialog/lib/confirm-dialog');
-    //   this.confirmDialog.handleEvent(e);
-    // });
+    this.addEventListener(ConfirmDialogOpenEvent.eventType, async (e: ConfirmDialogOpenEvent) => {
+      await import('@leavittsoftware/web/titanium/confirm-dialog/confirm-dialog');
+      this.confirmDialog.handleEvent(e);
+    });
 
     this.addEventListener(ChangePathEvent.eventName, (event: ChangePathEvent) => {
       page.show(event.detail.path);
@@ -189,6 +189,10 @@ export class MyApp extends LitElement {
     page('/titanium-show-hide', () => this.#changePage('titanium-show-hide', () => import('./demos/titanium-show-hide/titanium-show-hide-demo.js')));
     page('/titanium-duration-input', () =>
       this.#changePage('titanium-duration-input', () => import('./demos/titanium-duration-input/titanium-duration-input-demo.js'))
+    );
+
+    page('/titanium-confirm-dialog', () =>
+      this.#changePage('titanium-confirm-dialog', () => import('./demos/titanium-confirm-dialog/titanium-confirm-dialog-demo.js'))
     );
 
     page('*', () => {
@@ -325,6 +329,10 @@ export class MyApp extends LitElement {
 
             <md-list-item ?selected=${this.page === 'titanium-chip-multi-select'} href="/titanium-chip-multi-select" type="link">
               <md-icon slot="start">library_books</md-icon> <span>Chip multi select* </span>
+            </md-list-item>
+
+            <md-list-item ?selected=${this.page === 'titanium-confirm-dialog'} href="/titanium-confirm-dialog" type="link">
+              <md-icon slot="start">library_books</md-icon> <span>Confirm dialog* </span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-data-table'} href="/titanium-data-table" type="link">
@@ -534,10 +542,14 @@ export class MyApp extends LitElement {
         ${this.page === 'titanium-duration-input'
           ? html` <titanium-duration-input-demo ?isActive=${this.page === 'titanium-duration-input'}></titanium-duration-input-demo> `
           : nothing}
+        ${this.page === 'titanium-confirm-dialog'
+          ? html` <titanium-confirm-dialog-demo ?isActive=${this.page === 'titanium-confirm-dialog'}></titanium-confirm-dialog-demo> `
+          : nothing}
         <titanium-access-denied-page ?hidden=${this.page !== 'access-denied'}></titanium-access-denied-page>
         <titanium-error-page ?hidden=${this.page !== 'error'} .message=${this.fatalErrorMessage}></titanium-error-page>
       </main-content>
 
+      <titanium-confirm-dialog></titanium-confirm-dialog>
       <titanium-snackbar></titanium-snackbar>
       <titanium-service-worker-notifier></titanium-service-worker-notifier>`;
   }
