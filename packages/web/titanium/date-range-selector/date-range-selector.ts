@@ -112,12 +112,12 @@ export class TitaniumDateRangeSelector extends LitElement {
     }
 
     md-outlined-select {
-      flex-basis: 200px;
+      flex-basis: 480px;
       flex-grow: 9999;
     }
 
     md-outlined-text-field {
-      flex-basis: 200px;
+      flex-basis: calc(25% - 64px);
       flex-grow: 1;
     }
   `;
