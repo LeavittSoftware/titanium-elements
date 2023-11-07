@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.3.0...@leavittsoftware/web@1.4.0) (2023-11-07)
+
+### Features
+
+- add dialog zindex fix ([a110329](https://github.com/LeavittSoftware/titanium-elements/commit/a1103293e81a2811dd922c0f64b34175f70f87e1))
+- improves date range selector wrapping ([5e96af7](https://github.com/LeavittSoftware/titanium-elements/commit/5e96af7b9171ad3c0072ece0f0f916f9999f0651))
+- redispatch open/close events ([c48cba2](https://github.com/LeavittSoftware/titanium-elements/commit/c48cba25a36fcdf783641e35c245df1b65e09513))
+
 # [1.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.2.2...@leavittsoftware/web@1.3.0) (2023-11-06)
 
 ### Features
