@@ -38,7 +38,6 @@ export type SnackbarOptions = {
  *
  * @cssprop {Color} [--titanium-snackbar-background-color=#323232] - Snackbar background color
  * @cssprop {Color} [--titanium-snackbar-text-color=#f1f1f1] - Color of the text in the snackbar
- * @cssprop {Color} [--app-light-text-color=#707175] - Color used on http error and status
  *
  */
 

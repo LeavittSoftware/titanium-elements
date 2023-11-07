@@ -12,7 +12,6 @@ const StoryStyles = css`
   p {
     margin-bottom: 24px;
     font-size: 13px;
-    color: var(--app-light-text-color);
   }
 
   api-docs {
@@ -21,7 +20,7 @@ const StoryStyles = css`
     margin-top: 48px;
     background-color: var(--md-sys-color-background);
     border: 1px solid var(--md-sys-color-outline);
-    --ave-primary-color: var(--app-secondary-color);
+    --ave-primary-color: var(--md-sys-color-primary);
     --ave-header-color: #f5f5f5;
     --ave-accent-color: var(--md-sys-color-primary);
     --ave-secondary-color: var(--md-sys-color-primary);

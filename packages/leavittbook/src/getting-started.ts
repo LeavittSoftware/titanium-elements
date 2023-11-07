@@ -23,7 +23,7 @@ export default class GettingStartedElement extends LitElement {
 
       code {
         margin: 12px 0;
-        background-color: var(--app-hover-color);
+        background-color: rgb(from var(--md-sys-color-on-surface, #1d1b20) r g b / 0.08);
         padding: 6px;
       }
 

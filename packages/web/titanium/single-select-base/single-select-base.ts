@@ -264,7 +264,6 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
       [summary] {
         padding: 0px 16px 4px 16px;
         font-family: Roboto, Arial, sans-serif;
-        color: var(--app-light-text-color);
         line-height: 18px;
         font-size: 13px;
       }
