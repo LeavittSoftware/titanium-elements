@@ -15,6 +15,7 @@ import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field
 import { Menu } from '@material/web/menu/internal/menu';
 import { LoadWhile } from '../../titanium/helpers/load-while';
 import { Identifier } from '../types/identifier-interface';
+import { redispatchEvent } from '@material/web/internal/controller/events';
 
 @customElement('titanium-single-select-base')
 export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(LitElement) {
@@ -338,6 +339,10 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
         ${this.selected ? this.renderSelectedLeadingInputSlot(this.selected) : this.renderLeadingInputSlot()} ${this.renderTrailingInputSlot()}
       </md-outlined-text-field>
       <md-menu
+        @opening=${(e) => redispatchEvent(this, e)}
+        @opened=${(e) => redispatchEvent(this, e)}
+        @closing=${(e) => redispatchEvent(this, e)}
+        @closed=${(e) => redispatchEvent(this, e)}
         quick
         id="menu"
         anchor="menu-anchor"

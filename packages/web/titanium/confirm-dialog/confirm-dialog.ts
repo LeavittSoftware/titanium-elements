@@ -7,6 +7,7 @@ import { ConfirmDialogOpenEvent } from './confirm-dialog-open-event';
 import { MdDialog } from '@material/web/dialog/dialog';
 import { DOMEvent } from '../types/dom-event';
 import { p } from '../styles/p';
+import { dialogZIndexHack } from '../hacks/dialog-zindex-hack';
 
 @customElement('titanium-confirm-dialog')
 export default class TitaniumConfirmDialog extends LitElement {
@@ -64,6 +65,7 @@ export default class TitaniumConfirmDialog extends LitElement {
   render() {
     return html`
       <md-dialog
+        @open=${(e: DOMEvent<MdDialog>) => dialogZIndexHack(e.target)}
         @close=${(e: DOMEvent<MdDialog>) => {
           if (e.target.returnValue === 'confirmed') {
             return this.#resolve('confirmed');

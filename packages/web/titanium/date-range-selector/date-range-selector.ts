@@ -2,6 +2,7 @@ import '@material/web/textfield/outlined-text-field';
 import '@material/web/icon/icon';
 import '@material/web/select/outlined-select.js';
 import '@material/web/select/select-option.js';
+import { redispatchEvent } from '@material/web/internal/controller/events';
 
 import { css, html, LitElement, PropertyValues } from 'lit';
 import { property, customElement, query } from 'lit/decorators.js';
@@ -111,12 +112,12 @@ export class TitaniumDateRangeSelector extends LitElement {
     }
 
     md-outlined-select {
-      flex-basis: 200px;
+      flex-basis: 480px;
       flex-grow: 9999;
     }
 
     md-outlined-text-field {
-      flex-basis: 200px;
+      flex-basis: calc(25% - 64px);
       flex-grow: 1;
     }
   `;
@@ -134,6 +135,10 @@ export class TitaniumDateRangeSelector extends LitElement {
   render() {
     return html`
       <md-outlined-select
+        @opening=${(e) => redispatchEvent(this, e)}
+        @opened=${(e) => redispatchEvent(this, e)}
+        @closing=${(e) => redispatchEvent(this, e)}
+        @closed=${(e) => redispatchEvent(this, e)}
         part="select"
         .label=${this.label}
         .value=${this.range}
