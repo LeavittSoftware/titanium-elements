@@ -79,6 +79,7 @@ export const myAppStyles = css`
     align-items: center;
     gap: 6px;
     height: 48px;
+    z-index: 6;
   }
 
   titanium-toolbar md-icon-button[hamburger] {
