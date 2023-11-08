@@ -246,4 +246,3 @@ export class ManualAddressDialog extends LitElement {
     `;
   }
 }
-
