@@ -77,23 +77,24 @@ export class ManualAddressDialog extends LitElement {
         max-width: min(0% + 550px, 100% - 48px);
       }
 
-      form,
-      input-container {
+      form {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-        grid-gap: 16px 43px;
+        grid-gap: 24px;
       }
-
-      form [fullwidth],
-      input-container [fullwidth] {
-        grid-column: 1 / -1;
+      
+      form label {
+        display: flex;
+        font-size: 14px;
+        align-items: center;
+        justify-self: start;
+        user-select: none;
       }
 
       @media (max-width: 786px) {
-        form,
-        input-container {
-          grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
-          grid-gap: 8px 24px;
+        form {
+          display: flex;
+          flex-direction: column;
         }
       }
     `,
