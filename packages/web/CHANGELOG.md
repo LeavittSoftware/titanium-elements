@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.6.0...@leavittsoftware/web@1.7.0) (2023-11-08)
+
+### Bug Fixes
+
+- **card:** property name mismatch ([4646343](https://github.com/LeavittSoftware/titanium-elements/commit/46463438e1001bff8195a88c3199e7063d5b61dd))
+
+### Features
+
+- add flex styles to card nav ([117ba5b](https://github.com/LeavittSoftware/titanium-elements/commit/117ba5b8a8b26b41f0493f765b46b80c98314fcd))
+- add report validity hack, fixes manually address dialog ([5e040b1](https://github.com/LeavittSoftware/titanium-elements/commit/5e040b1a3ff7e8e255143e7ca6515e2f7f3cf5dd))
+
 # [1.6.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.5.0...@leavittsoftware/web@1.6.0) (2023-11-08)
 
 ### Features
