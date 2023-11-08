@@ -1,17 +1,16 @@
-import { css, html, LitElement, nothing } from 'lit';
-import { property, customElement, query, queryAll, state } from 'lit/decorators.js';
-import { AddressInputAddress } from './types/address-input-address';
-
 import '@material/web/icon/icon';
 import '@material/web/select/outlined-select';
 import '@material/web/select/select-option';
 import '@material/web/dialog/dialog';
 import '@material/web/textfield/outlined-text-field';
+
+import { css, html, LitElement, nothing } from 'lit';
+import { property, customElement, query, queryAll, state } from 'lit/decorators.js';
+import { AddressInputAddress } from './types/address-input-address';
 import { MdDialog } from '@material/web/dialog/dialog';
 import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
 import { MdOutlinedSelect } from '@material/web/select/outlined-select';
 import { DOMEvent } from '../types/dom-event';
-import { formStyles } from '../../../leavittbook/src/styles/form-styles';
 import { allowDialogOverflow, preventDialogOverflow } from '../hacks/dialog-overflow-hacks';
 
 @customElement('manual-address-dialog')
@@ -72,11 +71,30 @@ export class ManualAddressDialog extends LitElement {
   }
 
   static styles = [
-    formStyles,
     css`
       md-dialog {
         width: -webkit-fill-available;
         max-width: min(0% + 550px, 100% - 48px);
+      }
+
+      form,
+      input-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+        grid-gap: 16px 43px;
+      }
+
+      form [fullwidth],
+      input-container [fullwidth] {
+        grid-column: 1 / -1;
+      }
+
+      @media (max-width: 786px) {
+        form,
+        input-container {
+          grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+          grid-gap: 8px 24px;
+        }
       }
     `,
   ];
