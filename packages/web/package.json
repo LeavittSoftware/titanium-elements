@@ -1,13 +1,18 @@
 {
   "name": "@leavittsoftware/web",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "license": "Apache-2.0",
   "description": "",
   "files": [
     "**/*.js",
     "**/*.js.map",
     "**/*.d.ts",
-    "**/*.scss"
+    "**/*.scss",
+    "**/*.gif",
+    "**/*.png",
+    "**/*.webp",
+    "**/*.jpeg",
+    "**/*.jpg"
   ],
   "dependencies": {
     "@googlemaps/js-api-loader": "*",

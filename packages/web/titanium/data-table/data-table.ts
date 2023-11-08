@@ -503,7 +503,7 @@ export class TitaniumDataTable extends LitElement {
       }
 
       :host(:not([disable-select])[single-select]) table-header {
-        padding-left: 57px;
+        padding-left: 52px;
       }
 
       [hidden] {

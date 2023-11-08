@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.4.0...@leavittsoftware/web@1.5.0) (2023-11-08)
+
+### Bug Fixes
+
+- date field Firefox issues ([a432c2d](https://github.com/LeavittSoftware/titanium-elements/commit/a432c2db6175640ce5c1ace66cf491afae8df1ec)), closes [#525](https://github.com/LeavittSoftware/titanium-elements/issues/525) [#522](https://github.com/LeavittSoftware/titanium-elements/issues/522)
+- duration-input: use the same wording in the error test as the supporting text? "Enter a duration e.g. "3 hours and 30 minutes"" ([a9a6572](https://github.com/LeavittSoftware/titanium-elements/commit/a9a65727750cad785c9fb626a4669fd63d312f9e))
+- titanium data table item: when you click the draggable item, there is a console error ([cca439d](https://github.com/LeavittSoftware/titanium-elements/commit/cca439da0fce799bbad8bd61b5b50c8aec96ea8c)), closes [#523](https://github.com/LeavittSoftware/titanium-elements/issues/523)
+- when single select is toggled off on the data table, the headers shift and don't align with the items ([79cb281](https://github.com/LeavittSoftware/titanium-elements/commit/79cb2814ce269f8518adcbf9d8ca495e5e990566)), closes [#520](https://github.com/LeavittSoftware/titanium-elements/issues/520)
+
+### Features
+
+- add dialog zindex fix ([a110329](https://github.com/LeavittSoftware/titanium-elements/commit/a1103293e81a2811dd922c0f64b34175f70f87e1))
+- improves date range selector wrapping ([5e96af7](https://github.com/LeavittSoftware/titanium-elements/commit/5e96af7b9171ad3c0072ece0f0f916f9999f0651))
+- redispatch open/close events ([c48cba2](https://github.com/LeavittSoftware/titanium-elements/commit/c48cba25a36fcdf783641e35c245df1b65e09513))
+
 # [1.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.3.0...@leavittsoftware/web@1.4.0) (2023-11-07)
 
 ### Features

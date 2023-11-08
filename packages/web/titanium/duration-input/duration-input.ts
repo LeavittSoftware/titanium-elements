@@ -27,7 +27,7 @@ export class TitaniumDurationInput extends ExtendableOutlinedTextField {
 
   firstUpdated() {
     this.label = 'Duration';
-    this.supportingText = 'Enter a duration e.g. "3 hours and 30 minutes"';
+    this.supportingText = 'Enter a duration ex. "3 hours and 30 minutes"';
   }
 
   updated(changedProps: PropertyValues<this>) {
@@ -62,7 +62,7 @@ export class TitaniumDurationInput extends ExtendableOutlinedTextField {
   #customReportValidity(input: string) {
     if (!this.#customCheckValidity(input)) {
       this.error = true;
-      this.errorText = 'Duration was entered in an incorrect format';
+      this.errorText = 'Duration was entered in an incorrect format. Try "3 hours and 30 minutes"';
     } else {
       this.error = false;
       this.errorText = '';

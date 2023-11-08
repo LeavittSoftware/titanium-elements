@@ -117,8 +117,16 @@ export class TitaniumDateRangeSelector extends LitElement {
     }
 
     md-outlined-text-field {
+      align-self: flex-start;
       flex-basis: calc(25% - 64px);
       flex-grow: 1;
+    }
+
+    @-moz-document url-prefix() {
+      md-outlined-text-field {
+        --md-outlined-field-top-space: 3px;
+        --md-outlined-field-bottom-space: 3px;
+      }
     }
   `;
 

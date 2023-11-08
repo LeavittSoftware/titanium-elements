@@ -218,7 +218,7 @@ export class TitaniumDataTableItem extends LitElement {
 
     const moveEvent = type === 'touch' ? 'touchmove' : 'mousemove';
     const upEvent = type === 'touch' ? 'touchend' : 'mouseup';
-    const containerY = this.itemsContainer.getBoundingClientRect().top + window.scrollY;
+    const containerY = this.itemsContainer?.getBoundingClientRect().top + window.scrollY;
     const startY = event.pageY ?? event.touches[0].pageY;
     const itemHeight = this.getBoundingClientRect().height - 1;
 

@@ -38,8 +38,25 @@ export default class NpmStats extends LitElement {
       });
       const text = await response.text();
       const json = text.length ? JSON.parse(text) : {};
-      const latest = Object.entries(json.downloads)?.findLast((o) => o);
-      return { version: latest?.[0] as string, downloads: latest?.[1] as number };
+
+      const versions = Object.entries(json.downloads)
+        .map((a) => ({
+          version: a?.[0]
+            ?.split('.')
+            .map((n) => +n + 100000)
+            .join('.') as string,
+          downloads: a?.[1] as number,
+        }))
+        .sort((a, b) => a.version.localeCompare(b.version))
+        .map((a) => ({
+          ...a,
+          version: a.version
+            ?.split('.')
+            .map((n) => +n - 100000)
+            .join('.'),
+        }));
+
+      return versions?.pop();
     } catch (error) {
       console.warn(error);
     }
