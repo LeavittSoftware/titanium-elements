@@ -19,8 +19,8 @@ export class TitaniumCard extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'has-menu' }) hasMenu: boolean;
   @property({ type: Boolean, reflect: true, attribute: 'has-image' }) hasImage: boolean;
   @property({ type: Boolean, reflect: true, attribute: 'has-footer' }) hasFooter: boolean;
-  @property({ type: Boolean, reflect: true, attribute: 'primary' }) primary: boolean;
-  @property({ type: Boolean, reflect: true, attribute: 'surface' }) surface: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'filled' }) primary: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'elevated' }) surface: boolean;
 
   static styles = [
     css`
@@ -39,16 +39,15 @@ export class TitaniumCard extends LitElement {
         color: var(--md-sys-color-on-surface);
       }
 
-      :host([primary]) {
+      :host([filled]) {
         border: none;
-        background-color: var(--md-sys-color-primary-container);
-        color: var(--md-sys-color-on-primary-container);
+        background-color: var(--md-sys-color-surface-container-highest);
       }
 
-      :host([surface]) {
+      :host([elevated]) {
         border: none;
-        background-color: var(--md-sys-color-surface-variant);
-        color: var(--md-sys-color-on-surface-variant);
+        background-color: var(--md-sys-color-surface-container-low);
+        --md-elevation-level: 1;
       }
 
       :host([has-menu]) {

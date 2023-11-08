@@ -43,16 +43,12 @@ export class TitaniumChipPlayground extends LitElement {
         <h1>Default</h1>
       </titanium-card>
 
-      <titanium-card primary>
-        <h1>primary</h1>
+      <titanium-card filled>
+        <h1>filled</h1>
       </titanium-card>
 
-      <titanium-card surface>
-        <h1>surface</h1>
-      </titanium-card>
-
-      <titanium-card elevation="high">
-        <h1>Elevated</h1>
+      <titanium-card elevated>
+        <h1>elevated</h1>
       </titanium-card>
 
       <titanium-card has-image>
