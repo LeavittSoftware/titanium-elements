@@ -119,6 +119,9 @@ export class TitaniumCard extends LitElement {
       ::slotted([nav]) {
         margin: 16px -12px -12px 0;
         justify-self: right;
+        display: flex;
+        gap: 12px;
+        align-items: center;
       }
 
       @media (max-width: 400px) {
