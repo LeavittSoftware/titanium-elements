@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.5.0...@leavittsoftware/web@1.6.0) (2023-11-08)
+
+### Features
+
+- data table uses surface color ([e047826](https://github.com/LeavittSoftware/titanium-elements/commit/e04782616657298752b31e09413c08d50cf267c7))
+- finalize card variants api ([3fa74e3](https://github.com/LeavittSoftware/titanium-elements/commit/3fa74e3703b4ebadfccfd6811f142fd83f8171be))
+
 # [1.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.4.0...@leavittsoftware/web@1.5.0) (2023-11-08)
 
 ### Bug Fixes
