@@ -32,13 +32,13 @@ export class TitaniumDataTableHeaderPlayground extends LitElement {
       <h1>Default</h1>
       <p>Examples using left, center, right, large, no-sort, desktop, and width attributes</p>
       <div>
-        <titanium-data-table-header left column-name="Left" title="Left"></titanium-data-table-header>
-        <titanium-data-table-header center column-name="Center" title="Center"></titanium-data-table-header>
-        <titanium-data-table-header right column-name="Right" title="Right"></titanium-data-table-header>
-        <titanium-data-table-header large column-name="Large" title="Large"></titanium-data-table-header>
-        <titanium-data-table-header no-sort column-name="NoSort" title="No sort"></titanium-data-table-header>
-        <titanium-data-table-header desktop column-name="Desktop" title="Desktop"></titanium-data-table-header>
-        <titanium-data-table-header width="200px" column-name="Width" title="Width"></titanium-data-table-header>
+        <titanium-data-table-header sort-direction="asc" left column-name="Left" title="Left"></titanium-data-table-header>
+        <titanium-data-table-header sort-direction="asc" center column-name="Center" title="Center"></titanium-data-table-header>
+        <titanium-data-table-header sort-direction="asc" right column-name="Right" title="Right"></titanium-data-table-header>
+        <titanium-data-table-header sort-direction="asc" large column-name="Large" title="Large"></titanium-data-table-header>
+        <titanium-data-table-header sort-direction="asc" no-sort column-name="NoSort" title="No sort"></titanium-data-table-header>
+        <titanium-data-table-header sort-direction="asc" desktop column-name="Desktop" title="Desktop"></titanium-data-table-header>
+        <titanium-data-table-header sort-direction="asc" width="200px" column-name="Width" title="Width"></titanium-data-table-header>
       </div>
     `;
   }
