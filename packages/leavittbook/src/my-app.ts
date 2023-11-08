@@ -246,7 +246,6 @@ export class MyApp extends LitElement {
         padding: 2px 20px;
         border-radius: 0px 50px 50px 0px;
         cursor: pointer;
-        color: var(--app-text-color);
         font-weight: 500;
         margin-top: 12px;
       }
@@ -259,7 +258,7 @@ export class MyApp extends LitElement {
       }
 
       summary:hover {
-        background: var(--app-hover-color);
+        background-color: rgb(from var(--md-sys-color-on-surface, #1d1b20) r g b / 0.08);
       }
     `,
   ];

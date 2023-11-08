@@ -182,7 +182,6 @@ export const myAppStyles = css`
 
   h4 a:visited,
   h4 a {
-    color: var(--app-text-color);
     text-decoration: none;
   }
 

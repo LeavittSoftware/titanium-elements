@@ -7,7 +7,12 @@
     "**/*.js",
     "**/*.js.map",
     "**/*.d.ts",
-    "**/*.scss"
+    "**/*.scss",
+    "**/*.gif",
+    "**/*.png",
+    "**/*.webp",
+    "**/*.jpeg",
+    "**/*.jpg"
   ],
   "dependencies": {
     "@googlemaps/js-api-loader": "*",
