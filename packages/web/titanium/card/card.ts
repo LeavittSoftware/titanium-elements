@@ -19,8 +19,8 @@ export class TitaniumCard extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'has-menu' }) hasMenu: boolean;
   @property({ type: Boolean, reflect: true, attribute: 'has-image' }) hasImage: boolean;
   @property({ type: Boolean, reflect: true, attribute: 'has-footer' }) hasFooter: boolean;
-  @property({ type: Boolean, reflect: true, attribute: 'filled' }) primary: boolean;
-  @property({ type: Boolean, reflect: true, attribute: 'elevated' }) surface: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'filled' }) filled: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'elevated' }) elevated: boolean;
 
   static styles = [
     css`
