@@ -288,6 +288,8 @@ export class TitaniumDataTable extends LitElement {
         flex-direction: column;
 
         border: 1px solid var(--md-sys-color-outline-variant);
+        background-color: var(--md-sys-color-surface);
+        color: var(--md-sys-color-on-surface);
         border-radius: 8px;
         font-family: var(--titanium-data-table-font-family, Roboto, Noto, sans-serif);
         --titanium-page-control-font-family: var(--titanium-data-table-font-family, Roboto, Noto, sans-serif);
