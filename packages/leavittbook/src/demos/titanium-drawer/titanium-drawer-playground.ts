@@ -68,7 +68,7 @@ export class TitaniumDrawerPlayground extends LitElement {
         <md-outlined-button @click=${() => this.drawerOne.open()}><span>Open</span></md-outlined-button>
         <titanium-drawer one>
           <md-list-item href="#default" type="link">Default</md-list-item>
-          <md-list-item href="#disabled" type="link" disabled>Disabled</md-list-item>
+          <md-list-item type="button" disabled>Disabled</md-list-item>
           <md-list-item href="#selected" type="link" selected>Selected</md-list-item>
         </titanium-drawer>
       </div>
