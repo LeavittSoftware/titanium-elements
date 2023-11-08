@@ -78,9 +78,9 @@ export class ManualAddressDialog extends LitElement {
       }
 
       form {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-        grid-gap: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
       }
     `,
   ];
