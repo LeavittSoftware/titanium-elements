@@ -1,18 +1,18 @@
-import { css, html, LitElement, nothing } from 'lit';
-import { property, customElement, query, queryAll, state } from 'lit/decorators.js';
-import { AddressInputAddress } from './types/address-input-address';
-
 import '@material/web/icon/icon';
 import '@material/web/select/outlined-select';
 import '@material/web/select/select-option';
 import '@material/web/dialog/dialog';
 import '@material/web/textfield/outlined-text-field';
+
+import { css, html, LitElement, nothing } from 'lit';
+import { property, customElement, query, queryAll, state } from 'lit/decorators.js';
+import { AddressInputAddress } from './types/address-input-address';
 import { MdDialog } from '@material/web/dialog/dialog';
 import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
 import { MdOutlinedSelect } from '@material/web/select/outlined-select';
 import { DOMEvent } from '../types/dom-event';
-import { formStyles } from '../../../leavittbook/src/styles/form-styles';
 import { allowDialogOverflow, preventDialogOverflow } from '../hacks/dialog-overflow-hacks';
+import { reportValidityIfError } from '../hacks/report-validity-if-error';
 
 @customElement('manual-address-dialog')
 export class ManualAddressDialog extends LitElement {
@@ -72,11 +72,16 @@ export class ManualAddressDialog extends LitElement {
   }
 
   static styles = [
-    formStyles,
     css`
       md-dialog {
         width: -webkit-fill-available;
         max-width: min(0% + 550px, 100% - 48px);
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
       }
     `,
   ];
@@ -96,12 +101,14 @@ export class ManualAddressDialog extends LitElement {
             label="Street"
             required
             .value=${this.street || ''}
+            @blur=${(e: DOMEvent<MdOutlinedTextField>) => reportValidityIfError(e.target)}
             @change=${(e: DOMEvent<MdOutlinedTextField>) => (this.street = e.target.value)}
           >
             <md-icon slot="leading-icon">markunread_mailbox</md-icon>
           </md-outlined-text-field>
           ${this.showStreet2
             ? html` <md-outlined-text-field
+                @blur=${(e: DOMEvent<MdOutlinedTextField>) => reportValidityIfError(e.target)}
                 label="Street 2"
                 .value=${this.street2 || ''}
                 @change=${(e: DOMEvent<MdOutlinedTextField>) => (this.street2 = e.target.value)}
@@ -109,12 +116,18 @@ export class ManualAddressDialog extends LitElement {
                 <md-icon slot="leading-icon">meeting_room</md-icon></md-outlined-text-field
               >`
             : nothing}
-          <md-outlined-text-field label="City" required .value=${this.city || ''} @change=${(e: DOMEvent<MdOutlinedTextField>) => (this.city = e.target.value)}
+          <md-outlined-text-field
+            label="City"
+            required
+            .value=${this.city || ''}
+            @blur=${(e: DOMEvent<MdOutlinedTextField>) => reportValidityIfError(e.target)}
+            @change=${(e: DOMEvent<MdOutlinedTextField>) => (this.city = e.target.value)}
             ><md-icon slot="leading-icon">location_city</md-icon></md-outlined-text-field
           >
           ${!this.showCounty
             ? nothing
             : html`<md-outlined-text-field
+                @blur=${(e: DOMEvent<MdOutlinedTextField>) => reportValidityIfError(e.target)}
                 label="County"
                 required
                 .value=${this.county || ''}
@@ -125,6 +138,7 @@ export class ManualAddressDialog extends LitElement {
           <md-outlined-select
             @opening=${() => preventDialogOverflow(this.dialog)}
             @closing=${() => allowDialogOverflow(this.dialog)}
+            @blur=${(e: DOMEvent<MdOutlinedTextField>) => reportValidityIfError(e.target)}
             label="State"
             required
             .value=${this.state || ''}
@@ -202,6 +216,7 @@ export class ManualAddressDialog extends LitElement {
             pattern="^\\d{5}$|^\\d{5}-\\d{4}$"
             required
             .value=${this.zip || ''}
+            @blur=${(e: DOMEvent<MdOutlinedTextField>) => reportValidityIfError(e.target)}
             @change=${(e: DOMEvent<MdOutlinedTextField>) => (this.zip = e.target.value)}
             ><md-icon slot="leading-icon">map</md-icon></md-outlined-text-field
           >
@@ -231,3 +246,4 @@ export class ManualAddressDialog extends LitElement {
     `;
   }
 }
+
