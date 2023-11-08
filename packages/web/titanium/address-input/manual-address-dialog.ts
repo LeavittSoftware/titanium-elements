@@ -82,21 +82,6 @@ export class ManualAddressDialog extends LitElement {
         grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
         grid-gap: 24px;
       }
-      
-      form label {
-        display: flex;
-        font-size: 14px;
-        align-items: center;
-        justify-self: start;
-        user-select: none;
-      }
-
-      @media (max-width: 786px) {
-        form {
-          display: flex;
-          flex-direction: column;
-        }
-      }
     `,
   ];
 
