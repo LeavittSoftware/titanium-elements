@@ -11,7 +11,7 @@ import { ExtendableOutlinedTextField } from '../extendable-outlined-text-field/e
  *
  * @element titanium-search-input
  *
- * @cssprop {Color} --md-sys-color-outline-variant - Input border color
+ * @cssprop {Length} --titanium-search-input-expanded-width - Width when input expands
  *
  */
 @customElement('titanium-search-input')
@@ -63,7 +63,7 @@ export class TitaniumSearchInput extends ExtendableOutlinedTextField {
     :host([has-value]) md-outlined-text-field,
     :host([prevent-collapse]) md-outlined-text-field,
     md-outlined-text-field:focus-within {
-      width: 258px;
+      width: var(--titanium-search-input-expanded-width, 258px);
       --md-outlined-text-field-container-shape: initial;
     }
   `;
