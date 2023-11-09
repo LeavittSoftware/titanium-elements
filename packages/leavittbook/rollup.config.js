@@ -66,6 +66,7 @@ export default {
         { src: 'manifest', dest: 'dist' },
         { src: 'fonts', dest: 'dist' },
         { src: 'images', dest: 'dist' },
+        { src: '404.html', dest: 'dist' },
         { src: 'src/demos/*', dest: 'dist/src/demos' },
       ],
     }),
