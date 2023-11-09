@@ -6,6 +6,7 @@ import { property, query } from 'lit/decorators.js';
 import { stringConverter } from '@material/web/internal/controller/string-converter';
 import { TextFieldType, UnsupportedTextFieldType } from '@material/web/textfield/internal/text-field';
 import { DOMEvent } from '../types/dom-event';
+import { redispatchEvent } from '@material/web/internal/controller/events';
 
 export class ExtendableOutlinedTextField extends LitElement {
   @query('md-outlined-text-field') input: MdOutlinedTextField;
@@ -37,7 +38,7 @@ export class ExtendableOutlinedTextField extends LitElement {
   /**
    * The current value of the text field. It is always a string.
    */
-  @property() value = '';
+  @property() accessor value = '';
 
   /**
    * An optional prefix to display before the input value.
@@ -216,6 +217,10 @@ export class ExtendableOutlinedTextField extends LitElement {
     this.input.reset();
   }
 
+  focus() {
+    this.input.focus();
+  }
+
   protected renderMainSlot() {
     return html``;
   }
@@ -223,7 +228,12 @@ export class ExtendableOutlinedTextField extends LitElement {
   render() {
     return html`
       <md-outlined-text-field
+        part="text-field"
         @input=${(e: DOMEvent<MdOutlinedTextField>) => (this.value = e.target.value)}
+        @blur=${(e) => redispatchEvent(this, e)}
+        @focus=${(e) => redispatchEvent(this, e)}
+        @change=${(e) => redispatchEvent(this, e)}
+        @invalid=${(e) => redispatchEvent(this, e)}
         .disabled=${this.disabled}
         .required=${this.required}
         .error=${this.error}
