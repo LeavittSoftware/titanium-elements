@@ -43,6 +43,7 @@ export class TitaniumSearchInput extends ExtendableOutlinedTextField {
     md-outlined-text-field {
       width: 48px;
       --md-outlined-text-field-container-shape: 24px;
+      --md-outlined-field-outline-width: 0;
 
       -webkit-transition: width 250ms 0ms cubic-bezier(0.4, 0, 0.2, 1); /* Safari */
       transition: width 250ms 0ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -63,6 +64,7 @@ export class TitaniumSearchInput extends ExtendableOutlinedTextField {
     :host([has-value]) md-outlined-text-field,
     :host([prevent-collapse]) md-outlined-text-field,
     md-outlined-text-field:focus-within {
+      --md-outlined-field-outline-width: 1px;
       width: var(--titanium-search-input-expanded-width, 258px);
       --md-outlined-text-field-container-shape: initial;
     }

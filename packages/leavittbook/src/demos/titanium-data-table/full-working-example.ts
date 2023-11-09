@@ -190,8 +190,8 @@ export class TitaniumDataTableFullPlayground extends LitElement {
           slot="search-button"
           placeholder="Search"
           .value=${this.searchTerm}
-          @value-changed=${(event: DOMEvent<TitaniumSearchInput>) => {
-            this.searchTerm = event.target.value;
+          @input=${(e: DOMEvent<TitaniumSearchInput>) => {
+            this.searchTerm = e.target.value;
             this.dataTable.resetPage();
             this.#doSearchDebouncer.debounce(this.searchTerm);
           }}
