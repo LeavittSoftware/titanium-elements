@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.8.0...@leavittsoftware/web@1.9.0) (2023-11-09)
+
+### Features
+
+- adds --titanium-search-input-expanded-width mixin ([461cd1a](https://github.com/LeavittSoftware/titanium-elements/commit/461cd1a582935e4824ad2642598b5cf30c656cc6))
+- search input is now backed by a outline text field ([d9ccdeb](https://github.com/LeavittSoftware/titanium-elements/commit/d9ccdeb01db8c2e9b43c01829e6186daee8cfe96))
+- **search-input:** remove outline in default state ([6d0db3c](https://github.com/LeavittSoftware/titanium-elements/commit/6d0db3cbc8e2b1abec59af61e2f7d023899e7944))
+
 # [1.8.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.7.0...@leavittsoftware/web@1.8.0) (2023-11-09)
 
 ### Features
