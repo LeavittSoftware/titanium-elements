@@ -72,11 +72,10 @@ export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
       </div>
 
       <h1>Attributes</h1>
-      <p>Examples using required,shaped,shallow,preselected, and disabled</p>
+      <p>Examples using required,shaped,preselected, and disabled</p>
       <div>
         <leavitt-person-company-select label="default" .apiService=${this.apiService}></leavitt-person-company-select>
         <leavitt-person-company-select label="shaped" shaped .apiService=${this.apiService}></leavitt-person-company-select>
-        <leavitt-person-company-select label="shallow" shallow .apiService=${this.apiService}></leavitt-person-company-select>
         <leavitt-person-company-select
           label="pre-selected"
           .selected=${{

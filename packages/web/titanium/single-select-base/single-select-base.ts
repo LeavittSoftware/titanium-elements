@@ -247,10 +247,6 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
         --md-outlined-text-field-container-shape: 28px;
       }
 
-      :host([shallow]) {
-        --md-outlined-text-field-container-shape: 12px;
-      }
-
       img[leading] {
         width: 24px;
         height: 24px;

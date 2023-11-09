@@ -90,7 +90,6 @@ export class LeavittPersonSelectPlaygroundElement extends LitElement {
         ></leavitt-person-select>
 
         <leavitt-person-select label="shaped" shaped .apiService=${this.apiService}></leavitt-person-select>
-        <leavitt-person-select label="shallow" shallow .apiService=${this.apiService}></leavitt-person-select>
         <leavitt-person-select label="placeholder" placeholder="My placeholder" .apiService=${this.apiService}></leavitt-person-select>
         <leavitt-person-select label="Supporting text" supportingText="supporting text" .apiService=${this.apiService}></leavitt-person-select>
         <leavitt-person-select label="required" required validationMessage="required" .apiService=${this.apiService}></leavitt-person-select>

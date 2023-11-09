@@ -10,6 +10,7 @@ import '@material/web/button/outlined-button';
 
 import '@leavittsoftware/web/titanium/search-input/search-input';
 import { TitaniumSearchInput } from '@leavittsoftware/web/titanium/search-input/search-input';
+import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
 
 /* playground-fold */
 @customElement('titanium-search-input-playground')
@@ -50,7 +51,7 @@ export class TitaniumSearchInputItemPlayground extends LitElement {
     return html`
       <h1>Default</h1>
       <div>
-        <titanium-search-input></titanium-search-input>
+        <titanium-search-input @input=${(e: DOMEvent<TitaniumSearchInput>) => console.log(e.target.value)}></titanium-search-input>
       </div>
 
       <h1>Disabled</h1>
