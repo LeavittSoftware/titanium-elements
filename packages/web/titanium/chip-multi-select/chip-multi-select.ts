@@ -45,7 +45,7 @@ export class TitaniumChipMultiSelect extends LitElement {
    *  Passes the error property to the input-validator
    */
   @property({ type: Boolean }) error: boolean;
-  
+
   /**
    *  Passes the errorText property to the input-validator
    */
