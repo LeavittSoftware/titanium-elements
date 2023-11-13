@@ -37,9 +37,24 @@ export class TitaniumChipMultiSelect extends LitElement {
   @property({ type: Boolean }) hasItems: boolean;
 
   /**
-   *  Sets supporting text
+   *   Passes the supportingText property to the input-validator
    */
   @property({ type: String }) supportingText: string;
+
+  /**
+   *  Passes the error property to the input-validator
+   */
+  @property({ type: Boolean }) error: boolean;
+
+  /**
+   *  Passes the errorText property to the input-validator
+   */
+  @property({ type: String }) errorText: string;
+
+  /**
+   *  Passes the resizable property to the input-validator
+   */
+  @property({ type: Boolean }) resizable: boolean;
 
   /**
    *  Whether or not the input should appear disabled (chips, buttons and anything else slotted will still have to be disabled individually).
@@ -111,7 +126,10 @@ export class TitaniumChipMultiSelect extends LitElement {
         .evaluator=${() => !this.required || !!this.hasItems}
         ?required=${this.required}
         .label=${this.label}
+        .resizable=${this.resizable}
         .supportingText=${this.supportingText}
+        .errorText=${this.errorText}
+        ?error=${this.error}
       >
         <slot-container>
           <slot></slot>
