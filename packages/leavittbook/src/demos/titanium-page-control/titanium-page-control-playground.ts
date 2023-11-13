@@ -5,6 +5,7 @@ import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
 /* playground-fold-end */
 
 import '@leavittsoftware/web/titanium/data-table/page-control';
+import '@material/web/chips/suggestion-chip';
 import { TitaniumPageControl } from '@leavittsoftware/web/titanium/data-table/page-control';
 
 /* playground-fold */
@@ -46,17 +47,9 @@ export class TitaniumPageControlPlayground extends LitElement {
         padding: 24px;
         border-radius: 8px;
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
         gap: 12px;
         margin: 24px 0 36px 0;
-      }
-
-      p[example-item] {
-        padding: 4px;
-        background: #f5f5f5;
-        border-radius: 4px;
-        border: 1px solid #eee;
-        margin: 8px 0;
       }
     `,
   ];
@@ -64,23 +57,24 @@ export class TitaniumPageControlPlayground extends LitElement {
   render() {
     /* playground-fold-end */
     return html`
-      <h1>Default</h1>
       <div>
-        <titanium-page-control></titanium-page-control>
+        <h1>Default</h1>
+        <titanium-page-control localStorageKey="demoPageTake1"></titanium-page-control>
       </div>
 
-      <h1>Disabled</h1>
       <div>
+        <h1>Disabled</h1>
         <titanium-page-control disabled></titanium-page-control>
       </div>
 
-      <h1>Full example</h1>
-      ${this.filteredData?.map((item) => html` <p example-item>${item?.name}, ${item?.id}</p> `)}
       <div>
+        <h1>Full example</h1>
+        ${this.filteredData?.map((item) => html` <md-suggestion-chip label="${item?.name} #${item?.id}"></md-suggestion-chip> `)}
         <titanium-page-control
           main
           .pageSizes=${[2, 4, 6, 8]}
           .count=${this.count}
+          localStorageKey="demoPageTake2"
           @action=${() => {
             this.#reload();
           }}
