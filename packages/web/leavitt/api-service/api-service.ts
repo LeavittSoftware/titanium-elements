@@ -287,8 +287,8 @@ export default class ApiService {
     const message = error?.message?.includes('Failed to fetch')
       ? 'Network error. Check your connection and try again.'
       : error?.name === 'AbortError'
-      ? 'Abort error. Request has been aborted.'
-      : error?.message || error;
+        ? 'Abort error. Request has been aborted.'
+        : error?.message || error;
 
     const httpError: HttpError = {
       type: 'HttpError',
