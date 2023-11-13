@@ -62,11 +62,10 @@ export class LeavittPersonGroupSelectPlaygroundElement extends LitElement {
     return html`
       <user-manager disableAutoload></user-manager>
       <h1>Default</h1>
-      <p>Examples using required,shaped,shallow,preselected, and disabled</p>
+      <p>Examples using required,shaped,preselected, and disabled</p>
       <div>
         <leavitt-person-group-select label="default" .apiService=${this.apiService}></leavitt-person-group-select>
         <leavitt-person-group-select label="shaped" shaped .apiService=${this.apiService}></leavitt-person-group-select>
-        <leavitt-person-group-select label="shallow" shallow .apiService=${this.apiService}></leavitt-person-group-select>
         <leavitt-person-group-select
           label="pre-selected"
           .selected=${{
