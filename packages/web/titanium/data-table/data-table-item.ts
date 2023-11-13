@@ -410,6 +410,13 @@ export class TitaniumDataTableItem extends LitElement {
       min-height: 48px;
     }
 
+    /* Fallback :hover style for Firefox support */
+    @-moz-document url-prefix() {
+      :host(:not([disable-select]):not([selected]):hover) {
+        background-color: color-mix(in srgb, var(--md-sys-color-on-surface, #1d1b20) 8%, transparent);
+      }
+    }
+
     /* Do not apply :hover style on touch devices */
     @media (hover: hover) and (pointer: fine) {
       :host([enable-dragging]) div[item-footer] ::slotted(*) {
