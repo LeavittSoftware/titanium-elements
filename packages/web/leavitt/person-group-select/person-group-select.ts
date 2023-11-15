@@ -77,7 +77,10 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const fuse = new Fuse(entities, options as any);
-    const fuseResults = fuse.search(searchTerm).sort((a, b) => (b?.score ?? 0) - (a?.score ?? 0));
+    const fuseResults = fuse
+      .search(searchTerm)
+      .sort((a, b) => (b?.score ?? 0) - (a?.score ?? 0))
+      .slice(0, 15);
     this.suggestions = fuseResults.map((o) => o.item) ?? [];
     this.count = odataCount ?? 0;
   }
@@ -176,11 +179,11 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
           <span slot="supporting-text">${entity.CompanyName}</span>
         </md-menu-item>`
       : entity.type === 'PeopleGroup'
-      ? html`<md-menu-item .item=${entity} ?selected=${this.selected?.Id === entity.Id}>
-          <md-icon group slot="start">${peopleGroupIcons.get(entity['@odata.type'])?.icon ?? 'task_alt'}</md-icon>
-          <span slot="headline">${entity.Name}</span>
-          <span slot="supporting-text">${entity.Description || (peopleGroupIcons.get(entity['@odata.type'])?.displayName ?? 'People group')}</span>
-        </md-menu-item>`
-      : html``;
+        ? html`<md-menu-item .item=${entity} ?selected=${this.selected?.Id === entity.Id}>
+            <md-icon group slot="start">${peopleGroupIcons.get(entity['@odata.type'])?.icon ?? 'task_alt'}</md-icon>
+            <span slot="headline">${entity.Name}</span>
+            <span slot="supporting-text">${entity.Description || (peopleGroupIcons.get(entity['@odata.type'])?.displayName ?? 'People group')}</span>
+          </md-menu-item>`
+        : html``;
   }
 }
