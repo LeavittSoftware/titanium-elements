@@ -294,6 +294,10 @@ export class TitaniumDateInput extends LitElement {
 
     /* FireFox only: reduce native input padding */
     @-moz-document url-prefix() {
+      :host {
+        min-width: 280px;
+      }
+
       input {
         padding-top: 3px;
         padding-bottom: 3px;
