@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.11.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.10.0...@leavittsoftware/web@1.11.0) (2023-11-15)
+
+### Bug Fixes
+
+- Adds top 15 to local fuse searches ([#549](https://github.com/LeavittSoftware/titanium-elements/issues/549)) ([735ab30](https://github.com/LeavittSoftware/titanium-elements/commit/735ab30581fd6a00d3faf5d199c9cfc88bf9a18f))
+
+### Features
+
+- **titanium-data-table-item:** add :hover background-color support for Firefox ([51e3a28](https://github.com/LeavittSoftware/titanium-elements/commit/51e3a28f76718303284f34149ce1da35541f0fa5))
+
 # [1.10.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.9.0...@leavittsoftware/web@1.10.0) (2023-11-09)
 
 ### Features
