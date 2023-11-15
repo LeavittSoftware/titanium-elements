@@ -53,6 +53,8 @@ export class TitaniumDateInputItemPlayground extends LitElement {
       <p>Demonstrates public methods</p>
       <titanium-card>
         <div>
+          <!--   min="2017-04-01"
+            max="2017-04-30" -->
           <titanium-date-input label="Start date" @change=${(e: DOMEvent<TitaniumDateInput>) => (this.value = e.target.value)}></titanium-date-input>
           <span>Output: ${this.value}</span>
           <section buttons>

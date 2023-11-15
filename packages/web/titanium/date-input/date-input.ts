@@ -7,6 +7,7 @@ import { stringConverter } from '@material/web/internal/controller/string-conver
 
 import '@material/web/field/outlined-field';
 import '@material/web/icon/icon';
+import '@material/web/iconbutton/icon-button';
 import { Field } from '@material/web/field/internal/field';
 
 /**
@@ -58,7 +59,7 @@ export class TitaniumDateInput extends LitElement {
   /**
    *  Whether or not the input should be disabled
    */
-  @property({ type: Boolean, reflect: true }) disabled: boolean = false;
+  @property({ type: Boolean, reflect: true }) accessor disabled: boolean = false;
 
   /**
    * Gets or sets whether or not the text field is in a visually invalid state.
@@ -66,7 +67,7 @@ export class TitaniumDateInput extends LitElement {
    * This error state overrides the error state controlled by
    * `reportValidity()`.
    */
-  @property({ type: Boolean, reflect: true }) error = false;
+  @property({ type: Boolean, reflect: true }) accessor error = false;
 
   /**
    * The error message that replaces supporting text when `error` is true. If
@@ -76,65 +77,83 @@ export class TitaniumDateInput extends LitElement {
    * This error message overrides the error message displayed by
    * `reportValidity()`.
    */
-  @property({ attribute: 'error-text' }) errorText = '';
+  @property({ attribute: 'error-text' }) accessor errorText = '';
 
-  @property() label = '';
+  @property() accessor label = '';
 
-  @property({ type: Boolean, reflect: true }) required = false;
+  @property({ type: Boolean, reflect: true }) accessor required = false;
 
   /**
    * The current value of the text field. It is always a string.
    */
-  @property() value = '';
+  @property() accessor value = '';
 
   /**
    * An optional prefix to display before the input value.
    */
-  @property({ attribute: 'prefix-text' }) prefixText = '';
+  @property({ attribute: 'prefix-text' }) accessor prefixText = '';
 
   /**
    * An optional suffix to display after the input value.
    */
-  @property({ attribute: 'suffix-text' }) suffixText = '';
+  @property({ attribute: 'suffix-text' }) accessor suffixText = '';
 
   /**
    * Whether or not the text field has a leading icon. Used for SSR.
    */
-  @property({ type: Boolean, attribute: 'has-leading-icon' })
-  hasLeadingIcon = false;
+  @property({ type: Boolean, attribute: 'has-leading-icon' }) accessor hasLeadingIcon = false;
 
   /**
    * Whether or not the text field has a trailing icon. Used for SSR.
    */
-  @property({ type: Boolean, attribute: 'has-trailing-icon' })
-  hasTrailingIcon = false;
+  @property({ type: Boolean, attribute: 'has-trailing-icon' }) accessor hasTrailingIcon = false;
+
+  /**
+   * Defines the greatest value in the range of permitted values.
+   *
+   * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#max
+   */
+  @property() accessor max = '';
+
+  /**
+   * The maximum number of characters a user can enter into the text field. Set
+   * to -1 for none.
+   *
+   * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#maxlength
+   */
+  @property({ type: Number }) accessor maxLength = -1;
+
+  /**
+   * Defines the most negative value in the range of permitted values.
+   *
+   * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#min
+   */
+  @property() accessor min = '';
 
   /**
    * Conveys additional information below the text field, such as how it should
    * be used.
    */
-  @property({ attribute: 'supporting-text' }) supportingText = '';
+  @property({ attribute: 'supporting-text' }) accessor supportingText = '';
 
-  @property({ reflect: true, converter: stringConverter }) placeholder = '';
+  @property({ reflect: true, converter: stringConverter }) accessor placeholder = '';
 
-  @property({ reflect: true })
-  type: 'date' | 'datetime-local' = 'date';
-
+  @property({ reflect: true }) accessor type: 'date' | 'datetime-local' = 'date';
   /**
    * Returns true when the text field has been interacted with. Native
    * validation errors only display in response to user interactions.
    */
-  @state() private dirty = false;
-  @state() private focused = false;
+  @state() private accessor dirty = false;
+  @state() private accessor focused = false;
   /**
    * Whether or not a native error has been reported via `reportValidity()`.
    */
-  @state() private nativeError = false;
+  @state() private accessor nativeError = false;
   /**
    * The validation message displayed from a native error via
    * `reportValidity()`.
    */
-  @state() private nativeErrorText = '';
+  @state() private accessor nativeErrorText = '';
 
   @query('input') private accessor input: HTMLInputElement;
   @query('md-outlined-field') private accessor field: Field | null;
@@ -249,27 +268,31 @@ export class TitaniumDateInput extends LitElement {
     this.value = this.getAttribute('value') ?? '';
     this.nativeError = false;
     this.nativeErrorText = '';
+    this.error = false;
   }
 
   static styles = css`
     :host {
       display: block;
+      /* Adjust chrome default to match height of other text inputs */
+      --md-outlined-field-top-space: 15px;
+      --md-outlined-field-bottom-space: 15px;
     }
 
-    input::-webkit-inner-spin-button,
     input::-webkit-calendar-picker-indicator {
       display: none;
       -webkit-appearance: none;
     }
 
-    @-moz-document url-prefix() {
-      md-outlined-field[focused] {
-        --md-outlined-field-top-space: 4px;
-        --md-outlined-field-bottom-space: 4px;
-      }
+    md-icon-button {
+      margin-right: 8px;
+    }
 
-      md-outlined-field:not([focused]) input {
-        height: 26px;
+    /* FireFox only: reduce native input padding */
+    @-moz-document url-prefix() {
+      input {
+        padding-top: 3px;
+        padding-bottom: 3px;
       }
     }
   `;
@@ -283,7 +306,7 @@ export class TitaniumDateInput extends LitElement {
         ?focused=${this.focused}
         ?has-end=${this.hasTrailingIcon}
         ?has-start=${this.hasLeadingIcon}
-        label=${this.label || 'Date'}
+        label=${this.label}
         ?populated=${!!this.value}
         ?required=${this.required}
         supporting-text=${this.supportingText}
@@ -303,6 +326,8 @@ export class TitaniumDateInput extends LitElement {
           @change=${(e: Event) => redispatchEvent(this, e)}
           @focusin=${() => (this.focused = true)}
           @focusout=${() => (this.focused = false)}
+          max=${this.max}
+          min=${this.min}
           @input=${(event: InputEvent) => {
             this.dirty = true;
             this.value = (event.target as HTMLInputElement).value;
@@ -312,7 +337,11 @@ export class TitaniumDateInput extends LitElement {
           @select=${(e: Event) => redispatchEvent(this, e)}
         />
         <span class="icon trailing" slot="end">
-          <slot name="trailing-icon" @slotchange=${this.handleIconChange}></slot>
+          <slot name="trailing-icon" @slotchange=${this.handleIconChange}>
+            <md-icon-button @click=${() => this.input?.showPicker()}>
+              <md-icon>calendar_today</md-icon>
+            </md-icon-button>
+          </slot>
         </span>
       </md-outlined-field>
     `;
