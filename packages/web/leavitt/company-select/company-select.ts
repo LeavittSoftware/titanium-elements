@@ -112,11 +112,12 @@ export class LeavittCompanySelect extends TitaniumSingleSelectBase<Partial<Compa
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const fuse = new Fuse(this.companies, options as any);
       const fuseResults = fuse.search(searchTerm);
-      this.suggestions = fuseResults.map((o) => o.item);
+      this.suggestions = fuseResults.map((o) => o.item).slice(0, 15);
+      this.count = fuseResults.length;
     } else {
       this.suggestions = this.companies;
+      this.count = this.suggestions.length;
     }
-    this.count = this.suggestions.length;
   }
 
   protected override renderSelectedLeadingInputSlot(entity: Partial<Company>) {

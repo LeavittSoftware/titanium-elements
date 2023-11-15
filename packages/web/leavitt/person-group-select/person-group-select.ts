@@ -77,7 +77,10 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const fuse = new Fuse(entities, options as any);
-    const fuseResults = fuse.search(searchTerm).sort((a, b) => (b?.score ?? 0) - (a?.score ?? 0));
+    const fuseResults = fuse
+      .search(searchTerm)
+      .sort((a, b) => (b?.score ?? 0) - (a?.score ?? 0))
+      .slice(0, 15);
     this.suggestions = fuseResults.map((o) => o.item) ?? [];
     this.count = odataCount ?? 0;
   }
