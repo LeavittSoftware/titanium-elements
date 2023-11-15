@@ -279,6 +279,10 @@ export class TitaniumDateInput extends LitElement {
       --md-outlined-field-bottom-space: 15px;
     }
 
+    md-outlined-field {
+      width: 100%;
+    }
+
     input::-webkit-calendar-picker-indicator {
       display: none;
       -webkit-appearance: none;

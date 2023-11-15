@@ -1,14 +1,13 @@
-import '@material/web/textfield/outlined-text-field';
 import '@material/web/icon/icon';
 import '@material/web/select/outlined-select.js';
 import '@material/web/select/select-option.js';
+import '../date-input/date-input';
 import { redispatchEvent } from '@material/web/internal/controller/events';
 
 import { css, html, LitElement, PropertyValues } from 'lit';
 import { property, customElement, query } from 'lit/decorators.js';
 import dayjs from 'dayjs/esm';
 import { DOMEvent } from '../types/dom-event';
-import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
 import { MdOutlinedSelect } from '@material/web/select/outlined-select.js';
 import { Debouncer } from '../helpers/helpers';
 import { DateRangeChangedEvent } from './date-range-change-event';
@@ -17,6 +16,7 @@ import { DateTimeRanges } from './types/date-time-ranges';
 import { DateRangeKey } from './types/date-range-key';
 import { DateRangeTimeKey } from './types/date-range-time-key';
 import { DateRanges } from './types/date-ranges';
+import { TitaniumDateInput } from '../date-input/date-input';
 
 /**
  *  Date range selector that allows selection from a list of pre-defined ranges or a custom range
@@ -58,8 +58,8 @@ export class TitaniumDateRangeSelector extends LitElement {
    */
   @property({ type: String }) accessor endDate: string = '';
 
-  @query('md-outlined-text-field[start-date]') protected accessor startDateField: MdOutlinedTextField;
-  @query('md-outlined-text-field[end-date]') protected accessor endDateField: MdOutlinedTextField;
+  @query('titanium-date-input[start-date]') protected accessor startDateField: TitaniumDateInput;
+  @query('titanium-date-input[end-date]') protected accessor endDateField: MdOutlinedTextField;
   @query('md-outlined-select') protected accessor select!: MdOutlinedSelect;
 
   async updated(changedProps: PropertyValues<this>) {
@@ -116,17 +116,10 @@ export class TitaniumDateRangeSelector extends LitElement {
       flex-grow: 9999;
     }
 
-    md-outlined-text-field {
+    titanium-date-input {
       align-self: flex-start;
       flex-basis: calc(25% - 64px);
       flex-grow: 1;
-    }
-
-    @-moz-document url-prefix() {
-      md-outlined-text-field {
-        --md-outlined-field-top-space: 3px;
-        --md-outlined-field-bottom-space: 3px;
-      }
     }
   `;
 
@@ -173,23 +166,24 @@ export class TitaniumDateRangeSelector extends LitElement {
         )}
       </md-outlined-select>
 
-      <md-outlined-text-field
+      <titanium-date-input
         part="startDate"
         start-date
         label="From"
         type=${this.enableTime ? 'datetime-local' : 'date'}
         .value=${this.startDate ?? ''}
-        @change=${(e: DOMEvent<MdOutlinedTextField>) => (this.startDate = e.target.value ?? '')}
-      ></md-outlined-text-field>
+        @change=${(e: DOMEvent<TitaniumDateInput>) => (this.startDate = e.target.value ?? '')}
+      ></titanium-date-input>
 
-      <md-outlined-text-field
+      <titanium-date-input
         part="endDate"
         end-date
         label="To"
         type=${this.enableTime ? 'datetime-local' : 'date'}
         .value=${this.endDate ?? ''}
-        @change=${(e: DOMEvent<MdOutlinedTextField>) => (this.endDate = e.target.value ?? '')}
-      ></md-outlined-text-field>
+        @change=${(e: DOMEvent<TitaniumDateInput>) => (this.endDate = e.target.value ?? '')}
+      >
+      </titanium-date-input>
     `;
   }
 }
