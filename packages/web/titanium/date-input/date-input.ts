@@ -292,10 +292,26 @@ export class TitaniumDateInput extends LitElement {
       margin-right: 8px;
     }
 
+    /* Safari 10.1+ (alternate method) */
+    @media not all and (min-resolution: 0.001dpcm) {
+      @supports (-webkit-appearance: none) {
+        .safari_only {
+          input {
+            padding-top: 13px;
+            padding-bottom: 8px;
+          }
+        }
+      }
+    }
+
     /* FireFox specific hacks! */
     @-moz-document url-prefix() {
       input {
         min-width: 186px;
+      }
+
+      input[type='datetime-local'] {
+        min-width: 285px;
       }
 
       md-icon-button[open-picker] {
