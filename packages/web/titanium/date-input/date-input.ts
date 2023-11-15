@@ -292,10 +292,14 @@ export class TitaniumDateInput extends LitElement {
       margin-right: 8px;
     }
 
-    /* FireFox only: reduce native input padding */
+    /* FireFox specific hacks! */
     @-moz-document url-prefix() {
-      :host {
-        min-width: 280px;
+      input {
+        min-width: 186px;
+      }
+
+      md-icon-button[open-picker] {
+        display: none;
       }
 
       input {
@@ -346,7 +350,7 @@ export class TitaniumDateInput extends LitElement {
         />
         <span class="icon trailing" slot="end">
           <slot name="trailing-icon" @slotchange=${this.handleIconChange}>
-            <md-icon-button @click=${() => this.input?.showPicker()}>
+            <md-icon-button open-picker @click=${() => this.input?.showPicker()}>
               <md-icon>calendar_today</md-icon>
             </md-icon-button>
           </slot>
