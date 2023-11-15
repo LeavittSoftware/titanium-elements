@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.11.0...@leavittsoftware/web@1.12.0) (2023-11-15)
+
+### Bug Fixes
+
+- **search-input:** disable the internal button when the input is disabled ([69fce0f](https://github.com/LeavittSoftware/titanium-elements/commit/69fce0f68d3a689e9c62dca5efceebdfb3faed0c))
+
+### Features
+
+- adds --titanium-search-input-expanded-width mixin ([461cd1a](https://github.com/LeavittSoftware/titanium-elements/commit/461cd1a582935e4824ad2642598b5cf30c656cc6))
+- improved titanium search input animation ([0ff700b](https://github.com/LeavittSoftware/titanium-elements/commit/0ff700be1be407c6bf2833ff6aaf8c1a303a7936))
+- search input is now backed by a outline text field ([d9ccdeb](https://github.com/LeavittSoftware/titanium-elements/commit/d9ccdeb01db8c2e9b43c01829e6186daee8cfe96))
+- **search-input:** remove outline in default state ([6d0db3c](https://github.com/LeavittSoftware/titanium-elements/commit/6d0db3cbc8e2b1abec59af61e2f7d023899e7944))
+
 # [1.11.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.10.0...@leavittsoftware/web@1.11.0) (2023-11-15)
 
 ### Bug Fixes
