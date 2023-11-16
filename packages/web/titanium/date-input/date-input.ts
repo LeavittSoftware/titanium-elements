@@ -292,16 +292,18 @@ export class TitaniumDateInput extends LitElement {
       margin-right: 8px;
     }
 
-    /* Safari 10.1+ (alternate method) */
-    @media not all and (min-resolution: 0.001dpcm) {
-      @supports (-webkit-appearance: none) {
-        .safari_only {
-          input {
-            padding-top: 13px;
-            padding-bottom: 8px;
-          }
-        }
-      }
+    /* Safari Only */
+    _::-webkit-full-page-media,
+    _:future,
+    input {
+      padding-top: 14px;
+      padding-bottom: 7px;
+    }
+
+    _::-webkit-full-page-media,
+    _:future,
+    md-icon-button[open-picker] {
+      display: none;
     }
 
     /* FireFox specific hacks! */
