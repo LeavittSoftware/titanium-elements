@@ -18,7 +18,6 @@ import { DateRangeTimeKey } from './types/date-range-time-key';
 import { DateRanges } from './types/date-ranges';
 import { TitaniumDateInput } from '../date-input/date-input';
 import { DOMEvent } from '../types/dom-event';
-import { CloseMenuEvent, MenuItem } from '@material/web/menu/menu';
 import { Menu } from '@material/web/menu/internal/menu';
 import { List } from '@material/web/list/internal/list';
 import { humanizeRange } from './types/range-label';
@@ -259,6 +258,8 @@ export class TitaniumDateRangeSelector extends LitElement {
         @focus=${() => (this.focused = true)}
         @blur=${() => (this.focused = false)}
       >
+        <!--  need to render &nbsp; so that line-height can apply and give it a
+      non-zero height -->
         <!-- prettier-ignore -->
         <div>${humanizeRange(
           this.range,
@@ -273,7 +274,7 @@ export class TitaniumDateRangeSelector extends LitElement {
 
       <!-- stay-open-on-focusout -->
       <md-menu
-        stay-open-on-focusout
+        default-focus="none"
         id="menu"
         anchor="field"
         .open=${this.open}
