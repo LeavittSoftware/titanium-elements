@@ -191,6 +191,7 @@ export class TitaniumDateRangeSelector extends LitElement {
           'inputs'
           'list'
           'buttons' / 1fr;
+        min-width: 280px;
       }
 
       input-container {

@@ -111,16 +111,12 @@ export class TitaniumDateRangePlaygroundElement extends LitElement {
       <h1>Default</h1>
       <p>Examples using default, range, startDate, and endDate</p>
       <div>
-        <titanium-date-range-selector
-          style="width: 850px"
-          startDate=${dayjs().format('YYYY-MM-DD')}
-          endDate=${dayjs().format('YYYY-MM-DD')}
-        ></titanium-date-range-selector>
-        <titanium-date-range-selector label="Reporting date" style="width: 586px"></titanium-date-range-selector>
-        <titanium-date-range-selector range="thisWeek" style="width: 512px"></titanium-date-range-selector>
-        <titanium-date-range-selector range="thisWeek" style="width: 438px"></titanium-date-range-selector>
-        <titanium-date-range-selector endDate="2022-05-17" style="width: 320px"></titanium-date-range-selector>
-        <titanium-date-range-selector startDate="2023-09-01" style="width: 320px"></titanium-date-range-selector>
+        <titanium-date-range-selector startDate=${dayjs().format('YYYY-MM-DD')} endDate=${dayjs().format('YYYY-MM-DD')}></titanium-date-range-selector>
+        <titanium-date-range-selector label="Reporting date"></titanium-date-range-selector>
+        <titanium-date-range-selector range="thisWeek"></titanium-date-range-selector>
+        <titanium-date-range-selector range="thisWeek"></titanium-date-range-selector>
+        <titanium-date-range-selector endDate="2022-05-17"></titanium-date-range-selector>
+        <titanium-date-range-selector startDate="2023-09-01"></titanium-date-range-selector>
         <titanium-date-range-selector
           label="Custom override"
           .customDateRanges=${new Map([...DateRanges, ['allTime', { name: 'All time, but different', startDate: '', endDate: '', icon: 'dashboard' }]])}
