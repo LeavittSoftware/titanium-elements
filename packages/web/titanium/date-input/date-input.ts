@@ -372,6 +372,7 @@ export class TitaniumDateInput extends LitElement {
           @focusout=${() => (this.focused = false)}
           max=${this.max}
           min=${this.min}
+          @blur=${(e: Event) => redispatchEvent(this, e)}
           @input=${(event: InputEvent) => {
             this.dirty = true;
             this.value = (event.target as HTMLInputElement).value;
