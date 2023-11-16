@@ -278,12 +278,13 @@ export class TitaniumDateRangeSelector extends LitElement {
         anchor="field"
         .open=${this.open}
         @closing=${() => (this.open = false)}
-        @opening=${() => {
+        @opening=${async () => {
           this.proposedEndDate = this.endDate;
           this.proposedStartDate = this.startDate;
           this.proposedRange = this.range;
+          await this.updateComplete;
+          this.#scrollSelectedListItemIntoView();
         }}
-        @opened=${() => this.#scrollSelectedListItemIntoView(true)}
       >
         <main>
           <md-list>
