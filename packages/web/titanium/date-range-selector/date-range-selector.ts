@@ -188,8 +188,8 @@ export class TitaniumDateRangeSelector extends LitElement {
     @media (max-width: 450px) {
       main {
         grid:
-          'list'
           'inputs'
+          'list'
           'buttons' / 1fr;
       }
 
@@ -199,7 +199,7 @@ export class TitaniumDateRangeSelector extends LitElement {
 
       md-list {
         max-height: 190px;
-        border-bottom: 1px solid var(--md-sys-color-outline-variant);
+        border-top: 1px solid var(--md-sys-color-outline-variant);
       }
     }
   `;
