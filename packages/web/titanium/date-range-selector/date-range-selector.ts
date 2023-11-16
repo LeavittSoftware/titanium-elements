@@ -122,7 +122,7 @@ export class TitaniumDateRangeSelector extends LitElement {
       display: grid;
       grid:
         'list inputs'
-        'buttons buttons' / 220px 300px;
+        'buttons buttons' / 220px minmax(300px, 1fr);
       gap: 0 24px;
       margin: 0;
     }
@@ -190,7 +190,7 @@ export class TitaniumDateRangeSelector extends LitElement {
           'buttons' / 1fr;
       }
 
-      section {
+      input-container {
         margin: 24px 24px 0 24px;
       }
 
