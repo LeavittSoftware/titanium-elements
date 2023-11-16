@@ -306,6 +306,17 @@ export class TitaniumDateInput extends LitElement {
       display: none;
     }
 
+    @supports (-webkit-touch-callout: none) {
+      /* CSS specific to iOS devices */
+      input::-webkit-date-and-time-value {
+        text-align: left;
+      }
+
+      input {
+        height: 32px;
+      }
+    }
+
     /* FireFox specific hacks! */
     @-moz-document url-prefix() {
       input {
