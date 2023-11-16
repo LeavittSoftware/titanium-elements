@@ -90,7 +90,7 @@ export class TitaniumDateRangePlaygroundElement extends LitElement {
           events
           .startDate=${this.startDate}
           .endDate=${this.endDate}
-          @date-range-changed=${() => {
+          @change=${() => {
             this.eventFired = true;
             setTimeout(() => (this.eventFired = false), 1000);
           }}
@@ -116,10 +116,11 @@ export class TitaniumDateRangePlaygroundElement extends LitElement {
           startDate=${dayjs().format('YYYY-MM-DD')}
           endDate=${dayjs().format('YYYY-MM-DD')}
         ></titanium-date-range-selector>
-        <titanium-date-range-selector label="Created date" style="width: 586px"></titanium-date-range-selector>
+        <titanium-date-range-selector label="Reporting date" style="width: 586px"></titanium-date-range-selector>
         <titanium-date-range-selector range="thisWeek" style="width: 512px"></titanium-date-range-selector>
         <titanium-date-range-selector range="thisWeek" style="width: 438px"></titanium-date-range-selector>
         <titanium-date-range-selector endDate="2022-05-17" style="width: 320px"></titanium-date-range-selector>
+        <titanium-date-range-selector startDate="2023-09-01" style="width: 320px"></titanium-date-range-selector>
         <titanium-date-range-selector
           label="Custom override"
           .customDateRanges=${new Map([...DateRanges, ['allTime', { name: 'All time, but different', startDate: '', endDate: '', icon: 'dashboard' }]])}

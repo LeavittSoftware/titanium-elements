@@ -1,22 +1,27 @@
 import '@material/web/icon/icon';
-import '@material/web/select/outlined-select.js';
-import '@material/web/select/select-option.js';
+import '@material/web/field/outlined-field';
+import '@material/web/menu/menu';
+import '@material/web/button/text-button';
+
+import '@material/web/list/list';
+import '@material/web/list/list-item';
+
 import '../date-input/date-input';
-import { redispatchEvent } from '@material/web/internal/controller/events';
 
 import { css, html, LitElement, PropertyValues } from 'lit';
-import { property, customElement, query } from 'lit/decorators.js';
+import { property, customElement, query, state } from 'lit/decorators.js';
 import dayjs from 'dayjs/esm';
-import { DOMEvent } from '../types/dom-event';
-import { MdOutlinedSelect } from '@material/web/select/outlined-select.js';
-import { Debouncer } from '../helpers/helpers';
-import { DateRangeChangedEvent } from './date-range-change-event';
 import { DateRangeOption } from './types/date-range-option';
 import { DateTimeRanges } from './types/date-time-ranges';
 import { DateRangeKey } from './types/date-range-key';
 import { DateRangeTimeKey } from './types/date-range-time-key';
 import { DateRanges } from './types/date-ranges';
 import { TitaniumDateInput } from '../date-input/date-input';
+import { DOMEvent } from '../types/dom-event';
+import { CloseMenuEvent, MenuItem } from '@material/web/menu/menu';
+import { Menu } from '@material/web/menu/internal/menu';
+import { List } from '@material/web/list/internal/list';
+import { humanizeRange } from './types/range-label';
 
 /**
  *  Date range selector that allows selection from a list of pre-defined ranges or a custom range
@@ -29,6 +34,21 @@ import { TitaniumDateInput } from '../date-input/date-input';
 @customElement('titanium-date-range-selector')
 export class TitaniumDateRangeSelector extends LitElement {
   /**
+   *  The selected selected range.
+   */
+  @property({ type: String }) accessor range: string = 'custom';
+
+  /**
+  //  *  The selected start date.
+  //  */
+  @property({ type: String }) accessor startDate: string = '';
+
+  // /**
+  //  *  The selected end date.
+  //  */
+  @property({ type: String }) accessor endDate: string = '';
+
+  /**
    *  Sets floating label value.
    */
   @property({ type: String }) accessor label: string = '';
@@ -39,9 +59,11 @@ export class TitaniumDateRangeSelector extends LitElement {
   @property({ type: Boolean }) accessor enableTime: boolean = false;
 
   /**
-   *  The selected selected range.
+   *  Whether or not the input should be disabled
    */
-  @property({ type: String }) accessor range: string = 'custom';
+  @property({ type: Boolean, reflect: true }) accessor disabled: boolean = false;
+
+  @property({ type: Boolean, reflect: true }) accessor required = false;
 
   /**
    *  Override default ranges with custom options. Needs to contain, at least, 'allTime'.
@@ -49,22 +71,35 @@ export class TitaniumDateRangeSelector extends LitElement {
   @property({ type: Object }) accessor customDateRanges: Map<string, DateRangeOption> | null = null;
 
   /**
-   *  The selected start date.
+   * Conveys additional information below the text field, such as how it should
+   * be used.
    */
-  @property({ type: String }) accessor startDate: string = '';
-
-  /**
-   *  The selected end date.
-   */
-  @property({ type: String }) accessor endDate: string = '';
+  @property({ attribute: 'supporting-text' }) accessor supportingText = '';
 
   @query('titanium-date-input[start-date]') protected accessor startDateField: TitaniumDateInput;
-  @query('titanium-date-input[end-date]') protected accessor endDateField: MdOutlinedTextField;
-  @query('md-outlined-select') protected accessor select!: MdOutlinedSelect;
+  @query('md-menu') private accessor menu!: Menu | null;
+  @query('md-list') private accessor list!: List | null;
+
+  @state() private accessor proposedRange: string = 'custom';
+  @state() private accessor proposedStartDate: string = '';
+  @state() private accessor proposedEndDate: string = '';
+  @state() private accessor open: boolean;
+  @state() private accessor focused = false;
 
   async updated(changedProps: PropertyValues<this>) {
+    if (changedProps.has('range')) {
+      const range = this.#getRange(this.range);
+      if (range) {
+        this.startDate = range.startDate;
+        this.endDate = range.endDate;
+      }
+    }
+
     if (changedProps.has('endDate') || changedProps.has('startDate')) {
-      this.#dateChangedDebouncer.debounce();
+      this.range =
+        Array.from(this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges).find(
+          (o) => o[1].startDate === this.startDate && o[1].endDate === this.endDate
+        )?.[0] || 'custom';
     }
   }
 
@@ -75,51 +110,90 @@ export class TitaniumDateRangeSelector extends LitElement {
     this.range = 'allTime';
   }
 
-  reportValidity() {
-    if (!!this.startDate && !!this.endDate && dayjs(this.startDate).isAfter(dayjs(this.endDate))) {
-      this.startDateField.setCustomValidity('From date must be before to date');
-      this.startDateField.reportValidity();
-      return false;
-    }
-    this.startDateField.setCustomValidity('');
-    this.startDateField.reportValidity();
-    return true;
-  }
-
-  #dateChangedDebouncer = new Debouncer(async () => {
-    //Keep range selector up to date with new date selection
-    this.range =
-      Array.from(this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges).find(
-        (o) => o[1].startDate === this.startDate && o[1].endDate === this.endDate
-      )?.[0] || 'custom';
-    this.#notifyChangeIfValid();
-  }, 300);
-
-  #notifyChangeIfValid() {
-    if (this.reportValidity()) {
-      /**
-       * @ignore
-       */
-      this.dispatchEvent(new DateRangeChangedEvent(this.range, this.startDate, this.endDate));
-    }
+  #validateDates(startDate: string, endDate: string) {
+    return !(!!startDate && !!endDate && dayjs(startDate).isAfter(dayjs(endDate)));
   }
 
   static styles = css`
     :host {
       display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
+      position: relative;
     }
 
-    md-outlined-select {
-      flex-basis: 480px;
-      flex-grow: 9999;
+    main {
+      display: grid;
+      grid:
+        'list inputs'
+        'buttons buttons' / 220px 300px;
+      gap: 0 24px;
+      margin: 0;
     }
 
-    titanium-date-input {
-      align-self: flex-start;
-      flex-basis: calc(25% - 64px);
-      flex-grow: 1;
+    menu-actions {
+      grid-area: buttons;
+      display: flex;
+      flex-direction: row;
+
+      justify-content: flex-end;
+
+      gap: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--md-sys-color-outline-variant);
+    }
+
+    md-outlined-field md-icon {
+      margin: 0 12px;
+    }
+
+    md-list {
+      grid-area: list;
+      --md-list-container-color: --md-sys-color-surface-container;
+
+      max-height: 260px;
+      overflow-y: auto;
+      border-right: 1px solid var(--md-sys-color-outline-variant);
+    }
+
+    md-list-item[selected] {
+      background-color: rgb(from var(--md-sys-color-primary) r g b / 0.18);
+    }
+
+    input-container {
+      grid-area: inputs;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 24px;
+
+      margin-right: 16px;
+    }
+
+    span[error] {
+      font-size: 12px;
+      margin-top: -18px;
+      color: var(--md-sys-color-error, #b3261e);
+    }
+
+    [invisible] {
+      visibility: hidden;
+    }
+
+    @media (max-width: 450px) {
+      main {
+        grid:
+          'list'
+          'inputs'
+          'buttons' / 1fr;
+      }
+
+      section {
+        margin: 24px 24px 0 24px;
+      }
+
+      md-list {
+        max-height: 190px;
+        border-bottom: 1px solid var(--md-sys-color-outline-variant);
+      }
     }
   `;
 
@@ -135,55 +209,167 @@ export class TitaniumDateRangeSelector extends LitElement {
 
   render() {
     return html`
-      <md-outlined-select
-        @opening=${(e) => redispatchEvent(this, e)}
-        @opened=${(e) => redispatchEvent(this, e)}
-        @closing=${(e) => redispatchEvent(this, e)}
-        @closed=${(e) => redispatchEvent(this, e)}
-        part="select"
-        .label=${this.label}
-        .value=${this.range}
-        @request-selection=${async (e: DOMEvent<MdOutlinedSelect>) => {
-          this.range = e.target.value as DateRangeKey;
-          const date = this.#getRange(this.range);
-          if (date && e.target.value !== 'custom') {
-            this.startDate = date.startDate ?? '';
-            this.endDate = date.endDate ?? '';
+      <md-outlined-field
+        aria-haspopup="listbox"
+        role="combobox"
+        part="field"
+        id="field"
+        tabindex=${this.disabled ? '-1' : '0'}
+        aria-describedby="description"
+        aria-controls="listbox"
+        label=${this.label}
+        .focused=${this.focused || this.open}
+        populated
+        .disabled=${this.disabled}
+        .required=${this.required}
+        has-end
+        supporting-text=${this.supportingText}
+        @keydown=${(event: KeyboardEvent) => {
+          if (this.open || this.disabled || !this.menu) {
+            return;
+          }
+
+          const typeaheadController = this.menu.typeaheadController;
+          const isOpenKey = event.code === 'Space' || event.code === 'ArrowDown' || event.code === 'Enter';
+
+          // Do not open if currently typing ahead because the user may be typing the
+          // spacebar to match a word with a space
+          if (!typeaheadController.isTypingAhead && isOpenKey) {
+            event.preventDefault();
+            this.open = true;
+            return;
+          }
+
+          const isPrintableKey = event.key.length === 1;
+
+          // Handles typing ahead when the menu is closed by delegating the event to
+          // the underlying menu's typeaheadController
+          if (isPrintableKey) {
+            typeaheadController.onKeydown(event);
+            event.preventDefault();
+
+            const { lastActiveRecord } = typeaheadController;
+
+            if (!lastActiveRecord) {
+              return;
+            }
           }
         }}
+        @click=${() => (this.open = true)}
+        @focus=${() => (this.focused = true)}
+        @blur=${() => (this.focused = false)}
       >
-        <md-icon slot="leading-icon">${this.#getRange(this.range)?.icon || 'date_range'}</md-icon>
-        <md-select-option value="custom">
-          <md-icon slot="start">date_range</md-icon>
-          <div slot="headline">Custom range</div>
-        </md-select-option>
-        ${Array.from(this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges).map(
-          (o) =>
-            html`<md-select-option value=${o[0]}>
-              <md-icon slot="start">${o[1].icon}</md-icon>
-              <div slot="headline">${o[1].name}</div>
-            </md-select-option>`
-        )}
-      </md-outlined-select>
+        <!-- prettier-ignore -->
+        <div>${humanizeRange(
+          this.range,
+          this.startDate,
+          this.endDate,
+          this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges
+        ) || html`&nbsp;`}</div>
 
-      <titanium-date-input
-        part="startDate"
-        start-date
-        label="From"
-        type=${this.enableTime ? 'datetime-local' : 'date'}
-        .value=${this.startDate ?? ''}
-        @change=${(e: DOMEvent<TitaniumDateInput>) => (this.startDate = e.target.value ?? '')}
-      ></titanium-date-input>
+        <md-icon slot="start">${this.#getRange(this.range)?.icon || 'date_range'}</md-icon>
+        <md-icon slot="end">${this.open ? 'arrow_drop_up' : 'arrow_drop_down'}</md-icon>
+      </md-outlined-field>
 
-      <titanium-date-input
-        part="endDate"
-        end-date
-        label="To"
-        type=${this.enableTime ? 'datetime-local' : 'date'}
-        .value=${this.endDate ?? ''}
-        @change=${(e: DOMEvent<TitaniumDateInput>) => (this.endDate = e.target.value ?? '')}
+      <!-- stay-open-on-focusout -->
+      <md-menu
+        id="menu"
+        anchor="field"
+        .open=${this.open}
+        @closing=${() => (this.open = false)}
+        @opening=${() => {
+          this.proposedEndDate = this.endDate;
+          this.proposedStartDate = this.startDate;
+          this.proposedRange = this.range;
+
+          const items = this.list!.items;
+          const selectedItem = items.find((o) => o.selected) || items[0];
+          if (selectedItem) {
+            selectedItem.tabIndex = 0;
+            selectedItem.focus();
+          }
+        }}
+        @close-menu=${(e: CloseMenuEvent) => {
+          e.preventDefault();
+          (e.detail.itemPath?.[0] as MenuItem & { action?: () => void })?.action?.();
+        }}
       >
-      </titanium-date-input>
+        <main>
+          <md-list>
+            ${Array.from(this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges).map(
+              (o) =>
+                html`<md-list-item
+                  type="button"
+                  ?selected=${this.proposedRange === o[0]}
+                  @click=${() => {
+                    this.proposedRange = o[0];
+                    const range = this.#getRange(o[0]);
+                    if (range) {
+                      this.proposedStartDate = range.startDate ?? '';
+                      this.proposedEndDate = range.endDate ?? '';
+                    }
+                  }}
+                  value=${o[0]}
+                >
+                  <md-icon slot="start">${o[1].icon}</md-icon>
+                  <div slot="headline">${o[1].name}</div>
+                </md-list-item>`
+            )}
+            <md-list-item type="button" ?selected=${this.proposedRange === 'custom'} @click=${() => (this.proposedRange = 'custom')} value="custom">
+              <md-icon slot="start">date_range</md-icon>
+              <div slot="headline">Custom range</div>
+            </md-list-item>
+          </md-list>
+          <input-container>
+            <titanium-date-input
+              start-date
+              label="From"
+              type=${this.enableTime ? 'datetime-local' : 'date'}
+              .value=${this.proposedStartDate ?? ''}
+              @change=${(e: DOMEvent<TitaniumDateInput>) => {
+                this.proposedStartDate = e.target.value ?? '';
+                this.proposedRange =
+                  Array.from(this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges).find(
+                    (o) => o[1].startDate === this.proposedStartDate && o[1].endDate === this.proposedEndDate
+                  )?.[0] || 'custom';
+              }}
+            ></titanium-date-input>
+
+            <titanium-date-input
+              end-date
+              label="To"
+              type=${this.enableTime ? 'datetime-local' : 'date'}
+              .value=${this.proposedEndDate ?? ''}
+              @change=${(e: DOMEvent<TitaniumDateInput>) => {
+                this.proposedEndDate = e.target.value ?? '';
+                this.proposedRange =
+                  Array.from(this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges).find(
+                    (o) => o[1].startDate === this.proposedStartDate && o[1].endDate === this.proposedEndDate
+                  )?.[0] || 'custom';
+              }}
+            >
+            </titanium-date-input>
+            <span error ?invisible=${this.#validateDates(this.proposedStartDate, this.proposedEndDate)}>From date cannot start after To date</span>
+          </input-container>
+          <menu-actions
+            ><md-text-button @click=${() => (this.open = false)}>Cancel</md-text-button>
+            <md-text-button
+              ?disabled=${this.startDate === this.proposedStartDate && this.endDate === this.proposedEndDate && this.proposedRange === this.range}
+              @click=${() => {
+                if (!this.#validateDates(this.proposedStartDate, this.proposedEndDate)) {
+                  return;
+                }
+                this.startDate = this.proposedStartDate;
+                this.endDate = this.proposedEndDate;
+                this.range = this.proposedRange;
+                this.dispatchEvent(new Event('change'));
+                this.open = false;
+              }}
+              >Apply</md-text-button
+            >
+          </menu-actions>
+        </main>
+      </md-menu>
     `;
   }
 }
