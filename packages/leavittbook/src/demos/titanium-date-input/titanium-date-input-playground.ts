@@ -5,7 +5,6 @@ import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
 import '@leavittsoftware/web/titanium/card/card';
 
 import '@material/web/button/outlined-button';
-import '@material/web/textfield/outlined-text-field';
 
 /* playground-fold-end */
 
@@ -29,11 +28,6 @@ export class TitaniumDateInputItemPlayground extends LitElement {
         gap: 24px;
       }
 
-      main {
-        display: flex;
-        flex-direction: row;
-      }
-
       titanium-card {
         gap: 24px;
       }
@@ -54,7 +48,6 @@ export class TitaniumDateInputItemPlayground extends LitElement {
         <h1>Main demo</h1>
 
         <main card-body>
-          <md-outlined-text-field></md-outlined-text-field>
           <titanium-date-input demo1 label="Start date" @change=${(e: DOMEvent<TitaniumDateInput>) => (this.value = e.target.value)}></titanium-date-input>
         </main>
         <span card-menu>Output: ${this.value}</span>
