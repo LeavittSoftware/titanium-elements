@@ -138,6 +138,10 @@ export class TitaniumDateRangeSelector extends LitElement {
       border-top: 1px solid var(--md-sys-color-outline-variant);
     }
 
+    md-outlined-field {
+      width: 100%;
+    }
+
     md-outlined-field md-icon {
       margin: 0 12px;
     }
