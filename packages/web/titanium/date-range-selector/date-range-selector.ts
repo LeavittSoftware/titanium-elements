@@ -21,6 +21,7 @@ import { DOMEvent } from '../types/dom-event';
 import { Menu } from '@material/web/menu/internal/menu';
 import { List } from '@material/web/list/internal/list';
 import { humanizeRange } from './types/range-label';
+import { redispatchEvent } from '@material/web/internal/controller/events';
 
 /**
  *  Date range selector that allows selection from a list of pre-defined ranges or a custom range
@@ -283,11 +284,15 @@ export class TitaniumDateRangeSelector extends LitElement {
         id="menu"
         anchor="field"
         .open=${this.open}
-        @closing=${() => (this.open = false)}
-        @opening=${async () => {
+        @closing=${(e) => {
+          this.open = false;
+          redispatchEvent(this, e);
+        }}
+        @opening=${async (e) => {
           this.proposedEndDate = this.endDate;
           this.proposedStartDate = this.startDate;
           this.proposedRange = this.range;
+          redispatchEvent(this, e);
           await this.updateComplete;
           this.#scrollSelectedListItemIntoView();
         }}
