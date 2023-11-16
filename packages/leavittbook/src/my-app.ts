@@ -174,6 +174,8 @@ export class MyApp extends LitElement {
     page('/titanium-smart-attachment-input', () =>
       this.#changePage('titanium-smart-attachment-input', () => import('./demos/titanium-smart-attachment-input/titanium-smart-attachment-input-demo.js'))
     );
+    page('/titanium-date-input', () => this.#changePage('titanium-date-input', () => import('./demos/titanium-date-input/titanium-date-input-demo.js')));
+
     page('/titanium-search-input', () =>
       this.#changePage('titanium-search-input', () => import('./demos/titanium-search-input/titanium-search-input-demo.js'))
     );
@@ -346,6 +348,10 @@ export class MyApp extends LitElement {
               <md-icon slot="start">library_books</md-icon> <span>Data table item</span>
             </md-list-item>
 
+            <md-list-item ?selected=${!!this.page?.includes('titanium-date-input')} href="/titanium-date-input" type="link">
+              <md-icon slot="start">library_books</md-icon> <span>Date input </span>
+            </md-list-item>
+
             <md-list-item ?selected=${this.page === 'titanium-date-range-selector'} href="/titanium-date-range-selector" type="link">
               <md-icon slot="start">library_books</md-icon> <span>Date range selector</span>
             </md-list-item>
@@ -506,6 +512,9 @@ export class MyApp extends LitElement {
           : nothing}
         ${this.page === 'titanium-page-control'
           ? html` <titanium-page-control-demo large ?isActive=${this.page === 'titanium-page-control'}></titanium-page-control-demo> `
+          : nothing}
+        ${this.page === 'titanium-date-input'
+          ? html` <titanium-date-input-demo large ?isActive=${this.page === 'titanium-date-input'}></titanium-date-input-demo> `
           : nothing}
         ${this.page === 'titanium-search-input'
           ? html` <titanium-search-input-demo large ?isActive=${this.page === 'titanium-search-input'}></titanium-search-input-demo> `

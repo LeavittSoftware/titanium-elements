@@ -1,0 +1,10 @@
+{
+  "name": "titanium-date-input",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "section": "Basics",
+  "files": {
+    "titanium-date-input-playground.ts": {},
+    "index.html": {}
+  },
+  "order": 0
+}
