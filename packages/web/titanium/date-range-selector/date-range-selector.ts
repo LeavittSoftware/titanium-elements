@@ -63,8 +63,6 @@ export class TitaniumDateRangeSelector extends LitElement {
    */
   @property({ type: Boolean, reflect: true }) accessor disabled: boolean = false;
 
-  @property({ type: Boolean, reflect: true }) accessor required = false;
-
   /**
    *  Override default ranges with custom options. Needs to contain, at least, 'allTime'.
    */
@@ -158,6 +156,12 @@ export class TitaniumDateRangeSelector extends LitElement {
       background-color: rgb(from var(--md-sys-color-primary) r g b / 0.18);
     }
 
+    @-moz-document url-prefix() {
+      md-list-item[selected] {
+        background-color: var(--md-sys-color-outline-variant);
+      }
+    }
+
     input-container {
       grid-area: inputs;
       display: flex;
@@ -207,6 +211,22 @@ export class TitaniumDateRangeSelector extends LitElement {
     return DateRanges.get(key as DateRangeKey);
   }
 
+  #scrollSelectedListItemIntoView(focusItemToo: boolean = false) {
+    if (!this.list) {
+      return;
+    }
+
+    const items = this.list.items;
+    const selectedItem = items.find((o) => o.hasAttribute('selected')) || items[0];
+    if (selectedItem) {
+      this.list.scrollTop = selectedItem.offsetTop - 10;
+      selectedItem.tabIndex = 0;
+      if (focusItemToo) {
+        selectedItem.focus();
+      }
+    }
+  }
+
   render() {
     return html`
       <md-outlined-field
@@ -221,7 +241,6 @@ export class TitaniumDateRangeSelector extends LitElement {
         .focused=${this.focused || this.open}
         populated
         .disabled=${this.disabled}
-        .required=${this.required}
         has-end
         supporting-text=${this.supportingText}
         @keydown=${(event: KeyboardEvent) => {
@@ -229,30 +248,11 @@ export class TitaniumDateRangeSelector extends LitElement {
             return;
           }
 
-          const typeaheadController = this.menu.typeaheadController;
           const isOpenKey = event.code === 'Space' || event.code === 'ArrowDown' || event.code === 'Enter';
-
-          // Do not open if currently typing ahead because the user may be typing the
-          // spacebar to match a word with a space
-          if (!typeaheadController.isTypingAhead && isOpenKey) {
+          if (isOpenKey) {
             event.preventDefault();
             this.open = true;
             return;
-          }
-
-          const isPrintableKey = event.key.length === 1;
-
-          // Handles typing ahead when the menu is closed by delegating the event to
-          // the underlying menu's typeaheadController
-          if (isPrintableKey) {
-            typeaheadController.onKeydown(event);
-            event.preventDefault();
-
-            const { lastActiveRecord } = typeaheadController;
-
-            if (!lastActiveRecord) {
-              return;
-            }
           }
         }}
         @click=${() => (this.open = true)}
@@ -273,6 +273,7 @@ export class TitaniumDateRangeSelector extends LitElement {
 
       <!-- stay-open-on-focusout -->
       <md-menu
+        stay-open-on-focusout
         id="menu"
         anchor="field"
         .open=${this.open}
@@ -281,18 +282,8 @@ export class TitaniumDateRangeSelector extends LitElement {
           this.proposedEndDate = this.endDate;
           this.proposedStartDate = this.startDate;
           this.proposedRange = this.range;
-
-          const items = this.list!.items;
-          const selectedItem = items.find((o) => o.selected) || items[0];
-          if (selectedItem) {
-            selectedItem.tabIndex = 0;
-            selectedItem.focus();
-          }
         }}
-        @close-menu=${(e: CloseMenuEvent) => {
-          e.preventDefault();
-          (e.detail.itemPath?.[0] as MenuItem & { action?: () => void })?.action?.();
-        }}
+        @opened=${() => this.#scrollSelectedListItemIntoView(true)}
       >
         <main>
           <md-list>
@@ -326,12 +317,14 @@ export class TitaniumDateRangeSelector extends LitElement {
               label="From"
               type=${this.enableTime ? 'datetime-local' : 'date'}
               .value=${this.proposedStartDate ?? ''}
-              @change=${(e: DOMEvent<TitaniumDateInput>) => {
+              @change=${async (e: DOMEvent<TitaniumDateInput>) => {
                 this.proposedStartDate = e.target.value ?? '';
                 this.proposedRange =
                   Array.from(this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges).find(
                     (o) => o[1].startDate === this.proposedStartDate && o[1].endDate === this.proposedEndDate
                   )?.[0] || 'custom';
+                await this.updateComplete;
+                this.#scrollSelectedListItemIntoView();
               }}
             ></titanium-date-input>
 
@@ -340,12 +333,14 @@ export class TitaniumDateRangeSelector extends LitElement {
               label="To"
               type=${this.enableTime ? 'datetime-local' : 'date'}
               .value=${this.proposedEndDate ?? ''}
-              @change=${(e: DOMEvent<TitaniumDateInput>) => {
+              @change=${async (e: DOMEvent<TitaniumDateInput>) => {
                 this.proposedEndDate = e.target.value ?? '';
                 this.proposedRange =
                   Array.from(this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges).find(
                     (o) => o[1].startDate === this.proposedStartDate && o[1].endDate === this.proposedEndDate
                   )?.[0] || 'custom';
+                await this.updateComplete;
+                this.#scrollSelectedListItemIntoView();
               }}
             >
             </titanium-date-input>
