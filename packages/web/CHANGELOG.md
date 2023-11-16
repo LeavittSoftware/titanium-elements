@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.13.0...@leavittsoftware/web@1.14.0) (2023-11-16)
+
+### Features
+
+- date-input and date-range-selector redesigned ([a438fd2](https://github.com/LeavittSoftware/titanium-elements/commit/a438fd202c4a6e362936ef9edafed1c60c6aa7ed))
+- **date-input:** redispatch blur ([8b0e522](https://github.com/LeavittSoftware/titanium-elements/commit/8b0e5227b8aa03c228ad847321b8204dba246947))
+
 # [1.13.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.12.0...@leavittsoftware/web@1.13.0) (2023-11-16)
 
 ### Features
