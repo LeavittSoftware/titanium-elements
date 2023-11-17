@@ -43,7 +43,7 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
   /**
    *  Required
    */
-  @property({ attribute: false }) apiService: ApiService;
+  @property({ attribute: false }) accessor apiService: ApiService;
 
   #doSearchDebouncer = new Debouncer((searchTerm: string) => this.#doSearch(searchTerm));
   #abortController: AbortController = new AbortController();

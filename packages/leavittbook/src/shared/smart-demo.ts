@@ -8,11 +8,11 @@ import { SiteErrorEvent } from '../events';
 
 @customElement('smart-demo')
 export default class SmartDemoElement extends LitElement {
-  @property({ type: String }) selectedTab: 'simple' | 'playground' = 'simple';
-  @property({ type: String, attribute: 'project-src' }) projectSrc;
-  @property({ type: String, attribute: 'html-file' }) htmlFile = 'index.html';
-  @property({ type: Boolean, attribute: 'line-numbers' }) lineNumbers;
-  @property({ type: Boolean, attribute: 'line-wrapping' }) lineWrapping;
+  @property({ type: String }) accessor selectedTab: 'simple' | 'playground' = 'simple';
+  @property({ type: String, attribute: 'project-src' }) accessor projectSrc;
+  @property({ type: String, attribute: 'html-file' }) accessor htmlFile = 'index.html';
+  @property({ type: Boolean, attribute: 'line-numbers' }) accessor lineNumbers;
+  @property({ type: Boolean, attribute: 'line-wrapping' }) accessor lineWrapping;
   @property({ type: Boolean }) resizable;
 
   updated(changedProps: PropertyValues<this>) {

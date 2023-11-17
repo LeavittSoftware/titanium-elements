@@ -23,7 +23,7 @@ export class TitaniumDurationInput extends ExtendableOutlinedTextField {
    *  property of this component is actually the human readable string and not the duration you most likely
    *  want to work with. When changed a duration-change event will be dispatched.
    */
-  @property({ type: Object }) duration: duration.Duration | null = null;
+  @property({ type: Object }) accessor duration: duration.Duration | null = null;
 
   firstUpdated() {
     this.label = 'Duration';

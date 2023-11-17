@@ -17,12 +17,12 @@ export class TitaniumDrawer extends LitElement {
   /**
    * Set the position of content fixed when menu is closed. Only takes effect if always-show-content is set.
    */
-  @property({ type: Boolean, reflect: true }) fixed: boolean = false;
+  @property({ type: Boolean, reflect: true }) accessor fixed: boolean = false;
 
   /**
    * Show the slotted content regardless if the menu is open or closed
    */
-  @property({ type: Boolean, reflect: true, attribute: 'always-show-content' }) alwayShowContent: boolean = false;
+  @property({ type: Boolean, reflect: true, attribute: 'always-show-content' }) accessor alwayShowContent: boolean = false;
 
   async firstUpdated() {
     let touchstartX = 0;

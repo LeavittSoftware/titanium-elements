@@ -33,12 +33,12 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
   /**
    *  Required
    */
-  @property({ attribute: false }) apiService: ApiService;
+  @property({ attribute: false }) accessor apiService: ApiService;
 
   /**
    *  Odata parts for the Person API call
    */
-  @property({ type: Array }) odataParts: Array<string> = [
+  @property({ type: Array }) accessor odataParts: Array<string> = [
     'top=15',
     'orderby=FullName',
     'select=FullName,CompanyName,Id,ProfilePictureCdnFileName',

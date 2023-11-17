@@ -18,9 +18,9 @@ import { reportValidityIfError } from '../hacks/report-validity-if-error';
 export class ManualAddressDialog extends LitElement {
   @query('md-dialog') protected accessor dialog: MdDialog;
 
-  @property({ type: String }) label: string = '';
-  @property({ type: Boolean, attribute: 'show-county' }) showCounty: boolean;
-  @property({ type: Boolean, attribute: 'show-street2' }) showStreet2: boolean;
+  @property({ type: String }) accessor label: string = '';
+  @property({ type: Boolean, attribute: 'show-county' }) accessor showCounty: boolean;
+  @property({ type: Boolean, attribute: 'show-street2' }) accessor showStreet2: boolean;
 
   @state() protected accessor street: string = '';
   @state() protected accessor street2: string = '';

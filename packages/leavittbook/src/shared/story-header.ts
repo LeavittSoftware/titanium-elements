@@ -13,10 +13,10 @@ type CustomElementDeclaration = {
 
 @customElement('story-header')
 export default class StoryHeaderElement extends LitElement {
-  @property({ type: String }) name: string;
-  @property({ type: String }) packageName: string;
-  @property({ type: String }) className: string;
-  @property({ type: String }) deprecatedReason: string;
+  @property({ type: String }) accessor name: string;
+  @property({ type: String }) accessor packageName: string;
+  @property({ type: String }) accessor className: string;
+  @property({ type: String }) accessor deprecatedReason: string;
 
   @state()
   private accessor customElementsJSON: { modules: [{ declarations: Array<CustomElementDeclaration> }] } | null = null;

@@ -20,27 +20,27 @@ export class TitaniumHeader extends LitElement {
   /**
    * Header text
    */
-  @property({ type: String }) header: string;
+  @property({ type: String }) accessor header: string;
 
   /**
    * Sub-header text
    */
-  @property({ type: String }) subHeader: string;
+  @property({ type: String }) accessor subHeader: string;
 
   /**
    * Leading header icon
    */
-  @property({ type: String }) icon: string;
+  @property({ type: String }) accessor icon: string;
 
   /**
    *  Removes the back button
    */
-  @property({ type: Boolean, reflect: true, attribute: 'no-nav' }) noNav: boolean = false;
+  @property({ type: Boolean, reflect: true, attribute: 'no-nav' }) accessor noNav: boolean = false;
 
   /**
    *  Lets user override back button behavior
    */
-  @property({ type: Boolean, reflect: true, attribute: 'disable-default-back-button-behavior' }) disableDefaultBackButtonBehavior: boolean = false;
+  @property({ type: Boolean, reflect: true, attribute: 'disable-default-back-button-behavior' }) accessor disableDefaultBackButtonBehavior: boolean = false;
 
   #handleBackClick() {
     if (this.disableDefaultBackButtonBehavior) {

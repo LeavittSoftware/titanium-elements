@@ -46,28 +46,28 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
   /**
    * True when opened
    */
-  @property({ type: Boolean, reflect: true }) protected opened: boolean;
+  @property({ type: Boolean, reflect: true }) protected accessor opened: boolean;
   /**
    * True when closing
    */
-  @property({ type: Boolean, reflect: true }) protected closing: boolean;
+  @property({ type: Boolean, reflect: true }) protected accessor closing: boolean;
   /**
    * True when opening
    */
-  @property({ type: Boolean, reflect: true }) protected opening: boolean;
+  @property({ type: Boolean, reflect: true }) protected accessor opening: boolean;
   /**
    * Hides the action button
    */
-  @property({ type: Boolean, reflect: true }) protected noaction: boolean;
+  @property({ type: Boolean, reflect: true }) protected accessor noaction: boolean;
 
   /**
    * Text used on the button
    */
-  @property({ type: String }) protected actionText: string;
+  @property({ type: String }) protected accessor actionText: string;
   /**
    * Message used in the snackbar.
    */
-  @property({ type: String }) protected message: string | TemplateResult;
+  @property({ type: String }) protected accessor message: string | TemplateResult;
 
   #animationTimer: number;
   #animationFrame: number;

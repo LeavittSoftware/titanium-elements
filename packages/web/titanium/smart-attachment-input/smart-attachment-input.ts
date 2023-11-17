@@ -36,9 +36,9 @@ export type TitaniumSmartInputOptions = Cropper.Options & { shape?: ' square' | 
  */
 @customElement('titanium-smart-attachment-input')
 export class TitaniumSmartAttachmentInput extends LitElement {
-  @property({ type: Array }) protected files: SmartAttachment[] = [];
-  @property({ type: Boolean, reflect: true, attribute: 'is-over' }) protected isOver: boolean = false;
-  @property({ type: String }) protected previewSrc: string | undefined = undefined;
+  @property({ type: Array }) protected accessor files: SmartAttachment[] = [];
+  @property({ type: Boolean, reflect: true, attribute: 'is-over' }) protected accessor isOver: boolean = false;
+  @property({ type: String }) protected accessor previewSrc: string | undefined = undefined;
 
   @query('input') protected accessor input: HTMLInputElement;
   @query('image-preview-dialog') protected accessor imagePreviewDialog!: ImagePreviewDialog;
@@ -51,67 +51,67 @@ export class TitaniumSmartAttachmentInput extends LitElement {
   /**
    *  File types to accept ex. "image/*,.pdf"
    */
-  @property({ type: String }) accept = 'image/*,.pdf';
+  @property({ type: String }) accessor accept = 'image/*,.pdf';
 
   /**
    *  Allow multiple attachments
    */
-  @property({ type: Boolean }) multiple: boolean = false;
+  @property({ type: Boolean }) accessor multiple: boolean = false;
 
   /**
    *  Requires at least one attachment on validate
    */
-  @property({ type: Boolean }) required: boolean = false;
+  @property({ type: Boolean }) accessor required: boolean = false;
 
   /**
    *  Whether or not the input should be disabled
    */
-  @property({ type: Boolean, reflect: true }) disabled: boolean = false;
+  @property({ type: Boolean, reflect: true }) accessor disabled: boolean = false;
 
   /**
    *  Requires user to confirm when delete of an attachment is requested
    */
-  @property({ type: Boolean }) confirmDelete: boolean = false;
+  @property({ type: Boolean }) accessor confirmDelete: boolean = false;
 
   /**
    *  Delete confirmation header text
    */
-  @property({ type: String }) confirmDeleteHeader: string = 'Confirm delete';
+  @property({ type: String }) accessor confirmDeleteHeader: string = 'Confirm delete';
 
   /**
    *  Delete confirmation paragraph text
    */
-  @property({ type: String }) confirmDeleteText: string = 'Are you sure you would like to delete this attachment?';
+  @property({ type: String }) accessor confirmDeleteText: string = 'Are you sure you would like to delete this attachment?';
 
   /**
    *  Add button label text
    */
-  @property({ type: String }) addButtonLabel: string = 'Add attachment';
+  @property({ type: String }) accessor addButtonLabel: string = 'Add attachment';
 
   /**
    *  Label of input
    */
-  @property({ type: String }) label: string = 'Attachments';
+  @property({ type: String }) accessor label: string = 'Attachments';
 
   /**
    *  Sets supporting text
    */
-  @property({ type: String }) supportingText: string;
+  @property({ type: String }) accessor supportingText: string;
 
   /**
    *  Text to show when there are no attachments
    */
-  @property({ type: String }) noItemsText: string = 'No attachments';
+  @property({ type: String }) accessor noItemsText: string = 'No attachments';
 
   /**
    *  Configurable CropperJs options.
    */
-  @property({ type: Object }) options: CropperOptions = {};
+  @property({ type: Object }) accessor options: CropperOptions = {};
 
   /**
    *  Image formats here are sent to the cropper
    */
-  @property({ type: Array }) croppableImageFormats: Array<string> = [
+  @property({ type: Array }) accessor croppableImageFormats: Array<string> = [
     'tiff',
     'pjp',
     'jfif',

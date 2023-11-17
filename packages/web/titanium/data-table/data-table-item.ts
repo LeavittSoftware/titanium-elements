@@ -34,22 +34,22 @@ export class TitaniumDataTableItem extends LitElement {
   /**
    * The backing object that is displayed in this row.  Sent in navigate and selected events.
    */
-  @property({ type: Object }) item: unknown;
+  @property({ type: Object }) accessor item: unknown;
 
   /**
    * True when row is selected.
    */
-  @property({ reflect: true, type: Boolean }) selected: boolean = false;
+  @property({ reflect: true, type: Boolean }) accessor selected: boolean = false;
 
   /**
    *  Disables ability to select this row.
    */
-  @property({ type: Boolean, attribute: 'disable-select' }) disableSelect: boolean;
+  @property({ type: Boolean, attribute: 'disable-select' }) accessor disableSelect: boolean;
 
   /**
    *  Sets if view port is small
    */
-  @property({ type: Boolean, reflect: true }) narrow: boolean = false;
+  @property({ type: Boolean, reflect: true }) accessor narrow: boolean = false;
 
   /**
    *  Set to true to make item draggable.  When items are dropped, the items in the list's array are sorted accordingly.
@@ -59,12 +59,12 @@ export class TitaniumDataTableItem extends LitElement {
    *  <titanium-data-table @titanium-data-table-items-reorder=${() => this.requestUpdate('items')} ... >
    *
    */
-  @property({ type: Boolean, reflect: true, attribute: 'enable-dragging' }) enableDrag: boolean = false;
+  @property({ type: Boolean, reflect: true, attribute: 'enable-dragging' }) accessor enableDrag: boolean = false;
 
-  @property({ type: Boolean, reflect: true, attribute: 'nudge-down' }) protected nudgeDown: boolean;
-  @property({ type: Boolean, reflect: true, attribute: 'nudge-up' }) protected nudgeUp: boolean;
-  @property({ type: Boolean, reflect: true, attribute: 'dragged' }) protected dragged: boolean;
-  @property({ type: Boolean, reflect: true, attribute: 'dragging' }) protected dragging: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'nudge-down' }) protected accessor nudgeDown: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'nudge-up' }) protected accessor nudgeUp: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'dragged' }) protected accessor dragged: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'dragging' }) protected accessor dragging: boolean;
 
   @state() protected accessor nudgeHeight: number;
   @state() protected accessor hoverIndex: number | null = null;

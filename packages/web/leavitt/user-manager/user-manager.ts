@@ -19,39 +19,39 @@ export const GetUserManagerInstance = () => {
 
 @customElement('user-manager')
 export class UserManager extends LitElement {
-  @property({ type: Array }) roles: Array<string> = [];
+  @property({ type: Array }) accessor roles: Array<string> = [];
 
-  @property({ type: String }) fullname: string;
+  @property({ type: String }) accessor fullname: string;
 
-  @property({ type: String }) username: string;
+  @property({ type: String }) accessor username: string;
 
-  @property({ type: String }) firstName: string;
+  @property({ type: String }) accessor firstName: string;
 
-  @property({ type: String }) lastName: string;
+  @property({ type: String }) accessor lastName: string;
 
-  @property({ type: String }) company: string;
+  @property({ type: String }) accessor company: string;
 
-  @property({ type: Number }) companyId: number | null;
+  @property({ type: Number }) accessor companyId: number | null;
 
-  @property({ type: String }) profilePictureFileName: string | null;
+  @property({ type: String }) accessor profilePictureFileName: string | null;
 
-  @property({ type: String }) email: string;
+  @property({ type: String }) accessor email: string;
 
-  @property({ type: Number }) personId: number = 0;
+  @property({ type: Number }) accessor personId: number = 0;
 
-  @property({ type: Number }) refreshTokenId: number = 0;
+  @property({ type: Number }) accessor refreshTokenId: number = 0;
 
-  @property({ type: String }) redirectUrl: string = 'https://signin.leavitt.com/';
+  @property({ type: String }) accessor redirectUrl: string = 'https://signin.leavitt.com/';
 
-  @property({ type: String }) redirectDevUrl: string = 'https://devsignin.leavitt.com/';
+  @property({ type: String }) accessor redirectDevUrl: string = 'https://devsignin.leavitt.com/';
 
-  @property({ type: String }) tokenUri: string = isDevelopment ? 'https://devoauth2.leavitt.com/token' : 'https://oauth2.leavitt.com/token';
+  @property({ type: String }) accessor tokenUri: string = isDevelopment ? 'https://devoauth2.leavitt.com/token' : 'https://oauth2.leavitt.com/token';
 
-  @property({ type: String }) issuerIdentifier: string = 'https://oauth2.leavitt.com/';
+  @property({ type: String }) accessor issuerIdentifier: string = 'https://oauth2.leavitt.com/';
 
-  @property({ type: Boolean }) disableAutoload: boolean;
+  @property({ type: Boolean }) accessor disableAutoload: boolean;
 
-  @property({ type: Boolean }) isActiveEmployee: boolean;
+  @property({ type: Boolean }) accessor isActiveEmployee: boolean;
 
   #isAuthenticating: boolean;
 

@@ -21,44 +21,44 @@ export class TitaniumPageControl extends LitElement {
   /**
    * Available page sizes
    */
-  @property({ type: Array }) pageSizes: Array<number> = [10, 15, 20, 50];
+  @property({ type: Array }) accessor pageSizes: Array<number> = [10, 15, 20, 50];
 
   /**
    * The default page size before the user changes it
    */
-  @property({ type: Number, attribute: 'default-page-size' }) defaultPageSize: number = 10;
+  @property({ type: Number, attribute: 'default-page-size' }) accessor defaultPageSize: number = 10;
 
   /**
    * Current page of data the table is on
    */
-  @property({ type: Number }) page: number = 0;
+  @property({ type: Number }) accessor page: number = 0;
 
   /**
    * Total number of items in all pages.
    */
-  @property({ type: Number }) count: number;
+  @property({ type: Number }) accessor count: number;
 
   /**
    * Local storage key to save the current page size.
    */
-  @property({ type: String }) localStorageKey: string;
+  @property({ type: String }) accessor localStorageKey: string;
 
   /**
    * Label for the page control. If not provided, defaults to 'Items per page'.
    */
-  @property({ type: String }) label: string = 'Items per page';
+  @property({ type: String }) accessor label: string = 'Items per page';
 
   /**
    * Disables the page control select and page navigation buttons when true
    */
-  @property({ type: Boolean }) disabled: boolean;
+  @property({ type: Boolean }) accessor disabled: boolean;
   @queryAsync('md-select') protected accessor select: MdOutlinedSelect;
 
   /**
    * Gets or sets take value and assigns it to local storage.
    */
-  @property({ type: Number })
-  get take() {
+  @property({ type: Number }) accessor take: number;
+  get() {
     const take = Number(window.localStorage.getItem(this.localStorageKey)) || 0;
     if (take > 0) {
       return take;
@@ -68,7 +68,7 @@ export class TitaniumPageControl extends LitElement {
     return defaultTake;
   }
 
-  set take(val: number) {
+  set(val: number) {
     this.page = 0;
     if (!this.pageSizes.includes(val)) {
       this.pageSizes = [...this.pageSizes, val].sort((a, b) => a - b);

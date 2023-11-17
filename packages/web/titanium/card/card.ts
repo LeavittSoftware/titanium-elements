@@ -16,11 +16,11 @@ import { property, customElement } from 'lit/decorators.js';
  */
 @customElement('titanium-card')
 export class TitaniumCard extends LitElement {
-  @property({ type: Boolean, reflect: true, attribute: 'has-menu' }) hasMenu: boolean;
-  @property({ type: Boolean, reflect: true, attribute: 'has-image' }) hasImage: boolean;
-  @property({ type: Boolean, reflect: true, attribute: 'has-footer' }) hasFooter: boolean;
-  @property({ type: Boolean, reflect: true, attribute: 'filled' }) filled: boolean;
-  @property({ type: Boolean, reflect: true, attribute: 'elevated' }) elevated: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'has-menu' }) accessor hasMenu: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'has-image' }) accessor hasImage: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'has-footer' }) accessor hasFooter: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'filled' }) accessor filled: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'elevated' }) accessor elevated: boolean;
 
   static styles = [
     css`
