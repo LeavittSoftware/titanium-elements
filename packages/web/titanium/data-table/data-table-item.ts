@@ -66,9 +66,9 @@ export class TitaniumDataTableItem extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'dragged' }) protected dragged: boolean;
   @property({ type: Boolean, reflect: true, attribute: 'dragging' }) protected dragging: boolean;
 
-  @state() protected nudgeHeight: number;
-  @state() protected hoverIndex: number | null = null;
-  @state() protected originIndex: number | null = null;
+  @state() protected accessor nudgeHeight: number;
+  @state() protected accessor hoverIndex: number | null = null;
+  @state() protected accessor originIndex: number | null = null;
 
   protected mouseEvent = (e) => this.#startItemDrag(e, 'mouse');
   protected touchEvent = (e) => {

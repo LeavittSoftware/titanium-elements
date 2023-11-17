@@ -11,7 +11,7 @@ import './leavitt-user-feedback-playground';
 
 @customElement('leavitt-user-feedback-demo')
 export class LeavittCompanySelectDemoElement extends LitElement {
-  @state() refreshToken: string | null = null;
+  @state() private accessor refreshToken: string | null = null;
 
   static styles = [StoryStyles, css``];
 

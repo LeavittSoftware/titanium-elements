@@ -12,7 +12,7 @@ import { LeavittUserFeedback } from '@leavittsoftware/web/leavitt/user-feedback/
 /* playground-fold */
 @customElement('leavitt-user-feedback-playground')
 export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
-  @state() apiService: ApiService;
+  @state() private accessor apiService: ApiService;
   @query('leavitt-user-feedback[methods-demo]') protected accessor methodsSelect!: LeavittUserFeedback;
   @query('leavitt-user-feedback[duplicate-api-calls]') protected accessor duplicateAPICallsSelect!: LeavittUserFeedback;
   @queryAll('leavitt-user-feedback') protected accessor inputs!: NodeListOf<LeavittUserFeedback>;

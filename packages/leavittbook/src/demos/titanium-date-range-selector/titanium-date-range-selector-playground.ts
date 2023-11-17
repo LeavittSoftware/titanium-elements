@@ -16,9 +16,9 @@ import { DateRanges } from '@leavittsoftware/web/titanium/date-range-selector/ty
 export class TitaniumDateRangePlaygroundElement extends LitElement {
   @query('titanium-date-range-selector[events]') protected accessor eventsDemoInput!: TitaniumDateRangeSelector;
 
-  @state() protected startDate: string = '2020-01-02';
-  @state() protected endDate: string = '2020-01-04';
-  @state() eventFired: boolean = false;
+  @state() protected accessor startDate: string = '2020-01-02';
+  @state() protected accessor endDate: string = '2020-01-04';
+  @state() protected accessor eventFired: boolean = false;
 
   static styles = [
     h1,

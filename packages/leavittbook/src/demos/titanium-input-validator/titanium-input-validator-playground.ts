@@ -15,7 +15,7 @@ import { formStyles } from '../../styles/form-styles';
 /* playground-fold */
 @customElement('titanium-input-validator-playground')
 export class TitaniumInputValidatorPlayground extends LitElement {
-  @state() iconSelected = '';
+  @state() private accessor iconSelected = '';
   @queryAll('titanium-input-validator') private accessor validators: NodeListOf<TitaniumInputValidator>;
 
   static styles = [

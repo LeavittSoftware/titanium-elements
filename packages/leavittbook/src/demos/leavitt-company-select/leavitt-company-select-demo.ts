@@ -11,7 +11,7 @@ import './leavitt-company-select-playground';
 
 @customElement('leavitt-company-select-demo')
 export class LeavittCompanySelectDemoElement extends LitElement {
-  @state() refreshToken: string | null = null;
+  @state() private accessor refreshToken: string | null = null;
 
   static styles = [StoryStyles, css``];
 

@@ -52,18 +52,18 @@ const allTeslas: Array<Car> = [
 
 @customElement('titanium-data-table-full-playground')
 export class TitaniumDataTableFullPlayground extends LitElement {
-  @state() protected allItems: Array<Partial<Car>> = [];
-  @state() protected items: Array<Partial<Car>> = [];
-  @state() protected selected: Array<Partial<Car>> = [];
-  @state() protected searchTerm: string = '';
-  @state() protected resultTotal: number = 0;
-  @state() protected sortDirection: '' | 'asc' | 'desc' = 'asc';
-  @state() protected sortBy: string = 'Name';
-  @state() protected filterController: FilterController<FilterKeys>;
+  @state() protected accessor allItems: Array<Partial<Car>> = [];
+  @state() protected accessor items: Array<Partial<Car>> = [];
+  @state() protected accessor selected: Array<Partial<Car>> = [];
+  @state() protected accessor searchTerm: string = '';
+  @state() protected accessor resultTotal: number = 0;
+  @state() protected accessor sortDirection: '' | 'asc' | 'desc' = 'asc';
+  @state() protected accessor sortBy: string = 'Name';
+  @state() protected accessor filterController: FilterController<FilterKeys>;
 
-  @state() protected singleSelect: boolean = false;
-  @state() protected disableSelect: boolean = false;
-  @state() protected disablePaging: boolean = false;
+  @state() protected accessor singleSelect: boolean = false;
+  @state() protected accessor disableSelect: boolean = false;
+  @state() protected accessor disablePaging: boolean = false;
 
   @query('titanium-data-table') protected accessor dataTable!: TitaniumDataTable;
   @query('data-table-demo-filter-modal') protected accessor filterModal!: DataTableDemoFilterModalElement;

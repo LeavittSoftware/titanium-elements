@@ -19,8 +19,8 @@ import { redispatchEvent } from '@material/web/internal/controller/events';
 
 @customElement('titanium-single-select-base')
 export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(LitElement) {
-  @state() protected searchTerm: string;
-  @state() protected suggestions: Array<T> = [];
+  @state() protected accessor searchTerm: string;
+  @state() protected accessor suggestions: Array<T> = [];
 
   @query('md-menu') protected accessor menu: Menu | null;
   @query('md-outlined-text-field') protected accessor textfield: MdOutlinedTextField | null;

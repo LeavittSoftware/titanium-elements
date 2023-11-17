@@ -16,9 +16,9 @@ import { MdDialog } from '@material/web/dialog/dialog';
  */
 @customElement('image-preview-dialog')
 export class ImagePreviewDialog extends LitElement {
-  @state() protected imageUrl: string | undefined;
-  @state() protected downloadSrc: string | undefined;
-  @state() protected filename: string | undefined;
+  @state() protected accessor imageUrl: string | undefined;
+  @state() protected accessor downloadSrc: string | undefined;
+  @state() protected accessor filename: string | undefined;
 
   @query('md-dialog') protected accessor dialog: MdDialog;
 

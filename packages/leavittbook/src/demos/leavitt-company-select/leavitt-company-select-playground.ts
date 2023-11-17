@@ -17,7 +17,7 @@ import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
 /* playground-fold */
 @customElement('leavitt-company-select-playground')
 export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
-  @state() apiService: ApiService;
+  @state() private accessor apiService: ApiService;
   @query('leavitt-company-select[methods-demo]') protected accessor methodsSelect!: LeavittCompanySelect;
   @queryAll('leavitt-company-select') protected accessor inputs!: NodeListOf<LeavittCompanySelect>;
 

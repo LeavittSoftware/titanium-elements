@@ -19,10 +19,10 @@ export default class StoryHeaderElement extends LitElement {
   @property({ type: String }) deprecatedReason: string;
 
   @state()
-  customElementsJSON: { modules: [{ declarations: Array<CustomElementDeclaration> }] } | null = null;
+  private accessor customElementsJSON: { modules: [{ declarations: Array<CustomElementDeclaration> }] } | null = null;
 
   @state()
-  customElementDeclaration: CustomElementDeclaration | null = null;
+  private accessor customElementDeclaration: CustomElementDeclaration | null = null;
 
   async firstUpdated() {
     this.customElementsJSON = await this.#readCustomElementsJson('/custom-elements.json');
