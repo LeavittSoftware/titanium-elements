@@ -12,7 +12,7 @@ import { customElement, property, query } from 'lit/decorators.js';
  */
 @customElement('titanium-drawer')
 export class TitaniumDrawer extends LitElement {
-  @query('dialog') private dialog: HTMLDialogElement | null;
+  @query('dialog') private accessor dialog: HTMLDialogElement | null;
 
   /**
    * Set the position of content fixed when menu is closed. Only takes effect if always-show-content is set.

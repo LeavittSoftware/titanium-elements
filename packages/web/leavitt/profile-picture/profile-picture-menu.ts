@@ -45,7 +45,7 @@ export class ProfilePictureMenuElement extends LitElement {
    */
   @property({ type: String }) name: string = '';
 
-  @query('md-menu') private menu: MdMenu;
+  @query('md-menu') private accessor menu: MdMenu;
 
   firstUpdated() {
     GetUserManagerInstance().addEventListener(UserManagerUpdatedEvent.eventName, () => this.setUserProps());

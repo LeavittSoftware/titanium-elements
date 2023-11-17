@@ -19,7 +19,7 @@ export class TitaniumChipMultiSelectPlayground extends LitElement {
   @state() protected demoItems: string[] = chipLabels.slice(0, 4);
   @state() protected disabled: boolean = false;
   @state() protected supportingText: string | null = 'Service animals are welcome.';
-  @query('titanium-chip-multi-select[demo2]') titaniumChipMultiSelect: TitaniumChipMultiSelect;
+  @query('titanium-chip-multi-select[demo2]') private accessor titaniumChipMultiSelect: TitaniumChipMultiSelect;
 
   static styles = [
     h1,

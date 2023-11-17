@@ -40,11 +40,11 @@ export class TitaniumSmartAttachmentInput extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'is-over' }) protected isOver: boolean = false;
   @property({ type: String }) protected previewSrc: string | undefined = undefined;
 
-  @query('input') protected input: HTMLInputElement;
-  @query('image-preview-dialog') protected imagePreviewDialog!: ImagePreviewDialog;
-  @query('crop-and-save-image-dialog') protected cropperDialog!: CropAndSaveImageDialog;
-  @query('md-dialog[confirm-delete]') private confirmDeleteDialog: MdDialog;
-  @query('titanium-chip-multi-select') private chipMultiSelect: TitaniumChipMultiSelect;
+  @query('input') protected accessor input: HTMLInputElement;
+  @query('image-preview-dialog') protected accessor imagePreviewDialog!: ImagePreviewDialog;
+  @query('crop-and-save-image-dialog') protected accessor cropperDialog!: CropAndSaveImageDialog;
+  @query('md-dialog[confirm-delete]') private accessor confirmDeleteDialog: MdDialog;
+  @query('titanium-chip-multi-select') private accessor chipMultiSelect: TitaniumChipMultiSelect;
 
   #originalFiles: SmartAttachment[] = [];
 

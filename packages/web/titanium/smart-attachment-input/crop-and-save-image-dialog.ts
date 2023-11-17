@@ -27,8 +27,8 @@ const LoaderGif = new URL('./images/duck-loader.gif', import.meta.url).href;
  */
 @customElement('crop-and-save-image-dialog')
 export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
-  @query('md-dialog') dialog: MdDialog;
-  @query('cropper-container > img') img: HTMLImageElement;
+  @query('md-dialog') accessor dialog: MdDialog;
+  @query('cropper-container > img') accessor img: HTMLImageElement;
 
   /**
    *  Configurable CropperJs options.

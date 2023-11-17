@@ -20,7 +20,7 @@ export class ImagePreviewDialog extends LitElement {
   @state() protected downloadSrc: string | undefined;
   @state() protected filename: string | undefined;
 
-  @query('md-dialog') protected dialog: MdDialog;
+  @query('md-dialog') protected accessor dialog: MdDialog;
 
   async open(imageUrl: string, downloadSrc?: string, filename?: string) {
     this.imageUrl = undefined; //prevent ghost images

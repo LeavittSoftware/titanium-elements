@@ -70,8 +70,6 @@ export class TitaniumDataTableItem extends LitElement {
   @state() protected hoverIndex: number | null = null;
   @state() protected originIndex: number | null = null;
 
-  @query('item-content') itemContent: HTMLDivElement;
-
   protected mouseEvent = (e) => this.#startItemDrag(e, 'mouse');
   protected touchEvent = (e) => {
     this.#startItemDrag(e, 'touch');

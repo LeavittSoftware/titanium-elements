@@ -52,7 +52,7 @@ export class TitaniumPageControl extends LitElement {
    * Disables the page control select and page navigation buttons when true
    */
   @property({ type: Boolean }) disabled: boolean;
-  @queryAsync('md-select') protected select: MdOutlinedSelect;
+  @queryAsync('md-select') protected accessor select: MdOutlinedSelect;
 
   /**
    * Gets or sets take value and assigns it to local storage.

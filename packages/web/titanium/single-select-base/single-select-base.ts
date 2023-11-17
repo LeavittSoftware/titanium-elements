@@ -22,8 +22,8 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
   @state() protected searchTerm: string;
   @state() protected suggestions: Array<T> = [];
 
-  @query('md-menu') protected menu: Menu | null;
-  @query('md-outlined-text-field') protected textfield: MdOutlinedTextField | null;
+  @query('md-menu') protected accessor menu: Menu | null;
+  @query('md-outlined-text-field') protected accessor textfield: MdOutlinedTextField | null;
 
   /**
    *  Sets floating label value.

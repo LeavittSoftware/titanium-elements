@@ -16,7 +16,7 @@ import { formStyles } from '../../styles/form-styles';
 @customElement('titanium-input-validator-playground')
 export class TitaniumInputValidatorPlayground extends LitElement {
   @state() iconSelected = '';
-  @queryAll('titanium-input-validator') validators: NodeListOf<TitaniumInputValidator>;
+  @queryAll('titanium-input-validator') private accessor validators: NodeListOf<TitaniumInputValidator>;
 
   static styles = [
     h1,

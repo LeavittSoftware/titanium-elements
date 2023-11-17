@@ -18,8 +18,8 @@ import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
 @customElement('leavitt-company-select-playground')
 export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
   @state() apiService: ApiService;
-  @query('leavitt-company-select[methods-demo]') protected methodsSelect!: LeavittCompanySelect;
-  @queryAll('leavitt-company-select') protected inputs!: NodeListOf<LeavittCompanySelect>;
+  @query('leavitt-company-select[methods-demo]') protected accessor methodsSelect!: LeavittCompanySelect;
+  @queryAll('leavitt-company-select') protected accessor inputs!: NodeListOf<LeavittCompanySelect>;
 
   constructor() {
     super();

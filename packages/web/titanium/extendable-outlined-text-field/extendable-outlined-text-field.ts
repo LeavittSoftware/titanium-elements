@@ -9,7 +9,7 @@ import { DOMEvent } from '../types/dom-event';
 import { redispatchEvent } from '@material/web/internal/controller/events';
 
 export class ExtendableOutlinedTextField extends LitElement {
-  @query('md-outlined-text-field') input: MdOutlinedTextField;
+  @query('md-outlined-text-field') accessor input: MdOutlinedTextField;
 
   /**
    * Gets or sets whether or not the text field is in a visually invalid state.

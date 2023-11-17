@@ -29,7 +29,7 @@ export class TitaniumAddressInput extends GoogleAddressInput {
    */
   @property({ type: Boolean, attribute: 'show-county' }) accessor showCounty: boolean = false;
 
-  @query('manual-address-dialog') manualAddressDialog: ManualAddressDialog;
+  @query('manual-address-dialog') private accessor manualAddressDialog: ManualAddressDialog;
 
   static styles = [
     ...GoogleAddressInput.styles,

@@ -61,7 +61,7 @@ export class TitaniumChipMultiSelect extends LitElement {
    */
   @property({ type: Boolean, reflect: true }) disabled: boolean;
 
-  @query('titanium-input-validator') validator: TitaniumInputValidator;
+  @query('titanium-input-validator') private accessor validator: TitaniumInputValidator;
 
   updated(changedProps: PropertyValues<this>) {
     if ((changedProps.get('hasItems') && changedProps.has('hasItems')) || (this.hasItems && changedProps.has('hasItems'))) {

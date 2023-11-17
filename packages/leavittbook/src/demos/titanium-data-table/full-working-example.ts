@@ -65,8 +65,8 @@ export class TitaniumDataTableFullPlayground extends LitElement {
   @state() protected disableSelect: boolean = false;
   @state() protected disablePaging: boolean = false;
 
-  @query('titanium-data-table') protected dataTable!: TitaniumDataTable;
-  @query('data-table-demo-filter-modal') protected filterModal!: DataTableDemoFilterModalElement;
+  @query('titanium-data-table') protected accessor dataTable!: TitaniumDataTable;
+  @query('data-table-demo-filter-modal') protected accessor filterModal!: DataTableDemoFilterModalElement;
 
   constructor() {
     super();

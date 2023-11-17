@@ -18,8 +18,8 @@ import { Person } from '@leavittsoftware/lg-core-typescript';
 @customElement('leavitt-person-select-playground')
 export class LeavittPersonSelectPlaygroundElement extends LitElement {
   @state() apiService: ApiService;
-  @queryAll('leavitt-person-select') protected inputs!: NodeListOf<LeavittPersonSelect>;
-  @query('leavitt-person-select[methods-demo]') protected methodsSelect!: LeavittPersonSelect;
+  @queryAll('leavitt-person-select') protected accessor inputs!: NodeListOf<LeavittPersonSelect>;
+  @query('leavitt-person-select[methods-demo]') protected accessor methodsSelect!: LeavittPersonSelect;
 
   constructor() {
     super();

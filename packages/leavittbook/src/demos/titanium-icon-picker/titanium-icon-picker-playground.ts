@@ -12,7 +12,7 @@ import { TitaniumIconPicker } from '@leavittsoftware/web/titanium/icon-picker/ic
 /* playground-fold */
 @customElement('titanium-icon-picker-playground')
 export class TitaniumIconPickerPlayground extends LitElement {
-  @query('titanium-icon-picker[demo2]') requiredInput: TitaniumIconPicker;
+  @query('titanium-icon-picker[demo2]') private accessor requiredInput: TitaniumIconPicker;
 
   static styles = [
     h1,

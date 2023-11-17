@@ -101,12 +101,12 @@ export class TitaniumDataTable extends LitElement {
   /**
    * @ignore
    */
-  @query('slot[name="items"]') itemsSlot: HTMLSlotElement;
-  @query('slot[name="table-headers"]') protected tableHeaders: HTMLSlotElement;
+  @query('slot[name="items"]') accessor itemsSlot: HTMLSlotElement;
+  @query('slot[name="table-headers"]') protected accessor tableHeaders: HTMLSlotElement;
   /**
    * @ignore
    */
-  @query('div[items-slot]') itemsContainer: HTMLDivElement;
+  @query('div[items-slot]') accessor itemsContainer: HTMLDivElement;
 
   /**
    *  Sets if view port is small
@@ -116,11 +116,11 @@ export class TitaniumDataTable extends LitElement {
   /**
    * @ignore
    */
-  @query('md-checkbox') checkbox: MdCheckbox;
+  @query('md-checkbox') accessor checkbox: MdCheckbox;
   /**
    * @ignore
    */
-  @queryAsync('titanium-page-control') pageControl: Promise<TitaniumPageControl | null>;
+  @queryAsync('titanium-page-control') accessor pageControl: Promise<TitaniumPageControl | null>;
   #openCount = 0;
 
   /**

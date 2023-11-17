@@ -11,7 +11,7 @@ import { TitaniumPageControl } from '@leavittsoftware/web/titanium/data-table/pa
 /* playground-fold */
 @customElement('titanium-page-control-playground')
 export class TitaniumPageControlPlayground extends LitElement {
-  @query('titanium-page-control[main]') pageControl: TitaniumPageControl;
+  @query('titanium-page-control[main]') private accessor pageControl: TitaniumPageControl;
   @state() protected count: number = 25;
   @state() protected data;
   @state() protected filteredData;

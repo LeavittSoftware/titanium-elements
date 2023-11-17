@@ -30,8 +30,8 @@ export default class TitaniumShowHideElement extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'has-hidden-items' }) protected hasHiddenItems: boolean = false;
   @property({ type: Number }) hiddenItemCount: number = 0;
 
-  @query('items-container') protected itemsContainer: HTMLElement;
-  @query('collapsed-box') protected collapsedContainer: HTMLElement;
+  @query('items-container') protected accessor itemsContainer: HTMLElement;
+  @query('collapsed-box') protected accessor collapsedContainer: HTMLElement;
 
   updated(changedProps: PropertyValues<this>) {
     if (changedProps.has('collapsed')) {

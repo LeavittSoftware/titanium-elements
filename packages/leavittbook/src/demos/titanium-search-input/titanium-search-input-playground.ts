@@ -15,7 +15,7 @@ import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
 /* playground-fold */
 @customElement('titanium-search-input-playground')
 export class TitaniumSearchInputItemPlayground extends LitElement {
-  @query('titanium-search-input[method-focused]') protected methodFocus!: TitaniumSearchInput;
+  @query('titanium-search-input[method-focused]') protected accessor methodFocus!: TitaniumSearchInput;
 
   static styles = [
     h1,
