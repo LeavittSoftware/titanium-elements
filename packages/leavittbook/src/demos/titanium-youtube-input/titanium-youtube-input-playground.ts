@@ -13,8 +13,8 @@ import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
 /* playground-fold */
 @customElement('titanium-youtube-input-playground')
 export class TitaniumYoutubeInputPlayground extends LitElement {
-  @queryAll('titanium-youtube-input') protected inputs!: NodeListOf<TitaniumYouTubeInput>;
-  @query('titanium-youtube-input[required]') requiredInput: TitaniumYouTubeInput;
+  @queryAll('titanium-youtube-input') protected accessor inputs!: NodeListOf<TitaniumYouTubeInput>;
+  @query('titanium-youtube-input[required]') protected accessor requiredInput: TitaniumYouTubeInput;
 
   static styles = [
     h1,

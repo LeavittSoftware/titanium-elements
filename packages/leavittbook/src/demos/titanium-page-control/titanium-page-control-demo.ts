@@ -9,12 +9,12 @@ import '../../shared/smart-demo';
 import './titanium-page-control-playground';
 
 @customElement('titanium-page-control-demo')
-export class TitaniumPageControlDemoElement extends LitElement {
+export class TitaniumPageControlDemo extends LitElement {
   static styles = [StoryStyles, css``];
 
   render() {
     return html`
-      <story-header name="Titanium Page Control" packageName="titanium-data-table" className="TitaniumPageControlElement"></story-header>
+      <story-header name="Titanium Page Control" className="TitaniumPageControl"></story-header>
       <smart-demo line-numbers resizable project-src="../src/demos/titanium-page-control/project.json"
         ><titanium-page-control-playground></titanium-page-control-playground>
       </smart-demo>

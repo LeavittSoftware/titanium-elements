@@ -12,7 +12,7 @@ export class TitaniumAccessDeniedPage extends LitElement {
   /**
    * Reason text for the denial of access
    */
-  @property({ type: String }) message: string = 'You do not have permission to access this application.';
+  @property({ type: String }) accessor message: string = 'You do not have permission to access this application.';
 
   static styles = css`
     :host {

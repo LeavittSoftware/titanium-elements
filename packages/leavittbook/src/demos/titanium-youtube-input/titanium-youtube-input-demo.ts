@@ -9,12 +9,12 @@ import './titanium-youtube-input-playground';
 import '@api-viewer/docs';
 
 @customElement('titanium-youtube-input-demo')
-export class TitaniumYoutubeInputDemoElement extends LitElement {
+export class TitaniumYoutubeInputDemo extends LitElement {
   static styles = [StoryStyles, css``];
 
   render() {
     return html`
-      <story-header name="Titanium Youtube Input" packageName="titanium-youtube-input" className="TitaniumYoutubeInputElement"></story-header>
+      <story-header name="Titanium Youtube Input" className="TitaniumYoutubeInput"></story-header>
       <smart-demo line-numbers resizable project-src="../src/demos/titanium-youtube-input/project.json"
         ><titanium-youtube-input-playground></titanium-youtube-input-playground>
       </smart-demo>

@@ -41,86 +41,86 @@ export class TitaniumDataTable extends LitElement {
   /**
    * Table heading / title
    */
-  @property({ type: String }) header: string;
+  @property({ type: String }) accessor header: string;
 
   /**
    * Local storage key. Not required if header is static and unique
    */
-  @property({ type: String }) localStorageKey: string;
+  @property({ type: String }) accessor localStorageKey: string;
 
   /**
    * Available page sizes
    */
-  @property({ type: Array }) pageSizes: Array<number> = [10, 15, 20, 50];
+  @property({ type: Array }) accessor pageSizes: Array<number> = [10, 15, 20, 50];
 
   /**
    * The default page size before the user changes it
    */
-  @property({ type: Number, attribute: 'default-page-size' }) defaultPageSize: number = 10;
+  @property({ type: Number, attribute: 'default-page-size' }) accessor defaultPageSize: number = 10;
 
   /**
    * Total number of items in all pages.
    */
-  @property({ type: Number }) count: number;
+  @property({ type: Number }) accessor count: number;
 
   /**
    * Current items displayed on the table.
    */
-  @property({ type: Array }) items: Array<unknown> = [];
+  @property({ type: Array }) accessor items: Array<unknown> = [];
 
   /**
    * Current search term shown in the no result state if no results are found
    */
-  @property({ type: String }) searchTerm: string;
+  @property({ type: String }) accessor searchTerm: string;
 
   /**
    * Limits table selection mode to single-select.  Default is multi-select.
    */
-  @property({ type: Boolean, attribute: 'single-select', reflect: true }) singleSelect: boolean;
+  @property({ type: Boolean, attribute: 'single-select', reflect: true }) accessor singleSelect: boolean;
 
   /**
    * Disables all item selection on the data-table.
    */
-  @property({ type: Boolean, attribute: 'disable-select' }) disableSelect: boolean = false;
+  @property({ type: Boolean, attribute: 'disable-select' }) accessor disableSelect: boolean = false;
 
   /**
    * Disables paging.
    */
-  @property({ type: Boolean, attribute: 'disable-paging', reflect: true }) disablePaging: boolean = false;
+  @property({ type: Boolean, attribute: 'disable-paging', reflect: true }) accessor disablePaging: boolean = false;
 
   /**
    * Array of currently selected data table objects
    */
-  @property({ type: Array }) selected: Array<unknown> = [];
+  @property({ type: Array }) accessor selected: Array<unknown> = [];
 
   /**
    * When set to true, the loading state is shown.
    */
-  @property({ type: Boolean }) protected isLoading: boolean;
+  @property({ type: Boolean }) protected accessor isLoading: boolean;
 
   /**
    * @ignore
    */
-  @query('slot[name="items"]') itemsSlot: HTMLSlotElement;
-  @query('slot[name="table-headers"]') protected tableHeaders: HTMLSlotElement;
+  @query('slot[name="items"]') accessor itemsSlot: HTMLSlotElement;
+  @query('slot[name="table-headers"]') protected accessor tableHeaders: HTMLSlotElement;
   /**
    * @ignore
    */
-  @query('div[items-slot]') itemsContainer: HTMLDivElement;
+  @query('div[items-slot]') accessor itemsContainer: HTMLDivElement;
 
   /**
    *  Sets if view port is small
    */
-  @property({ type: Boolean, reflect: true, attribute: 'narrow' }) protected narrow: boolean = false;
+  @property({ type: Boolean, reflect: true, attribute: 'narrow' }) protected accessor narrow: boolean = false;
 
   /**
    * @ignore
    */
-  @query('md-checkbox') checkbox: MdCheckbox;
+  @query('md-checkbox') accessor checkbox: MdCheckbox;
   /**
    * @ignore
    */
-  @queryAsync('titanium-page-control') pageControl: Promise<TitaniumPageControl | null>;
+  @queryAsync('titanium-page-control') accessor pageControl: Promise<TitaniumPageControl | null>;
   #openCount = 0;
 
   /**

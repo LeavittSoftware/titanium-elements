@@ -5,7 +5,7 @@ import '@leavittsoftware/web/titanium/header/header';
 import '@leavittsoftware/web/titanium/card/card';
 
 @customElement('getting-started')
-export default class GettingStartedElement extends LitElement {
+export default class GettingStarted extends LitElement {
   static styles = [
     h1,
     h2,

@@ -14,7 +14,7 @@ export class TitaniumDateRangeSelectorDemo extends LitElement {
 
   render() {
     return html`
-      <story-header name="Titanium date range selector" packageName="titanium-date-range-selector" className="TitaniumDateRangeSelector"></story-header>
+      <story-header name="Titanium date range selector" className="TitaniumDateRangeSelector"></story-header>
       <smart-demo line-numbers resizable project-src="../src/demos/titanium-date-range-selector/project.json"
         ><titanium-date-range-selector-playground></titanium-date-range-selector-playground>
       </smart-demo>

@@ -9,12 +9,12 @@ import '../../shared/smart-demo';
 import './titanium-icon-picker-playground';
 
 @customElement('titanium-icon-picker-demo')
-export class TitaniumIconPickerDemoElement extends LitElement {
+export class TitaniumIconPickerDemo extends LitElement {
   static styles = [StoryStyles, css``];
 
   render() {
     return html`
-      <story-header name="Titanium icon picker" packageName="titanium-icon-picker" className="TitaniumIconPicker"></story-header>
+      <story-header name="Titanium icon picker" className="TitaniumIconPicker"></story-header>
       <smart-demo line-numbers resizable project-src="../src/demos/titanium-icon-picker/project.json"
         ><titanium-icon-picker-playground></titanium-icon-picker-playground>
       </smart-demo>

@@ -9,12 +9,12 @@ import './titanium-duration-input-playground';
 import '@api-viewer/docs';
 
 @customElement('titanium-duration-input-demo')
-export class TitaniumDurationInputDemoElement extends LitElement {
+export class TitaniumDurationInputDemo extends LitElement {
   static styles = [StoryStyles, css``];
 
   render() {
     return html`
-      <story-header name="Titanium Duration Input" packageName="titanium-duration-input" className="TitaniumDurationInputElement"></story-header>
+      <story-header name="Titanium Duration Input" className="TitaniumDurationInput"></story-header>
       <smart-demo line-numbers resizable project-src="../src/demos/titanium-duration-input/project.json"
         ><titanium-duration-input-playground></titanium-duration-input-playground>
       </smart-demo>

@@ -9,12 +9,12 @@ import '../../shared/smart-demo';
 import './titanium-error-page-playground';
 
 @customElement('titanium-error-page-demo')
-export class TitaniumErrorDemoElement extends LitElement {
+export class TitaniumErrorDemo extends LitElement {
   static styles = [StoryStyles, css``];
 
   render() {
     return html`
-      <story-header name="Titanium error page" packageName="titanium-error-page" tagName="titanium-error-page" klass="TitaniumErrorPageElement"></story-header>
+      <story-header name="Titanium error page" className="TitaniumErrorPage"></story-header>
       <smart-demo line-numbers resizable project-src="../src/demos/titanium-error-page/project.json"
         ><titanium-error-page-playground></titanium-error-page-playground>
       </smart-demo>

@@ -9,16 +9,12 @@ import '../../shared/smart-demo';
 import './titanium-full-page-loading-indicator-playground';
 
 @customElement('titanium-full-page-loading-indicator-demo')
-export class TitaniumFullPageLoadingIndicatorDemoElement extends LitElement {
+export class TitaniumFullPageLoadingIndicatorDemo extends LitElement {
   static styles = [StoryStyles, css``];
 
   render() {
     return html`
-      <story-header
-        name="Titanium full page loading indicator"
-        packageName="titanium-loading-indicator"
-        className="TitaniumFullPageLoadingIndicatorElement"
-      ></story-header>
+      <story-header name="Titanium full page loading indicator" className="TitaniumFullPageLoadingIndicator"></story-header>
       <smart-demo line-numbers resizable project-src="../src/demos/titanium-full-page-loading-indicator/project.json"
         ><titanium-full-page-loading-indicator-playground></titanium-full-page-loading-indicator-playground>
       </smart-demo>

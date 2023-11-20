@@ -16,8 +16,8 @@ import { TitaniumDrawer } from '@leavittsoftware/web/titanium/drawer/drawer';
 /* playground-fold */
 @customElement('titanium-drawer-playground')
 export class TitaniumDrawerPlayground extends LitElement {
-  @query('titanium-drawer[one]') drawerOne: TitaniumDrawer;
-  @query('titanium-drawer[two]') drawerTwo: TitaniumDrawer;
+  @query('titanium-drawer[one]') private accessor drawerOne: TitaniumDrawer;
+  @query('titanium-drawer[two]') private accessor drawerTwo: TitaniumDrawer;
 
   static styles = [
     h1,

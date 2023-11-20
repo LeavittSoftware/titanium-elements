@@ -15,7 +15,7 @@ import '@leavittsoftware/web/titanium/data-table/data-table';
 type Car = { Name: string; Appearance: 'plaid' | 'ugly' | 'slick' };
 @customElement('draggable-playground')
 export class DraggablePlayground extends LitElement {
-  @state() protected draggableItems: Array<Partial<Car>> = [];
+  @state() protected accessor draggableItems: Array<Partial<Car>> = [];
 
   firstUpdated() {
     this.draggableItems = [

@@ -19,49 +19,49 @@ export class TitaniumChipMultiSelect extends LitElement {
   /**
    *  Label of input to display to users
    */
-  @property({ type: String }) label: string;
+  @property({ type: String }) accessor label: string;
 
   /**
    *  Text to show when there are no items
    */
-  @property({ type: String }) noItemsText: string = 'No items';
+  @property({ type: String }) accessor noItemsText: string = 'No items';
 
   /**
    *  Adds the * to the label
    */
-  @property({ type: Boolean }) required: boolean = false;
+  @property({ type: Boolean }) accessor required: boolean = false;
 
   /**
    *  Indicates whether or not to show the no items text
    */
-  @property({ type: Boolean }) hasItems: boolean;
+  @property({ type: Boolean }) accessor hasItems: boolean;
 
   /**
    *   Passes the supportingText property to the input-validator
    */
-  @property({ type: String }) supportingText: string;
+  @property({ type: String }) accessor supportingText: string;
 
   /**
    *  Passes the error property to the input-validator
    */
-  @property({ type: Boolean }) error: boolean;
+  @property({ type: Boolean }) accessor error: boolean;
 
   /**
    *  Passes the errorText property to the input-validator
    */
-  @property({ type: String }) errorText: string;
+  @property({ type: String }) accessor errorText: string;
 
   /**
    *  Passes the resizable property to the input-validator
    */
-  @property({ type: Boolean }) resizable: boolean;
+  @property({ type: Boolean }) accessor resizable: boolean;
 
   /**
    *  Whether or not the input should appear disabled (chips, buttons and anything else slotted will still have to be disabled individually).
    */
-  @property({ type: Boolean, reflect: true }) disabled: boolean;
+  @property({ type: Boolean, reflect: true }) accessor disabled: boolean;
 
-  @query('titanium-input-validator') validator: TitaniumInputValidator;
+  @query('titanium-input-validator') private accessor validator: TitaniumInputValidator;
 
   updated(changedProps: PropertyValues<this>) {
     if ((changedProps.get('hasItems') && changedProps.has('hasItems')) || (this.hasItems && changedProps.has('hasItems'))) {

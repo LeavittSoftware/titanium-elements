@@ -13,7 +13,7 @@ export class TitaniumErrorPage extends LitElement {
   /**
    * Reason text for the error
    */
-  @property({ type: String }) message: string = 'We were unable to find the page you are looking for...';
+  @property({ type: String }) accessor message: string = 'We were unable to find the page you are looking for...';
 
   static styles = css`
     :host {

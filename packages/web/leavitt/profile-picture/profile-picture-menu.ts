@@ -17,35 +17,35 @@ import { MdMenu } from '@material/web/menu/menu';
  *
  */
 @customElement('profile-picture-menu')
-export class ProfilePictureMenuElement extends LitElement {
+export class ProfilePictureMenu extends LitElement {
   /**
    * Size in pixels of profile picture button
    */
-  @property({ type: Number }) size: number = 40;
+  @property({ type: Number }) accessor size: number = 40;
 
-  @property({ type: String }) profilePictureFileName: string | null;
+  @property({ type: String }) accessor profilePictureFileName: string | null;
 
   /**
    * Person id of user
    */
-  @property({ type: Number }) personId: number = 0;
+  @property({ type: Number }) accessor personId: number = 0;
 
   /**
    * Email address of user
    */
-  @property({ type: String }) email: string = '';
+  @property({ type: String }) accessor email: string = '';
 
   /**
    * Company of user
    */
-  @property({ type: String }) company: string = '';
+  @property({ type: String }) accessor company: string = '';
 
   /**
    * Full name of user
    */
-  @property({ type: String }) name: string = '';
+  @property({ type: String }) accessor name: string = '';
 
-  @query('md-menu') private menu: MdMenu;
+  @query('md-menu') private accessor menu: MdMenu;
 
   firstUpdated() {
     GetUserManagerInstance().addEventListener(UserManagerUpdatedEvent.eventName, () => this.setUserProps());

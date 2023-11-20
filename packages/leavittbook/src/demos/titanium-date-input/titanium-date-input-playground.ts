@@ -15,8 +15,8 @@ import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
 /* playground-fold */
 @customElement('titanium-date-input-playground')
 export class TitaniumDateInputItemPlayground extends LitElement {
-  @query('titanium-date-input[demo1]') protected input!: TitaniumDateInput;
-  @state() value: string;
+  @query('titanium-date-input[demo1]') protected accessor input!: TitaniumDateInput;
+  @state() private accessor value: string;
   static styles = [
     h1,
     p,

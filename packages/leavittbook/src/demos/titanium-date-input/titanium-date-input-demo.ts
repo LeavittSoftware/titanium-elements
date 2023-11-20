@@ -9,7 +9,7 @@ import '../../shared/smart-demo';
 import './titanium-date-input-playground';
 
 @customElement('titanium-date-input-demo')
-export class TitaniumDateInputItemDemoElement extends LitElement {
+export class TitaniumDateInputItemDemo extends LitElement {
   static styles = [StoryStyles, css``];
 
   render() {

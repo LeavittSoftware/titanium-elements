@@ -14,7 +14,7 @@ export class TitaniumConfirmDialogDemo extends LitElement {
 
   render() {
     return html`
-      <story-header name="Titanium confirm dialog" packageName="titanium-confirm-dialog" className="TitaniumConfirmDialog"></story-header>
+      <story-header name="Titanium confirm dialog" className="TitaniumConfirmDialog"></story-header>
       <smart-demo line-numbers resizable project-src="../src/demos/titanium-confirm-dialog/project.json"
         ><titanium-confirm-dialog-playground></titanium-confirm-dialog-playground>
       </smart-demo>

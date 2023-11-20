@@ -13,9 +13,9 @@ import dayjs from 'dayjs/esm';
 @customElement('titanium-show-hide-playground')
 export class TitaniumColorInputPlayground extends LitElement {
   @query('titanium-show-hide[required]') requiredInput;
-  @state() protected verticalStepValue = 10;
-  @state() protected horizontalStepValue = 3;
-  @state() protected collapsed;
+  @state() protected accessor verticalStepValue = 10;
+  @state() protected accessor horizontalStepValue = 3;
+  @state() protected accessor collapsed;
 
   static styles = [
     h1,
