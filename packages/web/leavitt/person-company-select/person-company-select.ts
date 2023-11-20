@@ -155,8 +155,8 @@ export class LeavittPersonCompanySelect extends TitaniumSingleSelectBase<Partial
     return entity.type === 'Person'
       ? html`<profile-picture slot="leading-icon" .fileName=${entity?.ProfilePictureCdnFileName || null} shape="circle" size="24"></profile-picture>`
       : entity.type === 'Company'
-        ? html`<img leading slot="leading-icon" src=${entity.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />`
-        : html``;
+      ? html`<img leading slot="leading-icon" src=${entity.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />`
+      : html``;
   }
 
   protected override renderSuggestion(entity: Partial<Partial<Person | Company>>) {
@@ -167,12 +167,12 @@ export class LeavittPersonCompanySelect extends TitaniumSingleSelectBase<Partial
           <span slot="supporting-text">${entity.CompanyName}</span>
         </md-menu-item>`
       : entity.type === 'Company'
-        ? html`<md-menu-item .item=${entity} ?selected=${this.selected?.Id === entity.Id}>
-            <slot name="trailing-icon" slot="trailing-icon"></slot>
-            <span slot="headline">${entity.Name}</span>
-            <span slot="supporting-text">${entity.ShortName || '-'}</span>
-            <img loading="lazy" company-mark slot="start" src=${entity.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />
-          </md-menu-item>`
-        : html``;
+      ? html`<md-menu-item .item=${entity} ?selected=${this.selected?.Id === entity.Id}>
+          <slot name="trailing-icon" slot="trailing-icon"></slot>
+          <span slot="headline">${entity.Name}</span>
+          <span slot="supporting-text">${entity.ShortName || '-'}</span>
+          <img loading="lazy" company-mark slot="start" src=${entity.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />
+        </md-menu-item>`
+      : html``;
   }
 }
