@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.17.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.16.0...@leavittsoftware/web@1.17.0) (2023-11-20)
+
+### Features
+
+- use the popover API in browsers that support it ([4d3112f](https://github.com/LeavittSoftware/titanium-elements/commit/4d3112fa4bcc5ae4bb8744cf2537c30efec469b8))
+
 # [1.16.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.15.0...@leavittsoftware/web@1.16.0) (2023-11-20)
 
 ### Features
