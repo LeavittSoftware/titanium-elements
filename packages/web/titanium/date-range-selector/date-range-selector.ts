@@ -142,7 +142,7 @@ export class TitaniumDateRangeSelector extends LitElement {
       justify-content: flex-end;
 
       gap: 12px;
-      padding-top: 12px;
+      padding: 12px 12px 0 12px;
       border-top: 1px solid var(--md-sys-color-outline-variant);
     }
 
@@ -380,7 +380,7 @@ export class TitaniumDateRangeSelector extends LitElement {
                 this.dispatchEvent(new Event('change'));
                 this.open = false;
               }}
-              >Apply</md-text-button
+              >Set</md-text-button
             >
           </menu-actions>
         </main>
