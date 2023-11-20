@@ -1,5 +1,5 @@
 import { css, html, LitElement, PropertyValues } from 'lit';
-import { property, customElement, query, state } from 'lit/decorators.js';
+import { property, customElement, state } from 'lit/decorators.js';
 import { TitaniumDataTable } from './data-table';
 
 import '@material/web/checkbox/checkbox';
