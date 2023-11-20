@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.15.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.14.1...@leavittsoftware/web@1.15.0) (2023-11-20)
+
+### Features
+
+- add theme preference mixin ([0cd0f6b](https://github.com/LeavittSoftware/titanium-elements/commit/0cd0f6b614d4a9ad8e0c0e97e04ee40742ec00fb))
+- adds phone number helpers ([ebdb7f8](https://github.com/LeavittSoftware/titanium-elements/commit/ebdb7f8288060c183d79312c0133ca9120b49508))
+
 ## [1.14.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.14.0...@leavittsoftware/web@1.14.1) (2023-11-20)
 
 **Note:** Version bump only for package @leavittsoftware/web
