@@ -17,7 +17,7 @@
   "dependencies": {
     "@googlemaps/js-api-loader": "*",
     "@leavittsoftware/lg-core-typescript": "*",
-    "@material/web": "*",
+    "@material/web": "^1.0.2-nightly.8eb1f30.0",
     "@types/google.maps": "*",
     "bowser": "^2.11.0",
     "countup.js": "^2.8.0",

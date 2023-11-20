@@ -74,6 +74,8 @@ export class TitaniumDateRangeSelector extends LitElement {
    */
   @property({ attribute: 'supporting-text' }) accessor supportingText = '';
 
+  @property() positioning: 'absolute' | 'fixed' | 'document' | 'popover' = 'popover';
+
   @query('titanium-date-input[start-date]') protected accessor startDateField: TitaniumDateInput;
   @query('md-menu') private accessor menu!: Menu | null;
   @query('md-list') private accessor list!: List | null;
@@ -98,6 +100,11 @@ export class TitaniumDateRangeSelector extends LitElement {
         Array.from(this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges).find(
           (o) => o[1].startDate === this.startDate && o[1].endDate === this.endDate
         )?.[0] || 'custom';
+    }
+
+    // Firefox does not support popover. Fall-back to using fixed.
+    if (changedProps.has('positioning') && this.positioning === 'popover' && !this.showPopover) {
+      this.positioning = 'fixed';
     }
   }
 
@@ -281,6 +288,7 @@ export class TitaniumDateRangeSelector extends LitElement {
       <!-- stay-open-on-focusout -->
       <md-menu
         default-focus="none"
+        .positioning=${this.positioning}
         id="menu"
         anchor="field"
         .open=${this.open}

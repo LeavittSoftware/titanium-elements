@@ -1,4 +1,4 @@
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, PropertyValues } from 'lit';
 import { property, customElement, query, state } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 
@@ -93,6 +93,8 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
   @property({ type: String }) accessor textDirection: string;
   @property({ type: String }) accessor pathToSelectedText: string = 'Name';
 
+  @property() positioning: 'absolute' | 'fixed' | 'document' | 'popover' = 'popover';
+
   @state() protected accessor count: number;
 
   async firstUpdated() {
@@ -100,6 +102,15 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
       const originalCheckValidity = this.textfield?.checkValidity;
       this.textfield.checkValidity = () => !!this.selected && originalCheckValidity.bind(this.textfield);
     }
+  }
+
+  update(changed: PropertyValues<this>) {
+    // Firefox does not support popover. Fall-back to using fixed.
+    if (changed.has('positioning') && this.positioning === 'popover' && !this.showPopover) {
+      this.positioning = 'fixed';
+    }
+
+    super.update(changed);
   }
 
   setCustomValidity(error: string) {
@@ -338,6 +349,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
         @opened=${(e) => redispatchEvent(this, e)}
         @closing=${(e) => redispatchEvent(this, e)}
         @closed=${(e) => redispatchEvent(this, e)}
+        .positioning=${this.positioning}
         quick
         id="menu"
         anchor="menu-anchor"

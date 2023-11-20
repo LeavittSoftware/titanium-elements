@@ -9,6 +9,7 @@ import { css, html, LitElement } from 'lit';
 import { property, customElement, query } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { MdMenu } from '@material/web/menu/menu';
+import { PropertyValues } from 'lit';
 
 /**
  * Profile picture menu for the Leavitt Group
@@ -47,6 +48,8 @@ export class ProfilePictureMenu extends LitElement {
 
   @query('md-menu') private accessor menu: MdMenu;
 
+  @property() positioning: 'absolute' | 'fixed' | 'document' | 'popover' = 'popover';
+
   firstUpdated() {
     GetUserManagerInstance().addEventListener(UserManagerUpdatedEvent.eventName, () => this.setUserProps());
     this.setUserProps();
@@ -63,10 +66,14 @@ export class ProfilePictureMenu extends LitElement {
     this.name = GetUserManagerInstance().fullname;
   }
 
-  updated(changedProps) {
-    if (changedProps.has('size') && changedProps.get('size') !== this.size) {
+  updated(changed: PropertyValues<this>) {
+    if (changed.has('size') && changed.get('size') !== this.size) {
       this.style.width = this.size + 'px';
       this.style.height = this.size + 'px';
+    }
+
+    if (changed.has('positioning') && this.positioning === 'popover' && !this.showPopover) {
+      this.positioning = 'fixed';
     }
   }
 
@@ -161,7 +168,7 @@ export class ProfilePictureMenu extends LitElement {
             }
           }}
         ></profile-picture>
-        <md-menu y-offset="4" anchor="profile-picture" menu-corner="start-end" anchor-corner="end-end">
+        <md-menu y-offset="4" anchor="profile-picture" menu-corner="start-end" anchor-corner="end-end" .positioning=${this.positioning}>
           <main>
             <profile-picture shape="circle" .fileName=${this.profilePictureFileName} size="90"></profile-picture>
             <h1>${this.name}</h1>
