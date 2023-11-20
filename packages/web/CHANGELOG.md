@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.14.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.14.0...@leavittsoftware/web@1.14.1) (2023-11-20)
+
+**Note:** Version bump only for package @leavittsoftware/web
+
 # [1.14.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.13.0...@leavittsoftware/web@1.14.0) (2023-11-16)
 
 ### Features
