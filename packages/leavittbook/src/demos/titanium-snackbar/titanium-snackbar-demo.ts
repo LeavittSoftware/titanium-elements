@@ -9,12 +9,12 @@ import '../../shared/smart-demo';
 import './titanium-snackbar-playground';
 
 @customElement('titanium-snackbar-demo')
-export class TitaniumSnackbarDemoElement extends LitElement {
+export class TitaniumSnackbarDemo extends LitElement {
   static styles = [StoryStyles, css``];
 
   render() {
     return html`
-      <story-header name="Titanium Snackbar" packageName="titanium-snackbar" className="TitaniumSnackbarElement"></story-header>
+      <story-header name="Titanium Snackbar" className="TitaniumSnackbar"></story-header>
       <smart-demo line-numbers resizable project-src="../src/demos/titanium-snackbar/project.json"
         ><titanium-snackbar-playground></titanium-snackbar-playground>
       </smart-demo>

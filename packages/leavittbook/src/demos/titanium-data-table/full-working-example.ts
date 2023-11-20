@@ -66,7 +66,7 @@ export class TitaniumDataTableFullPlayground extends LitElement {
   @state() protected accessor disablePaging: boolean = false;
 
   @query('titanium-data-table') protected accessor dataTable!: TitaniumDataTable;
-  @query('data-table-demo-filter-modal') protected accessor filterModal!: DataTableDemoFilterModalElement;
+  @query('data-table-demo-filter-modal') protected accessor filterModal!: DataTableDemoFilterModal;
 
   constructor() {
     super();
@@ -353,7 +353,7 @@ export class TitaniumDataTableFullPlayground extends LitElement {
 }
 
 @customElement('data-table-demo-filter-modal')
-export class DataTableDemoFilterModalElement extends LitElement {
+export class DataTableDemoFilterModal extends LitElement {
   @state() protected accessor filterController: FilterController<FilterKeys>;
   @state() protected accessor appearance: string;
 

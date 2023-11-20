@@ -9,7 +9,7 @@ import { customElement, property } from 'lit/decorators.js';
  *
  */
 @customElement('profile-picture')
-export class ProfilePictureElement extends LitElement {
+export class ProfilePicture extends LitElement {
   /**
    * File name of the profile picture on CDN, no extension
    */

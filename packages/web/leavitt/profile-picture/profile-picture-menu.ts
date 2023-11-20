@@ -17,7 +17,7 @@ import { MdMenu } from '@material/web/menu/menu';
  *
  */
 @customElement('profile-picture-menu')
-export class ProfilePictureMenuElement extends LitElement {
+export class ProfilePictureMenu extends LitElement {
   /**
    * Size in pixels of profile picture button
    */

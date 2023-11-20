@@ -9,12 +9,12 @@ import '../../shared/smart-demo';
 import './profile-picture-playground';
 
 @customElement('profile-picture-demo')
-export class ProfilePictureDemoElement extends LitElement {
+export class ProfilePictureDemo extends LitElement {
   static styles = [StoryStyles, css``];
 
   render() {
     return html`
-      <story-header name="Profile picture" packageName="profile-picture" className="ProfilePictureElement"></story-header>
+      <story-header name="Profile picture" className="ProfilePicture"></story-header>
       <smart-demo line-numbers resizable project-src="../src/demos/profile-picture/project.json"
         ><profile-picture-playground></profile-picture-playground>
       </smart-demo>

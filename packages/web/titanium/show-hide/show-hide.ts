@@ -18,7 +18,7 @@ import '@material/web/button/outlined-button';
  * @cssprop [--titanium-show-hide-gap=8px] - flex direction of the for the parent of the slotted in content
  */
 @customElement('titanium-show-hide')
-export default class TitaniumShowHideElement extends LitElement {
+export default class TitaniumShowHide extends LitElement {
   /**
    * This will be the height of the content you want visible when collapsed.
    * An example would be if you have a list of items where each item is 20px in height

@@ -7,7 +7,7 @@ import '@material/web/icon/icon';
 import { SiteErrorEvent } from '../events';
 
 @customElement('smart-demo')
-export default class SmartDemoElement extends LitElement {
+export default class SmartDemo extends LitElement {
   @property({ type: String }) accessor selectedTab: 'simple' | 'playground' = 'simple';
   @property({ type: String, attribute: 'project-src' }) accessor projectSrc;
   @property({ type: String, attribute: 'html-file' }) accessor htmlFile = 'index.html';

@@ -9,12 +9,12 @@ import '../../shared/smart-demo';
 import './titanium-input-validator-playground';
 
 @customElement('titanium-input-validator-demo')
-export class TitaniumInputValidatorDemoElement extends LitElement {
+export class TitaniumInputValidatorDemo extends LitElement {
   static styles = [StoryStyles, css``];
 
   render() {
     return html`
-      <story-header name="Titanium Input Validator" packageName="titanium-input-validator" className="TitaniumInputValidatorElement"></story-header>
+      <story-header name="Titanium Input Validator" className="TitaniumInputValidator"></story-header>
       <smart-demo line-numbers resizable project-src="../src/demos/titanium-input-validator/project.json"
         ><titanium-input-validator-playground></titanium-input-validator-playground>
       </smart-demo>

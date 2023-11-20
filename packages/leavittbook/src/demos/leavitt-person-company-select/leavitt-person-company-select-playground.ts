@@ -14,7 +14,7 @@ import { LeavittPersonCompanySelect } from '@leavittsoftware/web/leavitt/person-
 
 /* playground-fold */
 @customElement('leavitt-person-company-select-playground')
-export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
+export class LeavittPersonCompanySelectPlayground extends LitElement {
   @state() private accessor apiService: ApiService;
   @queryAll('leavitt-person-company-select') protected accessor inputs!: NodeListOf<LeavittPersonCompanySelect>;
   @query('leavitt-person-company-select[methods-demo]') protected accessor methodsSelect!: LeavittPersonCompanySelect;
