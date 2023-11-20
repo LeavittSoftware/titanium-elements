@@ -11,6 +11,12 @@ export declare class ThemePreferenceInterface {
   themePreference: 'light' | 'dark';
 }
 
+/*
+   Adds reflected attribute / property (theme-preference) to host that reflects 
+   users currently selected theme preference
+
+   ex. css :host([theme-preference='dark'])
+*/
 export const ThemePreference = <T extends Constructor<LitElement>>(superClass: T) => {
   class ThemePreference extends superClass {
     @property({ attribute: 'theme-preference', reflect: true }) themePreference: ThemePreferenceOption;
