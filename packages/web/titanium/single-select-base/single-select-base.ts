@@ -273,6 +273,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
         font-family: Roboto, Arial, sans-serif;
         line-height: 18px;
         font-size: 13px;
+        color: var(--md-sys-color-on-surface);
       }
     `,
   ];
