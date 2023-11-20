@@ -14,7 +14,7 @@ export class TitaniumToolbarDemo extends LitElement {
 
   render() {
     return html`
-      <story-header name="Titanium toolbar" tagName="titanium-toolbar" className="TitaniumToolbar"></story-header>
+      <story-header name="Titanium toolbar" className="TitaniumToolbar"></story-header>
       <smart-demo line-numbers resizable project-src="../src/demos/titanium-toolbar/project.json"
         ><titanium-toolbar-playground></titanium-toolbar-playground>
       </smart-demo>
