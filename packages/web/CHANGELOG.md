@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.17.1...@leavittsoftware/web@1.17.2) (2023-11-20)
+
+### Bug Fixes
+
+- color on surface not set ([e05622e](https://github.com/LeavittSoftware/titanium-elements/commit/e05622e76cf4cc2137ab6f4dd65bdb07fae4faaf))
+
 ## [1.17.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.17.0...@leavittsoftware/web@1.17.1) (2023-11-20)
 
 **Note:** Version bump only for package @leavittsoftware/web
