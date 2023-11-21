@@ -48,10 +48,6 @@ export class TitaniumChipMultiSelectPlayground extends LitElement {
         margin-bottom: 24px;
         align-self: flex-end;
       }
-
-      md-outlined-button span {
-        display: flex;
-      }
     `,
   ];
 
@@ -75,10 +71,8 @@ export class TitaniumChipMultiSelectPlayground extends LitElement {
               this.demoItems.push(chipLabels[this.demoItems.length % chipLabels.length]);
               this.requestUpdate('demoItems');
             }}
+            >Add Animal <md-icon slot="icon">add</md-icon></md-outlined-button
           >
-            <md-icon slot="icon">add</md-icon>
-            <span>Add Animal</span>
-          </md-outlined-button>
           ${repeat(
             this.demoItems,
             (o) => o,
