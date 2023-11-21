@@ -109,10 +109,6 @@ export class TitaniumChipMultiSelect extends LitElement {
         align-items: center;
       }
 
-      ::slotted(md-outlined-button) {
-        line-height: 0;
-      }
-
       span {
         font-size: 13px;
       }

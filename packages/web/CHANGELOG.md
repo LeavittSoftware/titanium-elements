@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.17.2...@leavittsoftware/web@1.17.3) (2023-11-21)
+
+### Bug Fixes
+
+- multi-line button in demo ([a5c1b4e](https://github.com/LeavittSoftware/titanium-elements/commit/a5c1b4eacf48c174dc02d1f58fa6d32c037af211))
+
 ## [1.17.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.17.1...@leavittsoftware/web@1.17.2) (2023-11-20)
 
 ### Bug Fixes
