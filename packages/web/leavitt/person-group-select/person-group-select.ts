@@ -81,8 +81,8 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
       .search(searchTerm)
       .sort((a, b) => (b?.score ?? 0) - (a?.score ?? 0))
       .slice(0, 15);
-    this.suggestions = fuseResults.map((o) => o.item) ?? [];
-    this.count = odataCount ?? 0;
+
+    this.showSuggestions(fuseResults.map((o) => o.item) ?? [], odataCount ?? 0);
   }
 
   /**
@@ -161,7 +161,6 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
 
   // Overloaded base
   protected override onInputChanged(searchTerm: string) {
-    this.isLoading = true;
     this.#doSearchDebouncer.debounce(searchTerm);
   }
 

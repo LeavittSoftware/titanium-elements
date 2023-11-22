@@ -67,7 +67,6 @@ export class LeavittPersonCompanySelectPlayground extends LitElement {
       <div row>
         <leavitt-company-select
           @selected=${(e: DOMEvent<LeavittCompanySelect>) => console.log('selected change 1', e.target.selected)}
-          .selected=${{ Id: 20248, Name: 'Software' }}
           style="width: 400px;"
           methods-demo
           required

@@ -14,6 +14,8 @@ import ApiService from '../api-service/api-service';
 import Fuse from 'fuse.js';
 import { TitaniumSingleSelectBase } from '../../titanium/single-select-base/single-select-base';
 
+import { Debouncer } from '@leavittsoftware/web/titanium/helpers/debouncer';
+
 /**
  *  Single select input that searches Leavitt Group companies
  *
@@ -60,7 +62,7 @@ export class LeavittCompanySelect extends TitaniumSingleSelectBase<Partial<Compa
 
   async updated(changedProps: PropertyValues<this>) {
     if (changedProps.has('companies') && this.companies) {
-      this.suggestions = this.companies;
+      this.defaultSuggestions = this.companies;
     }
   }
 
@@ -100,7 +102,13 @@ export class LeavittCompanySelect extends TitaniumSingleSelectBase<Partial<Compa
     `,
   ];
 
-  protected override onInputChanged(searchTerm: string) {
+  #doSearchDebouncer = new Debouncer((searchTerm: string) => this.#doSearch(searchTerm));
+  #abortController: AbortController = new AbortController();
+
+  async #doSearch(searchTerm: string) {
+    this.#abortController.abort();
+    this.#abortController = new AbortController();
+
     const options = {
       includeScore: true,
       keys: ['Name', 'ShortName'],
@@ -112,12 +120,12 @@ export class LeavittCompanySelect extends TitaniumSingleSelectBase<Partial<Compa
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const fuse = new Fuse(this.companies, options as any);
       const fuseResults = fuse.search(searchTerm);
-      this.suggestions = fuseResults.map((o) => o.item).slice(0, 15);
-      this.count = fuseResults.length;
-    } else {
-      this.suggestions = this.companies;
-      this.count = this.suggestions.length;
+      this.showSuggestions(fuseResults.map((o) => o.item).slice(0, 15), fuseResults.length);
     }
+  }
+
+  protected override onInputChanged(searchTerm: string) {
+    this.#doSearchDebouncer.debounce(searchTerm);
   }
 
   protected override renderSelectedLeadingInputSlot(entity: Partial<Company>) {

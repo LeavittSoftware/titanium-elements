@@ -2,7 +2,7 @@ import { css, html, LitElement, PropertyValues } from 'lit';
 import { property, customElement, query, state } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 
-import '@material/web/progress/linear-progress';
+import '@material/web/progress/circular-progress';
 import '@material/web/icon/icon';
 import '@material/web/textfield/outlined-text-field';
 
@@ -22,7 +22,10 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
   @state() protected accessor searchTerm: string;
   @state() protected accessor suggestions: Array<T> = [];
 
-  @query('md-menu') protected accessor menu: Menu | null;
+  //Suggestions shown to the user when no search terms are present
+  @state() protected accessor defaultSuggestions: Array<T> = [];
+
+  @query('md-menu[suggestions]') protected accessor menu: Menu;
   @query('md-outlined-text-field') protected accessor textfield: MdOutlinedTextField | null;
 
   /**
@@ -214,19 +217,25 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
     console.log(searchTerm);
   }
 
-  async #onInput(searchTerm: string) {
-    this.menu?.close();
+  protected async showSuggestions(suggestions: Array<T>, totalSuggestionCount: number) {
+    this.suggestions = suggestions;
+    this.count = totalSuggestionCount;
     await this.updateComplete;
+    this.menu.show();
+  }
+
+  async #onInput(searchTerm: string) {
+    if (searchTerm || !this.defaultSuggestions.length) {
+      this.menu.close();
+    }
 
     this.setSelected(null);
-    this.suggestions = [];
-    this.count = 0;
+    this.suggestions = !searchTerm ? this.defaultSuggestions : [];
+    this.count = !searchTerm ? this.defaultSuggestions.length : 0;
     this.searchTerm = searchTerm;
-    this.onInputChanged(searchTerm);
+    await this.updateComplete;
 
-    if (this.menu) {
-      this.menu.open = !!this.searchTerm || !!this.suggestions.length;
-    }
+    this.onInputChanged(searchTerm);
   }
 
   static styles = [
@@ -240,14 +249,9 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
         width: 100%;
       }
 
-      md-linear-progress {
-        margin: 0px 12px 4px 12px;
-        min-width: 276px;
-        width: calc(100% - 24px);
-      }
-
-      md-linear-progress[hide] {
-        visibility: hidden;
+      md-circular-progress {
+        --md-circular-progress-size: 40px;
+        margin-right: 6px;
       }
 
       md-menu-item {
@@ -275,6 +279,10 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
         font-size: 13px;
         color: var(--md-sys-color-on-surface);
       }
+
+      [hidden] {
+        display: none !important;
+      }
     `,
   ];
 
@@ -289,8 +297,15 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected renderSelectedLeadingInputSlot(_entity: T) {}
 
+  #renderTrailingInputSlot() {
+    return html`<div slot="trailing-icon">
+      <md-circular-progress ?indeterminate=${this.isLoading} ?hidden=${!this.isLoading}></md-circular-progress>
+      ${this.renderTrailingInputSlot()}
+    </div>`;
+  }
+
   protected renderTrailingInputSlot() {
-    return html`<slot name="trailing-icon" slot="trailing-icon"></slot>`;
+    return html``;
   }
 
   protected renderLeadingInputSlot() {
@@ -337,21 +352,25 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
           if (this.selected) {
             this.select();
           } else {
+            if (!this.searchTerm && this.defaultSuggestions) {
+              this.suggestions = this.defaultSuggestions;
+            }
+
             if (!!this.searchTerm || !!this.suggestions.length) {
-              this.menu?.show();
+              this.menu.show();
             }
           }
         }}
       >
-        ${this.selected ? this.renderSelectedLeadingInputSlot(this.selected) : this.renderLeadingInputSlot()} ${this.renderTrailingInputSlot()}
+        ${this.selected ? this.renderSelectedLeadingInputSlot(this.selected) : this.renderLeadingInputSlot()} ${this.#renderTrailingInputSlot()}
       </md-outlined-text-field>
       <md-menu
+        suggestions
         @opening=${(e) => redispatchEvent(this, e)}
         @opened=${(e) => redispatchEvent(this, e)}
         @closing=${(e) => redispatchEvent(this, e)}
         @closed=${(e) => redispatchEvent(this, e)}
         .positioning=${this.positioning}
-        quick
         id="menu"
         anchor="menu-anchor"
         anchor-corner="end-start"
@@ -362,7 +381,6 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
           this.setSelected(selectedMenuItem?.item);
         }}
       >
-        <md-linear-progress ?indeterminate=${this.isLoading} ?hide=${!this.isLoading}></md-linear-progress>
         ${!!this.searchTerm && !this.isLoading
           ? html`<div summary>Showing ${this.suggestions.length} of ${this.count} result${this.count === 1 ? '' : 's'} for '${this.searchTerm}'</div>`
           : ''}

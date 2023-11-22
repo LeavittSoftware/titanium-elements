@@ -76,17 +76,14 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
 
       const get = this.apiService.getAsync<Person>(`${this.apiControllerName}?${oDataParts.join('&')}`, { abortController: this.#abortController });
       this.loadWhile(get);
+
       const result = await get;
-      this.suggestions = result?.entities ?? [];
-      this.count = result?.odataCount ?? 0;
-      return;
+      this.showSuggestions(result?.entities ?? [], result?.odataCount ?? 0);
     } catch (error) {
       if (!error?.message?.includes('Abort error')) {
         TitaniumSnackbarSingleton.open(error);
       }
     }
-    this.suggestions = [];
-    this.count = 0;
   }
 
   // Overloaded base

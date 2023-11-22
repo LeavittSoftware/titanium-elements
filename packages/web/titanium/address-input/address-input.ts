@@ -46,9 +46,11 @@ export class TitaniumAddressInput extends GoogleAddressInput {
   override renderTrailingSlot() {
     return html`<manual-address-dialog .showCounty=${this.showCounty} .showStreet2=${this.showStreet2} .label=${this.label}></manual-address-dialog>`;
   }
+
   override renderTrailingInputSlot() {
     return html`
       <md-icon-button
+        ?hidden=${this.isLoading}
         ?disabled=${this.disabled}
         slot="trailing-icon"
         title="Can't find address"

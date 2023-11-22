@@ -3,6 +3,7 @@ import { property, customElement } from 'lit/decorators.js';
 import Fuse from 'fuse.js';
 import { TitaniumSingleSelectBase } from '../../titanium/single-select-base/single-select-base';
 import { MaterialSymbols } from './material-symbols';
+import { Debouncer } from '../helpers/debouncer';
 
 export type MaterialIconDatabaseEntry = { Id: number; keywords: string; icon: string };
 
@@ -28,9 +29,17 @@ export class TitaniumIconPicker extends TitaniumSingleSelectBase<MaterialIconDat
       icon: icon,
       keywords: icon,
     }));
+
+    this.defaultSuggestions = this.#iconDatabase.slice(0, 50);
   }
 
-  protected override onInputChanged(searchTerm: string) {
+  #doSearchDebouncer = new Debouncer((searchTerm: string) => this.#doSearch(searchTerm));
+  #abortController: AbortController = new AbortController();
+
+  async #doSearch(searchTerm: string) {
+    this.#abortController.abort();
+    this.#abortController = new AbortController();
+
     const options = {
       includeScore: true,
       keys: ['keywords'],
@@ -43,12 +52,12 @@ export class TitaniumIconPicker extends TitaniumSingleSelectBase<MaterialIconDat
       const fuse = new Fuse(this.#iconDatabase, options as any);
       const fuseResults = fuse.search(searchTerm);
       const results = fuseResults.map((o) => o.item);
-      this.count = results.length;
-      this.suggestions = results.slice(0, 75);
-    } else {
-      this.count = 0;
-      this.suggestions = this.#iconDatabase.slice(0, 50);
+      this.showSuggestions(results.slice(0, 75), results.length);
     }
+  }
+
+  protected override onInputChanged(searchTerm: string) {
+    this.#doSearchDebouncer.debounce(searchTerm);
   }
 
   protected override renderSelectedLeadingInputSlot(entity: MaterialIconDatabaseEntry) {

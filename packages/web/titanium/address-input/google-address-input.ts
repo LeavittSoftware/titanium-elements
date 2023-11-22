@@ -117,17 +117,18 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
     this.#abortController.abort();
     this.#abortController = new AbortController();
     try {
-      const result = await this.#getSuggestions(searchTerm);
-      this.suggestions = result ?? [];
-      this.count = this.suggestions.length;
+      const get = this.#getSuggestions(searchTerm);
+      this.loadWhile(get);
+      const results = (await get) ?? [];
+      this.showSuggestions(results, results.length);
       return;
     } catch (error) {
       if (!error?.message?.includes('Abort error')) {
         TitaniumSnackbarSingleton.open(error);
       }
     }
-    this.suggestions = [];
-    this.count = 0;
+
+    this.showSuggestions([], 0);
   }
 
   override customCheckValidity() {
