@@ -1,6 +1,6 @@
 import { HttpError } from '../../leavitt/api-service/HttpError';
 import { css, html, LitElement, nothing, TemplateResult } from 'lit';
-import { property, customElement } from 'lit/decorators.js';
+import { property, customElement, state } from 'lit/decorators.js';
 import '@material/web/button/text-button';
 
 export class BasicSnackBar {
@@ -89,6 +89,12 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
     }
   }
 
+  firstUpdated() {
+    this.popover = 'popover';
+    this.addEventListener('click', (e) => console.log(e));
+    // this.addEventListener('toggle', (e: ToggleEvent) => (this.open = e.newState === 'open'));
+  }
+
   /**
    * Opens the snackbar with the supplied message.
    *
@@ -136,7 +142,8 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
       this.#resolve = resolve;
       this.closing = false;
       this.opened = false;
-      this.opening = true;
+      // this.opening = true;
+      this.showPopover();
 
       this.#runNextAnimationFrame_(() => {
         this.opened = true;
@@ -203,6 +210,7 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
       position: fixed;
       bottom: 0;
       left: 0;
+
       margin: 16px;
       padding: 8px;
       border-radius: 4px;
@@ -225,6 +233,14 @@ export class TitaniumSnackbar extends LitElement implements BasicSnackBar {
       transform: scale(0.8);
       z-index: 2;
       opacity: 0;
+    }
+
+    :host([popover]) {
+      position: absolute;
+      inset: unset;
+      left: 0;
+      bottom: 0;
+      border: 0;
     }
 
     :host([opening]),

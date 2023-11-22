@@ -1,18 +1,21 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, query } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
 
 import '@material/web/button/outlined-button';
+import '@material/web/dialog/dialog';
 
 /* playground-fold-end */
 import '@leavittsoftware/web/titanium/snackbar/snackbar';
 import { TitaniumSnackbarSingleton } from '@leavittsoftware/web/titanium/snackbar/snackbar';
 import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
+import { MdDialog } from '@material/web/dialog/dialog';
 
 /* playground-fold */
 @customElement('titanium-snackbar-playground')
 export class TitaniumSnackbarPlayground extends LitElement {
+  @query('md-dialog') dialog: MdDialog;
   static styles = [
     h1,
     p,
@@ -73,6 +76,22 @@ export class TitaniumSnackbarPlayground extends LitElement {
             >HTTP error with detail</md-outlined-button
           >
         </section>
+        <md-dialog>
+          <span slot="headline">Snackbar from a dialog</span>
+          <div slot="content" popover="manual">TOAST INSIDE MODAL</div>
+          <md-outlined-button
+            slot="actions"
+            @click=${() =>
+              TitaniumSnackbarSingleton?.open({
+                action: 'GET',
+                message: 'Network error. Check your connection and try again.',
+                statusCode: undefined,
+                type: 'HttpError',
+              } as Partial<HttpError> as string)}
+            >Open snackbar
+          </md-outlined-button>
+        </md-dialog>
+        <md-outlined-button @click=${() => this.dialog.show()}>Open dialog </md-outlined-button>
       </div>
 
       <titanium-snackbar></titanium-snackbar>
