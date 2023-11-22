@@ -37,11 +37,10 @@
     "lit": "3.1.0",
     "tslib": "^2.6.2",
     "@leavittsoftware/lg-core-typescript": "^5.232.0",
-    "@material/web": "^1.0.2-nightly.8eb1f30.0",
+    "@material/web": "^1.0.1",
     "api-viewer-element": "1.0.0-pre.8",
     "page": "^1.11.6",
-    "playground-elements": "^0.18.1",
-    "@leavittsoftware/web": "1.17.2"
+    "playground-elements": "^0.18.1"
   },
   "scripts": {
     "start": "concurrently --kill-others --names tsc,wds,cem  \"tsc --watch\" \"web-dev-server\" \"npm run cem:watch\"",
