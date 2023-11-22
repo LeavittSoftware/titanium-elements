@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.17.3...@leavittsoftware/web@1.17.4) (2023-11-22)
+
+### Bug Fixes
+
+- updates versions ([#556](https://github.com/LeavittSoftware/titanium-elements/issues/556)) ([32f4573](https://github.com/LeavittSoftware/titanium-elements/commit/32f4573ed8bb7d7ce2dc81bb7062553fffee0a1a))
+
 ## [1.17.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.17.2...@leavittsoftware/web@1.17.3) (2023-11-21)
 
 ### Bug Fixes
