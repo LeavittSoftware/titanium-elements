@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.18.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.17.4...@leavittsoftware/web@1.18.0) (2023-11-22)
+
+### Features
+
+- adds defaultSuggestions to single select base ([1607ade](https://github.com/LeavittSoftware/titanium-elements/commit/1607adefa966ee22418cdc186eb2df108bf6dff6)), closes [#534](https://github.com/LeavittSoftware/titanium-elements/issues/534)
+
 ## [1.17.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.17.3...@leavittsoftware/web@1.17.4) (2023-11-22)
 
 ### Bug Fixes
