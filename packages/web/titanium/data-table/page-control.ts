@@ -57,8 +57,8 @@ export class TitaniumPageControl extends LitElement {
   /**
    * Gets or sets take value and assigns it to local storage.
    */
-  @property({ type: Number }) accessor take: number;
-  get() {
+  @property({ type: Number })
+  get take() {
     const take = Number(window.localStorage.getItem(this.localStorageKey)) || 0;
     if (take > 0) {
       return take;
@@ -67,21 +67,18 @@ export class TitaniumPageControl extends LitElement {
     const defaultTake = this.pageSizes.includes(this.defaultPageSize) ? this.defaultPageSize : this.pageSizes?.[0] ?? 1;
     return defaultTake;
   }
-
-  set(val: number) {
+  set take(val: number) {
     this.page = 0;
     if (!this.pageSizes.includes(val)) {
       this.pageSizes = [...this.pageSizes, val].sort((a, b) => a - b);
     }
     localStorage.setItem(this.localStorageKey, String(val));
-    this.requestUpdate('take');
   }
 
   #getPageStats(page: number, count: number) {
     if (!count) {
       return '0-0 of 0';
     }
-
     const startOfPage = count === 0 ? count : page * this.take + 1;
     const endOfPage = (page + 1) * this.take > count ? count : (page + 1) * this.take;
     return `${startOfPage}-${endOfPage} of ${count}`;
