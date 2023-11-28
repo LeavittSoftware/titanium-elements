@@ -38,6 +38,7 @@ export class TitaniumSearchInput extends ExtendableOutlinedTextField {
     :host {
       display: block;
       cursor: pointer;
+      overflow: hidden;
     }
 
     md-outlined-text-field {
