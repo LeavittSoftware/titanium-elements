@@ -162,7 +162,7 @@ export class ProfilePictureMenu extends LitElement {
           .size=${this.size}
           @click=${() => {
             if (this.personId) {
-              this.menu.show();
+              this.menu.open = !this.menu.open;
             } else {
               GetUserManagerInstance().authenticateAsync();
             }
