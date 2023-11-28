@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.18.0...@leavittsoftware/web@1.18.1) (2023-11-28)
+
+### Bug Fixes
+
+- data table and paging ([216da4d](https://github.com/LeavittSoftware/titanium-elements/commit/216da4d79fefb55506f23bc2613a939a28b8e9a5))
+- prevent resize on textarea ([539e05e](https://github.com/LeavittSoftware/titanium-elements/commit/539e05ed40793b29d5c3330f06eaf1768085cb91))
+
 # [1.18.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.17.4...@leavittsoftware/web@1.18.0) (2023-11-22)
 
 ### Features
