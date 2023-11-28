@@ -2,6 +2,7 @@ import './profile-picture';
 import '@material/web/menu/menu';
 import '@material/web/button/outlined-button';
 import '@material/web/button/text-button';
+import '@material/web/iconbutton/icon-button';
 
 import { GetUserManagerInstance } from '../user-manager/user-manager';
 import { UserManagerUpdatedEvent } from '../user-manager/user-manager-events';
@@ -80,16 +81,7 @@ export class ProfilePictureMenu extends LitElement {
   static styles = css`
     :host {
       display: block;
-      /* --md-menu-container-color: var(--md-sys-color-surface-variant); */
-    }
-
-    div {
-      display: inline-block;
       position: relative;
-    }
-
-    profile-picture {
-      cursor: pointer;
     }
 
     md-menu main {
@@ -149,42 +141,38 @@ export class ProfilePictureMenu extends LitElement {
 
   render() {
     return html`
-      <div
+      <md-icon-button
+        id="icon-button"
+        @click=${() => {
+          if (this.personId) {
+            this.menu.open = !this.menu.open;
+          } else {
+            GetUserManagerInstance().authenticateAsync();
+          }
+        }}
         style=${styleMap({
           height: `${this.size}px`,
           width: `${this.size}px`,
         })}
       >
-        <profile-picture
-          id="profile-picture"
-          shape="circle"
-          .fileName=${this.profilePictureFileName}
-          .size=${this.size}
-          @click=${() => {
-            if (this.personId) {
-              this.menu.open = !this.menu.open;
-            } else {
-              GetUserManagerInstance().authenticateAsync();
-            }
-          }}
-        ></profile-picture>
-        <md-menu y-offset="4" anchor="profile-picture" menu-corner="start-end" anchor-corner="end-end" .positioning=${this.positioning}>
-          <main>
-            <profile-picture shape="circle" .fileName=${this.profilePictureFileName} size="90"></profile-picture>
-            <h1>${this.name}</h1>
-            ${this.company ? html`<h2 company>${this.company}</h2>` : ''}
-            <h2>${this.email}</h2>
-            <slot-container>
-              <slot name="content"></slot>
-            </slot-container>
-            <md-outlined-button account href="https://accounts.leavitt.com/" target="_blank">Manage your Leavitt account</md-outlined-button>
-          </main>
-          <md-divider role="separator" tabindex="-1"></md-divider>
-          <footer>
-            <md-text-button @click=${() => GetUserManagerInstance().logout()}>Sign out</md-text-button>
-          </footer>
-        </md-menu>
-      </div>
+        <profile-picture shape="circle" .fileName=${this.profilePictureFileName} .size=${this.size}></profile-picture>
+      </md-icon-button>
+      <md-menu y-offset="4" anchor="icon-button" menu-corner="start-end" anchor-corner="end-end" .positioning=${this.positioning}>
+        <main>
+          <profile-picture shape="circle" .fileName=${this.profilePictureFileName} size="90"></profile-picture>
+          <h1>${this.name}</h1>
+          ${this.company ? html`<h2 company>${this.company}</h2>` : ''}
+          <h2>${this.email}</h2>
+          <slot-container>
+            <slot name="content"></slot>
+          </slot-container>
+          <md-outlined-button account href="https://accounts.leavitt.com/" target="_blank">Manage your Leavitt account</md-outlined-button>
+        </main>
+        <md-divider role="separator" tabindex="-1"></md-divider>
+        <footer>
+          <md-text-button @click=${() => GetUserManagerInstance().logout()}>Sign out</md-text-button>
+        </footer>
+      </md-menu>
     `;
   }
 }
