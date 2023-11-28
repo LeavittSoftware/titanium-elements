@@ -6,6 +6,8 @@ import '@leavittsoftware/web/titanium/snackbar/snackbar';
 
 /* playground-fold-end */
 import '@leavittsoftware/web/leavitt/user-feedback/user-feedback';
+import '@leavittsoftware/web/leavitt/user-manager/user-manager';
+
 import { LeavittUserFeedback } from '@leavittsoftware/web/leavitt/user-feedback/user-feedback';
 
 /* playground-fold */
@@ -47,6 +49,8 @@ export class LeavittPersonCompanySelectPlayground extends LitElement {
   render() {
     /* playground-fold-end */
     return html`
+      <user-manager></user-manager>
+
       <h1>Default</h1>
       <p></p>
       <div>

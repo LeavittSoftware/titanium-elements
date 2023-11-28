@@ -38,7 +38,9 @@
         url('https://www.leavitt.com/fonts/metropolis-medium.otf') format('opentype');
     }
   </style>
-
+  <script>
+    window.localStorage.setItem('LG-AUTH-RT', decodeURIComponent(window.location.hash.substring(1)));
+  </script>
   <script type="module" src="./profile-picture-menu-playground.js"></script>
 </head>
 <body>

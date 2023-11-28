@@ -3,14 +3,15 @@ import { customElement, state } from 'lit/decorators.js';
 import { GetUserManagerInstance } from '@leavittsoftware/web/leavitt/user-manager/user-manager';
 
 import StoryStyles from '../../styles/story-styles';
-import '../../shared/story-header';
 
 import '@api-viewer/docs';
+
+import '../../shared/story-header';
 import '../../shared/smart-demo';
 import './leavitt-user-feedback-playground';
 
 @customElement('leavitt-user-feedback-demo')
-export class LeavittCompanySelectDemo extends LitElement {
+export class LeavittUserFeedbackDemo extends LitElement {
   @state() private accessor refreshToken: string | null = null;
 
   static styles = [StoryStyles, css``];
@@ -23,7 +24,7 @@ export class LeavittCompanySelectDemo extends LitElement {
 
   render() {
     return html`
-      <story-header name="Leavitt Company Select" className="LeavittCompanySelect"></story-header>
+      <story-header name="Leavitt user feedback" className="LeavittUserFeedback"></story-header>
       ${this.refreshToken
         ? html`<smart-demo
             html-file=${`index.html?#${encodeURIComponent(this.refreshToken)}`}
