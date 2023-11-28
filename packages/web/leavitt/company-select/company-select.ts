@@ -73,7 +73,7 @@ export class LeavittCompanySelect extends TitaniumSingleSelectBase<Partial<Compa
     if (!this.disableAutoLoad) {
       console.warn('leavitt-company-select reloadCompanies method has been called manually without setting disableAutoLoad');
     }
-    this.#reloadCompanies();
+    await this.#reloadCompanies();
   }
 
   async #reloadCompanies() {
