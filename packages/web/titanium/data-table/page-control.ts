@@ -57,7 +57,6 @@ export class TitaniumPageControl extends LitElement {
   /**
    * Gets or sets take value and assigns it to local storage.
    */
-  @property({ type: Number })
   get take() {
     const take = Number(window.localStorage.getItem(this.localStorageKey)) || 0;
     if (take > 0) {
@@ -67,6 +66,7 @@ export class TitaniumPageControl extends LitElement {
     const defaultTake = this.pageSizes.includes(this.defaultPageSize) ? this.defaultPageSize : this.pageSizes?.[0] ?? 1;
     return defaultTake;
   }
+  @property({ type: Number })
   set take(val: number) {
     this.page = 0;
     if (!this.pageSizes.includes(val)) {
