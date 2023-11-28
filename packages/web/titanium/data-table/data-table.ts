@@ -610,7 +610,7 @@ export class TitaniumDataTable extends LitElement {
                   .count=${this.count}
                   .pageSizes=${this.pageSizes}
                   .defaultPageSize=${this.defaultPageSize}
-                  .localStorageKey="${this.header}-take"
+                  .localStorageKey=${this.localStorageKey || `${this.header}-take`}
                   @action=${() => {
                     this.dispatchEvent(new CustomEvent('paging-changed', { composed: true }));
                   }}
