@@ -372,6 +372,7 @@ export class TitaniumDataTable extends LitElement {
         margin: 0 !important;
         padding: 0 12px 12px 24px;
         align-content: end;
+        z-index: 1;
       }
 
       selected-actions h2 {
