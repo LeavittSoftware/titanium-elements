@@ -3,13 +3,13 @@
 name: Lint & Tests
 
 # Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
+# events but only for the material-2 branch
 on:
   push:
     branches:
       - '*' # matches every branch
       - '*/*' # matches every branch containing a single '/'
-      - '!master' # excludes master
+      - '!material-2' # excludes material-2
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
