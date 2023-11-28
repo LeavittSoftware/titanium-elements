@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.19.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.18.3...@leavittsoftware/web@1.19.0) (2023-11-28)
+
+### Bug Fixes
+
+- **data-table:** selected action z-index allowing chips to overflow ([a6028ea](https://github.com/LeavittSoftware/titanium-elements/commit/a6028eaf9bb315c01ff97866975e71663befa7a5))
+- **profile-picture-menu:** clicking menu toggle menu open/closes ([94932c5](https://github.com/LeavittSoftware/titanium-elements/commit/94932c5d719567a6d2b3a048e86675d6a4684072))
+
+### Features
+
+- **profile-picture-menu:** uses profile picture menu for accessibility and keyboard ([041eb2f](https://github.com/LeavittSoftware/titanium-elements/commit/041eb2fdb4e1c1238208bd866a058c824a52d344))
+
 ## [1.18.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.18.2...@leavittsoftware/web@1.18.3) (2023-11-28)
 
 ### Bug Fixes
