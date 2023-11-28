@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.18.2...@leavittsoftware/web@1.18.3) (2023-11-28)
+
+### Bug Fixes
+
+- add missing await ([0f059cc](https://github.com/LeavittSoftware/titanium-elements/commit/0f059ccd6cbeb7b1523db4f18bb4f4ebbad26721))
+
 ## [1.18.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.18.1...@leavittsoftware/web@1.18.2) (2023-11-28)
 
 **Note:** Version bump only for package @leavittsoftware/web
