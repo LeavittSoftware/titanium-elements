@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 5.0.2 (2023-11-28)
+
+### Bug Fixes
+
+- **color-input:** remove import from lit-element ([2b4c564](https://github.com/LeavittSoftware/titanium-elements/commit/2b4c56455aaaf79f936349ac14007024b914c66c))
+
 ## 5.0.1 (2023-03-17)
 
 **Note:** Version bump only for package @leavittsoftware/titanium-color-input
