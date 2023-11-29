@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.22.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.21.0...@leavittsoftware/web@1.22.0) (2023-11-29)
+
+### Bug Fixes
+
+- **data-table:** selected action z-index allowing chips to overflow ([a6028ea](https://github.com/LeavittSoftware/titanium-elements/commit/a6028eaf9bb315c01ff97866975e71663befa7a5))
+- **profile-picture-menu:** clicking menu toggle menu open/closes ([94932c5](https://github.com/LeavittSoftware/titanium-elements/commit/94932c5d719567a6d2b3a048e86675d6a4684072))
+- remove pointer on drawer h4 ([ad78fb6](https://github.com/LeavittSoftware/titanium-elements/commit/ad78fb6377bbfaaeed520ff6966749f4e61980bf))
+- **search-input:** prevent input from overflowing in collapsed mode ([e0a0391](https://github.com/LeavittSoftware/titanium-elements/commit/e0a03910237d618da3316fe9937186f100fe6665))
+
+### Features
+
+- **profile-picture-menu:** uses profile picture menu for accessibility and keyboard ([041eb2f](https://github.com/LeavittSoftware/titanium-elements/commit/041eb2fdb4e1c1238208bd866a058c824a52d344))
+
 # [1.21.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.20.0...@leavittsoftware/web@1.21.0) (2023-11-29)
 
 ### Bug Fixes
