@@ -13,10 +13,10 @@ import { TitaniumSmartAttachmentInput } from '@leavittsoftware/web/titanium/smar
 export class TitaniumSmartAttachmentInputPlayground extends LitElement {
   @state() protected getFilesResult: string | null = null;
   @state() protected hasChanges: boolean = false;
-  @query('titanium-smart-attachment-input[get-files]') protected getFilesInput!: TitaniumSmartAttachmentInput;
-  @query('titanium-smart-attachment-input[preselect]') protected preselectFilesInput!: TitaniumSmartAttachmentInput;
-  @query('titanium-smart-attachment-input[preselect-disabled]') protected preselectDisabledFilesInput!: TitaniumSmartAttachmentInput;
-  @query('titanium-smart-attachment-input[reset]') protected resetInput!: TitaniumSmartAttachmentInput;
+  @query('titanium-smart-attachment-input[get-files]') protected accessor getFilesInput!: TitaniumSmartAttachmentInput;
+  @query('titanium-smart-attachment-input[preselect]') protected accessor preselectFilesInput!: TitaniumSmartAttachmentInput;
+  @query('titanium-smart-attachment-input[preselect-disabled]') protected accessor preselectDisabledFilesInput!: TitaniumSmartAttachmentInput;
+  @query('titanium-smart-attachment-input[reset]') protected accessor resetInput!: TitaniumSmartAttachmentInput;
 
   static styles = [
     h1,

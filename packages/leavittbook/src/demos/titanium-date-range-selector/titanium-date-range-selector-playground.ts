@@ -13,12 +13,12 @@ import { DateRanges } from '@leavittsoftware/web/titanium/date-range-selector/ty
 
 /* playground-fold */
 @customElement('titanium-date-range-selector-playground')
-export class TitaniumDateRangePlaygroundElement extends LitElement {
-  @query('titanium-date-range-selector[events]') protected eventsDemoInput!: TitaniumDateRangeSelector;
+export class TitaniumDateRangePlayground extends LitElement {
+  @query('titanium-date-range-selector[events]') protected accessor eventsDemoInput!: TitaniumDateRangeSelector;
 
-  @state() protected startDate: string = '2020-01-02';
-  @state() protected endDate: string = '2020-01-04';
-  @state() eventFired: boolean = false;
+  @state() protected accessor startDate: string = '2020-01-02';
+  @state() protected accessor endDate: string = '2020-01-04';
+  @state() protected accessor eventFired: boolean = false;
 
   static styles = [
     h1,
@@ -90,7 +90,7 @@ export class TitaniumDateRangePlaygroundElement extends LitElement {
           events
           .startDate=${this.startDate}
           .endDate=${this.endDate}
-          @date-range-changed=${() => {
+          @change=${() => {
             this.eventFired = true;
             setTimeout(() => (this.eventFired = false), 1000);
           }}
@@ -111,15 +111,12 @@ export class TitaniumDateRangePlaygroundElement extends LitElement {
       <h1>Default</h1>
       <p>Examples using default, range, startDate, and endDate</p>
       <div>
-        <titanium-date-range-selector
-          style="width: 850px"
-          startDate=${dayjs().format('YYYY-MM-DD')}
-          endDate=${dayjs().format('YYYY-MM-DD')}
-        ></titanium-date-range-selector>
-        <titanium-date-range-selector label="Created date" style="width: 586px"></titanium-date-range-selector>
-        <titanium-date-range-selector range="thisWeek" style="width: 512px"></titanium-date-range-selector>
-        <titanium-date-range-selector range="thisWeek" style="width: 438px"></titanium-date-range-selector>
-        <titanium-date-range-selector endDate="2022-05-17" style="width: 320px"></titanium-date-range-selector>
+        <titanium-date-range-selector startDate=${dayjs().format('YYYY-MM-DD')} endDate=${dayjs().format('YYYY-MM-DD')}></titanium-date-range-selector>
+        <titanium-date-range-selector label="Reporting date"></titanium-date-range-selector>
+        <titanium-date-range-selector range="thisWeek"></titanium-date-range-selector>
+        <titanium-date-range-selector range="thisWeek"></titanium-date-range-selector>
+        <titanium-date-range-selector endDate="2022-05-17"></titanium-date-range-selector>
+        <titanium-date-range-selector startDate="2023-09-01"></titanium-date-range-selector>
         <titanium-date-range-selector
           label="Custom override"
           .customDateRanges=${new Map([...DateRanges, ['allTime', { name: 'All time, but different', startDate: '', endDate: '', icon: 'dashboard' }]])}

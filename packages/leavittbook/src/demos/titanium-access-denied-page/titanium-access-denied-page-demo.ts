@@ -9,12 +9,12 @@ import '../../shared/smart-demo';
 import './titanium-access-denied-page-playground';
 
 @customElement('titanium-access-denied-page-demo')
-export class TitaniumAccessDeniedDemoElement extends LitElement {
+export class TitaniumAccessDeniedDemo extends LitElement {
   static styles = [StoryStyles, css``];
 
   render() {
     return html`
-      <story-header name="Titanium access denied page" packageName="titanium-access-denied-page" className="TitaniumAccessDeniedPageElement"></story-header>
+      <story-header name="Titanium access denied page" className="TitaniumAccessDeniedPage"></story-header>
       <smart-demo line-numbers resizable project-src="../src/demos/titanium-access-denied-page/project.json"
         ><titanium-access-denied-page-playground></titanium-access-denied-page-playground>
       </smart-demo>

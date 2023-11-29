@@ -4,8 +4,8 @@ import { TitaniumSnackbarSingleton } from '../../titanium/snackbar/snackbar';
 
 @customElement('titanium-service-worker-notifier')
 export class TitanuimServiceWorkerNotifier extends LitElement {
-  @property({ type: String }) notificationsStatus: string;
-  @property({ type: String }) scriptUrl: string = 'service-worker.js';
+  @property({ type: String }) accessor notificationsStatus: string;
+  @property({ type: String }) accessor scriptUrl: string = 'service-worker.js';
 
   #newWorker: ServiceWorker | null;
   #refreshing = false;

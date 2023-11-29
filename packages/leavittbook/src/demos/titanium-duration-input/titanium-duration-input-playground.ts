@@ -17,8 +17,8 @@ import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
 /* playground-fold */
 @customElement('titanium-duration-input-playground')
 export class TitaniumDurationInputPlayground extends LitElement {
-  @state() duration: duration.Duration | null = dayjs.duration(14400);
-  @query('titanium-duration-input[demo]') requiredInput: TitaniumDurationInput;
+  @state() private accessor duration: duration.Duration | null = dayjs.duration(14400);
+  @query('titanium-duration-input[demo]') private accessor requiredInput: TitaniumDurationInput;
 
   static styles = [
     h1,

@@ -12,7 +12,7 @@ import { ConfirmDialogOpenEvent } from '@leavittsoftware/web/titanium/confirm-di
 /* playground-fold */
 @customElement('titanium-confirm-dialog-playground')
 export class TitaniumConfirmDialogPlayground extends LitElement {
-  @state() private confirmed = false;
+  @state() private accessor confirmed = false;
 
   async #open() {
     const confirmationDialogEvent = new ConfirmDialogOpenEvent(

@@ -18,20 +18,20 @@ import '@material/web/button/outlined-button';
  * @cssprop [--titanium-show-hide-gap=8px] - flex direction of the for the parent of the slotted in content
  */
 @customElement('titanium-show-hide')
-export default class TitaniumShowHideElement extends LitElement {
+export default class TitaniumShowHide extends LitElement {
   /**
    * This will be the height of the content you want visible when collapsed.
    * An example would be if you have a list of items where each item is 20px in height
    * and you want to show only the first 2 items pass in 48px (height of 2 items + gap).
    */
-  @property({ type: Number, attribute: 'collapse-height' }) collapseHeight: number = 120;
-  @property({ type: Boolean, reflect: true, attribute: 'disable-fade' }) disableFade: boolean = false;
-  @property({ type: Boolean, reflect: true, attribute: 'collapsed' }) collapsed: boolean = true;
-  @property({ type: Boolean, reflect: true, attribute: 'has-hidden-items' }) protected hasHiddenItems: boolean = false;
-  @property({ type: Number }) hiddenItemCount: number = 0;
+  @property({ type: Number, attribute: 'collapse-height' }) accessor collapseHeight: number = 120;
+  @property({ type: Boolean, reflect: true, attribute: 'disable-fade' }) accessor disableFade: boolean = false;
+  @property({ type: Boolean, reflect: true, attribute: 'collapsed' }) accessor collapsed: boolean = true;
+  @property({ type: Boolean, reflect: true, attribute: 'has-hidden-items' }) protected accessor hasHiddenItems: boolean = false;
+  @property({ type: Number }) accessor hiddenItemCount: number = 0;
 
-  @query('items-container') protected itemsContainer: HTMLElement;
-  @query('collapsed-box') protected collapsedContainer: HTMLElement;
+  @query('items-container') protected accessor itemsContainer: HTMLElement;
+  @query('collapsed-box') protected accessor collapsedContainer: HTMLElement;
 
   updated(changedProps: PropertyValues<this>) {
     if (changedProps.has('collapsed')) {

@@ -4,10 +4,10 @@ import { CountUp } from 'countup.js';
 
 @customElement('npm-stats')
 export default class NpmStats extends LitElement {
-  @query('span.major') protected major: HTMLDivElement;
-  @query('span.minor') protected minor: HTMLDivElement;
-  @query('span.rev') protected rev: HTMLDivElement;
-  @query('span.downloads') protected downloads: HTMLDivElement;
+  @query('span.major') protected accessor major: HTMLDivElement;
+  @query('span.minor') protected accessor minor: HTMLDivElement;
+  @query('span.rev') protected accessor rev: HTMLDivElement;
+  @query('span.downloads') protected accessor downloads: HTMLDivElement;
 
   #package = '@leavittsoftware%2Fweb';
 

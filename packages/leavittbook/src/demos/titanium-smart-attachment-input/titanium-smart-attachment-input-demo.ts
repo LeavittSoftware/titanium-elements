@@ -9,16 +9,12 @@ import '../../shared/smart-demo';
 import './titanium-smart-attachment-input-playground';
 
 @customElement('titanium-smart-attachment-input-demo')
-export class TitaniumSmartAttachmentInputDemoElement extends LitElement {
+export class TitaniumSmartAttachmentInputDemo extends LitElement {
   static styles = [StoryStyles, css``];
 
   render() {
     return html`
-      <story-header
-        name="Titanium Smart Attachment Input"
-        packageName="titanium-smart-attachment-input"
-        className="TitaniumSmartAttachmentInputElement"
-      ></story-header>
+      <story-header name="Titanium Smart Attachment Input" className="TitaniumSmartAttachmentInput"></story-header>
       <smart-demo line-numbers resizable project-src="../src/demos/titanium-smart-attachment-input/project.json"
         ><titanium-smart-attachment-input-playground></titanium-smart-attachment-input-playground>
       </smart-demo>

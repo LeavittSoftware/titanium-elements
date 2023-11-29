@@ -9,36 +9,36 @@ import { customElement, property } from 'lit/decorators.js';
  *
  */
 @customElement('profile-picture')
-export class ProfilePictureElement extends LitElement {
+export class ProfilePicture extends LitElement {
   /**
    * File name of the profile picture on CDN, no extension
    */
-  @property({ reflect: true, type: String }) fileName: string | null;
+  @property({ reflect: true, type: String }) accessor fileName: string | null;
 
   /**
    * Shape of profile picture
    */
-  @property({ reflect: true, type: String }) shape: 'circle' | 'square' = 'circle';
+  @property({ reflect: true, type: String }) accessor shape: 'circle' | 'square' = 'circle';
 
   /**
    * Shows a colored ring around the picture
    */
-  @property({ reflect: true, type: Boolean, attribute: 'show-ring' }) showRing: boolean;
+  @property({ reflect: true, type: Boolean, attribute: 'show-ring' }) accessor showRing: boolean;
 
   /**
    * Makes the image a link to the respective profile page
    */
-  @property({ reflect: true, type: Number, attribute: 'profile-picture-link-person-id' }) profilePictureLinkPersonId: number | null;
+  @property({ reflect: true, type: Number, attribute: 'profile-picture-link-person-id' }) accessor profilePictureLinkPersonId: number | null;
 
   /**
    * Size in pixels of profile picture
    */
-  @property({ type: Number }) size: number = 120;
+  @property({ type: Number }) accessor size: number = 120;
 
   /**
    *  Setting true will cause the size attribute to only determine what size image to fetch from CDN and not set any CSS size styles on the image. Therefore the image will be displayed at its intrinsic size unless further overridden by the consumer.
    */
-  @property({ type: Boolean }) useIntrinsicImageSize: boolean = false;
+  @property({ type: Boolean }) accessor useIntrinsicImageSize: boolean = false;
 
   #availableSizes = new Set([32, 64, 128, 256, 512, 1024]);
 

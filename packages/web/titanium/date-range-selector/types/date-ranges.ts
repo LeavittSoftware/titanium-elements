@@ -15,6 +15,15 @@ const lastYear: Dayjs = today.subtract(1, 'year');
 
 export const DateRanges = new Map<DateRangeKey, DateRangeOption>([
   [
+    'allTime',
+    {
+      name: 'All time',
+      startDate: '',
+      endDate: '',
+      icon: 'watch_later',
+    },
+  ],
+  [
     'today',
     {
       name: 'Today',
@@ -129,15 +138,6 @@ export const DateRanges = new Map<DateRangeKey, DateRangeOption>([
       startDate: yesterday.format('YYYY-MM-DD'),
       endDate: yesterday.format('YYYY-MM-DD'),
       icon: 'event_repeat',
-    },
-  ],
-  [
-    'allTime',
-    {
-      name: 'All time',
-      startDate: '',
-      endDate: '',
-      icon: 'watch_later',
     },
   ],
 ]);

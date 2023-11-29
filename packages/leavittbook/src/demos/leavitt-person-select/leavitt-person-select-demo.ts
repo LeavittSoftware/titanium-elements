@@ -10,8 +10,8 @@ import '../../shared/smart-demo';
 import './leavitt-person-select-playground';
 
 @customElement('leavitt-person-select-demo')
-export class LeavittPersonSelectDemoElement extends LitElement {
-  @state() refreshToken: string | null = null;
+export class LeavittPersonSelectDemo extends LitElement {
+  @state() private accessor refreshToken: string | null = null;
 
   static styles = [StoryStyles, css``];
 
@@ -23,7 +23,7 @@ export class LeavittPersonSelectDemoElement extends LitElement {
 
   render() {
     return html`
-      <story-header name="Leavitt Person Select" packageName="leavitt-elements" className="LeavittPersonSelectElement"></story-header>
+      <story-header name="Leavitt Person Select" className="LeavittPersonSelect"></story-header>
       ${this.refreshToken
         ? html`<smart-demo
             html-file=${`index.html?#${encodeURIComponent(this.refreshToken)}`}

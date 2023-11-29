@@ -11,7 +11,7 @@ import { TitaniumDataTableItem } from '@leavittsoftware/web/titanium/data-table/
 /* playground-fold */
 @customElement('titanium-data-table-item-playground')
 export class TitaniumDataTableItemPlayground extends LitElement {
-  @query('titanium-data-table-item[select-demo]') protected selectItem!: TitaniumDataTableItem;
+  @query('titanium-data-table-item[select-demo]') protected accessor selectItem!: TitaniumDataTableItem;
 
   static styles = [
     h1,

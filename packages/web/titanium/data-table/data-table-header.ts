@@ -18,62 +18,62 @@ export class TitaniumDataTableHeader extends LitElement {
   /**
    * This displayed header name
    */
-  @property({ type: String }) title: string;
+  @property({ type: String }) accessor title: string;
 
   /**
    * The column name of the currently applied sort
    */
-  @property({ type: String }) sortBy: string;
+  @property({ type: String }) accessor sortBy: string;
 
   /**
    * Optional fixed width of header in px  ex. "140px"
    */
-  @property({ reflect: true, type: String }) width: string;
+  @property({ reflect: true, type: String }) accessor width: string;
 
   /**
    * True if header is currently the sorted column. Read-only, do not set.
    */
-  @property({ type: Boolean, reflect: true }) active: boolean = false;
+  @property({ type: Boolean, reflect: true }) accessor active: boolean = false;
 
   /**
    * Current sort direction on header.
    */
-  @property({ type: String, reflect: true, attribute: 'sort-direction' }) sortDirection: 'asc' | 'desc' | '';
+  @property({ type: String, reflect: true, attribute: 'sort-direction' }) accessor sortDirection: 'asc' | 'desc' | '';
 
   /**
    * Name of header column passed along in sort-by-changed event.  Typically the name of the col in the backing DB. ex. first_name
    */
-  @property({ type: String, attribute: 'column-name' }) columnName: string;
+  @property({ type: String, attribute: 'column-name' }) accessor columnName: string;
 
   /**
    * Justify header text center
    */
-  @property({ type: Boolean, reflect: true }) center: boolean = false;
+  @property({ type: Boolean, reflect: true }) accessor center: boolean = false;
 
   /**
    * Justify header text right; moves sort icon to left.
    */
-  @property({ type: Boolean, reflect: true }) right: boolean = false;
+  @property({ type: Boolean, reflect: true }) accessor right: boolean = false;
 
   /**
    * Removes the sort icon
    */
-  @property({ type: Boolean, reflect: true, attribute: 'no-sort' }) noSort: boolean = false;
+  @property({ type: Boolean, reflect: true, attribute: 'no-sort' }) accessor noSort: boolean = false;
 
   /**
    * Set flex 5 on header, default is 3.
    */
-  @property({ type: Boolean, reflect: true }) large: boolean = false;
+  @property({ type: Boolean, reflect: true }) accessor large: boolean = false;
 
   /**
    * Only show this header when width is larger
    */
-  @property({ type: Boolean, reflect: true }) desktop: boolean = false;
+  @property({ type: Boolean, reflect: true }) accessor desktop: boolean = false;
 
   /**
    *  Sets if view port is small
    */
-  @property({ type: Boolean, reflect: true }) narrow: boolean = false;
+  @property({ type: Boolean, reflect: true }) accessor narrow: boolean = false;
 
   updated(changedProps) {
     if (changedProps.has('sortBy') && changedProps.get('sortBy') !== this.sortBy) {

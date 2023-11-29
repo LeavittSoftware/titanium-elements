@@ -29,7 +29,7 @@ export class TitaniumAddressInput extends GoogleAddressInput {
    */
   @property({ type: Boolean, attribute: 'show-county' }) accessor showCounty: boolean = false;
 
-  @query('manual-address-dialog') manualAddressDialog: ManualAddressDialog;
+  @query('manual-address-dialog') private accessor manualAddressDialog: ManualAddressDialog;
 
   static styles = [
     ...GoogleAddressInput.styles,
@@ -46,9 +46,11 @@ export class TitaniumAddressInput extends GoogleAddressInput {
   override renderTrailingSlot() {
     return html`<manual-address-dialog .showCounty=${this.showCounty} .showStreet2=${this.showStreet2} .label=${this.label}></manual-address-dialog>`;
   }
+
   override renderTrailingInputSlot() {
     return html`
       <md-icon-button
+        ?hidden=${this.isLoading}
         ?disabled=${this.disabled}
         slot="trailing-icon"
         title="Can't find address"

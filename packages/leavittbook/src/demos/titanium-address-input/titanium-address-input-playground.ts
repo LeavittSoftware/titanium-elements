@@ -17,10 +17,10 @@ import { GoogleAddressInput } from '@leavittsoftware/web/titanium/address-input/
 /* playground-fold */
 @customElement('titanium-address-input-playground')
 export class TitaniumAddressInputPlayground extends LitElement {
-  @state() protected setLocationResult: string | null = null;
+  @state() protected accessor setLocationResult: string | null = null;
 
-  @query('google-address-input[demo-a]') protected googleAddressInputDemoA!: GoogleAddressInput;
-  @query('titanium-address-input[demo-a]') protected titaniumAddressInputDemoA!: TitaniumAddressInput;
+  @query('google-address-input[demo-a]') protected accessor googleAddressInputDemoA!: GoogleAddressInput;
+  @query('titanium-address-input[demo-a]') protected accessor titaniumAddressInputDemoA!: TitaniumAddressInput;
 
   static styles = [
     h1,

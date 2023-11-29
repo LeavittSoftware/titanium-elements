@@ -12,17 +12,17 @@ import { customElement, property, query } from 'lit/decorators.js';
  */
 @customElement('titanium-drawer')
 export class TitaniumDrawer extends LitElement {
-  @query('dialog') private dialog: HTMLDialogElement | null;
+  @query('dialog') private accessor dialog: HTMLDialogElement | null;
 
   /**
    * Set the position of content fixed when menu is closed. Only takes effect if always-show-content is set.
    */
-  @property({ type: Boolean, reflect: true }) fixed: boolean = false;
+  @property({ type: Boolean, reflect: true }) accessor fixed: boolean = false;
 
   /**
    * Show the slotted content regardless if the menu is open or closed
    */
-  @property({ type: Boolean, reflect: true, attribute: 'always-show-content' }) alwayShowContent: boolean = false;
+  @property({ type: Boolean, reflect: true, attribute: 'always-show-content' }) accessor alwayShowContent: boolean = false;
 
   async firstUpdated() {
     let touchstartX = 0;
@@ -162,7 +162,7 @@ export class TitaniumDrawer extends LitElement {
       color: var(--md-sys-color-on-background);
       margin: 0px;
       font-weight: 400;
-      padding: 12px 0px 8px 24px;
+      padding: 12px 0px 4px 24px;
     }
 
     ::slotted(h4) {
@@ -171,7 +171,6 @@ export class TitaniumDrawer extends LitElement {
       text-overflow: ellipsis;
       color: var(--md-sys-color-on-background);
       font-weight: 400;
-      cursor: pointer;
       margin: 0px;
       padding: 16px 24px 8px 24px;
       min-height: 24px;
@@ -180,7 +179,7 @@ export class TitaniumDrawer extends LitElement {
     ::slotted(h4[sub]) {
       font-weight: 300;
       font-size: 14px;
-      padding: 0px 12px 6px 66px;
+      padding: 4px 12px 2px 66px;
       cursor: inherit;
     }
 

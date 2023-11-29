@@ -9,7 +9,7 @@ import '../../shared/smart-demo';
 import './available-cdn-icons-playground';
 
 @customElement('available-cdn-icons-demo')
-export class AvailableCdnIconsDemoElement extends LitElement {
+export class AvailableCdnIconsDemo extends LitElement {
   static styles = [StoryStyles, css``];
 
   render() {

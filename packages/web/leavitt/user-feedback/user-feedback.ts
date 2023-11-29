@@ -134,6 +134,10 @@ export class LeavittUserFeedback extends LoadWhile(LitElement) {
         --md-primary-tab-container-shape: 12px;
       }
 
+      md-outlined-text-field {
+        resize: none;
+      }
+
       [hidden] {
         display: none !important;
       }

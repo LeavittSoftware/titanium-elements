@@ -21,43 +21,42 @@ export class TitaniumPageControl extends LitElement {
   /**
    * Available page sizes
    */
-  @property({ type: Array }) pageSizes: Array<number> = [10, 15, 20, 50];
+  @property({ type: Array }) accessor pageSizes: Array<number> = [10, 15, 20, 50];
 
   /**
    * The default page size before the user changes it
    */
-  @property({ type: Number, attribute: 'default-page-size' }) defaultPageSize: number = 10;
+  @property({ type: Number, attribute: 'default-page-size' }) accessor defaultPageSize: number = 10;
 
   /**
    * Current page of data the table is on
    */
-  @property({ type: Number }) page: number = 0;
+  @property({ type: Number }) accessor page: number = 0;
 
   /**
    * Total number of items in all pages.
    */
-  @property({ type: Number }) count: number;
+  @property({ type: Number }) accessor count: number;
 
   /**
    * Local storage key to save the current page size.
    */
-  @property({ type: String }) localStorageKey: string;
+  @property({ type: String }) accessor localStorageKey: string;
 
   /**
    * Label for the page control. If not provided, defaults to 'Items per page'.
    */
-  @property({ type: String }) label: string = 'Items per page';
+  @property({ type: String }) accessor label: string = 'Items per page';
 
   /**
    * Disables the page control select and page navigation buttons when true
    */
-  @property({ type: Boolean }) disabled: boolean;
-  @queryAsync('md-select') protected select: MdOutlinedSelect;
+  @property({ type: Boolean }) accessor disabled: boolean;
+  @queryAsync('md-select') protected accessor select: MdOutlinedSelect;
 
   /**
    * Gets or sets take value and assigns it to local storage.
    */
-  @property({ type: Number })
   get take() {
     const take = Number(window.localStorage.getItem(this.localStorageKey)) || 0;
     if (take > 0) {
@@ -67,21 +66,19 @@ export class TitaniumPageControl extends LitElement {
     const defaultTake = this.pageSizes.includes(this.defaultPageSize) ? this.defaultPageSize : this.pageSizes?.[0] ?? 1;
     return defaultTake;
   }
-
+  @property({ type: Number })
   set take(val: number) {
     this.page = 0;
     if (!this.pageSizes.includes(val)) {
       this.pageSizes = [...this.pageSizes, val].sort((a, b) => a - b);
     }
     localStorage.setItem(this.localStorageKey, String(val));
-    this.requestUpdate('take');
   }
 
   #getPageStats(page: number, count: number) {
     if (!count) {
       return '0-0 of 0';
     }
-
     const startOfPage = count === 0 ? count : page * this.take + 1;
     const endOfPage = (page + 1) * this.take > count ? count : (page + 1) * this.take;
     return `${startOfPage}-${endOfPage} of ${count}`;

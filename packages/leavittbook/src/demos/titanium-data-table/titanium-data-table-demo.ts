@@ -10,12 +10,12 @@ import './draggable';
 import './full-working-example';
 
 @customElement('titanium-data-table-demo')
-export class TitaniumDataTableDemoElement extends LitElement {
+export class TitaniumDataTableDemo extends LitElement {
   static styles = [StoryStyles, css``];
 
   render() {
     return html`
-      <story-header name="Titanium data table" packageName="titanium-data-table" className="TitaniumDataTableElement"></story-header>
+      <story-header name="Titanium data table" className="TitaniumDataTable"></story-header>
       <smart-demo line-numbers resizable project-src="../src/demos/titanium-data-table/project.json">
         <titanium-data-table-full-playground></titanium-data-table-full-playground>
         <hr />

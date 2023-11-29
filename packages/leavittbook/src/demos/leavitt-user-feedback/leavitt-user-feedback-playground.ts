@@ -1,21 +1,21 @@
 /* playground-fold */
 import { css, html, LitElement } from 'lit';
-import { customElement, query, queryAll, state } from 'lit/decorators.js';
+import { customElement, query, queryAll } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
-import ApiService from '@leavittsoftware/web/leavitt/api-service/api-service';
 import '@leavittsoftware/web/titanium/snackbar/snackbar';
 
 /* playground-fold-end */
 import '@leavittsoftware/web/leavitt/user-feedback/user-feedback';
+import '@leavittsoftware/web/leavitt/user-manager/user-manager';
+
 import { LeavittUserFeedback } from '@leavittsoftware/web/leavitt/user-feedback/user-feedback';
 
 /* playground-fold */
 @customElement('leavitt-user-feedback-playground')
-export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
-  @state() apiService: ApiService;
-  @query('leavitt-user-feedback[methods-demo]') protected methodsSelect!: LeavittUserFeedback;
-  @query('leavitt-user-feedback[duplicate-api-calls]') protected duplicateAPICallsSelect!: LeavittUserFeedback;
-  @queryAll('leavitt-user-feedback') protected inputs!: NodeListOf<LeavittUserFeedback>;
+export class LeavittPersonCompanySelectPlayground extends LitElement {
+  @query('leavitt-user-feedback[methods-demo]') protected accessor methodsSelect!: LeavittUserFeedback;
+  @query('leavitt-user-feedback[duplicate-api-calls]') protected accessor duplicateAPICallsSelect!: LeavittUserFeedback;
+  @queryAll('leavitt-user-feedback') protected accessor inputs!: NodeListOf<LeavittUserFeedback>;
 
   static styles = [
     h1,
@@ -49,6 +49,8 @@ export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
   render() {
     /* playground-fold-end */
     return html`
+      <user-manager></user-manager>
+
       <h1>Default</h1>
       <p></p>
       <div>

@@ -16,10 +16,10 @@ const chipLabels = ['Dog', 'Cat', 'Lion', 'Hedgehog', 'Turtle', 'Monkey', 'Owl',
 /* playground-fold */
 @customElement('titanium-chip-multi-select-playground')
 export class TitaniumChipMultiSelectPlayground extends LitElement {
-  @state() protected demoItems: string[] = chipLabels.slice(0, 4);
-  @state() protected disabled: boolean = false;
-  @state() protected supportingText: string | null = 'Service animals are welcome.';
-  @query('titanium-chip-multi-select[demo2]') titaniumChipMultiSelect: TitaniumChipMultiSelect;
+  @state() protected accessor demoItems: string[] = chipLabels.slice(0, 4);
+  @state() protected accessor disabled: boolean = false;
+  @state() protected accessor supportingText: string | null = 'Service animals are welcome.';
+  @query('titanium-chip-multi-select[demo2]') private accessor titaniumChipMultiSelect: TitaniumChipMultiSelect;
 
   static styles = [
     h1,
@@ -48,10 +48,6 @@ export class TitaniumChipMultiSelectPlayground extends LitElement {
         margin-bottom: 24px;
         align-self: flex-end;
       }
-
-      md-outlined-button span {
-        display: flex;
-      }
     `,
   ];
 
@@ -75,10 +71,8 @@ export class TitaniumChipMultiSelectPlayground extends LitElement {
               this.demoItems.push(chipLabels[this.demoItems.length % chipLabels.length]);
               this.requestUpdate('demoItems');
             }}
+            >Add Animal <md-icon slot="icon">add</md-icon></md-outlined-button
           >
-            <md-icon slot="icon">add</md-icon>
-            <span>Add Animal</span>
-          </md-outlined-button>
           ${repeat(
             this.demoItems,
             (o) => o,

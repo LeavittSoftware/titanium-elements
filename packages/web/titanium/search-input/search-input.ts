@@ -19,14 +19,14 @@ export class TitaniumSearchInput extends ExtendableOutlinedTextField {
   /**
    *  Whether or not the input should hide the clear button
    */
-  @property({ type: Boolean, attribute: 'hide-clear-button' }) hideClearButton: boolean = false;
+  @property({ type: Boolean, attribute: 'hide-clear-button' }) accessor hideClearButton: boolean = false;
 
   /**
    *  Whether the input should prevent collapse.
    */
-  @property({ type: Boolean, reflect: true, attribute: 'prevent-collapse' }) preventCollapse: boolean = false;
+  @property({ type: Boolean, reflect: true, attribute: 'prevent-collapse' }) accessor preventCollapse: boolean = false;
 
-  @property({ type: Boolean, reflect: true, attribute: 'has-value' }) protected hasValue: boolean = true;
+  @property({ type: Boolean, reflect: true, attribute: 'has-value' }) protected accessor hasValue: boolean = true;
 
   async updated(changedProps: PropertyValues<this>) {
     if (changedProps.has('value')) {
@@ -38,6 +38,7 @@ export class TitaniumSearchInput extends ExtendableOutlinedTextField {
     :host {
       display: block;
       cursor: pointer;
+      overflow: hidden;
     }
 
     md-outlined-text-field {
@@ -73,7 +74,7 @@ export class TitaniumSearchInput extends ExtendableOutlinedTextField {
   protected override renderMainSlot() {
     return html`
       <slot></slot>
-      <md-icon-button search @focus=${() => this.focus()} slot="leading-icon"> <md-icon search>search</md-icon></md-icon-button>
+      <md-icon-button search ?disabled=${this.disabled} @focus=${() => this.focus()} slot="leading-icon"> <md-icon search>search</md-icon></md-icon-button>
 
       ${!this.hasValue
         ? nothing

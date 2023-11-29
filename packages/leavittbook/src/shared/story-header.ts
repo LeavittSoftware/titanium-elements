@@ -11,45 +11,47 @@ type CustomElementDeclaration = {
   kind?: string;
 };
 
-@customElement('story-header')
-export default class StoryHeaderElement extends LitElement {
-  @property({ type: String }) name: string;
-  @property({ type: String }) packageName: string;
-  @property({ type: String }) className: string;
-  @property({ type: String }) deprecatedReason: string;
+let customElementsJSON: { modules: [{ declarations: Array<CustomElementDeclaration> }] } | null = null;
 
-  @state()
-  customElementsJSON: { modules: [{ declarations: Array<CustomElementDeclaration> }] } | null = null;
-
-  @state()
-  customElementDeclaration: CustomElementDeclaration | null = null;
-
-  async firstUpdated() {
-    this.customElementsJSON = await this.#readCustomElementsJson('/custom-elements.json');
+const getCustomElementsJSON = async () => {
+  if (!Boolean(customElementsJSON)) {
+    customElementsJSON = await readCustomElementsJson('/custom-elements.json');
   }
 
+  return customElementsJSON;
+};
+
+const readCustomElementsJson = async (path: string) => {
+  try {
+    const response = await fetch(path, {
+      method: 'GET',
+    });
+    const text = await response.text();
+    return text.length ? JSON.parse(text) : {};
+  } catch (error) {
+    console.warn(error);
+  }
+  return null;
+};
+
+@customElement('story-header')
+export default class StoryHeader extends LitElement {
+  @property({ type: String }) accessor name: string;
+  @property({ type: String }) accessor className: string;
+  @property({ type: String }) accessor deprecatedReason: string;
+  @state() private accessor customElementDeclaration: CustomElementDeclaration | null = null;
+
+  @state() private accessor customElementsJSON: { modules: [{ declarations: Array<CustomElementDeclaration> }] } | null = null;
+
   async updated(changedProps: PropertyValues<this>) {
-    if ((changedProps.has('className') || changedProps.has('customElementsJSON')) && this.className && this.customElementsJSON) {
+    if (changedProps.has('className') && this.className) {
+      this.customElementsJSON = await getCustomElementsJSON();
       this.customElementDeclaration = this.customElementsJSON?.modules.flatMap((o) => o.declarations).find((o) => o.name === this.className) ?? null;
     }
   }
 
-  async #readCustomElementsJson(path: string) {
-    try {
-      const response = await fetch(path, {
-        method: 'GET',
-      });
-      const text = await response.text();
-      return text.length ? JSON.parse(text) : {};
-    } catch (error) {
-      console.warn(error);
-    }
-    return null;
-  }
-
   static styles = [
     h1,
-
     p,
     css`
       :host {
@@ -57,14 +59,9 @@ export default class StoryHeaderElement extends LitElement {
         padding-bottom: 48px;
       }
 
-      h1 {
-        padding: 0;
-        margin: 0;
-      }
-
       [code] {
         font-family: Consolas, monospace;
-        font-size: 18px;
+        font-size: 16px;
       }
 
       p[desc] {
@@ -81,7 +78,6 @@ export default class StoryHeaderElement extends LitElement {
 
       info-container {
         display: flex;
-        align-items: center;
         gap: 6px;
       }
 
@@ -91,16 +87,10 @@ export default class StoryHeaderElement extends LitElement {
         gap: 6px;
       }
 
-      [tertiary] {
-        background-color: var(--md-sys-color-tertiary);
-        color: var(--md-sys-color-on-tertiary);
-      }
-
-      info-chip {
-        height: 24px;
-        padding: 0px 6px;
-        border: 1px var(--md-sys-color-outline-variant) solid;
-        border-radius: 12px;
+      @media (max-width: 1150px) {
+        info-container {
+          flex-direction: column;
+        }
       }
     `,
   ];
@@ -108,16 +98,11 @@ export default class StoryHeaderElement extends LitElement {
     return html`
       <h1>${this.name}</h1>
       <info-container>
-        ${
-          this.customElementDeclaration?.tagName
-            ? html`<p code>${'<'}${this.customElementDeclaration?.tagName}${'>'}</p>
-                <p>|</p>`
-            : ''
-        }
         <p code>${this.className}</p>
+        ${this.customElementDeclaration?.tagName ? html`<p code>${'<'}${this.customElementDeclaration?.tagName}${'>'}</p>` : ''}
       </info-container>
       <p desc>${this.customElementDeclaration?.description}</p>
-      
+      <chip-container>
         ${this.deprecatedReason ? html`<md-suggestion-chip disabled label="Deprecated (${this.deprecatedReason})"></md-suggestion-chip>` : nothing}
       </chip-container>
     `;

@@ -16,20 +16,20 @@ import { reportValidityIfError } from '../hacks/report-validity-if-error';
 
 @customElement('manual-address-dialog')
 export class ManualAddressDialog extends LitElement {
-  @query('md-dialog') protected dialog: MdDialog;
+  @query('md-dialog') protected accessor dialog: MdDialog;
 
-  @property({ type: String }) label: string = '';
-  @property({ type: Boolean, attribute: 'show-county' }) showCounty: boolean;
-  @property({ type: Boolean, attribute: 'show-street2' }) showStreet2: boolean;
+  @property({ type: String }) accessor label: string = '';
+  @property({ type: Boolean, attribute: 'show-county' }) accessor showCounty: boolean;
+  @property({ type: Boolean, attribute: 'show-street2' }) accessor showStreet2: boolean;
 
-  @state() protected street: string = '';
-  @state() protected street2: string = '';
-  @state() protected city: string = '';
-  @state() protected county: string = '';
-  @state() protected state: string = '';
-  @state() protected zip: string = '';
+  @state() protected accessor street: string = '';
+  @state() protected accessor street2: string = '';
+  @state() protected accessor city: string = '';
+  @state() protected accessor county: string = '';
+  @state() protected accessor state: string = '';
+  @state() protected accessor zip: string = '';
 
-  @queryAll('md-outlined-text-field, md-outlined-select') protected allInputs: NodeListOf<MdOutlinedTextField | MdOutlinedSelect>;
+  @queryAll('md-outlined-text-field, md-outlined-select') protected accessor allInputs: NodeListOf<MdOutlinedTextField | MdOutlinedSelect>;
 
   resolve: (value: Partial<AddressInputAddress> | null) => void;
 

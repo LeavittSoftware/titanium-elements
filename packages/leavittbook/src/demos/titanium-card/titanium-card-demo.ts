@@ -9,12 +9,12 @@ import '../../shared/smart-demo';
 import './titanium-card-playground';
 
 @customElement('titanium-card-demo')
-export class TitaniumChipDemoElement extends LitElement {
+export class TitaniumChipDemo extends LitElement {
   static styles = [StoryStyles, css``];
 
   render() {
     return html`
-      <story-header name="Titanium card" packageName="titanium-card" className="TitaniumCardElement"></story-header>
+      <story-header name="Titanium card" className="TitaniumCard"></story-header>
       <smart-demo line-numbers resizable project-src="../src/demos/titanium-card/project.json"
         ><titanium-card-playground></titanium-card-playground>
       </smart-demo>

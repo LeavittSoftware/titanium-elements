@@ -9,12 +9,12 @@ import '../../shared/smart-demo';
 import './titanium-header-playground';
 
 @customElement('titanium-header-demo')
-export class TitaniumHeaderItemDemoElement extends LitElement {
+export class TitaniumHeaderItemDemo extends LitElement {
   static styles = [StoryStyles, css``];
 
   render() {
     return html`
-      <story-header name="Titanium Header" packageName="titanium-header" className="TitaniumHeaderItemElement"></story-header>
+      <story-header name="Titanium Header" className="TitaniumHeaderItem"></story-header>
       <smart-demo line-numbers resizable project-src="../src/demos/titanium-header/project.json"
         ><titanium-header-playground></titanium-header-playground>
       </smart-demo>

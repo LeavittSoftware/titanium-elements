@@ -16,10 +16,10 @@ import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
 
 /* playground-fold */
 @customElement('leavitt-company-select-playground')
-export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
-  @state() apiService: ApiService;
-  @query('leavitt-company-select[methods-demo]') protected methodsSelect!: LeavittCompanySelect;
-  @queryAll('leavitt-company-select') protected inputs!: NodeListOf<LeavittCompanySelect>;
+export class LeavittPersonCompanySelectPlayground extends LitElement {
+  @state() private accessor apiService: ApiService;
+  @query('leavitt-company-select[methods-demo]') protected accessor methodsSelect!: LeavittCompanySelect;
+  @queryAll('leavitt-company-select') protected accessor inputs!: NodeListOf<LeavittCompanySelect>;
 
   constructor() {
     super();
@@ -67,7 +67,6 @@ export class LeavittPersonCompanySelectPlaygroundElement extends LitElement {
       <div row>
         <leavitt-company-select
           @selected=${(e: DOMEvent<LeavittCompanySelect>) => console.log('selected change 1', e.target.selected)}
-          .selected=${{ Id: 20248, Name: 'Software' }}
           style="width: 400px;"
           methods-demo
           required

@@ -3,6 +3,161 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.22.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.21.0...@leavittsoftware/web@1.22.0) (2023-11-29)
+
+### Bug Fixes
+
+- **data-table:** selected action z-index allowing chips to overflow ([a6028ea](https://github.com/LeavittSoftware/titanium-elements/commit/a6028eaf9bb315c01ff97866975e71663befa7a5))
+- **profile-picture-menu:** clicking menu toggle menu open/closes ([94932c5](https://github.com/LeavittSoftware/titanium-elements/commit/94932c5d719567a6d2b3a048e86675d6a4684072))
+- remove pointer on drawer h4 ([ad78fb6](https://github.com/LeavittSoftware/titanium-elements/commit/ad78fb6377bbfaaeed520ff6966749f4e61980bf))
+- **search-input:** prevent input from overflowing in collapsed mode ([e0a0391](https://github.com/LeavittSoftware/titanium-elements/commit/e0a03910237d618da3316fe9937186f100fe6665))
+
+### Features
+
+- **profile-picture-menu:** uses profile picture menu for accessibility and keyboard ([041eb2f](https://github.com/LeavittSoftware/titanium-elements/commit/041eb2fdb4e1c1238208bd866a058c824a52d344))
+
+# [1.21.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.20.0...@leavittsoftware/web@1.21.0) (2023-11-29)
+
+### Bug Fixes
+
+- **data-table:** selected action z-index allowing chips to overflow ([a6028ea](https://github.com/LeavittSoftware/titanium-elements/commit/a6028eaf9bb315c01ff97866975e71663befa7a5))
+- **profile-picture-menu:** clicking menu toggle menu open/closes ([94932c5](https://github.com/LeavittSoftware/titanium-elements/commit/94932c5d719567a6d2b3a048e86675d6a4684072))
+- remove pointer on drawer h4 ([ad78fb6](https://github.com/LeavittSoftware/titanium-elements/commit/ad78fb6377bbfaaeed520ff6966749f4e61980bf))
+- **search-input:** prevent input from overflowing in collapsed mode ([e0a0391](https://github.com/LeavittSoftware/titanium-elements/commit/e0a03910237d618da3316fe9937186f100fe6665))
+
+### Features
+
+- **profile-picture-menu:** uses profile picture menu for accessibility and keyboard ([041eb2f](https://github.com/LeavittSoftware/titanium-elements/commit/041eb2fdb4e1c1238208bd866a058c824a52d344))
+
+# [1.20.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.19.0...@leavittsoftware/web@1.20.0) (2023-11-28)
+
+### Bug Fixes
+
+- **data-table:** selected action z-index allowing chips to overflow ([a6028ea](https://github.com/LeavittSoftware/titanium-elements/commit/a6028eaf9bb315c01ff97866975e71663befa7a5))
+- **profile-picture-menu:** clicking menu toggle menu open/closes ([94932c5](https://github.com/LeavittSoftware/titanium-elements/commit/94932c5d719567a6d2b3a048e86675d6a4684072))
+- **search-input:** prevent input from overflowing in collapsed mode ([e0a0391](https://github.com/LeavittSoftware/titanium-elements/commit/e0a03910237d618da3316fe9937186f100fe6665))
+
+### Features
+
+- **profile-picture-menu:** uses profile picture menu for accessibility and keyboard ([041eb2f](https://github.com/LeavittSoftware/titanium-elements/commit/041eb2fdb4e1c1238208bd866a058c824a52d344))
+
+# [1.19.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.18.3...@leavittsoftware/web@1.19.0) (2023-11-28)
+
+### Bug Fixes
+
+- **data-table:** selected action z-index allowing chips to overflow ([a6028ea](https://github.com/LeavittSoftware/titanium-elements/commit/a6028eaf9bb315c01ff97866975e71663befa7a5))
+- **profile-picture-menu:** clicking menu toggle menu open/closes ([94932c5](https://github.com/LeavittSoftware/titanium-elements/commit/94932c5d719567a6d2b3a048e86675d6a4684072))
+
+### Features
+
+- **profile-picture-menu:** uses profile picture menu for accessibility and keyboard ([041eb2f](https://github.com/LeavittSoftware/titanium-elements/commit/041eb2fdb4e1c1238208bd866a058c824a52d344))
+
+## [1.18.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.18.2...@leavittsoftware/web@1.18.3) (2023-11-28)
+
+### Bug Fixes
+
+- add missing await ([0f059cc](https://github.com/LeavittSoftware/titanium-elements/commit/0f059ccd6cbeb7b1523db4f18bb4f4ebbad26721))
+
+## [1.18.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.18.1...@leavittsoftware/web@1.18.2) (2023-11-28)
+
+**Note:** Version bump only for package @leavittsoftware/web
+
+## [1.18.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.18.0...@leavittsoftware/web@1.18.1) (2023-11-28)
+
+### Bug Fixes
+
+- data table and paging ([216da4d](https://github.com/LeavittSoftware/titanium-elements/commit/216da4d79fefb55506f23bc2613a939a28b8e9a5))
+- prevent resize on textarea ([539e05e](https://github.com/LeavittSoftware/titanium-elements/commit/539e05ed40793b29d5c3330f06eaf1768085cb91))
+
+# [1.18.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.17.4...@leavittsoftware/web@1.18.0) (2023-11-22)
+
+### Features
+
+- adds defaultSuggestions to single select base ([1607ade](https://github.com/LeavittSoftware/titanium-elements/commit/1607adefa966ee22418cdc186eb2df108bf6dff6)), closes [#534](https://github.com/LeavittSoftware/titanium-elements/issues/534)
+
+## [1.17.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.17.3...@leavittsoftware/web@1.17.4) (2023-11-22)
+
+### Bug Fixes
+
+- updates versions ([#556](https://github.com/LeavittSoftware/titanium-elements/issues/556)) ([32f4573](https://github.com/LeavittSoftware/titanium-elements/commit/32f4573ed8bb7d7ce2dc81bb7062553fffee0a1a))
+
+## [1.17.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.17.2...@leavittsoftware/web@1.17.3) (2023-11-21)
+
+### Bug Fixes
+
+- multi-line button in demo ([a5c1b4e](https://github.com/LeavittSoftware/titanium-elements/commit/a5c1b4eacf48c174dc02d1f58fa6d32c037af211))
+
+## [1.17.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.17.1...@leavittsoftware/web@1.17.2) (2023-11-20)
+
+### Bug Fixes
+
+- color on surface not set ([e05622e](https://github.com/LeavittSoftware/titanium-elements/commit/e05622e76cf4cc2137ab6f4dd65bdb07fae4faaf))
+
+## [1.17.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.17.0...@leavittsoftware/web@1.17.1) (2023-11-20)
+
+**Note:** Version bump only for package @leavittsoftware/web
+
+# [1.17.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.16.0...@leavittsoftware/web@1.17.0) (2023-11-20)
+
+### Features
+
+- use the popover API in browsers that support it ([4d3112f](https://github.com/LeavittSoftware/titanium-elements/commit/4d3112fa4bcc5ae4bb8744cf2537c30efec469b8))
+
+# [1.16.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.15.0...@leavittsoftware/web@1.16.0) (2023-11-20)
+
+### Features
+
+- add theme preference mixin ([0cd0f6b](https://github.com/LeavittSoftware/titanium-elements/commit/0cd0f6b614d4a9ad8e0c0e97e04ee40742ec00fb))
+- adds phone number helpers ([ebdb7f8](https://github.com/LeavittSoftware/titanium-elements/commit/ebdb7f8288060c183d79312c0133ca9120b49508))
+- use native popover API for full page indicator ([eba283e](https://github.com/LeavittSoftware/titanium-elements/commit/eba283e7c99c45869b6762be9b88d60e7519dd0f))
+
+# [1.15.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.14.1...@leavittsoftware/web@1.15.0) (2023-11-20)
+
+### Features
+
+- add theme preference mixin ([0cd0f6b](https://github.com/LeavittSoftware/titanium-elements/commit/0cd0f6b614d4a9ad8e0c0e97e04ee40742ec00fb))
+- adds phone number helpers ([ebdb7f8](https://github.com/LeavittSoftware/titanium-elements/commit/ebdb7f8288060c183d79312c0133ca9120b49508))
+
+## [1.14.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.14.0...@leavittsoftware/web@1.14.1) (2023-11-20)
+
+**Note:** Version bump only for package @leavittsoftware/web
+
+# [1.14.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.13.0...@leavittsoftware/web@1.14.0) (2023-11-16)
+
+### Features
+
+- date-input and date-range-selector redesigned ([a438fd2](https://github.com/LeavittSoftware/titanium-elements/commit/a438fd202c4a6e362936ef9edafed1c60c6aa7ed))
+- **date-input:** redispatch blur ([8b0e522](https://github.com/LeavittSoftware/titanium-elements/commit/8b0e5227b8aa03c228ad847321b8204dba246947))
+
+# [1.13.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.12.0...@leavittsoftware/web@1.13.0) (2023-11-16)
+
+### Features
+
+- date-input and date-range-selector redesigned ([a438fd2](https://github.com/LeavittSoftware/titanium-elements/commit/a438fd202c4a6e362936ef9edafed1c60c6aa7ed))
+
+# [1.12.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.11.0...@leavittsoftware/web@1.12.0) (2023-11-15)
+
+### Bug Fixes
+
+- **search-input:** disable the internal button when the input is disabled ([69fce0f](https://github.com/LeavittSoftware/titanium-elements/commit/69fce0f68d3a689e9c62dca5efceebdfb3faed0c))
+
+### Features
+
+- adds --titanium-search-input-expanded-width mixin ([461cd1a](https://github.com/LeavittSoftware/titanium-elements/commit/461cd1a582935e4824ad2642598b5cf30c656cc6))
+- improved titanium search input animation ([0ff700b](https://github.com/LeavittSoftware/titanium-elements/commit/0ff700be1be407c6bf2833ff6aaf8c1a303a7936))
+- search input is now backed by a outline text field ([d9ccdeb](https://github.com/LeavittSoftware/titanium-elements/commit/d9ccdeb01db8c2e9b43c01829e6186daee8cfe96))
+- **search-input:** remove outline in default state ([6d0db3c](https://github.com/LeavittSoftware/titanium-elements/commit/6d0db3cbc8e2b1abec59af61e2f7d023899e7944))
+
+# [1.11.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.10.0...@leavittsoftware/web@1.11.0) (2023-11-15)
+
+### Bug Fixes
+
+- Adds top 15 to local fuse searches ([#549](https://github.com/LeavittSoftware/titanium-elements/issues/549)) ([735ab30](https://github.com/LeavittSoftware/titanium-elements/commit/735ab30581fd6a00d3faf5d199c9cfc88bf9a18f))
+
+### Features
+
+- **titanium-data-table-item:** add :hover background-color support for Firefox ([51e3a28](https://github.com/LeavittSoftware/titanium-elements/commit/51e3a28f76718303284f34149ce1da35541f0fa5))
+
 # [1.10.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.9.0...@leavittsoftware/web@1.10.0) (2023-11-09)
 
 ### Features

@@ -14,7 +14,7 @@ export class TitaniumDrawerDemo extends LitElement {
 
   render() {
     return html`
-      <story-header name="Titanium Drawer" packageName="titanium-drawer" className="TitaniumDrawer"></story-header>
+      <story-header name="Titanium Drawer" className="TitaniumDrawer"></story-header>
       <smart-demo line-numbers resizable project-src="../src/demos/titanium-drawer/project.json"
         ><titanium-drawer-playground></titanium-drawer-playground>
       </smart-demo>
