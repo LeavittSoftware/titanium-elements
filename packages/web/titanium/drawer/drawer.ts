@@ -171,7 +171,6 @@ export class TitaniumDrawer extends LitElement {
       text-overflow: ellipsis;
       color: var(--md-sys-color-on-background);
       font-weight: 400;
-      cursor: pointer;
       margin: 0px;
       padding: 16px 24px 8px 24px;
       min-height: 24px;
