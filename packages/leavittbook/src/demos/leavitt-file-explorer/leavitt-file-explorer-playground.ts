@@ -24,23 +24,6 @@ export class LeavittPersonCompanySelectPlayground extends LitElement {
         flex-direction: column;
         margin: 24px 12px;
       }
-
-      div {
-        border: 1px solid var(--md-sys-color-outline);
-        padding: 24px;
-        border-radius: 8px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin: 24px 0 36px 0;
-      }
-
-      section[buttons] {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 12px;
-      }
     `,
   ];
 
@@ -55,11 +38,7 @@ export class LeavittPersonCompanySelectPlayground extends LitElement {
     /* playground-fold-end */
     return html`
       <user-manager></user-manager>
-      <h1>Default</h1>
-      <p></p>
-      <div>
-        <leavitt-file-explorer file-explorer-id="1" .apiService=${this.fileExplorerApiService}></leavitt-file-explorer>
-      </div>
+      <leavitt-file-explorer file-explorer-id="1" .apiService=${this.fileExplorerApiService}></leavitt-file-explorer>
       <titanium-snackbar></titanium-snackbar>
     `;
   }

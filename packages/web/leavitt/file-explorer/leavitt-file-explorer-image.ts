@@ -2,11 +2,12 @@ import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
-import '@material/mwc-icon';
+import '@material/web/icon/icon';
+
+import { getIcon } from './file-types';
+import { getCdnInlineUrl } from '../../titanium/helpers/get-cdn-Inline-url';
 
 import { Attachment } from '@leavittsoftware/lg-core-typescript/lg.net.core';
-import { getCdnInlineUrl } from '@leavittsoftware/titanium-helpers/lib/leavitt-cdn';
-import { getIcon } from './file-types';
 
 @customElement('leavitt-file-explorer-image')
 export class LeavittFileExplorerImageElement extends LitElement {
@@ -15,49 +16,29 @@ export class LeavittFileExplorerImageElement extends LitElement {
 
   static styles = css`
     :host {
+      user-select: none;
       display: flex;
       justify-content: center;
-      background: #fff;
+      background-color: #fdfcff;
+      border-radius: 16px 16px 0 0;
     }
 
     img {
+      border-radius: 16px 16px 0 0;
+
       object-fit: cover;
       object-position: 0 0;
       width: 100%;
       max-height: 100%;
     }
 
-    :host([shape='rounded']) img {
-      border-radius: 12px;
-    }
-
-    :host([shape='rounded']) {
-      background-color: var(--app-hover-color);
-      border-radius: 12px;
-    }
-
-    :host([shape='circle']) img {
-      border-radius: 50%;
-    }
-
-    :host([shape='circle']) {
-      background-color: var(--app-hover-color);
-      border-radius: 50%;
-    }
-
-    mwc-icon {
-      height: 75%;
-      width: 75%;
+    md-icon {
+      height: 64px;
+      width: 64px;
+      font-size: 64px;
       user-select: none;
-      --mdc-icon-size: calc(3vw + 3vh);
-      color: var(--app-text-color, #5f6368);
-      text-align: center;
-      align-self: center;
-    }
-
-    span {
-      padding: 24px;
-      color: var(--app-light-text-color, #80868b);
+      place-self: center;
+      color: var(--md-sys-color-surface-variant);
     }
   `;
 
@@ -65,7 +46,7 @@ export class LeavittFileExplorerImageElement extends LitElement {
     return html`
       ${this.attachment?.PreviewSizes?.includes('512')
         ? html`<img draggable="false" loading="lazy" src=${ifDefined(getCdnInlineUrl(this.attachment, 512))} />`
-        : html` <mwc-icon>${getIcon(this.attachment?.Extension ?? '')}</mwc-icon>`}
+        : html` <md-icon>${getIcon(this.attachment?.Extension ?? '')}</md-icon>`}
     `;
   }
 }
