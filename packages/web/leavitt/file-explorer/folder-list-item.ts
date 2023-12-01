@@ -131,9 +131,7 @@ export class FolderListItem extends LitElement {
 ${this.folder.FilesCount} file${this.folder.FilesCount === 1 ? '' : 's'}, ${this.folder.FoldersCount} folder${this.folder.FoldersCount === 1 ? '' : 's'}"
       @dblclick=${(e: MouseEvent) => {
         e.preventDefault();
-        if (this.selectedCount === 0) {
-          this.dispatchEvent(new Event('navigate'));
-        }
+        this.dispatchEvent(new Event('navigate'));
       }}
       @click=${(e: MouseEvent) => {
         e.stopPropagation();

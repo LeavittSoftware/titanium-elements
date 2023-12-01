@@ -768,7 +768,10 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
                 .display=${this.display}
                 @show-details=${() => this.folderDialog.open(folder)}
                 @toggle-selected=${() => this.#toggleSelected(folder, 'folder')}
-                @navigate=${() => (this.folderId = folder.Id ?? null)}
+                @navigate=${() => {
+                  this.selected = [];
+                  this.folderId = folder.Id ?? null;
+                }}
               ></folder-list-item>
             `
           )}
