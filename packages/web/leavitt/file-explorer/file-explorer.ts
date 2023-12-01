@@ -26,13 +26,13 @@ import '@material/web/chips/filter-chip';
 import '@material/web/menu/menu';
 import '@material/web/menu/menu-item';
 
+import './add-folder-modal';
 import './file-explorer-image';
 import './file-explorer-no-files';
 import './file-explorer-error';
 import './file-explorer-no-permission';
 import './file-modal';
-
-// import './leavitt-folder-modal';
+import './folder-modal';
 
 import * as Throttle from 'promise-parallel-throttle';
 import { join } from '../../titanium/helpers/helpers';
@@ -42,7 +42,9 @@ import { getIcon } from './helpers/file-types';
 import { formatBytes } from './helpers/format-bytes';
 import { CloseMenuEvent, MdMenu, MenuItem } from '@material/web/menu/menu';
 import TitaniumConfirmDialog from '../../titanium/confirm-dialog/confirm-dialog';
-import { LeavittFileModal } from './file-modal';
+import { FileModal } from './file-modal';
+import { AddFolderModal } from './add-folder-modal';
+import { FolderModal } from './folder-modal';
 
 /**
  * Leavitt Group specific file explorer
@@ -99,9 +101,9 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
 
   @query('md-menu[upload-menu]') private accessor uploadMenu: MdMenu;
 
-  @query('leavitt-folder-modal') private accessor folderDialog; //:  LeavittFolderModalElement;
-  @query('leavitt-add-folder-modal') private accessor addFolderModal; // LeavittAddFolderModalElement;
-  @query('leavitt-file-modal') private accessor fileDialog: LeavittFileModal;
+  @query('leavitt-folder-modal') private accessor folderDialog: FolderModal;
+  @query('leavitt-add-folder-modal') private accessor addFolderDialog: AddFolderModal;
+  @query('leavitt-file-modal') private accessor fileDialog: FileModal;
   @query('input[files]') private accessor fileInput: HTMLInputElement;
   @query('input[folders]') private accessor folderInput: HTMLInputElement;
   @query('titanium-confirm-dialog') private accessor confirmDialog: TitaniumConfirmDialog;
@@ -204,7 +206,7 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
   }
 
   async #addFolderClick() {
-    const newFolder = await this.addFolderModal.open();
+    const newFolder = await this.addFolderDialog.open();
     if (newFolder) {
       this.folders = [...this.folders, newFolder];
       if (this.fileExplorer) {
@@ -329,8 +331,8 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
 
   async #uploadFiles(files: FileList | null) {
     const uri = this.folderId
-      ? `FileExplorerFolders(${this.folderId})/UploadAttachment?expand=Creator(select=Firstname,Lastname)`
-      : `FileExplorers(${this.fileExplorerId})/UploadAttachment?expand=Creator(select=Firstname,Lastname)`;
+      ? `FileExplorerFolders(${this.folderId})/UploadAttachment?expand=Creator(select=FullName,ProfilePictureCdnFileName)`
+      : `FileExplorers(${this.fileExplorerId})/UploadAttachment?expand=Creator(select=FullName,ProfilePictureCdnFileName)`;
 
     const failedFiles: string[] = [];
     const requests = Array.from(files ?? []).map((file) => async () => {
@@ -339,8 +341,10 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
         if (result) {
           const attachment: FileExplorerFileDto = {
             ...result,
-            CreatorFirstName: result.Creator?.FirstName ?? '',
-            CreatorLastName: result.Creator?.LastName ?? '',
+            CreatorProfilePictureCndFileName: result.Creator?.ProfilePictureCdnFileName ?? '',
+            CreatorFullName: result.Creator?.FullName ?? '',
+            CreatorFirstName: '',
+            CreatorLastName: '',
           };
           this.files = [...this.files, attachment];
           this.state = 'files';
@@ -380,8 +384,8 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
         const folderId = (await directoryToIdMap).get(path);
 
         const uri = folderId
-          ? `FileExplorerFolders(${folderId})/UploadAttachment?expand=Creator(select=Firstname,Lastname)`
-          : `FileExplorers(${this.fileExplorerId})/UploadAttachment?expand=Creator(select=Firstname,Lastname)`;
+          ? `FileExplorerFolders(${folderId})/UploadAttachment?expand=Creator(select=FullName,ProfilePictureCdnFileName)`
+          : `FileExplorers(${this.fileExplorerId})/UploadAttachment?expand=Creator(select=FullName,ProfilePictureCdnFileName)`;
 
         const result = (await this.apiService?.uploadFile<FileExplorerAttachment>(uri, file, () => console.log))?.entity;
         if (result) {

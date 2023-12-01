@@ -24,7 +24,7 @@ import { TitaniumSnackbarSingleton } from '../../titanium/snackbar/snackbar';
 import { LoadWhile } from '../../titanium/helpers/helpers';
 
 @customElement('leavitt-file-modal')
-export class LeavittFileModal extends LoadWhile(LitElement) {
+export class FileModal extends LoadWhile(LitElement) {
   @property({ attribute: false }) accessor apiService: ApiService | null;
   @property({ type: Boolean }) accessor enableEditing: boolean = false;
 
@@ -157,6 +157,11 @@ export class LeavittFileModal extends LoadWhile(LitElement) {
         max-width: 450px;
       }
 
+      md-icon-button[save] {
+        --md-icon-button-icon-color: var(--md-sys-color-primary);
+        --md-icon-button-focus-icon-color: var(--md-sys-color-primary);
+      }
+
       p[alert] {
         transition: 0.3s ease;
         opacity: 1;
@@ -205,13 +210,14 @@ export class LeavittFileModal extends LoadWhile(LitElement) {
               </h1>`
             : html`<md-filled-text-field
                 label="File name"
-                value=${this.fileName ?? ''}
+                .value=${this.fileName ?? ''}
                 @input=${(event: DOMEvent<MdOutlinedTextField>) => (this.fileName = event.target.value)}
               >
                 <md-icon-button slot="trailing-icon" @click=${() => (this.state = 'view')} ?disabled=${this.isLoading}>
                   <md-icon>cancel</md-icon>
                 </md-icon-button>
                 <md-icon-button
+                  save
                   slot="trailing-icon"
                   ?disabled=${this.fileName === this.file?.Name || !this.fileName || this.isLoading}
                   @click=${() => this.#saveFileName()}
@@ -227,7 +233,7 @@ export class LeavittFileModal extends LoadWhile(LitElement) {
               this.fileName = this.file?.Name ?? '';
             }}
           >
-            <md-icon>${this.state === 'edit' ? 'cancel' : 'create'}</md-icon>
+            <md-icon>create</md-icon>
           </md-icon-button>
         </header>
         <main ext="${this.file?.Extension ?? ''}" slot="content">
