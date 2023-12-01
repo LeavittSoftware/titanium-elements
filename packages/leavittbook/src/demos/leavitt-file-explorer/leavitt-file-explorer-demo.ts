@@ -4,8 +4,6 @@ import { GetUserManagerInstance } from '@leavittsoftware/web/leavitt/user-manage
 
 import StoryStyles from '../../styles/story-styles';
 
-import '@api-viewer/docs';
-
 import '../../shared/story-header';
 import '../../shared/smart-demo';
 import './leavitt-file-explorer-playground';
@@ -35,7 +33,6 @@ export class LeavittUserFileExplorerDemo extends LitElement {
             <leavitt-file-explorer-playground></leavitt-file-explorer-playground>
           </smart-demo>`
         : nothing}
-      <api-docs src="./custom-elements.json" selected="leavitt-file-explorer"></api-docs>
     `;
   }
 }
