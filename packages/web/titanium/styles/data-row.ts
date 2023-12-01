@@ -40,6 +40,13 @@ export const dataRow = [
       gap: 12px;
     }
 
+    data-row[force-stacked] {
+      grid:
+        'label'
+        'text';
+      gap: 6px;
+    }
+
     @container (max-width: 500px) {
       data-row {
         grid:
