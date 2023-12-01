@@ -7,5 +7,6 @@
       "message": "chore(release): publish"
     }
   },
-  "ignoreChanges": ["**/*.md", ".husky/**"]
+  "ignoreChanges": ["**/*.md", ".husky/**"],
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json"
 }

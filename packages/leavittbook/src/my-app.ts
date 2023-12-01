@@ -111,6 +111,10 @@ export class MyApp extends LitElement {
     page('/leavitt-company-select', () =>
       this.#changePage('leavitt-company-select', () => import('./demos/leavitt-company-select/leavitt-company-select-demo.js'))
     );
+    page('/leavitt-file-explorer', () =>
+      this.#changePage('leavitt-file-explorer', () => import('./demos/leavitt-file-explorer/leavitt-file-explorer-demo.js'))
+    );
+
     page('/titanium-date-range-selector', () =>
       this.#changePage('titanium-date-range-selector', () => import('./demos/titanium-date-range-selector/titanium-date-range-selector-demo.js'))
     );
@@ -426,6 +430,10 @@ export class MyApp extends LitElement {
               <md-icon slot="start">library_books</md-icon> <span>Company select</span>
             </md-list-item>
 
+            <md-list-item ?selected=${this.page === 'leavitt-file-explorer'} href="/leavitt-file-explorer" type="link">
+              <md-icon slot="start">library_books</md-icon> <span>File explorer</span>
+            </md-list-item>
+
             <md-list-item ?selected=${this.page === 'leavitt-person-company-select'} href="/leavitt-person-company-select" type="link">
               <md-icon slot="start">library_books</md-icon> <span>Person company select</span>
             </md-list-item>
@@ -469,6 +477,9 @@ export class MyApp extends LitElement {
           : nothing}
         ${this.page === 'leavitt-company-select'
           ? html` <leavitt-company-select-demo large ?isActive=${this.page === 'leavitt-company-select'}></leavitt-company-select-demo> `
+          : nothing}
+        ${this.page === 'leavitt-file-explorer'
+          ? html` <leavitt-file-explorer-demo large ?isActive=${this.page === 'leavitt-file-explorer'}></leavitt-file-explorer-demo> `
           : nothing}
         ${this.page === 'leavitt-user-feedback'
           ? html` <leavitt-user-feedback-demo large ?isActive=${this.page === 'leavitt-user-feedback'}></leavitt-user-feedback-demo> `
