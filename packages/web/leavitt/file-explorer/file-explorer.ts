@@ -33,12 +33,12 @@ import './file-explorer-error';
 import './file-explorer-no-permission';
 import './file-modal';
 import './folder-modal';
+import './file-list-item';
 
 import * as Throttle from 'promise-parallel-throttle';
 import { join } from '../../titanium/helpers/helpers';
 import { a, ellipsis, h1 } from '../../titanium/styles/styles';
-import dayjs from 'dayjs/esm';
-import { getIcon } from './helpers/file-types';
+
 import { formatBytes } from './helpers/format-bytes';
 import { CloseMenuEvent, MdMenu, MenuItem } from '@material/web/menu/menu';
 import TitaniumConfirmDialog from '../../titanium/confirm-dialog/confirm-dialog';
@@ -564,10 +564,6 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
         padding: 12px 24px;
       }
 
-      :host([display='grid']) main > section[folders] {
-        grid-template-columns: auto;
-      }
-
       md-linear-progress {
         position: absolute;
         right: 0;
@@ -658,161 +654,11 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
         text-align: center;
       }
 
-      /*File item styles */
-      file-item {
-        display: grid;
-        grid: 'name date size' / 1fr 100px 100px;
-        gap: 12px;
-        padding: 12px 12px 12px 8px;
-        font-size: 14px;
-        border-bottom: 1px solid var(--md-sys-color-outline-variant);
-        align-content: center;
-        align-items: center;
-        position: relative;
-        outline: none;
-      }
-
-      file-item md-focus-ring {
-        --md-focus-ring-shape: 0;
-      }
-
-      file-item md-filled-tonal-icon-button {
-        display: none;
-      }
-
-      :host(:not([display='grid'])) select-icon {
-        display: none;
-      }
-
       :host(:not([display='grid'])) section:last-of-type > *:last-child {
         border-bottom: none;
       }
 
-      :host([display='grid']) file-item {
-        cursor: pointer;
-        border: 1px solid var(--md-sys-color-outline-variant);
-        border-radius: 16px;
-        padding: 0;
-        max-height: 166px;
-        grid:
-          'preview' 118px
-          'name' auto;
-        gap: 0;
-        align-content: inherit;
-        align-items: inherit;
-      }
-
-      :host([display='grid']) file-item md-focus-ring {
-        --md-focus-ring-shape: 16px;
-      }
-
-      :host([display='grid']) file-item md-filled-tonal-icon-button {
-        display: block;
-        position: absolute;
-
-        top: 5px;
-        left: 5px;
-        --md-filled-tonal-icon-button-container-width: 22px;
-        --md-filled-tonal-icon-button-container-height: 22px;
-        --md-filled-tonal-icon-button-icon-size: 22px;
-        --md-filled-tonal-icon-button-container-color: var(--md-sys-color-surface);
-        --md-filled-tonal-icon-button-icon-color: var(--md-sys-color-surface);
-        border: 2px solid var(--md-sys-color-outline-variant);
-        border-radius: 24px;
-      }
-
-      :host([display='grid']) file-item[selected] md-filled-tonal-icon-button {
-        --md-filled-tonal-icon-button-container-color: inherit;
-        --md-filled-tonal-icon-button-icon-color: inherit;
-        border-color: var(--md-sys-color-on-secondary-container);
-      }
-
-      :host([display='grid']) file-item[selected] {
-        border-color: transparent;
-      }
-
-      file-item[selected] {
-        background-color: var(--md-sys-color-secondary-container);
-      }
-
-      file-item image-wrapper {
-        display: block;
-        grid-area: preview;
-        border-radius: 16px 16px 0 0;
-        background-color: var(--md-sys-color-secondary-container);
-      }
-
-      file-item image-wrapper leavitt-file-explorer-image {
-        height: 100%;
-        width: 100%;
-        transition: all 0.2s ease-in-out;
-        transform-origin: center bottom;
-      }
-
-      file-item[selected] leavitt-file-explorer-image {
-        transform: scale(0.9) rotate(0.01deg);
-      }
-
-      file-item file-name {
-        grid-area: name;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        font-weight: 500;
-
-        min-width: 0;
-
-        user-select: none;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-      }
-
-      :host([display='grid']) file-item file-name {
-        padding: 12px;
-        border-top: 1px solid var(--md-sys-color-outline-variant);
-      }
-
-      :host([display='grid']) file-item[selected] file-name {
-        border-color: transparent;
-      }
-
-      file-item file-name md-icon {
-        padding-right: 8px;
-        flex-shrink: 0;
-      }
-
-      file-item file-name span[name] {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        min-width: 20px;
-      }
-
-      file-item file-name span[name]:after {
-        content: '.';
-      }
-
-      file-item file-name span[ext] {
-        flex-shrink: 0;
-      }
-
-      file-item span[date] {
-        grid-area: date;
-        text-align: center;
-
-        user-select: none;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-      }
-
-      file-item span[size] {
-        grid-area: size;
-        text-align: right;
-
-        user-select: none;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-      }
+      /*File item styles */
 
       footer {
         display: grid;
@@ -928,7 +774,7 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
         <leavitt-file-explorer-error ?hidden=${this.state !== 'error'}> </leavitt-file-explorer-error>
 
         <h3 ?hidden=${this.folders.length === 0 || this.state != 'files'}>Folders (${this.folders.length})</h3>
-        <section folders ?hidden=${this.folders.length === 0 || this.state != 'files'}>
+        <section ?hidden=${this.folders.length === 0 || this.state != 'files'}>
           ${this.folders.map(
             (folder) => html`
               <md-filter-chip
@@ -971,70 +817,14 @@ ${folder.FilesCount} file${folder.FilesCount === 1 ? '' : 's'}, ${folder.Folders
         <section ?hidden=${this.files.length === 0 || this.state != 'files'}>
           ${this.files.map(
             (file) => html`
-              <file-item
-                style="position: relative"
-                role="button"
+              <file-list-item
+                .file=${file}
                 ?selected=${this.selected.some((s) => s?.Id === file.Id && s.type === 'file')}
-                tabindex="0"
-                aria-label="${file.Name}.${file.Extension}"
-                title="${file.Name}.${file.Extension}"
-                @dblclick=${(e) => {
-                  e.preventDefault();
-                  if (this.display === 'list' && this.selected.length === 0) {
-                    this.fileDialog.open(file);
-                  }
-                }}
-                @click=${(e) => {
-                  e.stopPropagation();
-                  if (this.display === 'grid' && this.selected.length === 0) {
-                    this.fileDialog.open(file);
-                  } else {
-                    this.#toggleSelected(file, 'file');
-                  }
-                }}
-                @keydown=${(e: KeyboardEvent) => {
-                  if (e.key === 'Enter') {
-                    e.preventDefault();
-                    if (this.selected.length === 0) {
-                      this.fileDialog.open(file);
-                    } else {
-                      this.#toggleSelected(file, 'file');
-                    }
-                  }
-                  if (e.key == ' ') {
-                    e.preventDefault();
-                    this.#toggleSelected(file, 'file');
-                  }
-                }}
-              >
-                <md-focus-ring ?inward=${this.display === 'list'}></md-focus-ring>
-                <file-name>
-                  <md-icon
-                    >${this.display === 'list' && this.selected.some((s) => s?.Id === file.Id && s.type === 'file')
-                      ? 'check'
-                      : getIcon(file.Extension ?? '')}</md-icon
-                  >
-                  <span name>${file.Name}</span>
-                  <span ext>${file.Extension}</span>
-                </file-name>
-                ${this.display === 'list'
-                  ? html`
-                      <span date>${dayjs(file.CreatedDate).format('MMM D, YYYY')}</span>
-                      <span size>${formatBytes(file.Size)}</span>
-                    `
-                  : html`<image-wrapper> <leavitt-file-explorer-image .attachment=${file}></leavitt-file-explorer-image></image-wrapper>`}
-
-                <md-filled-tonal-icon-button
-                  tabIndex=${this.selected.some((s) => s.type === 'file') ? '-1' : '0'}
-                  @click=${(e: MouseEvent) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.#toggleSelected(file, 'file');
-                  }}
-                >
-                  <md-icon>check </md-icon>
-                </md-filled-tonal-icon-button>
-              </file-item>
+                .selectedCount=${this.selected.length}
+                .display=${this.display}
+                @display-file=${() => this.fileDialog.open(file)}
+                @toggle-selected=${() => this.#toggleSelected(file, 'file')}
+              ></file-list-item>
             `
           )}
         </section>
