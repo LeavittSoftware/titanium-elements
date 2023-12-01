@@ -3,6 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import '@material/web/icon/icon';
 import '@material/web/focus/md-focus-ring';
+import '@material/web/ripple/ripple';
 
 import dayjs from 'dayjs/esm';
 import { FileExplorerFolderDto } from '@leavittsoftware/lg-core-typescript';
@@ -153,6 +154,7 @@ ${this.folder.FilesCount} file${this.folder.FilesCount === 1 ? '' : 's'}, ${this
         }
       }}
     >
+      <md-ripple></md-ripple>
       <md-focus-ring ?inward=${this.display === 'list'}></md-focus-ring>
       <folder-name>
         <span name>${this.folder.Name}</span>

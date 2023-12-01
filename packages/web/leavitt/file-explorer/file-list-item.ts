@@ -4,6 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 import '@material/web/icon/icon';
 import '@material/web/iconbutton/filled-tonal-icon-button';
 import '@material/web/focus/md-focus-ring';
+import '@material/web/ripple/ripple';
 import './file-explorer-image';
 
 import dayjs from 'dayjs/esm';
@@ -220,6 +221,7 @@ export class FileListItem extends LitElement {
         }
       }}
     >
+      <md-ripple></md-ripple>
       <md-focus-ring ?inward=${this.display === 'list'}></md-focus-ring>
       <file-name>
         <md-icon>${this.display === 'list' && this.selected ? 'check' : getIcon(this.file.Extension ?? '')}</md-icon>
