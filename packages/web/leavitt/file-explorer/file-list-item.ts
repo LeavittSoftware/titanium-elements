@@ -4,6 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 import '@material/web/icon/icon';
 import '@material/web/iconbutton/filled-tonal-icon-button';
 import '@material/web/focus/md-focus-ring';
+import './file-explorer-image';
 
 import dayjs from 'dayjs/esm';
 import { getIcon } from './helpers/file-types';
@@ -22,18 +23,20 @@ export class FileListItem extends LitElement {
       display: grid;
     }
 
-    /* File item */
     button {
       display: grid;
+      background-color: inherit;
       grid: 'name date size' / 1fr 100px 100px;
       gap: 12px;
-      padding: 12px 12px 12px 8px;
+      padding: 12px 24px;
       font-size: 14px;
+      border: none;
       border-bottom: 1px solid var(--md-sys-color-outline-variant);
       align-content: center;
       align-items: center;
       position: relative;
       outline: none;
+      color: inherit;
     }
 
     :host([display='grid'][selected]) button {
@@ -183,13 +186,13 @@ export class FileListItem extends LitElement {
       @dblclick=${(e: MouseEvent) => {
         e.preventDefault();
         if (this.display === 'list' && this.selectedCount === 0) {
-          this.dispatchEvent(new Event('display-file'));
+          this.dispatchEvent(new Event('show-details'));
         }
       }}
       @click=${(e: MouseEvent) => {
         e.stopPropagation();
         if (this.display === 'grid' && this.selectedCount === 0) {
-          this.dispatchEvent(new Event('display-file'));
+          this.dispatchEvent(new Event('show-details'));
         } else {
           this.dispatchEvent(new Event('toggle-selected'));
         }
@@ -198,14 +201,18 @@ export class FileListItem extends LitElement {
         if (e.key === 'Enter') {
           e.preventDefault();
           if (this.selectedCount === 0) {
-            this.dispatchEvent(new Event('display-file'));
+            this.dispatchEvent(new Event('show-details'));
           } else {
             this.dispatchEvent(new Event('toggle-selected'));
           }
         }
         if (e.key == ' ') {
           e.preventDefault();
-          this.dispatchEvent(new Event('toggle-selected'));
+          if (this.selectedCount === 0) {
+            this.dispatchEvent(new Event('show-details'));
+          } else {
+            this.dispatchEvent(new Event('toggle-selected'));
+          }
         }
       }}
     >
@@ -224,6 +231,13 @@ export class FileListItem extends LitElement {
 
       <md-filled-tonal-icon-button
         tabIndex=${this.selectedCount ? '-1' : '0'}
+        @keydown=${(e: KeyboardEvent) => {
+          if (e.key == ' ' || e.key === 'Enter') {
+            e.preventDefault();
+            e.stopPropagation();
+            this.dispatchEvent(new Event('toggle-selected'));
+          }
+        }}
         @click=${(e: MouseEvent) => {
           e.preventDefault();
           e.stopPropagation();

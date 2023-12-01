@@ -17,27 +17,24 @@ import '../../titanium/confirm-dialog/confirm-dialog';
 import fileExplorerEvents from './events/file-explorer-events';
 import { TitaniumSnackbarSingleton } from '../../titanium/snackbar/snackbar';
 
-import '@material/web/focus/md-focus-ring';
 import '@material/web/icon/icon';
-import '@material/web/iconbutton/filled-tonal-icon-button';
 import '@material/web/button/text-button';
 import '@material/web/progress/linear-progress';
-import '@material/web/chips/filter-chip';
 import '@material/web/menu/menu';
 import '@material/web/menu/menu-item';
 
 import './add-folder-modal';
-import './file-explorer-image';
 import './file-explorer-no-files';
 import './file-explorer-error';
 import './file-explorer-no-permission';
 import './file-modal';
 import './folder-modal';
 import './file-list-item';
+import './folder-list-item';
 
 import * as Throttle from 'promise-parallel-throttle';
 import { join } from '../../titanium/helpers/helpers';
-import { a, ellipsis, h1 } from '../../titanium/styles/styles';
+import { a, ellipsis, h1, h2 } from '../../titanium/styles/styles';
 
 import { formatBytes } from './helpers/format-bytes';
 import { CloseMenuEvent, MdMenu, MenuItem } from '@material/web/menu/menu';
@@ -452,14 +449,9 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
     }
   }
 
-  #kFormatter(num) {
-    return Math.abs(num) > 999 ? Math.floor((Math.sign(num) * Math.round(Math.abs(num) / 100)) / 10) + 'k+' : Math.sign(num) * Math.abs(num);
-  }
-
-  #doubleClickTimeout = 0;
-
   static styles = [
     h1,
+    h2,
     ellipsis,
     a,
     css`
@@ -505,6 +497,11 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
         gap: 2px;
         display: flex;
         margin: 12px 0 0 12px;
+      }
+
+      header md-icon-button {
+        justify-self: center;
+        align-self: center;
       }
 
       main {
@@ -588,13 +585,34 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
         flex-shrink: 0;
       }
 
-      header header-actions {
-        grid-area: actions;
+      selected-actions {
+        display: grid;
+        gap: 6px;
+        grid: 'deselect selected-text buttons' / auto 1fr auto;
+        background-color: var(--md-sys-color-secondary-container);
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        margin: 0 !important;
+        align-content: center;
+        align-items: center;
+        padding: 12px;
+        z-index: 1;
+      }
+
+      selected-actions h2 {
+        color: var(--md-sys-color-on-secondary-container);
+        font-size: 18px;
+        font-weight: 400;
+      }
+
+      selected-actions div[buttons] {
         display: flex;
         align-items: center;
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 8px;
+        gap: 0 8px;
+        justify-content: flex-end;
       }
 
       nav a:visited,
@@ -614,58 +632,19 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
         padding: 0;
       }
 
-      nav span[last] {
-        flex-shrink: 0;
-      }
-
       header span {
         grid-area: text;
-      }
-
-      /*Folder styles */
-      md-filter-chip[folder] {
-        /* overflow: hidden; */
-        --md-filter-chip-icon-size: 24px;
-        --md-filter-chip-leading-icon-color: var(--md-sys-color-on-surface);
-        --md-filter-chip-outline-color: var(--md-sys-color-outline-variant);
-      }
-
-      :host(:not([display='grid'])) md-filter-chip[folder] {
-        --md-filter-chip-icon-size: 24px;
-        --md-filter-chip-container-shape: 0;
-        --md-filter-chip-container-height: 46px;
-        --md-filter-chip-outline-width: 1px 0 0 0;
-        border-bottom: 1px solid var(--md-sys-color-outline-variant);
-      }
-
-      md-filter-chip[folder] icon-wrapper {
-        display: block;
         position: relative;
-      }
-
-      md-filter-chip[folder] icon-wrapper file-count {
-        font-family: 'Roboto', 'Noto', sans-serif;
-        position: absolute;
-        top: 4px;
-        left: 4px;
-        right: 5px;
-        font-size: 11px;
-        line-height: 20px;
-        text-align: center;
-      }
-
-      :host(:not([display='grid'])) section:last-of-type > *:last-child {
-        border-bottom: none;
       }
 
       /*File item styles */
 
       footer {
         display: grid;
-        grid: 'button count . actions' / auto 1fr auto;
+        grid: 'count . actions' / auto 1fr auto;
         gap: 12px;
         align-items: center;
-        padding: 6px 2px;
+        padding: 6px 8px 6px 24px;
         border-top: 1px solid var(--md-sys-color-outline-variant);
       }
 
@@ -736,35 +715,40 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
             >${this.fileExplorer?.FilesCount} files | ${this.fileExplorer?.FoldersCount} folders | ${formatBytes(this.fileExplorer?.Size)}</file-summary
           >
         </aside>
-        <header-actions>
-          ${this.selected
-            ? html`
-                ${
-                  this.isAdmin && this.selected.length
-                    ? html` <md-icon-button title="Delete selected" @click=${this.#deleteSelectedClick}> <md-icon>delete</md-icon></md-icon-button> `
-                    : nothing
+        <md-icon-button
+          ?disabled=${this.isLoading}
+          view-style
+          @click=${() => (this.display = this.display === 'grid' ? 'list' : 'grid')}
+          title=${this.display === 'grid' ? 'Show list view' : 'Show grid view'}
+        >
+          <md-icon>${this.display === 'grid' ? 'view_list' : 'view_module'}</md-icon>
+        </md-icon-button>
+        <selected-actions ?hidden=${this.selected.length === 0}>
+          <md-icon-button title="Clear selected" @click=${() => (this.selected = [])}> <md-icon>clear</md-icon></md-icon-button>
+          <h2 ellipsis>${this.selected.length} selected</h2>
+          <div buttons part="selected-actions-container">
+            ${this.isAdmin
+              ? html` <md-icon-button title="Delete selected" @click=${this.#deleteSelectedClick}> <md-icon>delete</md-icon></md-icon-button> `
+              : nothing}
+            <md-icon-button
+              primary
+              ?hidden=${!this.selected.length}
+              ?disabled=${this.selected.length !== 1}
+              @click=${() => {
+                if (!this.selected) {
+                  return;
                 }
-                <md-icon-button
-                 primary
-                 ?hidden=${!this.selected.length}
-                 ?disabled=${this.selected.length !== 1}
-                  @click=${() => {
-                    if (!this.selected) {
-                      return;
-                    }
-                    if (this.#isFolder(this.selected[0])) {
-                      this.folderDialog.open(this.selected[0] as FileExplorerFolderDto);
-                    } else {
-                      this.fileDialog.open(this.selected[0] as FileExplorerFileDto);
-                    }
-                  }}
-                >
-                <md-icon>info</md-icon>
-                </md-icon-button>
-              </header-contextual-actions>
-            `
-            : ''}
-        </header-actions>
+                if (this.#isFolder(this.selected[0])) {
+                  this.folderDialog.open(this.selected[0] as FileExplorerFolderDto);
+                } else {
+                  this.fileDialog.open(this.selected[0] as FileExplorerFileDto);
+                }
+              }}
+            >
+              <md-icon>info</md-icon>
+            </md-icon-button>
+          </div>
+        </selected-actions>
 
         <md-linear-progress ?hidden=${!this.isLoading} indeterminate></md-linear-progress>
       </header>
@@ -777,39 +761,15 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
         <section ?hidden=${this.folders.length === 0 || this.state != 'files'}>
           ${this.folders.map(
             (folder) => html`
-              <md-filter-chip
-                folder
-                label="${folder.Name ?? ''}"
+              <folder-list-item
+                .folder=${folder}
                 ?selected=${this.selected.some((s) => s?.Id === folder.Id && s.type === 'folder')}
-                title="${folder.Name ?? ''}
-${folder.FilesCount} file${folder.FilesCount === 1 ? '' : 's'}, ${folder.FoldersCount} folder${folder.FoldersCount === 1 ? '' : 's'}"
-                @dblclick=${(e) => {
-                  window.clearTimeout(this.#doubleClickTimeout);
-                  e.preventDefault();
-                  this.folderId = folder.Id ?? null;
-                  this.selected = [];
-                }}
-                @click=${(e) => {
-                  e.stopPropagation();
-                  e.preventDefault();
-                  this.#doubleClickTimeout = window.setTimeout(() => this.#toggleSelected(folder, 'folder'), 220);
-                }}
-                @keydown=${(e: KeyboardEvent) => {
-                  if (e.key === 'Enter') {
-                    e.preventDefault();
-                    this.folderId = folder.Id ?? null;
-                    this.selected = [];
-                  } else if (e.key == ' ') {
-                    e.preventDefault();
-                    this.#toggleSelected(folder, 'folder');
-                  }
-                }}
-              >
-                <icon-wrapper slot="icon">
-                  <md-icon>folder</md-icon>
-                  <file-count>${this.#kFormatter(folder.FilesCount ?? 0) || ''}</file-count>
-                </icon-wrapper>
-              </md-filter-chip>
+                .selectedCount=${this.selected.length}
+                .display=${this.display}
+                @show-details=${() => this.folderDialog.open(folder)}
+                @toggle-selected=${() => this.#toggleSelected(folder, 'folder')}
+                @navigate=${() => (this.folderId = folder.Id ?? null)}
+              ></folder-list-item>
             `
           )}
         </section>
@@ -822,7 +782,7 @@ ${folder.FilesCount} file${folder.FilesCount === 1 ? '' : 's'}, ${folder.Folders
                 ?selected=${this.selected.some((s) => s?.Id === file.Id && s.type === 'file')}
                 .selectedCount=${this.selected.length}
                 .display=${this.display}
-                @display-file=${() => this.fileDialog.open(file)}
+                @show-details=${() => this.fileDialog.open(file)}
                 @toggle-selected=${() => this.#toggleSelected(file, 'file')}
               ></file-list-item>
             `
@@ -831,14 +791,6 @@ ${folder.FilesCount} file${folder.FilesCount === 1 ? '' : 's'}, ${folder.Folders
         <content-veil ?opened=${this.isLoading}></content-veil>
       </main>
       <footer>
-        <md-icon-button
-          ?disabled=${this.isLoading}
-          view-style
-          @click=${() => (this.display = this.display === 'grid' ? 'list' : 'grid')}
-          title=${this.display === 'grid' ? 'Show list view' : 'Show grid view'}
-        >
-          <md-icon>${this.display === 'grid' ? 'view_list' : 'view_module'}</md-icon>
-        </md-icon-button>
         <span counts> ${this.files.length} files | ${this.folders.length} folders </span>
 
         ${this.isAdmin
