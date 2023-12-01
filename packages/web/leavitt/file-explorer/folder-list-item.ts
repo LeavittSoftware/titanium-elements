@@ -121,6 +121,27 @@ export class FolderListItem extends LitElement {
       -webkit-user-select: none;
       -moz-user-select: none;
     }
+
+    @media (max-width: 450px) {
+      span[date] {
+        display: none;
+      }
+
+      :host([display='list']) button {
+        grid: 'name size ' / 1fr 100px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      span[date],
+      span[size] {
+        display: none;
+      }
+
+      :host([display='list']) button {
+        grid: 'name ' / 1fr;
+      }
+    }
   `;
 
   render() {
