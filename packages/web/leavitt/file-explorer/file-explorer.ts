@@ -1103,7 +1103,7 @@ ${folder.FilesCount} file${folder.FilesCount === 1 ? '' : 's'}, ${folder.Folders
         .parentFolderId=${this?.folderId ?? 0}
       ></leavitt-add-folder-modal>
       <leavitt-folder-modal .apiService=${this.apiService} .enableEditing=${this.isAdmin}></leavitt-folder-modal>
-      <leavitt-file-modal .enableEditing=${this.isAdmin}></leavitt-file-modal>
+      <leavitt-file-modal .apiService=${this.apiService} .enableEditing=${this.isAdmin}></leavitt-file-modal>
       <titanium-confirm-dialog></titanium-confirm-dialog>
     `;
   }
