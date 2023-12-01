@@ -1,4 +1,4 @@
-export function FormatBytes(bytes, decimalPlaces = 2) {
+export function formatBytes(bytes, decimalPlaces = 2) {
   if (0 === bytes) {
     return '0 Bytes';
   }

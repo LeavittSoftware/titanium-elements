@@ -26,22 +26,23 @@ import '@material/web/chips/filter-chip';
 import '@material/web/menu/menu';
 import '@material/web/menu/menu-item';
 
-import './leavitt-file-explorer-image';
+import './file-explorer-image';
+import './file-explorer-no-files';
+import './file-explorer-error';
+import './file-explorer-no-permission';
+import './file-modal';
 
-// import '@leavittsoftware/titanium-loading-indicator';
-// import './leavitt-file-explorer-no-files';
-// import './leavitt-file-explorer-no-permission';
-// import './leavitt-file-explorer-error';
 // import './leavitt-folder-modal';
-// import './leavitt-file-modal';
 
 import * as Throttle from 'promise-parallel-throttle';
 import { join } from '../../titanium/helpers/helpers';
 import { a, ellipsis, h1 } from '../../titanium/styles/styles';
 import dayjs from 'dayjs/esm';
-import { getIcon } from './file-types';
-import { FormatBytes } from './format-bytes';
+import { getIcon } from './helpers/file-types';
+import { formatBytes } from './helpers/format-bytes';
 import { CloseMenuEvent, MdMenu, MenuItem } from '@material/web/menu/menu';
+import TitaniumConfirmDialog from '../../titanium/confirm-dialog/confirm-dialog';
+import { LeavittFileModal } from './file-modal';
 
 /**
  * Leavitt Group specific file explorer
@@ -100,10 +101,10 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
 
   @query('leavitt-folder-modal') private accessor folderDialog; //:  LeavittFolderModalElement;
   @query('leavitt-add-folder-modal') private accessor addFolderModal; // LeavittAddFolderModalElement;
-  @query('leavitt-file-modal') private accessor fileDialog; // LeavittFileModalElement;
-  @query('input[files]') private accessor fileInput; // HTMLInputElement;
-  @query('input[folders]') private accessor folderInput; // HTMLInputElement;
-  @query('confirm-dialog') private accessor confirmDialog; // ConfirmDialogElement;
+  @query('leavitt-file-modal') private accessor fileDialog: LeavittFileModal;
+  @query('input[files]') private accessor fileInput: HTMLInputElement;
+  @query('input[folders]') private accessor folderInput: HTMLInputElement;
+  @query('titanium-confirm-dialog') private accessor confirmDialog: TitaniumConfirmDialog;
 
   #originalFolderId = 0;
 
@@ -882,7 +883,7 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
               : html`<span ellipsis end> File explorer</span>`}
           </nav>
           <file-summary ?hidden=${!this.fileExplorer} ellipsis heading3
-            >${this.fileExplorer?.FilesCount} files | ${this.fileExplorer?.FoldersCount} folders | ${FormatBytes(this.fileExplorer?.Size)}</file-summary
+            >${this.fileExplorer?.FilesCount} files | ${this.fileExplorer?.FoldersCount} folders | ${formatBytes(this.fileExplorer?.Size)}</file-summary
           >
         </aside>
         <header-actions>
@@ -1002,7 +1003,7 @@ ${folder.FilesCount} file${folder.FilesCount === 1 ? '' : 's'}, ${folder.Folders
                   }
                 }}
               >
-                <md-focus-ring></md-focus-ring>
+                <md-focus-ring ?inward=${this.display === 'list'}></md-focus-ring>
                 <file-name>
                   <md-icon
                     >${this.display === 'list' && this.selected.some((s) => s?.Id === file.Id && s.type === 'file')
@@ -1015,7 +1016,7 @@ ${folder.FilesCount} file${folder.FilesCount === 1 ? '' : 's'}, ${folder.Folders
                 ${this.display === 'list'
                   ? html`
                       <span date>${dayjs(file.CreatedDate).format('MMM D, YYYY')}</span>
-                      <span size>${FormatBytes(file.Size)}</span>
+                      <span size>${formatBytes(file.Size)}</span>
                     `
                   : html`<image-wrapper> <leavitt-file-explorer-image .attachment=${file}></leavitt-file-explorer-image></image-wrapper>`}
 

@@ -4,13 +4,13 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 
 import '@material/web/icon/icon';
 
-import { getIcon } from './file-types';
+import { getIcon } from './helpers/file-types';
 import { getCdnInlineUrl } from '../../titanium/helpers/get-cdn-Inline-url';
 
 import { Attachment } from '@leavittsoftware/lg-core-typescript/lg.net.core';
 
 @customElement('leavitt-file-explorer-image')
-export class LeavittFileExplorerImageElement extends LitElement {
+export class FileExplorerImage extends LitElement {
   @property({ type: String, reflect: true }) shape: 'circle' | 'rounded';
   @property({ type: Object }) attachment: Partial<Attachment>;
 

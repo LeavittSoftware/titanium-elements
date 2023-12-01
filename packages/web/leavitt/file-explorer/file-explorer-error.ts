@@ -1,9 +1,11 @@
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { p } from '@leavittsoftware/titanium-styles';
+
+import { p } from '../../titanium/styles/styles';
+import '@material/web/icon/icon';
 
 @customElement('leavitt-file-explorer-error')
-export class LeavittFileExplorerErrorElement extends LitElement {
+export class LeavittFileExplorerError extends LitElement {
   static styles = [
     p,
     css`
@@ -16,20 +18,18 @@ export class LeavittFileExplorerErrorElement extends LitElement {
         padding: 48px 24px;
       }
 
-      mwc-icon {
-        --mdc-icon-size: 120px;
-        color: #b3b3b3;
-      }
-
-      p {
-        color: var(--app-light-text-color, #80868b);
+      md-icon {
+        height: 120px;
+        width: 130px;
+        font-size: 120px;
+        color: var(--md-sys-color-surface-variant);
       }
     `,
   ];
 
   render() {
     return html`
-      <mwc-icon>gpp_bad</mwc-icon>
+      <md-icon>gpp_bad</md-icon>
       <p>Something went wrong...</p>
     `;
   }

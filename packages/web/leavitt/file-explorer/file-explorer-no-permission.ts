@@ -1,9 +1,11 @@
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { p } from '@leavittsoftware/titanium-styles';
+
+import { p } from '../../titanium/styles/styles';
+import '@material/web/icon/icon';
 
 @customElement('leavitt-file-explorer-no-permission')
-export class LeavittFileExplorerNoPermissionElement extends LitElement {
+export class LeavittFileExplorerNoPermission extends LitElement {
   static styles = [
     p,
     css`
@@ -16,21 +18,19 @@ export class LeavittFileExplorerNoPermissionElement extends LitElement {
         padding: 48px 24px;
       }
 
-      mwc-icon {
-        --mdc-icon-size: 120px;
-        color: #b3b3b3;
-      }
-
-      p {
-        color: var(--app-light-text-color, #80868b);
+      md-icon {
+        height: 120px;
+        width: 120px;
+        font-size: 120px;
+        color: var(--md-sys-color-surface-variant);
       }
     `,
   ];
 
   render() {
     return html`
-      <mwc-icon>https</mwc-icon>
-      <p>Permission denied</p>
+      <md-icon>https</md-icon>
+      <p>Permission denied.</p>
     `;
   }
 }
