@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.24.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.23.0...@leavittsoftware/web@1.24.0) (2023-12-01)
+
+### Bug Fixes
+
+- clear selection on navigate ([fe378d9](https://github.com/LeavittSoftware/titanium-elements/commit/fe378d99f8a53a208f1da71959b3850fe4f19694))
+- error message on upload failures ([90ea908](https://github.com/LeavittSoftware/titanium-elements/commit/90ea908a164fa46bd35b4f6bdd468052d9d5adb5))
+
+### Features
+
+- add ripples ([cae85af](https://github.com/LeavittSoftware/titanium-elements/commit/cae85affd64d5027af79f1fdd2e1edd63496555e))
+- **file-explorer:** add upgrade m3 file explorer ([6b01b2a](https://github.com/LeavittSoftware/titanium-elements/commit/6b01b2a544af335c251be7d8a4bb7e276fa0ebaa))
+- improve cursor pointers ([1b989e6](https://github.com/LeavittSoftware/titanium-elements/commit/1b989e60718ff8483b29e34d493b3fc9fa628346))
+
 # [1.23.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.22.0...@leavittsoftware/web@1.23.0) (2023-12-01)
 
 ### Features
