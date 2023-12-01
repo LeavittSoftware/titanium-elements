@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.23.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.22.0...@leavittsoftware/web@1.23.0) (2023-12-01)
+
+### Features
+
+- **file-explorer:** add upgrade m3 file explorer ([6b01b2a](https://github.com/LeavittSoftware/titanium-elements/commit/6b01b2a544af335c251be7d8a4bb7e276fa0ebaa))
+
 # [1.22.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.21.0...@leavittsoftware/web@1.22.0) (2023-11-29)
 
 ### Bug Fixes
