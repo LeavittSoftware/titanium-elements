@@ -48,6 +48,7 @@ export class FolderListItem extends LitElement {
     }
 
     :host([display='grid']) button {
+      cursor: pointer;
       border: 1px solid var(--md-sys-color-outline-variant);
       border-radius: 16px;
       padding: 0;

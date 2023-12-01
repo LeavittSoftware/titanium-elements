@@ -15,7 +15,7 @@ import { formatBytes } from './helpers/format-bytes';
 export class FileListItem extends LitElement {
   @property({ type: Object }) accessor file: FileExplorerFileDto;
   @property({ type: Boolean, reflect: true }) accessor selected: boolean = false;
-  @property({ type: Number }) accessor selectedCount: number = 0;
+  @property({ type: Number, reflect: true, attribute: 'selected-count' }) accessor selectedCount: number = 0;
   @property({ type: String, reflect: true, attribute: 'display' }) accessor display: 'grid' | 'list' = 'grid';
 
   static styles = css`
@@ -59,6 +59,10 @@ export class FileListItem extends LitElement {
       gap: 0;
       align-content: inherit;
       align-items: inherit;
+    }
+
+    :host([display='grid'][selected-count='0']) button {
+      cursor: zoom-in;
     }
 
     /* Focus ring */
