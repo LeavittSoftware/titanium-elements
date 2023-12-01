@@ -353,7 +353,7 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
           }
         }
       } catch (error) {
-        failedFiles.push(file.name + ': ' + error);
+        failedFiles.push(file.name + ': ' + error.message);
       }
     });
 
@@ -394,7 +394,7 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
           }
         }
       } catch (error) {
-        failedFiles.push(file.webkitRelativePath + ': ' + error);
+        failedFiles.push(file.webkitRelativePath + ': ' + error.message);
       }
     });
 
