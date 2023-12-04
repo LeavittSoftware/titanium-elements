@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.25.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.24.0...@leavittsoftware/web@1.25.0) (2023-12-01)
+
+### Features
+
+- **file-explorer:** improve small viewport support ([5231df0](https://github.com/LeavittSoftware/titanium-elements/commit/5231df08642b53f774d162705b551f49dbfd8728))
+
 # [1.24.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.23.0...@leavittsoftware/web@1.24.0) (2023-12-01)
 
 ### Bug Fixes
