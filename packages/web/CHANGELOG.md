@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.26.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.25.0...@leavittsoftware/web@1.26.0) (2023-12-04)
+
+### Bug Fixes
+
+- **loading-indicator:** fix firefox not allowing clicks through the loading indicator ([fd8ff3b](https://github.com/LeavittSoftware/titanium-elements/commit/fd8ff3b930a8ccdfaae02dc5408ad3fe46c556c8))
+
+### Features
+
+- **file-explorer:** improve small viewport support ([5231df0](https://github.com/LeavittSoftware/titanium-elements/commit/5231df08642b53f774d162705b551f49dbfd8728))
+
 # [1.25.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.24.0...@leavittsoftware/web@1.25.0) (2023-12-01)
 
 ### Features
