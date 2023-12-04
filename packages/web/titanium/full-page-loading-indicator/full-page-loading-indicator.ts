@@ -55,7 +55,7 @@ export class TitaniumFullPageLoadingIndicator extends LitElement {
     this.#openDelayTimer = window.setTimeout(() => {
       this.#timeOpen = performance.now();
       this.showPopover();
-      document.body.style.overflow = 'hidden';
+      this.style.display = 'block';
     }, this.#openDelay);
   }
 
@@ -66,7 +66,7 @@ export class TitaniumFullPageLoadingIndicator extends LitElement {
 
     this.#closeDelayTimer = window.setTimeout(() => {
       this.hidePopover();
-      document.body.style.overflow = '';
+      this.style.display = 'none';
     }, closeDelay);
   }
 
