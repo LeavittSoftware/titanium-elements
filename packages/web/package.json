@@ -26,7 +26,8 @@
     "fuse.js": "^7.0.0",
     "jwt-decode": "^4.0.0",
     "regexparam": "~2.0.1",
-    "tslib": "^2.6.2"
+    "tslib": "^2.6.2",
+    "promise-parallel-throttle": "^3.3.0"
   },
   "peerDependencies": {
     "lit": ">=3.0.0"
