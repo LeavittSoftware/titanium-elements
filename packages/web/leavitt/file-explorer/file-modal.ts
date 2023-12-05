@@ -20,8 +20,8 @@ import { MdDialog } from '@material/web/dialog/dialog';
 import { DOMEvent } from '../../titanium/types/dom-event';
 import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
 import ApiService from '../api-service/api-service';
-import { TitaniumSnackbarSingleton } from '../../titanium/snackbar/snackbar';
 import { LoadWhile } from '../../titanium/helpers/helpers';
+import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
 
 @customElement('leavitt-file-modal')
 export class FileModal extends LoadWhile(LitElement) {
@@ -63,7 +63,7 @@ export class FileModal extends LoadWhile(LitElement) {
       fileExplorerEvents.dispatch('FileExplorerFileDto', 'Update', { ...this.file, Name: this.fileName });
       this.state = 'view';
     } catch (error) {
-      TitaniumSnackbarSingleton.open(error);
+      this.dispatchEvent(new ShowSnackbarEvent(error));
     }
   }
 

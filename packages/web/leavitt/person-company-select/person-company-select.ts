@@ -9,8 +9,8 @@ import '../profile-picture/profile-picture';
 
 import { Debouncer, getSearchTokens } from '../../titanium/helpers/helpers';
 import ApiService from '../api-service/api-service';
-import { TitaniumSnackbarSingleton } from '../../titanium/snackbar/snackbar';
 import Fuse from 'fuse.js';
+import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
 
 export type Person = CorePerson & { type: 'Person'; Name: string };
 export type Company = CoreCompany & { type: 'Company' };
@@ -103,7 +103,7 @@ export class LeavittPersonCompanySelect extends TitaniumSingleSelectBase<Partial
       return results;
     } catch (error) {
       if (!error?.message?.includes('Abort error')) {
-        TitaniumSnackbarSingleton.open(error);
+        this.dispatchEvent(new ShowSnackbarEvent(error));
       }
     }
     return null;
@@ -129,7 +129,7 @@ export class LeavittPersonCompanySelect extends TitaniumSingleSelectBase<Partial
       return results;
     } catch (error) {
       if (!error?.message?.includes('Abort error')) {
-        TitaniumSnackbarSingleton.open(error);
+        this.dispatchEvent(new ShowSnackbarEvent(error));
       }
     }
     return null;

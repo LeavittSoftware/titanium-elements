@@ -7,14 +7,13 @@ import '@material/web/textfield/outlined-text-field';
 import '@material/web/menu/menu';
 import '@material/web/menu/menu-item';
 
-import { TitaniumSnackbarSingleton } from '../../titanium/snackbar/snackbar';
-
 import { Company } from '@leavittsoftware/lg-core-typescript/lg.net.core';
 import ApiService from '../api-service/api-service';
 import Fuse from 'fuse.js';
 import { TitaniumSingleSelectBase } from '../../titanium/single-select-base/single-select-base';
 
-import { Debouncer } from '@leavittsoftware/web/titanium/helpers/debouncer';
+import { Debouncer } from '../../titanium/helpers/debouncer';
+import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
 
 /**
  *  Single select input that searches Leavitt Group companies
@@ -87,7 +86,7 @@ export class LeavittCompanySelect extends TitaniumSingleSelectBase<Partial<Compa
       const result = await get;
       return result?.toList() ?? [];
     } catch (error) {
-      TitaniumSnackbarSingleton.open(error);
+      this.dispatchEvent(new ShowSnackbarEvent(error));
     }
     return [];
   }

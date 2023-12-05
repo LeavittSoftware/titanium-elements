@@ -15,7 +15,6 @@ import { ConfirmDialogOpenEvent } from '../../titanium/confirm-dialog/confirm-di
 
 import '../../titanium/confirm-dialog/confirm-dialog';
 import fileExplorerEvents from './events/file-explorer-events';
-import { TitaniumSnackbarSingleton } from '../../titanium/snackbar/snackbar';
 
 import '@material/web/icon/icon';
 import '@material/web/button/text-button';
@@ -42,6 +41,7 @@ import TitaniumConfirmDialog from '../../titanium/confirm-dialog/confirm-dialog'
 import { FileModal } from './file-modal';
 import { AddFolderModal } from './add-folder-modal';
 import { FolderModal } from './folder-modal';
+import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
 
 /**
  * Leavitt Group specific file explorer
@@ -270,11 +270,13 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
       this.state = this.folders.length > 0 || this.files.length > 0 ? 'files' : 'no-files';
       await this.reload();
       if (totalErrorCount > 0) {
-        TitaniumSnackbarSingleton.open(
-          html`Failed to delete ${totalErrorCount === 1 ? 'files and folders' : `${totalErrorCount} files and folders: <br />`}.
-          ${errorMessageToCount.size === 1
-            ? Array.from(errorMessageToCount.keys())[0]
-            : Array.from(errorMessageToCount.entries()).map(([error, count]) => `(${count}) ${error} <br />`)}`
+        this.dispatchEvent(
+          new ShowSnackbarEvent(
+            html`Failed to delete ${totalErrorCount === 1 ? 'files and folders' : `${totalErrorCount} files and folders: <br />`}.
+            ${errorMessageToCount.size === 1
+              ? Array.from(errorMessageToCount.keys())[0]
+              : Array.from(errorMessageToCount.entries()).map(([error, count]) => `(${count}) ${error} <br />`)}`
+          )
         );
       }
     }
@@ -362,9 +364,11 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
     await uploadAll;
 
     if (failedFiles.length > 0) {
-      TitaniumSnackbarSingleton.open(
-        html`Failed to upload ${failedFiles.length} file${failedFiles.length === 1 ? '' : 's'}: <br />
-          ${join(failedFiles, html`<br />`)}`
+      this.dispatchEvent(
+        new ShowSnackbarEvent(
+          html`Failed to upload ${failedFiles.length} file${failedFiles.length === 1 ? '' : 's'}: <br />
+            ${join(failedFiles, html`<br />`)}`
+        )
       );
       console.warn(`Failed to upload ${failedFiles.length} file${failedFiles.length === 1 ? '' : 's'}: \r\n${failedFiles.join('\r\n')}`);
     }
@@ -403,9 +407,11 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
     await uploadAll;
 
     if (failedFiles.length > 0) {
-      TitaniumSnackbarSingleton.open(
-        html`Failed to upload ${failedFiles.length} file${failedFiles.length === 1 ? '' : 's'}: <br />
-          ${join(failedFiles, html`<br />`)}`
+      this.dispatchEvent(
+        new ShowSnackbarEvent(
+          html`Failed to upload ${failedFiles.length} file${failedFiles.length === 1 ? '' : 's'}: <br />
+            ${join(failedFiles, html`<br />`)}`
+        )
       );
       console.warn(`Failed to upload ${failedFiles.length} file${failedFiles.length === 1 ? '' : 's'}: \r\n${failedFiles.join('\r\n')}`);
     }
@@ -435,7 +441,7 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
       }
       return result;
     } catch (error) {
-      TitaniumSnackbarSingleton.open(error);
+      this.dispatchEvent(new ShowSnackbarEvent(error));
     }
     return null;
   }

@@ -2,7 +2,7 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, query, queryAll } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
-import '@leavittsoftware/web/titanium/snackbar/snackbar';
+import '@leavittsoftware/web/titanium/snackbar/snackbar-stack';
 
 /* playground-fold-end */
 import '@leavittsoftware/web/leavitt/user-feedback/user-feedback';
@@ -56,7 +56,7 @@ export class LeavittPersonCompanySelectPlayground extends LitElement {
       <div>
         <leavitt-user-feedback></leavitt-user-feedback>
       </div>
-      <titanium-snackbar></titanium-snackbar>
+      <titanium-snackbar-stack></titanium-snackbar-stack>
     `;
   }
 }

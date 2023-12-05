@@ -9,7 +9,7 @@ import '../profile-picture/profile-picture';
 
 import { Debouncer, getSearchTokens } from '../../titanium/helpers/helpers';
 import ApiService from '../api-service/api-service';
-import { TitaniumSnackbarSingleton } from '../../titanium/snackbar/snackbar';
+import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
 
 /**
  *  Single select input that searches Leavitt Group users
@@ -81,7 +81,7 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
       this.showSuggestions(result?.entities ?? [], result?.odataCount ?? 0);
     } catch (error) {
       if (!error?.message?.includes('Abort error')) {
-        TitaniumSnackbarSingleton.open(error);
+        this.dispatchEvent(new ShowSnackbarEvent(error));
       }
     }
   }

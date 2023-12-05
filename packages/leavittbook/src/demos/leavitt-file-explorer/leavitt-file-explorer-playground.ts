@@ -2,7 +2,7 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
-import '@leavittsoftware/web/titanium/snackbar/snackbar';
+import '@leavittsoftware/web/titanium/snackbar/snackbar-stack';
 
 /* playground-fold-end */
 import '@leavittsoftware/web/leavitt/file-explorer/file-explorer';
@@ -39,7 +39,7 @@ export class LeavittPersonCompanySelectPlayground extends LitElement {
     return html`
       <user-manager></user-manager>
       <leavitt-file-explorer file-explorer-id="1" .apiService=${this.fileExplorerApiService}></leavitt-file-explorer>
-      <titanium-snackbar></titanium-snackbar>
+      <titanium-snackbar-stack></titanium-snackbar-stack>
     `;
   }
 }

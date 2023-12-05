@@ -12,7 +12,11 @@ export function dialogZIndexHack(dialog: MdDialog) {
   if (dialog.shadowRoot) {
     const scrim = dialog.shadowRoot.querySelector<HTMLElement>('.scrim');
     if (scrim) {
-      scrim.style.zIndex = '99';
+      scrim.style.display = 'none';
     }
+    const nativeDialog = dialog.shadowRoot.querySelector<HTMLElement>('dialog');
+    const html =
+      '<style>dialog::backdrop { display:block;    background: var(--md-sys-color-scrim, #000); opacity: 0.32; transition: all 250ms ease 0s; }</style>';
+    nativeDialog?.insertAdjacentHTML('beforeend', html);
   }
 }
