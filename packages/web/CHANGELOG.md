@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.26.2...@leavittsoftware/web@2.0.0) (2023-12-06)
+
+### Bug Fixes
+
+- add missing dep for promise-parallel-throttle ([91e99a1](https://github.com/LeavittSoftware/titanium-elements/commit/91e99a120367f3c6cb98bcbc16e0f191c179db3a))
+
+### Features
+
+- **snackbar:** add self combining http error snackbars ([0310102](https://github.com/LeavittSoftware/titanium-elements/commit/031010211bfe3a786b1d109a8e4f3f3569566cc6))
+- **snackbar:** Snack bar v2 (stackable snackbars) ([4f594af](https://github.com/LeavittSoftware/titanium-elements/commit/4f594af0a2fa8e8d211d33fcf32f879e492398f8))
+
+### BREAKING CHANGES
+
+- **snackbar:** removed SnackbarSingleton and snackbar; use ShowSnackbarEvent and titanium-snackbar-stack
+
 ## [1.26.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.26.1...@leavittsoftware/web@1.26.2) (2023-12-06)
 
 ### Bug Fixes
