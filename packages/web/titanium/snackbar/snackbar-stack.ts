@@ -1,6 +1,6 @@
 import { HttpError } from '../../leavitt/api-service/HttpError';
 import { LitElement } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import { SimpleSnackbar } from './snackbars/simple-snackbar';
 
 import './snackbars/simple-snackbar';
@@ -19,9 +19,12 @@ import { HttpErrorSnackbar } from './snackbars/http-error-snackbar';
 
 @customElement('titanium-snackbar-stack')
 export class SnackbarStack extends LitElement {
+  @property({ type: Object }) accessor eventListenerTarget: HTMLElement | Document | undefined;
+
   SnackbarStack: (SimpleSnackbar | HttpErrorSnackbar)[] = [];
+
   connectedCallback() {
-    this.parentNode?.addEventListener(ShowSnackbarEvent.eventName, (e: ShowSnackbarEvent) => {
+    (this.eventListenerTarget || this.getRootNode()).addEventListener(ShowSnackbarEvent.eventName, (e: ShowSnackbarEvent) => {
       e.stopImmediatePropagation();
       this.open(e.SnackbarMessage, e.SnackbarOptions);
     });
