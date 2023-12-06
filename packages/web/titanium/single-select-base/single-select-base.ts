@@ -137,9 +137,6 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
    *  Resets search term and suggestions.
    */
   softReset() {
-    if (this.textfield) {
-      this.textfield.reset();
-    }
     this.searchTerm = '';
     this.suggestions = [];
   }
