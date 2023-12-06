@@ -1,10 +1,10 @@
 import { property, customElement } from 'lit/decorators.js';
-import { PropertyValues } from 'lit';
+import { PropertyValues, css } from 'lit';
 
 import dayjs from 'dayjs/esm';
 import duration from 'dayjs/esm/plugin/duration';
 import { ExtendableOutlinedTextField } from '../extendable-outlined-text-field/extendable-outlined-text-field';
-import humanInterval from './human-interval';
+import humanInterval, { durationToString } from './human-interval';
 dayjs.extend(duration);
 
 /**
@@ -28,16 +28,35 @@ export class TitaniumDurationInput extends ExtendableOutlinedTextField {
   firstUpdated() {
     this.label = 'Duration';
     this.supportingText = 'Enter a duration ex. "3 hours and 30 minutes"';
-  }
 
-  updated(changedProps: PropertyValues<this>) {
-    if (changedProps.has('value')) {
+    this.addEventListener('change', () => {
       this.#customReportValidity(this.input.value);
 
       const dur = this.#textToInterval(this.input.value);
       if (dur?.asMilliseconds() != this.duration?.asMilliseconds()) {
         this.duration = dur;
         this.dispatchEvent(new Event('duration-change'));
+      }
+    });
+  }
+
+  static styles = css`
+    :host {
+      display: block;
+    }
+
+    md-outlined-text-field {
+      width: 100%;
+    }
+  `;
+
+  updated(changedProps: PropertyValues<this>) {
+    if (changedProps.has('duration') && changedProps.get('duration') !== this.duration) {
+      if (this.duration) {
+        this.value = durationToString(this.duration);
+      } else {
+        this.duration = null;
+        this.value = '';
       }
     }
   }
