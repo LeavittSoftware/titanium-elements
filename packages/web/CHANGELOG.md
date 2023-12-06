@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.0.0...@leavittsoftware/web@2.1.0) (2023-12-06)
+
+### Features
+
+- **snackbar:** adds option eventListenerTarget property ([9762ed0](https://github.com/LeavittSoftware/titanium-elements/commit/9762ed03c9bf900e19dfe5d462dc6c5f689e47a1))
+
 # [2.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.26.2...@leavittsoftware/web@2.0.0) (2023-12-06)
 
 ### Bug Fixes
