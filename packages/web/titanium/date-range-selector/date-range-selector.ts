@@ -126,24 +126,48 @@ export class TitaniumDateRangeSelector extends LitElement {
     }
 
     main {
+      display: flex;
+      flex-direction: column;
+    }
+
+    section {
       display: grid;
-      grid:
-        'list inputs'
-        'buttons buttons' / 220px minmax(300px, 1fr);
+      grid: 'list inputs'/ 220px minmax(300px, 1fr);
       gap: 0 24px;
       margin: 0;
+      padding-bottom: 57px;
+
+      overflow-y: auto;
+
+      position: relative;
     }
 
     menu-actions {
-      grid-area: buttons;
       display: flex;
-      flex-direction: row;
+      background-color: var(--md-sys-color-surface-container);
+      z-index: 1;
 
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border-top: 1px solid var(--md-sys-color-outline-variant);
+
+      flex-direction: row;
       justify-content: flex-end;
 
       gap: 12px;
-      padding: 12px 12px 0 12px;
-      border-top: 1px solid var(--md-sys-color-outline-variant);
+      padding: 12px;
+    }
+
+    input-container {
+      grid-area: inputs;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 24px;
+
+      margin-right: 16px;
     }
 
     md-outlined-field {
@@ -173,16 +197,6 @@ export class TitaniumDateRangeSelector extends LitElement {
       }
     }
 
-    input-container {
-      grid-area: inputs;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 24px;
-
-      margin-right: 16px;
-    }
-
     span[error] {
       font-size: 12px;
       margin-top: -18px;
@@ -194,7 +208,7 @@ export class TitaniumDateRangeSelector extends LitElement {
     }
 
     @media (max-width: 450px) {
-      main {
+      section {
         grid:
           'inputs'
           'list'
@@ -207,7 +221,7 @@ export class TitaniumDateRangeSelector extends LitElement {
       }
 
       md-list {
-        max-height: 190px;
+        max-height: unset;
         border-top: 1px solid var(--md-sys-color-outline-variant);
       }
     }
@@ -306,66 +320,68 @@ export class TitaniumDateRangeSelector extends LitElement {
         }}
       >
         <main>
-          <md-list>
-            ${Array.from(this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges).map(
-              (o) =>
-                html`<md-list-item
-                  type="button"
-                  ?selected=${this.proposedRange === o[0]}
-                  @click=${() => {
-                    this.proposedRange = o[0];
-                    const range = this.#getRange(o[0]);
-                    if (range) {
-                      this.proposedStartDate = range.startDate ?? '';
-                      this.proposedEndDate = range.endDate ?? '';
-                    }
-                  }}
-                  value=${o[0]}
-                >
-                  <md-icon slot="start">${o[1].icon}</md-icon>
-                  <div slot="headline">${o[1].name}</div>
-                </md-list-item>`
-            )}
-            <md-list-item type="button" ?selected=${this.proposedRange === 'custom'} @click=${() => (this.proposedRange = 'custom')} value="custom">
-              <md-icon slot="start">date_range</md-icon>
-              <div slot="headline">Custom range</div>
-            </md-list-item>
-          </md-list>
-          <input-container>
-            <titanium-date-input
-              start-date
-              label="From"
-              type=${this.enableTime ? 'datetime-local' : 'date'}
-              .value=${this.proposedStartDate ?? ''}
-              @change=${async (e: DOMEvent<TitaniumDateInput>) => {
-                this.proposedStartDate = e.target.value ?? '';
-                this.proposedRange =
-                  Array.from(this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges).find(
-                    (o) => o[1].startDate === this.proposedStartDate && o[1].endDate === this.proposedEndDate
-                  )?.[0] || 'custom';
-                await this.updateComplete;
-                this.#scrollSelectedListItemIntoView();
-              }}
-            ></titanium-date-input>
+          <section>
+            <md-list>
+              ${Array.from(this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges).map(
+                (o) =>
+                  html`<md-list-item
+                    type="button"
+                    ?selected=${this.proposedRange === o[0]}
+                    @click=${() => {
+                      this.proposedRange = o[0];
+                      const range = this.#getRange(o[0]);
+                      if (range) {
+                        this.proposedStartDate = range.startDate ?? '';
+                        this.proposedEndDate = range.endDate ?? '';
+                      }
+                    }}
+                    value=${o[0]}
+                  >
+                    <md-icon slot="start">${o[1].icon}</md-icon>
+                    <div slot="headline">${o[1].name}</div>
+                  </md-list-item>`
+              )}
+              <md-list-item type="button" ?selected=${this.proposedRange === 'custom'} @click=${() => (this.proposedRange = 'custom')} value="custom">
+                <md-icon slot="start">date_range</md-icon>
+                <div slot="headline">Custom range</div>
+              </md-list-item>
+            </md-list>
+            <input-container>
+              <titanium-date-input
+                start-date
+                label="From"
+                type=${this.enableTime ? 'datetime-local' : 'date'}
+                .value=${this.proposedStartDate ?? ''}
+                @change=${async (e: DOMEvent<TitaniumDateInput>) => {
+                  this.proposedStartDate = e.target.value ?? '';
+                  this.proposedRange =
+                    Array.from(this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges).find(
+                      (o) => o[1].startDate === this.proposedStartDate && o[1].endDate === this.proposedEndDate
+                    )?.[0] || 'custom';
+                  await this.updateComplete;
+                  this.#scrollSelectedListItemIntoView();
+                }}
+              ></titanium-date-input>
 
-            <titanium-date-input
-              end-date
-              label="To"
-              type=${this.enableTime ? 'datetime-local' : 'date'}
-              .value=${this.proposedEndDate ?? ''}
-              @change=${async (e: DOMEvent<TitaniumDateInput>) => {
-                this.proposedEndDate = e.target.value ?? '';
-                this.proposedRange =
-                  Array.from(this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges).find(
-                    (o) => o[1].startDate === this.proposedStartDate && o[1].endDate === this.proposedEndDate
-                  )?.[0] || 'custom';
-                await this.updateComplete;
-                this.#scrollSelectedListItemIntoView();
-              }}
-            >
-            </titanium-date-input>
-            <span error ?invisible=${this.#validateDates(this.proposedStartDate, this.proposedEndDate)}>From date cannot start after To date</span>
-          </input-container>
+              <titanium-date-input
+                end-date
+                label="To"
+                type=${this.enableTime ? 'datetime-local' : 'date'}
+                .value=${this.proposedEndDate ?? ''}
+                @change=${async (e: DOMEvent<TitaniumDateInput>) => {
+                  this.proposedEndDate = e.target.value ?? '';
+                  this.proposedRange =
+                    Array.from(this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges).find(
+                      (o) => o[1].startDate === this.proposedStartDate && o[1].endDate === this.proposedEndDate
+                    )?.[0] || 'custom';
+                  await this.updateComplete;
+                  this.#scrollSelectedListItemIntoView();
+                }}
+              >
+              </titanium-date-input>
+              <span error ?invisible=${this.#validateDates(this.proposedStartDate, this.proposedEndDate)}>From date cannot start after To date</span>
+            </input-container>
+          </section>
           <menu-actions
             ><md-text-button @click=${() => (this.open = false)}>Cancel</md-text-button>
             <md-text-button
