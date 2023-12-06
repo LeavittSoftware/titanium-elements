@@ -8,11 +8,11 @@ import '@material/web/textfield/filled-text-field';
 import { FileExplorerFolder, FileExplorerFolderDto } from '@leavittsoftware/lg-core-typescript';
 import { MdDialog } from '@material/web/dialog/dialog';
 import ApiService from '../api-service/api-service';
-import { TitaniumSnackbarSingleton } from '../../titanium/snackbar/snackbar';
 import { PendingStateEvent } from '../../titanium/types/pending-state-event';
 import { DOMEvent } from '../../titanium/types/dom-event';
 import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
 import { LoadWhile } from '../../titanium/helpers/helpers';
+import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
 
 @customElement('leavitt-add-folder-modal')
 export class AddFolderModal extends LoadWhile(LitElement) {
@@ -59,7 +59,7 @@ export class AddFolderModal extends LoadWhile(LitElement) {
         CreatorFullName: result?.CreatorPerson?.FullName,
       } as FileExplorerFolderDto;
     } catch (error) {
-      TitaniumSnackbarSingleton.open(error);
+      this.dispatchEvent(new ShowSnackbarEvent(error));
     }
     return null;
   }

@@ -2,10 +2,10 @@
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
-import { TitaniumSnackbarSingleton } from '@leavittsoftware/web/titanium/snackbar/snackbar';
 
 import '@material/web/ripple/ripple';
 import '@material/web/focus/md-focus-ring';
+import { ShowSnackbarEvent } from '@leavittsoftware/web/titanium/snackbar/show-snackbar-event';
 
 /* playground-fold-end */
 
@@ -136,7 +136,7 @@ export class AvailableCdnIconsPlayground extends LitElement {
             html`<button
               @click=${() => {
                 navigator.clipboard.writeText(`https://cdn.leavitt.com/icons/${o}`);
-                TitaniumSnackbarSingleton?.open('URL copied to clipboard!', { autoHide: true });
+                this.dispatchEvent(new ShowSnackbarEvent('URL copied to clipboard!', { autoHide: 1500, noAction: true }));
               }}
             >
               <md-ripple></md-ripple>

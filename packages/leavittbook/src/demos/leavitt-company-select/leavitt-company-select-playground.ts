@@ -107,7 +107,7 @@ export class LeavittPersonCompanySelectPlayground extends LitElement {
         <leavitt-company-select disableAutoLoad label="required" required validationMessage="required" .apiService=${this.apiService}></leavitt-company-select>
       </div>
 
-      <titanium-snackbar></titanium-snackbar>
+      <titanium-snackbar-stack></titanium-snackbar-stack>
     `;
   }
 }

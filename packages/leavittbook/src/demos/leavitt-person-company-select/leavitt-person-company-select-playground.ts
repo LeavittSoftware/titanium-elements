@@ -99,7 +99,7 @@ export class LeavittPersonCompanySelectPlayground extends LitElement {
         <leavitt-person-company-select label="required" required validationMessage="required" .apiService=${this.apiService}></leavitt-person-company-select>
       </div>
 
-      <titanium-snackbar></titanium-snackbar>
+      <titanium-snackbar-stack></titanium-snackbar-stack>
     `;
   }
 }

@@ -4,7 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { TitaniumSingleSelectBase } from '../../titanium/single-select-base/single-select-base';
 import { Debouncer } from '../../titanium/helpers/helpers';
-import { TitaniumSnackbarSingleton } from '../../titanium/snackbar/snackbar';
+import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
 
 import { Loader } from '@googlemaps/js-api-loader';
 
@@ -124,7 +124,7 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
       return;
     } catch (error) {
       if (!error?.message?.includes('Abort error')) {
-        TitaniumSnackbarSingleton.open(error);
+        this.dispatchEvent(new ShowSnackbarEvent(error));
       }
     }
 
@@ -192,7 +192,7 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
           entity = { ...entity, ...address };
         }
       } catch (error) {
-        TitaniumSnackbarSingleton.open(error);
+        this.dispatchEvent(new ShowSnackbarEvent(error));
       }
     }
     super.setSelected(entity);

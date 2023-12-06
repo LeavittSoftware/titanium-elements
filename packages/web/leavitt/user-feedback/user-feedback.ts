@@ -11,13 +11,13 @@ import { LitElement, PropertyValues, css, html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { LoadWhile, isDevelopment } from '../../titanium/helpers/helpers';
 import { PendingStateEvent } from '../../titanium/types/pending-state-event';
-import { TitaniumSnackbarSingleton } from '../../titanium/snackbar/snackbar';
 import { h1, p } from '../../titanium/styles/styles';
 import { AuthenticatedTokenProvider } from '../api-service/authenticated-token-provider';
 import { WebsiteBugDto, WebsiteFeedback } from '@leavittsoftware/lg-core-typescript';
 import { TitaniumSmartAttachmentInput } from '../../titanium/smart-attachment-input/smart-attachment-input';
 import ApiService from '../api-service//api-service';
 import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
+import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
 
 const websiteBugApiService = new ApiService(new AuthenticatedTokenProvider());
 websiteBugApiService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
@@ -69,15 +69,17 @@ export class LeavittUserFeedback extends LoadWhile(LitElement) {
       if (!entity) {
         throw new Error('Error submitting problem. Please try again.');
       } else {
-        TitaniumSnackbarSingleton.open(
-          html`Thank you for bringing this issue to our attention!<br />
-            <br />
-            Our engineering teams will promptly investigate and address it.`
+        this.dispatchEvent(
+          new ShowSnackbarEvent('', {
+            overrideTemplate: html`Thank you for bringing this issue to our attention!<br />
+              <br />
+              Our engineering teams will promptly investigate and address it.`,
+          })
         );
         this.reset();
       }
     } catch (error) {
-      TitaniumSnackbarSingleton.open(error);
+      this.dispatchEvent(new ShowSnackbarEvent(error));
     }
   }
 
@@ -100,11 +102,11 @@ export class LeavittUserFeedback extends LoadWhile(LitElement) {
       if (!entity) {
         throw new Error('Error submitting feedback. Please try again.');
       } else {
-        TitaniumSnackbarSingleton.open('We appreciate your input, and we will promptly conduct a review!');
+        this.dispatchEvent(new ShowSnackbarEvent('We appreciate your input, and we will promptly conduct a review!'));
         this.reset();
       }
     } catch (error) {
-      TitaniumSnackbarSingleton.open(error);
+      this.dispatchEvent(new ShowSnackbarEvent(error));
     }
   }
 

@@ -1,6 +1,6 @@
 import '@leavittsoftware/web/titanium/toolbar/toolbar';
 import '@leavittsoftware/web/leavitt/user-manager/user-manager';
-import '@leavittsoftware/web/titanium/snackbar/snackbar';
+import '@leavittsoftware/web/titanium/snackbar/snackbar-stack';
 import '@leavittsoftware/web/titanium/full-page-loading-indicator/full-page-loading-indicator';
 import '@leavittsoftware/web/titanium/error-page/error-page';
 import '@leavittsoftware/web/titanium/service-worker-notifier/service-worker-notifier';
@@ -574,7 +574,7 @@ export class MyApp extends LitElement {
       </main-content>
 
       <titanium-confirm-dialog></titanium-confirm-dialog>
-      <titanium-snackbar></titanium-snackbar>
+      <titanium-snackbar-stack></titanium-snackbar-stack>
       <titanium-service-worker-notifier></titanium-service-worker-notifier>`;
   }
 }

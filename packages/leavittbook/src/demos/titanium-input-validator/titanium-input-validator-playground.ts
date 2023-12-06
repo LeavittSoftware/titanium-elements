@@ -8,9 +8,9 @@ import '@material/web/button/outlined-button';
 
 /* playground-fold-end */
 import '@leavittsoftware/web/titanium/input-validator/input-validator';
-import { TitaniumSnackbarSingleton } from '@leavittsoftware/web/titanium/snackbar/snackbar';
 import { TitaniumInputValidator } from '@leavittsoftware/web/titanium/input-validator/input-validator';
 import { formStyles } from '../../styles/form-styles';
+import { ShowSnackbarEvent } from '@leavittsoftware/web/titanium/snackbar/show-snackbar-event';
 
 /* playground-fold */
 @customElement('titanium-input-validator-playground')
@@ -84,7 +84,9 @@ export class TitaniumInputValidatorPlayground extends LitElement {
         </titanium-input-validator>
         <section buttons>
           <md-outlined-button @click=${() => Array.from(this.validators).forEach((v) => v.reportValidity())}>Report Validity</md-outlined-button>
-          <md-outlined-button @click=${() => TitaniumSnackbarSingleton.open(`Check Validity is ${Array.from(this.validators).map((v) => v.checkValidity())}`)}>
+          <md-outlined-button
+            @click=${() => this.dispatchEvent(new ShowSnackbarEvent(`Check Validity is ${Array.from(this.validators).map((v) => v.checkValidity())}`))}
+          >
             Check Validity</md-outlined-button
           >
           <md-outlined-button @click=${() => Array.from(this.validators).forEach((v) => v.reset())}> Reset</md-outlined-button>

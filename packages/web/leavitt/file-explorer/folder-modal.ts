@@ -16,8 +16,8 @@ import { MdDialog } from '@material/web/dialog/dialog';
 import { DOMEvent } from '../../titanium/types/dom-event';
 import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
 import ApiService from '../api-service/api-service';
-import { TitaniumSnackbarSingleton } from '../../titanium/snackbar/snackbar';
 import { LoadWhile } from '../../titanium/helpers/helpers';
+import { ShowSnackbarEvent } from '../..//titanium/snackbar/show-snackbar-event';
 
 @customElement('leavitt-folder-modal')
 export class FolderModal extends LoadWhile(LitElement) {
@@ -54,7 +54,7 @@ export class FolderModal extends LoadWhile(LitElement) {
       fileExplorerEvents.dispatch('FileExplorerFolder', 'Update', { ...this.folder, Name: this.folderName });
       this.state = 'view';
     } catch (error) {
-      TitaniumSnackbarSingleton.open(error);
+      this.dispatchEvent(new ShowSnackbarEvent(error));
     }
   }
 
