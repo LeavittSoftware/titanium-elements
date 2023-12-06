@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.26.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.26.1...@leavittsoftware/web@1.26.2) (2023-12-06)
+
+### Bug Fixes
+
+- add missing dep for promise-parallel-throttle ([91e99a1](https://github.com/LeavittSoftware/titanium-elements/commit/91e99a120367f3c6cb98bcbc16e0f191c179db3a))
+- **date-range-selector:** improve mobile layout with fixed position actions ([9313857](https://github.com/LeavittSoftware/titanium-elements/commit/9313857729a90c486918acfe4e1a221d10205d41))
+- **duration-input:** allowing preset durations to reflect properly ([1294277](https://github.com/LeavittSoftware/titanium-elements/commit/1294277ab5d3913d5bddfee0ed446be01efe6ffe))
+- **single-select:** exact match search breaks selected item display text ([120e440](https://github.com/LeavittSoftware/titanium-elements/commit/120e440767629073cbcdbb4e52d1b74eff61007b))
+
 ## [1.26.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.26.0...@leavittsoftware/web@1.26.1) (2023-12-05)
 
 ### Bug Fixes
