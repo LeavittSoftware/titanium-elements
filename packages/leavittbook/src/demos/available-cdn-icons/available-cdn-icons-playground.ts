@@ -136,7 +136,7 @@ export class AvailableCdnIconsPlayground extends LitElement {
             html`<button
               @click=${() => {
                 navigator.clipboard.writeText(`https://cdn.leavitt.com/icons/${o}`);
-                this.dispatchEvent(new ShowSnackbarEvent('URL copied to clipboard!', { autoHide: true }));
+                this.dispatchEvent(new ShowSnackbarEvent('URL copied to clipboard!', { autoHide: 1500, noAction: true }));
               }}
             >
               <md-ripple></md-ripple>

@@ -271,12 +271,12 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
       await this.reload();
       if (totalErrorCount > 0) {
         this.dispatchEvent(
-          new ShowSnackbarEvent(
-            html`Failed to delete ${totalErrorCount === 1 ? 'files and folders' : `${totalErrorCount} files and folders: <br />`}.
+          new ShowSnackbarEvent('', {
+            overrideTemplate: html`Failed to delete ${totalErrorCount === 1 ? 'files and folders' : `${totalErrorCount} files and folders: <br />`}.
             ${errorMessageToCount.size === 1
               ? Array.from(errorMessageToCount.keys())[0]
-              : Array.from(errorMessageToCount.entries()).map(([error, count]) => `(${count}) ${error} <br />`)}`
-          )
+              : Array.from(errorMessageToCount.entries()).map(([error, count]) => `(${count}) ${error} <br />`)}`,
+          })
         );
       }
     }
@@ -365,10 +365,10 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
 
     if (failedFiles.length > 0) {
       this.dispatchEvent(
-        new ShowSnackbarEvent(
-          html`Failed to upload ${failedFiles.length} file${failedFiles.length === 1 ? '' : 's'}: <br />
-            ${join(failedFiles, html`<br />`)}`
-        )
+        new ShowSnackbarEvent('', {
+          overrideTemplate: html`Failed to upload ${failedFiles.length} file${failedFiles.length === 1 ? '' : 's'}: <br />
+            ${join(failedFiles, html`<br />`)}`,
+        })
       );
       console.warn(`Failed to upload ${failedFiles.length} file${failedFiles.length === 1 ? '' : 's'}: \r\n${failedFiles.join('\r\n')}`);
     }
@@ -408,10 +408,10 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
 
     if (failedFiles.length > 0) {
       this.dispatchEvent(
-        new ShowSnackbarEvent(
-          html`Failed to upload ${failedFiles.length} file${failedFiles.length === 1 ? '' : 's'}: <br />
-            ${join(failedFiles, html`<br />`)}`
-        )
+        new ShowSnackbarEvent('', {
+          overrideTemplate: html`Failed to upload ${failedFiles.length} file${failedFiles.length === 1 ? '' : 's'}: <br />
+            ${join(failedFiles, html`<br />`)}`,
+        })
       );
       console.warn(`Failed to upload ${failedFiles.length} file${failedFiles.length === 1 ? '' : 's'}: \r\n${failedFiles.join('\r\n')}`);
     }

@@ -10,7 +10,7 @@ import '@material/web/button/outlined-button';
 /* playground-fold-end */
 import '@leavittsoftware/web/titanium/snackbar/snackbar-stack';
 import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
-import { TitaniumSnackbarStack } from '@leavittsoftware/web/titanium/snackbar/snackbar-stack';
+import { SnackbarStack } from '@leavittsoftware/web/titanium/snackbar/snackbar-stack';
 import { ShowSnackbarEvent } from '@leavittsoftware/web/titanium/snackbar/show-snackbar-event';
 
 import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
@@ -20,7 +20,7 @@ import { dialogZIndexHack } from '@leavittsoftware/web/titanium/hacks/dialog-zin
 @customElement('titanium-snackbar-playground')
 export class TitaniumSnackbarPlayground extends LitElement {
   @query('md-dialog') dialog: MdDialog;
-  @query('titanium-snackbar-stack') snackbar: TitaniumSnackbarStack;
+  @query('titanium-snackbar-stack') snackbar: SnackbarStack;
 
   static styles = [
     h1,
@@ -76,7 +76,7 @@ export class TitaniumSnackbarPlayground extends LitElement {
                   message: 'Network error. Check your connection and try again.',
                   statusCode: undefined,
                   type: 'HttpError',
-                } as Partial<HttpError> as string)
+                } satisfies Partial<HttpError>)
               )}
             >HTTP error</md-outlined-button
           >
@@ -86,12 +86,16 @@ export class TitaniumSnackbarPlayground extends LitElement {
                 new ShowSnackbarEvent({
                   action: 'GET',
                   message: 'Network error. Check your connection and try again.',
-                  statusCode: undefined,
+                  statusCode: 404,
                   type: 'HttpError',
                   detail: 'Major Outage. This was probably caused by a network outage in your area. Please contact your ISP for further assistance.',
-                } as Partial<HttpError> as string)
+                } satisfies Partial<HttpError>)
               )}
             >HTTP error with detail</md-outlined-button
+          >
+
+          <md-outlined-button @click=${() => this.dispatchEvent(new ShowSnackbarEvent('', { overrideTemplate: html`<h1 style="color:red">ALERT!</h1>` }))}
+            >Template literal</md-outlined-button
           >
 
           <md-dialog @open=${(e: DOMEvent<MdDialog>) => dialogZIndexHack(e.target)} @close=${() => this.snackbar.dismissAll()}>
@@ -106,7 +110,7 @@ export class TitaniumSnackbarPlayground extends LitElement {
                       message: 'Network error. Check your connection and try again.',
                       statusCode: undefined,
                       type: 'HttpError',
-                    } as Partial<HttpError> as string)
+                    } satisfies Partial<HttpError>)
                   )}
                 >Open snackbar
               </md-outlined-button>

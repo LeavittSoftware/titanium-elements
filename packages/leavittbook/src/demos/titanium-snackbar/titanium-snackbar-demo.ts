@@ -14,11 +14,10 @@ export class TitaniumSnackbarDemo extends LitElement {
 
   render() {
     return html`
-      <story-header name="Titanium Snackbar" className="TitaniumSnackbar"></story-header>
+      <story-header name="Titanium Snackbar" className="TitaniumSnackbarStack"></story-header>
       <smart-demo line-numbers resizable project-src="../src/demos/titanium-snackbar/project.json"
         ><titanium-snackbar-playground></titanium-snackbar-playground>
       </smart-demo>
-      <api-docs src="./custom-elements.json" selected="titanium-snackbar"></api-docs>
     `;
   }
 }

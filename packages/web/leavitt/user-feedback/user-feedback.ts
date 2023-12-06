@@ -70,11 +70,11 @@ export class LeavittUserFeedback extends LoadWhile(LitElement) {
         throw new Error('Error submitting problem. Please try again.');
       } else {
         this.dispatchEvent(
-          new ShowSnackbarEvent(
-            html`Thank you for bringing this issue to our attention!<br />
+          new ShowSnackbarEvent('', {
+            overrideTemplate: html`Thank you for bringing this issue to our attention!<br />
               <br />
-              Our engineering teams will promptly investigate and address it.`
-          )
+              Our engineering teams will promptly investigate and address it.`,
+          })
         );
         this.reset();
       }
