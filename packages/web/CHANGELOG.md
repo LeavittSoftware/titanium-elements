@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.26.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.26.0...@leavittsoftware/web@1.26.1) (2023-12-05)
+
+### Bug Fixes
+
+- add missing dep for promise-parallel-throttle ([91e99a1](https://github.com/LeavittSoftware/titanium-elements/commit/91e99a120367f3c6cb98bcbc16e0f191c179db3a))
+
 # [1.26.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@1.25.0...@leavittsoftware/web@1.26.0) (2023-12-04)
 
 ### Bug Fixes
