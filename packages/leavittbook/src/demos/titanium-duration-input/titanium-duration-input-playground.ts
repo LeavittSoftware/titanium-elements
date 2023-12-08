@@ -72,14 +72,10 @@ export class TitaniumDurationInputPlayground extends LitElement {
 
       <h1>Demo</h1>
       <div>
-        <titanium-duration-input
-          demo
-          required
-          validationMessage="This duration is required"
-          label="Duration"
-          helperPersistent
-          outlined
-        ></titanium-duration-input>
+        <titanium-duration-input demo required validationMessage="This duration is required" label="Duration" helperPersistent outlined
+          ><md-icon slot="leading-icon"> timer </md-icon>
+          <md-icon slot="trailing-icon"> timer </md-icon>
+        </titanium-duration-input>
         <br />
         <section buttons>
           <md-outlined-button @click=${() => this.requiredInput.reset()}>Reset</md-outlined-button>

@@ -222,7 +222,11 @@ export class ExtendableOutlinedTextField extends LitElement {
   }
 
   protected renderMainSlot() {
-    return html``;
+    return html`
+      <slot></slot>
+      <slot name="trailing-icon" slot="trailing-icon"></slot>
+      <slot name="leading-icon" slot="leading-icon"></slot>
+    `;
   }
 
   render() {
