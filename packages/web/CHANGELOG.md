@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.3.0...@leavittsoftware/web@2.4.0) (2023-12-08)
+
+### Features
+
+- **google-address-input:** add light/dark mode powered by google mark ([72c8301](https://github.com/LeavittSoftware/titanium-elements/commit/72c830135852d7afd45ed0861616be104ad4f69c))
+
 # [2.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.2.0...@leavittsoftware/web@2.3.0) (2023-12-08)
 
 ### Bug Fixes
