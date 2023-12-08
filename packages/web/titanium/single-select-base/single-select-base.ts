@@ -314,6 +314,10 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
     return html``;
   }
 
+  protected renderTrailingMenuSlot() {
+    return html``;
+  }
+
   render() {
     return html`
       <md-outlined-text-field
@@ -387,6 +391,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
           (item) => item?.Id,
           (item) => this.renderSuggestion(item)
         )}
+        ${this.renderTrailingMenuSlot()}
       </md-menu>
       ${this.renderTrailingSlot()}
     `;

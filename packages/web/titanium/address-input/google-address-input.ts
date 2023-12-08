@@ -202,6 +202,21 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
     return html`<slot name="leading-icon" slot="leading-icon"><md-icon>place</md-icon></slot>`;
   }
 
+  protected override renderTrailingMenuSlot() {
+    return html` <div
+      ?hidden=${!this.suggestions.length}
+      style="display: flex; gap: 4px; justify-content: flex-end; margin: 0 8px -4px 8px; align-items: center; "
+    >
+      <span style="color: var(--md-sys-color-on-surface-variant); font-weight: 500; font-size:12px;opacity: .6;">powered by</span>
+      <img
+        google
+        style="height: 28px"
+        src="https://lh3.googleusercontent.com/d_S5gxu_S1P6NR1gXeMthZeBzkrQMHdI5uvXrpn3nfJuXpCjlqhLQKH_hbOxTHxFhp5WugVOEcl4WDrv9rmKBDOMExhKU5KmmLFQVg"
+        alt="Powered by Google"
+      />
+    </div>`;
+  }
+
   protected override renderSelectedLeadingInputSlot(_item: AddressInputAddress) {
     return html` <md-icon slot="leading-icon">place</md-icon> `;
   }
