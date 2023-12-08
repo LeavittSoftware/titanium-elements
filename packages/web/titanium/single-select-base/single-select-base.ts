@@ -130,6 +130,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
     if (this.textfield) {
       this.textfield.error = false;
       this.textfield.errorText = '';
+      this.textfield.reset();
     }
   }
 
