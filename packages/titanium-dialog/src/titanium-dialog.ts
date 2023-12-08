@@ -51,13 +51,16 @@ export class TitaniumDialogElement extends TitaniumNativeDialogBaseElement {
 
   @property({ type: String }) overflowNodeNames = 'MWC-SELECT,TITANIUM-DATE-RANGE-SELECTOR';
 
+  @query('h1') protected headerElement!: HTMLElement;
   @query('main', true) protected mainElement!: HTMLElement;
+  @query('footer') protected footerElement!: HTMLElement;
 
   async firstUpdated() {
     await super.firstUpdated();
     const observer = new ResizeObserver(() => {
       if (!this.disableScroll) {
         this.isScrolling = this.mainElement.scrollHeight > this.mainElement.offsetHeight;
+        this.preventScroll = !(window.innerHeight - (this.mainElement.scrollHeight + this.footerElement.offsetHeight + this.headerElement.offsetHeight) < 32);
       }
     });
 
