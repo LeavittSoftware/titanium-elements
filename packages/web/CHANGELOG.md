@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.2.0...@leavittsoftware/web@2.3.0) (2023-12-08)
+
+### Bug Fixes
+
+- **single-select:** reset validation state in reset() ([76654af](https://github.com/LeavittSoftware/titanium-elements/commit/76654afa44f91275815723e8a45fca25768a98bd))
+
+### Features
+
+- **extendable-text-field:** add support for icon slots ([8c82215](https://github.com/LeavittSoftware/titanium-elements/commit/8c82215163193f8e1c7c784ef8bd4cf63d2795eb))
+- **toolbar:** use md-elevation; ff support; refactor code ([db4cc95](https://github.com/LeavittSoftware/titanium-elements/commit/db4cc95243b2bd506a39a98f1846c7f58281c3be))
+
 # [2.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.1.0...@leavittsoftware/web@2.2.0) (2023-12-08)
 
 ### Bug Fixes
