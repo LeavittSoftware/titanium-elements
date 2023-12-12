@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.4.0...@leavittsoftware/web@2.4.1) (2023-12-12)
+
+### Bug Fixes
+
+- **search-input:** prettier ([0e0dd7b](https://github.com/LeavittSoftware/titanium-elements/commit/0e0dd7bd06b4da5a1ef41bb0e66a5ddbbcde574a))
+- **search-input:** search-input not opening on click in safari ([ce2ff75](https://github.com/LeavittSoftware/titanium-elements/commit/ce2ff75ded013f9ca33e2d65173ea4bb67cbdde7))
+
 # [2.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.3.0...@leavittsoftware/web@2.4.0) (2023-12-08)
 
 ### Features
