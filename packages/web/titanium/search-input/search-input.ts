@@ -74,7 +74,9 @@ export class TitaniumSearchInput extends ExtendableOutlinedTextField {
   protected override renderMainSlot() {
     return html`
       <slot></slot>
-      <md-icon-button search ?disabled=${this.disabled} @focus=${() => this.focus()} slot="leading-icon"> <md-icon search>search</md-icon></md-icon-button>
+      <md-icon-button search ?disabled=${this.disabled} @click=${() => this.focus()} @focus=${() => this.focus()} slot="leading-icon">
+        <md-icon search>search</md-icon></md-icon-button
+      >
 
       ${!this.hasValue
         ? nothing
