@@ -57,7 +57,6 @@ import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
  */
 @customElement('leavitt-file-explorer')
 export class LeavittFileExplorer extends LoadWhile(LitElement) {
-
   static allExplorers: LeavittFileExplorer[] = [];
 
   /**
@@ -88,7 +87,7 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
   @property({ type: String, reflect: true, attribute: 'display' })
   private set display(val: 'grid' | 'list') {
     localStorage.setItem('leavitt-file-explorer-display', val);
-    LeavittFileExplorer.allExplorers.forEach(o => o !== this ? o.requestUpdate('display') : null);
+    LeavittFileExplorer.allExplorers.forEach((o) => (o !== this ? o.requestUpdate('display') : null));
   }
 
   @property({ type: String }) private accessor state: 'no-permission' | 'files' | 'no-files' | 'error' = 'files';
@@ -117,7 +116,7 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
   }
   disconnectedCallback(): void {
     super.disconnectedCallback();
-    LeavittFileExplorer.allExplorers = LeavittFileExplorer.allExplorers.filter(o => o === this);
+    LeavittFileExplorer.allExplorers = LeavittFileExplorer.allExplorers.filter((o) => o === this);
   }
 
   firstUpdated() {
