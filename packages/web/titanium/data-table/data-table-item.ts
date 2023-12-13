@@ -404,6 +404,7 @@ export class TitaniumDataTableItem extends LitElement {
     :host main {
       display: flex;
       flex-direction: row;
+      gap: 16px;
       align-items: center;
       min-height: 48px;
     }
@@ -427,8 +428,9 @@ export class TitaniumDataTableItem extends LitElement {
       font-size: 14px;
       line-height: 18px;
       font-weight: 400;
-      padding: 4px 8px;
+      padding: 4px 0;
       margin: 0;
+      box-sizing: border-box;
     }
 
     ::slotted(row-item:last-of-type) {

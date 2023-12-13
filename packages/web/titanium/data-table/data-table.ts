@@ -393,6 +393,7 @@ export class TitaniumDataTable extends LitElement {
       table-header {
         display: flex;
         flex-direction: row;
+        gap: 16px;
         min-height: 48px;
         border-bottom: 1px solid var(--md-sys-color-outline-variant);
       }
@@ -506,7 +507,7 @@ export class TitaniumDataTable extends LitElement {
       }
 
       :host(:not([disable-select])[single-select]) table-header {
-        padding-left: 52px;
+        padding-left: 68px;
       }
 
       [hidden] {

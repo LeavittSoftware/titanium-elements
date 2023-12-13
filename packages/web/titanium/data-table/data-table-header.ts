@@ -125,6 +125,10 @@ export class TitaniumDataTableHeader extends LitElement {
       font-family: var(--titanium-data-table-font-family, Roboto, Noto, sans-serif);
       font-size: 14px;
       padding: 8px;
+
+      /* cancel padding so text aligns  */
+      margin: 0 -8px;
+
       line-height: 28px;
       font-weight: 500;
       height: 100%;
@@ -136,6 +140,14 @@ export class TitaniumDataTableHeader extends LitElement {
 
       border: none;
       outline: none;
+    }
+
+    :host([right]) {
+      justify-content: end;
+    }
+
+    :host([center]) {
+      justify-content: center;
     }
 
     button:focus,
@@ -165,16 +177,11 @@ export class TitaniumDataTableHeader extends LitElement {
     }
 
     :host([center]) button {
-      margin: 0 auto;
-    }
-
-    :host([center]) button {
-      margin-right: 18px;
+      margin-left: 22px;
     }
 
     :host([right]) button {
       flex-direction: row-reverse;
-      text-align: right;
     }
 
     md-icon {
@@ -196,6 +203,10 @@ export class TitaniumDataTableHeader extends LitElement {
       display: block;
       margin-left: 0;
       margin-right: 4px;
+    }
+
+    :host([width]) span {
+      word-break: break-all;
     }
 
     md-icon {

@@ -275,6 +275,29 @@ export class TitaniumDataTableFullPlayground extends LitElement {
           slot="table-headers"
           column-name="Appearance"
           title="Appearance"
+          width="90px"
+          @sort-by-changed=${this.#onSortByChange}
+          .sortBy=${this.sortBy}
+          .sortDirection=${this.sortDirection}
+          @sort-direction-changed=${this.#onSortDirectionChange}
+        ></titanium-data-table-header>
+
+        <titanium-data-table-header
+          center
+          slot="table-headers"
+          column-name="Appearance"
+          title="Appearance"
+          @sort-by-changed=${this.#onSortByChange}
+          .sortBy=${this.sortBy}
+          .sortDirection=${this.sortDirection}
+          @sort-direction-changed=${this.#onSortDirectionChange}
+        ></titanium-data-table-header>
+
+        <titanium-data-table-header
+          right
+          slot="table-headers"
+          column-name="Appearance"
+          title="Appearance"
           @sort-by-changed=${this.#onSortByChange}
           .sortBy=${this.sortBy}
           .sortDirection=${this.sortDirection}
@@ -295,7 +318,9 @@ export class TitaniumDataTableFullPlayground extends LitElement {
               slot="items"
             >
               <row-item large ellipsis title=${item.Name ?? ''}>${item.Name ?? '-'}</row-item>
-              <row-item title=${item.Appearance ?? ''}>${item.Appearance ?? '-'}</row-item>
+              <row-item width="90px" title=${item.Appearance ?? ''}>${item.Appearance ?? '-'}</row-item>
+              <row-item center title=${item.Appearance ?? ''}>${item.Appearance ?? '-'}</row-item>
+              <row-item right title=${item.Appearance ?? ''}>${item.Appearance ?? '-'}</row-item>
             </titanium-data-table-item>
           `
         )}

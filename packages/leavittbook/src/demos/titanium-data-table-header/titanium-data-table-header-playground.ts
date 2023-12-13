@@ -23,6 +23,7 @@ export class TitaniumDataTableHeaderPlayground extends LitElement {
       header-container {
         display: flex;
         flex-direction: row;
+        gap: 16px;
       }
 
       /* titanium-data-table-header {
