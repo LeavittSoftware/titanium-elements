@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.7.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.6.0...@leavittsoftware/web@2.7.0) (2023-12-13)
+
+### Bug Fixes
+
+- **data-table:** adjust padding/margin to match flex weights ([d5024dd](https://github.com/LeavittSoftware/titanium-elements/commit/d5024dd9b893095b5fb3f1263e5b89ebc0873557))
+
+### Features
+
+- **data-table-header:** keyboard accessable ([7204fd7](https://github.com/LeavittSoftware/titanium-elements/commit/7204fd715d574f0610b7114691158762ca826044))
+- **profile-picture:** add dark/light theme friendly fallback image ([30e7f09](https://github.com/LeavittSoftware/titanium-elements/commit/30e7f09d6170b59cd5a5a69a4e5e13ff14f4d1c2))
+
 # [2.6.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.5.0...@leavittsoftware/web@2.6.0) (2023-12-13)
 
 ### Features
