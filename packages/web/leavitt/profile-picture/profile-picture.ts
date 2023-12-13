@@ -1,5 +1,5 @@
 ﻿import { isDevelopment } from '../../titanium/helpers/helpers';
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, PropertyValueMap, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 /**
@@ -42,6 +42,13 @@ export class ProfilePicture extends LitElement {
 
   #availableSizes = new Set([32, 64, 128, 256, 512, 1024]);
 
+  protected updated(changedProps: PropertyValues<this>) {
+    if (changedProps.has('size') || changedProps.has('useIntrinsicImageSize')) {
+      this.style.width = this.useIntrinsicImageSize || !this.size ? '' : this.size + 'px';
+      this.style.height = this.useIntrinsicImageSize || !this.size ? '' : this.size + 'px';
+    }
+  }
+
   #determineSize(size: number) {
     const availableSizes = [...this.#availableSizes];
     for (let index = 0; index < availableSizes.length; index++) {
@@ -57,16 +64,9 @@ export class ProfilePicture extends LitElement {
     const requestedSize = this.#determineSize(size);
 
     if (!cdnFileName) {
-      return `https://cdn.leavitt.com/user-0-${requestedSize}.webp`;
+      return 'https://cdn.leavitt.com/icon-user-profile-sq.svg';
     } else {
       return `https://cdn.leavitt.com/${cdnFileName}-${requestedSize}.webp`;
-    }
-  }
-
-  updated(changedProps) {
-    if (changedProps.has('size') && changedProps.get('size') !== this.size && !this.useIntrinsicImageSize) {
-      this.style.width = this.size + 'px';
-      this.style.height = this.size + 'px';
     }
   }
 
