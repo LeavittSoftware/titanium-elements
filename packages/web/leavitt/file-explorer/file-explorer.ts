@@ -73,6 +73,11 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
   @property({ type: Number, attribute: 'folder-id' }) accessor folderId: number | null = null;
 
   /**
+   * Optional custom key to use for storing the value of 'display' in local storage
+   */
+  @property({ type: String, attribute: 'local-storage-display-key' }) accessor localStorageDisplayKey: string = 'leavitt-file-explorer-display';
+
+  /**
    * Prevents a user from navigating up the folder tree past the initially provided folderId.
    *
    * FolderId must be set for this to operate properly.
@@ -80,11 +85,11 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
   @property({ type: Boolean, reflect: true, attribute: 'prevent-navigation-up' }) accessor preventNavigationUp: boolean = false;
 
   private get display() {
-    return (window.localStorage.getItem('leavitt-file-explorer-display') as 'grid' | 'list') || 'grid';
+    return (window.localStorage.getItem(this.localStorageDisplayKey) as 'grid' | 'list') || 'grid';
   }
   @property({ type: String, reflect: true, attribute: 'display' })
   private set display(val: 'grid' | 'list') {
-    localStorage.setItem('leavitt-file-explorer-display', val);
+    localStorage.setItem(this.localStorageDisplayKey, val);
   }
 
   @property({ type: String }) private accessor state: 'no-permission' | 'files' | 'no-files' | 'error' = 'files';
