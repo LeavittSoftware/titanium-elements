@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.4.1...@leavittsoftware/web@2.5.0) (2023-12-13)
+
+### Features
+
+- **file-explorer:** expose attr for local storage key that holds display attr value ([d3d2f1e](https://github.com/LeavittSoftware/titanium-elements/commit/d3d2f1e2e1e8fd2c7a431a276ff9f05935e628da))
+
 ## [2.4.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.4.0...@leavittsoftware/web@2.4.1) (2023-12-12)
 
 ### Bug Fixes
