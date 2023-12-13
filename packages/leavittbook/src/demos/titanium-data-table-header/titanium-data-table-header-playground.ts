@@ -20,18 +20,21 @@ export class TitaniumDataTableHeaderPlayground extends LitElement {
         margin: 24px 12px;
       }
 
-      div {
-        margin: 24px 0 36px 0;
+      header-container {
+        display: flex;
+        flex-direction: row;
       }
+
+      /* titanium-data-table-header {
+        border: 1px solid green;
+      } */
     `,
   ];
 
   render() {
     /* playground-fold-end */
     return html`
-      <h1>Default</h1>
-      <p>Examples using left, center, right, large, no-sort, desktop, and width attributes</p>
-      <div>
+      <header-container>
         <titanium-data-table-header sort-direction="asc" left column-name="Left" title="Left"></titanium-data-table-header>
         <titanium-data-table-header sort-direction="asc" center column-name="Center" title="Center"></titanium-data-table-header>
         <titanium-data-table-header sort-direction="asc" right column-name="Right" title="Right"></titanium-data-table-header>
@@ -39,7 +42,7 @@ export class TitaniumDataTableHeaderPlayground extends LitElement {
         <titanium-data-table-header sort-direction="asc" no-sort column-name="NoSort" title="No sort"></titanium-data-table-header>
         <titanium-data-table-header sort-direction="asc" desktop column-name="Desktop" title="Desktop"></titanium-data-table-header>
         <titanium-data-table-header sort-direction="asc" width="200px" column-name="Width" title="Width"></titanium-data-table-header>
-      </div>
+      </header-container>
     `;
   }
 }

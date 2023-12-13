@@ -1,7 +1,9 @@
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, PropertyValues } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
 
 import '@material/web/icon/icon';
+import '@material/web/ripple/ripple';
+import '@material/web/focus/md-focus-ring';
 
 /**
  * Material design data table header with styling and sorting capabilities
@@ -75,7 +77,7 @@ export class TitaniumDataTableHeader extends LitElement {
    */
   @property({ type: Boolean, reflect: true }) accessor narrow: boolean = false;
 
-  updated(changedProps) {
+  updated(changedProps: PropertyValues<this>) {
     if (changedProps.has('sortBy') && changedProps.get('sortBy') !== this.sortBy) {
       this.active = this.sortBy === this.columnName;
     }
@@ -99,9 +101,7 @@ export class TitaniumDataTableHeader extends LitElement {
 
   static styles = css`
     :host {
-      display: inline-flex;
-      flex-direction: row;
-      align-items: center;
+      display: flex;
 
       -webkit-touch-callout: none;
       -webkit-user-select: none;
@@ -110,14 +110,38 @@ export class TitaniumDataTableHeader extends LitElement {
       -ms-user-select: none;
       user-select: none;
 
-      cursor: pointer;
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      position: relative;
+      --md-focus-ring-shape: 0;
 
       font-family: var(--titanium-data-table-font-family, Roboto, Noto, sans-serif);
-      -webkit-font-smoothing: antialiased;
       font-size: 14px;
       padding: 8px;
       line-height: 28px;
       font-weight: 500;
+      height: 100%;
+
+      cursor: pointer;
+
+      background-color: inherit;
+      color: inherit;
+
+      border: none;
+      outline: none;
+    }
+
+    button:focus,
+    button:active {
+      outline: none;
+      box-shadow: none;
     }
 
     :host(:not([width])) {
@@ -133,22 +157,22 @@ export class TitaniumDataTableHeader extends LitElement {
     }
 
     :host([hidden]) {
-      display: none;
+      display: none !important;
     }
 
-    :host([no-sort]) {
+    :host([no-sort]) button {
       cursor: inherit;
     }
 
-    :host([center]) {
-      justify-content: center;
+    :host([center]) button {
+      margin: 0 auto;
     }
 
-    :host([center])::before {
-      width: 18px;
+    :host([center]) button {
+      margin-right: 18px;
     }
 
-    :host([right]) {
+    :host([right]) button {
       flex-direction: row-reverse;
       text-align: right;
     }
@@ -164,13 +188,14 @@ export class TitaniumDataTableHeader extends LitElement {
       transition: transform 150ms ease;
     }
 
-    :host([no-sort]) md-icon {
+    :host([no-sort]) button md-icon {
       display: none;
     }
 
     :host([right]) md-icon {
-      margin-right: 4px;
+      display: block;
       margin-left: 0;
+      margin-right: 4px;
     }
 
     md-icon {
@@ -193,8 +218,12 @@ export class TitaniumDataTableHeader extends LitElement {
 
   render() {
     return html`
-      ${this.title}
-      <md-icon>arrow_downward</md-icon>
+      <button ?disabled=${this.noSort}>
+        <span>${this.title}</span>
+        <md-icon>arrow_downward</md-icon>
+        <md-ripple ?disabled=${this.noSort}></md-ripple>
+        <md-focus-ring inward></md-focus-ring>
+      </button>
     `;
   }
 }
