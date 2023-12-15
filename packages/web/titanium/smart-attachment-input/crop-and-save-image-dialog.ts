@@ -3,6 +3,7 @@ import '@material/web/icon/icon';
 import '@material/web/button/text-button';
 import '@material/web/iconbutton/icon-button';
 
+import { dialogZIndexHack } from '../../titanium/hacks/dialog-zindex-hack';
 export declare type CropperOptions = Cropper.Options & {
   shape?: 'square' | 'circle';
 };
@@ -211,6 +212,7 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
   render() {
     return html`
       <md-dialog
+        @open=${(e: DOMEvent<MdDialog>) => dialogZIndexHack(e.target)}
         focus-trap
         @close=${(e: DOMEvent<MdDialog>) => {
           if (e.target.returnValue === 'cancel' || e.target.returnValue === 'cropped') {
