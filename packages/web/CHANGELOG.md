@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.9.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.8.0...@leavittsoftware/web@2.9.0) (2023-12-15)
+
+### Features
+
+- **smart-attachment-input:** add the md-dialog zIndex fix ([deda539](https://github.com/LeavittSoftware/titanium-elements/commit/deda539a08cb480bedd10dbadfc438316620ae00))
+
 # [2.8.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.7.0...@leavittsoftware/web@2.8.0) (2023-12-15)
 
 ### Features
