@@ -43,6 +43,7 @@ export class AvailableCdnIconsPlayground extends LitElement {
     'icon-app-marketing.svg',
     'icon-app-naics.svg',
     'icon-app-pcms.svg',
+    'icon-place.svg',
     'icon-app-permissions.svg',
     'icon-app-phones.svg',
     'icon-app-prod-budget.svg',
@@ -55,7 +56,9 @@ export class AvailableCdnIconsPlayground extends LitElement {
     'icon-app-vital.svg',
     'icon-biz-card.svg',
     'icon-carousel.svg',
+    'icon-cancel.svg',
     'icon-company-manager.svg',
+    'icon-csr-contest.svg',
     'icon-delete-logo.svg',
     'icon-department.svg',
     'icon-dev-sales.svg',
@@ -69,6 +72,7 @@ export class AvailableCdnIconsPlayground extends LitElement {
     'icon-icon-logs.svg',
     'icon-logo.svg',
     'icon-log-parser.svg',
+    'icon-low-balance.svg',
     'icon-marketing.svg',
     'icon-meetings.svg',
     'icon-name-division.svg',
@@ -89,6 +93,8 @@ export class AvailableCdnIconsPlayground extends LitElement {
     'icon-scoreboard-prizes.svg',
     'icon-success.svg',
     'icon-template.svg',
+    'icon-unknown.svg',
+    'icon-zion-funding.svg',
   ];
 
   static styles = [
