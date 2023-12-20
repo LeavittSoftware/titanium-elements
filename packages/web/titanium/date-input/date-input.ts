@@ -335,8 +335,8 @@ export class TitaniumDateInput extends LitElement {
       }
 
       input {
-        padding-top: 3px;
-        padding-bottom: 3px;
+        padding-top: 16px;
+        padding-bottom: 16px;
       }
     }
   `;
