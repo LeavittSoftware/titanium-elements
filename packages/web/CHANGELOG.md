@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.9.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.9.0...@leavittsoftware/web@2.9.1) (2023-12-20)
+
+### Bug Fixes
+
+- **full-page-loading:** check for shoiw/hidePopover before it is used ([e8980fd](https://github.com/LeavittSoftware/titanium-elements/commit/e8980fde25c7ff0c926d4e25363186144a9174d9))
+
 # [2.9.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.8.0...@leavittsoftware/web@2.9.0) (2023-12-15)
 
 ### Features
