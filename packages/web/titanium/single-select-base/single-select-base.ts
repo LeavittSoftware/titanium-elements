@@ -169,8 +169,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
    *  Runs checkValidity() method, and if it returns false, then it reports to the user that the input is invalid.
    */
   reportValidity() {
-    const result = this.textfield?.reportValidity();
-    this.customReportValidity();
+    const result = this.textfield?.reportValidity() && this.customReportValidity();
     return result;
   }
 
