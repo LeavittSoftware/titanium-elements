@@ -213,7 +213,6 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
     return html`
       <md-dialog
         @open=${(e: DOMEvent<MdDialog>) => dialogZIndexHack(e.target)}
-        focus-trap
         @close=${(e: DOMEvent<MdDialog>) => {
           if (e.target.returnValue === 'cancel' || e.target.returnValue === 'cropped') {
             return this.#resolve(e.target.returnValue as 'cancel' | 'cropped');
