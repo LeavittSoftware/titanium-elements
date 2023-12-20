@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.9.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.9.2...@leavittsoftware/web@2.9.3) (2023-12-20)
+
+### Bug Fixes
+
+- **single-select:** broken report validity ([7ddcef0](https://github.com/LeavittSoftware/titanium-elements/commit/7ddcef02fa4ded0e222212f40cc4f43d73aa09fc))
+
 ## [2.9.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.9.1...@leavittsoftware/web@2.9.2) (2023-12-20)
 
 ### Bug Fixes
