@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.9.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.9.1...@leavittsoftware/web@2.9.2) (2023-12-20)
+
+### Bug Fixes
+
+- **data-table-header:** override default button styles ([f04dc89](https://github.com/LeavittSoftware/titanium-elements/commit/f04dc89efa559a4cbca9fc3915f4d16ac97e0a93))
+- **date-input:** style fix for FF 120+ ([6534766](https://github.com/LeavittSoftware/titanium-elements/commit/653476667cf4acd23ba8d4c2844bf5159ce02922))
+- **full-page-loading:** check for shoiw/hidePopover before it is used ([e8980fd](https://github.com/LeavittSoftware/titanium-elements/commit/e8980fde25c7ff0c926d4e25363186144a9174d9))
+
 ## [2.9.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.9.0...@leavittsoftware/web@2.9.1) (2023-12-20)
 
 ### Bug Fixes
