@@ -133,6 +133,9 @@ export class TitaniumDataTableHeader extends LitElement {
       font-weight: 500;
       height: 100%;
 
+      /* override default button styles */
+      text-align: left;
+
       cursor: pointer;
 
       background-color: inherit;
