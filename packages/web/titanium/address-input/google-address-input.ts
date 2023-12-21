@@ -175,6 +175,7 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
       this.errorText = '';
       this.error = false;
     }
+    return !this.error;
   }
 
   // Overloaded base
