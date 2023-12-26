@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.10.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.9.4...@leavittsoftware/web@2.10.0) (2023-12-26)
+
+### Features
+
+- **smart-attachment-input:** fix veil in image preview dialog ([abd5abb](https://github.com/LeavittSoftware/titanium-elements/commit/abd5abbd33ce1ac7a9477753aff3d3fd807e946c))
+
 ## [2.9.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.9.3...@leavittsoftware/web@2.9.4) (2023-12-21)
 
 ### Bug Fixes
