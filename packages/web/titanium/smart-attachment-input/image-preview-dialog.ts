@@ -7,6 +7,8 @@ import { customElement, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { middleEllipsis } from '../../titanium/helpers/middle-ellipsis';
 import { MdDialog } from '@material/web/dialog/dialog';
+import { dialogZIndexHack } from '../hacks/dialog-zindex-hack';
+import { DOMEvent } from '../types/dom-event';
 
 /**
  * Image preview dialog
@@ -49,7 +51,7 @@ export class ImagePreviewDialog extends LitElement {
 
   render() {
     return html`
-      <md-dialog>
+      <md-dialog @open=${(e: DOMEvent<MdDialog>) => dialogZIndexHack(e.target)}>
         <div header slot="headline">${middleEllipsis(this.filename || 'Image preview', 60)}</div>
         <img slot="content" draggable="false" src=${ifDefined(this.imageUrl)} />
         <div slot="actions">
