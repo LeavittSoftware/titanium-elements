@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.11.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.10.0...@leavittsoftware/web@2.11.0) (2023-12-28)
+
+### Features
+
+- **filter-controller:** expose path accessor ([03722f6](https://github.com/LeavittSoftware/titanium-elements/commit/03722f6a2f9fee21b6264f7bd86d13530bfc32fc))
+
 # [2.10.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.9.4...@leavittsoftware/web@2.10.0) (2023-12-26)
 
 ### Features
