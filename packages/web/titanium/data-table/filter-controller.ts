@@ -6,6 +6,7 @@ import { parse } from 'regexparam';
 export class FilterController<TKey extends string> {
   #filters: Map<string, Filter> = new Map();
   #valueUpdateCallbacks: Array<() => void> = [];
+  public accessor path: string;
 
   subscribeToFilterChange(callback: () => void) {
     this.#valueUpdateCallbacks.push(callback);
@@ -23,10 +24,11 @@ export class FilterController<TKey extends string> {
    *
    */
   constructor(path: string) {
+    this.path = path;
     const pushState = history.pushState.bind(history);
     history.pushState = (...args) => {
       pushState(...args);
-      const pathRegex = parse(path);
+      const pathRegex = parse(this.path);
       if (pathRegex.pattern.test(window.location.pathname)) {
         this.loadFromQueryString();
       }
@@ -34,7 +36,7 @@ export class FilterController<TKey extends string> {
     const replaceState = history.replaceState.bind(history);
     history.replaceState = (...args) => {
       replaceState(...args);
-      const pathRegex = parse(path);
+      const pathRegex = parse(this.path);
       if (pathRegex.pattern.test(window.location.pathname)) {
         this.loadFromQueryString();
       }
