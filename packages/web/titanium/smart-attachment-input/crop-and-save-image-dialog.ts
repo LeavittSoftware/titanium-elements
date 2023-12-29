@@ -258,7 +258,7 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
               //WORKAROUND: The first call to this func can result in a corrupt image, esp seen in Android when picture comes from camera
               this.#cropper?.getCroppedCanvas();
 
-              const canvas = this.#cropper?.getCroppedCanvas({ maxWidth: 1200, maxHeight: 1080 });
+              const canvas = this.#cropper?.getCroppedCanvas();
               if (!canvas) {
                 return;
               }
