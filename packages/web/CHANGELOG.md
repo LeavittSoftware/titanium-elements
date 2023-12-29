@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.11.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.11.0...@leavittsoftware/web@2.11.1) (2023-12-29)
+
+### Bug Fixes
+
+- **smart-attachment-dialog:** remove arbitrary max cropped sizes ([4f29683](https://github.com/LeavittSoftware/titanium-elements/commit/4f2968337148ce80b8c1db39e6034042c0a7c420))
+
 # [2.11.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.10.0...@leavittsoftware/web@2.11.0) (2023-12-28)
 
 ### Features
