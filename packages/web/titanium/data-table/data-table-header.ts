@@ -87,18 +87,6 @@ export class TitaniumDataTableHeader extends LitElement {
     }
   }
 
-  firstUpdated() {
-    this.addEventListener('click', () => {
-      if (this.active) {
-        this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
-        this.dispatchEvent(new CustomEvent('sort-direction-changed', { detail: this.sortDirection }));
-      } else {
-        this.sortBy = this.columnName;
-        this.dispatchEvent(new CustomEvent('sort-by-changed', { detail: this.sortBy }));
-      }
-    });
-  }
-
   static styles = css`
     :host {
       display: flex;
@@ -232,7 +220,18 @@ export class TitaniumDataTableHeader extends LitElement {
 
   render() {
     return html`
-      <button ?disabled=${this.noSort}>
+      <button
+        ?disabled=${this.noSort}
+        @click=${() => {
+          if (this.active) {
+            this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+            this.dispatchEvent(new CustomEvent('sort-direction-changed', { detail: this.sortDirection }));
+          } else {
+            this.sortBy = this.columnName;
+            this.dispatchEvent(new CustomEvent('sort-by-changed', { detail: this.sortBy }));
+          }
+        }}
+      >
         <span>${this.title}</span>
         <md-icon>arrow_downward</md-icon>
         <md-ripple ?disabled=${this.noSort}></md-ripple>
