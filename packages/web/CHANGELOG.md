@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.11.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.11.1...@leavittsoftware/web@2.11.2) (2024-01-02)
+
+### Bug Fixes
+
+- **data-table:** Titanium data table header clickable outside of the button ([d6a77b4](https://github.com/LeavittSoftware/titanium-elements/commit/d6a77b4b13c8171802258da551dfb138f36f60f2)), closes [#581](https://github.com/LeavittSoftware/titanium-elements/issues/581)
+
 ## [2.11.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.11.0...@leavittsoftware/web@2.11.1) (2023-12-29)
 
 ### Bug Fixes
