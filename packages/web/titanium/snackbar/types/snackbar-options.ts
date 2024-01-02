@@ -5,4 +5,5 @@ export type SnackbarOptions = {
   autoHide?: boolean | number;
   noAction?: boolean;
   overrideTemplate?: TemplateResult;
+  close?: (reason: string) => void;
 };

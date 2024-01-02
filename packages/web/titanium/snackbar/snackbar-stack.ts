@@ -39,6 +39,11 @@ export class SnackbarStack extends LitElement {
       this.insertAdjacentHTML('beforeend', html);
       const normalPopover = this.querySelector('titanium-simple-snackbar[newest]') as SimpleSnackbar;
       normalPopover.removeAttribute('newest');
+
+      if (options) {
+        options.close = (reason) => normalPopover.close(reason);
+      }
+
       this.SnackbarStack.unshift(normalPopover);
       closeReason = normalPopover.show(message, options);
       popover = normalPopover;
@@ -53,6 +58,10 @@ export class SnackbarStack extends LitElement {
       } else {
         httpPopover.addError(message);
         return;
+      }
+
+      if (options) {
+        options.close = (reason) => httpPopover.close(reason);
       }
       popover = httpPopover;
     }
