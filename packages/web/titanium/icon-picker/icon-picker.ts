@@ -17,7 +17,7 @@ export type MaterialIconDatabaseEntry = { Id: number; keywords: string; icon: st
 export class TitaniumIconPicker extends TitaniumSingleSelectBase<MaterialIconDatabaseEntry> {
   @property({ type: String }) accessor label: string = 'Icons';
 
-  @property({ type: String }) accessor placeholder: string = 'Search for a icon';
+  @property({ type: String }) accessor placeholder: string = 'Search for an icon';
 
   @property({ type: String }) accessor pathToSelectedText: string = 'icon';
 
