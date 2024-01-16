@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.12.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.12.0...@leavittsoftware/web@2.12.1) (2024-01-16)
+
+### Bug Fixes
+
+- **icon-picker:** default placeholder text ([b847814](https://github.com/LeavittSoftware/titanium-elements/commit/b84781418e33adc4ff15df5866cd77aebc1194b2))
+
 # [2.12.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.11.2...@leavittsoftware/web@2.12.0) (2024-01-02)
 
 ### Bug Fixes
