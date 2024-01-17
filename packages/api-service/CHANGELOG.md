@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 12.2.0 (2024-01-17)
+
+### Features
+
+- **api-service:** add raw response json ([8d65adc](https://github.com/LeavittSoftware/titanium-elements/commit/8d65adc888eb3cc152aa8ca1285d074f326b1c5a))
+
 ## 12.1.1 (2023-09-28)
 
 **Note:** Version bump only for package @leavittsoftware/api-service

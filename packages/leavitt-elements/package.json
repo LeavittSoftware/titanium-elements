@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/leavitt-elements",
-  "version": "9.0.2",
+  "version": "9.0.3",
   "description": "",
   "main": "lib/leavitt-elements.js",
   "typings": "lib/leavitt-elements.d.ts",
@@ -9,7 +9,7 @@
     "./src"
   ],
   "dependencies": {
-    "@leavittsoftware/api-service": "^12.1.1",
+    "@leavittsoftware/api-service": "^12.2.0",
     "@leavittsoftware/lg-core-typescript": "*",
     "@leavittsoftware/profile-picture": "^7.0.0",
     "@leavittsoftware/titanium-card": "^3.1.2",
@@ -17,7 +17,7 @@
     "@leavittsoftware/titanium-helpers": "^6.1.2",
     "@leavittsoftware/titanium-loading-indicator": "^6.1.1",
     "@leavittsoftware/titanium-smart-attachment-input": "^3.4.1",
-    "@leavittsoftware/titanium-snackbar": "^5.0.6",
+    "@leavittsoftware/titanium-snackbar": "^5.0.7",
     "@leavittsoftware/titanium-styles": "^0.8.0",
     "@material/mwc-button": "*",
     "@material/mwc-linear-progress": "*",
