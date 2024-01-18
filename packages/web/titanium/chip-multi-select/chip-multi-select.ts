@@ -73,21 +73,21 @@ export class TitaniumChipMultiSelect extends LitElement {
    *  Returns true if the input passes validity checks.
    */
   checkValidity() {
-    return this.validator.checkValidity();
+    return this.validator?.checkValidity();
   }
 
   /**
    *  Runs checkValidity() method, and if it returns false, then it reports to the user that the input is invalid.
    */
   reportValidity() {
-    return this.validator.reportValidity();
+    return this.validator?.reportValidity();
   }
 
   /**
    *  Resets the inputs state.
    */
   reset() {
-    this.validator.reset();
+    this.validator?.reset();
   }
 
   static styles = [
