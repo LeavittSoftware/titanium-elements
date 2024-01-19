@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.13.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.12.2...@leavittsoftware/web@2.13.0) (2024-01-19)
+
+### Features
+
+- **api-service:** expose raw error json ([ad371c1](https://github.com/LeavittSoftware/titanium-elements/commit/ad371c12ccf120571731625c08cc49a3cec2324d))
+
 ## [2.12.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.12.1...@leavittsoftware/web@2.12.2) (2024-01-19)
 
 ### Bug Fixes
