@@ -6,4 +6,5 @@ export interface HttpError {
   baseUrl: string;
   action: string;
   detail?: string;
+  raw?: unknown;
 }

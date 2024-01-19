@@ -326,6 +326,7 @@ export default class ApiService {
           baseUrl: this.baseUrl,
           message: message,
           detail: json?.details || json?.error_description,
+          raw: json,
           action: action,
           path: urlPath,
         };
