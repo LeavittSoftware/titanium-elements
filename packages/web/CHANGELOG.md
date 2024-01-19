@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.12.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.12.1...@leavittsoftware/web@2.12.2) (2024-01-19)
+
+### Bug Fixes
+
+- adds null safety for when validator isn't rendered ([#586](https://github.com/LeavittSoftware/titanium-elements/issues/586)) ([7fecf66](https://github.com/LeavittSoftware/titanium-elements/commit/7fecf661803b5205cc667d7a73552a9d006c8691))
+
 ## [2.12.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.12.0...@leavittsoftware/web@2.12.1) (2024-01-16)
 
 ### Bug Fixes
