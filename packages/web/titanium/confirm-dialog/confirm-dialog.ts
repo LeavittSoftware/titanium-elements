@@ -8,7 +8,7 @@ import { MdDialog } from '@material/web/dialog/dialog';
 import { DOMEvent } from '../types/dom-event';
 import { p } from '../styles/p';
 import { dialogZIndexHack } from '../hacks/dialog-zindex-hack';
-import { dialogOpenNavigationHack } from '../hacks/dialog-navigation-hack';
+import { dialogNavigationHack } from '../hacks/dialog-navigation-hack';
 
 @customElement('titanium-confirm-dialog')
 export default class TitaniumConfirmDialog extends LitElement {
@@ -68,7 +68,7 @@ export default class TitaniumConfirmDialog extends LitElement {
       <md-dialog
         @open=${(e: DOMEvent<MdDialog>) => {
           dialogZIndexHack(e.target);
-          dialogOpenNavigationHack(e.target);
+          dialogNavigationHack(e.target);
         }}
         @close=${(e: DOMEvent<MdDialog>) => {
           if (e.target.returnValue === 'confirmed') {
