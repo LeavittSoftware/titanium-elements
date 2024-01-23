@@ -347,7 +347,7 @@ export class UserManager extends LitElement {
     });
   }
 
-  logout() {
+  reset() {
     localStorage.removeItem('LG-AUTH-AT');
     localStorage.removeItem('LG-AUTH-RT');
 
@@ -362,13 +362,15 @@ export class UserManager extends LitElement {
     this.lastName = '';
     this.email = '';
     this.isActiveEmployee = false;
-    this.roles = [];
-    this.dispatchEvent(new UserManagerUpdatedEvent());
-
     this.roles.forEach((o) => {
       window.dispatchEvent(new CustomEvent('um-role-removed', { detail: { role: o } }));
     });
     this.roles = [];
+    this.dispatchEvent(new UserManagerUpdatedEvent());
+  }
+
+  logout() {
+    this.reset();
     if (document.location) {
       this.#redirectToSignOut(document.location.href);
     }
