@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.15.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.14.0...@leavittsoftware/web@2.15.0) (2024-01-23)
+
+### Features
+
+- expose a non-redirected reset method ([fae9ec9](https://github.com/LeavittSoftware/titanium-elements/commit/fae9ec918239ddabebab66a036ea2d1f41e25f7d))
+
 # [2.14.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.13.0...@leavittsoftware/web@2.14.0) (2024-01-23)
 
 ### Features
