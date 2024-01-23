@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.14.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.13.0...@leavittsoftware/web@2.14.0) (2024-01-23)
+
+### Features
+
+- adds md-dialog navigation hack ([2eecd56](https://github.com/LeavittSoftware/titanium-elements/commit/2eecd56171de630ad191bd258532bb482e6341ff))
+
 # [2.13.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.12.2...@leavittsoftware/web@2.13.0) (2024-01-19)
 
 ### Features
