@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.16.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.15.0...@leavittsoftware/web@2.16.0) (2024-01-25)
+
+### Features
+
+- support material/web 1.2 ([d0b33ab](https://github.com/LeavittSoftware/titanium-elements/commit/d0b33ab09aff672fc77861f26c8d429b255e66ce))
+
 # [2.15.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.14.0...@leavittsoftware/web@2.15.0) (2024-01-23)
 
 ### Features
