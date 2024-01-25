@@ -1,7 +1,7 @@
 import { LitElement, css, html } from 'lit';
 import { customElement, property, query, queryAssignedElements, state } from 'lit/decorators.js';
 import { live } from 'lit/directives/live.js';
-import { redispatchEvent } from '@material/web/internal/controller/events';
+import { redispatchEvent } from '@material/web/internal/events/redispatch-event';
 
 import { stringConverter } from '@material/web/internal/controller/string-converter';
 

@@ -21,7 +21,7 @@ import { DOMEvent } from '../types/dom-event';
 import { Menu } from '@material/web/menu/internal/menu';
 import { List } from '@material/web/list/internal/list';
 import { humanizeRange } from './types/range-label';
-import { redispatchEvent } from '@material/web/internal/controller/events';
+import { redispatchEvent } from '@material/web/internal/events/redispatch-event';
 
 /**
  *  Date range selector that allows selection from a list of pre-defined ranges or a custom range

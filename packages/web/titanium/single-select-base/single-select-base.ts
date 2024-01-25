@@ -15,7 +15,7 @@ import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field
 import { Menu } from '@material/web/menu/internal/menu';
 import { LoadWhile } from '../../titanium/helpers/load-while';
 import { Identifier } from '../types/identifier-interface';
-import { redispatchEvent } from '@material/web/internal/controller/events';
+import { redispatchEvent } from '@material/web/internal/events/redispatch-event';
 
 @customElement('titanium-single-select-base')
 export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(LitElement) {

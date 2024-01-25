@@ -6,7 +6,7 @@ import { property, query } from 'lit/decorators.js';
 import { stringConverter } from '@material/web/internal/controller/string-converter';
 import { TextFieldType, UnsupportedTextFieldType } from '@material/web/textfield/internal/text-field';
 import { DOMEvent } from '../types/dom-event';
-import { redispatchEvent } from '@material/web/internal/controller/events';
+import { redispatchEvent } from '@material/web/internal/events/redispatch-event';
 
 export class ExtendableOutlinedTextField extends LitElement {
   @query('md-outlined-text-field') accessor input: MdOutlinedTextField;
