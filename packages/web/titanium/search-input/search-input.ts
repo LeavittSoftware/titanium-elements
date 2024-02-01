@@ -82,7 +82,7 @@ export class TitaniumSearchInput extends ExtendableOutlinedTextField {
         ? nothing
         : html`<md-icon-button
             slot="trailing-icon"
-            ?disabled=${!this.value}
+            ?disabled=${!this.value || this.disabled}
             @click=${() => {
               if (this.disabled) {
                 return;
@@ -91,7 +91,6 @@ export class TitaniumSearchInput extends ExtendableOutlinedTextField {
               this.value = '';
               this.dispatchEvent(new Event('input'));
             }}
-            ?disabled=${this.disabled}
           >
             <md-icon>close</md-icon></md-icon-button
           >`}
