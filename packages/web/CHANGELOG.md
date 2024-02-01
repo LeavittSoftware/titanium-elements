@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.16.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.16.0...@leavittsoftware/web@2.16.1) (2024-02-01)
+
+### Bug Fixes
+
+- **search-input:** remove double binding to disabled ([045b947](https://github.com/LeavittSoftware/titanium-elements/commit/045b9473432a7b6f858cc219b3fc70549202a4d3))
+
 # [2.16.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.15.0...@leavittsoftware/web@2.16.0) (2024-01-25)
 
 ### Features
