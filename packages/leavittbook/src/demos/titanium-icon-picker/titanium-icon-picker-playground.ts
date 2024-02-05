@@ -52,6 +52,21 @@ export class TitaniumIconPickerPlayground extends LitElement {
         <titanium-icon-picker></titanium-icon-picker>
       </div>
 
+      
+      <h1>Favorite icons</h1>
+      <p></p>
+      <div>
+        <titanium-icon-picker favorites=${'restaurant,cake,liquor,local_pizza,ramen_dining,icecream,egg,rice_bowl,skillet,oven'}></titanium-icon-picker>
+      </div></div>
+
+          
+      <h1>Whitelist icons</h1>
+      <p></p>
+      <div>
+        <titanium-icon-picker whitelist="restaurant,cake,liquor,local_pizza,ramen_dining,icecream,egg,rice_bowl,skillet,oven" favorites="restaurant"></titanium-icon-picker>
+      </div></div>
+
+                
       <h1>Pre-populated</h1>
       <p>Icon picker example (pre-populated)</p>
       <div>
