@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.17.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.16.1...@leavittsoftware/web@2.17.0) (2024-02-06)
+
+### Features
+
+- **icon-picker:** Add whitelist and favorites features ([470a053](https://github.com/LeavittSoftware/titanium-elements/commit/470a053d69584418ced4adee9d120eaaa3ba0d54))
+
 ## [2.16.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.16.0...@leavittsoftware/web@2.16.1) (2024-02-01)
 
 ### Bug Fixes
