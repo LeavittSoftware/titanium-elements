@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { css, html } from 'lit';
+import { css, html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { PeopleGroup as CorePeopleGroup, Person as CorePerson } from '@leavittsoftware/lg-core-typescript';
@@ -123,7 +123,7 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
     const filterParts = ['not IsExpired'];
 
     try {
-      const odataParts = ['top=100', 'count=true', 'select=Name,Id,Description'];
+      const odataParts = ['top=100', 'count=true', 'select=Name,Id,Description', 'expand=EffectiveMembers(top=0;count=true)'];
       const searchTokens = getSearchTokens(searchTerm);
       if (searchTokens.length > 0) {
         filterParts.push(searchTokens.map((token: string) => `contains(tolower(Name), '${token.toLowerCase()}')`).join(' and '));
@@ -181,6 +181,10 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
         ? html`<md-menu-item .item=${entity} ?selected=${this.selected?.Id === entity.Id}>
             <md-icon group slot="start">${peopleGroupIcons.get(entity['@odata.type'])?.icon ?? 'task_alt'}</md-icon>
             <span slot="headline">${entity.Name}</span>
+
+            ${Object.keys(entity).some((o) => o === 'EffectiveMembers@odata.count')
+              ? html` <span slot="overline"> ${entity['EffectiveMembers@odata.count']} user${entity['EffectiveMembers@odata.count'] === 1 ? '' : 's'} </span>`
+              : nothing}
             <span slot="supporting-text">${entity.Description || (peopleGroupIcons.get(entity['@odata.type'])?.displayName ?? 'People group')}</span>
           </md-menu-item>`
         : html``;
