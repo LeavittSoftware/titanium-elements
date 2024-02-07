@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.18.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.17.0...@leavittsoftware/web@2.18.0) (2024-02-07)
+
+### Features
+
+- **person-group-select:** add user count to people group select ([b0aa3e3](https://github.com/LeavittSoftware/titanium-elements/commit/b0aa3e306f23a513fbb36e981c068bad7c2dd7c6))
+
 # [2.17.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.16.1...@leavittsoftware/web@2.17.0) (2024-02-06)
 
 ### Features
