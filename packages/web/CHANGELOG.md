@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.19.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.18.0...@leavittsoftware/web@2.19.0) (2024-02-12)
+
+### Features
+
+- **person-select:** adds enable-people-preloading for small lists ([aeaf996](https://github.com/LeavittSoftware/titanium-elements/commit/aeaf99641560c911c4b4d1e2c2890daa051ef8ab))
+
 # [2.18.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.17.0...@leavittsoftware/web@2.18.0) (2024-02-07)
 
 ### Features
