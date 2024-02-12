@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { html } from 'lit';
+import { PropertyValues, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { Person } from '@leavittsoftware/lg-core-typescript';
@@ -45,8 +45,27 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
     'count=true',
   ];
 
+  /**
+   *  Enables preloading of people for the default suggestion list. Only enable if you are searching a smaller subset of people.
+   */
+  @property({ type: Boolean, attribute: 'enable-people-preloading' }) accessor enablePeoplePreloading: boolean = false;
+
+  @property({ type: Array }) accessor people: Array<Partial<Person>> = [];
+
   #doSearchDebouncer = new Debouncer((searchTerm: string) => this.#doSearch(searchTerm));
   #abortController: AbortController = new AbortController();
+
+  async firstUpdated() {
+    if (this.enablePeoplePreloading && !this.people.length && this.apiService) {
+      this.reloadPeople();
+    }
+  }
+
+  async updated(changedProps: PropertyValues<this>) {
+    if (changedProps.has('people') && this.people) {
+      this.defaultSuggestions = this.people;
+    }
+  }
 
   searchTermToOData(searchTerm: string): string | null {
     const searchTokens = getSearchTokens(searchTerm);
@@ -54,6 +73,23 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
       return null;
     }
     return searchTokens.map((token: string) => `contains(tolower(FullName), '${token.toLowerCase()}')`).join(' and ');
+  }
+
+  async reloadPeople() {
+    this.people = await this.#getPeople();
+  }
+
+  async #getPeople() {
+    const odataParts = this.odataParts.filter((o) => !o.startsWith('top='));
+
+    try {
+      const get = this.apiService?.getAsync<Partial<Person>>(`${this.apiControllerName}?${odataParts.join('&')}`);
+      const result = await get;
+      return result?.toList() ?? [];
+    } catch (error) {
+      this.dispatchEvent(new ShowSnackbarEvent(error));
+    }
+    return [];
   }
 
   async #doSearch(searchTerm: string) {

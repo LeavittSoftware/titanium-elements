@@ -73,6 +73,21 @@ export class LeavittPersonSelectPlayground extends LitElement {
         </section>
       </div>
 
+      <h1>Pre-load people</h1>
+      <div row>
+        <leavitt-person-select
+          .odataParts=${[
+            'top=15',
+            "filter=contains(LastName, 'Leavitt')",
+            'orderby=FullName',
+            'select=FullName,CompanyName,Id,ProfilePictureCdnFileName',
+            'count=true',
+          ]}
+          enable-people-preloading
+          .apiService=${this.apiService}
+        ></leavitt-person-select>
+      </div>
+
       <h1>Attributes</h1>
       <p>Default person select</p>
       <div>
