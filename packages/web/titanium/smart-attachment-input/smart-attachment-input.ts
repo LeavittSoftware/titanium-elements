@@ -22,6 +22,7 @@ import { getCdnDownloadUrl } from '../helpers/get-cdn-download-url';
 import { TitaniumChipMultiSelect } from '../../titanium/chip-multi-select/chip-multi-select';
 import { MdDialog } from '@material/web/dialog/dialog';
 import { getCdnInlineUrl } from '../helpers/get-cdn-Inline-url';
+import { p } from '../styles/p';
 
 export type TitaniumSmartInputOptions = Cropper.Options & { shape?: ' square' | 'circle' };
 
@@ -264,6 +265,7 @@ export class TitaniumSmartAttachmentInput extends LitElement {
   }
 
   static styles = [
+    p,
     css`
       :host {
         display: block;
