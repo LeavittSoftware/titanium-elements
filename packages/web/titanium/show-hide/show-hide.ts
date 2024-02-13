@@ -120,10 +120,8 @@ export default class TitaniumShowHide extends LitElement {
           <slot></slot>
         </items-container>
       </collapsed-box>
-      <slot name="button" @click=${() => (this.collapsed = !this.collapsed)}>
-        <md-outlined-button part="button" ?hidden=${!this.hasHiddenItems}>
-          ${this.collapsed ? `Show more (${this.hiddenItemCount})` : 'Show less'}</md-outlined-button
-        >
+      <slot name="button" @click=${() => (this.collapsed = !this.collapsed)} ?hidden=${!this.hasHiddenItems}>
+        <md-outlined-button part="button"> ${this.collapsed ? `Show more (${this.hiddenItemCount})` : 'Show less'}</md-outlined-button>
       </slot>
     `;
   }
