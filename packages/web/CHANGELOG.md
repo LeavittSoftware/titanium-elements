@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.19.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.19.0...@leavittsoftware/web@2.19.1) (2024-02-13)
+
+### Bug Fixes
+
+- remove extra padding on smart attachment's confirm dialog ([#591](https://github.com/LeavittSoftware/titanium-elements/issues/591)) ([5d6b92b](https://github.com/LeavittSoftware/titanium-elements/commit/5d6b92b3f6b88c86bfcdc5b725a4dcc2d889584f))
+
 # [2.19.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.18.0...@leavittsoftware/web@2.19.0) (2024-02-12)
 
 ### Features
