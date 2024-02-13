@@ -29,6 +29,7 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
   @property({ type: String }) accessor apiControllerName: string = 'People';
 
   @property({ type: String }) accessor pathToSelectedText: string = 'FullName';
+  @property({ type: Object }) accessor pathToSupportingText = (person: Partial<Person>) => person.CompanyName;
 
   /**
    *  Required
@@ -136,7 +137,7 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
     return html`<md-menu-item .item=${person} ?selected=${this.selected?.Id === person.Id}>
       <profile-picture slot="start" .fileName=${person?.ProfilePictureCdnFileName ?? null} shape="circle" size="40"></profile-picture>
       <span slot="headline">${person.FullName}</span>
-      <span slot="supporting-text">${person.CompanyName}</span>
+      <span slot="supporting-text">${this.pathToSupportingText(person)}</span>
     </md-menu-item>`;
   }
 }
