@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.20.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.20.0...@leavittsoftware/web@2.20.1) (2024-02-13)
+
+### Bug Fixes
+
+- **show-hide:** hide buttons even when slotted in ([80f5d56](https://github.com/LeavittSoftware/titanium-elements/commit/80f5d569ffbc34cc84084d72aa06a63a12fb50c5))
+
 # [2.20.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.19.1...@leavittsoftware/web@2.20.0) (2024-02-13)
 
 ### Features
