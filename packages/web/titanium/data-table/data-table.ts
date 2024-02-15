@@ -4,7 +4,7 @@ import '@material/web/progress/linear-progress';
 import '@material/web/icon/icon';
 
 import { css, html, LitElement } from 'lit';
-import { property, customElement, query, queryAsync } from 'lit/decorators.js';
+import { property, customElement, query, queryAsync, state } from 'lit/decorators.js';
 import { DataTableItemDropEvent, TitaniumDataTableItem } from './data-table-item';
 import { TitaniumDataTableHeader } from './data-table-header';
 import { h1, ellipsis } from '../../titanium/styles/styles';
@@ -92,35 +92,15 @@ export class TitaniumDataTable extends LitElement {
    * Array of currently selected data table objects
    */
   @property({ type: Array }) accessor selected: Array<unknown> = [];
-
-  /**
-   * When set to true, the loading state is shown.
-   */
-  @property({ type: Boolean }) protected accessor isLoading: boolean;
-
-  /**
-   * @ignore
-   */
-  @query('slot[name="items"]') accessor itemsSlot: HTMLSlotElement;
-  @query('slot[name="table-headers"]') protected accessor tableHeaders: HTMLSlotElement;
-  /**
-   * @ignore
-   */
   @query('div[items-slot]') accessor itemsContainer: HTMLDivElement;
+  @query('slot[name="items"]') accessor itemsSlot: HTMLSlotElement;
 
-  /**
-   *  Sets if view port is small
-   */
   @property({ type: Boolean, reflect: true, attribute: 'narrow' }) protected accessor narrow: boolean = false;
-
-  /**
-   * @ignore
-   */
-  @query('md-checkbox') accessor checkbox: MdCheckbox;
-  /**
-   * @ignore
-   */
-  @queryAsync('titanium-page-control') accessor pageControl: Promise<TitaniumPageControl | null>;
+  @property({ type: Boolean, attribute: 'has-drag-items', reflect: true }) protected accessor hasDragItems: boolean;
+  @state() protected accessor isLoading: boolean;
+  @query('slot[name="table-headers"]') protected accessor tableHeaders: HTMLSlotElement;
+  @query('md-checkbox') protected accessor checkbox: MdCheckbox;
+  @queryAsync('titanium-page-control') protected accessor pageControl: Promise<TitaniumPageControl | null>;
   #openCount = 0;
 
   /**
@@ -211,10 +191,8 @@ export class TitaniumDataTable extends LitElement {
     )?.updateComplete;
   }
 
-  /**
-   * @ignore
-   */
-  updateChildrenIsNarrow() {
+  protected updateChildrenIsNarrow() {
+    this.hasDragItems = (this.itemsSlot.assignedElements() as Array<TitaniumDataTableItem & HTMLElement>).some((o) => o.enableDrag);
     (this.itemsSlot.assignedElements() as Array<TitaniumDataTableItem & HTMLElement>).forEach((o) => (o.narrow = this.narrow));
     (this.tableHeaders.assignedElements() as Array<TitaniumDataTableHeader & HTMLElement>).forEach((o) => (o.narrow = this.narrow));
   }
@@ -400,6 +378,10 @@ export class TitaniumDataTable extends LitElement {
 
       table-header ::slotted(titanium-data-table-header:last-of-type) {
         padding-right: 24px;
+      }
+
+      :host([has-drag-items]) table-header ::slotted(titanium-data-table-header:last-of-type) {
+        padding-right: 48px;
       }
 
       md-linear-progress {

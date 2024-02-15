@@ -70,7 +70,7 @@ export class DraggablePlayground extends LitElement {
         >
           <titanium-data-table-header slot="table-headers" large column-name="Name" no-sort title="Name"></titanium-data-table-header>
           <titanium-data-table-header slot="table-headers" column-name="Appearance" no-sort title="Appearance"></titanium-data-table-header>
-          <titanium-data-table-header slot="table-headers" column-name="Link" no-sort title="Link"></titanium-data-table-header>
+          <titanium-data-table-header right slot="table-headers" column-name="Link" no-sort title="Link"></titanium-data-table-header>
 
           ${repeat(
             this.draggableItems ?? [],
@@ -79,7 +79,7 @@ export class DraggablePlayground extends LitElement {
               <titanium-data-table-item enable-dragging .item=${item} slot="items">
                 <row-item large ellipsis title=${item.Name ?? ''}>${item.Name ?? '-'}</row-item>
                 <row-item title=${item.Appearance ?? ''}>${item.Appearance ?? '-'}</row-item>
-                <row-item><a href="#">Learn More</a></row-item>
+                <row-item right><a href="#">Learn More</a></row-item>
               </titanium-data-table-item>
             `
           )}

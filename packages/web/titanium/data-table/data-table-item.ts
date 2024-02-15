@@ -1,4 +1,4 @@
-import { css, html, LitElement, PropertyValues } from 'lit';
+import { css, html, LitElement, nothing, PropertyValues } from 'lit';
 import { property, customElement, state } from 'lit/decorators.js';
 import { TitaniumDataTable } from './data-table';
 
@@ -373,12 +373,14 @@ export class TitaniumDataTableItem extends LitElement {
     }
 
     md-icon[drag] {
-      display: none;
+      position: absolute;
+      opacity: 0.3;
+      right: 7px;
       color: var(--md-sys-color-outline, #dadce0);
-      margin-right: -24px;
     }
 
     :host([enable-dragging]:hover) md-icon[drag] {
+      opacity: 1;
       display: block;
     }
 
@@ -396,10 +398,6 @@ export class TitaniumDataTableItem extends LitElement {
     :host([dragging]:not([dragged])) {
       transition: transform 0.2s ease-out;
     }
-
-    /* :host {
-      transition: transform 0.2s ease-out;
-    } */
 
     :host main {
       display: flex;
@@ -435,6 +433,10 @@ export class TitaniumDataTableItem extends LitElement {
 
     ::slotted(row-item:last-of-type) {
       padding-right: 24px;
+    }
+
+    :host([enable-dragging]) ::slotted(row-item:last-of-type) {
+      padding-right: 40px;
     }
 
     ::slotted(row-item:not([width])) {
@@ -477,12 +479,6 @@ export class TitaniumDataTableItem extends LitElement {
       display: none;
     }
 
-    @media (max-width: 768px) {
-      :host([enable-dragging]) md-icon[drag] {
-        display: block;
-      }
-    }
-
     [hidden] {
       display: none;
     }
@@ -501,9 +497,8 @@ export class TitaniumDataTableItem extends LitElement {
       </style>
       <main part="main">
         ${this.disableSelect
-          ? ''
+          ? nothing
           : html`
-              <md-icon drag>drag_indicator</md-icon>
               <md-checkbox
                 .checked=${this.selected}
                 @mousedown=${(e: MouseEvent) => e.stopPropagation()}
@@ -514,6 +509,7 @@ export class TitaniumDataTableItem extends LitElement {
             `}
 
         <slot></slot>
+        ${this.enableDrag ? html` <md-icon drag>drag_indicator</md-icon>` : nothing}
       </main>
       <div item-footer part="item-footer-container">
         <slot name="item-footer"></slot>
