@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.21.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.20.2...@leavittsoftware/web@2.21.0) (2024-02-15)
+
+### Features
+
+- **data-table:** enhance drag and drop indicator (reduces shifting) ([8872c8c](https://github.com/LeavittSoftware/titanium-elements/commit/8872c8ce5fe1f54471cdc3135f0837b525f572c5))
+
 ## [2.20.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.20.1...@leavittsoftware/web@2.20.2) (2024-02-15)
 
 ### Bug Fixes
