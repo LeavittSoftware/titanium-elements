@@ -14,7 +14,7 @@ import { ExtendableOutlinedTextField } from '../extendable-outlined-text-field/e
 @customElement('titanium-youtube-input')
 export class TitaniumYouTubeInput extends ExtendableOutlinedTextField {
   firstUpdated() {
-    this.label = 'YouTube video key';
+    this.label = this.label || 'YouTube video key';
     this.pattern = '^.{11}$';
   }
 
