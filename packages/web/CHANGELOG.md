@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.21.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.21.0...@leavittsoftware/web@2.21.1) (2024-02-15)
+
+### Bug Fixes
+
+- **data-table:** fix drag head padding ([8d65977](https://github.com/LeavittSoftware/titanium-elements/commit/8d65977366285852ac9f3d8fee69cc150bffaee6))
+
 # [2.21.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.20.2...@leavittsoftware/web@2.21.0) (2024-02-15)
 
 ### Features
