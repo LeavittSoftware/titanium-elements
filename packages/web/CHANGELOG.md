@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.20.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.20.1...@leavittsoftware/web@2.20.2) (2024-02-15)
+
+### Bug Fixes
+
+- **youtube-input:** fix default label overwriting label attr ([1f93748](https://github.com/LeavittSoftware/titanium-elements/commit/1f937488adb0af5142b4f5105b76c79eda125fbf))
+
 ## [2.20.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.20.0...@leavittsoftware/web@2.20.1) (2024-02-13)
 
 ### Bug Fixes
