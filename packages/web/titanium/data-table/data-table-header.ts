@@ -100,6 +100,8 @@ export class TitaniumDataTableHeader extends LitElement {
 
       box-sizing: border-box;
       -webkit-font-smoothing: antialiased;
+
+      text-align: left;
     }
 
     button {
@@ -122,7 +124,7 @@ export class TitaniumDataTableHeader extends LitElement {
       height: 100%;
 
       /* override default button styles */
-      text-align: left;
+      text-align: inherit;
 
       cursor: pointer;
 
@@ -135,10 +137,12 @@ export class TitaniumDataTableHeader extends LitElement {
 
     :host([right]) {
       justify-content: end;
+      text-align: right;
     }
 
     :host([center]) {
       justify-content: center;
+      text-align: center;
     }
 
     button:focus,
