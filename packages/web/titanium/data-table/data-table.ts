@@ -381,7 +381,7 @@ export class TitaniumDataTable extends LitElement {
       }
 
       :host([has-drag-items]) table-header ::slotted(titanium-data-table-header:last-of-type) {
-        padding-right: 48px;
+        padding-right: 40px;
       }
 
       md-linear-progress {
