@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.24.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.23.0...@leavittsoftware/web@2.24.0) (2024-02-20)
+
+### Bug Fixes
+
+- **data-table:** fix case where select all checkbox state could be inverted ([6a36dda](https://github.com/LeavittSoftware/titanium-elements/commit/6a36ddab780c5e8e1792a41ed2a57525d8ba5b88))
+
+### Features
+
+- **date-range-selector:** expose date range selector css part ([d929089](https://github.com/LeavittSoftware/titanium-elements/commit/d9290893c75e4ee0d21e3435e0142c2f616c3699))
+
 # [2.23.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.22.0...@leavittsoftware/web@2.23.0) (2024-02-20)
 
 ### Features
