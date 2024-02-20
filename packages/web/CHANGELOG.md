@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.23.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.22.0...@leavittsoftware/web@2.23.0) (2024-02-20)
+
+### Features
+
+- **date-range-selector:** expose date range selector css part ([d929089](https://github.com/LeavittSoftware/titanium-elements/commit/d9290893c75e4ee0d21e3435e0142c2f616c3699))
+
 # [2.22.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.21.1...@leavittsoftware/web@2.22.0) (2024-02-15)
 
 ### Bug Fixes
