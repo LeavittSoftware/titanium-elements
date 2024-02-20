@@ -559,6 +559,7 @@ export class TitaniumDataTable extends LitElement {
                   aria-label="${this.selected.length > 0 ? 'Deselect' : 'Select'} all checkboxes"
                   ?checked=${this.selected.length > 0}
                   ?indeterminate=${this.selected.length !== 0 && this.selected.length !== this.items.length}
+                  ?disabled=${this.items.length === 0}
                   @click=${() => {
                     this.selected.length > 0 ? this.#deselectAll() : this.selectAll();
                     this.checkbox.focus();
