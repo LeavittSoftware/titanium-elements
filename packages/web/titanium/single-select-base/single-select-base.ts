@@ -3,8 +3,10 @@ import { property, customElement, query, state } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 
 import '@material/web/progress/circular-progress';
-import '@material/web/icon/icon';
 import '@material/web/textfield/outlined-text-field';
+
+import '@material/web/iconbutton/icon-button';
+import '@material/web/icon/icon';
 
 import '@material/web/menu/menu';
 import '@material/web/menu/menu-item';
@@ -297,6 +299,18 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
   #renderTrailingInputSlot() {
     return html`<div slot="trailing-icon">
       <md-circular-progress ?indeterminate=${this.isLoading} ?hidden=${!this.isLoading}></md-circular-progress>
+      <md-icon-button
+        ?hidden=${this.isLoading || !this.selected}
+        ?disabled=${this.disabled}
+        title="Clear selection"
+        @click=${async (e: MouseEvent) => {
+          e.preventDefault();
+          this.setSelected(null);
+          this.focus();
+        }}
+      >
+        <md-icon>close</md-icon>
+      </md-icon-button>
       ${this.renderTrailingInputSlot()}
     </div>`;
   }
