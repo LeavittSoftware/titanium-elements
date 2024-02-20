@@ -256,6 +256,7 @@ export class TitaniumDateRangeSelector extends LitElement {
   render() {
     return html`
       <md-outlined-field
+        part="field"
         aria-haspopup="listbox"
         role="combobox"
         part="field"
