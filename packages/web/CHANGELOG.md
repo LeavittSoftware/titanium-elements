@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.25.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.24.1...@leavittsoftware/web@2.25.0) (2024-02-20)
+
+### Features
+
+- **single-select-base:** add a clear selection button ([ed56a8f](https://github.com/LeavittSoftware/titanium-elements/commit/ed56a8f4929e6089dd5f77df3e9307ed16a393f1))
+
 ## [2.24.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.24.0...@leavittsoftware/web@2.24.1) (2024-02-20)
 
 **Note:** Version bump only for package @leavittsoftware/web
