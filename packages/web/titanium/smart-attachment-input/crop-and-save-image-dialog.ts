@@ -35,6 +35,12 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
    *  Configurable CropperJs options.
    */
   @property({ type: Object }) accessor options: CropperOptions = {};
+
+  /**
+   *  Forces cropper to output PNG's
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'force-png' }) accessor forcePNGOutput: boolean;
+
   @state() protected accessor fileName: string = '';
 
   #cropper: null | Cropper;
@@ -44,8 +50,8 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
   firstUpdated() {
     const bowser = Bowser.getParser(window.navigator.userAgent);
     const os = bowser?.getOS?.()?.name ?? '';
-    this.#mimeType = os === 'iOS' || os === 'macOS' ? 'image/png' : 'image/webp';
-    this.#extension = os === 'iOS' || os === 'macOS' ? 'png' : 'webp';
+    this.#mimeType = os === 'iOS' || os === 'macOS' || this.forcePNGOutput ? 'image/png' : 'image/webp';
+    this.#extension = os === 'iOS' || os === 'macOS' || this.forcePNGOutput ? 'png' : 'webp';
   }
 
   static styles = [
