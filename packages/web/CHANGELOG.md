@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.26.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.25.0...@leavittsoftware/web@2.26.0) (2024-02-27)
+
+### Features
+
+- **single-select-base:** add a clear selection button ([ed56a8f](https://github.com/LeavittSoftware/titanium-elements/commit/ed56a8f4929e6089dd5f77df3e9307ed16a393f1))
+- **smart-attachment:** adds forcePNGOutput attribute ([64f8bc2](https://github.com/LeavittSoftware/titanium-elements/commit/64f8bc29ba136c5a4187f216b74b76e9e3f9140c))
+
 # [2.25.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.24.1...@leavittsoftware/web@2.25.0) (2024-02-20)
 
 ### Features
