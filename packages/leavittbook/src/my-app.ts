@@ -423,7 +423,7 @@ export class MyApp extends LitElement {
             <md-list-item ?selected=${!!this.page?.includes('titanium-youtube-input')} href="/titanium-youtube-input" type="link">
               <md-icon slot="start">library_books</md-icon> <span>Youtube input</span>
             </md-list-item>
-           
+
             <md-list-item ?selected=${!!this.page?.includes('titanium-profile-picture-stack')} href="/titanium-profile-picture-stack" type="link">
               <md-icon slot="start">library_books</md-icon> <span>Profile picture stack</span>
             </md-list-item>
