@@ -196,6 +196,9 @@ export class MyApp extends LitElement {
     page('/titanium-duration-input', () =>
       this.#changePage('titanium-duration-input', () => import('./demos/titanium-duration-input/titanium-duration-input-demo.js'))
     );
+    page('/titanium-profile-picture-stack', () =>
+      this.#changePage('titanium-profile-picture-stack', () => import('./demos/titanium-profile-picture-stack/titanium-profile-picture-stack-demo.js'))
+    );
 
     page('/titanium-confirm-dialog', () =>
       this.#changePage('titanium-confirm-dialog', () => import('./demos/titanium-confirm-dialog/titanium-confirm-dialog-demo.js'))
@@ -255,6 +258,7 @@ export class MyApp extends LitElement {
         font-weight: 500;
         margin-top: 12px;
       }
+
       titanium-drawer summary::marker {
         margin-right: 12px;
       }
@@ -419,6 +423,10 @@ export class MyApp extends LitElement {
             <md-list-item ?selected=${!!this.page?.includes('titanium-youtube-input')} href="/titanium-youtube-input" type="link">
               <md-icon slot="start">library_books</md-icon> <span>Youtube input</span>
             </md-list-item>
+           
+            <md-list-item ?selected=${!!this.page?.includes('titanium-profile-picture-stack')} href="/titanium-profile-picture-stack" type="link">
+              <md-icon slot="start">library_books</md-icon> <span>Profile picture stack</span>
+            </md-list-item>
           </details>
         </section>
 
@@ -568,6 +576,11 @@ export class MyApp extends LitElement {
           : nothing}
         ${this.page === 'titanium-confirm-dialog'
           ? html` <titanium-confirm-dialog-demo large ?isActive=${this.page === 'titanium-confirm-dialog'}></titanium-confirm-dialog-demo> `
+          : nothing}
+        ${this.page === 'titanium-profile-picture-stack'
+          ? html`
+              <titanium-profile-picture-stack-demo large ?isActive=${this.page === 'titanium-profile-picture-stack'}></titanium-profile-picture-stack-demo>
+            `
           : nothing}
         <titanium-access-denied-page ?hidden=${this.page !== 'access-denied'}></titanium-access-denied-page>
         <titanium-error-page ?hidden=${this.page !== 'error'} .message=${this.fatalErrorMessage}></titanium-error-page>
