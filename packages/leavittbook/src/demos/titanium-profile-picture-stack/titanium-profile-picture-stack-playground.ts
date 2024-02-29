@@ -18,6 +18,14 @@ export class TitaniumProfilePictureStackPlayground extends LitElement {
     { Id: 771130, FullName: 'Kasey Person', ProfilePictureCdnFileName: '_hNIx5g5YkhcC1BCH_-lJBOlMy5urO1kMrmHl-DEyn15qs9IOnAzxXnlV9ed' } as Person,
     { Id: 771130, FullName: 'Random Person', ProfilePictureCdnFileName: '' } as Person,
   ];
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @state() fiftyPeople: Array<Partial<Person | null | undefined>> = new Array(50).fill({
+    Id: 771130,
+    FullName: 'Kasey Person',
+    ProfilePictureCdnFileName: '_hNIx5g5YkhcC1BCH_-lJBOlMy5urO1kMrmHl-DEyn15qs9IOnAzxXnlV9ed',
+  });
+
   static styles = [
     h1,
     p,
@@ -31,6 +39,10 @@ export class TitaniumProfilePictureStackPlayground extends LitElement {
 
       titanium-profile-picture-stack {
         margin: 0 0 24px 0;
+      }
+
+      titanium-profile-picture-stack[size="50"] {
+        --titanium-profile-picture-stack-transform-scale: 1.5;
       }
     `,
   ];
@@ -47,6 +59,12 @@ export class TitaniumProfilePictureStackPlayground extends LitElement {
 
         <h1>Enable directory href</h1>
         <titanium-profile-picture-stack enable-directory-href .people=${this.people}></titanium-profile-picture-stack>
+
+        <h1>Auto resize</h1>
+        <titanium-profile-picture-stack auto-resize .people=${this.fiftyPeople}></titanium-profile-picture-stack>
+        
+        <h1>Auto resize - Large</h1>
+        <titanium-profile-picture-stack auto-resize size="50" .people=${this.fiftyPeople}></titanium-profile-picture-stack>
       </titanium-card>
     `;
   }

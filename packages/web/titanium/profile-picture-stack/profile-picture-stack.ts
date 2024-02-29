@@ -1,6 +1,6 @@
 import { Person } from '@leavittsoftware/lg-core-typescript';
-import { css, html, LitElement, nothing } from 'lit';
-import { property, customElement } from 'lit/decorators.js';
+import { css, html, LitElement, nothing, PropertyValues } from 'lit';
+import { property, customElement, state } from 'lit/decorators.js';
 
 import '@leavittsoftware/web/leavitt/profile-picture/profile-picture';
 import '@material/web/icon/icon';
@@ -16,19 +16,57 @@ import { isDevelopment } from '../helpers/is-development';
 @customElement('titanium-profile-picture-stack')
 export class TitaniumProfilePictureStack extends LitElement {
   /**
-   * Array of people to display in a stack
+   * Array of people to display in a stack.
    */
   @property({ type: Array }) accessor people: Array<Partial<Person | null | undefined>>;
 
   /**
-   * Number to define the max number of people to display in a stack
+   * Number to define the max number of people to display in a stack.
    */
   @property({ type: Number }) accessor max: number = 5;
 
   /**
-   * Number to define the max number of people to display in a stack
+   * Enable a link to directory for each person visible in the stack.
+   * This will open a new tab to the directory profile of the person.
+   * This will only work if the person has an Id.
    */
   @property({ type: Boolean, attribute: 'enable-directory-href' }) accessor enableDirectoryHref: boolean = false;
+
+  /**
+   * Enable auto resizing of the profile picture stack. Setting this will supersede the max property.
+   */
+  @property({ type: Boolean, attribute: 'auto-resize' }) accessor autoResize: boolean = false;
+
+  /**
+   * Size of the profile picture.
+   */
+  @property({ type: Number }) accessor size: number = 30;
+
+  @state() autoMax: number = 0;
+  #resizeObserver: ResizeObserver;
+
+  updated(changedProperties: PropertyValues<this>) {
+    if (changedProperties.has('autoResize')) {
+      if (this.autoResize) {
+        this.#setUpResizeObserver();
+      } else {
+        this.#resizeObserver?.disconnect?.();
+      }
+    }
+  }
+
+  #setUpResizeObserver() {
+    this.#resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.contentBoxSize) {
+          const inlineSize = entry.contentBoxSize[0].inlineSize;
+          this.autoMax = Math.floor(inlineSize / this.size);
+        }
+      }
+    });
+
+    this.#resizeObserver.observe(this);
+  }
 
   static styles = [
     css`
@@ -71,8 +109,9 @@ export class TitaniumProfilePictureStack extends LitElement {
   ];
 
   render() {
+    const max = this.autoResize ? this.autoMax : this.max;
     return html`
-      ${this.people.slice(0, this.max).map(
+      ${this.people.slice(0, max).map(
         (o) =>
           html` <profile-picture
             @click=${() => {
@@ -81,12 +120,12 @@ export class TitaniumProfilePictureStack extends LitElement {
               }
             }}
             title=${o?.FullName ?? ''}
-            size="30"
+            size="${this.size}"
             slot="icon"
             .fileName=${o?.ProfilePictureCdnFileName ?? null}
           ></profile-picture>`
       )}
-      ${this.people.length > this.max ? html`<md-icon title="Shared with ${this.people.length} total users">more_horiz</md-icon>` : nothing}
+      ${this.people.length > max ? html`<md-icon title="Shared with ${this.people.length} total users">more_horiz</md-icon>` : nothing}
     `;
   }
 }
