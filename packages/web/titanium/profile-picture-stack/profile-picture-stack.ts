@@ -1,10 +1,10 @@
 import { Person } from '@leavittsoftware/lg-core-typescript';
 import { css, html, LitElement, nothing, PropertyValues } from 'lit';
 import { property, customElement, state } from 'lit/decorators.js';
+import { isDevelopment } from '../helpers/is-development';
 
 import '@leavittsoftware/web/leavitt/profile-picture/profile-picture';
 import '@material/web/icon/icon';
-import { isDevelopment } from '../helpers/is-development';
 
 /**
  * A smart profile picture stack component
