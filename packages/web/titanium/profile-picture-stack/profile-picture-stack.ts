@@ -42,7 +42,12 @@ export class TitaniumProfilePictureStack extends LitElement {
    */
   @property({ type: Number }) accessor size: number = 30;
 
+  /**
+   * Used internally by the resize observer to keep track of the max number of people to display in a stack.
+   * @ignore
+   */
   @state() autoMax: number = 0;
+
   #resizeObserver: ResizeObserver;
 
   updated(changedProperties: PropertyValues<this>) {
@@ -111,7 +116,7 @@ export class TitaniumProfilePictureStack extends LitElement {
   render() {
     const max = this.autoResize ? this.autoMax : this.max;
     return html`
-      ${this.people.slice(0, max).map(
+      ${this.people?.slice(0, max)?.map(
         (o) =>
           html` <profile-picture
             @click=${() => {
@@ -125,7 +130,7 @@ export class TitaniumProfilePictureStack extends LitElement {
             .fileName=${o?.ProfilePictureCdnFileName ?? null}
           ></profile-picture>`
       )}
-      ${this.people.length > max ? html`<md-icon title="Shared with ${this.people.length} total users">more_horiz</md-icon>` : nothing}
+      ${this.people?.length > max ? html`<md-icon title="Shared with ${this.people.length} total users">more_horiz</md-icon>` : nothing}
     `;
   }
 }
