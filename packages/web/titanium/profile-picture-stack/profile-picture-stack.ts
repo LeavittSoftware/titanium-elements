@@ -125,8 +125,7 @@ export class TitaniumProfilePictureStack extends LitElement {
               }
             }}
             title=${o?.FullName ?? ''}
-            size="${this.size}"
-            slot="icon"
+            size=${this.size}
             .fileName=${o?.ProfilePictureCdnFileName ?? null}
           ></profile-picture>`
       )}

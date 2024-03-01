@@ -54,7 +54,7 @@ export class TitaniumProfilePictureStackPlayground extends LitElement {
         <titanium-profile-picture-stack .people=${this.people}></titanium-profile-picture-stack>
 
         <h1>Max of 3</h1>
-        <titanium-profile-picture-stack .max=${3} .people=${this.people}></titanium-profile-picture-stack>
+        <titanium-profile-picture-stack max="3" .people=${this.people}></titanium-profile-picture-stack>
 
         <h1>Enable directory href</h1>
         <titanium-profile-picture-stack enable-directory-href .people=${this.people}></titanium-profile-picture-stack>
