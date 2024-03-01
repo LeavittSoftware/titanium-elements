@@ -113,7 +113,7 @@ export class TitaniumProfilePictureStack extends LitElement {
 
       p {
         align-self: center;
-        margin-left: 4px;
+        margin-left: 10px;
       }
 
       :host([enable-directory-href]) profile-picture {
@@ -136,11 +136,12 @@ export class TitaniumProfilePictureStack extends LitElement {
             title=${o?.FullName ?? ''}
             size=${this.size}
             .fileName=${o?.ProfilePictureCdnFileName ?? null}
+            part="profile-picture"
           ></profile-picture>
-          ${this.people?.length === 1 ? html`<p ellipsis>${o?.FullName ?? ''}</p>` : nothing}
+          ${this.people?.length === 1 ? html`<p part="name" ellipsis>${o?.FullName ?? ''}</p>` : nothing}
         `
       )}
-      ${this.people?.length > max ? html`<md-icon title="Shared with ${this.people.length} total users">more_horiz</md-icon>` : nothing}
+      ${this.people?.length > max ? html`<md-icon part="more-icon" title="Shared with ${this.people.length} total users">more_horiz</md-icon>` : nothing}
     `;
   }
 }
