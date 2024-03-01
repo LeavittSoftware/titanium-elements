@@ -19,6 +19,14 @@ export class TitaniumProfilePictureStackPlayground extends LitElement {
     { Id: 771130, FullName: 'Random Person', ProfilePictureCdnFileName: '' } as Person,
   ];
 
+  @state() onePerson: Array<Partial<Person>> = [
+    {
+      Id: 771130,
+      FullName: 'Kasey Person',
+      ProfilePictureCdnFileName: '_hNIx5g5YkhcC1BCH_-lJBOlMy5urO1kMrmHl-DEyn15qs9IOnAzxXnlV9ed',
+    },
+  ];
+
   @state() fiftyPeople: Array<Partial<Person>> = new Array(50).fill({
     Id: 771130,
     FullName: 'Kasey Person',
@@ -52,6 +60,9 @@ export class TitaniumProfilePictureStackPlayground extends LitElement {
       <titanium-card>
         <h1>Default</h1>
         <titanium-profile-picture-stack .people=${this.people}></titanium-profile-picture-stack>
+
+        <h1>One person</h1>
+        <titanium-profile-picture-stack .people=${this.onePerson}></titanium-profile-picture-stack>
 
         <h1>Max of 3</h1>
         <titanium-profile-picture-stack max="3" .people=${this.people}></titanium-profile-picture-stack>

@@ -2,6 +2,8 @@ import { Person } from '@leavittsoftware/lg-core-typescript';
 import { css, html, LitElement, nothing, PropertyValues } from 'lit';
 import { property, customElement, state } from 'lit/decorators.js';
 import { isDevelopment } from '../helpers/is-development';
+import { p } from '../styles/p';
+import { ellipsis } from '../styles/ellipsis';
 
 import '@leavittsoftware/web/leavitt/profile-picture/profile-picture';
 import '@material/web/icon/icon';
@@ -74,6 +76,8 @@ export class TitaniumProfilePictureStack extends LitElement {
   }
 
   static styles = [
+    p,
+    ellipsis,
     css`
       :host {
         display: flex;
@@ -107,6 +111,11 @@ export class TitaniumProfilePictureStack extends LitElement {
         margin-left: -4px;
       }
 
+      p {
+        align-self: center;
+        margin-left: 4px;
+      }
+
       :host([enable-directory-href]) profile-picture {
         cursor: pointer;
       }
@@ -117,8 +126,8 @@ export class TitaniumProfilePictureStack extends LitElement {
     const max = this.autoResize ? this.autoMax : this.max;
     return html`
       ${this.people?.slice(0, max)?.map(
-        (o) =>
-          html` <profile-picture
+        (o) => html`
+          <profile-picture
             @click=${() => {
               if (this.enableDirectoryHref && o?.Id) {
                 window.open(`https://${isDevelopment ? 'dev' : ''}directory.leavitt.com/profile/${o?.Id}`, '_blank');
@@ -127,7 +136,9 @@ export class TitaniumProfilePictureStack extends LitElement {
             title=${o?.FullName ?? ''}
             size=${this.size}
             .fileName=${o?.ProfilePictureCdnFileName ?? null}
-          ></profile-picture>`
+          ></profile-picture>
+          ${this.people?.length === 1 ? html`<p ellipsis>${o?.FullName ?? ''}</p>` : nothing}
+        `
       )}
       ${this.people?.length > max ? html`<md-icon title="Shared with ${this.people.length} total users">more_horiz</md-icon>` : nothing}
     `;
