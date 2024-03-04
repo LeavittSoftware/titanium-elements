@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.27.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.27.0...@leavittsoftware/web@2.27.1) (2024-03-04)
+
+### Bug Fixes
+
+- **profile-picture-stack:** margin adjustment. add accessor. ([#598](https://github.com/LeavittSoftware/titanium-elements/issues/598)) ([9b94540](https://github.com/LeavittSoftware/titanium-elements/commit/9b9454055d03e91aba34d4c090a09451c0db5b4f))
+
 # [2.27.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.26.0...@leavittsoftware/web@2.27.0) (2024-03-04)
 
 ### Features
