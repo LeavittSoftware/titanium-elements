@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.27.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.26.0...@leavittsoftware/web@2.27.0) (2024-03-04)
+
+### Features
+
+- **titanium-profile-picture-stack:** Adds profile picture stack element ([#597](https://github.com/LeavittSoftware/titanium-elements/issues/597)) ([bf87242](https://github.com/LeavittSoftware/titanium-elements/commit/bf872420e02389373bca06ec022b99596b335abb))
+
 # [2.26.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.25.0...@leavittsoftware/web@2.26.0) (2024-02-27)
 
 ### Features
