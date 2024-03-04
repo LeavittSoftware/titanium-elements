@@ -48,7 +48,7 @@ export class TitaniumProfilePictureStack extends LitElement {
    * Used internally by the resize observer to keep track of the max number of people to display in a stack.
    * @ignore
    */
-  @state() autoMax: number = 0;
+  @state() private accessor autoMax: number = 0;
 
   #resizeObserver: ResizeObserver;
 
@@ -113,7 +113,7 @@ export class TitaniumProfilePictureStack extends LitElement {
 
       p {
         align-self: center;
-        margin-left: 10px;
+        margin-left: 8px;
       }
 
       :host([enable-directory-href]) profile-picture {
