@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.27.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.27.1...@leavittsoftware/web@2.27.2) (2024-03-08)
+
+### Bug Fixes
+
+- **person-company-select:** results not always shown ([2efb949](https://github.com/LeavittSoftware/titanium-elements/commit/2efb949cbf23d6c8defad3ab88d533653642dfb0))
+
 ## [2.27.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.27.0...@leavittsoftware/web@2.27.1) (2024-03-04)
 
 ### Bug Fixes
