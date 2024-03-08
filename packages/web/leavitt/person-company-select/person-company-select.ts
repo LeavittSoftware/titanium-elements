@@ -77,8 +77,8 @@ export class LeavittPersonCompanySelect extends TitaniumSingleSelectBase<Partial
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const fuse = new Fuse(entities, options as any);
     const fuseResults = fuse.search(searchTerm).sort((a, b) => (b?.score ?? 0) - (a?.score ?? 0));
-    this.suggestions = fuseResults.map((o) => o.item) ?? [];
-    this.count = odataCount ?? 0;
+
+    this.showSuggestions(fuseResults.map((o) => o.item) ?? [], odataCount ?? 0);
   }
 
   /**
@@ -147,7 +147,6 @@ export class LeavittPersonCompanySelect extends TitaniumSingleSelectBase<Partial
 
   // Overloaded base
   protected override onInputChanged(searchTerm: string) {
-    this.isLoading = true;
     this.#doSearchDebouncer.debounce(searchTerm);
   }
 
