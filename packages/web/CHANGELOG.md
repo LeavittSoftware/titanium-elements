@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.29.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.28.0...@leavittsoftware/web@2.29.0) (2024-03-12)
+
+### Features
+
+- **dialog:** add footer support ([aeddd87](https://github.com/LeavittSoftware/titanium-elements/commit/aeddd876b25b0a4f7bfe48697dc339d6bc14f032))
+
 # [2.28.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.27.2...@leavittsoftware/web@2.28.0) (2024-03-12)
 
 ### Features
