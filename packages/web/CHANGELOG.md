@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.30.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.29.0...@leavittsoftware/web@2.30.0) (2024-03-12)
+
+### Features
+
+- **drawer:** footer href styles ([9f26cc9](https://github.com/LeavittSoftware/titanium-elements/commit/9f26cc94b70b4f0ab490ab2d0b7e1016d9aa5a86))
+
 # [2.29.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.28.0...@leavittsoftware/web@2.29.0) (2024-03-12)
 
 ### Features
