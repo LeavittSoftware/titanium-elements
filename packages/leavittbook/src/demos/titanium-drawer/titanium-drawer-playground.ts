@@ -96,6 +96,8 @@ export class TitaniumDrawerPlayground extends LitElement {
           <md-list-item href="/titanium-drawer" type="link">
             <md-icon slot="start">apps</md-icon><span>Back to my apps</span><md-icon slot="end">exit_to_app</md-icon>
           </md-list-item>
+
+          <a slot="footer" href="#legal">Legal</a>
         </titanium-drawer>
       </div>
     `;

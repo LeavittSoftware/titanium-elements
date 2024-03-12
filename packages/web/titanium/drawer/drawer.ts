@@ -1,5 +1,5 @@
 import { LitElement, css, html } from 'lit';
-import { customElement, property, query } from 'lit/decorators.js';
+import { customElement, property, query, queryAssignedElements } from 'lit/decorators.js';
 
 /**
  * Titanium drawer - a minimalist fly-out style drawer based on a native dialog
@@ -24,6 +24,9 @@ export class TitaniumDrawer extends LitElement {
    */
   @property({ type: Boolean, reflect: true, attribute: 'always-show-content' }) accessor alwayShowContent: boolean = false;
 
+  @property({ type: Boolean, reflect: true, attribute: 'has-footer' }) private accessor hasFooter = false;
+  @queryAssignedElements({ slot: 'footer' }) private readonly footerElements!: Element[];
+
   async firstUpdated() {
     let touchstartX = 0;
     let touchendX = 0;
@@ -34,7 +37,7 @@ export class TitaniumDrawer extends LitElement {
 
     this.addEventListener('touchend', (e) => {
       touchendX = e.changedTouches[0].screenX;
-      if (touchendX < touchstartX) {
+      if (touchstartX - touchendX > 50) {
         this.close();
       }
     });
@@ -110,6 +113,15 @@ export class TitaniumDrawer extends LitElement {
     dialog {
       background-color: var(--md-sys-color-background);
       color: var(--md-sys-color-on-background);
+      box-sizing: border-box;
+
+      grid:
+        'content' 1fr
+        'footer' auto;
+    }
+
+    dialog[has-footer] {
+      grid: 'content' 1fr;
     }
 
     dialog[loading] {
@@ -117,7 +129,8 @@ export class TitaniumDrawer extends LitElement {
     }
 
     dialog[open] {
-      display: flex;
+      display: grid;
+
       inset-inline-end: inherit;
       border: 0;
       padding: 0;
@@ -126,7 +139,7 @@ export class TitaniumDrawer extends LitElement {
       flex-direction: column;
       width: 300px;
 
-      min-height: 100vh;
+      min-height: 100dvh;
       max-height: -webkit-fill-available;
 
       border-right: 1px solid var(--md-sys-color-outline-variant);
@@ -134,8 +147,25 @@ export class TitaniumDrawer extends LitElement {
       animation: show 0.25s ease normal;
     }
 
-    :host([always-show-content]) dialog:not([open]) {
+    main {
+      grid-area: content;
+    }
+
+    footer {
+      display: none;
+    }
+
+    :host([has-footer]) footer {
+      grid-area: footer;
+
       display: flex;
+      flex-direction: row;
+      padding: 8px;
+      gap: 8px;
+    }
+
+    :host([always-show-content]) dialog:not([open]) {
+      display: grid;
       inset-inline-start: initial;
       inset-inline-end: inherit;
       border: 0;
@@ -144,7 +174,9 @@ export class TitaniumDrawer extends LitElement {
       padding: 0;
       margin: 0;
       width: 100%;
-      flex-direction: column;
+
+      min-height: calc(100dvh - var(--titanium-drawer-full-height-padding, 48px));
+      height: 100%;
 
       animation: show 0.25s ease normal;
     }
@@ -154,6 +186,7 @@ export class TitaniumDrawer extends LitElement {
       top: 56px;
       max-width: 300px;
       max-height: calc(100vh - 56px);
+
       overflow-y: auto;
     }
 
@@ -225,7 +258,8 @@ export class TitaniumDrawer extends LitElement {
       }}
       part="dialog"
     >
-      <slot></slot>
+      <main part="main"><slot></slot></main>
+      <footer part="footer"><slot name="footer" @slotchange=${() => (this.hasFooter = this.footerElements.length > 0)}></slot></footer>
     </dialog>`;
   }
 }

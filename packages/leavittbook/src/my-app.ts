@@ -23,7 +23,7 @@ import { ConfirmDialogOpenEvent } from '@leavittsoftware/web/titanium/confirm-di
 import { installMediaQueryWatcher } from '@leavittsoftware/web/titanium/helpers/helpers';
 import { myAppStyles } from './styles/my-app-styles';
 import { TitaniumDrawer } from '@leavittsoftware/web/titanium/drawer/drawer';
-import { p } from '@leavittsoftware/web/titanium/styles/styles';
+import { a, p } from '@leavittsoftware/web/titanium/styles/styles';
 
 import TitaniumConfirmDialog from '@leavittsoftware/web/titanium/confirm-dialog/confirm-dialog';
 import page from 'page';
@@ -230,6 +230,7 @@ export class MyApp extends LitElement {
   static styles = [
     myAppStyles,
     p,
+    a,
     css`
       titanium-drawer npm-stats {
         margin: 0 12px 12px 24px;

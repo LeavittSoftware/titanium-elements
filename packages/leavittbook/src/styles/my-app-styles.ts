@@ -155,6 +155,7 @@ export const myAppStyles = css`
   }
 
   titanium-drawer a[logo] {
+    display: block;
     height: 26px;
     width: 148px;
     margin: 8px 14px 0px;
