@@ -162,7 +162,7 @@ export class TitaniumDrawer extends LitElement {
       color: var(--md-sys-color-on-background);
       margin: 0px;
       font-weight: 400;
-      padding: 12px 0px 4px 24px;
+      padding: 12px 0px 4px 16px;
     }
 
     ::slotted(h4) {
@@ -172,7 +172,7 @@ export class TitaniumDrawer extends LitElement {
       color: var(--md-sys-color-on-background);
       font-weight: 400;
       margin: 0px;
-      padding: 16px 24px 8px 24px;
+      padding: 16px 16px 8px 16px;
       min-height: 24px;
     }
 
