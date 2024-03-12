@@ -160,8 +160,17 @@ export class TitaniumDrawer extends LitElement {
 
       display: flex;
       flex-direction: row;
-      padding: 8px;
-      gap: 8px;
+      padding: 8px 24px;
+      gap: 24px;
+    }
+
+    footer ::slotted(a) {
+      text-decoration: none;
+      color: var(--md-sys-color-on-surface-variant);
+      font-family: var(--titanium-styles-a-font-family, Metropolis, Roboto, Noto, sans-serif);
+      font-weight: 400;
+      font-size: 12px;
+      opacity: 0.8;
     }
 
     :host([always-show-content]) dialog:not([open]) {
