@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.27.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.27.1...@leavittsoftware/web@2.27.2) (2024-03-08)
+
+### Bug Fixes
+
+- **person-company-select:** results not always shown ([2efb949](https://github.com/LeavittSoftware/titanium-elements/commit/2efb949cbf23d6c8defad3ab88d533653642dfb0))
+
+## [2.27.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.27.0...@leavittsoftware/web@2.27.1) (2024-03-04)
+
+### Bug Fixes
+
+- **profile-picture-stack:** margin adjustment. add accessor. ([#598](https://github.com/LeavittSoftware/titanium-elements/issues/598)) ([9b94540](https://github.com/LeavittSoftware/titanium-elements/commit/9b9454055d03e91aba34d4c090a09451c0db5b4f))
+
+# [2.27.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.26.0...@leavittsoftware/web@2.27.0) (2024-03-04)
+
+### Features
+
+- **titanium-profile-picture-stack:** Adds profile picture stack element ([#597](https://github.com/LeavittSoftware/titanium-elements/issues/597)) ([bf87242](https://github.com/LeavittSoftware/titanium-elements/commit/bf872420e02389373bca06ec022b99596b335abb))
+
+# [2.26.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.25.0...@leavittsoftware/web@2.26.0) (2024-02-27)
+
+### Features
+
+- **single-select-base:** add a clear selection button ([ed56a8f](https://github.com/LeavittSoftware/titanium-elements/commit/ed56a8f4929e6089dd5f77df3e9307ed16a393f1))
+- **smart-attachment:** adds forcePNGOutput attribute ([64f8bc2](https://github.com/LeavittSoftware/titanium-elements/commit/64f8bc29ba136c5a4187f216b74b76e9e3f9140c))
+
 # [2.25.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.24.1...@leavittsoftware/web@2.25.0) (2024-02-20)
 
 ### Features
