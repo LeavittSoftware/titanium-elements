@@ -590,7 +590,7 @@ export class MyApp extends LitElement {
       </main-content>
 
       <titanium-confirm-dialog></titanium-confirm-dialog>
-      <titanium-snackbar-stack .eventListenerTarget=${this}></titanium-snackbar-stack>
+      <titanium-snackbar-stack .eventListenerTarget=${document}></titanium-snackbar-stack>
       <titanium-service-worker-notifier></titanium-service-worker-notifier>`;
   }
 }
