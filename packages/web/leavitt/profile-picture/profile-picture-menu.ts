@@ -2,6 +2,7 @@ import './profile-picture';
 import '@material/web/menu/menu';
 import '@material/web/button/outlined-button';
 import '@material/web/button/text-button';
+import '@material/web/icon/icon';
 import '@material/web/iconbutton/icon-button';
 
 import { GetUserManagerInstance } from '../user-manager/user-manager';
@@ -127,15 +128,14 @@ export class ProfilePictureMenu extends LitElement {
     }
 
     md-outlined-button {
-      margin: 12px 24px 24px 24px;
+      margin: 8px 24px 24px 24px;
     }
 
     md-menu footer {
       display: flex;
-      flex-direction: column;
-      align-items: end;
+      flex-direction: row;
+      justify-content: space-between;
       padding: 0 8px;
-      width: 300px;
     }
   `;
 
@@ -166,10 +166,13 @@ export class ProfilePictureMenu extends LitElement {
           <slot-container>
             <slot name="content"></slot>
           </slot-container>
-          <md-outlined-button account href="https://accounts.leavitt.com/" target="_blank">Manage your Leavitt account</md-outlined-button>
+          <md-outlined-button account href="https://accounts.leavitt.com/" target="_blank"
+            ><md-icon slot="icon">apps</md-icon>Browse Leavitt applications</md-outlined-button
+          >
         </main>
         <md-divider role="separator" tabindex="-1"></md-divider>
         <footer>
+          <md-text-button href="https://accounts.leavitt.com/profile" target="_blank">Account settings</md-text-button>
           <md-text-button @click=${() => GetUserManagerInstance().logout()}>Sign out</md-text-button>
         </footer>
       </md-menu>

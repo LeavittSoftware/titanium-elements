@@ -61,7 +61,7 @@ export class ProvideFeedbackDialog extends LoadWhile(LitElement) {
       if (!entity) {
         throw new Error('Error submitting feedback. Please try again.');
       } else {
-        this.dispatchEvent(new ShowSnackbarEvent('We appreciate your input, and we will promptly conduct a review!'));
+        document.dispatchEvent(new ShowSnackbarEvent('We appreciate your input, and we will promptly conduct a review!'));
         this.reset();
         this.dialog.close('done');
       }

@@ -66,7 +66,7 @@ export class ReportAProblemDialog extends LoadWhile(LitElement) {
       if (!entity) {
         throw new Error('Error submitting problem. Please try again.');
       } else {
-        this.dispatchEvent(
+        document.dispatchEvent(
           new ShowSnackbarEvent('', {
             overrideTemplate: html`Thank you for bringing this issue to our attention!<br />
               <br />
