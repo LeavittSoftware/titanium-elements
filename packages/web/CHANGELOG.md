@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.32.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.31.0...@leavittsoftware/web@2.32.0) (2024-03-13)
+
+### Features
+
+- **profile-picture-menu:** add buttons for profile and apps ([b011ffa](https://github.com/LeavittSoftware/titanium-elements/commit/b011ffad9662e70c6cdff7ba33ae108984d044d9))
+- **user-feedback:** add feedback dialogs ([a331b6b](https://github.com/LeavittSoftware/titanium-elements/commit/a331b6ba559d2e3dc765aa0338cfb60ae4572b67))
+
 # [2.31.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.30.0...@leavittsoftware/web@2.31.0) (2024-03-13)
 
 ### Features
