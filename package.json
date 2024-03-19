@@ -13,10 +13,10 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
     "@types/page": "^1.11.9",
-    "@typescript-eslint/eslint-plugin": "^7.2.0",
-    "@typescript-eslint/parser": "^7.2.0",
+    "@typescript-eslint/eslint-plugin": "^7.3.1",
+    "@typescript-eslint/parser": "^7.3.1",
     "@web/dev-server": "^0.4.3",
-    "@web/rollup-plugin-html": "^2.1.2",
+    "@web/rollup-plugin-html": "^2.3.0",
     "@web/rollup-plugin-import-meta-assets": "^2.2.1",
     "concurrently": "^8.2.2",
     "deepmerge": "^4.3.1",
@@ -34,7 +34,7 @@
     "typescript": "^5.4.2"
   },
   "dependencies": {
-    "@leavittsoftware/lg-core-typescript": "^5.321.0",
+    "@leavittsoftware/lg-core-typescript": "^5.327.4",
     "@material/web": "^1.3.0",
     "api-viewer-element": "1.0.0-pre.8",
     "lit": "3.1.2",
