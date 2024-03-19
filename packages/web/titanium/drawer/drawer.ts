@@ -24,7 +24,10 @@ export class TitaniumDrawer extends LitElement {
    */
   @property({ type: Boolean, reflect: true, attribute: 'always-show-content' }) accessor alwayShowContent: boolean = false;
 
+  @property({ type: Boolean, reflect: true, attribute: 'has-header' }) private accessor hasHeader = false;
   @property({ type: Boolean, reflect: true, attribute: 'has-footer' }) private accessor hasFooter = false;
+
+  @queryAssignedElements({ slot: 'header' }) private readonly headerElements!: Element[];
   @queryAssignedElements({ slot: 'footer' }) private readonly footerElements!: Element[];
 
   async firstUpdated() {
@@ -120,8 +123,23 @@ export class TitaniumDrawer extends LitElement {
         'footer' auto;
     }
 
-    dialog[has-footer] {
-      grid: 'content' 1fr;
+    :host([has-footer]) dialog {
+      grid:
+        'content' 1fr
+        'footer' auto;
+    }
+
+    :host([has-header]) dialog {
+      grid:
+        'header' auto
+        'content' 1fr;
+    }
+
+    :host([has-footer][has-header]) dialog {
+      grid:
+        'header' auto
+        'content' 1fr
+        'footer' auto;
     }
 
     dialog[loading] {
@@ -149,10 +167,22 @@ export class TitaniumDrawer extends LitElement {
 
     main {
       grid-area: content;
+      scrollbar-color: var(--md-sys-color-surface-container-highest) transparent;
+      scrollbar-width: thin;
+      overflow-y: auto;
     }
 
+    header,
     footer {
       display: none;
+
+      background-color: var(--md-sys-color-background);
+      color: var(--md-sys-color-on-background);
+    }
+
+    :host([has-footer]) header {
+      display: grid;
+      grid-area: header;
     }
 
     :host([has-footer]) footer {
@@ -174,29 +204,21 @@ export class TitaniumDrawer extends LitElement {
     }
 
     :host([always-show-content]) dialog:not([open]) {
+      position: sticky;
+      top: var(--titanium-drawer-full-height-padding, 48px);
+
       display: grid;
       inset-inline-start: initial;
       inset-inline-end: inherit;
       border: 0;
-      position: relative;
       min-width: 300px;
       padding: 0;
       margin: 0;
       width: 100%;
 
-      min-height: calc(100dvh - var(--titanium-drawer-full-height-padding, 48px));
-      height: 100%;
+      height: calc(100dvh - var(--titanium-drawer-full-height-padding, 48px));
 
       animation: show 0.25s ease normal;
-    }
-
-    :host([always-show-content][fixed]) dialog:not([open]) {
-      position: fixed;
-      top: 56px;
-      max-width: 300px;
-      max-height: calc(100vh - 56px);
-
-      overflow-y: auto;
     }
 
     ::slotted(h3) {
@@ -267,6 +289,7 @@ export class TitaniumDrawer extends LitElement {
       }}
       part="dialog"
     >
+      <header part="header"><slot name="header" @slotchange=${() => (this.hasHeader = this.headerElements.length > 0)}></slot></header>
       <main part="main"><slot></slot></main>
       <footer part="footer"><slot name="footer" @slotchange=${() => (this.hasFooter = this.footerElements.length > 0)}></slot></footer>
     </dialog>`;

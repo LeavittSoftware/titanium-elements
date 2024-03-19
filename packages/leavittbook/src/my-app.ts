@@ -305,9 +305,9 @@ export class MyApp extends LitElement {
       </titanium-toolbar>
 
       <titanium-drawer ?always-show-content=${this.isWideViewPort && !this.collapseMainMenu}>
-        <a logo href="/" title="Back to home"><img src=${this.themePreference === 'dark' ? LGLogoWhite : LGLogo} /></a>
-        <h3>Titanium elements</h3>
-        <p>Leavitt group custom elements</p>
+        <a slot="header" logo href="/" title="Back to home"><img src=${this.themePreference === 'dark' ? LGLogoWhite : LGLogo} /></a>
+        <h3 slot="header">Titanium elements</h3>
+        <p slot="header">Leavitt group custom elements</p>
 
         <npm-stats></npm-stats>
 
