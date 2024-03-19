@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.33.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.32.0...@leavittsoftware/web@2.33.0) (2024-03-19)
+
+### Bug Fixes
+
+- **youtube-input:** internal input not taking up full width ([39936f0](https://github.com/LeavittSoftware/titanium-elements/commit/39936f0f8ceee9d44507d14a663fce9fe3a8523d))
+
+### Features
+
+- **confirm-dialog:** include default styles for b and strong ([c9fde3d](https://github.com/LeavittSoftware/titanium-elements/commit/c9fde3d51fe394b1adfadb97bcf62b9f0ef5fbec))
+
 # [2.32.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.31.0...@leavittsoftware/web@2.32.0) (2024-03-13)
 
 ### Features
