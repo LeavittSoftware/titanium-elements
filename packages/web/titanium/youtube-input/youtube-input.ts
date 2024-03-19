@@ -40,6 +40,10 @@ export class TitaniumYouTubeInput extends ExtendableOutlinedTextField {
         margin-right: 5px;
         border-radius: 8px;
       }
+
+      md-outlined-text-field {
+        width: 100%;
+      }
     `,
   ];
 
