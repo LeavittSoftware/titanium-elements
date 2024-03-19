@@ -60,6 +60,11 @@ export default class TitaniumConfirmDialog extends LitElement {
         max-width: 550px;
         max-height: calc(100vh - 24px);
       }
+
+      b,
+      strong {
+        font-weight: 500;
+      }
     `,
   ];
 
