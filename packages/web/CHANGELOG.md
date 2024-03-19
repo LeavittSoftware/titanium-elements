@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.34.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.33.0...@leavittsoftware/web@2.34.0) (2024-03-19)
+
+### Features
+
+- **drawer:** add header support ([ee84466](https://github.com/LeavittSoftware/titanium-elements/commit/ee84466a082e547cb4ffab4781e154a7641a5f8c))
+
 # [2.33.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.32.0...@leavittsoftware/web@2.33.0) (2024-03-19)
 
 ### Bug Fixes
