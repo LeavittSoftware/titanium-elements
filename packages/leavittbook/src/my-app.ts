@@ -189,6 +189,7 @@ export class MyApp extends LitElement {
     page('/titanium-styles', () => this.#changePage('titanium-styles', () => import('./demos/titanium-styles/titanium-styles-demo.js')));
     page('/titanium-snackbar', () => this.#changePage('titanium-snackbar', () => import('./demos/titanium-snackbar/titanium-snackbar-demo.js')));
     page('/titanium-card', () => this.#changePage('titanium-card', () => import('./demos/titanium-card/titanium-card-demo.js')));
+    page('/titanium-chip', () => this.#changePage('titanium-chip', () => import('./demos/titanium-chip/titanium-chip-demo.js')));
     page('/titanium-youtube-input', () =>
       this.#changePage('titanium-youtube-input', () => import('./demos/titanium-youtube-input/titanium-youtube-input-demo.js'))
     );
@@ -334,6 +335,10 @@ export class MyApp extends LitElement {
 
             <md-list-item ?selected=${this.page === 'titanium-card'} href="/titanium-card" type="link">
               <md-icon slot="start">library_books</md-icon> <span>Card</span>
+            </md-list-item>
+
+            <md-list-item ?selected=${this.page === 'titanium-chip'} href="/titanium-chip" type="link">
+              <md-icon slot="start">library_books</md-icon> <span>Chip</span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-chip-multi-select'} href="/titanium-chip-multi-select" type="link">
@@ -568,6 +573,7 @@ export class MyApp extends LitElement {
             `
           : nothing}
         ${this.page === 'titanium-card' ? html` <titanium-card-demo large ?isActive=${this.page === 'titanium-card'}></titanium-card-demo> ` : nothing}
+        ${this.page === 'titanium-chip' ? html` <titanium-chip-demo large ?isActive=${this.page === 'titanium-chip'}></titanium-chip-demo> ` : nothing}
         ${this.page === 'titanium-youtube-input'
           ? html` <titanium-youtube-input-demo large ?isActive=${this.page === 'titanium-youtube-input'}></titanium-youtube-input-demo> `
           : nothing}
