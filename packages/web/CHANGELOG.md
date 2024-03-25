@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.35.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.34.0...@leavittsoftware/web@2.35.0) (2024-03-25)
+
+### Features
+
+- **chip:** add a ellipsis capable chip ([271b705](https://github.com/LeavittSoftware/titanium-elements/commit/271b705d2e05a1dce71f4e5eb5f0dcbbd253cb38))
+
 # [2.34.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.33.0...@leavittsoftware/web@2.34.0) (2024-03-19)
 
 ### Features
