@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.36.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.36.0...@leavittsoftware/web@2.36.1) (2024-03-26)
+
+### Bug Fixes
+
+- **card:** don't let image bleed into body ([adeba8d](https://github.com/LeavittSoftware/titanium-elements/commit/adeba8dfb44cf4b78fbdd28271628a083fb0a809))
+
 # [2.36.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.35.0...@leavittsoftware/web@2.36.0) (2024-03-26)
 
 ### Features
