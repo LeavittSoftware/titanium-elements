@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.36.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.35.0...@leavittsoftware/web@2.36.0) (2024-03-26)
+
+### Features
+
+- **chip:** add support for M3 styled selected state ([7dcc61a](https://github.com/LeavittSoftware/titanium-elements/commit/7dcc61a17ac16673f65b1d5267509f8b235f3f5d))
+
 # [2.35.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.34.0...@leavittsoftware/web@2.35.0) (2024-03-25)
 
 ### Features
