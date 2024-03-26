@@ -73,13 +73,13 @@ export class TitaniumCard extends LitElement {
       :host([has-image]) {
         grid:
           'title image' min-content
-          'body image' 1fr / 1fr auto;
+          'body body' 1fr / 1fr auto;
       }
 
       :host([has-image][has-footer]) {
         grid:
           'title image' min-content
-          'body image' 1fr
+          'body body' 1fr
           'footer footer' auto / 1fr auto;
       }
 
