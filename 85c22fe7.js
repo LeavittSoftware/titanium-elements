@@ -1,0 +1,1 @@
+function o(o){const n=()=>{o?.open&&o.close("navigation-close")};o.o=n,window.addEventListener("popstate",n,!1)}function n(o){o?.o&&(window.removeEventListener("popstate",o.o,!1),o.o=void 0)}export{n as a,o as d};

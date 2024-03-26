@@ -1,0 +1,1 @@
+const t=t=>class extends t{static get properties(){return{isLoading:{type:Boolean}}}#t=0;async loadWhile(t){this.isLoading=!0,this.#t++;try{await t}catch(t){}finally{this.#t--,0===this.#t&&(this.isLoading=!1)}}};export{t as L};

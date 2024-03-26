@@ -1,0 +1,49 @@
+import{i as t,x as e,T as i,_ as o,n as l,t as n}from"./f43924bd.js";import{E as s}from"./a1524b94.js";let d=class extends s{#t=!1;get hideClearButton(){return this.#t}set hideClearButton(t){this.#t=t}#e=!1;get preventCollapse(){return this.#e}set preventCollapse(t){this.#e=t}#i=!0;get hasValue(){return this.#i}set hasValue(t){this.#i=t}async updated(t){t.has("value")&&(this.hasValue=!!this.value)}static{this.styles=t`
+    :host {
+      display: block;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    md-outlined-text-field {
+      width: 48px;
+      --md-outlined-field-outline-width: 0;
+      --md-outlined-field-hover-outline-width: 0;
+      --md-outlined-field-disabled-outline-width: 0;
+
+      -webkit-transition: width 250ms 0ms cubic-bezier(0.4, 0, 0.2, 1); /* Safari */
+      transition: width 250ms 0ms cubic-bezier(0.4, 0, 0.2, 1);
+      --md-outlined-text-field-bottom-space: 11px;
+      --md-outlined-text-field-top-space: 11px;
+    }
+
+    :host([has-value]) md-icon-button[search],
+    :host([prevent-collapse]) md-icon-button[search],
+    md-outlined-text-field:focus-within md-icon-button[search] {
+      pointer-events: none;
+    }
+
+    :host([has-value]) md-outlined-text-field,
+    :host([prevent-collapse]) md-outlined-text-field,
+    md-outlined-text-field:focus-within {
+      --md-outlined-field-outline-width: initial;
+      --md-outlined-field-disabled-outline-width: initial;
+      --md-outlined-field-hover-outline-width: initial;
+      --md-outlined-text-field-container-shape: initial;
+
+      width: var(--titanium-search-input-expanded-width, 258px);
+    }
+  `}renderMainSlot(){return e`
+      <slot></slot>
+      <md-icon-button search ?disabled=${this.disabled} @click=${()=>this.focus()} @focus=${()=>this.focus()} slot="leading-icon">
+        <md-icon search>search</md-icon></md-icon-button
+      >
+
+      ${this.hasValue?e`<md-icon-button
+            slot="trailing-icon"
+            ?disabled=${!this.value||this.disabled}
+            @click=${()=>{this.disabled||(this.input.focus(),this.value="",this.dispatchEvent(new Event("input")))}}
+          >
+            <md-icon>close</md-icon></md-icon-button
+          >`:i}
+    `}};o([l({type:Boolean,attribute:"hide-clear-button"})],d.prototype,"hideClearButton",null),o([l({type:Boolean,reflect:!0,attribute:"prevent-collapse"})],d.prototype,"preventCollapse",null),o([l({type:Boolean,reflect:!0,attribute:"has-value"})],d.prototype,"hasValue",null),d=o([n("titanium-search-input")],d);
