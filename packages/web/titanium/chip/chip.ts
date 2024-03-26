@@ -92,6 +92,7 @@ export class TitaniumChip extends LitElement {
         padding: 0 12px;
       }
 
+      :host([selected]) button,
       :host([has-leading-items]) button {
         grid: 'icon label' / auto 1fr;
         padding-left: 8px;
@@ -103,6 +104,8 @@ export class TitaniumChip extends LitElement {
         padding-right: 4px;
       }
 
+      :host([selected][input-chip]) button,
+      :host([selected][has-leading-items]) button,
       :host([has-leading-items][input-chip]) button,
       :host([has-trailing-items][has-leading-items]) button {
         grid: 'icon label trailing' / auto 1fr auto;
@@ -116,6 +119,11 @@ export class TitaniumChip extends LitElement {
         text-align: inherit;
 
         padding: 6px 0;
+      }
+
+      md-icon[selected-check] {
+        padding-right: var(--titanium-chip-selected-with-leading-icon-leading-space, 8px);
+        --md-icon-size: 18px;
       }
 
       [name='icon']::slotted(md-icon) {
@@ -136,12 +144,9 @@ export class TitaniumChip extends LitElement {
       }
 
       :host([selected]) button {
-        background: var(--md-sys-color-primary);
-        color: var(--md-sys-color-on-primary);
-      }
-
-      :host([selected]) md-icon {
-        color: var(--md-sys-color-on-primary);
+        background: var(--titanium-chip-selected-container-color, var(--md-sys-color-secondary-container));
+        color: var(--titanium-chip-selected-text-color, var(--md-sys-color-on-secondary-container));
+        border-color: var(--titanium-chip-selected-outline-color, var(--md-sys-color-secondary-container));
       }
     `,
   ];
@@ -150,7 +155,8 @@ export class TitaniumChip extends LitElement {
     return html`<button part="button">
       <md-ripple ?disabled=${this.disabled}></md-ripple>
       <md-focus-ring ></md-focus-ring>
-      <slot name="icon" @slotchange=${() => (this.hasLeadingItems = this.leadingSlotElements.length > 0)}></slot>
+      ${this.selected ? html`<md-icon selected-check>check</md-icon>` : html`<slot name="icon" @slotchange=${() => (this.hasLeadingItems = this.leadingSlotElements.length > 0)}></slot>`}
+      
       <main label ellipsis><slot name="label">${this.label}</slot></main>
       
         ${

@@ -4,10 +4,7 @@ import { customElement } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
 import '@leavittsoftware/web/leavitt/profile-picture/profile-picture';
 
-import '@material/web/button/filled-tonal-button';
-import '@material/web/iconbutton/icon-button';
 import '@material/web/icon/icon';
-import '@material/web/list/list-item';
 
 /* playground-fold-end */
 import '@leavittsoftware/web/titanium/chip/chip';
@@ -58,6 +55,14 @@ export class TitaniumChipPlayground extends LitElement {
       </titanium-chip>
 
       <titanium-chip label="Informational" inert> </titanium-chip>
+
+      <titanium-chip selected label="Selected" @click=${(e) => (e.target.selected = !e.target.selected)}>
+        <md-icon slot="icon">money</md-icon>
+      </titanium-chip>
+
+      <titanium-chip selected label="Selected" @click=${(e) => (e.target.selected = !e.target.selected)}>
+        <profile-picture slot="icon" inert size="24"></profile-picture>
+      </titanium-chip>
     `;
   }
 }
