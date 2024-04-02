@@ -504,6 +504,7 @@ export class TitaniumDataTableItem extends LitElement {
                 @mousedown=${(e: MouseEvent) => e.stopPropagation()}
                 @touchstart=${(e: TouchEvent) => e.stopPropagation()}
                 @dblclick=${(e) => e.stopPropagation()}
+                @click=${(e) => e.stopPropagation()}
                 @change=${(e) => this.#setSelected(e.target.checked)}
               ></md-checkbox>
             `}
