@@ -8,13 +8,11 @@ import '@material/web/list/list-item';
 
 import '../date-input/date-input';
 
-import { css, html, LitElement, PropertyValues } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { property, customElement, query, state } from 'lit/decorators.js';
 import dayjs from 'dayjs/esm';
 import { DateRangeOption } from './types/date-range-option';
-import { DateTimeRanges } from './types/date-time-ranges';
 import { DateRangeKey } from './types/date-range-key';
-import { DateRangeTimeKey } from './types/date-range-time-key';
 import { DateRanges } from './types/date-ranges';
 import { TitaniumDateInput } from '../date-input/date-input';
 import { DOMEvent } from '../types/dom-event';
@@ -54,9 +52,9 @@ export class TitaniumDateRangeSelector extends LitElement {
   @property({ type: String }) accessor label: string = '';
 
   /**
-   *  Controls the display of the time picker.
+   *  Type of date inputs
    */
-  @property({ type: Boolean }) accessor enableTime: boolean = false;
+  @property({ type: String }) accessor type: 'date' | 'datetime-local' = 'date';
 
   /**
    *  Whether or not the input should be disabled
@@ -76,29 +74,29 @@ export class TitaniumDateRangeSelector extends LitElement {
 
   @property() positioning: 'absolute' | 'fixed' | 'document' | 'popover' = 'popover';
 
-  @query('titanium-date-input[start-date]') protected accessor startDateField: TitaniumDateInput;
   @query('md-menu') private accessor menu!: Menu | null;
   @query('md-list') private accessor list!: List | null;
 
   @state() private accessor proposedRange: string = 'custom';
   @state() private accessor proposedStartDate: string = '';
   @state() private accessor proposedEndDate: string = '';
-  @state() private accessor open: boolean;
+  @state() protected accessor open: boolean;
   @state() private accessor focused = false;
 
-  async updated(changedProps: PropertyValues<this>) {
-    if (changedProps.has('range')) {
+  async updated(changedProps) {
+    if (changedProps.has('range') || changedProps.has('open')) {
+      //Recompute the start and end date when the range changes or the menu is opened
       const range = this.#getRange(this.range);
       if (range) {
-        this.startDate = range.startDate;
-        this.endDate = range.endDate;
+        this.startDate = range.startDate();
+        this.endDate = range.endDate();
       }
     }
 
     if (changedProps.has('endDate') || changedProps.has('startDate')) {
       this.range =
-        Array.from(this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges).find(
-          (o) => o[1].startDate === this.startDate && o[1].endDate === this.endDate
+        Array.from(this.customDateRanges ? this.customDateRanges : DateRanges).find(
+          (o) => o[1].startDate() === this.startDate && o[1].endDate() === this.endDate
         )?.[0] || 'custom';
     }
 
@@ -231,9 +229,6 @@ export class TitaniumDateRangeSelector extends LitElement {
     if (!!this.customDateRanges) {
       return this.customDateRanges.get(key);
     }
-    if (this.enableTime) {
-      return DateTimeRanges.get(key as DateRangeTimeKey);
-    }
     return DateRanges.get(key as DateRangeKey);
   }
 
@@ -289,12 +284,7 @@ export class TitaniumDateRangeSelector extends LitElement {
         <!--  need to render &nbsp; so that line-height can apply and give it a
       non-zero height -->
         <!-- prettier-ignore -->
-        <div>${humanizeRange(
-          this.range,
-          this.startDate,
-          this.endDate,
-          this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges
-        ) || html`&nbsp;`}</div>
+        <div>${humanizeRange(this.range, this.startDate, this.endDate, this.customDateRanges ? this.customDateRanges : DateRanges) || html`&nbsp;`}</div>
 
         <md-icon slot="start">${this.#getRange(this.range)?.icon || 'date_range'}</md-icon>
         <md-icon slot="end">${this.open ? 'arrow_drop_up' : 'arrow_drop_down'}</md-icon>
@@ -323,7 +313,9 @@ export class TitaniumDateRangeSelector extends LitElement {
         <main>
           <section>
             <md-list>
-              ${Array.from(this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges).map(
+              <!-- Recompute ranges on menu open -->
+              ${this.open &&
+              Array.from(this.customDateRanges ? this.customDateRanges : DateRanges).map(
                 (o) =>
                   html`<md-list-item
                     type="button"
@@ -332,8 +324,8 @@ export class TitaniumDateRangeSelector extends LitElement {
                       this.proposedRange = o[0];
                       const range = this.#getRange(o[0]);
                       if (range) {
-                        this.proposedStartDate = range.startDate ?? '';
-                        this.proposedEndDate = range.endDate ?? '';
+                        this.proposedStartDate = range.startDate() ?? '';
+                        this.proposedEndDate = range.endDate() ?? '';
                       }
                     }}
                     value=${o[0]}
@@ -351,13 +343,13 @@ export class TitaniumDateRangeSelector extends LitElement {
               <titanium-date-input
                 start-date
                 label="From"
-                type=${this.enableTime ? 'datetime-local' : 'date'}
+                type=${this.type}
                 .value=${this.proposedStartDate ?? ''}
                 @change=${async (e: DOMEvent<TitaniumDateInput>) => {
                   this.proposedStartDate = e.target.value ?? '';
                   this.proposedRange =
-                    Array.from(this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges).find(
-                      (o) => o[1].startDate === this.proposedStartDate && o[1].endDate === this.proposedEndDate
+                    Array.from(this.customDateRanges ? this.customDateRanges : DateRanges).find(
+                      (o) => o[1].startDate() === this.proposedStartDate && o[1].endDate() === this.proposedEndDate
                     )?.[0] || 'custom';
                   await this.updateComplete;
                   this.#scrollSelectedListItemIntoView();
@@ -367,19 +359,20 @@ export class TitaniumDateRangeSelector extends LitElement {
               <titanium-date-input
                 end-date
                 label="To"
-                type=${this.enableTime ? 'datetime-local' : 'date'}
+                type=${this.type}
                 .value=${this.proposedEndDate ?? ''}
                 @change=${async (e: DOMEvent<TitaniumDateInput>) => {
                   this.proposedEndDate = e.target.value ?? '';
                   this.proposedRange =
-                    Array.from(this.customDateRanges ? this.customDateRanges : this.enableTime ? DateTimeRanges : DateRanges).find(
-                      (o) => o[1].startDate === this.proposedStartDate && o[1].endDate === this.proposedEndDate
+                    Array.from(this.customDateRanges ? this.customDateRanges : DateRanges).find(
+                      (o) => o[1].startDate() === this.proposedStartDate && o[1].endDate() === this.proposedEndDate
                     )?.[0] || 'custom';
                   await this.updateComplete;
                   this.#scrollSelectedListItemIntoView();
                 }}
               >
               </titanium-date-input>
+
               <span error ?invisible=${this.#validateDates(this.proposedStartDate, this.proposedEndDate)}>From date cannot start after To date</span>
             </input-container>
           </section>

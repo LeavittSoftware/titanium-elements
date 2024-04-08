@@ -119,7 +119,10 @@ export class TitaniumDateRangePlayground extends LitElement {
         <titanium-date-range-selector startDate="2023-09-01"></titanium-date-range-selector>
         <titanium-date-range-selector
           label="Custom override"
-          .customDateRanges=${new Map([...DateRanges, ['allTime', { name: 'All time, but different', startDate: '', endDate: '', icon: 'dashboard' }]])}
+          .customDateRanges=${new Map([
+            ...DateRanges,
+            ['allTime', { name: 'All time, but different', startDate: () => '', endDate: () => '', icon: 'dashboard' }],
+          ])}
         ></titanium-date-range-selector>
         <titanium-date-range-selector
           label="Completely custom items"
@@ -129,12 +132,12 @@ export class TitaniumDateRangePlayground extends LitElement {
               'lastWeekend',
               {
                 name: 'Last weekend',
-                startDate: dayjs().subtract(1, 'week').endOf('week').subtract(1, 'day').format('YYYY-MM-DD'),
-                endDate: dayjs().startOf('week').format('YYYY-MM-DD'),
+                startDate: () => dayjs().subtract(1, 'week').endOf('week').subtract(1, 'day').format('YYYY-MM-DD'),
+                endDate: () => dayjs().startOf('week').format('YYYY-MM-DD'),
                 icon: 'weekend',
               },
             ],
-            ['allTime', { name: 'All time, but different', startDate: '', endDate: '', icon: 'dashboard' }],
+            ['allTime', { name: 'All time, but different', startDate: () => '', endDate: () => '', icon: 'dashboard' }],
           ])}
         ></titanium-date-range-selector>
       </div>
@@ -142,7 +145,42 @@ export class TitaniumDateRangePlayground extends LitElement {
       <h1>Time</h1>
       <p>Examples using enable time</p>
       <div>
-        <titanium-date-range-selector label="Created date" ?enableTime=${true}></titanium-date-range-selector>
+        <titanium-date-range-selector
+          type="datetime-local"
+          label="Created date"
+          range="lastTen"
+          .customDateRanges=${new Map([
+            [
+              'lastTen',
+              {
+                name: 'Last ten minutes',
+                startDate: () => dayjs().subtract(10, 'minutes').format('YYYY-MM-DDTHH:mm'),
+                endDate: () => dayjs().format('YYYY-MM-DDTHH:mm'),
+                icon: 'timer',
+              },
+            ],
+            ['allTime', { name: 'All time, but different', startDate: () => '', endDate: () => '', icon: 'dashboard' }],
+
+            [
+              'lastThirty',
+              {
+                name: 'Last thirty minutes',
+                startDate: () => dayjs().subtract(30, 'minutes').format('YYYY-MM-DDTHH:mm'),
+                endDate: () => dayjs().format('YYYY-MM-DDTHH:mm'),
+                icon: 'timer',
+              },
+            ],
+            [
+              'lastHour',
+              {
+                name: 'Last hour',
+                startDate: () => dayjs().subtract(1, 'hour').format('YYYY-MM-DDTHH:mm'),
+                endDate: () => dayjs().format('YYYY-MM-DDTHH:mm'),
+                icon: 'alarm',
+              },
+            ],
+          ])}
+        ></titanium-date-range-selector>
       </div>
     `;
   }
