@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.37.0...@leavittsoftware/web@3.0.0) (2024-04-08)
+
+### Features
+
+- **date-range:** refresh range values on menu open, range start/end are getters; removes time ranges ([72b97c0](https://github.com/LeavittSoftware/titanium-elements/commit/72b97c09ad60fecbea471cff75af8d432312da92))
+
+### BREAKING CHANGES
+
+- **date-range:** Removes support for time ranges out of the box. Start and end dates must be returned in a function. This fixes issues where dates would get stale. Migrate by using a custom range with new prop "type" 'date' | 'datetime-local'.
+
 # [2.37.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.36.1...@leavittsoftware/web@2.37.0) (2024-04-02)
 
 ### Bug Fixes
