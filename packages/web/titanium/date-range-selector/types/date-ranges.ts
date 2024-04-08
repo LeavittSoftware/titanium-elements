@@ -1,17 +1,11 @@
-import dayjs, { Dayjs, QUnitType } from 'dayjs/esm';
+import dayjs, { QUnitType } from 'dayjs/esm';
 import quarterOfYear from 'dayjs/esm/plugin/quarterOfYear';
 
 import { DateRangeKey } from './date-range-key';
 import { DateRangeOption } from './date-range-option';
 dayjs.extend(quarterOfYear);
 
-const today: Dayjs = dayjs();
 const quarter = 'quarter' as QUnitType;
-const yesterday: Dayjs = today.subtract(1, 'day');
-const lastWeek: Dayjs = today.subtract(1, 'week');
-const lastMonth: Dayjs = today.subtract(1, 'month');
-const lastQuarter: Dayjs = today.subtract(1, 'quarter');
-const lastYear: Dayjs = today.subtract(1, 'year');
 
 export const DateRanges = new Map<DateRangeKey, DateRangeOption>([
   [
@@ -27,8 +21,8 @@ export const DateRanges = new Map<DateRangeKey, DateRangeOption>([
     'today',
     {
       name: 'Today',
-      startDate: () => today.format('YYYY-MM-DD'),
-      endDate: () => today.format('YYYY-MM-DD'),
+      startDate: () => dayjs().format('YYYY-MM-DD'),
+      endDate: () => dayjs().format('YYYY-MM-DD'),
       icon: 'today',
     },
   ],
@@ -36,8 +30,8 @@ export const DateRanges = new Map<DateRangeKey, DateRangeOption>([
     'thisWeek',
     {
       name: 'This week',
-      startDate: () => today.startOf('week').format('YYYY-MM-DD'),
-      endDate: () => today.endOf('week').format('YYYY-MM-DD'),
+      startDate: () => dayjs().startOf('week').format('YYYY-MM-DD'),
+      endDate: () => dayjs().endOf('week').format('YYYY-MM-DD'),
       icon: 'calendar_view_week',
     },
   ],
@@ -45,8 +39,8 @@ export const DateRanges = new Map<DateRangeKey, DateRangeOption>([
     'thisMonth',
     {
       name: 'This month',
-      startDate: () => today.startOf('month').format('YYYY-MM-DD'),
-      endDate: () => today.endOf('month').format('YYYY-MM-DD'),
+      startDate: () => dayjs().startOf('month').format('YYYY-MM-DD'),
+      endDate: () => dayjs().endOf('month').format('YYYY-MM-DD'),
       icon: 'calendar_month',
     },
   ],
@@ -54,8 +48,8 @@ export const DateRanges = new Map<DateRangeKey, DateRangeOption>([
     'thisQuarter',
     {
       name: 'This quarter',
-      startDate: () => today.startOf(quarter).format('YYYY-MM-DD'),
-      endDate: () => today.endOf(quarter).format('YYYY-MM-DD'),
+      startDate: () => dayjs().startOf(quarter).format('YYYY-MM-DD'),
+      endDate: () => dayjs().endOf(quarter).format('YYYY-MM-DD'),
       icon: 'event',
     },
   ],
@@ -63,8 +57,8 @@ export const DateRanges = new Map<DateRangeKey, DateRangeOption>([
     'thisYear',
     {
       name: 'This year',
-      startDate: () => today.startOf('year').format('YYYY-MM-DD'),
-      endDate: () => today.endOf('year').format('YYYY-MM-DD'),
+      startDate: () => dayjs().startOf('year').format('YYYY-MM-DD'),
+      endDate: () => dayjs().endOf('year').format('YYYY-MM-DD'),
       icon: 'calendar_today',
     },
   ],
@@ -72,8 +66,8 @@ export const DateRanges = new Map<DateRangeKey, DateRangeOption>([
     'thisYearToDate',
     {
       name: 'This year to date',
-      startDate: () => today.startOf('year').format('YYYY-MM-DD'),
-      endDate: () => today.format('YYYY-MM-DD'),
+      startDate: () => dayjs().startOf('year').format('YYYY-MM-DD'),
+      endDate: () => dayjs().format('YYYY-MM-DD'),
       icon: 'calendar_view_day',
     },
   ],
@@ -81,8 +75,8 @@ export const DateRanges = new Map<DateRangeKey, DateRangeOption>([
     'lastWeek',
     {
       name: 'Last week',
-      startDate: () => lastWeek.startOf('week').format('YYYY-MM-DD'),
-      endDate: () => lastWeek.endOf('week').format('YYYY-MM-DD'),
+      startDate: () => dayjs().subtract(1, 'week').startOf('week').format('YYYY-MM-DD'),
+      endDate: () => dayjs().subtract(1, 'week').endOf('week').format('YYYY-MM-DD'),
       icon: 'calendar_view_week',
     },
   ],
@@ -90,8 +84,8 @@ export const DateRanges = new Map<DateRangeKey, DateRangeOption>([
     'lastMonth',
     {
       name: 'Last month',
-      startDate: () => lastMonth.startOf('month').format('YYYY-MM-DD'),
-      endDate: () => lastMonth.endOf('month').format('YYYY-MM-DD'),
+      startDate: () => dayjs().subtract(1, 'month').startOf('month').format('YYYY-MM-DD'),
+      endDate: () => dayjs().subtract(1, 'month').endOf('month').format('YYYY-MM-DD'),
       icon: 'calendar_month',
     },
   ],
@@ -99,8 +93,8 @@ export const DateRanges = new Map<DateRangeKey, DateRangeOption>([
     'lastQuarter',
     {
       name: 'Last quarter',
-      startDate: () => lastQuarter.startOf(quarter).format('YYYY-MM-DD'),
-      endDate: () => lastQuarter.endOf(quarter).format('YYYY-MM-DD'),
+      startDate: () => dayjs().subtract(1, 'quarter').startOf(quarter).format('YYYY-MM-DD'),
+      endDate: () => dayjs().subtract(1, 'quarter').endOf(quarter).format('YYYY-MM-DD'),
       icon: 'event',
     },
   ],
@@ -108,8 +102,8 @@ export const DateRanges = new Map<DateRangeKey, DateRangeOption>([
     'lastYear',
     {
       name: 'Last year',
-      startDate: () => lastYear.startOf('year').format('YYYY-MM-DD'),
-      endDate: () => lastYear.endOf('year').format('YYYY-MM-DD'),
+      startDate: () => dayjs().subtract(1, 'year').startOf('year').format('YYYY-MM-DD'),
+      endDate: () => dayjs().subtract(1, 'year').endOf('year').format('YYYY-MM-DD'),
       icon: 'calendar_today',
     },
   ],
@@ -117,8 +111,8 @@ export const DateRanges = new Map<DateRangeKey, DateRangeOption>([
     'last12Months',
     {
       name: 'Last 12 months',
-      startDate: () => today.add(-1, 'year').format('YYYY-MM-DD'),
-      endDate: () => today.format('YYYY-MM-DD'),
+      startDate: () => dayjs().add(-1, 'year').format('YYYY-MM-DD'),
+      endDate: () => dayjs().format('YYYY-MM-DD'),
       icon: 'calendar_today',
     },
   ],
@@ -126,8 +120,8 @@ export const DateRanges = new Map<DateRangeKey, DateRangeOption>([
     'lastYearToDate',
     {
       name: 'Last year to date',
-      startDate: () => lastYear.startOf('year').format('YYYY-MM-DD'),
-      endDate: () => today.format('YYYY-MM-DD'),
+      startDate: () => dayjs().subtract(1, 'year').startOf('year').format('YYYY-MM-DD'),
+      endDate: () => dayjs().format('YYYY-MM-DD'),
       icon: 'calendar_view_day',
     },
   ],
@@ -135,8 +129,8 @@ export const DateRanges = new Map<DateRangeKey, DateRangeOption>([
     'yesterday',
     {
       name: 'Yesterday',
-      startDate: () => yesterday.format('YYYY-MM-DD'),
-      endDate: () => yesterday.format('YYYY-MM-DD'),
+      startDate: () => dayjs().subtract(1, 'day').format('YYYY-MM-DD'),
+      endDate: () => dayjs().subtract(1, 'day').format('YYYY-MM-DD'),
       icon: 'event_repeat',
     },
   ],
