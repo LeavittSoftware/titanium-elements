@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@3.0.0...@leavittsoftware/web@3.0.1) (2024-04-08)
+
+### Bug Fixes
+
+- remove local caching of dayjs values ([e512835](https://github.com/LeavittSoftware/titanium-elements/commit/e5128359e8a7b6dfeb0805f50e68f25d7dc33eb9))
+
 # [3.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@2.37.0...@leavittsoftware/web@3.0.0) (2024-04-08)
 
 ### Features
