@@ -4,6 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { Person } from '@leavittsoftware/lg-core-typescript';
 import { TitaniumSingleSelectBase } from '../../titanium/single-select-base/single-select-base';
+import Fuse from 'fuse.js';
 
 import '../profile-picture/profile-picture';
 
@@ -51,6 +52,8 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
    */
   @property({ type: Boolean, attribute: 'enable-people-preloading' }) accessor enablePeoplePreloading: boolean = false;
 
+  @property({ type: String, attribute: 'search-type' }) accessor searchType: 'local' | 'remote' = 'remote';
+
   @property({ type: Array }) accessor people: Array<Partial<Person>> = [];
 
   #doSearchDebouncer = new Debouncer((searchTerm: string) => this.#doSearch(searchTerm));
@@ -94,37 +97,54 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
   }
 
   async #doSearch(searchTerm: string) {
+    this.#abortController.abort();
+    this.#abortController = new AbortController();
+
     if (!searchTerm) {
       return;
     }
-    this.#abortController.abort();
-    this.#abortController = new AbortController();
-    try {
-      const searchOData = this.searchTermToOData(searchTerm);
-      const oDataParts = structuredClone(this.odataParts);
-      if (searchOData) {
-        const existingFilterIndex = oDataParts.findIndex((o) => o.startsWith('filter=') || o.startsWith('$filter='));
-        if (existingFilterIndex > -1) {
-          oDataParts[existingFilterIndex] = [oDataParts[existingFilterIndex], searchOData].join(' and ');
-        } else {
-          oDataParts.push(`filter=${searchOData}`);
-        }
+
+    if (this.searchType === 'local') {
+      const options = {
+        includeScore: true,
+        keys: ['FullName'],
+        shouldSort: true,
+        threshold: 0.3,
+      };
+
+      if (this.searchTerm) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const fuse = new Fuse(this.people, options as any);
+        const fuseResults = fuse.search(searchTerm);
+        this.showSuggestions(fuseResults.map((o) => o.item).slice(0, 15), fuseResults.length);
       }
+    } else {
+      try {
+        const searchOData = this.searchTermToOData(searchTerm);
+        const oDataParts = structuredClone(this.odataParts);
+        if (searchOData) {
+          const existingFilterIndex = oDataParts.findIndex((o) => o.startsWith('filter=') || o.startsWith('$filter='));
+          if (existingFilterIndex > -1) {
+            oDataParts[existingFilterIndex] = [oDataParts[existingFilterIndex], searchOData].join(' and ');
+          } else {
+            oDataParts.push(`filter=${searchOData}`);
+          }
+        }
 
-      const get = this.apiService.getAsync<Person>(`${this.apiControllerName}?${oDataParts.join('&')}`, { abortController: this.#abortController });
-      this.loadWhile(get);
+        const get = this.apiService.getAsync<Person>(`${this.apiControllerName}?${oDataParts.join('&')}`, { abortController: this.#abortController });
+        this.loadWhile(get);
 
-      const result = await get;
-      this.showSuggestions(result?.entities ?? [], result?.odataCount ?? 0);
-    } catch (error) {
-      if (!error?.message?.includes('Abort error')) {
-        this.dispatchEvent(new ShowSnackbarEvent(error));
+        const result = await get;
+        this.showSuggestions(result?.entities ?? [], result?.odataCount ?? 0);
+      } catch (error) {
+        if (!error?.message?.includes('Abort error')) {
+          this.dispatchEvent(new ShowSnackbarEvent(error));
+        }
       }
     }
   }
 
   // Overloaded base
-
   protected override onInputChanged(searchTerm: string) {
     this.#doSearchDebouncer.debounce(searchTerm);
   }

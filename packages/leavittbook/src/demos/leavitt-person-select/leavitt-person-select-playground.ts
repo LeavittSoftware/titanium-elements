@@ -88,6 +88,27 @@ export class LeavittPersonSelectPlayground extends LitElement {
         ></leavitt-person-select>
       </div>
 
+      <h1>Local searching</h1>
+      <div row>
+        <leavitt-person-select
+          search-type="local"
+          .people=${[
+            {
+              Id: 1,
+              FullName: 'Taylor Swift',
+              CompanyName: 'Leavitt Software Solutions',
+              ProfilePictureCdnFileName: 'zP6DJ9lM6HmkTAaku8ZIzQQdUBHYrX5pCCANvFxtpnagBhJPp7CGXOl-16xe',
+            },
+            {
+              Id: 2,
+              FullName: 'Jack Black',
+              CompanyName: 'Leavitt Software Solutions',
+              ProfilePictureCdnFileName: 'zP6DJ9lM6HmkTAaku8ZIzQQdUBHYrX5pCCANvFxtpnagBhJPp7CGXOl-16xe',
+            },
+          ]}
+        ></leavitt-person-select>
+      </div>
+
       <h1>Attributes</h1>
       <p>Default person select</p>
       <div>
