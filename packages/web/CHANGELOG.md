@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@3.0.1...@leavittsoftware/web@3.1.0) (2024-04-11)
+
+### Features
+
+- **person-select:** adds search-type="local" option ([a94449b](https://github.com/LeavittSoftware/titanium-elements/commit/a94449bac55f2c7738fe4f92c5dc4a4cedb67450))
+
 ## [3.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@3.0.0...@leavittsoftware/web@3.0.1) (2024-04-08)
 
 ### Bug Fixes
