@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@3.1.0...@leavittsoftware/web@4.0.0) (2024-04-18)
+
+### Features
+
+- **person-select:** adds renderMenuItemContentTemplate; removes pathToSupportingText ([0cc7ed9](https://github.com/LeavittSoftware/titanium-elements/commit/0cc7ed99d6c506cbdbcbc577423e7ac8e05efd04))
+
+### BREAKING CHANGES
+
+- **person-select:** use renderMenuItemContentTemplate to further customize the menu items rather than pathToSupportingText
+
 # [3.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@3.0.1...@leavittsoftware/web@3.1.0) (2024-04-11)
 
 ### Features
