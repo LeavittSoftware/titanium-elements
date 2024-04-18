@@ -30,7 +30,6 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
   @property({ type: String }) accessor apiControllerName: string = 'People';
 
   @property({ type: String }) accessor pathToSelectedText: string = 'FullName';
-  @property({ type: Object }) accessor pathToSupportingText = (person: Partial<Person>) => person.CompanyName;
 
   /**
    *  Required
@@ -55,6 +54,13 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
   @property({ type: String, attribute: 'search-type' }) accessor searchType: 'local' | 'remote' = 'remote';
 
   @property({ type: Array }) accessor people: Array<Partial<Person>> = [];
+
+  @property({ type: Object }) accessor renderMenuItemContentTemplate = (person: Partial<Person>) =>
+    html`<md-menu-item .item=${person}>
+      <profile-picture slot="start" .fileName=${person?.ProfilePictureCdnFileName ?? null} shape="circle" size="40"></profile-picture>
+      <span slot="headline">${person.FullName}</span>
+      <span slot="supporting-text">${person.CompanyName}</span>
+    </md-menu-item>`;
 
   #doSearchDebouncer = new Debouncer((searchTerm: string) => this.#doSearch(searchTerm));
   #abortController: AbortController = new AbortController();
@@ -154,10 +160,6 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
   }
 
   protected override renderSuggestion(person: Partial<Person>) {
-    return html`<md-menu-item .item=${person} ?selected=${this.selected?.Id === person.Id}>
-      <profile-picture slot="start" .fileName=${person?.ProfilePictureCdnFileName ?? null} shape="circle" size="40"></profile-picture>
-      <span slot="headline">${person.FullName}</span>
-      <span slot="supporting-text">${this.pathToSupportingText(person)}</span>
-    </md-menu-item>`;
+    return html`${this.renderMenuItemContentTemplate(person)} `;
   }
 }

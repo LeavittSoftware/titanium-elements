@@ -109,6 +109,37 @@ export class LeavittPersonSelectPlayground extends LitElement {
         ></leavitt-person-select>
       </div>
 
+      <h1>Custom menu item template</h1>
+      <div row>
+        <leavitt-person-select
+          search-type="local"
+          .renderMenuItemContentTemplate=${(person: Partial<Person & { Status: string }>) =>
+            html` <md-menu-item .item=${person}>
+              <profile-picture slot="start" .fileName=${person?.ProfilePictureCdnFileName ?? null} shape="circle" size="40"></profile-picture>
+              <span slot="headline">${person.FullName}</span>
+              <span slot="supporting-text">${person.CompanyName}</span>
+              <span slot="overline">${person.Status}</span>
+            </md-menu-item>`}
+          .people=${[
+            {
+              Id: 1,
+              FullName: 'Taylor Swift',
+              Status: 'Admin',
+              CompanyName: 'Leavitt Software Solutions',
+              ProfilePictureCdnFileName: 'zP6DJ9lM6HmkTAaku8ZIzQQdUBHYrX5pCCANvFxtpnagBhJPp7CGXOl-16xe',
+            },
+            {
+              Id: 2,
+              'disable-item': true,
+              FullName: 'Jack Black',
+              Status: 'User',
+              CompanyName: 'Leavitt Software Solutions',
+              ProfilePictureCdnFileName: 'zP6DJ9lM6HmkTAaku8ZIzQQdUBHYrX5pCCANvFxtpnagBhJPp7CGXOl-16xe',
+            },
+          ]}
+        ></leavitt-person-select>
+      </div>
+
       <h1>Attributes</h1>
       <p>Default person select</p>
       <div>
