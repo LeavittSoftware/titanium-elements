@@ -24,6 +24,11 @@ export class TitaniumDrawer extends LitElement {
    */
   @property({ type: Boolean, reflect: true, attribute: 'always-show-content' }) accessor alwayShowContent: boolean = false;
 
+  /**
+   * Reverse the direction of the drawer opening and closing animations
+   */
+  @property({ type: String, reflect: true }) accessor direction: 'ltr' | 'rtl' = 'ltr';
+
   @property({ type: Boolean, reflect: true, attribute: 'has-header' }) private accessor hasHeader = false;
   @property({ type: Boolean, reflect: true, attribute: 'has-footer' }) private accessor hasFooter = false;
 
@@ -153,9 +158,9 @@ export class TitaniumDrawer extends LitElement {
       border: 0;
       padding: 0;
       margin: 0;
-      width: 100%;
+
       flex-direction: column;
-      width: 300px;
+      width: var(--titanium-drawer-width, 300px);
 
       min-height: 100dvh;
       max-height: -webkit-fill-available;
@@ -163,6 +168,10 @@ export class TitaniumDrawer extends LitElement {
       border-right: 1px solid var(--md-sys-color-outline-variant);
       padding-right: 8px;
       animation: show 0.25s ease normal;
+    }
+
+    :host([direction='rtl']) dialog[open] {
+      animation: show-reverse 0.25s ease normal;
     }
 
     main {
@@ -211,7 +220,7 @@ export class TitaniumDrawer extends LitElement {
       inset-inline-start: initial;
       inset-inline-end: inherit;
       border: 0;
-      min-width: 300px;
+      min-width: var(--titanium-drawer-width, 300px);
       padding: 0;
       margin: 0;
       width: 100%;
@@ -219,6 +228,10 @@ export class TitaniumDrawer extends LitElement {
       height: calc(100dvh - var(--titanium-drawer-full-height-padding, 48px));
 
       animation: show 0.25s ease normal;
+    }
+
+    :host([always-show-content][direction='rtl']) dialog:not([open]) {
+      animation: show-reverse 0.25s ease normal;
     }
 
     ::slotted(h3) {
@@ -251,6 +264,10 @@ export class TitaniumDrawer extends LitElement {
       animation: close 0.25s ease normal;
     }
 
+    dialog[hide][direction='rtl'] {
+      animation: close-reverse 0.25s ease normal;
+    }
+
     @keyframes show {
       from {
         transform: translateX(-110%);
@@ -263,6 +280,21 @@ export class TitaniumDrawer extends LitElement {
     @keyframes close {
       to {
         transform: translateX(-110%);
+      }
+    }
+
+    @keyframes show-reverse {
+      from {
+        transform: translateX(110%);
+      }
+      to {
+        transform: translateX(0%);
+      }
+    }
+
+    @keyframes close-reverse {
+      to {
+        transform: translateX(110%);
       }
     }
 

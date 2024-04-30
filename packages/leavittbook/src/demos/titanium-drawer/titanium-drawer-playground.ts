@@ -78,7 +78,7 @@ export class TitaniumDrawerPlayground extends LitElement {
 
       <div>
         <md-outlined-button @click=${() => this.drawerTwo.open()}><span>Open</span></md-outlined-button>
-        <titanium-drawer two always-show-content>
+        <titanium-drawer direction="rtl" two always-show-content>
           <h3 slot="header">Fruits</h3>
           <md-list-item href="/titanium-drawer" type="link"> <md-icon slot="start">restaurant</md-icon><span>Fruits</span> </md-list-item>
           <h4 sub>Walnut</h4>
