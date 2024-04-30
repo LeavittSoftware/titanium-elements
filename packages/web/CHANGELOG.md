@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.0.0...@leavittsoftware/web@4.1.0) (2024-04-30)
+
+### Features
+
+- **drawer:** option to reverse animation and set drawer width ([599f4ea](https://github.com/LeavittSoftware/titanium-elements/commit/599f4eaebe472e947a67517c94015545361deaf0))
+
 # [4.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@3.1.0...@leavittsoftware/web@4.0.0) (2024-04-18)
 
 ### Features
