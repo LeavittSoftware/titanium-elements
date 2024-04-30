@@ -119,8 +119,8 @@ export class TitaniumDrawer extends LitElement {
     }
 
     dialog {
-      background-color: var(--md-sys-color-background);
-      color: var(--md-sys-color-on-background);
+      background-color: var(--titanium-drawer-background-color, --md-sys-color-background);
+      color: var(--titanium-drawer-color, --md-sys-color-on-background);
       box-sizing: border-box;
 
       grid:
@@ -185,8 +185,8 @@ export class TitaniumDrawer extends LitElement {
     footer {
       display: none;
 
-      background-color: inherit;
-      color: inherit;
+      background-color: var(--titanium-drawer-background-color, --md-sys-color-background);
+      color: var(--titanium-drawer-color, --md-sys-color-on-background);
     }
 
     :host([has-footer]) header {
