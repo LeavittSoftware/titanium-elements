@@ -185,8 +185,8 @@ export class TitaniumDrawer extends LitElement {
     footer {
       display: none;
 
-      background-color: var(--md-sys-color-background);
-      color: var(--md-sys-color-on-background);
+      background-color: inherit;
+      color: inherit;
     }
 
     :host([has-footer]) header {
