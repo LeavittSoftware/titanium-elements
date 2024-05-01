@@ -196,7 +196,13 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
         this.dispatchEvent(new ShowSnackbarEvent(error));
       }
     }
-    super.setSelected(entity);
+
+    if (entity !== this.selected) {
+      await super.setSelected(entity);
+      this.dispatchEvent(new CustomEvent('location-changed', { detail: this.selected }));
+    } else {
+      super.setSelected(entity);
+    }
   }
 
   protected renderLeadingInputSlot() {

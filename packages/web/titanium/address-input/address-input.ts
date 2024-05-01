@@ -60,6 +60,7 @@ export class TitaniumAddressInput extends GoogleAddressInput {
           if (address) {
             this.selected = { Id: '0', ...address };
             this.reportValidity();
+            this.dispatchEvent(new CustomEvent('location-changed', { detail: this.selected }));
           }
         }}
       >
