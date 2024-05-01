@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.3.0...@leavittsoftware/web@4.3.1) (2024-05-01)
+
+### Bug Fixes
+
+- **drawer:** invalid css fallback ([378963e](https://github.com/LeavittSoftware/titanium-elements/commit/378963e51b76272a4d31c7622af8a8a19b7ac872))
+
 # [4.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.2.0...@leavittsoftware/web@4.3.0) (2024-04-30)
 
 ### Bug Fixes
