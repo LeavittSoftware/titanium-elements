@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.3.2...@leavittsoftware/web@4.3.3) (2024-05-01)
+
+### Bug Fixes
+
+- **address-input:** parse subpremise as street2 ([4845997](https://github.com/LeavittSoftware/titanium-elements/commit/484599798d36f251e328299f56e9ae40ed2d4157))
+
 ## [4.3.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.3.1...@leavittsoftware/web@4.3.2) (2024-05-01)
 
 ### Bug Fixes
