@@ -19,12 +19,14 @@ export function placeResultToAddress(place: google.maps.places.PlaceResult) {
   const zipCodeComponent = place.address_components.find((o) => o.types.some((p) => p === 'postal_code'));
   const countyComponent = place.address_components.find((o) => o.types.some((p) => p === 'administrative_area_level_2'));
   const countryComponent = place.address_components.find((o) => o.types.some((p) => p === 'country'));
+  const street2 = place.address_components.find((o) => o.types.some((p) => p === 'subpremise'));
   const location: Partial<AddressInputAddress> = {
     street: streetNumberComponent?.short_name
       ? `${streetNumberComponent?.short_name} ${streetAddressComponent?.short_name}`
       : streetAddressComponent?.short_name,
     fullStreet: `${streetNumberComponent?.long_name} ${streetAddressComponent?.long_name}`,
     city: cityComponent?.short_name,
+    street2: street2?.short_name,
     county: countyComponent?.short_name,
     country: countryComponent?.short_name,
     state: stateComponent?.short_name,
