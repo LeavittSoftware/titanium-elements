@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.3.1...@leavittsoftware/web@4.3.2) (2024-05-01)
+
+### Bug Fixes
+
+- **address:** emit selected events with custom addresses ([d4fe456](https://github.com/LeavittSoftware/titanium-elements/commit/d4fe456d5af6299a53bac8871b47ba8a53169013))
+
 ## [4.3.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.3.0...@leavittsoftware/web@4.3.1) (2024-05-01)
 
 ### Bug Fixes
