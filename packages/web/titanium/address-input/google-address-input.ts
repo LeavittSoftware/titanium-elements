@@ -199,6 +199,10 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
     super.setSelected(entity);
   }
 
+  protected setSelectedBase(entity: AddressInputAddress | null) {
+    super.setSelected(entity);
+  }
+
   protected renderLeadingInputSlot() {
     return html`<slot name="leading-icon" slot="leading-icon"><md-icon>place</md-icon></slot>`;
   }
