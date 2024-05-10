@@ -95,6 +95,9 @@ export class AvailableCdnIconsPlayground extends LitElement {
     'icon-template.svg',
     'icon-unknown.svg',
     'icon-zion-funding.svg',
+    'icon-offer-letter.svg',
+    'icon-posting.svg',
+    'icon-recruiter.svg',
   ];
 
   static styles = [
