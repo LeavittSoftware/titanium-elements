@@ -5,6 +5,9 @@ import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
 
 import '@leavittsoftware/web/leavitt/user-manager/user-manager';
 import '@material/web/button/outlined-button';
+import '@material/web/button/text-button';
+
+import '@material/web/dialog/dialog';
 
 import ApiService from '@leavittsoftware/web/leavitt/api-service/api-service';
 import { AuthenticatedTokenProvider } from '@leavittsoftware/web/leavitt/api-service/authenticated-token-provider';
@@ -39,7 +42,7 @@ export class LeavittPersonCompanySelectPlayground extends LitElement {
         margin: 24px 12px;
       }
 
-      div {
+      div[card] {
         border: 1px solid var(--md-sys-color-outline);
         padding: 24px;
         border-radius: 8px;
@@ -64,7 +67,7 @@ export class LeavittPersonCompanySelectPlayground extends LitElement {
       <user-manager disableAutoload></user-manager>
       <h1>Methods</h1>
       <p>Demonstrates public methods</p>
-      <div row>
+      <div card row>
         <leavitt-company-select
           @selected=${(e: DOMEvent<LeavittCompanySelect>) => console.log('selected change 1', e.target.selected)}
           style="width: 400px;"
@@ -84,7 +87,7 @@ export class LeavittPersonCompanySelectPlayground extends LitElement {
 
       <h1>Default</h1>
       <p>Examples using required,shaped,preselected, and disabled</p>
-      <div>
+      <div card>
         <leavitt-company-select disableAutoLoad label="default" .apiService=${this.apiService}></leavitt-company-select>
         <leavitt-company-select disableAutoLoad label="shaped" shaped .apiService=${this.apiService}></leavitt-company-select>
         <leavitt-company-select
@@ -105,6 +108,24 @@ export class LeavittPersonCompanySelectPlayground extends LitElement {
         ></leavitt-company-select>
         <leavitt-company-select disableAutoLoad label="placeholder" placeholder="placeholder text" .apiService=${this.apiService}></leavitt-company-select>
         <leavitt-company-select disableAutoLoad label="required" required validationMessage="required" .apiService=${this.apiService}></leavitt-company-select>
+      </div>
+
+      <h1>Autofocus</h1>
+      <p>Example using autofocus in a dialog</p>
+      <div card>
+        <md-outlined-button @click=${() => {
+          (this.shadowRoot?.querySelector('leavitt-company-select[autofocus]') as LeavittCompanySelect).softReset();
+          this.shadowRoot?.querySelector('md-dialog')?.show();
+        }}>Open dialog</md-outlined-button>
+        <md-dialog>
+          <div slot="headline">Autofocus demo</div>
+          <form slot="content" method="dialog">
+            <leavitt-company-select autofocus label="autofocus" .apiService=${this.apiService}></leavitt-company-select>
+          </form>
+          <div slot="actions">
+            <md-text-button @click=${() => this.shadowRoot?.querySelector('md-dialog')?.close('cancel')}>Close</md-text-button>
+          </div>
+        </md-dialog>
       </div>
 
       <titanium-snackbar-stack></titanium-snackbar-stack>

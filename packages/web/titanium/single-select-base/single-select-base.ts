@@ -101,6 +101,8 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
   @property() positioning: 'absolute' | 'fixed' | 'document' | 'popover' = 'popover';
 
   @state() protected accessor count: number;
+  
+  #autofocus: boolean = false;
 
   async firstUpdated() {
     if (this.textfield && this.required) {
@@ -142,6 +144,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
   softReset() {
     this.searchTerm = '';
     this.suggestions = [];
+    this.#autofocus = this.autofocus
   }
 
   /**
@@ -353,6 +356,9 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
         default-focus="0"
         @keydown=${(e: KeyboardEvent) => {
           if (this.suggestions.length > 0 && (e.key == 'Enter' || e.key == 'ArrowDown' || e.key == 'ArrowUp')) {
+            if (!this.menu.open) {
+              this.menu.show();
+            }
             e.stopPropagation();
             this.menu?.activateNextItem();
           }
@@ -369,6 +375,11 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
           } else {
             if (!this.searchTerm && this.defaultSuggestions) {
               this.suggestions = this.defaultSuggestions;
+            }
+
+            if (this.#autofocus) {
+              this.#autofocus = false;
+              return;
             }
 
             if (!!this.searchTerm || !!this.suggestions.length) {
