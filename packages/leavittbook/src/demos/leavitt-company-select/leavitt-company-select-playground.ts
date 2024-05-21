@@ -113,10 +113,13 @@ export class LeavittPersonCompanySelectPlayground extends LitElement {
       <h1>Autofocus</h1>
       <p>Example using autofocus in a dialog</p>
       <div card>
-        <md-outlined-button @click=${() => {
-          (this.shadowRoot?.querySelector('leavitt-company-select[autofocus]') as LeavittCompanySelect).softReset();
-          this.shadowRoot?.querySelector('md-dialog')?.show();
-        }}>Open dialog</md-outlined-button>
+        <md-outlined-button
+          @click=${() => {
+            (this.shadowRoot?.querySelector('leavitt-company-select[autofocus]') as LeavittCompanySelect).softReset();
+            this.shadowRoot?.querySelector('md-dialog')?.show();
+          }}
+          >Open dialog</md-outlined-button
+        >
         <md-dialog>
           <div slot="headline">Autofocus demo</div>
           <form slot="content" method="dialog">

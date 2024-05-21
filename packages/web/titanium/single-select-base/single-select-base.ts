@@ -101,7 +101,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
   @property() positioning: 'absolute' | 'fixed' | 'document' | 'popover' = 'popover';
 
   @state() protected accessor count: number;
-  
+
   #autofocus: boolean = false;
 
   async firstUpdated() {
@@ -144,7 +144,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
   softReset() {
     this.searchTerm = '';
     this.suggestions = [];
-    this.#autofocus = this.autofocus
+    this.#autofocus = this.autofocus;
   }
 
   /**
