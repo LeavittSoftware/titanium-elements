@@ -88,7 +88,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
   /**
    * Prevents menu from automatically showing on focus.
    */
-  @property({ type: Boolean }) accessor disableMenuOpenOnFocus: boolean;
+  @property({ type: Boolean, attribute: 'disable-menu-open-on-focus' }) accessor disableMenuOpenOnFocus: boolean;
 
   /**
    * Conveys additional information below the text field, such as how it should

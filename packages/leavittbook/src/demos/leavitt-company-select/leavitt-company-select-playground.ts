@@ -71,7 +71,7 @@ export class LeavittPersonCompanySelectPlayground extends LitElement {
           style="width: 400px;"
           methods-demo
           required
-          ?disableMenuOpenOnFocus=${this.disableMenuOpenOnFocus}
+          ?disable-menu-open-on-focus=${this.disableMenuOpenOnFocus}
           .apiService=${this.apiService}
         ></leavitt-company-select>
         <section buttons>
