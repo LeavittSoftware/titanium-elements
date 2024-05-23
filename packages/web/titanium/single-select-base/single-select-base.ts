@@ -86,6 +86,11 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
   @property({ type: Boolean }) accessor hasTrailingIcon: boolean;
 
   /**
+   * Prevents menu from automatically showing on focus.
+   */
+  @property({ type: Boolean }) accessor disableMenuOpenOnFocus: boolean;
+
+  /**
    * Conveys additional information below the text field, such as how it should
    * be used.
    */
@@ -353,6 +358,9 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
         default-focus="0"
         @keydown=${(e: KeyboardEvent) => {
           if (this.suggestions.length > 0 && (e.key == 'Enter' || e.key == 'ArrowDown' || e.key == 'ArrowUp')) {
+            if (!this.menu.open) {
+              this.menu.show();
+            }
             e.stopPropagation();
             this.menu?.activateNextItem();
           }
@@ -371,7 +379,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
               this.suggestions = this.defaultSuggestions;
             }
 
-            if (!!this.searchTerm || !!this.suggestions.length) {
+            if ((!!this.searchTerm || !!this.suggestions.length) && !this.disableMenuOpenOnFocus) {
               this.menu.show();
             }
           }
