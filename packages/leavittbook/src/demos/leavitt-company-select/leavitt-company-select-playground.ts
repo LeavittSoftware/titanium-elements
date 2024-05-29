@@ -18,6 +18,7 @@ import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
 @customElement('leavitt-company-select-playground')
 export class LeavittPersonCompanySelectPlayground extends LitElement {
   @state() private accessor apiService: ApiService;
+  @state() private accessor disableMenuOpenOnFocus: boolean = false;
   @query('leavitt-company-select[methods-demo]') protected accessor methodsSelect!: LeavittCompanySelect;
   @queryAll('leavitt-company-select') protected accessor inputs!: NodeListOf<LeavittCompanySelect>;
 
@@ -70,6 +71,7 @@ export class LeavittPersonCompanySelectPlayground extends LitElement {
           style="width: 400px;"
           methods-demo
           required
+          ?disable-menu-open-on-focus=${this.disableMenuOpenOnFocus}
           .apiService=${this.apiService}
         ></leavitt-company-select>
         <section buttons>
@@ -77,6 +79,9 @@ export class LeavittPersonCompanySelectPlayground extends LitElement {
           <md-outlined-button @click=${() => this.methodsSelect.focus()}>focus()</md-outlined-button>
           <md-outlined-button @click=${() => this.methodsSelect.reportValidity()}>reportValidity()</md-outlined-button>
           <md-outlined-button @click=${() => (this.methodsSelect.required = !this.methodsSelect.required)}>Toggle required</md-outlined-button>
+          <md-outlined-button @click=${() => (this.disableMenuOpenOnFocus = !this.disableMenuOpenOnFocus)}
+            >Toggle auto open (${this.disableMenuOpenOnFocus ? 'on' : 'off'})</md-outlined-button
+          >
 
           <md-outlined-button @click=${() => this.methodsSelect.reloadCompanies()}>reloadCompanies()</md-outlined-button>
         </section>
