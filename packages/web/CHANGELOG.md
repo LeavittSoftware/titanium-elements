@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.3.3...@leavittsoftware/web@4.4.0) (2024-05-29)
+
+### Bug Fixes
+
+- **single-select-base:** add dash-case attribute ([06a4be9](https://github.com/LeavittSoftware/titanium-elements/commit/06a4be965011fe59adf1a9b4ab968dd088c9a677))
+
+### Features
+
+- **single-select-base:** add disableMenuOpenOnFocus attr ([ba7c6c9](https://github.com/LeavittSoftware/titanium-elements/commit/ba7c6c9e2dd53b4143477f7f2b5f5fd61d846f2a))
+
 ## [4.3.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.3.2...@leavittsoftware/web@4.3.3) (2024-05-01)
 
 ### Bug Fixes
