@@ -58,7 +58,7 @@ export class TitaniumAddressInput extends GoogleAddressInput {
           e.preventDefault();
           const address = await this.manualAddressDialog.open(this.selected);
           if (address) {
-            super.setSelectedBase({ Id: '0', ...address });
+            super.setSelectedBase({ Id: Math.random().toString(36).slice(2, 7), ...address });
             this.reportValidity();
           }
         }}
