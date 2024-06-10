@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.4.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.4.0...@leavittsoftware/web@4.4.1) (2024-06-10)
+
+### Bug Fixes
+
+- **address-input:** failing change event on second manual edit ([8b4ffb6](https://github.com/LeavittSoftware/titanium-elements/commit/8b4ffb6e176b8f61f752b2b75e4c78b7a73be19e)), closes [#606](https://github.com/LeavittSoftware/titanium-elements/issues/606)
+
 # [4.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.3.3...@leavittsoftware/web@4.4.0) (2024-05-29)
 
 ### Bug Fixes
