@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.4.1...@leavittsoftware/web@4.5.0) (2024-06-13)
+
+### Features
+
+- **company-select:** adds ability to customize item template via renderMenuItemContentTemplate ([3cc0300](https://github.com/LeavittSoftware/titanium-elements/commit/3cc0300e086bc2164b8f9d6b0f330e1472aed48d))
+
 ## [4.4.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.4.0...@leavittsoftware/web@4.4.1) (2024-06-10)
 
 ### Bug Fixes
