@@ -160,6 +160,6 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
   }
 
   protected override renderSuggestion(person: Partial<Person>) {
-    return html`${this.renderMenuItemContentTemplate(person)} `;
+    return this.renderMenuItemContentTemplate(person);
   }
 }

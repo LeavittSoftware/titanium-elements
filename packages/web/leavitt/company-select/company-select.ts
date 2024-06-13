@@ -53,6 +53,14 @@ export class LeavittCompanySelect extends TitaniumSingleSelectBase<Partial<Compa
    */
   @property({ type: String }) accessor apiControllerName: string = 'Companies';
 
+  @property({ type: Object }) accessor renderMenuItemContentTemplate = (company: Partial<Company>) =>
+    html`<md-menu-item .item=${company}>
+      <slot name="trailing-icon" slot="trailing-icon"></slot>
+      <span slot="headline">${company.Name}</span>
+      <span slot="supporting-text">${company.ShortName || '-'}</span>
+      <img loading="lazy" company-mark slot="start" src=${company.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />
+    </md-menu-item>`;
+
   async firstUpdated() {
     if (!this.disableAutoLoad && !this.companies.length && this.apiService) {
       this.#reloadCompanies();
@@ -132,11 +140,6 @@ export class LeavittCompanySelect extends TitaniumSingleSelectBase<Partial<Compa
   }
 
   protected override renderSuggestion(company: Partial<Company>) {
-    return html`<md-menu-item .item=${company} ?selected=${this.selected?.Id === company.Id}>
-      <slot name="trailing-icon" slot="trailing-icon"></slot>
-      <span slot="headline">${company.Name}</span>
-      <span slot="supporting-text">${company.ShortName || '-'}</span>
-      <img loading="lazy" company-mark slot="start" src=${company.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />
-    </md-menu-item>`;
+    return this.renderMenuItemContentTemplate(company);
   }
 }
