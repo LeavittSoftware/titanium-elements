@@ -13,6 +13,7 @@ import { AuthenticatedTokenProvider } from '@leavittsoftware/web/leavitt/api-ser
 import '@leavittsoftware/web/leavitt/company-select/company-select';
 import { LeavittCompanySelect } from '@leavittsoftware/web/leavitt/company-select/company-select';
 import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
+import { Company } from '@leavittsoftware/lg-core-typescript';
 
 /* playground-fold */
 @customElement('leavitt-company-select-playground')
@@ -112,6 +113,24 @@ export class LeavittPersonCompanySelectPlayground extends LitElement {
         <leavitt-company-select disableAutoLoad label="required" required validationMessage="required" .apiService=${this.apiService}></leavitt-company-select>
       </div>
 
+      <h1>Custom menu item template</h1>
+      <div>
+        <leavitt-company-select
+          .renderMenuItemContentTemplate=${(company: Partial<Company>) =>
+            html`<md-menu-item .item=${company}>
+              <slot name="trailing-icon" slot="trailing-icon"></slot>
+              <span slot="headline">${company.Name}</span>
+              <span slot="supporting-text">${company.ShortName || '-'}</span>
+              <img
+                loading="lazy"
+                style="max-width: 100px;width:100%;background:white;border-radius:8px"
+                slot="start"
+                src=${company.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'}
+              />
+            </md-menu-item>`}
+          .apiService=${this.apiService}
+        ></leavitt-company-select>
+      </div>
       <titanium-snackbar-stack></titanium-snackbar-stack>
     `;
   }
