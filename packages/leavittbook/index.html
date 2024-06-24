@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -45,16 +45,18 @@
     <!-- Start Single Page Apps for GitHub Pages -->
     <script type="text/javascript">
       // https://github.com/rafgraph/spa-github-pages
-      (function(l) {
-        if (l.search[1] === '/' ) {
-          var decoded = l.search.slice(1).split('&').map(function(s) { 
-            return s.replace(/~and~/g, '&')
-          }).join('?');
-          window.history.replaceState(null, null,
-              l.pathname.slice(0, -1) + decoded + l.hash
-          );
+      (function (l) {
+        if (l.search[1] === '/') {
+          var decoded = l.search
+            .slice(1)
+            .split('&')
+            .map(function (s) {
+              return s.replace(/~and~/g, '&');
+            })
+            .join('?');
+          window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
         }
-      }(window.location))
+      })(window.location);
     </script>
     <!-- End Single Page Apps for GitHub Pages -->
 
@@ -68,28 +70,36 @@
         font-family: 'Metropolis';
         font-weight: 600;
         font-display: swap;
-        src: local('Metropolis'), url('https://www.leavitt.com/fonts/metropolis-bold.otf') format('opentype');
+        src:
+          local('Metropolis'),
+          url('https://cdn.leavitt.com/fonts/metropolis-bold.otf') format('opentype');
       }
 
       @font-face {
         font-family: 'Metropolis';
         font-weight: 500;
         font-display: swap;
-        src: local('Metropolis'), url('https://www.leavitt.com/fonts/metropolis-semibold.otf') format('opentype');
+        src:
+          local('Metropolis'),
+          url('https://cdn.leavitt.com/fonts/metropolis-semibold.otf') format('opentype');
       }
 
       @font-face {
         font-family: 'Metropolis';
         font-weight: 400;
         font-display: swap;
-        src: local('Metropolis'), url('https://www.leavitt.com/fonts/metropolis-medium.otf') format('opentype');
+        src:
+          local('Metropolis'),
+          url('https://cdn.leavitt.com/fonts/metropolis-medium.otf') format('opentype');
       }
 
       @font-face {
         font-family: 'Metropolis';
         font-weight: 300;
         font-display: swap;
-        src: local('Metropolis'), url('https://www.leavitt.com/fonts/metropolis-regular.otf') format('opentype');
+        src:
+          local('Metropolis'),
+          url('https://cdn.leavitt.com/fonts/metropolis-regular.otf') format('opentype');
       }
 
       body {
