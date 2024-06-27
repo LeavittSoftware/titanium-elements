@@ -10,7 +10,7 @@ export function rangeLabel(range: DateRangeKey, startDate: string | null, endDat
     if (startDate && endDate) {
       return `${prefix} ${dayjs(startDate).format('MMM D, YYYY')} to ${dayjs(endDate).format('MMM D, YYYY')}`;
     }
-    return endDate ? `${prefix} from ${dayjs(endDate).format('MMM D, YYYY')}` : `${prefix} to ${dayjs(startDate).format('MMM D, YYYY')}`;
+    return endDate ? `${prefix} to ${dayjs(endDate).format('MMM D, YYYY')}` : `${prefix} from ${dayjs(startDate).format('MMM D, YYYY')}`;
   }
 }
 
