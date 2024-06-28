@@ -65,7 +65,7 @@ export class TitaniumSearchInput extends ExtendableOutlinedTextField {
       --md-outlined-field-outline-width: initial;
       --md-outlined-field-disabled-outline-width: initial;
       --md-outlined-field-hover-outline-width: initial;
-      --md-outlined-text-field-container-shape: initial;
+      --md-outlined-text-field-container-shape: var(--titanium-search-input-container-shape, initial);
 
       width: var(--titanium-search-input-expanded-width, 258px);
     }
