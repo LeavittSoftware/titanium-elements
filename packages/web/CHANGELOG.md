@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.5.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.5.0...@leavittsoftware/web@4.5.1) (2024-07-03)
+
+### Bug Fixes
+
+- **date-range-selector:** logic for from/to labels is backwards ([456cf1e](https://github.com/LeavittSoftware/titanium-elements/commit/456cf1e6d7d6d480266da8bc10ce2a22bbe6c792))
+- **date-range:** missing accessor ([25af909](https://github.com/LeavittSoftware/titanium-elements/commit/25af909845b4eb5b0cbe2be36dceea5fb72428de))
+
 # [4.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.4.1...@leavittsoftware/web@4.5.0) (2024-06-13)
 
 ### Features
