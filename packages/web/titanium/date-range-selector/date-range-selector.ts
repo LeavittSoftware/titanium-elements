@@ -72,7 +72,7 @@ export class TitaniumDateRangeSelector extends LitElement {
    */
   @property({ attribute: 'supporting-text' }) accessor supportingText = '';
 
-  @property() positioning: 'absolute' | 'fixed' | 'document' | 'popover' = 'popover';
+  @property() accessor positioning: 'absolute' | 'fixed' | 'document' | 'popover' = 'popover';
 
   @query('md-menu') private accessor menu!: Menu | null;
   @query('md-list') private accessor list!: List | null;
