@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.6.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.5.1...@leavittsoftware/web@4.6.0) (2024-07-09)
+
+### Features
+
+- **address-input:** Add support for Canada ([cf9f578](https://github.com/LeavittSoftware/titanium-elements/commit/cf9f578468cf12e312f24ba0c32a94d6c61bc885))
+
 ## [4.5.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.5.0...@leavittsoftware/web@4.5.1) (2024-07-03)
 
 ### Bug Fixes
