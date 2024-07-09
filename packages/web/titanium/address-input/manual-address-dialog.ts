@@ -13,6 +13,8 @@ import { MdOutlinedSelect } from '@material/web/select/outlined-select';
 import { DOMEvent } from '../types/dom-event';
 import { allowDialogOverflow, preventDialogOverflow } from '../hacks/dialog-overflow-hacks';
 import { reportValidityIfError } from '../hacks/report-validity-if-error';
+import { caStates, usStates } from './utils/states-abbr-to-titlecase';
+import { countries } from './utils/country-abbr-to-titlecase';
 
 @customElement('manual-address-dialog')
 export class ManualAddressDialog extends LitElement {
@@ -21,11 +23,13 @@ export class ManualAddressDialog extends LitElement {
   @property({ type: String }) accessor label: string = '';
   @property({ type: Boolean, attribute: 'show-county' }) accessor showCounty: boolean;
   @property({ type: Boolean, attribute: 'show-street2' }) accessor showStreet2: boolean;
+  @property({ type: Array }) accessor countries: string[];
 
   @state() protected accessor street: string = '';
   @state() protected accessor street2: string = '';
   @state() protected accessor city: string = '';
   @state() protected accessor county: string = '';
+  @state() protected accessor country: string = '';
   @state() protected accessor state: string = '';
   @state() protected accessor zip: string = '';
 
@@ -43,6 +47,7 @@ export class ManualAddressDialog extends LitElement {
     this.state = address?.state ?? '';
     this.zip = address?.zip ?? '';
     this.county = address?.county ?? '';
+    this.country = address?.country ?? '';
 
     this.dialog.show();
     return new Promise<Partial<AddressInputAddress> | null>((res) => {
@@ -67,6 +72,7 @@ export class ManualAddressDialog extends LitElement {
     this.state = '';
     this.zip = '';
     this.county = '';
+    this.country = '';
 
     this.allInputs.forEach((input) => input.reset());
   }
@@ -145,80 +151,64 @@ export class ManualAddressDialog extends LitElement {
             @request-selection=${(e: DOMEvent<MdOutlinedSelect>) => {
               e.stopPropagation();
               this.state = e.target.value;
+              if (usStates.some((o) => o.abbreviation.toLowerCase() === this.state.toLowerCase())) {
+                this.country = 'US';
+              }
+              if (caStates.some((o) => o.abbreviation.toLowerCase() === this.state.toLowerCase())) {
+                this.country = 'CA';
+              }
             }}
           >
-            <md-icon slot="location_on">location_on</md-icon>
-            <md-select-option value="AL">
-              <div slot="headline">Alabama</div>
-            </md-select-option>
+            <md-icon slot="leading-icon">location_on</md-icon>
 
-            <md-select-option value="AK"> <div slot="headline">Alaska</div></md-select-option>
-            <md-select-option value="AS"> <div slot="headline">American Samoa</div></md-select-option>
-            <md-select-option value="AZ"> <div slot="headline">Arizona</div></md-select-option>
-            <md-select-option value="AR"> <div slot="headline">Arkansas</div></md-select-option>
-            <md-select-option value="CA"> <div slot="headline">California</div></md-select-option>
-            <md-select-option value="CO"> <div slot="headline">Colorado</div></md-select-option>
-            <md-select-option value="CT"> <div slot="headline">Connecticut</div></md-select-option>
-            <md-select-option value="DE"> <div slot="headline">Delaware</div></md-select-option>
-            <md-select-option value="DC"> <div slot="headline">District of Columbia</div></md-select-option>
-            <md-select-option value="FM"> <div slot="headline">Federated States of Micronesia</div></md-select-option>
-            <md-select-option value="FL"> <div slot="headline">Florida</div></md-select-option>
-            <md-select-option value="GA"> <div slot="headline">Georgia</div></md-select-option>
-            <md-select-option value="GU"> <div slot="headline">Guam</div></md-select-option>
-            <md-select-option value="HI"> <div slot="headline">Hawaii</div></md-select-option>
-            <md-select-option value="ID"> <div slot="headline">Idaho</div></md-select-option>
-            <md-select-option value="IL"> <div slot="headline">Illinois</div></md-select-option>
-            <md-select-option value="IN"> <div slot="headline">Indiana</div></md-select-option>
-            <md-select-option value="IA"> <div slot="headline">Iowa</div></md-select-option>
-            <md-select-option value="KS"> <div slot="headline">Kansas</div></md-select-option>
-            <md-select-option value="KY"> <div slot="headline">Kentucky</div></md-select-option>
-            <md-select-option value="LA"> <div slot="headline">Louisiana</div></md-select-option>
-            <md-select-option value="ME"> <div slot="headline">Maine</div></md-select-option>
-            <md-select-option value="MH"> <div slot="headline">Marshall Islands</div></md-select-option>
-            <md-select-option value="MD"> <div slot="headline">Maryland</div></md-select-option>
-            <md-select-option value="MA"> <div slot="headline">Massachusetts</div></md-select-option>
-            <md-select-option value="MI"> <div slot="headline">Michigan</div></md-select-option>
-            <md-select-option value="MN"> <div slot="headline">Minnesota</div></md-select-option>
-            <md-select-option value="MS"> <div slot="headline">Mississippi</div></md-select-option>
-            <md-select-option value="MO"> <div slot="headline">Missouri</div></md-select-option>
-            <md-select-option value="MT"> <div slot="headline">Montana</div></md-select-option>
-            <md-select-option value="NE"> <div slot="headline">Nebraska</div></md-select-option>
-            <md-select-option value="NV"> <div slot="headline">Nevada</div></md-select-option>
-            <md-select-option value="NH"> <div slot="headline">New Hampshire</div></md-select-option>
-            <md-select-option value="NJ"> <div slot="headline">New Jersey</div></md-select-option>
-            <md-select-option value="NM"> <div slot="headline">New Mexico</div></md-select-option>
-            <md-select-option value="NY"> <div slot="headline">New York</div></md-select-option>
-            <md-select-option value="NC"> <div slot="headline">North Carolina</div></md-select-option>
-            <md-select-option value="ND"> <div slot="headline">North Dakota</div></md-select-option>
-            <md-select-option value="MP"> <div slot="headline">Northern Mariana Islands</div></md-select-option>
-            <md-select-option value="OH"> <div slot="headline">Ohio</div></md-select-option>
-            <md-select-option value="OK"> <div slot="headline">Oklahoma</div></md-select-option>
-            <md-select-option value="OR"> <div slot="headline">Oregon</div></md-select-option>
-            <md-select-option value="PW"> <div slot="headline">Palau</div></md-select-option>
-            <md-select-option value="PA"> <div slot="headline">Pennsylvania</div></md-select-option>
-            <md-select-option value="PR"> <div slot="headline">Puerto Rico</div></md-select-option>
-            <md-select-option value="RI"> <div slot="headline">Rhode Island</div></md-select-option>
-            <md-select-option value="SC"> <div slot="headline">South Carolina</div></md-select-option>
-            <md-select-option value="SD"> <div slot="headline">South Dakota</div></md-select-option>
-            <md-select-option value="TN"> <div slot="headline">Tennessee</div></md-select-option>
-            <md-select-option value="TX"> <div slot="headline">Texas</div></md-select-option>
-            <md-select-option value="UT"> <div slot="headline">Utah</div></md-select-option>
-            <md-select-option value="VT"> <div slot="headline">Vermont</div></md-select-option>
-            <md-select-option value="VI"> <div slot="headline">Virgin Islands</div></md-select-option>
-            <md-select-option value="VA"> <div slot="headline">Virginia</div></md-select-option>
-            <md-select-option value="WA"> <div slot="headline">Washington</div></md-select-option>
-            <md-select-option value="WV"> <div slot="headline">West Virginia</div></md-select-option>
-            <md-select-option value="WI"> <div slot="headline">Wisconsin</div></md-select-option>
-            <md-select-option value="WY"> <div slot="headline">Wyoming</div></md-select-option>
+            ${this.countries.some((c) => c.toLowerCase() === 'us')
+              ? usStates.map(
+                  (s) =>
+                    html`<md-select-option value=${s.abbreviation}>
+                      <div slot="headline">${s.name}</div>
+                      <div slot="supporting-text">United States</div>
+                    </md-select-option>`
+                )
+              : nothing}
+            ${this.countries.some((c) => c.toLowerCase() === 'ca')
+              ? caStates.map(
+                  (s) =>
+                    html`<md-select-option value=${s.abbreviation}>
+                      <div slot="headline">${s.name}</div>
+                      <div slot="supporting-text">Canada</div>
+                    </md-select-option>`
+                )
+              : nothing}
           </md-outlined-select>
+
+          ${this.countries.length > 1
+            ? html`<md-outlined-select
+                @opening=${() => preventDialogOverflow(this.dialog)}
+                @closing=${() => allowDialogOverflow(this.dialog)}
+                @blur=${(e: DOMEvent<MdOutlinedTextField>) => reportValidityIfError(e.target)}
+                label="Country"
+                required
+                .value=${this.country || ''}
+                @request-selection=${(e: DOMEvent<MdOutlinedSelect>) => {
+                  e.stopPropagation();
+                  this.country = e.target.value;
+                }}
+              >
+                <md-icon slot="leading-icon">map</md-icon>
+
+                ${countries
+                  .filter((o) => this.countries.some((c) => c.toLowerCase() === o.abbreviation.toLowerCase()))
+                  .map((s) => html`<md-select-option value=${s.abbreviation}> <div slot="headline">${s.name}</div></md-select-option>`)}
+              </md-outlined-select> `
+            : nothing}
+
           <md-outlined-text-field
             label="Zip"
-            pattern="^\\d{5}$|^\\d{5}-\\d{4}$"
             required
             .value=${this.zip || ''}
             @blur=${(e: DOMEvent<MdOutlinedTextField>) => reportValidityIfError(e.target)}
             @change=${(e: DOMEvent<MdOutlinedTextField>) => (this.zip = e.target.value)}
-            ><md-icon slot="leading-icon">map</md-icon></md-outlined-text-field
+            ><md-icon slot="leading-icon">universal_local</md-icon></md-outlined-text-field
           >
         </form>
 

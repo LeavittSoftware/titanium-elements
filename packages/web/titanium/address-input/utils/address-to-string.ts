@@ -14,6 +14,6 @@ export function addressToString(location: AddressInputAddress | null | undefined
   }
 
   return `${location.street}${location.street2 ? ` ${location.street2}` : ''}, ${location.city}, ${location.state}, ${
-    location.country === 'US' ? 'USA' : location.country
+    location.country === 'US' ? 'USA' : location.country === 'CA' ? 'Canada' : location.country
   }`;
 }

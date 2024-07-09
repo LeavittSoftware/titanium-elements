@@ -33,6 +33,8 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
 
   @property({ type: String }) accessor pathToSelectedText: string = 'primaryDisplayText';
 
+  @property({ type: Array }) accessor countries: ['ca'] | ['us'] | ['us', 'ca'] = ['us'];
+
   #doSearchDebouncer = new Debouncer((searchTerm: string) => this.#doSearch(searchTerm));
   #abortController: AbortController = new AbortController();
   #placesService: google.maps.places.PlacesService;
@@ -70,7 +72,7 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
         {
           input: searchTerm,
           types: ['address'],
-          componentRestrictions: { country: 'us' },
+          componentRestrictions: { country: this.countries },
         },
         (predictions: google.maps.places.AutocompletePrediction[] | null, status: google.maps.places.PlacesServiceStatus) => {
           if (status != google.maps.places.PlacesServiceStatus.OK || !predictions) {

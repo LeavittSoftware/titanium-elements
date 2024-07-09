@@ -4,6 +4,8 @@ import { customElement, query, state } from 'lit/decorators.js';
 import { h1, h2, p } from '@leavittsoftware/web/titanium/styles/styles';
 import '@material/web/button/outlined-button';
 import '@material/web/icon/icon';
+import '@material/web/select/outlined-select';
+import '@material/web/select/select-option';
 
 /* playground-fold-end */
 
@@ -13,6 +15,7 @@ import '@leavittsoftware/web/titanium/address-input/google-address-input';
 import { TitaniumAddressInput } from '@leavittsoftware/web/titanium/address-input/address-input';
 import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
 import { GoogleAddressInput } from '@leavittsoftware/web/titanium/address-input/google-address-input';
+import { MdOutlinedSelect } from '@material/web/select/outlined-select';
 
 /* playground-fold */
 @customElement('titanium-address-input-playground')
@@ -21,7 +24,7 @@ export class TitaniumAddressInputPlayground extends LitElement {
 
   @query('google-address-input[demo-a]') protected accessor googleAddressInputDemoA!: GoogleAddressInput;
   @query('titanium-address-input[demo-a]') protected accessor titaniumAddressInputDemoA!: TitaniumAddressInput;
-
+  @state() accessor countries: ['ca'] | ['us'] | ['us', 'ca'] = ['us'];
   static styles = [
     h1,
     h2,
@@ -140,12 +143,32 @@ export class TitaniumAddressInputPlayground extends LitElement {
         <h2>Main demo</h2>
         <titanium-address-input
           demo-a
+          .countries=${this.countries}
           @selected=${(e: DOMEvent<GoogleAddressInput>) => console.log('selected change 1', e.target.selected)}
           googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"
         >
         </titanium-address-input>
 
         <section actions>
+          <md-outlined-select
+            label="Allowed countries"
+            @request-selection=${(e: DOMEvent<MdOutlinedSelect>) => {
+              e.stopPropagation();
+              if (e.target.value === 'US-CA') {
+                this.countries = ['us', 'ca'];
+              } else if (e.target.value === 'US') {
+                this.countries = ['us'];
+              } else if (e.target.value === 'CA') {
+                this.countries = ['ca'];
+              }
+            }}
+          >
+            <md-icon slot="leading-icon">map</md-icon>
+            <md-select-option value="US"> <div slot="headline">United States</div></md-select-option>
+            <md-select-option value="CA"> <div slot="headline">Canada</div></md-select-option>
+            <md-select-option value="US-CA"> <div slot="headline">US and Canada</div></md-select-option>
+          </md-outlined-select>
+
           <md-outlined-button @click=${() => this.titaniumAddressInputDemoA.reportValidity()}>reportValidity()</md-outlined-button>
           <md-outlined-button @click=${() => (this.titaniumAddressInputDemoA.required = !this.titaniumAddressInputDemoA.required)}
             >Toggle required</md-outlined-button
@@ -167,6 +190,7 @@ export class TitaniumAddressInputPlayground extends LitElement {
           <md-outlined-button @click=${() => (this.titaniumAddressInputDemoA.showStreet2 = !this.titaniumAddressInputDemoA.showCounty)}
             >Toggle showStreet2 text</md-outlined-button
           >
+
           <md-outlined-button
             @click=${() =>
               (this.titaniumAddressInputDemoA.selected = {
