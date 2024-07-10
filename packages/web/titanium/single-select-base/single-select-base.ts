@@ -343,7 +343,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
         aria-haspopup="true"
         aria-controls="menu"
         .disabled=${this.disabled}
-        .error=${this.error}
+        ?error=${this.error}
         .errorText=${this.errorText}
         .label=${this.label}
         .required=${this.required}
