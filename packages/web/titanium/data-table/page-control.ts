@@ -63,7 +63,7 @@ export class TitaniumPageControl extends LitElement {
       return take;
     }
 
-    const defaultTake = this.pageSizes.includes(this.defaultPageSize) ? this.defaultPageSize : this.pageSizes?.[0] ?? 1;
+    const defaultTake = this.pageSizes.includes(this.defaultPageSize) ? this.defaultPageSize : (this.pageSizes?.[0] ?? 1);
     return defaultTake;
   }
   @property({ type: Number })
