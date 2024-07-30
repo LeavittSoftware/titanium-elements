@@ -56,7 +56,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
    *
    * https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete
    */
-  @property({ reflect: true }) accessor autocomplete = '';
+  @property({ reflect: true, type: string }) accessor autocomplete = '';
 
   /**
    * Gets or sets whether or not the text field is in a visually invalid state.
