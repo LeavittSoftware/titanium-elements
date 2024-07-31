@@ -53,6 +53,12 @@ export class LeavittCompanySelect extends TitaniumSingleSelectBase<Partial<Compa
    */
   @property({ type: String }) accessor apiControllerName: string = 'Companies';
 
+  @property({ type: String }) accessor autocomplete: string = 'off';
+
+  @property({ type: Boolean }) accessor spellcheck: boolean = false;
+
+  @property({ type: String }) accessor autocorrect: string = 'off';
+
   @property({ type: Object }) accessor renderMenuItemContentTemplate = (company: Partial<Company>) =>
     html`<md-menu-item .item=${company}>
       <slot name="trailing-icon" slot="trailing-icon"></slot>

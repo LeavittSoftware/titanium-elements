@@ -1,7 +1,7 @@
 import '@material/web/icon/icon';
 
 import { html, nothing, css, PropertyValues } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import { ExtendableOutlinedTextField } from '../extendable-outlined-text-field/extendable-outlined-text-field';
 
 /**
@@ -13,6 +13,12 @@ import { ExtendableOutlinedTextField } from '../extendable-outlined-text-field/e
 
 @customElement('titanium-youtube-input')
 export class TitaniumYouTubeInput extends ExtendableOutlinedTextField {
+  @property({ type: String }) accessor autocomplete: string = 'off';
+
+  @property({ type: Boolean }) accessor spellcheck: boolean = false;
+
+  @property({ type: String }) accessor autocorrect: string = 'off';
+  
   firstUpdated() {
     this.label = this.label || 'YouTube video key';
     this.pattern = '^.{11}$';

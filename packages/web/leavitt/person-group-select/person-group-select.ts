@@ -38,7 +38,13 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
    */
   @property({ type: String }) accessor groupApiControllerName: string = 'PeopleGroups';
 
-  @property({ type: String }) accessor pathToSelectedText: string = 'Name';
+  @property({ type: String }) accessor pathToSelectedText: string = 'Name';  
+
+  @property({ type: String }) accessor autocomplete: string = 'off';
+
+  @property({ type: Boolean }) accessor spellcheck: boolean = false;
+
+  @property({ type: String }) accessor autocorrect: string = 'off';
 
   /**
    *  Required
