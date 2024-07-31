@@ -42,7 +42,7 @@ export class LeavittPersonCompanySelect extends TitaniumSingleSelectBase<Partial
   /**
    *  Required
    */
-  @property({ attribute: false }) accessor apiService: ApiService;  
+  @property({ attribute: false }) accessor apiService: ApiService;
 
   @property({ type: String }) accessor autocomplete: string = 'off';
 
