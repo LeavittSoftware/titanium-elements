@@ -25,11 +25,11 @@ export class TitaniumDurationInput extends ExtendableOutlinedTextField {
    */
   @property({ type: Object }) accessor duration: duration.Duration | null = null;
 
-  @property({ type: String }) accessor autocomplete: string = 'off';
+  @property({ reflect: true, type: String }) accessor autocomplete: string = 'off';
 
-  @property({ type: Boolean }) accessor spellcheck: boolean = false;
+  @property({ reflect: true, type: Boolean }) accessor spellcheck: boolean = false;
 
-  @property({ type: String }) accessor autocorrect: string = 'off';
+  @property({ reflect: true, type: String }) accessor autocorrect: string = 'off';
 
   firstUpdated() {
     this.label = 'Duration';

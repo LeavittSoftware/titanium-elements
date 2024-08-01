@@ -40,11 +40,11 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
 
   @property({ type: String }) accessor pathToSelectedText: string = 'Name';
 
-  @property({ type: String }) accessor autocomplete: string = 'off';
+  @property({ reflect: true, type: String }) accessor autocomplete: string = 'off';
 
-  @property({ type: Boolean }) accessor spellcheck: boolean = false;
+  @property({ reflect: true, type: Boolean }) accessor spellcheck: boolean = false;
 
-  @property({ type: String }) accessor autocorrect: string = 'off';
+  @property({ reflect: true, type: String }) accessor autocorrect: string = 'off';
 
   /**
    *  Required

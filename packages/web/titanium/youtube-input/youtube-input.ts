@@ -13,11 +13,11 @@ import { ExtendableOutlinedTextField } from '../extendable-outlined-text-field/e
 
 @customElement('titanium-youtube-input')
 export class TitaniumYouTubeInput extends ExtendableOutlinedTextField {
-  @property({ type: String }) accessor autocomplete: string = 'off';
+  @property({ reflect: true, type: String }) accessor autocomplete: string = 'off';
 
-  @property({ type: Boolean }) accessor spellcheck: boolean = false;
+  @property({ reflect: true, type: Boolean }) accessor spellcheck: boolean = false;
 
-  @property({ type: String }) accessor autocorrect: string = 'off';
+  @property({ reflect: true, type: String }) accessor autocorrect: string = 'off';
 
   firstUpdated() {
     this.label = this.label || 'YouTube video key';

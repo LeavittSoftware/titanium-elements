@@ -55,11 +55,11 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
 
   @property({ type: Array }) accessor people: Array<Partial<Person>> = [];
 
-  @property({ type: String }) accessor autocomplete: string = 'off';
+  @property({ reflect: true, type: String }) accessor autocomplete: string = 'off';
 
-  @property({ type: Boolean }) accessor spellcheck: boolean = false;
+  @property({ reflect: true, type: Boolean }) accessor spellcheck: boolean = false;
 
-  @property({ type: String }) accessor autocorrect: string = 'off';
+  @property({ reflect: true, type: String }) accessor autocorrect: string = 'off';
 
   @property({ type: Object }) accessor renderMenuItemContentTemplate = (person: Partial<Person>) =>
     html`<md-menu-item .item=${person}>
