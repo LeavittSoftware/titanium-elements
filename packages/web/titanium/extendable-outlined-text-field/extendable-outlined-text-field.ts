@@ -179,7 +179,22 @@ export class ExtendableOutlinedTextField extends LitElement {
    *
    * https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete
    */
-  @property({ reflect: true }) accessor autocomplete = '';
+  @property({ reflect: true, type: String }) accessor autocomplete = '';
+
+  /**
+   * Describes what, if any, type of spellcheck functionality the input
+   * should provide.
+   *
+   * https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/spellcheck
+   */
+  @property({ reflect: true, type: Boolean }) accessor spellcheck;
+
+  /**
+   * Describes what, if any, type of autocorrect functionality the input
+   * should provide.
+   *
+   */
+  @property({ reflect: true, type: String }) accessor autocorrect = '';
 
   checkValidity() {
     return this.input.checkValidity();
@@ -242,6 +257,8 @@ export class ExtendableOutlinedTextField extends LitElement {
         .required=${this.required}
         .error=${this.error}
         .autocomplete=${this.autocomplete}
+        .autocorrect=${this.autocorrect}
+        .spellcheck=${this.spellcheck}
         .errorText=${this.errorText}
         .hasLeadingIcon=${this.hasLeadingIcon}
         .hasTrailingIcon=${this.hasTrailingIcon}

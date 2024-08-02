@@ -25,6 +25,12 @@ export class TitaniumDurationInput extends ExtendableOutlinedTextField {
    */
   @property({ type: Object }) accessor duration: duration.Duration | null = null;
 
+  @property({ reflect: true, type: String }) accessor autocomplete: string = 'off';
+
+  @property({ reflect: true, type: Boolean }) accessor spellcheck: boolean = false;
+
+  @property({ reflect: true, type: String }) accessor autocorrect: string = 'off';
+
   firstUpdated() {
     this.label = 'Duration';
     this.supportingText = 'Enter a duration ex. "3 hours and 30 minutes"';

@@ -51,6 +51,29 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
   @property({ type: Boolean }) accessor disabled: boolean = false;
 
   /**
+   * Describes what, if any, type of autocomplete functionality the input
+   * should provide.
+   *
+   * https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete
+   */
+  @property({ reflect: true, type: String }) accessor autocomplete = '';
+
+  /**
+   * Describes what, if any, type of spellcheck functionality the input
+   * should provide.
+   *
+   * https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/spellcheck
+   */
+  @property({ reflect: true, type: Boolean }) accessor spellcheck = false;
+
+  /**
+   * Describes what, if any, type of autocorrect functionality the input
+   * should provide.
+   *
+   */
+  @property({ reflect: true, type: String }) accessor autocorrect = '';
+
+  /**
    * Gets or sets whether or not the text field is in a visually invalid state.
    *
    * This error state overrides the error state controlled by
@@ -354,6 +377,9 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
         .supportingText=${this.supportingText}
         .textDirection=${this.textDirection}
         .placeholder=${this.placeholder}
+        .autocomplete=${this.autocomplete}
+        .spellcheck=${this.spellcheck}
+        .autocorrect=${this.autocorrect}
         .value=${this.selected?.[this.pathToSelectedText] || this.searchTerm || ''}
         default-focus="0"
         @keydown=${(e: KeyboardEvent) => {

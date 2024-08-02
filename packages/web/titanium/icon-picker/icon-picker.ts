@@ -29,6 +29,12 @@ export class TitaniumIconPicker extends TitaniumSingleSelectBase<MaterialIconDat
    */
   @property({ type: String }) accessor whitelist: string | undefined;
 
+  @property({ reflect: true, type: String }) accessor autocomplete: string = 'off';
+
+  @property({ reflect: true, type: Boolean }) accessor spellcheck: boolean = false;
+
+  @property({ reflect: true, type: String }) accessor autocorrect: string = 'off';
+
   #iconDatabase: MaterialIconDatabaseEntry[] = [];
 
   async firstUpdated() {

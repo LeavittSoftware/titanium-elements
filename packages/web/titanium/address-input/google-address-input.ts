@@ -35,6 +35,12 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
 
   @property({ type: Array }) accessor countries: ['ca'] | ['us'] | ['us', 'ca'] = ['us'];
 
+  @property({ reflect: true, type: String }) accessor autocomplete: string = 'off';
+
+  @property({ reflect: true, type: Boolean }) accessor spellcheck: boolean = false;
+
+  @property({ reflect: true, type: String }) accessor autocorrect: string = 'off';
+
   #doSearchDebouncer = new Debouncer((searchTerm: string) => this.#doSearch(searchTerm));
   #abortController: AbortController = new AbortController();
   #placesService: google.maps.places.PlacesService;

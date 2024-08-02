@@ -28,6 +28,12 @@ export class TitaniumSearchInput extends ExtendableOutlinedTextField {
 
   @property({ type: Boolean, reflect: true, attribute: 'has-value' }) protected accessor hasValue: boolean = true;
 
+  @property({ reflect: true, type: String }) accessor autocomplete: string = 'off';
+
+  @property({ reflect: true, type: Boolean }) accessor spellcheck: boolean = false;
+
+  @property({ reflect: true, type: String }) accessor autocorrect: string = 'off';
+
   async updated(changedProps: PropertyValues<this>) {
     if (changedProps.has('value')) {
       this.hasValue = !!this.value;
