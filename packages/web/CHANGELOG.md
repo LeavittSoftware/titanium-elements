@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.7.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.6.1...@leavittsoftware/web@4.7.0) (2024-08-02)
+
+### Features
+
+- **single-select-base:** Add autocomplete ([#612](https://github.com/LeavittSoftware/titanium-elements/issues/612)) ([b1fbeb9](https://github.com/LeavittSoftware/titanium-elements/commit/b1fbeb9d449945f733b0408f30cf9bb9f60480d8))
+
 ## [4.6.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.6.0...@leavittsoftware/web@4.6.1) (2024-07-10)
 
 ### Bug Fixes
