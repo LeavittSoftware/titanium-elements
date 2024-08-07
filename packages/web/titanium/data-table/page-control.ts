@@ -63,7 +63,7 @@ export class TitaniumPageControl extends LitElement {
       return take;
     }
 
-    const defaultTake = this.pageSizes.includes(this.defaultPageSize) ? this.defaultPageSize : (this.pageSizes?.[0] ?? 1);
+    const defaultTake = this.pageSizes.includes(this.defaultPageSize) ? this.defaultPageSize : this.pageSizes?.[0] ?? 1;
     return defaultTake;
   }
   @property({ type: Number })
@@ -144,7 +144,7 @@ export class TitaniumPageControl extends LitElement {
       min-width: 100px;
       --md-outlined-field-top-space: 4px;
       --md-outlined-field-bottom-space: 4px;
-      --md-outlined-select-text-field-container-shape: 24px;
+      --md-outlined-select-text-field-container-shape: 8px;
     }
 
     pagination-text {
