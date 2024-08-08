@@ -1,0 +1,1 @@
+function o(o){if(o.shadowRoot){const s=o.shadowRoot.querySelector(".scrim");s&&(s.style.display="none");const a=o.shadowRoot.querySelector("dialog"),c="<style>dialog::backdrop { display:block;    background: var(--md-sys-color-scrim, #000); opacity: 0.32; transition: all 250ms ease 0s; }</style>";a?.insertAdjacentHTML("beforeend",c)}}export{o as d};
