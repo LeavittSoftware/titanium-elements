@@ -152,7 +152,7 @@ export class LeavittPersonSelectPlayground extends LitElement {
             FullName: 'Aaron D.',
             CompanyName: 'Leavitt Software Solutions',
             ProfilePictureCdnFileName: 'zP6DJ9lM6HmkTAaku8ZIzQQdUBHYrX5pCCANvFxtpnagBhJPp7CGXOl-16xe',
-          } satisfies Partial<Person>}
+          } as any}
           .apiService=${this.apiService}
         ></leavitt-person-select>
 

@@ -96,7 +96,7 @@ export class LeavittPersonCompanySelectPlayground extends LitElement {
         <leavitt-company-select
           disableAutoLoad
           label="pre-selected"
-          .selected=${{ Id: 57, Name: 'Leavitt Group Enterprises' }}
+          .selected=${{ Id: 57, Name: 'Leavitt Group Enterprises' } as any}
           .apiService=${this.apiService}
         ></leavitt-company-select>
         <leavitt-company-select
@@ -105,7 +105,7 @@ export class LeavittPersonCompanySelectPlayground extends LitElement {
           .selected=${{
             Id: 57,
             Name: 'Leavitt Group Enterprises',
-          }}
+          } as any}
           disabled
           .apiService=${this.apiService}
         ></leavitt-company-select>

@@ -81,7 +81,7 @@ export class LeavittPersonCompanySelectPlayground extends LitElement {
           .selected=${{
             Name: 'Leavitt Group Enterprises',
             type: 'Company',
-          }}
+          } as any}
           .apiService=${this.apiService}
         ></leavitt-person-company-select>
         <leavitt-person-company-select
@@ -91,7 +91,7 @@ export class LeavittPersonCompanySelectPlayground extends LitElement {
             Id: 11056,
             type: 'Person',
             ProfilePictureCdnFileName: 'zP6DJ9lM6HmkTAaku8ZIzQQdUBHYrX5pCCANvFxtpnagBhJPp7CGXOl-16xe',
-          }}
+          } as any}
           disabled
           .apiService=${this.apiService}
         ></leavitt-person-company-select>

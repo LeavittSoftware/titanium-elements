@@ -70,7 +70,7 @@ export class TitaniumIconPickerPlayground extends LitElement {
       <h1>Pre-populated</h1>
       <p>Icon picker example (pre-populated)</p>
       <div>
-        <titanium-icon-picker .selected=${{ icon: 'add' }}></titanium-icon-picker>
+        <titanium-icon-picker .selected=${{ icon: 'add' } as any}></titanium-icon-picker>
       </div>
 
       <h1>Required</h1>

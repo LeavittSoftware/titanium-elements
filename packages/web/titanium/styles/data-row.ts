@@ -22,6 +22,7 @@ export const dataRow = [
       border: none;
     }
 
+    /* @lit-plugin.rules.no-invalid-css */
     [data-row-container] {
       container-type: inline-size;
     }
