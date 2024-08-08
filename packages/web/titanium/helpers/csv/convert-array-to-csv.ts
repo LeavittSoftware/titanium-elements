@@ -1,12 +1,11 @@
 //TODO: Rewrite in a safer way...check types, etc...
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 export const convertArrayToCsv = (json: Array<any>, flatten = false) => {
   if (!json[0]) {
     return 'Empty List';
   }
 
   if (flatten) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     json = json.map((o: Record<string, any>) => flattenObject(o));
   }
 
@@ -34,7 +33,6 @@ export const convertArrayToCsv = (json: Array<any>, flatten = false) => {
   return csv.join('\r\n');
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
 function flattenObject(_o: Record<string, any>): any {
   throw new Error('Function not implemented.');
 }

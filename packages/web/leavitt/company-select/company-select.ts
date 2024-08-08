@@ -130,7 +130,6 @@ export class LeavittCompanySelect extends TitaniumSingleSelectBase<Partial<Compa
     };
 
     if (this.searchTerm) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const fuse = new Fuse(this.companies, options as any);
       const fuseResults = fuse.search(searchTerm);
       this.showSuggestions(fuseResults.map((o) => o.item).slice(0, 15), fuseResults.length);

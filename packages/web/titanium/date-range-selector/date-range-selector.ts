@@ -226,7 +226,7 @@ export class TitaniumDateRangeSelector extends LitElement {
   `;
 
   #getRange(key: DateRangeKey | string) {
-    if (!!this.customDateRanges) {
+    if (this.customDateRanges) {
       return this.customDateRanges.get(key);
     }
     return DateRanges.get(key as DateRangeKey);
@@ -254,7 +254,6 @@ export class TitaniumDateRangeSelector extends LitElement {
         part="field"
         aria-haspopup="listbox"
         role="combobox"
-        part="field"
         id="field"
         tabindex=${this.disabled ? '-1' : '0'}
         aria-describedby="description"

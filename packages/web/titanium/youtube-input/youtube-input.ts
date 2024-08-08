@@ -32,7 +32,7 @@ export class TitaniumYouTubeInput extends ExtendableOutlinedTextField {
 
   #stripYouTubeKeyFromUrl(value: string) {
     // https://stackoverflow.com/a/8260383
-    const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+    const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
     const match = value.match(regExp);
     const key = match && match[7].length === 11 ? match[7] : false;
     // If key stripped from url use key. Otherwise use the value input by user.

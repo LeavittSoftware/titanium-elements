@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { PropertyValues, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -125,7 +124,6 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
       };
 
       if (this.searchTerm) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const fuse = new Fuse(this.people, options as any);
         const fuseResults = fuse.search(searchTerm);
         this.showSuggestions(fuseResults.map((o) => o.item).slice(0, 15), fuseResults.length);

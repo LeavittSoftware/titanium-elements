@@ -28,7 +28,11 @@ export class SimpleSnackbar extends LitElement {
 
   show(message: string, options?: SnackbarOptions) {
     //Firefox support
-    this.showPopover ? this.showPopover() : (this.open = true);
+    if (this.showPopover) {
+      this.showPopover();
+    } else {
+      this.open = true;
+    }
 
     this.message = options?.overrideTemplate ? options?.overrideTemplate : message;
     this.noAction = options?.noAction ?? false;
@@ -48,7 +52,11 @@ export class SimpleSnackbar extends LitElement {
   close(reason: string = '') {
     clearTimeout(this.#autoCloseTimeout);
     //Firefox support
-    this.hidePopover ? this.hidePopover() : (this.open = false);
+    if (this.hidePopover) {
+      this.hidePopover();
+    } else {
+      this.open = false;
+    }
     this.#resolve(reason);
   }
 

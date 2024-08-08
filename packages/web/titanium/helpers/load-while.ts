@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Constructor<T> = { new (...args: any[]): T };
 export const LoadWhile = <C extends Constructor<HTMLElement>>(base: C) =>
   class extends base {
@@ -17,7 +16,6 @@ export const LoadWhile = <C extends Constructor<HTMLElement>>(base: C) =>
       this.#promiseCount++;
       try {
         await promise;
-      } catch (error) {
       } finally {
         this.#promiseCount--;
         if (this.#promiseCount === 0) {

@@ -64,7 +64,7 @@ export class DraggablePlayground extends LitElement {
           header="Draggable"
           .items=${this.draggableItems}
           @titanium-data-table-items-reorder=${async () => {
-            this.draggableItems = this.draggableItems;
+            this.draggableItems = structuredClone(this.draggableItems);
             await this.requestUpdate('draggableItems');
           }}
         >

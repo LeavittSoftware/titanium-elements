@@ -64,9 +64,9 @@ export class TitaniumDrawer extends LitElement {
     window.addEventListener('popstate', () => this.dialog?.close(), false);
 
     // prevent page load @keyframes playing
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     await TitaniumDrawer.animationsComplete(this.dialog!);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     await TitaniumDrawer.animationsComplete(this.dialog!);
     this.dialog?.removeAttribute('loading');
   }
@@ -90,7 +90,7 @@ export class TitaniumDrawer extends LitElement {
   async close() {
     if (this.dialog?.open) {
       this.dialog?.setAttribute('hide', '');
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
       await TitaniumDrawer.animationsComplete(this.dialog!);
       this.dialog?.close();
       this.dialog?.removeAttribute('hide');

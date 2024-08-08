@@ -225,7 +225,9 @@ export class TitaniumSmartAttachmentInput extends LitElement {
               if (typeof fileAsBase64 === 'string') {
                 _file.previewSrc = fileAsBase64 ?? undefined;
               }
-            } catch (error) {}
+            } catch {
+              // Do nothing
+            }
           }
           if (this.multiple) {
             this.files = [...this.files, _file];

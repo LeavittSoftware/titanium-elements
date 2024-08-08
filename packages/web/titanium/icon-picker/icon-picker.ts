@@ -84,7 +84,6 @@ export class TitaniumIconPicker extends TitaniumSingleSelectBase<MaterialIconDat
     };
 
     if (this.searchTerm) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const fuse = new Fuse(this.#iconDatabase, options as any);
       const fuseResults = fuse.search(searchTerm);
       const results = fuseResults.map((o) => o.item);

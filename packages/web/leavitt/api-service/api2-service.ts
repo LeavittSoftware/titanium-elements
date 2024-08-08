@@ -3,7 +3,6 @@ import ApiService from './api-service';
 import { AuthenticatedTokenProvider } from './authenticated-token-provider';
 import { NoAuthenticationTokenProvider } from './no-authentication-token-provider';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Constructor<T> = { new (...args: any[]): T };
 
 const Api2ServiceMixin = <C extends Constructor<HTMLElement>>(
@@ -13,7 +12,6 @@ const Api2ServiceMixin = <C extends Constructor<HTMLElement>>(
   class extends base {
     api2: ApiService;
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     constructor(...args: any[]) {
       super(...args);
       this.api2 = new ApiService(options?.disableAuthentication ? new NoAuthenticationTokenProvider() : new AuthenticatedTokenProvider());

@@ -123,7 +123,11 @@ export class TitaniumDataTableItem extends LitElement {
    *  toggles item's checkbox which triggers this.selected to toggle as well
    */
   toggleSelected() {
-    this.selected ? this.deselect() : this.select();
+    if (this.selected) {
+      this.deselect();
+    } else {
+      this.select();
+    }
   }
 
   /**

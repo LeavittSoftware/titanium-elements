@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const flattenObject = (data: Record<string, any>) => {
   // also strips odata annotation properties
   const result = {};
@@ -31,14 +30,13 @@ const flattenObject = (data: Record<string, any>) => {
 };
 
 //TODO: Rewrite in a safer way...check types, etc...
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 export const convertArrayToCsv = (json: Array<any>, flatten = false) => {
   if (!json[0]) {
     return 'Empty List';
   }
 
   if (flatten) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     json = json.map((o: Record<string, any>) => flattenObject(o));
   }
 

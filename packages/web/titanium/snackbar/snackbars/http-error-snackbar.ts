@@ -29,8 +29,11 @@ export class HttpErrorSnackbar extends LitElement {
 
   show(httpError: Partial<HttpError>) {
     //Firefox support
-    this.showPopover ? this.showPopover() : (this.open = true);
-
+    if (this.showPopover) {
+      this.showPopover();
+    } else {
+      this.open = true;
+    }
     this.httpErrors.push(httpError);
 
     return new Promise<string>((resolve) => {
@@ -46,7 +49,12 @@ export class HttpErrorSnackbar extends LitElement {
   close(reason: string = '') {
     clearTimeout(this.#autoCloseTimeout);
     //Firefox support
-    this.hidePopover ? this.hidePopover() : (this.open = false);
+    if (this.hidePopover) {
+      this.hidePopover();
+    } else {
+      this.open = false;
+    }
+
     this.#resolve(reason);
   }
 

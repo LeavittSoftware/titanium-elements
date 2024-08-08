@@ -282,7 +282,6 @@ export default class ApiService {
     return;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   #rewriteFetchErrors(error: any, action: string, urlPath: string, statusCode: number | undefined = undefined) {
     const message = error?.message?.includes('Failed to fetch')
       ? 'Network error. Check your connection and try again.'
@@ -340,13 +339,12 @@ export default class ApiService {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   #objectToFormData(obj: any, form?: FormData, namespace?: string): FormData {
     const fd = form || new FormData();
     let formKey: string;
 
     for (const property in obj) {
-      if (obj.hasOwnProperty(property)) {
+      if (Object.hasOwn(obj, property)) {
         if (typeof obj[property] === 'undefined') {
           continue;
         }

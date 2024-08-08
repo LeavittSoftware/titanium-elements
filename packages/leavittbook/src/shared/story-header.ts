@@ -14,7 +14,7 @@ type CustomElementDeclaration = {
 let customElementsJSON: { modules: [{ declarations: Array<CustomElementDeclaration> }] } | null = null;
 
 const getCustomElementsJSON = async () => {
-  if (!Boolean(customElementsJSON)) {
+  if (!customElementsJSON) {
     customElementsJSON = await readCustomElementsJson('/custom-elements.json');
   }
 

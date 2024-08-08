@@ -36,7 +36,6 @@ export class TitaniumFullPageLoadingIndicator extends LitElement {
       this.#openCount++;
       try {
         await e.detail.promise;
-      } catch {
       } finally {
         this.#openCount--;
         if (this.#openCount === 0) {
@@ -54,7 +53,11 @@ export class TitaniumFullPageLoadingIndicator extends LitElement {
 
     this.#openDelayTimer = window.setTimeout(() => {
       this.#timeOpen = performance.now();
-      this.showPopover ? this.showPopover() : (this.open = true);
+      if (this.showPopover) {
+        this.showPopover();
+      } else {
+        this.open = true;
+      }
       this.style.display = 'block';
     }, this.#openDelay);
   }
@@ -65,7 +68,11 @@ export class TitaniumFullPageLoadingIndicator extends LitElement {
     const closeDelay = Math.max(this.#minTimeOpen - totalTimeOpened, 0);
 
     this.#closeDelayTimer = window.setTimeout(() => {
-      this.hidePopover ? this.hidePopover() : (this.open = false);
+      if (this.hidePopover) {
+        this.hidePopover();
+      } else {
+        this.open = false;
+      }
       this.style.display = 'none';
     }, closeDelay);
   }

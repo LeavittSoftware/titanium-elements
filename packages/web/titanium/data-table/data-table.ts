@@ -11,7 +11,6 @@ import { h1, ellipsis } from '../../titanium/styles/styles';
 import { TitaniumPageControl } from './page-control';
 import { MdCheckbox } from '@material/web/checkbox/checkbox';
 
-//eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare const ResizeObserver: any;
 
 /**
@@ -561,7 +560,11 @@ export class TitaniumDataTable extends LitElement {
                   ?indeterminate=${this.selected.length !== 0 && this.selected.length !== this.items.length}
                   ?disabled=${this.items.length === 0}
                   @click=${() => {
-                    this.selected.length > 0 ? this.#deselectAll() : this.selectAll();
+                    if (this.selected.length > 0) {
+                      this.#deselectAll();
+                    } else {
+                      this.selectAll();
+                    }
                     this.checkbox.focus();
                   }}
                 ></md-checkbox>

@@ -2,7 +2,7 @@ import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import themePreferenceEvent from './theme-preference-event';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export type Constructor<T = {}> = new (...args: any[]) => T;
 
 export type ThemePreferenceOption = 'light' | 'dark';

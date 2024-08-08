@@ -321,7 +321,6 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
     </md-menu-item>`;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected renderSelectedLeadingInputSlot(_entity: T) {}
 
   #renderTrailingInputSlot() {

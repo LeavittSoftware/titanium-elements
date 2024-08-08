@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { MdDialog } from '@material/web/dialog/dialog';
 
 /** 
@@ -16,7 +15,7 @@ export function dialogOpenNavigationHack(dialog: MdDialog) {
 }
 
 export function dialogCloseNavigationHack(dialog: MdDialog) {
-  if (!!(dialog as any)?.__closeListener) {
+  if ((dialog as any)?.__closeListener) {
     window.removeEventListener('popstate', (dialog as any).__closeListener, false);
     (dialog as any).__closeListener = undefined;
   }

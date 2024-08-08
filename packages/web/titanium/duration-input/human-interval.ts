@@ -3,7 +3,6 @@
 
 import duration from 'dayjs/esm/plugin/duration';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const units: any = {};
 units.second = 1000;
 units.minute = units.second * 60;

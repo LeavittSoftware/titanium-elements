@@ -92,7 +92,7 @@ export class TitaniumChipMultiSelectPlayground extends LitElement {
         <button-container>
           <md-outlined-button
             @click=${async () => {
-              this.supportingText = !!this.supportingText ? null : 'Service animals are welcome.';
+              this.supportingText = this.supportingText ? null : 'Service animals are welcome.';
             }}
             >${this.supportingText ? 'Remove supporting text' : 'Set supporting text'}</md-outlined-button
           >

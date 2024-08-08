@@ -82,7 +82,7 @@ export class TitaniumProfilePictureStackPlayground extends LitElement {
 
         <button-container>
           <p>${this.manyPeople?.length} ${this.manyPeople?.length === 1 ? 'person' : 'people'}</p>
-          <md-outlined-icon-button @click=${() => (this.manyPeople = [...this.manyPeople?.slice(0, this.manyPeople?.length - 1)])}>
+          <md-outlined-icon-button @click=${() => (this.manyPeople = [...(this.manyPeople?.slice(0, (this.manyPeople?.length ?? 0) - 1) ?? undefined)])}>
             <md-icon>remove</md-icon>
           </md-outlined-icon-button>
           <md-outlined-icon-button @click=${() => (this.manyPeople = [...this.manyPeople, kaseyPerson])}>

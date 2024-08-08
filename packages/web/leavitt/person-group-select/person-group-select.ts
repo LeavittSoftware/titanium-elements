@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { css, html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -81,7 +80,6 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
       keys: ['Name'],
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const fuse = new Fuse(entities, options as any);
     const fuseResults = fuse
       .search(searchTerm)

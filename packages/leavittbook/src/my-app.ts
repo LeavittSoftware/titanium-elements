@@ -213,19 +213,19 @@ export class MyApp extends LitElement {
     page.start();
   }
 
-  #changePage(mainPage: string, importFunction?: () => Promise<unknown>) {
-    const handlePageChange = new Promise<void>(async (res) => {
-      this.page = mainPage;
-      try {
-        await importFunction?.();
-      } catch (error) {
-        console.warn(error);
-        this.fatalErrorMessage = error;
-        this.page = 'error';
+  async #changePage(mainPage: string, importFunction?: () => Promise<unknown>) {
+    this.page = mainPage;
+    try {
+      const importElements = importFunction?.();
+      if (importElements) {
+        this.dispatchEvent(new PendingStateEvent(importElements));
       }
-      res();
-    });
-    this.dispatchEvent(new PendingStateEvent(handlePageChange));
+      await importElements;
+    } catch (error) {
+      console.warn(error);
+      this.fatalErrorMessage = error;
+      this.page = 'error';
+    }
   }
 
   static styles = [

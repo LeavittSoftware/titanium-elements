@@ -69,7 +69,9 @@ export class UserManager extends LitElement {
     if (!this.disableAutoload || this.#getTokenfromUrl('refreshToken')) {
       try {
         await this.authenticateAsync();
-      } catch (error) {}
+      } catch {
+        //Ignore
+      }
     }
     console.log('UserManager Ready.');
   }
@@ -78,7 +80,9 @@ export class UserManager extends LitElement {
     try {
       await this.#getAccessTokenFromApiAsync(refreshToken, this.tokenUri);
       return true;
-    } catch (error) {}
+    } catch (error) {
+      //Ignore
+    }
     return false;
   }
 
@@ -104,7 +108,7 @@ export class UserManager extends LitElement {
       const hashArray = hash.split('&');
 
       for (const i in hashArray) {
-        if (hashArray.hasOwnProperty(i)) {
+        if (Object.hasOwn(hashArray, i)) {
           const keyValPair = hashArray[i].split('=');
           if (keyValPair.length > 1) {
             hashParams.push({ key: keyValPair[0], value: decodeURIComponent(keyValPair[1]) });
@@ -196,11 +200,10 @@ export class UserManager extends LitElement {
     }
 
     const claimScopes = this.#getClaimScopes('LgClaimScopes');
-    // eslint-disable-next-line @typescript-eslint/naming-convention
+
     const body = { grant_type: 'refresh_token', refresh_token: refreshToken } as { grant_type: string; refresh_token: string; claim_scopes: string[] };
 
     if (claimScopes.length > 0) {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       body.claim_scopes = claimScopes;
     }
 
@@ -309,7 +312,6 @@ export class UserManager extends LitElement {
   }
 
   async authenticateAsync(): Promise<LssJwtToken> {
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
     if (this.#isAuthenticating) {
       return new Promise<LssJwtToken>((resolve, reject) => {

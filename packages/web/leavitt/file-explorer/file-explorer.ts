@@ -114,7 +114,7 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
 
   firstUpdated() {
     //force attribute to reflect
-    this.display = this.display;
+    this.display = structuredClone(this.display);
 
     this.addEventListener(ConfirmDialogOpenEvent.eventType, async (e: ConfirmDialogOpenEvent) => {
       e.stopPropagation();

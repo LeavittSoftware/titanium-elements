@@ -7,41 +7,42 @@
     "packages/*"
   ],
   "devDependencies": {
-    "@custom-elements-manifest/analyzer": "^0.9.3",
-    "@open-wc/eslint-config": "^12.0.3",
+    "@custom-elements-manifest/analyzer": "^0.10.3",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
     "@types/page": "^1.11.9",
-    "@typescript-eslint/eslint-plugin": "^7.3.1",
-    "@typescript-eslint/parser": "^7.3.1",
-    "@web/dev-server": "^0.4.3",
+    "@typescript-eslint/eslint-plugin": "^8.0.1",
+    "@typescript-eslint/parser": "^8.0.1",
+    "@web/dev-server": "^0.4.6",
     "@web/rollup-plugin-html": "^2.3.0",
     "@web/rollup-plugin-import-meta-assets": "^2.2.1",
     "concurrently": "^8.2.2",
     "deepmerge": "^4.3.1",
-    "eslint": "^8.57.0",
-    "eslint-config-prettier": "^9.1.0",
-    "lerna": "^8.1.2",
-    "prettier": "^3.2.5",
+    "globals": "^15.9.0",
+    "eslint": "^9.8.0",
+    "eslint-plugin-lit": "^1.14.0",
+    "eslint-plugin-wc": "^2.1.0",
+    "lerna": "^8.1.8",
+    "prettier": "^3.3.3",
     "replace": "^1.2.2",
-    "rimraf": "^3.0.2",
-    "rollup": "^3.29.4",
+    "rimraf": "^6.0.1",
+    "rollup": "^4.20.0",
     "rollup-plugin-copy": "^3.5.0",
-    "rollup-plugin-summary": "^2.0.0",
-    "rollup-plugin-workbox": "^8.0.2",
-    "tslib": "^2.6.2",
-    "typescript": "^5.4.2"
+    "rollup-plugin-summary": "^2.0.1",
+    "rollup-plugin-workbox": "^8.1.0",
+    "tslib": "^2.6.3",
+    "typescript": "^5.5.4"
   },
   "dependencies": {
-    "@leavittsoftware/lg-core-typescript": "^5.327.4",
-    "@material/web": "^1.3.0",
-    "api-viewer-element": "1.0.0-pre.8",
-    "lit": "3.1.2",
+    "@leavittsoftware/lg-core-typescript": "^5.495.0",
+    "@material/web": "^2.0.0",
+    "api-viewer-element": "1.0.0-pre.10",
+    "lit": "3.2.0",
     "page": "^1.11.6",
     "playground-elements": "^0.18.1",
-    "promise-parallel-throttle": "^3.4.1",
-    "tslib": "^2.6.2"
+    "promise-parallel-throttle": "^3.5.0",
+    "tslib": "^2.6.3"
   },
   "scripts": {
     "start": "concurrently --kill-others --names tsc,wds,cem  \"tsc --watch\" \"web-dev-server\" \"npm run cem:watch\"",
@@ -49,54 +50,15 @@
     "start:build": "web-dev-server --root-dir packages/leavittbook/dist --app-index index.html --open --compatibility none --port 9090",
     "nuke": "git clean -fdx && rm -f package-lock.json",
     "lint:eslint": "eslint --ext .ts  . --ignore-path .gitignore",
-    "lint:prettier": "prettier \"**/*.ts\" --check --ignore-path .gitignore",
-    "lint": "npm run lint:eslint && npm run lint:prettier",
-    "format": "npm run format:eslint && npm run format:prettier",
-    "format:eslint": "eslint --ext .ts . --fix --ignore-path .gitignore",
-    "format:prettier": "prettier \"**/*.ts\" --write --ignore-path .gitignore",
+    "lint": "prettier . --check &&  eslint \"**/*.ts\" && lit-analyzer \"**/*.ts\" && tsc --noEmit",
+    "lint-fix": "prettier . --write && eslint \"**/*.ts\" --fix",
     "lerna:publish": "npm run build && lerna publish --conventional-commits --yes",
     "lerna:publish-force": "npm run build && lerna publish --conventional-commits --yes --force-publish=*",
     "test:publish": "npm run build && lerna version --no-push --yes",
     "cem": "cem analyze --globs \"./packages/**/*.ts\" --litelement --outdir packages/leavittbook",
     "cem:watch": "cem analyze --watch --globs \"./packages/**/*.ts\" --litelement --outdir packages/leavittbook"
   },
-  "lint-staged": {
-    "*.ts": [
-      "eslint --fix",
-      "prettier --write",
-      "git add"
-    ]
-  },
   "customElements": "custom-elements.json",
-  "eslintConfig": {
-    "parser": "@typescript-eslint/parser",
-    "extends": [
-      "plugin:@typescript-eslint/recommended"
-    ],
-    "rules": {
-      "@typescript-eslint/explicit-function-return-type": "off",
-      "@typescript-eslint/no-inferrable-types": "off",
-      "@typescript-eslint/explicit-module-boundary-types": "off",
-      "no-new": "warn",
-      "quotes": [
-        "error",
-        "single",
-        {
-          "avoidEscape": true
-        }
-      ],
-      "no-var": "error",
-      "curly": "error",
-      "no-floating-decimal": "error",
-      "arrow-body-style": [
-        "error",
-        "as-needed",
-        {
-          "requireReturnForObjectLiteral": false
-        }
-      ]
-    }
-  },
   "prettier": {
     "trailingComma": "es5",
     "semi": true,
