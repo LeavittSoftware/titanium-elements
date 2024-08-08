@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.8.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.7.0...@leavittsoftware/web@4.8.0) (2024-08-08)
+
+### Features
+
+- **page-control:** reduce outline shape ([c6d72d3](https://github.com/LeavittSoftware/titanium-elements/commit/c6d72d33aac7a44b61a5f36e998d38ff7c603b83))
+
 # [4.7.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.6.1...@leavittsoftware/web@4.7.0) (2024-08-02)
 
 ### Features
