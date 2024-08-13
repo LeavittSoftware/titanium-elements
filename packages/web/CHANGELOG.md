@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.9.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.8.0...@leavittsoftware/web@4.9.0) (2024-08-13)
+
+### Features
+
+- add support for new groups; drop old groups ([3169ee1](https://github.com/LeavittSoftware/titanium-elements/commit/3169ee1c0cc28859623a97599a058b84ddef23b9))
+
 # [4.8.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.7.0...@leavittsoftware/web@4.8.0) (2024-08-08)
 
 ### Features
