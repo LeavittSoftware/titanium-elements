@@ -21,13 +21,6 @@ export const peopleGroupIcons = new Map<string, { icon: string; displayName: str
     },
   ],
   [
-    '#lg.net.core.DataModel.Core.LdapPeopleGroup',
-    {
-      icon: 'account_circle',
-      displayName: 'LDAP people group',
-    },
-  ],
-  [
     '#lg.net.core.DataModel.Core.CompanyPeopleGroup',
     {
       icon: 'supervised_user_circle',
@@ -49,10 +42,10 @@ export const peopleGroupIcons = new Map<string, { icon: string; displayName: str
     },
   ],
   [
-    '#lg.net.core.DataModel.Core.FTEJobRolePeopleGroup',
+    '#lg.net.core.DataModel.Core.CustomPeopleGroup',
     {
-      icon: 'work_outline',
-      displayName: 'FTE job role people group',
+      icon: 'tune',
+      displayName: 'Custom people group',
     },
   ],
   [
@@ -60,6 +53,34 @@ export const peopleGroupIcons = new Map<string, { icon: string; displayName: str
     {
       icon: 'groups',
       displayName: 'Company grouping people group',
+    },
+  ],
+  [
+    '#lg.net.core.DataModel.Core.StateManagerPeopleGroup',
+    {
+      icon: 'deployed_code_account',
+      displayName: 'State manager people group',
+    },
+  ],
+  [
+    '#lg.net.core.DataModel.Core.HomeStatePeopleGroup',
+    {
+      icon: 'other_houses',
+      displayName: 'Home state people group',
+    },
+  ],
+  [
+    '#lg.net.core.DataModel.Core.TypesOfInsuranceSoldPeopleGroup',
+    {
+      icon: 'real_estate_agent',
+      displayName: 'Types of insurance sold people group',
+    },
+  ],
+  [
+    '#lg.net.core.DataModel.Core.TOISManagersPeopleGroup',
+    {
+      icon: 'engineering',
+      displayName: 'Types of insurance sold managers people group',
     },
   ],
 ]);
