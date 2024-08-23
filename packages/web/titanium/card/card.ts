@@ -1,7 +1,7 @@
 ﻿import '@material/web/elevation/elevation';
 
 import { css, html, LitElement } from 'lit';
-import { property, customElement } from 'lit/decorators.js';
+import { property, customElement, queryAssignedElements } from 'lit/decorators.js';
 
 /**
  * A material card filled or outlined
@@ -19,8 +19,12 @@ export class TitaniumCard extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'has-menu' }) accessor hasMenu: boolean;
   @property({ type: Boolean, reflect: true, attribute: 'has-image' }) accessor hasImage: boolean;
   @property({ type: Boolean, reflect: true, attribute: 'has-footer' }) accessor hasFooter: boolean;
+
   @property({ type: Boolean, reflect: true, attribute: 'filled' }) accessor filled: boolean;
   @property({ type: Boolean, reflect: true, attribute: 'elevated' }) accessor elevated: boolean;
+
+  @queryAssignedElements({ flatten: true })
+  private readonly assignedElements!: HTMLElement[];
 
   static styles = [
     css`
@@ -146,6 +150,14 @@ export class TitaniumCard extends LitElement {
   ];
 
   render() {
-    return html`<md-elevation></md-elevation> <slot></slot> `;
+    return html`<md-elevation></md-elevation>
+      <slot
+        @slotchange=${() => {
+          this.hasFooter = this.assignedElements.some((el) => el.hasAttribute('card-footer'));
+          this.hasImage = this.assignedElements.some((el) => el.hasAttribute('card-image'));
+          this.hasMenu = this.assignedElements.some((el) => el.hasAttribute('card-menu'));
+        }}
+      >
+      </slot> `;
   }
 }

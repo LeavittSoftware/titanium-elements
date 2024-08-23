@@ -51,13 +51,13 @@ export class TitaniumChipPlayground extends LitElement {
         <h1>elevated</h1>
       </titanium-card>
 
-      <titanium-card has-image>
+      <titanium-card>
         <img card-image alt="password" src="https://cdn.leavitt.com/icons/icon-permissions.svg" />
         <h1>Has image</h1>
         <p card-body></p>
       </titanium-card>
 
-      <titanium-card has-footer>
+      <titanium-card>
         <h1>Has footer</h1>
         <main card-body></main>
         <span nav card-footer>
@@ -65,13 +65,13 @@ export class TitaniumChipPlayground extends LitElement {
         </span>
       </titanium-card>
 
-      <titanium-card has-menu>
+      <titanium-card>
         <h1>Has menu</h1>
         <md-icon-button card-menu> <md-icon>more_vert</md-icon> </md-icon-button>
         <div card-body></div>
       </titanium-card>
 
-      <titanium-card has-menu style="padding-bottom:0;overflow:hidden;">
+      <titanium-card style="padding-bottom:0;overflow:hidden;">
         <h1>Card with list items</h1>
         <md-icon-button card-menu> <md-icon>more_vert</md-icon> </md-icon-button>
         <div card-body full-width>

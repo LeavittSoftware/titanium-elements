@@ -150,7 +150,7 @@ export class LeavittUserFeedback extends LoadWhile(LitElement) {
     return html`
       <titanium-header header="Report a problem" subHeader="Report bugs and provide feedback for this site" no-nav></titanium-header>
 
-      <titanium-card has-footer>
+      <titanium-card>
         <md-tabs
           full-width
           @change=${(event) => {

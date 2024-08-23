@@ -44,7 +44,7 @@ export class TitaniumDateInputItemPlayground extends LitElement {
   render() {
     /* playground-fold-end */
     return html`
-      <titanium-card has-footer has-menu>
+      <titanium-card>
         <h1>Main demo</h1>
 
         <main card-body>
