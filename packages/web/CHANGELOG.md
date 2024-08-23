@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.10.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.9.0...@leavittsoftware/web@4.10.0) (2024-08-23)
+
+### Features
+
+- **card:** auto-detect slotted elements ([6ad3b6f](https://github.com/LeavittSoftware/titanium-elements/commit/6ad3b6f3d6ca1d1d35308110c1214a94ab357430))
+
 # [4.9.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.8.0...@leavittsoftware/web@4.9.0) (2024-08-13)
 
 ### Features
