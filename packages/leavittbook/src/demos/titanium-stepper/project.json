@@ -1,0 +1,10 @@
+{
+  "name": "titanium-stepper",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "section": "Basics",
+  "files": {
+    "titanium-stepper-playground.ts": {},
+    "index.html": {}
+  },
+  "order": 0
+}
