@@ -6,6 +6,8 @@ import '@leavittsoftware/web/titanium/error-page/error-page';
 import '@leavittsoftware/web/titanium/service-worker-notifier/service-worker-notifier';
 import '@leavittsoftware/web/titanium/drawer/drawer';
 import '@leavittsoftware/web/leavitt/profile-picture/profile-picture-menu';
+import '@leavittsoftware/web/leavitt/user-feedback/report-a-problem-dialog';
+import '@leavittsoftware/web/leavitt/user-feedback/provide-feedback-dialog';
 
 import '@material/web/icon/icon';
 import '@material/web/iconbutton/icon-button';
@@ -24,6 +26,8 @@ import { installMediaQueryWatcher } from '@leavittsoftware/web/titanium/helpers/
 import { myAppStyles } from './styles/my-app-styles';
 import { TitaniumDrawer } from '@leavittsoftware/web/titanium/drawer/drawer';
 import { p } from '@leavittsoftware/web/titanium/styles/styles';
+import { ReportAProblemDialog } from '@leavittsoftware/web/leavitt/user-feedback/report-a-problem-dialog';
+import { ProvideFeedbackDialog } from '@leavittsoftware/web/leavitt/user-feedback/provide-feedback-dialog';
 
 import TitaniumConfirmDialog from '@leavittsoftware/web/titanium/confirm-dialog/confirm-dialog';
 import page from 'page';
@@ -472,8 +476,24 @@ export class MyApp extends LitElement {
             </md-list-item>
           </details>
         </section>
-        <a slot="footer" href="/user-feedback">Report bug</a>
-        <a slot="footer" href="/user-feedback">Feedback</a>
+        <a
+          slot="footer"
+          href="#report-a-bug"
+          @click=${(e: MouseEvent) => {
+            e.preventDefault();
+            this.shadowRoot?.querySelector<ReportAProblemDialog>('report-a-problem-dialog')?.show();
+          }}
+          >Report a bug</a
+        >
+        <a
+          slot="footer"
+          href="#provide-feedback"
+          @click=${(e: MouseEvent) => {
+            e.preventDefault();
+            this.shadowRoot?.querySelector<ProvideFeedbackDialog>('provide-feedback-dialog')?.show();
+          }}
+          >Feedback</a
+        >
         <a slot="footer" href="/user-feedback">Terms</a>
       </titanium-drawer>
 
@@ -594,6 +614,9 @@ export class MyApp extends LitElement {
         <titanium-access-denied-page ?hidden=${this.page !== 'access-denied'}></titanium-access-denied-page>
         <titanium-error-page ?hidden=${this.page !== 'error'} .message=${this.fatalErrorMessage}></titanium-error-page>
       </main-content>
+
+      <report-a-problem-dialog></report-a-problem-dialog>
+      <provide-feedback-dialog></provide-feedback-dialog>
 
       <titanium-confirm-dialog></titanium-confirm-dialog>
       <titanium-snackbar-stack .eventListenerTarget=${document}></titanium-snackbar-stack>

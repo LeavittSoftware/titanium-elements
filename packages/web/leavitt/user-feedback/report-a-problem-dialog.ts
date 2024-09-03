@@ -11,7 +11,7 @@ import { LoadWhile, isDevelopment } from '../../titanium/helpers/helpers';
 import { PendingStateEvent } from '../../titanium/types/pending-state-event';
 import { h1, p } from '../../titanium/styles/styles';
 import { AuthenticatedTokenProvider } from '../api-service/authenticated-token-provider';
-import { WebsiteBugDto } from '@leavittsoftware/lg-core-typescript';
+import { IssueDto } from '@leavittsoftware/lg-core-typescript';
 import ApiService from '../api-service/api-service';
 import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
 import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
@@ -24,7 +24,7 @@ import { TitaniumSmartAttachmentInput } from '../../titanium/smart-attachment-in
 
 const websiteBugApiService = new ApiService(new AuthenticatedTokenProvider());
 websiteBugApiService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
-websiteBugApiService.addHeader('X-LGAppName', 'WebsiteBug');
+websiteBugApiService.addHeader('X-LGAppName', 'IssueTracking');
 Object.freeze(websiteBugApiService);
 
 @customElement('report-a-problem-dialog')
@@ -51,14 +51,16 @@ export class ReportAProblemDialog extends LoadWhile(LitElement) {
       return;
     }
 
-    const dto: WebsiteBugDto = {
+    const dto: IssueDto = {
       SiteName: location.hostname,
+      PathName: window.location.pathname + window.location.search,
+      IssueType: 'Bug',
       Description: this.textArea.value,
       Attachments: (this.imageInput?.getFiles() ?? []).map((o) => o.file),
     };
 
     try {
-      const post = websiteBugApiService.postAsync<WebsiteBugDto>('WebsiteBugs/ReportProblem', dto, { sendAsFormData: true });
+      const post = websiteBugApiService.postAsync<IssueDto>('Issues/ReportIssue', dto, { sendAsFormData: true });
       this.dispatchEvent(new PendingStateEvent(post));
       this.loadWhile(post);
       const entity = (await post).entity;
