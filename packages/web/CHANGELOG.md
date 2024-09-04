@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.11.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.10.0...@leavittsoftware/web@4.11.0) (2024-09-04)
+
+### Features
+
+- **user-feedback:** point to new controllers; adds url path for reports ([37d9e22](https://github.com/LeavittSoftware/titanium-elements/commit/37d9e2273b3c6949957bcecef21169f264901905))
+
 # [4.10.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.9.0...@leavittsoftware/web@4.10.0) (2024-08-23)
 
 ### Features
