@@ -10,7 +10,7 @@ import { LoadWhile, isDevelopment } from '../../titanium/helpers/helpers';
 import { PendingStateEvent } from '../../titanium/types/pending-state-event';
 import { h1, p } from '../../titanium/styles/styles';
 import { AuthenticatedTokenProvider } from '../api-service/authenticated-token-provider';
-import { WebsiteFeedback } from '@leavittsoftware/lg-core-typescript';
+import { IssueDto } from '@leavittsoftware/lg-core-typescript';
 import ApiService from '../api-service/api-service';
 import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
 import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
@@ -22,7 +22,7 @@ import { dialogCloseNavigationHack, dialogOpenNavigationHack } from '../../titan
 
 const feedbackApiService = new ApiService(new AuthenticatedTokenProvider());
 feedbackApiService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
-feedbackApiService.addHeader('X-LGAppName', 'WebsiteFeedback');
+feedbackApiService.addHeader('X-LGAppName', 'IssueTracking');
 Object.freeze(feedbackApiService);
 
 @customElement('provide-feedback-dialog')
@@ -47,13 +47,16 @@ export class ProvideFeedbackDialog extends LoadWhile(LitElement) {
       return;
     }
 
-    const dto = {
+    const dto: IssueDto = {
       SiteName: location.hostname,
-      Comment: this.textArea.value,
-    } satisfies Partial<WebsiteFeedback>;
+      PathName: window.location.pathname + window.location.search,
+      IssueType: 'Feedback',
+      Description: this.textArea.value,
+      Attachments: [],
+    };
 
     try {
-      const post = feedbackApiService.postAsync<WebsiteFeedback>('WebsiteFeedbacks', dto);
+      const post = feedbackApiService.postAsync<IssueDto>('Issues/ReportIssue', dto, { sendAsFormData: true });
       this.dispatchEvent(new PendingStateEvent(post));
       this.loadWhile(post);
       const entity = (await post).entity;

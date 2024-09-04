@@ -36,7 +36,7 @@
     "typescript": "^5.5.4"
   },
   "dependencies": {
-    "@leavittsoftware/lg-core-typescript": "^5.495.0",
+    "@leavittsoftware/lg-core-typescript": "^5.531.0",
     "@material/web": "^2.0.0",
     "api-viewer-element": "1.0.0-pre.10",
     "lit": "3.2.0",
