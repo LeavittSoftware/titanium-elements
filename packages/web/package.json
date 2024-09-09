@@ -22,12 +22,12 @@
     "bowser": "^2.11.0",
     "countup.js": "^2.8.0",
     "cropperjs": "*",
-    "dayjs": "^1.11.10",
+    "dayjs": "^1.11.13",
     "fuse.js": "^7.0.0",
     "jwt-decode": "^4.0.0",
-    "promise-parallel-throttle": "^3.4.1",
+    "promise-parallel-throttle": "^3.5.0",
     "regexparam": "~3.0.0",
-    "tslib": "^2.6.2"
+    "tslib": "^2.7.0"
   },
   "peerDependencies": {
     "lit": ">=3.0.0"
