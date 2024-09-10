@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.11.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.11.0...@leavittsoftware/web@4.11.1) (2024-09-10)
+
+### Bug Fixes
+
+- **address-input:** fix trailing button overflow in latest material ([d39498b](https://github.com/LeavittSoftware/titanium-elements/commit/d39498b18faef370b681b8086624058560754c42))
+
 # [4.11.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.10.0...@leavittsoftware/web@4.11.0) (2024-09-04)
 
 ### Features
