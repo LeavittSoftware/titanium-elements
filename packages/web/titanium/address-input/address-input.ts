@@ -1,4 +1,4 @@
-import { css, html } from 'lit';
+import { css, html, PropertyValues } from 'lit';
 import { property, customElement, query } from 'lit/decorators.js';
 import './google-address-input';
 import './manual-address-dialog';
@@ -31,6 +31,8 @@ export class TitaniumAddressInput extends GoogleAddressInput {
 
   @query('manual-address-dialog') private accessor manualAddressDialog: ManualAddressDialog;
 
+  @property({ type: Boolean, attribute: 'has-selection', reflect: true }) private accessor hasSelection: boolean = false;
+
   static styles = [
     ...GoogleAddressInput.styles,
     css`
@@ -40,8 +42,20 @@ export class TitaniumAddressInput extends GoogleAddressInput {
         position: relative;
         --_supporting-text-trailing-space: 165px;
       }
+
+      :host([has-selection]) {
+        --md-outlined-text-field-with-trailing-icon-trailing-space: 36px;
+      }
     `,
   ];
+
+  update(changed: PropertyValues<this>) {
+    if (changed.has('selected')) {
+      this.hasSelection = !!this.selected;
+    }
+
+    super.update(changed);
+  }
 
   override renderTrailingSlot() {
     return html`<manual-address-dialog
