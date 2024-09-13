@@ -93,6 +93,7 @@ export class AvailableCdnIconsPlayground extends LitElement {
     'icon-scoreboard-prizes.svg',
     'icon-success.svg',
     'icon-template.svg',
+    'icon-transfer.svg',
     'icon-unknown.svg',
     'icon-zion-funding.svg',
     'icon-offer-letter.svg',
