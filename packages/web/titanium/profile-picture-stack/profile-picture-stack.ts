@@ -6,7 +6,6 @@ import { p } from '../styles/p';
 import { ellipsis } from '../styles/ellipsis';
 
 import '@leavittsoftware/web/leavitt/profile-picture/profile-picture';
-import '@material/web/icon/icon';
 
 /**
  * A smart profile picture stack component
@@ -45,6 +44,11 @@ export class TitaniumProfilePictureStack extends LitElement {
   @property({ type: Number }) accessor size: number = 30;
 
   /**
+   * Size of the overlap between profile pictures. (Default is 10)
+   */
+  @property({ type: Number }) accessor overlap: number = 10;
+
+  /**
    * Used internally by the resize observer to keep track of the max number of people to display in a stack.
    * @ignore
    */
@@ -60,19 +64,25 @@ export class TitaniumProfilePictureStack extends LitElement {
         this.#resizeObserver?.disconnect?.();
       }
     }
+
+    if (changedProperties.has('overlap')) {
+      this.style.setProperty('--profile-picture-stack-overlap', `${this.overlap}px`);
+    }
   }
 
   #setUpResizeObserver() {
-    this.#resizeObserver = new ResizeObserver((entries) => {
+    this.#resizeObserver = new ResizeObserver(async (entries) => {
       for (const entry of entries) {
-        if (entry.contentBoxSize) {
-          const inlineSize = entry.contentBoxSize[0].inlineSize;
-          this.autoMax = Math.floor(inlineSize / this.size);
-        }
+        this.autoMax = this.#calculateMaxElements(this.size, this.overlap, entry?.contentBoxSize?.[0]?.inlineSize || 0);
       }
     });
 
     this.#resizeObserver.observe(this);
+  }
+
+  #calculateMaxElements(elementWidth: number, overlap: number, totalWidth: number) {
+    if (totalWidth < elementWidth) return 0; // If total width is smaller than one element
+    return Math.floor((totalWidth - elementWidth) / (elementWidth - overlap));
   }
 
   static styles = [
@@ -81,12 +91,11 @@ export class TitaniumProfilePictureStack extends LitElement {
     css`
       :host {
         display: flex;
-        flex-direction: row;
-        position: relative;
-        align-self: start;
+        padding-left: var(--profile-picture-stack-overlap, 10px);
       }
 
       profile-picture {
+        box-sizing: border-box;
         transition: all 0.2s ease-in-out;
         transform-origin: bottom;
         background-color: var(--titanium-profile-picture-stack-bg-color, var(--md-sys-color-surface));
@@ -94,26 +103,34 @@ export class TitaniumProfilePictureStack extends LitElement {
         border: 2px solid transparent;
       }
 
-      profile-picture:not(:first-child) {
-        margin-left: -10px;
-      }
-
       profile-picture:hover {
-        transform: scale(var(--titanium-profile-picture-stack-transform-scale, 1.3));
-        position: relative;
+        transform: scale(var(--titanium-profile-picture-stack-transform-scale, 1.2));
         z-index: 1;
       }
 
-      md-icon {
-        font-size: 12px;
-        height: 7px;
-        margin-top: 25px;
-        margin-left: -4px;
-      }
-
-      p {
+      p[full-name] {
         align-self: center;
         margin-left: 8px;
+      }
+
+      additional-users {
+        display: grid;
+        box-sizing: border-box;
+        border-radius: 50%;
+        background: var(--md-sys-color-outline-variant);
+        place-items: center;
+        border: 2px solid transparent;
+        cursor: default;
+        z-index: 1;
+      }
+
+      additional-users p {
+        font-weight: 500;
+        font-size: 13px;
+      }
+
+      additional-users:hover {
+        transform: scale(var(--titanium-profile-picture-stack-transform-scale, 1.2));
       }
 
       :host([enable-directory-href]) profile-picture {
@@ -135,13 +152,22 @@ export class TitaniumProfilePictureStack extends LitElement {
             }}
             title=${o?.FullName ?? ''}
             size=${this.size}
+            style="margin-left:-${this.overlap}px"
             .fileName=${o?.ProfilePictureCdnFileName ?? null}
             part="profile-picture"
           ></profile-picture>
-          ${this.people?.length === 1 ? html`<p part="name" ellipsis>${o?.FullName ?? ''}</p>` : nothing}
+          ${this.people?.length === 1 ? html`<p part="name" ellipsis full-name>${o?.FullName ?? ''}</p>` : nothing}
         `
       )}
-      ${this.people?.length > max ? html`<md-icon part="more-icon" title="Shared with ${this.people.length} total users">more_horiz</md-icon>` : nothing}
+      ${this.people?.length > max
+        ? html`<additional-users
+            style="width:${this.size}px;height:${this.size}px;margin-left:-${this.overlap}px"
+            part="additional-users"
+            title="${(this.people?.length || 0) - max} more"
+          >
+            <p>+${(this.people?.length || 0) - max}</p>
+          </additional-users>`
+        : nothing}
     `;
   }
 }

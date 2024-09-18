@@ -73,7 +73,13 @@ export class TitaniumProfilePictureStackPlayground extends LitElement {
         <titanium-profile-picture-stack enable-directory-href .people=${this.people}></titanium-profile-picture-stack>
 
         <h1>Auto resize - Large</h1>
-        <titanium-profile-picture-stack auto-resize size="50" .people=${new Array(25).fill(kaseyPerson)}></titanium-profile-picture-stack>
+        <titanium-profile-picture-stack auto-resize size="40" .people=${new Array(55).fill(kaseyPerson)}></titanium-profile-picture-stack>
+
+        <h1>Auto resize - Extra large</h1>
+        <titanium-profile-picture-stack auto-resize size="60" .people=${new Array(55).fill(kaseyPerson)}></titanium-profile-picture-stack>
+
+        <h1>Auto resize - Custom overlap</h1>
+        <titanium-profile-picture-stack auto-resize size="40" overlap="20" .people=${new Array(55).fill(kaseyPerson)}></titanium-profile-picture-stack>
       </titanium-card>
 
       <titanium-card>
