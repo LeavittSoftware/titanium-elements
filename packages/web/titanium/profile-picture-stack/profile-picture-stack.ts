@@ -71,7 +71,7 @@ export class TitaniumProfilePictureStack extends LitElement {
   }
 
   #setUpResizeObserver() {
-    this.#resizeObserver = new ResizeObserver(async (entries) => {
+    this.#resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
         this.autoMax = this.#calculateMaxElements(this.size, this.overlap, entry?.contentBoxSize?.[0]?.inlineSize || 0);
       }
@@ -81,7 +81,9 @@ export class TitaniumProfilePictureStack extends LitElement {
   }
 
   #calculateMaxElements(elementWidth: number, overlap: number, totalWidth: number) {
-    if (totalWidth < elementWidth) return 0; // If total width is smaller than one element
+    if (totalWidth < elementWidth) {
+      return 0; // If total width is smaller than one element
+    }
     return Math.floor((totalWidth - elementWidth) / (elementWidth - overlap));
   }
 
