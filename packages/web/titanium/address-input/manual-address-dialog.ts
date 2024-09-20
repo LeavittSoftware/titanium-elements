@@ -12,6 +12,7 @@ import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field
 import { MdOutlinedSelect } from '@material/web/select/outlined-select';
 import { DOMEvent } from '../types/dom-event';
 import { allowDialogOverflow, preventDialogOverflow } from '../hacks/dialog-overflow-hacks';
+import { dialogZIndexHack } from '../hacks/dialog-zindex-hack';
 import { reportValidityIfError } from '../hacks/report-validity-if-error';
 import { caStates, usStates } from './utils/states-abbr-to-titlecase';
 import { countries } from './utils/country-abbr-to-titlecase';
@@ -95,6 +96,9 @@ export class ManualAddressDialog extends LitElement {
   render() {
     return html`
       <md-dialog
+        @open=${(e: DOMEvent<MdDialog>) => {
+          dialogZIndexHack(e.target);
+        }}
         @closing=${(e: DOMEvent<MdDialog>) => {
           if (e.target.returnValue !== 'apply') {
             this.resolve(null);
