@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.11.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.11.1...@leavittsoftware/web@4.11.2) (2024-09-20)
+
+### Bug Fixes
+
+- **manual-address-dialog:** add z-index hack ([0da1926](https://github.com/LeavittSoftware/titanium-elements/commit/0da19263338359cd87b2d5098df0601babde3fd7))
+
 ## [4.11.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.11.0...@leavittsoftware/web@4.11.1) (2024-09-10)
 
 ### Bug Fixes
