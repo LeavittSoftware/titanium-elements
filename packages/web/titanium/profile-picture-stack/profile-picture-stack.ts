@@ -44,9 +44,9 @@ export class TitaniumProfilePictureStack extends LitElement {
   @property({ type: Number }) accessor size: number = 30;
 
   /**
-   * Size of the overlap between profile pictures. (Default is 10)
+   * Size of the overlap between profile pictures. (Default is 8)
    */
-  @property({ type: Number }) accessor overlap: number = 10;
+  @property({ type: Number }) accessor overlap: number = 8;
 
   /**
    * Used internally by the resize observer to keep track of the max number of people to display in a stack.
@@ -94,11 +94,13 @@ export class TitaniumProfilePictureStack extends LitElement {
       :host {
         display: flex;
         padding-left: var(--profile-picture-stack-overlap, 10px);
+        direction: rtl;
+        justify-content: end;
       }
 
       profile-picture {
         box-sizing: border-box;
-        transition: all 0.2s ease-in-out;
+        transition: all 0.25s ease-in-out;
         transform-origin: bottom;
         background-color: var(--titanium-profile-picture-stack-bg-color, var(--md-sys-color-surface));
         border-radius: 50%;
@@ -106,33 +108,36 @@ export class TitaniumProfilePictureStack extends LitElement {
       }
 
       profile-picture:hover {
-        transform: scale(var(--titanium-profile-picture-stack-transform-scale, 1.2));
+        transform: translateY(-5px);
         z-index: 1;
       }
 
       p[full-name] {
         align-self: center;
-        margin-left: 8px;
+        margin-left: 6px;
       }
 
       additional-users {
         display: grid;
         box-sizing: border-box;
+        transition: all 0.25s ease-in-out;
         border-radius: 50%;
-        background: var(--md-sys-color-outline-variant);
+        background: var(--md-sys-color-surface-container);
         place-items: center;
         border: 2px solid transparent;
         cursor: default;
-        z-index: 1;
+        direction: ltr;
       }
 
       additional-users p {
         font-weight: 500;
         font-size: 13px;
+        max-width: 75%;
       }
 
       additional-users:hover {
-        transform: scale(var(--titanium-profile-picture-stack-transform-scale, 1.2));
+        transform: translateY(-5px);
+        z-index: 1;
       }
 
       :host([enable-directory-href]) profile-picture {
@@ -144,32 +149,35 @@ export class TitaniumProfilePictureStack extends LitElement {
   render() {
     const max = this.autoResize ? this.autoMax : this.max;
     return html`
-      ${this.people?.slice(0, max)?.map(
-        (o) => html`
-          <profile-picture
-            @click=${() => {
-              if (this.enableDirectoryHref && o?.Id) {
-                window.open(`https://${isDevelopment ? 'dev' : ''}directory.leavitt.com/profile/${o?.Id}`, '_blank');
-              }
-            }}
-            title=${o?.FullName ?? ''}
-            size=${this.size}
-            style="margin-left:-${this.overlap}px"
-            .fileName=${o?.ProfilePictureCdnFileName ?? null}
-            part="profile-picture"
-          ></profile-picture>
-          ${this.people?.length === 1 ? html`<p part="name" ellipsis full-name>${o?.FullName ?? ''}</p>` : nothing}
-        `
-      )}
       ${this.people?.length > max
         ? html`<additional-users
             style="width:${this.size}px;height:${this.size}px;margin-left:-${this.overlap}px"
             part="additional-users"
             title="${(this.people?.length || 0) - max} more"
           >
-            <p>+${(this.people?.length || 0) - max}</p>
+            <p ellipsis>+${(this.people?.length || 0) - max}</p>
           </additional-users>`
         : nothing}
+      ${this.people
+        ?.slice(0, max)
+        ?.reverse()
+        ?.map(
+          (o) => html`
+            ${this.people?.length === 1 ? html`<p part="name" ellipsis full-name>${o?.FullName ?? ''}</p>` : nothing}
+            <profile-picture
+              @click=${() => {
+                if (this.enableDirectoryHref && o?.Id) {
+                  window.open(`https://${isDevelopment ? 'dev' : ''}directory.leavitt.com/profile/${o?.Id}`, '_blank');
+                }
+              }}
+              title=${o?.FullName ?? ''}
+              size=${this.size}
+              style="margin-left:-${this.overlap}px;"
+              .fileName=${o?.ProfilePictureCdnFileName ?? null}
+              part="profile-picture"
+            ></profile-picture>
+          `
+        )}
     `;
   }
 }
