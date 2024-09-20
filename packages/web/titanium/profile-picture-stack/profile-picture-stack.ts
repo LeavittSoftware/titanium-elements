@@ -94,8 +94,8 @@ export class TitaniumProfilePictureStack extends LitElement {
       :host {
         display: flex;
         padding-left: var(--profile-picture-stack-overlap, 10px);
-        direction: rtl;
-        justify-content: end;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
       }
 
       profile-picture {
@@ -126,7 +126,6 @@ export class TitaniumProfilePictureStack extends LitElement {
         place-items: center;
         border: 2px solid transparent;
         cursor: default;
-        direction: ltr;
       }
 
       additional-users p {
