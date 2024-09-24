@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.13.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.12.0...@leavittsoftware/web@4.13.0) (2024-09-24)
+
+### Features
+
+- **titanium-chip:** adds non-interactive attribute ([85a1a8a](https://github.com/LeavittSoftware/titanium-elements/commit/85a1a8ae5cb597085a6fc7cf4480049ee3813a3e))
+
 # [4.12.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.11.2...@leavittsoftware/web@4.12.0) (2024-09-20)
 
 ### Features
