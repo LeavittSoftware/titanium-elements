@@ -63,6 +63,8 @@ export class TitaniumChipPlayground extends LitElement {
       <titanium-chip selected label="Selected" @click=${(e) => (e.target.selected = !e.target.selected)}>
         <profile-picture slot="icon" inert size="24"></profile-picture>
       </titanium-chip>
+
+      <titanium-chip non-interactive label="Non-interactive" title="This is a non-interactive chip"> </titanium-chip>
     `;
   }
 }

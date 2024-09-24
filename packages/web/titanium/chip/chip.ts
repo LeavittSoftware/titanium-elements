@@ -26,6 +26,11 @@ export class TitaniumChip extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'input-chip' }) accessor inputChip: boolean;
 
   /**
+   *  Prevents mouse events and disables the ripple effect
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'non-interactive' }) accessor nonInteractive: boolean;
+
+  /**
    *  Icon name of the remove icon chip
    */
   @property({ type: String }) accessor inputChipRemoveIcon: string = 'close';
@@ -152,7 +157,7 @@ export class TitaniumChip extends LitElement {
   ];
 
   render() {
-    return html`<button part="button">
+    return html`<button part="button" ?inert=${this.nonInteractive}>
       <md-ripple ?disabled=${this.disabled}></md-ripple>
       <md-focus-ring ></md-focus-ring>
       ${this.selected ? html`<md-icon selected-check>check</md-icon>` : html`<slot name="icon" @slotchange=${() => (this.hasLeadingItems = this.leadingSlotElements.length > 0)}></slot>`}
