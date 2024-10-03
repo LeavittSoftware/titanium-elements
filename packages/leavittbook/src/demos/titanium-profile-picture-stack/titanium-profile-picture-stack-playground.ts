@@ -72,6 +72,9 @@ export class TitaniumProfilePictureStackPlayground extends LitElement {
         <h1>One person</h1>
         <titanium-profile-picture-stack .people=${[kaseyPerson]}></titanium-profile-picture-stack>
 
+        <h1>One person with show full name</h1>
+        <titanium-profile-picture-stack show-full-name .people=${[kaseyPerson]}></titanium-profile-picture-stack>
+
         <h1>Max of 3</h1>
         <titanium-profile-picture-stack max="3" .people=${this.people}></titanium-profile-picture-stack>
 
