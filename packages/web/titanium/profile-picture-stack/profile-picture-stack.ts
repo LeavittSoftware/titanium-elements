@@ -34,6 +34,11 @@ export class TitaniumProfilePictureStack extends LitElement {
   @property({ type: Boolean, attribute: 'enable-directory-href' }) accessor enableDirectoryHref: boolean = false;
 
   /**
+   * Toggle to show the full name of the person if there is one result in the stack.
+   */
+  @property({ type: Boolean, attribute: 'show-full-name' }) accessor showFullName: boolean = false;
+
+  /**
    * Enable auto resizing of the profile picture stack. Setting this will supersede the max property.
    */
   @property({ type: Boolean, attribute: 'auto-resize' }) accessor autoResize: boolean = false;
@@ -154,7 +159,7 @@ export class TitaniumProfilePictureStack extends LitElement {
             part="additional-users"
             title="${(this.people?.length || 0) - max} more"
           >
-            <p ellipsis>+${(this.people?.length || 0) - max}</p>
+            <p part="additional-users-paragraph">+${(this.people?.length || 0) - max}</p>
           </additional-users>`
         : nothing}
       ${this.people
@@ -162,7 +167,7 @@ export class TitaniumProfilePictureStack extends LitElement {
         ?.reverse()
         ?.map(
           (o) => html`
-            ${this.people?.length === 1 ? html`<p part="name" ellipsis full-name>${o?.FullName ?? ''}</p>` : nothing}
+            ${this.people?.length === 1 && this.showFullName ? html`<p part="name" ellipsis full-name>${o?.FullName ?? ''}</p>` : nothing}
             <profile-picture
               @click=${() => {
                 if (this.enableDirectoryHref && o?.Id) {
