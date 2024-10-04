@@ -42,8 +42,8 @@ export class TitaniumYouTubeInput extends ExtendableOutlinedTextField {
   static styles = [
     css`
       img {
-        max-height: 49px;
-        margin-right: 5px;
+        max-height: 42px;
+        margin-right: 22px;
         border-radius: 8px;
       }
 
