@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.14.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.14.0...@leavittsoftware/web@4.14.1) (2024-10-04)
+
+### Bug Fixes
+
+- **youtube-input:** fix thumbnail placement ([685f391](https://github.com/LeavittSoftware/titanium-elements/commit/685f391d8c00493c65dbfd5f90f6db21a2b36912))
+
 # [4.14.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.13.0...@leavittsoftware/web@4.14.0) (2024-10-03)
 
 ### Features
