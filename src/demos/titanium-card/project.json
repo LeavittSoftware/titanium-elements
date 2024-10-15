@@ -1,0 +1,10 @@
+{
+  "name": "titanium-card",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "section": "Basics",
+  "files": {
+    "titanium-card-playground.ts": {},
+    "index.html": {}
+  },
+  "order": 0
+}
