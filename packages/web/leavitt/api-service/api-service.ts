@@ -1,5 +1,6 @@
 ﻿import { isDevelopment } from '../../titanium/helpers/is-development';
 import { BearerTokenProvider } from './bearer-token-provider';
+import { BlobResponse } from './blob-response';
 import { HttpError } from './HttpError';
 import { ODataDto } from './odata-dto';
 import { ODataResponse } from './odata-response';
@@ -7,7 +8,11 @@ import { HTTPStatusCodes } from './status-codes';
 
 export type onProgressCallback = (event: ProgressEvent, request: XMLHttpRequest) => void;
 export type ApiServiceOptions = { appNameHeaderKey: string };
-export type ApiServiceRequestOptions = { abortController?: AbortController; sendAsFormData?: boolean };
+export type ResponseTypeReturnMap<T> = {
+  json: ODataResponse<T>;
+  blob: BlobResponse;
+};
+
 export default class ApiService {
   constructor(tokenProvider: BearerTokenProvider, options?: ApiServiceOptions) {
     this.#tokenProvider = tokenProvider;
@@ -39,7 +44,12 @@ export default class ApiService {
     return `${this.baseUrl}${urlPath}`;
   }
 
-  async uploadFile<T>(urlPath: string, file: File, onprogress: onProgressCallback, options: ApiServiceRequestOptions | null = null): Promise<ODataResponse<T>> {
+  async uploadFile<T, R extends keyof ResponseTypeReturnMap<T> = 'json'>(
+    urlPath: string,
+    file: File,
+    onprogress: onProgressCallback,
+    options?: { abortController?: AbortController; sendAsFormData?: boolean; responseType?: R }
+  ): Promise<R extends 'blob' ? BlobResponse : ODataResponse<T>> {
     return new Promise(async (resolve, reject) => {
       if (options?.abortController?.signal && options?.abortController.signal.aborted) {
         reject(new AbortError());
@@ -91,8 +101,17 @@ export default class ApiService {
           () => {
             try {
               const response = { text: () => xhr.response, status: xhr.status } as Response;
-              const result = this.#parseResponse<T>(response, 'UPLOAD', urlPath);
-              return resolve(result);
+
+              if (options?.responseType === 'blob') {
+                const blobResponse = this.#parseBlob(response, 'UPLOAD', urlPath) as unknown as R extends 'blob' ? BlobResponse : ODataResponse<T>;
+                return resolve(blobResponse);
+              } else {
+                const jsonResponse = this.#parseJson(response, 'UPLOAD', urlPath) as unknown as R extends 'blob' ? BlobResponse : ODataResponse<T>;
+                return resolve(jsonResponse);
+              }
+
+              // const result = this.#parseJson<T>(response, 'UPLOAD', urlPath);
+              //return resolve(result);
             } catch (error) {
               return reject(error);
             }
@@ -106,9 +125,12 @@ export default class ApiService {
     });
   }
 
-  async postAsync<T>(urlPath: string, body: unknown | ODataDto = {}, options: ApiServiceRequestOptions | null = null): Promise<ODataResponse<T>> {
+  async postAsync<T, R extends keyof ResponseTypeReturnMap<T> = 'json'>(
+    urlPath: string,
+    body: unknown | ODataDto = {},
+    options?: { abortController?: AbortController; sendAsFormData?: boolean; responseType?: R }
+  ): Promise<R extends 'blob' ? BlobResponse : ODataResponse<T>> {
     // Add in the odata model info if it not already on the object
-
     if (body instanceof ODataDto && body._odataInfo && !body['@odata.type']) {
       if (body._odataInfo.type) {
         body['@odata.type'] = body._odataInfo.type;
@@ -138,10 +160,18 @@ export default class ApiService {
       return Promise.reject(this.#rewriteFetchErrors(error, 'POST', urlPath));
     }
 
-    return await this.#parseResponse(response, 'POST', urlPath);
+    if (options?.responseType === 'blob') {
+      return (await this.#parseBlob(response, 'POST', urlPath)) as R extends 'blob' ? BlobResponse : ODataResponse<T>;
+    } else {
+      return (await this.#parseJson<T>(response, 'POST', urlPath)) as R extends 'blob' ? BlobResponse : ODataResponse<T>;
+    }
   }
 
-  async patchAsync<T>(urlPath: string, body: unknown | ODataDto, options: ApiServiceRequestOptions | null = null): Promise<ODataResponse<T>> {
+  async patchAsync<T, R extends keyof ResponseTypeReturnMap<T> = 'json'>(
+    urlPath: string,
+    body: unknown | ODataDto,
+    options?: { abortController?: AbortController; sendAsFormData?: boolean; responseType?: R }
+  ): Promise<R extends 'blob' ? BlobResponse : ODataResponse<T>> {
     // Add in the odata model info if it not already on the object
     if (body instanceof ODataDto && body._odataInfo && !body['@odata.type']) {
       if (body._odataInfo.type) {
@@ -167,10 +197,19 @@ export default class ApiService {
     } catch (error) {
       return Promise.reject(this.#rewriteFetchErrors(error, 'PATCH', urlPath));
     }
-    return await this.#parseResponse(response, 'PATCH', urlPath);
+
+    if (options?.responseType === 'blob') {
+      return (await this.#parseBlob(response, 'PATCH', urlPath)) as R extends 'blob' ? BlobResponse : ODataResponse<T>;
+    } else {
+      return (await this.#parseJson<T>(response, 'PATCH', urlPath)) as R extends 'blob' ? BlobResponse : ODataResponse<T>;
+    }
   }
 
-  async patchReturnDtoAsync<T>(urlPath: string, body: unknown | ODataDto, options: ApiServiceRequestOptions | null = null): Promise<ODataResponse<T>> {
+  async patchReturnDtoAsync<T, R extends keyof ResponseTypeReturnMap<T> = 'json'>(
+    urlPath: string,
+    body: unknown | ODataDto,
+    options?: { abortController?: AbortController; sendAsFormData?: boolean; responseType?: R }
+  ): Promise<R extends 'blob' ? BlobResponse : ODataResponse<T>> {
     // Add in the odata model info if it not already on the object
     if (body instanceof ODataDto && body._odataInfo && !body['@odata.type']) {
       if (body._odataInfo.type) {
@@ -196,10 +235,18 @@ export default class ApiService {
     } catch (error) {
       return Promise.reject(this.#rewriteFetchErrors(error, 'PATCH', urlPath));
     }
-    return await this.#parseResponse(response, 'PATCH', urlPath);
+
+    if (options?.responseType === 'blob') {
+      return (await this.#parseBlob(response, 'PATCH', urlPath)) as R extends 'blob' ? BlobResponse : ODataResponse<T>;
+    } else {
+      return (await this.#parseJson<T>(response, 'PATCH', urlPath)) as R extends 'blob' ? BlobResponse : ODataResponse<T>;
+    }
   }
 
-  async deleteAsync<T>(urlPath: string, options: ApiServiceRequestOptions | null = null): Promise<ODataResponse<T>> {
+  async deleteAsync<T, R extends keyof ResponseTypeReturnMap<T> = 'json'>(
+    urlPath: string,
+    options?: { abortController?: AbortController; sendAsFormData?: boolean; responseType?: R }
+  ): Promise<R extends 'blob' ? BlobResponse : ODataResponse<T>> {
     const headers = { ...this.headers };
     const token = await this.#tokenProvider._getBearerTokenAsync();
     if (token !== null) {
@@ -213,10 +260,17 @@ export default class ApiService {
       return Promise.reject(this.#rewriteFetchErrors(error, 'DELETE', urlPath));
     }
 
-    return await this.#parseResponse(response, 'DELETE', urlPath);
+    if (options?.responseType === 'blob') {
+      return (await this.#parseBlob(response, 'DELETE', urlPath)) as R extends 'blob' ? BlobResponse : ODataResponse<T>;
+    } else {
+      return (await this.#parseJson<T>(response, 'DELETE', urlPath)) as R extends 'blob' ? BlobResponse : ODataResponse<T>;
+    }
   }
 
-  async getAsync<T>(urlPath: string, options: ApiServiceRequestOptions | null = null): Promise<ODataResponse<T>> {
+  async getAsync<T, R extends keyof ResponseTypeReturnMap<T> = 'json'>(
+    urlPath: string,
+    options?: { abortController?: AbortController; sendAsFormData?: boolean; responseType?: R }
+  ): Promise<R extends 'blob' ? BlobResponse : ODataResponse<T>> {
     const headers = { ...this.headers };
     const token = await this.#tokenProvider._getBearerTokenAsync();
     if (token !== null) {
@@ -234,7 +288,11 @@ export default class ApiService {
       return Promise.reject(this.#rewriteFetchErrors(error, 'GET', urlPath));
     }
 
-    return await this.#parseResponse(response, 'GET', urlPath);
+    if (options?.responseType === 'blob') {
+      return (await this.#parseBlob(response, 'GET', urlPath)) as R extends 'blob' ? BlobResponse : ODataResponse<T>;
+    } else {
+      return (await this.#parseJson<T>(response, 'GET', urlPath)) as R extends 'blob' ? BlobResponse : ODataResponse<T>;
+    }
   }
 
   #distinct<T>(value: T, index: number, array: T[]) {
@@ -301,7 +359,45 @@ export default class ApiService {
     return httpError;
   }
 
-  async #parseResponse<T>(response: Response, action: string, urlPath: string) {
+  async #parseBlob(response: Response, action: string, urlPath: string) {
+    try {
+      if (response.status === 0 || (response.status >= 400 && response.status <= 600)) {
+        const text = await response.text();
+        const json = text.length ? JSON.parse(text) : {};
+
+        const message =
+          json?.error?.message ||
+          (json.error && typeof json.error === 'string' ? json.error : undefined) ||
+          json?.value ||
+          HTTPStatusCodes.get(response.status) ||
+          'unknown';
+
+        if (json?.details) {
+          console.warn(json.details);
+        }
+
+        const httpError: HttpError = {
+          type: 'HttpError',
+          statusCode: response.status,
+          baseUrl: this.baseUrl,
+          message: message,
+          detail: json?.details || json?.error_description,
+          raw: json,
+          action: action,
+          path: urlPath,
+        };
+
+        return Promise.reject(httpError);
+      } else {
+        const blob = await response.blob();
+        return Promise.resolve(new BlobResponse(response, blob));
+      }
+    } catch (error) {
+      return Promise.reject(`The server sent back invalid JSON. ${error}`);
+    }
+  }
+
+  async #parseJson<T>(response: Response, action: string, urlPath: string) {
     const text = await response.text();
     let json;
     try {
