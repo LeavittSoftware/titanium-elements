@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.15.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.14.1...@leavittsoftware/web@4.15.0) (2024-10-15)
+
+### Features
+
+- **api-service:** add support for returning blob responses ([1ad017e](https://github.com/LeavittSoftware/titanium-elements/commit/1ad017e4005aecf5d5cae3d36953e08f72c44e02))
+
 ## [4.14.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.14.0...@leavittsoftware/web@4.14.1) (2024-10-04)
 
 ### Bug Fixes
