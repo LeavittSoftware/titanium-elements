@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.16.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.15.0...@leavittsoftware/web@4.16.0) (2024-10-23)
+
+### Features
+
+- **profile-picture:** Add fallback to error of image load ([#627](https://github.com/LeavittSoftware/titanium-elements/issues/627)) ([57ac575](https://github.com/LeavittSoftware/titanium-elements/commit/57ac5755fb5190fb564983c66d6c54bc2c6141bc))
+
 # [4.15.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.14.1...@leavittsoftware/web@4.15.0) (2024-10-15)
 
 ### Features
