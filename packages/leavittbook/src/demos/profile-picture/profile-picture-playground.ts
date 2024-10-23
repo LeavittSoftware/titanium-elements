@@ -71,6 +71,11 @@ export class ProfilePicturePlayground extends LitElement {
         <profile-picture size="256" useIntrisicImageSize style="width: 20vh;"></profile-picture>
         <profile-picture profile-picture-link-person-id="11056" size="256" useIntrisicImageSize style="width: 20vw;"></profile-picture>
       </div>
+
+      <h1>Filename fallback</h1>
+      <div>
+        <profile-picture fileName="filenamedoesntexist.webp"></profile-picture>
+      </div>
     `;
   }
 }

@@ -1,4 +1,5 @@
-﻿import { isDevelopment } from '../../titanium/helpers/helpers';
+﻿import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
+import { isDevelopment } from '../../titanium/helpers/helpers';
 import { css, html, LitElement, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -41,6 +42,7 @@ export class ProfilePicture extends LitElement {
   @property({ type: Boolean }) accessor useIntrinsicImageSize: boolean = false;
 
   #availableSizes = new Set([32, 64, 128, 256, 512, 1024]);
+  #fallbackSrc = 'https://cdn.leavitt.com/icon-user-profile-sq.svg';
 
   protected updated(changedProps: PropertyValues<this>) {
     if (changedProps.has('size') || changedProps.has('useIntrinsicImageSize')) {
@@ -64,7 +66,7 @@ export class ProfilePicture extends LitElement {
     const requestedSize = this.#determineSize(size);
 
     if (!cdnFileName) {
-      return 'https://cdn.leavitt.com/icon-user-profile-sq.svg';
+      return this.#fallbackSrc;
     } else {
       return `https://cdn.leavitt.com/${cdnFileName}-${requestedSize}.webp`;
     }
@@ -135,7 +137,19 @@ export class ProfilePicture extends LitElement {
   `;
 
   renderProfilePicture() {
-    return html` <img loading="lazy" draggable="false" alt="User profile picture" src=${this.#getFilePath(this.fileName, this.size)} /> `;
+    return html`
+      <img
+        loading="lazy"
+        draggable="false"
+        alt="User profile picture"
+        src=${this.#getFilePath(this.fileName, this.size)}
+        @error=${(e: DOMEvent<HTMLImageElement>) => {
+          if (e.target.src !== this.#fallbackSrc) {
+            e.target.src = this.#fallbackSrc;
+          }
+        }}
+      />
+    `;
   }
 
   render() {
