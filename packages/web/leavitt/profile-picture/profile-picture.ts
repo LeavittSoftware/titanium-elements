@@ -154,7 +154,7 @@ export class ProfilePicture extends LitElement {
 
   render() {
     if (this.profilePictureLinkPersonId) {
-      return html`<a target="_blank" href="https://${isDevelopment ? 'dev' : ''}directory.leavitt.com/profile/${this.profilePictureLinkPersonId}"
+      return html`<a target="_blank" href="https://${isDevelopment ? 'dev' : ''}workforce.leavitt.com/user/${this.profilePictureLinkPersonId}/view"
         >${this.renderProfilePicture()}</a
       > `;
     }
