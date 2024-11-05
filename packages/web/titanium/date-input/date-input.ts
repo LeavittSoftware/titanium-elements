@@ -155,6 +155,14 @@ export class TitaniumDateInput extends LitElement {
    */
   @state() private accessor nativeErrorText = '';
 
+  /**
+   * Describes what, if any, type of autocomplete functionality the input
+   * should provide.
+   *
+   * https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete
+   */
+  @property({ reflect: true, type: String }) accessor autocomplete = '';
+
   @query('input') private accessor input: HTMLInputElement;
   @query('md-outlined-field') private accessor field: Field | null;
 
@@ -370,6 +378,7 @@ export class TitaniumDateInput extends LitElement {
           @change=${(e: Event) => redispatchEvent(this, e)}
           @focusin=${() => (this.focused = true)}
           @focusout=${() => (this.focused = false)}
+          .autocomplete=${this.autocomplete}
           max=${this.max}
           min=${this.min}
           @blur=${(e: Event) => redispatchEvent(this, e)}

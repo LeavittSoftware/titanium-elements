@@ -48,7 +48,12 @@ export class TitaniumDateInputItemPlayground extends LitElement {
         <h1>Main demo</h1>
 
         <main card-body>
-          <titanium-date-input demo1 label="Start date" @change=${(e: DOMEvent<TitaniumDateInput>) => (this.value = e.target.value)}></titanium-date-input>
+          <titanium-date-input
+            autocomplete="bday"
+            demo1
+            label="Birthday"
+            @change=${(e: DOMEvent<TitaniumDateInput>) => (this.value = e.target.value)}
+          ></titanium-date-input>
         </main>
         <span card-menu>Output: ${this.value}</span>
 
