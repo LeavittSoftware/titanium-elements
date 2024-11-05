@@ -93,6 +93,7 @@ export class TitaniumAddressInputPlayground extends LitElement {
         <h2>Main demo</h2>
         <google-address-input
           demo-a
+          autocomplete="street-address"
           @selected=${(e: DOMEvent<GoogleAddressInput>) => console.log('selected change 1', e.target.selected)}
           googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"
         >
@@ -129,6 +130,7 @@ export class TitaniumAddressInputPlayground extends LitElement {
       <component-demo>
         <h2>Slots demo</h2>
         <google-address-input
+          autocomplete="address"
           label="Slots"
           @selected=${(e: DOMEvent<GoogleAddressInput>) => console.log('selected change 1', e.target.selected)}
           googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"
@@ -142,6 +144,7 @@ export class TitaniumAddressInputPlayground extends LitElement {
       <component-demo>
         <h2>Main demo</h2>
         <titanium-address-input
+          autocomplete="address"
           demo-a
           .countries=${this.countries}
           @selected=${(e: DOMEvent<GoogleAddressInput>) => console.log('selected change 1', e.target.selected)}

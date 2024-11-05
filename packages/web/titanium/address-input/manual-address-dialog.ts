@@ -109,6 +109,7 @@ export class ManualAddressDialog extends LitElement {
         <form slot="content">
           <md-outlined-text-field
             label="Street"
+            autocomplete="address-line1"
             required
             .value=${this.street || ''}
             @blur=${(e: DOMEvent<MdOutlinedTextField>) => reportValidityIfError(e.target)}
@@ -120,6 +121,7 @@ export class ManualAddressDialog extends LitElement {
             ? html` <md-outlined-text-field
                 @blur=${(e: DOMEvent<MdOutlinedTextField>) => reportValidityIfError(e.target)}
                 label="Street 2"
+                autocomplete="address-line2"
                 .value=${this.street2 || ''}
                 @change=${(e: DOMEvent<MdOutlinedTextField>) => (this.street2 = e.target.value)}
               >
@@ -128,6 +130,7 @@ export class ManualAddressDialog extends LitElement {
             : nothing}
           <md-outlined-text-field
             label="City"
+            autocomplete="address-level2"
             required
             .value=${this.city || ''}
             @blur=${(e: DOMEvent<MdOutlinedTextField>) => reportValidityIfError(e.target)}
@@ -150,9 +153,11 @@ export class ManualAddressDialog extends LitElement {
             @closing=${() => allowDialogOverflow(this.dialog)}
             @blur=${(e: DOMEvent<MdOutlinedTextField>) => reportValidityIfError(e.target)}
             label="State"
+            autocomplete="address-level1"
             required
             .value=${this.state || ''}
-            @request-selection=${(e: DOMEvent<MdOutlinedSelect>) => {
+            @input=${(e: DOMEvent<MdOutlinedSelect>) => alert(e.target.value)}
+            @change=${(e: DOMEvent<MdOutlinedSelect>) => {
               e.stopPropagation();
               this.state = e.target.value;
               if (usStates.some((o) => o.abbreviation.toLowerCase() === this.state.toLowerCase())) {
@@ -191,9 +196,10 @@ export class ManualAddressDialog extends LitElement {
                 @closing=${() => allowDialogOverflow(this.dialog)}
                 @blur=${(e: DOMEvent<MdOutlinedTextField>) => reportValidityIfError(e.target)}
                 label="Country"
+                autocomplete="country"
                 required
                 .value=${this.country || ''}
-                @request-selection=${(e: DOMEvent<MdOutlinedSelect>) => {
+                @change=${(e: DOMEvent<MdOutlinedSelect>) => {
                   e.stopPropagation();
                   this.country = e.target.value;
                 }}
@@ -208,6 +214,7 @@ export class ManualAddressDialog extends LitElement {
 
           <md-outlined-text-field
             label="Zip"
+            autocomplete="postal-code"
             required
             .value=${this.zip || ''}
             @blur=${(e: DOMEvent<MdOutlinedTextField>) => reportValidityIfError(e.target)}
