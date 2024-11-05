@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.17.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.16.0...@leavittsoftware/web@4.17.0) (2024-11-05)
+
+### Features
+
+- **titanium-date-input:** add support for autocomplete attribute ([3b33f3f](https://github.com/LeavittSoftware/titanium-elements/commit/3b33f3f5f721cc41de975006ad941345234bbab2))
+
 # [4.16.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.15.0...@leavittsoftware/web@4.16.0) (2024-10-23)
 
 ### Features
