@@ -24,7 +24,7 @@ import { MdDialog } from '@material/web/dialog/dialog';
 import { getCdnInlineUrl } from '../helpers/get-cdn-Inline-url';
 import { p } from '../styles/p';
 
-export type TitaniumSmartInputOptions = Cropper.Options & { shape?: ' square' | 'circle' };
+export type TitaniumSmartInputOptions = Cropper.Options & { shape?: 'square' | 'circle' };
 
 /**
  * Material outline image input with cropper
