@@ -500,24 +500,26 @@ export class TitaniumDataTable extends LitElement {
   render() {
     return html`
       <header part="header">
-        <section row-one>
-          <div head ellipsis part="table-header-text-container">
-            <slot name="table-header-text"> <h1 ellipsis>${this.header}</h1></slot>
-          </div>
-          <div menu part="table-actions-container">
-            <slot name="table-actions"></slot>
-          </div>
-        </section>
-        <section row-two>
-          <div search-filter part="filters-container">
-            <slot name="search-button"></slot>
-            <slot name="filter-button"></slot>
-            <slot name="filters"></slot>
-          </div>
-          <div add-button part="add-button-container">
-            <slot name="add-button"></slot>
-          </div>
-        </section>
+        <slot name="header">
+          <section row-one>
+            <div head ellipsis part="table-header-text-container">
+              <slot name="table-header-text"> <h1 ellipsis>${this.header}</h1></slot>
+            </div>
+            <div menu part="table-actions-container">
+              <slot name="table-actions"></slot>
+            </div>
+          </section>
+          <section row-two>
+            <div search-filter part="filters-container">
+              <slot name="search-button"></slot>
+              <slot name="filter-button"></slot>
+              <slot name="filters"></slot>
+            </div>
+            <div add-button part="add-button-container">
+              <slot name="add-button"></slot>
+            </div>
+          </section>
+        </slot>
 
         <selected-actions ?hidden="${this.selected.length === 0}">
           <h2 ellipsis>${this.selected.length} item${this.selected.length > 1 ? 's' : ''} selected</h2>
