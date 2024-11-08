@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.19.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.18.1...@leavittsoftware/web@4.19.0) (2024-11-08)
+
+### Features
+
+- **data-table:** add header slot ([a4122ff](https://github.com/LeavittSoftware/titanium-elements/commit/a4122ff82d90b1b80a2053287dc66192d709cbfb))
+
 ## [4.18.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.18.0...@leavittsoftware/web@4.18.1) (2024-11-08)
 
 ### Bug Fixes
