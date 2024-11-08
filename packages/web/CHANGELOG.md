@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.18.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.18.0...@leavittsoftware/web@4.18.1) (2024-11-08)
+
+### Bug Fixes
+
+- **titanium-smart-attachment-input:** Fix shape type typo ([6af2c03](https://github.com/LeavittSoftware/titanium-elements/commit/6af2c03f3b6f025c8eca7228f454224cb1ed650e))
+
 # [4.18.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.17.0...@leavittsoftware/web@4.18.0) (2024-11-05)
 
 ### Features
