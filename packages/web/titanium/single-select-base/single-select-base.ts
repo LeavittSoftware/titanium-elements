@@ -51,6 +51,11 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
   @property({ type: Boolean }) accessor disabled: boolean = false;
 
   /**
+   *  Disables the asterisk on the floating label, when the text field is required.
+   */
+  @property({ type: Boolean }) accessor noAsterisk: boolean = false;
+
+  /**
    * Describes what, if any, type of autocomplete functionality the input
    * should provide.
    *
@@ -378,6 +383,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
         .placeholder=${this.placeholder}
         .autocomplete=${this.autocomplete}
         .spellcheck=${this.spellcheck}
+        .noAsterisk=${this.noAsterisk}
         .autocorrect=${this.autocorrect}
         .value=${this.selected?.[this.pathToSelectedText] || this.searchTerm || ''}
         default-focus="0"
