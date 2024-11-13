@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.20.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.20.0...@leavittsoftware/web@4.20.1) (2024-11-13)
+
+### Bug Fixes
+
+- **single-select:** allow attribute binding for noAsterisk ([6df7559](https://github.com/LeavittSoftware/titanium-elements/commit/6df75593de2aa1e6cf9a7e2272fe32cefddd5297))
+
 # [4.20.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.19.0...@leavittsoftware/web@4.20.0) (2024-11-12)
 
 ### Features
