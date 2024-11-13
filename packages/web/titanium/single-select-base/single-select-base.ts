@@ -53,7 +53,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
   /**
    *  Disables the asterisk on the floating label, when the text field is required.
    */
-  @property({ type: Boolean }) accessor noAsterisk: boolean = false;
+  @property({ type: Boolean, attribute: 'no-asterisk' }) accessor noAsterisk: boolean = false;
 
   /**
    * Describes what, if any, type of autocomplete functionality the input
