@@ -201,7 +201,7 @@ export class TitaniumSmartAttachmentInput extends LitElement {
     for (let i = 0; i < (files?.length ?? 0); i++) {
       const file = files?.item(i);
       if (file) {
-        const shouldCrop = this.croppableImageFormats.some((o) => file.name.endsWith(o));
+        const shouldCrop = this.croppableImageFormats.some((o) => file.name?.toLowerCase()?.endsWith(o?.toLowerCase()));
         if (shouldCrop) {
           const cropResult = await this.cropperDialog.open(URL.createObjectURL(file), file.name, async (croppedImage, previewDataUrl) => {
             const croppedFile = { file: croppedImage, previewSrc: previewDataUrl ?? undefined };
