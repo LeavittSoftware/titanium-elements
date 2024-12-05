@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.20.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.20.1...@leavittsoftware/web@4.20.2) (2024-12-05)
+
+### Bug Fixes
+
+- **smart-attachment-input:** uppercase extension support ([6f6d747](https://github.com/LeavittSoftware/titanium-elements/commit/6f6d74773e2b0b9906e154618b78d6bb0bc7b046))
+
 ## [4.20.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.20.0...@leavittsoftware/web@4.20.1) (2024-11-13)
 
 ### Bug Fixes
