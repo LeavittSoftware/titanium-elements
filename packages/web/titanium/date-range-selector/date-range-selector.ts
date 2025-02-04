@@ -8,7 +8,7 @@ import '@material/web/list/list-item';
 
 import '../date-input/date-input';
 
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, nothing } from 'lit';
 import { property, customElement, query, state } from 'lit/decorators.js';
 import dayjs from 'dayjs/esm';
 import { DateRangeOption } from './types/date-range-option';
@@ -313,7 +313,7 @@ export class TitaniumDateRangeSelector extends LitElement {
           <section>
             <md-list>
               <!-- Recompute ranges on menu open -->
-              ${this.open &&
+              ${this.open ?
               Array.from(this.customDateRanges ? this.customDateRanges : DateRanges).map(
                 (o) =>
                   html`<md-list-item
@@ -332,7 +332,7 @@ export class TitaniumDateRangeSelector extends LitElement {
                     <md-icon slot="start">${o[1].icon}</md-icon>
                     <div slot="headline">${o[1].name}</div>
                   </md-list-item>`
-              )}
+              ) : nothing}
               <md-list-item type="button" ?selected=${this.proposedRange === 'custom'} @click=${() => (this.proposedRange = 'custom')} value="custom">
                 <md-icon slot="start">date_range</md-icon>
                 <div slot="headline">Custom range</div>
