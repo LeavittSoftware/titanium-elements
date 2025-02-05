@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.20.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.20.2...@leavittsoftware/web@4.20.3) (2025-02-05)
+
+### Bug Fixes
+
+- use ternary to prevent printing boolean value ([#633](https://github.com/LeavittSoftware/titanium-elements/issues/633)) ([7737684](https://github.com/LeavittSoftware/titanium-elements/commit/7737684148ad6c1a65d31bb0aee558729a39520e))
+
 ## [4.20.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.20.1...@leavittsoftware/web@4.20.2) (2024-12-05)
 
 ### Bug Fixes
