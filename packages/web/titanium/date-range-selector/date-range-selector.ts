@@ -379,7 +379,8 @@ export class TitaniumDateRangeSelector extends LitElement {
           <menu-actions
             ><md-text-button @click=${() => (this.open = false)}>Cancel</md-text-button>
             <md-text-button
-              ?disabled=${this.startDate === this.proposedStartDate && this.endDate === this.proposedEndDate && this.proposedRange === this.range}
+              ?disabled=${(this.startDate === this.proposedStartDate && this.endDate === this.proposedEndDate && this.proposedRange === this.range) ||
+              (this.type === 'datetime-local' && this.proposedRange === 'custom' && this.proposedStartDate?.length < 16 && this.proposedEndDate?.length < 16)}
               @click=${() => {
                 if (!this.#validateDates(this.proposedStartDate, this.proposedEndDate)) {
                   return;
