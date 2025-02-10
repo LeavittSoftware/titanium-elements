@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.20.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.20.3...@leavittsoftware/web@4.20.4) (2025-02-10)
+
+### Bug Fixes
+
+- **date-range-selector:** Prevent set if custom && time && not complete ([#634](https://github.com/LeavittSoftware/titanium-elements/issues/634)) ([992ec09](https://github.com/LeavittSoftware/titanium-elements/commit/992ec095b86d0c360e090b4bfa22bcae6c6a7b65))
+
 ## [4.20.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.20.2...@leavittsoftware/web@4.20.3) (2025-02-05)
 
 ### Bug Fixes
