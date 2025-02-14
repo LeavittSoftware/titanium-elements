@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.21.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.20.4...@leavittsoftware/web@4.21.0) (2025-02-14)
+
+### Features
+
+- new narrow-max-width prop ([426d8bc](https://github.com/LeavittSoftware/titanium-elements/commit/426d8bc656d9395a47e7520c703b6f8775366a17))
+
 ## [4.20.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.20.3...@leavittsoftware/web@4.20.4) (2025-02-10)
 
 ### Bug Fixes
