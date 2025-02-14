@@ -1,0 +1,10 @@
+{
+  "name": "titanium-profile-picture-stack",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "section": "Basics",
+  "files": {
+    "titanium-profile-picture-stack-playground.ts": {},
+    "index.html": {}
+  },
+  "order": 0
+}
