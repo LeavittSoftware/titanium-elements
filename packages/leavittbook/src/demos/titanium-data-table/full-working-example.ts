@@ -179,6 +179,7 @@ export class TitaniumDataTableFullPlayground extends LitElement {
         @paging-changed=${() => {
           this.#reload();
         }}
+        narrow-max-width="800"
         .count=${this.resultTotal}
         .items=${this.items}
         .searchTerm=${this.searchTerm}

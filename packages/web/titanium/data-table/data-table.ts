@@ -96,6 +96,7 @@ export class TitaniumDataTable extends LitElement {
 
   @property({ type: Boolean, reflect: true, attribute: 'narrow' }) protected accessor narrow: boolean = false;
   @property({ type: Boolean, attribute: 'has-drag-items', reflect: true }) protected accessor hasDragItems: boolean;
+  @property({ type: Number, attribute: 'narrow-max-width', reflect: true }) protected accessor narrowMaxWidth: number = 560;
   @state() protected accessor isLoading: boolean;
   @query('slot[name="table-headers"]') protected accessor tableHeaders: HTMLSlotElement;
   @query('md-checkbox') protected accessor checkbox: MdCheckbox;
@@ -148,7 +149,7 @@ export class TitaniumDataTable extends LitElement {
       const ro = new ResizeObserver((entries) => {
         for (const entry of entries) {
           const cr = entry.contentRect;
-          this.narrow = cr.width < 560;
+          this.narrow = cr.width < this.narrowMaxWidth;
           this.updateChildrenIsNarrow();
         }
       });
