@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.21.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.21.0...@leavittsoftware/web@4.21.1) (2025-03-25)
+
+### Bug Fixes
+
+- **titanium-smart-attachment:** hardcode 1x release of cropper ([71e7d53](https://github.com/LeavittSoftware/titanium-elements/commit/71e7d53683a14b428a3c8d65db0103b31eae9eb1))
+
 # [4.21.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.20.4...@leavittsoftware/web@4.21.0) (2025-02-14)
 
 ### Features
