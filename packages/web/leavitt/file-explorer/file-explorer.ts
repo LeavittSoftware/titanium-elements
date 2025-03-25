@@ -193,7 +193,7 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
           this.path = path;
         }
 
-        this.isAdmin = result.entity.CanEdit;
+        this.isAdmin = result.entity.CanEdit || false;
         this.state = this.folders.length > 0 || this.files.length > 0 ? 'files' : 'no-files';
       }
     } catch (error) {
