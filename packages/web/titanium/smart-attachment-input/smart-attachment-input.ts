@@ -24,7 +24,7 @@ import { MdDialog } from '@material/web/dialog/dialog';
 import { getCdnInlineUrl } from '../helpers/get-cdn-Inline-url';
 import { p } from '../styles/p';
 
-export type TitaniumSmartInputOptions = Cropper.Options & { shape?: 'square' | 'circle' };
+export type TitaniumSmartInputOptions = CropperOptions;
 
 /**
  * Material outline image input with cropper
@@ -107,7 +107,12 @@ export class TitaniumSmartAttachmentInput extends LitElement {
   /**
    *  Configurable CropperJs options.
    */
-  @property({ type: Object }) accessor options: CropperOptions = {};
+  @property({ type: Object }) accessor options: CropperOptions = {
+    shape: 'square',
+    showSelectionGrid: true,
+    canvasShowBackground: true,
+    selectionAspectRatio: undefined,
+  };
 
   /**
    *  Image formats here are sent to the cropper
