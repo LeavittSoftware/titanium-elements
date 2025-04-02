@@ -35,6 +35,7 @@ export declare type CropperOptions = {
 @customElement('crop-and-save-image-dialog')
 export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
   @query('md-dialog') accessor dialog: MdDialog;
+  @query('main') accessor main: HTMLElement;
   @query('cropper-canvas') accessor cropperCanvas: CropperCanvas;
   @query('cropper-selection') accessor cropperSelection: CropperSelection;
   @query('cropper-image') accessor cropperImage: CropperImage;
@@ -56,104 +57,50 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
 
   #mimeType = '';
   #extension = '';
+  #isReady = false;
 
   firstUpdated() {
     const bowser = Bowser.getParser(window.navigator.userAgent);
     const os = bowser?.getOS?.()?.name ?? '';
     this.#mimeType = os === 'iOS' || os === 'macOS' || this.forcePNGOutput ? 'image/png' : 'image/webp';
     this.#extension = os === 'iOS' || os === 'macOS' || this.forcePNGOutput ? 'png' : 'webp';
+    this.#setUpResizeObserver();
   }
 
-  static styles = [
-    h1,
-    p,
-    cropperCSS,
-    css`
-      :host {
-        display: block;
+  #resizeObserver: ResizeObserver;
+
+  #setUpResizeObserver() {
+    this.#resizeObserver = new ResizeObserver(() => {
+      if (this.#isReady) {
+        this.cropperImage.$center('cover');
       }
+    });
 
-      md-dialog {
-        max-width: calc(100vw - 24px);
-        max-height: calc(100vh - 24px);
-      }
-
-      main {
-        display: flex;
-        position: relative;
-        align-self: center;
-        display: block;
-        max-width: 800px;
-        max-height: 600px;
-        width: 100%;
-        height: 100%;
-      }
-
-      loading-animation {
-        display: flex;
-        flex-direction: column;
-        place-content: center;
-        place-items: center;
-        width: 100%;
-      }
-
-      loading-animation img {
-        height: 300px;
-      }
-
-      cropper-container {
-        display: grid;
-        grid-template-areas: 'cropper buttons';
-      }
-
-      cropper-canvas {
-        display: block;
-        width: 600px;
-        height: 400px;
-        overflow: hidden;
-      }
-
-      crop-buttons {
-        grid-area: buttons;
-
-        display: grid;
-        align-content: start;
-        grid-auto-flow: row;
-
-        padding: 0 8px;
-        gap: 8px;
-      }
-
-      @media (max-width: 600px) {
-        section[crop] {
-          grid:
-            'cropper'
-            'buttons';
-        }
-
-        crop-buttons {
-          justify-content: end;
-          grid-auto-flow: column;
-          padding: 8px 0;
-        }
-      }
-
-      [hidden] {
-        display: none !important;
-      }
-    `,
-  ];
+    this.#resizeObserver.observe(this.main);
+  }
 
   #saveCroppedImageFunc: ((file: File, previewDataUrl: string) => Promise<void>) | undefined;
   #resolve: (value: 'cropped' | 'cancel') => void;
   async open(url: string, filename: string, saveCroppedImageFunc?: (file: File, previewDataUrl: string) => Promise<void>) {
+    this.#isReady = false;
     this.#saveCroppedImageFunc = saveCroppedImageFunc;
     this.dialog.returnValue = '';
     this.reset();
     this.fileName = filename;
     this.src = url;
+    await this.updateComplete;
     this.dialog.show();
     this.cropperImage.initialCenterSize = 'cover';
+    this.cropperImage.$resetTransform();
+
+    this.cropperImage.$ready((image) => {
+      // console.log(image.naturalWidth, image.naturalHeight);
+      this.cropperCanvas.style.width = `${image.naturalWidth}px`;
+      this.cropperCanvas.style.aspectRatio = `${image.naturalWidth} / ${image.naturalHeight}`;
+      this.cropperImage.$center('cover');
+      this.#isReady = true;
+    });
+
     return await new Promise<'cropped' | 'cancel'>((resolve) => {
       this.#resolve = resolve;
     });
@@ -212,6 +159,68 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
 
     return await imagePromise;
   }
+
+  static styles = [
+    h1,
+    p,
+    cropperCSS,
+    css`
+      :host {
+        display: block;
+      }
+
+      md-dialog {
+        max-width: calc(100vw - 24px);
+        max-height: calc(100vh - 24px);
+      }
+
+      main {
+        display: flex;
+        position: relative;
+        align-self: center;
+
+        padding: 18px 24px 0px 24px;
+      }
+
+      loading-animation {
+        display: flex;
+        flex-direction: column;
+        place-content: center;
+        place-items: center;
+        width: 100%;
+      }
+
+      loading-animation img {
+        height: 300px;
+      }
+
+      cropper-container {
+        display: grid;
+        grid-template-areas:
+          'cropper'
+          'buttons';
+        gap: 8px 0;
+      }
+
+      cropper-canvas {
+        max-width: min(800px, calc(100vw - 115px));
+        max-height: calc(100vh - 250px);
+      }
+
+      crop-buttons {
+        grid-area: buttons;
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+        gap: 8px;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+    `,
+  ];
+
   render() {
     return html`
       <md-dialog
@@ -223,7 +232,7 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
           e.preventDefault();
         }}
       >
-        <div slot="headline">Crop and save image</div>
+        <div slot="headline">Crop image</div>
         <main slot="content">
           <loading-animation ?hidden=${!this.isLoading}>
             <img src=${LoaderGif} />
