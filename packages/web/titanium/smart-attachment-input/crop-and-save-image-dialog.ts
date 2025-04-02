@@ -24,6 +24,8 @@ export declare type CropperOptions = {
   showSelectionGrid?: boolean;
   canvasShowBackground?: boolean;
   selectionAspectRatio?: number | null | undefined;
+  selectionWidth?: number | undefined;
+  selectionHeight?: number | undefined;
 };
 
 /**
@@ -50,6 +52,8 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
     showSelectionGrid: true,
     canvasShowBackground: true,
     selectionAspectRatio: undefined,
+    selectionHeight: 100,
+    selectionWidth: 100,
   };
 
   @state() protected accessor fileName: string = '';
@@ -90,14 +94,12 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
     this.src = url;
     await this.updateComplete;
     this.dialog.show();
-    this.cropperImage.initialCenterSize = 'cover';
-    this.cropperImage.$resetTransform();
 
     this.cropperImage.$ready((image) => {
-      // console.log(image.naturalWidth, image.naturalHeight);
       this.cropperCanvas.style.width = `${image.naturalWidth}px`;
       this.cropperCanvas.style.aspectRatio = `${image.naturalWidth} / ${image.naturalHeight}`;
       this.cropperImage.$center('cover');
+      this.cropperSelection.$center();
       this.#isReady = true;
     });
 
@@ -107,7 +109,9 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
   }
 
   reset() {
-    this.cropperSelection?.$clear();
+    this.cropperSelection.width = this.options?.selectionWidth || 100;
+    this.cropperSelection.height = this.options?.selectionHeight || 100;
+    this.cropperImage.$resetTransform();
   }
 
   blobToFile(blob: Blob, fileName: string): File {
@@ -240,11 +244,10 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
           </loading-animation>
           <cropper-container ?hidden=${this.isLoading}>
             <cropper-canvas ?background=${this.options?.canvasShowBackground}>
-              <cropper-image initialCenterSize="cover" .src=${this.src} alt="Picture" rotatable scalable skewable translatable></cropper-image>
+              <cropper-image initial-center-size="cover" .src=${this.src} alt="Picture" rotatable scalable skewable translatable></cropper-image>
               <cropper-shade hidden></cropper-shade>
               <cropper-handle action="select" plain></cropper-handle>
               <cropper-selection
-                initial-coverage="0.5"
                 movable
                 resizable
                 aspect-ratio=${this.options?.shape === 'circle' ? 1 : ifDefined(this.options?.selectionAspectRatio)}
