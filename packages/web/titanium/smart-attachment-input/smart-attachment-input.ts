@@ -107,12 +107,7 @@ export class TitaniumSmartAttachmentInput extends LitElement {
   /**
    *  Configurable CropperJs options.
    */
-  @property({ type: Object }) accessor options: CropperOptions = {
-    shape: 'square',
-    showSelectionGrid: true,
-    canvasShowBackground: true,
-    selectionAspectRatio: undefined,
-  };
+  @property({ type: Object }) accessor options: CropperOptions;
 
   /**
    *  Image formats here are sent to the cropper

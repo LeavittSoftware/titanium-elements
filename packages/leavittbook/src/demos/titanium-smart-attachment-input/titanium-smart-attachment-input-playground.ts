@@ -136,15 +136,26 @@ export class TitaniumSmartAttachmentInputPlayground extends LitElement {
       </div>
 
       <h1>Crop and save dialog options</h1>
-      <p>Configure options to modify how the cropper behaves</p>
+      <p>Change how the cropper behaves</p>
       <div>
         <titanium-smart-attachment-input
-          label="Crop it"
+          label="Circle crop"
+          supporting-text="Forces an aspect ratio of 1:1"
           .options=${{
-            canvasShowBackground: false,
-            selectionAspectRatio: 1,
-            showGrid: false,
             shape: 'circle',
+          } as CropperOptions}
+        ></titanium-smart-attachment-input>
+        <titanium-smart-attachment-input
+          label="Custom aspect ratio"
+          .options=${{
+            selectionAspectRatio: 16 / 9,
+          } as CropperOptions}
+        ></titanium-smart-attachment-input>
+        <titanium-smart-attachment-input
+          label="No aspect ratio, no grid, no background"
+          .options=${{
+            selectionHideGrid: true,
+            canvasHideBackground: true,
           } as CropperOptions}
         ></titanium-smart-attachment-input>
       </div>

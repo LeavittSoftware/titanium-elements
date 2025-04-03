@@ -5,27 +5,24 @@ import '@material/web/iconbutton/icon-button';
 import 'cropperjs';
 
 import { dialogZIndexHack } from '../../titanium/hacks/dialog-zindex-hack';
-
 import { css, html, LitElement } from 'lit';
 import { property, customElement, query, state } from 'lit/decorators.js';
 import { CropperCanvas, CropperImage, CropperSelection } from 'cropperjs';
 import { cropperCSS } from './cropper-styles';
 import { h1, p } from '../../titanium/styles/styles';
 import { LoadWhile } from '../../titanium/helpers/load-while';
-import Bowser from 'bowser';
 import { MdDialog } from '@material/web/dialog/dialog';
 import { DOMEvent } from '../types/dom-event';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
+import Bowser from 'bowser';
 const LoaderGif = new URL('./images/duck-loader.gif', import.meta.url).href;
 
 export declare type CropperOptions = {
   shape?: 'square' | 'circle';
-  showSelectionGrid?: boolean;
-  canvasShowBackground?: boolean;
+  canvasHideBackground?: boolean;
+  selectionHideGrid?: boolean;
   selectionAspectRatio?: number | null | undefined;
-  selectionWidth?: number | undefined;
-  selectionHeight?: number | undefined;
 };
 
 /**
@@ -47,14 +44,7 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
    */
   @property({ type: Boolean, reflect: true, attribute: 'force-png' }) accessor forcePNGOutput: boolean;
 
-  @property({ type: Object }) accessor options: CropperOptions = {
-    shape: 'square',
-    showSelectionGrid: true,
-    canvasShowBackground: true,
-    selectionAspectRatio: undefined,
-    selectionHeight: 100,
-    selectionWidth: 100,
-  };
+  @property({ type: Object }) accessor options: CropperOptions;
 
   @state() protected accessor fileName: string = '';
   @state() protected accessor src: string = '';
@@ -95,12 +85,17 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
     await this.updateComplete;
     this.dialog.show();
 
-    this.cropperImage.$ready((image) => {
+    this.cropperImage.$ready(async (image) => {
       this.cropperCanvas.style.width = `${image.naturalWidth}px`;
       this.cropperCanvas.style.aspectRatio = `${image.naturalWidth} / ${image.naturalHeight}`;
+
+      const rect = this.cropperCanvas.getBoundingClientRect();
+      this.cropperSelection.width = rect.width / 2;
+      this.cropperSelection.height = rect.height / 2;
       this.cropperImage.$center('cover');
-      this.cropperSelection.$center();
       this.#isReady = true;
+      await this.updateComplete;
+      this.cropperSelection.$center();
     });
 
     return await new Promise<'cropped' | 'cancel'>((resolve) => {
@@ -109,8 +104,6 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
   }
 
   reset() {
-    this.cropperSelection.width = this.options?.selectionWidth || 100;
-    this.cropperSelection.height = this.options?.selectionHeight || 100;
     this.cropperImage.$resetTransform();
   }
 
@@ -243,18 +236,14 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
             <p>Uploading image...</p>
           </loading-animation>
           <cropper-container ?hidden=${this.isLoading}>
-            <cropper-canvas ?background=${this.options?.canvasShowBackground}>
+            <cropper-canvas ?background=${!this.options?.canvasHideBackground}>
               <cropper-image initial-center-size="cover" .src=${this.src} alt="Picture" rotatable scalable skewable translatable></cropper-image>
               <cropper-shade hidden></cropper-shade>
               <cropper-handle action="select" plain></cropper-handle>
-              <cropper-selection
-                movable
-                resizable
-                aspect-ratio=${this.options?.shape === 'circle' ? 1 : ifDefined(this.options?.selectionAspectRatio)}
-              >
-                <cropper-grid role="grid" covered ?hidden=${!this.options?.showSelectionGrid}></cropper-grid>
+              <cropper-selection movable resizable aspect-ratio=${this.options?.shape === 'circle' ? 1 : ifDefined(this.options?.selectionAspectRatio)}>
+                <cropper-grid role="grid" covered ?hidden=${this.options?.selectionHideGrid}></cropper-grid>
                 <cropper-crosshair centered></cropper-crosshair>
-                <cropper-handle action="move" theme-color="rgba(255, 255, 255, 0.35)"></cropper-handle>
+                <cropper-handle theme-color="rgba(255, 255, 255, 0.35)" action="move"></cropper-handle>
                 <cropper-handle theme-color="var(--md-sys-color-primary)" action="n-resize"></cropper-handle>
                 <cropper-handle theme-color="var(--md-sys-color-primary)" action="e-resize"></cropper-handle>
                 <cropper-handle theme-color="var(--md-sys-color-primary)" action="s-resize"></cropper-handle>
