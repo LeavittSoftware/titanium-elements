@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.22.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.21.1...@leavittsoftware/web@4.22.0) (2025-04-04)
+
+### Features
+
+- **titanium-smart-attachment-input:** update cropperjs to 2.0 ([386b3ec](https://github.com/LeavittSoftware/titanium-elements/commit/386b3eca8932459f8aa775601c7312f0b06f604b))
+
 ## [4.21.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.21.0...@leavittsoftware/web@4.21.1) (2025-03-25)
 
 ### Bug Fixes
