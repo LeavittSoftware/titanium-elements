@@ -2,23 +2,28 @@ import '@material/web/dialog/dialog';
 import '@material/web/icon/icon';
 import '@material/web/button/text-button';
 import '@material/web/iconbutton/icon-button';
+import 'cropperjs';
 
 import { dialogZIndexHack } from '../../titanium/hacks/dialog-zindex-hack';
-export declare type CropperOptions = Cropper.Options & {
-  shape?: 'square' | 'circle';
-};
-
 import { css, html, LitElement } from 'lit';
 import { property, customElement, query, state } from 'lit/decorators.js';
-import Cropper from 'cropperjs';
+import { CropperCanvas, CropperImage, CropperSelection } from 'cropperjs';
 import { cropperCSS } from './cropper-styles';
 import { h1, p } from '../../titanium/styles/styles';
 import { LoadWhile } from '../../titanium/helpers/load-while';
-import Bowser from 'bowser';
 import { MdDialog } from '@material/web/dialog/dialog';
 import { DOMEvent } from '../types/dom-event';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
+import Bowser from 'bowser';
 const LoaderGif = new URL('./images/duck-loader.gif', import.meta.url).href;
+
+export declare type CropperOptions = {
+  shape?: 'square' | 'circle';
+  canvasHideBackground?: boolean;
+  selectionHideGrid?: boolean;
+  selectionAspectRatio?: number | null | undefined;
+};
 
 /**
  * Crop and save image dialog
@@ -29,145 +34,81 @@ const LoaderGif = new URL('./images/duck-loader.gif', import.meta.url).href;
 @customElement('crop-and-save-image-dialog')
 export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
   @query('md-dialog') accessor dialog: MdDialog;
-  @query('cropper-container > img') accessor img: HTMLImageElement;
-
-  /**
-   *  Configurable CropperJs options.
-   */
-  @property({ type: Object }) accessor options: CropperOptions = {};
+  @query('main') accessor main: HTMLElement;
+  @query('cropper-canvas') accessor cropperCanvas: CropperCanvas;
+  @query('cropper-selection') accessor cropperSelection: CropperSelection;
+  @query('cropper-image') accessor cropperImage: CropperImage;
 
   /**
    *  Forces cropper to output PNG's
    */
   @property({ type: Boolean, reflect: true, attribute: 'force-png' }) accessor forcePNGOutput: boolean;
 
-  @state() protected accessor fileName: string = '';
+  @property({ type: Object }) accessor options: CropperOptions;
 
-  #cropper: null | Cropper;
+  @state() protected accessor fileName: string = '';
+  @state() protected accessor src: string = '';
+
   #mimeType = '';
   #extension = '';
+  #isReady = false;
 
   firstUpdated() {
     const bowser = Bowser.getParser(window.navigator.userAgent);
     const os = bowser?.getOS?.()?.name ?? '';
     this.#mimeType = os === 'iOS' || os === 'macOS' || this.forcePNGOutput ? 'image/png' : 'image/webp';
     this.#extension = os === 'iOS' || os === 'macOS' || this.forcePNGOutput ? 'png' : 'webp';
+    this.#setUpResizeObserver();
   }
 
-  static styles = [
-    h1,
-    p,
-    cropperCSS,
-    css`
-      :host {
-        display: block;
+  #resizeObserver: ResizeObserver;
+
+  #setUpResizeObserver() {
+    this.#resizeObserver = new ResizeObserver(() => {
+      if (this.#isReady) {
+        this.cropperImage.$center('cover');
       }
+    });
 
-      md-dialog {
-        max-width: calc(100vw - 24px);
-        max-height: calc(100vh - 24px);
-      }
-
-      main {
-        display: flex;
-        position: relative;
-        align-self: center;
-      }
-
-      loading-animation {
-        display: flex;
-        flex-direction: column;
-        place-content: center;
-        place-items: center;
-        width: 100%;
-      }
-
-      loading-animation img {
-        height: 300px;
-      }
-
-      section[crop] {
-        display: grid;
-        width: 100%;
-        grid: 'cropper buttons' / 1fr 58px;
-      }
-
-      cropper-container {
-        grid-area: cropper;
-
-        display: block;
-        max-width: 800px;
-        max-height: 600px;
-        overflow: hidden;
-      }
-
-      cropper-container img {
-        display: block;
-        /* This rule is very important, please don't ignore this */
-        max-width: 100%;
-      }
-
-      crop-buttons {
-        grid-area: buttons;
-
-        display: grid;
-        align-content: start;
-        grid-auto-flow: row;
-
-        padding: 0 8px;
-        gap: 8px;
-      }
-
-      @media (max-width: 600px) {
-        section[crop] {
-          grid:
-            'cropper'
-            'buttons';
-        }
-
-        crop-buttons {
-          justify-content: end;
-          grid-auto-flow: column;
-          padding: 8px 0;
-        }
-      }
-
-      [hidden] {
-        display: none !important;
-      }
-    `,
-  ];
+    this.#resizeObserver.observe(this.main);
+  }
 
   #saveCroppedImageFunc: ((file: File, previewDataUrl: string) => Promise<void>) | undefined;
   #resolve: (value: 'cropped' | 'cancel') => void;
   async open(url: string, filename: string, saveCroppedImageFunc?: (file: File, previewDataUrl: string) => Promise<void>) {
+    this.#isReady = false;
     this.#saveCroppedImageFunc = saveCroppedImageFunc;
     this.dialog.returnValue = '';
     this.reset();
     this.fileName = filename;
-    this.#setCropperImage(url);
+    this.src = url;
+    await this.updateComplete;
     this.dialog.show();
+
+    this.cropperImage.$ready(async (image) => {
+      this.cropperCanvas.style.width = `${image.naturalWidth}px`;
+      this.cropperCanvas.style.aspectRatio = `${image.naturalWidth} / ${image.naturalHeight}`;
+
+      const rect = this.cropperCanvas.getBoundingClientRect();
+      this.cropperSelection.width = rect.width / 2;
+      this.cropperSelection.height = rect.height / 2;
+      this.cropperImage.$center('cover');
+      this.#isReady = true;
+      await this.updateComplete;
+      this.cropperSelection.$center();
+    });
+
     return await new Promise<'cropped' | 'cancel'>((resolve) => {
       this.#resolve = resolve;
     });
   }
 
   reset() {
-    this.img.src = '';
-    this.#cropper?.destroy();
+    this.cropperImage.$resetTransform();
   }
 
   blobToFile(blob: Blob, fileName: string): File {
     return new File([blob], fileName, { lastModified: new Date().getTime() });
-  }
-
-  #setCropperImage(url: string) {
-    this.img.src = url;
-    this.#cropper = new Cropper(this.img, {
-      viewMode: 2,
-      aspectRatio: this.options.shape === 'circle' ? 1 : this.options.aspectRatio,
-      ...this.options,
-    });
   }
 
   #changeFileExtension(fileName: string, ext: string) {
@@ -215,6 +156,68 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
 
     return await imagePromise;
   }
+
+  static styles = [
+    h1,
+    p,
+    cropperCSS,
+    css`
+      :host {
+        display: block;
+      }
+
+      md-dialog {
+        max-width: calc(100vw - 24px);
+        max-height: calc(100vh - 24px);
+      }
+
+      main {
+        display: flex;
+        position: relative;
+        align-self: center;
+
+        padding: 18px 24px 0px 24px;
+      }
+
+      loading-animation {
+        display: flex;
+        flex-direction: column;
+        place-content: center;
+        place-items: center;
+        width: 100%;
+      }
+
+      loading-animation img {
+        height: 300px;
+      }
+
+      cropper-container {
+        display: grid;
+        grid-template-areas:
+          'cropper'
+          'buttons';
+        gap: 8px 0;
+      }
+
+      cropper-canvas {
+        max-width: min(800px, calc(100vw - 115px));
+        max-height: calc(100vh - 250px);
+      }
+
+      crop-buttons {
+        grid-area: buttons;
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+        gap: 8px;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+    `,
+  ];
+
   render() {
     return html`
       <md-dialog
@@ -226,25 +229,40 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
           e.preventDefault();
         }}
       >
-        <div slot="headline">Crop and save image</div>
+        <div slot="headline">Crop image</div>
         <main slot="content">
           <loading-animation ?hidden=${!this.isLoading}>
             <img src=${LoaderGif} />
             <p>Uploading image...</p>
           </loading-animation>
-          <section crop ?hidden=${this.isLoading}>
-            <cropper-container ?circle=${this.options.shape === 'circle'}>
-              <img />
-            </cropper-container>
+          <cropper-container ?hidden=${this.isLoading}>
+            <cropper-canvas ?background=${!this.options?.canvasHideBackground}>
+              <cropper-image initial-center-size="cover" .src=${this.src} alt="Picture" rotatable scalable skewable translatable></cropper-image>
+              <cropper-shade hidden></cropper-shade>
+              <cropper-handle action="select" plain></cropper-handle>
+              <cropper-selection movable resizable aspect-ratio=${this.options?.shape === 'circle' ? 1 : ifDefined(this.options?.selectionAspectRatio)}>
+                <cropper-grid role="grid" covered ?hidden=${this.options?.selectionHideGrid}></cropper-grid>
+                <cropper-crosshair centered></cropper-crosshair>
+                <cropper-handle theme-color="rgba(255, 255, 255, 0.35)" action="move"></cropper-handle>
+                <cropper-handle theme-color="var(--md-sys-color-primary)" action="n-resize"></cropper-handle>
+                <cropper-handle theme-color="var(--md-sys-color-primary)" action="e-resize"></cropper-handle>
+                <cropper-handle theme-color="var(--md-sys-color-primary)" action="s-resize"></cropper-handle>
+                <cropper-handle theme-color="var(--md-sys-color-primary)" action="w-resize"></cropper-handle>
+                <cropper-handle theme-color="var(--md-sys-color-primary)" action="ne-resize"></cropper-handle>
+                <cropper-handle theme-color="var(--md-sys-color-primary)" action="nw-resize"></cropper-handle>
+                <cropper-handle theme-color="var(--md-sys-color-primary)" action="se-resize"></cropper-handle>
+                <cropper-handle theme-color="var(--md-sys-color-primary)" action="sw-resize"></cropper-handle>
+              </cropper-selection>
+            </cropper-canvas>
             <crop-buttons>
-              <md-icon-button label="Rotate right" title="Rotate right" @click=${() => this.#cropper?.rotate(90)}
-                ><md-icon>rotate_right</md-icon></md-icon-button
-              >
-              <md-icon-button label="Rotate left" title="Rotate left" @click=${() => this.#cropper?.rotate(-90)}>
+              <md-icon-button label="Rotate right" title="Rotate right" @click=${() => this.cropperImage?.$rotate('90deg')}>
+                <md-icon>rotate_right</md-icon>
+              </md-icon-button>
+              <md-icon-button label="Rotate left" title="Rotate left" @click=${() => this.cropperImage.$rotate('-90deg')}>
                 <md-icon>rotate_left</md-icon>
               </md-icon-button>
             </crop-buttons>
-          </section>
+          </cropper-container>
         </main>
         <div slot="actions">
           <md-text-button
@@ -261,15 +279,13 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
               this.isLoading = true;
               await this.updateComplete;
 
-              //WORKAROUND: The first call to this func can result in a corrupt image, esp seen in Android when picture comes from camera
-              this.#cropper?.getCroppedCanvas();
+              const canvas = await this.cropperSelection?.$toCanvas();
 
-              const canvas = this.#cropper?.getCroppedCanvas();
               if (!canvas) {
                 return;
               }
               const previewDataUrl =
-                this.options.shape === 'circle' ? await this.#applyCircleMask(canvas.toDataURL(this.#mimeType)) : canvas.toDataURL(this.#mimeType);
+                this.options?.shape === 'circle' ? await this.#applyCircleMask(canvas.toDataURL(this.#mimeType)) : canvas.toDataURL(this.#mimeType);
               const response = await fetch(previewDataUrl);
               const file = this.blobToFile(await response.blob(), this.#changeFileExtension(this.fileName, this.#extension));
               const save = this.#saveCroppedImageFunc?.(file, previewDataUrl) || Promise.resolve();

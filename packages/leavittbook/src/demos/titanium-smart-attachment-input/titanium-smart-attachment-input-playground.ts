@@ -7,6 +7,7 @@ import '@material/web/button/text-button';
 
 import '@leavittsoftware/web/titanium/smart-attachment-input/smart-attachment-input';
 import { TitaniumSmartAttachmentInput } from '@leavittsoftware/web/titanium/smart-attachment-input/smart-attachment-input';
+import { CropperOptions } from '@leavittsoftware/web/titanium/smart-attachment-input/crop-and-save-image-dialog';
 
 /* playground-fold */
 @customElement('titanium-smart-attachment-input-playground')
@@ -131,6 +132,31 @@ export class TitaniumSmartAttachmentInputPlayground extends LitElement {
           confirmDelete
           confirmDeleteHeader="Confirm delete"
           confirmDeleteText="Are you sure you would like to delete this duck?"
+        ></titanium-smart-attachment-input>
+      </div>
+
+      <h1>Crop and save dialog options</h1>
+      <p>Change how the cropper behaves</p>
+      <div>
+        <titanium-smart-attachment-input
+          label="Circle crop"
+          supporting-text="Forces an aspect ratio of 1:1"
+          .options=${{
+            shape: 'circle',
+          } as CropperOptions}
+        ></titanium-smart-attachment-input>
+        <titanium-smart-attachment-input
+          label="Custom aspect ratio"
+          .options=${{
+            selectionAspectRatio: 16 / 9,
+          } as CropperOptions}
+        ></titanium-smart-attachment-input>
+        <titanium-smart-attachment-input
+          label="No aspect ratio, no grid, no background"
+          .options=${{
+            selectionHideGrid: true,
+            canvasHideBackground: true,
+          } as CropperOptions}
         ></titanium-smart-attachment-input>
       </div>
     `;
