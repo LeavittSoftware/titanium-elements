@@ -380,7 +380,12 @@ export class TitaniumSmartAttachmentInput extends LitElement {
           }}
         />
       </label>
-      <crop-and-save-image-dialog .options=${this.options}></crop-and-save-image-dialog>
+      <crop-and-save-image-dialog
+        @change=${(e) => {
+          e.stopPropagation();
+        }}
+        .options=${this.options}
+      ></crop-and-save-image-dialog>
       <image-preview-dialog></image-preview-dialog>
 
       <md-dialog confirm-delete>
