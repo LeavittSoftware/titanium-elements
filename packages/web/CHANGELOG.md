@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.22.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.22.0...@leavittsoftware/web@4.22.1) (2025-04-14)
+
+### Bug Fixes
+
+- prevent change event propagating from the crop and save dialog ([1b99b39](https://github.com/LeavittSoftware/titanium-elements/commit/1b99b395b3f4c0f6801815ee404f39005ba06514))
+
 # [4.22.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.21.1...@leavittsoftware/web@4.22.0) (2025-04-04)
 
 ### Features
