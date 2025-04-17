@@ -217,7 +217,12 @@ export class TitaniumChip extends LitElement {
   }
 
   private renderLink() {
-    return html`<a id="link" tabindex="${this.disabled ? -1 : nothing}" href=${this.href} download=${this.download || nothing} target=${this.target || nothing}
+    return html`<a
+      id="link"
+      tabindex="${this.disabled ? -1 : (nothing as never)}"
+      href=${this.href}
+      download=${this.download || (nothing as never)}
+      target=${this.target || nothing}
       >${this.renderContent()}
     </a>`;
   }
