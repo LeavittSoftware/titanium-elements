@@ -4,7 +4,7 @@ import '@material/web/iconbutton/icon-button';
 import '@material/web/ripple/ripple';
 import '@material/web/focus/md-focus-ring';
 
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, nothing } from 'lit';
 import { customElement, property, queryAssignedElements } from 'lit/decorators.js';
 import { ellipsis } from '@leavittsoftware/web/titanium/styles/ellipsis';
 
@@ -19,6 +19,24 @@ export class TitaniumChip extends LitElement {
    *  When true, the chip is selected
    */
   @property({ type: Boolean, reflect: true }) accessor selected: boolean;
+
+  /**
+   * The URL that the link button points to.
+   */
+  @property({ type: String }) href = '';
+
+  /**
+   * The filename to use when downloading the linked resource.
+   * If not specified, the browser will determine a filename.
+   * This is only applicable when the button is used as a link (`href` is set).
+   */
+  @property() download = '';
+
+  /**
+   * Where to display the linked `href` URL for a link button. Common options
+   * include `_blank` to open in a new tab.
+   */
+  @property() target: '_blank' | '_parent' | '_self' | '_top' | '' = '';
 
   /**
    *  When true, trailing slot is replaced with a remove icon button
@@ -61,6 +79,7 @@ export class TitaniumChip extends LitElement {
         text-align: left;
       }
 
+      a,
       button {
         display: grid;
         align-items: center;
@@ -93,26 +112,35 @@ export class TitaniumChip extends LitElement {
         font-weight: inherit;
         line-height: inherit;
         letter-spacing: inherit;
+        text-decoration: none;
 
         padding: 0 12px;
       }
 
       :host([selected]) button,
-      :host([has-leading-items]) button {
+      :host([selected]) a,
+      :host([has-leading-items]) button,
+      :host([has-leading-items]) a {
         grid: 'icon label' / auto 1fr;
         padding-left: 8px;
       }
 
       :host([input-chip]) button,
-      :host([has-trailing-items]) butt on {
+      :host([input-chip]) a,
+      :host([has-trailing-items]) button,
+      :host([has-trailing-items]) a {
         grid: 'label trailing' / 1fr auto;
         padding-right: 4px;
       }
 
       :host([selected][input-chip]) button,
+      :host([selected][input-chip]) a,
       :host([selected][has-leading-items]) button,
+      :host([selected][has-leading-items]) a,
       :host([has-leading-items][input-chip]) button,
-      :host([has-trailing-items][has-leading-items]) button {
+      :host([has-leading-items][input-chip]) a,
+      :host([has-trailing-items][has-leading-items]) button,
+      :host([has-trailing-items][has-leading-items]) a {
         grid: 'icon label trailing' / auto 1fr auto;
       }
 
@@ -157,9 +185,14 @@ export class TitaniumChip extends LitElement {
   ];
 
   render() {
-    return html`<button part="button" ?inert=${this.nonInteractive}>
-      <md-ripple ?disabled=${this.disabled}></md-ripple>
-      <md-focus-ring ></md-focus-ring>
+    return html` ${this.href ? this.renderLink() : this.renderButton()} `;
+  }
+
+  private renderContent() {
+    const buttonId = this.href ? 'link' : 'button';
+    return html`
+      <md-ripple part="focus-ring" for=${buttonId} ?disabled=${this.disabled}></md-ripple>
+      <md-focus-ring part="ripple" for=${buttonId}></md-focus-ring>
       ${this.selected ? html`<md-icon selected-check>check</md-icon>` : html`<slot name="icon" @slotchange=${() => (this.hasLeadingItems = this.leadingSlotElements.length > 0)}></slot>`}
       
       <main label ellipsis><slot name="label">${this.label}</slot></main>
@@ -176,6 +209,16 @@ export class TitaniumChip extends LitElement {
             : html`<slot name="trailing" @slotchange=${() => (this.hasTrailingItems = this.trailingSlotElements.length > 0)}></slot>`
         }
       </slot>
-    </button>`;
+    `;
+  }
+
+  private renderButton() {
+    return html`<button id="button" part="button" ?inert=${this.nonInteractive} ?disabled=${this.disabled}>${this.renderContent()}</button>`;
+  }
+
+  private renderLink() {
+    return html`<a id="link" tabindex="${this.disabled ? -1 : nothing}" href=${this.href} download=${this.download || nothing} target=${this.target || nothing}
+      >${this.renderContent()}
+    </a>`;
   }
 }

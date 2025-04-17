@@ -65,6 +65,8 @@ export class TitaniumChipPlayground extends LitElement {
       </titanium-chip>
 
       <titanium-chip non-interactive label="Non-interactive" title="This is a non-interactive chip"> </titanium-chip>
+      <titanium-chip disabled label="Disabled"> </titanium-chip>
+      <titanium-chip href="https://google.com" target="_blank" download="google.xls" label="Href demo"> </titanium-chip>
     `;
   }
 }
