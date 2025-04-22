@@ -1,4 +1,6 @@
-﻿import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
+﻿import '@material/web/icon/icon';
+
+import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
 import { isDevelopment } from '../../titanium/helpers/helpers';
 import { css, html, LitElement, nothing, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
@@ -164,7 +166,9 @@ export class ProfilePicture extends LitElement {
         }}
       />
       ${this.showTestUserIndicator
-        ? html`<md-icon part="test-user-indicator" style="--md-icon-size: calc(${this.size}px * 0.35);padding: calc(${this.size}px * 0.05)" title="Test user">bug_report</md-icon>`
+        ? html`<md-icon part="test-user-indicator" style="--md-icon-size: calc(${this.size}px * 0.35);padding: calc(${this.size}px * 0.05)" title="Test user"
+            >bug_report</md-icon
+          >`
         : nothing}
     `;
   }
