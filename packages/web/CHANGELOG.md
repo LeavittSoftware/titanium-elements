@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.24.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.23.0...@leavittsoftware/web@4.24.0) (2025-04-22)
+
+### Features
+
+- **profile-picture:** add test user indicator option ([#638](https://github.com/LeavittSoftware/titanium-elements/issues/638)) ([7b40e9c](https://github.com/LeavittSoftware/titanium-elements/commit/7b40e9cfcdb760cc5a23d9c0fff0d923ab2b810c))
+
 # [4.23.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.22.1...@leavittsoftware/web@4.23.0) (2025-04-17)
 
 ### Features
