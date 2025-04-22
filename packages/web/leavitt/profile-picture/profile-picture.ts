@@ -1,6 +1,6 @@
 ﻿import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
 import { isDevelopment } from '../../titanium/helpers/helpers';
-import { css, html, LitElement, PropertyValues } from 'lit';
+import { css, html, LitElement, nothing, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 /**
@@ -25,6 +25,11 @@ export class ProfilePicture extends LitElement {
    * Shows a colored ring around the picture
    */
   @property({ reflect: true, type: Boolean, attribute: 'show-ring' }) accessor showRing: boolean;
+
+  /**
+   * Shows a test user indicator at the bottom of the picture
+   */
+  @property({ reflect: true, type: Boolean, attribute: 'show-test-user-indicator' }) accessor showTestUserIndicator: boolean;
 
   /**
    * Makes the image a link to the respective profile page
@@ -85,6 +90,15 @@ export class ProfilePicture extends LitElement {
       width: 100%;
       aspect-ratio: 1;
       image-rendering: -webkit-optimize-contrast;
+    }
+
+    md-icon {
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      color: var(--md-sys-color-on-primary);
+      background-color: var(--md-sys-color-primary);
+      border-radius: 50%;
     }
 
     :host([shape='circle']) a:after,
@@ -149,6 +163,9 @@ export class ProfilePicture extends LitElement {
           }
         }}
       />
+      ${this.showTestUserIndicator
+        ? html`<md-icon part="test-user-indicator" style="--md-icon-size: calc(${this.size}px * 0.35);padding: calc(${this.size}px * 0.05)" title="Test user">bug_report</md-icon>`
+        : nothing}
     `;
   }
 

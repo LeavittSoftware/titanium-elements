@@ -29,6 +29,10 @@ export class ProfilePicturePlayground extends LitElement {
         gap: 12px;
         margin: 24px 0 36px 0;
       }
+
+      [custom]::part(test-user-indicator) {
+        background: var(--md-sys-color-error);
+      }
     `,
   ];
 
@@ -75,6 +79,15 @@ export class ProfilePicturePlayground extends LitElement {
       <h1>Filename fallback</h1>
       <div>
         <profile-picture fileName="filenamedoesntexist.webp"></profile-picture>
+      </div>
+
+      <h1>Test user indicator</h1>
+      <div>
+        <profile-picture show-test-user-indicator size="24"></profile-picture>
+        <profile-picture show-test-user-indicator size="32"></profile-picture>
+        <profile-picture show-test-user-indicator size="64"></profile-picture>
+        <profile-picture show-test-user-indicator size="128"></profile-picture>
+        <profile-picture custom show-test-user-indicator size="256"></profile-picture>
       </div>
     `;
   }
