@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.24.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.24.0...@leavittsoftware/web@4.24.1) (2025-05-08)
+
+### Bug Fixes
+
+- **titanium-chip:** pass disabled to remove button ([#639](https://github.com/LeavittSoftware/titanium-elements/issues/639)) ([4ab56f2](https://github.com/LeavittSoftware/titanium-elements/commit/4ab56f29b6542d65440f98be7993d76866b6ff99))
+
 # [4.24.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.23.0...@leavittsoftware/web@4.24.0) (2025-04-22)
 
 ### Features
