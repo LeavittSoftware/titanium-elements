@@ -200,6 +200,7 @@ export class TitaniumChip extends LitElement {
         ${
           this.inputChip
             ? html`<md-icon-button
+                ?disabled=${this.disabled}
                 @click=${(e: MouseEvent) => {
                   e.stopPropagation();
                   this.dispatchEvent(new Event('remove'));
