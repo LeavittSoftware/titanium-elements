@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.25.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.25.0...@leavittsoftware/web@4.25.1) (2025-05-14)
+
+### Bug Fixes
+
+- export typo ([92e46a8](https://github.com/LeavittSoftware/titanium-elements/commit/92e46a81ef4a4d372917f5550d626bd195ff99d3))
+
 # [4.25.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.24.1...@leavittsoftware/web@4.25.0) (2025-05-14)
 
 ### Features
