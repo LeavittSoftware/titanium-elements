@@ -1,4 +1,4 @@
-export function tryormatPhoneNumber(phoneNumberString: string) {
+export function tryFormatPhoneNumber(phoneNumberString: string) {
   const cleaned = ('' + phoneNumberString).replace(/\D/g, '');
   const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
   if (match) {
