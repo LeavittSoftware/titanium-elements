@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.25.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.24.1...@leavittsoftware/web@4.25.0) (2025-05-14)
+
+### Features
+
+- add tryFormatPhoneNumber ([36f374a](https://github.com/LeavittSoftware/titanium-elements/commit/36f374ac05dcafa476010e95cb3da7b73d7b1b93))
+
 ## [4.24.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.24.0...@leavittsoftware/web@4.24.1) (2025-05-08)
 
 ### Bug Fixes
