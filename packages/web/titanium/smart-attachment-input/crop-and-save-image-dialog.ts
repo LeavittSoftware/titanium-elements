@@ -28,10 +28,10 @@ export declare type CropperOptions = {
 };
 
 export declare type SelectionData = {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
 };
 
 /**
@@ -174,22 +174,20 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
   // adapted from https://fengyuanchen.github.io/cropperjs/v2/api/cropper-selection.html#limit-boundaries
   #inSelection(selection: SelectionData, maxSelection: SelectionData) {
     return (
-      selection.x >= maxSelection.x
-      && selection.y >= maxSelection.y
-      && (selection.x + selection.width) <= (maxSelection.x + maxSelection.width)
-      && (selection.y + selection.height) <= (maxSelection.y + maxSelection.height)
+      selection.x >= maxSelection.x &&
+      selection.y >= maxSelection.y &&
+      selection.x + selection.width <= maxSelection.x + maxSelection.width &&
+      selection.y + selection.height <= maxSelection.y + maxSelection.height
     );
   }
   #onCropperImageTransform(event: CustomEvent) {
-    const cropperCanvas = this.cropperCanvas as CropperCanvas;
-
-    if (!cropperCanvas || this.options?.constrainSelectionTo !== 'image') {
+    if (!this.cropperCanvas || this.options?.constrainSelectionTo !== 'image') {
       return;
     }
 
     const cropperImage = this.cropperImage as CropperImage;
     const cropperSelection = this.cropperSelection as SelectionData;
-    const cropperCanvasRect = cropperCanvas.getBoundingClientRect();
+    const cropperCanvasRect = this.cropperCanvas.getBoundingClientRect();
 
     // 1. Clone the cropper image.
     const cropperImageClone = cropperImage.cloneNode() as CropperImage;
@@ -201,13 +199,13 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
     cropperImageClone.style.opacity = '0';
 
     // 4. Append the cropper image clone to the cropper canvas.
-    cropperCanvas.appendChild(cropperImageClone);
+    this.cropperCanvas.appendChild(cropperImageClone);
 
     // 5. Compute the boundaries of the cropper image clone.
     const cropperImageRect = cropperImageClone.getBoundingClientRect();
 
     // 6. Remove the cropper image clone.
-    cropperCanvas.removeChild(cropperImageClone);
+    this.cropperCanvas.removeChild(cropperImageClone);
 
     const selection = cropperSelection as SelectionData;
     const maxSelection: SelectionData = {
@@ -223,13 +221,11 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
   }
 
   #onCropperSelectionChange(event: CustomEvent) {
-    const cropperCanvas = this.cropperCanvas as CropperCanvas;
-
-    if (!cropperCanvas || !this.options?.constrainSelectionTo) {
+    if (!this.cropperCanvas || !this.options?.constrainSelectionTo) {
       return;
     }
 
-    const cropperCanvasRect = cropperCanvas.getBoundingClientRect();
+    const cropperCanvasRect = this.cropperCanvas.getBoundingClientRect();
     const selection = event.detail as SelectionData;
 
     switch (this.options.constrainSelectionTo) {
@@ -274,12 +270,7 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
   }
 
   #mitigateShadeJitter() {
-    setTimeout(() => this.cropperShade.$change(
-      this.cropperSelection.x,
-      this.cropperSelection.y,
-      this.cropperSelection.width,
-      this.cropperSelection.height
-    ),0);
+    setTimeout(() => this.cropperShade.$change(this.cropperSelection.x, this.cropperSelection.y, this.cropperSelection.width, this.cropperSelection.height), 0);
   }
 
   static styles = [
@@ -362,10 +353,24 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
           </loading-animation>
           <cropper-container ?hidden=${this.isLoading}>
             <cropper-canvas ?background=${!this.options?.canvasHideBackground}>
-              <cropper-image initial-center-size="cover" .src=${this.src} alt="Picture" rotatable scalable skewable translatable @transform=${this.#onCropperImageTransform}></cropper-image>
+              <cropper-image
+                initial-center-size="cover"
+                .src=${this.src}
+                alt="Picture"
+                rotatable
+                scalable
+                skewable
+                translatable
+                @transform=${this.#onCropperImageTransform}
+              ></cropper-image>
               <cropper-shade hidden></cropper-shade>
               <cropper-handle action="select" plain></cropper-handle>
-              <cropper-selection movable resizable aspect-ratio=${this.options?.shape === 'circle' ? 1 : ifDefined(this.options?.selectionAspectRatio)} @change=${this.#onCropperSelectionChange}>
+              <cropper-selection
+                movable
+                resizable
+                aspect-ratio=${this.options?.shape === 'circle' ? 1 : ifDefined(this.options?.selectionAspectRatio)}
+                @change=${this.#onCropperSelectionChange}
+              >
                 <cropper-grid role="grid" covered ?hidden=${this.options?.selectionHideGrid}></cropper-grid>
                 <cropper-crosshair centered></cropper-crosshair>
                 <cropper-handle theme-color="rgba(255, 255, 255, 0.35)" action="move"></cropper-handle>
