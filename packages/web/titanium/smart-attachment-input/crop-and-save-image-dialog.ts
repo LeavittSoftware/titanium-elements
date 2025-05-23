@@ -24,6 +24,7 @@ export declare type CropperOptions = {
   selectionHideGrid?: boolean;
   selectionAspectRatio?: number | null | undefined;
   constrainSelectionTo?: 'image' | 'canvas' | null;
+  maximizeSelection?: boolean;
 };
 
 export declare type SelectionData = {
@@ -104,6 +105,10 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
       this.cropperImage.$center('cover');
       await this.updateComplete;
       this.cropperSelection.$center();
+      if (this.options.maximizeSelection) {
+        this.cropperSelection.initialCoverage = 1;
+        this.cropperSelection.$reset();
+      }
       this.#isReady = true;
     });
 

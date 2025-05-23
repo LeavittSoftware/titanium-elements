@@ -170,6 +170,19 @@ export class TitaniumSmartAttachmentInputPlayground extends LitElement {
             constrainSelectionTo: 'image'
           } as CropperOptions}
         ></titanium-smart-attachment-input>
+        <titanium-smart-attachment-input
+          label="Maximize selection"
+          .options=${{
+            maximizeSelection: true
+          } as CropperOptions}
+        ></titanium-smart-attachment-input>
+        <titanium-smart-attachment-input
+          label="Maximize selection with aspect"
+          .options=${{
+            maximizeSelection: true,
+            selectionAspectRatio: 16 / 9
+          } as CropperOptions}
+        ></titanium-smart-attachment-input>
       </div>
     `;
   }
