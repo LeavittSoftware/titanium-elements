@@ -100,15 +100,25 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
       this.cropperCanvas.style.aspectRatio = `${image.naturalWidth} / ${image.naturalHeight}`;
 
       const rect = this.cropperCanvas.getBoundingClientRect();
-      this.cropperSelection.width = rect.width / 2;
-      this.cropperSelection.height = rect.height / 2;
-      this.cropperImage.$center('cover');
-      await this.updateComplete;
-      this.cropperSelection.$center();
-      if (this.options.maximizeSelection) {
-        this.cropperSelection.initialCoverage = 1;
-        this.cropperSelection.$reset();
+      const canvasRatio = rect.width / rect.height;
+      const selectionRatio = this.options?.selectionAspectRatio ?? canvasRatio;
+      
+      // Temporarily disable selection constraint to prevent issues while image and
+      // and selection are being setup. Prevent off-center and 1px default selections.
+      const constrain = this.options.constrainSelectionTo;
+      this.options.constrainSelectionTo = null;
+      
+      if (this.options?.maximizeSelection) {
+        this.cropperSelection.width = canvasRatio > selectionRatio ? rect.height * selectionRatio : rect.width;
+        this.cropperSelection.height = canvasRatio < selectionRatio ? rect.width / selectionRatio : rect.height;
+
+      } else {
+        this.cropperSelection.width = rect.width / 2;
+        this.cropperSelection.height = rect.height / 2;
       }
+      this.cropperImage.$center('cover');
+      this.cropperSelection.$center();
+      this.options.constrainSelectionTo = constrain;
       this.#isReady = true;
     });
 
