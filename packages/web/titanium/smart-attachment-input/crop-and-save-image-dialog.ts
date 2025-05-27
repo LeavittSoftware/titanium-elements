@@ -102,16 +102,15 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
       const rect = this.cropperCanvas.getBoundingClientRect();
       const canvasRatio = rect.width / rect.height;
       const selectionRatio = this.options?.selectionAspectRatio ?? canvasRatio;
-      
+
       // Temporarily disable selection constraint to prevent issues while image and
       // and selection are being setup. Prevent off-center and 1px default selections.
       const constrain = this.options.constrainSelectionTo;
       this.options.constrainSelectionTo = null;
-      
+
       if (this.options?.maximizeSelection) {
         this.cropperSelection.width = canvasRatio > selectionRatio ? rect.height * selectionRatio : rect.width;
         this.cropperSelection.height = canvasRatio < selectionRatio ? rect.width / selectionRatio : rect.height;
-
       } else {
         this.cropperSelection.width = rect.width / 2;
         this.cropperSelection.height = rect.height / 2;
@@ -236,7 +235,14 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
     }
 
     const cropperCanvasRect = this.cropperCanvas.getBoundingClientRect();
-    const selection = event.detail as SelectionData;
+    // event likes to report width and height at 1px higher than they actually are
+    // which causes movement to be blocked when select is at max width or height.
+    const selection = {
+      x: event.detail.x,
+      y: event.detail.y,
+      width: event.detail.width - 1,
+      height: event.detail.height - 1,
+    } as SelectionData;
 
     switch (this.options.constrainSelectionTo) {
       case 'canvas': {
