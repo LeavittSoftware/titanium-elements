@@ -7,7 +7,7 @@ import 'cropperjs';
 import { dialogZIndexHack } from '../../titanium/hacks/dialog-zindex-hack';
 import { css, html, LitElement } from 'lit';
 import { property, customElement, query, state } from 'lit/decorators.js';
-import { CropperCanvas, CropperImage, CropperSelection } from 'cropperjs';
+import { CropperCanvas, CropperImage, CropperSelection, CropperShade } from 'cropperjs';
 import { cropperCSS } from './cropper-styles';
 import { h1, p } from '../../titanium/styles/styles';
 import { LoadWhile } from '../../titanium/helpers/load-while';
@@ -23,6 +23,15 @@ export declare type CropperOptions = {
   canvasHideBackground?: boolean;
   selectionHideGrid?: boolean;
   selectionAspectRatio?: number | null | undefined;
+  constrainSelectionTo?: 'image' | 'canvas' | null;
+  maximizeSelection?: boolean;
+};
+
+export declare type SelectionData = {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
 };
 
 /**
@@ -38,6 +47,7 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
   @query('cropper-canvas') accessor cropperCanvas: CropperCanvas;
   @query('cropper-selection') accessor cropperSelection: CropperSelection;
   @query('cropper-image') accessor cropperImage: CropperImage;
+  @query('cropper-shade') accessor cropperShade: CropperShade;
 
   /**
    *  Forces cropper to output PNG's
@@ -90,12 +100,28 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
       this.cropperCanvas.style.aspectRatio = `${image.naturalWidth} / ${image.naturalHeight}`;
 
       const rect = this.cropperCanvas.getBoundingClientRect();
-      this.cropperSelection.width = rect.width / 2;
-      this.cropperSelection.height = rect.height / 2;
+      const canvasRatio = rect.width / rect.height;
+      const selectionRatio = this.options?.selectionAspectRatio ?? canvasRatio;
+
+      // Temporarily disable selection constraint to prevent issues while image and
+      // and selection are being setup. Prevent off-center and 1px default selections.
+      if (!this.options) {
+        this.options = {};
+      }
+      const constrain = this.options.constrainSelectionTo;
+      this.options.constrainSelectionTo = null;
+
+      if (this.options?.maximizeSelection) {
+        this.cropperSelection.width = canvasRatio > selectionRatio ? rect.height * selectionRatio : rect.width;
+        this.cropperSelection.height = canvasRatio < selectionRatio ? rect.width / selectionRatio : rect.height;
+      } else {
+        this.cropperSelection.width = rect.width / 2;
+        this.cropperSelection.height = rect.height / 2;
+      }
       this.cropperImage.$center('cover');
-      this.#isReady = true;
-      await this.updateComplete;
       this.cropperSelection.$center();
+      this.options.constrainSelectionTo = constrain;
+      this.#isReady = true;
     });
 
     return await new Promise<'cropped' | 'cancel'>((resolve) => {
@@ -155,6 +181,115 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
     image.src = dataUrl;
 
     return await imagePromise;
+  }
+
+  // adapted from https://fengyuanchen.github.io/cropperjs/v2/api/cropper-selection.html#limit-boundaries
+  #inSelection(selection: SelectionData, maxSelection: SelectionData) {
+    return (
+      selection.x >= maxSelection.x &&
+      selection.y >= maxSelection.y &&
+      selection.x + selection.width <= maxSelection.x + maxSelection.width &&
+      selection.y + selection.height <= maxSelection.y + maxSelection.height
+    );
+  }
+  #onCropperImageTransform(event: CustomEvent) {
+    if (!this.cropperCanvas || this.options?.constrainSelectionTo !== 'image') {
+      return;
+    }
+
+    const cropperImage = this.cropperImage as CropperImage;
+    const cropperSelection = this.cropperSelection as SelectionData;
+    const cropperCanvasRect = this.cropperCanvas.getBoundingClientRect();
+
+    // 1. Clone the cropper image.
+    const cropperImageClone = cropperImage.cloneNode() as CropperImage;
+
+    // 2. Apply the new matrix to the cropper image clone.
+    cropperImageClone.style.transform = `matrix(${event.detail.matrix.join(', ')})`;
+
+    // 3. Make the cropper image clone invisible.
+    cropperImageClone.style.opacity = '0';
+
+    // 4. Append the cropper image clone to the cropper canvas.
+    this.cropperCanvas.appendChild(cropperImageClone);
+
+    // 5. Compute the boundaries of the cropper image clone.
+    const cropperImageRect = cropperImageClone.getBoundingClientRect();
+
+    // 6. Remove the cropper image clone.
+    this.cropperCanvas.removeChild(cropperImageClone);
+
+    const selection = cropperSelection as SelectionData;
+    const maxSelection: SelectionData = {
+      x: cropperImageRect.left - cropperCanvasRect.left,
+      y: cropperImageRect.top - cropperCanvasRect.top,
+      width: cropperImageRect.width,
+      height: cropperImageRect.height,
+    };
+
+    if (!this.#inSelection(selection, maxSelection)) {
+      event.preventDefault();
+    }
+  }
+
+  #onCropperSelectionChange(event: CustomEvent) {
+    if (!this.cropperCanvas || !this.options?.constrainSelectionTo) {
+      return;
+    }
+
+    const cropperCanvasRect = this.cropperCanvas.getBoundingClientRect();
+    // event likes to report width and height at 1px higher than they actually are
+    // which causes movement to be blocked when select is at max width or height.
+    const selection = {
+      x: event.detail.x,
+      y: event.detail.y,
+      width: event.detail.width - 1,
+      height: event.detail.height - 1,
+    } as SelectionData;
+
+    switch (this.options?.constrainSelectionTo) {
+      case 'canvas': {
+        const maxSelection: SelectionData = {
+          x: 0,
+          y: 0,
+          width: cropperCanvasRect.width,
+          height: cropperCanvasRect.height,
+        };
+
+        if (!this.#inSelection(selection, maxSelection)) {
+          event.preventDefault();
+          this.#mitigateShadeJitter();
+        }
+        break;
+      }
+
+      case 'image': {
+        if (!this.#isReady) {
+          return;
+        }
+
+        const cropperImage = this.cropperImage as CropperImage;
+        const cropperImageRect = cropperImage.getBoundingClientRect();
+        const maxSelection: SelectionData = {
+          x: cropperImageRect.left - cropperCanvasRect.left,
+          y: cropperImageRect.top - cropperCanvasRect.top,
+          width: cropperImageRect.width,
+          height: cropperImageRect.height,
+        };
+
+        if (!this.#inSelection(selection, maxSelection)) {
+          event.preventDefault();
+          this.#mitigateShadeJitter();
+        }
+        break;
+      }
+
+      default:
+    }
+  }
+
+  #mitigateShadeJitter() {
+    setTimeout(() => this.cropperShade.$change(this.cropperSelection.x, this.cropperSelection.y, this.cropperSelection.width, this.cropperSelection.height), 0);
   }
 
   static styles = [
@@ -237,10 +372,24 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
           </loading-animation>
           <cropper-container ?hidden=${this.isLoading}>
             <cropper-canvas ?background=${!this.options?.canvasHideBackground}>
-              <cropper-image initial-center-size="cover" .src=${this.src} alt="Picture" rotatable scalable skewable translatable></cropper-image>
+              <cropper-image
+                initial-center-size="cover"
+                .src=${this.src}
+                alt="Picture"
+                rotatable
+                scalable
+                skewable
+                translatable
+                @transform=${this.#onCropperImageTransform}
+              ></cropper-image>
               <cropper-shade hidden></cropper-shade>
               <cropper-handle action="select" plain></cropper-handle>
-              <cropper-selection movable resizable aspect-ratio=${this.options?.shape === 'circle' ? 1 : ifDefined(this.options?.selectionAspectRatio)}>
+              <cropper-selection
+                movable
+                resizable
+                aspect-ratio=${this.options?.shape === 'circle' ? 1 : ifDefined(this.options?.selectionAspectRatio)}
+                @change=${this.#onCropperSelectionChange}
+              >
                 <cropper-grid role="grid" covered ?hidden=${this.options?.selectionHideGrid}></cropper-grid>
                 <cropper-crosshair centered></cropper-crosshair>
                 <cropper-handle theme-color="rgba(255, 255, 255, 0.35)" action="move"></cropper-handle>
