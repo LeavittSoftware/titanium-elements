@@ -32,7 +32,10 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
 
   @property({ type: String }) accessor pathToSelectedText: string = 'primaryDisplayText';
 
+  // Deprecated
   @property({ type: Array }) accessor countries: ['ca'] | ['us'] | ['us', 'ca'] = ['us'];
+
+  @property({ type: Boolean, attribute: 'allow-international' }) accessor allowInternational: boolean = false;
 
   @property({ reflect: true, type: String }) accessor autocomplete: string = 'off';
 
@@ -73,12 +76,15 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
 
   async #getSuggestions(searchTerm: string) {
     return new Promise<AddressInputAddress[] | null>((res) => {
+      const autoCompletionRequest: google.maps.places.AutocompletionRequest = {
+        input: searchTerm,
+        types: ['address'],
+      };
+      if (!this.allowInternational) {
+        autoCompletionRequest.componentRestrictions = { country: ['us'] };
+      }
       this.#autoCompleteService.getPlacePredictions(
-        {
-          input: searchTerm,
-          types: ['address'],
-          componentRestrictions: { country: this.countries },
-        },
+        autoCompletionRequest,
         (predictions: google.maps.places.AutocompletePrediction[] | null, status: google.maps.places.PlacesServiceStatus) => {
           if (status != google.maps.places.PlacesServiceStatus.OK || !predictions) {
             console.warn(status);

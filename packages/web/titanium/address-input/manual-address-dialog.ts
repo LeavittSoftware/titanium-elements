@@ -24,7 +24,9 @@ export class ManualAddressDialog extends LitElement {
   @property({ type: String }) accessor label: string = '';
   @property({ type: Boolean, attribute: 'show-county' }) accessor showCounty: boolean;
   @property({ type: Boolean, attribute: 'show-street2' }) accessor showStreet2: boolean;
-  @property({ type: Array }) accessor countries: string[];
+
+  @property({ type: Array }) accessor countries: string[]; // Deprecated
+  @property({ type: Boolean, attribute: 'allow-international' }) accessor allowInternational: boolean = false;
 
   @state() protected accessor street: string = '';
   @state() protected accessor street2: string = '';
@@ -147,49 +149,50 @@ export class ManualAddressDialog extends LitElement {
                 @change=${(e: DOMEvent<MdOutlinedTextField>) => (this.county = e.target.value)}
                 ><md-icon slot="leading-icon">explore</md-icon></md-outlined-text-field
               >`}
-
-          <md-outlined-select
-            @opening=${() => preventDialogOverflow(this.dialog)}
-            @closing=${() => allowDialogOverflow(this.dialog)}
-            @blur=${(e: DOMEvent<MdOutlinedTextField>) => reportValidityIfError(e.target)}
-            label="State"
-            autocomplete="address-level1"
-            required
-            .value=${this.state || ''}
-            @input=${(e: DOMEvent<MdOutlinedSelect>) => alert(e.target.value)}
-            @change=${(e: DOMEvent<MdOutlinedSelect>) => {
-              e.stopPropagation();
-              this.state = e.target.value;
-              if (usStates.some((o) => o.abbreviation.toLowerCase() === this.state.toLowerCase())) {
-                this.country = 'US';
-              }
-              if (caStates.some((o) => o.abbreviation.toLowerCase() === this.state.toLowerCase())) {
-                this.country = 'CA';
-              }
-            }}
-          >
-            <md-icon slot="leading-icon">location_on</md-icon>
-
-            ${this.countries.some((c) => c.toLowerCase() === 'us')
-              ? usStates.map(
-                  (s) =>
-                    html`<md-select-option value=${s.abbreviation}>
-                      <div slot="headline">${s.name}</div>
-                      <div slot="supporting-text">United States</div>
-                    </md-select-option>`
-                )
-              : nothing}
-            ${this.countries.some((c) => c.toLowerCase() === 'ca')
-              ? caStates.map(
-                  (s) =>
-                    html`<md-select-option value=${s.abbreviation}>
-                      <div slot="headline">${s.name}</div>
-                      <div slot="supporting-text">Canada</div>
-                    </md-select-option>`
-                )
-              : nothing}
-          </md-outlined-select>
-
+          ${this.allowInternational
+            ? html`
+                <md-outlined-text-field
+                  label="State/Province"
+                  autocomplete="address-level1"
+                  required
+                  .value=${this.state || ''}
+                  @blur=${(e: DOMEvent<MdOutlinedTextField>) => reportValidityIfError(e.target)}
+                  @change=${(e: DOMEvent<MdOutlinedTextField>) => (this.state = e.target.value)}
+                >
+                  <md-icon slot="leading-icon">location_on</md-icon>
+                </md-outlined-text-field>
+              `
+            : html`
+                <md-outlined-select
+                  @opening=${() => preventDialogOverflow(this.dialog)}
+                  @closing=${() => allowDialogOverflow(this.dialog)}
+                  @blur=${(e: DOMEvent<MdOutlinedTextField>) => reportValidityIfError(e.target)}
+                  label="State"
+                  autocomplete="address-level1"
+                  required
+                  .value=${this.state || ''}
+                  @input=${(e: DOMEvent<MdOutlinedSelect>) => alert(e.target.value)}
+                  @change=${(e: DOMEvent<MdOutlinedSelect>) => {
+                    e.stopPropagation();
+                    this.state = e.target.value;
+                    if (usStates.some((o) => o.abbreviation.toLowerCase() === this.state.toLowerCase())) {
+                      this.country = 'US';
+                    }
+                    // if (caStates.some((o) => o.abbreviation.toLowerCase() === this.state.toLowerCase())) {
+                    //   this.country = 'CA';
+                    // }
+                  }}
+                >
+                  <md-icon slot="leading-icon">location_on</md-icon>
+                  ${usStates.map(
+                    (s) =>
+                      html`<md-select-option value=${s.abbreviation}>
+                        <div slot="headline">${s.name}</div>
+                        <div slot="supporting-text">United States</div>
+                      </md-select-option>`
+                  )}
+                </md-outlined-select>
+              `}
           ${this.countries.length > 1
             ? html`<md-outlined-select
                 @opening=${() => preventDialogOverflow(this.dialog)}
