@@ -105,6 +105,9 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
 
       // Temporarily disable selection constraint to prevent issues while image and
       // and selection are being setup. Prevent off-center and 1px default selections.
+      if (!this.options) {
+        this.options = {};
+      }
       const constrain = this.options.constrainSelectionTo;
       this.options.constrainSelectionTo = null;
 
@@ -244,7 +247,7 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
       height: event.detail.height - 1,
     } as SelectionData;
 
-    switch (this.options.constrainSelectionTo) {
+    switch (this.options?.constrainSelectionTo) {
       case 'canvas': {
         const maxSelection: SelectionData = {
           x: 0,
