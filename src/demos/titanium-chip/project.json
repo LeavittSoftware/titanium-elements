@@ -1,0 +1,10 @@
+{
+  "name": "titanium-chip",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "section": "Basics",
+  "files": {
+    "titanium-chip-playground.ts": {},
+    "index.html": {}
+  },
+  "order": 0
+}
