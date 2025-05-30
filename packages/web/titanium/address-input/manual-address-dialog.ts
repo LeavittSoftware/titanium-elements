@@ -156,7 +156,6 @@ export class ManualAddressDialog extends LitElement {
             autocomplete="address-level1"
             required
             .value=${this.state || ''}
-            @input=${(e: DOMEvent<MdOutlinedSelect>) => alert(e.target.value)}
             @change=${(e: DOMEvent<MdOutlinedSelect>) => {
               e.stopPropagation();
               this.state = e.target.value;
