@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.26.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.26.0...@leavittsoftware/web@4.26.1) (2025-05-30)
+
+### Bug Fixes
+
+- **titanium-address-input:** remove alert ([#642](https://github.com/LeavittSoftware/titanium-elements/issues/642)) ([b780ae6](https://github.com/LeavittSoftware/titanium-elements/commit/b780ae621df62024f4a43a14ff260b12aef01c88))
+
 # [4.26.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.25.1...@leavittsoftware/web@4.26.0) (2025-05-28)
 
 ### Features
