@@ -59,10 +59,10 @@ export class TitaniumAddressInput extends GoogleAddressInput {
 
   override renderTrailingSlot() {
     return html`<manual-address-dialog
+      .allowInternational=${this.allowInternational}
       .showCounty=${this.showCounty}
       .showStreet2=${this.showStreet2}
       .label=${this.label}
-      .countries=${this.countries}
     ></manual-address-dialog>`;
   }
 

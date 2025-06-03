@@ -14,7 +14,7 @@ import { DOMEvent } from '../types/dom-event';
 import { allowDialogOverflow, preventDialogOverflow } from '../hacks/dialog-overflow-hacks';
 import { dialogZIndexHack } from '../hacks/dialog-zindex-hack';
 import { reportValidityIfError } from '../hacks/report-validity-if-error';
-import { caStates, usStates } from './utils/states-abbr-to-titlecase';
+import { usStates } from './utils/states-abbr-to-titlecase';
 import { countries } from './utils/country-abbr-to-titlecase';
 
 @customElement('manual-address-dialog')
@@ -149,7 +149,7 @@ export class ManualAddressDialog extends LitElement {
                 @change=${(e: DOMEvent<MdOutlinedTextField>) => (this.county = e.target.value)}
                 ><md-icon slot="leading-icon">explore</md-icon></md-outlined-text-field
               >`}
-          ${this.allowInternational
+          ${this.allowInternational && this.country !== 'US'
             ? html`
                 <md-outlined-text-field
                   label="State/Province"
@@ -178,9 +178,6 @@ export class ManualAddressDialog extends LitElement {
                     if (usStates.some((o) => o.abbreviation.toLowerCase() === this.state.toLowerCase())) {
                       this.country = 'US';
                     }
-                    // if (caStates.some((o) => o.abbreviation.toLowerCase() === this.state.toLowerCase())) {
-                    //   this.country = 'CA';
-                    // }
                   }}
                 >
                   <md-icon slot="leading-icon">location_on</md-icon>
@@ -193,7 +190,7 @@ export class ManualAddressDialog extends LitElement {
                   )}
                 </md-outlined-select>
               `}
-          ${this.countries.length > 1
+          ${this.allowInternational
             ? html`<md-outlined-select
                 @opening=${() => preventDialogOverflow(this.dialog)}
                 @closing=${() => allowDialogOverflow(this.dialog)}
@@ -205,13 +202,15 @@ export class ManualAddressDialog extends LitElement {
                 @change=${(e: DOMEvent<MdOutlinedSelect>) => {
                   e.stopPropagation();
                   this.country = e.target.value;
+                  if (this.country === 'US') {
+                    // Reset state if country is set to US to enforce a valid state selection
+                    this.state = '';
+                  }
                 }}
               >
                 <md-icon slot="leading-icon">map</md-icon>
 
-                ${countries
-                  .filter((o) => this.countries.some((c) => c.toLowerCase() === o.abbreviation.toLowerCase()))
-                  .map((s) => html`<md-select-option value=${s.abbreviation}> <div slot="headline">${s.name}</div></md-select-option>`)}
+                ${countries.map((s) => html`<md-select-option value=${s.abbreviation}> <div slot="headline">${s.name}</div></md-select-option>`)}
               </md-outlined-select> `
             : nothing}
 
