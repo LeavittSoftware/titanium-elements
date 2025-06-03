@@ -153,7 +153,7 @@ export class TitaniumAddressInputPlayground extends LitElement {
         </titanium-address-input>
 
         <section actions>
-          <md-outlined-button @click=${() => this.allowInternational = !this.allowInternational}>Allow international</md-outlined-button>
+          <md-outlined-button @click=${() => (this.allowInternational = !this.allowInternational)}>Allow international</md-outlined-button>
           <md-outlined-button @click=${() => this.titaniumAddressInputDemoA.reportValidity()}>reportValidity()</md-outlined-button>
           <md-outlined-button @click=${() => (this.titaniumAddressInputDemoA.required = !this.titaniumAddressInputDemoA.required)}
             >Toggle required</md-outlined-button

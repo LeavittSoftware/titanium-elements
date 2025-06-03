@@ -32,9 +32,6 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
 
   @property({ type: String }) accessor pathToSelectedText: string = 'primaryDisplayText';
 
-  // Deprecated
-  @property({ type: Array }) accessor countries: ['ca'] | ['us'] | ['us', 'ca'] = ['us'];
-
   @property({ type: Boolean, attribute: 'allow-international' }) accessor allowInternational: boolean = false;
 
   @property({ reflect: true, type: String }) accessor autocomplete: string = 'off';

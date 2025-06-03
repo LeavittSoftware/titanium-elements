@@ -238,5 +238,5 @@ export const countries: Array<{ abbreviation: string; name: string }> = [
   { abbreviation: 'EH', name: 'Western Sahara' },
   { abbreviation: 'YE', name: 'Yemen' },
   { abbreviation: 'ZM', name: 'Zambia' },
-  { abbreviation: 'ZW', name: 'Zimbabwe' }
+  { abbreviation: 'ZW', name: 'Zimbabwe' },
 ];

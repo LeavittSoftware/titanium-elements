@@ -25,7 +25,6 @@ export class ManualAddressDialog extends LitElement {
   @property({ type: Boolean, attribute: 'show-county' }) accessor showCounty: boolean;
   @property({ type: Boolean, attribute: 'show-street2' }) accessor showStreet2: boolean;
 
-  @property({ type: Array }) accessor countries: string[]; // Deprecated
   @property({ type: Boolean, attribute: 'allow-international' }) accessor allowInternational: boolean = false;
 
   @state() protected accessor street: string = '';
