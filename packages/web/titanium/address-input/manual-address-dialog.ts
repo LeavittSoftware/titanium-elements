@@ -227,7 +227,7 @@ export class ManualAddressDialog extends LitElement {
                   )}
                   ${caStates.map(
                     (s) =>
-                      html`<md-select-option ?hidden=${this.country === 'US'} ?selected=${s.abbreviation === this.state} value=${s.abbreviation}>
+                      html`<md-select-option ?hidden=${this.country === 'US' || !this.allowInternational} ?selected=${s.abbreviation === this.state} value=${s.abbreviation}>
                         <div slot="headline">${s.name}</div>
                         <div slot="supporting-text">Canada</div>
                       </md-select-option>`
