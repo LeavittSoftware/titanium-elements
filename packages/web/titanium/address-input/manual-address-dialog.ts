@@ -14,7 +14,7 @@ import { DOMEvent } from '../types/dom-event';
 import { allowDialogOverflow, preventDialogOverflow } from '../hacks/dialog-overflow-hacks';
 import { dialogZIndexHack } from '../hacks/dialog-zindex-hack';
 import { reportValidityIfError } from '../hacks/report-validity-if-error';
-import { usStates } from './utils/states-abbr-to-titlecase';
+import { caStates, usStates } from './utils/states-abbr-to-titlecase';
 import { countries } from './utils/country-abbr-to-titlecase';
 
 @customElement('manual-address-dialog')
@@ -92,6 +92,10 @@ export class ManualAddressDialog extends LitElement {
         flex-direction: column;
         gap: 24px;
       }
+
+      [hidden] {
+        display: none !important;
+      }
     `,
   ];
 
@@ -149,7 +153,41 @@ export class ManualAddressDialog extends LitElement {
                 @change=${(e: DOMEvent<MdOutlinedTextField>) => (this.county = e.target.value)}
                 ><md-icon slot="leading-icon">explore</md-icon></md-outlined-text-field
               >`}
-          ${this.allowInternational && this.country !== 'US'
+          ${this.allowInternational
+            ? html`<md-outlined-select
+                @opening=${() => preventDialogOverflow(this.dialog)}
+                @closing=${() => allowDialogOverflow(this.dialog)}
+                @blur=${(e: DOMEvent<MdOutlinedTextField>) => reportValidityIfError(e.target)}
+                label="Country"
+                autocomplete="country"
+                required
+                .value=${this.country || ''}
+                @change=${(e: DOMEvent<MdOutlinedSelect>) => {
+                  e.stopPropagation();
+                  this.country = e.target.value;
+
+                  if (this.country === 'US') {
+                    // If manually typed state is a valid US state abbreviation or name, preselect it
+                    const foundState = usStates?.find(
+                      (s) => s.abbreviation.toLowerCase() === this.state.toLowerCase() || s.name?.toLowerCase() === this.state.toLowerCase()
+                    );
+                    this.state = foundState ? foundState?.abbreviation : '';
+                  } else if (this.country === 'CA') {
+                    // If manually typed state is a valid CA state abbreviation or name, preselect it
+                    const foundState = caStates?.find(
+                      (s) => s.abbreviation.toLowerCase() === this.state.toLowerCase() || s.name?.toLowerCase() === this.state.toLowerCase()
+                    );
+                    this.state = foundState ? foundState?.abbreviation : '';
+                  } else {
+                    this.state = '';
+                  }
+                }}
+              >
+                <md-icon slot="leading-icon">map</md-icon>
+                ${countries.map((s) => html`<md-select-option value=${s.abbreviation}> <div slot="headline">${s.name}</div></md-select-option>`)}
+              </md-outlined-select> `
+            : nothing}
+          ${this.allowInternational && this.country !== 'US' && this.country !== 'CA'
             ? html`
                 <md-outlined-text-field
                   label="State/Province"
@@ -171,7 +209,6 @@ export class ManualAddressDialog extends LitElement {
                   autocomplete="address-level1"
                   required
                   .value=${this.state || ''}
-                  @input=${(e: DOMEvent<MdOutlinedSelect>) => alert(e.target.value)}
                   @change=${(e: DOMEvent<MdOutlinedSelect>) => {
                     e.stopPropagation();
                     this.state = e.target.value;
@@ -181,38 +218,23 @@ export class ManualAddressDialog extends LitElement {
                   }}
                 >
                   <md-icon slot="leading-icon">location_on</md-icon>
+
                   ${usStates.map(
                     (s) =>
-                      html`<md-select-option value=${s.abbreviation}>
+                      html`<md-select-option ?hidden=${this.country === 'CA'} ?selected=${s.abbreviation === this.state} value=${s.abbreviation}>
                         <div slot="headline">${s.name}</div>
                         <div slot="supporting-text">United States</div>
                       </md-select-option>`
                   )}
+                  ${caStates.map(
+                    (s) =>
+                      html`<md-select-option ?hidden=${this.country === 'US'} ?selected=${s.abbreviation === this.state} value=${s.abbreviation}>
+                        <div slot="headline">${s.name}</div>
+                        <div slot="supporting-text">Canada</div>
+                      </md-select-option>`
+                  )}
                 </md-outlined-select>
               `}
-          ${this.allowInternational
-            ? html`<md-outlined-select
-                @opening=${() => preventDialogOverflow(this.dialog)}
-                @closing=${() => allowDialogOverflow(this.dialog)}
-                @blur=${(e: DOMEvent<MdOutlinedTextField>) => reportValidityIfError(e.target)}
-                label="Country"
-                autocomplete="country"
-                required
-                .value=${this.country || ''}
-                @change=${(e: DOMEvent<MdOutlinedSelect>) => {
-                  e.stopPropagation();
-                  this.country = e.target.value;
-                  if (this.country === 'US') {
-                    // Reset state if country is set to US to enforce a valid state selection
-                    this.state = '';
-                  }
-                }}
-              >
-                <md-icon slot="leading-icon">map</md-icon>
-
-                ${countries.map((s) => html`<md-select-option value=${s.abbreviation}> <div slot="headline">${s.name}</div></md-select-option>`)}
-              </md-outlined-select> `
-            : nothing}
 
           <md-outlined-text-field
             label="Zip"
