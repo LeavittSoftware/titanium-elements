@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.26.1...@leavittsoftware/web@5.0.0) (2025-06-04)
+
+### Features
+
+- **address-input:** support international addresses ([254098a](https://github.com/LeavittSoftware/titanium-elements/commit/254098a0d8079a4a01578dc171fb755a7f9c3f10))
+
+### BREAKING CHANGES
+
+- **address-input:** drops "countries" property and introduces allowInternational
+
 ## [4.26.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.26.0...@leavittsoftware/web@4.26.1) (2025-05-30)
 
 ### Bug Fixes
