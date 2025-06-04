@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.0.0...@leavittsoftware/web@5.1.0) (2025-06-04)
+
+### Features
+
+- **helpers:** adds format-address helper ([3ecff48](https://github.com/LeavittSoftware/titanium-elements/commit/3ecff48b88b33158f897da632976439880055e9d))
+- **helpers:** adds format-address helper ([16f5bfb](https://github.com/LeavittSoftware/titanium-elements/commit/16f5bfbde0a77d1a87b5dd73b541846ccd7f0d96))
+
 # [5.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@4.26.1...@leavittsoftware/web@5.0.0) (2025-06-04)
 
 ### Features
