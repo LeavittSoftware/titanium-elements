@@ -156,9 +156,11 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
       return false;
     }
 
-    if (!validateStreet(this.selected?.street ?? '')) {
-      this.errorText = 'Please correct the invalid street';
-      return false;
+    if (!this.allowInternational || this.selected?.country === 'US') {
+      if (!validateStreet(this.selected?.street ?? '')) {
+        this.errorText = 'Please correct the invalid street';
+        return false;
+      }
     }
 
     if (!this.selected?.city) {
@@ -171,9 +173,11 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
       return false;
     }
 
-    if (!this.selected?.zip) {
-      this.errorText = 'Please correct the missing zip code';
-      return false;
+    if (!this.allowInternational || this.selected?.country === 'US') {
+      if (!this.selected?.zip) {
+        this.errorText = 'Please correct the missing zip code';
+        return false;
+      }
     }
     return true;
   }
