@@ -115,7 +115,7 @@ export class ManualAddressDialog extends LitElement {
           <md-outlined-text-field
             label="Street"
             autocomplete="address-line1"
-            required
+            ?required=${!this.allowInternational || this.country === 'US'} 
             .value=${this.street || ''}
             @blur=${(e: DOMEvent<MdOutlinedTextField>) => reportValidityIfError(e.target)}
             @change=${(e: DOMEvent<MdOutlinedTextField>) => (this.street = e.target.value)}
@@ -228,7 +228,7 @@ export class ManualAddressDialog extends LitElement {
                   ${caStates.map(
                     (s) =>
                       html`<md-select-option
-                        ?hidden=${this.country === 'US' || !this.allowInternational}
+                        ?hidden=${!this.allowInternational || this.country === 'US'}
                         ?selected=${s.abbreviation === this.state}
                         value=${s.abbreviation}
                       >
@@ -242,7 +242,7 @@ export class ManualAddressDialog extends LitElement {
           <md-outlined-text-field
             label="Zip"
             autocomplete="postal-code"
-            required
+            ?required=${!this.allowInternational || this.country === 'US'}
             .value=${this.zip || ''}
             @blur=${(e: DOMEvent<MdOutlinedTextField>) => reportValidityIfError(e.target)}
             @change=${(e: DOMEvent<MdOutlinedTextField>) => (this.zip = e.target.value)}
