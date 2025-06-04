@@ -34,6 +34,7 @@ export function formatAddress(
   joiner: TemplateResult | string = html`<br />`
 ) {
   const parts = formatAddressParts(address, options);
+
   const partsArray = Object.values(parts).filter((part) => part !== undefined && part !== '');
 
   if (partsArray.length === 0) {
