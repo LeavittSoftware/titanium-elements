@@ -14,8 +14,8 @@ import { DOMEvent } from '../types/dom-event';
 import { allowDialogOverflow, preventDialogOverflow } from '../hacks/dialog-overflow-hacks';
 import { dialogZIndexHack } from '../hacks/dialog-zindex-hack';
 import { reportValidityIfError } from '../hacks/report-validity-if-error';
-import { caStates, usStates } from './utils/states-abbr-to-titlecase';
-import { countries } from './utils/country-abbr-to-titlecase';
+import { caStates, usStates } from '../helpers/address/states-abbr-to-titlecase';
+import { countries } from '../helpers/address/country-abbr-to-titlecase';
 
 @customElement('manual-address-dialog')
 export class ManualAddressDialog extends LitElement {
