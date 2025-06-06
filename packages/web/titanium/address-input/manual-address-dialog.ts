@@ -263,6 +263,7 @@ export class ManualAddressDialog extends LitElement {
                   state: this.state,
                   zip: this.zip,
                   county: this.county,
+                  country: this.country,
                 };
                 this.resolve(address);
               }
