@@ -82,8 +82,8 @@ export class ManualAddressDialog extends LitElement {
   static styles = [
     css`
       md-dialog {
-        width: -webkit-fill-available;
-        max-width: min(0% + 550px, 100% - 48px);
+        max-width: 550px;
+        width: calc(100vw - 24px);
       }
 
       form {
