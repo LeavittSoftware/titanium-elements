@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.1.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.1.1...@leavittsoftware/web@5.1.2) (2025-06-06)
+
+### Bug Fixes
+
+- **address-input:** fix manual address input dialog width in Firefox ([1784cc3](https://github.com/LeavittSoftware/titanium-elements/commit/1784cc3a885b505276bd9a674d6aeb479c931abb))
+
 ## [5.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.1.0...@leavittsoftware/web@5.1.1) (2025-06-06)
 
 ### Bug Fixes
