@@ -1,0 +1,10 @@
+{
+  "name": "titanium-icon-picker",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "section": "Basics",
+  "files": {
+    "titanium-icon-picker-playground.ts": {},
+    "index.html": {}
+  },
+  "order": 0
+}
