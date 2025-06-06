@@ -161,19 +161,17 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
         this.errorText = 'Please correct the invalid street';
         return false;
       }
-    }
 
-    if (!this.selected?.city) {
-      this.errorText = 'Please correct the missing city';
-      return false;
-    }
+      if (!this.selected?.city) {
+        this.errorText = 'Please correct the missing city';
+        return false;
+      }
 
-    if (!this.selected?.state) {
-      this.errorText = 'Please correct the missing state';
-      return false;
-    }
+      if (!this.selected?.state) {
+        this.errorText = 'Please correct the missing state';
+        return false;
+      }
 
-    if (!this.allowInternational || this.selected?.country === 'US') {
       if (!this.selected?.zip) {
         this.errorText = 'Please correct the missing zip code';
         return false;
