@@ -218,7 +218,7 @@ export const countries: Array<{ abbreviation: string; name: string }> = [
   { abbreviation: 'TO', name: 'Tonga' },
   { abbreviation: 'TT', name: 'Trinidad and Tobago' },
   { abbreviation: 'TN', name: 'Tunisia' },
-  { abbreviation: 'TR', name: 'Turkey' },
+  { abbreviation: 'TR', name: 'Türkiye' },
   { abbreviation: 'TM', name: 'Turkmenistan' },
   { abbreviation: 'TC', name: 'Turks and Caicos Islands' },
   { abbreviation: 'TV', name: 'Tuvalu' },

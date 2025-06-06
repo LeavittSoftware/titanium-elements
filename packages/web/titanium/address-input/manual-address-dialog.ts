@@ -122,7 +122,7 @@ export class ManualAddressDialog extends LitElement {
           >
             <md-icon slot="leading-icon">markunread_mailbox</md-icon>
           </md-outlined-text-field>
-          ${this.showStreet2
+          ${this.showStreet2 || this.country !== 'US'
             ? html` <md-outlined-text-field
                 @blur=${(e: DOMEvent<MdOutlinedTextField>) => reportValidityIfError(e.target)}
                 label="Street 2"
@@ -136,22 +136,22 @@ export class ManualAddressDialog extends LitElement {
           <md-outlined-text-field
             label="City"
             autocomplete="address-level2"
-            required
+            ?required=${!this.allowInternational || this.country === 'US'}
             .value=${this.city || ''}
             @blur=${(e: DOMEvent<MdOutlinedTextField>) => reportValidityIfError(e.target)}
             @change=${(e: DOMEvent<MdOutlinedTextField>) => (this.city = e.target.value)}
             ><md-icon slot="leading-icon">location_city</md-icon></md-outlined-text-field
           >
-          ${!this.showCounty
-            ? nothing
-            : html`<md-outlined-text-field
+          ${this.showCounty || this.country !== 'US'
+            ? html`<md-outlined-text-field
                 @blur=${(e: DOMEvent<MdOutlinedTextField>) => reportValidityIfError(e.target)}
                 label="County"
-                required
+                ?required=${!this.allowInternational || this.country === 'US'}
                 .value=${this.county || ''}
                 @change=${(e: DOMEvent<MdOutlinedTextField>) => (this.county = e.target.value)}
                 ><md-icon slot="leading-icon">explore</md-icon></md-outlined-text-field
-              >`}
+              >`
+            : nothing}
           ${this.allowInternational
             ? html`<md-outlined-select
                 @opening=${() => preventDialogOverflow(this.dialog)}
@@ -191,7 +191,6 @@ export class ManualAddressDialog extends LitElement {
                 <md-outlined-text-field
                   label="State/Province"
                   autocomplete="address-level1"
-                  required
                   .value=${this.state || ''}
                   @blur=${(e: DOMEvent<MdOutlinedTextField>) => reportValidityIfError(e.target)}
                   @change=${(e: DOMEvent<MdOutlinedTextField>) => (this.state = e.target.value)}
