@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.1.0...@leavittsoftware/web@5.1.1) (2025-06-06)
+
+### Bug Fixes
+
+- **titanium-address-input:** setting country ([#644](https://github.com/LeavittSoftware/titanium-elements/issues/644)) ([bcd2477](https://github.com/LeavittSoftware/titanium-elements/commit/bcd2477626427daedb9788a160dbda24cfe58f09))
+
 # [5.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.0.0...@leavittsoftware/web@5.1.0) (2025-06-04)
 
 ### Features
