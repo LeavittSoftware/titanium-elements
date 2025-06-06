@@ -3,7 +3,7 @@ import { html, TemplateResult } from 'lit';
 import { join } from 'lit/directives/join.js';
 import { getCountryName } from './get-country-name';
 
-export function formatAddressParts(address: Partial<IAddress> | Partial<Person>, options: formatAddressOptions = {}) {
+export function formatAddressParts(address: Partial<IAddress> | Partial<Person> | null | undefined, options: formatAddressOptions = {}) {
   if (!address) {
     return {};
   }
@@ -29,7 +29,7 @@ export function formatAddressParts(address: Partial<IAddress> | Partial<Person>,
 }
 
 export function formatAddress(
-  address: Partial<IAddress> | Partial<Person>,
+  address: Partial<IAddress> | Partial<Person> | null | undefined,
   options: formatAddressOptions = {},
   joiner: TemplateResult | string = html`<br />`
 ) {
