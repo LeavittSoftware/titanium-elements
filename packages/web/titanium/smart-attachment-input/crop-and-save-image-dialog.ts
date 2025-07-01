@@ -387,6 +387,7 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
               <cropper-selection
                 movable
                 resizable
+                precise
                 aspect-ratio=${this.options?.shape === 'circle' ? 1 : ifDefined(this.options?.selectionAspectRatio)}
                 @change=${this.#onCropperSelectionChange}
               >
