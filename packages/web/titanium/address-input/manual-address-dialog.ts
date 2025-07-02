@@ -122,7 +122,7 @@ export class ManualAddressDialog extends LitElement {
           >
             <md-icon slot="leading-icon">markunread_mailbox</md-icon>
           </md-outlined-text-field>
-          ${this.showStreet2 || this.country !== 'US'
+          ${this.showStreet2 || (this.country !== 'US' && this.country)
             ? html` <md-outlined-text-field
                 @blur=${(e: DOMEvent<MdOutlinedTextField>) => reportValidityIfError(e.target)}
                 label="Street 2"
@@ -142,7 +142,7 @@ export class ManualAddressDialog extends LitElement {
             @change=${(e: DOMEvent<MdOutlinedTextField>) => (this.city = e.target.value)}
             ><md-icon slot="leading-icon">location_city</md-icon></md-outlined-text-field
           >
-          ${this.showCounty || this.country !== 'US'
+          ${this.showCounty || (this.country !== 'US' && this.country)
             ? html`<md-outlined-text-field
                 @blur=${(e: DOMEvent<MdOutlinedTextField>) => reportValidityIfError(e.target)}
                 label="County"
