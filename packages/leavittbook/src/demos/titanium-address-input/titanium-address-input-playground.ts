@@ -169,11 +169,11 @@ export class TitaniumAddressInputPlayground extends LitElement {
           >
 
           <md-outlined-button @click=${() => (this.titaniumAddressInputDemoA.showCounty = !this.titaniumAddressInputDemoA.showCounty)}
-            >Toggle showCounty text</md-outlined-button
+            >Toggle show county</md-outlined-button
           >
 
-          <md-outlined-button @click=${() => (this.titaniumAddressInputDemoA.showStreet2 = !this.titaniumAddressInputDemoA.showCounty)}
-            >Toggle showStreet2 text</md-outlined-button
+          <md-outlined-button @click=${() => (this.titaniumAddressInputDemoA.showStreet2 = !this.titaniumAddressInputDemoA.showStreet2)}
+            >Toggle show street2</md-outlined-button
           >
 
           <md-outlined-button
