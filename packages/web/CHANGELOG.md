@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.1.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.1.3...@leavittsoftware/web@5.1.4) (2025-07-02)
+
+### Bug Fixes
+
+- **titanium-smart-attachment:** Add precise ([#648](https://github.com/LeavittSoftware/titanium-elements/issues/648)) ([f5002b7](https://github.com/LeavittSoftware/titanium-elements/commit/f5002b7564e2cb4f0c8fa1a72ea086458775351c))
+
 ## [5.1.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.1.2...@leavittsoftware/web@5.1.3) (2025-06-06)
 
 ### Bug Fixes
