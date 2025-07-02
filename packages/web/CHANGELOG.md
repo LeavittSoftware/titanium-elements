@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.1.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.1.4...@leavittsoftware/web@5.1.5) (2025-07-02)
+
+### Bug Fixes
+
+- **address-input:** fix conditional rendering for Street 2 and County fields based on country selection where null caused fields to be shown ([3a2e7d5](https://github.com/LeavittSoftware/titanium-elements/commit/3a2e7d563040e00295cc11c52f622b0a24295a54))
+
 ## [5.1.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.1.3...@leavittsoftware/web@5.1.4) (2025-07-02)
 
 ### Bug Fixes
