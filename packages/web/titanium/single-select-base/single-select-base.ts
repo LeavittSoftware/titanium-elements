@@ -72,13 +72,6 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
   @property({ reflect: true, type: Boolean }) accessor spellcheck = false;
 
   /**
-   * Describes what, if any, type of autocorrect functionality the input
-   * should provide.
-   *
-   */
-  @property({ reflect: true, type: String }) accessor autocorrect = '';
-
-  /**
    * Gets or sets whether or not the text field is in a visually invalid state.
    *
    * This error state overrides the error state controlled by
@@ -384,7 +377,6 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(Li
         .autocomplete=${this.autocomplete}
         .spellcheck=${this.spellcheck}
         .noAsterisk=${this.noAsterisk}
-        .autocorrect=${this.autocorrect}
         .value=${this.selected?.[this.pathToSelectedText] || this.searchTerm || ''}
         default-focus="0"
         @keydown=${(e: KeyboardEvent) => {

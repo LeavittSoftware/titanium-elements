@@ -32,8 +32,6 @@ export class TitaniumSearchInput extends ExtendableOutlinedTextField {
 
   @property({ reflect: true, type: Boolean }) accessor spellcheck: boolean = false;
 
-  @property({ reflect: true, type: String }) accessor autocorrect: string = 'off';
-
   async updated(changedProps: PropertyValues<this>) {
     if (changedProps.has('value')) {
       this.hasValue = !!this.value;

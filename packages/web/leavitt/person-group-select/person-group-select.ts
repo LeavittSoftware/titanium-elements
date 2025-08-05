@@ -43,8 +43,6 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
 
   @property({ reflect: true, type: Boolean }) accessor spellcheck: boolean = false;
 
-  @property({ reflect: true, type: String }) accessor autocorrect: string = 'off';
-
   /**
    *  Required
    */

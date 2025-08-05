@@ -38,8 +38,6 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
 
   @property({ reflect: true, type: Boolean }) accessor spellcheck: boolean = false;
 
-  @property({ reflect: true, type: String }) accessor autocorrect: string = 'off';
-
   #doSearchDebouncer = new Debouncer((searchTerm: string) => this.#doSearch(searchTerm));
   #abortController: AbortController = new AbortController();
   #placesService: google.maps.places.PlacesService;

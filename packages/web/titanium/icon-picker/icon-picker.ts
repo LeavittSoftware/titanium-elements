@@ -33,8 +33,6 @@ export class TitaniumIconPicker extends TitaniumSingleSelectBase<MaterialIconDat
 
   @property({ reflect: true, type: Boolean }) accessor spellcheck: boolean = false;
 
-  @property({ reflect: true, type: String }) accessor autocorrect: string = 'off';
-
   #iconDatabase: MaterialIconDatabaseEntry[] = [];
 
   async firstUpdated() {
