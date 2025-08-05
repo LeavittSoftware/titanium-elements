@@ -58,8 +58,6 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
 
   @property({ reflect: true, type: Boolean }) accessor spellcheck: boolean = false;
 
-  @property({ reflect: true, type: String }) accessor autocorrect: string = 'off';
-
   @property({ type: Object }) accessor renderMenuItemContentTemplate = (person: Partial<Person>) =>
     html`<md-menu-item .item=${person}>
       <profile-picture slot="start" .fileName=${person?.ProfilePictureCdnFileName ?? null} shape="circle" size="40"></profile-picture>

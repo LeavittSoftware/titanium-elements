@@ -189,13 +189,6 @@ export class ExtendableOutlinedTextField extends LitElement {
    */
   @property({ reflect: true, type: Boolean }) accessor spellcheck;
 
-  /**
-   * Describes what, if any, type of autocorrect functionality the input
-   * should provide.
-   *
-   */
-  @property({ reflect: true, type: String }) accessor autocorrect = '';
-
   checkValidity() {
     return this.input.checkValidity();
   }
@@ -257,7 +250,6 @@ export class ExtendableOutlinedTextField extends LitElement {
         .required=${this.required}
         .error=${this.error}
         .autocomplete=${this.autocomplete}
-        .autocorrect=${this.autocorrect}
         .spellcheck=${this.spellcheck}
         .errorText=${this.errorText}
         .hasLeadingIcon=${this.hasLeadingIcon}

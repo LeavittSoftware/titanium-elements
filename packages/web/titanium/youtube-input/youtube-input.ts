@@ -17,8 +17,6 @@ export class TitaniumYouTubeInput extends ExtendableOutlinedTextField {
 
   @property({ reflect: true, type: Boolean }) accessor spellcheck: boolean = false;
 
-  @property({ reflect: true, type: String }) accessor autocorrect: string = 'off';
-
   firstUpdated() {
     this.label = this.label || 'YouTube video key';
     this.pattern = '^.{11}$';
