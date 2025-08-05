@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.1.5...@leavittsoftware/web@5.2.0) (2025-08-05)
+
+### Features
+
+- **titanium-smart-attachment:** add support for force png ([#649](https://github.com/LeavittSoftware/titanium-elements/issues/649)) ([ba8fd14](https://github.com/LeavittSoftware/titanium-elements/commit/ba8fd147665c97183d24e273493084b336fae71a))
+
 ## [5.1.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.1.4...@leavittsoftware/web@5.1.5) (2025-07-02)
 
 ### Bug Fixes
