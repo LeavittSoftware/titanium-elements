@@ -110,6 +110,11 @@ export class TitaniumSmartAttachmentInput extends LitElement {
   @property({ type: Object }) accessor options: CropperOptions;
 
   /**
+   *  Forces cropper to output PNG's
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'force-png' }) accessor forcePNGOutput: boolean;
+
+  /**
    *  Image formats here are sent to the cropper
    */
   @property({ type: Array }) accessor croppableImageFormats: Array<string> = [
@@ -381,6 +386,7 @@ export class TitaniumSmartAttachmentInput extends LitElement {
         />
       </label>
       <crop-and-save-image-dialog
+        .forcePNGOutput=${this.forcePNGOutput}
         @change=${(e) => {
           e.stopPropagation();
         }}
