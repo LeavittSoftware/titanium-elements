@@ -351,6 +351,7 @@ export class TitaniumSmartAttachmentInput extends LitElement {
             html`<md-input-chip
               label=${middleEllipsis(o.file.name)}
               ?closeable=${!this.disabled}
+              ?remove-only=${!o.previewSrc || !o.downloadSrc}
               @remove=${async (e: Event) => {
                 e.preventDefault();
                 if (this.confirmDelete) {
