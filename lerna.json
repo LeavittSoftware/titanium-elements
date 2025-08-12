@@ -3,10 +3,10 @@
   "command": {
     "publish": {
       "conventionalCommits": true,
-      "ignoreChanges": [".prettierrc", "gulpfile.js", ".gitignore", "CODEOWNERS", "*.md", "tslint.json"],
+      "ignoreChanges": [".prettierrc", "gulpfile.js", ".gitignore", "CODEOWNERS", "*.md", "tslint.json", "package.json"],
       "message": "chore(release): publish"
     }
   },
-  "ignoreChanges": ["**/*.md", ".husky/**"],
+  "ignoreChanges": ["**/*.md", ".husky/**", "package.json"],
   "$schema": "node_modules/lerna/schemas/lerna-schema.json"
 }
