@@ -451,7 +451,7 @@ export class DataTableDemoFilterModal extends LitElement {
       <md-input-chip
         remove-only
         ?hidden=${!this.filterController.getValue('Appearance')}
-        label="${this.filterController.getValue('Appearance') ?? ''}"
+        label=${this.filterController.getValue('Appearance') ?? ''}
         @remove=${(e: Event) => {
           e.preventDefault();
           this.filterController.setValue('Appearance', null);

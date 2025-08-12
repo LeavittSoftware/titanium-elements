@@ -1,12 +1,11 @@
-import { FlatCompat } from '@eslint/eslintrc';
-import js from '@eslint/js';
 import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
-import lit from 'eslint-plugin-lit';
-import { configs } from 'eslint-plugin-wc';
-import globals from 'globals';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import js from '@eslint/js';
+import { FlatCompat } from '@eslint/eslintrc';
+import { configs as litPluginConfigs } from 'eslint-plugin-lit';
+import { configs as wcPluginConfigs } from 'eslint-plugin-wc';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -17,35 +16,37 @@ const compat = new FlatCompat({
 });
 
 export default [
+  litPluginConfigs['flat/recommended'],
+  wcPluginConfigs['flat/recommended'],
   {
-    ignores: ['**/node_modules', '**/dist', '**/coverage', '**/*.d.ts'],
+    ignores: ['dist/'],
   },
-  ...compat.extends('eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:lit/recommended'),
+  ...compat.extends('eslint:recommended', 'plugin:@typescript-eslint/eslint-recommended', 'plugin:@typescript-eslint/recommended'),
   {
-    ...configs.recommended,
     plugins: {
       '@typescript-eslint': typescriptEslint,
-      lit,
     },
 
     languageOptions: {
-      globals: {
-        ...globals.browser,
-      },
-
       parser: tsParser,
-      ecmaVersion: 'latest',
+      ecmaVersion: 2020,
       sourceType: 'module',
+      parserOptions: {
+        project: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
     },
 
     rules: {
-      'no-async-promise-executor': 'off',
-      '@typescript-eslint/no-unused-vars': 'off',
-      '@typescript-eslint/no-explicit-any': 'off',
+      'no-unexpected-multiline': 'off',
+      '@typescript-eslint/indent': 'off',
       '@typescript-eslint/explicit-function-return-type': 'off',
-      '@typescript-eslint/no-inferrable-types': 'off',
-      '@typescript-eslint/explicit-module-boundary-types': 'off',
-      'no-new': 'warn',
+      '@typescript-eslint/no-non-null-assertion': 'off',
+      '@typescript-eslint/no-use-before-define': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+      '@typescript-eslint/no-deprecated': 'error',
+      '@typescript-eslint/no-explicit-any': 'off',
+      'lit/quoted-expressions': 'error',
       quotes: [
         'error',
         'single',
@@ -54,15 +55,12 @@ export default [
         },
       ],
       'no-var': 'error',
-      curly: 'error',
-      'no-floating-decimal': 'error',
-      'arrow-body-style': [
-        'error',
-        'as-needed',
-        {
-          requireReturnForObjectLiteral: false,
-        },
-      ],
+    },
+
+    settings: {
+      wc: {
+        elementBaseClasses: ['LitElement'], // Recognize `LitElement` as a Custom Element base class
+      },
     },
   },
 ];

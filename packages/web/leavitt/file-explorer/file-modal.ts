@@ -236,7 +236,7 @@ export class FileModal extends LoadWhile(LitElement) {
             <md-icon>create</md-icon>
           </md-icon-button>
         </header>
-        <main ext="${this.file?.Extension ?? ''}" slot="content">
+        <main ext=${this.file?.Extension ?? ''} slot="content">
           ${this.file?.PreviewSizes?.includes('512')
             ? html` <img preview loading="lazy" src=${ifDefined(getCdnInlineUrl(this.file, 512))} />`
             : html`<no-preview><p>No preview currently available</p> </no-preview> `}

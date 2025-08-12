@@ -5,7 +5,6 @@ import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
 import { importMetaAssets } from '@web/rollup-plugin-import-meta-assets';
 import { generateSW } from 'rollup-plugin-workbox';
 import path from 'path';
-import summary from 'rollup-plugin-summary';
 
 export default {
   input: 'index.html',
@@ -70,6 +69,5 @@ export default {
         { src: 'src/demos/*', dest: 'dist/src/demos' },
       ],
     }),
-    summary(),
   ],
 };

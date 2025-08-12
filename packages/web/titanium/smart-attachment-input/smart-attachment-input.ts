@@ -367,7 +367,7 @@ export class TitaniumSmartAttachmentInput extends LitElement {
                 }
               }}
             >
-              <img draggable="false" slot="icon" src="${o.previewSrc || getFileIcon(getExtension(o.file.name))}" />
+              <img draggable="false" slot="icon" src=${o.previewSrc || getFileIcon(getExtension(o.file.name))} />
             </md-input-chip>`
         )}
       </titanium-chip-multi-select>
@@ -379,7 +379,7 @@ export class TitaniumSmartAttachmentInput extends LitElement {
           id="input"
           name="image"
           ?multiple=${this.multiple}
-          accept="${this.accept}"
+          accept=${this.accept}
           @change=${(e) => {
             const files = e.target.files;
             this.handleNewFile(files);

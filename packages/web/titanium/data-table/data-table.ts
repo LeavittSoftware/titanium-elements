@@ -522,7 +522,7 @@ export class TitaniumDataTable extends LitElement {
           </section>
         </slot>
 
-        <selected-actions ?hidden="${this.selected.length === 0}">
+        <selected-actions ?hidden=${this.selected.length === 0}>
           <h2 ellipsis>${this.selected.length} item${this.selected.length > 1 ? 's' : ''} selected</h2>
           <div buttons part="selected-actions-container">
             <slot name="selected-actions"></slot>

@@ -72,7 +72,7 @@ export class LeavittPersonGroupSelectPlayground extends LitElement {
             Name: 'LGE Programmer Basic Access',
             Id: 22,
             type: 'PeopleGroup',
-          } as any}
+          } as never}
           .apiService=${this.apiService}
         ></leavitt-person-group-select>
         <leavitt-person-group-select
@@ -82,7 +82,7 @@ export class LeavittPersonGroupSelectPlayground extends LitElement {
             ProfilePictureCdnFileName: 'zP6DJ9lM6HmkTAaku8ZIzQQdUBHYrX5pCCANvFxtpnagBhJPp7CGXOl-16xe',
             Id: 11056,
             type: 'Person',
-          } as any}
+          } as never}
           disabled
           .apiService=${this.apiService}
         ></leavitt-person-group-select>

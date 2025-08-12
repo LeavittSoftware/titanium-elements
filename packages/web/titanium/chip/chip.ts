@@ -87,7 +87,7 @@ export class TitaniumChip extends LitElement {
 
         position: relative;
 
-        -webkit-appearance: button;
+        appearance: button;
         cursor: pointer;
 
         font: inherit;
@@ -220,7 +220,7 @@ export class TitaniumChip extends LitElement {
   private renderLink() {
     return html`<a
       id="link"
-      tabindex="${this.disabled ? -1 : (nothing as never)}"
+      tabindex=${this.disabled ? -1 : (nothing as never)}
       href=${this.href}
       download=${this.download || (nothing as never)}
       target=${this.target || nothing}

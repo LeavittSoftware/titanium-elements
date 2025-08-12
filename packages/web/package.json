@@ -19,15 +19,15 @@
     "@leavittsoftware/lg-core-typescript": "*",
     "@material/web": "*",
     "@types/google.maps": "*",
-    "bowser": "^2.11.0",
-    "countup.js": "^2.8.0",
-    "cropperjs": "2.0.0",
+    "bowser": "^2.12.0",
+    "countup.js": "^2.9.0",
+    "cropperjs": "2.0.1",
     "dayjs": "^1.11.13",
-    "fuse.js": "^7.0.0",
+    "fuse.js": "^7.1.0",
     "jwt-decode": "^4.0.0",
     "promise-parallel-throttle": "^3.5.0",
     "regexparam": "~3.0.0",
-    "tslib": "^2.7.0"
+    "tslib": "^2.8.1"
   },
   "peerDependencies": {
     "lit": ">=3.0.0"

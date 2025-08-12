@@ -1,4 +1,4 @@
-﻿import { isDevelopment } from '../../titanium/helpers/is-development';
+import { isDevelopment } from '../../titanium/helpers/is-development';
 import { BearerTokenProvider } from './bearer-token-provider';
 import { BlobResponse } from './blob-response';
 import { HttpError } from './HttpError';
@@ -50,52 +50,51 @@ export default class ApiService {
     onprogress: onProgressCallback,
     options?: { abortController?: AbortController; sendAsFormData?: boolean; responseType?: R }
   ): Promise<R extends 'blob' ? BlobResponse : ODataResponse<T>> {
-    return new Promise(async (resolve, reject) => {
+    try {
       if (options?.abortController?.signal && options?.abortController.signal.aborted) {
-        reject(new AbortError());
+        throw new AbortError();
       }
       const DONE_STATE = 4;
 
       if (!file || !file.name) {
-        reject('ArgumentException: Invalid file passed to uploadFile.');
+        throw new Error('ArgumentException: Invalid file passed to uploadFile.');
       }
 
-      try {
-        const xhr = new XMLHttpRequest();
+      const xhr = new XMLHttpRequest();
 
-        xhr.onabort = function () {
-          reject(new AbortError());
+      xhr.onabort = function () {
+        throw new AbortError();
+      };
+
+      if (options?.abortController?.signal) {
+        options?.abortController.signal.addEventListener('abort', () => xhr.abort());
+
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === DONE_STATE) {
+            options?.abortController?.signal.removeEventListener('abort', () => xhr.abort());
+          }
         };
+      }
 
-        if (options?.abortController?.signal) {
-          options?.abortController.signal.addEventListener('abort', () => xhr.abort());
+      xhr.upload.addEventListener('progress', (e) => {
+        onprogress(e, xhr);
+      });
+      xhr.open('POST', this.#getFullUri(urlPath), true);
 
-          xhr.onreadystatechange = function () {
-            if (xhr.readyState === DONE_STATE) {
-              options?.abortController?.signal.removeEventListener('abort', () => xhr.abort());
-            }
-          };
-        }
+      const headers = { ...this.headers };
+      const token = await this.#tokenProvider._getBearerTokenAsync();
+      if (token !== null) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+      headers['X-LGAttachmentName'] = file.name;
 
-        xhr.upload.addEventListener('progress', (e) => {
-          onprogress(e, xhr);
-        });
-        xhr.open('POST', this.#getFullUri(urlPath), true);
-
-        const headers = { ...this.headers };
-        const token = await this.#tokenProvider._getBearerTokenAsync();
-        if (token !== null) {
-          headers['Authorization'] = `Bearer ${token}`;
-        }
-        headers['X-LGAttachmentName'] = file.name;
-
-        for (const header in headers) {
-          // A peculiarity of XMLHttpRequest is that one can’t undo setRequestHeader.
-          // Once the header is set, it’s set. Additional calls add information to the header, don’t overwrite it.
-          // Because of this, we aggregate headers into the headers object rather than calling setRequestHeader multiple times.
-          xhr.setRequestHeader(header, headers[header]);
-        }
-
+      for (const header in headers) {
+        // A peculiarity of XMLHttpRequest is that one can’t undo setRequestHeader.
+        // Once the header is set, it’s set. Additional calls add information to the header, don’t overwrite it.
+        // Because of this, we aggregate headers into the headers object rather than calling setRequestHeader multiple times.
+        xhr.setRequestHeader(header, headers[header]);
+      }
+      return new Promise((resolve, reject) => {
         xhr.addEventListener(
           'loadend',
           () => {
@@ -119,10 +118,10 @@ export default class ApiService {
           false
         );
         xhr.send(file);
-      } catch (error) {
-        return Promise.reject(this.#rewriteFetchErrors(error, 'UPLOAD', urlPath));
-      }
-    });
+      });
+    } catch (error) {
+      return Promise.reject(this.#rewriteFetchErrors(error, 'UPLOAD', urlPath));
+    }
   }
 
   async postAsync<T, R extends keyof ResponseTypeReturnMap<T> = 'json'>(
@@ -340,7 +339,7 @@ export default class ApiService {
     return;
   }
 
-  #rewriteFetchErrors(error: any, action: string, urlPath: string, statusCode: number | undefined = undefined) {
+  #rewriteFetchErrors(error: { name: string; message: string } | AbortError, action: string, urlPath: string, statusCode: number | undefined = undefined) {
     const message = error?.message?.includes('Failed to fetch')
       ? 'Network error. Check your connection and try again.'
       : error?.name === 'AbortError'
@@ -351,7 +350,7 @@ export default class ApiService {
       type: 'HttpError',
       statusCode: statusCode,
       baseUrl: this.baseUrl,
-      message: message,
+      message: message as string,
       action: action,
       path: urlPath,
     };
