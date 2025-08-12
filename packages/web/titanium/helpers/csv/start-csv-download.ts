@@ -4,8 +4,7 @@ export const startCsvDownload = (fileName: string, csv: string, context: HTMLEle
   link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv));
   link.style.visibility = 'hidden';
 
-  const clickEvent = document.createEvent('MouseEvent');
-  clickEvent.initEvent('click', true, true);
+  const clickEvent = new MouseEvent('click', { bubbles: true, composed: true });
 
   context.appendChild(link);
   link.dispatchEvent(clickEvent);

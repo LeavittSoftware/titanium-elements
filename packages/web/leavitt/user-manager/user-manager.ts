@@ -326,6 +326,7 @@ export class UserManager extends LitElement {
       });
     }
 
+    // eslint-disable-next-line no-async-promise-executor
     return new Promise<LssJwtToken>(async (resolve, reject) => {
       let jwtToken;
       try {

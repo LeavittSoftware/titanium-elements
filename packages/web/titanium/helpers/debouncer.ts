@@ -26,7 +26,7 @@ export class Debouncer<T, A> {
     }, this.#interval);
 
     if (!this.#debouncePromise) {
-      this.#debouncePromise = new Promise<T>(async (res) => {
+      this.#debouncePromise = new Promise<T>((res) => {
         this.#debounceResolve = res;
       });
     }

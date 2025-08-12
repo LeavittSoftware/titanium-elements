@@ -136,7 +136,7 @@ export class TitaniumHeader extends LitElement {
       <header part="header">
         ${this.icon ? html`<md-icon header-icon part="icon">${this.icon}</md-icon>` : nothing}
         <h1 part="h1">${this.header}</h1>
-        <md-icon-button part="button" @click="${this.#handleBackClick}" large> <md-icon>arrow_back</md-icon></md-icon-button>
+        <md-icon-button part="button" @click=${this.#handleBackClick} large> <md-icon>arrow_back</md-icon></md-icon-button>
       </header>
 
       <h3 part="h3">${this.subHeader}</h3>
