@@ -66,6 +66,7 @@ export class MyApp extends LitElement {
 
   #applyTheme() {
     document.firstElementChild?.setAttribute('data-theme', this.themePreference);
+    themePreferenceEvent.dispatch('theme-preference', 'change', this.themePreference);
   }
 
   public async firstUpdated() {
