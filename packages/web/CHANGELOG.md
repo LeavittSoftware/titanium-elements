@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.2.1...@leavittsoftware/web@5.3.0) (2025-08-13)
+
+
+### Features
+
+* **company-select:** add support for dark mode marks ([9d4dc5a](https://github.com/LeavittSoftware/titanium-elements/commit/9d4dc5a841ef41d9c44771249ed08abd51161fa9))
+
+
+
+
+
 ## [5.2.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.2.0...@leavittsoftware/web@5.2.1) (2025-08-13)
 
 
