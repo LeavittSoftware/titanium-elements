@@ -19,7 +19,7 @@ export default [
   litPluginConfigs['flat/recommended'],
   wcPluginConfigs['flat/recommended'],
   {
-    ignores: ['dist/'],
+    ignores: ['dist/', '*.config.mjs', '**/*.d.ts', 'web/node_modules/', '**/dist/'],
   },
   ...compat.extends('eslint:recommended', 'plugin:@typescript-eslint/eslint-recommended', 'plugin:@typescript-eslint/recommended'),
   {
