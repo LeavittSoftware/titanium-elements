@@ -46,7 +46,7 @@ export class LeavittCompanySelect extends TitaniumSingleSelectBase<Partial<Compa
   /**
    *  Odata parts for the Company API call
    */
-  @property({ type: Array }) accessor odataParts: Array<string> = ['orderby=Name', 'select=Name,ShortName,MarkUrl,Id'];
+  @property({ type: Array }) accessor odataParts: Array<string> = ['orderby=Name', 'select=Name,ShortName,MarkUrl,DarkMarkUrl,Id'];
 
   /**
    *  Set the name of the API controller to use
@@ -62,7 +62,14 @@ export class LeavittCompanySelect extends TitaniumSingleSelectBase<Partial<Compa
       <slot name="trailing-icon" slot="trailing-icon"></slot>
       <span slot="headline">${company.Name}</span>
       <span slot="supporting-text">${company.ShortName || '-'}</span>
-      <img loading="lazy" company-mark slot="start" src=${company.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />
+      <img
+        loading="lazy"
+        company-mark
+        slot="start"
+        src=${this.themePreference == 'dark'
+          ? company?.DarkMarkUrl || company?.MarkUrl || 'https://cdn.leavitt.com/lg-mark-dark.svg'
+          : company?.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'}
+      />
     </md-menu-item>`;
 
   async firstUpdated() {

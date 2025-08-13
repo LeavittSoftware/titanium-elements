@@ -7,7 +7,7 @@
     "packages/*"
   ],
   "dependencies": {
-    "@leavittsoftware/lg-core-typescript": "^5.973.0",
+    "@leavittsoftware/lg-core-typescript": "^5.977.0",
     "@material/web": "^2.3.0",
     "api-viewer-element": "1.0.0-pre.10",
     "lit": "3.3.1",
@@ -64,7 +64,7 @@
     "cem:watch": "cem analyze --watch --globs \"./packages/**/*.ts\" --litelement --outdir packages/leavittbook",
     "stash": "git stash"
   },
-  "customElements": "custom-elements.json",
+  "customElements": "packages/leavittbook/custom-elements.json",
   "prettier": {
     "trailingComma": "es5",
     "semi": true,

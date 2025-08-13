@@ -18,9 +18,10 @@ import { Menu } from '@material/web/menu/internal/menu';
 import { LoadWhile } from '../../titanium/helpers/load-while';
 import { Identifier } from '../types/identifier-interface';
 import { redispatchEvent } from '@material/web/internal/events/redispatch-event';
+import { ThemePreference } from '../../leavitt/theme/theme-preference';
 
 @customElement('titanium-single-select-base')
-export class TitaniumSingleSelectBase<T extends Identifier> extends LoadWhile(LitElement) {
+export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePreference(LoadWhile(LitElement)) {
   @state() protected accessor searchTerm: string;
   @state() protected accessor suggestions: Array<T> = [];
 
