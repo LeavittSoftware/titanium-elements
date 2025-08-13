@@ -31,6 +31,7 @@ import { ProvideFeedbackDialog } from '@leavittsoftware/web/leavitt/user-feedbac
 
 import TitaniumConfirmDialog from '@leavittsoftware/web/titanium/confirm-dialog/confirm-dialog';
 import page from 'page';
+import themePreferenceEvent from '@leavittsoftware/web/leavitt/theme/theme-preference-event';
 
 const LGLogo = new URL('../images/lg-logo.svg', import.meta.url).href;
 const LGLogoWhite = new URL('../images/lg-logo-white.svg', import.meta.url).href;
@@ -46,13 +47,21 @@ export class MyApp extends LitElement {
   @query('titanium-full-page-loading-indicator') private accessor loadingIndicator: TitaniumFullPageLoadingIndicator;
   @query('titanium-drawer') private accessor drawer: TitaniumDrawer;
 
-  @state()
   get themePreference() {
     return (localStorage.getItem('theme-preference') as 'light' | 'dark') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   }
+  @state()
   set themePreference(val: 'light' | 'dark') {
     localStorage.setItem('theme-preference', val);
     this.#applyTheme();
+  }
+  get prefersCollapsedMenu() {
+    return JSON.parse(localStorage.getItem('prefers-collapsed-menu') || 'false');
+  }
+
+  @state()
+  set prefersCollapsedMenu(val: boolean) {
+    localStorage.setItem('prefers-collapsed-menu', val.toString());
   }
 
   #applyTheme() {
@@ -71,7 +80,7 @@ export class MyApp extends LitElement {
       this.isWideViewPort = !matches;
       if (this.isWideViewPort) {
         this.drawer.closeQuick();
-        this.collapseMainMenu = false;
+        this.collapseMainMenu = this.prefersCollapsedMenu;
       }
     });
 
@@ -288,6 +297,7 @@ export class MyApp extends LitElement {
           @click=${() => {
             if (this.isWideViewPort) {
               this.collapseMainMenu = !this.collapseMainMenu;
+              this.prefersCollapsedMenu = this.collapseMainMenu;
             } else {
               this.drawer?.open();
             }
