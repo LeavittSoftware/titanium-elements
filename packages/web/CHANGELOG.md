@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.2.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.2.0...@leavittsoftware/web@5.2.1) (2025-08-13)
+
+
+### Bug Fixes
+
+* lerna publishing ([0957cb0](https://github.com/LeavittSoftware/titanium-elements/commit/0957cb0fd04313b4870d4c0965a7423cfffa6455))
+* republish ([b893eae](https://github.com/LeavittSoftware/titanium-elements/commit/b893eaebdfc28527fcabe7fa25caa640fb242c77))
+* **smart-attachment-input:** change to and for image dialog support ([bcbe66a](https://github.com/LeavittSoftware/titanium-elements/commit/bcbe66a9a0b0fc2694dba1f10b1ed6a988fa19ab))
+* **smart-image-attachment:** make chip not clickable if no preview ([24023d0](https://github.com/LeavittSoftware/titanium-elements/commit/24023d08d3e1699c0fc75bede08e1d003c51f215))
+
+
+
+
+
 # [5.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.1.5...@leavittsoftware/web@5.2.0) (2025-08-05)
 
 ### Features
