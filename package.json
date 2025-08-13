@@ -61,7 +61,8 @@
     "lerna:publish-force": "npm run build && lerna publish --conventional-commits --yes --force-publish=*",
     "test:publish": "npm run build && lerna version --no-push --yes",
     "cem": "cem analyze --globs \"./packages/**/*.ts\" --litelement --outdir packages/leavittbook",
-    "cem:watch": "cem analyze --watch --globs \"./packages/**/*.ts\" --litelement --outdir packages/leavittbook"
+    "cem:watch": "cem analyze --watch --globs \"./packages/**/*.ts\" --litelement --outdir packages/leavittbook",
+    "stash": "git stash"
   },
   "customElements": "custom-elements.json",
   "prettier": {

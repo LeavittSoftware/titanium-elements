@@ -49,6 +49,9 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Stash
+        run: npm run stash
+
       - name: Run Lerna Publish
         run: npm run lerna:publish
         env:
