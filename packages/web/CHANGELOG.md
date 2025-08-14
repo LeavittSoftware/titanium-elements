@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.3.0...@leavittsoftware/web@5.4.0) (2025-08-14)
+
+
+### Features
+
+* ignore previews when asking for SVG image sizes ([5445393](https://github.com/LeavittSoftware/titanium-elements/commit/54453931356f0b03806a83ea61cc895e0ffcaeea))
+
+
+
+
+
 # [5.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.2.1...@leavittsoftware/web@5.3.0) (2025-08-13)
 
 
