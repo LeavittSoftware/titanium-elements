@@ -8,7 +8,7 @@ export function getCdnInlineUrl(attachment: Partial<IDatabaseAttachment> | null 
     return undefined;
   }
 
-  if (!attachment?.PreviewSizes || !attachment?.PreviewSizes?.split(',').includes(String(size))) {
+  if (!attachment?.PreviewSizes || !attachment?.PreviewSizes?.split(',').includes(String(size)) || attachment.Extension === 'svg') {
     if (isImage(attachment)) {
       //Return original size
       return `https://cdn.leavitt.com/${attachment.CdnFileName}.${attachment.Extension}`;
