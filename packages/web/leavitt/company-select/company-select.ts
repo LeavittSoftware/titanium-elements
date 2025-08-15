@@ -14,6 +14,7 @@ import { TitaniumSingleSelectBase } from '../../titanium/single-select-base/sing
 
 import { Debouncer } from '../../titanium/helpers/debouncer';
 import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
+import { getCompanyMark } from '@leavittsoftware/web/titanium/helpers/get-company-mark';
 
 /**
  *  Single select input that searches Leavitt Group companies
@@ -62,14 +63,7 @@ export class LeavittCompanySelect extends TitaniumSingleSelectBase<Partial<Compa
       <slot name="trailing-icon" slot="trailing-icon"></slot>
       <span slot="headline">${company.Name}</span>
       <span slot="supporting-text">${company.ShortName || '-'}</span>
-      <img
-        loading="lazy"
-        company-mark
-        slot="start"
-        src=${this.themePreference == 'dark'
-          ? company?.DarkMarkUrl || company?.MarkUrl || 'https://cdn.leavitt.com/lg-mark-dark.svg'
-          : company?.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'}
-      />
+      <img loading="lazy" company-mark slot="start" src=${getCompanyMark(company, this.themePreference)} />
     </md-menu-item>`;
 
   async firstUpdated() {
