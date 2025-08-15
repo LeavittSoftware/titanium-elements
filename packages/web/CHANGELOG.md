@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.6.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.5.0...@leavittsoftware/web@5.6.0) (2025-08-15)
+
+
+### Features
+
+* adds get-company-logo and mark helpers ([f5106bc](https://github.com/LeavittSoftware/titanium-elements/commit/f5106bcec4c75cec4c67c79de603a42bd078e4dd))
+
+
+
+
+
 # [5.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.4.0...@leavittsoftware/web@5.5.0) (2025-08-15)
 
 
