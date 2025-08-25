@@ -14,8 +14,8 @@ import { dialogCloseNavigationHack, dialogOpenNavigationHack } from '../hacks/di
 export default class TitaniumConfirmationDialog extends LitElement {
   @property({ type: String }) accessor text: string;
   @property({ type: String }) accessor headline: string;
-  @property({ type: String }) accessor confirmActionText: string = 'Confirm';
-  @property({ type: String }) accessor cancelActionText: string = 'Cancel';
+  @property({ type: String, attribute: 'confirm-action-text' }) accessor confirmActionText: string = 'Confirm';
+  @property({ type: String, attribute: 'cancel-action-text' }) accessor cancelActionText: string = 'Cancel';
 
   @query('md-dialog') protected accessor dialog!: MdDialog;
 
