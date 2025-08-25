@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.7.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.7.0...@leavittsoftware/web@5.7.1) (2025-08-25)
+
+
+### Bug Fixes
+
+* **confirmation0dialog:** revert slot name fix ([96924e6](https://github.com/LeavittSoftware/titanium-elements/commit/96924e6c22052411ca350c4262e0b93d8790400a))
+
+
+
+
+
 # [5.7.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.6.0...@leavittsoftware/web@5.7.0) (2025-08-25)
 
 
