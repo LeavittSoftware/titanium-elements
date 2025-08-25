@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.8.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.7.1...@leavittsoftware/web@5.8.0) (2025-08-25)
+
+
+### Features
+
+* **confirmation-dialog:** add attribute binding ([a98c8d2](https://github.com/LeavittSoftware/titanium-elements/commit/a98c8d2ee75b6360db534768914de7c4c133272e))
+
+
+
+
+
 ## [5.7.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.7.0...@leavittsoftware/web@5.7.1) (2025-08-25)
 
 
