@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.7.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.6.0...@leavittsoftware/web@5.7.0) (2025-08-25)
+
+
+### Features
+
+* adds new confirmation-dialog ([#655](https://github.com/LeavittSoftware/titanium-elements/issues/655)) ([53e8ce0](https://github.com/LeavittSoftware/titanium-elements/commit/53e8ce0f822db4b248dade844947bc9a43c1eac1))
+
+
+
+
+
 # [5.6.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.5.0...@leavittsoftware/web@5.6.0) (2025-08-15)
 
 
