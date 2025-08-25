@@ -69,9 +69,9 @@ export default class TitaniumConfirmationDialog extends LitElement {
         }}
       >
         <div slot="headline">${this.headline}</div>
-        <main part="content-container">
+        <main slot="content" part="content-container">
           ${this.text ? html`<p>${this.text}</p>` : nothing}
-          <slot slot="content"></slot>
+          <slot></slot>
         </main>
         <div slot="actions">
           <md-text-button @click=${() => this.dialog.close('cancel')}>${this.cancelActionText}</md-text-button>
