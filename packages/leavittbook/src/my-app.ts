@@ -218,6 +218,9 @@ export class MyApp extends LitElement {
     page('/titanium-confirm-dialog', () =>
       this.#changePage('titanium-confirm-dialog', () => import('./demos/titanium-confirm-dialog/titanium-confirm-dialog-demo.js'))
     );
+    page('/titanium-confirmation-dialog', () =>
+      this.#changePage('titanium-confirmation-dialog', () => import('./demos/titanium-confirmation-dialog/titanium-confirmation-dialog-demo.js'))
+    );
 
     page('*', () => {
       this.fatalErrorMessage = 'We were unable to find the page you are looking for';
@@ -362,6 +365,10 @@ export class MyApp extends LitElement {
 
             <md-list-item ?selected=${this.page === 'titanium-confirm-dialog'} href="/titanium-confirm-dialog" type="link">
               <md-icon slot="start">library_books</md-icon> <span>Confirm dialog</span>
+            </md-list-item>
+
+            <md-list-item ?selected=${this.page === 'titanium-confirmation-dialog'} href="/titanium-confirmation-dialog" type="link">
+              <md-icon slot="start">library_books</md-icon> <span>Confirmation dialog</span>
             </md-list-item>
 
             <md-list-item ?selected=${this.page === 'titanium-data-table'} href="/titanium-data-table" type="link">
@@ -616,6 +623,9 @@ export class MyApp extends LitElement {
           : nothing}
         ${this.page === 'titanium-confirm-dialog'
           ? html` <titanium-confirm-dialog-demo large ?isActive=${this.page === 'titanium-confirm-dialog'}></titanium-confirm-dialog-demo> `
+          : nothing}
+        ${this.page === 'titanium-confirmation-dialog'
+          ? html` <titanium-confirmation-dialog-demo large ?isActive=${this.page === 'titanium-confirmation-dialog'}></titanium-confirmation-dialog-demo> `
           : nothing}
         ${this.page === 'titanium-profile-picture-stack'
           ? html`
