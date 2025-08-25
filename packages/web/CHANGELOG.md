@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.9.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.8.0...@leavittsoftware/web@5.9.0) (2025-08-25)
+
+
+### Features
+
+* **confirmation-dialog:** add attribute binding ([a98c8d2](https://github.com/LeavittSoftware/titanium-elements/commit/a98c8d2ee75b6360db534768914de7c4c133272e))
+* improve search results across components ([7137cb9](https://github.com/LeavittSoftware/titanium-elements/commit/7137cb930e50910b553f486f2477621e84e5f9c3))
+
+
+
+
+
 # [5.8.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.7.1...@leavittsoftware/web@5.8.0) (2025-08-25)
 
 
