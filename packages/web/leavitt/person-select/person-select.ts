@@ -117,6 +117,7 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
       const options = {
         includeScore: true,
         keys: ['FullName'],
+        ignoreLocation: true,
         shouldSort: true,
         threshold: 0.3,
       };

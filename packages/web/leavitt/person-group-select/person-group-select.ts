@@ -8,7 +8,7 @@ import '../profile-picture/profile-picture';
 
 import { Debouncer, getSearchTokens } from '../../titanium/helpers/helpers';
 import ApiService from '../api-service/api-service';
-import Fuse from 'fuse.js';
+import Fuse, { IFuseOptions } from 'fuse.js';
 import { peopleGroupIcons } from './people-group-icons';
 import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
 
@@ -75,14 +75,15 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
 
     const options = {
       includeScore: true,
+      ignoreLocation: true,
+      shouldSort: true,
       keys: ['Name'],
-    };
+    } satisfies IFuseOptions<Person | PeopleGroup>;
 
     const fuse = new Fuse(entities, options as any);
-    const fuseResults = fuse
-      .search(searchTerm)
-      .sort((a, b) => (b?.score ?? 0) - (a?.score ?? 0))
-      .slice(0, 15);
+    const fuseResults = fuse.search(searchTerm).slice(0, 20);
+
+    console.log(fuseResults);
 
     this.showSuggestions(fuseResults.map((o) => o.item) ?? [], odataCount ?? 0);
   }

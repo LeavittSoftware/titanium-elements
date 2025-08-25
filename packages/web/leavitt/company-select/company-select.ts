@@ -125,6 +125,7 @@ export class LeavittCompanySelect extends TitaniumSingleSelectBase<Partial<Compa
       includeScore: true,
       keys: ['Name', 'ShortName'],
       shouldSort: true,
+      ignoreLocation: true,
       threshold: 0.3,
     };
 

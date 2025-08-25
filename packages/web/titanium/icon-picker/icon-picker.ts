@@ -78,6 +78,7 @@ export class TitaniumIconPicker extends TitaniumSingleSelectBase<MaterialIconDat
       includeScore: true,
       keys: ['keywords'],
       shouldSort: true,
+      ignoreLocation: true,
       threshold: 0.3,
     };
 
