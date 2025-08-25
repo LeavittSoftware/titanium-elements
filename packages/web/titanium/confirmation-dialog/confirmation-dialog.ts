@@ -69,7 +69,7 @@ export default class TitaniumConfirmationDialog extends LitElement {
         }}
       >
         <div slot="headline">${this.headline}</div>
-        <main slot="content" part="content">
+        <main part="content-container">
           ${this.text ? html`<p>${this.text}</p>` : nothing}
           <slot slot="content"></slot>
         </main>
