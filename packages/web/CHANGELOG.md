@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.9.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.9.0...@leavittsoftware/web@5.9.1) (2025-08-28)
+
+
+### Bug Fixes
+
+* stop change event from escaping the past the crop and save dialog ([#657](https://github.com/LeavittSoftware/titanium-elements/issues/657)) ([ef76038](https://github.com/LeavittSoftware/titanium-elements/commit/ef760380f6159f1d68c21364e5172be93860526f))
+
+
+
+
+
 # [5.9.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.8.0...@leavittsoftware/web@5.9.0) (2025-08-25)
 
 
