@@ -370,7 +370,13 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
             <img src=${LoaderGif} />
             <p>Uploading image...</p>
           </loading-animation>
-          <cropper-container ?hidden=${this.isLoading}>
+          <cropper-container
+            ?hidden=${this.isLoading}
+            @change=${(e: Event) => {
+              //STOP CROPPER JS FROM TRIGGERING CHANGE EVENT
+              e.stopPropagation();
+            }}
+          >
             <cropper-canvas ?background=${!this.options?.canvasHideBackground}>
               <cropper-image
                 initial-center-size="cover"
