@@ -16,6 +16,8 @@ export default class TitaniumConfirmationDialog extends LitElement {
   @property({ type: String }) accessor headline: string;
   @property({ type: String, attribute: 'confirm-action-text' }) accessor confirmActionText: string = 'Confirm';
   @property({ type: String, attribute: 'cancel-action-text' }) accessor cancelActionText: string = 'Cancel';
+  @property({ type: Boolean, attribute: 'disable-confirmation-action' }) accessor disableConfirmationAction: boolean = false;
+  @property({ type: Boolean, attribute: 'disable-cancel-action' }) accessor disableCancelAction: boolean = false;
 
   @query('md-dialog') protected accessor dialog!: MdDialog;
 
@@ -74,8 +76,8 @@ export default class TitaniumConfirmationDialog extends LitElement {
           <slot></slot>
         </main>
         <div slot="actions">
-          <md-text-button @click=${() => this.dialog.close('cancel')}>${this.cancelActionText}</md-text-button>
-          <md-filled-tonal-button @click=${() => this.dialog.close('confirmed')}>${this.confirmActionText}</md-filled-tonal-button>
+          <md-text-button ?disabled=${this.disableCancelAction} @click=${() => this.dialog.close('cancel')}>${this.cancelActionText}</md-text-button>
+          <md-filled-tonal-button ?disabled=${this.disableConfirmationAction} @click=${() => this.dialog.close('confirmed')}>${this.confirmActionText}</md-filled-tonal-button>
         </div>
       </md-dialog>
     `;
