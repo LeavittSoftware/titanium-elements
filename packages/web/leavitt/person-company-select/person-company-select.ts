@@ -10,6 +10,7 @@ import { Debouncer, getSearchTokens } from '../../titanium/helpers/helpers';
 import ApiService from '../api-service/api-service';
 import Fuse from 'fuse.js';
 import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
+import { getCompanyMarkUrl } from '../../titanium/helpers/get-company-mark-url';
 
 export type Person = CorePerson & { type: 'Person'; Name: string };
 export type Company = CoreCompany & { type: 'Company' };
@@ -123,7 +124,7 @@ export class LeavittPersonCompanySelect extends TitaniumSingleSelectBase<Partial
     }
 
     try {
-      const odataParts = ['top=100', 'count=true', 'select=Name,Shortname,MarkUrl,Id'];
+      const odataParts = ['top=100', 'count=true', 'select=Name,Shortname,MarkUrl,DarkMarkUrl,Id'];
       const searchTokens = getSearchTokens(searchTerm);
       if (searchTokens.length > 0) {
         const searchFilter = searchTokens.map((token: string) => `(contains(Name, '${token}') OR (contains(Shortname, '${token}')))`).join(' and ');
@@ -159,7 +160,7 @@ export class LeavittPersonCompanySelect extends TitaniumSingleSelectBase<Partial
     return entity.type === 'Person'
       ? html`<profile-picture slot="leading-icon" .fileName=${entity?.ProfilePictureCdnFileName || null} shape="circle" size="24"></profile-picture>`
       : entity.type === 'Company'
-        ? html`<img leading slot="leading-icon" src=${entity.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />`
+        ? html`<img leading slot="leading-icon" src=${getCompanyMarkUrl(entity, this.themePreference)} />`
         : html``;
   }
 
@@ -175,7 +176,7 @@ export class LeavittPersonCompanySelect extends TitaniumSingleSelectBase<Partial
             <slot name="trailing-icon" slot="trailing-icon"></slot>
             <span slot="headline">${entity.Name}</span>
             <span slot="supporting-text">${entity.ShortName || '-'}</span>
-            <img loading="lazy" company-mark slot="start" src=${entity.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />
+            <img loading="lazy" company-mark slot="start" src=${getCompanyMarkUrl(entity, this.themePreference)} />
           </md-menu-item>`
         : html``;
   }

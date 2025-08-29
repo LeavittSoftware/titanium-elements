@@ -14,10 +14,12 @@ import '@leavittsoftware/web/leavitt/company-select/company-select';
 import { LeavittCompanySelect } from '@leavittsoftware/web/leavitt/company-select/company-select';
 import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
 import { Company } from '@leavittsoftware/lg-core-typescript';
+import { getCompanyMarkUrl } from '@leavittsoftware/web/titanium/helpers/get-company-mark-url';
+import { ThemePreference } from '@leavittsoftware/web/leavitt/theme/theme-preference';
 
 /* playground-fold */
 @customElement('leavitt-company-select-playground')
-export class LeavittPersonCompanySelectPlayground extends LitElement {
+export class LeavittPersonCompanySelectPlayground extends ThemePreference(LitElement) {
   @state() private accessor apiService: ApiService;
   @state() private accessor disableMenuOpenOnFocus: boolean = false;
   @query('leavitt-company-select[methods-demo]') protected accessor methodsSelect!: LeavittCompanySelect;
@@ -125,7 +127,7 @@ export class LeavittPersonCompanySelectPlayground extends LitElement {
                 loading="lazy"
                 style="max-width: 100px;width:100%;background:white;border-radius:8px"
                 slot="start"
-                src=${company.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'}
+                src=${getCompanyMarkUrl(company, this.themePreference)}
               />
             </md-menu-item>`}
           .apiService=${this.apiService}

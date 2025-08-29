@@ -141,7 +141,7 @@ export class LeavittCompanySelect extends TitaniumSingleSelectBase<Partial<Compa
   }
 
   protected override renderSelectedLeadingInputSlot(entity: Partial<Company>) {
-    return html` <img leading slot="leading-icon" src=${entity.MarkUrl || 'https://cdn.leavitt.com/lg-mark.svg'} />`;
+    return html` <img leading slot="leading-icon" src=${getCompanyMarkUrl(entity, this.themePreference)} />`;
   }
 
   protected override renderSuggestion(company: Partial<Company>) {
