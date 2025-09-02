@@ -1,0 +1,10 @@
+{
+  "name": "titanium-toolbar",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "section": "Basics",
+  "files": {
+    "titanium-toolbar-playground.ts": {},
+    "index.html": {}
+  },
+  "order": 0
+}
