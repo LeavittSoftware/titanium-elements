@@ -16,10 +16,13 @@ export class TitaniumConfirmationDialogPlayground extends LitElement {
   @state() private accessor result: 'confirmed' | 'cancel' | undefined;
   @state() private accessor result2: 'confirmed' | 'cancel' | undefined;
   @state() private accessor result3: 'confirmed' | 'cancel' | undefined;
+  @state() private accessor result4: 'confirmed' | 'cancel' | undefined;
+  @state() private accessor favoriteSnack: string | undefined;
 
   @query('titanium-confirmation-dialog[demo1]') private accessor confirmationDialog: TitaniumConfirmationDialog | null;
   @query('titanium-confirmation-dialog[demo2]') private accessor confirmationDialog2: TitaniumConfirmationDialog | null;
   @query('titanium-confirmation-dialog[demo3]') private accessor confirmationDialog3: TitaniumConfirmationDialog | null;
+  @query('titanium-confirmation-dialog[demo4]') private accessor confirmationDialog4: TitaniumConfirmationDialog | null;
 
   static styles = [
     h1,
@@ -103,6 +106,28 @@ export class TitaniumConfirmationDialogPlayground extends LitElement {
         </section>
         <titanium-confirmation-dialog demo3>
           <md-outlined-text-field label="What is your favorite color?"></md-outlined-text-field>
+        </titanium-confirmation-dialog>
+      </div>
+
+      <h1>Required form demo</h1>
+      <div>
+        <p>Result: ${this.result4}</p>
+        <br />
+        <section buttons>
+          <md-outlined-button
+            @click=${async () => {
+              this.favoriteSnack = '';
+              this.result4 = await this.confirmationDialog4?.open('What is your favorite snack?', 'asf saf asdf');
+            }}
+            >Open</md-outlined-button
+          >
+        </section>
+        <titanium-confirmation-dialog demo4 ?disable-confirmation-action=${!this.favoriteSnack}>
+          <md-outlined-text-field
+            label="Favorite snack"
+            .value=${this.favoriteSnack || ''}
+            @input=${(e) => (this.favoriteSnack = e.target.value || '')}
+          ></md-outlined-text-field>
         </titanium-confirmation-dialog>
       </div>
     `;
