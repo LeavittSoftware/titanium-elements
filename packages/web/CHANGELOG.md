@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.11.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.10.0...@leavittsoftware/web@5.11.0) (2025-09-02)
+
+
+### Features
+
+* **confirmation-dialog:** add support for disabling actions ([#658](https://github.com/LeavittSoftware/titanium-elements/issues/658)) ([cec53ea](https://github.com/LeavittSoftware/titanium-elements/commit/cec53ea002bab19517bb846654d180fee3072da9))
+
+
+
+
+
 # [5.10.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.9.1...@leavittsoftware/web@5.10.0) (2025-08-29)
 
 
