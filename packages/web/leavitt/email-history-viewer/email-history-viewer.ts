@@ -155,7 +155,7 @@ export default class LeavittEmailHistoryViewer extends LoadWhile(LitElement) {
 
     const odataParts = [
       'select=Id,Recipients,SentDate,Subject',
-      'expand=EmailTemplate(select=Id,Name)',
+      'expand=EmailTemplate(select=Id,Name,IsExpired)',
       `top=${await this.dataTable.getTake()}`,
       `orderby=${this.sortBy} ${this.sortDirection}`,
       `skip=${(await this.dataTable.getTake()) * (await this.dataTable.getPage())}`,
@@ -187,6 +187,7 @@ export default class LeavittEmailHistoryViewer extends LoadWhile(LitElement) {
         gap: 24px;
       }
 
+      [inactive],
       span[time],
       span[more] {
         font-size: 12px;
@@ -327,7 +328,10 @@ export default class LeavittEmailHistoryViewer extends LoadWhile(LitElement) {
               >
               <row-item large>${item.Subject ?? '-'} </row-item>
               <row-item desktop title=${item.Recipients ?? ''}>${this.renderRecipients(item.Recipients ?? null)}</row-item>
-              <row-item desktop> ${item.EmailTemplate?.Name}</row-item>
+              <row-item desktop>
+                <div>${item.EmailTemplate?.Name}</div>
+                ${item.EmailTemplate?.IsExpired ? html`<div inactive>Inactive</div>` : ''}</row-item
+              >
               <row-item width="50px"
                 ><md-filled-tonal-icon-button @click=${() => this.viewDialog.open(item.Id ?? 0)}><md-icon>pageview</md-icon></md-filled-tonal-icon-button>
               </row-item>

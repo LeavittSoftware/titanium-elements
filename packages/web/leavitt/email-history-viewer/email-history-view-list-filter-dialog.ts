@@ -68,7 +68,7 @@ export class LeavittEmailHistoryViewListFilterDialog extends LoadWhile(LitElemen
       return [];
     }
 
-    const odataParts = ['select=Id,Name', 'orderby=Name'];
+    const odataParts = ['select=Id,Name,IsExpired', 'orderby=Name'];
 
     try {
       const get = this.apiService.getAsync<EmailTemplate>(`EmailTemplates?${odataParts.join('&')}`);
@@ -109,6 +109,12 @@ export class LeavittEmailHistoryViewListFilterDialog extends LoadWhile(LitElemen
       md-dialog {
         max-width: 550px;
         width: calc(100vw - 24px);
+
+        div[inactive] {
+          font-size: 12px;
+          line-height: 14px;
+          opacity: 0.8;
+        }
 
         md-outlined-select {
           width: 100%;
@@ -187,6 +193,7 @@ export class LeavittEmailHistoryViewListFilterDialog extends LoadWhile(LitElemen
               (o) =>
                 html`<md-select-option ?selected=${o.Id === Number(this.templateId)} value=${o.Id ?? ''}>
                   <div slot="headline">${o.Name}</div>
+                  ${o.IsExpired ? html`<div inactive slot="supporting-text">Inactive</div>` : ''}
                   <md-icon slot="start">content_copy</md-icon>
                 </md-select-option>`
             )}
