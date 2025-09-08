@@ -77,7 +77,9 @@ export default class TitaniumConfirmationDialog extends LitElement {
         </main>
         <div slot="actions">
           <md-text-button ?disabled=${this.disableCancelAction} @click=${() => this.dialog.close('cancel')}>${this.cancelActionText}</md-text-button>
-          <md-filled-tonal-button ?disabled=${this.disableConfirmationAction} @click=${() => this.dialog.close('confirmed')}>${this.confirmActionText}</md-filled-tonal-button>
+          <md-filled-tonal-button ?disabled=${this.disableConfirmationAction} @click=${() => this.dialog.close('confirmed')}
+            >${this.confirmActionText}</md-filled-tonal-button
+          >
         </div>
       </md-dialog>
     `;
