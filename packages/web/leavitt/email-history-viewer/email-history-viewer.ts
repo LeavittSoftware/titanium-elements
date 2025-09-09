@@ -217,7 +217,7 @@ export default class LeavittEmailHistoryViewer extends LoadWhile(LitElement) {
 
   render() {
     return html`
-      <titanium-header header="Email history" subHeader="A comprehensive record of email correspondence originating from this tool." no-nav></titanium-header>
+      <titanium-header header="Email history" subHeader="A comprehensive record of email correspondence originating from this tool" no-nav></titanium-header>
       <titanium-data-table
         header="Emails"
         disable-select
@@ -318,7 +318,7 @@ export default class LeavittEmailHistoryViewer extends LoadWhile(LitElement) {
           desktop
           slot="table-headers"
           column-name="EmailTemplate/Name"
-          title="Template name"
+          title="Email template"
           @sort-by-changed=${this.#onSortByChange}
           .sortBy=${this.sortBy}
           .sortDirection=${this.sortDirection}
