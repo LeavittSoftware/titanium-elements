@@ -1,9 +1,9 @@
 {
-  "name": "leavitt-company-select",
+  "name": "leavitt-email-history-viewer",
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "section": "Basics",
   "files": {
-    "leavitt-company-select-playground.ts": {},
+    "leavitt-email-history-viewer-playground.ts": {},
     "index.html": {}
   },
   "order": 0
