@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.12.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.11.0...@leavittsoftware/web@5.12.0) (2025-09-09)
+
+
+### Features
+
+* adds leavitt-email-template-viewer w/demo ([f5f3dd1](https://github.com/LeavittSoftware/titanium-elements/commit/f5f3dd1e5c4250be9ddcde5e19693741af119c76))
+
+
+
+
+
 # [5.11.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.10.0...@leavittsoftware/web@5.11.0) (2025-09-02)
 
 
