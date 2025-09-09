@@ -1,0 +1,10 @@
+{
+  "name": "leavitt-company-select",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "section": "Basics",
+  "files": {
+    "leavitt-company-select-playground.ts": {},
+    "index.html": {}
+  },
+  "order": 0
+}
