@@ -37,6 +37,15 @@ import { FilterKeys, LeavittEmailHistoryViewListFilterDialog } from './email-his
 import { LeavittViewSentEmailDialog } from './view-sent-email-dialog';
 import ApiService from '../api-service/api-service';
 
+/**
+ * @element leavitt-email-history-viewer
+
+ * @description A component that displays a list of email history for embedding in Leavitt's specific applications.
+ * @property isActive - Whether the component is active / in view
+ * @property apiService - The API service to use. This is required to fetch the email history.
+ * @property path - the route that this component will be available at
+ */
+
 @customElement('leavitt-email-history-viewer')
 export default class LeavittEmailHistoryViewer extends LoadWhile(LitElement) {
   @property({ type: Boolean }) accessor isActive: boolean;
