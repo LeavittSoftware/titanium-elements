@@ -432,10 +432,18 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
           <md-text-button
             ?disabled=${this.isLoading}
             @click=${async () => {
+              // Generate canvas before showing loader to avoid measuring hidden elements
+              await this.cropperCanvas?.$toCanvas();
+              const canvasRect = this.cropperCanvas?.getBoundingClientRect();
+              const img = (this.cropperImage as unknown as { $image?: HTMLImageElement })?.$image;
+              const scaleX = img && canvasRect?.width ? img.naturalWidth / canvasRect.width : 1;
+              const scaleY = img && canvasRect?.height ? img.naturalHeight / canvasRect.height : scaleX;
+              const targetWidth = Math.max(1, Math.round(this.cropperSelection.width * scaleX));
+              const targetHeight = Math.max(1, Math.round(this.cropperSelection.height * scaleY));
+              const canvas = await this.cropperSelection?.$toCanvas({ width: targetWidth, height: targetHeight });
+
               this.isLoading = true;
               await this.updateComplete;
-
-              const canvas = await this.cropperSelection?.$toCanvas();
 
               if (!canvas) {
                 return;
