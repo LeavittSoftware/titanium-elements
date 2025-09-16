@@ -1,9 +1,10 @@
-import { css, html, LitElement, PropertyValues } from 'lit';
+import { css, LitElement, PropertyValues } from 'lit';
 import { property, customElement, query, state } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 
 import '@material/web/progress/circular-progress';
 import '@material/web/textfield/outlined-text-field';
+import '@material/web/textfield/filled-text-field';
 
 import '@material/web/iconbutton/icon-button';
 import '@material/web/icon/icon';
@@ -19,6 +20,7 @@ import { LoadWhile } from '../../titanium/helpers/load-while';
 import { Identifier } from '../types/identifier-interface';
 import { redispatchEvent } from '@material/web/internal/events/redispatch-event';
 import { ThemePreference } from '../../leavitt/theme/theme-preference';
+import { html, literal } from 'lit/static-html.js';
 
 @customElement('titanium-single-select-base')
 export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePreference(LoadWhile(LitElement)) {
@@ -35,6 +37,11 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
    *  Sets floating label value.
    */
   @property({ type: String }) accessor label: string = 'Single select';
+
+  /**
+   *  Swaps out outlined text field for a filled text field.
+   */
+  @property({ type: Boolean, attribute: 'filled' }) accessor filled: boolean = false;
 
   /**
    *  Sets placeholder text value.
@@ -271,6 +278,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
         position: relative;
       }
 
+      md-filled-text-field,
       md-outlined-text-field {
         width: 100%;
       }
@@ -284,8 +292,21 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
         min-width: 300px;
       }
 
+      :host([filled]) {
+        --md-filled-text-field-container-shape: 16px;
+        --md-filled-field-container-shape: 16px;
+        --md-menu-container-shape: 16px;
+
+        --md-filled-text-field-active-indicator-height: 0;
+        --md-filled-text-field-error-active-indicator-height: 0;
+        --md-filled-text-field-hover-active-indicator-height: 0;
+        --md-filled-text-field-focus-active-indicator-height: 0;
+        --md-filled-text-field-disabled-active-indicator-height: 0;
+      }
+      
       :host([shaped]) {
         --md-outlined-text-field-container-shape: 28px;
+        --md-filled-text-field-container-shape: 28px;
       }
 
       img[leading] {
@@ -358,8 +379,9 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
   }
 
   render() {
+    /* eslint-disable lit/binding-positions, lit/no-invalid-html */
     return html`
-      <md-outlined-text-field
+      <${this.filled ? literal`md-filled-text-field` : literal`md-outlined-text-field`}
         id="menu-anchor"
         aria-haspopup="true"
         aria-controls="menu"
@@ -410,7 +432,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
         }}
       >
         ${this.selected ? this.renderSelectedLeadingInputSlot(this.selected) : this.renderLeadingInputSlot()} ${this.#renderTrailingInputSlot()}
-      </md-outlined-text-field>
+        </${this.filled ? literal`md-filled-text-field` : literal`md-outlined-text-field`}>
       <md-menu
         suggestions
         @opening=${(e) => redispatchEvent(this, e)}
@@ -428,9 +450,11 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
           this.setSelected(selectedMenuItem?.item);
         }}
       >
-        ${!!this.searchTerm && !this.isLoading
-          ? html`<div summary>Showing ${this.suggestions.length} of ${this.count} result${this.count === 1 ? '' : 's'} for '${this.searchTerm}'</div>`
-          : ''}
+        ${
+          !!this.searchTerm && !this.isLoading
+            ? html`<div summary>Showing ${this.suggestions.length} of ${this.count} result${this.count === 1 ? '' : 's'} for '${this.searchTerm}'</div>`
+            : ''
+        }
         ${repeat(
           this.suggestions,
           (item) => item?.Id,
@@ -440,5 +464,6 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
       </md-menu>
       ${this.renderTrailingSlot()}
     `;
+    /* eslint-enable lit/binding-positions, lit/no-invalid-html */
   }
 }

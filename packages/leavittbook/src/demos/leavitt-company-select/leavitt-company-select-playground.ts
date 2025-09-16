@@ -66,6 +66,7 @@ export class LeavittPersonCompanySelectPlayground extends ThemePreference(LitEle
     /* playground-fold-end */
     return html`
       <user-manager disableAutoload></user-manager>
+  
       <h1>Methods</h1>
       <p>Demonstrates public methods</p>
       <div row>
@@ -133,6 +134,30 @@ export class LeavittPersonCompanySelectPlayground extends ThemePreference(LitEle
           .apiService=${this.apiService}
         ></leavitt-company-select>
       </div>
+
+      <h1>Filled</h1>
+      <p>Demonstrates filled company select</p>
+      <div row>
+        <leavitt-company-select
+          style="width: 400px;"
+          filled
+          required
+          ?disable-menu-open-on-focus=${this.disableMenuOpenOnFocus}
+          .apiService=${this.apiService}
+        ></leavitt-company-select>
+
+        <leavitt-company-select
+          style="width: 400px;"
+          shaped
+          filled
+          required
+          ?disable-menu-open-on-focus=${this.disableMenuOpenOnFocus}
+          .apiService=${this.apiService}
+        ></leavitt-company-select>
+
+      </div>
+
+
       <titanium-snackbar-stack></titanium-snackbar-stack>
     `;
   }
