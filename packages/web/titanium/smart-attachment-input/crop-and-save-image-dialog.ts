@@ -25,7 +25,6 @@ export declare type CropperOptions = {
   selectionAspectRatio?: number | null | undefined;
   constrainSelectionTo?: 'image' | 'canvas' | null;
   maximizeSelection?: boolean;
-  /** Caps: downscale proportionally if exceeded */
   outputMaxWidth?: number;
   outputMaxHeight?: number;
 };
@@ -435,7 +434,6 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
           <md-text-button
             ?disabled=${this.isLoading}
             @click=${async () => {
-              // Generate canvas before showing loader to avoid measuring hidden elements
               await this.cropperCanvas?.$toCanvas();
               const canvasRect = this.cropperCanvas?.getBoundingClientRect();
               const img = (this.cropperImage as unknown as { $image?: HTMLImageElement })?.$image;
@@ -444,7 +442,6 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
               let targetWidth = Math.max(1, Math.round(this.cropperSelection.width * scaleX));
               let targetHeight = Math.max(1, Math.round(this.cropperSelection.height * scaleY));
 
-              // Apply max caps while preserving aspect ratio
               if (this.options?.outputMaxWidth && targetWidth > this.options.outputMaxWidth) {
                 const r = this.options.outputMaxWidth / targetWidth;
                 targetWidth = this.options.outputMaxWidth;
