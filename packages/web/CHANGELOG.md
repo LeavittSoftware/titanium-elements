@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.13.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.12.1...@leavittsoftware/web@5.13.0) (2025-09-17)
+
+
+### Features
+
+* **company-select:** add filled select option ([b441037](https://github.com/LeavittSoftware/titanium-elements/commit/b441037a9ffd6f8d77e53115cdac66c06fa26b0f))
+* **date-input:** add filled option ([98916f3](https://github.com/LeavittSoftware/titanium-elements/commit/98916f3b494412007b21f4d2f124071c246f01d6))
+
+
+
+
+
 ## [5.12.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.12.0...@leavittsoftware/web@5.12.1) (2025-09-09)
 
 **Note:** Version bump only for package @leavittsoftware/web
