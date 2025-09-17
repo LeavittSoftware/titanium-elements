@@ -86,6 +86,13 @@ export class TitaniumDateInputItemPlayground extends LitElement {
           <titanium-date-input type="datetime-local" label="Reboot every"></titanium-date-input>
         </div>
       </titanium-card>
+
+      <titanium-card>
+        <h1>Filled demo</h1>
+        <div>
+          <titanium-date-input filled label="Start date"></titanium-date-input>
+        </div>
+      </titanium-card>
     `;
   }
 }
