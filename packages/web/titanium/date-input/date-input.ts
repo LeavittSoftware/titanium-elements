@@ -1,4 +1,4 @@
-import { LitElement, css, html } from 'lit';
+import { LitElement, css } from 'lit';
 import { customElement, property, query, queryAssignedElements, state } from 'lit/decorators.js';
 import { live } from 'lit/directives/live.js';
 import { redispatchEvent } from '@material/web/internal/events/redispatch-event';
@@ -6,9 +6,11 @@ import { redispatchEvent } from '@material/web/internal/events/redispatch-event'
 import { stringConverter } from '@material/web/internal/controller/string-converter';
 
 import '@material/web/field/outlined-field';
+import '@material/web/field/filled-field';
 import '@material/web/icon/icon';
 import '@material/web/iconbutton/icon-button';
 import { Field } from '@material/web/field/internal/field';
+import { html, literal } from 'lit/static-html.js';
 
 /**
  * A date input the works in Firefox, Safari and Chrome
@@ -80,6 +82,11 @@ export class TitaniumDateInput extends LitElement {
   @property({ attribute: 'error-text' }) accessor errorText = '';
 
   @property() accessor label = '';
+
+  /**
+   *  Swaps out outlined text field for a filled text field.
+   */
+  @property({ type: Boolean, attribute: 'filled' }) accessor filled: boolean = false;
 
   @property({ type: Boolean, reflect: true }) accessor required = false;
 
@@ -164,7 +171,6 @@ export class TitaniumDateInput extends LitElement {
   @property({ reflect: true, type: String }) accessor autocomplete = '';
 
   @query('input') private accessor input: HTMLInputElement;
-  @query('md-outlined-field') private accessor field: Field | null;
 
   @queryAssignedElements({ slot: 'leading-icon' }) private accessor leadingIcons!: Element[];
   @queryAssignedElements({ slot: 'trailing-icon' }) private accessor trailingIcons!: Element[];
@@ -251,7 +257,7 @@ export class TitaniumDateInput extends LitElement {
     this.nativeErrorText = this.validationMessage;
 
     if (prevMessage === this.getErrorText()) {
-      this.field?.reannounceError();
+      (this.shadowRoot?.querySelector(this.filled ? 'md-filled-field' : 'md-outlined-field') as Field)?.reannounceError();
     }
 
     return valid;
@@ -282,13 +288,23 @@ export class TitaniumDateInput extends LitElement {
   static styles = css`
     :host {
       display: block;
-      /* Adjust chrome default to match height of other text inputs */
-      --md-outlined-field-top-space: 15px;
-      --md-outlined-field-bottom-space: 15px;
     }
 
-    md-outlined-field {
+    :host([filled]) {
+      --md-filled-field-container-shape: 16px;
+
+      --md-filled-field-active-indicator-height: 0;
+      --md-filled-field-error-active-indicator-height: 0;
+      --md-filled-field-hover-active-indicator-height: 0;
+      --md-filled-field-focus-active-indicator-height: 0;
+      --md-filled-field-disabled-active-indicator-height: 0;
+    }
+
+    md-outlined-field,
+    md-filled-field {
       width: 100%;
+      /* Adjust to match height of other text inputs */
+      max-height: 56px;
     }
 
     input::-webkit-calendar-picker-indicator {
@@ -350,8 +366,9 @@ export class TitaniumDateInput extends LitElement {
   `;
 
   protected render() {
+    /* eslint-disable lit/binding-positions, lit/no-invalid-html */
     return html`
-      <md-outlined-field
+      <${this.filled ? literal`md-filled-field` : literal`md-outlined-field`}
         ?disabled=${this.disabled}
         ?error=${this.error || this.nativeError}
         error-text=${this.getErrorText()}
@@ -397,7 +414,8 @@ export class TitaniumDateInput extends LitElement {
             </md-icon-button>
           </slot>
         </span>
-      </md-outlined-field>
+      </${this.filled ? literal`md-filled-field` : literal`md-outlined-field`}>
     `;
+    /* eslint-enable lit/binding-positions, lit/no-invalid-html */
   }
 }
