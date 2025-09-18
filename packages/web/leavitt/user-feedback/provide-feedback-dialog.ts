@@ -92,6 +92,10 @@ export class ProvideFeedbackDialog extends LoadWhile(LitElement) {
         resize: none;
       }
 
+      titanium-snackbar-stack {
+        display: inherit;
+      }
+
       [hidden] {
         display: none !important;
       }
