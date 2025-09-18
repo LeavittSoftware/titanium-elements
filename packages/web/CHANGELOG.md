@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.13.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.13.0...@leavittsoftware/web@5.13.1) (2025-09-18)
+
+
+### Bug Fixes
+
+* **page-control:** fix casing for attribute binding ([4ce8b1c](https://github.com/LeavittSoftware/titanium-elements/commit/4ce8b1c0209b369e3a190021601a6fb25d4111b3))
+
+
+
+
+
 # [5.13.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.12.1...@leavittsoftware/web@5.13.0) (2025-09-17)
 
 
