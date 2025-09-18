@@ -45,7 +45,7 @@ export class TitaniumDataTable extends LitElement {
   /**
    * Local storage key. Not required if header is static and unique
    */
-  @property({ type: String }) accessor localStorageKey: string;
+  @property({ type: String, attribute: 'local-storage-key' }) accessor localStorageKey: string;
 
   /**
    * Available page sizes

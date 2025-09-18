@@ -41,7 +41,7 @@ export class TitaniumPageControl extends LitElement {
   /**
    * Local storage key to save the current page size.
    */
-  @property({ type: String }) accessor localStorageKey: string;
+  @property({ type: String, attribute: 'local-storage-key' }) accessor localStorageKey: string;
 
   /**
    * Label for the page control. If not provided, defaults to 'Items per page'.
