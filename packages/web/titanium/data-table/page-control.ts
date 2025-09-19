@@ -124,7 +124,7 @@ export class TitaniumPageControl extends LitElement {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
-      justify-content: space-between;
+      justify-content: start;
       align-items: center;
       max-width: 450px;
       min-width: 0;
@@ -133,19 +133,12 @@ export class TitaniumPageControl extends LitElement {
       font-weight: 400;
       letter-spacing: 0.011em;
       line-height: 20px;
-      gap: 8px;
+      gap: 12px;
+      user-select: none;
     }
 
     table-paging {
       display: flex;
-    }
-
-    take-control {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 12px;
-      min-width: 0;
     }
 
     md-outlined-select {
@@ -172,12 +165,6 @@ export class TitaniumPageControl extends LitElement {
       --md-filled-field-bottom-space: 4px;
     }
 
-    pagination-text {
-      text-align: center;
-      user-select: none;
-      padding-left: 12px;
-    }
-
     [hidden] {
       display: none;
     }
@@ -187,7 +174,6 @@ export class TitaniumPageControl extends LitElement {
     /* eslint-disable lit/binding-positions, lit/no-invalid-html */
     return html`
       <table-controls>
-        <take-control>
           <div ellipsis>${this.label}</div>
           <${this.filled ? literal`md-filled-select` : literal`md-outlined-select`}
             ?disabled=${this.disabled}
@@ -206,8 +192,7 @@ export class TitaniumPageControl extends LitElement {
                 </md-select-option>`
             )}
           </${this.filled ? literal`md-filled-select` : literal`md-outlined-select`}>
-        </take-control>
-        <pagination-text>${this.#getPageStats(this.page, this.count)}</pagination-text>
+        ${this.#getPageStats(this.page, this.count)}
         <table-paging>
           <md-icon-button @click=${this.#handleLastPageClick} ?disabled=${this.page === 0 || !this.count || this.disabled}>
             <md-icon>keyboard_arrow_left</md-icon>
