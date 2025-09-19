@@ -157,6 +157,8 @@ export class TitaniumPageControl extends LitElement {
 
     md-filled-select {
       min-width: 100px;
+      overflow: hidden;
+      border-radius: 8px;
       --md-filled-select-text-field-container-color: var(--md-sys-color-surface-container-high);
       --md-filled-select-text-field-container-shape: 8px;
       --md-menu-container-shape: 8px;
@@ -164,7 +166,6 @@ export class TitaniumPageControl extends LitElement {
       --md-filled-select-text-field-active-indicator-height: 0;
       --md-filled-select-text-field-error-active-indicator-height: 0;
       --md-filled-select-text-field-hover-active-indicator-height: 0;
-      --md-filled-select-text-field-focus-active-indicator-height: 0;
       --md-filled-select-text-field-disabled-active-indicator-height: 0;
 
       --md-filled-field-top-space: 4px;
