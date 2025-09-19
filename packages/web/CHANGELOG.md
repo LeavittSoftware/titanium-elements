@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.14.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.13.2...@leavittsoftware/web@5.14.0) (2025-09-19)
+
+
+### Features
+
+* **page-control:** adds filled support ([351a98c](https://github.com/LeavittSoftware/titanium-elements/commit/351a98ccaed48bf500dba80693820f21b969dc40))
+
+
+
+
+
 ## [5.13.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.13.1...@leavittsoftware/web@5.13.2) (2025-09-19)
 
 **Note:** Version bump only for package @leavittsoftware/web
