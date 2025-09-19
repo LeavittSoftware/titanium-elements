@@ -68,6 +68,11 @@ export class TitaniumPageControlPlayground extends LitElement {
       </div>
 
       <div>
+        <h1>Filled</h1>
+        <titanium-page-control filled></titanium-page-control>
+      </div>
+
+      <div>
         <h1>Full example</h1>
         ${this.filteredData?.map((item) => html` <md-suggestion-chip label="${item?.name} #${item?.id}"></md-suggestion-chip> `)}
         <titanium-page-control
