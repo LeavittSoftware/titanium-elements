@@ -247,6 +247,7 @@ export class TitaniumColorInputPlayground extends LitElement {
           )}
         </titanium-show-hide>
       </div>
+
       <div main>
         <h2>Text Example</h2>
         <p>Using a custom slotted button</p>
@@ -273,6 +274,34 @@ export class TitaniumColorInputPlayground extends LitElement {
           <md-text-button slot="button"> ${this.collapsed ? 'Read more' : 'Read less'} </md-text-button>
         </titanium-show-hide>
       </div>
+
+      <div main>
+        <h2>Filled button example</h2>
+        <p>Read some text</p>
+        <md-slider @input=${(event) => (this.verticalStepValue = event.target.value)} .value=${this.verticalStepValue}> </md-slider>
+        <titanium-show-hide filled collapse-height="200">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum arcu, semper ac aliquet eu, porttitor vel turpis. Nullam non dolor ac massa
+            pharetra vulputate vel ac libero. In hac habitasse platea dictumst. Praesent lacus mi, vehicula eu euismod sit amet, accumsan porta massa. Morbi
+            nibh odio, pellentesque sit amet nulla sit amet, pellentesque mattis felis. Donec in eros sit amet lectus maximus porttitor. Morbi iaculis velit sed
+            interdum venenatis. Suspendisse ac consectetur tellus. Fusce molestie nunc ac dui sollicitudin, at sagittis dui convallis. Orci varius natoque
+            penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin euismod nisl et risus malesuada, non fermentum diam pharetra. Sed accumsan
+            diam turpis, aliquet viverra quam molestie viverra. Nam ullamcorper commodo dictum. Cras bibendum odio vel tortor sodales porttitor ac nec ligula.
+            Praesent eget tellus vitae diam vehicula aliquam sit amet ut mi. Curabitur pretium, enim in lacinia vehicula, sapien metus ultrices eros, vitae
+            volutpat ex tortor nec lacus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed eget porttitor mi.
+            Suspendisse sed dolor non justo euismod volutpat. Nulla massa quam, dignissim sed dapibus ac, laoreet eu elit. Proin libero ipsum, blandit quis diam
+            non, vulputate faucibus risus. Sed tincidunt elit metus. Aliquam maximus fringilla erat, eget pretium erat. Maecenas euismod fringilla placerat.
+            Nunc lorem nulla, feugiat sagittis dolor id, scelerisque convallis risus. Nullam molestie, odio sed cursus convallis, nulla ligula gravida leo, ac
+            suscipit mi elit nec velit. Nulla euismod molestie accumsan. Suspendisse ut aliquet dolor. Sed vel mollis nisl, sit amet porta odio. Vivamus
+            sagittis metus vulputate enim porttitor rhoncus. Ut facilisis ligula eget lorem rhoncus, vel pretium mauris cursus. Cras vel condimentum odio. Fusce
+            vehicula facilisis risus, in maximus ante suscipit sed. Sed ac quam a nisl hendrerit tempor varius sed mauris. Donec tempor mauris et nisi sagittis
+            laoreet. Sed dapibus ex non consectetur maximus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean arcu
+            neque, molestie a nisi vel, tincidunt vehicula arcu. Ut ut lectus gravida, tristique mauris a, aliquet magna. Duis sodales in ipsum pretium
+            hendrerit.
+          </p>
+        </titanium-show-hide>
+      </div>
+
     `;
   }
 }

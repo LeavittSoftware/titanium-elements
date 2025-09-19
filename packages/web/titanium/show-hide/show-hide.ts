@@ -1,7 +1,9 @@
-import { css, html, LitElement, PropertyValues } from 'lit';
+import { css, LitElement, PropertyValues } from 'lit';
+import { literal, html } from 'lit/static-html.js';
 import { customElement, property, query } from 'lit/decorators.js';
 
 import '@material/web/button/outlined-button';
+import '@material/web/button/filled-button';
 
 /**
  * Titanium Show Hide
@@ -29,6 +31,10 @@ export default class TitaniumShowHide extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'collapsed' }) accessor collapsed: boolean = true;
   @property({ type: Boolean, reflect: true, attribute: 'has-hidden-items' }) protected accessor hasHiddenItems: boolean = false;
   @property({ type: Number }) accessor hiddenItemCount: number = 0;
+  /**
+   * Swaps out outlined button for a filled button when true
+   */
+  @property({ type: Boolean, attribute: 'filled' }) accessor filled: boolean = false;
 
   @query('items-container') protected accessor itemsContainer: HTMLElement;
   @query('collapsed-box') protected accessor collapsedContainer: HTMLElement;
@@ -95,7 +101,8 @@ export default class TitaniumShowHide extends LitElement {
         gap: var(--titanium-show-hide-gap, 8px);
       }
 
-      md-outlined-button {
+      md-outlined-button,
+      md-filled-button {
         max-width: 160px;
         width: 100%;
         margin-top: 12px;
@@ -109,6 +116,7 @@ export default class TitaniumShowHide extends LitElement {
   ];
 
   render() {
+    /* eslint-disable lit/binding-positions, lit/no-invalid-html */
     return html`
       <style>
         :host([collapsed]) collapsed-box {
@@ -121,8 +129,11 @@ export default class TitaniumShowHide extends LitElement {
         </items-container>
       </collapsed-box>
       <slot name="button" @click=${() => (this.collapsed = !this.collapsed)} ?hidden=${!this.hasHiddenItems}>
-        <md-outlined-button part="button"> ${this.collapsed ? `Show more (${this.hiddenItemCount})` : 'Show less'}</md-outlined-button>
+        <${this.filled ? literal`md-filled-button` : literal`md-outlined-button`} part="button">
+          ${this.collapsed ? `Show more (${this.hiddenItemCount})` : 'Show less'}
+        </${this.filled ? literal`md-filled-button` : literal`md-outlined-button`}>
       </slot>
     `;
+    /* eslint-enable lit/binding-positions, lit/no-invalid-html */
   }
 }
