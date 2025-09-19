@@ -45,7 +45,7 @@ export class TitaniumCard extends LitElement {
 
       :host([filled]) {
         border: none;
-        background-color: var(--md-sys-color-surface-container-highest);
+        background-color: var(--md-sys-color-surface-container);
       }
 
       :host([elevated]) {
