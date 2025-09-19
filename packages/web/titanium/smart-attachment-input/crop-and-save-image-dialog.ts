@@ -25,6 +25,8 @@ export declare type CropperOptions = {
   selectionAspectRatio?: number | null | undefined;
   constrainSelectionTo?: 'image' | 'canvas' | null;
   maximizeSelection?: boolean;
+  outputMaxWidth?: number;
+  outputMaxHeight?: number;
 };
 
 export declare type SelectionData = {
@@ -432,10 +434,29 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
           <md-text-button
             ?disabled=${this.isLoading}
             @click=${async () => {
+              await this.cropperCanvas?.$toCanvas();
+              const canvasRect = this.cropperCanvas?.getBoundingClientRect();
+              const img = (this.cropperImage as unknown as { $image?: HTMLImageElement })?.$image;
+              const scaleX = img && canvasRect?.width ? img.naturalWidth / canvasRect.width : 1;
+              const scaleY = img && canvasRect?.height ? img.naturalHeight / canvasRect.height : scaleX;
+              let targetWidth = Math.max(1, Math.round(this.cropperSelection.width * scaleX));
+              let targetHeight = Math.max(1, Math.round(this.cropperSelection.height * scaleY));
+
+              if (this.options?.outputMaxWidth && targetWidth > this.options.outputMaxWidth) {
+                const r = this.options.outputMaxWidth / targetWidth;
+                targetWidth = this.options.outputMaxWidth;
+                targetHeight = Math.max(1, Math.round(targetHeight * r));
+              }
+              if (this.options?.outputMaxHeight && targetHeight > this.options.outputMaxHeight) {
+                const r = this.options.outputMaxHeight / targetHeight;
+                targetHeight = this.options.outputMaxHeight;
+                targetWidth = Math.max(1, Math.round(targetWidth * r));
+              }
+
+              const canvas = await this.cropperSelection?.$toCanvas({ width: targetWidth, height: targetHeight });
+
               this.isLoading = true;
               await this.updateComplete;
-
-              const canvas = await this.cropperSelection?.$toCanvas();
 
               if (!canvas) {
                 return;
