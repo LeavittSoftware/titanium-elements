@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.14.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.14.1...@leavittsoftware/web@5.14.2) (2025-09-22)
+
+
+### Bug Fixes
+
+* **dialog:** attribute typo ([ada6a0f](https://github.com/LeavittSoftware/titanium-elements/commit/ada6a0fe4683bd4b22f1a20c24febb58ac1b91c0))
+
+
+
+
+
 ## [5.14.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.14.0...@leavittsoftware/web@5.14.1) (2025-09-19)
 
 
