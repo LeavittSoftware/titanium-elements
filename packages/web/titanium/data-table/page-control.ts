@@ -1,10 +1,12 @@
-import { css, html, LitElement } from 'lit';
+import { css, LitElement } from 'lit';
 import { property, customElement, queryAsync } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 import { MdOutlinedSelect } from '@material/web/select/outlined-select.js';
+import { literal, html } from 'lit/static-html.js';
 
 import '@material/web/iconbutton/icon-button';
 import '@material/web/select/outlined-select.js';
+import '@material/web/select/filled-select.js';
 import '@material/web/select/select-option.js';
 
 /**
@@ -52,6 +54,12 @@ export class TitaniumPageControl extends LitElement {
    * Disables the page control select and page navigation buttons when true
    */
   @property({ type: Boolean }) accessor disabled: boolean;
+
+  /**
+   *  Swaps out outlined select for a filled select.
+   */
+  @property({ type: Boolean, attribute: 'filled' }) accessor filled: boolean = false;
+
   @queryAsync('md-select') protected accessor select: MdOutlinedSelect;
 
   /**
@@ -116,7 +124,7 @@ export class TitaniumPageControl extends LitElement {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
-      justify-content: space-between;
+      justify-content: start;
       align-items: center;
       max-width: 450px;
       min-width: 0;
@@ -125,19 +133,12 @@ export class TitaniumPageControl extends LitElement {
       font-weight: 400;
       letter-spacing: 0.011em;
       line-height: 20px;
-      gap: 8px;
+      gap: 12px;
+      user-select: none;
     }
 
     table-paging {
       display: flex;
-    }
-
-    take-control {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 12px;
-      min-width: 0;
     }
 
     md-outlined-select {
@@ -147,10 +148,21 @@ export class TitaniumPageControl extends LitElement {
       --md-outlined-select-text-field-container-shape: 8px;
     }
 
-    pagination-text {
-      text-align: center;
-      user-select: none;
-      padding-left: 12px;
+    md-filled-select {
+      min-width: 100px;
+      overflow: hidden;
+      border-radius: 8px;
+      --md-filled-select-text-field-container-color: var(--md-sys-color-surface-container-high);
+      --md-filled-select-text-field-container-shape: 8px;
+      --md-menu-container-shape: 8px;
+
+      --md-filled-select-text-field-active-indicator-height: 0;
+      --md-filled-select-text-field-error-active-indicator-height: 0;
+      --md-filled-select-text-field-hover-active-indicator-height: 0;
+      --md-filled-select-text-field-disabled-active-indicator-height: 0;
+
+      --md-filled-field-top-space: 4px;
+      --md-filled-field-bottom-space: 4px;
     }
 
     [hidden] {
@@ -159,11 +171,11 @@ export class TitaniumPageControl extends LitElement {
   `;
 
   render() {
+    /* eslint-disable lit/binding-positions, lit/no-invalid-html */
     return html`
       <table-controls>
-        <take-control>
           <div ellipsis>${this.label}</div>
-          <md-outlined-select
+          <${this.filled ? literal`md-filled-select` : literal`md-outlined-select`}
             ?disabled=${this.disabled}
             @request-selection=${(e) => {
               e.stopPropagation();
@@ -179,9 +191,8 @@ export class TitaniumPageControl extends LitElement {
                   <div slot="headline">${o}</div>
                 </md-select-option>`
             )}
-          </md-outlined-select>
-        </take-control>
-        <pagination-text>${this.#getPageStats(this.page, this.count)}</pagination-text>
+          </${this.filled ? literal`md-filled-select` : literal`md-outlined-select`}>
+        ${this.#getPageStats(this.page, this.count)}
         <table-paging>
           <md-icon-button @click=${this.#handleLastPageClick} ?disabled=${this.page === 0 || !this.count || this.disabled}>
             <md-icon>keyboard_arrow_left</md-icon>
@@ -192,5 +203,6 @@ export class TitaniumPageControl extends LitElement {
         </table-paging>
       </table-controls>
     `;
+    /* eslint-enable lit/binding-positions, lit/no-invalid-html */
   }
 }
