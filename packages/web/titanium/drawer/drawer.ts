@@ -189,7 +189,7 @@ export class TitaniumDrawer extends LitElement {
       color: var(--titanium-drawer-color, var(--md-sys-color-on-background));
     }
 
-    :host([has-footer]) header {
+    :host([has-header]) header {
       display: grid;
       grid-area: header;
     }
