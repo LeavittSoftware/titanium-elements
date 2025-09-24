@@ -176,6 +176,8 @@ export class TitaniumDrawer extends LitElement {
 
     main {
       grid-area: content;
+      display: grid;
+      align-content: start;
       scrollbar-color: var(--md-sys-color-surface-container-highest) transparent;
       scrollbar-width: thin;
       overflow-y: auto;
@@ -304,8 +306,6 @@ export class TitaniumDrawer extends LitElement {
 
     @supports ((backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px))) {
       dialog::backdrop {
-        background-color: rgba(255, 255, 255, 0.7);
-        -webkit-backdrop-filter: blur(3px);
         backdrop-filter: blur(3px);
         /* Not supported yet */
         transition: backdrop-filter 0.5s ease;
