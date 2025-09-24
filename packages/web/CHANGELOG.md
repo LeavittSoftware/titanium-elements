@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.14.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.14.3...@leavittsoftware/web@5.14.4) (2025-09-24)
+
+
+### Bug Fixes
+
+* **drawer:** missing display type ([1ac776c](https://github.com/LeavittSoftware/titanium-elements/commit/1ac776c0c13705aa38a4781b5d0eac70f93ec01a))
+
+
+
+
+
 ## [5.14.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.14.2...@leavittsoftware/web@5.14.3) (2025-09-22)
 
 **Note:** Version bump only for package @leavittsoftware/web
