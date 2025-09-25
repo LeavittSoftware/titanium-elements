@@ -454,6 +454,10 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
                           })
                         );
                       }
+                    } else if (this.selectionMode === 'single') {
+                      this.selected = [item];
+                      this.requestUpdate('selected');
+                      this.#notifySelectedChanged();
                     } else if (this.selectionMode === 'multi') {
                       if (this.selected.includes(item)) {
                         this.selected.splice(this.selected.indexOf(item), 1);
@@ -474,6 +478,8 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
                             @change=${() => {
                               if (this.selected.includes(item)) {
                                 this.selected.splice(this.selected.indexOf(item), 1);
+                              } else if (this.selectionMode === 'single') {
+                                this.selected = [item];
                               } else {
                                 this.selected.push(item);
                               }
