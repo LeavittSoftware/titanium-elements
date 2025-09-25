@@ -27,7 +27,8 @@
     "jwt-decode": "^4.0.0",
     "promise-parallel-throttle": "^3.5.0",
     "regexparam": "~3.0.0",
-    "tslib": "^2.8.1"
+    "tslib": "^2.8.1",
+    "@lit/context": "^1.1.6"
   },
   "peerDependencies": {
     "lit": ">=3.0.0"
