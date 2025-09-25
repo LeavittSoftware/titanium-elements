@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.15.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.15.1...@leavittsoftware/web@5.15.2) (2025-09-25)
+
+
+### Bug Fixes
+
+* **data-table-core:** invalid change route data ([0fbdd2e](https://github.com/LeavittSoftware/titanium-elements/commit/0fbdd2e2a8ad635bd005b23e8be24406e8600244))
+
+
+
+
+
 ## [5.15.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.15.0...@leavittsoftware/web@5.15.1) (2025-09-25)
 
 
