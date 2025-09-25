@@ -447,7 +447,11 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
                     if (this.selected.length === 0) {
                       if (this.tableMetaData?.itemLinkUrl) {
                         this.dispatchEvent(
-                          new CustomEvent('change-route', { bubbles: true, composed: true, detail: this.tableMetaData?.itemLinkUrl?.(item) ?? '' })
+                          new CustomEvent<{ path: string }>('change-route', {
+                            bubbles: true,
+                            composed: true,
+                            detail: { path: this.tableMetaData?.itemLinkUrl?.(item) ?? '' },
+                          })
                         );
                       }
                     } else if (this.selectionMode === 'multi') {
