@@ -1,4 +1,4 @@
-import './circle-loading-indicator';
+import '../../titanium/circle-loading-indicator/circle-loading-indicator';
 
 import { LitElement, css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
