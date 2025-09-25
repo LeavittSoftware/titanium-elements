@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.15.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.15.2...@leavittsoftware/web@5.15.3) (2025-09-25)
+
+
+### Bug Fixes
+
+* **data-table-core:** single select click behavior ([6a2ff38](https://github.com/LeavittSoftware/titanium-elements/commit/6a2ff3896e47a2cd79592197c6fe2fa4673098f0))
+
+
+
+
+
 ## [5.15.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.15.1...@leavittsoftware/web@5.15.2) (2025-09-25)
 
 
