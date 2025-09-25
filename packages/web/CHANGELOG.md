@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.15.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.15.0...@leavittsoftware/web@5.15.1) (2025-09-25)
+
+
+### Bug Fixes
+
+* **main-content-container:** bad import ref ([8814875](https://github.com/LeavittSoftware/titanium-elements/commit/881487549f2f96b9e7e7054c80b05d16d4a197bd))
+
+
+
+
+
 # [5.15.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.14.4...@leavittsoftware/web@5.15.0) (2025-09-25)
 
 
