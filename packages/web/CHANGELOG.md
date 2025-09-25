@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.15.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.14.4...@leavittsoftware/web@5.15.0) (2025-09-25)
+
+
+### Features
+
+* add beta components: data-table-core, leavitt-app, search-input, circle-loader ([4120054](https://github.com/LeavittSoftware/titanium-elements/commit/4120054967edd9d7245c5dbb6a14b4311fc3bb6d))
+
+
+
+
+
 ## [5.14.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.14.3...@leavittsoftware/web@5.14.4) (2025-09-24)
 
 
