@@ -301,7 +301,6 @@ export class TitaniumColorInputPlayground extends LitElement {
           </p>
         </titanium-show-hide>
       </div>
-
     `;
   }
 }
