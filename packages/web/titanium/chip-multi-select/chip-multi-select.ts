@@ -138,6 +138,11 @@ export class TitaniumChipMultiSelect extends LitElement {
         ::slotted(md-filled-tonal-button) {
           margin-top: 6px;
         }
+
+        ::slotted(md-input-chip) {
+          background: var(--md-sys-color-surface-container);
+          --md-sys-color-outline: transparent;
+        }
       }
     `,
   ];
