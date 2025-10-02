@@ -140,10 +140,10 @@ export class TitaniumChipMultiSelectPlayground extends LitElement {
               this.demoItems.push(chipLabels[this.demoItems.length % chipLabels.length]);
               this.requestUpdate('demoItems');
             }}
-            >
-            Add Animal 
+          >
+            Add Animal
             <md-icon slot="icon">add</md-icon>
-            </md-filled-tonal-button>
+          </md-filled-tonal-button>
           ${repeat(
             this.demoItems,
             (o) => o,
