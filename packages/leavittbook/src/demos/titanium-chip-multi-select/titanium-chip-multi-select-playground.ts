@@ -6,8 +6,11 @@ import { repeat } from 'lit/directives/repeat.js';
 import { TitaniumChipMultiSelect } from '@leavittsoftware/web/titanium/chip-multi-select/chip-multi-select';
 
 import '@material/web/chips/input-chip';
+import '@material/web/chips/filter-chip';
 import '@material/web/icon/icon';
 import '@material/web/button/outlined-button';
+import '@material/web/button/filled-tonal-button';
+
 import '@leavittsoftware/web/titanium/chip-multi-select/chip-multi-select';
 
 const chipLabels = ['Dog', 'Cat', 'Lion', 'Hedgehog', 'Turtle', 'Monkey', 'Owl', 'Peacock', 'Pigeon', 'Spider', 'Tortoise', 'Zebra'];
@@ -47,6 +50,11 @@ export class TitaniumChipMultiSelectPlayground extends LitElement {
         margin-top: 12px;
         margin-bottom: 24px;
         align-self: flex-end;
+      }
+
+      md-input-chip[filled] {
+        background: var(--md-sys-color-surface-container);
+        --md-sys-color-outline: transparent;
       }
     `,
   ];
@@ -118,6 +126,46 @@ export class TitaniumChipMultiSelectPlayground extends LitElement {
             >Reset</md-outlined-button
           >
         </button-container>
+      </div>
+
+      <h1>Filled</h1>
+      <p>Example with filled variant</p>
+      <div>
+        <titanium-chip-multi-select
+          filled
+          demo2
+          label="Service Animals"
+          ?hasItems=${!!this.demoItems.length}
+          .supportingText=${this.supportingText ?? ''}
+          ?disabled=${this.disabled}
+          required
+        >
+          <md-filled-tonal-button
+            ?disabled=${this.disabled}
+            @click=${async () => {
+              this.demoItems.push(chipLabels[this.demoItems.length % chipLabels.length]);
+              this.requestUpdate('demoItems');
+            }}
+            >
+            Add Animal 
+            <md-icon slot="icon">add</md-icon>
+            </md-filled-tonal-button>
+          ${repeat(
+            this.demoItems,
+            (o) => o,
+            (o, index) =>
+              html`<md-input-chip
+                filled
+                label=${o}
+                closeable
+                ?disabled=${this.disabled}
+                @remove=${(e: Event) => {
+                  e.preventDefault();
+                  this.demoItems = this.demoItems.filter((_, i) => i !== index);
+                }}
+              ></md-input-chip>`
+          )}</titanium-chip-multi-select
+        >
       </div>
     `;
   }

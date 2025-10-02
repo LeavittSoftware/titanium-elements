@@ -1,6 +1,6 @@
-import { css, html, LitElement, PropertyValues } from 'lit';
+import { css, LitElement, PropertyValues } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
-import { literal } from 'lit/static-html.js';
+import { literal, html } from 'lit/static-html.js';
 
 import '../../titanium/input-validator/outlined-input-validator';
 import '../../titanium/input-validator/filled-input-validator';
@@ -119,6 +119,25 @@ export class TitaniumChipMultiSelect extends LitElement {
 
       span {
         font-size: 13px;
+      }
+
+      :host([filled]) {
+        --md-filled-field-container-shape: 16px;
+
+        --md-filled-field-active-indicator-height: 0;
+        --md-filled-field-error-active-indicator-height: 0;
+        --md-filled-field-hover-active-indicator-height: 0;
+        --md-filled-field-focus-active-indicator-height: 0;
+        --md-filled-field-disabled-active-indicator-height: 0;
+
+        titanium-filled-input-validator {
+          --md-filled-field-with-label-bottom-space: 12px;
+        }
+
+        ::slotted(md-filled-button),
+        ::slotted(md-filled-tonal-button) {
+          margin-top: 6px;
+        }
       }
     `,
   ];
