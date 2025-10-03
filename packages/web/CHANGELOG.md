@@ -3,6 +3,81 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.19.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.19.0...@leavittsoftware/web@5.19.1) (2025-10-03)
+
+
+### Bug Fixes
+
+* **helpers:** prevent load-while from throwing uncaught exceptions ([4d1834e](https://github.com/LeavittSoftware/titanium-elements/commit/4d1834e7c2c71558659b0acb6ec497de59324aec))
+
+
+
+
+
+# [5.19.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.18.1...@leavittsoftware/web@5.19.0) (2025-10-03)
+
+
+### Bug Fixes
+
+* **action-bar:** set padding and box-sizing ([1223af2](https://github.com/LeavittSoftware/titanium-elements/commit/1223af27e0f1a0de817d5c4d4dacc59488cca5fd))
+
+
+### Features
+
+* **data-table-core:** create a user settings dialog ([e985e2a](https://github.com/LeavittSoftware/titanium-elements/commit/e985e2a1c51695aefd72e5239367f39c41d62222))
+* **http-error-snackbar:** improve logging formatting ([d6ae9d3](https://github.com/LeavittSoftware/titanium-elements/commit/d6ae9d3beadf1cd79b82cc2ee782f00f99ae712e))
+* **snackbar-stack:** add support for autoHide in http errors; console warn all http errors ([26f9fb0](https://github.com/LeavittSoftware/titanium-elements/commit/26f9fb0e9826cee3adb6a0615a7cd97bd0539c8c))
+* Updates street 2 label to include apartment ([0c4e5c6](https://github.com/LeavittSoftware/titanium-elements/commit/0c4e5c6e9cd94d296a8523a67ff30870e20475b0))
+
+
+
+
+
+## [5.18.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.18.0...@leavittsoftware/web@5.18.1) (2025-10-03)
+
+
+### Bug Fixes
+
+* **data-table-core-settings:** prefer friendly name for display on list items ([1a5b08f](https://github.com/LeavittSoftware/titanium-elements/commit/1a5b08fa3a3618447be83b45f000732595fca95c))
+
+
+
+
+
+# [5.18.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.17.0...@leavittsoftware/web@5.18.0) (2025-10-03)
+
+
+### Bug Fixes
+
+* **action-bar:** set padding and box-sizing ([1223af2](https://github.com/LeavittSoftware/titanium-elements/commit/1223af27e0f1a0de817d5c4d4dacc59488cca5fd))
+* **data-table-core-dialog:** add missing include of md-tabs ([7ad1187](https://github.com/LeavittSoftware/titanium-elements/commit/7ad11870ec597aa5a7724021269076ffc0f18117))
+* **nice-badge:** default to position absolute ([edbb05d](https://github.com/LeavittSoftware/titanium-elements/commit/edbb05dd8a20a2839149e6f548a51110ba53d921))
+
+
+### Features
+
+* **data-table-core:** create a user settings dialog ([e985e2a](https://github.com/LeavittSoftware/titanium-elements/commit/e985e2a1c51695aefd72e5239367f39c41d62222))
+
+
+
+
+
+# [5.17.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.16.0...@leavittsoftware/web@5.17.0) (2025-10-03)
+
+
+### Bug Fixes
+
+* **action-bar:** set padding and box-sizing ([1223af2](https://github.com/LeavittSoftware/titanium-elements/commit/1223af27e0f1a0de817d5c4d4dacc59488cca5fd))
+
+
+### Features
+
+* **data-table-core:** create a user settings dialog ([e985e2a](https://github.com/LeavittSoftware/titanium-elements/commit/e985e2a1c51695aefd72e5239367f39c41d62222))
+
+
+
+
+
 # [5.16.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.15.3...@leavittsoftware/web@5.16.0) (2025-10-03)
 
 
