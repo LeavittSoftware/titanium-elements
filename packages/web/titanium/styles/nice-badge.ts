@@ -20,6 +20,10 @@ export const niceBadgeStyles = css`
     border: 1px solid transparent;
     min-width: 18px;
 
+    position: absolute;
+    top: -1px;
+    right: -1px;
+
     height: initial;
     width: initial;
   }
