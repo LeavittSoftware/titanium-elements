@@ -2,9 +2,11 @@ import '@material/web/checkbox/checkbox';
 import '@material/web/icon/icon';
 import '@material/web/focus/md-focus-ring';
 import '@material/web/ripple/ripple';
+import './data-table-core-settings-dialog';
+import { TitaniumDataTableCoreItemSettings, TitaniumDataTableCoreSettingsDialog } from './data-table-core-settings-dialog';
 
 import { css, CSSResult, CSSResultGroup, html, LitElement, nothing, PropertyValues, TemplateResult } from 'lit';
-import { property, customElement } from 'lit/decorators.js';
+import { property, customElement, query, state } from 'lit/decorators.js';
 
 import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
 import { MdCheckbox } from '@material/web/checkbox/checkbox';
@@ -23,15 +25,33 @@ export type TitaniumDataTableCoreItemMetaData<T extends object> = {
   key: string;
   render: (item: T) => TemplateResult;
   friendlyName?: string;
-  disableSort?: boolean;
+  hideByDefault?: boolean;
   sortExpression?: string;
   width?: string;
+  disableSort?: boolean;
+  defaultSort?: TitaniumDataTableCoreDefaultSort;
+};
+
+export type TitaniumDataTableCoreDefaultSort = {
+  direction: 'asc' | 'desc';
+  position: number;
 };
 
 export type TitaniumDataTableCoreSortItem = {
   key: string;
-  direction: 'asc' | 'desc' | '';
+  direction: 'asc' | 'desc';
 };
+
+export function generateDefaultSortFromMetaData<T extends object>(tableMetaData: TitaniumDataTableCoreMetaData<T> | null) {
+  return (
+    tableMetaData?.itemMetaData
+      .filter((o) => o.defaultSort)
+      .sort((a, b) => (a.defaultSort?.position ?? 0) - (b.defaultSort?.position ?? 0))
+      .map((o) => {
+        return { key: o.key, direction: o.defaultSort?.direction ?? 'asc' };
+      }) ?? []
+  );
+}
 
 @customElement('titanium-data-table-core')
 export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElement) {
@@ -48,8 +68,6 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
 
   @property({ type: Boolean, attribute: 'sticky-header', reflect: true }) accessor stickyHeader: boolean = false;
 
-  @property({ type: Array }) accessor sort: TitaniumDataTableCoreSortItem[] = [];
-
   /**
    * Limits table selection mode to single-select.  Default is multi-select.
    */
@@ -59,6 +77,41 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
    * Array of currently selected data table objects
    */
   @property({ type: Array }) accessor selected: Array<T> = [];
+
+  @query('titanium-data-table-core-settings-dialog') private accessor settingsDialog: TitaniumDataTableCoreSettingsDialog<T>;
+
+  @property({ type: Number }) accessor countOfCustomSettingsApplied: number = 0;
+
+  /**
+   * Local storage key to save user settings for this data table.
+   */
+  @property({ type: String, attribute: 'local-storage-key' }) accessor localStorageKey: string = 'dtc-pref';
+
+  @state() accessor customSortApplied: boolean = false;
+  @state() accessor customColumnsApplied: boolean = false;
+
+  get sort() {
+    const value = window.localStorage.getItem(`${this.localStorageKey}-user-sort`);
+    if (value === null) {
+      return generateDefaultSortFromMetaData(this.tableMetaData);
+    }
+
+    return (JSON.parse(value ?? '[]') as TitaniumDataTableCoreSortItem[]) || [];
+  }
+
+  @state()
+  set sort(val: TitaniumDataTableCoreSortItem[]) {
+    localStorage.setItem(`${this.localStorageKey}-user-sort`, JSON.stringify(val));
+  }
+
+  get userSettings() {
+    return (JSON.parse(window.localStorage.getItem(`${this.localStorageKey}-user-settings`) ?? '[]') as TitaniumDataTableCoreItemSettings[]) || [];
+  }
+
+  @state()
+  set userSettings(val: TitaniumDataTableCoreItemSettings[]) {
+    localStorage.setItem(`${this.localStorageKey}-user-settings`, JSON.stringify(val));
+  }
 
   updated(changedProps: PropertyValues<this>) {
     if (changedProps.has('items') && changedProps.get('items') !== this.items) {
@@ -81,8 +134,20 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
     }
   }
 
+  showSettingsDialog() {
+    this.settingsDialog.show();
+  }
+
   #notifySelectedChanged() {
     this.dispatchEvent(new Event('selected-changed', { composed: true }));
+  }
+
+  orderByUserPreference(itemMetaData: TitaniumDataTableCoreItemMetaData<T>[], userSettings: TitaniumDataTableCoreItemSettings[]) {
+    return itemMetaData.sort((a, b) => {
+      const aIndex = userSettings.findIndex((s) => s.key === a.key);
+      const bIndex = userSettings.findIndex((s) => s.key === b.key);
+      return aIndex - bIndex;
+    });
   }
 
   static styles = [
@@ -396,7 +461,12 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
                 `
               : nothing}
             ${repeat(
-              this.tableMetaData?.itemMetaData ?? [],
+              this.orderByUserPreference(
+                this.tableMetaData?.itemMetaData?.filter(
+                  (o) => (!o.hideByDefault && this.userSettings.find((s) => s.key === o.key)?.show) || this.userSettings.find((s) => s.key === o.key)?.show
+                ) ?? [],
+                this.userSettings
+              ) ?? [],
               (metaData) => metaData.key,
               (metaData) => {
                 const sortSpecification = this.sort.find((s) => s.key === metaData.key);
@@ -492,7 +562,13 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
                       </td>`
                     : nothing}
                   ${repeat(
-                    this.tableMetaData?.itemMetaData?.map((o) => o.key) ?? [],
+                    this.orderByUserPreference(
+                      this.tableMetaData?.itemMetaData?.filter(
+                        (o) =>
+                          (!o.hideByDefault && this.userSettings.find((s) => s.key === o.key)?.show) || this.userSettings.find((s) => s.key === o.key)?.show
+                      ) ?? [],
+                      this.userSettings
+                    )?.map((o) => o.key) ?? [],
                     (key) => key,
                     (key) => {
                       return html`<td>
@@ -506,6 +582,25 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
           )}
         </tbody>
       </table>
+      <titanium-data-table-core-settings-dialog
+        ?isLoading=${this.isLoading}
+        .tableMetaData=${this.tableMetaData}
+        .userSettings=${this.userSettings}
+        @custom-sort-applied-change=${(e: DOMEvent<TitaniumDataTableCoreSettingsDialog<T>>) => {
+          this.customSortApplied = e.target.customSortApplied;
+          this.dispatchEvent(new Event('custom-sort-applied-change'));
+        }}
+        @custom-columns-applied-change=${(e: DOMEvent<TitaniumDataTableCoreSettingsDialog<T>>) => {
+          this.customColumnsApplied = e.target.customColumnsApplied;
+          this.dispatchEvent(new Event('custom-columns-applied-change'));
+        }}
+        .sort=${this.sort}
+        @sort-changed=${(e: DOMEvent<TitaniumDataTableCoreSettingsDialog<T>>) => {
+          this.sort = structuredClone(e.target.sort);
+          this.dispatchEvent(new Event('sort-changed'));
+        }}
+        @setting-change=${(e: DOMEvent<TitaniumDataTableCoreSettingsDialog<T>>) => (this.userSettings = structuredClone(e.target.userSettings))}
+      ></titanium-data-table-core-settings-dialog>
     `;
   }
 }

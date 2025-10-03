@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/web",
-  "version": "5.15.3",
+  "version": "5.16.0",
   "license": "Apache-2.0",
   "description": "",
   "files": [
@@ -15,7 +15,7 @@
     "**/*.jpg"
   ],
   "dependencies": {
-    "@googlemaps/js-api-loader": "*",
+    "@googlemaps/js-api-loader": "1.16.10",
     "@leavittsoftware/lg-core-typescript": "*",
     "@lit/context": "^1.1.6",
     "@material/web": "*",

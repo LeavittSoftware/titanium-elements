@@ -25,9 +25,9 @@ export class TitaniumDataTableActionBar<T extends object> extends LitElement {
     css`
       :host {
         display: grid;
-        margin: 12px 0;
-        padding: 0 16px;
+        padding: 12px 16px;
         background-color: var(--md-sys-color-surface-container-lowest);
+        box-sizing: border-box;
       }
 
       main {
