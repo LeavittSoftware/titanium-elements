@@ -6,9 +6,10 @@ import '@material/web/dialog/dialog';
 import '@material/web/icon/icon';
 import '@material/web/button/text-button';
 import '@material/web/button/outlined-button';
+import '@material/web/button/filled-tonal-button';
 import '@material/web/chips/input-chip';
 
-import { css, html, LitElement } from 'lit';
+import { css, LitElement } from 'lit';
 import { property, customElement, query } from 'lit/decorators.js';
 import { CropAndSaveImageDialog, CropperOptions } from './crop-and-save-image-dialog';
 import { repeat } from 'lit/directives/repeat.js';
@@ -23,6 +24,7 @@ import { TitaniumChipMultiSelect } from '../../titanium/chip-multi-select/chip-m
 import { MdDialog } from '@material/web/dialog/dialog';
 import { getCdnInlineUrl } from '../helpers/get-cdn-Inline-url';
 import { p } from '../styles/p';
+import { literal, html } from 'lit/static-html.js';
 
 export type TitaniumSmartInputOptions = CropperOptions;
 
@@ -113,6 +115,11 @@ export class TitaniumSmartAttachmentInput extends LitElement {
    *  Forces cropper to output PNG's
    */
   @property({ type: Boolean, reflect: true, attribute: 'force-png' }) accessor forcePNGOutput: boolean;
+
+  /**
+   *  Swaps out outlined chip multi select for a filled chip multi select.
+   */
+  @property({ type: Boolean, attribute: 'filled' }) accessor filled: boolean = false;
 
   /**
    *  Image formats here are sent to the cropper
@@ -303,10 +310,12 @@ export class TitaniumSmartAttachmentInput extends LitElement {
   ];
 
   render() {
+    /* eslint-disable lit/binding-positions, lit/no-invalid-html */
     return html`
       <titanium-chip-multi-select
         .supportingText=${this.supportingText}
         .required=${this.required}
+        ?filled=${this.filled}
         ?disabled=${this.disabled}
         @drop=${(e: DragEvent) => {
           if (this.disabled) {
@@ -333,7 +342,7 @@ export class TitaniumSmartAttachmentInput extends LitElement {
         .hasItems=${!!this.files.length}
       >
         <drop-scrim></drop-scrim>
-        <md-outlined-button
+        <${this.filled ? literal`md-filled-tonal-button` : literal`md-outlined-button`}
           ?hidden=${!this.multiple && !!this.files.length}
           .disabled=${this.disabled}
           @click=${() => {
@@ -342,8 +351,8 @@ export class TitaniumSmartAttachmentInput extends LitElement {
               this.input.click();
             }
           }}
-          >${this.addButtonLabel} <md-icon slot="icon">add</md-icon></md-outlined-button
-        >
+          >${this.addButtonLabel} <md-icon slot="icon">add</md-icon>
+        </${this.filled ? literal`md-filled-tonal-button` : literal`md-outlined-button`}>
         ${repeat(
           this.files,
           (o) => o.file.name,
@@ -407,5 +416,6 @@ export class TitaniumSmartAttachmentInput extends LitElement {
         </div>
       </md-dialog>
     `;
+    /* eslint-enable lit/binding-positions, lit/no-invalid-html */
   }
 }

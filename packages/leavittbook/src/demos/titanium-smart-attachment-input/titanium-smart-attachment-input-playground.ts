@@ -94,6 +94,12 @@ export class TitaniumSmartAttachmentInputPlayground extends LitElement {
         <titanium-smart-attachment-input label="supporting text" supportingText="Click the add button to get started"></titanium-smart-attachment-input>
       </div>
 
+      <h1>Filled</h1>
+      <p>Example with filled variant</p>
+      <div>
+        <titanium-smart-attachment-input filled></titanium-smart-attachment-input>
+      </div>
+
       <h1>Get files</h1>
       <p>Demonstrates results of calling getFiles()</p>
       <div>

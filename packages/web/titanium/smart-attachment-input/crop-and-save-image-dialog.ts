@@ -1,6 +1,7 @@
 import '@material/web/dialog/dialog';
 import '@material/web/icon/icon';
 import '@material/web/button/text-button';
+import '@material/web/button/filled-tonal-button';
 import '@material/web/iconbutton/icon-button';
 import 'cropperjs';
 
@@ -431,7 +432,7 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
             }}
             >Cancel</md-text-button
           >
-          <md-text-button
+          <md-filled-tonal-button
             ?disabled=${this.isLoading}
             @click=${async () => {
               await this.cropperCanvas?.$toCanvas();
@@ -471,7 +472,7 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
               this.isLoading = false;
               this.dialog.close('cropped');
             }}
-            >Save</md-text-button
+            >Save</md-filled-tonal-button
           >
         </div>
       </md-dialog>
