@@ -48,7 +48,7 @@ export class HttpErrorSnackbar extends LitElement {
   #consoleWarn(httpError: Partial<HttpError>) {
     const message = httpError.message;
     const detail = httpError.detail;
-    console.warn('APP-HTTP-ERROR:', message || '', detail || '');
+    console.warn('APP-HTTP-ERROR:', message || '', detail ? `\n\n${detail}` : '');
   }
 
   #setAutoHide(options?: SnackbarOptions) {
