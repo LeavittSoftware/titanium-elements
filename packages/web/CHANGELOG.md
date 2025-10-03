@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.17.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.16.0...@leavittsoftware/web@5.17.0) (2025-10-03)
+
+
+### Bug Fixes
+
+* **action-bar:** set padding and box-sizing ([1223af2](https://github.com/LeavittSoftware/titanium-elements/commit/1223af27e0f1a0de817d5c4d4dacc59488cca5fd))
+
+
+### Features
+
+* **data-table-core:** create a user settings dialog ([e985e2a](https://github.com/LeavittSoftware/titanium-elements/commit/e985e2a1c51695aefd72e5239367f39c41d62222))
+
+
+
+
+
 # [5.16.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.15.3...@leavittsoftware/web@5.16.0) (2025-10-03)
 
 
