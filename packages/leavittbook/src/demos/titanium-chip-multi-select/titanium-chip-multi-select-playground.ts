@@ -8,6 +8,7 @@ import { TitaniumChipMultiSelect } from '@leavittsoftware/web/titanium/chip-mult
 import '@material/web/chips/input-chip';
 import '@material/web/icon/icon';
 import '@material/web/button/outlined-button';
+import '@material/web/button/filled-button';
 import '@material/web/button/filled-tonal-button';
 
 import '@leavittsoftware/web/titanium/chip-multi-select/chip-multi-select';
@@ -37,10 +38,11 @@ export class TitaniumChipMultiSelectPlayground extends LitElement {
         border: 1px solid var(--md-sys-color-outline);
         padding: 24px;
         border-radius: 8px;
-        display: flex;
-        flex-direction: column;
+        display: grid;
         gap: 12px;
         margin: 24px 0 36px 0;
+        resize: both;
+        overflow: hidden;
       }
 
       button-container {

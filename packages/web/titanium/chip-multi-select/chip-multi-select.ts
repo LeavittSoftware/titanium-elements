@@ -113,7 +113,7 @@ export class TitaniumChipMultiSelect extends LitElement {
       slot-container {
         display: flex;
         flex-wrap: wrap;
-        grid-gap: 12px;
+        gap: 8px;
         align-items: center;
       }
 
@@ -130,13 +130,30 @@ export class TitaniumChipMultiSelect extends LitElement {
         --md-filled-field-focus-active-indicator-height: 0;
         --md-filled-field-disabled-active-indicator-height: 0;
 
+        slot-container {
+          margin-top: 6px;
+        }
+
         titanium-filled-input-validator {
           --md-filled-field-with-label-bottom-space: 12px;
         }
 
         ::slotted(md-filled-button),
         ::slotted(md-filled-tonal-button) {
-          margin-top: 6px;
+          --md-filled-button-container-shape: 8px;
+          --md-filled-button-container-height: 32px;
+
+          --md-filled-button-with-trailing-icon-leading-space: 8px;
+          --md-filled-button-with-trailing-icon-trailing-space: 16px;
+          --md-filled-button-with-leading-icon-leading-space: 8px;
+          --md-filled-button-with-leading-icon-trailing-space: 16px;
+
+          --md-filled-tonal-button-with-trailing-icon-leading-space: 8px;
+          --md-filled-tonal-button-with-trailing-icon-trailing-space: 16px;
+          --md-filled-tonal-button-with-leading-icon-leading-space: 8px;
+          --md-filled-tonal-button-with-leading-icon-trailing-space: 16px;
+          --md-filled-tonal-button-container-shape: 8px;
+          --md-filled-tonal-button-container-height: 32px;
         }
 
         ::slotted(md-input-chip) {
