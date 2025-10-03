@@ -140,9 +140,11 @@ export class DataTableCorePlayground extends LitElement {
       :host {
         display: grid;
       }
+
       md-icon-button[table-settings] {
         position: relative;
       }
+
       nice-badge {
         position: absolute;
         top: -1px;
@@ -200,7 +202,7 @@ export class DataTableCorePlayground extends LitElement {
           @custom-sort-applied-change=${(e: DOMEvent<TitaniumDataTableCore<ItemType>>) => {
             this.countOfCustomSettingsApplied = (e.target.customSortApplied ? 1 : 0) + (e.target.customColumnsApplied ? 1 : 0);
           }}
-          @has-custom-columns-changed=${(e: DOMEvent<TitaniumDataTableCore<ItemType>>) => {
+          @custom-columns-applied-change=${(e: DOMEvent<TitaniumDataTableCore<ItemType>>) => {
             this.countOfCustomSettingsApplied = (e.target.customSortApplied ? 1 : 0) + (e.target.customColumnsApplied ? 1 : 0);
           }}
           selection-mode="multi"
