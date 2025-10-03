@@ -36,6 +36,8 @@ export class TitaniumFullPageLoadingIndicator extends LitElement {
       this.#openCount++;
       try {
         await e.detail.promise;
+      } catch {
+        // Do nothing, this will be handled by others
       } finally {
         this.#openCount--;
         if (this.#openCount === 0) {
