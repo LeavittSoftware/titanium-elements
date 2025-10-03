@@ -284,7 +284,7 @@ export class TitaniumDataTableCoreSettingsDialog<T extends object> extends LoadW
                       (sort, index) =>
                         html`<data-table-core-settings-sort-item
                           .index=${index}
-                          .name=${sort.key}
+                          .name=${this.tableMetaData?.itemMetaData.find((item) => item.key === sort.key)?.friendlyName ?? sort.key}
                           sort-direction=${sort.direction}
                           ?disabled=${this.isLoading}
                           ?disable-drag=${this.isLoading || this.sort.length === 1}
