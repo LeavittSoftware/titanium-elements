@@ -1,5 +1,6 @@
 import '@material/web/dialog/dialog';
 import '@material/web/button/text-button';
+import '@material/web/tabs/tabs';
 import '@material/web/tabs/primary-tab';
 import '@material/web/button/filled-tonal-button';
 import '@material/web/icon/icon';
