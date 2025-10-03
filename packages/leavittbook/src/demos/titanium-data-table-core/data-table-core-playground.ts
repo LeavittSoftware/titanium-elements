@@ -18,20 +18,29 @@ import { delay } from '@leavittsoftware/web/titanium/helpers/delay';
 /* playground-fold-end */
 
 /* playground-fold */
-type Car = { Id: number; Name: string; Appearance: 'Plaid' | 'Ugly' | 'Slick'; DragCoefficient: number; Year: number };
+type Car = {
+  Id: number;
+  Name: string;
+  Appearance: 'Plaid' | 'Ugly' | 'Slick';
+  DragCoefficient: number;
+  Year: number;
+  Color: string;
+  MaxSpeed: number;
+  IsElectric: boolean;
+};
 type ItemType = Partial<Car>;
 
 const allTeslas: Array<Car> = [
-  { Id: 1, Name: 'Model 3', Appearance: 'Slick', DragCoefficient: 0.23, Year: 2017 },
-  { Id: 2, Name: 'Model X', Appearance: 'Slick', DragCoefficient: 0.1, Year: 2018 },
-  { Id: 3, Name: 'Model Y', Appearance: 'Slick', DragCoefficient: 0.4, Year: 2020 },
-  { Id: 4, Name: 'Model S', Appearance: 'Slick', DragCoefficient: 0.2, Year: 2009 },
-  { Id: 5, Name: 'Cybertruck', Appearance: 'Ugly', DragCoefficient: 0.3, Year: 2024 },
-  { Id: 6, Name: 'Tesla Semi', Appearance: 'Ugly', DragCoefficient: 0.3, Year: 2022 },
-  { Id: 7, Name: 'Model X Plaid', Appearance: 'Plaid', DragCoefficient: 0.1, Year: 2024 },
-  { Id: 8, Name: 'Model S Plaid', Appearance: 'Plaid', DragCoefficient: 0.1, Year: 2020 },
-  { Id: 9, Name: 'Model S Plaid+', Appearance: 'Plaid', DragCoefficient: 0.1, Year: 2022 },
-  { Id: 10, Name: 'Gen. 2 Roadster', Appearance: 'Slick', DragCoefficient: 0.23, Year: 2025 },
+  { Id: 1, Name: 'Model 3', Appearance: 'Slick', DragCoefficient: 0.23, Year: 2017, Color: 'Red', MaxSpeed: 150, IsElectric: true },
+  { Id: 2, Name: 'Model X', Appearance: 'Slick', DragCoefficient: 0.1, Year: 2018, Color: 'Blue', MaxSpeed: 120, IsElectric: true },
+  { Id: 3, Name: 'Model Y', Appearance: 'Slick', DragCoefficient: 0.4, Year: 2020, Color: 'Blue', MaxSpeed: 110, IsElectric: true },
+  { Id: 4, Name: 'Model S', Appearance: 'Slick', DragCoefficient: 0.2, Year: 2009, Color: 'Green', MaxSpeed: 150, IsElectric: true },
+  { Id: 5, Name: 'Cybertruck', Appearance: 'Ugly', DragCoefficient: 0.3, Year: 2024, Color: 'Yellow', MaxSpeed: 100, IsElectric: true },
+  { Id: 6, Name: 'Tesla Semi', Appearance: 'Ugly', DragCoefficient: 0.3, Year: 2022, Color: 'Green', MaxSpeed: 100, IsElectric: true },
+  { Id: 7, Name: 'Model X Plaid', Appearance: 'Plaid', DragCoefficient: 0.1, Year: 2024, Color: 'Red', MaxSpeed: 180, IsElectric: true },
+  { Id: 8, Name: 'Model S Plaid', Appearance: 'Plaid', DragCoefficient: 0.1, Year: 2020, Color: 'Yellow', MaxSpeed: 130, IsElectric: true },
+  { Id: 9, Name: 'Model S Plaid+', Appearance: 'Plaid', DragCoefficient: 0.1, Year: 2022, Color: 'Red', MaxSpeed: 130, IsElectric: true },
+  { Id: 10, Name: 'Gen. 2 Roadster', Appearance: 'Slick', DragCoefficient: 0.23, Year: 2025, Color: 'Red', MaxSpeed: 150, IsElectric: true },
 ];
 
 @customElement('data-table-core-playground')
@@ -128,6 +137,26 @@ export class DataTableCorePlayground extends LitElement {
         hideByDefault: true,
         disableSort: true,
       },
+      {
+        key: 'Color',
+        friendlyName: 'Color',
+        render: (item) => html`${item.Color}`,
+        width: '250px',
+        hideByDefault: true,
+      },
+      {
+        key: 'MaxSpeed',
+        friendlyName: 'Max Speed',
+        render: (item) => html`${item.MaxSpeed} mph`,
+        width: '250px',
+      },
+      {
+        key: 'IsElectric',
+        friendlyName: 'Is Electric',
+        render: (item) => html`${item.IsElectric ? 'Yes' : 'No'}`,
+        width: '250px',
+        hideByDefault: true,
+      },
     ],
   };
 
@@ -199,17 +228,13 @@ export class DataTableCorePlayground extends LitElement {
         </titanium-data-table-action-bar>
         <titanium-data-table-core
           local-storage-key="test-dtc-pref-tesla-demo"
-          @custom-sort-applied-change=${(e: DOMEvent<TitaniumDataTableCore<ItemType>>) => {
-            this.countOfCustomSettingsApplied = (e.target.customSortApplied ? 1 : 0) + (e.target.customColumnsApplied ? 1 : 0);
-          }}
-          @custom-columns-applied-change=${(e: DOMEvent<TitaniumDataTableCore<ItemType>>) => {
-            this.countOfCustomSettingsApplied = (e.target.customSortApplied ? 1 : 0) + (e.target.customColumnsApplied ? 1 : 0);
-          }}
+          @custom-sort-applied-change=${(e: DOMEvent<TitaniumDataTableCore<ItemType>>) =>
+            (this.countOfCustomSettingsApplied = (e.target.customSortApplied ? 1 : 0) + (e.target.customColumnsApplied ? 1 : 0))}
+          @custom-columns-applied-change=${(e: DOMEvent<TitaniumDataTableCore<ItemType>>) =>
+            (this.countOfCustomSettingsApplied = (e.target.customSortApplied ? 1 : 0) + (e.target.customColumnsApplied ? 1 : 0))}
           selection-mode="multi"
           sticky-header
-          @selected-changed=${(e: DOMEvent<TitaniumDataTableCore<ItemType>>) => {
-            this.selected = [...e.target.selected];
-          }}
+          @selected-changed=${(e: DOMEvent<TitaniumDataTableCore<ItemType>>) => (this.selected = [...e.target.selected])}
           @sort-changed=${async (e: DOMEvent<TitaniumDataTableCore<ItemType>>) => {
             this.sort = e.target.sort;
             const _delay = delay(300);

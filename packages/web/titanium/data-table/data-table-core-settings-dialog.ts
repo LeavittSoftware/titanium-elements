@@ -177,6 +177,7 @@ export class TitaniumDataTableCoreSettingsDialog<T extends object> extends LoadW
           margin-top: 16px;
           display: grid;
           justify-self: center;
+          position: relative;
         }
       }
 
@@ -189,6 +190,8 @@ export class TitaniumDataTableCoreSettingsDialog<T extends object> extends LoadW
   ];
 
   render() {
+    //menu fixed does not overflow the dialog footer in safari, so we use absolute however popover scrolls with the page...
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     const columnsNotInSort = this.tableMetaData?.itemMetaData.filter((item) => !item.disableSort && !this.sort.some((sort) => sort.key === item.key)) ?? [];
     return html` <md-dialog
       @open=${(e: DOMEvent<MdDialog>) => {
@@ -325,7 +328,7 @@ export class TitaniumDataTableCoreSettingsDialog<T extends object> extends LoadW
                     <md-menu
                       id="menu"
                       anchor="menu-anchor"
-                      positioning="popover"
+                      positioning=${isSafari ? 'popover' : 'fixed'}
                       @close-menu=${(e: CloseMenuEvent) => {
                         (e.detail.itemPath?.[0] as MenuItem & { action?: () => void })?.action?.();
                       }}
