@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.18.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.18.0...@leavittsoftware/web@5.18.1) (2025-10-03)
+
+
+### Bug Fixes
+
+* **data-table-core-settings:** prefer friendly name for display on list items ([1a5b08f](https://github.com/LeavittSoftware/titanium-elements/commit/1a5b08fa3a3618447be83b45f000732595fca95c))
+
+
+
+
+
 # [5.18.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.17.0...@leavittsoftware/web@5.18.0) (2025-10-03)
 
 
