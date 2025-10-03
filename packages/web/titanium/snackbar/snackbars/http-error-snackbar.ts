@@ -4,6 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { SimpleSnackbar } from './simple-snackbar';
 
 import '@material/web/button/text-button';
+import { SnackbarOptions } from '../types/snackbar-options';
 
 /**
  * Material design snackbar.
@@ -27,7 +28,7 @@ export class HttpErrorSnackbar extends LitElement {
     this.popover = 'manual';
   }
 
-  show(httpError: Partial<HttpError>) {
+  show(httpError: Partial<HttpError>, options?: SnackbarOptions) {
     //Firefox support
     if (this.showPopover) {
       this.showPopover();
@@ -36,18 +37,36 @@ export class HttpErrorSnackbar extends LitElement {
     }
     this.httpErrors.push(httpError);
 
+    this.#setAutoHide(options);
+    this.#consoleWarn(httpError);
+
     return new Promise<string>((resolve) => {
       this.#resolve = resolve;
     });
   }
 
-  addError(httpError: Partial<HttpError>) {
+  #consoleWarn(httpError: Partial<HttpError>) {
+    const message = httpError.message;
+    const detail = httpError.detail;
+    console.warn('APP-HTTP-ERROR:', message || '', detail || '');
+  }
+
+  #setAutoHide(options?: SnackbarOptions) {
+    if (options?.autoHide) {
+      clearTimeout(this.#autoCloseTimeout);
+      const duration = typeof options?.autoHide === 'number' ? options?.autoHide : 5000;
+      this.#autoCloseTimeout = window.setTimeout(() => this.close('auto-close'), duration);
+    }
+  }
+
+  addError(httpError: Partial<HttpError>, options?: SnackbarOptions) {
+    this.#setAutoHide(options);
+    this.#consoleWarn(httpError);
     this.httpErrors = [...this.httpErrors, httpError];
   }
 
   #autoCloseTimeout = 0;
   close(reason: string = '') {
-    clearTimeout(this.#autoCloseTimeout);
     //Firefox support
     if (this.hidePopover) {
       this.hidePopover();

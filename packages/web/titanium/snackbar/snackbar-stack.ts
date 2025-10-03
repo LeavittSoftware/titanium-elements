@@ -54,9 +54,9 @@ export class SnackbarStack extends LitElement {
         this.insertAdjacentHTML('beforeend', html);
         httpPopover = this.querySelector('titanium-http-error-snackbar') as HttpErrorSnackbar;
         this.SnackbarStack.unshift(httpPopover);
-        closeReason = httpPopover.show(message);
+        closeReason = httpPopover.show(message, options);
       } else {
-        httpPopover.addError(message);
+        httpPopover.addError(message, options);
         return;
       }
 
