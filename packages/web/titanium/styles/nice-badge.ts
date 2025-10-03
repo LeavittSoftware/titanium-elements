@@ -38,6 +38,11 @@ export const niceBadgeStyles = css`
     color: var(--md-sys-color-on-secondary);
   }
 
+  nice-badge[green] {
+    background-color: var(--app-accent-color-green-light);
+    color: var(--app-accent-color-on-green-light);
+  }
+
   nice-badge[compact] {
     padding: 1px 2px;
 

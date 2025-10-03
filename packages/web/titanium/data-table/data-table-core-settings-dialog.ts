@@ -159,12 +159,13 @@ export class TitaniumDataTableCoreSettingsDialog<T extends object> extends LoadW
         position: relative;
         nice-badge {
           position: absolute;
-          top: 1px;
+          top: -4px;
           right: -10px;
         }
       }
 
       main {
+        display: grid;
         padding: 4px 16px 8px 16px;
 
         p[no-sort] {
@@ -205,14 +206,14 @@ export class TitaniumDataTableCoreSettingsDialog<T extends object> extends LoadW
       <md-tabs slot="headline" @change=${(e) => e.target.activeTab?.onActivate?.()}>
         <md-primary-tab ?disabled=${this.isLoading} .onActivate=${() => (this.viewMode = 'Customize')}>
           <div slot="icon">
-            ${this.customColumnsApplied ? html`<nice-badge compact primary>1</nice-badge>` : nothing}
+            ${this.customColumnsApplied ? html`<nice-badge green>1</nice-badge>` : nothing}
             <md-icon>tune</md-icon>
           </div>
           Customize columns
         </md-primary-tab>
         <md-primary-tab ?disabled=${this.isLoading} .onActivate=${() => (this.viewMode = 'Sort')}>
           <div slot="icon">
-            ${this.customSortApplied ? html`<nice-badge compact primary>1</nice-badge>` : nothing}
+            ${this.customSortApplied ? html`<nice-badge green>1</nice-badge>` : nothing}
             <md-icon>edit_arrow_down</md-icon>
           </div>
           <div>Advanced Sort</div>
