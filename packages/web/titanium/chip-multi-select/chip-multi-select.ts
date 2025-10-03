@@ -1,8 +1,9 @@
-import { css, html, LitElement, PropertyValues } from 'lit';
+import { css, LitElement, PropertyValues } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
-import { TitaniumInputValidator } from '../../titanium/input-validator/input-validator';
+import { literal, html } from 'lit/static-html.js';
 
-import '../../titanium/input-validator/input-validator';
+import '../../titanium/input-validator/outlined-input-validator';
+import '../../titanium/input-validator/filled-input-validator';
 
 /**
  *  Multi select outlined themed input that styles
@@ -16,6 +17,10 @@ import '../../titanium/input-validator/input-validator';
 
 @customElement('titanium-chip-multi-select')
 export class TitaniumChipMultiSelect extends LitElement {
+  /**
+   *  Swaps outlined validator for filled validator
+   */
+  @property({ type: Boolean, attribute: 'filled' }) accessor filled: boolean = false;
   /**
    *  Label of input to display to users
    */
@@ -61,7 +66,9 @@ export class TitaniumChipMultiSelect extends LitElement {
    */
   @property({ type: Boolean, reflect: true }) accessor disabled: boolean;
 
-  @query('titanium-input-validator') private accessor validator: TitaniumInputValidator;
+  @query('titanium-outlined-input-validator, titanium-filled-input-validator') private accessor validator:
+    | { checkValidity: () => boolean; reportValidity: () => boolean; reset: () => void }
+    | undefined;
 
   updated(changedProps: PropertyValues<this>) {
     if ((changedProps.get('hasItems') && changedProps.has('hasItems')) || (this.hasItems && changedProps.has('hasItems'))) {
@@ -97,7 +104,8 @@ export class TitaniumChipMultiSelect extends LitElement {
         width: 100%;
       }
 
-      titanium-input-validator {
+      titanium-outlined-input-validator,
+      titanium-filled-input-validator {
         display: block;
         width: 100%;
       }
@@ -105,19 +113,61 @@ export class TitaniumChipMultiSelect extends LitElement {
       slot-container {
         display: flex;
         flex-wrap: wrap;
-        grid-gap: 12px;
+        gap: 8px;
         align-items: center;
       }
 
       span {
         font-size: 13px;
       }
+
+      :host([filled]) {
+        --md-filled-field-container-shape: 16px;
+
+        --md-filled-field-active-indicator-height: 0;
+        --md-filled-field-error-active-indicator-height: 0;
+        --md-filled-field-hover-active-indicator-height: 0;
+        --md-filled-field-focus-active-indicator-height: 0;
+        --md-filled-field-disabled-active-indicator-height: 0;
+
+        slot-container {
+          margin-top: 6px;
+        }
+
+        titanium-filled-input-validator {
+          --md-filled-field-with-label-bottom-space: 12px;
+        }
+
+        ::slotted(md-filled-button),
+        ::slotted(md-filled-tonal-button) {
+          --md-filled-button-container-shape: 8px;
+          --md-filled-button-container-height: 32px;
+
+          --md-filled-button-with-trailing-icon-leading-space: 8px;
+          --md-filled-button-with-trailing-icon-trailing-space: 16px;
+          --md-filled-button-with-leading-icon-leading-space: 8px;
+          --md-filled-button-with-leading-icon-trailing-space: 16px;
+
+          --md-filled-tonal-button-with-trailing-icon-leading-space: 8px;
+          --md-filled-tonal-button-with-trailing-icon-trailing-space: 16px;
+          --md-filled-tonal-button-with-leading-icon-leading-space: 8px;
+          --md-filled-tonal-button-with-leading-icon-trailing-space: 16px;
+          --md-filled-tonal-button-container-shape: 8px;
+          --md-filled-tonal-button-container-height: 32px;
+        }
+
+        ::slotted(md-input-chip) {
+          background: var(--md-sys-color-surface-container);
+          --md-sys-color-outline: transparent;
+        }
+      }
     `,
   ];
 
   protected render() {
+    /* eslint-disable lit/binding-positions, lit/no-invalid-html */
     return html`
-      <titanium-input-validator
+      <${this.filled ? literal`titanium-filled-input-validator` : literal`titanium-outlined-input-validator`}
         ?disabled=${this.disabled}
         .evaluator=${() => !this.required || !!this.hasItems}
         ?required=${this.required}
@@ -131,7 +181,8 @@ export class TitaniumChipMultiSelect extends LitElement {
           <slot></slot>
           ${!this.hasItems ? html` <span>${this.noItemsText}</span>` : ''}
         </slot-container>
-      </titanium-input-validator>
+      </${this.filled ? literal`titanium-filled-input-validator` : literal`titanium-outlined-input-validator`}>
     `;
+    /* eslint-enable lit/binding-positions, lit/no-invalid-html */
   }
 }

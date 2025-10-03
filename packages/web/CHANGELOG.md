@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.16.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.15.3...@leavittsoftware/web@5.16.0) (2025-10-03)
+
+
+### Bug Fixes
+
+* **address-input:** force google maps loader v1 ([295713b](https://github.com/LeavittSoftware/titanium-elements/commit/295713becbfcfaab62186339075cb3e0c0b12600))
+* **chip-multi-select:** add demos. use static html. ([541f1b5](https://github.com/LeavittSoftware/titanium-elements/commit/541f1b5710fccccf484051fb2b7b9248bba2fa0e))
+
+
+### Features
+
+* **chip-multi-select:** Add filled support. Split validator into 2 pkgs ([7acde82](https://github.com/LeavittSoftware/titanium-elements/commit/7acde82003e8f08cacf1766ec0586cb4d6308d79))
+
+
+
+
+
 ## [5.15.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.15.2...@leavittsoftware/web@5.15.3) (2025-09-25)
 
 

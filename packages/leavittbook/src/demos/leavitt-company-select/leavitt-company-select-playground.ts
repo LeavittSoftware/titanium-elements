@@ -66,7 +66,7 @@ export class LeavittPersonCompanySelectPlayground extends ThemePreference(LitEle
     /* playground-fold-end */
     return html`
       <user-manager disableAutoload></user-manager>
-  
+
       <h1>Methods</h1>
       <p>Demonstrates public methods</p>
       <div row>
@@ -154,9 +154,7 @@ export class LeavittPersonCompanySelectPlayground extends ThemePreference(LitEle
           ?disable-menu-open-on-focus=${this.disableMenuOpenOnFocus}
           .apiService=${this.apiService}
         ></leavitt-company-select>
-
       </div>
-
 
       <titanium-snackbar-stack></titanium-snackbar-stack>
     `;

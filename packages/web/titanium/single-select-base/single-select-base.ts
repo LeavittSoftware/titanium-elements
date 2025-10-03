@@ -303,7 +303,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
         --md-filled-text-field-focus-active-indicator-height: 0;
         --md-filled-text-field-disabled-active-indicator-height: 0;
       }
-      
+
       :host([shaped]) {
         --md-outlined-text-field-container-shape: 28px;
         --md-filled-text-field-container-shape: 28px;
