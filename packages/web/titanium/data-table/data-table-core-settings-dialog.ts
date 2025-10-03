@@ -186,6 +186,12 @@ export class TitaniumDataTableCoreSettingsDialog<T extends object> extends LoadW
         justify-content: space-between;
         gap: 8px;
       }
+
+      @media (max-height: 450px) {
+        md-dialog {
+          min-height: initial;
+        }
+      }
     `,
   ];
 
