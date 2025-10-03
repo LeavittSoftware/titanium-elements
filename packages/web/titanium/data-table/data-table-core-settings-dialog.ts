@@ -19,7 +19,6 @@ import { MdDialog } from '@material/web/dialog/dialog';
 import { ItemDropEvent } from './draggable-item-base';
 import { repeat } from 'lit/directives/repeat.js';
 import { TitaniumDataTableCoreSettingsItem } from './data-table-core-settings-item';
-import { segmentedButtonStyles } from '../styles/segmented-button';
 import { MdIconButton } from '@material/web/iconbutton/icon-button';
 import { MdMenu, CloseMenuEvent, MenuItem } from '@material/web/menu/menu';
 import { niceBadgeStyles } from '../styles/nice-badge';
@@ -124,7 +123,6 @@ export class TitaniumDataTableCoreSettingsDialog<T extends object> extends LoadW
 
   #resolve: (value: 'done') => void;
   static styles = [
-    segmentedButtonStyles,
     niceBadgeStyles,
     css`
       :host {
