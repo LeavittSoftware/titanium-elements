@@ -16,6 +16,8 @@ export const LoadWhile = <C extends Constructor<HTMLElement>>(base: C) =>
       this.#promiseCount++;
       try {
         await promise;
+      } catch {
+        // Do nothing, this will be handled by others
       } finally {
         this.#promiseCount--;
         if (this.#promiseCount === 0) {
