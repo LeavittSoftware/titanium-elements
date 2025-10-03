@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.18.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.17.0...@leavittsoftware/web@5.18.0) (2025-10-03)
+
+
+### Bug Fixes
+
+* **action-bar:** set padding and box-sizing ([1223af2](https://github.com/LeavittSoftware/titanium-elements/commit/1223af27e0f1a0de817d5c4d4dacc59488cca5fd))
+* **data-table-core-dialog:** add missing include of md-tabs ([7ad1187](https://github.com/LeavittSoftware/titanium-elements/commit/7ad11870ec597aa5a7724021269076ffc0f18117))
+* **nice-badge:** default to position absolute ([edbb05d](https://github.com/LeavittSoftware/titanium-elements/commit/edbb05dd8a20a2839149e6f548a51110ba53d921))
+
+
+### Features
+
+* **data-table-core:** create a user settings dialog ([e985e2a](https://github.com/LeavittSoftware/titanium-elements/commit/e985e2a1c51695aefd72e5239367f39c41d62222))
+
+
+
+
+
 # [5.17.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.16.0...@leavittsoftware/web@5.17.0) (2025-10-03)
 
 
