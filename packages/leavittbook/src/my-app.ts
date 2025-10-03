@@ -181,6 +181,9 @@ export class MyApp extends LitElement {
     page('/titanium-data-table-header', () =>
       this.#changePage('titanium-data-table-header', () => import('./demos/titanium-data-table-header/titanium-data-table-header-demo.js'))
     );
+    page('/titanium-data-table-core', () =>
+      this.#changePage('titanium-data-table-core', () => import('./demos/titanium-data-table-core/titanium-data-table-core-demo'))
+    );
 
     page('/titanium-full-page-loading-indicator', () =>
       this.#changePage(
@@ -379,6 +382,10 @@ export class MyApp extends LitElement {
               <md-icon slot="start">library_books</md-icon> <span>Data table</span>
             </md-list-item>
 
+            <md-list-item ?selected=${this.page === 'titanium-data-table-core'} href="/titanium-data-table-core" type="link">
+              <md-icon slot="start">library_books</md-icon> <span>Data table core</span>
+            </md-list-item>
+
             <md-list-item ?selected=${this.page === 'titanium-data-table-header'} href="/titanium-data-table-header" type="link">
               <md-icon slot="start">library_books</md-icon> <span>Data table header</span>
             </md-list-item>
@@ -565,6 +572,9 @@ export class MyApp extends LitElement {
           : nothing}
         ${this.page === 'titanium-data-table'
           ? html` <titanium-data-table-demo large ?isActive=${this.page === 'titanium-data-table'}></titanium-data-table-demo> `
+          : nothing}
+        ${this.page === 'titanium-data-table-core'
+          ? html` <titanium-data-table-core-demo large ?isActive=${this.page === 'titanium-data-table-core'}></titanium-data-table-core-demo> `
           : nothing}
         ${this.page === 'titanium-data-table-header'
           ? html` <titanium-data-table-header-demo large ?isActive=${this.page === 'titanium-data-table-header'}></titanium-data-table-header-demo> `
