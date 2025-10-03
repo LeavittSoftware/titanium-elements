@@ -125,7 +125,7 @@ export class ManualAddressDialog extends LitElement {
           ${this.showStreet2 || (this.country !== 'US' && this.country)
             ? html` <md-outlined-text-field
                 @blur=${(e: DOMEvent<MdOutlinedTextField>) => reportValidityIfError(e.target)}
-                label="Street 2"
+                label="Street 2/Apartment"
                 autocomplete="address-line2"
                 .value=${this.street2 || ''}
                 @change=${(e: DOMEvent<MdOutlinedTextField>) => (this.street2 = e.target.value)}
