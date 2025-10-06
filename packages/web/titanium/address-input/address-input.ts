@@ -62,6 +62,7 @@ export class TitaniumAddressInput extends GoogleAddressInput {
       .allowInternational=${this.allowInternational}
       .showCounty=${this.showCounty}
       .showStreet2=${this.showStreet2}
+      .filled=${this.filled}
       .label=${this.label}
     ></manual-address-dialog>`;
   }

@@ -99,6 +99,15 @@ export class TitaniumAddressInputPlayground extends LitElement {
         >
         </google-address-input>
 
+        <google-address-input
+          filled
+          demo-a
+          autocomplete="street-address"
+          @selected=${(e: DOMEvent<GoogleAddressInput>) => console.log('selected change 1', e.target.selected)}
+          googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"
+        >
+        </google-address-input>
+
         <section actions>
           <md-outlined-button @click=${() => this.googleAddressInputDemoA.reportValidity()}>reportValidity()</md-outlined-button>
           <md-outlined-button @click=${() => (this.googleAddressInputDemoA.required = !this.googleAddressInputDemoA.required)}
@@ -144,6 +153,16 @@ export class TitaniumAddressInputPlayground extends LitElement {
       <component-demo>
         <h2>Main demo</h2>
         <titanium-address-input
+          ?allow-international=${this.allowInternational}
+          autocomplete="address"
+          demo-a
+          @selected=${(e: DOMEvent<GoogleAddressInput>) => console.log('selected change 1', e.target.selected)}
+          googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"
+        >
+        </titanium-address-input>
+
+        <titanium-address-input
+          filled
           ?allow-international=${this.allowInternational}
           autocomplete="address"
           demo-a
