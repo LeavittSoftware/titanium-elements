@@ -18,7 +18,8 @@ export const niceBadgeStyles = css`
 
     padding: 1px 4px;
     border: 1px solid transparent;
-    min-width: 18px;
+    min-width: 8px;
+    min-height: 8px;
 
     position: absolute;
     top: -1px;
