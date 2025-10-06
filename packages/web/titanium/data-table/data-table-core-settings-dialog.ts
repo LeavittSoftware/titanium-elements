@@ -351,7 +351,7 @@ export class TitaniumDataTableCoreSettingsDialog<T extends object> extends LoadW
                             }}
                           >
                             <md-icon slot="start">sort_by_alpha</md-icon>
-                            ${column.friendlyName}
+                            ${column.friendlyName ?? column.key}
                           </md-menu-item>`
                       )}
                     </md-menu>

@@ -146,7 +146,6 @@ export class DataTableCorePlayground extends LitElement {
       },
       {
         key: 'MaxSpeed',
-        friendlyName: 'Max Speed',
         render: (item) => html`${item.MaxSpeed} mph`,
         width: '250px',
       },

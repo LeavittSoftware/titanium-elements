@@ -483,7 +483,7 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
                       this.dispatchEvent(new Event('sort-changed'));
                     }}
                   >
-                    <span>${metaData.friendlyName ?? '-'}</span>
+                    <span>${metaData.friendlyName ?? metaData.key ?? '-'}</span>
                     <icon-container
                       ><md-icon>arrow_downward</md-icon>
                       ${sortIndex !== -1 && this.sort.length > 1 ? html`<div sort-number>${sortIndex + 1}</div>` : nothing}
