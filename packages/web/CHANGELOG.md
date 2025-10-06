@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.20.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.20.0...@leavittsoftware/web@5.20.1) (2025-10-06)
+
+
+### Bug Fixes
+
+* **data-table-core:** missing fallbacks from friendlyName to key ([79561cc](https://github.com/LeavittSoftware/titanium-elements/commit/79561cc241c3d782736650cf63eabe7b7b3ab733))
+
+
+
+
+
 # [5.20.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.19.1...@leavittsoftware/web@5.20.0) (2025-10-06)
 
 
