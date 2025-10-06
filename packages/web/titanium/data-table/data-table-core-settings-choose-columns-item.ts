@@ -6,15 +6,17 @@ import { css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { DraggableItemBase } from './draggable-item-base';
 
-@customElement('data-table-core-settings-item')
-export class TitaniumDataTableCoreSettingsItem extends DraggableItemBase {
+@customElement('titanium-data-table-core-settings-choose-columns-item')
+export class TitaniumDataTableCoreSettingsChooseColumnsItem extends DraggableItemBase {
   @property({ type: String }) accessor name: string;
   @property({ type: Boolean }) accessor selected: boolean;
   @property({ type: Boolean }) accessor disabled: boolean;
   @property({ type: Number }) accessor index: number;
 
   override get items() {
-    return Array.from(this.parentElement?.querySelectorAll<TitaniumDataTableCoreSettingsItem>('data-table-core-settings-item') ?? []);
+    return Array.from(
+      this.parentElement?.querySelectorAll<TitaniumDataTableCoreSettingsChooseColumnsItem>('titanium-data-table-core-settings-choose-columns-item') ?? []
+    );
   }
 
   override get itemsContainer() {

@@ -2,8 +2,15 @@ import '@material/web/checkbox/checkbox';
 import '@material/web/icon/icon';
 import '@material/web/focus/md-focus-ring';
 import '@material/web/ripple/ripple';
-import './data-table-core-settings-dialog';
-import { TitaniumDataTableCoreItemSettings, TitaniumDataTableCoreSettingsDialog } from './data-table-core-settings-dialog';
+
+import '@material/web/menu/menu';
+import '@material/web/menu/menu-item';
+import '@material/web/iconbutton/icon-button';
+
+import './data-table-core-settings-choose-columns-dialog';
+import './data-table-core-settings-sort-dialog';
+
+import { TitaniumDataTableCoreItemSettings, TitaniumDataTableCoreSettingsChooseColumnsDialog } from './data-table-core-settings-choose-columns-dialog';
 
 import { css, CSSResult, CSSResultGroup, html, LitElement, nothing, PropertyValues, TemplateResult } from 'lit';
 import { property, customElement, query, state } from 'lit/decorators.js';
@@ -14,11 +21,16 @@ import { repeat } from 'lit/directives/repeat.js';
 import { a } from '@leavittsoftware/web/titanium/styles/a';
 import { styleMap } from 'lit/directives/style-map.js';
 import { LoadWhile } from '@leavittsoftware/web/titanium/helpers/load-while';
+import { niceBadgeStyles } from '../styles/nice-badge';
+import { MdIconButton } from '@material/web/iconbutton/icon-button';
+import { CloseMenuEvent, MdMenu, MenuItem } from '@material/web/menu/menu';
+import { TitaniumDataTableCoreSettingsSortDialog } from './data-table-core-settings-sort-dialog';
 
 export type TitaniumDataTableCoreMetaData<T extends object> = {
   uniqueKey: (item: T) => string;
   itemLinkUrl?: (item: T) => string;
   itemMetaData: TitaniumDataTableCoreItemMetaData<T>[];
+  maxCustomSortColumns?: number;
 };
 
 export type TitaniumDataTableCoreItemMetaData<T extends object> = {
@@ -78,10 +90,8 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
    */
   @property({ type: Array }) accessor selected: Array<T> = [];
 
-  @query('titanium-data-table-core-settings-dialog') private accessor settingsDialog: TitaniumDataTableCoreSettingsDialog<T>;
-
-  @property({ type: Number }) accessor countOfCustomSettingsApplied: number = 0;
-
+  @query('titanium-data-table-core-settings-choose-columns-dialog') private accessor chooseColumnsDialog: TitaniumDataTableCoreSettingsChooseColumnsDialog<T>;
+  @query('titanium-data-table-core-settings-sort-dialog') private accessor sortDialog: TitaniumDataTableCoreSettingsSortDialog<T>;
   /**
    * Local storage key to save user settings for this data table.
    */
@@ -118,6 +128,14 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
       // Clear selection when items array changes.
       this.deselectAll();
     }
+
+    if (changedProps.has('sort') || changedProps.has('tableMetaData')) {
+      const defaultSort = generateDefaultSortFromMetaData(this.tableMetaData);
+      const _customSortApplied = JSON.stringify(defaultSort) !== JSON.stringify(this.sort);
+      if (this.customSortApplied !== _customSortApplied) {
+        this.customSortApplied = _customSortApplied;
+      }
+    }
   }
 
   selectAll() {
@@ -134,8 +152,12 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
     }
   }
 
-  showSettingsDialog() {
-    this.settingsDialog.show();
+  resetSort() {
+    const _sort = generateDefaultSortFromMetaData(this.tableMetaData);
+    if (JSON.stringify(_sort) !== JSON.stringify(this.sort)) {
+      this.sort = _sort;
+      this.dispatchEvent(new Event('sort-changed'));
+    }
   }
 
   #notifySelectedChanged() {
@@ -152,6 +174,7 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
 
   static styles = [
     a,
+    niceBadgeStyles,
     css`
       :host {
         display: grid;
@@ -170,21 +193,10 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
         align-self: start;
       }
 
+      :host(:not([selection-mode])) table,
       :host([selection-mode='none']) table {
-        thead {
-          button {
-            padding-left: 16px;
-          }
-        }
-
-        tbody {
-          tr {
-            td:first-of-type {
-              content-container {
-                padding-left: 16px;
-              }
-            }
-          }
+        td[checkbox] {
+          border-bottom: none !important;
         }
       }
 
@@ -196,7 +208,7 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
       }
 
       :host([sticky-header]) {
-        thead th:not([checkbox]) {
+        thead th:not([settings]) {
           position: sticky;
           top: 0;
           z-index: 3;
@@ -211,7 +223,7 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
 
       thead {
         tr {
-          th[checkbox] {
+          th[settings] {
             width: 48px;
             height: 48px;
             padding: 0;
@@ -219,19 +231,56 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
             left: 0;
             top: 0;
             z-index: 4;
+            border-right: 1px var(--md-sys-color-outline-variant) solid;
 
             content-container {
-              md-checkbox {
-                padding: 15px;
-                --md-checkbox-container-shape: 6px;
-                --md-focus-ring-shape: 12px;
-                --md-checkbox-state-layer-shape: 12px;
-                --md-checkbox-state-layer-size: 32px;
+              nice-badge {
+                transition: opacity 250ms ease;
+              }
+              md-icon-button {
+                --md-icon-button-icon-size: 22px;
+                --md-icon-button-state-layer-height: 32px;
+                --md-icon-button-state-layer-width: 32px;
+                padding: 8px;
+
+                md-icon {
+                  transition: transform 350ms ease;
+                }
+
+                nice-badge {
+                  top: initial;
+                  top: 2px;
+                  right: 2px;
+                }
               }
 
-              md-checkbox::part(focus-ring) {
-                height: 32px;
-                width: 32px;
+              md-menu[open] + md-icon-button {
+                md-icon {
+                  transform: rotate(120deg);
+                }
+                nice-badge {
+                  opacity: 0;
+                }
+              }
+
+              md-menu[open] md-menu-item {
+                nice-badge {
+                  opacity: 1;
+                }
+              }
+
+              md-menu-item {
+                --md-menu-item-top-space: 6px;
+                --md-menu-item-bottom-space: 6px;
+                --md-menu-item-one-line-container-height: 36px;
+                --md-menu-item-label-text-size: 14px;
+                text-align: left;
+                nice-badge {
+                  top: 5px;
+                  left: 35px;
+                  right: initial;
+                  opacity: 0;
+                }
               }
             }
           }
@@ -262,7 +311,7 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
               /* override default button styles */
               text-align: inherit;
 
-              background-color: var(--titanium-data-table-core-background-color);
+              background-color: var(--md-sys-color-surface-container-lowest);
               color: inherit;
 
               border: none;
@@ -361,6 +410,8 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
             width: 48px;
             position: sticky;
             left: 0;
+
+            border-right: 1px var(--md-sys-color-outline-variant) solid;
             content-container {
               padding: 0;
 
@@ -404,6 +455,10 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
         padding: 12px 6px;
       }
 
+      tr:last-of-type td {
+        border-bottom: none !important;
+      }
+
       image-row {
         display: flex;
         align-items: center;
@@ -436,30 +491,76 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
       <table part="table" ?has-selected-items=${this.selected.length > 0}>
         <thead>
           <tr>
-            ${this.selectionMode !== 'none'
-              ? html`
-                  <th checkbox>
-                    <content-container>
-                      ${this.selectionMode === 'multi'
-                        ? html` <md-checkbox
-                            title="${this.selected.length > 0 ? 'Deselect' : 'Select'} all"
-                            ?checked=${this.selected.length > 0}
-                            ?indeterminate=${this.selected.length !== 0 && this.selected.length !== this.items.length}
-                            ?disabled=${this.items.length === 0}
-                            @click=${(e: DOMEvent<MdCheckbox>) => {
-                              if (this.selected.length > 0) {
-                                this.deselectAll();
-                              } else {
-                                this.selectAll();
-                              }
-                              e.target?.focus();
-                            }}
-                          ></md-checkbox>`
-                        : nothing}
-                    </content-container>
-                  </th>
-                `
-              : nothing}
+            <th settings>
+              <content-container>
+                <md-menu
+                  id="menu"
+                  positioning="popover"
+                  anchor="menu-anchor"
+                  y-offset="-10"
+                  x-offset="16"
+                  @close-menu=${(e: CloseMenuEvent) => {
+                    (e.detail.itemPath?.[0] as MenuItem & { action?: () => void })?.action?.();
+                  }}
+                >
+                  <md-menu-item
+                    .action=${() => {
+                      if (this.selected.length > 0) {
+                        this.deselectAll();
+                      } else {
+                        this.selectAll();
+                      }
+                    }}
+                  >
+                    <md-icon slot="start">${this.selected.length > 0 ? 'deselect' : 'select_all'}</md-icon>
+                    <div slot="headline">${this.selected.length > 0 ? 'Deselect all' : 'Select all'}</div>
+                  </md-menu-item>
+                  <md-divider role="separator" tabindex="-1"></md-divider>
+                  <md-menu-item .action=${() => this.chooseColumnsDialog.show()}>
+                    <md-icon slot="start">table_edit</md-icon>
+                    ${this.customColumnsApplied ? html`<nice-badge compact slot="start"></nice-badge>` : nothing}
+                    <div slot="headline">Choose columns</div>
+                  </md-menu-item>
+                  <md-menu-item .action=${() => this.chooseColumnsDialog.resetColumns()} ?disabled=${!this.customColumnsApplied}>
+                    <md-icon style="visibility:hidden" slot="start">reset_settings</md-icon>
+                    <div slot="headline">Reset columns</div>
+                  </md-menu-item>
+                  <md-divider role="separator" tabindex="-1"></md-divider>
+
+                  <md-menu-item
+                    .action=${async () => {
+                      const result = await this.sortDialog.show(this.sort);
+                      if (result === 'apply') {
+                        this.sort = structuredClone(this.sortDialog.sort);
+                        this.dispatchEvent(new Event('sort-changed'));
+                      }
+                    }}
+                  >
+                    <md-icon slot="start">sort_by_alpha</md-icon>
+                    ${this.customSortApplied ? html`<nice-badge compact slot="start"></nice-badge>` : nothing}
+                    <div slot="headline">Customize sort</div>
+                  </md-menu-item>
+                  <md-menu-item .action=${() => this.resetSort()} ?disabled=${!this.customSortApplied}>
+                    <md-icon style="visibility:hidden" slot="start">reset_settings</md-icon>
+                    <div slot="headline">Reset sort</div>
+                  </md-menu-item>
+                  <slot name="settings-menu-items"></slot>
+                </md-menu>
+                <md-icon-button
+                  id="menu-anchor"
+                  ?disabled=${this.isLoading}
+                  @click=${(e: DOMEvent<MdIconButton>) => {
+                    e.preventDefault();
+                    const root = (e.target as HTMLElement).getRootNode() as ShadowRoot;
+                    const menu = root.querySelector('#menu') as MdMenu;
+                    menu.open = !menu.open;
+                  }}
+                >
+                  <md-icon>settings</md-icon>
+                  ${this.customSortApplied || this.customColumnsApplied ? html`<nice-badge compact></nice-badge>` : nothing}
+                </md-icon-button>
+              </content-container>
+            </th>
             ${repeat(
               this.orderByUserPreference(
                 this.tableMetaData?.itemMetaData?.filter(
@@ -500,7 +601,7 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
           ${!this.isLoading && this.items.length === 0
             ? html`
                 <tr>
-                  ${this.selectionMode !== 'none' ? html`<td table-message></td>` : nothing}
+                  <td table-message></td>
                   <td table-message colspan=${this.tableMetaData?.itemMetaData?.length ?? 0}>No results</td>
                 </tr>
               `
@@ -539,28 +640,30 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
                     }
                   }}
                 >
-                  ${this.selectionMode !== 'none'
-                    ? html`<td checkbox>
-                        <content-container>
-                          <md-checkbox
-                            @click=${(e: DOMEvent<MdCheckbox>) => e.stopPropagation()}
-                            ?checked=${this.selected.includes(item)}
-                            @change=${() => {
-                              if (this.selected.includes(item)) {
-                                this.selected.splice(this.selected.indexOf(item), 1);
-                              } else if (this.selectionMode === 'single') {
-                                this.selected = [item];
-                              } else {
-                                this.selected.push(item);
-                              }
-                              this.requestUpdate('selected');
-                              this.#notifySelectedChanged();
-                            }}
-                            ?disabled=${this.disabled}
-                          ></md-checkbox>
-                        </content-container>
-                      </td>`
-                    : nothing}
+                  <td checkbox>
+                    <content-container>
+                      ${this.selectionMode !== 'none'
+                        ? html`
+                            <md-checkbox
+                              @click=${(e: DOMEvent<MdCheckbox>) => e.stopPropagation()}
+                              ?checked=${this.selected.includes(item)}
+                              @change=${() => {
+                                if (this.selected.includes(item)) {
+                                  this.selected.splice(this.selected.indexOf(item), 1);
+                                } else if (this.selectionMode === 'single') {
+                                  this.selected = [item];
+                                } else {
+                                  this.selected.push(item);
+                                }
+                                this.requestUpdate('selected');
+                                this.#notifySelectedChanged();
+                              }}
+                              ?disabled=${this.disabled}
+                            ></md-checkbox>
+                          `
+                        : nothing}
+                    </content-container>
+                  </td>
                   ${repeat(
                     this.orderByUserPreference(
                       this.tableMetaData?.itemMetaData?.filter(
@@ -582,25 +685,15 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
           )}
         </tbody>
       </table>
-      <titanium-data-table-core-settings-dialog
-        ?isLoading=${this.isLoading}
+      <titanium-data-table-core-settings-sort-dialog .tableMetaData=${this.tableMetaData}></titanium-data-table-core-settings-sort-dialog>
+      <titanium-data-table-core-settings-choose-columns-dialog
         .tableMetaData=${this.tableMetaData}
         .userSettings=${this.userSettings}
-        @custom-sort-applied-change=${(e: DOMEvent<TitaniumDataTableCoreSettingsDialog<T>>) => {
-          this.customSortApplied = e.target.customSortApplied;
-          this.dispatchEvent(new Event('custom-sort-applied-change'));
-        }}
-        @custom-columns-applied-change=${(e: DOMEvent<TitaniumDataTableCoreSettingsDialog<T>>) => {
+        @custom-columns-applied-change=${(e: DOMEvent<TitaniumDataTableCoreSettingsChooseColumnsDialog<T>>) => {
           this.customColumnsApplied = e.target.customColumnsApplied;
-          this.dispatchEvent(new Event('custom-columns-applied-change'));
         }}
-        .sort=${this.sort}
-        @sort-changed=${(e: DOMEvent<TitaniumDataTableCoreSettingsDialog<T>>) => {
-          this.sort = structuredClone(e.target.sort);
-          this.dispatchEvent(new Event('sort-changed'));
-        }}
-        @setting-change=${(e: DOMEvent<TitaniumDataTableCoreSettingsDialog<T>>) => (this.userSettings = structuredClone(e.target.userSettings))}
-      ></titanium-data-table-core-settings-dialog>
+        @setting-change=${(e: DOMEvent<TitaniumDataTableCoreSettingsChooseColumnsDialog<T>>) => (this.userSettings = structuredClone(e.target.userSettings))}
+      ></titanium-data-table-core-settings-choose-columns-dialog>
     `;
   }
 }

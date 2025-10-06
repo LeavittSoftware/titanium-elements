@@ -5,7 +5,7 @@ import '@material/web/button/filled-button';
 import '@material/web/iconbutton/icon-button';
 
 /* playground-fold */
-import { LitElement, css, html, nothing } from 'lit';
+import { LitElement, css, html } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 import { h1, h2, p } from '@leavittsoftware/web/titanium/styles/styles';
 
@@ -48,7 +48,6 @@ export class DataTableCorePlayground extends LitElement {
   @state() private accessor sort: TitaniumDataTableCoreSortItem[] = [];
   @state() private accessor items: Array<ItemType> = this.sortItems(allTeslas, this.sort);
   @state() private accessor selected: Array<ItemType> = [];
-  @state() private accessor countOfCustomSettingsApplied: number = 0;
   @query('titanium-data-table-core') private accessor tableCore: TitaniumDataTableCore<ItemType>;
 
   /**
@@ -173,12 +172,6 @@ export class DataTableCorePlayground extends LitElement {
         position: relative;
       }
 
-      nice-badge {
-        position: absolute;
-        top: -1px;
-        right: -1px;
-      }
-
       main {
         overflow-x: auto;
         margin: 24px 0;
@@ -203,10 +196,6 @@ export class DataTableCorePlayground extends LitElement {
             <md-icon slot="icon">add</md-icon>
             <span>Add tesla</span>
           </md-filled-tonal-button>
-          <md-icon-button table-settings slot="add-button" @click=${() => this.tableCore.showSettingsDialog()}>
-            <md-icon>table_edit</md-icon>
-            ${this.countOfCustomSettingsApplied > 0 ? html`<nice-badge compact primary>${this.countOfCustomSettingsApplied}</nice-badge>` : nothing}
-          </md-icon-button>
 
           <md-filled-button
             slot="selected-actions"
@@ -226,12 +215,8 @@ export class DataTableCorePlayground extends LitElement {
           </md-filled-button>
         </titanium-data-table-action-bar>
         <titanium-data-table-core
-          local-storage-key="test-dtc-pref-tesla-demo"
-          @custom-sort-applied-change=${(e: DOMEvent<TitaniumDataTableCore<ItemType>>) =>
-            (this.countOfCustomSettingsApplied = (e.target.customSortApplied ? 1 : 0) + (e.target.customColumnsApplied ? 1 : 0))}
-          @custom-columns-applied-change=${(e: DOMEvent<TitaniumDataTableCore<ItemType>>) =>
-            (this.countOfCustomSettingsApplied = (e.target.customSortApplied ? 1 : 0) + (e.target.customColumnsApplied ? 1 : 0))}
           selection-mode="multi"
+          local-storage-key="test-dtc-pref-tesla-demo"
           sticky-header
           @selected-changed=${(e: DOMEvent<TitaniumDataTableCore<ItemType>>) => (this.selected = [...e.target.selected])}
           @sort-changed=${async (e: DOMEvent<TitaniumDataTableCore<ItemType>>) => {

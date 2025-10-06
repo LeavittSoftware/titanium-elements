@@ -10,6 +10,7 @@ import { TitaniumDataTableHeader } from './data-table-header';
 import { h1, ellipsis } from '../../titanium/styles/styles';
 import { TitaniumPageControl } from './page-control';
 import { MdCheckbox } from '@material/web/checkbox/checkbox';
+import { niceBadgeStyles } from '../styles/nice-badge';
 
 declare const ResizeObserver: any;
 
@@ -260,6 +261,7 @@ export class TitaniumDataTable extends LitElement {
   static styles = [
     h1,
     ellipsis,
+    niceBadgeStyles,
     css`
       :host {
         display: flex;
