@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.20.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.19.1...@leavittsoftware/web@5.20.0) (2025-10-06)
+
+
+### Bug Fixes
+
+* **data-table-core-setting:** more prominent badges ([53e46a7](https://github.com/LeavittSoftware/titanium-elements/commit/53e46a7c4cd8855cdcaaf2ff113ce2c240b31a40))
+* **data-table-core-settings:** improve small view ports ([ca42995](https://github.com/LeavittSoftware/titanium-elements/commit/ca429951c050571b717fab13eb4e6f12256a5126))
+* **data-table-core:** safari md-menu cut off in a dialog temp fix ([de52982](https://github.com/LeavittSoftware/titanium-elements/commit/de529822447444d8bc7f9716956ac71ac53c4a74))
+* **loading-indicators:** prevent load-while from throwing uncaught exceptions ([fd5a545](https://github.com/LeavittSoftware/titanium-elements/commit/fd5a54514ced7c81cd8c54f6c0a3c759c60cd64b))
+
+
+### Features
+
+* **smart-attachment-input:** add filled support ([efb2000](https://github.com/LeavittSoftware/titanium-elements/commit/efb2000c5902beb651c47055ef23b4b1c1fe4949))
+
+
+
+
+
 ## [5.19.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.19.0...@leavittsoftware/web@5.19.1) (2025-10-03)
 
 
