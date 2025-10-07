@@ -38,6 +38,7 @@ export type TitaniumDataTableCoreMetaData<T extends object> = {
 export type TitaniumDataTableCoreItemMetaData<T extends object> = {
   key: string;
   render: (item: T) => TemplateResult;
+  csvValue?: (item: T) => string | number | boolean | null | undefined;
   friendlyName?: string;
   hideByDefault?: boolean;
   sortExpression?: string;
@@ -551,22 +552,19 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
                     .action=${() => {
                       const fileFriendlyTimestamp = dayjs().format('YYYY-MM-DD HH-mm-ss');
                       const csvConfig = mkConfig({ filename: `web export ${fileFriendlyTimestamp}`, useKeysAsHeaders: true });
-                      const currentlyShownColumns =
-                        (
-                          this.orderByUserPreference(
-                            this.tableMetaData?.itemMetaData?.filter(
-                              (o) =>
-                                (!o.hideByDefault && this.userSettings.find((s) => s.key === o.key)?.show) ||
-                                this.userSettings.find((s) => s.key === o.key)?.show
-                            ) ?? [],
-                            this.userSettings
-                          ) ?? []
-                        )?.map((o) => o.key) ?? [];
+                      const currentlyShownColumnMetaData =
+                        this.orderByUserPreference(
+                          this.tableMetaData?.itemMetaData?.filter(
+                            (o) =>
+                              (!o.hideByDefault && this.userSettings.find((s) => s.key === o.key)?.show) || this.userSettings.find((s) => s.key === o.key)?.show
+                          ) ?? [],
+                          this.userSettings
+                        ) ?? [];
                       const items =
                         this.items.map((item) => {
                           const itemData = {};
-                          for (const column of currentlyShownColumns) {
-                            itemData[column] = item[column];
+                          for (const metaData of currentlyShownColumnMetaData) {
+                            itemData[metaData.key] = metaData.csvValue ? metaData.csvValue(item) : item[metaData.key];
                           }
                           return itemData;
                         }) ?? [];
