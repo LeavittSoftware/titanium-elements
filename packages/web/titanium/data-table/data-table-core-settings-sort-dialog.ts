@@ -27,6 +27,7 @@ export type CloseReason = 'apply' | 'cancel' | 'navigation-close';
 export class TitaniumDataTableCoreSettingsSortDialog<T extends object> extends LitElement {
   @property({ type: Object }) accessor tableMetaData: TitaniumDataTableCoreMetaData<T> | null = null;
   @query('md-dialog') private accessor dialog: MdDialog;
+  @query('md-menu') private accessor addMenu: MdMenu;
 
   @state() accessor sort: TitaniumDataTableCoreSortItem[] = [];
   #originalSort: TitaniumDataTableCoreSortItem[] = [];
@@ -46,6 +47,7 @@ export class TitaniumDataTableCoreSettingsSortDialog<T extends object> extends L
     return JSON.stringify(sortA) !== JSON.stringify(sortB);
   }
 
+  #repositionMenu: EventListener;
   #resolve: (value: CloseReason) => void;
   static styles = [
     p,
@@ -176,8 +178,14 @@ export class TitaniumDataTableCoreSettingsSortDialog<T extends object> extends L
 
           <md-menu
             id="menu"
+            stay-open-on-focusout
             anchor="menu-anchor"
-            positioning="fixed"
+            @opened=${() => {
+              this.#repositionMenu = () => this.addMenu.reposition();
+              document.addEventListener('scroll', this.#repositionMenu, { passive: true });
+            }}
+            @closed=${() => document.removeEventListener('scroll', this.#repositionMenu)}
+            positioning="popover"
             @close-menu=${(e: CloseMenuEvent) => {
               (e.detail.itemPath?.[0] as MenuItem & { action?: () => void })?.action?.();
             }}
