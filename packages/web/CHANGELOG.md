@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.22.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.21.0...@leavittsoftware/web@5.22.0) (2025-10-07)
+
+
+### Bug Fixes
+
+* **data-table-core:** prevent sub md-menu scrolling with page ([6470fca](https://github.com/LeavittSoftware/titanium-elements/commit/6470fca00adb807abd93ddeb8172214d94a26365))
+
+
+### Features
+
+* **data-table-core:** add save to CSV button ([ad26035](https://github.com/LeavittSoftware/titanium-elements/commit/ad26035db6f96fd8f23b9b106a6f0f2b27aab20a))
+
+
+
+
+
 # [5.21.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.20.1...@leavittsoftware/web@5.21.0) (2025-10-06)
 
 
