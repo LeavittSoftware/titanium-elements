@@ -140,7 +140,7 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
   }
 
   override customCheckValidity() {
-    if (!this.selected && this.textfield?.value) {
+    if (!this.selected && this.getTextField()?.value) {
       this.errorText = 'Please enter a valid address in this field';
       return false;
     }

@@ -22,7 +22,10 @@ export class TitaniumAddressInputPlayground extends LitElement {
   @state() protected accessor setLocationResult: string | null = null;
 
   @query('google-address-input[demo-a]') protected accessor googleAddressInputDemoA!: GoogleAddressInput;
+  @query('google-address-input[demo-a-filled]') protected accessor googleAddressInputDemoAFilled!: GoogleAddressInput;
   @query('titanium-address-input[demo-a]') protected accessor titaniumAddressInputDemoA!: TitaniumAddressInput;
+  @query('titanium-address-input[demo-a-filled]') protected accessor titaniumAddressInputDemoAFilled!: TitaniumAddressInput;
+
   @state() accessor allowInternational: boolean = false;
 
   static styles = [
@@ -101,7 +104,7 @@ export class TitaniumAddressInputPlayground extends LitElement {
 
         <google-address-input
           filled
-          demo-a
+          demo-a-filled
           autocomplete="street-address"
           @selected=${(e: DOMEvent<GoogleAddressInput>) => console.log('selected change 1', e.target.selected)}
           googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"
@@ -109,31 +112,63 @@ export class TitaniumAddressInputPlayground extends LitElement {
         </google-address-input>
 
         <section actions>
-          <md-outlined-button @click=${() => this.googleAddressInputDemoA.reportValidity()}>reportValidity()</md-outlined-button>
-          <md-outlined-button @click=${() => (this.googleAddressInputDemoA.required = !this.googleAddressInputDemoA.required)}
+          <md-outlined-button
+            @click=${() => {
+              this.googleAddressInputDemoA.reportValidity();
+              console.log('googleAddressInputDemoAFilled', this.googleAddressInputDemoAFilled.reportValidity);
+              this.googleAddressInputDemoAFilled.reportValidity();
+            }}
+            >reportValidity()</md-outlined-button
+          >
+          <md-outlined-button
+            @click=${() => {
+              this.googleAddressInputDemoA.required = !this.googleAddressInputDemoA.required;
+              this.googleAddressInputDemoAFilled.required = !this.googleAddressInputDemoAFilled.required;
+            }}
             >Toggle required</md-outlined-button
           >
 
-          <md-outlined-button @click=${() => (this.googleAddressInputDemoA.disabled = !this.googleAddressInputDemoA.disabled)}
+          <md-outlined-button
+            @click=${() => {
+              this.googleAddressInputDemoA.disabled = !this.googleAddressInputDemoA.disabled;
+              this.googleAddressInputDemoAFilled.disabled = !this.googleAddressInputDemoAFilled.disabled;
+            }}
             >Toggle disabled</md-outlined-button
           >
 
           <md-outlined-button
-            @click=${() => (this.googleAddressInputDemoA.supportingText = this.googleAddressInputDemoA.supportingText ? '' : 'Select an address above')}
+            @click=${() => {
+              this.googleAddressInputDemoA.supportingText = this.googleAddressInputDemoA.supportingText ? '' : 'Select an address above';
+              this.googleAddressInputDemoAFilled.supportingText = this.googleAddressInputDemoAFilled.supportingText ? '' : 'Select an address above';
+            }}
             >Toggle supporting text</md-outlined-button
           >
           <md-outlined-button
-            @click=${() =>
-              (this.googleAddressInputDemoA.selected = {
+            @click=${() => {
+              this.googleAddressInputDemoA.selected = {
                 Id: '1',
                 street: '11 North Main Street',
                 city: 'Cedar City',
                 state: 'UT',
                 zip: '84720',
-              })}
+              };
+              this.googleAddressInputDemoAFilled.selected = {
+                Id: '1',
+                street: '11 North Main Street',
+                city: 'Cedar City',
+                state: 'UT',
+                zip: '84720',
+              };
+            }}
             >Prefill an address</md-outlined-button
           >
-          <md-outlined-button @click=${() => this.googleAddressInputDemoA.reset()}>reset()</md-outlined-button>
+          <md-outlined-button
+            @click=${() => {
+              this.googleAddressInputDemoA.reset();
+              this.googleAddressInputDemoAFilled.reset();
+            }}
+            >reset()</md-outlined-button
+          >
         </section>
       </component-demo>
       <component-demo>
@@ -165,7 +200,7 @@ export class TitaniumAddressInputPlayground extends LitElement {
           filled
           ?allow-international=${this.allowInternational}
           autocomplete="address"
-          demo-a
+          demo-a-filled
           @selected=${(e: DOMEvent<GoogleAddressInput>) => console.log('selected change 1', e.target.selected)}
           googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"
         >
@@ -173,38 +208,72 @@ export class TitaniumAddressInputPlayground extends LitElement {
 
         <section actions>
           <md-outlined-button @click=${() => (this.allowInternational = !this.allowInternational)}>Allow international</md-outlined-button>
-          <md-outlined-button @click=${() => this.titaniumAddressInputDemoA.reportValidity()}>reportValidity()</md-outlined-button>
-          <md-outlined-button @click=${() => (this.titaniumAddressInputDemoA.required = !this.titaniumAddressInputDemoA.required)}
+          <md-outlined-button
+            @click=${() => {
+              this.titaniumAddressInputDemoA.reportValidity();
+              this.titaniumAddressInputDemoAFilled.reportValidity();
+            }}
+            >reportValidity()</md-outlined-button
+          >
+          <md-outlined-button
+            @click=${() => {
+              this.titaniumAddressInputDemoA.required = !this.titaniumAddressInputDemoA.required;
+              this.titaniumAddressInputDemoAFilled.required = !this.titaniumAddressInputDemoAFilled.required;
+            }}
             >Toggle required</md-outlined-button
           >
 
-          <md-outlined-button @click=${() => (this.titaniumAddressInputDemoA.disabled = !this.titaniumAddressInputDemoA.disabled)}
+          <md-outlined-button
+            @click=${() => {
+              this.titaniumAddressInputDemoA.disabled = !this.titaniumAddressInputDemoA.disabled;
+              this.titaniumAddressInputDemoAFilled.disabled = !this.titaniumAddressInputDemoAFilled.disabled;
+            }}
             >Toggle disabled</md-outlined-button
           >
 
           <md-outlined-button
-            @click=${() => (this.titaniumAddressInputDemoA.supportingText = this.titaniumAddressInputDemoA.supportingText ? '' : 'Select an address above')}
+            @click=${() => {
+              this.titaniumAddressInputDemoA.supportingText = this.titaniumAddressInputDemoA.supportingText ? '' : 'Select an address above';
+              this.titaniumAddressInputDemoAFilled.supportingText = this.titaniumAddressInputDemoAFilled.supportingText ? '' : 'Select an address above';
+            }}
             >Toggle supporting text</md-outlined-button
           >
 
-          <md-outlined-button @click=${() => (this.titaniumAddressInputDemoA.showCounty = !this.titaniumAddressInputDemoA.showCounty)}
+          <md-outlined-button
+            @click=${() => {
+              this.titaniumAddressInputDemoA.showCounty = !this.titaniumAddressInputDemoA.showCounty;
+              this.titaniumAddressInputDemoAFilled.showCounty = !this.titaniumAddressInputDemoAFilled.showCounty;
+            }}
             >Toggle show county</md-outlined-button
           >
 
-          <md-outlined-button @click=${() => (this.titaniumAddressInputDemoA.showStreet2 = !this.titaniumAddressInputDemoA.showStreet2)}
+          <md-outlined-button
+            @click=${() => {
+              this.titaniumAddressInputDemoA.showStreet2 = !this.titaniumAddressInputDemoA.showStreet2;
+              this.titaniumAddressInputDemoAFilled.showStreet2 = !this.titaniumAddressInputDemoAFilled.showStreet2;
+            }}
             >Toggle show street2</md-outlined-button
           >
 
           <md-outlined-button
-            @click=${() =>
-              (this.titaniumAddressInputDemoA.selected = {
+            @click=${() => {
+              this.titaniumAddressInputDemoA.selected = {
                 Id: '1',
                 street: '11 North Main Street',
                 city: 'Cedar City',
                 state: 'UT',
                 zip: '84720',
                 country: 'US',
-              })}
+              };
+              this.titaniumAddressInputDemoAFilled.selected = {
+                Id: '1',
+                street: '11 North Main Street',
+                city: 'Cedar City',
+                state: 'UT',
+                zip: '84720',
+                country: 'US',
+              };
+            }}
             >Prefill an address</md-outlined-button
           >
           <md-outlined-button @click=${() => this.titaniumAddressInputDemoA.reset()}>reset()</md-outlined-button>

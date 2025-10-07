@@ -21,6 +21,7 @@ import { Identifier } from '../types/identifier-interface';
 import { redispatchEvent } from '@material/web/internal/events/redispatch-event';
 import { ThemePreference } from '../../leavitt/theme/theme-preference';
 import { html, literal } from 'lit/static-html.js';
+import { MdFilledTextField } from '@material/web/textfield/filled-text-field';
 
 @customElement('titanium-single-select-base')
 export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePreference(LoadWhile(LitElement)) {
@@ -31,7 +32,6 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
   @state() protected accessor defaultSuggestions: Array<T> = [];
 
   @query('md-menu[suggestions]') protected accessor menu: Menu;
-  @query('md-outlined-text-field') protected accessor textfield: MdOutlinedTextField | null;
 
   /**
    *  Sets floating label value.
@@ -136,10 +136,15 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
 
   @state() protected accessor count: number;
 
+  getTextField() {
+    return this.filled ? this.shadowRoot?.querySelector('md-filled-text-field') : this.shadowRoot?.querySelector('md-outlined-text-field');
+  }
+
   async firstUpdated() {
-    if (this.textfield && this.required) {
-      const originalCheckValidity = this.textfield?.checkValidity;
-      this.textfield.checkValidity = () => !!this.selected && originalCheckValidity.bind(this.textfield);
+    const textField = this.getTextField();
+    if (textField && this.required) {
+      const originalCheckValidity = textField?.checkValidity;
+      textField.checkValidity = () => !!this.selected && originalCheckValidity.bind(textField);
     }
   }
 
@@ -153,7 +158,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
   }
 
   setCustomValidity(error: string) {
-    this.textfield?.setCustomValidity(error);
+    this.getTextField()?.setCustomValidity(error);
   }
 
   /**
@@ -163,10 +168,11 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
     this.softReset();
     this.selected = null;
 
-    if (this.textfield) {
-      this.textfield.error = false;
-      this.textfield.errorText = '';
-      this.textfield.reset();
+    const textField = this.getTextField();
+    if (textField) {
+      textField.error = false;
+      textField.errorText = '';
+      textField.reset();
     }
   }
 
@@ -184,33 +190,33 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
    * https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/select
    */
   async select() {
-    this.textfield?.select();
+    this.getTextField()?.select();
   }
 
   /**
    *  Sets focus on the input.
    */
   async focus() {
-    this.textfield?.focus();
+    this.getTextField()?.focus();
   }
 
   /**
    *  Returns true if the input passes validity checks.
    */
   checkValidity() {
-    return this.textfield?.checkValidity() && this.customCheckValidity();
+    return this.getTextField()?.checkValidity() && this.customCheckValidity();
   }
 
   /**
    *  Runs checkValidity() method, and if it returns false, then it reports to the user that the input is invalid.
    */
   reportValidity() {
-    return this.textfield?.reportValidity() && this.customReportValidity();
+    return this.getTextField()?.reportValidity() && this.customReportValidity();
   }
 
   protected customCheckValidity() {
     this.errorText = 'Please fill out this field';
-    if (!this.selected && this.textfield?.value) {
+    if (!this.selected && this.getTextField()?.value) {
       return false;
     }
 
@@ -416,7 +422,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
             }
           }
         }}
-        @input=${async (e: DOMEvent<MdOutlinedTextField>) => this.#onInput(e.target.value)}
+        @input=${async (e: DOMEvent<MdOutlinedTextField|MdFilledTextField>) => this.#onInput(e.target.value)}
         @focus=${() => {
           if (this.selected) {
             this.select();

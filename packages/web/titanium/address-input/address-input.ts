@@ -45,6 +45,7 @@ export class TitaniumAddressInput extends GoogleAddressInput {
 
       :host([has-selection]) {
         --md-outlined-text-field-with-trailing-icon-trailing-space: 36px;
+        --md-filled-text-field-with-trailing-icon-trailing-space: 36px;
       }
     `,
   ];

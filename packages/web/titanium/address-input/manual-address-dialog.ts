@@ -94,6 +94,8 @@ export class ManualAddressDialog extends LitElement {
       md-dialog {
         max-width: 550px;
         width: calc(100vw - 24px);
+        scrollbar-color: var(--md-sys-color-surface-container-highest) transparent;
+        scrollbar-width: thin;
       }
 
       form {
