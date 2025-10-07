@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.24.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.23.0...@leavittsoftware/web@5.24.0) (2025-10-07)
+
+
+### Bug Fixes
+
+* **data-table-core:** only show select all at the proper times ([74e5d9e](https://github.com/LeavittSoftware/titanium-elements/commit/74e5d9e9536b999fad68dbb485cfe626c1775069))
+* **data-table-core:** prevent sub md-menu scrolling with page ([6470fca](https://github.com/LeavittSoftware/titanium-elements/commit/6470fca00adb807abd93ddeb8172214d94a26365))
+
+
+### Features
+
+* **data-table-core:** add save to CSV button ([ad26035](https://github.com/LeavittSoftware/titanium-elements/commit/ad26035db6f96fd8f23b9b106a6f0f2b27aab20a))
+* **data-table-core:** add support for two-line formatting ([1f96556](https://github.com/LeavittSoftware/titanium-elements/commit/1f96556967d18da42f15027dc84b16fc61f3060b))
+* **data-table-core:** allows overriding csv value in the case of complex objects ([b00fd91](https://github.com/LeavittSoftware/titanium-elements/commit/b00fd91835034579c68559e16b99ed045c694de9))
+* **data-table-core:** style menu items ([6fce08d](https://github.com/LeavittSoftware/titanium-elements/commit/6fce08d5caf2d5ec884fdffe5bd96cbf7dc30aaa))
+
+
+
+
+
 # [5.23.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.22.0...@leavittsoftware/web@5.23.0) (2025-10-07)
 
 
