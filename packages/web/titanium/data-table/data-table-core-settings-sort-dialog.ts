@@ -91,6 +91,13 @@ export class TitaniumDataTableCoreSettingsSortDialog<T extends object> extends L
         position: relative;
       }
 
+      md-menu-item {
+        --md-menu-item-top-space: 6px;
+        --md-menu-item-bottom-space: 6px;
+        --md-menu-item-one-line-container-height: 36px;
+        --md-menu-item-label-text-size: 14px;
+      }
+
       div[slot='actions'] {
         display: flex;
         justify-content: space-between;
@@ -178,7 +185,6 @@ export class TitaniumDataTableCoreSettingsSortDialog<T extends object> extends L
 
           <md-menu
             id="menu"
-            stay-open-on-focusout
             anchor="menu-anchor"
             @opened=${() => {
               this.#repositionMenu = () => this.addMenu.reposition();

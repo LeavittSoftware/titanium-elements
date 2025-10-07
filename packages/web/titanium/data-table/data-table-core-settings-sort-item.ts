@@ -100,7 +100,14 @@ export class TitaniumDataTableCoreSettingsSortItem extends DraggableItemBase {
         --md-filled-select-text-field-focus-active-indicator-height: 0;
         --md-filled-select-text-field-disabled-active-indicator-height: 0;
 
-        min-width: 105px;
+        min-width: 142px;
+
+        md-select-option {
+          --md-menu-item-top-space: 6px;
+          --md-menu-item-bottom-space: 6px;
+          --md-menu-item-one-line-container-height: 36px;
+          --md-menu-item-label-text-size: 14px;
+        }
       }
 
       :host([dragging]) h5[annotation],
@@ -136,8 +143,8 @@ export class TitaniumDataTableCoreSettingsSortItem extends DraggableItemBase {
           this.dispatchEvent(new Event('sort-direction-changed'));
         }}
       >
-        <md-select-option value="asc"><span>A to Z</span></md-select-option>
-        <md-select-option value="desc"><span>Z to A</span> </md-select-option>
+        <md-select-option value="asc"><span>Ascending</span></md-select-option>
+        <md-select-option value="desc"><span>Descending</span> </md-select-option>
       </md-filled-select>
       <md-icon-button ?disabled=${this.disabled} remove @click=${() => this.dispatchEvent(new Event('delete'))}><md-icon>close_small</md-icon></md-icon-button>
     `;
