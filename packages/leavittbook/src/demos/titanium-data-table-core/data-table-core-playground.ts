@@ -225,7 +225,11 @@ export class DataTableCorePlayground extends LitElement {
       {
         key: 'Owner',
         friendlyName: 'Owner',
-        render: (item) => html`${item.Owner?.FullName} (${item.Owner?.Id})`,
+        render: (item) =>
+          html`<two-line
+            ><div>${item.Owner?.FullName}</div>
+            <div supporting-text>(${item.Owner?.Id})</div></two-line
+          >`,
         csvValue: (item) => item.Owner?.FullName ?? '',
         width: '250px',
       },

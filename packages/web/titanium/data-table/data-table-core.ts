@@ -462,6 +462,18 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
         border-bottom: none !important;
       }
 
+      [supporting-text] {
+        font-size: 12px;
+        line-height: 14px;
+        opacity: 0.8;
+      }
+
+      two-line {
+        display: grid;
+        grid-auto-flow: row;
+        gap: 0;
+      }
+
       image-row {
         display: flex;
         align-items: center;
@@ -471,12 +483,6 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
           height: 32px;
           width: 32px;
           image-rendering: -webkit-optimize-contrast;
-        }
-
-        [supporting-text] {
-          font-size: 12px;
-          line-height: 14px;
-          opacity: 0.8;
         }
       }
 
