@@ -24,6 +24,7 @@
     "countup.js": "^2.9.0",
     "cropperjs": "2.0.1",
     "dayjs": "^1.11.13",
+    "export-to-csv": "^1.4.0",
     "fuse.js": "^7.1.0",
     "jwt-decode": "^4.0.0",
     "promise-parallel-throttle": "^3.5.0",

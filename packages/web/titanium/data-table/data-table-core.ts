@@ -25,6 +25,8 @@ import { niceBadgeStyles } from '../styles/nice-badge';
 import { MdIconButton } from '@material/web/iconbutton/icon-button';
 import { CloseMenuEvent, MdMenu, MenuItem } from '@material/web/menu/menu';
 import { TitaniumDataTableCoreSettingsSortDialog } from './data-table-core-settings-sort-dialog';
+import { mkConfig, generateCsv, download } from 'export-to-csv';
+import dayjs from 'dayjs/esm';
 
 export type TitaniumDataTableCoreMetaData<T extends object> = {
   uniqueKey: (item: T) => string;
@@ -543,6 +545,38 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
                   <md-menu-item .action=${() => this.resetSort()} ?disabled=${!this.customSortApplied}>
                     <md-icon style="visibility:hidden" slot="start">reset_settings</md-icon>
                     <div slot="headline">Reset sort</div>
+                  </md-menu-item>
+                  <md-divider role="separator" tabindex="-1"></md-divider>
+                  <md-menu-item
+                    .action=${() => {
+                      const fileFriendlyTimestamp = dayjs().format('YYYY-MM-DD HH-mm-ss');
+                      const csvConfig = mkConfig({ filename: `web export ${fileFriendlyTimestamp}`, useKeysAsHeaders: true });
+                      const currentlyShownColumns =
+                        (
+                          this.orderByUserPreference(
+                            this.tableMetaData?.itemMetaData?.filter(
+                              (o) =>
+                                (!o.hideByDefault && this.userSettings.find((s) => s.key === o.key)?.show) ||
+                                this.userSettings.find((s) => s.key === o.key)?.show
+                            ) ?? [],
+                            this.userSettings
+                          ) ?? []
+                        )?.map((o) => o.key) ?? [];
+                      const items =
+                        this.items.map((item) => {
+                          const itemData = {};
+                          for (const column of currentlyShownColumns) {
+                            itemData[column] = item[column];
+                          }
+                          return itemData;
+                        }) ?? [];
+
+                      const csv = generateCsv(csvConfig)(items);
+                      download(csvConfig)(csv);
+                    }}
+                  >
+                    <md-icon slot="start">file_save</md-icon>
+                    <div slot="headline">Save to CSV</div>
                   </md-menu-item>
                   <slot name="settings-menu-items"></slot>
                 </md-menu>
