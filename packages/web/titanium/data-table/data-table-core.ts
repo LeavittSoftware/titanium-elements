@@ -512,19 +512,22 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
                     (e.detail.itemPath?.[0] as MenuItem & { action?: () => void })?.action?.();
                   }}
                 >
-                  <md-menu-item
-                    .action=${() => {
-                      if (this.selected.length > 0) {
-                        this.deselectAll();
-                      } else {
-                        this.selectAll();
-                      }
-                    }}
-                  >
-                    <md-icon slot="start">${this.selected.length > 0 ? 'deselect' : 'select_all'}</md-icon>
-                    <div slot="headline">${this.selected.length > 0 ? 'Deselect all' : 'Select all'}</div>
-                  </md-menu-item>
-                  <md-divider role="separator" tabindex="-1"></md-divider>
+                  ${this.selectionMode !== 'none' && !(this.selectionMode === 'single' && !this.selected.length)
+                    ? html` <md-menu-item
+                          .action=${() => {
+                            if (this.selected.length > 0) {
+                              this.deselectAll();
+                            } else {
+                              this.selectAll();
+                            }
+                          }}
+                        >
+                          <md-icon slot="start">${this.selected.length > 0 ? 'deselect' : 'select_all'}</md-icon>
+                          <div slot="headline">${this.selected.length > 0 ? 'Deselect all' : 'Select all'}</div>
+                        </md-menu-item>
+                        <md-divider role="separator" tabindex="-1"></md-divider>`
+                    : nothing}
+
                   <md-menu-item .action=${() => this.chooseColumnsDialog.show()}>
                     <md-icon slot="start">table_edit</md-icon>
                     ${this.customColumnsApplied ? html`<nice-badge compact slot="start"></nice-badge>` : nothing}
