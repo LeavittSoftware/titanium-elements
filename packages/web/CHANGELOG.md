@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.25.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.24.0...@leavittsoftware/web@5.25.0) (2025-10-08)
+
+
+### Features
+
+* **data-table-core:** add reorder items dialog and settings ([c573db4](https://github.com/LeavittSoftware/titanium-elements/commit/c573db4a9399c1d916ffb9cee5111f1646bce9ae))
+
+
+
+
+
 # [5.24.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.23.0...@leavittsoftware/web@5.24.0) (2025-10-07)
 
 
