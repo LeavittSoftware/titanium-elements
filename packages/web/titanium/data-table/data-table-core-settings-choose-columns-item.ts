@@ -11,7 +11,6 @@ export class TitaniumDataTableCoreSettingsChooseColumnsItem extends DraggableIte
   @property({ type: String }) accessor name: string;
   @property({ type: Boolean }) accessor selected: boolean;
   @property({ type: Boolean }) accessor disabled: boolean;
-  @property({ type: Number }) accessor index: number;
 
   override get items() {
     return Array.from(

@@ -29,7 +29,7 @@ export class DraggableItemBase extends LitElement {
   @state() protected accessor originIndex: number | null = null;
 
   static styles: CSSResultGroup = css`
-    md-icon[drag] {
+    [drag] {
       cursor: grab;
     }
 
@@ -38,7 +38,7 @@ export class DraggableItemBase extends LitElement {
       transition-timing-function: ease-in-out;
     }
 
-    :host([disable-drag]) md-icon[drag] {
+    :host([disable-drag]) [drag] {
       cursor: inherit;
       opacity: 0.2;
     }

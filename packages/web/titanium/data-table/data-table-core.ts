@@ -9,6 +9,7 @@ import '@material/web/iconbutton/icon-button';
 
 import './data-table-core-settings-choose-columns-dialog';
 import './data-table-core-settings-sort-dialog';
+import './data-table-core-reorder-dialog';
 
 import { TitaniumDataTableCoreItemSettings, TitaniumDataTableCoreSettingsChooseColumnsDialog } from './data-table-core-settings-choose-columns-dialog';
 
@@ -27,12 +28,19 @@ import { CloseMenuEvent, MdMenu, MenuItem } from '@material/web/menu/menu';
 import { TitaniumDataTableCoreSettingsSortDialog } from './data-table-core-settings-sort-dialog';
 import { mkConfig, generateCsv, download } from 'export-to-csv';
 import dayjs from 'dayjs/esm';
+import { TitaniumDataTableCoreReorderDialog } from './data-table-core-reorder-dialog';
+import { dataTableContentStyles } from './data-table-content-styles';
+import { redispatchEvent } from '@material/web/internal/events/redispatch-event';
 
 export type TitaniumDataTableCoreMetaData<T extends object> = {
   uniqueKey: (item: T) => string;
   itemLinkUrl?: (item: T) => string;
   itemMetaData: TitaniumDataTableCoreItemMetaData<T>[];
   maxCustomSortColumns?: number;
+  reorderConfig?: {
+    sortPropertyKey: string;
+    reorderItemDisplayKey: string;
+  };
 };
 
 export type TitaniumDataTableCoreItemMetaData<T extends object> = {
@@ -77,7 +85,7 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
 
   @property({ type: Object }) accessor tableMetaData: TitaniumDataTableCoreMetaData<T> | null = null;
 
-  @property({ type: Object }) accessor tableStyles: CSSResult | CSSResultGroup | null = null;
+  @property({ type: Object }) accessor supplementalItemStyles: CSSResult | CSSResultGroup | null = null;
 
   @property({ type: Boolean, reflect: true }) accessor disabled: boolean = false;
 
@@ -95,6 +103,7 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
 
   @query('titanium-data-table-core-settings-choose-columns-dialog') private accessor chooseColumnsDialog: TitaniumDataTableCoreSettingsChooseColumnsDialog<T>;
   @query('titanium-data-table-core-settings-sort-dialog') private accessor sortDialog: TitaniumDataTableCoreSettingsSortDialog<T>;
+  @query('titanium-data-table-core-reorder-dialog') private accessor reorderDialog: TitaniumDataTableCoreReorderDialog<T>;
   /**
    * Local storage key to save user settings for this data table.
    */
@@ -462,30 +471,6 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
         border-bottom: none !important;
       }
 
-      [supporting-text] {
-        font-size: 12px;
-        line-height: 14px;
-        opacity: 0.8;
-      }
-
-      two-line {
-        display: grid;
-        grid-auto-flow: row;
-        gap: 0;
-      }
-
-      image-row {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-
-        img {
-          height: 32px;
-          width: 32px;
-          image-rendering: -webkit-optimize-contrast;
-        }
-      }
-
       [hidden] {
         display: none !important;
       }
@@ -495,7 +480,16 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
   render() {
     return html`
       <style>
-        ${this.tableStyles ? this.tableStyles : nothing}
+        tbody{
+          tr{
+            td{
+              content-container{
+                ${this.supplementalItemStyles ? this.supplementalItemStyles : nothing};
+                ${dataTableContentStyles ? dataTableContentStyles : nothing};
+              }
+            }
+          }
+        }
       </style>
       <table part="table" ?has-selected-items=${this.selected.length > 0}>
         <thead>
@@ -556,6 +550,23 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
                     <md-icon style="visibility:hidden" slot="start">reset_settings</md-icon>
                     <div slot="headline">Reset sort</div>
                   </md-menu-item>
+
+                  ${this.tableMetaData?.reorderConfig?.reorderItemDisplayKey && this.tableMetaData?.reorderConfig?.sortPropertyKey
+                    ? html` <md-divider role="separator" tabindex="-1"></md-divider>
+                        <md-menu-item
+                          .action=${async () => {
+                            const result = await this.reorderDialog.show(this.items);
+                            if (result === 'apply') {
+                              structuredClone(this.reorderDialog.items);
+                              this.dispatchEvent(new CustomEvent<Array<T>>('items-reordered', { detail: this.items }));
+                            }
+                          }}
+                        >
+                          <md-icon slot="start">reorder</md-icon>
+                          <div slot="headline">Reorder items</div>
+                        </md-menu-item>`
+                    : nothing}
+
                   <md-divider role="separator" tabindex="-1"></md-divider>
                   <md-menu-item
                     .action=${() => {
@@ -726,13 +737,18 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
           )}
         </tbody>
       </table>
+      <titanium-data-table-core-reorder-dialog
+        .tableMetaData=${this.tableMetaData}
+        .items=${this.items}
+        .supplementalItemStyles=${this.supplementalItemStyles}
+        @reorder-save-request=${(e: CustomEvent<{ resolve: () => void; reject: (reason: any) => void; items: Array<T> }>) => redispatchEvent(this, e)}
+      ></titanium-data-table-core-reorder-dialog>
       <titanium-data-table-core-settings-sort-dialog .tableMetaData=${this.tableMetaData}></titanium-data-table-core-settings-sort-dialog>
       <titanium-data-table-core-settings-choose-columns-dialog
         .tableMetaData=${this.tableMetaData}
         .userSettings=${this.userSettings}
-        @custom-columns-applied-change=${(e: DOMEvent<TitaniumDataTableCoreSettingsChooseColumnsDialog<T>>) => {
-          this.customColumnsApplied = e.target.customColumnsApplied;
-        }}
+        @custom-columns-applied-change=${(e: DOMEvent<TitaniumDataTableCoreSettingsChooseColumnsDialog<T>>) =>
+          (this.customColumnsApplied = e.target.customColumnsApplied)}
         @setting-change=${(e: DOMEvent<TitaniumDataTableCoreSettingsChooseColumnsDialog<T>>) => (this.userSettings = structuredClone(e.target.userSettings))}
       ></titanium-data-table-core-settings-choose-columns-dialog>
     `;

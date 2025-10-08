@@ -146,9 +146,8 @@ export class TitaniumDataTableCoreSettingsChooseColumnsDialog<T extends object> 
         ${repeat(
           this.userSettings,
           (setting) => setting.key,
-          (setting, index) => html`
+          (setting) => html`
             <titanium-data-table-core-settings-choose-columns-item
-              .index=${index}
               .name=${this.tableMetaData?.itemMetaData.find((item) => item.key === setting.key)?.friendlyName ?? setting.key}
               .selected=${setting.show}
               ?disabled=${setting.show && this.userSettings.filter((s) => s.show).length === 1}

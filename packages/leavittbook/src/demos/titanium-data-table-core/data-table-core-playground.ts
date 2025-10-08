@@ -28,6 +28,8 @@ type Car = {
   MaxSpeed: number;
   IsElectric: boolean;
   Owner: { Id: number; FullName: string };
+  Sequence: number;
+  Trim: string;
 };
 type ItemType = Partial<Car>;
 
@@ -42,6 +44,8 @@ const allTeslas: Array<Car> = [
     MaxSpeed: 150,
     IsElectric: true,
     Owner: { Id: 1, FullName: 'John Doe' },
+    Trim: 'RWD',
+    Sequence: 1,
   },
   {
     Id: 2,
@@ -53,6 +57,8 @@ const allTeslas: Array<Car> = [
     MaxSpeed: 120,
     IsElectric: true,
     Owner: { Id: 1, FullName: 'Jane Doe' },
+    Sequence: 2,
+    Trim: 'Long Range',
   },
   {
     Id: 3,
@@ -64,6 +70,8 @@ const allTeslas: Array<Car> = [
     MaxSpeed: 110,
     IsElectric: true,
     Owner: { Id: 2, FullName: 'Jim Doe' },
+    Sequence: 3,
+    Trim: 'Long Range',
   },
   {
     Id: 4,
@@ -75,6 +83,8 @@ const allTeslas: Array<Car> = [
     MaxSpeed: 150,
     IsElectric: true,
     Owner: { Id: 3, FullName: 'Joe Doe' },
+    Sequence: 4,
+    Trim: 'AWD',
   },
   {
     Id: 5,
@@ -86,6 +96,8 @@ const allTeslas: Array<Car> = [
     MaxSpeed: 100,
     IsElectric: true,
     Owner: { Id: 4, FullName: 'Jill Doe' },
+    Sequence: 5,
+    Trim: 'Cyberbeast',
   },
   {
     Id: 6,
@@ -97,10 +109,12 @@ const allTeslas: Array<Car> = [
     MaxSpeed: 100,
     IsElectric: true,
     Owner: { Id: 5, FullName: 'Jill Doe' },
+    Sequence: 6,
+    Trim: 'AWD',
   },
   {
     Id: 7,
-    Name: 'Model X Plaid',
+    Name: 'Model X',
     Appearance: 'Plaid',
     DragCoefficient: 0.1,
     Year: 2024,
@@ -108,10 +122,12 @@ const allTeslas: Array<Car> = [
     MaxSpeed: 180,
     IsElectric: true,
     Owner: { Id: 6, FullName: 'Jack Doe' },
+    Sequence: 7,
+    Trim: 'AWD',
   },
   {
     Id: 8,
-    Name: 'Model S Plaid',
+    Name: 'Model S',
     Appearance: 'Plaid',
     DragCoefficient: 0.1,
     Year: 2020,
@@ -119,10 +135,12 @@ const allTeslas: Array<Car> = [
     MaxSpeed: 130,
     IsElectric: true,
     Owner: { Id: 7, FullName: 'Jill Doe' },
+    Sequence: 8,
+    Trim: 'Plaid',
   },
   {
     Id: 9,
-    Name: 'Model S Plaid+',
+    Name: 'Model S',
     Appearance: 'Plaid',
     DragCoefficient: 0.1,
     Year: 2022,
@@ -130,6 +148,8 @@ const allTeslas: Array<Car> = [
     MaxSpeed: 130,
     IsElectric: true,
     Owner: { Id: 8, FullName: 'Jill Doe' },
+    Sequence: 9,
+    Trim: 'Plaid+',
   },
   {
     Id: 10,
@@ -141,6 +161,8 @@ const allTeslas: Array<Car> = [
     MaxSpeed: 150,
     IsElectric: true,
     Owner: { Id: 9, FullName: 'Jill Doe' },
+    Sequence: 10,
+    Trim: 'RWN',
   },
 ];
 
@@ -203,7 +225,12 @@ export class DataTableCorePlayground extends LitElement {
       {
         key: 'Name',
         friendlyName: 'Name',
-        render: (item) => html`${item.Name}`,
+        render: (item) =>
+          html`<image-row>
+            <img src="https://picsum.photos/24" />
+            <div tesla>${item.Name}</div>
+            <div supporting-text>${item.Trim}</div>
+          </image-row>`,
         width: '450px',
         defaultSort: {
           direction: 'asc',
@@ -269,6 +296,11 @@ export class DataTableCorePlayground extends LitElement {
         hideByDefault: true,
       },
     ],
+    maxCustomSortColumns: 6,
+    reorderConfig: {
+      sortPropertyKey: 'Sequence',
+      reorderItemDisplayKey: 'Name',
+    },
   };
 
   static styles = [
@@ -331,6 +363,14 @@ export class DataTableCorePlayground extends LitElement {
           selection-mode="multi"
           local-storage-key="test-dtc-pref-tesla-demo"
           sticky-header
+          .supplementalItemStyles=${css`
+            [tesla]::first-letter {
+              -webkit-initial-letter: 1;
+              initial-letter: 1;
+              color: #e82127;
+              font-weight: bold;
+            }
+          `}
           @selected-changed=${(e: DOMEvent<TitaniumDataTableCore<ItemType>>) => (this.selected = [...e.target.selected])}
           @sort-changed=${async (e: DOMEvent<TitaniumDataTableCore<ItemType>>) => {
             this.sort = e.target.sort;
@@ -340,6 +380,11 @@ export class DataTableCorePlayground extends LitElement {
             this.items = this.sortItems(this.items, this.sort);
 
             this.requestUpdate('items');
+          }}
+          @reorder-save-request=${async (e: CustomEvent<{ resolve: () => void; reject: (reason: any) => void; items: Array<ItemType> }>) => {
+            console.log('reorder-save-request..simulating API delay', e.detail.items);
+            await delay(1300);
+            e.detail.resolve();
           }}
           .items=${this.items}
           .tableMetaData=${this.tableMetaData}
