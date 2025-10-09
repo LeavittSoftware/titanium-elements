@@ -99,6 +99,7 @@ export class DraggableItemBase extends LitElement {
   #getIndexOver(itemEndPositions: number[], hoverPosition: number) {
     for (let index = 0; index < itemEndPositions.length; index++) {
       const endPosition = itemEndPositions[index];
+
       if (hoverPosition <= endPosition) {
         return index;
       }
@@ -149,14 +150,13 @@ export class DraggableItemBase extends LitElement {
     const moveEvent = type === 'touch' ? 'touchmove' : 'mousemove';
     const upEvent = type === 'touch' ? 'touchend' : 'mouseup';
     const containerY = (this.itemsContainer?.getBoundingClientRect()?.top ?? 0) + window.scrollY;
-
     const startY = event.pageY ?? event.touches[0].pageY;
-    const itemHeight = this.getBoundingClientRect().height - 1;
+    const itemHeight = this.getBoundingClientRect().height;
 
     //Cache the end positions of each item for variable height list items
     let cumulativeSum = 0;
     const itemEndPositions = this.items.map((o) => {
-      cumulativeSum = cumulativeSum + (o.getBoundingClientRect().height - 1);
+      cumulativeSum = cumulativeSum + o.getBoundingClientRect().height;
       return cumulativeSum;
     });
 
@@ -165,13 +165,12 @@ export class DraggableItemBase extends LitElement {
       const itemsPageY = event.pageY ?? event.touches[0].pageY;
       const clientY = event.clientY ?? event.touches[0].clientY;
 
-      const itemAbsoluteTop = itemsPageY - containerY;
-
+      const centerOfItem = itemsPageY - containerY - itemHeight / 2;
       const transformY = itemsPageY - startY;
 
       this.style.transform = `translateY(${transformY}px)`;
+      this.hoverIndex = this.#getIndexOver(itemEndPositions, centerOfItem);
 
-      this.hoverIndex = this.#getIndexOver(itemEndPositions, itemAbsoluteTop);
       this.#notifySiblingsDrag(this.originIndex, this.hoverIndex, this.dragging, itemHeight);
 
       //Scroll on when item approaches bottom/top of viewport
