@@ -99,7 +99,7 @@ export class TitaniumDataTableCoreSettingsChooseColumnsDialog<T extends object> 
 
       md-dialog {
         max-width: 450px;
-        width: calc(100vw - 24px);
+        width: calc(100dvw - 24px);
       }
 
       form {

@@ -65,15 +65,18 @@ export class TitaniumDataTableCoreReorderDialog<T extends object> extends LoadWh
 
       md-dialog {
         max-width: 450px;
-        width: calc(100vw - 24px);
+        width: calc(100dvw - 24px);
+
+        scrollbar-color: var(--md-sys-color-surface-container-highest) transparent;
+        scrollbar-width: thin;
 
         height: min-content;
-        max-height: calc(100vh - 24px);
+        max-height: calc(100dvh - 24px);
       }
 
       form {
         display: grid;
-        padding: 8px;
+        /* padding: 8px; */
       }
 
       md-circular-progress {

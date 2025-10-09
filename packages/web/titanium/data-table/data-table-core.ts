@@ -557,7 +557,7 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
                             }
                           }}
                         >
-                          <md-icon slot="start">reorder</md-icon>
+                          <md-icon slot="start">drag_handle</md-icon>
                           <div slot="headline">Reorder items</div>
                         </md-menu-item>`
                     : nothing}

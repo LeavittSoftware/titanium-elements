@@ -229,7 +229,7 @@ export class DataTableCorePlayground extends LitElement {
         render: (item) =>
           html`<image-row>
             <img src="https://picsum.photos/24" />
-            <div tesla>${item.Name}</div>
+            <div>${item.Name}</div>
             <div supporting-text>${item.Trim}</div>
           </image-row>`,
         width: '450px',
@@ -365,11 +365,8 @@ export class DataTableCorePlayground extends LitElement {
           local-storage-key="test-dtc-pref-tesla-demo"
           sticky-header
           .supplementalItemStyles=${css`
-            [tesla]::first-letter {
-              -webkit-initial-letter: 1;
-              initial-letter: 1;
-              color: #e82127;
-              font-weight: bold;
+            img {
+              border-radius: 50%;
             }
           `}
           @selected-changed=${(e: DOMEvent<TitaniumDataTableCore<ItemType>>) => (this.selected = [...e.target.selected])}

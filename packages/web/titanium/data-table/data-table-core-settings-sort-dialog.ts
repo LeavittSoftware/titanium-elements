@@ -59,7 +59,7 @@ export class TitaniumDataTableCoreSettingsSortDialog<T extends object> extends L
 
       md-dialog {
         max-width: 450px;
-        width: calc(100vw - 24px);
+        width: calc(100dvw - 24px);
       }
 
       main {

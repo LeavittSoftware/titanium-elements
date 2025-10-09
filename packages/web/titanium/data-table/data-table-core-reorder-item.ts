@@ -1,6 +1,5 @@
 import '@material/web/icon/icon';
 import '@material/web/elevation/elevation';
-import '@material/web/ripple/ripple';
 
 import { css, CSSResult, CSSResultGroup, html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
@@ -42,11 +41,14 @@ export class TitaniumDataTableCoreReorderItem<T extends object> extends Draggabl
         gap: 8px;
         min-height: 48px;
         border-bottom: 1px solid var(--md-sys-color-outline-variant);
+        border-top: 1px solid var(--md-sys-color-outline-variant);
 
         padding: 0 8px;
 
         position: relative;
         box-sizing: border-box;
+
+        /* margin-bottom: -1px; */
       }
 
       :host(:last-of-type) {
@@ -124,12 +126,11 @@ export class TitaniumDataTableCoreReorderItem<T extends object> extends Draggabl
         }
       </style>
       <main @mousedown=${this.mouseEvent} @touchstart=${this.touchEvent} drag>
-        <md-icon>drag_indicator</md-icon>
+        <md-icon>drag_handle</md-icon>
         <label-container
           >${this.tableMetaData?.itemMetaData.find((o) => o.key === this.tableMetaData?.reorderConfig?.reorderItemDisplayKey)?.render(this.item) ?? ''}
         </label-container>
         <md-elevation></md-elevation>
-        <md-ripple ?disabled=${this.disableDrag}></md-ripple>
       </main>
     `;
   }

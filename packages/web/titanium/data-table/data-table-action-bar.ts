@@ -55,9 +55,11 @@ export class TitaniumDataTableActionBar<T extends object> extends LitElement {
 
       selected-action-veil {
         display: none;
-        grid: 'text buttons' / minmax(40px, 1fr) auto;
+        grid: 'text buttons' / minmax(min-content, 1fr) auto;
         min-height: 40px;
         align-items: end;
+
+        gap: 6px 12px;
 
         background-color: inherit;
         opacity: 0;
