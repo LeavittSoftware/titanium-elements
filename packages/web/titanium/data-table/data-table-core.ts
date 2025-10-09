@@ -35,6 +35,7 @@ import { redispatchEvent } from '@material/web/internal/events/redispatch-event'
 export type TitaniumDataTableCoreMetaData<T extends object> = {
   uniqueKey: (item: T) => string;
   itemLinkUrl?: (item: T) => string;
+  itemClickHandler?: (item: T) => void;
   itemMetaData: TitaniumDataTableCoreItemMetaData<T>[];
   maxCustomSortColumns?: number;
   reorderConfig?: {
@@ -664,11 +665,13 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
             (item) => {
               return html`
                 <tr
-                  ?link-url=${!!this.tableMetaData?.itemLinkUrl?.(item)}
+                  ?link-url=${this.tableMetaData?.itemLinkUrl || this.tableMetaData?.itemClickHandler}
                   ?selected=${this.selected.includes(item)}
                   @click=${() => {
                     if (this.selected.length === 0) {
-                      if (this.tableMetaData?.itemLinkUrl) {
+                      if (this.tableMetaData?.itemClickHandler) {
+                        this.tableMetaData.itemClickHandler(item);
+                      } else if (this.tableMetaData?.itemLinkUrl) {
                         this.dispatchEvent(
                           new CustomEvent<{ path: string }>('change-route', {
                             bubbles: true,
