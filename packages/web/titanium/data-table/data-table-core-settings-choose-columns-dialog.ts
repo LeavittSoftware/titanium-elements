@@ -100,6 +100,9 @@ export class TitaniumDataTableCoreSettingsChooseColumnsDialog<T extends object> 
       md-dialog {
         max-width: 450px;
         width: calc(100dvw - 24px);
+
+        scrollbar-color: var(--md-sys-color-surface-container-highest) transparent;
+        scrollbar-width: thin;
       }
 
       form {
@@ -150,6 +153,7 @@ export class TitaniumDataTableCoreSettingsChooseColumnsDialog<T extends object> 
             <titanium-data-table-core-settings-choose-columns-item
               .name=${this.tableMetaData?.itemMetaData.find((item) => item.key === setting.key)?.friendlyName ?? setting.key}
               .selected=${setting.show}
+              .scrollableContainer=${this.dialog?.shadowRoot?.querySelector('.scroller')}
               ?disabled=${setting.show && this.userSettings.filter((s) => s.show).length === 1}
               ?disable-drag=${this.userSettings.length === 1}
               @changed=${(e: DOMEvent<TitaniumDataTableCoreSettingsChooseColumnsItem>) => {

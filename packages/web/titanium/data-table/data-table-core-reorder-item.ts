@@ -31,7 +31,7 @@ export class TitaniumDataTableCoreReorderItem<T extends object> extends Draggabl
 
       main {
         display: grid;
-        grid: 'label icon' / 1fr auto;
+        grid: 'label icon' / 1fr 48px;
         user-select: none;
 
         font-size: 15px;
@@ -48,7 +48,7 @@ export class TitaniumDataTableCoreReorderItem<T extends object> extends Draggabl
         position: relative;
         box-sizing: border-box;
 
-        /* margin-bottom: -1px; */
+        margin-bottom: -1px;
       }
 
       :host(:last-of-type) {
@@ -57,6 +57,10 @@ export class TitaniumDataTableCoreReorderItem<T extends object> extends Draggabl
 
       md-icon {
         grid-area: icon;
+        display: grid;
+        place-items: center;
+        height: 48px;
+        width: 48px;
         animation: wobble 0.4s ease-in-out infinite alternate;
         transform-origin: center center;
       }
@@ -125,8 +129,8 @@ export class TitaniumDataTableCoreReorderItem<T extends object> extends Draggabl
           ${dataTableContentStyles ? dataTableContentStyles : nothing};
         }
       </style>
-      <main @mousedown=${this.mouseEvent} @touchstart=${this.touchEvent} drag>
-        <md-icon>drag_handle</md-icon>
+      <main>
+        <md-icon @mousedown=${this.mouseEvent} @touchstart=${this.touchEvent} drag>drag_handle</md-icon>
         <label-container
           >${this.tableMetaData?.itemMetaData.find((o) => o.key === this.tableMetaData?.reorderConfig?.reorderItemDisplayKey)?.render(this.item) ?? ''}
         </label-container>

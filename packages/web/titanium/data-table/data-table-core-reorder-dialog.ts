@@ -69,14 +69,11 @@ export class TitaniumDataTableCoreReorderDialog<T extends object> extends LoadWh
 
         scrollbar-color: var(--md-sys-color-surface-container-highest) transparent;
         scrollbar-width: thin;
-
-        height: min-content;
-        max-height: calc(100dvh - 24px);
       }
 
       form {
         display: grid;
-        /* padding: 8px; */
+        padding: 12px 8px;
       }
 
       md-circular-progress {
@@ -128,6 +125,7 @@ export class TitaniumDataTableCoreReorderDialog<T extends object> extends LoadWh
               .item=${item}
               .tableMetaData=${this.tableMetaData}
               .supplementalItemStyles=${this.supplementalItemStyles}
+              .scrollableContainer=${this.dialog?.shadowRoot?.querySelector('.scroller')}
             ></titanium-data-table-core-reorder-item>
           `
         )}
