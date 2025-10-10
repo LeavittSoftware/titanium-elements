@@ -1,6 +1,5 @@
 import '@material/web/icon/icon';
 import '@material/web/elevation/elevation';
-import '@material/web/ripple/ripple';
 
 import { css, CSSResult, CSSResultGroup, html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
@@ -32,7 +31,7 @@ export class TitaniumDataTableCoreReorderItem<T extends object> extends Draggabl
 
       main {
         display: grid;
-        grid: 'label icon' / 1fr auto;
+        grid: 'label icon' / 1fr 48px;
         user-select: none;
 
         font-size: 15px;
@@ -42,11 +41,14 @@ export class TitaniumDataTableCoreReorderItem<T extends object> extends Draggabl
         gap: 8px;
         min-height: 48px;
         border-bottom: 1px solid var(--md-sys-color-outline-variant);
+        border-top: 1px solid var(--md-sys-color-outline-variant);
 
         padding: 0 8px;
 
         position: relative;
         box-sizing: border-box;
+
+        margin-bottom: -1px;
       }
 
       :host(:last-of-type) {
@@ -55,6 +57,10 @@ export class TitaniumDataTableCoreReorderItem<T extends object> extends Draggabl
 
       md-icon {
         grid-area: icon;
+        display: grid;
+        place-items: center;
+        height: 48px;
+        width: 48px;
         animation: wobble 0.4s ease-in-out infinite alternate;
         transform-origin: center center;
       }
@@ -123,13 +129,12 @@ export class TitaniumDataTableCoreReorderItem<T extends object> extends Draggabl
           ${dataTableContentStyles ? dataTableContentStyles : nothing};
         }
       </style>
-      <main @mousedown=${this.mouseEvent} @touchstart=${this.touchEvent} drag>
-        <md-icon>drag_indicator</md-icon>
+      <main>
+        <md-icon @mousedown=${this.mouseEvent} @touchstart=${this.touchEvent} drag>drag_handle</md-icon>
         <label-container
           >${this.tableMetaData?.itemMetaData.find((o) => o.key === this.tableMetaData?.reorderConfig?.reorderItemDisplayKey)?.render(this.item) ?? ''}
         </label-container>
         <md-elevation></md-elevation>
-        <md-ripple ?disabled=${this.disableDrag}></md-ripple>
       </main>
     `;
   }

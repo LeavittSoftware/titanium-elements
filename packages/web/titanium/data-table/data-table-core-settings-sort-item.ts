@@ -130,7 +130,7 @@ export class TitaniumDataTableCoreSettingsSortItem extends DraggableItemBase {
         }
       </style>
       <md-elevation></md-elevation>
-      <md-icon @mousedown=${this.mouseEvent} @touchstart=${this.touchEvent} drag>drag_indicator</md-icon>
+      <md-icon @mousedown=${this.mouseEvent} @touchstart=${this.touchEvent} drag>drag_handle</md-icon>
       <header ellipsis>
         <h5 ellipsis annotation>${this.index === 0 ? html`sort by` : html`then by`}</h5>
         <p ellipsis>${this.name}</p>

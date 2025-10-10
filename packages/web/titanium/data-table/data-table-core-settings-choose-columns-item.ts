@@ -67,7 +67,7 @@ export class TitaniumDataTableCoreSettingsChooseColumnsItem extends DraggableIte
         }
       </style>
       <md-elevation></md-elevation>
-      <md-icon @mousedown=${this.mouseEvent} @touchstart=${this.touchEvent} drag>drag_indicator</md-icon>
+      <md-icon @mousedown=${this.mouseEvent} @touchstart=${this.touchEvent} drag>drag_handle</md-icon>
       <span>${this.name}</span>
       <md-switch
         ?selected=${this.selected}

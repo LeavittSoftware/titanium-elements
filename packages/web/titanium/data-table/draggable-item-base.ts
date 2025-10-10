@@ -23,6 +23,7 @@ export class DraggableItemBase extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'dragged' }) protected accessor dragged: boolean;
   @property({ type: Boolean, reflect: true, attribute: 'dragging' }) protected accessor dragging: boolean;
   @property({ type: Boolean, attribute: 'disable-drag', reflect: true }) protected accessor disableDrag: boolean;
+  @property({ type: Object }) protected accessor scrollableContainer: HTMLElement;
 
   @state() protected accessor nudgeHeight: number;
   @state() protected accessor hoverIndex: number | null = null;
@@ -99,6 +100,7 @@ export class DraggableItemBase extends LitElement {
   #getIndexOver(itemEndPositions: number[], hoverPosition: number) {
     for (let index = 0; index < itemEndPositions.length; index++) {
       const endPosition = itemEndPositions[index];
+
       if (hoverPosition <= endPosition) {
         return index;
       }
@@ -134,7 +136,20 @@ export class DraggableItemBase extends LitElement {
     }
   }
 
+  #calcScrollDistance(distanceFromEdge: number, isSafari: boolean) {
+    if (distanceFromEdge > 10) {
+      return isSafari ? 1 : 2;
+    }
+
+    if (distanceFromEdge > 5) {
+      return isSafari ? 1.5 : 4;
+    }
+
+    return isSafari ? 2 : 6;
+  }
+
   #startItemDrag(event, type: 'touch' | 'mouse') {
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     //only allow primary mouse for drag
     if (type === 'mouse' && event.which !== 1) {
       return;
@@ -142,65 +157,93 @@ export class DraggableItemBase extends LitElement {
 
     //Prevent native scrolling
     event.preventDefault();
+    let setIntervalScrollHandler: number = 0;
+    let lastScrollTime = 0;
 
     this.dragging = true;
     this.originIndex = this.items.indexOf(this);
 
     const moveEvent = type === 'touch' ? 'touchmove' : 'mousemove';
     const upEvent = type === 'touch' ? 'touchend' : 'mouseup';
-    const containerY = (this.itemsContainer?.getBoundingClientRect()?.top ?? 0) + window.scrollY;
 
-    const startY = event.pageY ?? event.touches[0].pageY;
-    const itemHeight = this.getBoundingClientRect().height - 1;
+    const itemsStartPageY = event.pageY ?? event.touches[0].pageY;
+    const itemsStartPageYAdjusted = itemsStartPageY + this.scrollableContainer?.scrollTop;
+
+    const itemHeight = this.getBoundingClientRect().height;
 
     //Cache the end positions of each item for variable height list items
     let cumulativeSum = 0;
     const itemEndPositions = this.items.map((o) => {
-      cumulativeSum = cumulativeSum + (o.getBoundingClientRect().height - 1);
+      cumulativeSum = cumulativeSum + o.getBoundingClientRect().height;
       return cumulativeSum;
     });
 
     const moveItemHandler = (event) => {
       // Translate and keep track of which index we are hovering over.
-      const itemsPageY = event.pageY ?? event.touches[0].pageY;
-      const clientY = event.clientY ?? event.touches[0].clientY;
+      const itemsCurrentPageY = event.pageY ?? event.touches[0].pageY;
+      const itemsClientY = event.clientY ?? event.touches[0].clientY;
 
-      const itemAbsoluteTop = itemsPageY - containerY;
+      // this.scrollableContainer?.scrollTop
+      const refreshItemPositions = (scrollTop: number) => {
+        //Nudge other items of of the way
+        const containerY = this.itemsContainer?.getBoundingClientRect()?.top ?? 0;
 
-      const transformY = itemsPageY - startY;
+        const centerOfItemYRelativeToContainer = itemsClientY - containerY;
+        this.hoverIndex = this.#getIndexOver(itemEndPositions, centerOfItemYRelativeToContainer);
 
-      this.style.transform = `translateY(${transformY}px)`;
+        this.#notifySiblingsDrag(this.originIndex, this.hoverIndex, this.dragging, itemHeight);
 
-      this.hoverIndex = this.#getIndexOver(itemEndPositions, itemAbsoluteTop);
-      this.#notifySiblingsDrag(this.originIndex, this.hoverIndex, this.dragging, itemHeight);
+        //Transform item while dragging
+        //when item is past the last item in the container, stop transform
+        if (centerOfItemYRelativeToContainer < itemEndPositions[itemEndPositions.length - 1]) {
+          this.style.transform = `translateY(${itemsCurrentPageY - itemsStartPageYAdjusted + scrollTop}px)`;
+        }
+      };
 
-      //Scroll on when item approaches bottom/top of viewport
-      if (clientY < 5) {
-        scrollBy({
-          top: -(window.innerHeight / 5),
-          behavior: 'smooth',
-        });
-      } else if (clientY < 25) {
-        scrollBy({
-          top: -(window.innerHeight / 10),
-          behavior: 'smooth',
-        });
-      }
+      refreshItemPositions(this.scrollableContainer?.scrollTop ?? 0);
 
-      if (window.innerHeight - clientY < 5) {
-        scrollBy({
-          top: window.innerHeight / 5,
-          behavior: 'smooth',
-        });
-      } else if (window.innerHeight - clientY < 25) {
-        scrollBy({
-          top: window.innerHeight / 10,
-          behavior: 'smooth',
-        });
+      if (this.scrollableContainer) {
+        // Top position relative to the document
+        const topOfScrollableContainer = this.scrollableContainer?.getBoundingClientRect()?.top + window.scrollY;
+        const bottomOfScrollableContainer = this.scrollableContainer?.getBoundingClientRect()?.bottom + window.scrollY;
+
+        //Page Y is relative to the document
+        const distanceFromTopOfScrollableContainer = itemsCurrentPageY - topOfScrollableContainer;
+        const distanceFromBottomOfScrollableContainer = bottomOfScrollableContainer - itemsCurrentPageY;
+        // Throttling mechanism for scrollBy calls
+
+        const scrollThrottleMs = 10;
+        const scrollBy = (amount: number) => {
+          const currentTime = performance.now();
+          if (currentTime - lastScrollTime >= scrollThrottleMs) {
+            refreshItemPositions(this.scrollableContainer?.scrollTop);
+            this.scrollableContainer.scrollBy(0, amount);
+            lastScrollTime = currentTime;
+          }
+        };
+
+        if (distanceFromTopOfScrollableContainer < 20) {
+          clearInterval(setIntervalScrollHandler);
+          const amount = this.#calcScrollDistance(distanceFromTopOfScrollableContainer, isSafari);
+          scrollBy(-amount);
+          setIntervalScrollHandler = window.setInterval(() => {
+            scrollBy(-amount);
+          }, scrollThrottleMs);
+        } else if (distanceFromBottomOfScrollableContainer < 20) {
+          clearInterval(setIntervalScrollHandler);
+          const amount = this.#calcScrollDistance(distanceFromBottomOfScrollableContainer, isSafari);
+          scrollBy(amount);
+          setIntervalScrollHandler = window.setInterval(() => {
+            scrollBy(amount);
+          }, scrollThrottleMs);
+        } else {
+          clearInterval(setIntervalScrollHandler);
+        }
       }
     };
 
     const cancelDragHandler = () => {
+      clearInterval(setIntervalScrollHandler);
       document.removeEventListener(moveEvent, moveItemHandler);
       this.removeEventListener(upEvent, dragCompleteHandler);
       this.dragging = false;
@@ -223,6 +266,8 @@ export class DraggableItemBase extends LitElement {
     };
 
     const dragCompleteHandler = () => {
+      clearInterval(setIntervalScrollHandler);
+      setIntervalScrollHandler = 0;
       this.dragging = false;
       this.items.forEach((o) => (o.dragging = false));
       document.removeEventListener(moveEvent, moveItemHandler);

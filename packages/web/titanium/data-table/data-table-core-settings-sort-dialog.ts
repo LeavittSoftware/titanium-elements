@@ -59,7 +59,10 @@ export class TitaniumDataTableCoreSettingsSortDialog<T extends object> extends L
 
       md-dialog {
         max-width: 450px;
-        width: calc(100vw - 24px);
+        width: calc(100dvw - 24px);
+
+        scrollbar-color: var(--md-sys-color-surface-container-highest) transparent;
+        scrollbar-width: thin;
       }
 
       main {
@@ -153,6 +156,7 @@ export class TitaniumDataTableCoreSettingsSortDialog<T extends object> extends L
                     .index=${index}
                     .name=${this.tableMetaData?.itemMetaData.find((item) => item.key === sort.key)?.friendlyName ?? sort.key}
                     sort-direction=${sort.direction}
+                    .scrollableContainer=${this.dialog?.shadowRoot?.querySelector('.scroller')}
                     ?disable-drag=${this.sort.length === 1}
                     @sort-direction-changed=${(e) => {
                       this.sort[index].direction = e.target.sortDirection as 'asc' | 'desc';

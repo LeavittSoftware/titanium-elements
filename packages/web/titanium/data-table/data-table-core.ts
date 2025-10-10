@@ -35,6 +35,7 @@ import { redispatchEvent } from '@material/web/internal/events/redispatch-event'
 export type TitaniumDataTableCoreMetaData<T extends object> = {
   uniqueKey: (item: T) => string;
   itemLinkUrl?: (item: T) => string;
+  itemClickHandler?: (item: T) => void;
   itemMetaData: TitaniumDataTableCoreItemMetaData<T>[];
   maxCustomSortColumns?: number;
   reorderConfig?: {
@@ -205,13 +206,6 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
         align-self: start;
       }
 
-      :host(:not([selection-mode])) table,
-      :host([selection-mode='none']) table {
-        td[checkbox] {
-          border-bottom: none !important;
-        }
-      }
-
       content-container {
         display: grid;
         height: 100%;
@@ -243,7 +237,6 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
             left: 0;
             top: 0;
             z-index: 4;
-            border-right: 1px var(--md-sys-color-outline-variant) solid;
 
             content-container {
               nice-badge {
@@ -423,11 +416,12 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
             position: sticky;
             left: 0;
 
-            border-right: 1px var(--md-sys-color-outline-variant) solid;
+            z-index: 1;
+
             content-container {
+              display: grid;
               padding: 0;
 
-              display: grid;
               md-checkbox {
                 padding: 15px;
                 --md-checkbox-container-shape: 6px;
@@ -435,6 +429,7 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
                 --md-checkbox-state-layer-shape: 12px;
                 --md-checkbox-state-layer-size: 32px;
               }
+
               md-checkbox::part(focus-ring) {
                 height: 32px;
                 width: 32px;
@@ -562,7 +557,7 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
                             }
                           }}
                         >
-                          <md-icon slot="start">reorder</md-icon>
+                          <md-icon slot="start">drag_handle</md-icon>
                           <div slot="headline">Reorder items</div>
                         </md-menu-item>`
                     : nothing}
@@ -664,11 +659,13 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
             (item) => {
               return html`
                 <tr
-                  ?link-url=${!!this.tableMetaData?.itemLinkUrl?.(item)}
+                  ?link-url=${this.tableMetaData?.itemLinkUrl || this.tableMetaData?.itemClickHandler}
                   ?selected=${this.selected.includes(item)}
                   @click=${() => {
                     if (this.selected.length === 0) {
-                      if (this.tableMetaData?.itemLinkUrl) {
+                      if (this.tableMetaData?.itemClickHandler) {
+                        this.tableMetaData.itemClickHandler(item);
+                      } else if (this.tableMetaData?.itemLinkUrl) {
                         this.dispatchEvent(
                           new CustomEvent<{ path: string }>('change-route', {
                             bubbles: true,
