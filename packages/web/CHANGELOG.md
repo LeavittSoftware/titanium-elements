@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.28.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.27.0...@leavittsoftware/web@5.28.0) (2025-10-10)
+
+
+### Bug Fixes
+
+* **data-table-core:** text over flow and reduce vertical lines ([c6f5fc2](https://github.com/LeavittSoftware/titanium-elements/commit/c6f5fc2dd8e95f03133bad22d5b018a4b9f0067b))
+* **draggable-item-base:** start nudge off center of current item ([dbf527e](https://github.com/LeavittSoftware/titanium-elements/commit/dbf527e1aa9bc2b4a6d5779834aef307e51e91f0))
+
+
+### Features
+
+* **data-table-core:**  add itemClickHandler support as alternative to href ([39473a7](https://github.com/LeavittSoftware/titanium-elements/commit/39473a7bf4e9060c761cdebc79fe30318609d981))
+* **scrollable-base:** support placement in scrollable elements ([7e41d99](https://github.com/LeavittSoftware/titanium-elements/commit/7e41d9936f1f8a14258564fc1da8b06356cfe966))
+
+
+
+
+
 # [5.27.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.26.0...@leavittsoftware/web@5.27.0) (2025-10-10)
 
 
