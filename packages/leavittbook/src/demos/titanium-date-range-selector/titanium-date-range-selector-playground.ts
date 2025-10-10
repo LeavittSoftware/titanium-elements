@@ -8,8 +8,9 @@ import '@material/web/button/text-button';
 
 import '@leavittsoftware/web/titanium/date-range-selector/date-range-selector';
 import { TitaniumDateRangeSelector } from '@leavittsoftware/web/titanium/date-range-selector/date-range-selector';
-import dayjs from 'dayjs/esm';
 import { DateRanges } from '@leavittsoftware/web/titanium/date-range-selector/types/date-ranges';
+
+import dayjs from 'dayjs/esm';
 
 /* playground-fold */
 @customElement('titanium-date-range-selector-playground')
@@ -181,6 +182,12 @@ export class TitaniumDateRangePlayground extends LitElement {
             ],
           ])}
         ></titanium-date-range-selector>
+      </div>
+
+      <h1>Filled</h1>
+      <p>Examples using filled</p>
+      <div>
+        <titanium-date-range-selector filled startDate=${dayjs().format('YYYY-MM-DD')} endDate=${dayjs().format('YYYY-MM-DD')}></titanium-date-range-selector>
       </div>
     `;
   }
