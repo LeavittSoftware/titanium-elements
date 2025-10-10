@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.26.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.25.0...@leavittsoftware/web@5.26.0) (2025-10-10)
+
+
+### Features
+
+* **address-input:** add filled support ([2df0568](https://github.com/LeavittSoftware/titanium-elements/commit/2df0568b5da33aa01e3cc4eff14c9f1cfe91b2f5))
+
+
+
+
+
 # [5.25.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.24.0...@leavittsoftware/web@5.25.0) (2025-10-08)
 
 
