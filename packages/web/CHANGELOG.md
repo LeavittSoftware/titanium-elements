@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.27.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.26.0...@leavittsoftware/web@5.27.0) (2025-10-10)
+
+
+### Features
+
+* **date-range-selector:** add filled support ([#677](https://github.com/LeavittSoftware/titanium-elements/issues/677)) ([25969c0](https://github.com/LeavittSoftware/titanium-elements/commit/25969c0aca8e3d0e02231e41cf5b503fb8d1522e))
+
+
+
+
+
 # [5.26.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.25.0...@leavittsoftware/web@5.26.0) (2025-10-10)
 
 
