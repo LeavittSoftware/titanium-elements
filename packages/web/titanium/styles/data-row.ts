@@ -13,6 +13,7 @@ export const dataRow = [
       gap: 16px;
 
       padding: 16px 24px 16px 0;
+      margin-left: 24px;
 
       border-bottom: 1px solid var(--md-sys-color-outline-variant);
     }
