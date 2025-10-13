@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.0.0...@leavittsoftware/web@6.0.1) (2025-10-13)
+
+
+### Bug Fixes
+
+* **data-row:** missing opacity ([4a9f85b](https://github.com/LeavittSoftware/titanium-elements/commit/4a9f85bc1673ce22796df35f9dc3ce9c0d4f1f69))
+
+
+
+
+
 # [6.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@5.28.0...@leavittsoftware/web@6.0.0) (2025-10-13)
 
 
