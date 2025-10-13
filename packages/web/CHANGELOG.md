@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.0.1...@leavittsoftware/web@6.0.2) (2025-10-13)
+
+
+### Bug Fixes
+
+* **data-row:** revert margin change ([be33d27](https://github.com/LeavittSoftware/titanium-elements/commit/be33d27c12d82735149aff7ee894cd8e1424fd48))
+
+
+
+
+
 ## [6.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.0.0...@leavittsoftware/web@6.0.1) (2025-10-13)
 
 
