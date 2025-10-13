@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.0.2...@leavittsoftware/web@6.1.0) (2025-10-13)
+
+
+### Features
+
+* **data-table-core:** icon support for image rows ([1a7d104](https://github.com/LeavittSoftware/titanium-elements/commit/1a7d10443d3646eb15a38a9862767167f34bd2a6))
+
+
+
+
+
 ## [6.0.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.0.1...@leavittsoftware/web@6.0.2) (2025-10-13)
 
 
