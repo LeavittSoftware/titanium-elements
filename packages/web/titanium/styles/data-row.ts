@@ -31,6 +31,7 @@ export const dataRow = [
     }
 
     data-row h5 {
+      opacity: 0.8;
       margin: 0 0 4px 0;
     }
 
