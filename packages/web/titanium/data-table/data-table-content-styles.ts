@@ -19,6 +19,11 @@ export const dataTableContentStyles = css`
     align-items: center;
     gap: 0 12px;
 
+    md-icon {
+      grid-area: image;
+      --md-icon-size: 32px;
+    }
+
     img {
       grid-area: image;
       height: 32px;
