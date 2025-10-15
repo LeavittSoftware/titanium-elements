@@ -31,6 +31,10 @@ export const dataTableContentStyles = css`
       image-rendering: -webkit-optimize-contrast;
     }
 
+    profile-picture {
+      grid-area: image;
+    }
+
     [supporting-text] {
       grid-area: supporting-text;
     }
