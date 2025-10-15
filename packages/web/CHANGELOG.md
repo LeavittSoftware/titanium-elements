@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.1.0...@leavittsoftware/web@6.2.0) (2025-10-15)
+
+
+### Features
+
+* **data-table-core:** add profile-picture to image grid-area ([ebd7b93](https://github.com/LeavittSoftware/titanium-elements/commit/ebd7b93eaeac6c18657cf50f69dc2a154e639973))
+
+
+
+
+
 # [6.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.0.2...@leavittsoftware/web@6.1.0) (2025-10-13)
 
 
