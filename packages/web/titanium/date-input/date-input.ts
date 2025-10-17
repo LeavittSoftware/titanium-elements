@@ -298,13 +298,18 @@ export class TitaniumDateInput extends LitElement {
       --md-filled-field-hover-active-indicator-height: 0;
       --md-filled-field-focus-active-indicator-height: 0;
       --md-filled-field-disabled-active-indicator-height: 0;
+
+      --md-filled-field-label-text-populated-line-height: 14px;
+    }
+
+    :host(:not([filled])) {
+      --md-outlined-field-top-space: 15px;
+      --md-outlined-field-bottom-space: 15px;
     }
 
     md-outlined-field,
     md-filled-field {
       width: 100%;
-      /* Adjust to match height of other text inputs */
-      max-height: 56px;
     }
 
     input::-webkit-calendar-picker-indicator {
@@ -324,6 +329,13 @@ export class TitaniumDateInput extends LitElement {
       padding-bottom: 7px;
     }
 
+    :host([filled]) _::-webkit-full-page-media,
+    :host([filled]) _:future,
+    :host([filled]) input {
+      padding-top: 21px;
+      padding-bottom: 0;
+    }
+
     _::-webkit-full-page-media,
     _:future,
     md-icon-button[open-picker] {
@@ -337,10 +349,15 @@ export class TitaniumDateInput extends LitElement {
       }
 
       input {
-        height: 35px;
-        padding-top: 16px;
-        padding-bottom: 6px;
         min-width: 100px;
+        padding-bottom: 10px;
+        padding-top: 16px;
+        height: 30px;
+      }
+
+      :host([filled]) input {
+        padding-bottom: 3px;
+        padding-top: 23px;
       }
     }
 
@@ -356,6 +373,15 @@ export class TitaniumDateInput extends LitElement {
 
       md-icon-button[open-picker] {
         display: none;
+      }
+
+      :host([filled]) {
+        --md-filled-field-label-text-populated-line-height: 16px;
+      }
+
+      :host(:not([filled])) {
+        --md-outlined-field-top-space: 16px;
+        --md-outlined-field-bottom-space: 16px;
       }
     }
   `;
