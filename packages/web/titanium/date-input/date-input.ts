@@ -357,11 +357,6 @@ export class TitaniumDateInput extends LitElement {
       md-icon-button[open-picker] {
         display: none;
       }
-
-      input {
-        padding-top: 16px;
-        padding-bottom: 16px;
-      }
     }
   `;
 
