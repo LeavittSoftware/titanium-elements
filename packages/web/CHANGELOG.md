@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.2.1...@leavittsoftware/web@6.2.2) (2025-10-22)
+
+
+### Bug Fixes
+
+* **date-input:** IOS/safari styles. Fix supporting text height issue. ([cc8335e](https://github.com/LeavittSoftware/titanium-elements/commit/cc8335e766ed685e0519b54cfaf110b27d09afe9))
+
+
+
+
+
 ## [6.2.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.2.0...@leavittsoftware/web@6.2.1) (2025-10-17)
 
 
