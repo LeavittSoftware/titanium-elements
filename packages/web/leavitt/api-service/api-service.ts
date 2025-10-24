@@ -434,35 +434,38 @@ export default class ApiService {
     }
   }
 
-  #objectToFormData(obj: any, form?: FormData, namespace?: string): FormData {
+  #objectToFormData(obj, form, namespace) {
     const fd = form || new FormData();
-    let formKey: string;
-
+    let formKey;
     for (const property in obj) {
-      if (Object.hasOwn(obj, property)) {
-        if (typeof obj[property] === 'undefined') {
-          continue;
+        if (Object.hasOwn(obj, property)) {
+            if (typeof obj[property] === 'undefined') {
+                continue;
+            }
+            if (namespace) {
+                if (obj instanceof Array && obj[property] instanceof File) {
+                  // don't include array notation in FormData keys for Files in arrays
+                    formKey = namespace;
+                }
+                else if (obj instanceof Array) {
+                    formKey = namespace + '[' + property + ']';
+                }
+                else {
+                    formKey = namespace + '.' + property;
+                }
+            }
+            else {
+                formKey = property;
+            }
+            if (typeof obj[property] === 'object' && !(obj[property] instanceof File)) {
+                this.#objectToFormData(obj[property], fd, formKey);
+            }
+            else {
+                // if it's a string or a File object
+                fd.append(formKey, obj[property]);
+            }
         }
-        if (namespace) {
-          if (obj[property] instanceof File) {
-            // don't include array notation in FormData keys for Files in arrays
-            formKey = namespace;
-          } else {
-            formKey = namespace + '[' + property + ']';
-          }
-        } else {
-          formKey = property;
-        }
-
-        if (typeof obj[property] === 'object' && !(obj[property] instanceof File)) {
-          this.#objectToFormData(obj[property], fd, formKey);
-        } else {
-          // if it's a string or a File object
-          fd.append(formKey, obj[property]);
-        }
-      }
     }
-
     return fd;
   }
 }
