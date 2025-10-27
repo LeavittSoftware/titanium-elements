@@ -434,9 +434,9 @@ export default class ApiService {
     }
   }
 
-  #objectToFormData(obj, form?, namespace?) {
+  #objectToFormData(obj: any, form?: FormData, namespace?: string): FormData {
     const fd = form || new FormData();
-    let formKey;
+    let formKey: string;
     for (const property in obj) {
       if (Object.hasOwn(obj, property)) {
         if (typeof obj[property] === 'undefined') {
