@@ -243,7 +243,7 @@ describe('objectToFormData', () => {
   it('should handle objects with special characters in keys', () => {
     const obj = {
       'key-with-dash': 'value',
-      'key_with_underscore': 'value',
+      key_with_underscore: 'value',
       'key.with.dot': 'value',
     };
     const formData = objectToFormData(obj);

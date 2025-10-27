@@ -434,7 +434,6 @@ export default class ApiService {
       return Promise.reject(`The server sent back invalid JSON. ${error}`);
     }
   }
-
 }
 
 class AbortError extends Error {

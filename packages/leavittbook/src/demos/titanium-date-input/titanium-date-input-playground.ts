@@ -92,7 +92,6 @@ export class TitaniumDateInputItemPlayground extends LitElement {
             @click=${() => {
               this.input.value = this.input.value ? '' : '2023-12-08';
               this.filledInput.value = this.filledInput.value ? '' : '2023-12-08';
-             
             }}
             >Set a value</md-outlined-button
           >

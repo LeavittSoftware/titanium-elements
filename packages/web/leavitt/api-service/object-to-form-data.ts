@@ -35,4 +35,3 @@ export function objectToFormData(obj: any, form?: FormData, namespace?: string):
   }
   return fd;
 }
-
