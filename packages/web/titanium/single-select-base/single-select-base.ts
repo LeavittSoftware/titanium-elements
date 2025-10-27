@@ -422,7 +422,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
             }
           }
         }}
-        @input=${async (e: DOMEvent<MdOutlinedTextField|MdFilledTextField>) => this.#onInput(e.target.value)}
+        @input=${async (e: DOMEvent<MdOutlinedTextField | MdFilledTextField>) => this.#onInput(e.target.value)}
         @focus=${() => {
           if (this.selected) {
             this.select();
