@@ -9,3 +9,4 @@ packages/leavittbook/src/**/*.map
 packages/leavittbook/src/**/*.d.ts
 packages/leavittbook/dist
 packages/leavittbook/custom-elements.json
+spec/tmp

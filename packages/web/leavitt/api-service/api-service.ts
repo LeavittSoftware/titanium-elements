@@ -5,6 +5,7 @@ import { HttpError } from './HttpError';
 import { ODataDto } from './odata-dto';
 import { ODataResponse } from './odata-response';
 import { HTTPStatusCodes } from './status-codes';
+import { objectToFormData } from './object-to-form-data.js';
 
 export type onProgressCallback = (event: ProgressEvent, request: XMLHttpRequest) => void;
 export type ApiServiceOptions = { appNameHeaderKey: string };
@@ -151,7 +152,7 @@ export default class ApiService {
     try {
       response = await fetch(this.#getFullUri(urlPath), {
         method: 'POST',
-        body: options?.sendAsFormData ? this.#objectToFormData(body) : JSON.stringify(body),
+        body: options?.sendAsFormData ? objectToFormData(body) : JSON.stringify(body),
         headers: headers,
         signal: options?.abortController?.signal,
       });
@@ -434,37 +435,6 @@ export default class ApiService {
     }
   }
 
-  #objectToFormData(obj: any, form?: FormData, namespace?: string): FormData {
-    const fd = form || new FormData();
-    let formKey: string;
-
-    for (const property in obj) {
-      if (Object.hasOwn(obj, property)) {
-        if (typeof obj[property] === 'undefined') {
-          continue;
-        }
-        if (namespace) {
-          if (obj[property] instanceof File) {
-            // don't include array notation in FormData keys for Files in arrays
-            formKey = namespace;
-          } else {
-            formKey = namespace + '[' + property + ']';
-          }
-        } else {
-          formKey = property;
-        }
-
-        if (typeof obj[property] === 'object' && !(obj[property] instanceof File)) {
-          this.#objectToFormData(obj[property], fd, formKey);
-        } else {
-          // if it's a string or a File object
-          fd.append(formKey, obj[property]);
-        }
-      }
-    }
-
-    return fd;
-  }
 }
 
 class AbortError extends Error {

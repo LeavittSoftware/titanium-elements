@@ -1,0 +1,14 @@
+{
+  "spec_dir": "spec/tmp",
+  "spec_files": [
+    "packages/**/*[sS]pec.js",
+    "packages/**/*[tT]est.js"
+  ],
+  "helpers": [
+    "helpers/**/*.js"
+  ],
+  "stopSpecOnExpectationFailure": false,
+  "random": false,
+  "autoCleanClosures": true
+}
+

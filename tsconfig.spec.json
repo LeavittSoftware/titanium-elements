@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "esnext",
+    "moduleResolution": "node",
+    "outDir": "spec/tmp",
+    "rootDir": ".",
+    "types": ["jasmine", "node"],
+    "sourceMap": true,
+    "esModuleInterop": true
+  },
+  "include": ["packages/**/*.spec.ts", "packages/**/*.test.ts"]
+}
+
