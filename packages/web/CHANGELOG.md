@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.2.3...@leavittsoftware/web@6.2.4) (2025-10-29)
+
+
+### Bug Fixes
+
+* **api-service:** nested file form posts ([a56af43](https://github.com/LeavittSoftware/titanium-elements/commit/a56af43c8f602e2c784e4f16fadff88eb5aff23c))
+* **app-elements:** scrollable container detection ([2574026](https://github.com/LeavittSoftware/titanium-elements/commit/257402641d7cc3e1e4a7f6201f51ce12db51387f))
+
+
+
+
+
 ## [6.2.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.2.2...@leavittsoftware/web@6.2.3) (2025-10-27)
 
 
