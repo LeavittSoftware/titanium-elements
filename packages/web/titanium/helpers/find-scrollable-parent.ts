@@ -4,7 +4,7 @@ export async function findScrollableParent(element: Element) {
     await (current as any)?.updateComplete;
     const scrollContainer = (current as any).scrollContainer;
     if (scrollContainer !== null && scrollContainer !== undefined) {
-      return current;
+      return scrollContainer;
     }
     current = current.parentElement ?? null;
   }
