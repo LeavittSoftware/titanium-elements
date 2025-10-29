@@ -123,10 +123,10 @@ export class LeavittAppNavigationHeader extends LitElement {
   ];
 
   #scrollableParent: Element | null = null;
-  connectedCallback() {
+  async connectedCallback() {
     super.connectedCallback();
 
-    this.#scrollableParent = findScrollableParent(this);
+    this.#scrollableParent = await findScrollableParent(this);
     if (this.#scrollableParent) {
       this.#scrollableParent.addEventListener('scroll', this.#onScroll.bind(this), false);
     }

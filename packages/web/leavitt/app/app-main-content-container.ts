@@ -1,14 +1,14 @@
 import '../../titanium/circle-loading-indicator/circle-loading-indicator';
 
 import { LitElement, css, html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, query } from 'lit/decorators.js';
 import { mainMenuPositionContext } from './contexts/main-menu-position-context';
 import { consume } from '@lit/context';
 
 @customElement('leavitt-app-main-content-container')
 export class LeavittAppContentContainer extends LitElement {
+  @query('scroll-container') accessor scrollContainer: HTMLDivElement | null;
   @property({ type: Object }) private accessor pendingStateElement: Element | null;
-
   @consume({ context: mainMenuPositionContext, subscribe: true })
   @property({ type: String, reflect: true, attribute: 'main-menu-position' })
   public mainMenuPosition: string;
