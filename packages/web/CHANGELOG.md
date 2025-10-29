@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.2.4...@leavittsoftware/web@6.2.5) (2025-10-29)
+
+
+### Bug Fixes
+
+* **find-scrollable:** return the container ([c06a7f4](https://github.com/LeavittSoftware/titanium-elements/commit/c06a7f41089fa8fd2e7309e7a628fd26a82be2ea))
+
+
+
+
+
 ## [6.2.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.2.3...@leavittsoftware/web@6.2.4) (2025-10-29)
 
 
