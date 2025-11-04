@@ -68,7 +68,7 @@ export class LeavittAppNavigationFooter extends LitElement {
         bottom: 0;
         min-height: 64px;
 
-        padding: 0 16px;
+      
         background-color: var(--md-sys-color-surface-container-lowest);
         z-index: 2;
       }
@@ -83,8 +83,7 @@ export class LeavittAppNavigationFooter extends LitElement {
         justify-content: space-between;
         align-items: center;
         justify-self: center;
-        padding: 12px 0;
-
+        padding: 12px 16px;
         width: 100%;
         box-sizing: border-box;
       }
