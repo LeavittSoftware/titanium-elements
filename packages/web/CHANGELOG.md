@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.6](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.2.5...@leavittsoftware/web@6.2.6) (2025-11-04)
+
+
+### Bug Fixes
+
+* **app-footer:** move padding from host to inner main to match content container ([ef1f74c](https://github.com/LeavittSoftware/titanium-elements/commit/ef1f74c5cacec46b8476c54ae323de79b9c39740))
+
+
+
+
+
 ## [6.2.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.2.4...@leavittsoftware/web@6.2.5) (2025-10-29)
 
 
