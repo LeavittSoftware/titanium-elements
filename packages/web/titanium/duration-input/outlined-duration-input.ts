@@ -1,6 +1,6 @@
 import { property, customElement } from 'lit/decorators.js';
-import { css, PropertyValues } from 'lit';
-import { MdFilledTextField } from '@material/web/textfield/filled-text-field';
+import { PropertyValues } from 'lit';
+import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
 
 import dayjs from 'dayjs/esm';
 import duration from 'dayjs/esm/plugin/duration';
@@ -8,16 +8,16 @@ import humanInterval, { durationToString } from './human-interval';
 dayjs.extend(duration);
 
 /**
- * titanium-filled-duration-input is a human readable duration textfield.
+ * titanium-outlined-duration-input is a human readable duration textfield.
  *
- * @element titanium-filled-duration-input
+ * @element titanium-outlined-duration-input
  *
  * @fires duration-change The duration can be accessed via event.target.duration
  *
  */
 
-@customElement('titanium-filled-duration-input')
-export class TitaniumFilledDurationInput extends MdFilledTextField {
+@customElement('titanium-outlined-duration-input')
+export class TitaniumOutlinedDurationInput extends MdOutlinedTextField {
   /**
    *  Dayjs duration object. This is the main property you will interact with because the value
    *  property of this component is actually the human readable string and not the duration you most likely
@@ -89,18 +89,6 @@ export class TitaniumFilledDurationInput extends MdFilledTextField {
     this.errorText = '';
     this.duration = null;
   }
-
-  static override styles = [
-    ...(Array.isArray(MdFilledTextField.styles) ? MdFilledTextField.styles : [MdFilledTextField.styles]),
-    css`
-      :host {
-       --md-filled-text-field-container-shape: 16px;
-        --md-filled-text-field-active-indicator-height: 0;
-        --md-filled-text-field-error-active-indicator-height: 0;
-        --md-filled-text-field-hover-active-indicator-height: 0;
-        --md-filled-text-field-focus-active-indicator-height: 0;
-        --md-filled-text-field-disabled-active-indicator-height: 0;
-      }
-    `,
-  ];
 }
+
+
