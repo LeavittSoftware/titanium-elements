@@ -12,13 +12,18 @@ dayjs.extend(duration);
 /* playground-fold-end */
 import { TitaniumDurationInput } from '@leavittsoftware/web/titanium/duration-input/duration-input';
 import '@leavittsoftware/web/titanium/duration-input/duration-input';
+import '@leavittsoftware/web/titanium/duration-input/filled-duration-input';
 import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
+import { TitaniumFilledDurationInput } from '@leavittsoftware/web/titanium/duration-input/filled-duration-input';
 
 /* playground-fold */
 @customElement('titanium-duration-input-playground')
 export class TitaniumDurationInputPlayground extends LitElement {
   @state() private accessor duration: duration.Duration | null = dayjs.duration(14400);
+  @state() private accessor filledDuration: duration.Duration | null = dayjs.duration(14400);
+
   @query('titanium-duration-input[demo]') private accessor requiredInput: TitaniumDurationInput;
+  @query('titanium-filled-duration-input') private accessor filledInput: TitaniumFilledDurationInput;
 
   static styles = [
     h1,
@@ -28,6 +33,15 @@ export class TitaniumDurationInputPlayground extends LitElement {
         display: flex;
         flex-direction: column;
         margin: 24px 12px;
+      }
+
+      titanium-filled-duration-input {
+        --md-filled-text-field-container-shape: 16px;
+        --md-filled-text-field-active-indicator-height: 0;
+        --md-filled-text-field-error-active-indicator-height: 0;
+        --md-filled-text-field-hover-active-indicator-height: 0;
+        --md-filled-text-field-focus-active-indicator-height: 0;
+        --md-filled-text-field-disabled-active-indicator-height: 0;
       }
 
       div {
@@ -82,6 +96,27 @@ export class TitaniumDurationInputPlayground extends LitElement {
           <md-outlined-button @click=${() => this.requiredInput.reportValidity()}>Report validity</md-outlined-button>
           <md-outlined-button @click=${() => (this.requiredInput.required = !this.requiredInput.required)}>Toggle required</md-outlined-button>
           <md-outlined-button @click=${() => console.log(this.requiredInput.checkValidity())}>Check validity</md-outlined-button>
+        </section>
+      </div>
+
+      <h1>Filled</h1>
+      <div>
+        <titanium-filled-duration-input
+          .duration=${this.filledDuration}
+          required
+          validationMessage="This duration is required"
+          label="Duration"
+          @duration-change=${(event: DOMEvent<TitaniumFilledDurationInput>) => {
+            this.filledDuration = event.target.duration;
+          }}
+        ></titanium-filled-duration-input>
+        <p>Duration is: ${this.filledDuration ? html`${this.filledDuration.asSeconds()} seconds` : String(this.filledDuration)}</p>
+        <br />
+        <section buttons>
+          <md-outlined-button @click=${() => this.filledInput.reset()}>Reset</md-outlined-button>
+          <md-outlined-button @click=${() => this.filledInput.reportValidity()}>Report validity</md-outlined-button>
+          <md-outlined-button @click=${() => (this.filledInput.required = !this.filledInput.required)}>Toggle required</md-outlined-button>
+          <md-outlined-button @click=${() => console.log(this.filledInput.checkValidity())}>Check validity</md-outlined-button>
         </section>
       </div>
     `;
