@@ -13,6 +13,8 @@ export class LeavittAppWidthLimiter extends LitElement {
         width: 100%;
         justify-self: center;
         box-sizing: border-box;
+
+        align-content: start;
       }
     `,
   ];
