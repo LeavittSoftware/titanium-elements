@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.2.7...@leavittsoftware/web@6.3.0) (2025-11-06)
+
+
+### Features
+
+* **duration-input:** add filled duration input ([c225cf2](https://github.com/LeavittSoftware/titanium-elements/commit/c225cf2ef679d1dcb8abc19f7de5a8d5c7da2509))
+
+
+
+
+
 ## [6.2.7](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.2.6...@leavittsoftware/web@6.2.7) (2025-11-06)
 
 
