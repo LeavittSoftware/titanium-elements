@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.7](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.2.6...@leavittsoftware/web@6.2.7) (2025-11-06)
+
+
+### Bug Fixes
+
+* **app-width-limiter:** add align-content start by default ([f6bad11](https://github.com/LeavittSoftware/titanium-elements/commit/f6bad115c14ac6c959a259ca4dc672e9af71a5e1))
+
+
+
+
+
 ## [6.2.6](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.2.5...@leavittsoftware/web@6.2.6) (2025-11-04)
 
 
