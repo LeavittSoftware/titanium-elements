@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.3.0...@leavittsoftware/web@6.4.0) (2025-11-07)
+
+
+### Features
+
+* **user-manager:** add support for authmethod ([a254446](https://github.com/LeavittSoftware/titanium-elements/commit/a254446c6e8ce90583465c4286af151930b2ae9a))
+* **user-manager:** add support for isPendingEmployee and isActiveClient ([b7f16f2](https://github.com/LeavittSoftware/titanium-elements/commit/b7f16f2295165abcd0083171327ce65ada09f48e))
+
+
+
+
+
 # [6.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.2.7...@leavittsoftware/web@6.3.0) (2025-11-06)
 
 
