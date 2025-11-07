@@ -1,4 +1,5 @@
 export interface LssJwtToken {
+  authmethod: string;
   IsActiveEmployee: string;
   IsPendingEmployee: string;
   IsActiveClient: string;
