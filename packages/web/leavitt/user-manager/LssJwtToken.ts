@@ -1,5 +1,7 @@
 export interface LssJwtToken {
   IsActiveEmployee: string;
+  IsPendingEmployee: string;
+  IsActiveClient: string;
   RefreshTokenId: string;
   aud: string;
   birthdate: string;

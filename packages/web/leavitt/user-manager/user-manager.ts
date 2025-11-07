@@ -53,6 +53,10 @@ export class UserManager extends LitElement {
 
   @property({ type: Boolean }) accessor isActiveEmployee: boolean;
 
+  @property({ type: Boolean }) accessor isPendingEmployee: boolean;
+
+  @property({ type: Boolean }) accessor isActiveClient: boolean;
+
   #isAuthenticating: boolean;
 
   constructor() {
@@ -246,6 +250,8 @@ export class UserManager extends LitElement {
     this.lastName = _jwtToken.family_name;
     this.email = _jwtToken.email;
     this.isActiveEmployee = _jwtToken.IsActiveEmployee === 'True';
+    this.isPendingEmployee = _jwtToken.IsPendingEmployee === 'True';
+    this.isActiveClient = _jwtToken.IsActiveClient === 'True';
     this.roles = typeof _jwtToken.role === 'string' ? [_jwtToken.role] : (_jwtToken.role ?? []);
 
     this.company = _jwtToken.Company ?? '';
@@ -365,6 +371,8 @@ export class UserManager extends LitElement {
     this.lastName = '';
     this.email = '';
     this.isActiveEmployee = false;
+    this.isPendingEmployee = false;
+    this.isActiveClient = false;
     this.roles.forEach((o) => {
       window.dispatchEvent(new CustomEvent('um-role-removed', { detail: { role: o } }));
     });
