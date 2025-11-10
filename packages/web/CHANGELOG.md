@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.4.0...@leavittsoftware/web@6.5.0) (2025-11-10)
+
+
+### Features
+
+* **leavitt-error-page:** add new customized Leavitt error page ([853f43b](https://github.com/LeavittSoftware/titanium-elements/commit/853f43b10f25fa703e4d0dc60b3fe773aa487a00))
+
+
+
+
+
 # [6.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.3.0...@leavittsoftware/web@6.4.0) (2025-11-07)
 
 
