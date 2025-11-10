@@ -1,6 +1,6 @@
 {
   "name": "@leavittsoftware/web",
-  "version": "6.5.0",
+  "version": "6.6.0",
   "license": "Apache-2.0",
   "description": "",
   "files": [
@@ -19,6 +19,8 @@
     "@leavittsoftware/lg-core-typescript": "*",
     "@lit/context": "^1.1.6",
     "@material/web": "*",
+    "@tsparticles/engine": "^3.9.1",
+    "@tsparticles/preset-stars": "^3.2.0",
     "@types/google.maps": "*",
     "bowser": "^2.12.1",
     "countup.js": "^2.9.0",
@@ -27,8 +29,6 @@
     "export-to-csv": "^1.4.0",
     "fuse.js": "^7.1.0",
     "jwt-decode": "^4.0.0",
-    "@tsparticles/engine": "^3.9.1",
-    "@tsparticles/preset-stars": "^3.2.0",
     "promise-parallel-throttle": "^3.5.0",
     "regexparam": "~3.0.0",
     "tslib": "^2.8.1"
