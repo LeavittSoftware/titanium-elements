@@ -9,6 +9,8 @@
   "dependencies": {
     "@leavittsoftware/lg-core-typescript": "^5.1102.0",
     "@material/web": "^2.4.1",
+    "@tsparticles/engine": "^3.9.1",
+    "@tsparticles/preset-stars": "^3.2.0",
     "api-viewer-element": "^1.0.0-pre.10",
     "lit": "3.3.1",
     "page": "^1.11.6",

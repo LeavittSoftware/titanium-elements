@@ -153,6 +153,9 @@ export class MyApp extends LitElement {
     page('/leavitt-user-feedback', () =>
       this.#changePage('leavitt-user-feedback', () => import('./demos/leavitt-user-feedback/leavitt-user-feedback-demo.js'))
     );
+    page('/leavitt-error-page', () =>
+      this.#changePage('leavitt-error-page', () => import('./demos/leavitt-error-page/leavitt-error-page-demo.js'))
+    );
     page('/profile-picture', () => this.#changePage('profile-picture', () => import('./demos/profile-picture/profile-picture-demo.js')));
     page('/profile-picture-menu', () => this.#changePage('profile-picture-menu', () => import('./demos/profile-picture-menu/profile-picture-menu-demo.js')));
     page('/titanium-access-denied-page', () =>
@@ -480,6 +483,10 @@ export class MyApp extends LitElement {
               <md-icon slot="start">library_books</md-icon> <span>Email history viewer</span>
             </md-list-item>
 
+            <md-list-item ?selected=${this.page === 'leavitt-error-page'} href="/leavitt-error-page" type="link">
+              <md-icon slot="start">library_books</md-icon> <span>Error page</span>
+            </md-list-item>
+
             <md-list-item ?selected=${this.page === 'leavitt-file-explorer'} href="/leavitt-file-explorer" type="link">
               <md-icon slot="start">library_books</md-icon> <span>File explorer</span>
             </md-list-item>
@@ -507,6 +514,8 @@ export class MyApp extends LitElement {
             <md-list-item ?selected=${this.page === 'leavitt-user-feedback'} href="/leavitt-user-feedback" type="link">
               <md-icon slot="start">library_books</md-icon> <span>User feedback</span>
             </md-list-item>
+
+           
           </details>
         </section>
         <a
@@ -555,6 +564,9 @@ export class MyApp extends LitElement {
           : nothing}
         ${this.page === 'leavitt-user-feedback'
           ? html` <leavitt-user-feedback-demo large ?isActive=${this.page === 'leavitt-user-feedback'}></leavitt-user-feedback-demo> `
+          : nothing}
+        ${this.page === 'leavitt-error-page'
+          ? html` <leavitt-error-page-demo large ?isActive=${this.page === 'leavitt-error-page'}></leavitt-error-page-demo> `
           : nothing}
         ${this.page === 'leavitt-person-company-select'
           ? html` <leavitt-person-company-select-demo large ?isActive=${this.page === 'leavitt-person-company-select'}></leavitt-person-company-select-demo> `
