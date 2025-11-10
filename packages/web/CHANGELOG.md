@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.7.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.6.0...@leavittsoftware/web@6.7.0) (2025-11-10)
+
+
+### Features
+
+* **leavitt-error-page:** adds icon slot and heading prop ([fce25a1](https://github.com/LeavittSoftware/titanium-elements/commit/fce25a16dd810972284b9b55d33dcad60e782f76))
+
+
+
+
+
 # [6.6.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.5.0...@leavittsoftware/web@6.6.0) (2025-11-10)
 
 
