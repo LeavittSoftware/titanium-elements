@@ -32,6 +32,9 @@ export class LeavittErrorPagePlayground extends LitElement {
       <p>Error page sample</p>
       <div>
         <leavitt-error-page message="It looks like this demo doesn't exist."></leavitt-error-page>
+
+        <leavitt-error-page heading="Sorry!" message="It looks like you don't have access to this area."><md-icon slot="icon">lock</md-icon></leavitt-error-page>
+
       </div>
     `;
   }

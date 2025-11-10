@@ -22,6 +22,7 @@ export class LeavittErrorPage extends ThemePreference(LitElement) {
   /**
    * Reason text for the error
    */
+  @property({ type: String }) accessor heading: string = 'Hmm...';
   @property({ type: String }) accessor message: string = "It looks like that page doesn't exist.";
 
   @query('div[particles]') private accessor particlesContainer: HTMLDivElement;
@@ -119,14 +120,17 @@ export class LeavittErrorPage extends ThemePreference(LitElement) {
       z-index: 1;
       margin-top: 24px;
 
-      img[mark] {
+      div[icon-container] {
+        display: grid;  
         position: absolute;
+        --md-icon-size: 30px;
         width: 30px;
         top: 12%;
         right: 12%;
         z-index: 1;
         opacity: 0.5;
         animation: spin 4.5s infinite linear;
+        color: var(--md-sys-color-primary);
       }
 
       img[planet] {
@@ -158,10 +162,14 @@ export class LeavittErrorPage extends ThemePreference(LitElement) {
       <leavitt-app-main-content-container>
         <leavitt-app-width-limiter>
           <div particles></div>
-          <h1>Hmm...</h1>
+          <h1>${this.heading}</h1>
           <h2>${this.message}</h2>
           <image-container>
-            <img mark src="https://cdn.leavitt.com/icons/lg-mark.svg" />
+            <div icon-container>  
+              <slot name="icon">
+                <img mark src="https://cdn.leavitt.com/icons/lg-mark.svg" />
+              </slot>
+            </div>
             <img planet src="https://cdn.leavitt.com/icons/lg-planet.svg" />
           </image-container>
         </leavitt-app-width-limiter>
