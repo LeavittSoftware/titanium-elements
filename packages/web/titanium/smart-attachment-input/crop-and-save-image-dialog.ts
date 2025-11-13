@@ -111,6 +111,17 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
       if (!this.options) {
         this.options = {};
       }
+      
+      // Default maximizeSelection to true if not explicitly set
+      if (this.options.maximizeSelection === undefined) {
+        this.options.maximizeSelection = true;
+      }
+
+      // Default constrainSelectionTo to 'image' if not explicitly set
+      if (this.options.constrainSelectionTo === undefined) {
+        this.options.constrainSelectionTo = 'image';
+      }
+
       const constrain = this.options.constrainSelectionTo;
       this.options.constrainSelectionTo = null;
 
