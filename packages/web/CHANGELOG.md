@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.8.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.7.0...@leavittsoftware/web@6.8.0) (2025-11-13)
+
+
+### Features
+
+* **crop-and-save-image-dialog:** Add default selection options ([#688](https://github.com/LeavittSoftware/titanium-elements/issues/688)) ([f28fdd0](https://github.com/LeavittSoftware/titanium-elements/commit/f28fdd007700f0ed6200c9d51f600b3e250f9727))
+
+
+
+
+
 # [6.7.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.6.0...@leavittsoftware/web@6.7.0) (2025-11-10)
 
 
