@@ -81,6 +81,11 @@ export class TitaniumDateInput extends LitElement {
    */
   @property({ attribute: 'error-text' }) accessor errorText = '';
 
+  /**
+   *  Whether or not to show an asterisk next to the label.
+   */
+  @property({ type: Boolean }) accessor noAsterisk = false;
+
   @property() accessor label = '';
 
   /**
@@ -400,6 +405,7 @@ export class TitaniumDateInput extends LitElement {
         ?populated=${!!this.value}
         ?required=${this.required}
         supporting-text=${this.supportingText}
+        ?no-asterisk=${this.noAsterisk}
       >
         <span class="icon leading" slot="start">
           <slot name="leading-icon" @slotchange=${this.handleIconChange}></slot>
