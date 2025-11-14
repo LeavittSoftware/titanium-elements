@@ -29,10 +29,10 @@ export class TitaniumDurationInput extends ExtendableOutlinedTextField {
 
   @property({ reflect: true, type: Boolean }) accessor spellcheck: boolean = false;
 
-  firstUpdated() {
-    this.label = 'Duration';
-    this.supportingText = 'Enter a duration ex. "3 hours and 30 minutes"';
+  @property({ reflect: true, type: String }) accessor placeholder: string = '3 hours and 30 minutes';
+  @property({ reflect: true, type: String }) accessor label: string = 'Duration';
 
+  firstUpdated() {
     this.addEventListener('change', () => {
       this.#customReportValidity(this.input.value);
 
