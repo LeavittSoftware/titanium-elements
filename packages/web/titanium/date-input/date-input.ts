@@ -84,7 +84,7 @@ export class TitaniumDateInput extends LitElement {
   /**
    *  Whether or not to show an asterisk next to the label.
    */
-  @property({ type: Boolean }) accessor noAsterisk = false;
+  @property({ type: Boolean, attribute: 'no-asterisk' }) accessor noAsterisk = false;
 
   @property() accessor label = '';
 
