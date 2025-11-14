@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.10.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.10.0...@leavittsoftware/web@6.10.1) (2025-11-14)
+
+
+### Bug Fixes
+
+* **date-input:** attribute casing ([609aaac](https://github.com/LeavittSoftware/titanium-elements/commit/609aaac3a103ea3c6b035a0b1356d250c29950cc))
+
+
+
+
+
 # [6.10.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.9.0...@leavittsoftware/web@6.10.0) (2025-11-14)
 
 
