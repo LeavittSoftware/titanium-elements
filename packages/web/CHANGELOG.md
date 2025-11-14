@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.10.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.9.0...@leavittsoftware/web@6.10.0) (2025-11-14)
+
+
+### Features
+
+* **date-input:** support no-asterisk ([738c95e](https://github.com/LeavittSoftware/titanium-elements/commit/738c95ed9e743c07a3762f6eba8a002912479cfe))
+* **duration:** allow overriding defaults; use placeholder vs supporting text ([f4ed0e4](https://github.com/LeavittSoftware/titanium-elements/commit/f4ed0e485ea865e6cda18708637fe3b982d94ac5))
+
+
+
+
+
 # [6.9.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.8.0...@leavittsoftware/web@6.9.0) (2025-11-14)
 
 
