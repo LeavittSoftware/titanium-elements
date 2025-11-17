@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.12.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.11.0...@leavittsoftware/web@6.12.0) (2025-11-17)
+
+
+### Features
+
+* **data-table-core:** show row count on Save ToCSV menu item ([0f55457](https://github.com/LeavittSoftware/titanium-elements/commit/0f55457ed589b5c2f41f10de5af3132eef9d3be4))
+
+
+
+
+
 # [6.11.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.10.1...@leavittsoftware/web@6.11.0) (2025-11-17)
 
 
