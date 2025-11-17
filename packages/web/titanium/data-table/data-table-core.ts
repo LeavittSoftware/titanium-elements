@@ -569,37 +569,40 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
                           <div slot="headline">Reorder items</div>
                         </md-menu-item>`
                     : nothing}
+                  ${this.items.length > 0
+                    ? html`<md-divider role="separator" tabindex="-1"></md-divider>
+                        <md-menu-item
+                          .action=${() => {
+                            const fileFriendlyTimestamp = dayjs().format('YYYY-MM-DD HH-mm-ss');
+                            const csvConfig = mkConfig({ filename: `web export ${fileFriendlyTimestamp}`, useKeysAsHeaders: true });
+                            const currentlyShownColumnMetaData =
+                              this.orderByUserPreference(
+                                this.tableMetaData?.itemMetaData?.filter(
+                                  (o) =>
+                                    (!o.hideByDefault && this.userSettings.find((s) => s.key === o.key)?.show) ||
+                                    this.userSettings.find((s) => s.key === o.key)?.show
+                                ) ?? [],
+                                this.userSettings
+                              ) ?? [];
+                            const items =
+                              this.items.map((item) => {
+                                const itemData = {};
+                                for (const metaData of currentlyShownColumnMetaData) {
+                                  itemData[metaData.key] = metaData.csvValue ? metaData.csvValue(item) : item[metaData.key];
+                                }
+                                return itemData;
+                              }) ?? [];
 
-                  <md-divider role="separator" tabindex="-1"></md-divider>
-                  <md-menu-item
-                    .action=${() => {
-                      const fileFriendlyTimestamp = dayjs().format('YYYY-MM-DD HH-mm-ss');
-                      const csvConfig = mkConfig({ filename: `web export ${fileFriendlyTimestamp}`, useKeysAsHeaders: true });
-                      const currentlyShownColumnMetaData =
-                        this.orderByUserPreference(
-                          this.tableMetaData?.itemMetaData?.filter(
-                            (o) =>
-                              (!o.hideByDefault && this.userSettings.find((s) => s.key === o.key)?.show) || this.userSettings.find((s) => s.key === o.key)?.show
-                          ) ?? [],
-                          this.userSettings
-                        ) ?? [];
-                      const items =
-                        this.items.map((item) => {
-                          const itemData = {};
-                          for (const metaData of currentlyShownColumnMetaData) {
-                            itemData[metaData.key] = metaData.csvValue ? metaData.csvValue(item) : item[metaData.key];
-                          }
-                          return itemData;
-                        }) ?? [];
+                            const csv = generateCsv(csvConfig)(items);
+                            download(csvConfig)(csv);
+                          }}
+                        >
+                          <md-icon slot="start">file_save</md-icon>
+                          <div slot="headline">Save to CSV</div>
+                          <span small slot="supporting-text">${this.items.length} row${this.items.length === 1 ? '' : 's'}</span>
+                        </md-menu-item>`
+                    : nothing}
 
-                      const csv = generateCsv(csvConfig)(items);
-                      download(csvConfig)(csv);
-                    }}
-                  >
-                    <md-icon slot="start">file_save</md-icon>
-                    <div slot="headline">Save to CSV</div>
-                    <span small slot="supporting-text">${this.items.length} rows</span>
-                  </md-menu-item>
                   <slot name="settings-menu-items"></slot>
                 </md-menu>
                 <md-icon-button
