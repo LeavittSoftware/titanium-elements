@@ -448,8 +448,8 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
         }
       }
 
-      :host(:not([disabled])) tbody tr:hover td content-container {
-        background-color: rgb(from var(--md-sys-color-on-surface, #1d1b20) r g b / 0.08);
+      :host(:not([disabled])) tbody tr[link-url]:hover td content-container {
+        background-color: rgb(from var(--md-sys-color-on-surface, #1d1b20) r g b / 0.08) !important;
       }
 
       td[table-message]:hover,
