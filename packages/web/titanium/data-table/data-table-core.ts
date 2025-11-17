@@ -278,8 +278,16 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
                 --md-menu-item-top-space: 6px;
                 --md-menu-item-bottom-space: 6px;
                 --md-menu-item-one-line-container-height: 36px;
+                --md-menu-item-two-line-container-height: 36px;
                 --md-menu-item-label-text-size: 14px;
                 text-align: left;
+
+                [small] {
+                  font-size: 12px;
+                  line-height: 12px;
+                  opacity: 0.8;
+                }
+
                 nice-badge {
                   top: 5px;
                   left: 35px;
@@ -590,6 +598,7 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
                   >
                     <md-icon slot="start">file_save</md-icon>
                     <div slot="headline">Save to CSV</div>
+                    <span small slot="supporting-text">${this.items.length} rows</span>
                   </md-menu-item>
                   <slot name="settings-menu-items"></slot>
                 </md-menu>
