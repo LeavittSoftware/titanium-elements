@@ -23,11 +23,6 @@ export class HttpErrorSnackbar extends LitElement {
 
   @property({ type: Array }) private accessor httpErrors: Partial<HttpError>[] = [];
 
-  constructor() {
-    super();
-    this.popover = 'manual';
-  }
-
   show(httpError: Partial<HttpError>, options?: SnackbarOptions) {
     //Firefox support
     if (this.showPopover) {
@@ -157,5 +152,11 @@ export class HttpErrorSnackbar extends LitElement {
         <md-text-button ?hidden=${this.httpErrors.length === 1} @click=${() => this.close('dismiss')}>Dismiss all (${this.httpErrors.length}) </md-text-button>
       </div>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'titanium-http-error-snackbar': HttpErrorSnackbar;
   }
 }

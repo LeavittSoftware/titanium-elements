@@ -3,13 +3,9 @@ import '@material/web/icon/icon';
 import '@material/web/button/filled-tonal-button';
 import '@material/web/progress/circular-progress';
 
-import '../../titanium/snackbar/snackbar-stack';
-
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-
 import { css, html, LitElement, nothing } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
-import { EmailTemplateLog } from '@leavittsoftware/lg-core-typescript';
+import { EmailTemplate } from '@leavittsoftware/lg-core-typescript';
 import { LoadWhile } from '../../titanium/helpers/load-while';
 import { MdDialog } from '@material/web/dialog/dialog';
 import { DOMEvent } from '../../titanium/types/dom-event';
@@ -19,56 +15,57 @@ import { dialogCloseNavigationHack, dialogOpenNavigationHack } from '../../titan
 import ApiService from '../api-service/api-service';
 import { SnackbarStack } from '../../titanium/snackbar/snackbar-stack';
 import { p } from '../../titanium/styles/p';
+import { repeat } from 'lit/directives/repeat.js';
+import { h2 } from '../../titanium/styles/h2';
 
 export type CloseReason = 'done';
 
-@customElement('leavitt-view-sent-email-dialog')
-export class LeavittViewSentEmailDialog extends LoadWhile(LitElement) {
+@customElement('leavitt-view-email-template-info-dialog')
+export class LeavittViewEmailTemplateInfoDialog extends LoadWhile(LitElement) {
   @property({ type: Object }) accessor apiService: ApiService | null;
 
-  @state() private accessor emailTemplateLogId: number | null;
-  @state() private accessor emailTemplateLog: Partial<EmailTemplateLog> | null;
+  @state() private accessor emailTemplates: Partial<EmailTemplate>[] | null;
   @query('titanium-snackbar-stack') private accessor snackbar!: SnackbarStack;
 
   @query('md-dialog') private accessor dialog: MdDialog;
 
   #resolve: (value: CloseReason) => void;
-  async open(emailTemplateLogId: number) {
-    this.emailTemplateLogId = emailTemplateLogId;
-    this.emailTemplateLog = null;
+  async open() {
+    this.emailTemplates = [];
     this.dialog.returnValue = '';
 
     await this.updateComplete;
 
     this.dialog.show();
 
-    this.emailTemplateLog = await this.#getEmailTemplateLog(emailTemplateLogId);
+    this.emailTemplates = await this.#getEmailTemplates();
 
     return await new Promise<CloseReason>((resolve) => {
       this.#resolve = resolve;
     });
   }
 
-  async #getEmailTemplateLog(emailTemplateLogId: number) {
+  async #getEmailTemplates() {
     if (!this.apiService) {
       console.warn('No api service provided');
-      return null;
+      return [];
     }
 
-    const odataParts = [];
+    const odataParts = ['select=Id,Name,IsExpired', 'orderby=Name', 'filter=not IsExpired'];
 
     try {
-      const get = this.apiService.getAsync<Partial<EmailTemplateLog>>(`EmailTemplateLogs(${emailTemplateLogId})?${odataParts.join('&')}`);
+      const get = this.apiService.getAsync<Partial<EmailTemplate>>(`EmailTemplates?${odataParts.join('&')}`);
       this.loadWhile(get);
       const result = await get;
-      return result?.entity;
+      return result?.entities;
     } catch (error) {
       this.dispatchEvent(new ShowSnackbarEvent(error));
     }
-    return null;
+    return [];
   }
 
   static styles = [
+    h2,
     p,
     css`
       md-dialog {
@@ -81,11 +78,12 @@ export class LeavittViewSentEmailDialog extends LoadWhile(LitElement) {
         scrollbar-color: var(--md-sys-color-surface-container-highest) transparent;
         scrollbar-width: thin;
 
-        main[email-body] {
-          margin: 12px 24px;
-          background-color: #f7f7f7;
-          border-radius: 12px;
-          overflow-x: auto;
+        main[email-templates] {
+          padding-top: 0;
+
+          h2 {
+            padding-top: 24px;
+          }
 
           interpolate-size: allow-keywords;
           transition: all 0.25s;
@@ -117,13 +115,21 @@ export class LeavittViewSentEmailDialog extends LoadWhile(LitElement) {
           e.preventDefault();
         }}
       >
-        <div slot="headline">Email log</div>
+        <div slot="headline">What emails can I expect?</div>
 
         ${this.isLoading
-          ? html`<main slot="content">Loading...</main>`
-          : !this.emailTemplateLog
-            ? html`<main slot="content">No email template log found</main>`
-            : html`<main slot="content" email-body>${unsafeHTML(this.emailTemplateLog?.EmailBody ?? '')}</main>`}
+          ? nothing
+          : !this.emailTemplates?.length
+            ? html`<main slot="content">No email templates found for this site</main>`
+            : html`<main slot="content" email-templates>
+                ${repeat(
+                  this.emailTemplates,
+                  (emailTemplate) => emailTemplate.Id,
+                  (emailTemplate) =>
+                    html`<h2>${emailTemplate.Name}</h2>
+                      <p>${emailTemplate.Description ?? 'No description available'}</p>`
+                )}
+              </main>`}
 
         <titanium-snackbar-stack slot="content" .eventListenerTarget=${this}></titanium-snackbar-stack>
         <div slot="actions">

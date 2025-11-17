@@ -1,5 +1,5 @@
 import { HttpError } from '../../leavitt/api-service/HttpError';
-import { LitElement } from 'lit';
+import { css, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { SimpleSnackbar } from './snackbars/simple-snackbar';
 
@@ -24,21 +24,29 @@ export class SnackbarStack extends LitElement {
   SnackbarStack: (SimpleSnackbar | HttpErrorSnackbar)[] = [];
 
   connectedCallback() {
+    super.connectedCallback();
     (this.eventListenerTarget || this.getRootNode()).addEventListener(ShowSnackbarEvent.eventName, (e: ShowSnackbarEvent) => {
       e.stopImmediatePropagation();
       this.open(e.SnackbarMessage, e.SnackbarOptions);
     });
   }
 
+  static styles = [
+    css`
+      :host {
+        display: contents;
+      }
+    `,
+  ];
+
   async open(message: string | Partial<HttpError>, options?: SnackbarOptions) {
     let closeReason: Promise<string>;
     let popover: SimpleSnackbar | HttpErrorSnackbar;
 
     if (typeof message === 'string') {
-      const html = '<titanium-simple-snackbar newest></titanium-simple-snackbar>';
-      this.insertAdjacentHTML('beforeend', html);
-      const normalPopover = this.querySelector('titanium-simple-snackbar[newest]') as SimpleSnackbar;
-      normalPopover.removeAttribute('newest');
+      const normalPopover = document.createElement('titanium-simple-snackbar');
+      normalPopover.popover = 'manual';
+      this.shadowRoot?.appendChild(normalPopover);
 
       if (options) {
         options.close = (reason) => normalPopover.close(reason);
@@ -48,12 +56,13 @@ export class SnackbarStack extends LitElement {
       closeReason = normalPopover.show(message, options);
       popover = normalPopover;
     } else {
-      let httpPopover = this.querySelector('titanium-http-error-snackbar') as HttpErrorSnackbar;
+      let httpPopover = this.shadowRoot?.querySelector<HttpErrorSnackbar>('titanium-http-error-snackbar');
       if (!httpPopover) {
-        const html = '<titanium-http-error-snackbar></titanium-http-error-snackbar>';
-        this.insertAdjacentHTML('beforeend', html);
-        httpPopover = this.querySelector('titanium-http-error-snackbar') as HttpErrorSnackbar;
+        httpPopover = document.createElement('titanium-http-error-snackbar');
+        this.shadowRoot?.appendChild(httpPopover);
+        httpPopover.popover = 'manual';
         this.SnackbarStack.unshift(httpPopover);
+
         closeReason = httpPopover.show(message, options);
       } else {
         httpPopover.addError(message, options);
