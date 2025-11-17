@@ -21,11 +21,6 @@ export class SimpleSnackbar extends LitElement {
   @property({ type: String }) private accessor actionText: string;
   @property({ type: String }) private accessor message: string | TemplateResult;
 
-  constructor() {
-    super();
-    this.popover = 'manual';
-  }
-
   show(message: string, options?: SnackbarOptions) {
     //Firefox support
     if (this.showPopover) {
@@ -126,5 +121,11 @@ export class SimpleSnackbar extends LitElement {
       <div main>${this.message}</div>
       <md-text-button ?hidden=${this.noAction} @click=${() => this.close('dismiss')}>${this.actionText} </md-text-button>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'titanium-simple-snackbar': SimpleSnackbar;
   }
 }
