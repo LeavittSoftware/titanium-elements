@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.11.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.10.1...@leavittsoftware/web@6.11.0) (2025-11-17)
+
+
+### Bug Fixes
+
+* **data-table-core:** hover bg no  longer shown when row has no link ([c498e6e](https://github.com/LeavittSoftware/titanium-elements/commit/c498e6e2dc622a7640f4a32b820142327a2ea8a1))
+* prevent snackbar stack from having default height ([80286a3](https://github.com/LeavittSoftware/titanium-elements/commit/80286a399d36f77cfb47217e57b3daceabc39b38))
+
+
+### Features
+
+* **email-history:** add email-history-viewer-filled ([e311a96](https://github.com/LeavittSoftware/titanium-elements/commit/e311a96cabdfd80c165de4bbf78842cf209b009e))
+
+
+
+
+
 ## [6.10.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.10.0...@leavittsoftware/web@6.10.1) (2025-11-14)
 
 
