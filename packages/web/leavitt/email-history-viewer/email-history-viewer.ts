@@ -6,13 +6,11 @@ import '../../titanium/search-input/search-input';
 
 import './email-history-view-list-filter-dialog';
 import './view-sent-email-dialog';
+import './view-email-template-info-dialog';
 
 import '@material/web/icon/icon';
 import '@material/web/iconbutton/icon-button';
-
 import '@material/web/iconbutton/filled-tonal-icon-button';
-import '@material/web/menu/menu';
-import '@material/web/menu/menu-item';
 
 import dayjs from 'dayjs/esm';
 import { customElement, property, query, state } from 'lit/decorators.js';
@@ -29,13 +27,12 @@ import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
 import { a } from '../../titanium/styles/a';
 import { ellipsis } from '../../titanium/styles/ellipsis';
 import { DOMEvent } from '../../titanium/types/dom-event';
-import { MdIconButton } from '@material/web/iconbutton/icon-button';
-import { MdMenu, CloseMenuEvent, MenuItem } from '@material/web/menu/menu';
 import { LitElement, PropertyValues, css, html } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 import { FilterKeys, LeavittEmailHistoryViewListFilterDialog } from './email-history-view-list-filter-dialog';
 import { LeavittViewSentEmailDialog } from './view-sent-email-dialog';
 import ApiService from '../api-service/api-service';
+import { LeavittViewEmailTemplateInfoDialog } from './view-email-template-info-dialog';
 
 /**
  * @element leavitt-email-history-viewer
@@ -64,6 +61,7 @@ export default class LeavittEmailHistoryViewer extends LoadWhile(LitElement) {
   @query('titanium-data-table') private accessor dataTable!: TitaniumDataTable;
   @query('leavitt-view-sent-email-dialog') private accessor viewDialog!: LeavittViewSentEmailDialog;
   @query('leavitt-email-history-view-list-filter-dialog') private accessor filterModal: LeavittEmailHistoryViewListFilterDialog;
+  @query('leavitt-view-email-template-info-dialog') private accessor viewEmailTemplateInfoDialog!: LeavittViewEmailTemplateInfoDialog;
 
   #isDirty: boolean = true;
 
@@ -196,6 +194,14 @@ export default class LeavittEmailHistoryViewer extends LoadWhile(LitElement) {
         gap: 24px;
       }
 
+      header {
+        display: grid;
+        gap: 12px;
+        md-text-button {
+          justify-self: center;
+        }
+      }
+
       [inactive],
       span[time],
       span[more] {
@@ -209,6 +215,10 @@ export default class LeavittEmailHistoryViewer extends LoadWhile(LitElement) {
         --md-filled-tonal-icon-button-icon-size: 21px;
       }
 
+      md-text-button {
+        text-wrap: auto;
+      }
+
       [hidden] {
         display: none !important;
       }
@@ -217,7 +227,14 @@ export default class LeavittEmailHistoryViewer extends LoadWhile(LitElement) {
 
   render() {
     return html`
-      <titanium-header header="Email history" subHeader="A comprehensive record of email correspondence originating from this tool" no-nav></titanium-header>
+      <header>
+        <titanium-header header="Email history" subHeader="A comprehensive record of email correspondence originating from this tool" no-nav></titanium-header>
+
+        <md-text-button @click=${() => this.viewEmailTemplateInfoDialog.open()}>
+          <md-icon slot="icon">chat_info</md-icon>
+          <span>What emails can I expect?</span>
+        </md-text-button>
+      </header>
       <titanium-data-table
         header="Emails"
         disable-select
@@ -240,35 +257,6 @@ export default class LeavittEmailHistoryViewer extends LoadWhile(LitElement) {
             this.#doSearchDebouncer.debounce(this.searchTerm);
           }}
         ></titanium-search-input>
-
-        <div slot="table-actions" style="position:relative;">
-          <md-icon-button
-            id="menu-anchor"
-            aria-haspopup="true"
-            aria-controls="menu"
-            aria-expanded="false"
-            @click=${(e: DOMEvent<MdIconButton>) => {
-              const root = (e.target as HTMLElement).getRootNode() as ShadowRoot;
-              const menu = root.querySelector('#menu') as MdMenu;
-              menu.open = !menu.open;
-            }}
-          >
-            <md-icon>more_vert</md-icon>
-          </md-icon-button>
-
-          <md-menu
-            id="menu"
-            anchor="menu-anchor"
-            @close-menu=${(e: CloseMenuEvent) => {
-              (e.detail.itemPath?.[0] as MenuItem & { action?: () => void })?.action?.();
-            }}
-          >
-            <md-menu-item .action=${() => this.#reload()}>
-              <md-icon slot="start">refresh</md-icon>
-              Refresh
-            </md-menu-item>
-          </md-menu>
-        </div>
 
         <leavitt-email-history-view-list-filter-dialog
           .isActive=${this.isActive}
@@ -349,6 +337,7 @@ export default class LeavittEmailHistoryViewer extends LoadWhile(LitElement) {
         )}
       </titanium-data-table>
       <leavitt-view-sent-email-dialog .apiService=${this.apiService}></leavitt-view-sent-email-dialog>
+      <leavitt-view-email-template-info-dialog .apiService=${this.apiService}></leavitt-view-email-template-info-dialog>
     `;
   }
 }
