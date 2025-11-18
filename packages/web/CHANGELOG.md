@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.13.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.12.1...@leavittsoftware/web@6.13.0) (2025-11-18)
+
+
+### Bug Fixes
+
+* **data-table-core:** remove export to csv option when no data is present ([9d31112](https://github.com/LeavittSoftware/titanium-elements/commit/9d31112c2e764c933d3f7112d5cb7d54ec168371))
+
+
+### Features
+
+* **titanium-collapsible-container:** add titanium-collapsible-container beta ([96ee755](https://github.com/LeavittSoftware/titanium-elements/commit/96ee755cbe5f33e0bc49f7215916a2fe76efcfb0))
+
+
+
+
+
 ## [6.12.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.12.0...@leavittsoftware/web@6.12.1) (2025-11-18)
 
 
