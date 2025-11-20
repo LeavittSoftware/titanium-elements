@@ -188,7 +188,7 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
   async #getItemsAsync(searchTerm: string | null) {
     let filterParts: string[] = [];
     const searchTokens = getSearchTokens(searchTerm || '');
-    const searchFilter = searchTokens.map((token: string) => `contains(Name, '${token}')`).join(' and ');
+    const searchFilter = searchTokens.map((token: string) => `(contains(Subject, '${token}') or contains(Recipients, '${token}'))`).join(' and ');
     if (searchTokens.length > 0) {
       filterParts.push(`${searchFilter}`);
     }
