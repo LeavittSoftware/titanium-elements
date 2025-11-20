@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.14.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.13.0...@leavittsoftware/web@6.14.0) (2025-11-20)
+
+
+### Features
+
+* **service-worker-notifier:** add first BETA ([afe6cba](https://github.com/LeavittSoftware/titanium-elements/commit/afe6cbac1067b800ff82354744e377fcced640ec))
+
+
+
+
+
 # [6.13.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.12.1...@leavittsoftware/web@6.13.0) (2025-11-18)
 
 
