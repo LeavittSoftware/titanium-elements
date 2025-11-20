@@ -52,7 +52,12 @@ export class TitaniumIconPickerPlayground extends LitElement {
         <titanium-icon-picker></titanium-icon-picker>
       </div>
 
-      
+      <h1>Filled</h1>
+      <p>Filled icon picker example</p>
+      <div>
+        <titanium-icon-picker filled></titanium-icon-picker>
+      </div>
+
       <h1>Favorite icons</h1>
       <p></p>
       <div>
