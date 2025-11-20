@@ -97,7 +97,7 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
         friendlyName: '',
         disableSort: true,
         render: (item) =>
-          html`<md-filled-tonal-icon-button @click=${() => this.viewDialog.open(item.Id ?? 0)}><md-icon>pageview</md-icon></md-filled-tonal-icon-button>`,
+          html`<md-filled-tonal-icon-button @click=${() => this.viewDialog?.open(item.Id ?? 0)}><md-icon>pageview</md-icon></md-filled-tonal-icon-button>`,
         csvValue: () => '',
         width: '60px',
       },
@@ -111,8 +111,8 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
   @query('leavitt-email-history-viewer-filled-filter-dialog') private accessor filterDialog!: LeavittEmailHistoryViewerFilledFilterDialog;
   @query('titanium-page-control') private accessor pageControl: TitaniumPageControl | null;
   @query('leavitt-app-main-content-container') private accessor mainContentContainer: LeavittAppContentContainer | null;
-  @query('leavitt-view-sent-email-dialog') private accessor viewDialog!: LeavittViewSentEmailDialog;
-  @query('leavitt-view-email-template-info-dialog') private accessor viewEmailTemplateInfoDialog!: LeavittViewEmailTemplateInfoDialog;
+  @query('leavitt-view-sent-email-dialog') private accessor viewDialog: LeavittViewSentEmailDialog | null;
+  @query('leavitt-view-email-template-info-dialog') private accessor viewEmailTemplateInfoDialog: LeavittViewEmailTemplateInfoDialog | null;
 
   constructor() {
     super();
@@ -332,7 +332,7 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
               @action=${() => this.#reload()}
             ></titanium-page-control>
 
-            <md-text-button slot="trailing" @click=${() => this.viewEmailTemplateInfoDialog.open()}>
+            <md-text-button slot="trailing" @click=${() => this.viewEmailTemplateInfoDialog?.open()}>
               <md-icon slot="icon">chat_info</md-icon>
               <span>What emails can I expect?</span>
             </md-text-button>
