@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.15.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.14.2...@leavittsoftware/web@6.15.0) (2025-11-20)
+
+
+### Features
+
+* **email-history-viewer:** improve the "What emails does this tool send" section ([8864ab9](https://github.com/LeavittSoftware/titanium-elements/commit/8864ab9345c05187468cd801276ffae6cbea722c))
+
+
+
+
+
 ## [6.14.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.14.1...@leavittsoftware/web@6.14.2) (2025-11-20)
 
 
