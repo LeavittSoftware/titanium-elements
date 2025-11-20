@@ -7,11 +7,12 @@ import '../../leavitt/app/app-navigation-footer';
 import '../../titanium/data-table/page-control';
 import './email-history-viewer-filled-filter-dialog';
 import './view-email-template-info-dialog';
+import './view-sent-email-dialog';
 
 import '@material/web/button/filled-tonal-button';
 import '@material/web/button/filled-button';
 import '@material/web/icon/icon';
-import '@material/web/iconbutton/icon-button';
+import '@material/web/iconbutton/filled-tonal-icon-button';
 
 import { LitElement, PropertyValues, css, html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
@@ -97,8 +98,9 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
         friendlyName: '',
         disableSort: true,
         render: (item) =>
-          html`<md-filled-tonal-icon-button @click=${() => this.viewDialog?.open(item.Id ?? 0)}><md-icon>pageview</md-icon></md-filled-tonal-icon-button>`,
+          html`<md-filled-tonal-icon-button @click=${() => this.viewDialog?.open?.(item?.Id ?? 0)}><md-icon>pageview</md-icon></md-filled-tonal-icon-button>`,
         csvValue: () => '',
+
         width: '60px',
       },
     ],
