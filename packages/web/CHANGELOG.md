@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.14.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.14.1...@leavittsoftware/web@6.14.2) (2025-11-20)
+
+
+### Bug Fixes
+
+* **email-history-viewer-filled:** bad/missing imports ([8019451](https://github.com/LeavittSoftware/titanium-elements/commit/80194519282ae1dcb98095d7186aea6db822172f))
+
+
+
+
+
 ## [6.14.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.14.0...@leavittsoftware/web@6.14.1) (2025-11-20)
 
 
