@@ -336,7 +336,7 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
 
             <md-text-button slot="trailing" @click=${() => this.viewEmailTemplateInfoDialog?.open()}>
               <md-icon slot="icon">chat_info</md-icon>
-              <span>What emails can I expect?</span>
+              <span>What emails does this tool send?</span>
             </md-text-button>
           </leavitt-app-navigation-footer>
         </main>

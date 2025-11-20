@@ -51,7 +51,7 @@ export class LeavittViewEmailTemplateInfoDialog extends LoadWhile(LitElement) {
       return [];
     }
 
-    const odataParts = ['select=Id,Name,IsExpired', 'orderby=Name', 'filter=not IsExpired'];
+    const odataParts = ['select=Id,Name,IsExpired,Description', 'orderby=Name', 'filter=not IsExpired'];
 
     try {
       const get = this.apiService.getAsync<Partial<EmailTemplate>>(`EmailTemplates?${odataParts.join('&')}`);
@@ -79,10 +79,21 @@ export class LeavittViewEmailTemplateInfoDialog extends LoadWhile(LitElement) {
         scrollbar-width: thin;
 
         main[email-templates] {
+          display: block;
           padding-top: 0;
 
           h2 {
-            padding-top: 24px;
+            margin: 24px 0 8px 0;
+            font-size: 16px;
+            line-height: 18px;
+            margin-left: 3px;
+          }
+
+          p {
+            padding: 8px;
+            background-color: var(--md-sys-color-surface-container-highest);
+            border-radius: 10px;
+            white-space: pre-wrap;
           }
 
           interpolate-size: allow-keywords;
@@ -115,7 +126,7 @@ export class LeavittViewEmailTemplateInfoDialog extends LoadWhile(LitElement) {
           e.preventDefault();
         }}
       >
-        <div slot="headline">What emails can I expect?</div>
+        <div slot="headline">What emails does this tool send?</div>
 
         ${this.isLoading
           ? nothing
