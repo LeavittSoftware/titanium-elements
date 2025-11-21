@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.18.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.17.0...@leavittsoftware/web@6.18.0) (2025-11-21)
+
+
+### Features
+
+* **helpers:** add new PendingStateCatcher helper ([c77683e](https://github.com/LeavittSoftware/titanium-elements/commit/c77683e8d20672a0bfb2e07d31407e82f76761c4))
+
+
+
+
+
 # [6.17.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.16.0...@leavittsoftware/web@6.17.0) (2025-11-21)
 
 
