@@ -1,20 +1,19 @@
 import { PendingStateEvent } from '../types/pending-state-event';
-import { LitElement } from 'lit';
 
-export declare class PendingStateCatcherInterface {
-  stateIsPending: boolean;
-  pendingStateCatcherLoadingStartDelay: number;
-  pendingStateCatcherMinTimeOpen: number;
-  pendingStateCatcherTarget: Promise<HTMLElement> | null;
+declare global {
+  interface HTMLElement {
+    connectedCallback(): void;
+    disconnectedCallback(): void;
+  }
 }
 
 export type Constructor<T> = { new (...args: any[]): T };
-export const PendingStateCatcher = <C extends Constructor<LitElement>>(base: C) =>
+export const PendingStateCatcher = <C extends Constructor<HTMLElement>>(base: C) =>
   class extends base {
     static get properties() {
       return {
         stateIsPending: { type: Boolean },
-        pendingStateCatcherTarget: { type: HTMLElement },
+        pendingStateCatcherTarget: { type: Object },
         pendingStateCatcherLoadingStartDelay: { type: Number },
         pendingStateCatcherMinTimeOpen: { type: Number },
       };
@@ -98,4 +97,4 @@ export const PendingStateCatcher = <C extends Constructor<LitElement>>(base: C) 
         this.stateIsPending = false;
       }, loadingStopDelay);
     }
-  } as Constructor<PendingStateCatcherInterface> & C;
+  };
