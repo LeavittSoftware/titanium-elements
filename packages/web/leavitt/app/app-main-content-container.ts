@@ -46,8 +46,8 @@ export class LeavittAppContentContainer extends LitElement {
 
   render() {
     return html`
-      <titanium-circle-loading-indicator .pendingStateElement=${this.pendingStateElement}></titanium-circle-loading-indicator>
-      <scroll-container><slot></slot></scroll-container>
+      <titanium-circle-loading-indicator part="loading-indicator" .pendingStateElement=${this.pendingStateElement}></titanium-circle-loading-indicator>
+      <scroll-container part="scroll-container"><slot></slot></scroll-container>
     `;
   }
 }
