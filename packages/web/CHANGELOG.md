@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.17.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.16.0...@leavittsoftware/web@6.17.0) (2025-11-21)
+
+
+### Features
+
+* **app-main-content-container:** expose shadow parts ([c2fe5b8](https://github.com/LeavittSoftware/titanium-elements/commit/c2fe5b8c3bc290f2810547af69230fb3c46a5cd7))
+
+
+
+
+
 # [6.16.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.15.0...@leavittsoftware/web@6.16.0) (2025-11-20)
 
 
