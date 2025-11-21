@@ -1,6 +1,13 @@
 import { PendingStateEvent } from '../types/pending-state-event';
 import { LitElement } from 'lit';
 
+export declare class PendingStateCatcherInterface {
+  stateIsPending: boolean;
+  pendingStateCatcherLoadingStartDelay: number;
+  pendingStateCatcherMinTimeOpen: number;
+  pendingStateCatcherTarget: Promise<HTMLElement> | null;
+}
+
 export type Constructor<T> = { new (...args: any[]): T };
 export const PendingStateCatcher = <C extends Constructor<LitElement>>(base: C) =>
   class extends base {
@@ -91,4 +98,4 @@ export const PendingStateCatcher = <C extends Constructor<LitElement>>(base: C) 
         this.stateIsPending = false;
       }, loadingStopDelay);
     }
-  } as C;
+  } as Constructor<PendingStateCatcherInterface> & C;
