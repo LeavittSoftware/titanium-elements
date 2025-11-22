@@ -1,0 +1,11 @@
+{
+  "name": "leavitt-error-page",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "section": "Basics",
+  "files": {
+    "leavitt-error-page-playground.ts": {},
+    "index.html": {}
+  },
+  "order": 0
+}
+

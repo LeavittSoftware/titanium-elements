@@ -1,0 +1,10 @@
+{
+  "name": "titanium-confirmation-dialog",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "section": "Basics",
+  "files": {
+    "titanium-confirmation-dialog-playground.ts": {},
+    "index.html": {}
+  },
+  "order": 0
+}
