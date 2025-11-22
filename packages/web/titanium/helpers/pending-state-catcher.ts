@@ -49,16 +49,18 @@ export const PendingStateCatcher = <C extends Constructor<HTMLElement>>(base: C)
     #openCount = 0;
     #timeStampOfLoadingStart: number;
 
-    async connectedCallback(): Promise<void> {
+    async connectedCallback() {
       super.connectedCallback();
 
       const target = (await this.pendingStateCatcherTarget) || window;
       target.addEventListener(PendingStateEvent.eventType, this.#handlePendingStateEvent.bind(this));
     }
 
-    disconnectedCallback(): void {
+    async disconnectedCallback() {
       super.disconnectedCallback();
-      window.removeEventListener(PendingStateEvent.eventType, this.#handlePendingStateEvent);
+
+      const target = (await this.pendingStateCatcherTarget) || window;
+      target.removeEventListener(PendingStateEvent.eventType, this.#handlePendingStateEvent.bind(this));
     }
 
     async #handlePendingStateEvent(e: PendingStateEvent) {
