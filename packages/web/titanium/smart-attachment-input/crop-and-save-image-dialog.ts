@@ -391,7 +391,7 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
               e.stopPropagation();
             }}
           >
-            <cropper-canvas ?background=${!this.options?.canvasHideBackground}>
+            <cropper-canvas ?background=${!this.options?.canvasHideBackground} ?circle=${this.options?.shape === 'circle'}>
               <cropper-image
                 initial-center-size="cover"
                 .src=${this.src}

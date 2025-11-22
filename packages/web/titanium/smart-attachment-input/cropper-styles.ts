@@ -297,15 +297,22 @@ export const cropperCSS = css`
     cursor: not-allowed;
   }
 
-  [circle] .cropper-view-box {
+  [circle] cropper-selection {
     box-shadow: 0 0 0 1px #39f;
     border-radius: 50%;
     outline: 0;
   }
-  [circle] .cropper-face {
-    background-color: inherit !important;
+
+  [circle] cropper-shade {
+    border-radius: 50%;
   }
-  [circle] .cropper-view-box {
-    outline: inherit !important;
+
+  [circle] cropper-handle {
+    background-color: transparent;
+  }
+
+  [circle] cropper-grid {
+    border-radius: 50%;
+    overflow: hidden;
   }
 `;
