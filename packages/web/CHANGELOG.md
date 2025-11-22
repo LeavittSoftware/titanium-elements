@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.18.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.18.2...@leavittsoftware/web@6.18.3) (2025-11-22)
+
+
+### Bug Fixes
+
+* **pending-state-catcher:** fix unsubscribe ([3a1c126](https://github.com/LeavittSoftware/titanium-elements/commit/3a1c1263a8e38fda859345397f242dd0606de46c))
+* **PendingStateCatcher:** extending LitElement isn't possible when emitting declarations ([0561e59](https://github.com/LeavittSoftware/titanium-elements/commit/0561e59a28265b6ca9318866290d8e32b4981da9))
+
+
+
+
+
 ## [6.18.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.18.1...@leavittsoftware/web@6.18.2) (2025-11-21)
 
 
