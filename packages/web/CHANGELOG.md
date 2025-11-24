@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.19.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.18.3...@leavittsoftware/web@6.19.0) (2025-11-24)
+
+
+### Features
+
+* **smart-attachment-input:** show circle crop preview ([9f94bfe](https://github.com/LeavittSoftware/titanium-elements/commit/9f94bfee3345458869bd08a4af07d9db0200e48d))
+
+
+
+
+
 ## [6.18.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.18.2...@leavittsoftware/web@6.18.3) (2025-11-22)
 
 
