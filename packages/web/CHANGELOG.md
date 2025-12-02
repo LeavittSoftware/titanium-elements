@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.20.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.19.0...@leavittsoftware/web@6.20.0) (2025-12-02)
+
+
+### Features
+
+* **chip:** add filled support ([afc2b9c](https://github.com/LeavittSoftware/titanium-elements/commit/afc2b9ca4ae2719102747942dfe8b340553b599f))
+
+
+
+
+
 # [6.19.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.18.3...@leavittsoftware/web@6.19.0) (2025-11-24)
 
 
