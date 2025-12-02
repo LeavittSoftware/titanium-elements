@@ -58,6 +58,8 @@ export class TitaniumChip extends LitElement {
    */
   @property({ type: Boolean, reflect: true }) accessor disabled: boolean = false;
 
+  @property({ type: Boolean }) accessor filled: boolean = false;
+
   @property({ type: Boolean, reflect: true, attribute: 'has-leading-items' }) private accessor hasLeadingItems = false;
   @property({ type: Boolean, reflect: true, attribute: 'has-trailing-items' }) private accessor hasTrailingItems = false;
 
@@ -92,7 +94,7 @@ export class TitaniumChip extends LitElement {
 
         font: inherit;
         margin: 0;
-        border: 0;
+        border: none;
 
         box-sizing: border-box;
         height: inherit;
@@ -115,6 +117,13 @@ export class TitaniumChip extends LitElement {
         text-decoration: none;
 
         padding: 0 12px;
+      }
+
+      :host([filled]) a,
+      :host([filled]) button {
+        border: none;
+        background-color: var(--titanium-chip-filled-background-color, var(--md-sys-color-surface-container));
+        color: var(--titanium-chip-filled-color, var(--md-sys-color-on-surface));
       }
 
       :host([selected]) button,

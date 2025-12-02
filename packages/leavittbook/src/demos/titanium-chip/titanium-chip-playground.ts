@@ -39,10 +39,14 @@ export class TitaniumChipPlayground extends LitElement {
     /* playground-fold-end */
     return html`
       <titanium-chip label="Jon Stewart"> </titanium-chip>
-
+      <titanium-chip filled label="Jon Stewart"> </titanium-chip>
       <titanium-chip label="Stephen Colbert" input-chip @click=${() => alert('click!')}> </titanium-chip>
 
       <titanium-chip label="Jimmy Kimmel" @click=${() => alert('click!')}>
+        <md-icon slot="icon">task_alt</md-icon>
+      </titanium-chip>
+
+      <titanium-chip filled label="Jimmy Kimmel" @click=${() => alert('click!')}>
         <md-icon slot="icon">task_alt</md-icon>
       </titanium-chip>
 
@@ -64,6 +68,10 @@ export class TitaniumChipPlayground extends LitElement {
         <profile-picture slot="icon" inert size="24"></profile-picture>
       </titanium-chip>
 
+      <titanium-chip selected filled label="Selected" @click=${(e) => (e.target.selected = !e.target.selected)}>
+        <profile-picture slot="icon" inert size="24"></profile-picture>
+      </titanium-chip>
+
       <titanium-chip non-interactive label="Non-interactive" title="This is a non-interactive chip"> </titanium-chip>
 
       <titanium-chip disabled label="Disabled"> </titanium-chip>
@@ -72,7 +80,14 @@ export class TitaniumChipPlayground extends LitElement {
         <md-icon slot="icon">task_alt</md-icon>
       </titanium-chip>
 
+      <titanium-chip disabled filled label="Disabled with remove button" input-chip @remove=${() => alert('remove!')} @click=${() => alert('click!')}>
+        <md-icon slot="icon">task_alt</md-icon>
+      </titanium-chip>
+
       <titanium-chip href="https://google.com" target="_blank" download="google.xls" label="Href demo"> </titanium-chip>
+
+      <titanium-chip filled label="Filled custom color" style="--titanium-chip-filled-background-color: bisque; --titanium-chip-filled-color: black">
+      </titanium-chip>
     `;
   }
 }
