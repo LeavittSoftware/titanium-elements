@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.20.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.20.0...@leavittsoftware/web@6.20.1) (2025-12-04)
+
+
+### Bug Fixes
+
+* **app-navigation:** async assignment bug ([cfaacb0](https://github.com/LeavittSoftware/titanium-elements/commit/cfaacb03f8028509c223fe1109d9c9b31ea61ef9))
+
+
+
+
+
 # [6.20.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.19.0...@leavittsoftware/web@6.20.0) (2025-12-02)
 
 
