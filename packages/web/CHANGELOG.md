@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.21.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.20.1...@leavittsoftware/web@6.21.0) (2025-12-04)
+
+
+### Bug Fixes
+
+* **app-navigation:** async assignment bug ([cfaacb0](https://github.com/LeavittSoftware/titanium-elements/commit/cfaacb03f8028509c223fe1109d9c9b31ea61ef9))
+
+
+### Features
+
+* **app-navigation-header:** add scrollableParent prop ([db137df](https://github.com/LeavittSoftware/titanium-elements/commit/db137df14a47cbf464e2f56e613aa69de8b7ba56))
+
+
+
+
+
 ## [6.20.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.20.0...@leavittsoftware/web@6.20.1) (2025-12-04)
 
 
