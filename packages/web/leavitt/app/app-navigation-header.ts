@@ -1,6 +1,6 @@
 import '@material/web/icon/icon';
 
-import { LitElement, css, html, nothing } from 'lit';
+import { LitElement, PropertyValues, css, html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { ellipsis, h1 } from '@leavittsoftware/web/titanium/styles/styles';
@@ -9,6 +9,7 @@ import { findScrollableParent } from '../../titanium/helpers/find-scrollable-par
 @customElement('leavitt-app-navigation-header')
 export class LeavittAppNavigationHeader extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'sticky-top' }) accessor stickyTop: boolean = false;
+  @property({ type: Object, attribute: 'scrollable-parent' }) accessor scrollableParent: Element | null = null;
 
   @property({ type: String }) accessor level1Text: string | null;
   @property({ type: String }) accessor level1Href: string | null;
@@ -23,6 +24,7 @@ export class LeavittAppNavigationHeader extends LitElement {
   @property({ type: String }) accessor level4Href: string | null;
 
   @property({ type: Boolean, reflect: true, attribute: 'is-scrolled' }) private accessor isScrolled: boolean = false;
+  #scrollableParent: Element | null = null;
 
   static styles = [
     h1,
@@ -122,21 +124,33 @@ export class LeavittAppNavigationHeader extends LitElement {
     `,
   ];
 
-  #scrollableParent: Element | null = null;
   async connectedCallback() {
     super.connectedCallback();
 
-    this.#scrollableParent = await findScrollableParent(this);
+    const fallbackScrollableParent = await findScrollableParent(this);
+    this.#scrollableParent = this.scrollableParent || fallbackScrollableParent;
     if (this.#scrollableParent) {
       this.#scrollableParent.addEventListener('scroll', this.#onScroll.bind(this), false);
     }
   }
 
-  disconnectedCallback() {
+  async disconnectedCallback() {
     if (this.#scrollableParent) {
-      this.#scrollableParent.removeEventListener('scroll', this.#onScroll, false);
+      this.#scrollableParent.removeEventListener('scroll', this.#onScroll.bind(this), false);
     }
     super.disconnectedCallback();
+  }
+
+  async updated(changedProps: PropertyValues<this>) {
+    if (changedProps.has('scrollableParent')) {
+      this.#scrollableParent?.removeEventListener('scroll', this.#onScroll.bind(this), false);
+
+      const fallbackScrollableParent = await findScrollableParent(this);
+      this.#scrollableParent = this.scrollableParent || fallbackScrollableParent;
+      if (this.#scrollableParent) {
+        this.#scrollableParent.addEventListener('scroll', this.#onScroll.bind(this), false);
+      }
+    }
   }
 
   #onScroll() {
