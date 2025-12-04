@@ -20,7 +20,8 @@ export class LeavittAppNavigationFooter extends LitElement {
   async connectedCallback() {
     super.connectedCallback();
 
-    this.#scrollableParent = this.scrollableParent ?? await findScrollableParent(this);
+    const fallbackScrollableParent = await findScrollableParent(this);
+    this.#scrollableParent = this.scrollableParent || fallbackScrollableParent;
     if (this.#scrollableParent) {
       this.#resizeObserver = new ResizeObserver(() => {
         this.#onResize();
@@ -39,7 +40,8 @@ export class LeavittAppNavigationFooter extends LitElement {
   async updated(changedProps: PropertyValues<this>) {
     if (changedProps.has('scrollableParent')) {
       this.#resizeObserver?.disconnect();
-      this.#scrollableParent = this.scrollableParent ?? await findScrollableParent(this);
+      const fallbackScrollableParent = await findScrollableParent(this);
+      this.#scrollableParent = this.scrollableParent || fallbackScrollableParent;
       if (this.#scrollableParent) {
         this.#resizeObserver = new ResizeObserver(() => {
           this.#onResize();
@@ -68,7 +70,6 @@ export class LeavittAppNavigationFooter extends LitElement {
         bottom: 0;
         min-height: 64px;
 
-      
         background-color: var(--md-sys-color-surface-container-lowest);
         z-index: 2;
       }
