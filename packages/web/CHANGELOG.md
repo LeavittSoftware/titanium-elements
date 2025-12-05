@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.21.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.21.0...@leavittsoftware/web@6.21.1) (2025-12-05)
+
+
+### Bug Fixes
+
+* **app-navigation-header:** add missing default display type ([0a784a2](https://github.com/LeavittSoftware/titanium-elements/commit/0a784a24460b046b1a2260c7d2a342fee44f3603))
+
+
+
+
+
 # [6.21.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.20.1...@leavittsoftware/web@6.21.0) (2025-12-04)
 
 
