@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.21.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.21.1...@leavittsoftware/web@6.21.2) (2025-12-05)
+
+
+### Bug Fixes
+
+* **app-navigation-header:** default to display grid for better compatibility ([53c0218](https://github.com/LeavittSoftware/titanium-elements/commit/53c02181cf4fcc0a71a078ec559c8296cf9e5462))
+
+
+
+
+
 ## [6.21.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.21.0...@leavittsoftware/web@6.21.1) (2025-12-05)
 
 
