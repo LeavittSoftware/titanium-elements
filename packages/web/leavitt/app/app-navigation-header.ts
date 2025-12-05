@@ -69,6 +69,7 @@ export class LeavittAppNavigationHeader extends LitElement {
       }
 
       footer {
+        display: flex;
         grid-area: footer;
       }
 
