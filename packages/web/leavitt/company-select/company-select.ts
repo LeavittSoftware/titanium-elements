@@ -96,6 +96,7 @@ export class LeavittCompanySelect extends TitaniumSingleSelectBase<Partial<Compa
   async #getCompanies() {
     try {
       const get = this.apiService?.getAsync<Partial<Company>>(`${this.apiControllerName}?${this.odataParts.join('&')}`);
+      this.loadWhile(get);
       const result = await get;
       return result?.toList() ?? [];
     } catch (error) {
