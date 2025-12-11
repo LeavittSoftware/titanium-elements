@@ -174,6 +174,11 @@ export class TitaniumDateRangeSelector extends LitElement {
 
       gap: 12px;
       padding: 12px;
+      border-radius: 0 0 4px 4px;
+    }
+
+    :host([filled]) menu-actions {
+      border-radius: 0 0 16px 16px;
     }
 
     input-container {
