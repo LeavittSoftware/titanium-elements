@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.21.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.21.3...@leavittsoftware/web@6.21.4) (2025-12-11)
+
+
+### Bug Fixes
+
+* **date-range-selector:** add appropriately radius to prevent clipping ([#696](https://github.com/LeavittSoftware/titanium-elements/issues/696)) ([0dcaa00](https://github.com/LeavittSoftware/titanium-elements/commit/0dcaa0071d9aebfd49eb0bc57b48e1dd87c1c6f3))
+
+
+
+
+
 ## [6.21.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.21.2...@leavittsoftware/web@6.21.3) (2025-12-08)
 
 
