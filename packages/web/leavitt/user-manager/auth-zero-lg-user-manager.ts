@@ -3,6 +3,7 @@ import { AuthZeroLgAccessToken } from './auth-zero-lg-access-token';
 import { AuthZeroLgIdentityToken } from './auth-zero-lg-identity-token';
 import { AuthZeroLgIdenitity } from './auth-zero-lg-identity';
 import { BearerTokenProvider } from '../api-service/bearer-token-provider';
+import { isDevelopment } from '@leavittsoftware/web/titanium/helpers/is-development';
 
 export class AuthZeroLgUserManager implements BearerTokenProvider {
   public postLogoutRedirectUri: string = 'https://leavitt.com';
@@ -11,7 +12,7 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
   #clientId: string = 'VNreSE4Z8HsMaUfc1yRGgZQv9EN2quOS';
   #tokenUri: string = 'https://auth.leavitt.com/oauth/token';
   #issuerIdentifier: string = 'https://auth.leavitt.com/';
-  #audience: string = 'https://api3.leavitt.com';
+  #audience: string = `https://${isDevelopment ? 'dev' : ''}api3.leavitt.com`;
   #scopes: string[] = ['openid', 'profile', 'email', 'offline_access'];
 
   #unrecoverableError: boolean = false;
@@ -92,9 +93,7 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
         }
 
         if (this.#validateToken(this.#accessToken)) {
-          if (this.#validateToken(this.#accessToken)) {
-            return this.#resolveAllAuthenticatePromises(this.#accessToken);
-          }
+          return this.#resolveAllAuthenticatePromises(this.#accessToken);
         }
 
         return this.#rejectAllAuthenticatePromises('Login failed, please try again.');
@@ -214,11 +213,11 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
     const urlParts = {
       response_type: 'code',
       client_id: this.#clientId,
-      scope: [...this.#scopes, ...this.#getClaimScopes('LgClaimScopes')].join(' '),
       code_challenge: codeChallenge,
       code_challenge_method: 'S256',
       redirect_uri: currentUrl.origin,
-      audience: 'https://api3.leavitt.com',
+      audience: this.#audience,
+      scope: this.#scopes.join(' '),
       state: currentUrl.pathname + currentUrl.search + currentUrl.hash,
     };
 
@@ -273,14 +272,14 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
     const identity: AuthZeroLgIdenitity = {
       coreid: Number(token['https://leavitt.com/coreid']),
       roles: token['https://leavitt.com/roles'] || [],
-      activeEmployee: token['https://leavitt.com/activeEmployee'] === 'True',
-      pendingEmployee: token['https://leavitt.com/pendingEmployee'] === 'True',
-      activeClient: token['https://leavitt.com/activeClient'] === 'True',
+      activeEmployee: !!token['https://leavitt.com/activeEmployee'],
+      pendingEmployee: !!token['https://leavitt.com/pendingEmployee'],
+      activeClient: !!token['https://leavitt.com/activeClient'],
       companyName: token['https://leavitt.com/company'],
       profilePictureFileName: token['https://leavitt.com/picCdnFileName'],
       lastname: token['https://leavitt.com/lastname'],
       firstname: token['https://leavitt.com/firstname'],
-      companyId: Number(token['https://leavitt.com/companyId']),
+      companyId: token['https://leavitt.com/companyId'] ?? 0,
       nickname: token.nickname,
       name: token.name,
       picture: token.picture,
@@ -338,7 +337,7 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
           refresh_token: refreshToken,
           audience: this.#audience,
           client_id: this.#clientId,
-          scope: [...this.#scopes, ...this.#getClaimScopes('LgClaimScopes')].join(' '),
+          scope: this.#scopes.join(' '),
         }),
       });
 
@@ -403,15 +402,6 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
       }
       console.error('Token exchange failed', error);
       throw new Error('Token exchange failed. Please try again.');
-    }
-  }
-
-  #getClaimScopes(localStorageKey: string): Array<string> {
-    try {
-      return JSON.parse(window.localStorage.getItem(localStorageKey) || '[]');
-    } catch (error) {
-      console.warn(`Failed to parse scopes in local storage. ${error}`);
-      return [];
     }
   }
 

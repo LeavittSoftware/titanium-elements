@@ -1,14 +1,14 @@
 export interface AuthZeroLgIdentityToken {
   'https://leavitt.com/coreid': string | null;
   'https://leavitt.com/roles': string[] | null;
-  'https://leavitt.com/activeEmployee': 'True' | 'False' | null;
-  'https://leavitt.com/pendingEmployee': 'True' | 'False' | null;
-  'https://leavitt.com/activeClient': 'True' | 'False' | null;
+  'https://leavitt.com/activeEmployee': boolean | null;
+  'https://leavitt.com/pendingEmployee': boolean | null;
+  'https://leavitt.com/activeClient': boolean | null;
   'https://leavitt.com/company': string | null;
   'https://leavitt.com/picCdnFileName': string | null;
   'https://leavitt.com/lastname': string | null;
   'https://leavitt.com/firstname': string | null;
-  'https://leavitt.com/companyId': string | null;
+  'https://leavitt.com/companyId': number | null;
   nickname: string | null;
   name: string | null;
   picture: string | null;

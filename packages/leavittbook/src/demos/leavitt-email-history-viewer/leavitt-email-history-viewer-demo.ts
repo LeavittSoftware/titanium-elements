@@ -1,6 +1,5 @@
 import { LitElement, html, css, nothing } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { GetUserManagerInstance } from '@leavittsoftware/web/leavitt/user-manager/user-manager';
 
 import StoryStyles from '../../styles/story-styles';
 import '../../shared/story-header';
@@ -8,6 +7,7 @@ import '../../shared/story-header';
 import '@api-viewer/docs';
 import '../../shared/smart-demo';
 import './leavitt-email-history-viewer-playground';
+import { GetAuthZeroLgUserManager } from '@leavittsoftware/web/leavitt/user-manager/auth-zero-lg-user-manager';
 
 @customElement('leavitt-email-history-viewer-demo')
 export class LeavittEmailHistoryViewerDemo extends LitElement {
@@ -16,9 +16,9 @@ export class LeavittEmailHistoryViewerDemo extends LitElement {
   static styles = [StoryStyles, css``];
 
   async firstUpdated() {
-    const userManager = await GetUserManagerInstance();
-    await userManager.authenticateAsync();
-    this.refreshToken = window.localStorage.getItem('LG-AUTH-RT');
+    const userManager = GetAuthZeroLgUserManager();
+    await userManager?.authenticate();
+    this.refreshToken = userManager?.refreshToken ?? null;
   }
 
   render() {

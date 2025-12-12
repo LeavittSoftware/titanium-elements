@@ -6,9 +6,6 @@ import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
 import '@leavittsoftware/web/leavitt/user-manager/user-manager';
 import '@material/web/button/outlined-button';
 
-import ApiService from '@leavittsoftware/web/leavitt/api-service/api-service';
-import { AuthenticatedTokenProvider } from '@leavittsoftware/web/leavitt/api-service/authenticated-token-provider';
-
 /* playground-fold-end */
 import '@leavittsoftware/web/leavitt/company-select/company-select';
 import { LeavittCompanySelect } from '@leavittsoftware/web/leavitt/company-select/company-select';
@@ -16,21 +13,14 @@ import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
 import { Company } from '@leavittsoftware/lg-core-typescript';
 import { getCompanyMarkUrl } from '@leavittsoftware/web/titanium/helpers/get-company-mark-url';
 import { ThemePreference } from '@leavittsoftware/web/leavitt/theme/theme-preference';
+import api3UserService from '../../services/api3-user-service';
 
 /* playground-fold */
 @customElement('leavitt-company-select-playground')
 export class LeavittPersonCompanySelectPlayground extends ThemePreference(LitElement) {
-  @state() private accessor apiService: ApiService;
   @state() private accessor disableMenuOpenOnFocus: boolean = false;
   @query('leavitt-company-select[methods-demo]') protected accessor methodsSelect!: LeavittCompanySelect;
   @queryAll('leavitt-company-select') protected accessor inputs!: NodeListOf<LeavittCompanySelect>;
-
-  constructor() {
-    super();
-    this.apiService = new ApiService(new AuthenticatedTokenProvider());
-    this.apiService.baseUrl = 'https://devapi3.leavitt.com/';
-    this.apiService.addHeader('X-LGAppName', 'Testing');
-  }
 
   static styles = [
     h1,
@@ -76,7 +66,7 @@ export class LeavittPersonCompanySelectPlayground extends ThemePreference(LitEle
           methods-demo
           required
           ?disable-menu-open-on-focus=${this.disableMenuOpenOnFocus}
-          .apiService=${this.apiService}
+          .apiService=${api3UserService}
         ></leavitt-company-select>
         <section buttons>
           <md-outlined-button @click=${() => this.methodsSelect.reset()}>reset()</md-outlined-button>
@@ -94,13 +84,13 @@ export class LeavittPersonCompanySelectPlayground extends ThemePreference(LitEle
       <h1>Default</h1>
       <p>Examples using required,shaped,preselected, and disabled</p>
       <div>
-        <leavitt-company-select disableAutoLoad label="default" .apiService=${this.apiService}></leavitt-company-select>
-        <leavitt-company-select disableAutoLoad label="shaped" shaped .apiService=${this.apiService}></leavitt-company-select>
+        <leavitt-company-select disableAutoLoad label="default" .apiService=${api3UserService}></leavitt-company-select>
+        <leavitt-company-select disableAutoLoad label="shaped" shaped .apiService=${api3UserService}></leavitt-company-select>
         <leavitt-company-select
           disableAutoLoad
           label="pre-selected"
           .selected=${{ Id: 57, Name: 'Leavitt Group Enterprises' } as never}
-          .apiService=${this.apiService}
+          .apiService=${api3UserService}
         ></leavitt-company-select>
         <leavitt-company-select
           disableAutoLoad
@@ -110,10 +100,10 @@ export class LeavittPersonCompanySelectPlayground extends ThemePreference(LitEle
             Name: 'Leavitt Group Enterprises',
           } as never}
           disabled
-          .apiService=${this.apiService}
+          .apiService=${api3UserService}
         ></leavitt-company-select>
-        <leavitt-company-select disableAutoLoad label="placeholder" placeholder="placeholder text" .apiService=${this.apiService}></leavitt-company-select>
-        <leavitt-company-select disableAutoLoad label="required" required validationMessage="required" .apiService=${this.apiService}></leavitt-company-select>
+        <leavitt-company-select disableAutoLoad label="placeholder" placeholder="placeholder text" .apiService=${api3UserService}></leavitt-company-select>
+        <leavitt-company-select disableAutoLoad label="required" required validationMessage="required" .apiService=${api3UserService}></leavitt-company-select>
       </div>
 
       <h1>Custom menu item template</h1>
@@ -131,7 +121,7 @@ export class LeavittPersonCompanySelectPlayground extends ThemePreference(LitEle
                 src=${getCompanyMarkUrl(company, this.themePreference)}
               />
             </md-menu-item>`}
-          .apiService=${this.apiService}
+          .apiService=${api3UserService}
         ></leavitt-company-select>
       </div>
 
@@ -143,7 +133,7 @@ export class LeavittPersonCompanySelectPlayground extends ThemePreference(LitEle
           filled
           required
           ?disable-menu-open-on-focus=${this.disableMenuOpenOnFocus}
-          .apiService=${this.apiService}
+          .apiService=${api3UserService}
         ></leavitt-company-select>
 
         <leavitt-company-select
@@ -152,7 +142,7 @@ export class LeavittPersonCompanySelectPlayground extends ThemePreference(LitEle
           filled
           required
           ?disable-menu-open-on-focus=${this.disableMenuOpenOnFocus}
-          .apiService=${this.apiService}
+          .apiService=${api3UserService}
         ></leavitt-company-select>
       </div>
 
