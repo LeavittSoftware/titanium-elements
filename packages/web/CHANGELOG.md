@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.21.4...@leavittsoftware/web@8.0.0) (2025-12-12)
+
+
+### Features
+
+* adds new auth zero user manager ([621f1c5](https://github.com/LeavittSoftware/titanium-elements/commit/621f1c5959e2bbb8412bcb65d3a36ee2aea60fe6))
+* **profile-picture:** support user manager and user manager auth0 concurrently ([8e9392e](https://github.com/LeavittSoftware/titanium-elements/commit/8e9392eac7088ea77636f0cdae983669168fdf93))
+* **storybook:** use authzero user manager ([251c49c](https://github.com/LeavittSoftware/titanium-elements/commit/251c49c2651b2e848ca868cf9fce55cf5cd528e5))
+* **user-manager:** do not throw if user manage is not found, return null ([2f9cffe](https://github.com/LeavittSoftware/titanium-elements/commit/2f9cffef91fa7d30e71a76147d40f3ef7b591b3c))
+
+
+### BREAKING CHANGES
+
+* **user-manager:** null check GetUserManagerInstance()
+
+
+
+
+
 # [7.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@6.21.4...@leavittsoftware/web@7.0.0) (2025-12-12)
 
 
