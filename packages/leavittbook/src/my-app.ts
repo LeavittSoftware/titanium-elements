@@ -1,5 +1,4 @@
 import '@leavittsoftware/web/titanium/toolbar/toolbar';
-import '@leavittsoftware/web/leavitt/user-manager/user-manager';
 import '@leavittsoftware/web/titanium/snackbar/snackbar-stack';
 import '@leavittsoftware/web/titanium/full-page-loading-indicator/full-page-loading-indicator';
 import '@leavittsoftware/web/titanium/error-page/error-page';
@@ -32,6 +31,7 @@ import { ProvideFeedbackDialog } from '@leavittsoftware/web/leavitt/user-feedbac
 import TitaniumConfirmDialog from '@leavittsoftware/web/titanium/confirm-dialog/confirm-dialog';
 import page from 'page';
 import themePreferenceEvent from '@leavittsoftware/web/leavitt/theme/theme-preference-event';
+import { AuthZeroLgUserManager } from '@leavittsoftware/web/leavitt/user-manager/auth-zero-lg-user-manager';
 
 const LGLogo = new URL('../images/lg-logo.svg', import.meta.url).href;
 const LGLogoWhite = new URL('../images/lg-logo-white.svg', import.meta.url).href;
@@ -42,10 +42,11 @@ export class MyApp extends LitElement {
   @state() private accessor fatalErrorMessage: string = '';
   @state() private accessor isWideViewPort: boolean = false;
   @property({ type: Boolean, reflect: true, attribute: 'collapse-main-menu' }) private accessor collapseMainMenu: boolean = false;
-
   @query('titanium-confirm-dialog') private accessor confirmDialog: TitaniumConfirmDialog;
   @query('titanium-full-page-loading-indicator') private accessor loadingIndicator: TitaniumFullPageLoadingIndicator;
   @query('titanium-drawer') private accessor drawer: TitaniumDrawer;
+
+  userManager: AuthZeroLgUserManager | null = new AuthZeroLgUserManager();
 
   get themePreference() {
     return (localStorage.getItem('theme-preference') as 'light' | 'dark') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
@@ -153,9 +154,7 @@ export class MyApp extends LitElement {
     page('/leavitt-user-feedback', () =>
       this.#changePage('leavitt-user-feedback', () => import('./demos/leavitt-user-feedback/leavitt-user-feedback-demo.js'))
     );
-    page('/leavitt-error-page', () =>
-      this.#changePage('leavitt-error-page', () => import('./demos/leavitt-error-page/leavitt-error-page-demo.js'))
-    );
+    page('/leavitt-error-page', () => this.#changePage('leavitt-error-page', () => import('./demos/leavitt-error-page/leavitt-error-page-demo.js')));
     page('/profile-picture', () => this.#changePage('profile-picture', () => import('./demos/profile-picture/profile-picture-demo.js')));
     page('/profile-picture-menu', () => this.#changePage('profile-picture-menu', () => import('./demos/profile-picture-menu/profile-picture-menu-demo.js')));
     page('/titanium-access-denied-page', () =>
@@ -303,7 +302,6 @@ export class MyApp extends LitElement {
 
   render() {
     return html`<titanium-full-page-loading-indicator></titanium-full-page-loading-indicator>
-      <user-manager disableAutoload></user-manager>
 
       <titanium-toolbar>
         <md-icon-button
@@ -514,8 +512,6 @@ export class MyApp extends LitElement {
             <md-list-item ?selected=${this.page === 'leavitt-user-feedback'} href="/leavitt-user-feedback" type="link">
               <md-icon slot="start">library_books</md-icon> <span>User feedback</span>
             </md-list-item>
-
-           
           </details>
         </section>
         <a

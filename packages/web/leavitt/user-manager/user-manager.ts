@@ -9,12 +9,13 @@ import { UserManagerUpdatedEvent } from './user-manager-events';
 
 let instance: null | UserManager = null;
 
-export const GetUserManagerInstance = () => {
+export const GetUserManagerInstance = (): UserManager | null => {
   if (instance) {
     return instance;
   }
 
-  throw 'GetUserManagerInstance requested before an instance was created. Did you forget to add the <user-manager> element to your project?';
+  console.warn('GetUserManagerInstance requested before an instance was created. Did you forget to add the <user-manager> element to your project?');
+  return null;
 };
 
 @customElement('user-manager')
@@ -57,7 +58,7 @@ export class UserManager extends LitElement {
 
   @property({ type: Boolean }) accessor isActiveClient: boolean;
 
-  @property({ type: String }) accessor authenticationMethod: null|'Database'|'Okta';
+  @property({ type: String }) accessor authenticationMethod: null | 'Database' | 'Okta';
 
   #isAuthenticating: boolean;
 

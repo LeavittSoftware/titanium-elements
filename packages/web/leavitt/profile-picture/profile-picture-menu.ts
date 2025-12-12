@@ -5,13 +5,14 @@ import '@material/web/button/text-button';
 import '@material/web/icon/icon';
 import '@material/web/iconbutton/icon-button';
 
-import { GetUserManagerInstance } from '../user-manager/user-manager';
+import { GetUserManagerInstance, UserManager } from '../user-manager/user-manager';
 import { UserManagerUpdatedEvent } from '../user-manager/user-manager-events';
 import { css, html, LitElement } from 'lit';
 import { property, customElement, query } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { MdMenu } from '@material/web/menu/menu';
 import { PropertyValues } from 'lit';
+import { AuthZeroLgUserManager, GetAuthZeroLgUserManager } from '../user-manager/auth-zero-lg-user-manager';
 
 /**
  * Profile picture menu for the Leavitt Group
@@ -52,20 +53,38 @@ export class ProfilePictureMenu extends LitElement {
 
   @property() positioning: 'absolute' | 'fixed' | 'document' | 'popover' = 'popover';
 
+  #authZeroLgUserManager: AuthZeroLgUserManager | null = GetAuthZeroLgUserManager();
+  #userManager: UserManager | null = GetUserManagerInstance();
+
   firstUpdated() {
-    GetUserManagerInstance().addEventListener(UserManagerUpdatedEvent.eventName, () => this.setUserProps());
+    this.#userManager?.addEventListener(UserManagerUpdatedEvent.eventName, () => this.setUserProps());
     this.setUserProps();
+
+    this.#authZeroLgUserManager?.onIdentityUpdated(() => this.#setAuthZeroLgUserProps());
+    this.#setAuthZeroLgUserProps();
+  }
+
+  #setAuthZeroLgUserProps() {
+    if (!this.#authZeroLgUserManager) return;
+
+    this.personId = this.#authZeroLgUserManager.identity?.coreid ?? 0;
+    this.profilePictureFileName = this.#authZeroLgUserManager.identity?.profilePictureFileName ?? null;
+    this.email = this.#authZeroLgUserManager.identity?.email ?? '';
+    this.company = this.#authZeroLgUserManager.identity?.companyName ?? '';
+    this.name = this.#authZeroLgUserManager.identity?.name ?? '';
   }
 
   /**
    * Sets properties based on user manager instance
    */
   setUserProps() {
-    this.personId = GetUserManagerInstance().personId;
-    this.profilePictureFileName = GetUserManagerInstance().profilePictureFileName;
-    this.email = GetUserManagerInstance().email;
-    this.company = GetUserManagerInstance().company;
-    this.name = GetUserManagerInstance().fullname;
+    if (!this.#userManager) return;
+
+    this.personId = this.#userManager.personId;
+    this.profilePictureFileName = this.#userManager.profilePictureFileName;
+    this.email = this.#userManager.email;
+    this.company = this.#userManager.company;
+    this.name = this.#userManager.fullname;
   }
 
   updated(changed: PropertyValues<this>) {
@@ -147,7 +166,8 @@ export class ProfilePictureMenu extends LitElement {
           if (this.personId) {
             this.menu.open = !this.menu.open;
           } else {
-            GetUserManagerInstance().authenticateAsync();
+            this.#userManager?.authenticateAsync();
+            this.#authZeroLgUserManager?.authenticate();
           }
         }}
         style=${styleMap({
@@ -173,7 +193,7 @@ export class ProfilePictureMenu extends LitElement {
         <md-divider role="separator" tabindex="-1"></md-divider>
         <footer>
           <md-text-button href="https://accounts.leavitt.com/profile" target="_blank">Account settings</md-text-button>
-          <md-text-button @click=${() => GetUserManagerInstance().logout()}>Sign out</md-text-button>
+          <md-text-button @click=${() => this.#userManager?.logout() ?? this.#authZeroLgUserManager?.logout()}>Sign out</md-text-button>
         </footer>
       </md-menu>
     `;
