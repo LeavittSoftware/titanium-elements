@@ -41,6 +41,9 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           scope: leavittsoftware
 
+      - name: Update npm
+        run: npm install -g npm@latest
+
       - name: Install
         run: npm install --no-save
 
