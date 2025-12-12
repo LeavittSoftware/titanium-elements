@@ -3,6 +3,6 @@ import { BearerTokenProvider } from './bearer-token-provider';
 
 export class AuthenticatedTokenProvider implements BearerTokenProvider {
   async _getBearerTokenAsync() {
-    return await GetUserManagerInstance().getAccessTokenAsync();
+    return (await GetUserManagerInstance()?.getAccessTokenAsync()) ?? null;
   }
 }
