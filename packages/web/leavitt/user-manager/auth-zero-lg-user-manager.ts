@@ -76,7 +76,7 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
     const state = urlParams.get('state');
     if (code) {
       // If code is present in the url, exchange it for a token have all
-      // all subsequent calls to authenticate wait for the code to be exchanged
+      // subsequent calls to authenticate wait for the code to be exchanged
       // exchanged eslint-disable-next-line no-async-promise-executor
       new Promise<string | null>(async (resolve, reject) => {
         this.#authenticateResolvers.push({ resolver: resolve, reject: reject });
