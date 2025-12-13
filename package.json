@@ -10,6 +10,7 @@
     "@leavittsoftware/lg-core-typescript": "^5.1106.0",
     "@material/web": "^2.4.1",
     "api-viewer-element": "^1.0.0-pre.10",
+    
     "lit": "3.3.1",
     "page": "^1.11.6",
     "playground-elements": "^0.21.2",
@@ -38,6 +39,7 @@
     "jasmine-ts": "^0.4.0",
     "lit-analyzer": "^2.0.3",
     "patch-package": "^8.0.1",
+    "lerna": "^9.0.3",
     "prettier": "^3.6.2",
     "replace": "^1.2.2",
     "rimraf": "^6.1.0",
