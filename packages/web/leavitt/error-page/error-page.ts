@@ -9,7 +9,6 @@ import { loadStarsPreset } from '@tsparticles/preset-stars';
 import { ThemePreference, ThemePreferenceOption } from '../theme/theme-preference';
 import themePreferenceEvent from '../theme/theme-preference-event';
 
-
 /**
  * A pre-styled error page
  *
@@ -83,7 +82,7 @@ export class LeavittErrorPage extends ThemePreference(LitElement) {
       font-family: var(Metropolis, Roboto, Noto, sans-serif);
       -webkit-font-smoothing: antialiased;
       font-size: 48px;
-      line-height: 34px;
+      line-height: 52px;
       font-weight: 700;
       letter-spacing: -1px;
 
@@ -121,7 +120,7 @@ export class LeavittErrorPage extends ThemePreference(LitElement) {
       margin-top: 24px;
 
       div[icon-container] {
-        display: grid;  
+        display: grid;
         position: absolute;
         --md-icon-size: 30px;
         width: 30px;
@@ -165,7 +164,7 @@ export class LeavittErrorPage extends ThemePreference(LitElement) {
           <h1>${this.heading}</h1>
           <h2>${this.message}</h2>
           <image-container>
-            <div icon-container>  
+            <div icon-container>
               <slot name="icon">
                 <img mark src="https://cdn.leavitt.com/icons/lg-mark.svg" />
               </slot>
@@ -177,4 +176,3 @@ export class LeavittErrorPage extends ThemePreference(LitElement) {
     `;
   }
 }
-
