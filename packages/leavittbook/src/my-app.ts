@@ -46,7 +46,19 @@ export class MyApp extends LitElement {
   @query('titanium-full-page-loading-indicator') private accessor loadingIndicator: TitaniumFullPageLoadingIndicator;
   @query('titanium-drawer') private accessor drawer: TitaniumDrawer;
 
-  userManager: AuthZeroLgUserManager | null = new AuthZeroLgUserManager();
+  #userManager: AuthZeroLgUserManager = new AuthZeroLgUserManager();
+
+  async connectedCallback() {
+    super.connectedCallback();
+    try {
+      await this.#userManager?.initialize();
+    } catch (error) {
+      console.error(error);
+      this.fatalErrorMessage = error;
+      this.#changePage('error');
+      return;
+    }
+  }
 
   get themePreference() {
     return (localStorage.getItem('theme-preference') as 'light' | 'dark') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
