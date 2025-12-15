@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.0.6...@leavittsoftware/web@8.1.0) (2025-12-15)
+
+
+### Bug Fixes
+
+* **leavitt-error-page:**  correct bad line spacing ([945c235](https://github.com/LeavittSoftware/titanium-elements/commit/945c2358e76604f7dfddb3116af67ebb49e4bfab))
+
+
+### Features
+
+* **auth-zero-user-manager:** introduce initialize ([31c5c69](https://github.com/LeavittSoftware/titanium-elements/commit/31c5c698fa56487a5258385ac1b0b408a4856083))
+
+
+
+
+
 ## [8.0.6](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.0.5...@leavittsoftware/web@8.0.6) (2025-12-13)
 
 **Note:** Version bump only for package @leavittsoftware/web
