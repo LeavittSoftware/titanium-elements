@@ -7,7 +7,7 @@ import '../../shared/story-header';
 import '@api-viewer/docs';
 import '../../shared/smart-demo';
 import './leavitt-email-history-viewer-playground';
-import { GetAuthZeroLgUserManager } from '@leavittsoftware/web/leavitt/user-manager/auth-zero-lg-user-manager';
+import UserManager from '../../services/user-manager-service';
 
 @customElement('leavitt-email-history-viewer-demo')
 export class LeavittEmailHistoryViewerDemo extends LitElement {
@@ -16,9 +16,8 @@ export class LeavittEmailHistoryViewerDemo extends LitElement {
   static styles = [StoryStyles, css``];
 
   async firstUpdated() {
-    const userManager = GetAuthZeroLgUserManager();
-    await userManager?.authenticate();
-    this.refreshToken = userManager?.refreshToken ?? null;
+    await UserManager.authenticate();
+    this.refreshToken = UserManager.refreshToken ?? null;
   }
 
   render() {

@@ -5,11 +5,10 @@ import '@material/web/button/text-button';
 import '@leavittsoftware/web/titanium/snackbar/snackbar-stack';
 
 import { LitElement, css, html } from 'lit';
-import { customElement, query } from 'lit/decorators.js';
+import { customElement, property, query } from 'lit/decorators.js';
 import { LoadWhile, isDevelopment } from '../../titanium/helpers/helpers';
 import { PendingStateEvent } from '../../titanium/types/pending-state-event';
 import { h1, p } from '../../titanium/styles/styles';
-import { AuthenticatedTokenProvider } from '../api-service/authenticated-token-provider';
 import { IssueDto } from '@leavittsoftware/lg-core-typescript';
 import ApiService from '../api-service/api-service';
 import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
@@ -19,17 +18,14 @@ import { dialogZIndexHack } from '../../titanium/hacks/dialog-zindex-hack';
 import { DOMEvent } from '../../titanium/types/dom-event';
 import { SnackbarStack } from '../../titanium/snackbar/snackbar-stack';
 import { dialogCloseNavigationHack, dialogOpenNavigationHack } from '../../titanium/hacks/dialog-navigation-hack';
-
-const feedbackApiService = new ApiService(new AuthenticatedTokenProvider());
-feedbackApiService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
-feedbackApiService.addHeader('X-LGAppName', 'IssueTracking');
-Object.freeze(feedbackApiService);
+import { AuthZeroLgUserManager } from '../user-manager/auth-zero-lg-user-manager';
+import { AuthenticatedTokenProvider } from '../api-service/authenticated-token-provider';
 
 @customElement('provide-feedback-dialog')
 export class ProvideFeedbackDialog extends LoadWhile(LitElement) {
+  @property({ type: Object }) accessor userManager: AuthZeroLgUserManager | null;
   @query('md-dialog') private accessor dialog!: MdDialog;
   @query('titanium-snackbar-stack') private accessor snackbar: SnackbarStack;
-
   @query('md-outlined-text-field') private accessor textArea: MdOutlinedTextField;
 
   show() {
@@ -56,17 +52,22 @@ export class ProvideFeedbackDialog extends LoadWhile(LitElement) {
     };
 
     try {
-      const post = feedbackApiService.postAsync<IssueDto>('Issues/ReportIssue', dto, { sendAsFormData: true });
-      this.dispatchEvent(new PendingStateEvent(post));
-      this.loadWhile(post);
-      const entity = (await post).entity;
+      if (this.userManager) {
+        const apiService = new ApiService(this.userManager || new AuthenticatedTokenProvider());
+        apiService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
+        apiService.addHeader('X-LGAppName', 'IssueTracking');
+        const post = apiService.postAsync<IssueDto>('Issues/ReportIssue', dto, { sendAsFormData: true });
+        this.dispatchEvent(new PendingStateEvent(post));
+        this.loadWhile(post);
+        const entity = (await post).entity;
 
-      if (!entity) {
-        throw new Error('Error submitting feedback. Please try again.');
-      } else {
-        document.dispatchEvent(new ShowSnackbarEvent('We appreciate your input, and we will promptly conduct a review!'));
-        this.reset();
-        this.dialog.close('done');
+        if (!entity) {
+          throw new Error('Error submitting feedback. Please try again.');
+        } else {
+          document.dispatchEvent(new ShowSnackbarEvent('We appreciate your input, and we will promptly conduct a review!'));
+          this.reset();
+          this.dialog.close('done');
+        }
       }
     } catch (error) {
       this.dispatchEvent(new ShowSnackbarEvent(error));

@@ -13,6 +13,7 @@ import '@leavittsoftware/web/leavitt/user-manager/user-manager';
 import { LeavittUserFeedback } from '@leavittsoftware/web/leavitt/user-feedback/user-feedback';
 import { ReportAProblemDialog } from '@leavittsoftware/web/leavitt/user-feedback/report-a-problem-dialog';
 import { ProvideFeedbackDialog } from '@leavittsoftware/web/leavitt/user-feedback/provide-feedback-dialog';
+import UserManager from '../../services/user-manager-service';
 
 /* playground-fold */
 @customElement('leavitt-user-feedback-playground')
@@ -54,8 +55,6 @@ export class LeavittPersonCompanySelectPlayground extends LitElement {
   render() {
     /* playground-fold-end */
     return html`
-      <user-manager></user-manager>
-
       <h1>Default</h1>
       <p></p>
       <div>
@@ -64,8 +63,8 @@ export class LeavittPersonCompanySelectPlayground extends LitElement {
         <leavitt-user-feedback></leavitt-user-feedback>
       </div>
 
-      <report-a-problem-dialog></report-a-problem-dialog>
-      <provide-feedback-dialog></provide-feedback-dialog>
+      <report-a-problem-dialog .userManager=${UserManager}></report-a-problem-dialog>
+      <provide-feedback-dialog .userManager=${UserManager}></provide-feedback-dialog>
       <titanium-snackbar-stack></titanium-snackbar-stack>
     `;
   }

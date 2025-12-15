@@ -8,8 +8,7 @@ import '@api-viewer/docs';
 import '../../shared/story-header';
 import '../../shared/smart-demo';
 import './leavitt-user-feedback-playground';
-import { GetAuthZeroLgUserManager } from '@leavittsoftware/web/leavitt/user-manager/auth-zero-lg-user-manager';
-
+import UserManager from '../../services/user-manager-service';
 @customElement('leavitt-user-feedback-demo')
 export class LeavittUserFeedbackDemo extends LitElement {
   @state() private accessor refreshToken: string | null = null;
@@ -17,9 +16,8 @@ export class LeavittUserFeedbackDemo extends LitElement {
   static styles = [StoryStyles, css``];
 
   async firstUpdated() {
-    const userManager = GetAuthZeroLgUserManager();
-    await userManager?.authenticate();
-    this.refreshToken = userManager?.refreshToken ?? null;
+    await UserManager.authenticate();
+    this.refreshToken = UserManager.refreshToken ?? null;
   }
 
   render() {

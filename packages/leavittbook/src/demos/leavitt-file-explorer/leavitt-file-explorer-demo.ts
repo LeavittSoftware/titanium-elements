@@ -6,7 +6,7 @@ import StoryStyles from '../../styles/story-styles';
 import '../../shared/story-header';
 import '../../shared/smart-demo';
 import './leavitt-file-explorer-playground';
-import { GetAuthZeroLgUserManager } from '@leavittsoftware/web/leavitt/user-manager/auth-zero-lg-user-manager';
+import UserManager from '../../services/user-manager-service';
 
 @customElement('leavitt-file-explorer-demo')
 export class LeavittUserFileExplorerDemo extends LitElement {
@@ -15,9 +15,8 @@ export class LeavittUserFileExplorerDemo extends LitElement {
   static styles = [StoryStyles, css``];
 
   async firstUpdated() {
-    const userManager = GetAuthZeroLgUserManager();
-    await userManager?.authenticate();
-    this.refreshToken = userManager?.refreshToken ?? null;
+    await UserManager.authenticate();
+    this.refreshToken = UserManager.refreshToken ?? null;
   }
 
   render() {

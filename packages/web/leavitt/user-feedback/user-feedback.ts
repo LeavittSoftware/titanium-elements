@@ -18,19 +18,11 @@ import { TitaniumSmartAttachmentInput } from '../../titanium/smart-attachment-in
 import ApiService from '../api-service//api-service';
 import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
 import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
-
-const websiteBugApiService = new ApiService(new AuthenticatedTokenProvider());
-websiteBugApiService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
-websiteBugApiService.addHeader('X-LGAppName', 'IssueTracking');
-Object.freeze(websiteBugApiService);
-
-const feedbackApiService = new ApiService(new AuthenticatedTokenProvider());
-feedbackApiService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
-feedbackApiService.addHeader('X-LGAppName', 'IssueTracking');
-Object.freeze(feedbackApiService);
+import { AuthZeroLgUserManager } from '../user-manager/auth-zero-lg-user-manager';
 
 @customElement('leavitt-user-feedback')
 export class LeavittUserFeedback extends LoadWhile(LitElement) {
+  @property({ type: Object }) accessor userManager: AuthZeroLgUserManager | null;
   @property({ type: Boolean }) accessor isActive: boolean = false;
 
   @state() private accessor activeIndex: number = 0;
@@ -63,7 +55,10 @@ export class LeavittUserFeedback extends LoadWhile(LitElement) {
     };
 
     try {
-      const post = websiteBugApiService.postAsync<IssueDto>('Issues/ReportIssue', dto, { sendAsFormData: true });
+      const apiService = new ApiService(this.userManager || new AuthenticatedTokenProvider());
+      apiService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
+      apiService.addHeader('X-LGAppName', 'IssueTracking');
+      const post = apiService.postAsync<IssueDto>('Issues/ReportIssue', dto, { sendAsFormData: true });
       this.dispatchEvent(new PendingStateEvent(post));
       this.loadWhile(post);
       const entity = (await post).entity;
@@ -99,7 +94,10 @@ export class LeavittUserFeedback extends LoadWhile(LitElement) {
     };
 
     try {
-      const post = feedbackApiService.postAsync<IssueDto>('Issues/ReportIssue', dto, { sendAsFormData: true });
+      const apiService = new ApiService(this.userManager || new AuthenticatedTokenProvider());
+      apiService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
+      apiService.addHeader('X-LGAppName', 'IssueTracking');
+      const post = apiService.postAsync<IssueDto>('Issues/ReportIssue', dto, { sendAsFormData: true });
       this.dispatchEvent(new PendingStateEvent(post));
       this.loadWhile(post);
       const entity = (await post).entity;

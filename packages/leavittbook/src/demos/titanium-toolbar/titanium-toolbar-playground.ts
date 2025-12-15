@@ -7,6 +7,7 @@ import '@leavittsoftware/web/leavitt/profile-picture/profile-picture-menu';
 
 /* playground-fold-end */
 import '@leavittsoftware/web/titanium/toolbar/toolbar';
+import UserManager from '../../services/user-manager-service';
 
 /* playground-fold */
 @customElement('titanium-toolbar-playground')
@@ -61,7 +62,7 @@ export class TitaniumToolbarPlayground extends LitElement {
           <img src="https://www.leavitt.com/application/themes/lg/img/logo/leavitt-group-logo.svg" alt="Company logo" />
         </a>
         <h3 title="boilerplate toolbar" main-title>Boilerplate Toolbar</h3>
-        <profile-picture-menu size="36"></profile-picture-menu>
+        <profile-picture-menu size="36" .userManager=${UserManager}></profile-picture-menu>
       </titanium-toolbar>
       <main>
         <p>

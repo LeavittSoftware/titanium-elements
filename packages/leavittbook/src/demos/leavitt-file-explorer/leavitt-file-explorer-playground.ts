@@ -8,7 +8,7 @@ import '@leavittsoftware/web/titanium/snackbar/snackbar-stack';
 import '@leavittsoftware/web/leavitt/file-explorer/file-explorer';
 import '@leavittsoftware/web/leavitt/user-manager/user-manager';
 import ApiService from '@leavittsoftware/web/leavitt/api-service/api-service';
-import { AuthenticatedTokenProvider } from '@leavittsoftware/web/leavitt/api-service/authenticated-token-provider';
+import UserManager from '../../services/user-manager-service';
 
 /* playground-fold */
 @customElement('leavitt-file-explorer-playground')
@@ -29,7 +29,7 @@ export class LeavittPersonCompanySelectPlayground extends LitElement {
 
   constructor() {
     super();
-    this.fileExplorerApiService = new ApiService(new AuthenticatedTokenProvider());
+    this.fileExplorerApiService = new ApiService(UserManager);
     this.fileExplorerApiService.baseUrl = 'https://devapi3.leavitt.com/';
     this.fileExplorerApiService.addHeader('X-LGAppName', 'FileExplorer');
   }
@@ -37,7 +37,6 @@ export class LeavittPersonCompanySelectPlayground extends LitElement {
   render() {
     /* playground-fold-end */
     return html`
-      <user-manager></user-manager>
       <leavitt-file-explorer file-explorer-id="1" .apiService=${this.fileExplorerApiService}></leavitt-file-explorer>
       <titanium-snackbar-stack></titanium-snackbar-stack>
     `;

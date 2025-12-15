@@ -55,8 +55,6 @@ export class LeavittPersonCompanySelectPlayground extends ThemePreference(LitEle
   render() {
     /* playground-fold-end */
     return html`
-      <user-manager disableAutoload></user-manager>
-
       <h1>Methods</h1>
       <p>Demonstrates public methods</p>
       <div row>

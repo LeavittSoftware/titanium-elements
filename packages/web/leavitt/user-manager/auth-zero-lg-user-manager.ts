@@ -64,15 +64,6 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
     localStorage.setItem('lg-auth0-code-verifier', val || '');
   }
 
-  constructor() {
-    if (!authZeroUserManagerInstance) {
-      /* eslint-disable  @typescript-eslint/no-this-alias */
-      authZeroUserManagerInstance = this;
-    } else {
-      console.warn('Only one instance of UserManagerAuthZero is allowed.');
-    }
-  }
-
   #authenticateResolvers: Array<{ resolver: (accessToken: string | null) => void; reject: (error: string) => void }> = [];
 
   #resolveAllAuthenticatePromises(accessToken: string | null) {
@@ -443,14 +434,3 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
       .replace(/=+$/, '');
   }
 }
-
-let authZeroUserManagerInstance: null | AuthZeroLgUserManager = null;
-
-export const GetAuthZeroLgUserManager = () => {
-  if (authZeroUserManagerInstance) {
-    return authZeroUserManagerInstance;
-  }
-
-  console.warn('GetAuthZeroLgUserManager requested before an instance was created.');
-  return null;
-};

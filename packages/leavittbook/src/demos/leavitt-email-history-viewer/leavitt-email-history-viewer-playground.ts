@@ -7,7 +7,6 @@ import '@leavittsoftware/web/leavitt/user-manager/user-manager';
 import '@material/web/button/outlined-button';
 
 import ApiService from '@leavittsoftware/web/leavitt/api-service/api-service';
-import { AuthenticatedTokenProvider } from '@leavittsoftware/web/leavitt/api-service/authenticated-token-provider';
 import LeavittEmailHistoryViewer from '@leavittsoftware/web/leavitt/email-history-viewer/email-history-viewer';
 
 /* playground-fold-end */
@@ -16,6 +15,7 @@ import '@leavittsoftware/web/leavitt/email-history-viewer/email-history-viewer-f
 
 import { ThemePreference } from '@leavittsoftware/web/leavitt/theme/theme-preference';
 import LeavittEmailHistoryViewerFilled from '@leavittsoftware/web/leavitt/email-history-viewer/email-history-viewer-filled';
+import UserManager from '../../services/user-manager-service';
 
 /* playground-fold */
 @customElement('leavitt-email-history-viewer-playground')
@@ -23,10 +23,10 @@ export class LeavittEmailHistoryViewerPlayground extends ThemePreference(LitElem
   @state() private accessor apiService: ApiService;
   @query('leavitt-email-history-viewer') protected accessor demo1!: LeavittEmailHistoryViewer;
   @query('leavitt-email-history-viewer-filled') protected accessor demo2!: LeavittEmailHistoryViewerFilled;
-  
+
   constructor() {
     super();
-    this.apiService = new ApiService(new AuthenticatedTokenProvider());
+    this.apiService = new ApiService(UserManager);
     this.apiService.baseUrl = 'https://devapi3.leavitt.com/';
     this.apiService.addHeader('X-LGAppName', 'EducationAdminV2');
   }
@@ -63,11 +63,13 @@ export class LeavittEmailHistoryViewerPlayground extends ThemePreference(LitElem
   render() {
     /* playground-fold-end */
     return html`
-      <user-manager disableAutoload></user-manager>
-    
       <h1>Filled</h1>
       <main row>
-       <leavitt-email-history-viewer-filled isActive .apiService=${this.apiService} .path=${'/leavitt-email-history-viewer'}></leavitt-email-history-viewer-filled>
+        <leavitt-email-history-viewer-filled
+          isActive
+          .apiService=${this.apiService}
+          .path=${'/leavitt-email-history-viewer'}
+        ></leavitt-email-history-viewer-filled>
       </main>
 
       <h1>Outlined</h1>

@@ -6,6 +6,7 @@ import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
 /* playground-fold-end */
 import '@leavittsoftware/web/leavitt/profile-picture/profile-picture-menu';
 import '@leavittsoftware/web/leavitt/user-manager/user-manager';
+import UserManager from '../../services/user-manager-service';
 
 /* playground-fold */
 @customElement('profile-picture-menu-playground')
@@ -37,12 +38,15 @@ export class ProfilePictureMenuPlayground extends LitElement {
   render() {
     /* playground-fold-end */
     return html`
-      <user-manager></user-manager>
-
       <h1>Default</h1>
       <p>Default profile picture styles</p>
       <div>
-        <profile-picture-menu name="Testboii Testeri" email="testboi-tester@leavitt.com" company="Kasey Quality Assurance Inc."></profile-picture-menu>
+        <profile-picture-menu
+          .userManager=${UserManager}
+          name="Testboii Testeri"
+          email="testboi-tester@leavitt.com"
+          company="Kasey Quality Assurance Inc."
+        ></profile-picture-menu>
       </div>
     `;
   }

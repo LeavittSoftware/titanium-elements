@@ -7,8 +7,7 @@ import '../../shared/story-header';
 import '@api-viewer/docs';
 import '../../shared/smart-demo';
 import './leavitt-person-group-select-playground';
-import { GetAuthZeroLgUserManager } from '@leavittsoftware/web/leavitt/user-manager/auth-zero-lg-user-manager';
-
+import UserManager from '../../services/user-manager-service';
 @customElement('leavitt-person-group-select-demo')
 export class LeavittPersonGroupSelectDemo extends LitElement {
   @state() private accessor refreshToken: string | null = null;
@@ -16,9 +15,8 @@ export class LeavittPersonGroupSelectDemo extends LitElement {
   static styles = [StoryStyles, css``];
 
   async firstUpdated() {
-    const userManager = GetAuthZeroLgUserManager();
-    await userManager?.authenticate();
-    this.refreshToken = userManager?.refreshToken ?? null;
+    await UserManager.authenticate();
+    this.refreshToken = UserManager.refreshToken ?? null;
   }
 
   render() {

@@ -31,7 +31,7 @@ import { ProvideFeedbackDialog } from '@leavittsoftware/web/leavitt/user-feedbac
 import TitaniumConfirmDialog from '@leavittsoftware/web/titanium/confirm-dialog/confirm-dialog';
 import page from 'page';
 import themePreferenceEvent from '@leavittsoftware/web/leavitt/theme/theme-preference-event';
-import { AuthZeroLgUserManager } from '@leavittsoftware/web/leavitt/user-manager/auth-zero-lg-user-manager';
+import UserManager from './services/user-manager-service';
 
 const LGLogo = new URL('../images/lg-logo.svg', import.meta.url).href;
 const LGLogoWhite = new URL('../images/lg-logo-white.svg', import.meta.url).href;
@@ -46,12 +46,10 @@ export class MyApp extends LitElement {
   @query('titanium-full-page-loading-indicator') private accessor loadingIndicator: TitaniumFullPageLoadingIndicator;
   @query('titanium-drawer') private accessor drawer: TitaniumDrawer;
 
-  #userManager: AuthZeroLgUserManager = new AuthZeroLgUserManager();
-
   async connectedCallback() {
     super.connectedCallback();
     try {
-      await this.#userManager?.initialize();
+      UserManager.initialize();
     } catch (error) {
       console.error(error);
       this.fatalErrorMessage = error;
@@ -339,7 +337,7 @@ export class MyApp extends LitElement {
           >
             <md-icon>${this.themePreference === 'light' ? 'dark_mode' : 'light_mode'}</md-icon>
           </md-outlined-icon-button>
-          <profile-picture-menu size="36"></profile-picture-menu>
+          <profile-picture-menu size="36" .userManager=${UserManager}></profile-picture-menu>
         </right-panel>
       </titanium-toolbar>
 
@@ -677,8 +675,8 @@ export class MyApp extends LitElement {
         <titanium-error-page ?hidden=${this.page !== 'error'} .message=${this.fatalErrorMessage}></titanium-error-page>
       </main-content>
 
-      <report-a-problem-dialog></report-a-problem-dialog>
-      <provide-feedback-dialog></provide-feedback-dialog>
+      <report-a-problem-dialog .userManager=${UserManager}></report-a-problem-dialog>
+      <provide-feedback-dialog .userManager=${UserManager}></provide-feedback-dialog>
 
       <titanium-confirm-dialog></titanium-confirm-dialog>
       <titanium-snackbar-stack .eventListenerTarget=${document}></titanium-snackbar-stack>

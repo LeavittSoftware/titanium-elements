@@ -8,7 +8,7 @@ import '@api-viewer/docs';
 import '../../shared/story-header';
 import '../../shared/smart-demo';
 import './profile-picture-menu-playground';
-import { GetAuthZeroLgUserManager } from '@leavittsoftware/web/leavitt/user-manager/auth-zero-lg-user-manager';
+import UserManager from '../../services/user-manager-service';
 
 @customElement('profile-picture-menu-demo')
 export class ProfilePictureMenuDemo extends LitElement {
@@ -17,9 +17,8 @@ export class ProfilePictureMenuDemo extends LitElement {
   static styles = [StoryStyles, css``];
 
   async firstUpdated() {
-    const userManager = GetAuthZeroLgUserManager();
-    await userManager?.authenticate();
-    this.refreshToken = userManager?.refreshToken ?? null;
+    await UserManager.authenticate();
+    this.refreshToken = UserManager.refreshToken ?? null;
   }
 
   render() {
@@ -31,7 +30,7 @@ export class ProfilePictureMenuDemo extends LitElement {
             line-numbers
             resizable
             project-src="../src/demos/profile-picture-menu/project.json"
-            ><profile-picture-menu-playground></profile-picture-menu-playground>
+            ><profile-picture-menu-playground .userManager=${UserManager}></profile-picture-menu-playground>
           </smart-demo>`
         : nothing}
       <api-docs src="./custom-elements.json" selected="profile-picture-menu"></api-docs>

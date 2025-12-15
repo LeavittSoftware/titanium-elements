@@ -7,11 +7,11 @@ import '@material/web/button/text-button';
 import '@leavittsoftware/web/leavitt/user-manager/user-manager';
 
 import ApiService from '@leavittsoftware/web/leavitt/api-service/api-service';
-import { AuthenticatedTokenProvider } from '@leavittsoftware/web/leavitt/api-service/authenticated-token-provider';
 
 /* playground-fold-end */
 import '@leavittsoftware/web/leavitt/person-group-select/person-group-select';
 import { LeavittPersonGroupSelect } from '@leavittsoftware/web/leavitt/person-group-select/person-group-select';
+import UserManager from '../../services/user-manager-service';
 
 /* playground-fold */
 @customElement('leavitt-person-group-select-playground')
@@ -22,7 +22,7 @@ export class LeavittPersonGroupSelectPlayground extends LitElement {
 
   constructor() {
     super();
-    this.apiService = new ApiService(new AuthenticatedTokenProvider());
+    this.apiService = new ApiService(UserManager);
     this.apiService.baseUrl = 'https://devapi3.leavitt.com/';
     this.apiService.addHeader('X-LGAppName', 'Testing');
   }
@@ -60,7 +60,6 @@ export class LeavittPersonGroupSelectPlayground extends LitElement {
   render() {
     /* playground-fold-end */
     return html`
-      <user-manager disableAutoload></user-manager>
       <h1>Default</h1>
       <p>Examples using required,shaped,preselected, and disabled</p>
       <div>

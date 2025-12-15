@@ -7,12 +7,12 @@ import '@leavittsoftware/web/leavitt/user-manager/user-manager';
 import '@material/web/button/text-button';
 
 import ApiService from '@leavittsoftware/web/leavitt/api-service/api-service';
-import { AuthenticatedTokenProvider } from '@leavittsoftware/web/leavitt/api-service/authenticated-token-provider';
 
 /* playground-fold-end */
 import '@leavittsoftware/web/leavitt/person-select/person-select';
 import { LeavittPersonSelect } from '@leavittsoftware/web/leavitt/person-select/person-select';
 import { Person } from '@leavittsoftware/lg-core-typescript';
+import UserManager from '../../services/user-manager-service';
 
 /* playground-fold */
 @customElement('leavitt-person-select-playground')
@@ -23,7 +23,7 @@ export class LeavittPersonSelectPlayground extends LitElement {
 
   constructor() {
     super();
-    this.apiService = new ApiService(new AuthenticatedTokenProvider());
+    this.apiService = new ApiService(UserManager);
     this.apiService.baseUrl = 'https://devapi3.leavitt.com/';
     this.apiService.addHeader('X-LGAppName', 'Testing');
   }
@@ -61,7 +61,6 @@ export class LeavittPersonSelectPlayground extends LitElement {
   render() {
     /* playground-fold-end */
     return html`
-      <user-manager disableAutoload></user-manager>
       <h1>Demo</h1>
       <p>Demonstrates public methods</p>
       <div row>

@@ -6,7 +6,7 @@ import '../../titanium/snackbar/snackbar-stack';
 import '../../titanium/smart-attachment-input/smart-attachment-input';
 
 import { LitElement, css, html } from 'lit';
-import { customElement, query } from 'lit/decorators.js';
+import { customElement, property, query } from 'lit/decorators.js';
 import { LoadWhile, isDevelopment } from '../../titanium/helpers/helpers';
 import { PendingStateEvent } from '../../titanium/types/pending-state-event';
 import { h1, p } from '../../titanium/styles/styles';
@@ -21,14 +21,11 @@ import { dialogZIndexHack } from '../../titanium/hacks/dialog-zindex-hack';
 import { DOMEvent } from '../../titanium/types/dom-event';
 import { SnackbarStack } from '../../titanium/snackbar/snackbar-stack';
 import { TitaniumSmartAttachmentInput } from '../../titanium/smart-attachment-input/smart-attachment-input';
-
-const websiteBugApiService = new ApiService(new AuthenticatedTokenProvider());
-websiteBugApiService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
-websiteBugApiService.addHeader('X-LGAppName', 'IssueTracking');
-Object.freeze(websiteBugApiService);
+import { AuthZeroLgUserManager } from '../user-manager/auth-zero-lg-user-manager';
 
 @customElement('report-a-problem-dialog')
 export class ReportAProblemDialog extends LoadWhile(LitElement) {
+  @property({ type: Object }) accessor userManager: AuthZeroLgUserManager | null;
   @query('md-dialog') private accessor dialog!: MdDialog;
   @query('titanium-snackbar-stack') private accessor snackbar: SnackbarStack;
 
@@ -60,7 +57,10 @@ export class ReportAProblemDialog extends LoadWhile(LitElement) {
     };
 
     try {
-      const post = websiteBugApiService.postAsync<IssueDto>('Issues/ReportIssue', dto, { sendAsFormData: true });
+      const apiService = new ApiService(this.userManager || new AuthenticatedTokenProvider());
+      apiService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
+      apiService.addHeader('X-LGAppName', 'IssueTracking');
+      const post = apiService.postAsync<IssueDto>('Issues/ReportIssue', dto, { sendAsFormData: true });
       this.dispatchEvent(new PendingStateEvent(post));
       this.loadWhile(post);
       const entity = (await post).entity;
