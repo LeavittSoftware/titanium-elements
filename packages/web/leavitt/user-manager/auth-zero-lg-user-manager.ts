@@ -15,6 +15,7 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
   #audience: string = `https://${isDevelopment ? 'dev' : ''}api3.leavitt.com`;
   #scopes: string[] = ['openid', 'profile', 'email', 'offline_access'];
 
+  #isInitialized: boolean = false;
   #unrecoverableError: boolean = false;
   #unrecoverableErrorDescription: string;
 
@@ -70,6 +71,29 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
     } else {
       console.warn('Only one instance of UserManagerAuthZero is allowed.');
     }
+  }
+
+  #authenticateResolvers: Array<{ resolver: (accessToken: string | null) => void; reject: (error: string) => void }> = [];
+
+  #resolveAllAuthenticatePromises(accessToken: string | null) {
+    this.#authenticateResolvers.forEach(({ resolver }) => resolver(accessToken));
+    this.#authenticateResolvers = [];
+  }
+
+  #rejectAllAuthenticatePromises(error: string) {
+    this.#authenticateResolvers.forEach(({ reject }) => reject(error));
+    this.#authenticateResolvers = [];
+  }
+
+  public async _getBearerTokenAsync() {
+    return await this.authenticate();
+  }
+
+  async initialize() {
+    if (this.#isInitialized) {
+      return Promise.resolve();
+    }
+    this.#isInitialized = true;
     const urlParams = new URLSearchParams(window.location.search);
 
     const code = urlParams.get('code');
@@ -78,7 +102,8 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
       // If code is present in the url, exchange it for a token have all
       //   subsequent calls to authenticate wait for the code to be exchanged
       // exchanged eslint-disable-next-line no-async-promise-executor
-      new Promise<string | null>(async (resolve, reject) => {
+      // eslint-disable-next-line no-async-promise-executor
+      return new Promise<string | null>(async (resolve, reject) => {
         this.#authenticateResolvers.push({ resolver: resolve, reject: reject });
 
         if (state) {
@@ -111,34 +136,23 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
       newUrl.searchParams.delete('state');
       window.history.replaceState({}, '', newUrl.toString());
 
-      new Promise<string | null>((resolve, reject) => {
+      return new Promise<string | null>((resolve, reject) => {
         this.#authenticateResolvers.push({ resolver: resolve, reject: reject });
         this.#unrecoverableError = true;
         this.#unrecoverableErrorDescription = errorDescription || 'Login failed, please try again.';
         return this.#rejectAllAuthenticatePromises(errorDescription || 'Login failed, please try again.');
       });
     }
-  }
-
-  #authenticateResolvers: Array<{ resolver: (accessToken: string | null) => void; reject: (error: string) => void }> = [];
-
-  #resolveAllAuthenticatePromises(accessToken: string | null) {
-    this.#authenticateResolvers.forEach(({ resolver }) => resolver(accessToken));
-    this.#authenticateResolvers = [];
-  }
-
-  #rejectAllAuthenticatePromises(error: string) {
-    this.#authenticateResolvers.forEach(({ reject }) => reject(error));
-    this.#authenticateResolvers = [];
-  }
-
-  public async _getBearerTokenAsync() {
-    return await this.authenticate();
+    return Promise.resolve();
   }
 
   public async authenticate() {
     if (this.#unrecoverableError) {
       throw new Error(this.#unrecoverableErrorDescription);
+    }
+
+    if (!this.#isInitialized) {
+      await this.initialize();
     }
 
     if (!this.#authenticateResolvers.length) {
@@ -270,7 +284,7 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
     iat.setUTCSeconds(token.iat);
 
     const identity: AuthZeroLgIdenitity = {
-      coreid: Number(token['https://leavitt.com/coreid']),
+      coreid: token['https://leavitt.com/coreid'] ?? 0,
       roles: token['https://leavitt.com/roles'] || [],
       activeEmployee: !!token['https://leavitt.com/activeEmployee'],
       pendingEmployee: !!token['https://leavitt.com/pendingEmployee'],
@@ -401,7 +415,7 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
         throw new Error('No internet connection. Please check your network.');
       }
       console.error('Token exchange failed', error);
-      throw new Error('Token exchange failed. Please try again.');
+      throw new Error('Token exchange failed');
     }
   }
 
