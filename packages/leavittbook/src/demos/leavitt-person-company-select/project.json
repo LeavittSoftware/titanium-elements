@@ -1,9 +1,0 @@
-{
-  "name": "leavitt-person-company-select",
-  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
-  "section": "Basics",
-  "files": {
-    "leavitt-person-company-select-playground.ts": {},
-    "index.html": {}
-  }
-}

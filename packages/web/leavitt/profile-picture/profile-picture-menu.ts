@@ -22,7 +22,7 @@ import { AuthZeroLgUserManager } from '../user-manager/auth-zero-lg-user-manager
  */
 @customElement('profile-picture-menu')
 export class ProfilePictureMenu extends LitElement {
-  @property({ type: Object }) accessor userManager: UserManager | null;
+  @property({ type: Object }) accessor userManager: UserManager | AuthZeroLgUserManager | null;
 
   /**
    * Size in pixels of profile picture button
@@ -172,7 +172,11 @@ export class ProfilePictureMenu extends LitElement {
           if (this.personId) {
             this.menu.open = !this.menu.open;
           } else {
-            this.#getUserManager()?.authenticateAsync();
+            if (this.userManager instanceof AuthZeroLgUserManager) {
+              this.userManager.authenticate();
+            } else {
+              GetUserManagerInstance()?.authenticateAsync();
+            }
           }
         }}
         style=${styleMap({
