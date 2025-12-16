@@ -186,7 +186,7 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
     this.#refreshToken = null;
     this.#idToken = null;
     this.#codeVerifier = null;
-    const redirectUrl = `${this.authZeroDomainBaseURL}/oidc/logout?client_id=${this.#clientId}&post_logout_redirect_uri=${encodeURIComponent(this.postLogoutRedirectUri)}`;
+    const redirectUrl = `${this.authZeroDomainBaseURL}/oidc/logout?federated&client_id=${this.#clientId}&post_logout_redirect_uri=${encodeURIComponent(this.postLogoutRedirectUri)}`;
     console.log('redirecting to logout page...');
     document.location.href = redirectUrl;
   }
