@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.1.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.1.1...@leavittsoftware/web@8.1.2) (2025-12-16)
+
+
+### Bug Fixes
+
+* force federated logout ([15fc4f2](https://github.com/LeavittSoftware/titanium-elements/commit/15fc4f232c5d5bf8a315a090bec364bf5d698fbb))
+
+
+
+
+
 ## [8.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.1.0...@leavittsoftware/web@8.1.1) (2025-12-16)
 
 **Note:** Version bump only for package @leavittsoftware/web
