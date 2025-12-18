@@ -128,117 +128,117 @@ export class MyApp extends LitElement {
     page('/titanium-full-page-loading-indicator', () =>
       this.#changePage(
         'titanium-full-page-loading-indicator',
-        () => import('./demos/titanium-full-page-loading-indicator/titanium-full-page-loading-indicator-demo.js')
+        () => import('./demos/titanium-full-page-loading-indicator-demo.js')
       )
     );
-    page('/available-cdn-icons', () => this.#changePage('available-cdn-icons', () => import('./demos/available-cdn-icons/available-cdn-icons-demo.js')));
+    page('/available-cdn-icons', () => this.#changePage('available-cdn-icons', () => import('./demos/available-cdn-icons-demo.js')));
 
     page('/leavitt-company-select', () =>
       this.#changePage('leavitt-company-select', () => import('./demos/leavitt-company-select-demo.js'))
     );
     page('/leavitt-file-explorer', () =>
-      this.#changePage('leavitt-file-explorer', () => import('./demos/leavitt-file-explorer/leavitt-file-explorer-demo.js'))
+      this.#changePage('leavitt-file-explorer', () => import('./demos/leavitt-file-explorer-demo.js'))
     );
 
     page('/titanium-date-range-selector', () =>
-      this.#changePage('titanium-date-range-selector', () => import('./demos/titanium-date-range-selector/titanium-date-range-selector-demo.js'))
+      this.#changePage('titanium-date-range-selector', () => import('./demos/titanium-date-range-selector-demo.js'))
     );
     page('/titanium-data-table-item', () =>
-      this.#changePage('titanium-data-table-item', () => import('./demos/titanium-data-table-item/titanium-data-table-item-demo.js'))
+      this.#changePage('titanium-data-table-item', () => import('./demos/titanium-data-table-item-demo.js'))
     );
 
     page('/leavitt-person-select', () =>
-      this.#changePage('leavitt-person-select', () => import('./demos/leavitt-person-select/leavitt-person-select-demo.js'))
+      this.#changePage('leavitt-person-select', () => import('./demos/leavitt-person-select-demo.js'))
     );
     page('/leavitt-person-company-select', () =>
-      this.#changePage('leavitt-person-company-select', () => import('./demos/leavitt-person-company-select/leavitt-person-company-select-demo.js'))
+      this.#changePage('leavitt-person-company-select', () => import('./demos/leavitt-person-company-select-demo.js'))
     );
     page('/leavitt-person-group-select', () =>
-      this.#changePage('leavitt-person-group-select', () => import('./demos/leavitt-person-group-select/leavitt-person-group-select-demo.js'))
+      this.#changePage('leavitt-person-group-select', () => import('./demos/leavitt-person-group-select-demo.js'))
     );
 
     page('/leavitt-email-history-viewer', () =>
-      this.#changePage('leavitt-email-history-viewer', () => import('./demos/leavitt-email-history-viewer/leavitt-email-history-viewer-demo.js'))
+      this.#changePage('leavitt-email-history-viewer', () => import('./demos/leavitt-email-history-viewer-demo.js'))
     );
 
     page('/leavitt-user-feedback', () =>
-      this.#changePage('leavitt-user-feedback', () => import('./demos/leavitt-user-feedback/leavitt-user-feedback-demo.js'))
+      this.#changePage('leavitt-user-feedback', () => import('./demos/leavitt-user-feedback-demo.js'))
     );
-    page('/leavitt-error-page', () => this.#changePage('leavitt-error-page', () => import('./demos/leavitt-error-page/leavitt-error-page-demo.js')));
-    page('/profile-picture', () => this.#changePage('profile-picture', () => import('./demos/profile-picture/profile-picture-demo.js')));
-    page('/profile-picture-menu', () => this.#changePage('profile-picture-menu', () => import('./demos/profile-picture-menu/profile-picture-menu-demo.js')));
+    page('/leavitt-error-page', () => this.#changePage('leavitt-error-page', () => import('./demos/leavitt-error-page-demo.js')));
+    page('/profile-picture', () => this.#changePage('profile-picture', () => import('./demos/profile-picture-demo.js')));
+    page('/profile-picture-menu', () => this.#changePage('profile-picture-menu', () => import('./demos/profile-picture-menu-demo.js')));
     page('/titanium-access-denied-page', () =>
-      this.#changePage('titanium-access-denied-page', () => import('./demos/titanium-access-denied-page/titanium-access-denied-page-demo.js'))
+      this.#changePage('titanium-access-denied-page', () => import('./demos/titanium-access-denied-page-demo.js'))
     );
 
-    page('/titanium-data-table', () => this.#changePage('titanium-data-table', () => import('./demos/titanium-data-table/titanium-data-table-demo.js')));
+    page('/titanium-data-table', () => this.#changePage('titanium-data-table', () => import('./demos/titanium-data-table-demo.js')));
     page('/titanium-data-table-item', () =>
-      this.#changePage('titanium-data-table-item', () => import('./demos/titanium-data-table-item/titanium-data-table-item-demo.js'))
+      this.#changePage('titanium-data-table-item', () => import('./demos/titanium-data-table-item-demo.js'))
     );
-    page('/titanium-drawer', () => this.#changePage('titanium-drawer', () => import('./demos/titanium-drawer/titanium-drawer-demo.js')));
-    page('/titanium-error-page', () => this.#changePage('titanium-error-page', () => import('./demos/titanium-error-page/titanium-error-page-demo.js')));
+    page('/titanium-drawer', () => this.#changePage('titanium-drawer', () => import('./demos/titanium-drawer-demo.js')));
+    page('/titanium-error-page', () => this.#changePage('titanium-error-page', () => import('./demos/titanium-error-page-demo.js')));
     page('/titanium-address-input', () =>
-      this.#changePage('titanium-address-input', () => import('./demos/titanium-address-input/titanium-address-input-demo.js'))
+      this.#changePage('titanium-address-input', () => import('./demos/titanium-address-input-demo.js'))
     );
-    page('/titanium-header', () => this.#changePage('titanium-header', () => import('./demos/titanium-header/titanium-header-demo.js')));
-    page('/titanium-icon-picker', () => this.#changePage('titanium-icon-picker', () => import('./demos/titanium-icon-picker/titanium-icon-picker-demo.js')));
-    page('/titanium-header', () => this.#changePage('titanium-header', () => import('./demos/titanium-header/titanium-header-demo.js')));
+    page('/titanium-header', () => this.#changePage('titanium-header', () => import('./demos/titanium-header-demo.js')));
+    page('/titanium-icon-picker', () => this.#changePage('titanium-icon-picker', () => import('./demos/titanium-icon-picker-demo.js')));
+    page('/titanium-header', () => this.#changePage('titanium-header', () => import('./demos/titanium-header-demo.js')));
 
     page('/titanium-chip-multi-select', () =>
-      this.#changePage('titanium-chip-multi-select', () => import('./demos/titanium-chip-multi-select/titanium-chip-multi-select-demo.js'))
+      this.#changePage('titanium-chip-multi-select', () => import('./demos/titanium-chip-multi-select-demo.js'))
     );
     page('/titanium-input-validator', () =>
-      this.#changePage('titanium-input-validator', () => import('./demos/titanium-input-validator/titanium-input-validator-demo.js'))
+      this.#changePage('titanium-input-validator', () => import('./demos/titanium-input-validator-demo.js'))
     );
     page('/titanium-data-table-header', () =>
-      this.#changePage('titanium-data-table-header', () => import('./demos/titanium-data-table-header/titanium-data-table-header-demo.js'))
+      this.#changePage('titanium-data-table-header', () => import('./demos/titanium-data-table-header-demo.js'))
     );
     page('/titanium-data-table-core', () =>
-      this.#changePage('titanium-data-table-core', () => import('./demos/titanium-data-table-core/titanium-data-table-core-demo'))
+      this.#changePage('titanium-data-table-core', () => import('./demos/titanium-data-table-core-demo.js'))
     );
 
     page('/titanium-full-page-loading-indicator', () =>
       this.#changePage(
         'titanium-full-page-loading-indicator',
-        () => import('./demos/titanium-full-page-loading-indicator/titanium-full-page-loading-indicator-demo.js')
+        () => import('./demos/titanium-full-page-loading-indicator-demo.js')
       )
     );
 
     page('/titanium-page-control', () =>
-      this.#changePage('titanium-page-control', () => import('./demos/titanium-page-control/titanium-page-control-demo.js'))
+      this.#changePage('titanium-page-control', () => import('./demos/titanium-page-control-demo.js'))
     );
 
     page('/titanium-smart-attachment-input', () =>
-      this.#changePage('titanium-smart-attachment-input', () => import('./demos/titanium-smart-attachment-input/titanium-smart-attachment-input-demo.js'))
+      this.#changePage('titanium-smart-attachment-input', () => import('./demos/titanium-smart-attachment-input-demo.js'))
     );
-    page('/titanium-date-input', () => this.#changePage('titanium-date-input', () => import('./demos/titanium-date-input/titanium-date-input-demo.js')));
+    page('/titanium-date-input', () => this.#changePage('titanium-date-input', () => import('./demos/titanium-date-input-demo.js')));
 
     page('/titanium-search-input', () =>
-      this.#changePage('titanium-search-input', () => import('./demos/titanium-search-input/titanium-search-input-demo.js'))
+      this.#changePage('titanium-search-input', () => import('./demos/titanium-search-input-demo.js'))
     );
 
-    page('/titanium-toolbar', () => this.#changePage('titanium-toolbar', () => import('./demos/titanium-toolbar/titanium-toolbar-demo.js')));
+    page('/titanium-toolbar', () => this.#changePage('titanium-toolbar', () => import('./demos/titanium-toolbar-demo.js')));
 
-    page('/titanium-styles', () => this.#changePage('titanium-styles', () => import('./demos/titanium-styles/titanium-styles-demo.js')));
-    page('/titanium-snackbar', () => this.#changePage('titanium-snackbar', () => import('./demos/titanium-snackbar/titanium-snackbar-demo.js')));
-    page('/titanium-card', () => this.#changePage('titanium-card', () => import('./demos/titanium-card/titanium-card-demo.js')));
-    page('/titanium-chip', () => this.#changePage('titanium-chip', () => import('./demos/titanium-chip/titanium-chip-demo.js')));
+    page('/titanium-styles', () => this.#changePage('titanium-styles', () => import('./demos/titanium-styles-demo.js')));
+    page('/titanium-snackbar', () => this.#changePage('titanium-snackbar', () => import('./demos/titanium-snackbar-demo.js')));
+    page('/titanium-card', () => this.#changePage('titanium-card', () => import('./demos/titanium-card-demo.js')));
+    page('/titanium-chip', () => this.#changePage('titanium-chip', () => import('./demos/titanium-chip-demo.js')));
     page('/titanium-youtube-input', () =>
-      this.#changePage('titanium-youtube-input', () => import('./demos/titanium-youtube-input/titanium-youtube-input-demo.js'))
+      this.#changePage('titanium-youtube-input', () => import('./demos/titanium-youtube-input-demo.js'))
     );
-    page('/titanium-show-hide', () => this.#changePage('titanium-show-hide', () => import('./demos/titanium-show-hide/titanium-show-hide-demo.js')));
+    page('/titanium-show-hide', () => this.#changePage('titanium-show-hide', () => import('./demos/titanium-show-hide-demo.js')));
     page('/titanium-duration-input', () =>
-      this.#changePage('titanium-duration-input', () => import('./demos/titanium-duration-input/titanium-duration-input-demo.js'))
+      this.#changePage('titanium-duration-input', () => import('./demos/titanium-duration-input-demo.js'))
     );
     page('/titanium-profile-picture-stack', () =>
-      this.#changePage('titanium-profile-picture-stack', () => import('./demos/titanium-profile-picture-stack/titanium-profile-picture-stack-demo.js'))
+      this.#changePage('titanium-profile-picture-stack', () => import('./demos/titanium-profile-picture-stack-demo.js'))
     );
 
     page('/titanium-confirm-dialog', () =>
-      this.#changePage('titanium-confirm-dialog', () => import('./demos/titanium-confirm-dialog/titanium-confirm-dialog-demo.js'))
+      this.#changePage('titanium-confirm-dialog', () => import('./demos/titanium-confirm-dialog-demo.js'))
     );
     page('/titanium-confirmation-dialog', () =>
-      this.#changePage('titanium-confirmation-dialog', () => import('./demos/titanium-confirmation-dialog/titanium-confirmation-dialog-demo.js'))
+      this.#changePage('titanium-confirmation-dialog', () => import('./demos/titanium-confirmation-dialog-demo.js'))
     );
 
     page('*', () => {

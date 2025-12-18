@@ -41,19 +41,12 @@ Types enable JavaScript developers to use highly-productive development tools an
 
 ### Create the leavittbook story
 
-- [ ] Copy an existing component story leavittbook/demos/titanium-chip
-- [ ] Rename all folders and files replacing the old component name with the new one
-- [ ] find and replace old component name with new in the following files
-  - index.html
-  - project.json
-  - {componentname}-demo.ts (find and replace will miss a few places here)
-  - {componentname}-playground.ts
+- [ ] Copy an existing demo/rename it/write your demo code
 - [ ] Update my-app inside of leavittbook
-  - Add a PageJS route for your story
-  - Add a link in the menu for your story
-  - Add your component tags in the main content
-- [ ] Write your stories in the playground.ts file
-
+  - Add a route
+  - Add a menu item
+  - Add your component tag
+  
 ### Important
 
 - [ ] Publish to NPM after the PR has been approved but before it gets merged
