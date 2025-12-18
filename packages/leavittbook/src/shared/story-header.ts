@@ -3,6 +3,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
 
 import '@material/web/chips/suggestion-chip';
+import { heroStyles } from '../styles/hero-styles';
 
 type CustomElementDeclaration = {
   name?: string;
@@ -51,12 +52,12 @@ export default class StoryHeader extends LitElement {
   }
 
   static styles = [
-    h1,
+    heroStyles,
     p,
     css`
       :host {
         display: block;
-        padding-bottom: 48px;
+        padding-bottom: 24px;
       }
 
       [code] {
@@ -66,14 +67,6 @@ export default class StoryHeader extends LitElement {
 
       p[desc] {
         margin-top: 12px;
-      }
-
-      h1 {
-        font-size: 36px;
-        line-height: 44px;
-        font-weight: 400;
-        padding: 0;
-        margin: 0;
       }
 
       info-container {

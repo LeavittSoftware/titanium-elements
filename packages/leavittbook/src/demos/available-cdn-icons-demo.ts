@@ -1,13 +1,15 @@
 import '../shared/story-header';
 
-import '@api-viewer/docs';
+import '@leavittsoftware/web/leavitt/app/app-main-content-container';
+import '@leavittsoftware/web/leavitt/app/app-navigation-header';
+import '@leavittsoftware/web/leavitt/app/app-width-limiter';
 import '@material/web/ripple/ripple';
 import '@material/web/focus/md-focus-ring';
-import { ShowSnackbarEvent } from '@leavittsoftware/web/titanium/snackbar/show-snackbar-event';
 
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
+import { ShowSnackbarEvent } from '@leavittsoftware/web/titanium/snackbar/show-snackbar-event';
+
 import StoryStyles from '../styles/story-styles';
 
 @customElement('available-cdn-icons-demo')
@@ -103,14 +105,14 @@ export class AvailableCdnIconsDemo extends LitElement {
 
   static styles = [
     StoryStyles,
-    h1,
-    p,
     css`
       :host {
-        display: flex;
-        flex-direction: column;
+        display: grid;
+      }
 
-        margin: 24px 12px;
+      main {
+        display: grid;
+        align-content: start;
       }
 
       all-icons {
@@ -129,10 +131,10 @@ export class AvailableCdnIconsDemo extends LitElement {
         flex-direction: column;
         align-items: center;
         gap: 12px;
-        border: 1px solid var(--md-sys-color-outline);
+        background-color: var(--md-sys-color-surface-container-low);
         padding: 24px;
-        border-radius: 8px;
-        --md-focus-ring-shape: 8px;
+        border-radius: 28px;
+        --md-focus-ring-shape: 28px;
         text-align: center;
       }
     `,
@@ -140,27 +142,30 @@ export class AvailableCdnIconsDemo extends LitElement {
 
   render() {
     return html`
-      <story-header name="Available CDN Icons" className="AvailableCdnIcons"></story-header>
-      <h1>Available Icons</h1>
-      <p>Click any icon to copy its CDN URL to clipboard</p>
-      <all-icons>
-        ${this.icons.map(
-          (o) =>
-            html`<button
-              @click=${() => {
-                navigator.clipboard.writeText(`https://cdn.leavitt.com/icons/${o}`);
-                this.dispatchEvent(new ShowSnackbarEvent('URL copied to clipboard!', { autoHide: 1500, noAction: true }));
-              }}
-            >
-              <md-ripple></md-ripple>
-              <md-focus-ring></md-focus-ring>
-              <img src="https://cdn.leavitt.com/icons/${o}" height="92" />
-              <div>${o}</div>
-            </button>`
-        )}
-      </all-icons>
-
-      <api-docs src="./custom-elements.json" selected="available-cdn-icons"></api-docs>
+      <leavitt-app-main-content-container .pendingStateElement=${this}>
+        <main>
+          <leavitt-app-navigation-header level1Text="Available CDN Icons" level1Href="/available-cdn-icons" sticky-top> </leavitt-app-navigation-header>
+          <leavitt-app-width-limiter max-width="1000px">
+            <story-header name="Available CDN Icons"></story-header>
+            <all-icons>
+              ${this.icons.map(
+                (o) =>
+                  html`<button
+                    @click=${() => {
+                      navigator.clipboard.writeText(`https://cdn.leavitt.com/icons/${o}`);
+                      this.dispatchEvent(new ShowSnackbarEvent('URL copied to clipboard!', { autoHide: 1500, noAction: true }));
+                    }}
+                  >
+                    <md-ripple></md-ripple>
+                    <md-focus-ring></md-focus-ring>
+                    <img src="https://cdn.leavitt.com/icons/${o}" height="92" />
+                    <div>${o}</div>
+                  </button>`
+              )}
+            </all-icons>
+          </leavitt-app-width-limiter>
+        </main>
+      </leavitt-app-main-content-container>
     `;
   }
 }
