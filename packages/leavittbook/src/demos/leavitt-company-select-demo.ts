@@ -1,4 +1,4 @@
-import '../../shared/story-header';
+import '../shared/story-header';
 
 import '@api-viewer/docs';
 import '@leavittsoftware/web/leavitt/user-manager/user-manager';
@@ -14,8 +14,8 @@ import { Company } from '@leavittsoftware/lg-core-typescript';
 import { getCompanyMarkUrl } from '@leavittsoftware/web/titanium/helpers/get-company-mark-url';
 import { ThemePreference } from '@leavittsoftware/web/leavitt/theme/theme-preference';
 
-import api3UserService from '../../services/api3-user-service';
-import StoryStyles from '../../styles/story-styles';
+import api3UserService from '../services/api3-user-service';
+import StoryStyles from '../styles/story-styles';
 
 @customElement('leavitt-company-select-demo')
 export class LeavittCompanySelectDemo extends ThemePreference(LitElement) {

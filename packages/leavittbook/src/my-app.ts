@@ -134,7 +134,7 @@ export class MyApp extends LitElement {
     page('/available-cdn-icons', () => this.#changePage('available-cdn-icons', () => import('./demos/available-cdn-icons/available-cdn-icons-demo.js')));
 
     page('/leavitt-company-select', () =>
-      this.#changePage('leavitt-company-select', () => import('./demos/leavitt-company-select/leavitt-company-select-demo.js'))
+      this.#changePage('leavitt-company-select', () => import('./demos/leavitt-company-select-demo.js'))
     );
     page('/leavitt-file-explorer', () =>
       this.#changePage('leavitt-file-explorer', () => import('./demos/leavitt-file-explorer/leavitt-file-explorer-demo.js'))
