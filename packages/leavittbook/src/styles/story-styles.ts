@@ -18,18 +18,18 @@ const StoryStyles = css`
     max-width: inherit;
     margin-bottom: 48px;
     margin-top: 48px;
-    background-color: var(--md-sys-color-background);
-    border: 1px solid var(--md-sys-color-outline);
+    background-color: var(--md-sys-color-surface-container-low);
+    border: none;
     --ave-primary-color: var(--md-sys-color-primary);
-    --ave-header-color: #f5f5f5;
     --ave-accent-color: var(--md-sys-color-primary);
     --ave-secondary-color: var(--md-sys-color-primary);
-    --ave-item-color: var(--md-sys-color-on-background);
+    --ave-item-color: var(--md-sys-color-on-surface);
     --ave-monospace-font: 'Fira Code', monospace;
-    --ave-tab-color: var(--md-sys-color-on-background);
+    --ave-tab-color: var(--md-sys-color-on-surface);
     --ave-tab-selected-color: var(--md-sys-color-primary);
-    --ave-header-color: var(--md-sys-color-on-background);
+    --ave-header-color: var(--md-sys-color-on-surface);
     --ave-header-background: var(--md-sys-color-surface-variant);
+    --ave-tab-indicator-size: 6px;
     font-family: 'Roboto';
     color: inherit;
   }
@@ -39,13 +39,19 @@ const StoryStyles = css`
   }
 
   api-docs::part(docs-value) {
-    color: var(--md-sys-color-on-background);
-    font-size: 13px;
-    background: var(--md-sys-color-background);
-    border: 1px solid var(--md-sys-color-outline);
-    border-radius: 8px;
-    padding: 2px 8px;
-    margin: 12px 0;
+    font-family: var(--titanium-styles-p-font-family, Roboto, Noto, sans-serif);
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+    line-height: 20px;
+    color: var(--md-sys-color-on-surface);
+    background: var(--md-sys-color-surface-container-high);
+    border: none;
+    border-radius: 12px;
+    padding: 4px 12px;
+    margin: 8px 0;
     min-height: 24px;
   }
 
@@ -54,11 +60,14 @@ const StoryStyles = css`
   }
 
   api-docs::part(docs-label) {
-    letter-spacing: 0.07272727em;
-    font-size: 11px;
-    font-weight: 500;
-    line-height: 13px;
+    font-family: var(--titanium-styles-h2-font-family, Metropolis, Roboto, Noto, sans-serif);
+    -webkit-font-smoothing: antialiased;
+    font-size: 13px;
+    line-height: 17px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
     text-transform: uppercase;
+
     hyphens: auto;
     word-break: break-word;
     word-wrap: break-word;
@@ -73,18 +82,17 @@ const StoryStyles = css`
   }
 
   api-docs::part(md-p) {
+    font-family: var(--titanium-styles-p-font-family, Roboto, Noto, sans-serif);
+    -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 400;
-    color: var(--md-sys-color-on-background);
     letter-spacing: 0.2px;
     line-height: 20px;
-    margin: 0px;
-    padding: 12px 0;
   }
 
   api-docs::part(header-title) {
-    font-size: 16px;
+    font-size: 15px;
   }
 `;
 export default StoryStyles;

@@ -1,49 +1,60 @@
 import '../shared/story-header';
 
+import '@leavittsoftware/web/leavitt/app/app-main-content-container';
+import '@leavittsoftware/web/leavitt/app/app-navigation-header';
+import '@leavittsoftware/web/leavitt/app/app-width-limiter';
 import '@api-viewer/docs';
+
+import '@leavittsoftware/web/titanium/access-denied-page/access-denied-page';
 
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
-import '@leavittsoftware/web/titanium/access-denied-page/access-denied-page';
+import { p } from '@leavittsoftware/web/titanium/styles/styles';
+import { heroStyles } from '../styles/hero-styles';
+
 import StoryStyles from '../styles/story-styles';
 
 @customElement('titanium-access-denied-page-demo')
 export class TitaniumAccessDeniedPageDemo extends LitElement {
   static styles = [
     StoryStyles,
-    h1,
+    heroStyles,
     p,
     css`
       :host {
-        display: flex;
-        flex-direction: column;
+        display: grid;
+      }
 
-        margin: 24px 12px;
+      main {
+        display: grid;
+        align-content: start;
       }
 
       div {
-        border: 1px solid var(--md-sys-color-outline);
+        background: var(--md-sys-color-surface-container-low);
+        border-radius: 24px;
         padding: 24px;
-        border-radius: 8px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin: 24px 0 36px 0;
       }
     `,
   ];
 
   render() {
     return html`
-      <story-header name="Titanium access denied page" className="TitaniumAccessDeniedPage"></story-header>
-      <h1>Default</h1>
-      <p>Access denied page sample</p>
-      <div>
-        <titanium-access-denied-page message="You can customize this message"></titanium-access-denied-page>
-      </div>
-
-      <api-docs src="./custom-elements.json" selected="titanium-access-denied-page"></api-docs>
+      <leavitt-app-main-content-container .pendingStateElement=${this}>
+        <main>
+          <leavitt-app-navigation-header level1Text="Titanium access denied page" level1Href="/titanium-access-denied-page" sticky-top>
+          </leavitt-app-navigation-header>
+          <leavitt-app-width-limiter max-width="1000px">
+            <story-header name="Titanium access denied page" className="TitaniumAccessDeniedPage"></story-header>
+            <div>
+              <h3>Default</h3>
+              <p>Access denied page sample</p>
+              <titanium-access-denied-page message="You can customize this message"></titanium-access-denied-page>
+            </div>
+            <api-docs src="./custom-elements.json" selected="titanium-access-denied-page"></api-docs>
+          </leavitt-app-width-limiter>
+        </main>
+      </leavitt-app-main-content-container>
     `;
   }
 }

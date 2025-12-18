@@ -1,6 +1,6 @@
 import { css, html, LitElement, nothing, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
+import { p } from '@leavittsoftware/web/titanium/styles/styles';
 
 import '@material/web/chips/suggestion-chip';
 import { heroStyles } from '../styles/hero-styles';
@@ -48,6 +48,7 @@ export default class StoryHeader extends LitElement {
     if (changedProps.has('className') && this.className) {
       this.customElementsJSON = await getCustomElementsJSON();
       this.customElementDeclaration = this.customElementsJSON?.modules.flatMap((o) => o.declarations).find((o) => o.name === this.className) ?? null;
+      console.log(this.customElementDeclaration);
     }
   }
 
@@ -63,10 +64,6 @@ export default class StoryHeader extends LitElement {
       [code] {
         font-family: Consolas, monospace;
         font-size: 16px;
-      }
-
-      p[desc] {
-        margin-top: 12px;
       }
 
       info-container {
@@ -94,7 +91,6 @@ export default class StoryHeader extends LitElement {
         <p code>${this.className}</p>
         ${this.customElementDeclaration?.tagName ? html`<p code>${'<'}${this.customElementDeclaration?.tagName}${'>'}</p>` : ''}
       </info-container>
-      <p desc>${this.customElementDeclaration?.description}</p>
       <chip-container>
         ${this.deprecatedReason ? html`<md-suggestion-chip disabled label="Deprecated (${this.deprecatedReason})"></md-suggestion-chip>` : nothing}
       </chip-container>

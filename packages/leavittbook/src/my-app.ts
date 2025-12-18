@@ -16,6 +16,8 @@ import '@material/web/list/list';
 import '@material/web/list/list-item';
 import '@material/web/progress/circular-progress';
 
+import './shared/npm-stats';
+
 import { ChangePathEvent, RedirectPathEvent, SiteErrorEvent } from './events';
 import { LitElement, css, html, nothing } from 'lit';
 import { PendingStateEvent } from '@leavittsoftware/web/titanium/types/pending-state-event';

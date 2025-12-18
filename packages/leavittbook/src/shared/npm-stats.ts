@@ -82,8 +82,13 @@ export default class NpmStats extends LitElement {
       info-chip {
         height: 24px;
         padding: 0px 6px;
-        border: 1px var(--md-sys-color-outline-variant) solid;
-        border-radius: 12px;
+        border-radius: 28px;
+        font-size: 13px;
+        align-content: center;
+      }
+
+      .downloads {
+        opacity: 0.8;
       }
     `,
   ];
