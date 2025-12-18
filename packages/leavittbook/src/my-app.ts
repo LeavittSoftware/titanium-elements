@@ -1,49 +1,52 @@
+import '@leavittsoftware/web/leavitt/app/app-logo';
+import '@leavittsoftware/web/titanium/search-input/filled-search-input';
 import '@leavittsoftware/web/titanium/toolbar/toolbar';
 import '@leavittsoftware/web/titanium/snackbar/snackbar-stack';
-import '@leavittsoftware/web/titanium/full-page-loading-indicator/full-page-loading-indicator';
 import '@leavittsoftware/web/titanium/error-page/error-page';
-import '@leavittsoftware/web/titanium/service-worker-notifier/service-worker-notifier';
 import '@leavittsoftware/web/titanium/drawer/drawer';
 import '@leavittsoftware/web/leavitt/profile-picture/profile-picture-menu';
 import '@leavittsoftware/web/leavitt/user-feedback/report-a-problem-dialog';
 import '@leavittsoftware/web/leavitt/user-feedback/provide-feedback-dialog';
 
+import '@leavittsoftware/web/leavitt/error-page/error-page';
+
 import '@material/web/icon/icon';
 import '@material/web/iconbutton/icon-button';
-import '@material/web/iconbutton/outlined-icon-button';
 import '@material/web/list/list';
 import '@material/web/list/list-item';
-import './shared/npm-stats';
+import '@material/web/progress/circular-progress';
 
 import { ChangePathEvent, RedirectPathEvent, SiteErrorEvent } from './events';
 import { LitElement, css, html, nothing } from 'lit';
-import { TitaniumFullPageLoadingIndicator } from '@leavittsoftware/web/titanium/full-page-loading-indicator/full-page-loading-indicator';
 import { PendingStateEvent } from '@leavittsoftware/web/titanium/types/pending-state-event';
 import { customElement, property, query, state } from 'lit/decorators.js';
-import { ConfirmDialogOpenEvent } from '@leavittsoftware/web/titanium/confirm-dialog/confirm-dialog-open-event';
-import { installMediaQueryWatcher } from '@leavittsoftware/web/titanium/helpers/helpers';
 import { myAppStyles } from './styles/my-app-styles';
 import { TitaniumDrawer } from '@leavittsoftware/web/titanium/drawer/drawer';
 import { p } from '@leavittsoftware/web/titanium/styles/styles';
 import { ReportAProblemDialog } from '@leavittsoftware/web/leavitt/user-feedback/report-a-problem-dialog';
 import { ProvideFeedbackDialog } from '@leavittsoftware/web/leavitt/user-feedback/provide-feedback-dialog';
 
-import TitaniumConfirmDialog from '@leavittsoftware/web/titanium/confirm-dialog/confirm-dialog';
 import page from 'page';
 import themePreferenceEvent from '@leavittsoftware/web/leavitt/theme/theme-preference-event';
 import UserManager from './services/user-manager-service';
-
-const LGLogo = new URL('../images/lg-logo.svg', import.meta.url).href;
-const LGLogoWhite = new URL('../images/lg-logo-white.svg', import.meta.url).href;
+import { PendingStateCatcher } from '@leavittsoftware/web/titanium/helpers/pending-state-catcher';
+import { mainMenuPositionContext } from '@leavittsoftware/web/leavitt/app/contexts/main-menu-position-context';
+import { provide } from '@lit/context';
+import { siteSearchTermsContext } from './contexts/site-search-term-context';
+import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
+import TitaniumFilledSearchInput from '@leavittsoftware/web/titanium/search-input/filled-search-input';
 
 @customElement('my-app')
-export class MyApp extends LitElement {
+export class MyApp extends PendingStateCatcher(LitElement) {
   @state() private accessor page: string | undefined;
-  @state() private accessor fatalErrorMessage: string = '';
-  @state() private accessor isWideViewPort: boolean = false;
-  @property({ type: Boolean, reflect: true, attribute: 'collapse-main-menu' }) private accessor collapseMainMenu: boolean = false;
-  @query('titanium-confirm-dialog') private accessor confirmDialog: TitaniumConfirmDialog;
-  @query('titanium-full-page-loading-indicator') private accessor loadingIndicator: TitaniumFullPageLoadingIndicator;
+  @state() private accessor fatalErrorMessage: string | null = null;
+  @state() private accessor fatalErrorHeading: string | null = null;
+  @state() private accessor showSearch: boolean = false;
+
+  @provide({ context: mainMenuPositionContext })
+  @property({ type: String, reflect: true, attribute: 'main-menu-position' })
+  private mainMenuPosition: 'slim' | 'full' | 'drawer' = 'full';
+
   @query('titanium-drawer') private accessor drawer: TitaniumDrawer;
 
   async connectedCallback() {
@@ -88,20 +91,22 @@ export class MyApp extends LitElement {
       this.#applyTheme();
     });
 
-    installMediaQueryWatcher('(max-width: 920px)', async (matches) => {
-      this.isWideViewPort = !matches;
-      if (this.isWideViewPort) {
-        this.drawer.closeQuick();
-        this.collapseMainMenu = this.prefersCollapsedMenu;
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const width = entry.contentRect.width;
+        if (width < 600) {
+          this.mainMenuPosition = 'drawer';
+        } else if (width >= 600 && width < 920) {
+          this.mainMenuPosition = 'slim';
+          this.drawer?.closeQuick();
+        } else {
+          this.mainMenuPosition = this.prefersCollapsedMenu ? 'slim' : 'full';
+          this.drawer?.closeQuick();
+        }
       }
     });
 
-    await this.loadingIndicator.updateComplete;
-
-    this.addEventListener(ConfirmDialogOpenEvent.eventType, async (e: ConfirmDialogOpenEvent) => {
-      await import('@leavittsoftware/web/titanium/confirm-dialog/confirm-dialog');
-      this.confirmDialog.handleEvent(e);
-    });
+    resizeObserver.observe(this);
 
     this.addEventListener(ChangePathEvent.eventName, (event: ChangePathEvent) => {
       page.show(event.detail.path);
@@ -126,96 +131,56 @@ export class MyApp extends LitElement {
     });
     page('/getting-started', () => this.#changePage('getting-started', () => import('./getting-started.js')));
     page('/titanium-full-page-loading-indicator', () =>
-      this.#changePage(
-        'titanium-full-page-loading-indicator',
-        () => import('./demos/titanium-full-page-loading-indicator-demo.js')
-      )
+      this.#changePage('titanium-full-page-loading-indicator', () => import('./demos/titanium-full-page-loading-indicator-demo.js'))
     );
     page('/available-cdn-icons', () => this.#changePage('available-cdn-icons', () => import('./demos/available-cdn-icons-demo.js')));
 
-    page('/leavitt-company-select', () =>
-      this.#changePage('leavitt-company-select', () => import('./demos/leavitt-company-select-demo.js'))
-    );
-    page('/leavitt-file-explorer', () =>
-      this.#changePage('leavitt-file-explorer', () => import('./demos/leavitt-file-explorer-demo.js'))
-    );
+    page('/leavitt-company-select', () => this.#changePage('leavitt-company-select', () => import('./demos/leavitt-company-select-demo.js')));
+    page('/leavitt-file-explorer', () => this.#changePage('leavitt-file-explorer', () => import('./demos/leavitt-file-explorer-demo.js')));
 
-    page('/titanium-date-range-selector', () =>
-      this.#changePage('titanium-date-range-selector', () => import('./demos/titanium-date-range-selector-demo.js'))
-    );
-    page('/titanium-data-table-item', () =>
-      this.#changePage('titanium-data-table-item', () => import('./demos/titanium-data-table-item-demo.js'))
-    );
+    page('/titanium-date-range-selector', () => this.#changePage('titanium-date-range-selector', () => import('./demos/titanium-date-range-selector-demo.js')));
+    page('/titanium-data-table-item', () => this.#changePage('titanium-data-table-item', () => import('./demos/titanium-data-table-item-demo.js')));
 
-    page('/leavitt-person-select', () =>
-      this.#changePage('leavitt-person-select', () => import('./demos/leavitt-person-select-demo.js'))
-    );
+    page('/leavitt-person-select', () => this.#changePage('leavitt-person-select', () => import('./demos/leavitt-person-select-demo.js')));
     page('/leavitt-person-company-select', () =>
       this.#changePage('leavitt-person-company-select', () => import('./demos/leavitt-person-company-select-demo.js'))
     );
-    page('/leavitt-person-group-select', () =>
-      this.#changePage('leavitt-person-group-select', () => import('./demos/leavitt-person-group-select-demo.js'))
-    );
+    page('/leavitt-person-group-select', () => this.#changePage('leavitt-person-group-select', () => import('./demos/leavitt-person-group-select-demo.js')));
 
-    page('/leavitt-email-history-viewer', () =>
-      this.#changePage('leavitt-email-history-viewer', () => import('./demos/leavitt-email-history-viewer-demo.js'))
-    );
+    page('/leavitt-email-history-viewer', () => this.#changePage('leavitt-email-history-viewer', () => import('./demos/leavitt-email-history-viewer-demo.js')));
 
-    page('/leavitt-user-feedback', () =>
-      this.#changePage('leavitt-user-feedback', () => import('./demos/leavitt-user-feedback-demo.js'))
-    );
+    page('/leavitt-user-feedback', () => this.#changePage('leavitt-user-feedback', () => import('./demos/leavitt-user-feedback-demo.js')));
     page('/leavitt-error-page', () => this.#changePage('leavitt-error-page', () => import('./demos/leavitt-error-page-demo.js')));
     page('/profile-picture', () => this.#changePage('profile-picture', () => import('./demos/profile-picture-demo.js')));
     page('/profile-picture-menu', () => this.#changePage('profile-picture-menu', () => import('./demos/profile-picture-menu-demo.js')));
-    page('/titanium-access-denied-page', () =>
-      this.#changePage('titanium-access-denied-page', () => import('./demos/titanium-access-denied-page-demo.js'))
-    );
+    page('/titanium-access-denied-page', () => this.#changePage('titanium-access-denied-page', () => import('./demos/titanium-access-denied-page-demo.js')));
 
     page('/titanium-data-table', () => this.#changePage('titanium-data-table', () => import('./demos/titanium-data-table-demo.js')));
-    page('/titanium-data-table-item', () =>
-      this.#changePage('titanium-data-table-item', () => import('./demos/titanium-data-table-item-demo.js'))
-    );
+    page('/titanium-data-table-item', () => this.#changePage('titanium-data-table-item', () => import('./demos/titanium-data-table-item-demo.js')));
     page('/titanium-drawer', () => this.#changePage('titanium-drawer', () => import('./demos/titanium-drawer-demo.js')));
     page('/titanium-error-page', () => this.#changePage('titanium-error-page', () => import('./demos/titanium-error-page-demo.js')));
-    page('/titanium-address-input', () =>
-      this.#changePage('titanium-address-input', () => import('./demos/titanium-address-input-demo.js'))
-    );
+    page('/titanium-address-input', () => this.#changePage('titanium-address-input', () => import('./demos/titanium-address-input-demo.js')));
     page('/titanium-header', () => this.#changePage('titanium-header', () => import('./demos/titanium-header-demo.js')));
     page('/titanium-icon-picker', () => this.#changePage('titanium-icon-picker', () => import('./demos/titanium-icon-picker-demo.js')));
     page('/titanium-header', () => this.#changePage('titanium-header', () => import('./demos/titanium-header-demo.js')));
 
-    page('/titanium-chip-multi-select', () =>
-      this.#changePage('titanium-chip-multi-select', () => import('./demos/titanium-chip-multi-select-demo.js'))
-    );
-    page('/titanium-input-validator', () =>
-      this.#changePage('titanium-input-validator', () => import('./demos/titanium-input-validator-demo.js'))
-    );
-    page('/titanium-data-table-header', () =>
-      this.#changePage('titanium-data-table-header', () => import('./demos/titanium-data-table-header-demo.js'))
-    );
-    page('/titanium-data-table-core', () =>
-      this.#changePage('titanium-data-table-core', () => import('./demos/titanium-data-table-core-demo.js'))
-    );
+    page('/titanium-chip-multi-select', () => this.#changePage('titanium-chip-multi-select', () => import('./demos/titanium-chip-multi-select-demo.js')));
+    page('/titanium-input-validator', () => this.#changePage('titanium-input-validator', () => import('./demos/titanium-input-validator-demo.js')));
+    page('/titanium-data-table-header', () => this.#changePage('titanium-data-table-header', () => import('./demos/titanium-data-table-header-demo.js')));
+    page('/titanium-data-table-core', () => this.#changePage('titanium-data-table-core', () => import('./demos/titanium-data-table-core-demo.js')));
 
     page('/titanium-full-page-loading-indicator', () =>
-      this.#changePage(
-        'titanium-full-page-loading-indicator',
-        () => import('./demos/titanium-full-page-loading-indicator-demo.js')
-      )
+      this.#changePage('titanium-full-page-loading-indicator', () => import('./demos/titanium-full-page-loading-indicator-demo.js'))
     );
 
-    page('/titanium-page-control', () =>
-      this.#changePage('titanium-page-control', () => import('./demos/titanium-page-control-demo.js'))
-    );
+    page('/titanium-page-control', () => this.#changePage('titanium-page-control', () => import('./demos/titanium-page-control-demo.js')));
 
     page('/titanium-smart-attachment-input', () =>
       this.#changePage('titanium-smart-attachment-input', () => import('./demos/titanium-smart-attachment-input-demo.js'))
     );
     page('/titanium-date-input', () => this.#changePage('titanium-date-input', () => import('./demos/titanium-date-input-demo.js')));
 
-    page('/titanium-search-input', () =>
-      this.#changePage('titanium-search-input', () => import('./demos/titanium-search-input-demo.js'))
-    );
+    page('/titanium-search-input', () => this.#changePage('titanium-search-input', () => import('./demos/titanium-search-input-demo.js')));
 
     page('/titanium-toolbar', () => this.#changePage('titanium-toolbar', () => import('./demos/titanium-toolbar-demo.js')));
 
@@ -223,27 +188,18 @@ export class MyApp extends LitElement {
     page('/titanium-snackbar', () => this.#changePage('titanium-snackbar', () => import('./demos/titanium-snackbar-demo.js')));
     page('/titanium-card', () => this.#changePage('titanium-card', () => import('./demos/titanium-card-demo.js')));
     page('/titanium-chip', () => this.#changePage('titanium-chip', () => import('./demos/titanium-chip-demo.js')));
-    page('/titanium-youtube-input', () =>
-      this.#changePage('titanium-youtube-input', () => import('./demos/titanium-youtube-input-demo.js'))
-    );
+    page('/titanium-youtube-input', () => this.#changePage('titanium-youtube-input', () => import('./demos/titanium-youtube-input-demo.js')));
     page('/titanium-show-hide', () => this.#changePage('titanium-show-hide', () => import('./demos/titanium-show-hide-demo.js')));
-    page('/titanium-duration-input', () =>
-      this.#changePage('titanium-duration-input', () => import('./demos/titanium-duration-input-demo.js'))
-    );
+    page('/titanium-duration-input', () => this.#changePage('titanium-duration-input', () => import('./demos/titanium-duration-input-demo.js')));
     page('/titanium-profile-picture-stack', () =>
       this.#changePage('titanium-profile-picture-stack', () => import('./demos/titanium-profile-picture-stack-demo.js'))
     );
 
-    page('/titanium-confirm-dialog', () =>
-      this.#changePage('titanium-confirm-dialog', () => import('./demos/titanium-confirm-dialog-demo.js'))
-    );
-    page('/titanium-confirmation-dialog', () =>
-      this.#changePage('titanium-confirmation-dialog', () => import('./demos/titanium-confirmation-dialog-demo.js'))
-    );
+    page('/titanium-confirm-dialog', () => this.#changePage('titanium-confirm-dialog', () => import('./demos/titanium-confirm-dialog-demo.js')));
+    page('/titanium-confirmation-dialog', () => this.#changePage('titanium-confirmation-dialog', () => import('./demos/titanium-confirmation-dialog-demo.js')));
 
     page('*', () => {
-      this.fatalErrorMessage = 'We were unable to find the page you are looking for';
-      this.#changePage('error');
+      this.#showErrorPage();
     });
 
     page.start();
@@ -257,11 +213,23 @@ export class MyApp extends LitElement {
         this.dispatchEvent(new PendingStateEvent(importElements));
       }
       await importElements;
+
+      const pageElement = this.shadowRoot?.querySelector<HTMLElement & { searchTerm?: string }>(mainPage);
+      this.showSearch = pageElement?.hasAttribute('has-search') ?? false;
     } catch (error) {
       console.warn(error);
-      this.fatalErrorMessage = error;
-      this.page = 'error';
+      this.#showErrorPage(error);
     }
+  }
+
+  @provide({ context: siteSearchTermsContext })
+  @state()
+  private siteSearchTerms: Map<string, string> = new Map();
+
+  #showErrorPage(message?: string, heading?: string) {
+    this.fatalErrorHeading = heading || null;
+    this.fatalErrorMessage = message || null;
+    this.#changePage('error');
   }
 
   static styles = [
@@ -271,13 +239,6 @@ export class MyApp extends LitElement {
       titanium-drawer npm-stats {
         margin: 0 12px 12px 24px;
         gap: 12px;
-      }
-
-      titanium-drawer md-list-item {
-        height: 26px;
-        --md-list-item-one-line-container-height: 26px;
-        --md-list-item-label-text-size: 14px;
-        --md-list-item-label-text-weight: 400;
       }
 
       titanium-drawer md-icon {
@@ -300,6 +261,14 @@ export class MyApp extends LitElement {
         margin-right: 12px;
       }
 
+      titanium-drawer[main-menu]  {
+        md-list-item {
+          --md-list-item-one-line-container-height: 24px;
+          --md-list-item-top-space: 2px;
+          --md-list-item-bottom-space: 0px;
+        }
+      }
+
       titanium-drawer details {
         user-select: none;
       }
@@ -312,40 +281,63 @@ export class MyApp extends LitElement {
 
   render() {
     return html`<titanium-full-page-loading-indicator></titanium-full-page-loading-indicator>
-
       <titanium-toolbar>
+        <md-circular-progress ?hidden=${!this.stateIsPending} root-loading ?indeterminate=${this.stateIsPending}></md-circular-progress>
         <md-icon-button
+          hamburger
           title="Main menu"
+          ?hidden=${this.stateIsPending}
           @click=${() => {
-            if (this.isWideViewPort) {
-              this.collapseMainMenu = !this.collapseMainMenu;
-              this.prefersCollapsedMenu = this.collapseMainMenu;
-            } else {
+            const currentPosition = this.mainMenuPosition;
+            if (this.mainMenuPosition === 'drawer') {
               this.drawer?.open();
+            } else {
+              this.mainMenuPosition = currentPosition === 'slim' ? 'full' : 'slim';
+              this.prefersCollapsedMenu = this.mainMenuPosition === 'slim';
             }
           }}
         >
           <md-icon>menu</md-icon>
         </md-icon-button>
-        <a logo href="/" title="Back to home"><img src=${this.themePreference === 'dark' ? LGLogoWhite : LGLogo} /></a>
-        <h3 title="Leavitt book" @click=${() => page.show('/')} main-title>Leavitt book</h3>
-        <right-panel>
-          <md-outlined-icon-button
+
+        <leavitt-app-logo app-name="Skeleton"></leavitt-app-logo>
+
+        <titanium-filled-search-input
+          ?hidden=${!this.showSearch}
+          .value=${this.page ? this.siteSearchTerms.get(this.page) || '' : ''}
+          @input=${(e: DOMEvent<TitaniumFilledSearchInput>) => {
+            if (this.page) {
+              this.siteSearchTerms = structuredClone(this.siteSearchTerms).set(this.page, e.target.value);
+            }
+          }}
+        ></titanium-filled-search-input>
+
+        <page-actions>
+          <md-icon-button
             title="Switch to ${this.themePreference === 'light' ? 'dark' : 'light'} theme "
             themePref
             @click=${() => (this.themePreference = this.themePreference === 'light' ? 'dark' : 'light')}
           >
             <md-icon>${this.themePreference === 'light' ? 'dark_mode' : 'light_mode'}</md-icon>
-          </md-outlined-icon-button>
+          </md-icon-button>
           <profile-picture-menu size="36" .userManager=${UserManager}></profile-picture-menu>
-        </right-panel>
+        </page-actions>
       </titanium-toolbar>
 
-      <titanium-drawer ?always-show-content=${this.isWideViewPort && !this.collapseMainMenu}>
-        <a slot="header" logo href="/" title="Back to home"><img src=${this.themePreference === 'dark' ? LGLogoWhite : LGLogo} /></a>
-        <h3 slot="header">Titanium elements</h3>
-        <p slot="header">Leavitt group custom elements</p>
-
+      <titanium-drawer main-menu ?always-show-content=${this.mainMenuPosition !== 'drawer'}>
+        <header slot="header">
+          <leavitt-app-logo app-name="Titanium elements"></leavitt-app-logo>
+          <page-actions>
+            <md-icon-button
+              title="Switch to ${this.themePreference === 'light' ? 'dark' : 'light'} theme "
+              themePref
+              @click=${() => (this.themePreference = this.themePreference === 'light' ? 'dark' : 'light')}
+            >
+              <md-icon>${this.themePreference === 'light' ? 'dark_mode' : 'light_mode'}</md-icon>
+            </md-icon-button>
+            <profile-picture-menu size="36" .userManager=${UserManager}></profile-picture-menu>
+          </page-actions>
+        </header>
         <npm-stats></npm-stats>
 
         <md-list-item ?selected=${!!this.page?.includes('getting-started')} href="/getting-started" type="link">
@@ -672,7 +664,14 @@ export class MyApp extends LitElement {
             `
           : nothing}
         <titanium-access-denied-page ?hidden=${this.page !== 'access-denied'}></titanium-access-denied-page>
-        <titanium-error-page ?hidden=${this.page !== 'error'} .message=${this.fatalErrorMessage}></titanium-error-page>
+
+        <leavitt-error-page
+          ?hidden=${this.page !== 'error'}
+          .message=${this.fatalErrorMessage || "It looks like that page doesn't exist."}
+          .heading=${this.fatalErrorHeading || 'Hmm...'}
+        >
+          ${this.fatalErrorHeading === 'Sorry' ? html`<md-icon slot="icon">lock</md-icon>` : nothing}
+        </leavitt-error-page>
       </main-content>
 
       <report-a-problem-dialog .userManager=${UserManager}></report-a-problem-dialog>
