@@ -1,20 +1,23 @@
 import '../shared/story-header';
 
-import '@api-viewer/docs';
-import '@material/web/button/outlined-button';
+import '@leavittsoftware/web/leavitt/app/app-main-content-container';
+import '@leavittsoftware/web/leavitt/app/app-navigation-header';
+import '@leavittsoftware/web/leavitt/app/app-width-limiter';
+import '@material/web/button/filled-tonal-button';
 import '@material/web/icon/icon';
-import '@material/web/select/outlined-select';
-import '@material/web/select/select-option';
+import '@api-viewer/docs';
 
-import { css, html, LitElement } from 'lit';
-import { customElement, query, state } from 'lit/decorators.js';
-import { h1, h2, p } from '@leavittsoftware/web/titanium/styles/styles';
 import '@leavittsoftware/web/titanium/address-input/address-input';
 import '@leavittsoftware/web/titanium/address-input/google-address-input';
 
+import { css, html, LitElement } from 'lit';
+import { customElement, query, state } from 'lit/decorators.js';
+import { p } from '@leavittsoftware/web/titanium/styles/styles';
 import { TitaniumAddressInput } from '@leavittsoftware/web/titanium/address-input/address-input';
 import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
 import { GoogleAddressInput } from '@leavittsoftware/web/titanium/address-input/google-address-input';
+import { heroStyles } from '../styles/hero-styles';
+
 import StoryStyles from '../styles/story-styles';
 
 @customElement('titanium-address-input-demo')
@@ -30,29 +33,37 @@ export class TitaniumAddressInputDemo extends LitElement {
 
   static styles = [
     StoryStyles,
-    h1,
-    h2,
+    heroStyles,
     p,
     css`
       :host {
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-        margin: 24px 12px;
+        display: grid;
+      }
+
+      main {
+        display: grid;
+        align-content: start;
+      }
+
+      div {
+        background: var(--md-sys-color-surface-container-low);
+        border-radius: 24px;
+        padding: 24px;
+        margin-bottom: 48px;
+
+        &:last-of-type {
+          margin-bottom: 0;
+        }
       }
 
       h1,
       h2 {
-        margin-bottom: -12px;
+        margin-bottom: 12px;
       }
 
-      component-demo {
-        display: flex;
-        flex-direction: column;
-        border: 1px solid var(--md-sys-color-outline);
-        padding: 24px;
-        border-radius: 8px;
-        gap: 24px;
+      titanium-address-input,
+      google-address-input {
+        margin-bottom: 24px;
       }
 
       section[actions] {
@@ -61,227 +72,209 @@ export class TitaniumAddressInputDemo extends LitElement {
         flex-wrap: wrap;
         gap: 12px;
       }
-
-      [locked] {
-        display: block;
-        position: relative;
-        height: 300px;
-        max-width: 650px;
-        width: 100%;
-      }
-
-      [absolute] {
-        position: absolute;
-        top: 0;
-        right: 0;
-        left: 0;
-        bottom: 0;
-        will-change: transform;
-        width: 100%;
-      }
-
-      @media (min-width: 450px) {
-        titanium-address-input {
-          min-width: 400px;
-        }
-      }
     `,
   ];
 
   render() {
     return html`
-      <story-header name="Titanium address input" className="TitaniumAddressInput"></story-header>
-      <h1>Google address input</h1>
+      <leavitt-app-main-content-container .pendingStateElement=${this}>
+        <main>
+          <leavitt-app-navigation-header level1Text="Titanium address input" level1Href="/titanium-address-input" sticky-top> </leavitt-app-navigation-header>
+          <leavitt-app-width-limiter max-width="1000px">
+            <story-header name="Titanium address input" className="TitaniumAddressInput"></story-header>
+            <h1>Google address input</h1>
+            <div>
+              <h2>Main demo</h2>
+              <google-address-input
+                demo-a
+                autocomplete="street-address"
+                @selected=${(e: DOMEvent<GoogleAddressInput>) => console.log('selected change 1', e.target.selected)}
+                googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"
+              >
+              </google-address-input>
 
-      <component-demo>
-        <h2>Main demo</h2>
-        <google-address-input
-          demo-a
-          autocomplete="street-address"
-          @selected=${(e: DOMEvent<GoogleAddressInput>) => console.log('selected change 1', e.target.selected)}
-          googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"
-        >
-        </google-address-input>
+              <google-address-input
+                filled
+                demo-a-filled
+                autocomplete="street-address"
+                @selected=${(e: DOMEvent<GoogleAddressInput>) => console.log('selected change 1', e.target.selected)}
+                googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"
+              >
+              </google-address-input>
 
-        <google-address-input
-          filled
-          demo-a-filled
-          autocomplete="street-address"
-          @selected=${(e: DOMEvent<GoogleAddressInput>) => console.log('selected change 1', e.target.selected)}
-          googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"
-        >
-        </google-address-input>
+              <section actions>
+                <md-filled-tonal-button
+                  @click=${() => {
+                    this.googleAddressInputDemoA.reportValidity();
+                    console.log('googleAddressInputDemoAFilled', this.googleAddressInputDemoAFilled.reportValidity);
+                    this.googleAddressInputDemoAFilled.reportValidity();
+                  }}
+                  >reportValidity()</md-filled-tonal-button
+                >
+                <md-filled-tonal-button
+                  @click=${() => {
+                    this.googleAddressInputDemoA.required = !this.googleAddressInputDemoA.required;
+                    this.googleAddressInputDemoAFilled.required = !this.googleAddressInputDemoAFilled.required;
+                  }}
+                  >Toggle required</md-filled-tonal-button
+                >
 
-        <section actions>
-          <md-outlined-button
-            @click=${() => {
-              this.googleAddressInputDemoA.reportValidity();
-              console.log('googleAddressInputDemoAFilled', this.googleAddressInputDemoAFilled.reportValidity);
-              this.googleAddressInputDemoAFilled.reportValidity();
-            }}
-            >reportValidity()</md-outlined-button
-          >
-          <md-outlined-button
-            @click=${() => {
-              this.googleAddressInputDemoA.required = !this.googleAddressInputDemoA.required;
-              this.googleAddressInputDemoAFilled.required = !this.googleAddressInputDemoAFilled.required;
-            }}
-            >Toggle required</md-outlined-button
-          >
+                <md-filled-tonal-button
+                  @click=${() => {
+                    this.googleAddressInputDemoA.disabled = !this.googleAddressInputDemoA.disabled;
+                    this.googleAddressInputDemoAFilled.disabled = !this.googleAddressInputDemoAFilled.disabled;
+                  }}
+                  >Toggle disabled</md-filled-tonal-button
+                >
 
-          <md-outlined-button
-            @click=${() => {
-              this.googleAddressInputDemoA.disabled = !this.googleAddressInputDemoA.disabled;
-              this.googleAddressInputDemoAFilled.disabled = !this.googleAddressInputDemoAFilled.disabled;
-            }}
-            >Toggle disabled</md-outlined-button
-          >
+                <md-filled-tonal-button
+                  @click=${() => {
+                    this.googleAddressInputDemoA.supportingText = this.googleAddressInputDemoA.supportingText ? '' : 'Select an address above';
+                    this.googleAddressInputDemoAFilled.supportingText = this.googleAddressInputDemoAFilled.supportingText ? '' : 'Select an address above';
+                  }}
+                  >Toggle supporting text</md-filled-tonal-button
+                >
+                <md-filled-tonal-button
+                  @click=${() => {
+                    this.googleAddressInputDemoA.selected = {
+                      Id: '1',
+                      street: '11 North Main Street',
+                      city: 'Cedar City',
+                      state: 'UT',
+                      zip: '84720',
+                    };
+                    this.googleAddressInputDemoAFilled.selected = {
+                      Id: '1',
+                      street: '11 North Main Street',
+                      city: 'Cedar City',
+                      state: 'UT',
+                      zip: '84720',
+                    };
+                  }}
+                  >Prefill an address</md-filled-tonal-button
+                >
+                <md-filled-tonal-button
+                  @click=${() => {
+                    this.googleAddressInputDemoA.reset();
+                    this.googleAddressInputDemoAFilled.reset();
+                  }}
+                  >reset()</md-filled-tonal-button
+                >
+              </section>
+            </div>
 
-          <md-outlined-button
-            @click=${() => {
-              this.googleAddressInputDemoA.supportingText = this.googleAddressInputDemoA.supportingText ? '' : 'Select an address above';
-              this.googleAddressInputDemoAFilled.supportingText = this.googleAddressInputDemoAFilled.supportingText ? '' : 'Select an address above';
-            }}
-            >Toggle supporting text</md-outlined-button
-          >
-          <md-outlined-button
-            @click=${() => {
-              this.googleAddressInputDemoA.selected = {
-                Id: '1',
-                street: '11 North Main Street',
-                city: 'Cedar City',
-                state: 'UT',
-                zip: '84720',
-              };
-              this.googleAddressInputDemoAFilled.selected = {
-                Id: '1',
-                street: '11 North Main Street',
-                city: 'Cedar City',
-                state: 'UT',
-                zip: '84720',
-              };
-            }}
-            >Prefill an address</md-outlined-button
-          >
-          <md-outlined-button
-            @click=${() => {
-              this.googleAddressInputDemoA.reset();
-              this.googleAddressInputDemoAFilled.reset();
-            }}
-            >reset()</md-outlined-button
-          >
-        </section>
-      </component-demo>
-      <component-demo>
-        <h2>Slots demo</h2>
-        <google-address-input
-          autocomplete="address"
-          label="Slots"
-          @selected=${(e: DOMEvent<GoogleAddressInput>) => console.log('selected change 1', e.target.selected)}
-          googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"
-        >
-          <md-icon slot="trailing-icon">security</md-icon><md-icon slot="leading-icon">map</md-icon>
-        </google-address-input>
-      </component-demo>
+            <div>
+              <h2>Slots demo</h2>
+              <google-address-input
+                autocomplete="address"
+                label="Slots"
+                @selected=${(e: DOMEvent<GoogleAddressInput>) => console.log('selected change 1', e.target.selected)}
+                googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"
+              >
+                <md-icon slot="trailing-icon">security</md-icon><md-icon slot="leading-icon">map</md-icon>
+              </google-address-input>
+            </div>
 
-      <h1>Titanium address input</h1>
+            <h1>Titanium address input</h1>
 
-      <component-demo>
-        <h2>Main demo</h2>
-        <titanium-address-input
-          ?allow-international=${this.allowInternational}
-          autocomplete="address"
-          demo-a
-          @selected=${(e: DOMEvent<GoogleAddressInput>) => console.log('selected change 1', e.target.selected)}
-          googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"
-        >
-        </titanium-address-input>
+            <div>
+              <h2>Main demo</h2>
+              <titanium-address-input
+                ?allow-international=${this.allowInternational}
+                autocomplete="address"
+                demo-a
+                @selected=${(e: DOMEvent<GoogleAddressInput>) => console.log('selected change 1', e.target.selected)}
+                googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"
+              >
+              </titanium-address-input>
 
-        <titanium-address-input
-          filled
-          ?allow-international=${this.allowInternational}
-          autocomplete="address"
-          demo-a-filled
-          @selected=${(e: DOMEvent<GoogleAddressInput>) => console.log('selected change 1', e.target.selected)}
-          googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"
-        >
-        </titanium-address-input>
+              <titanium-address-input
+                filled
+                ?allow-international=${this.allowInternational}
+                autocomplete="address"
+                demo-a-filled
+                @selected=${(e: DOMEvent<GoogleAddressInput>) => console.log('selected change 1', e.target.selected)}
+                googleMapsApiKey="AIzaSyBO1C4Ek3L3sswvLxCjWIN-xgZayWyhp-k"
+              >
+              </titanium-address-input>
 
-        <section actions>
-          <md-outlined-button @click=${() => (this.allowInternational = !this.allowInternational)}>Allow international</md-outlined-button>
-          <md-outlined-button
-            @click=${() => {
-              this.titaniumAddressInputDemoA.reportValidity();
-              this.titaniumAddressInputDemoAFilled.reportValidity();
-            }}
-            >reportValidity()</md-outlined-button
-          >
-          <md-outlined-button
-            @click=${() => {
-              this.titaniumAddressInputDemoA.required = !this.titaniumAddressInputDemoA.required;
-              this.titaniumAddressInputDemoAFilled.required = !this.titaniumAddressInputDemoAFilled.required;
-            }}
-            >Toggle required</md-outlined-button
-          >
+              <section actions>
+                <md-filled-tonal-button @click=${() => (this.allowInternational = !this.allowInternational)}>Allow international</md-filled-tonal-button>
+                <md-filled-tonal-button
+                  @click=${() => {
+                    this.titaniumAddressInputDemoA.reportValidity();
+                    this.titaniumAddressInputDemoAFilled.reportValidity();
+                  }}
+                  >reportValidity()</md-filled-tonal-button
+                >
+                <md-filled-tonal-button
+                  @click=${() => {
+                    this.titaniumAddressInputDemoA.required = !this.titaniumAddressInputDemoA.required;
+                    this.titaniumAddressInputDemoAFilled.required = !this.titaniumAddressInputDemoAFilled.required;
+                  }}
+                  >Toggle required</md-filled-tonal-button
+                >
 
-          <md-outlined-button
-            @click=${() => {
-              this.titaniumAddressInputDemoA.disabled = !this.titaniumAddressInputDemoA.disabled;
-              this.titaniumAddressInputDemoAFilled.disabled = !this.titaniumAddressInputDemoAFilled.disabled;
-            }}
-            >Toggle disabled</md-outlined-button
-          >
+                <md-filled-tonal-button
+                  @click=${() => {
+                    this.titaniumAddressInputDemoA.disabled = !this.titaniumAddressInputDemoA.disabled;
+                    this.titaniumAddressInputDemoAFilled.disabled = !this.titaniumAddressInputDemoAFilled.disabled;
+                  }}
+                  >Toggle disabled</md-filled-tonal-button
+                >
 
-          <md-outlined-button
-            @click=${() => {
-              this.titaniumAddressInputDemoA.supportingText = this.titaniumAddressInputDemoA.supportingText ? '' : 'Select an address above';
-              this.titaniumAddressInputDemoAFilled.supportingText = this.titaniumAddressInputDemoAFilled.supportingText ? '' : 'Select an address above';
-            }}
-            >Toggle supporting text</md-outlined-button
-          >
+                <md-filled-tonal-button
+                  @click=${() => {
+                    this.titaniumAddressInputDemoA.supportingText = this.titaniumAddressInputDemoA.supportingText ? '' : 'Select an address above';
+                    this.titaniumAddressInputDemoAFilled.supportingText = this.titaniumAddressInputDemoAFilled.supportingText ? '' : 'Select an address above';
+                  }}
+                  >Toggle supporting text</md-filled-tonal-button
+                >
 
-          <md-outlined-button
-            @click=${() => {
-              this.titaniumAddressInputDemoA.showCounty = !this.titaniumAddressInputDemoA.showCounty;
-              this.titaniumAddressInputDemoAFilled.showCounty = !this.titaniumAddressInputDemoAFilled.showCounty;
-            }}
-            >Toggle show county</md-outlined-button
-          >
+                <md-filled-tonal-button
+                  @click=${() => {
+                    this.titaniumAddressInputDemoA.showCounty = !this.titaniumAddressInputDemoA.showCounty;
+                    this.titaniumAddressInputDemoAFilled.showCounty = !this.titaniumAddressInputDemoAFilled.showCounty;
+                  }}
+                  >Toggle show county</md-filled-tonal-button
+                >
 
-          <md-outlined-button
-            @click=${() => {
-              this.titaniumAddressInputDemoA.showStreet2 = !this.titaniumAddressInputDemoA.showStreet2;
-              this.titaniumAddressInputDemoAFilled.showStreet2 = !this.titaniumAddressInputDemoAFilled.showStreet2;
-            }}
-            >Toggle show street2</md-outlined-button
-          >
+                <md-filled-tonal-button
+                  @click=${() => {
+                    this.titaniumAddressInputDemoA.showStreet2 = !this.titaniumAddressInputDemoA.showStreet2;
+                    this.titaniumAddressInputDemoAFilled.showStreet2 = !this.titaniumAddressInputDemoAFilled.showStreet2;
+                  }}
+                  >Toggle show street2</md-filled-tonal-button
+                >
 
-          <md-outlined-button
-            @click=${() => {
-              this.titaniumAddressInputDemoA.selected = {
-                Id: '1',
-                street: '11 North Main Street',
-                city: 'Cedar City',
-                state: 'UT',
-                zip: '84720',
-                country: 'US',
-              };
-              this.titaniumAddressInputDemoAFilled.selected = {
-                Id: '1',
-                street: '11 North Main Street',
-                city: 'Cedar City',
-                state: 'UT',
-                zip: '84720',
-                country: 'US',
-              };
-            }}
-            >Prefill an address</md-outlined-button
-          >
-          <md-outlined-button @click=${() => this.titaniumAddressInputDemoA.reset()}>reset()</md-outlined-button>
-        </section>
-      </component-demo>
-
-      <api-docs src="./custom-elements.json" selected="titanium-address-input"></api-docs>
+                <md-filled-tonal-button
+                  @click=${() => {
+                    this.titaniumAddressInputDemoA.selected = {
+                      Id: '1',
+                      street: '11 North Main Street',
+                      city: 'Cedar City',
+                      state: 'UT',
+                      zip: '84720',
+                      country: 'US',
+                    };
+                    this.titaniumAddressInputDemoAFilled.selected = {
+                      Id: '1',
+                      street: '11 North Main Street',
+                      city: 'Cedar City',
+                      state: 'UT',
+                      zip: '84720',
+                      country: 'US',
+                    };
+                  }}
+                  >Prefill an address</md-filled-tonal-button
+                >
+                <md-filled-tonal-button @click=${() => this.titaniumAddressInputDemoA.reset()}>reset()</md-filled-tonal-button>
+              </section>
+            </div>
+            <api-docs src="./custom-elements.json" selected="titanium-address-input"></api-docs>
+          </leavitt-app-width-limiter>
+        </main>
+      </leavitt-app-main-content-container>
     `;
   }
 }

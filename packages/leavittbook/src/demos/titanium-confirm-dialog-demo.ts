@@ -1,18 +1,26 @@
 import '../shared/story-header';
 
+import '@leavittsoftware/web/leavitt/app/app-main-content-container';
+import '@leavittsoftware/web/leavitt/app/app-navigation-header';
+import '@leavittsoftware/web/leavitt/app/app-width-limiter';
 import '@api-viewer/docs';
-import '@material/web/button/outlined-button';
+
+import '@material/web/button/filled-tonal-button';
 
 import { css, html, LitElement } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
+import { customElement, query, state } from 'lit/decorators.js';
+import { p } from '@leavittsoftware/web/titanium/styles/styles';
 import '@leavittsoftware/web/titanium/confirm-dialog/confirm-dialog';
 import { ConfirmDialogOpenEvent } from '@leavittsoftware/web/titanium/confirm-dialog/confirm-dialog-open-event';
+import { heroStyles } from '../styles/hero-styles';
+
 import StoryStyles from '../styles/story-styles';
+import TitaniumConfirmDialog from '@leavittsoftware/web/titanium/confirm-dialog/confirm-dialog';
 
 @customElement('titanium-confirm-dialog-demo')
 export class TitaniumConfirmDialogDemo extends LitElement {
   @state() private accessor confirmed = false;
+  @query('titanium-confirm-dialog') private accessor confirmDialog!: TitaniumConfirmDialog;
 
   async #open() {
     const confirmationDialogEvent = new ConfirmDialogOpenEvent(
@@ -23,50 +31,57 @@ export class TitaniumConfirmDialogDemo extends LitElement {
     this.confirmed = await confirmationDialogEvent.dialogResult;
   }
 
+  firstUpdated() {
+    this.addEventListener(ConfirmDialogOpenEvent.eventType, async (e: ConfirmDialogOpenEvent) => {
+      await import('@leavittsoftware/web/titanium/confirm-dialog/confirm-dialog');
+      this.confirmDialog.handleEvent(e);
+    });
+  }
+
   static styles = [
     StoryStyles,
-    h1,
+    heroStyles,
     p,
     css`
       :host {
-        display: flex;
-        flex-direction: column;
-        margin: 24px 12px;
+        display: grid;
+      }
+
+      main {
+        display: grid;
+        align-content: start;
       }
 
       div {
-        border: 1px solid var(--md-sys-color-outline);
+        background: var(--md-sys-color-surface-container-low);
+        border-radius: 24px;
         padding: 24px;
-        border-radius: 8px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin: 24px 0 36px 0;
       }
 
-      section[buttons] {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 12px;
+      p {
+        margin-bottom: 12px;
       }
     `,
   ];
 
   render() {
     return html`
-      <story-header name="Titanium confirm dialog" className="TitaniumConfirmDialog"></story-header>
-      <h1>Default</h1>
-      <p>Confirmation dialog with custom title and message</p>
-      <div>
-        <p>Confirmed: ${this.confirmed}</p>
-        <br />
-        <section buttons>
-          <md-outlined-button @click=${this.#open}>Open</md-outlined-button>
-        </section>
-      </div>
-
-      <api-docs src="./custom-elements.json" selected="titanium-confirm-dialog"></api-docs>
+      <leavitt-app-main-content-container .pendingStateElement=${this}>
+        <main>
+          <leavitt-app-navigation-header level1Text="Titanium confirm dialog" level1Href="/titanium-confirm-dialog" sticky-top> </leavitt-app-navigation-header>
+          <leavitt-app-width-limiter max-width="1000px">
+            <story-header name="Titanium confirm dialog" className="TitaniumConfirmDialog"></story-header>
+            <div>
+              <h1>Default</h1>
+              <p>Confirmation dialog with custom title and message</p>
+              <p>Confirmed: ${this.confirmed}</p>
+                <md-filled-tonal-button @click=${this.#open}>Open</md-filled-tonal-button>
+            </div>
+            <api-docs src="./custom-elements.json" selected="titanium-confirm-dialog"></api-docs>
+          </leavitt-app-width-limiter>
+        </main>
+      </leavitt-app-main-content-container>
+      <titanium-confirm-dialog></titanium-confirm-dialog>
     `;
   }
 }
