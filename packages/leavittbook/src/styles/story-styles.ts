@@ -94,5 +94,34 @@ const StoryStyles = css`
   api-docs::part(header-title) {
     font-size: 15px;
   }
+
+  deprecation-notice {
+    background: var(--md-sys-color-surface-container);
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    display: flex;
+    place-items: center;
+
+    p {
+      opacity: 0.8;
+      font-size: 13px;
+    }
+
+    md-icon {
+      --md-icon-size: 16px;
+      margin-right: 6px;
+      color: var(--app-accent-color-orange);
+    }
+
+    kbd {
+      background: var(--md-sys-color-surface-container-highest);
+      padding: 2px 4px;
+      border-radius: 28px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--md-sys-color-on-surface);
+    }
+  }
 `;
 export default StoryStyles;

@@ -75,35 +75,6 @@ export class TitaniumDurationInputDemo extends LitElement {
         flex-wrap: wrap;
         gap: 12px;
       }
-
-      deprecation-notice {
-        background: var(--md-sys-color-surface-container);
-        padding: 12px;
-        border-radius: 12px;
-        margin-bottom: 24px;
-        display: flex;
-        place-items: center;
-
-        p {
-          opacity: 0.8;
-          font-size: 13px;
-        }
-
-        md-icon {
-          --md-icon-size: 16px;
-          margin-right: 6px;
-          color: var(--app-accent-color-orange);
-        }
-
-        kbd {
-          background: var(--md-sys-color-surface-container-highest);
-          padding: 2px 4px;
-          border-radius: 28px;
-          font-size: 11px;
-          font-weight: 500;
-          color: var(--md-sys-color-on-surface);
-        }
-      }
     `,
   ];
 
@@ -117,7 +88,10 @@ export class TitaniumDurationInputDemo extends LitElement {
             <story-header name="Titanium duration input" className="TitaniumDurationInput"></story-header>
             <deprecation-notice>
               <md-icon>warning</md-icon>
-              <p><kbd>titanium-duration-input</kbd> is deprecated. Use titanium-filled-duration-input or titanium-outlined-duration-input instead (shown below).</p>
+              <p>
+                <kbd>titanium-duration-input</kbd> is deprecated. Use <kbd>titanium-filled-duration-input</kbd> or
+                <kbd>titanium-outlined-duration-input</kbd> instead (shown below).
+              </p>
             </deprecation-notice>
             <div>
               <h1>Basic duration inputs</h1>
