@@ -1,11 +1,15 @@
 import '../shared/story-header';
 
+import '@leavittsoftware/web/leavitt/app/app-main-content-container';
+import '@leavittsoftware/web/leavitt/app/app-navigation-header';
+import '@leavittsoftware/web/leavitt/app/app-width-limiter';
 import '@api-viewer/docs';
-import '@material/web/button/outlined-button';
+
+import '@material/web/button/filled-tonal-button';
 
 import { css, html, LitElement } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
+import { p } from '@leavittsoftware/web/titanium/styles/styles';
 import '@leavittsoftware/web/titanium/duration-input/duration-input';
 import '@leavittsoftware/web/titanium/duration-input/filled-duration-input';
 import '@leavittsoftware/web/titanium/duration-input/outlined-duration-input';
@@ -15,6 +19,8 @@ import { TitaniumOutlinedDurationInput } from '@leavittsoftware/web/titanium/dur
 import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
 import dayjs from 'dayjs/esm';
 import duration from 'dayjs/esm/plugin/duration';
+import { heroStyles } from '../styles/hero-styles';
+
 import StoryStyles from '../styles/story-styles';
 
 dayjs.extend(duration);
@@ -25,29 +31,42 @@ export class TitaniumDurationInputDemo extends LitElement {
   @state() private accessor filledDuration: duration.Duration | null = dayjs.duration(14400);
   @state() private accessor outlinedDuration: duration.Duration | null = dayjs.duration(14400);
 
-  @query('titanium-duration-input') private accessor input: TitaniumDurationInput;
   @query('titanium-filled-duration-input') private accessor filledInput: TitaniumFilledDurationInput;
   @query('titanium-outlined-duration-input') private accessor outlinedInput: TitaniumOutlinedDurationInput;
 
   static styles = [
     StoryStyles,
-    h1,
+    heroStyles,
     p,
     css`
       :host {
-        display: flex;
-        flex-direction: column;
-        margin: 24px 12px;
+        display: grid;
+      }
+
+      main {
+        display: grid;
+        align-content: start;
       }
 
       div {
-        border: 1px solid var(--md-sys-color-outline);
+        background: var(--md-sys-color-surface-container-low);
+        border-radius: 24px;
         padding: 24px;
-        border-radius: 8px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin: 24px 0 36px 0;
+        margin-bottom: 48px;
+
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+      }
+
+      titanium-filled-duration-input,
+      titanium-outlined-duration-input {
+        width: 100%;
+        margin-bottom: 24px;
+      }
+
+      h1 {
+        margin-bottom: 12px;
       }
 
       section[buttons] {
@@ -56,55 +75,107 @@ export class TitaniumDurationInputDemo extends LitElement {
         flex-wrap: wrap;
         gap: 12px;
       }
+
+      deprecation-notice {
+        background: var(--md-sys-color-surface-container);
+        padding: 12px;
+        border-radius: 12px;
+        margin-bottom: 24px;
+        display: flex;
+        place-items: center;
+
+        p {
+          opacity: 0.8;
+          font-size: 13px;
+        }
+
+        md-icon {
+          --md-icon-size: 16px;
+          margin-right: 6px;
+          color: var(--app-accent-color-orange);
+        }
+
+        kbd {
+          background: var(--md-sys-color-surface-container-highest);
+          padding: 2px 4px;
+          border-radius: 28px;
+          font-size: 11px;
+          font-weight: 500;
+          color: var(--md-sys-color-on-surface);
+        }
+      }
     `,
   ];
 
   render() {
     return html`
-      <story-header name="Titanium duration input" className="TitaniumDurationInput"></story-header>
-      <h1>Basic duration inputs</h1>
-      <p>Duration input components with different styles</p>
+      <leavitt-app-main-content-container .pendingStateElement=${this}>
+        <main>
+          <leavitt-app-navigation-header level1Text="Titanium duration input" level1Href="/titanium-duration-input" sticky-top> </leavitt-app-navigation-header>
 
-      <div>
-        <titanium-duration-input
-          label="Duration"
-          .value=${this.duration}
-          @change=${(e: DOMEvent<TitaniumDurationInput>) => {
-            this.duration = e.target.value;
-          }}
-        ></titanium-duration-input>
+          <leavitt-app-width-limiter max-width="1000px">
+            <story-header name="Titanium duration input" className="TitaniumDurationInput"></story-header>
+            <deprecation-notice>
+              <md-icon>warning</md-icon>
+              <p><kbd>titanium-duration-input</kbd> is deprecated. Use titanium-filled-duration-input or titanium-outlined-duration-input instead (shown below).</p>
+            </deprecation-notice>
+            <div>
+              <h1>Basic duration inputs</h1>
 
-        <titanium-filled-duration-input
-          label="Filled Duration"
-          .value=${this.filledDuration}
-          @change=${(e: DOMEvent<TitaniumFilledDurationInput>) => {
-            this.filledDuration = e.target.value;
-          }}
-        ></titanium-filled-duration-input>
+              <titanium-filled-duration-input
+                label="Filled Duration"
+                .value=${this.filledDuration}
+                @change=${(e: DOMEvent<TitaniumFilledDurationInput>) => {
+                  this.filledDuration = e.target.value;
+                }}
+              ></titanium-filled-duration-input>
+              <br />
 
-        <titanium-outlined-duration-input
-          label="Outlined Duration"
-          .value=${this.outlinedDuration}
-          @change=${(e: DOMEvent<TitaniumOutlinedDurationInput>) => {
-            this.outlinedDuration = e.target.value;
-          }}
-        ></titanium-outlined-duration-input>
+              <titanium-outlined-duration-input
+                label="Outlined Duration"
+                .value=${this.outlinedDuration}
+                @change=${(e: DOMEvent<TitaniumOutlinedDurationInput>) => {
+                  this.outlinedDuration = e.target.value;
+                }}
+              ></titanium-outlined-duration-input>
 
-        <section buttons>
-          <md-outlined-button @click=${() => this.input.reset()}>Reset</md-outlined-button>
-          <md-outlined-button @click=${() => this.input.focus()}>Focus</md-outlined-button>
-          <md-outlined-button @click=${() => this.input.reportValidity()}>Report validity</md-outlined-button>
-        </section>
-      </div>
+              <section buttons>
+                <md-filled-tonal-button
+                  @click=${() => {
+                    this.filledInput.reset();
+                    this.outlinedInput.reset();
+                  }}
+                  >Reset</md-filled-tonal-button
+                >
+                <md-filled-tonal-button
+                  @click=${() => {
+                    this.filledInput.focus();
+                    this.outlinedInput.focus();
+                  }}
+                  >Focus</md-filled-tonal-button
+                >
+                <md-filled-tonal-button
+                  @click=${() => {
+                    this.filledInput.reportValidity();
+                    this.outlinedInput.reportValidity();
+                  }}
+                  >Report validity</md-filled-tonal-button
+                >
+              </section>
+            </div>
 
-      <h1>With different durations</h1>
-      <div>
-        <titanium-duration-input label="1 hour" .value=${dayjs.duration(3600)}></titanium-duration-input>
-        <titanium-duration-input label="30 minutes" .value=${dayjs.duration(1800)}></titanium-duration-input>
-        <titanium-duration-input label="2 hours 30 min" .value=${dayjs.duration(9000)}></titanium-duration-input>
-      </div>
+            <div>
+              <h1>With different durations</h1>
+              <titanium-outlined-duration-input label="1 hour" .value=${dayjs.duration(3600)}></titanium-outlined-duration-input>
+              <titanium-outlined-duration-input label="30 minutes" .value=${dayjs.duration(1800)}></titanium-outlined-duration-input>
+              <titanium-outlined-duration-input label="2 hours 30 min" .value=${dayjs.duration(9000)}></titanium-outlined-duration-input>
+            </div>
 
-      <api-docs src="./custom-elements.json" selected="titanium-duration-input"></api-docs>
+            <api-docs src="./custom-elements.json" selected="titanium-filled-duration-input"></api-docs>
+            <api-docs src="./custom-elements.json" selected="titanium-outlined-duration-input"></api-docs>
+          </leavitt-app-width-limiter>
+        </main>
+      </leavitt-app-main-content-container>
     `;
   }
 }
