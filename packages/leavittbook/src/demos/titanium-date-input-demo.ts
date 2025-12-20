@@ -1,36 +1,48 @@
 import '../shared/story-header';
 
-import '@api-viewer/docs';
-import '@leavittsoftware/web/titanium/card/card';
-import '@material/web/button/outlined-button';
+import '@leavittsoftware/web/leavitt/app/app-main-content-container';
+import '@leavittsoftware/web/leavitt/app/app-navigation-header';
+import '@leavittsoftware/web/leavitt/app/app-width-limiter';
+import '@material/web/button/filled-tonal-button';
 import '@material/web/textfield/outlined-text-field';
 import '@material/web/textfield/filled-text-field';
+import '@api-viewer/docs';
+
+import '@leavittsoftware/web/titanium/date-input/date-input';
 
 import { css, html, LitElement } from 'lit';
-import { customElement, query, state } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
-import '@leavittsoftware/web/titanium/date-input/date-input';
+import { customElement, query } from 'lit/decorators.js';
+import { p } from '@leavittsoftware/web/titanium/styles/styles';
 import { TitaniumDateInput } from '@leavittsoftware/web/titanium/date-input/date-input';
 import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
+import { heroStyles } from '../styles/hero-styles';
+
 import StoryStyles from '../styles/story-styles';
 
 @customElement('titanium-date-input-demo')
 export class TitaniumDateInputDemo extends LitElement {
-  @query('titanium-date-input[demo1]') protected accessor input!: TitaniumDateInput;
+  @query('titanium-date-input') protected accessor input!: TitaniumDateInput;
   @query('titanium-date-input[filled]') protected accessor filledInput!: TitaniumDateInput;
-
-  @state() private accessor value: string;
 
   static styles = [
     StoryStyles,
-    h1,
+    heroStyles,
     p,
     css`
       :host {
-        display: flex;
-        flex-direction: column;
-        margin: 24px 12px;
-        gap: 24px;
+        display: grid;
+      }
+
+      main {
+        display: grid;
+        align-content: start;
+      }
+
+      div {
+        background: var(--md-sys-color-surface-container-low);
+        border-radius: 24px;
+        padding: 24px;
+        margin-bottom: 48px;
       }
 
       md-filled-text-field {
@@ -42,8 +54,9 @@ export class TitaniumDateInputDemo extends LitElement {
         --md-filled-text-field-disabled-active-indicator-height: 0;
       }
 
-      titanium-card {
-        gap: 24px;
+      titanium-date-input,
+      h1 {
+        margin-bottom: 12px;
       }
 
       two-column {
@@ -63,37 +76,64 @@ export class TitaniumDateInputDemo extends LitElement {
 
   render() {
     return html`
-      <story-header name="Titanium date input" className="TitaniumDateInput"></story-header>
-      <h1>Basic date input</h1>
-      <p>Date input component with various configurations</p>
+      <leavitt-app-main-content-container .pendingStateElement=${this}>
+        <main>
+          <leavitt-app-navigation-header level1Text="Titanium date input" level1Href="/titanium-date-input" sticky-top> </leavitt-app-navigation-header>
+          <leavitt-app-width-limiter max-width="1000px">
+            <story-header name="Titanium date input" className="TitaniumDateInput"></story-header>
 
-      <titanium-card>
-        <two-column>
-          <titanium-date-input demo1 label="Date" @change=${(e: DOMEvent<TitaniumDateInput>) => console.log('change', e.target.value)}></titanium-date-input>
-          <titanium-date-input filled label="Filled" @change=${(e: DOMEvent<TitaniumDateInput>) => console.log('change', e.target.value)}></titanium-date-input>
-        </two-column>
+            <div>
+              <h1>Basic date input</h1>
 
-        <section buttons>
-          <md-outlined-button @click=${() => this.input.reset()}>Reset</md-outlined-button>
-          <md-outlined-button @click=${() => this.input.focus()}>Focus</md-outlined-button>
-          <md-outlined-button @click=${() => this.input.reportValidity()}>Report validity</md-outlined-button>
-        </section>
-      </titanium-card>
+              <two-column>
+                <titanium-date-input
+                  required
+                  label="Date"
+                  @change=${(e: DOMEvent<TitaniumDateInput>) => console.log('change', e.target.value)}
+                ></titanium-date-input>
+                <titanium-date-input
+                  required
+                  filled
+                  label="Filled"
+                  @change=${(e: DOMEvent<TitaniumDateInput>) => console.log('change', e.target.value)}
+                ></titanium-date-input>
+              </two-column>
 
-      <h1>With pre-filled value</h1>
-      <titanium-card>
-        <titanium-date-input label="Pre-filled" .value=${'2023-12-18'}></titanium-date-input>
-      </titanium-card>
+              <section buttons>
+                <md-filled-tonal-button
+                  @click=${() => {
+                    this.input.reset();
+                    this.filledInput.reset();
+                  }}
+                  >Reset</md-filled-tonal-button
+                >
+                <md-filled-tonal-button
+                  @click=${() => {
+                    this.input.reportValidity();
+                    this.filledInput.reportValidity();
+                  }}
+                  >Report validity</md-filled-tonal-button
+                >
+              </section>
+            </div>
 
-      <h1>Disabled and required</h1>
-      <titanium-card>
-        <two-column>
-          <titanium-date-input disabled label="Disabled" .value=${'2023-12-18'}></titanium-date-input>
-          <titanium-date-input required label="Required"></titanium-date-input>
-        </two-column>
-      </titanium-card>
+            <div>
+              <h1>With pre-filled value</h1>
+              <titanium-date-input label="Pre-filled" .value=${'2023-12-18'}></titanium-date-input>
+            </div>
 
-      <api-docs src="./custom-elements.json" selected="titanium-date-input"></api-docs>
+            <div>
+              <h1>Disabled and required</h1>
+              <two-column>
+                <titanium-date-input disabled label="Disabled" .value=${'2023-12-18'}></titanium-date-input>
+                <titanium-date-input required label="Required"></titanium-date-input>
+              </two-column>
+            </div>
+
+            <api-docs src="./custom-elements.json" selected="titanium-date-input"></api-docs>
+          </leavitt-app-width-limiter>
+        </main>
+      </leavitt-app-main-content-container>
     `;
   }
 }
