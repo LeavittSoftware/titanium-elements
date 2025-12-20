@@ -1,82 +1,106 @@
 import '../shared/story-header';
 
+import '@leavittsoftware/web/leavitt/app/app-main-content-container';
+import '@leavittsoftware/web/leavitt/app/app-navigation-header';
+import '@leavittsoftware/web/leavitt/app/app-width-limiter';
 import '@api-viewer/docs';
-import '@leavittsoftware/web/titanium/card/card';
+
+import '@leavittsoftware/web/titanium/header/header';
 
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
-import '@leavittsoftware/web/titanium/header/header';
+import { p } from '@leavittsoftware/web/titanium/styles/styles';
+import { heroStyles } from '../styles/hero-styles';
+
 import StoryStyles from '../styles/story-styles';
 
 @customElement('titanium-header-demo')
 export class TitaniumHeaderDemo extends LitElement {
   static styles = [
     StoryStyles,
-    h1,
+    heroStyles,
     p,
     css`
       :host {
-        display: flex;
-        flex-direction: column;
-
-        margin: 24px 12px;
+        display: grid;
       }
 
-      titanium-card {
-        margin: 24px 0;
+      main {
+        display: grid;
+        align-content: start;
+      }
+
+      div {
+        background: var(--md-sys-color-surface-container-low);
+        border-radius: 24px;
+        padding: 24px;
+        margin-bottom: 48px;
+
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+      }
+
+      h1 {
+        margin-bottom: 24px;
       }
     `,
   ];
 
   render() {
     return html`
-      <story-header name="Titanium header" className="TitaniumHeader"></story-header>
-      <h1>No nav</h1>
-      <p>Header without navigation controls</p>
-      <titanium-card>
-        <titanium-header header="Cheeses" subHeader="Your favorite cheeses" no-nav></titanium-header>
-      </titanium-card>
+      <leavitt-app-main-content-container .pendingStateElement=${this}>
+        <main>
+          <leavitt-app-navigation-header level1Text="Titanium header" level1Href="/titanium-header" sticky-top> </leavitt-app-navigation-header>
+          <leavitt-app-width-limiter max-width="1000px">
+            <story-header name="Titanium header" className="TitaniumHeader"></story-header>
+            <deprecation-notice>
+              <md-icon>warning</md-icon>
+              <p><kbd>titanium-header</kbd> is deprecated. Use <kbd>leavitt-app-navigation-header</kbd> instead.</p>
+            </deprecation-notice>
+            <div>
+              <h1>No nav</h1>
+              <titanium-header header="Cheeses" subHeader="Your favorite cheeses" no-nav></titanium-header>
+            </div>
 
-      <h1>Back Arrow (default window.history.back)</h1>
-      <p>Header with default back button behavior</p>
-      <titanium-card>
-        <titanium-header header="Meats and cheese and dairy and things" subHeader="Your favorite meats"></titanium-header>
-      </titanium-card>
+            <div>
+              <h1>Back Arrow (default window.history.back)</h1>
+              <titanium-header header="Meats and cheese and dairy and things" subHeader="Your favorite meats"></titanium-header>
+            </div>
 
-      <h1>Back Arrow (overloaded action)</h1>
-      <p>Header with custom back button action</p>
-      <titanium-card>
-        <titanium-header
-          header="Meats and cheese and dairy and things"
-          subHeader="Your favorite meats"
-          disable-default-back-button-behavior
-          @titanium-header-back-click=${() => {
-            alert('back clicked');
-          }}
-        ></titanium-header>
-      </titanium-card>
+            <div>
+              <h1>Back Arrow (overloaded action)</h1>
+              <titanium-header
+                header="Meats and cheese and dairy and things"
+                subHeader="Your favorite meats"
+                disable-default-back-button-behavior
+                @titanium-header-back-click=${() => {
+                  alert('back clicked');
+                }}
+              ></titanium-header>
+            </div>
 
-      <h1>Icon</h1>
-      <p>Header with custom icon</p>
-      <titanium-card>
-        <titanium-header
-          header="Meats and cheese and dairy and things"
-          subHeader="Your favorite meats"
-          icon="stadium"
-          @titanium-header-back-click=${() => {
-            alert('back clicked');
-          }}
-        ></titanium-header>
-      </titanium-card>
+            <div>
+              <h1>With custom icon</h1>
+              <titanium-header
+                header="Meats and cheese and dairy and things"
+                subHeader="Your favorite meats"
+                icon="stadium"
+                @titanium-header-back-click=${() => {
+                  alert('back clicked');
+                }}
+              ></titanium-header>
+            </div>
 
-      <h1>Icon no-nav</h1>
-      <p>Header with icon but no navigation controls</p>
-      <titanium-card>
-        <titanium-header header="Meats and cheese and dairy and things" subHeader="Your favorite meats" icon="stadium" no-nav></titanium-header>
-      </titanium-card>
+            <div>
+              <h1>Custom icon with no navigation controls</h1>
+              <titanium-header header="Meats and cheese and dairy and things" subHeader="Your favorite meats" icon="stadium" no-nav></titanium-header>
+            </div>
 
-      <api-docs src="./custom-elements.json" selected="titanium-header"></api-docs>
+            <api-docs src="./custom-elements.json" selected="titanium-header"></api-docs>
+          </leavitt-app-width-limiter>
+        </main>
+      </leavitt-app-main-content-container>
     `;
   }
 }

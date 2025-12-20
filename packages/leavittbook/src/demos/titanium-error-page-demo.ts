@@ -1,49 +1,65 @@
 import '../shared/story-header';
 
+import '@leavittsoftware/web/leavitt/app/app-main-content-container';
+import '@leavittsoftware/web/leavitt/app/app-navigation-header';
+import '@leavittsoftware/web/leavitt/app/app-width-limiter';
 import '@api-viewer/docs';
+
+import '@leavittsoftware/web/titanium/error-page/error-page';
 
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
-import '@leavittsoftware/web/titanium/error-page/error-page';
+import { heroStyles } from '../styles/hero-styles';
+
 import StoryStyles from '../styles/story-styles';
 
 @customElement('titanium-error-page-demo')
 export class TitaniumErrorPageDemo extends LitElement {
   static styles = [
     StoryStyles,
-    h1,
-    p,
+    heroStyles,
     css`
       :host {
-        display: flex;
-        flex-direction: column;
+        display: grid;
+      }
 
-        margin: 24px 12px;
+      main {
+        display: grid;
+        align-content: start;
       }
 
       div {
-        border: 1px solid var(--md-sys-color-outline);
+        background: var(--md-sys-color-surface-container-low);
+        border-radius: 24px;
         padding: 24px;
-        border-radius: 8px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin: 24px 0 36px 0;
+        margin-bottom: 48px;
+
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+      }
+
+      h1 {
+        margin-bottom: 12px;
       }
     `,
   ];
 
   render() {
     return html`
-      <story-header name="Titanium error page" className="TitaniumErrorPage"></story-header>
-      <h1>Default</h1>
-      <p>Error page sample</p>
-      <div>
-        <titanium-error-page message="You can customize this message"></titanium-error-page>
-      </div>
-
-      <api-docs src="./custom-elements.json" selected="titanium-error-page"></api-docs>
+      <leavitt-app-main-content-container .pendingStateElement=${this}>
+        <main>
+          <leavitt-app-navigation-header level1Text="Titanium error page" level1Href="/titanium-error-page" sticky-top> </leavitt-app-navigation-header>
+          <leavitt-app-width-limiter max-width="1000px">
+            <story-header name="Titanium error page" className="TitaniumErrorPage"></story-header>
+            <div>
+              <h1>Default</h1>
+              <titanium-error-page message="You can customize this message"></titanium-error-page>
+            </div>
+            <api-docs src="./custom-elements.json" selected="titanium-error-page"></api-docs>
+          </leavitt-app-width-limiter>
+        </main>
+      </leavitt-app-main-content-container>
     `;
   }
 }
