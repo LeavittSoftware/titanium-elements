@@ -1,5 +1,8 @@
 import '../shared/story-header';
 
+import '@leavittsoftware/web/leavitt/app/app-main-content-container';
+import '@leavittsoftware/web/leavitt/app/app-navigation-header';
+import '@leavittsoftware/web/leavitt/app/app-width-limiter';
 import '@api-viewer/docs';
 import '@leavittsoftware/web/titanium/data-table/page-control';
 import '@material/web/chips/suggestion-chip';
@@ -7,7 +10,9 @@ import { TitaniumPageControl } from '@leavittsoftware/web/titanium/data-table/pa
 
 import { css, html, LitElement } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
+import { p } from '@leavittsoftware/web/titanium/styles/styles';
+import { heroStyles } from '../styles/hero-styles';
+
 import StoryStyles from '../styles/story-styles';
 
 @customElement('titanium-page-control-demo')
@@ -34,69 +39,89 @@ export class TitaniumPageControlDemo extends LitElement {
 
   static styles = [
     StoryStyles,
-    h1,
+    heroStyles,
     p,
     css`
       :host {
-        display: flex;
-        flex-direction: column;
+        display: grid;
+      }
 
-        margin: 24px 12px;
+      main {
+        display: grid;
+        align-content: start;
       }
 
       div {
-        border: 1px solid var(--md-sys-color-outline);
+        background: var(--md-sys-color-surface-container-low);
+        border-radius: 24px;
         padding: 24px;
-        border-radius: 8px;
+        margin-bottom: 48px;
+
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+      }
+
+      suggestion-chip-group {
         display: flex;
-        flex-direction: column;
+        flex-wrap: wrap;
+        margin: 24px 0;
         gap: 12px;
-        margin: 24px 0 36px 0;
+      }
+
+      p {
+        margin-bottom: 12px;
       }
     `,
   ];
 
   render() {
     return html`
-      <story-header name="Titanium page control" className="TitaniumPageControl"></story-header>
-      <h1>Default</h1>
-      <p>Basic page control with local storage</p>
-      <div>
-        <h1>Default</h1>
-        <titanium-page-control localStorageKey="demoPageTake1"></titanium-page-control>
-      </div>
+      <leavitt-app-main-content-container .pendingStateElement=${this}>
+        <main>
+          <leavitt-app-navigation-header level1Text="Titanium page control" level1Href="/titanium-page-control" sticky-top> </leavitt-app-navigation-header>
+          <leavitt-app-width-limiter max-width="1000px">
+            <story-header name="Titanium page control" className="TitaniumPageControl"></story-header>
 
-      <h1>Disabled</h1>
-      <p>Disabled page control</p>
-      <div>
-        <h1>Disabled</h1>
-        <titanium-page-control disabled></titanium-page-control>
-      </div>
+            <div>
+              <h1>Default</h1>
+              <p>Basic page control with local storage</p>
+              <titanium-page-control localStorageKey="demoPageTake1"></titanium-page-control>
+            </div>
 
-      <h1>Filled</h1>
-      <p>Filled page control variant</p>
-      <div>
-        <h1>Filled</h1>
-        <titanium-page-control filled></titanium-page-control>
-      </div>
+            <div>
+              <h1>Disabled</h1>
+              <p>Disabled page control</p>
+              <titanium-page-control disabled></titanium-page-control>
+            </div>
 
-      <h1>Full example</h1>
-      <p>Complete page control with data pagination</p>
-      <div>
-        <h1>Full example</h1>
-        ${this.filteredData?.map((item) => html` <md-suggestion-chip label="${item?.name} #${item?.id}"></md-suggestion-chip> `)}
-        <titanium-page-control
-          main
-          .pageSizes=${[2, 4, 6, 8]}
-          .count=${this.count}
-          localStorageKey="demoPageTake2"
-          @action=${() => {
-            this.#reload();
-          }}
-        ></titanium-page-control>
-      </div>
+            <div>
+              <h1>Filled</h1>
+              <p>Filled page control variant</p>
+              <titanium-page-control filled></titanium-page-control>
+            </div>
 
-      <api-docs src="./custom-elements.json" selected="titanium-page-control"></api-docs>
+            <div>
+              <h1>Full example</h1>
+              <p>Complete page control with data pagination</p>
+              <suggestion-chip-group>
+                ${this.filteredData?.map((item) => html` <md-suggestion-chip label="${item?.name} #${item?.id}"></md-suggestion-chip> `)}
+              </suggestion-chip-group>
+              <titanium-page-control
+                main
+                .pageSizes=${[2, 4, 6, 8]}
+                .count=${this.count}
+                localStorageKey="demoPageTake2"
+                @action=${() => {
+                  this.#reload();
+                }}
+              ></titanium-page-control>
+            </div>
+
+            <api-docs src="./custom-elements.json" selected="titanium-page-control"></api-docs>
+          </leavitt-app-width-limiter>
+        </main>
+      </leavitt-app-main-content-container>
     `;
   }
 }

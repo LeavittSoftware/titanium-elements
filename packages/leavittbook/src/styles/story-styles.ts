@@ -1,6 +1,10 @@
 import { css } from 'lit';
 
 const StoryStyles = css`
+  md-divider {
+    margin-bottom: 48px;
+  }
+
   titanium-card {
     margin-bottom: 36px;
   }
