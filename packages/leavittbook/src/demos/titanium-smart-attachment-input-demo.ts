@@ -1,56 +1,105 @@
 import '../shared/story-header';
 
-import '@api-viewer/docs';
+import '@leavittsoftware/web/leavitt/app/app-main-content-container';
+import '@leavittsoftware/web/leavitt/app/app-navigation-header';
+import '@leavittsoftware/web/leavitt/app/app-width-limiter';
+import '@material/web/divider/divider';
+import '@leavittsoftware/web/titanium/chip/chip';
+import '@material/web/button/filled-tonal-button';
 import '@material/web/button/text-button';
+import '@material/web/dialog/dialog';
+import '@api-viewer/docs';
+
+import '@leavittsoftware/web/titanium/smart-attachment-input/smart-attachment-input';
 
 import { css, html, LitElement } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
-import '@leavittsoftware/web/titanium/smart-attachment-input/smart-attachment-input';
+import { p } from '@leavittsoftware/web/titanium/styles/styles';
 import { TitaniumSmartAttachmentInput } from '@leavittsoftware/web/titanium/smart-attachment-input/smart-attachment-input';
-import { CropperOptions } from '@leavittsoftware/web/titanium/smart-attachment-input/crop-and-save-image-dialog';
+import { heroStyles } from '../styles/hero-styles';
+import { MdDialog } from '@material/web/dialog/dialog';
+import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
+import { dialogCloseNavigationHack, dialogOpenNavigationHack } from '@leavittsoftware/web/titanium/hacks/dialog-navigation-hack';
+import { dialogZIndexHack } from '@leavittsoftware/web/titanium/hacks/dialog-zindex-hack';
+import { SmartAttachment } from '@leavittsoftware/web/titanium/smart-attachment-input/type/smart-attachment';
+import { ShowSnackbarEvent } from '@leavittsoftware/web/titanium/snackbar/show-snackbar-event';
+
 import StoryStyles from '../styles/story-styles';
 
 @customElement('titanium-smart-attachment-input-demo')
 export class TitaniumSmartAttachmentInputDemo extends LitElement {
-  @state() protected getFilesResult: string | null = null;
-  @state() protected hasChanges: boolean = false;
-  @query('titanium-smart-attachment-input[get-files]') protected accessor getFilesInput!: TitaniumSmartAttachmentInput;
-  @query('titanium-smart-attachment-input[preselect]') protected accessor preselectFilesInput!: TitaniumSmartAttachmentInput;
-  @query('titanium-smart-attachment-input[preselect-disabled]') protected accessor preselectDisabledFilesInput!: TitaniumSmartAttachmentInput;
-  @query('titanium-smart-attachment-input[reset]') protected accessor resetInput!: TitaniumSmartAttachmentInput;
+  @state() private accessor files: SmartAttachment[] = [];
+  @state() private accessor selectedCroppableFormats: string[] = [
+    'tiff',
+    'pjp',
+    'jfif',
+    'bmp',
+    'gif',
+    'svg',
+    'png',
+    'xbm',
+    'dib',
+    'jxl',
+    'jpeg',
+    'svgz',
+    'jpg',
+    'webp',
+    'ico',
+    'tif',
+    'pjpeg',
+    'avif',
+  ];
+
+  @state() private accessor allImageFormats = [
+    'avif',
+    'bmp',
+    'dib',
+    'gif',
+    'ico',
+    'jfif',
+    'jxl',
+    'jpeg',
+    'jpg',
+    'pjp',
+    'pjpeg',
+    'png',
+    'svg',
+    'svgz',
+    'tif',
+    'tiff',
+    'webp',
+    'xbm',
+  ];
+
+  @query('titanium-smart-attachment-input[filled]') private accessor smartAttachment!: TitaniumSmartAttachmentInput;
+  @query('md-dialog') private accessor dialog!: any;
 
   static styles = [
     StoryStyles,
-    h1,
+    heroStyles,
     p,
     css`
       :host {
-        display: flex;
-        flex-direction: column;
-        margin: 24px 12px;
+        display: grid;
       }
 
-      div {
-        border: 1px solid var(--md-sys-color-outline);
+      main {
+        display: grid;
+        align-content: start;
+      }
+
+      leavitt-app-width-limiter div {
+        background: var(--md-sys-color-surface-container-low);
+        border-radius: 24px;
         padding: 24px;
-        border-radius: 8px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin: 24px 0 36px 0;
+
+        &:not(:first-of-type) {
+          margin-top: 24px;
+        }
       }
 
-      div[vertical] {
-        flex-direction: column;
-      }
-
-      div[vertical] p {
+      h1 {
         margin-bottom: 12px;
-      }
-
-      div[vertical] p > span {
-        font-weight: 500;
       }
 
       section[buttons] {
@@ -59,67 +108,140 @@ export class TitaniumSmartAttachmentInputDemo extends LitElement {
         flex-wrap: wrap;
         gap: 12px;
       }
+
+      md-dialog {
+        --md-dialog-container-shape: 28px;
+      }
+
+      chip-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 16px 0;
+      }
     `,
   ];
 
   render() {
     return html`
-      <story-header name="Titanium smart attachment input" className="TitaniumSmartAttachmentInput"></story-header>
-      <h1>Basic smart attachment input</h1>
-      <p>Smart attachment input with file upload, cropping, and validation</p>
+      <leavitt-app-main-content-container .pendingStateElement=${this}>
+        <main>
+          <leavitt-app-navigation-header level1Text="Titanium smart attachment input" level1Href="/titanium-smart-attachment-input" sticky-top>
+          </leavitt-app-navigation-header>
 
-      <div vertical>
-        <p>Get Files Result: <span>${this.getFilesResult || 'No files'}</span></p>
-        <titanium-smart-attachment-input
-          get-files
-          label="Upload files"
-          @files-changed=${(e: CustomEvent) => {
-            this.getFilesResult = e.detail?.length ? `${e.detail.length} files selected` : null;
-          }}
-        ></titanium-smart-attachment-input>
-      </div>
+          <leavitt-app-width-limiter max-width="1000px">
+            <story-header name="Titanium smart attachment input" className="TitaniumSmartAttachmentInput"></story-header>
 
-      <div>
-        <h2>With pre-selected files</h2>
-        <titanium-smart-attachment-input
-          preselect
-          label="Pre-selected files"
-          .files=${[
-            {
-              name: 'sample-image.jpg',
-              size: 1024000,
-              type: 'image/jpeg',
-              lastModified: Date.now(),
-            },
-          ]}
-        ></titanium-smart-attachment-input>
-      </div>
+            <div>
+              <h1>Default</h1>
+              <titanium-smart-attachment-input label="Upload files"></titanium-smart-attachment-input>
+            </div>
 
-      <div>
-        <h2>Disabled state</h2>
-        <titanium-smart-attachment-input
-          preselect-disabled
-          disabled
-          label="Disabled input"
-          .files=${[
-            {
-              name: 'sample.pdf',
-              size: 2048000,
-              type: 'application/pdf',
-              lastModified: Date.now(),
-            },
-          ]}
-        ></titanium-smart-attachment-input>
-      </div>
+            <div>
+              <h1>Filled</h1>
+              <titanium-smart-attachment-input
+                filled
+                .croppableImageFormats=${this.selectedCroppableFormats}
+                .files=${this.files}
+                label="Upload files"
+              ></titanium-smart-attachment-input>
 
-      <div vertical>
-        <titanium-smart-attachment-input reset label="With reset functionality"></titanium-smart-attachment-input>
-        <section buttons>
-          <md-text-button @click=${() => this.resetInput.reset()}>Reset Files</md-text-button>
-        </section>
-      </div>
+              <br />
 
-      <api-docs src="./custom-elements.json" selected="titanium-smart-attachment-input"></api-docs>
+              <section buttons>
+                <md-filled-tonal-button
+                  @click=${() => (this.smartAttachment.supportingText = this.smartAttachment.supportingText ? '' : 'This is a supporting text')}
+                  >Toggle supporting text</md-filled-tonal-button
+                >
+                <md-filled-tonal-button
+                  @click=${() => {
+                    this.smartAttachment.reset();
+                    this.files = [];
+                  }}
+                  >Reset</md-filled-tonal-button
+                >
+                <md-filled-tonal-button @click=${() => (this.smartAttachment.disabled = !this.smartAttachment.disabled)}
+                  >Toggle disabled</md-filled-tonal-button
+                >
+                <md-filled-tonal-button @click=${() => (this.smartAttachment.required = !this.smartAttachment.required)}
+                  >Toggle required</md-filled-tonal-button
+                >
+                <md-filled-tonal-button @click=${() => this.smartAttachment.reportValidity()}>Report validity</md-filled-tonal-button>
+                <md-filled-tonal-button @click=${() => (this.smartAttachment.multiple = !this.smartAttachment.multiple)}
+                  >Toggle multiple</md-filled-tonal-button
+                >
+                <md-filled-tonal-button @click=${() => (this.smartAttachment.confirmDelete = !this.smartAttachment.confirmDelete)}
+                  >Toggle confirm delete</md-filled-tonal-button
+                >
+                <md-filled-tonal-button @click=${() => this.dialog?.show()}
+                  >Configure croppable formats (${this.selectedCroppableFormats.length} selected)</md-filled-tonal-button
+                >
+                <md-filled-tonal-button
+                  @click=${() =>
+                    this.dispatchEvent(
+                      new ShowSnackbarEvent(
+                        this.smartAttachment.getFiles().length ? `${this.smartAttachment.getFiles().length} files selected` : 'No files selected'
+                      )
+                    )}
+                  >Get files</md-filled-tonal-button
+                >
+                <md-filled-tonal-button
+                  @click=${() =>
+                    (this.files = [
+                      {
+                        file: new File([''], 'sample.svg'),
+                        previewSrc: 'https://cdn.leavitt.com/icons/icon-app-broker-key.svg',
+                      },
+                    ])}
+                  >Pre-select file</md-filled-tonal-button
+                >
+              </section>
+            </div>
+
+            <api-docs src="./custom-elements.json" selected="titanium-smart-attachment-input"></api-docs>
+          </leavitt-app-width-limiter>
+        </main>
+      </leavitt-app-main-content-container>
+
+      <md-dialog
+        @open=${(e: DOMEvent<MdDialog>) => {
+          dialogOpenNavigationHack(e.target);
+          dialogZIndexHack(e.target);
+        }}
+        @close=${(e: DOMEvent<MdDialog>) => {
+          if (e.target.returnValue === 'cancel' || e.target.returnValue === 'save' || e.target.returnValue === 'navigation-close') {
+            dialogCloseNavigationHack(e.target);
+          }
+        }}
+      >
+        <div slot="headline">Configure Croppable Image Formats</div>
+        <form slot="content" id="format-form" method="dialog">
+          <p>Select which image formats should be croppable. Selected formats will show crop options when uploading images.</p>
+          <chip-container>
+            ${this.allImageFormats.map(
+              (format) => html`
+                <titanium-chip
+                  label=${format.toUpperCase()}
+                  ?selected=${this.selectedCroppableFormats.includes(format)}
+                  @click=${() => {
+                    if (this.selectedCroppableFormats.includes(format)) {
+                      this.selectedCroppableFormats = this.selectedCroppableFormats.filter((f) => f !== format);
+                    } else {
+                      this.selectedCroppableFormats = [...this.selectedCroppableFormats, format];
+                    }
+                  }}
+                >
+                </titanium-chip>
+              `
+            )}
+          </chip-container>
+        </form>
+        <div slot="actions">
+          <md-text-button @click=${() => (this.selectedCroppableFormats = [...this.allImageFormats])}>Select All</md-text-button>
+          <md-text-button @click=${() => (this.selectedCroppableFormats = [])}>Clear All</md-text-button>
+          <md-filled-tonal-button @click=${() => this.dialog?.close()}>Close</md-filled-tonal-button>
+        </div>
+      </md-dialog>
     `;
   }
 }
