@@ -1,15 +1,19 @@
 import '../shared/story-header';
 
-import '@api-viewer/docs';
-import '@leavittsoftware/web/titanium/card/card';
-import '@material/web/iconbutton/outlined-icon-button';
+import '@leavittsoftware/web/leavitt/app/app-main-content-container';
+import '@leavittsoftware/web/leavitt/app/app-navigation-header';
+import '@leavittsoftware/web/leavitt/app/app-width-limiter';
 import '@material/web/icon/icon';
+import '@api-viewer/docs';
+
+import '@leavittsoftware/web/titanium/profile-picture-stack/profile-picture-stack';
 
 import { css, html, LitElement } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
-import '@leavittsoftware/web/titanium/profile-picture-stack/profile-picture-stack';
+import { p } from '@leavittsoftware/web/titanium/styles/styles';
 import { Person } from '@leavittsoftware/lg-core-typescript';
+import { heroStyles } from '../styles/hero-styles';
+
 import StoryStyles from '../styles/story-styles';
 
 const kaseyPerson: Partial<Person> = {
@@ -33,18 +37,20 @@ export class TitaniumProfilePictureStackDemo extends LitElement {
 
   static styles = [
     StoryStyles,
-    h1,
+    heroStyles,
     p,
     css`
       :host {
-        display: flex;
-        flex-direction: column;
+        display: grid;
+      }
 
-        margin: 24px 12px;
+      main {
+        display: grid;
+        align-content: start;
       }
 
       titanium-profile-picture-stack {
-        margin: 0 0 24px 0;
+        margin: 0 0 12px 0;
       }
 
       titanium-profile-picture-stack[size='50'] {
@@ -52,13 +58,23 @@ export class TitaniumProfilePictureStackDemo extends LitElement {
       }
 
       div {
-        border: 1px solid var(--md-sys-color-outline);
+        background: var(--md-sys-color-surface-container-low);
+        border-radius: 24px;
         padding: 24px;
-        border-radius: 8px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        margin: 24px 0 36px 0;
+        margin-bottom: 48px;
+
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+      }
+
+      h1 {
+        margin-bottom: 12px;
+      }
+
+      p {
+        font-size: 13px;
+        opacity: 0.8;
       }
 
       [stack-container] {
@@ -72,51 +88,57 @@ export class TitaniumProfilePictureStackDemo extends LitElement {
 
   render() {
     return html`
-      <story-header name="Titanium profile picture stack" className="TitaniumProfilePictureStack"></story-header>
-      <h1>Basic profile picture stacks</h1>
-      <p>Profile picture stacks showing overlapping profile images</p>
+      <leavitt-app-main-content-container .pendingStateElement=${this}>
+        <main>
+          <leavitt-app-navigation-header level1Text="Titanium profile picture stack" level1Href="/titanium-profile-picture-stack" sticky-top>
+          </leavitt-app-navigation-header>
+          <leavitt-app-width-limiter max-width="1000px">
+            <story-header name="Titanium profile picture stack" className="TitaniumProfilePictureStack"></story-header>
 
-      <div>
-        <h1>Default size (24px)</h1>
-        <stack-container>
-          <titanium-profile-picture-stack .people=${this.people}></titanium-profile-picture-stack>
-          <span>${this.people.length} people</span>
-        </stack-container>
-      </div>
+            <div>
+              <h1>Default size (24px)</h1>
+              <stack-container>
+                <titanium-profile-picture-stack .people=${this.people}></titanium-profile-picture-stack>
+                <p>${this.people.length} people</p>
+              </stack-container>
+            </div>
 
-      <div>
-        <h1>Larger size (32px)</h1>
-        <stack-container>
-          <titanium-profile-picture-stack size="32" .people=${this.people}></titanium-profile-picture-stack>
-          <span>${this.people.length} people</span>
-        </stack-container>
-      </div>
+            <div>
+              <h1>Larger size (32px)</h1>
+              <stack-container>
+                <titanium-profile-picture-stack size="32" .people=${this.people}></titanium-profile-picture-stack>
+                <p>${this.people.length} people</p>
+              </stack-container>
+            </div>
 
-      <div>
-        <h1>Even larger (50px)</h1>
-        <stack-container>
-          <titanium-profile-picture-stack size="50" .people=${this.people}></titanium-profile-picture-stack>
-          <span>${this.people.length} people</span>
-        </stack-container>
-      </div>
+            <div>
+              <h1>Even larger (50px)</h1>
+              <stack-container>
+                <titanium-profile-picture-stack size="50" .people=${this.people}></titanium-profile-picture-stack>
+                <p>${this.people.length} people</p>
+              </stack-container>
+            </div>
 
-      <div>
-        <h1>Many people (20+)</h1>
-        <stack-container>
-          <titanium-profile-picture-stack .people=${this.manyPeople}></titanium-profile-picture-stack>
-          <span>${this.manyPeople.length} people</span>
-        </stack-container>
-      </div>
+            <div>
+              <h1>Many people (20+)</h1>
+              <stack-container>
+                <titanium-profile-picture-stack .people=${this.manyPeople}></titanium-profile-picture-stack>
+                <p>${this.manyPeople.length} people</p>
+              </stack-container>
+            </div>
 
-      <div>
-        <h1>With max display limit</h1>
-        <stack-container>
-          <titanium-profile-picture-stack max-display="3" .people=${this.manyPeople}></titanium-profile-picture-stack>
-          <span>Showing 3 of ${this.manyPeople.length} people</span>
-        </stack-container>
-      </div>
+            <div>
+              <h1>With max display limit</h1>
+              <stack-container>
+                <titanium-profile-picture-stack max-display="3" .people=${this.manyPeople}></titanium-profile-picture-stack>
+                <p>Showing 3 of ${this.manyPeople.length} people</p>
+              </stack-container>
+            </div>
 
-      <api-docs src="./custom-elements.json" selected="titanium-profile-picture-stack"></api-docs>
+            <api-docs src="./custom-elements.json" selected="titanium-profile-picture-stack"></api-docs>
+          </leavitt-app-width-limiter>
+        </main>
+      </leavitt-app-main-content-container>
     `;
   }
 }
