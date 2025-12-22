@@ -1,14 +1,21 @@
 import '../shared/story-header';
 
+import '@leavittsoftware/web/leavitt/app/app-main-content-container';
+import '@leavittsoftware/web/leavitt/app/app-navigation-header';
+import '@leavittsoftware/web/leavitt/app/app-width-limiter';
+import '@material/web/divider/divider';
 import '@api-viewer/docs';
-import '@material/web/button/text-button';
+
+import '@material/web/button/filled-tonal-button';
 import '@material/web/slider/slider';
 
 import { css, html, LitElement } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
-import { h1, h2, p } from '@leavittsoftware/web/titanium/styles/styles';
+import { p } from '@leavittsoftware/web/titanium/styles/styles';
 import '@leavittsoftware/web/titanium/show-hide/show-hide';
 import dayjs from 'dayjs/esm';
+import { heroStyles } from '../styles/hero-styles';
+
 import StoryStyles from '../styles/story-styles';
 
 @customElement('titanium-show-hide-demo')
@@ -20,38 +27,46 @@ export class TitaniumShowHideDemo extends LitElement {
 
   static styles = [
     StoryStyles,
-    h1,
-    h2,
+    heroStyles,
     p,
     css`
       :host {
-        display: flex;
-        flex-direction: column;
-        margin: 24px 12px;
+        display: grid;
+      }
+
+      main {
+        display: grid;
+        align-content: start;
       }
 
       [horizontal] {
         --titanium-show-hide-flex-direction: row;
       }
 
-      :host > h1,
-      :host > p {
-        margin-left: 24px;
-      }
-
       div[main] {
-        border: 1px solid var(--md-sys-color-surface-variant);
-        border-radius: 8px;
-        padding: 12px 24px;
+        background: var(--md-sys-color-surface-container-low);
+        border-radius: 24px;
+        padding: 24px;
         display: flex;
         flex-direction: column;
         gap: 12px;
-        margin: 12px;
+
+        &:not(:first-of-type) {
+          margin-top: 24px;
+        }
+      }
+
+      h1,
+      h2 {
+        margin-bottom: 12px;
       }
 
       credit-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         transition: 0.6s ease;
-        padding: 10px;
+        padding: 12px 16px;
         position: relative;
         border-radius: 10px;
         -webkit-backface-visibility: hidden;
@@ -60,38 +75,83 @@ export class TitaniumShowHideDemo extends LitElement {
         left: 0;
         bottom: 0;
         right: 0;
-        background: var(--md-sys-color-background);
-        color: var(--md-sys-color-on-background);
+        background: linear-gradient(45deg, var(--app-accent-color-indigo), var(--md-sys-color-primary));
+        color: #fff;
         height: 150px;
         max-height: 150px;
         overflow: hidden;
         width: 250px;
         z-index: 2;
         transform: rotateY(0deg);
-        border: 2px solid var(--md-sys-color-on-background);
-      }
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 
-      credit-card h3 {
-        border-bottom: 1px solid var(--md-sys-color-on-background);
-        padding-bottom: 6px;
-        font-weight: 500;
-        color: var(--md-sys-color-on-background);
-        font-family: 'Metropolis';
-        margin: 0;
-      }
+        card-chip {
+          width: 50px;
+          height: 40px;
+          background: rgba(255, 255, 255, 0.2);
+          border-radius: 8px;
+          margin-bottom: 20px;
+          position: relative;
+          overflow: hidden;
 
-      credit-card p {
-        font-size: 11px;
-        margin: 8px 0 1px 2px;
-      }
+          &:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            top: 0;
+            left: 0;
+          }
 
-      card-number {
-        display: inline-block;
-        background-color: var(--md-sys-color-primary);
-        font-size: 13px;
-        color: var(--md-sys-color-on-primary);
-        padding: 4px 12px;
-        border-radius: 8px;
+          &:after {
+            content: '';
+            position: absolute;
+            width: 30%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            top: 0;
+            left: 35%;
+          }
+        }
+
+        h2 {
+          margin: -32px 0 0 0;
+          letter-spacing: 1.3px;
+        }
+
+        card-details {
+          display: flex;
+          gap: 24px;
+
+          p {
+            opacity: 0.8;
+            font-size: 11px;
+          }
+
+          h3 {
+            font-size: 14px;
+            margin-top: -3px;
+          }
+
+          card-type {
+            place-self: end;
+            margin-left: 24px;
+            font-size: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin: 0 0 0 44px;
+            padding: 0;
+            box-sizing: border-box;
+            font-family:
+              'Inter',
+              -apple-system,
+              BlinkMacSystemFont,
+              'Segoe UI',
+              Roboto,
+              sans-serif;
+          }
+        }
       }
 
       mark-gold {
@@ -108,7 +168,7 @@ export class TitaniumShowHideDemo extends LitElement {
         width: 40px;
         height: 25px;
         border-radius: 6px;
-        background: var(--md-sys-color-surface-variant);
+        background: #fff;
         position: relative;
         top: 13px;
       }
@@ -117,7 +177,7 @@ export class TitaniumShowHideDemo extends LitElement {
         content: '';
         width: 30px;
         height: 5px;
-        background: var(--md-sys-color-surface-variant);
+        background: #fff;
         border-radius: 3px;
         position: absolute;
         bottom: 2px;
@@ -131,7 +191,7 @@ export class TitaniumShowHideDemo extends LitElement {
         left: 5px;
         border-radius: 3px;
         height: 5px;
-        background: var(--md-sys-color-surface-variant);
+        background: #fff;
         position: absolute;
       }
 
@@ -149,7 +209,7 @@ export class TitaniumShowHideDemo extends LitElement {
         width: 15px;
         height: 15px;
         border-radius: 15px;
-        background: var(--md-sys-color-surface-variant);
+        background: var(--app-accent-color-orange);
         position: absolute;
         right: -2px;
       }
@@ -164,7 +224,7 @@ export class TitaniumShowHideDemo extends LitElement {
         left: -2px;
       }
 
-      md-text-button {
+      md-filled-tonal-button {
         margin-top: 12px;
         max-width: 150px;
         width: 100%;
@@ -191,120 +251,135 @@ export class TitaniumShowHideDemo extends LitElement {
     return ('' + num).substring(add);
   }
 
-  #formatWithDashes(cardNumber: string) {
-    return cardNumber.replace(/(\d{4})(\d{4})(\d{4})(\d+)/, '$1-$2-$3-$4');
+  #formatCardNumber(cardNumber: string) {
+    return `•••• •••• •••• ${cardNumber}`;
   }
 
   #getCardNumber() {
-    return this.#formatWithDashes(this.#generateCardNumber(16));
+    return this.#formatCardNumber(this.#generateCardNumber(4));
   }
 
   render() {
     return html`
-      <story-header name="Titanium show hide" className="TitaniumShowHide"></story-header>
-      <div main>
-        <h2>Vertical Credit Card Generator</h2>
-        <p>How many would you like?</p>
-        <md-slider @input=${(event) => (this.verticalStepValue = event.target.value)} .value=${this.verticalStepValue}> </md-slider>
-        <titanium-show-hide collapse-height="200">
-          ${(new Array(this.verticalStepValue) as number[]).fill(0).map(
-            (_, idx) =>
-              html`<credit-card>
-                <h3>Credit Card ${idx + 1}</h3>
-                <p>CARD NUMBER</p>
-                <card-number>${this.#getCardNumber()}</card-number>
-                <mark-gold>
-                  <div>
-                    <circle-one></circle-one>
-                    <circle-two></circle-two>
-                  </div>
-                </mark-gold>
-                <p>CARD EXPIRATION</p>
-                <card-number>${dayjs().format('MM/YY')}</card-number>
-              </credit-card>`
-          )}
-        </titanium-show-hide>
-      </div>
+      <leavitt-app-main-content-container .pendingStateElement=${this}>
+        <main>
+          <leavitt-app-navigation-header level1Text="Titanium show hide" level1Href="/titanium-show-hide" sticky-top> </leavitt-app-navigation-header>
 
-      <div main>
-        <h2>Horizontal Credit Card Generator</h2>
-        <p>How many would you like?</p>
-        <md-slider @input=${(event) => (this.horizontalStepValue = event.target.value)} .value=${this.horizontalStepValue}> </md-slider>
-        <titanium-show-hide horizontal collapse-height="200">
-          ${(new Array(this.horizontalStepValue) as number[]).fill(0).map(
-            (_, idx) =>
-              html`<credit-card>
-                <h3>Credit Card ${idx + 1}</h3>
-                <p>CARD NUMBER</p>
-                <card-number>${this.#getCardNumber()}</card-number>
-                <mark-gold>
-                  <div>
-                    <circle-one></circle-one>
-                    <circle-two></circle-two>
-                  </div>
-                </mark-gold>
-                <p>CARD EXPIRATION</p>
-                <card-number>${dayjs().format('MM/YY')}</card-number>
-              </credit-card>`
-          )}
-        </titanium-show-hide>
-      </div>
+          <leavitt-app-width-limiter max-width="1000px">
+            <story-header name="Titanium show hide" className="TitaniumShowHide"></story-header>
 
-      <div main>
-        <h2>Text Example</h2>
-        <p>Using a custom slotted button</p>
-        <titanium-show-hide @collapsed-changed=${(e) => (this.collapsed = e.target.collapsed)} start>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum arcu, semper ac aliquet eu, porttitor vel turpis. Nullam non dolor ac massa
-            pharetra vulputate vel ac libero. In hac habitasse platea dictumst. Praesent lacus mi, vehicula eu euismod sit amet, accumsan porta massa. Morbi
-            nibh odio, pellentesque sit amet nulla sit amet, pellentesque mattis felis. Donec in eros sit amet lectus maximus porttitor. Morbi iaculis velit sed
-            interdum venenatis. Suspendisse ac consectetur tellus. Fusce molestie nunc ac dui sollicitudin, at sagittis dui convallis. Orci varius natoque
-            penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin euismod nisl et risus malesuada, non fermentum diam pharetra. Sed accumsan
-            diam turpis, aliquet viverra quam molestie viverra. Nam ullamcorper commodo dictum. Cras bibendum odio vel tortor sodales porttitor ac nec ligula.
-            Praesent eget tellus vitae diam vehicula aliquam sit amet ut mi. Curabitur pretium, enim in lacinia vehicula, sapien metus ultrices eros, vitae
-            volutpat ex tortor nec lacus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed eget porttitor mi.
-            Suspendisse sed dolor non justo euismod volutpat. Nulla massa quam, dignissim sed dapibus ac, laoreet eu elit. Proin libero ipsum, blandit quis diam
-            non, vulputate faucibus risus. Sed tincidunt elit metus. Aliquam maximus fringilla erat, eget pretium erat. Maecenas euismod fringilla placerat.
-            Nunc lorem nulla, feugiat sagittis dolor id, scelerisque convallis risus. Nullam molestie, odio sed cursus convallis, nulla ligula gravida leo, ac
-            suscipit mi elit nec velit. Nulla euismod molestie accumsan. Suspendisse ut aliquet dolor. Sed vel mollis nisl, sit amet porta odio. Vivamus
-            sagittis metus vulputate enim porttitor rhoncus. Ut facilisis ligula eget lorem rhoncus, vel pretium mauris cursus. Cras vel condimentum odio. Fusce
-            vehicula facilisis risus, in maximus ante suscipit sed. Sed ac quam a nisl hendrerit tempor varius sed mauris. Donec tempor mauris et nisi sagittis
-            laoreet. Sed dapibus ex non consectetur maximus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean arcu
-            neque, molestie a nisi vel, tincidunt vehicula arcu. Ut ut lectus gravida, tristique mauris a, aliquet magna. Duis sodales in ipsum pretium
-            hendrerit.
-          </p>
-          <md-text-button slot="button"> ${this.collapsed ? 'Read more' : 'Read less'} </md-text-button>
-        </titanium-show-hide>
-      </div>
+            <div main>
+              <h2>Vertical Credit Card Generator</h2>
+              <p>How many would you like?</p>
+              <md-slider @input=${(event) => (this.verticalStepValue = event.target.value)} .value=${this.verticalStepValue}> </md-slider>
+              <titanium-show-hide collapse-height="200">
+                ${(new Array(this.verticalStepValue) as number[]).fill(0).map(
+                  () =>
+                    html`<credit-card>
+                      <card-chip></card-chip>
+                      <h2>${this.#getCardNumber()}</h2>
 
-      <div main>
-        <h2>Filled button example</h2>
-        <p>Read some text</p>
-        <md-slider @input=${(event) => (this.verticalStepValue = event.target.value)} .value=${this.verticalStepValue}> </md-slider>
-        <titanium-show-hide filled collapse-height="200">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum arcu, semper ac aliquet eu, porttitor vel turpis. Nullam non dolor ac massa
-            pharetra vulputate vel ac libero. In hac habitasse platea dictumst. Praesent lacus mi, vehicula eu euismod sit amet, accumsan porta massa. Morbi
-            nibh odio, pellentesque sit amet nulla sit amet, pellentesque mattis felis. Donec in eros sit amet lectus maximus porttitor. Morbi iaculis velit sed
-            interdum venenatis. Suspendisse ac consectetur tellus. Fusce molestie nunc ac dui sollicitudin, at sagittis dui convallis. Orci varius natoque
-            penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin euismod nisl et risus malesuada, non fermentum diam pharetra. Sed accumsan
-            diam turpis, aliquet viverra quam molestie viverra. Nam ullamcorper commodo dictum. Cras bibendum odio vel tortor sodales porttitor ac nec ligula.
-            Praesent eget tellus vitae diam vehicula aliquam sit amet ut mi. Curabitur pretium, enim in lacinia vehicula, sapien metus ultrices eros, vitae
-            volutpat ex tortor nec lacus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed eget porttitor mi.
-            Suspendisse sed dolor non justo euismod volutpat. Nulla massa quam, dignissim sed dapibus ac, laoreet eu elit. Proin libero ipsum, blandit quis diam
-            non, vulputate faucibus risus. Sed tincidunt elit metus. Aliquam maximus fringilla erat, eget pretium erat. Maecenas euismod fringilla placerat.
-            Nunc lorem nulla, feugiat sagittis dolor id, scelerisque convallis risus. Nullam molestie, odio sed cursus convallis, nulla ligula gravida leo, ac
-            suscipit mi elit nec velit. Nulla euismod molestie accumsan. Suspendisse ut aliquet dolor. Sed vel mollis nisl, sit amet porta odio. Vivamus
-            sagittis metus vulputate enim porttitor rhoncus. Ut facilisis ligula eget lorem rhoncus, vel pretium mauris cursus. Cras vel condimentum odio. Fusce
-            vehicula facilisis risus, in maximus ante suscipit sed. Sed ac quam a nisl hendrerit tempor varius sed mauris. Donec tempor mauris et nisi sagittis
-            laoreet. Sed dapibus ex non consectetur maximus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean arcu
-            neque, molestie a nisi vel, tincidunt vehicula arcu. Ut ut lectus gravida, tristique mauris a, aliquet magna. Duis sodales in ipsum pretium
-            hendrerit.
-          </p>
-        </titanium-show-hide>
-      </div>
+                      <card-details>
+                        <div>
+                          <p>Expires</p>
+                          <h3>${dayjs().format('MM/YY')}</h3>
+                        </div>
+                        <div>
+                          <p>Card Holder</p>
+                          <h3>John Doe</h3>
+                        </div>
+                        <card-type>Visa</card-type>
+                      </card-details>
+                    </credit-card>`
+                )}
+              </titanium-show-hide>
+            </div>
 
-      <api-docs src="./custom-elements.json" selected="titanium-show-hide"></api-docs>
+            <div main>
+              <h2>Horizontal Credit Card Generator</h2>
+              <p>How many would you like?</p>
+              <md-slider @input=${(event) => (this.horizontalStepValue = event.target.value)} .value=${this.horizontalStepValue}> </md-slider>
+              <titanium-show-hide horizontal collapse-height="200">
+                ${(new Array(this.horizontalStepValue) as number[]).fill(0).map(
+                  () =>
+                    html`<credit-card>
+                      <card-chip></card-chip>
+                      <h2>${this.#getCardNumber()}</h2>
+
+                      <card-details>
+                        <div>
+                          <p>Expires</p>
+                          <h3>${dayjs().format('MM/YY')}</h3>
+                        </div>
+                        <div>
+                          <p>Card Holder</p>
+                          <h3>John Doe</h3>
+                        </div>
+                        <card-type>Visa</card-type>
+                      </card-details>
+                    </credit-card>`
+                )}
+              </titanium-show-hide>
+            </div>
+
+            <div main>
+              <h2>Text Example</h2>
+              <p>Using a custom slotted button</p>
+              <titanium-show-hide @collapsed-changed=${(e) => (this.collapsed = e.target.collapsed)} start>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum arcu, semper ac aliquet eu, porttitor vel turpis. Nullam non dolor ac
+                  massa pharetra vulputate vel ac libero. In hac habitasse platea dictumst. Praesent lacus mi, vehicula eu euismod sit amet, accumsan porta
+                  massa. Morbi nibh odio, pellentesque sit amet nulla sit amet, pellentesque mattis felis. Donec in eros sit amet lectus maximus porttitor.
+                  Morbi iaculis velit sed interdum venenatis. Suspendisse ac consectetur tellus. Fusce molestie nunc ac dui sollicitudin, at sagittis dui
+                  convallis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin euismod nisl et risus malesuada, non
+                  fermentum diam pharetra. Sed accumsan diam turpis, aliquet viverra quam molestie viverra. Nam ullamcorper commodo dictum. Cras bibendum odio
+                  vel tortor sodales porttitor ac nec ligula. Praesent eget tellus vitae diam vehicula aliquam sit amet ut mi. Curabitur pretium, enim in
+                  lacinia vehicula, sapien metus ultrices eros, vitae volutpat ex tortor nec lacus. Orci varius natoque penatibus et magnis dis parturient
+                  montes, nascetur ridiculus mus. Sed eget porttitor mi. Suspendisse sed dolor non justo euismod volutpat. Nulla massa quam, dignissim sed
+                  dapibus ac, laoreet eu elit. Proin libero ipsum, blandit quis diam non, vulputate faucibus risus. Sed tincidunt elit metus. Aliquam maximus
+                  fringilla erat, eget pretium erat. Maecenas euismod fringilla placerat. Nunc lorem nulla, feugiat sagittis dolor id, scelerisque convallis
+                  risus. Nullam molestie, odio sed cursus convallis, nulla ligula gravida leo, ac suscipit mi elit nec velit. Nulla euismod molestie accumsan.
+                  Suspendisse ut aliquet dolor. Sed vel mollis nisl, sit amet porta odio. Vivamus sagittis metus vulputate enim porttitor rhoncus. Ut facilisis
+                  ligula eget lorem rhoncus, vel pretium mauris cursus. Cras vel condimentum odio. Fusce vehicula facilisis risus, in maximus ante suscipit sed.
+                  Sed ac quam a nisl hendrerit tempor varius sed mauris. Donec tempor mauris et nisi sagittis laoreet. Sed dapibus ex non consectetur maximus.
+                  Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean arcu neque, molestie a nisi vel, tincidunt
+                  vehicula arcu. Ut ut lectus gravida, tristique mauris a, aliquet magna. Duis sodales in ipsum pretium hendrerit.
+                </p>
+                <md-filled-tonal-button slot="button"> ${this.collapsed ? 'Read more' : 'Read less'} </md-filled-tonal-button>
+              </titanium-show-hide>
+            </div>
+
+            <div main>
+              <h2>Filled button example</h2>
+              <p>Read some text</p>
+              <md-slider @input=${(event) => (this.verticalStepValue = event.target.value)} .value=${this.verticalStepValue}> </md-slider>
+              <titanium-show-hide filled collapse-height="200">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum arcu, semper ac aliquet eu, porttitor vel turpis. Nullam non dolor ac
+                  massa pharetra vulputate vel ac libero. In hac habitasse platea dictumst. Praesent lacus mi, vehicula eu euismod sit amet, accumsan porta
+                  massa. Morbi nibh odio, pellentesque sit amet nulla sit amet, pellentesque mattis felis. Donec in eros sit amet lectus maximus porttitor.
+                  Morbi iaculis velit sed interdum venenatis. Suspendisse ac consectetur tellus. Fusce molestie nunc ac dui sollicitudin, at sagittis dui
+                  convallis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin euismod nisl et risus malesuada, non
+                  fermentum diam pharetra. Sed accumsan diam turpis, aliquet viverra quam molestie viverra. Nam ullamcorper commodo dictum. Cras bibendum odio
+                  vel tortor sodales porttitor ac nec ligula. Praesent eget tellus vitae diam vehicula aliquam sit amet ut mi. Curabitur pretium, enim in
+                  lacinia vehicula, sapien metus ultrices eros, vitae volutpat ex tortor nec lacus. Orci varius natoque penatibus et magnis dis parturient
+                  montes, nascetur ridiculus mus. Sed eget porttitor mi. Suspendisse sed dolor non justo euismod volutpat. Nulla massa quam, dignissim sed
+                  dapibus ac, laoreet eu elit. Proin libero ipsum, blandit quis diam non, vulputate faucibus risus. Sed tincidunt elit metus. Aliquam maximus
+                  fringilla erat, eget pretium erat. Maecenas euismod fringilla placerat. Nunc lorem nulla, feugiat sagittis dolor id, scelerisque convallis
+                  risus. Nullam molestie, odio sed cursus convallis, nulla ligula gravida leo, ac suscipit mi elit nec velit. Nulla euismod molestie accumsan.
+                  Suspendisse ut aliquet dolor. Sed vel mollis nisl, sit amet porta odio. Vivamus sagittis metus vulputate enim porttitor rhoncus. Ut facilisis
+                  ligula eget lorem rhoncus, vel pretium mauris cursus. Cras vel condimentum odio. Fusce vehicula facilisis risus, in maximus ante suscipit sed.
+                  Sed ac quam a nisl hendrerit tempor varius sed mauris. Donec tempor mauris et nisi sagittis laoreet. Sed dapibus ex non consectetur maximus.
+                  Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean arcu neque, molestie a nisi vel, tincidunt
+                  vehicula arcu. Ut ut lectus gravida, tristique mauris a, aliquet magna. Duis sodales in ipsum pretium hendrerit.
+                </p>
+              </titanium-show-hide>
+            </div>
+
+            <api-docs src="./custom-elements.json" selected="titanium-show-hide"></api-docs>
+          </leavitt-app-width-limiter>
+        </main>
+      </leavitt-app-main-content-container>
     `;
   }
 }

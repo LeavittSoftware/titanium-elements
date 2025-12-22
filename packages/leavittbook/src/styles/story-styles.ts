@@ -1,7 +1,7 @@
 import { css } from 'lit';
 
 const StoryStyles = css`
-  md-divider {
+  leavitt-app-width-limiter > md-divider {
     margin-bottom: 48px;
   }
 
@@ -110,6 +110,7 @@ const StoryStyles = css`
     p {
       opacity: 0.8;
       font-size: 13px;
+      margin: 0;
     }
 
     md-icon {
