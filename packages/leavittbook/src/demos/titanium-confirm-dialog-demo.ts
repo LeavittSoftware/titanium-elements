@@ -58,7 +58,8 @@ export class TitaniumConfirmDialogDemo extends LitElement {
         padding: 24px;
       }
 
-      p {
+      h1,
+      h3 {
         margin-bottom: 12px;
       }
     `,
@@ -71,11 +72,14 @@ export class TitaniumConfirmDialogDemo extends LitElement {
           <leavitt-app-navigation-header level1Text="Titanium confirm dialog" level1Href="/titanium-confirm-dialog" sticky-top> </leavitt-app-navigation-header>
           <leavitt-app-width-limiter max-width="1000px">
             <story-header name="Titanium confirm dialog" className="TitaniumConfirmDialog"></story-header>
+            <deprecation-notice>
+              <md-icon>warning</md-icon>
+              <p><kbd>titanium-confirm-dialog</kbd> is deprecated. Use <kbd>titanium-confirmation-dialog</kbd> instead.</p>
+            </deprecation-notice>
             <div>
               <h1>Default</h1>
-              <p>Confirmation dialog with custom title and message</p>
-              <p>Confirmed: ${this.confirmed}</p>
-                <md-filled-tonal-button @click=${this.#open}>Open</md-filled-tonal-button>
+              <h3>Confirmed: ${this.confirmed}</h3>
+              <md-filled-tonal-button @click=${this.#open}>Open</md-filled-tonal-button>
             </div>
             <api-docs src="./custom-elements.json" selected="titanium-confirm-dialog"></api-docs>
           </leavitt-app-width-limiter>
