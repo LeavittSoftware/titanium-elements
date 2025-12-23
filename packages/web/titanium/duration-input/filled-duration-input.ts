@@ -24,9 +24,9 @@ export class TitaniumFilledDurationInput extends MdFilledTextField {
    *  want to work with. When changed a duration-change event will be dispatched.
    */
   @property({ type: Object }) accessor duration: duration.Duration | null = null;
-  @property({ type: String })  label: string = 'Duration';
-  @property({ type: String })  placeholder: string = '3 hours and 30 minutes';
-  @property({ type: String })  autocomplete: string = 'off';
+  @property({ type: String }) label: string = 'Duration';
+  @property({ type: String }) placeholder: string = '3 hours and 30 minutes';
+  @property({ type: String }) autocomplete: string = 'off';
   @property({ type: Boolean }) spellcheck: boolean = false;
 
   updated(changedProps: PropertyValues<this>) {
@@ -94,7 +94,7 @@ export class TitaniumFilledDurationInput extends MdFilledTextField {
     ...(Array.isArray(MdFilledTextField.styles) ? MdFilledTextField.styles : [MdFilledTextField.styles]),
     css`
       :host {
-       --md-filled-text-field-container-shape: 16px;
+        --md-filled-text-field-container-shape: 16px;
         --md-filled-text-field-active-indicator-height: 0;
         --md-filled-text-field-error-active-indicator-height: 0;
         --md-filled-text-field-hover-active-indicator-height: 0;

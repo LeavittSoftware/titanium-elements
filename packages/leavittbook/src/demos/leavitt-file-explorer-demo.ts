@@ -3,18 +3,15 @@ import '../shared/story-header';
 import '@leavittsoftware/web/leavitt/app/app-main-content-container';
 import '@leavittsoftware/web/leavitt/app/app-navigation-header';
 import '@leavittsoftware/web/leavitt/app/app-width-limiter';
-import '@material/web/divider/divider';
 import '@api-viewer/docs';
 import '@leavittsoftware/web/titanium/snackbar/snackbar-stack';
-
-import { css, html, LitElement } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
 import '@leavittsoftware/web/leavitt/file-explorer/file-explorer';
 import '@leavittsoftware/web/leavitt/user-manager/user-manager';
+
+import { html, LitElement } from 'lit';
+import { customElement, state } from 'lit/decorators.js';
 import ApiService from '@leavittsoftware/web/leavitt/api-service/api-service';
 import UserManager from '../services/user-manager-service';
-import { heroStyles } from '../styles/hero-styles';
 
 import StoryStyles from '../styles/story-styles';
 
@@ -29,36 +26,7 @@ export class LeavittFileExplorerDemo extends LitElement {
     this.fileExplorerApiService.addHeader('X-LGAppName', 'FileExplorer');
   }
 
-  static styles = [
-    StoryStyles,
-    heroStyles,
-    h1,
-    p,
-    css`
-      :host {
-        display: grid;
-      }
-
-      main {
-        display: grid;
-        align-content: start;
-      }
-
-      leavitt-app-width-limiter div {
-        background: var(--md-sys-color-surface-container-low);
-        border-radius: 24px;
-        padding: 24px;
-
-        &:not(:first-of-type) {
-          margin-top: 24px;
-        }
-      }
-
-      p {
-        margin-bottom: 12px;
-      }
-    `,
-  ];
+  static styles = [StoryStyles];
 
   render() {
     return html`

@@ -11,11 +11,9 @@ import '@material/web/button/filled-tonal-button';
 
 import { css, html, LitElement } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
-import { p } from '@leavittsoftware/web/titanium/styles/styles';
 import { repeat } from 'lit/directives/repeat.js';
 import { TitaniumChipMultiSelect } from '@leavittsoftware/web/titanium/chip-multi-select/chip-multi-select';
 import '@leavittsoftware/web/titanium/chip-multi-select/chip-multi-select';
-import { heroStyles } from '../styles/hero-styles';
 
 import StoryStyles from '../styles/story-styles';
 
@@ -31,28 +29,7 @@ export class TitaniumChipMultiSelectDemo extends LitElement {
 
   static styles = [
     StoryStyles,
-    heroStyles,
-    p,
     css`
-      :host {
-        display: grid;
-      }
-
-      main {
-        display: grid;
-        align-content: start;
-      }
-
-      div {
-        background: var(--md-sys-color-surface-container-low);
-        border-radius: 24px;
-        padding: 24px;
-      }
-
-      h1 {
-        margin-bottom: 12px;
-      }
-
       titanium-chip-multi-select {
         margin-bottom: 24px;
       }

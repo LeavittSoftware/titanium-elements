@@ -13,9 +13,7 @@ import '@leavittsoftware/web/titanium/drawer/drawer';
 
 import { css, html, LitElement } from 'lit';
 import { customElement, query } from 'lit/decorators.js';
-import { p } from '@leavittsoftware/web/titanium/styles/styles';
 import { TitaniumDrawer } from '@leavittsoftware/web/titanium/drawer/drawer';
-import { heroStyles } from '../styles/hero-styles';
 
 import StoryStyles from '../styles/story-styles';
 
@@ -26,29 +24,7 @@ export class TitaniumDrawerDemo extends LitElement {
 
   static styles = [
     StoryStyles,
-    heroStyles,
-    p,
     css`
-      :host {
-        display: grid;
-      }
-
-      main {
-        display: grid;
-        align-content: start;
-      }
-
-      div {
-        background: var(--md-sys-color-surface-container-low);
-        border-radius: 24px;
-        padding: 24px;
-        margin-bottom: 48px;
-
-        &:last-of-type {
-          margin-bottom: 0;
-        }
-      }
-
       md-filled-tonal-button,
       h1 {
         margin-bottom: 12px;

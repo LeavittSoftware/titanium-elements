@@ -12,10 +12,8 @@ import '@leavittsoftware/web/titanium/date-input/date-input';
 
 import { css, html, LitElement } from 'lit';
 import { customElement, query } from 'lit/decorators.js';
-import { p } from '@leavittsoftware/web/titanium/styles/styles';
 import { TitaniumDateInput } from '@leavittsoftware/web/titanium/date-input/date-input';
 import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
-import { heroStyles } from '../styles/hero-styles';
 
 import StoryStyles from '../styles/story-styles';
 
@@ -26,25 +24,7 @@ export class TitaniumDateInputDemo extends LitElement {
 
   static styles = [
     StoryStyles,
-    heroStyles,
-    p,
     css`
-      :host {
-        display: grid;
-      }
-
-      main {
-        display: grid;
-        align-content: start;
-      }
-
-      div {
-        background: var(--md-sys-color-surface-container-low);
-        border-radius: 24px;
-        padding: 24px;
-        margin-bottom: 48px;
-      }
-
       md-filled-text-field {
         --md-filled-text-field-container-shape: 16px;
         --md-filled-text-field-active-indicator-height: 0;
@@ -63,13 +43,6 @@ export class TitaniumDateInputDemo extends LitElement {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 24px;
-      }
-
-      section[buttons] {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 12px;
       }
     `,
   ];

@@ -10,9 +10,7 @@ import '@leavittsoftware/web/titanium/profile-picture-stack/profile-picture-stac
 
 import { css, html, LitElement } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { p } from '@leavittsoftware/web/titanium/styles/styles';
 import { Person } from '@leavittsoftware/lg-core-typescript';
-import { heroStyles } from '../styles/hero-styles';
 
 import StoryStyles from '../styles/story-styles';
 
@@ -37,18 +35,7 @@ export class TitaniumProfilePictureStackDemo extends LitElement {
 
   static styles = [
     StoryStyles,
-    heroStyles,
-    p,
     css`
-      :host {
-        display: grid;
-      }
-
-      main {
-        display: grid;
-        align-content: start;
-      }
-
       titanium-profile-picture-stack {
         margin: 0 0 12px 0;
       }
@@ -57,31 +44,9 @@ export class TitaniumProfilePictureStackDemo extends LitElement {
         --titanium-profile-picture-stack-transform-scale: 1.5;
       }
 
-      div {
-        background: var(--md-sys-color-surface-container-low);
-        border-radius: 24px;
-        padding: 24px;
-        margin-bottom: 48px;
-
-        &:last-of-type {
-          margin-bottom: 0;
-        }
-      }
-
-      h1 {
-        margin-bottom: 12px;
-      }
-
       p {
         font-size: 13px;
         opacity: 0.8;
-      }
-
-      [stack-container] {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        flex-wrap: wrap;
       }
     `,
   ];
@@ -97,10 +62,10 @@ export class TitaniumProfilePictureStackDemo extends LitElement {
 
             <div>
               <h1>Default size (24px)</h1>
-              <stack-container>
+              <item-row>
                 <titanium-profile-picture-stack .people=${this.people}></titanium-profile-picture-stack>
                 <p>${this.people.length} people</p>
-              </stack-container>
+              </item-row>
             </div>
 
             <div>

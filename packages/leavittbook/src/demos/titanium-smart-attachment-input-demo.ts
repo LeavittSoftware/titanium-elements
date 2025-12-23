@@ -14,9 +14,7 @@ import '@leavittsoftware/web/titanium/smart-attachment-input/smart-attachment-in
 
 import { css, html, LitElement } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
-import { p } from '@leavittsoftware/web/titanium/styles/styles';
 import { TitaniumSmartAttachmentInput } from '@leavittsoftware/web/titanium/smart-attachment-input/smart-attachment-input';
-import { heroStyles } from '../styles/hero-styles';
 import { MdDialog } from '@material/web/dialog/dialog';
 import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
 import { dialogCloseNavigationHack, dialogOpenNavigationHack } from '@leavittsoftware/web/titanium/hacks/dialog-navigation-hack';
@@ -76,39 +74,7 @@ export class TitaniumSmartAttachmentInputDemo extends LitElement {
 
   static styles = [
     StoryStyles,
-    heroStyles,
-    p,
     css`
-      :host {
-        display: grid;
-      }
-
-      main {
-        display: grid;
-        align-content: start;
-      }
-
-      leavitt-app-width-limiter div {
-        background: var(--md-sys-color-surface-container-low);
-        border-radius: 24px;
-        padding: 24px;
-
-        &:not(:first-of-type) {
-          margin-top: 24px;
-        }
-      }
-
-      h1 {
-        margin-bottom: 12px;
-      }
-
-      section[buttons] {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 12px;
-      }
-
       md-dialog {
         --md-dialog-container-shape: 28px;
       }

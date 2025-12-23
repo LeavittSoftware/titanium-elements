@@ -10,13 +10,11 @@ import '@api-viewer/docs';
 
 import '@leavittsoftware/web/titanium/snackbar/snackbar-stack';
 
-import { css, html, LitElement } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, query } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
 import { SnackbarStack } from '@leavittsoftware/web/titanium/snackbar/snackbar-stack';
 import { ShowSnackbarEvent } from '@leavittsoftware/web/titanium/snackbar/show-snackbar-event';
 import { MdDialog } from '@material/web/dialog/dialog';
-import { heroStyles } from '../styles/hero-styles';
 import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
 import { dialogZIndexHack } from '@leavittsoftware/web/titanium/hacks/dialog-zindex-hack';
 import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
@@ -28,43 +26,7 @@ export class TitaniumSnackbarDemo extends LitElement {
   @query('md-dialog') dialog: MdDialog;
   @query('titanium-snackbar-stack') snackbar: SnackbarStack;
 
-  static styles = [
-    StoryStyles,
-    heroStyles,
-    h1,
-    p,
-    css`
-      :host {
-        display: grid;
-      }
-
-      main {
-        display: grid;
-        align-content: start;
-      }
-
-      leavitt-app-width-limiter div {
-        background: var(--md-sys-color-surface-container-low);
-        border-radius: 24px;
-        padding: 24px;
-
-        &:not(:first-of-type) {
-          margin-top: 24px;
-        }
-      }
-
-      p {
-        margin-bottom: 12px;
-      }
-
-      section[buttons] {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 12px;
-      }
-    `,
-  ];
+  static styles = [StoryStyles];
 
   #counter = 0;
 

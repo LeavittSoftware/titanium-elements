@@ -4,15 +4,14 @@ import '@leavittsoftware/web/leavitt/app/app-main-content-container';
 import '@leavittsoftware/web/leavitt/app/app-navigation-header';
 import '@leavittsoftware/web/leavitt/app/app-width-limiter';
 import '@material/web/divider/divider';
+import '@material/web/icon/icon';
 import '@api-viewer/docs';
 import '@material/web/button/filled-tonal-button';
 
 import { css, html, LitElement } from 'lit';
 import { customElement, query } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
 import '@leavittsoftware/web/titanium/data-table/data-table-item';
 import { TitaniumDataTableItem } from '@leavittsoftware/web/titanium/data-table/data-table-item';
-import { heroStyles } from '../styles/hero-styles';
 
 import StoryStyles from '../styles/story-styles';
 
@@ -22,37 +21,11 @@ export class TitaniumDataTableItemDemo extends LitElement {
 
   static styles = [
     StoryStyles,
-    heroStyles,
-    h1,
-    p,
     css`
-      :host {
-        display: grid;
-      }
-
-      main {
-        display: grid;
-        align-content: start;
-      }
-
-      leavitt-app-width-limiter div {
-        background: var(--md-sys-color-surface-container-low);
-        border-radius: 24px;
-        padding: 24px;
-
-        &:not(:first-of-type) {
-          margin-top: 24px;
-        }
-      }
-
       section {
         display: flex;
         margin-top: 12px;
         gap: 12px;
-      }
-
-      p {
-        margin-bottom: 12px;
       }
     `,
   ];
@@ -67,9 +40,7 @@ export class TitaniumDataTableItemDemo extends LitElement {
           <leavitt-app-width-limiter max-width="1000px">
             <deprecation-notice>
               <md-icon>warning</md-icon>
-              <p>
-                <kbd>titanium-data-table-item</kbd> is deprecated. Use <kbd>titanium-data-table-core</kbd> instead (shown in separate demo).
-              </p>
+              <p><kbd>titanium-data-table-item</kbd> is deprecated. Use <kbd>titanium-data-table-core</kbd> instead (shown in separate demo).</p>
             </deprecation-notice>
             <story-header name="Titanium data table item" className="TitaniumDataTableItem"></story-header>
 

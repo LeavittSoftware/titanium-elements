@@ -10,10 +10,8 @@ import '@material/web/textfield/filled-text-field';
 
 import { css, html, LitElement } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
-import { p } from '@leavittsoftware/web/titanium/styles/styles';
 import '@leavittsoftware/web/titanium/confirmation-dialog/confirmation-dialog';
 import TitaniumConfirmationDialog from '@leavittsoftware/web/titanium/confirmation-dialog/confirmation-dialog';
-import { heroStyles } from '../styles/hero-styles';
 
 import StoryStyles from '../styles/story-styles';
 
@@ -32,33 +30,7 @@ export class TitaniumConfirmationDialogDemo extends LitElement {
 
   static styles = [
     StoryStyles,
-    heroStyles,
-    p,
     css`
-      :host {
-        display: grid;
-      }
-
-      main {
-        display: grid;
-        align-content: start;
-      }
-
-      div {
-        background: var(--md-sys-color-surface-container-low);
-        border-radius: 24px;
-        padding: 24px;
-        margin-bottom: 48px;
-
-        &:last-of-type {
-          margin-bottom: 0;
-        }
-      }
-
-      p {
-        margin-bottom: 12px;
-      }
-
       md-filled-text-field {
         --md-filled-text-field-container-shape: 16px;
 

@@ -23,7 +23,6 @@ import '@material/web/button/text-button';
 
 import { css, html, LitElement } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
-import { h1, h2, p } from '@leavittsoftware/web/titanium/styles/styles';
 import '@leavittsoftware/web/titanium/data-table/data-table';
 import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
 import { Debouncer, getSearchTokens } from '@leavittsoftware/web/titanium/helpers/helpers';
@@ -34,7 +33,6 @@ import { repeat } from 'lit/directives/repeat.js';
 import { CloseMenuEvent, MdMenu, MenuItem } from '@material/web/menu/menu';
 import { MdIconButton } from '@material/web/iconbutton/icon-button';
 import { MdDialog } from '@material/web/dialog/dialog';
-import { heroStyles } from '../styles/hero-styles';
 
 import StoryStyles from '../styles/story-styles';
 
@@ -151,37 +149,10 @@ export class TitaniumDataTableDemo extends LitElement {
 
   static styles = [
     StoryStyles,
-    heroStyles,
-    h1,
-    h2,
-    p,
     css`
-      :host {
-        display: grid;
-      }
-
-      main {
-        display: grid;
-        align-content: start;
-      }
-
-      leavitt-app-width-limiter div {
-        background: var(--md-sys-color-surface-container-low);
-        border-radius: 24px;
-        padding: 24px;
-
-        &:not(:first-of-type) {
-          margin-top: 24px;
-        }
-      }
-
       titanium-data-table {
         margin: 24px 0 36px 0;
         --titanium-page-control-select-width: 108px;
-      }
-
-      p {
-        margin-bottom: 12px;
       }
 
       knob-container {
@@ -203,9 +174,7 @@ export class TitaniumDataTableDemo extends LitElement {
           <leavitt-app-width-limiter max-width="1000px">
             <deprecation-notice>
               <md-icon>warning</md-icon>
-              <p>
-                <kbd>titanium-data-table</kbd> is deprecated. Use <kbd>titanium-data-table-core</kbd> instead (shown in separate demo).
-              </p>
+              <p><kbd>titanium-data-table</kbd> is deprecated. Use <kbd>titanium-data-table-core</kbd> instead (shown in separate demo).</p>
             </deprecation-notice>
             <story-header name="Titanium data table" className="TitaniumDataTable"></story-header>
 

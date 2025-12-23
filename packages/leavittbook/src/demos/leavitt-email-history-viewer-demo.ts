@@ -3,26 +3,20 @@ import '../shared/story-header';
 import '@leavittsoftware/web/leavitt/app/app-main-content-container';
 import '@leavittsoftware/web/leavitt/app/app-navigation-header';
 import '@leavittsoftware/web/leavitt/app/app-width-limiter';
-import '@leavittsoftware/web/leavitt/user-manager/user-manager';
-import '@material/web/divider/divider';
-import '@material/web/button/filled-tonal-button';
-import '@material/web/divider/divider';
 import '@api-viewer/docs';
-
+import '@material/web/divider/divider';
+import '@leavittsoftware/web/leavitt/user-manager/user-manager';
 import '@leavittsoftware/web/leavitt/email-history-viewer/email-history-viewer';
 import '@leavittsoftware/web/leavitt/email-history-viewer/email-history-viewer-filled';
 
 import { css, html, LitElement } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
 import { ThemePreference } from '@leavittsoftware/web/leavitt/theme/theme-preference';
-import { heroStyles } from '../styles/hero-styles';
 
 import ApiService from '@leavittsoftware/web/leavitt/api-service/api-service';
 import LeavittEmailHistoryViewer from '@leavittsoftware/web/leavitt/email-history-viewer/email-history-viewer';
 import LeavittEmailHistoryViewerFilled from '@leavittsoftware/web/leavitt/email-history-viewer/email-history-viewer-filled';
 import UserManager from '../services/user-manager-service';
-
 import StoryStyles from '../styles/story-styles';
 
 @customElement('leavitt-email-history-viewer-demo')
@@ -40,38 +34,9 @@ export class LeavittEmailHistoryViewerDemo extends ThemePreference(LitElement) {
 
   static styles = [
     StoryStyles,
-    heroStyles,
-    h1,
-    p,
     css`
-      :host {
-        display: grid;
-      }
-
-      main {
-        display: grid;
-        align-content: start;
-      }
-
-      leavitt-app-width-limiter div {
-        background: var(--md-sys-color-surface-container-low);
-        border-radius: 24px;
-        padding: 24px;
-
-        &:not(:first-of-type) {
-          margin-top: 24px;
-        }
-      }
-
       div[row] {
         display: grid;
-        gap: 12px;
-      }
-
-      section[buttons] {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
         gap: 12px;
       }
     `,

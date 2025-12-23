@@ -10,10 +10,8 @@ import '@leavittsoftware/web/leavitt/profile-picture/profile-picture-menu';
 
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
 import '@leavittsoftware/web/titanium/toolbar/toolbar';
 import UserManager from '../services/user-manager-service';
-import { heroStyles } from '../styles/hero-styles';
 
 import StoryStyles from '../styles/story-styles';
 
@@ -21,33 +19,7 @@ import StoryStyles from '../styles/story-styles';
 export class TitaniumToolbarDemo extends LitElement {
   static styles = [
     StoryStyles,
-    heroStyles,
-    h1,
-    p,
     css`
-      :host {
-        display: grid;
-      }
-
-      main {
-        display: grid;
-        align-content: start;
-      }
-
-      leavitt-app-width-limiter div {
-        background: var(--md-sys-color-surface-container-low);
-        border-radius: 24px;
-        padding: 24px;
-
-        &:not(:first-of-type) {
-          margin-top: 24px;
-        }
-      }
-
-      h1 {
-        margin-bottom: 12px;
-      }
-
       demo-toolbar {
         display: flex;
         position: relative;
@@ -101,14 +73,14 @@ export class TitaniumToolbarDemo extends LitElement {
               <h1>Content area</h1>
               <p>The toolbar is typically positioned at the top of the page with content below</p>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ex quo illud efficitur, qui bene cenent omnis libenter cenare, qui libenter, non continuo
-                bene. Quos nisi redarguimus, omnis virtus, omne decus, omnis vera laus deserenda est. Cur fortior sit, si illud, quod tute concedis, asperum et vix
-                ferendum putabit? Et quidem illud ipsum non nimium probo et tantum patior, philosophum loqui de cupiditatibus finiendis.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ex quo illud efficitur, qui bene cenent omnis libenter cenare, qui libenter, non
+                continuo bene. Quos nisi redarguimus, omnis virtus, omne decus, omnis vera laus deserenda est. Cur fortior sit, si illud, quod tute concedis,
+                asperum et vix ferendum putabit? Et quidem illud ipsum non nimium probo et tantum patior, philosophum loqui de cupiditatibus finiendis.
               </p>
               <p>
-                Semper enim ex eo, quod maximas partes continet latissimeque funditur, tota res appellatur. Quod autem ratione actum est, id officium appellamus. Num
-                igitur eum postea censes anxio animo aut sollicito fuisse? Possumusne hic scire qualis sit, nisi contulerimus inter nos, cum finem bonorum dixerimus,
-                quid finis, quid etiam sit ipsum bonum?
+                Semper enim ex eo, quod maximas partes continet latissimeque funditur, tota res appellatur. Quod autem ratione actum est, id officium
+                appellamus. Num igitur eum postea censes anxio animo aut sollicito fuisse? Possumusne hic scire qualis sit, nisi contulerimus inter nos, cum
+                finem bonorum dixerimus, quid finis, quid etiam sit ipsum bonum?
               </p>
             </div>
 

@@ -23,7 +23,8 @@ export default class GettingStarted extends LitElement {
         align-content: start;
       }
 
-      h1,h2 {
+      h1,
+      h2 {
         margin-bottom: 6px;
       }
 

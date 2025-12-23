@@ -8,7 +8,7 @@ import '@api-viewer/docs';
 
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { dataRow, a, ellipsis, h1, h2, h3, h4, h5, p } from '@leavittsoftware/web/titanium/styles/styles';
+import { dataRow, a, ellipsis, h2, h3, h4, h5 } from '@leavittsoftware/web/titanium/styles/styles';
 
 import StoryStyles from '../styles/story-styles';
 
@@ -19,43 +19,22 @@ export class TitaniumStylesDemo extends LitElement {
     dataRow,
     a,
     ellipsis,
-    h1,
     h2,
     h3,
     h4,
     h5,
-    p,
     css`
-      :host {
-        display: grid;
-      }
-
-      main {
-        display: grid;
-        align-content: start;
-      }
-
-      leavitt-app-width-limiter > div {
-        background: var(--md-sys-color-surface-container-low);
-        border-radius: 24px;
-        padding: 24px;
-
-        &[no-padding-right] {
-          padding-right: 0;
-        }
-
-        &:not(:first-of-type) {
-          margin-top: 24px;
-        }
-      }
-
-      leavitt-app-width-limiter > p {
-        margin-bottom: 12px;
+      leavitt-app-width-limiter > div[no-padding-right] {
+        padding-right: 0;
       }
 
       typography-grid {
         display: grid;
         gap: 12px;
+
+        h1 {
+          margin-bottom: 0;
+        }
       }
     `,
   ];

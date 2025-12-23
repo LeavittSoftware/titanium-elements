@@ -3,28 +3,23 @@ import '../shared/story-header';
 import '@leavittsoftware/web/leavitt/app/app-main-content-container';
 import '@leavittsoftware/web/leavitt/app/app-navigation-header';
 import '@leavittsoftware/web/leavitt/app/app-width-limiter';
-import '@material/web/divider/divider';
 import '@api-viewer/docs';
 import '@material/web/button/filled-tonal-button';
 import '@leavittsoftware/web/leavitt/user-manager/user-manager';
-
 import '@leavittsoftware/web/leavitt/person-company-select/person-company-select';
+import '@leavittsoftware/web/titanium/snackbar/snackbar-stack';
 
-import { css, html, LitElement } from 'lit';
-import { customElement, query, queryAll, state } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
+import { html, LitElement } from 'lit';
+import { customElement, query, state } from 'lit/decorators.js';
 import { LeavittPersonCompanySelect } from '@leavittsoftware/web/leavitt/person-company-select/person-company-select';
-import { heroStyles } from '../styles/hero-styles';
 
 import ApiService from '@leavittsoftware/web/leavitt/api-service/api-service';
 import UserManager from '../services/user-manager-service';
-
 import StoryStyles from '../styles/story-styles';
 
 @customElement('leavitt-person-company-select-demo')
 export class LeavittPersonCompanySelectDemo extends LitElement {
   @state() private accessor apiService: ApiService;
-  @queryAll('leavitt-person-company-select') protected accessor inputs!: NodeListOf<LeavittPersonCompanySelect>;
   @query('leavitt-person-company-select[methods-demo]') protected accessor methodsSelect!: LeavittPersonCompanySelect;
 
   constructor() {
@@ -34,50 +29,7 @@ export class LeavittPersonCompanySelectDemo extends LitElement {
     this.apiService.addHeader('X-LGAppName', 'Testing');
   }
 
-  static styles = [
-    StoryStyles,
-    heroStyles,
-    h1,
-    p,
-    css`
-      :host {
-        display: grid;
-      }
-
-      main {
-        display: grid;
-        align-content: start;
-      }
-
-      leavitt-app-width-limiter div {
-        background: var(--md-sys-color-surface-container-low);
-        border-radius: 24px;
-        padding: 24px;
-
-        &:not(:first-of-type) {
-          margin-top: 24px;
-        }
-      }
-
-      h1 {
-        margin-bottom: 12px;
-      }
-
-      item-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 16px;
-      }
-
-      section[buttons] {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin-top: 12px;
-      }
-    `,
-  ];
+  static styles = [StoryStyles];
 
   render() {
     return html`

@@ -12,11 +12,9 @@ import '@leavittsoftware/web/titanium/address-input/google-address-input';
 
 import { css, html, LitElement } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
-import { p } from '@leavittsoftware/web/titanium/styles/styles';
 import { TitaniumAddressInput } from '@leavittsoftware/web/titanium/address-input/address-input';
 import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
 import { GoogleAddressInput } from '@leavittsoftware/web/titanium/address-input/google-address-input';
-import { heroStyles } from '../styles/hero-styles';
 
 import StoryStyles from '../styles/story-styles';
 
@@ -33,30 +31,7 @@ export class TitaniumAddressInputDemo extends LitElement {
 
   static styles = [
     StoryStyles,
-    heroStyles,
-    p,
     css`
-      :host {
-        display: grid;
-      }
-
-      main {
-        display: grid;
-        align-content: start;
-      }
-
-      div {
-        background: var(--md-sys-color-surface-container-low);
-        border-radius: 24px;
-        padding: 24px;
-        margin-bottom: 48px;
-
-        &:last-of-type {
-          margin-bottom: 0;
-        }
-      }
-
-      h1,
       h2 {
         margin-bottom: 12px;
       }

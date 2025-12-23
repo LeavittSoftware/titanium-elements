@@ -4,13 +4,12 @@ import '@leavittsoftware/web/leavitt/app/app-main-content-container';
 import '@leavittsoftware/web/leavitt/app/app-navigation-header';
 import '@leavittsoftware/web/leavitt/app/app-width-limiter';
 import '@api-viewer/docs';
+import '@material/web/icon/icon';
 
 import '@leavittsoftware/web/titanium/header/header';
 
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { p } from '@leavittsoftware/web/titanium/styles/styles';
-import { heroStyles } from '../styles/hero-styles';
 
 import StoryStyles from '../styles/story-styles';
 
@@ -18,29 +17,7 @@ import StoryStyles from '../styles/story-styles';
 export class TitaniumHeaderDemo extends LitElement {
   static styles = [
     StoryStyles,
-    heroStyles,
-    p,
     css`
-      :host {
-        display: grid;
-      }
-
-      main {
-        display: grid;
-        align-content: start;
-      }
-
-      div {
-        background: var(--md-sys-color-surface-container-low);
-        border-radius: 24px;
-        padding: 24px;
-        margin-bottom: 48px;
-
-        &:last-of-type {
-          margin-bottom: 0;
-        }
-      }
-
       h1 {
         margin-bottom: 24px;
       }

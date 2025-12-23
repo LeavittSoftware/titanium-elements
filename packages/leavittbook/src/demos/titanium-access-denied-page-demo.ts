@@ -7,36 +7,14 @@ import '@api-viewer/docs';
 
 import '@leavittsoftware/web/titanium/access-denied-page/access-denied-page';
 
-import { css, html, LitElement } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { p } from '@leavittsoftware/web/titanium/styles/styles';
-import { heroStyles } from '../styles/hero-styles';
 
 import StoryStyles from '../styles/story-styles';
 
 @customElement('titanium-access-denied-page-demo')
 export class TitaniumAccessDeniedPageDemo extends LitElement {
-  static styles = [
-    StoryStyles,
-    heroStyles,
-    p,
-    css`
-      :host {
-        display: grid;
-      }
-
-      main {
-        display: grid;
-        align-content: start;
-      }
-
-      div {
-        background: var(--md-sys-color-surface-container-low);
-        border-radius: 24px;
-        padding: 24px;
-      }
-    `,
-  ];
+  static styles = [StoryStyles];
 
   render() {
     return html`

@@ -263,7 +263,7 @@ export class MyApp extends PendingStateCatcher(LitElement) {
         margin-right: 12px;
       }
 
-      titanium-drawer[main-menu]  {
+      titanium-drawer[main-menu] {
         md-list-item {
           --md-list-item-one-line-container-height: 24px;
           --md-list-item-top-space: 2px;

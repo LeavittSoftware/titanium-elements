@@ -3,18 +3,14 @@ import '../shared/story-header';
 import '@leavittsoftware/web/leavitt/app/app-main-content-container';
 import '@leavittsoftware/web/leavitt/app/app-navigation-header';
 import '@leavittsoftware/web/leavitt/app/app-width-limiter';
-import '@material/web/divider/divider';
 import '@api-viewer/docs';
 import '@material/web/button/filled-tonal-button';
 import '@leavittsoftware/web/leavitt/user-manager/user-manager';
-
 import '@leavittsoftware/web/leavitt/person-group-select/person-group-select';
 
-import { css, html, LitElement } from 'lit';
-import { customElement, query, queryAll, state } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
+import { html, LitElement } from 'lit';
+import { customElement, query, state } from 'lit/decorators.js';
 import { LeavittPersonGroupSelect } from '@leavittsoftware/web/leavitt/person-group-select/person-group-select';
-import { heroStyles } from '../styles/hero-styles';
 
 import ApiService from '@leavittsoftware/web/leavitt/api-service/api-service';
 import UserManager from '../services/user-manager-service';
@@ -23,7 +19,6 @@ import StoryStyles from '../styles/story-styles';
 @customElement('leavitt-person-group-select-demo')
 export class LeavittPersonGroupSelectDemo extends LitElement {
   @state() private accessor apiService: ApiService;
-  @queryAll('leavitt-person-group-select') protected accessor inputs!: NodeListOf<LeavittPersonGroupSelect>;
   @query('leavitt-person-group-select[methods-demo]') protected accessor methodsSelect!: LeavittPersonGroupSelect;
 
   constructor() {
@@ -33,50 +28,7 @@ export class LeavittPersonGroupSelectDemo extends LitElement {
     this.apiService.addHeader('X-LGAppName', 'Testing');
   }
 
-  static styles = [
-    StoryStyles,
-    heroStyles,
-    h1,
-    p,
-    css`
-      :host {
-        display: grid;
-      }
-
-      main {
-        display: grid;
-        align-content: start;
-      }
-
-      leavitt-app-width-limiter div {
-        background: var(--md-sys-color-surface-container-low);
-        border-radius: 24px;
-        padding: 24px;
-
-        &:not(:first-of-type) {
-          margin-top: 24px;
-        }
-      }
-
-      h1 {
-        margin-bottom: 12px;
-      }
-
-      item-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 16px;
-      }
-
-      section[buttons] {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin-top: 12px;
-      }
-    `,
-  ];
+  static styles = [StoryStyles];
 
   render() {
     return html`

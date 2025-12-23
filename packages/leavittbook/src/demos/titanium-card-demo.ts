@@ -14,8 +14,6 @@ import '@leavittsoftware/web/titanium/card/card';
 
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { p } from '@leavittsoftware/web/titanium/styles/styles';
-import { heroStyles } from '../styles/hero-styles';
 import { h1 } from '@leavittsoftware/web/titanium/styles/h1';
 
 import StoryStyles from '../styles/story-styles';
@@ -24,29 +22,8 @@ import StoryStyles from '../styles/story-styles';
 export class TitaniumCardDemo extends LitElement {
   static styles = [
     StoryStyles,
-    heroStyles,
-    p,
     css`
-      :host {
-        display: grid;
-      }
-
-      main {
-        display: grid;
-        align-content: start;
-      }
-
-      p {
-        margin-bottom: 12px;
-      }
-
       titanium-card {
-        margin-bottom: 48px;
-
-        &:last-of-type {
-          margin-bottom: 0;
-        }
-
         ${h1};
       }
 

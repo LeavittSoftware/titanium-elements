@@ -9,16 +9,15 @@ import '@leavittsoftware/web/titanium/data-table/data-table-core';
 import '@leavittsoftware/web/titanium/data-table/data-table-action-bar';
 import '@material/web/button/filled-tonal-button';
 import '@material/web/button/filled-button';
+import '@material/web/icon/icon';
 import '@material/web/iconbutton/icon-button';
 
 import { css, html, LitElement } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
-import { h1, h2, p } from '@leavittsoftware/web/titanium/styles/styles';
 import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
 import { TitaniumDataTableCore, TitaniumDataTableCoreMetaData, TitaniumDataTableCoreSortItem } from '@leavittsoftware/web/titanium/data-table/data-table-core';
 import { niceBadgeStyles } from '@leavittsoftware/web/titanium/styles/nice-badge';
 import { delay } from '@leavittsoftware/web/titanium/helpers/delay';
-import { heroStyles } from '../styles/hero-styles';
 
 import StoryStyles from '../styles/story-styles';
 
@@ -309,35 +308,8 @@ export class TitaniumDataTableCoreDemo extends LitElement {
 
   static styles = [
     StoryStyles,
-    heroStyles,
-    h1,
-    h2,
-    p,
     niceBadgeStyles,
     css`
-      :host {
-        display: grid;
-      }
-
-      main {
-        display: grid;
-        align-content: start;
-      }
-
-      leavitt-app-width-limiter div {
-        background: var(--md-sys-color-surface-container-low);
-        border-radius: 24px;
-        padding: 24px;
-
-        &:not(:first-of-type) {
-          margin-top: 24px;
-        }
-      }
-
-      h1 {
-        margin-bottom: 12px;
-      }
-
       titanium-data-table-core {
         margin: 24px 0 36px 0;
       }

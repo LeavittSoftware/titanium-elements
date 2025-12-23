@@ -11,10 +11,8 @@ import '@material/web/slider/slider';
 
 import { css, html, LitElement } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
-import { p } from '@leavittsoftware/web/titanium/styles/styles';
 import '@leavittsoftware/web/titanium/show-hide/show-hide';
 import dayjs from 'dayjs/esm';
-import { heroStyles } from '../styles/hero-styles';
 
 import StoryStyles from '../styles/story-styles';
 
@@ -27,18 +25,7 @@ export class TitaniumShowHideDemo extends LitElement {
 
   static styles = [
     StoryStyles,
-    heroStyles,
-    p,
     css`
-      :host {
-        display: grid;
-      }
-
-      main {
-        display: grid;
-        align-content: start;
-      }
-
       [horizontal] {
         --titanium-show-hide-flex-direction: row;
       }
@@ -56,7 +43,6 @@ export class TitaniumShowHideDemo extends LitElement {
         }
       }
 
-      h1,
       h2 {
         margin-bottom: 12px;
       }
@@ -127,11 +113,17 @@ export class TitaniumShowHideDemo extends LitElement {
           p {
             opacity: 0.8;
             font-size: 11px;
+            margin-bottom: 0;
           }
 
           h3 {
             font-size: 14px;
             margin-top: -3px;
+          }
+
+          section {
+            display: flex;
+            flex-direction: column;
           }
 
           card-type {
@@ -268,8 +260,8 @@ export class TitaniumShowHideDemo extends LitElement {
           <leavitt-app-width-limiter max-width="1000px">
             <story-header name="Titanium show hide" className="TitaniumShowHide"></story-header>
 
-            <div main>
-              <h2>Vertical Credit Card Generator</h2>
+            <div>
+              <h1>Vertical Credit Card Generator</h1>
               <p>How many would you like?</p>
               <md-slider @input=${(event) => (this.verticalStepValue = event.target.value)} .value=${this.verticalStepValue}> </md-slider>
               <titanium-show-hide collapse-height="200">
@@ -280,14 +272,14 @@ export class TitaniumShowHideDemo extends LitElement {
                       <h2>${this.#getCardNumber()}</h2>
 
                       <card-details>
-                        <div>
+                        <section>
                           <p>Expires</p>
                           <h3>${dayjs().format('MM/YY')}</h3>
-                        </div>
-                        <div>
+                        </section>
+                        <section>
                           <p>Card Holder</p>
                           <h3>John Doe</h3>
-                        </div>
+                        </section>
                         <card-type>Visa</card-type>
                       </card-details>
                     </credit-card>`
@@ -295,8 +287,8 @@ export class TitaniumShowHideDemo extends LitElement {
               </titanium-show-hide>
             </div>
 
-            <div main>
-              <h2>Horizontal Credit Card Generator</h2>
+            <div>
+              <h1>Horizontal Credit Card Generator</h1>
               <p>How many would you like?</p>
               <md-slider @input=${(event) => (this.horizontalStepValue = event.target.value)} .value=${this.horizontalStepValue}> </md-slider>
               <titanium-show-hide horizontal collapse-height="200">
@@ -307,14 +299,14 @@ export class TitaniumShowHideDemo extends LitElement {
                       <h2>${this.#getCardNumber()}</h2>
 
                       <card-details>
-                        <div>
+                        <section>
                           <p>Expires</p>
                           <h3>${dayjs().format('MM/YY')}</h3>
-                        </div>
-                        <div>
+                        </section>
+                        <section>
                           <p>Card Holder</p>
                           <h3>John Doe</h3>
-                        </div>
+                        </section>
                         <card-type>Visa</card-type>
                       </card-details>
                     </credit-card>`
@@ -322,8 +314,8 @@ export class TitaniumShowHideDemo extends LitElement {
               </titanium-show-hide>
             </div>
 
-            <div main>
-              <h2>Text Example</h2>
+            <div>
+              <h1>Text Example</h1>
               <p>Using a custom slotted button</p>
               <titanium-show-hide @collapsed-changed=${(e) => (this.collapsed = e.target.collapsed)} start>
                 <p>
@@ -349,8 +341,8 @@ export class TitaniumShowHideDemo extends LitElement {
               </titanium-show-hide>
             </div>
 
-            <div main>
-              <h2>Filled button example</h2>
+            <div>
+              <h1>Filled button example</h1>
               <p>Read some text</p>
               <md-slider @input=${(event) => (this.verticalStepValue = event.target.value)} .value=${this.verticalStepValue}> </md-slider>
               <titanium-show-hide filled collapse-height="200">

@@ -14,7 +14,7 @@ import StoryStyles from '../styles/story-styles';
 
 @customElement('available-cdn-icons-demo')
 export class AvailableCdnIconsDemo extends LitElement {
-  icons = [
+  #icons = [
     'icon-app-accounts.svg',
     'icon-app-acm.svg',
     'icon-app-amc.svg',
@@ -106,15 +106,6 @@ export class AvailableCdnIconsDemo extends LitElement {
   static styles = [
     StoryStyles,
     css`
-      :host {
-        display: grid;
-      }
-
-      main {
-        display: grid;
-        align-content: start;
-      }
-
       all-icons {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -148,7 +139,7 @@ export class AvailableCdnIconsDemo extends LitElement {
           <leavitt-app-width-limiter max-width="1000px">
             <story-header name="Available CDN Icons"></story-header>
             <all-icons>
-              ${this.icons.map(
+              ${this.#icons.map(
                 (o) =>
                   html`<button
                     @click=${() => {

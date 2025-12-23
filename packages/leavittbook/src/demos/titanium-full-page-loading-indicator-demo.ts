@@ -7,46 +7,15 @@ import '@api-viewer/docs';
 
 import '@material/web/button/filled-tonal-button';
 
-import { css, html, LitElement } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { p } from '@leavittsoftware/web/titanium/styles/styles';
 import '@leavittsoftware/web/titanium/full-page-loading-indicator/full-page-loading-indicator';
-import { heroStyles } from '../styles/hero-styles';
 
 import StoryStyles from '../styles/story-styles';
 
 @customElement('titanium-full-page-loading-indicator-demo')
 export class TitaniumFullPageLoadingIndicatorDemo extends LitElement {
-  static styles = [
-    StoryStyles,
-    heroStyles,
-    p,
-    css`
-      :host {
-        display: grid;
-      }
-
-      main {
-        display: grid;
-        align-content: start;
-      }
-
-      div {
-        background: var(--md-sys-color-surface-container-low);
-        border-radius: 24px;
-        padding: 24px;
-        margin-bottom: 48px;
-
-        &:last-of-type {
-          margin-bottom: 0;
-        }
-      }
-
-      p {
-        margin-bottom: 12px;
-      }
-    `,
-  ];
+  static styles = [StoryStyles];
 
   render() {
     return html`

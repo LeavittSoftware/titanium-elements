@@ -11,8 +11,6 @@ import '@leavittsoftware/web/titanium/chip/chip';
 
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { p } from '@leavittsoftware/web/titanium/styles/styles';
-import { heroStyles } from '../styles/hero-styles';
 
 import StoryStyles from '../styles/story-styles';
 
@@ -20,27 +18,12 @@ import StoryStyles from '../styles/story-styles';
 export class TitaniumChipDemo extends LitElement {
   static styles = [
     StoryStyles,
-    heroStyles,
-    p,
     css`
-      :host {
-        display: grid;
-      }
-
-      main {
-        display: grid;
-        align-content: start;
-      }
-
       chip-container {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         gap: 8px;
-      }
-     
-      p {
-        margin-bottom: 12px;
       }
 
       titanium-chip[short] {

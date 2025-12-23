@@ -3,21 +3,18 @@ import '../shared/story-header';
 import '@leavittsoftware/web/leavitt/app/app-main-content-container';
 import '@leavittsoftware/web/leavitt/app/app-navigation-header';
 import '@leavittsoftware/web/leavitt/app/app-width-limiter';
-import '@material/web/divider/divider';
 import '@api-viewer/docs';
+import '@material/web/button/filled-tonal-button';
 import '@leavittsoftware/web/leavitt/user-manager/user-manager';
 import '@leavittsoftware/web/leavitt/company-select/company-select';
-import '@material/web/button/filled-tonal-button';
 
-import { css, html, LitElement } from 'lit';
-import { customElement, query, queryAll, state } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
+import { html, LitElement } from 'lit';
+import { customElement, query, state } from 'lit/decorators.js';
 import { LeavittCompanySelect } from '@leavittsoftware/web/leavitt/company-select/company-select';
 import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
 import { Company } from '@leavittsoftware/lg-core-typescript';
 import { getCompanyMarkUrl } from '@leavittsoftware/web/titanium/helpers/get-company-mark-url';
 import { ThemePreference } from '@leavittsoftware/web/leavitt/theme/theme-preference';
-import { heroStyles } from '../styles/hero-styles';
 
 import api3UserService from '../services/api3-user-service';
 import StoryStyles from '../styles/story-styles';
@@ -26,52 +23,8 @@ import StoryStyles from '../styles/story-styles';
 export class LeavittCompanySelectDemo extends ThemePreference(LitElement) {
   @state() private accessor disableMenuOpenOnFocus: boolean = false;
   @query('leavitt-company-select[methods-demo]') protected accessor methodsSelect!: LeavittCompanySelect;
-  @queryAll('leavitt-company-select') protected accessor inputs!: NodeListOf<LeavittCompanySelect>;
 
-  static styles = [
-    StoryStyles,
-    heroStyles,
-    h1,
-    p,
-    css`
-      :host {
-        display: grid;
-      }
-
-      main {
-        display: grid;
-        align-content: start;
-      }
-
-      leavitt-app-width-limiter div {
-        background: var(--md-sys-color-surface-container-low);
-        border-radius: 24px;
-        padding: 24px;
-
-        &:not(:first-of-type) {
-          margin-top: 24px;
-        }
-      }
-
-      h1 {
-        margin-bottom: 12px;
-      }
-
-      item-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 16px;
-      }
-
-      section[buttons] {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin-top: 12px;
-      }
-    `,
-  ];
+  static styles = [StoryStyles];
 
   render() {
     return html`

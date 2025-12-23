@@ -111,7 +111,7 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
       if (!this.options) {
         this.options = {};
       }
-      
+
       // Default maximizeSelection to true if not explicitly set
       if (this.options.maximizeSelection === undefined) {
         this.options.maximizeSelection = true;

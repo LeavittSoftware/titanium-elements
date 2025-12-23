@@ -4,13 +4,13 @@ import '@leavittsoftware/web/leavitt/app/app-main-content-container';
 import '@leavittsoftware/web/leavitt/app/app-navigation-header';
 import '@leavittsoftware/web/leavitt/app/app-width-limiter';
 import '@material/web/divider/divider';
+import '@material/web/icon/icon';
 import '@api-viewer/docs';
 
 import '@material/web/button/filled-tonal-button';
 
 import { css, html, LitElement } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
-import { p } from '@leavittsoftware/web/titanium/styles/styles';
 import '@leavittsoftware/web/titanium/duration-input/duration-input';
 import '@leavittsoftware/web/titanium/duration-input/filled-duration-input';
 import '@leavittsoftware/web/titanium/duration-input/outlined-duration-input';
@@ -19,7 +19,6 @@ import { TitaniumOutlinedDurationInput } from '@leavittsoftware/web/titanium/dur
 import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
 import dayjs from 'dayjs/esm';
 import duration from 'dayjs/esm/plugin/duration';
-import { heroStyles } from '../styles/hero-styles';
 
 import StoryStyles from '../styles/story-styles';
 
@@ -35,43 +34,11 @@ export class TitaniumDurationInputDemo extends LitElement {
 
   static styles = [
     StoryStyles,
-    heroStyles,
-    p,
     css`
-      :host {
-        display: grid;
-      }
-
-      main {
-        display: grid;
-        align-content: start;
-      }
-
-      div {
-        background: var(--md-sys-color-surface-container-low);
-        border-radius: 24px;
-        padding: 24px;
-
-        &:not(:first-of-type) {
-          margin-top: 24px;
-        }
-      }
-
       titanium-filled-duration-input,
       titanium-outlined-duration-input {
         width: 100%;
         margin-bottom: 24px;
-      }
-
-      h1 {
-        margin-bottom: 12px;
-      }
-
-      section[buttons] {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 12px;
       }
     `,
   ];

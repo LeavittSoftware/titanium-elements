@@ -9,13 +9,11 @@ import '@api-viewer/docs';
 import '@material/web/button/filled-tonal-button';
 import '@material/web/icon/icon';
 
-import { css, html, LitElement } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, query } from 'lit/decorators.js';
-import { p } from '@leavittsoftware/web/titanium/styles/styles';
 import '@leavittsoftware/web/titanium/search-input/search-input';
 import { TitaniumSearchInput } from '@leavittsoftware/web/titanium/search-input/search-input';
 import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
-import { heroStyles } from '../styles/hero-styles';
 
 import StoryStyles from '../styles/story-styles';
 
@@ -23,42 +21,7 @@ import StoryStyles from '../styles/story-styles';
 export class TitaniumSearchInputDemo extends LitElement {
   @query('titanium-search-input[method-focused]') protected accessor methodFocus!: TitaniumSearchInput;
 
-  static styles = [
-    StoryStyles,
-    heroStyles,
-    p,
-    css`
-      :host {
-        display: grid;
-      }
-
-      main {
-        display: grid;
-        align-content: start;
-      }
-
-      div {
-        background: var(--md-sys-color-surface-container-low);
-        border-radius: 24px;
-        padding: 24px;
-
-        p {
-          margin-bottom: 12px;
-        }
-
-        &:not(:first-of-type) {
-          margin-top: 24px;
-        }
-      }
-
-      section[buttons] {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 12px;
-      }
-    `,
-  ];
+  static styles = [StoryStyles];
 
   render() {
     return html`
@@ -69,9 +32,7 @@ export class TitaniumSearchInputDemo extends LitElement {
           <leavitt-app-width-limiter max-width="1000px">
             <deprecation-notice>
               <md-icon>warning</md-icon>
-              <p>
-                <kbd>titanium-search-input</kbd> is deprecated and no longer in use.
-              </p>
+              <p><kbd>titanium-search-input</kbd> is deprecated and no longer in use.</p>
             </deprecation-notice>
             <story-header name="Titanium search input" className="TitaniumSearchInput"></story-header>
 

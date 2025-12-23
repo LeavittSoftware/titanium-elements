@@ -10,9 +10,7 @@ import '@leavittsoftware/web/titanium/date-range-selector/date-range-selector';
 
 import { css, html, LitElement } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
-import { p } from '@leavittsoftware/web/titanium/styles/styles';
 import { TitaniumDateRangeSelector } from '@leavittsoftware/web/titanium/date-range-selector/date-range-selector';
-import { heroStyles } from '../styles/hero-styles';
 import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
 
 import dayjs from 'dayjs/esm';
@@ -28,34 +26,7 @@ export class TitaniumDateRangeSelectorDemo extends LitElement {
 
   static styles = [
     StoryStyles,
-    heroStyles,
-    p,
     css`
-      :host {
-        display: grid;
-      }
-
-      main {
-        display: grid;
-        align-content: start;
-      }
-
-      div {
-        background: var(--md-sys-color-surface-container-low);
-        border-radius: 24px;
-        padding: 24px;
-        margin-bottom: 48px;
-
-        &:last-of-type {
-          margin-bottom: 0;
-        }
-      }
-
-      p,
-      h1 {
-        margin-bottom: 12px;
-      }
-
       event-text,
       event-text[fired] {
         display: block;
@@ -66,13 +37,6 @@ export class TitaniumDateRangeSelectorDemo extends LitElement {
 
       event-text[fired] {
         color: var(--md-sys-color-error);
-      }
-
-      section[buttons] {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 12px;
       }
     `,
   ];

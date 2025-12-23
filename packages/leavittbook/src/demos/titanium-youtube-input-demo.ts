@@ -7,13 +7,11 @@ import '@material/web/divider/divider';
 import '@api-viewer/docs';
 import '@material/web/button/filled-tonal-button';
 
-import { css, html, LitElement } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, query, queryAll } from 'lit/decorators.js';
-import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
 import '@leavittsoftware/web/titanium/youtube-input/youtube-input';
 import { TitaniumYouTubeInput } from '@leavittsoftware/web/titanium/youtube-input/youtube-input';
 import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
-import { heroStyles } from '../styles/hero-styles';
 
 import StoryStyles from '../styles/story-styles';
 
@@ -22,44 +20,7 @@ export class TitaniumYoutubeInputDemo extends LitElement {
   @queryAll('titanium-youtube-input') protected accessor inputs!: NodeListOf<TitaniumYouTubeInput>;
   @query('titanium-youtube-input[required]') protected accessor requiredInput: TitaniumYouTubeInput;
 
-  static styles = [
-    StoryStyles,
-    heroStyles,
-    h1,
-    p,
-    css`
-      :host {
-        display: grid;
-      }
-
-      main {
-        display: grid;
-        align-content: start;
-      }
-
-      leavitt-app-width-limiter div {
-        background: var(--md-sys-color-surface-container-low);
-        border-radius: 24px;
-        padding: 24px;
-
-        &:not(:first-of-type) {
-          margin-top: 24px;
-        }
-      }
-
-      p {
-        margin-bottom: 12px;
-      }
-
-      section[buttons] {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin-top: 12px;
-      }
-    `,
-  ];
+  static styles = [StoryStyles];
 
   render() {
     return html`

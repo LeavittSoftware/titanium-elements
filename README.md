@@ -46,7 +46,7 @@ Types enable JavaScript developers to use highly-productive development tools an
   - Add a route
   - Add a menu item
   - Add your component tag
-  
+
 ### Important
 
 - [ ] Publish to NPM after the PR has been approved but before it gets merged

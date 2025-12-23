@@ -5,6 +5,7 @@ import '@leavittsoftware/web/leavitt/app/app-navigation-header';
 import '@leavittsoftware/web/leavitt/app/app-width-limiter';
 import '@leavittsoftware/web/leavitt/profile-picture/profile-picture';
 import '@material/web/iconbutton/outlined-icon-button';
+import '@material/web/icon/icon';
 import '@material/web/button/filled-tonal-button';
 import '@material/web/divider/divider';
 import '@api-viewer/docs';
@@ -14,9 +15,7 @@ import '@leavittsoftware/web/titanium/input-validator/outlined-input-validator';
 
 import { css, html, LitElement } from 'lit';
 import { customElement, queryAll, state } from 'lit/decorators.js';
-import { p } from '@leavittsoftware/web/titanium/styles/styles';
 import { ShowSnackbarEvent } from '@leavittsoftware/web/titanium/snackbar/show-snackbar-event';
-import { heroStyles } from '../styles/hero-styles';
 import { TitaniumOutlinedInputValidator } from '@leavittsoftware/web/titanium/input-validator/outlined-input-validator';
 import { TitaniumFilledInputValidator } from '@leavittsoftware/web/titanium/input-validator/filled-input-validator';
 
@@ -31,41 +30,7 @@ export class TitaniumInputValidatorDemo extends LitElement {
 
   static styles = [
     StoryStyles,
-    heroStyles,
-    p,
     css`
-      :host {
-        display: grid;
-      }
-
-      main {
-        display: grid;
-        align-content: start;
-      }
-
-      div {
-        background: var(--md-sys-color-surface-container-low);
-        border-radius: 24px;
-        padding: 24px;
-        gap: 12px;
-
-        &:last-of-type {
-          margin-bottom: 0;
-        }
-      }
-
-      h1 {
-        margin-bottom: 12px;
-      }
-
-      section[buttons] {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin-top: 12px;
-      }
-
       md-divider {
         margin-bottom: 48px;
       }
