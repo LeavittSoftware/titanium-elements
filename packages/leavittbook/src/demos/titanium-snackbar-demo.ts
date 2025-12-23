@@ -1,19 +1,26 @@
 import '../shared/story-header';
 
-import '@api-viewer/docs';
+import '@leavittsoftware/web/leavitt/app/app-main-content-container';
+import '@leavittsoftware/web/leavitt/app/app-navigation-header';
+import '@leavittsoftware/web/leavitt/app/app-width-limiter';
+import '@material/web/divider/divider';
 import '@material/web/dialog/dialog';
-import '@material/web/button/outlined-button';
+import '@material/web/button/filled-tonal-button';
+import '@api-viewer/docs';
+
+import '@leavittsoftware/web/titanium/snackbar/snackbar-stack';
 
 import { css, html, LitElement } from 'lit';
 import { customElement, query } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
-import '@leavittsoftware/web/titanium/snackbar/snackbar-stack';
-import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
 import { SnackbarStack } from '@leavittsoftware/web/titanium/snackbar/snackbar-stack';
 import { ShowSnackbarEvent } from '@leavittsoftware/web/titanium/snackbar/show-snackbar-event';
+import { MdDialog } from '@material/web/dialog/dialog';
+import { heroStyles } from '../styles/hero-styles';
 import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
 import { dialogZIndexHack } from '@leavittsoftware/web/titanium/hacks/dialog-zindex-hack';
-import { MdDialog } from '@material/web/dialog/dialog';
+import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
+
 import StoryStyles from '../styles/story-styles';
 
 @customElement('titanium-snackbar-demo')
@@ -23,23 +30,31 @@ export class TitaniumSnackbarDemo extends LitElement {
 
   static styles = [
     StoryStyles,
+    heroStyles,
     h1,
     p,
     css`
       :host {
-        display: flex;
-        flex-direction: column;
-        margin: 24px 12px;
+        display: grid;
       }
 
-      div {
-        border: 1px solid var(--md-sys-color-outline);
+      main {
+        display: grid;
+        align-content: start;
+      }
+
+      leavitt-app-width-limiter div {
+        background: var(--md-sys-color-surface-container-low);
+        border-radius: 24px;
         padding: 24px;
-        border-radius: 8px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin: 24px 0 36px 0;
+
+        &:not(:first-of-type) {
+          margin-top: 24px;
+        }
+      }
+
+      p {
+        margin-bottom: 12px;
       }
 
       section[buttons] {
@@ -51,61 +66,91 @@ export class TitaniumSnackbarDemo extends LitElement {
     `,
   ];
 
+  #counter = 0;
+
   render() {
     return html`
-      <story-header name="Titanium snackbar" className="TitaniumSnackbar"></story-header>
-      <h1>Snackbar stack</h1>
-      <p>Snackbar notifications with different types and actions</p>
+      <leavitt-app-main-content-container .pendingStateElement=${this}>
+        <main>
+          <leavitt-app-navigation-header level1Text="Titanium snackbar" level1Href="/titanium-snackbar" sticky-top> </leavitt-app-navigation-header>
 
-      <div>
-        <section buttons>
+          <leavitt-app-width-limiter max-width="1000px">
+            <story-header name="Titanium snackbar" className="TitaniumSnackbar"></story-header>
+
+            <div>
+              <h1>Snackbar stack</h1>
+              <p>Snackbar notifications with different types and actions</p>
+
+              <section buttons>
+                <md-filled-tonal-button
+                  @click=${() => {
+                    this.#counter++;
+                    this.dispatchEvent(new ShowSnackbarEvent(`Default snackbar #${this.#counter}`));
+                  }}
+                  >Default</md-filled-tonal-button
+                >
+
+                <md-filled-tonal-button @click=${() => this.dispatchEvent(new ShowSnackbarEvent('Auto-hide snackbar', { autoHide: 2000 }))}
+                  >Auto-hide</md-filled-tonal-button
+                >
+
+                <md-filled-tonal-button
+                  @click=${() =>
+                    this.dispatchEvent(
+                      new ShowSnackbarEvent({
+                        action: 'GET',
+                        message: 'Network error. Check your connection and try again.',
+                        statusCode: undefined,
+                        type: 'HttpError',
+                      } satisfies Partial<HttpError>)
+                    )}
+                  >HTTP error</md-filled-tonal-button
+                >
+
+                <md-filled-tonal-button
+                  @click=${() =>
+                    this.dispatchEvent(
+                      new ShowSnackbarEvent({
+                        action: 'GET',
+                        message: 'Network error. Check your connection and try again.',
+                        statusCode: 404,
+                        type: 'HttpError',
+                        detail: 'Major Outage. This was probably caused by a network outage in your area. Please contact your ISP for further assistance.',
+                      } satisfies Partial<HttpError>)
+                    )}
+                  >HTTP error with detail</md-filled-tonal-button
+                >
+
+                <md-filled-tonal-button
+                  @click=${() => this.dispatchEvent(new ShowSnackbarEvent('', { overrideTemplate: html`<h1 style="color:red">ALERT!</h1>` }))}
+                  >Template literal</md-filled-tonal-button
+                >
+              </section>
+            </div>
+
+            <api-docs src="./custom-elements.json" selected="titanium-snackbar"></api-docs>
+          </leavitt-app-width-limiter>
+        </main>
+      </leavitt-app-main-content-container>
+
+      <md-dialog @open=${(e: DOMEvent<MdDialog>) => dialogZIndexHack(e.target)} @close=${() => this.snackbar.dismissAll()}>
+        <span slot="headline">Snackbar from a dialog</span>
+        <main slot="content">
+          <titanium-snackbar-stack></titanium-snackbar-stack>
           <md-outlined-button
-            @click=${() => {
-              this.dispatchEvent(new ShowSnackbarEvent('Simple message'));
-            }}
-            >Simple message</md-outlined-button
-          >
-
-          <md-outlined-button
-            @click=${() => {
-              this.dispatchEvent(new ShowSnackbarEvent('Message with action', { actionText: 'Undo' }));
-            }}
-            >With action</md-outlined-button
-          >
-
-          <md-outlined-button
-            @click=${() => {
-              this.dispatchEvent(new ShowSnackbarEvent('Success message', { leadingIcon: 'check_circle' }));
-            }}
-            >With leading icon</md-outlined-button
-          >
-
-          <md-outlined-button
-            @click=${() => {
-              this.dispatchEvent(new ShowSnackbarEvent('Long message that should wrap to multiple lines and show more content', { autoHide: false }));
-            }}
-            >Long message (no auto-hide)</md-outlined-button
-          >
-
-          <md-outlined-button
-            @click=${() => {
-              this.dispatchEvent(new ShowSnackbarEvent('Custom duration', { autoHide: 10000 }));
-            }}
-            >Custom duration (10s)</md-outlined-button
-          >
-
-          <md-outlined-button
-            @click=${() => {
-              this.dispatchEvent(new ShowSnackbarEvent('Error message', { leadingIcon: 'error', noAction: true }));
-            }}
-            >Error style</md-outlined-button
-          >
-        </section>
-      </div>
-
-      <titanium-snackbar-stack></titanium-snackbar-stack>
-
-      <api-docs src="./custom-elements.json" selected="titanium-snackbar"></api-docs>
+            @click=${(e: MouseEvent) =>
+              e.target?.dispatchEvent(
+                new ShowSnackbarEvent({
+                  action: 'GET',
+                  message: 'Network error. Check your connection and try again.',
+                  statusCode: undefined,
+                  type: 'HttpError',
+                } satisfies Partial<HttpError>)
+              )}
+            >Open snackbar
+          </md-outlined-button>
+        </main>
+      </md-dialog>
     `;
   }
 }
