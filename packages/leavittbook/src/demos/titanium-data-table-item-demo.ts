@@ -1,13 +1,19 @@
 import '../shared/story-header';
 
+import '@leavittsoftware/web/leavitt/app/app-main-content-container';
+import '@leavittsoftware/web/leavitt/app/app-navigation-header';
+import '@leavittsoftware/web/leavitt/app/app-width-limiter';
+import '@material/web/divider/divider';
 import '@api-viewer/docs';
-import '@material/web/button/text-button';
+import '@material/web/button/filled-tonal-button';
 
 import { css, html, LitElement } from 'lit';
 import { customElement, query } from 'lit/decorators.js';
 import { h1, p } from '@leavittsoftware/web/titanium/styles/styles';
 import '@leavittsoftware/web/titanium/data-table/data-table-item';
 import { TitaniumDataTableItem } from '@leavittsoftware/web/titanium/data-table/data-table-item';
+import { heroStyles } from '../styles/hero-styles';
+
 import StoryStyles from '../styles/story-styles';
 
 @customElement('titanium-data-table-item-demo')
@@ -16,64 +22,79 @@ export class TitaniumDataTableItemDemo extends LitElement {
 
   static styles = [
     StoryStyles,
+    heroStyles,
     h1,
     p,
     css`
       :host {
-        display: flex;
-        flex-direction: column;
-
-        margin: 24px 12px;
+        display: grid;
       }
 
-      div {
-        border: 1px solid var(--md-sys-color-outline);
+      main {
+        display: grid;
+        align-content: start;
+      }
+
+      leavitt-app-width-limiter div {
+        background: var(--md-sys-color-surface-container-low);
+        border-radius: 24px;
         padding: 24px;
-        border-radius: 8px;
+
+        &:not(:first-of-type) {
+          margin-top: 24px;
+        }
+      }
+
+      section {
         display: flex;
-        flex-wrap: wrap;
+        margin-top: 12px;
         gap: 12px;
-        margin: 24px 0 36px 0;
       }
 
-      div[vertical] {
-        display: flex;
-        gap: 0;
-        flex-direction: column;
-      }
-
-      div[methods-demo] {
-        display: flex;
-        gap: 24px;
-        flex-direction: column;
+      p {
+        margin-bottom: 12px;
       }
     `,
   ];
 
   render() {
     return html`
-      <story-header name="Titanium data table item" className="TitaniumDataTableItem"></story-header>
-      <h1>Default</h1>
-      <p>Examples using disabled, closeable, and readonly attribute</p>
-      <div vertical>
-        <titanium-data-table-item>Default</titanium-data-table-item>
-        <titanium-data-table-item selected>Selected</titanium-data-table-item>
-        <titanium-data-table-item disable-select>Select disabled</titanium-data-table-item>
-        <titanium-data-table-item enable-dragging><row-item></row-item></titanium-data-table-item>
-      </div>
+      <leavitt-app-main-content-container .pendingStateElement=${this}>
+        <main>
+          <leavitt-app-navigation-header level1Text="Titanium data table item" level1Href="/titanium-data-table-item" sticky-top>
+          </leavitt-app-navigation-header>
 
-      <h1>Methods</h1>
-      <p>Select, Deselect, Toggle</p>
-      <div methods-demo>
-        <titanium-data-table-item select-demo>Item</titanium-data-table-item>
-        <section>
-          <md-text-button raised @click=${() => this.selectItem.select()}>select()</md-text-button>
-          <md-text-button raised @click=${() => this.selectItem.deselect()}>deselect()</md-text-button>
-          <md-text-button raised @click=${() => this.selectItem.toggleSelected()}>toggleSelected()</md-text-button>
-        </section>
-      </div>
+          <leavitt-app-width-limiter max-width="1000px">
+            <story-header name="Titanium data table item" className="TitaniumDataTableItem"></story-header>
 
-      <api-docs src="./custom-elements.json" selected="titanium-data-table-item"></api-docs>
+            <div>
+              <h1>Default</h1>
+              <p>Examples using disabled, closeable, and readonly attribute</p>
+              <div vertical>
+                <titanium-data-table-item>Default</titanium-data-table-item>
+                <titanium-data-table-item selected>Selected</titanium-data-table-item>
+                <titanium-data-table-item disable-select>Select disabled</titanium-data-table-item>
+                <titanium-data-table-item enable-dragging><row-item></row-item></titanium-data-table-item>
+              </div>
+            </div>
+
+            <div>
+              <h1>Methods</h1>
+              <p>Select, Deselect, Toggle</p>
+              <div methods-demo>
+                <titanium-data-table-item select-demo>Item</titanium-data-table-item>
+                <section>
+                  <md-filled-tonal-button raised @click=${() => this.selectItem.select()}>select()</md-filled-tonal-button>
+                  <md-filled-tonal-button raised @click=${() => this.selectItem.deselect()}>deselect()</md-filled-tonal-button>
+                  <md-filled-tonal-button raised @click=${() => this.selectItem.toggleSelected()}>toggleSelected()</md-filled-tonal-button>
+                </section>
+              </div>
+            </div>
+
+            <api-docs src="./custom-elements.json" selected="titanium-data-table-item"></api-docs>
+          </leavitt-app-width-limiter>
+        </main>
+      </leavitt-app-main-content-container>
     `;
   }
 }

@@ -1,5 +1,9 @@
 import '../shared/story-header';
 
+import '@leavittsoftware/web/leavitt/app/app-main-content-container';
+import '@leavittsoftware/web/leavitt/app/app-navigation-header';
+import '@leavittsoftware/web/leavitt/app/app-width-limiter';
+import '@material/web/divider/divider';
 import '@api-viewer/docs';
 import '@leavittsoftware/web/titanium/data-table/data-table-core';
 import '@leavittsoftware/web/titanium/data-table/data-table-action-bar';
@@ -14,6 +18,8 @@ import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
 import { TitaniumDataTableCore, TitaniumDataTableCoreMetaData, TitaniumDataTableCoreSortItem } from '@leavittsoftware/web/titanium/data-table/data-table-core';
 import { niceBadgeStyles } from '@leavittsoftware/web/titanium/styles/nice-badge';
 import { delay } from '@leavittsoftware/web/titanium/helpers/delay';
+import { heroStyles } from '../styles/hero-styles';
+
 import StoryStyles from '../styles/story-styles';
 
 type Car = {
@@ -49,105 +55,287 @@ const allTeslas: Array<Car> = [
     Id: 2,
     Name: 'Model X',
     Appearance: 'Slick',
-    DragCoefficient: 0.24,
-    Year: 2015,
+    DragCoefficient: 0.1,
+    Year: 2018,
     Color: 'Blue',
-    MaxSpeed: 140,
+    MaxSpeed: 120,
     IsElectric: true,
-    Owner: { Id: 2, FullName: 'Jane Smith' },
-    Trim: 'AWD',
+    Owner: { Id: 1, FullName: 'Jane Doe' },
     Sequence: 2,
+    Trim: 'Long Range',
   },
   {
     Id: 3,
+    Name: 'Model Y',
+    Appearance: 'Slick',
+    DragCoefficient: 0.4,
+    Year: 2020,
+    Color: 'Blue',
+    MaxSpeed: 110,
+    IsElectric: true,
+    Owner: { Id: 2, FullName: 'Jim Doe' },
+    Sequence: 3,
+    Trim: 'Long Range',
+  },
+  {
+    Id: 4,
     Name: 'Model S',
     Appearance: 'Slick',
-    DragCoefficient: 0.21,
-    Year: 2012,
-    Color: 'Black',
-    MaxSpeed: 140,
+    DragCoefficient: 0.2,
+    Year: 2009,
+    Color: 'Green',
+    MaxSpeed: 150,
     IsElectric: true,
-    Owner: { Id: 3, FullName: 'Bob Johnson' },
+    Owner: { Id: 3, FullName: 'Joe Doe' },
+    Sequence: 4,
+    Trim: 'AWD',
+  },
+  {
+    Id: 5,
+    Name: 'Cybertruck',
+    Appearance: 'Ugly',
+    DragCoefficient: 0.3,
+    Year: 2024,
+    Color: 'Yellow',
+    MaxSpeed: 100,
+    IsElectric: true,
+    Owner: { Id: 4, FullName: 'Jill Doe' },
+    Sequence: 5,
+    Trim: 'Cyberbeast',
+  },
+  {
+    Id: 6,
+    Name: 'Tesla Semi',
+    Appearance: 'Ugly',
+    DragCoefficient: 0.3,
+    Year: 2022,
+    Color: 'Green',
+    MaxSpeed: 100,
+    IsElectric: true,
+    Owner: { Id: 5, FullName: 'Jill Doe' },
+    Sequence: 6,
+    Trim: 'AWD',
+  },
+  {
+    Id: 7,
+    Name: 'Model X',
+    Appearance: 'Plaid',
+    DragCoefficient: 0.1,
+    Year: 2024,
+    Color: 'Red',
+    MaxSpeed: 180,
+    IsElectric: true,
+    Owner: { Id: 6, FullName: 'Jack Doe' },
+    Sequence: 7,
+    Trim: 'AWD',
+  },
+  {
+    Id: 8,
+    Name: 'Model S',
+    Appearance: 'Plaid',
+    DragCoefficient: 0.1,
+    Year: 2020,
+    Color: 'Yellow',
+    MaxSpeed: 130,
+    IsElectric: true,
+    Owner: { Id: 7, FullName: 'Jill Doe' },
+    Sequence: 8,
     Trim: 'Plaid',
-    Sequence: 3,
+  },
+  {
+    Id: 9,
+    Name: 'Model S',
+    Appearance: 'Plaid',
+    DragCoefficient: 0.1,
+    Year: 2022,
+    Color: 'Red',
+    MaxSpeed: 130,
+    IsElectric: true,
+    Owner: { Id: 8, FullName: 'Jill Doe' },
+    Sequence: 9,
+    Trim: 'Plaid+',
+  },
+  {
+    Id: 10,
+    Name: 'Gen. 2 Roadster',
+    Appearance: 'Slick',
+    DragCoefficient: 0.23,
+    Year: 2025,
+    Color: 'Red',
+    MaxSpeed: 150,
+    IsElectric: true,
+    Owner: { Id: 9, FullName: 'Jill Doe' },
+    Sequence: 10,
+    Trim: 'RWN',
   },
 ];
 
 @customElement('titanium-data-table-core-demo')
 export class TitaniumDataTableCoreDemo extends LitElement {
-  @state() protected accessor items: Array<ItemType> = allTeslas.slice(0, 3);
-  @state() protected accessor selected: Array<ItemType> = [];
-  @state() protected accessor metaData: TitaniumDataTableCoreMetaData;
-  @state() protected accessor loading: boolean = false;
+  @state() private accessor sort: TitaniumDataTableCoreSortItem[] = [];
+  @state() private accessor items: Array<ItemType> = this.sortItems(allTeslas, this.sort);
+  @state() private accessor selected: Array<ItemType> = [];
+  @query('titanium-data-table-core') private accessor tableCore: TitaniumDataTableCore<ItemType>;
+  /**
+   * Sorts items based on multiple sort criteria
+   * @param items Array of items to sort
+   * @param sortCriteria Array of sort criteria
+   * @returns Sorted array of items
+   */
+  private sortItems(items: Array<ItemType>, sortCriteria: TitaniumDataTableCoreSortItem[]): Array<ItemType> {
+    return [...items].sort((a, b) => {
+      // Iterate through all sort criteria
+      for (const sortItem of sortCriteria || []) {
+        const aValue = a[sortItem.key];
+        const bValue = b[sortItem.key];
 
-  @query('titanium-data-table-core') protected accessor table!: TitaniumDataTableCore;
+        // Skip if either value is null/undefined
+        if (aValue == null && bValue == null) continue;
+        if (aValue == null) return sortItem.direction === 'asc' ? 1 : -1;
+        if (bValue == null) return sortItem.direction === 'asc' ? -1 : 1;
 
-  constructor() {
-    super();
-    this.metaData = {
-      page: 0,
-      pageSize: 10,
-      totalCount: allTeslas.length,
-      sortBy: 'Name',
-      sortDirection: 'asc',
-      searchTerm: '',
-    };
-  }
+        let comparison = 0;
 
-  async #loadItems() {
-    this.loading = true;
-    await delay(500); // Simulate API delay
+        // Handle string comparison
+        if (typeof aValue === 'string' && typeof bValue === 'string') {
+          comparison = aValue.localeCompare(bValue);
+        } else {
+          // Handle numeric comparison
+          comparison = aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
+        }
 
-    let filteredItems = allTeslas.slice();
+        // Apply sort direction
+        if (sortItem.direction === 'desc') {
+          comparison = -comparison;
+        }
 
-    // Apply search
-    if (this.metaData.searchTerm) {
-      const searchTerm = this.metaData.searchTerm.toLowerCase();
-      filteredItems = filteredItems.filter(
-        (item) =>
-          item.Name?.toLowerCase().includes(searchTerm) ||
-          item.Appearance?.toLowerCase().includes(searchTerm) ||
-          item.Color?.toLowerCase().includes(searchTerm)
-      );
-    }
+        // If values are different, return the comparison result
+        // If they're equal, continue to the next sort criteria
+        if (comparison !== 0) {
+          return comparison;
+        }
+      }
 
-    // Apply sorting
-    filteredItems.sort((a, b) => {
-      const aVal = a[this.metaData.sortBy] ?? '';
-      const bVal = b[this.metaData.sortBy] ?? '';
-      const direction = this.metaData.sortDirection === 'asc' ? 1 : -1;
-
-      if (aVal < bVal) return -1 * direction;
-      if (aVal > bVal) return 1 * direction;
+      // If all sort criteria are equal, maintain original order
       return 0;
     });
-
-    // Apply pagination
-    const startIndex = this.metaData.page * this.metaData.pageSize;
-    const endIndex = startIndex + this.metaData.pageSize;
-    this.items = filteredItems.slice(startIndex, endIndex);
-    this.metaData.totalCount = filteredItems.length;
-
-    this.loading = false;
   }
 
-  #onMetaDataChanged(e: CustomEvent<TitaniumDataTableCoreMetaData>) {
-    this.metaData = { ...e.detail };
-    this.#loadItems();
-  }
+  @state() private accessor tableMetaData: TitaniumDataTableCoreMetaData<ItemType> = {
+    uniqueKey: (item) => item.Id?.toString() ?? '',
+    // itemLinkUrl: (item) => `/titanium-data-table-core#edit-${item.Id}`,
+    itemClickHandler: (item) => alert(`item click ${item.Name}`),
+    itemMetaData: [
+      {
+        key: 'Name',
+        friendlyName: 'Name',
+        render: (item) =>
+          html`<image-row>
+            <img src="https://picsum.photos/24" />
+            <div>${item.Name}</div>
+            <div supporting-text>${item.Trim}</div>
+          </image-row>`,
+        width: '450px',
+        defaultSort: {
+          direction: 'asc',
+          position: 2,
+        },
+      },
+      {
+        key: 'Appearance',
+        friendlyName: 'Appearance',
+        sortExpression: 'Appearance',
+        render: (item) => html`${item.Appearance}`,
+        width: '250px',
+        defaultSort: {
+          direction: 'desc',
+          position: 1,
+        },
+      },
+
+      {
+        key: 'Owner',
+        friendlyName: 'Owner',
+        render: (item) =>
+          html`<two-line
+            ><div>${item.Owner?.FullName}</div>
+            <div supporting-text>(${item.Owner?.Id})</div></two-line
+          >`,
+        csvValue: (item) => item.Owner?.FullName ?? '',
+        width: '250px',
+      },
+      {
+        key: 'DragCoefficient',
+        friendlyName: 'Drag Coefficient',
+        sortExpression: 'DragCoefficient',
+        render: (item) => html`${item.DragCoefficient}%`,
+        width: '250px',
+      },
+      {
+        key: 'Year',
+        friendlyName: 'Year',
+        sortExpression: 'Year',
+        render: (item) => html`${item.Year}`,
+        width: '250px',
+        hideByDefault: true,
+        disableSort: true,
+      },
+      {
+        key: 'Color',
+        friendlyName: 'Color',
+        render: (item) => html`${item.Color}`,
+        width: '250px',
+        hideByDefault: true,
+      },
+      {
+        key: 'MaxSpeed',
+        render: (item) => html`${item.MaxSpeed} mph`,
+        width: '250px',
+      },
+      {
+        key: 'IsElectric',
+        friendlyName: 'Is Electric',
+        render: (item) => html`${item.IsElectric ? 'Yes' : 'No'}`,
+        width: '250px',
+        hideByDefault: true,
+      },
+    ],
+    maxCustomSortColumns: 6,
+    reorderConfig: {
+      sortPropertyKey: 'Sequence',
+      reorderItemDisplayKey: 'Name',
+    },
+  };
 
   static styles = [
     StoryStyles,
+    heroStyles,
     h1,
     h2,
     p,
     niceBadgeStyles,
     css`
       :host {
-        display: flex;
-        flex-direction: column;
+        display: grid;
+      }
 
-        margin: 24px 12px;
+      main {
+        display: grid;
+        align-content: start;
+      }
+
+      leavitt-app-width-limiter div {
+        background: var(--md-sys-color-surface-container-low);
+        border-radius: 24px;
+        padding: 24px;
+
+        &:not(:first-of-type) {
+          margin-top: 24px;
+        }
+      }
+
+      h1 {
+        margin-bottom: 12px;
       }
 
       titanium-data-table-core {
@@ -186,62 +374,73 @@ export class TitaniumDataTableCoreDemo extends LitElement {
 
   render() {
     return html`
-      <story-header name="Titanium data table core" className="TitaniumDataTableCore"></story-header>
-      <h1>Basic data table core</h1>
-      <p>Data table core component with sorting, searching, and pagination</p>
+      <leavitt-app-main-content-container .pendingStateElement=${this}>
+        <main>
+          <leavitt-app-navigation-header level1Text="Titanium data table core" level1Href="/titanium-data-table-core" sticky-top>
+          </leavitt-app-navigation-header>
 
-      <titanium-data-table-core
-        .metaData=${this.metaData}
-        .items=${this.items}
-        .selected=${this.selected}
-        ?loading=${this.loading}
-        @meta-data-changed=${this.#onMetaDataChanged}
-        @selected-changed=${(e: CustomEvent<Array<ItemType>>) => {
-          this.selected = [...e.detail];
-        }}
-      >
-        <titanium-data-table-action-bar slot="action-bar">
-          <md-filled-tonal-button
-            slot="actions"
-            @click=${() => {
-              this.table.clearSelection();
-            }}
-          >
-            Clear Selection
-          </md-filled-tonal-button>
-        </titanium-data-table-action-bar>
+          <leavitt-app-width-limiter max-width="1000px">
+            <story-header name="Titanium data table core" className="TitaniumDataTableCore"></story-header>
 
-        <div data-row slot="headers">
-          <div>Name</div>
-          <div>Appearance</div>
-          <div>Year</div>
-          <div>Color</div>
-          <div class="actions">Actions</div>
-        </div>
+            <main>
+              <titanium-data-table-action-bar slot="footer" .selected=${this.selected}>
+                <md-filled-tonal-button slot="add-button" @click=${() => alert('add dialog')}>
+                  <md-icon slot="icon">add</md-icon>
+                  <span>Add tesla</span>
+                </md-filled-tonal-button>
 
-        ${this.items.map(
-          (item) => html`
-            <div data-row ?selected=${this.selected.includes(item)} .item=${item} slot="items">
-              <div>${item.Name}</div>
-              <nice-badge>${item.Appearance}</nice-badge>
-              <div>${item.Year}</div>
-              <div>${item.Color}</div>
-              <div class="actions">
-                <md-icon-button
-                  @click=${(e: DOMEvent) => {
-                    e.stopPropagation();
-                    this.table.selectItem(item);
+                <md-filled-button
+                  slot="selected-actions"
+                  ?disabled=${this.selected?.length > 1}
+                  @click=${() => {
+                    alert('edit dialog');
+                    this.selected = [];
                   }}
                 >
-                  <md-icon>check</md-icon>
-                </md-icon-button>
-              </div>
-            </div>
-          `
-        )}
-      </titanium-data-table-core>
+                  <md-icon slot="icon">edit</md-icon>
+                  <span>Edit</span>
+                </md-filled-button>
 
-      <api-docs src="./custom-elements.json" selected="titanium-data-table-core"></api-docs>
+                <md-filled-button slot="selected-actions" ?disabled=${this.selected?.length > 1} @click=${() => alert('delete dialog')}>
+                  <md-icon slot="icon">delete</md-icon>
+                  <span>Delete (${this.selected.length})</span>
+                </md-filled-button>
+              </titanium-data-table-action-bar>
+              <titanium-data-table-core
+                selection-mode="multi"
+                local-storage-key="test-dtc-pref-tesla-demo"
+                sticky-header
+                .supplementalItemStyles=${css`
+                  img {
+                    border-radius: 50%;
+                  }
+                `}
+                @selected-changed=${(e: DOMEvent<TitaniumDataTableCore<ItemType>>) => (this.selected = [...e.target.selected])}
+                @sort-changed=${async (e: DOMEvent<TitaniumDataTableCore<ItemType>>) => {
+                  this.sort = e.target.sort;
+                  const _delay = delay(300);
+                  this.tableCore.loadWhile(_delay);
+                  await _delay;
+                  this.items = this.sortItems(this.items, this.sort);
+
+                  this.requestUpdate('items');
+                }}
+                @reorder-save-request=${async (e: CustomEvent<{ resolve: () => void; reject: (reason: any) => void; items: Array<ItemType> }>) => {
+                  console.log('reorder-save-request..simulating API delay', e.detail.items);
+                  await delay(1300);
+                  e.detail.resolve();
+                }}
+                .items=${this.items}
+                .tableMetaData=${this.tableMetaData as never}
+                .selected=${this.selected}
+              >
+              </titanium-data-table-core>
+            </main>
+
+            <api-docs src="./custom-elements.json" selected="titanium-data-table-core"></api-docs>
+          </leavitt-app-width-limiter>
+        </main>
+      </leavitt-app-main-content-container>
     `;
   }
 }
