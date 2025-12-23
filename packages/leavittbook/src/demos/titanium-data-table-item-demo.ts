@@ -65,6 +65,12 @@ export class TitaniumDataTableItemDemo extends LitElement {
           </leavitt-app-navigation-header>
 
           <leavitt-app-width-limiter max-width="1000px">
+            <deprecation-notice>
+              <md-icon>warning</md-icon>
+              <p>
+                <kbd>titanium-data-table-item</kbd> is deprecated. Use <kbd>titanium-data-table-core</kbd> instead (shown in separate demo).
+              </p>
+            </deprecation-notice>
             <story-header name="Titanium data table item" className="TitaniumDataTableItem"></story-header>
 
             <div>
