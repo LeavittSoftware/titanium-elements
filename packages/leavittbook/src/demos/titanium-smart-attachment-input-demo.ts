@@ -23,6 +23,7 @@ import { SmartAttachment } from '@leavittsoftware/web/titanium/smart-attachment-
 import { ShowSnackbarEvent } from '@leavittsoftware/web/titanium/snackbar/show-snackbar-event';
 
 import StoryStyles from '../styles/story-styles';
+import { CropperOptions } from '@leavittsoftware/web/titanium/smart-attachment-input/crop-and-save-image-dialog';
 
 @customElement('titanium-smart-attachment-input-demo')
 export class TitaniumSmartAttachmentInputDemo extends LitElement {
@@ -83,6 +84,13 @@ export class TitaniumSmartAttachmentInputDemo extends LitElement {
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
+        margin: 16px 0;
+      }
+
+      input-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
         margin: 16px 0;
       }
     `,
@@ -162,6 +170,73 @@ export class TitaniumSmartAttachmentInputDemo extends LitElement {
                   >Pre-select file</md-filled-tonal-button
                 >
               </section>
+            </div>
+
+            <div>
+              <h1>Crop and save dialog options</h1>
+              <input-grid>
+                <titanium-smart-attachment-input
+                  label="Circle crop"
+                  supporting-text="Forces an aspect ratio of 1:1"
+                  .options=${{
+                    shape: 'circle',
+                  } as CropperOptions}
+                ></titanium-smart-attachment-input>
+                <titanium-smart-attachment-input
+                  label="Custom aspect ratio"
+                  .options=${{
+                    selectionAspectRatio: 16 / 9,
+                  } as CropperOptions}
+                ></titanium-smart-attachment-input>
+                <titanium-smart-attachment-input
+                  label="No aspect ratio, no grid, no background"
+                  .options=${{
+                    selectionHideGrid: true,
+                    canvasHideBackground: true,
+                  } as CropperOptions}
+                ></titanium-smart-attachment-input>
+                <titanium-smart-attachment-input
+                  label="Constrain select to canvas"
+                  .options=${{
+                    constrainSelectionTo: 'canvas',
+                  } as CropperOptions}
+                ></titanium-smart-attachment-input>
+                <titanium-smart-attachment-input
+                  label="Constrain select to image"
+                  .options=${{
+                    constrainSelectionTo: 'image',
+                  } as CropperOptions}
+                ></titanium-smart-attachment-input>
+                <titanium-smart-attachment-input
+                  label="Maximize selection"
+                  .options=${{
+                    maximizeSelection: true,
+                  } as CropperOptions}
+                ></titanium-smart-attachment-input>
+                <titanium-smart-attachment-input
+                  label="Maximize selection with aspect"
+                  .options=${{
+                    maximizeSelection: true,
+                    selectionAspectRatio: 16 / 9,
+                  } as CropperOptions}
+                ></titanium-smart-attachment-input>
+                <titanium-smart-attachment-input
+                  label="Maximize with wide aspect and image constrain"
+                  .options=${{
+                    maximizeSelection: true,
+                    selectionAspectRatio: 16 / 9,
+                    constrainSelectionTo: 'image',
+                  } as CropperOptions}
+                ></titanium-smart-attachment-input>
+                <titanium-smart-attachment-input
+                  label="Maximize with tall aspect and image constrain"
+                  .options=${{
+                    maximizeSelection: true,
+                    selectionAspectRatio: 9 / 16,
+                    constrainSelectionTo: 'image',
+                  } as CropperOptions}
+                ></titanium-smart-attachment-input
+              ></input-grid>
             </div>
 
             <api-docs src="./custom-elements.json" selected="titanium-smart-attachment-input"></api-docs>
