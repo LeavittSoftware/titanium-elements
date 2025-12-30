@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.1.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.1.2...@leavittsoftware/web@8.1.3) (2025-12-30)
+
+
+### Bug Fixes
+
+* update links to apps and profile ([71fc166](https://github.com/LeavittSoftware/titanium-elements/commit/71fc166f2617dbb67831309c05b7eff08b37c478))
+
+
+
+
+
 ## [8.1.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.1.1...@leavittsoftware/web@8.1.2) (2025-12-16)
 
 
