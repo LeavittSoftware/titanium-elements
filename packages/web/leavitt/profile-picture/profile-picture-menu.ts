@@ -195,13 +195,13 @@ export class ProfilePictureMenu extends LitElement {
           <slot-container>
             <slot name="content"></slot>
           </slot-container>
-          <md-outlined-button account href="https://accounts.leavitt.com/" target="_blank"
+          <md-outlined-button account href="https://accounts.leavitt.com/your-apps" target="_blank"
             ><md-icon slot="icon">apps</md-icon>Browse Leavitt applications</md-outlined-button
           >
         </main>
         <md-divider role="separator" tabindex="-1"></md-divider>
         <footer>
-          <md-text-button href="https://accounts.leavitt.com/profile" target="_blank">Account settings</md-text-button>
+          <md-text-button href="https://accounts.leavitt.com/" target="_blank">Account settings</md-text-button>
           <md-text-button @click=${() => this.userManager?.logout()}>Sign out</md-text-button>
         </footer>
       </md-menu>
