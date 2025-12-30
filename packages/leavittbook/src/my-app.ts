@@ -260,6 +260,10 @@ export class MyApp extends PendingStateCatcher(LitElement) {
           --md-list-item-top-space: 2px;
           --md-list-item-bottom-space: 2px;
         }
+
+        & h4[menu-category] {
+          padding: 12px 16px 5px 24px;
+        }
       }
 
       titanium-drawer details {
@@ -272,7 +276,8 @@ export class MyApp extends PendingStateCatcher(LitElement) {
         }
 
         npm-stats {
-          margin: 12px 0;
+          margin-left: 0;
+          margin-right: 0;
           place-self: center;
 
           stats-container {
