@@ -4,225 +4,224 @@ export const myAppStyles = css`
   :host {
     display: grid;
     grid:
-      'toolbar toolbar' 48px
+      'toolbar toolbar' 64px
       'menu content' auto / 300px 1fr;
+
     transition: 250ms;
-    --app-accent-color-orange: #f8ad03;
-    --app-accent-color-red: #dc3327;
-    --app-accent-color-blue: #4285f4;
-    --app-accent-color-light-blue: #0288d1;
-    --app-accent-color-teal: #00796b;
-    --app-accent-color-indigo: #303f9f;
-    --app-accent-color-green: #34a853;
 
     --mdc-icon-font: 'Material Symbols Outlined';
   }
 
-  /* Menu */
-
-  md-list-item {
-    border-radius: 24px;
-    margin-left: 4px;
-    /* --md-list-item-label-text-font: Metropolis; */
-    --md-list-item-label-text-size: 13px;
-    --md-list-item-label-text-weight: 500;
-    --md-list-item-one-line-container-height: 44px;
-    --md-list-item-top-space: 10px;
-    --md-list-item-bottom-space: 10px;
-    --md-focus-ring-shape-end-end: 24px;
-    --md-focus-ring-shape-start-end: 24px;
-    --md-focus-ring-shape-end-start: 24px;
-    --md-focus-ring-shape-start-start: 24px;
-    letter-spacing: 0.35px;
-  }
-
-  md-list-item[sub] {
-    margin-left: 62px;
-    --md-list-item-one-line-container-height: 20px;
-    --md-list-item-top-space: 4px;
-    --md-list-item-bottom-space: 4px;
-  }
-
-  md-list-item[selected] {
-    background-color: var(--md-sys-color-secondary-container);
-  }
-
-  menu-divider {
-    display: block;
-    border-top: 1px solid var(--md-sys-color-outline-variant);
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    margin-top: 8px;
-    padding-bottom: 8px;
-  }
-
-  menu-divider[sub] {
-    margin: 8px 24px 0 24px;
-  }
-
-  md-icon-button[themePref] {
-    margin: 24px 12px;
-  }
-
-  /* Menu end */
-
-  :host([collapse-main-menu]) {
+  :host([main-menu-position='drawer']) {
     grid:
-      'toolbar toolbar' 48px
+      'toolbar toolbar' 64px
       'menu content' auto / 0 1fr;
+
+    titanium-toolbar {
+      grid: 'main-menu-button logo search-input page-actions' / auto auto 1fr auto;
+      padding: 0 12px 0 6px;
+      page-actions {
+        display: none;
+      }
+    }
+
+    titanium-drawer[main-menu] {
+      --titanium-drawer-width: 310px;
+      width: initial;
+      header {
+        display: flex;
+      }
+    }
+  }
+
+  /* safari does not like nested selectors on host */
+  :host([main-menu-position='slim']) titanium-drawer[main-menu] {
+    --titanium-drawer-width: 80px;
+
+    md-list-item {
+      width: 44px;
+      --md-list-item-leading-space: 10px;
+      margin: 1px 0 1px 17px;
+    }
+
+    md-list-item[sub] {
+      width: 32px;
+      --md-list-item-leading-space: 7px;
+      margin: 1px 0 1px 22px;
+
+      span {
+        visibility: hidden;
+      }
+    }
+
+    a[slot='footer'] {
+      display: none;
+    }
+
+    h4[sub] {
+      padding: 0 12px 2px 29px;
+      span {
+        display: none;
+      }
+    }
+
+    h4:not([sub]) {
+      height: 1px;
+      font-size: 0;
+      line-height: 0;
+      margin: 17px 24px;
+      min-height: 0;
+      padding: 0;
+      border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    }
+  }
+
+  :host([main-menu-position='slim']) {
+    grid:
+      'toolbar toolbar' 64px
+      'menu content' auto / 80px 1fr;
+
+    titanium-toolbar {
+      grid: 'main-menu-button logo search-input page-actions' / 80px auto 1fr auto;
+    }
+  }
+
+  main-content {
+    display: grid;
+    grid-area: content;
+
+    container-type: inline-size;
+    container-name: main-content;
+  }
+
+  titanium-drawer[main-menu] {
+    grid-area: menu;
+
+    --titanium-drawer-background-color: var(--app-background-color);
+    --titanium-drawer-full-height-padding: 64px;
+
+    header {
+      display: none;
+      justify-content: space-between;
+      align-items: center;
+      margin: 8px 8px 8px 12px;
+    }
+
+    md-list-item {
+      border-radius: 24px;
+      --md-list-item-label-text-font: Metropolis;
+      --md-list-item-label-text-size: 13px;
+      --md-list-item-label-text-weight: 500;
+      --md-list-item-one-line-container-height: 44px;
+      --md-list-item-top-space: 10px;
+      --md-list-item-bottom-space: 10px;
+      --md-focus-ring-shape-end-end: 24px;
+      --md-focus-ring-shape-start-end: 24px;
+      --md-focus-ring-shape-end-start: 24px;
+      --md-focus-ring-shape-start-start: 24px;
+      letter-spacing: 0.35px;
+      margin: 1px 8px 1px 11px;
+
+      /*use interpolate-size or https://developer.mozilla.org/en-US/docs/Web/CSS/calc-size when available in all browsers*/
+      width: 281px;
+      transition: width 150ms linear;
+
+      span {
+        white-space: nowrap;
+      }
+    }
+
+    md-list-item[sub] {
+      --md-list-item-leading-space: 28px;
+      --md-list-item-one-line-container-height: 20px;
+      --md-list-item-top-space: 4px;
+      --md-list-item-bottom-space: 4px;
+      --md-icon-size: 18px;
+    }
+
+    md-list-item[selected] {
+      background-color: var(--md-sys-color-secondary-container);
+    }
+
+    menu-divider {
+      display: block;
+      border-top: 1px solid var(--md-sys-color-outline-variant);
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      margin: 12px 8px 0 8px;
+      padding-bottom: 12px;
+    }
+
+    menu-divider + h4 {
+      padding-top: 8px;
+    }
+
+    p {
+      margin-bottom: 12px;
+      margin-left: 24px;
+    }
+
+    h4[menu-category] {
+      font-family: Metropolis;
+      font-size: 14px;
+      font-weight: 400;
+      padding: 12px 16px 0px 24px;
+      opacity: 0.6;
+    }
+
+    h4[sub] {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 0 12px 2px 35px;
+      opacity: 0.8;
+      --md-icon-size: 16px;
+    }
   }
 
   titanium-toolbar {
     grid-area: toolbar;
+    background-color: var(--app-background-color);
     display: grid;
-    grid: 'main-menu-button logo profile' / auto auto 1fr;
+    grid: 'main-menu-button logo search-input page-actions' / auto 240px 1fr auto;
     align-items: center;
-    gap: 6px;
-    height: 48px;
-    z-index: 25;
+    height: 64px;
+    z-index: 6;
+    padding: 0 24px 0 12px;
+
+    leavitt-app-logo {
+      grid-area: logo;
+      margin-right: 6px;
+    }
+
+    md-icon-button[hamburger] {
+      grid-area: main-menu-button;
+      margin: 0 4px 0 8px;
+    }
+
+    md-circular-progress[root-loading] {
+      grid-area: main-menu-button;
+      --md-circular-progress-size: 36px;
+      --md-circular-progress-active-indicator-width: 15;
+      margin: 0 6px 0 10px;
+    }
+
+    titanium-filled-search-input {
+      grid-area: search-input;
+    }
+
+    h3[main-title] {
+      text-align: center;
+    }
   }
 
-  titanium-toolbar md-icon-button[hamburger] {
-    grid-area: main-menu-button;
-    width: 48px;
-    margin: 0 0 0 -12px;
-  }
-
-  titanium-toolbar h3[main-title] {
-    text-align: center;
-  }
-
-  titanium-error-page {
-    margin-top: 24px;
-  }
-
-  right-panel {
-    grid-area: profile;
+  page-actions {
+    grid-area: page-actions;
     justify-self: end;
     display: flex;
     gap: 12px;
     align-items: center;
-  }
-
-  right-panel md-outlined-icon-button {
-    height: 36px;
-    width: 36px;
-    margin: 0 !important;
-  }
-
-  right-panel md-outlined-icon-button md-icon {
-    height: 20px;
-    width: 20px;
-    font-size: 20px;
-  }
-
-  titanium-toolbar a {
-    height: 26px;
-    width: 148px;
-  }
-
-  main-content {
-    grid-area: content;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-grow: 1;
-    margin: 24px 48px;
-  }
-
-  main-content > * {
-    max-width: 850px;
-    width: 100%;
-  }
-
-  main-content [med] {
-    width: 100%;
-    max-width: 1000px;
-  }
-
-  main-content [large] {
-    width: 100%;
-    max-width: 1200px;
-  }
-
-  main-content [xl] {
-    width: 100%;
-    max-width: 1700px;
-  }
-
-  titanium-drawer {
-    grid-area: menu;
-  }
-
-  titanium-drawer a[logo] {
-    display: block;
-    height: 26px;
-    width: 148px;
-    margin: 8px 14px 0px;
-  }
-
-  titanium-drawer h3 {
-    padding-bottom: 0;
-  }
-
-  titanium-drawer p {
-    margin-bottom: 12px;
-    margin-left: 24px;
-  }
-
-  titanium-full-page-loading-indicator {
-    z-index: 8;
-  }
-
-  h4[bread-crumb] {
-    font-weight: 300;
-    font-size: 14px;
-    padding: 0;
-    margin: 0 0 12px 0;
-  }
-
-  h4 a:visited,
-  h4 a {
-    text-decoration: none;
-  }
-
-  h4 a:hover {
-    text-decoration: underline;
-  }
-
-  @media (min-width: 920px) {
-    h4[bread-crumb],
-    titanium-toolbar h3[main-title] {
-      display: none;
-    }
-
-    titanium-drawer a[logo] {
-      display: none;
-    }
-  }
-
-  @media (max-width: 920px) {
-    :host {
-      grid:
-        'toolbar' 56px
-        'content' auto / 1fr;
-    }
-
-    titanium-toolbar {
-      grid: 'main-menu-button title profile' / auto 1fr auto;
-    }
-
-    h4[bread-crumb] {
-      margin: 0 0 24px 0;
-    }
-
-    main-content {
-      margin: 4px 16px;
-    }
-
-    titanium-toolbar a[logo] {
-      display: none;
-    }
+    margin-left: 12px;
   }
 
   [hidden] {

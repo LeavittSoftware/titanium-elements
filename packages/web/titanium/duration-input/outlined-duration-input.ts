@@ -90,5 +90,3 @@ export class TitaniumOutlinedDurationInput extends MdOutlinedTextField {
     this.duration = null;
   }
 }
-
-

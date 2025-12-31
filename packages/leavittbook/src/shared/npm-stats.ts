@@ -1,9 +1,11 @@
 import { css, html, LitElement } from 'lit';
-import { customElement, query } from 'lit/decorators.js';
+import { customElement, property, query } from 'lit/decorators.js';
 import { CountUp } from 'countup.js';
 
 @customElement('npm-stats')
 export default class NpmStats extends LitElement {
+  @property({ type: Boolean, reflect: true, attribute: 'hide-downloads' }) accessor hideDownloads: boolean = false;
+
   @query('span.major') protected accessor major: HTMLDivElement;
   @query('span.minor') protected accessor minor: HTMLDivElement;
   @query('span.rev') protected accessor rev: HTMLDivElement;
@@ -82,8 +84,17 @@ export default class NpmStats extends LitElement {
       info-chip {
         height: 24px;
         padding: 0px 6px;
-        border: 1px var(--md-sys-color-outline-variant) solid;
-        border-radius: 12px;
+        border-radius: 28px;
+        font-size: 13px;
+        align-content: center;
+      }
+
+      .downloads {
+        opacity: 0.8;
+      }
+
+      [hidden] {
+        display: none;
       }
     `,
   ];
@@ -94,7 +105,7 @@ export default class NpmStats extends LitElement {
           <span>v<span class="major"></span><span class="minor"></span><span class="rev"></span></span
         ></info-chip>
 
-        <info-chip>
+        <info-chip ?hidden=${this.hideDownloads}>
           <span slot="label"><span class="downloads"></span></span
         ></info-chip>
       </stats-container>

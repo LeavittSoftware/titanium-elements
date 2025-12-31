@@ -1,7 +1,7 @@
 {
   "name": "Leavitt Book",
   "short_name": "Leavittbook",
-  "description": "Explore Titanium and Leavitt Elements through demonstrations and interactive playgrounds",
+  "description": "Explore Titanium and Leavitt Elements through demonstrations and interactive demos",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FFFFFF",
