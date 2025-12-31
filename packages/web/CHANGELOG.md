@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.1.3...@leavittsoftware/web@8.2.0) (2025-12-31)
+
+
+### Features
+
+* **storybook:** upgrade look and feel; improve demos ([c608da6](https://github.com/LeavittSoftware/titanium-elements/commit/c608da60c8218d36d1ce0e2547804ea8a1f3cee4))
+
+
+
+
+
 ## [8.1.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.1.2...@leavittsoftware/web@8.1.3) (2025-12-30)
 
 
