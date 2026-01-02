@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.2.0...@leavittsoftware/web@8.3.0) (2026-01-02)
+
+
+### Features
+
+* **user-manage:** add deprecation warning ([cd5b139](https://github.com/LeavittSoftware/titanium-elements/commit/cd5b139825b69ea19badc9168038c944ad0ed871))
+
+
+
+
+
 # [8.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.1.3...@leavittsoftware/web@8.2.0) (2025-12-31)
 
 
