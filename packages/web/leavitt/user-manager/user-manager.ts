@@ -9,6 +9,9 @@ import { UserManagerUpdatedEvent } from './user-manager-events';
 
 let instance: null | UserManager = null;
 
+/**
+ * @deprecated 1/2/2026 migrate to AuthZeroLgUserManager
+ */
 export const GetUserManagerInstance = (): UserManager | null => {
   if (instance) {
     return instance;
@@ -18,6 +21,9 @@ export const GetUserManagerInstance = (): UserManager | null => {
   return null;
 };
 
+/**
+ * @deprecated 1/2/2026 migrate to AuthZeroLgUserManager
+ */
 @customElement('user-manager')
 export class UserManager extends LitElement {
   @property({ type: Array }) accessor roles: Array<string> = [];

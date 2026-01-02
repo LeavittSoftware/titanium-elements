@@ -44,9 +44,10 @@ export default [
       '@typescript-eslint/no-non-null-assertion': 'off',
       '@typescript-eslint/no-use-before-define': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
-      '@typescript-eslint/no-deprecated': 'error',
+      '@typescript-eslint/no-deprecated': 'warn',
       '@typescript-eslint/no-explicit-any': 'off',
       'lit/quoted-expressions': 'error',
+
       quotes: [
         'error',
         'single',
