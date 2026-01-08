@@ -61,7 +61,7 @@ export class TitaniumShowHideDemo extends LitElement {
         left: 0;
         bottom: 0;
         right: 0;
-        background: linear-gradient(45deg, var(--app-accent-color-indigo), var(--md-sys-color-primary));
+        background: var(--app-accent-color-indigo);
         color: #fff;
         height: 150px;
         max-height: 150px;
