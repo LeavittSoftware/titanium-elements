@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.3.0...@leavittsoftware/web@8.4.0) (2026-01-23)
+
+
+### Features
+
+* **drawer:** forward events ([213a21b](https://github.com/LeavittSoftware/titanium-elements/commit/213a21b18218e9d07fc68cbd187aa57d45b5b419))
+
+
+
+
+
 # [8.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.2.0...@leavittsoftware/web@8.3.0) (2026-01-02)
 
 
