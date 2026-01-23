@@ -1,5 +1,6 @@
 import { LitElement, css, html } from 'lit';
 import { customElement, property, query, queryAssignedElements } from 'lit/decorators.js';
+import { redispatchEvent } from '@material/web/internal/events/redispatch-event';
 
 /**
  * Titanium drawer - a minimalist fly-out style drawer based on a native dialog
@@ -316,9 +317,11 @@ export class TitaniumDrawer extends LitElement {
   render() {
     return html`<dialog
       loading
-      @close=${() => {
+      @close=${(e) => {
         this.setBodyOverflow('');
+        redispatchEvent(this, e);
       }}
+      @toggle=${(e: Event) => redispatchEvent(this, e)}
       part="dialog"
     >
       <header part="header"><slot name="header" @slotchange=${() => (this.hasHeader = this.headerElements.length > 0)}></slot></header>
