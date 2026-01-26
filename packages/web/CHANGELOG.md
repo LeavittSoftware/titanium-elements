@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.4.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.4.0...@leavittsoftware/web@8.4.1) (2026-01-26)
+
+
+### Bug Fixes
+
+* **titanium-address-input:** ncurc with vers. lock for google api loader ([#702](https://github.com/LeavittSoftware/titanium-elements/issues/702)) ([92555e0](https://github.com/LeavittSoftware/titanium-elements/commit/92555e081cea5ec7e290e8558940a7fdc7cf4498))
+
+
+
+
+
 # [8.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.3.0...@leavittsoftware/web@8.4.0) (2026-01-23)
 
 
