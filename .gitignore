@@ -4,6 +4,7 @@ package-lock.json
 packages/web/**/*.js
 packages/web/**/*.map
 packages/web/**/*.d.ts
+!packages/web/.ncurc.js
 packages/leavittbook/src/**/*.js
 packages/leavittbook/src/**/*.map
 packages/leavittbook/src/**/*.d.ts
