@@ -95,12 +95,11 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
       },
       {
         key: 'Bool1',
-        friendlyName: '',
+        friendlyName: 'Preview',
         disableSort: true,
         render: (item) =>
           html`<md-filled-tonal-icon-button @click=${() => this.viewDialog?.open?.(item?.Id ?? 0)}><md-icon>pageview</md-icon></md-filled-tonal-icon-button>`,
         csvValue: () => '',
-
         width: '60px',
       },
     ],
