@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.4.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.4.1...@leavittsoftware/web@8.4.2) (2026-02-06)
+
+
+### Bug Fixes
+
+* **email-history-viewer:** add friendly name to preview column ([#704](https://github.com/LeavittSoftware/titanium-elements/issues/704)) ([fa23eb3](https://github.com/LeavittSoftware/titanium-elements/commit/fa23eb3eb38444fe7e41a5afce4253ef685b0173))
+
+
+
+
+
 ## [8.4.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.4.0...@leavittsoftware/web@8.4.1) (2026-01-26)
 
 
