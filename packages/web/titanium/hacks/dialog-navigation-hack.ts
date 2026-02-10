@@ -1,37 +1,42 @@
 import { MdDialog } from '@material/web/dialog/dialog';
 
 /** 
-    Adds a listener to the navigate event that will close the dialog when the user navigates away from the url the dialog was opened from.
-**/
-
+ * Listens for the Navigation API "navigate" event and closes the dialog when the user
+ * navigates away from the path the dialog was opened from. Uses navigate
+ * so it works with same-domain embedded links and programmatic navigation.
+ */
 export function dialogOpenNavigationHack(dialog: MdDialog) {
-  const closeListener = () => {
+  const closeDialog = () => {
     if (dialog?.open) {
       dialog.close('navigation-close');
     }
   };
-  (dialog as any).__closeListener = closeListener;
 
-  // Persist the path the dialog was opened from so we can compare it to the destination path
   const fromPath = window.location.pathname;
-  window.navigation.addEventListener('navigate', (navigateEvent) => {
-    const destinationPath = navigateEvent.destination.pathname;
+  const handleNavigate = (navigateEvent: NavigateEvent) => {
+    const destinationPath = new URL(navigateEvent.destination.url).pathname;
+    if (destinationPath === fromPath) return;
 
-    if (!destinationPath.includes(fromPath)) {
-      navigateEvent.intercept({ handler: closeListener });
+    if (navigateEvent.canIntercept) {
+      navigateEvent.intercept({ handler: () => Promise.resolve(closeDialog()) });
+    } else {
+      closeDialog();
     }
-  });
+  };
+
+  const abortController = new AbortController();
+  window.navigation.addEventListener('navigate', handleNavigate, { signal: abortController.signal });
+  (dialog as DialogWithHackState).__navigationHackAbort = abortController;
 }
 
 export function dialogCloseNavigationHack(dialog: MdDialog) {
-  if ((dialog as any)?.__closeListener) {
-    window.removeEventListener('navigate', (dialog as any).__closeListener, false);
-    (dialog as any).__closeListener = undefined;
+  const state = (dialog as DialogWithHackState).__navigationHackAbort;
+  if (state) {
+    state.abort();
+    (dialog as DialogWithHackState).__navigationHackAbort = undefined;
   }
 }
 
-declare global {
-  interface Window {
-    navigation: any;
-  }
+interface DialogWithHackState extends MdDialog {
+  __navigationHackAbort?: AbortController;
 }
