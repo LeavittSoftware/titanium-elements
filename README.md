@@ -50,10 +50,3 @@ Types enable JavaScript developers to use highly-productive development tools an
 ### Important
 
 - [ ] Publish to NPM after the PR has been approved but before it gets merged
-
-### Publishing to NPM
-
-- [ ] Create NPM account and get invited to the leavittsoftware org
-- [ ] Run the login command - `npm login`
-- [ ] Change directory to the new package (Verify the version is 1.0.0 in package.json)
-- [ ] Run the publish command - `npm publish --access=public`
