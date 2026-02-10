@@ -107,7 +107,7 @@ export class ProvideFeedbackDialog extends LoadWhile(LitElement) {
           dialogZIndexHack(e.target);
         }}
         @close=${(e: DOMEvent<MdDialog>) => {
-          if (e.target.returnValue === 'cancel' || e.target.returnValue === 'done') {
+          if (e.target.returnValue === 'cancel' || e.target.returnValue === 'done' || e.target.returnValue === 'navigation-close') {
             dialogCloseNavigationHack(e.target);
             this.snackbar.dismissAll();
             return;
