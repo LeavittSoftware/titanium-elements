@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.5.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.5.0...@leavittsoftware/web@8.5.1) (2026-02-11)
+
+
+### Bug Fixes
+
+* **app-logo:** text clipping ([64e0b1b](https://github.com/LeavittSoftware/titanium-elements/commit/64e0b1b59e70095cb2b5d0eb12a9251e2e4d80ce))
+
+
+
+
+
 # [8.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.4.2...@leavittsoftware/web@8.5.0) (2026-02-11)
 
 
