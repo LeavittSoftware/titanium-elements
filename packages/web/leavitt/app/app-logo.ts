@@ -23,6 +23,11 @@ export class LeavittAppLogo extends ThemePreference(LitElement) {
         span[app-name] {
           opacity: 0;
         }
+
+        img {
+          width: 22px;
+          margin-right: 4px;
+        }
       }
 
       a {
@@ -43,8 +48,10 @@ export class LeavittAppLogo extends ThemePreference(LitElement) {
         img {
           grid-area: logo;
           height: 22px;
-          width: 22px;
-          margin-right: 4px;
+          width: 0;
+          transition:
+            width 0.4s ease-in-out 0.3s,
+            margin-right 0.4s ease-in-out 0.3s;
         }
 
         span {
@@ -93,8 +100,13 @@ export class LeavittAppLogo extends ThemePreference(LitElement) {
         }
         a {
           img {
-            width: 18px;
             height: 18px;
+          }
+        }
+        :host(:hover) {
+          img {
+            width: 18px;
+            margin-right: 4px;
           }
         }
       }
