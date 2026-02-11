@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.4.2...@leavittsoftware/web@8.5.0) (2026-02-11)
+
+
+### Features
+
+* **app-logo:** comply with branding guidelines ([#706](https://github.com/LeavittSoftware/titanium-elements/issues/706)) ([92041fd](https://github.com/LeavittSoftware/titanium-elements/commit/92041fd2af8b80c703c2011af681e6d26e0b6af1))
+
+
+
+
+
 ## [8.4.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.4.1...@leavittsoftware/web@8.4.2) (2026-02-06)
 
 
