@@ -1,42 +1,29 @@
 import { MdDialog } from '@material/web/dialog/dialog';
 
-/** 
+/**
  * Listens for the Navigation API "navigate" event and closes the dialog when the user
- * navigates away from the path the dialog was opened from. Uses navigate
- * so it works with same-domain embedded links and programmatic navigation.
+ * navigates away from the path the dialog was opened from.
  */
 export function dialogOpenNavigationHack(dialog: MdDialog) {
-  const closeDialog = () => {
-    if (dialog?.open) {
+  const currentPath = window.location.pathname;
+  const handler = (e: NavigateEvent) => {
+    if (new URL(e.destination.url).pathname !== currentPath && dialog?.open) {
       dialog.close('navigation-close');
     }
   };
 
-  const fromPath = window.location.pathname;
-  const handleNavigate = (navigateEvent: NavigateEvent) => {
-    const destinationPath = new URL(navigateEvent.destination.url).pathname;
-    if (destinationPath === fromPath) return;
-
-    if (navigateEvent.canIntercept) {
-      navigateEvent.intercept({ handler: () => Promise.resolve(closeDialog()) });
-    } else {
-      closeDialog();
-    }
-  };
-
-  const abortController = new AbortController();
-  window.navigation.addEventListener('navigate', handleNavigate, { signal: abortController.signal });
-  (dialog as DialogWithHackState).__navigationHackAbort = abortController;
+  window.navigation.addEventListener('navigate', handler);
+  (dialog as DialogWithHackState).__navigationHackHandler = handler;
 }
 
 export function dialogCloseNavigationHack(dialog: MdDialog) {
-  const state = (dialog as DialogWithHackState).__navigationHackAbort;
-  if (state) {
-    state.abort();
-    (dialog as DialogWithHackState).__navigationHackAbort = undefined;
+  const handler = (dialog as DialogWithHackState).__navigationHackHandler;
+  if (handler) {
+    window.navigation.removeEventListener('navigate', handler);
+    (dialog as DialogWithHackState).__navigationHackHandler = undefined;
   }
 }
 
 interface DialogWithHackState extends MdDialog {
-  __navigationHackAbort?: AbortController;
+  __navigationHackHandler?: (e: NavigateEvent) => void;
 }
