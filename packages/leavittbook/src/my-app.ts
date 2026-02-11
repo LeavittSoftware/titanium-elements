@@ -541,7 +541,6 @@ export class MyApp extends PendingStateCatcher(LitElement) {
           }}
           >Feedback</a
         >
-        <a slot="footer" href="/user-feedback">Terms</a>
       </titanium-drawer>
 
       <main-content>

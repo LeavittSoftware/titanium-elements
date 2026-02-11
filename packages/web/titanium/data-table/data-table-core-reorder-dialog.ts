@@ -89,7 +89,7 @@ export class TitaniumDataTableCoreReorderDialog<T extends object> extends LoadWh
         dialogZIndexHack(e.target);
       }}
       @close=${(e: DOMEvent<MdDialog>) => {
-        if (e.target.returnValue === 'apply' || e.target.returnValue === 'cancel') {
+        if (e.target.returnValue === 'apply' || e.target.returnValue === 'cancel' || e.target.returnValue === 'navigation-close') {
           dialogCloseNavigationHack(e.target);
           this.snackbar.dismissAll();
           return this.#resolve(e.target.returnValue as CloseReason);
