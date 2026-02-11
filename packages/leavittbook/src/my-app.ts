@@ -313,7 +313,7 @@ export class MyApp extends PendingStateCatcher(LitElement) {
           <md-icon>menu</md-icon>
         </md-icon-button>
 
-        <leavitt-app-logo app-name="Skeleton"></leavitt-app-logo>
+        <leavitt-app-logo app-name="Titanium Elements"></leavitt-app-logo>
 
         <titanium-filled-search-input
           ?hidden=${!this.showSearch}
@@ -339,7 +339,7 @@ export class MyApp extends PendingStateCatcher(LitElement) {
 
       <titanium-drawer main-menu ?always-show-content=${this.mainMenuPosition !== 'drawer'}>
         <header slot="header">
-          <leavitt-app-logo app-name="Titanium elements"></leavitt-app-logo>
+          <leavitt-app-logo app-name="Titanium Elements"></leavitt-app-logo>
           <page-actions>
             <md-icon-button
               title="Switch to ${this.themePreference === 'light' ? 'dark' : 'light'} theme "
