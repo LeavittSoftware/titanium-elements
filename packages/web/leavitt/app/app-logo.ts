@@ -37,7 +37,7 @@ export class LeavittAppLogo extends ThemePreference(LitElement) {
 
         font-family: zurchlc, Metropolis;
         font-size: 26px;
-        line-height: 26px;
+        line-height: 28px;
         word-spacing: -4px;
         font-weight: 300;
         color: var(--md-sys-color-on-surface);
@@ -97,6 +97,7 @@ export class LeavittAppLogo extends ThemePreference(LitElement) {
         span[lg-logo],
         span[app-name] {
           font-size: 20px;
+          line-height: 22px;
         }
         a {
           img {
