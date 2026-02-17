@@ -588,7 +588,8 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
                               this.items.map((item) => {
                                 const itemData = {};
                                 for (const metaData of currentlyShownColumnMetaData) {
-                                  itemData[metaData.key] = metaData.csvValue ? metaData.csvValue(item) : item[metaData.key];
+                                  const header = metaData.friendlyName ?? metaData.key;
+                                  itemData[header] = metaData.csvValue ? metaData.csvValue(item) : item[metaData.key];
                                 }
                                 return itemData;
                               }) ?? [];
