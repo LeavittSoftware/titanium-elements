@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.5.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.5.2...@leavittsoftware/web@8.5.3) (2026-02-18)
+
+
+### Bug Fixes
+
+* **data-table:** use friendly name for csv header ([#710](https://github.com/LeavittSoftware/titanium-elements/issues/710)) ([b6d8e17](https://github.com/LeavittSoftware/titanium-elements/commit/b6d8e17865b5bc8674ce58854b98c9aebe293208))
+
+
+
+
+
 ## [8.5.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.5.1...@leavittsoftware/web@8.5.2) (2026-02-11)
 
 **Note:** Version bump only for package @leavittsoftware/web
