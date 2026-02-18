@@ -290,6 +290,7 @@ export class TitaniumDataTableCoreDemo extends LitElement {
         key: 'MaxSpeed',
         render: (item) => html`${item.MaxSpeed} mph`,
         width: '250px',
+        friendlyName: 'Max Speed',
       },
       {
         key: 'IsElectric',
