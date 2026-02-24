@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.6.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.5.3...@leavittsoftware/web@8.6.0) (2026-02-24)
+
+
+### Features
+
+* **titanium-drawer:** add "mode" property option and demo ([afd4481](https://github.com/LeavittSoftware/titanium-elements/commit/afd4481ebb751198ff983df237aa1fbda6d02a97))
+
+
+
+
+
 ## [8.5.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.5.2...@leavittsoftware/web@8.5.3) (2026-02-18)
 
 
