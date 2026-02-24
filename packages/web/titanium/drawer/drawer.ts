@@ -1,4 +1,4 @@
-import { LitElement, css, html } from 'lit';
+import { LitElement, PropertyValues, css, html } from 'lit';
 import { customElement, property, query, queryAssignedElements } from 'lit/decorators.js';
 import { redispatchEvent } from '@material/web/internal/events/redispatch-event';
 
@@ -33,8 +33,42 @@ export class TitaniumDrawer extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'has-header' }) private accessor hasHeader = false;
   @property({ type: Boolean, reflect: true, attribute: 'has-footer' }) private accessor hasFooter = false;
 
+  @property({ type: String, reflect: true, attribute: 'mode' }) accessor mode: 'inline' | 'flyover' | null;
+  @property({ type: Boolean, reflect: true, attribute: 'open' }) accessor isOpen: boolean = false; //read only
+
   @queryAssignedElements({ slot: 'header' }) private readonly headerElements!: Element[];
   @queryAssignedElements({ slot: 'footer' }) private readonly footerElements!: Element[];
+
+  async updated(changedProps: PropertyValues<this>) {
+    if (changedProps.has('mode')) {
+      if (this.mode === 'inline') {
+        if (this.isOpen) {
+          //drawer was already open in inline mode, so we need to keep it open
+          this.alwayShowContent = true;
+        }
+
+        //close the flyover drawer, we are inline now
+        this?.close();
+      }
+
+      if (this.mode === 'flyover') {
+        //we are now in flyover mode, so we need to open the drawer if it was open
+        if (this.isOpen) {
+          this.dialog?.showModal();
+          this.dialog?.removeAttribute('hide');
+          this.setBodyOverflow('hidden');
+        }
+
+        //we are now in flyover mode, we need to hide the inline content
+        this.alwayShowContent = false;
+      }
+    }
+  }
+
+  #setOpen(isOpen: boolean) {
+    this.isOpen = isOpen;
+    this.dispatchEvent(new Event('open-change'));
+  }
 
   async firstUpdated() {
     let touchstartX = 0;
@@ -80,16 +114,28 @@ export class TitaniumDrawer extends LitElement {
    *  Opens drawer
    */
   open() {
-    this.dialog?.showModal();
-    this.dialog?.removeAttribute('hide');
-    this.setBodyOverflow('hidden');
+    if (this.isOpen) return;
+
+    if (this.mode === 'inline') {
+      this.#setOpen(true);
+      this.alwayShowContent = true;
+    } else {
+      this.dialog?.showModal();
+      this.dialog?.removeAttribute('hide');
+      this.setBodyOverflow('hidden');
+    }
   }
 
   /**
    *  Closes drawer
    */
   async close() {
-    if (this.dialog?.open) {
+    if (!this.isOpen) return;
+
+    if (this.mode === 'inline') {
+      this.#setOpen(false);
+      this.alwayShowContent = false;
+    } else {
       this.dialog?.setAttribute('hide', '');
 
       await TitaniumDrawer.animationsComplete(this.dialog!);
@@ -102,7 +148,12 @@ export class TitaniumDrawer extends LitElement {
    *  Closes drawer without animations
    */
   closeQuick() {
-    if (this.dialog?.open) {
+    if (!this.isOpen) return;
+
+    if (this.mode === 'inline') {
+      this.#setOpen(false);
+      this.alwayShowContent = false;
+    } else {
       this.dialog?.close();
     }
   }
@@ -321,7 +372,15 @@ export class TitaniumDrawer extends LitElement {
         this.setBodyOverflow('');
         redispatchEvent(this, e);
       }}
-      @toggle=${(e: Event) => redispatchEvent(this, e)}
+      @toggle=${(e) => {
+        //isOpen state is fully managed by the drawer when not in flyover mode
+        if (this.mode === 'flyover') {
+          const isOpen = e.target?.hasAttribute('open');
+          this.#setOpen(isOpen);
+        }
+
+        redispatchEvent(this, e);
+      }}
       part="dialog"
     >
       <header part="header"><slot name="header" @slotchange=${() => (this.hasHeader = this.headerElements.length > 0)}></slot></header>

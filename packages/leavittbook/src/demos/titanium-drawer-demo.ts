@@ -5,6 +5,9 @@ import '@leavittsoftware/web/leavitt/app/app-navigation-header';
 import '@leavittsoftware/web/leavitt/app/app-width-limiter';
 import '@material/web/icon/icon';
 import '@material/web/button/filled-tonal-button';
+import '@material/web/iconbutton/icon-button';
+import '@material/web/select/filled-select';
+import '@material/web/select/select-option';
 import '@material/web/list/list';
 import '@material/web/list/list-item';
 import '@api-viewer/docs';
@@ -12,7 +15,7 @@ import '@api-viewer/docs';
 import '@leavittsoftware/web/titanium/drawer/drawer';
 
 import { css, html, LitElement } from 'lit';
-import { customElement, query } from 'lit/decorators.js';
+import { customElement, query, state } from 'lit/decorators.js';
 import { TitaniumDrawer } from '@leavittsoftware/web/titanium/drawer/drawer';
 
 import StoryStyles from '../styles/story-styles';
@@ -22,12 +25,43 @@ export class TitaniumDrawerDemo extends LitElement {
   @query('titanium-drawer[one]') private accessor drawerOne: TitaniumDrawer;
   @query('titanium-drawer[two]') private accessor drawerTwo: TitaniumDrawer;
 
+  @state() private accessor drawerTwoMode: 'inline' | 'flyover' = 'flyover';
+  @state() private accessor drawerTwoOpen: boolean = false;
+
   static styles = [
     StoryStyles,
     css`
       md-filled-tonal-button,
+      md-filled-select,
       h1 {
         margin-bottom: 12px;
+      }
+
+      demo-controls {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 16px;
+
+        span {
+          font-size: 14px;
+          color: var(--md-sys-color-on-surface-variant, #49454f);
+        }
+      }
+
+      [slot='header'] {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+
+        h3 {
+          margin: 0;
+          flex: 1;
+          font-family: Metropolis, Roboto, Noto, sans-serif;
+          font-weight: 400;
+          padding: 12px 0 4px 16px;
+        }
       }
 
       md-icon {
@@ -62,11 +96,34 @@ export class TitaniumDrawerDemo extends LitElement {
             </div>
 
             <div>
-              <h1>Always show slotted content</h1>
-
-              <md-filled-tonal-button @click=${() => this.drawerTwo.open()}><span>Open</span></md-filled-tonal-button>
-              <titanium-drawer style="width: 280px;" two always-show-content>
-                <h3 slot="header">Fruits</h3>
+              <h1>Mode demo</h1>
+              <demo-controls>
+                <md-filled-select
+                  label="Mode"
+                  .value=${this.drawerTwoMode}
+                  @change=${(e: Event) => {
+                    this.drawerTwoMode = (e.target as HTMLSelectElement).value as 'inline' | 'flyover';
+                  }}
+                >
+                  <md-select-option value="flyover"><span>Flyover</span></md-select-option>
+                  <md-select-option value="inline"><span>Inline</span></md-select-option>
+                </md-filled-select>
+                <md-filled-tonal-button @click=${() => this.drawerTwo.open()}><span>Open</span></md-filled-tonal-button>
+                <md-filled-tonal-button @click=${() => this.drawerTwo.close()}><span>Close</span></md-filled-tonal-button>
+                <span>State: ${this.drawerTwoOpen ? 'Open' : 'Closed'}</span>
+              </demo-controls>
+              <titanium-drawer
+                style="width: 280px;"
+                two
+                .mode=${this.drawerTwoMode}
+                @open-change=${(e: Event) => {
+                  this.drawerTwoOpen = (e.target as TitaniumDrawer).isOpen;
+                }}
+              >
+                <section slot="header">
+                  <h3>Drawer title</h3>
+                  <md-icon-button @click=${() => this.drawerTwo.close()} aria-label="Close"><md-icon>close</md-icon></md-icon-button>
+                </section>
                 <md-list-item href="/titanium-drawer" type="link"> <md-icon slot="start">restaurant</md-icon><span>Fruits</span> </md-list-item>
                 <h4 sub>Walnut</h4>
                 <md-list-item sub href="/titanium-drawer" type="link">
