@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.8.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.7.3...@leavittsoftware/web@8.8.0) (2026-02-25)
+
+
+### Features
+
+* **drawer:** add prop keep open when going flyover ([1be1392](https://github.com/LeavittSoftware/titanium-elements/commit/1be1392613ba3b1c0d4e39ff636dbdcd972acf85))
+
+
+
+
+
 ## [8.7.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.7.2...@leavittsoftware/web@8.7.3) (2026-02-25)
 
 **Note:** Version bump only for package @leavittsoftware/web
