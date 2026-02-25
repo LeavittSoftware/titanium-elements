@@ -18,6 +18,7 @@ import LeavittEmailHistoryViewer from '@leavittsoftware/web/leavitt/email-histor
 import LeavittEmailHistoryViewerFilled from '@leavittsoftware/web/leavitt/email-history-viewer/email-history-viewer-filled';
 import UserManager from '../services/user-manager-service';
 import StoryStyles from '../styles/story-styles';
+import { siteSearchTextFieldContext } from '../contexts/site-search-text-field-context';
 
 @customElement('leavitt-email-history-viewer-demo')
 export class LeavittEmailHistoryViewerDemo extends ThemePreference(LitElement) {
@@ -57,6 +58,7 @@ export class LeavittEmailHistoryViewerDemo extends ThemePreference(LitElement) {
               <div row>
                 <leavitt-email-history-viewer-filled
                   isActive
+                  .siteSearchTextFieldContext=${siteSearchTextFieldContext}
                   .apiService=${this.apiService}
                   .path=${'/leavitt-email-history-viewer'}
                 ></leavitt-email-history-viewer-filled>
