@@ -114,7 +114,7 @@ export class TitaniumDrawer extends LitElement {
    *  Opens drawer
    */
   open() {
-    if (this.isOpen) return;
+    // if (this.isOpen) return;
 
     if (this.mode === 'inline') {
       this.#setOpen(true);
@@ -130,7 +130,7 @@ export class TitaniumDrawer extends LitElement {
    *  Closes drawer
    */
   async close() {
-    if (!this.isOpen) return;
+    // if (!this.isOpen) return;
 
     if (this.mode === 'inline') {
       this.#setOpen(false);
@@ -156,7 +156,7 @@ export class TitaniumDrawer extends LitElement {
    *  Closes drawer without animations
    */
   closeQuick() {
-    if (!this.isOpen) return;
+    // if (!this.isOpen) return;
 
     if (this.mode === 'inline') {
       this.#setOpen(false);
