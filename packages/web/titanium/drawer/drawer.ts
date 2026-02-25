@@ -48,7 +48,7 @@ export class TitaniumDrawer extends LitElement {
         }
 
         //close the flyover drawer, we are inline now
-        this?.close();
+        this.dialog?.close();
       }
 
       if (this.mode === 'flyover') {
