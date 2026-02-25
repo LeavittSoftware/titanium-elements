@@ -553,12 +553,7 @@ export class MyApp extends PendingStateCatcher(LitElement) {
           ? html` <leavitt-company-select-demo large ?isActive=${this.page === 'leavitt-company-select'}></leavitt-company-select-demo> `
           : nothing}
         ${this.page === 'leavitt-email-history-viewer'
-          ? html`
-              <leavitt-email-history-viewer-demo
-                large
-                ?isActive=${this.page === 'leavitt-email-history-viewer'}
-              ></leavitt-email-history-viewer-demo>
-            `
+          ? html` <leavitt-email-history-viewer-demo large ?isActive=${this.page === 'leavitt-email-history-viewer'}></leavitt-email-history-viewer-demo> `
           : nothing}
         ${this.page === 'leavitt-file-explorer'
           ? html` <leavitt-file-explorer-demo large ?isActive=${this.page === 'leavitt-file-explorer'}></leavitt-file-explorer-demo> `

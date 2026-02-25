@@ -35,7 +35,10 @@ import { repeat } from 'lit/directives/repeat.js';
 import { LeavittEmailHistoryViewerFilledFilterDialog } from './email-history-viewer-filled-filter-dialog';
 import { LeavittViewSentEmailDialog } from './view-sent-email-dialog';
 import { LeavittViewEmailTemplateInfoDialog } from './view-email-template-info-dialog';
-import { TitaniumSiteSearchTextFieldController, TitaniumTextFieldSearchContext } from '@leavittsoftware/web/titanium/site-search-text-field-controller/site-search-text-field-controller';
+import {
+  TitaniumSiteSearchTextFieldController,
+  TitaniumTextFieldSearchContext,
+} from '@leavittsoftware/web/titanium/site-search-text-field-controller/site-search-text-field-controller';
 
 import dayjs from 'dayjs/esm';
 import ApiService from '../api-service/api-service';
