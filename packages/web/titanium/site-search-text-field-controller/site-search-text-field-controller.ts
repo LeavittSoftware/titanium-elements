@@ -17,8 +17,7 @@ export type TitaniumTextFieldSearchContext = Context<string, MdFilledTextField |
  *
  * @example
  * ```ts
- * searchController = new TitaniumSiteSearchTextFieldController(this, {
- *   context: siteSearchTextFieldContext,
+ * searchController = new TitaniumSiteSearchTextFieldController(this, siteSearchTextFieldContext, {
  *   placeholder: 'Search name...',
  *   onSearch: () => {
  *     if (this.pageControl) {
@@ -42,6 +41,7 @@ export class TitaniumSiteSearchTextFieldController implements ReactiveController
 
   /**
    * @param host - The page element that owns this controller. Must satisfy {@link PageElement}.
+   * @param context - The Lit context key used to consume the shared search text field instance.
    * @param options.placeholder - Placeholder text shown in the shared search text field when this page is active.
    * @param options.onSearch - Called when the user types. Handle page resets and data reloads here.
    * @param options.debounceDelay - Debounce interval in ms. Omit to use the default delay. Set to `0` to fire `onSearch` immediately on every keystroke.
