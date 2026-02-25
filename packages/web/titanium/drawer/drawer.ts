@@ -22,6 +22,7 @@ export class TitaniumDrawer extends LitElement {
 
   /**
    * Show the slotted content regardless if the menu is open or closed
+   * @deprecated use mode instead
    */
   @property({ type: Boolean, reflect: true, attribute: 'always-show-content' }) accessor alwayShowContent: boolean = false;
 
@@ -32,6 +33,7 @@ export class TitaniumDrawer extends LitElement {
 
   @property({ type: Boolean, reflect: true, attribute: 'has-header' }) private accessor hasHeader = false;
   @property({ type: Boolean, reflect: true, attribute: 'has-footer' }) private accessor hasFooter = false;
+  @property({ type: Boolean, reflect: true, attribute: 'keep-open-when-going-to-flyover' }) private accessor keepOpenWhenGoingToFlyover = false;
 
   @property({ type: String, reflect: true, attribute: 'mode' }) accessor mode: 'inline' | 'flyover' | null;
   @property({ type: Boolean, reflect: true, attribute: 'open' }) accessor isOpen: boolean = false; //read only
@@ -52,11 +54,15 @@ export class TitaniumDrawer extends LitElement {
       }
 
       if (this.mode === 'flyover') {
-        //we are now in flyover mode, so we need to open the drawer if it was open
         if (this.isOpen) {
-          this.dialog?.showModal();
-          this.dialog?.removeAttribute('hide');
-          this.setBodyOverflow('hidden');
+          if (this.keepOpenWhenGoingToFlyover) {
+            //we are now in flyover mode, so we need to open the drawer if it was open
+            this.dialog?.showModal();
+            this.dialog?.removeAttribute('hide');
+            this.setBodyOverflow('hidden');
+          } else {
+            this.#setOpen(false);
+          }
         }
 
         //we are now in flyover mode, we need to hide the inline content
@@ -107,6 +113,7 @@ export class TitaniumDrawer extends LitElement {
   }
 
   static async animationsComplete(element: HTMLElement) {
+    if (!element) return;
     return await Promise.allSettled(element.getAnimations().map((animation) => animation.finished));
   }
 
