@@ -47,7 +47,7 @@ export class TitaniumDrawer extends LitElement {
           this.alwayShowContent = true;
         }
 
-        //close the flyover drawer, we are inline now
+        //close the flyover drawer, we are inline
         this.dialog?.close();
       }
 
@@ -114,8 +114,6 @@ export class TitaniumDrawer extends LitElement {
    *  Opens drawer
    */
   open() {
-    // if (this.isOpen) return;
-
     if (this.mode === 'inline') {
       this.#setOpen(true);
       this.alwayShowContent = true;
@@ -130,14 +128,11 @@ export class TitaniumDrawer extends LitElement {
    *  Closes drawer
    */
   async close() {
-    // if (!this.isOpen) return;
-
     if (this.mode === 'inline') {
       this.#setOpen(false);
       this.alwayShowContent = false;
     } else {
       this.dialog?.setAttribute('hide', '');
-
       await TitaniumDrawer.animationsComplete(this.dialog!);
       this.dialog?.close();
       this.dialog?.removeAttribute('hide');
@@ -156,8 +151,6 @@ export class TitaniumDrawer extends LitElement {
    *  Closes drawer without animations
    */
   closeQuick() {
-    // if (!this.isOpen) return;
-
     if (this.mode === 'inline') {
       this.#setOpen(false);
       this.alwayShowContent = false;
