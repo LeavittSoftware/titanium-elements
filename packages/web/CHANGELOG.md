@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.7.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.7.1...@leavittsoftware/web@8.7.2) (2026-02-25)
+
+
+### Bug Fixes
+
+* **drawer:** removes early returns in drawer methods for backward compatibility ([1779a87](https://github.com/LeavittSoftware/titanium-elements/commit/1779a87e1700aaf15a2909e4edf82c3de69086f1))
+
+
+
+
+
 ## [8.7.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.7.0...@leavittsoftware/web@8.7.1) (2026-02-25)
 
 
