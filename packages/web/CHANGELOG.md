@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.7.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.6.0...@leavittsoftware/web@8.7.0) (2026-02-25)
+
+
+### Features
+
+* **drawer:** add toggle function ([37eade1](https://github.com/LeavittSoftware/titanium-elements/commit/37eade1bf31d110a97139758902f02b6b9764b2d))
+
+
+
+
+
 # [8.6.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.5.3...@leavittsoftware/web@8.6.0) (2026-02-24)
 
 
