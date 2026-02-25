@@ -144,6 +144,14 @@ export class TitaniumDrawer extends LitElement {
     }
   }
 
+  toggle() {
+    if (this.isOpen) {
+      this.close();
+    } else {
+      this.open();
+    }
+  }
+
   /**
    *  Closes drawer without animations
    */
