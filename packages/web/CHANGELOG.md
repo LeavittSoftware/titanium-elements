@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.7.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.7.0...@leavittsoftware/web@8.7.1) (2026-02-25)
+
+
+### Bug Fixes
+
+* **drawer:** corrects drawer's flyover close logic ([7f2cc1c](https://github.com/LeavittSoftware/titanium-elements/commit/7f2cc1c19edde78753173a37416673974447af35))
+
+
+
+
+
 # [8.7.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.6.0...@leavittsoftware/web@8.7.0) (2026-02-25)
 
 
