@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.9.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.8.1...@leavittsoftware/web@8.9.0) (2026-02-26)
+
+
+### Features
+
+* **app-navigation-footer:** add a default slot ([121ae01](https://github.com/LeavittSoftware/titanium-elements/commit/121ae01f37bbd037520a1ee0413a8f898b64148d))
+
+
+
+
+
 ## [8.8.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.8.0...@leavittsoftware/web@8.8.1) (2026-02-26)
 
 **Note:** Version bump only for package @leavittsoftware/web
