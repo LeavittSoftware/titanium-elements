@@ -11,9 +11,11 @@ export class LeavittAppNavigationFooter extends LitElement {
 
   @property({ type: Boolean, reflect: true, attribute: 'has-leading' }) private accessor hasLeading: boolean = false;
   @property({ type: Boolean, reflect: true, attribute: 'has-trailing' }) private accessor hasTrailing: boolean = false;
+  @property({ type: Boolean, reflect: true, attribute: 'has-main' }) private accessor hasMain: boolean = false;
 
   @queryAssignedElements({ slot: 'leading' }) private accessor leadingElements!: Element[];
   @queryAssignedElements({ slot: 'trailing' }) private accessor trailingElements!: Element[];
+  @queryAssignedElements({ slot: 'main' }) private accessor mainElements!: Element[];
 
   #scrollableParent: Element | null = null;
   #resizeObserver: ResizeObserver | null = null;
@@ -96,6 +98,8 @@ export class LeavittAppNavigationFooter extends LitElement {
         gap: 12px;
       }
 
+      :host([has-leading][has-main]) main,
+      :host([has-main][has-trailing]) main,
       :host([has-leading][has-trailing]) main {
         gap: 16px;
       }
@@ -106,6 +110,7 @@ export class LeavittAppNavigationFooter extends LitElement {
     return html`
       <main part="main" style=${this.maxWidth ? styleMap({ maxWidth: this.maxWidth }) : nothing}>
         <section part="leading"><slot @slotchange=${() => (this.hasLeading = this.leadingElements.length > 0)} name="leading"></slot></section>
+        <section part="main"><slot @slotchange=${() => (this.hasMain = this.mainElements.length > 0)}></slot></section>
         <section part="trailing"><slot @slotchange=${() => (this.hasTrailing = this.trailingElements.length > 0)} name="trailing"></slot></section>
       </main>
     `;
