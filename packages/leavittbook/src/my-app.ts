@@ -34,9 +34,8 @@ import UserManager from './services/user-manager-service';
 import { PendingStateCatcher } from '@leavittsoftware/web/titanium/helpers/pending-state-catcher';
 import { mainMenuPositionContext } from '@leavittsoftware/web/leavitt/app/contexts/main-menu-position-context';
 import { provide } from '@lit/context';
-import { siteSearchTermsContext } from './contexts/site-search-term-context';
-import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
-import TitaniumFilledSearchInput from '@leavittsoftware/web/titanium/search-input/filled-search-input';
+import { siteSearchTextFieldContext } from './contexts/site-search-text-field-context';
+import { MdFilledTextField } from '@material/web/textfield/filled-text-field';
 
 @customElement('my-app')
 export class MyApp extends PendingStateCatcher(LitElement) {
@@ -85,8 +84,14 @@ export class MyApp extends PendingStateCatcher(LitElement) {
     themePreferenceEvent.dispatch('theme-preference', 'change', this.themePreference);
   }
 
+  @provide({ context: siteSearchTextFieldContext })
+  @state()
+  protected searchTextField: MdFilledTextField | null = null;
+
   public async firstUpdated() {
     this.#applyTheme();
+
+    this.searchTextField = this.shadowRoot?.querySelector<MdFilledTextField>('titanium-filled-search-input') ?? null;
 
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', ({ matches: isDark }) => {
       this.themePreference = isDark ? 'dark' : 'light';
@@ -216,17 +221,12 @@ export class MyApp extends PendingStateCatcher(LitElement) {
       }
       await importElements;
 
-      const pageElement = this.shadowRoot?.querySelector<HTMLElement & { searchTerm?: string }>(mainPage);
-      this.showSearch = pageElement?.hasAttribute('has-search') ?? false;
+      this.showSearch = mainPage === 'leavitt-email-history-viewer';
     } catch (error) {
       console.warn(error);
       this.#showErrorPage(error);
     }
   }
-
-  @provide({ context: siteSearchTermsContext })
-  @state()
-  private siteSearchTerms: Map<string, string> = new Map();
 
   #showErrorPage(message?: string, heading?: string) {
     this.fatalErrorHeading = heading || null;
@@ -315,15 +315,7 @@ export class MyApp extends PendingStateCatcher(LitElement) {
 
         <leavitt-app-logo app-name="Titanium Elements"></leavitt-app-logo>
 
-        <titanium-filled-search-input
-          ?hidden=${!this.showSearch}
-          .value=${this.page ? this.siteSearchTerms.get(this.page) || '' : ''}
-          @input=${(e: DOMEvent<TitaniumFilledSearchInput>) => {
-            if (this.page) {
-              this.siteSearchTerms = structuredClone(this.siteSearchTerms).set(this.page, e.target.value);
-            }
-          }}
-        ></titanium-filled-search-input>
+        <titanium-filled-search-input ?hidden=${!this.showSearch}></titanium-filled-search-input>
 
         <page-actions>
           <md-icon-button

@@ -31,13 +31,18 @@ import { FilterController } from '../../titanium/data-table/filter-controller';
 import { FilterKeys } from './email-history-viewer-filled-filter-dialog';
 import { DateRangeKey } from '../../titanium/date-range-selector/types/date-range-key';
 import { DateRanges } from '../../titanium/date-range-selector/types/date-ranges';
-import dayjs from 'dayjs/esm';
-import ApiService from '../api-service/api-service';
 import { repeat } from 'lit/directives/repeat.js';
 import { LeavittEmailHistoryViewerFilledFilterDialog } from './email-history-viewer-filled-filter-dialog';
 import { LeavittViewSentEmailDialog } from './view-sent-email-dialog';
-import { Debouncer } from '@leavittsoftware/web/titanium/helpers/debouncer';
 import { LeavittViewEmailTemplateInfoDialog } from './view-email-template-info-dialog';
+import {
+  TitaniumSiteSearchTextFieldController,
+  TitaniumTextFieldSearchContext,
+} from '@leavittsoftware/web/titanium/site-search-text-field-controller/site-search-text-field-controller';
+import { Debouncer } from '@leavittsoftware/web/titanium/helpers/debouncer';
+
+import dayjs from 'dayjs/esm';
+import ApiService from '../api-service/api-service';
 
 type ItemType = Partial<EmailTemplateLog>;
 
@@ -46,6 +51,11 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
   @property({ type: Boolean }) public accessor isActive: boolean;
   @property({ type: Object }) public accessor apiService: ApiService | null;
   @property({ type: String }) public accessor path: string;
+  @property({ type: Object }) public accessor siteSearchTextFieldContext: TitaniumTextFieldSearchContext;
+
+  /**
+   * @deprecated use the siteSearchTextFieldController + siteSearchTextFieldContext instead
+   */
   @property({ type: String }) public accessor toolbarSearchTerm: string = '';
 
   @state() public accessor searchTerm: string = '';
@@ -115,6 +125,8 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
   @query('leavitt-view-sent-email-dialog') private accessor viewDialog: LeavittViewSentEmailDialog | null;
   @query('leavitt-view-email-template-info-dialog') private accessor viewEmailTemplateInfoDialog: LeavittViewEmailTemplateInfoDialog | null;
 
+  siteSearchTextFieldController: TitaniumSiteSearchTextFieldController | undefined;
+
   constructor() {
     super();
 
@@ -154,8 +166,22 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
     }
   }
 
+  firstUpdated() {
+    this.siteSearchTextFieldController = new TitaniumSiteSearchTextFieldController(this, this.siteSearchTextFieldContext, {
+      placeholder: 'Search by subject or recipient',
+      onSearch: () => {
+        if (this.pageControl) {
+          this.pageControl.page = 0;
+        }
+        return this.#reload();
+      },
+    });
+  }
+
   async #reload() {
-    const { items, odataCount } = await this.#getItemsAsync(this.searchTerm);
+    const { items, odataCount } = await this.#getItemsAsync(
+      this.siteSearchTextFieldContext ? (this.siteSearchTextFieldController?.searchTerm ?? null) : (this.searchTerm ?? null)
+    );
     this.items = items;
     this.resultTotal = odataCount;
   }
@@ -296,7 +322,7 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
             selection-mode="none"
             sticky-header
             .items=${this.items}
-            .tableMetaData=${this.tableMetaData}
+            .tableMetaData=${this.tableMetaData as never}
             .selected=${this.selected}
             @selected-changed=${(e: DOMEvent<TitaniumDataTableCore<ItemType>>) => (this.selected = [...e.target.selected])}
             @sort-changed=${() => {
