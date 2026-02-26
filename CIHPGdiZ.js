@@ -1,0 +1,1 @@
+import{al as t}from"./BkdWKSMI.js";function n(n){return(o,r)=>{const{slot:e}=n??{},s="slot"+(e?`[name=${e}]`:":not([name])");return t(o,r,{get(){const t=this.renderRoot?.querySelector(s);return t?.assignedNodes(n)??[]}})}}export{n};

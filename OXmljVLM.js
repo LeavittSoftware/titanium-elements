@@ -1,0 +1,1 @@
+const e=e=>encodeURIComponent(e.replace(/'/g,"''")),n=(n,t=3)=>{if(null==n||0===n.length)return[];let o=n.split(" ").map(n=>e(n.trim())).filter(e=>e.length>0);return o.length>t&&(o=[e(n.trim())]),o};export{n as g};
