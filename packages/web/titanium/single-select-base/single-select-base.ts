@@ -302,6 +302,10 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
         margin-right: 6px;
       }
 
+      md-menu {
+        max-height: 500px;
+      }
+
       md-menu-item {
         min-width: 300px;
       }
@@ -448,6 +452,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
         ${this.selected ? this.renderSelectedLeadingInputSlot(this.selected) : this.renderLeadingInputSlot()} ${this.#renderTrailingInputSlot()}
         </${this.filled ? literal`md-filled-text-field` : literal`md-outlined-text-field`}>
       <md-menu
+        part="menu"
         suggestions
         @opening=${(e) => redispatchEvent(this, e)}
         @opened=${(e) => redispatchEvent(this, e)}
