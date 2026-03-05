@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.11.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.10.0...@leavittsoftware/web@8.11.0) (2026-03-05)
+
+
+### Features
+
+* **single-select-base:** add a large option ([2d0cd7f](https://github.com/LeavittSoftware/titanium-elements/commit/2d0cd7f4ca6730dbe5e7579e4744c33b54e1f7ce))
+* **single-select-base:** add match-input-width attribute to sync menu width with input ([2baf411](https://github.com/LeavittSoftware/titanium-elements/commit/2baf4115f354f3cd63e31cb8fc1e1da9f1e8440e))
+* **single-select-base:** add match-input-width attribute to sync menu width with input ([1a7b506](https://github.com/LeavittSoftware/titanium-elements/commit/1a7b5062c23ed1ec6a83ebbaef9c45b1ce95b8b7))
+* **single-select-base:** expose menu with css part ([51512a4](https://github.com/LeavittSoftware/titanium-elements/commit/51512a434382cafcc994f5b09e6695b7b311563f))
+
+
+
+
+
 # [8.10.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.9.0...@leavittsoftware/web@8.10.0) (2026-03-05)
 
 
