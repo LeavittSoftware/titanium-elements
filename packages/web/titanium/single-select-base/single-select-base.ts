@@ -134,6 +134,16 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
 
   @property() positioning: 'absolute' | 'fixed' | 'document' | 'popover' = 'popover';
 
+  /**
+   * When enabled, uses a ResizeObserver to keep the dropdown menu width
+   * in sync with the text field width.
+   */
+  @property({ type: Boolean, attribute: 'match-input-width' }) accessor matchInputWidth: boolean = false;
+
+  @state() private accessor menuWidth: number | undefined;
+
+  #resizeObserver: ResizeObserver | null = null;
+
   @state() protected accessor count: number;
 
   getTextField() {
@@ -148,10 +158,46 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
     }
   }
 
+  #observeInputWidth() {
+    this.#resizeObserver?.disconnect();
+    this.#resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        this.menuWidth = entry.contentRect.width;
+      }
+    });
+    this.#resizeObserver.observe(this);
+  }
+
+  #stopObservingInputWidth() {
+    this.#resizeObserver?.disconnect();
+    this.#resizeObserver = null;
+    this.menuWidth = undefined;
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (this.matchInputWidth) {
+      this.#observeInputWidth();
+    }
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.#stopObservingInputWidth();
+  }
+
   update(changed: PropertyValues<this>) {
     // Firefox does not support popover. Fall-back to using fixed.
     if (changed.has('positioning') && this.positioning === 'popover' && !this.showPopover) {
       this.positioning = 'fixed';
+    }
+
+    if (changed.has('matchInputWidth')) {
+      if (this.matchInputWidth) {
+        this.#observeInputWidth();
+      } else {
+        this.#stopObservingInputWidth();
+      }
     }
 
     super.update(changed);
@@ -454,6 +500,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
       <md-menu
         part="menu"
         suggestions
+        style=${this.matchInputWidth && this.menuWidth ? `min-width: ${this.menuWidth}px; max-width: ${this.menuWidth}px` : ''}
         @opening=${(e) => redispatchEvent(this, e)}
         @opened=${(e) => redispatchEvent(this, e)}
         @closing=${(e) => redispatchEvent(this, e)}

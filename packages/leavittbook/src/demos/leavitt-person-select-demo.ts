@@ -52,8 +52,9 @@ export class LeavittPersonSelectDemo extends LitElement {
             </div>
 
             <div>
-              <h1>Pre-load people</h1>
+              <h1>Pre-load people - match input width</h1>
               <leavitt-person-select
+                match-input-width
                 .odataParts=${[
                   'top=15',
                   "filter=contains(LastName, 'Leavitt')",
