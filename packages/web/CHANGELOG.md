@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.12.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.11.0...@leavittsoftware/web@8.12.0) (2026-03-05)
+
+
+### Features
+
+* **youtube-input:** add filled variant ([e3c471a](https://github.com/LeavittSoftware/titanium-elements/commit/e3c471a562bc9b5737041de14d818a69b20dec89))
+
+
+
+
+
 # [8.11.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.10.0...@leavittsoftware/web@8.11.0) (2026-03-05)
 
 
