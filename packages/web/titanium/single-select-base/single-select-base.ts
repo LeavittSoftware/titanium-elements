@@ -134,7 +134,20 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
 
   @property() positioning: 'absolute' | 'fixed' | 'document' | 'popover' = 'popover';
 
+  /**
+   * When enabled, uses a ResizeObserver to keep the dropdown menu width
+   * in sync with the text field width.
+   */
+  @property({ type: Boolean, attribute: 'match-input-width' }) accessor matchInputWidth: boolean = false;
+
+  @state() private accessor menuWidth: number | undefined;
+
+  #resizeObserver: ResizeObserver | null = null;
+
   @state() protected accessor count: number;
+
+  @property({ type: Boolean, attribute: 'menu-open', reflect: true }) private accessor menuOpen: boolean = false;
+  @property({ type: Boolean, attribute: 'large' }) accessor large: boolean = false;
 
   getTextField() {
     return this.filled ? this.shadowRoot?.querySelector('md-filled-text-field') : this.shadowRoot?.querySelector('md-outlined-text-field');
@@ -148,10 +161,46 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
     }
   }
 
+  #observeInputWidth() {
+    this.#resizeObserver?.disconnect();
+    this.#resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        this.menuWidth = entry.contentRect.width;
+      }
+    });
+    this.#resizeObserver.observe(this);
+  }
+
+  #stopObservingInputWidth() {
+    this.#resizeObserver?.disconnect();
+    this.#resizeObserver = null;
+    this.menuWidth = undefined;
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (this.matchInputWidth) {
+      this.#observeInputWidth();
+    }
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.#stopObservingInputWidth();
+  }
+
   update(changed: PropertyValues<this>) {
     // Firefox does not support popover. Fall-back to using fixed.
     if (changed.has('positioning') && this.positioning === 'popover' && !this.showPopover) {
       this.positioning = 'fixed';
+    }
+
+    if (changed.has('matchInputWidth')) {
+      if (this.matchInputWidth) {
+        this.#observeInputWidth();
+      } else {
+        this.#stopObservingInputWidth();
+      }
     }
 
     super.update(changed);
@@ -284,6 +333,19 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
         position: relative;
       }
 
+      :host([large]) {
+        --md-filled-text-field-input-text-size: 1.125rem;
+        --md-filled-text-field-input-text-line-height: 1.75rem;
+        --md-filled-text-field-label-text-size: 1.125rem;
+        --md-filled-text-field-top-space: 20px;
+        --md-filled-text-field-bottom-space: 20px;
+        --md-filled-text-field-leading-icon-size: 36px;
+        --md-icon-size: 26px;
+
+        --md-filled-text-field-with-leading-icon-leading-space: 18px;
+        --md-filled-text-field-with-trailing-icon-trailing-space: 20px;
+      }
+
       md-filled-text-field,
       md-outlined-text-field {
         width: 100%;
@@ -292,6 +354,10 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
       md-circular-progress {
         --md-circular-progress-size: 40px;
         margin-right: 6px;
+      }
+
+      md-menu {
+        max-height: 500px;
       }
 
       md-menu-item {
@@ -315,6 +381,44 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
         --md-filled-text-field-container-shape: 28px;
       }
 
+      :host([shaped][menu-open][filled]) {
+        --md-outlined-text-field-container-shape-start-start: 28px;
+        --md-outlined-text-field-container-shape-start-end: 28px;
+        --md-outlined-text-field-container-shape-end-end: 0;
+        --md-outlined-text-field-container-shape-end-start: 0;
+
+        --md-filled-text-field-container-shape-start-start: 28px;
+        --md-filled-text-field-container-shape-start-end: 28px;
+        --md-filled-text-field-container-shape-end-end: 0;
+        --md-filled-text-field-container-shape-end-start: 0;
+
+        --md-filled-text-field-container-color: var(--md-sys-color-surface-container);
+        --md-menu-container-shape: 0 0 28px 28px;
+      }
+
+      :host([shaped][menu-open][filled]) md-menu {
+        --md-menu-container-color: var(--md-sys-color-inverse-surface);
+        color: var(--md-sys-color-inverse-on-surface);
+
+        --md-menu-item-supporting-text-color: var(--md-sys-color-inverse-on-surface);
+        --md-menu-item-trailing-supporting-text-color: var(--md-sys-color-inverse-on-surface);
+        --md-menu-item-label-text-color: var(--md-sys-color-inverse-on-surface);
+        --md-menu-item-hover-state-layer-color: var(--md-sys-color-surface);
+      }
+
+      :host([shaped][menu-open][filled]) md-filled-text-field {
+        --md-filled-text-field-container-color: var(--md-sys-color-inverse-surface);
+        --md-filled-text-field-input-text-color: var(--md-sys-color-inverse-on-surface);
+        --md-filled-text-field-hover-input-text-color: var(--md-sys-color-inverse-on-surface);
+        --md-filled-text-field-focus-input-text-color: var(--md-sys-color-inverse-on-surface);
+        --md-filled-text-field-leading-icon-color: var(--md-sys-color-inverse-on-surface);
+        --md-filled-text-field-focus-leading-icon-color: var(--md-sys-color-inverse-on-surface);
+        --md-filled-text-field-hover-leading-icon-color: var(--md-sys-color-inverse-on-surface);
+        border-radius: 28px 28px 0 0;
+
+        --md-filled-text-field-input-text-placeholder-color: var(--md-sys-color-inverse-on-surface);
+      }
+
       img[leading] {
         width: 24px;
         height: 24px;
@@ -331,6 +435,10 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
         line-height: 18px;
         font-size: 13px;
         color: var(--md-sys-color-on-surface);
+      }
+
+      :host([shaped][filled]) [summary] {
+        color: var(--md-sys-color-inverse-on-surface);
       }
 
       [hidden] {
@@ -440,10 +548,18 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
         ${this.selected ? this.renderSelectedLeadingInputSlot(this.selected) : this.renderLeadingInputSlot()} ${this.#renderTrailingInputSlot()}
         </${this.filled ? literal`md-filled-text-field` : literal`md-outlined-text-field`}>
       <md-menu
+        part="menu"
         suggestions
-        @opening=${(e) => redispatchEvent(this, e)}
+        style=${this.matchInputWidth && this.menuWidth ? `min-width: ${this.menuWidth}px; max-width: ${this.menuWidth}px` : ''}
+        @opening=${(e) => {
+          redispatchEvent(this, e);
+          this.menuOpen = true;
+        }}
         @opened=${(e) => redispatchEvent(this, e)}
-        @closing=${(e) => redispatchEvent(this, e)}
+        @closing=${(e) => {
+          redispatchEvent(this, e);
+          this.menuOpen = false;
+        }}
         @closed=${(e) => redispatchEvent(this, e)}
         .positioning=${this.positioning}
         id="menu"

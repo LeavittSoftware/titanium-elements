@@ -159,7 +159,12 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
   }
 
   protected override renderSelectedLeadingInputSlot(entity: Partial<Person>) {
-    return html` <profile-picture slot="leading-icon" .fileName=${entity?.ProfilePictureCdnFileName || null} shape="circle" size="24"></profile-picture>`;
+    return html` <profile-picture
+      slot="leading-icon"
+      .fileName=${entity?.ProfilePictureCdnFileName || null}
+      shape="circle"
+      size=${this.large ? '48' : '24'}
+    ></profile-picture>`;
   }
 
   protected override renderSuggestion(person: Partial<Person>) {
