@@ -284,6 +284,14 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
         position: relative;
       }
 
+      :host([large]) {
+        --md-filled-text-field-input-text-size: 1.125rem;
+        --md-filled-text-field-input-text-line-height: 1.75rem;
+        --md-filled-text-field-label-text-size: 1.125rem;
+        --md-filled-text-field-top-space: 20px;
+        --md-filled-text-field-bottom-space: 20px;
+      }
+
       md-filled-text-field,
       md-outlined-text-field {
         width: 100%;
