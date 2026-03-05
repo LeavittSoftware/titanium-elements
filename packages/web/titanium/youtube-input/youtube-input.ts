@@ -37,6 +37,11 @@ export class TitaniumYouTubeInput extends ExtendableOutlinedTextField {
     return key ? key : value;
   }
 
+  override async reset() {
+    super.reset();
+    this.value = '';
+  }
+
   static styles = [
     css`
       img {
