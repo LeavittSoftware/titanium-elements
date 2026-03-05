@@ -23,6 +23,9 @@ export class LeavittAppNavigationHeader extends LitElement {
   @property({ type: String }) accessor level4Text: string | null;
   @property({ type: String }) accessor level4Href: string | null;
 
+  @property({ type: String }) accessor level5Text: string | null;
+  @property({ type: String }) accessor level5Href: string | null;
+
   @property({ type: Boolean, reflect: true, attribute: 'is-scrolled' }) private accessor isScrolled: boolean = false;
   #scrollableParent: Element | null = null;
 
@@ -186,6 +189,13 @@ export class LeavittAppNavigationHeader extends LitElement {
                 <h1 ellipsis><a title=${this.level4Text} href=${this.level4Href}>${this.level4Text}</a></h1>`
             : html`<md-icon>chevron_right</md-icon>
                 <h1 ellipsis>${this.level4Text}</h1>`
+          : nothing}
+        ${this.level5Text
+          ? this.level5Href
+            ? html`<md-icon>chevron_right</md-icon>
+                <h1 ellipsis><a title=${this.level5Text} href=${this.level5Href}>${this.level5Text}</a></h1>`
+            : html`<md-icon>chevron_right</md-icon>
+                <h1 ellipsis>${this.level5Text}</h1>`
           : nothing}
       </main>
       <aside part="trailing"><slot name="trailing"></slot></aside>

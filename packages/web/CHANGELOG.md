@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.10.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.9.0...@leavittsoftware/web@8.10.0) (2026-03-05)
+
+
+### Features
+
+* **app-nav-header:** add level5 support ([#714](https://github.com/LeavittSoftware/titanium-elements/issues/714)) ([c5a61dc](https://github.com/LeavittSoftware/titanium-elements/commit/c5a61dcc97c8183327768d530be9d00486d685d1))
+
+
+
+
+
 # [8.9.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.8.1...@leavittsoftware/web@8.9.0) (2026-02-26)
 
 
