@@ -146,6 +146,9 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
 
   @state() protected accessor count: number;
 
+  @property({ type: Boolean, attribute: 'menu-open', reflect: true }) private accessor menuOpen: boolean = false;
+  @property({ type: Boolean, attribute: 'large' }) accessor large: boolean = false;
+
   getTextField() {
     return this.filled ? this.shadowRoot?.querySelector('md-filled-text-field') : this.shadowRoot?.querySelector('md-outlined-text-field');
   }
@@ -336,6 +339,11 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
         --md-filled-text-field-label-text-size: 1.125rem;
         --md-filled-text-field-top-space: 20px;
         --md-filled-text-field-bottom-space: 20px;
+        --md-filled-text-field-leading-icon-size: 36px;
+        --md-icon-size: 26px;
+
+        --md-filled-text-field-with-leading-icon-leading-space: 18px;
+        --md-filled-text-field-with-trailing-icon-trailing-space: 20px;
       }
 
       md-filled-text-field,
@@ -373,6 +381,44 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
         --md-filled-text-field-container-shape: 28px;
       }
 
+      :host([shaped][menu-open][filled]) {
+        --md-outlined-text-field-container-shape-start-start: 28px;
+        --md-outlined-text-field-container-shape-start-end: 28px;
+        --md-outlined-text-field-container-shape-end-end: 0;
+        --md-outlined-text-field-container-shape-end-start: 0;
+
+        --md-filled-text-field-container-shape-start-start: 28px;
+        --md-filled-text-field-container-shape-start-end: 28px;
+        --md-filled-text-field-container-shape-end-end: 0;
+        --md-filled-text-field-container-shape-end-start: 0;
+
+        --md-filled-text-field-container-color: var(--md-sys-color-surface-container);
+        --md-menu-container-shape: 0 0 28px 28px;
+      }
+
+      :host([shaped][menu-open][filled]) md-menu {
+        --md-menu-container-color: var(--md-sys-color-inverse-surface);
+        color: var(--md-sys-color-inverse-on-surface);
+
+        --md-menu-item-supporting-text-color: var(--md-sys-color-inverse-on-surface);
+        --md-menu-item-trailing-supporting-text-color: var(--md-sys-color-inverse-on-surface);
+        --md-menu-item-label-text-color: var(--md-sys-color-inverse-on-surface);
+        --md-menu-item-hover-state-layer-color: var(--md-sys-color-surface);
+      }
+
+      :host([shaped][menu-open][filled]) md-filled-text-field {
+        --md-filled-text-field-container-color: var(--md-sys-color-inverse-surface);
+        --md-filled-text-field-input-text-color: var(--md-sys-color-inverse-on-surface);
+        --md-filled-text-field-hover-input-text-color: var(--md-sys-color-inverse-on-surface);
+        --md-filled-text-field-focus-input-text-color: var(--md-sys-color-inverse-on-surface);
+        --md-filled-text-field-leading-icon-color: var(--md-sys-color-inverse-on-surface);
+        --md-filled-text-field-focus-leading-icon-color: var(--md-sys-color-inverse-on-surface);
+        --md-filled-text-field-hover-leading-icon-color: var(--md-sys-color-inverse-on-surface);
+        border-radius: 28px 28px 0 0;
+
+        --md-filled-text-field-input-text-placeholder-color: var(--md-sys-color-inverse-on-surface);
+      }
+
       img[leading] {
         width: 24px;
         height: 24px;
@@ -389,6 +435,10 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
         line-height: 18px;
         font-size: 13px;
         color: var(--md-sys-color-on-surface);
+      }
+
+      :host([shaped][filled]) [summary] {
+        color: var(--md-sys-color-inverse-on-surface);
       }
 
       [hidden] {
@@ -501,9 +551,15 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
         part="menu"
         suggestions
         style=${this.matchInputWidth && this.menuWidth ? `min-width: ${this.menuWidth}px; max-width: ${this.menuWidth}px` : ''}
-        @opening=${(e) => redispatchEvent(this, e)}
+        @opening=${(e) => {
+          redispatchEvent(this, e);
+          this.menuOpen = true;
+        }}
         @opened=${(e) => redispatchEvent(this, e)}
-        @closing=${(e) => redispatchEvent(this, e)}
+        @closing=${(e) => {
+          redispatchEvent(this, e);
+          this.menuOpen = false;
+        }}
         @closed=${(e) => redispatchEvent(this, e)}
         .positioning=${this.positioning}
         id="menu"
