@@ -48,11 +48,21 @@ export class TitaniumFilledYouTubeInput extends MdFilledTextField {
         this.#trailingImg.slot = 'trailing-icon';
         this.#trailingImg.style.maxHeight = '42px';
         this.#trailingImg.style.borderRadius = '8px';
-        this.#trailingImg.style.marginRight = '24px';
+        this.#trailingImg.style.position = 'relative';
+        this.#trailingImg.style.right = '12px';
         this.appendChild(this.#trailingImg);
       }
       this.#trailingImg.src = `https://img.youtube.com/vi/${this.value}/default.jpg`;
     } else if (this.#trailingImg) {
+      this.#trailingImg.remove();
+      this.#trailingImg = null;
+    }
+  }
+
+  override reset() {
+    super.reset();
+    this.value = '';
+    if (this.#trailingImg) {
       this.#trailingImg.remove();
       this.#trailingImg = null;
     }
