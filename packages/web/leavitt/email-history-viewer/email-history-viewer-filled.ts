@@ -125,7 +125,7 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
   @query('leavitt-view-sent-email-dialog') private accessor viewDialog: LeavittViewSentEmailDialog | null;
   @query('leavitt-view-email-template-info-dialog') private accessor viewEmailTemplateInfoDialog: LeavittViewEmailTemplateInfoDialog | null;
 
-  siteSearchTextFieldController: TitaniumSiteSearchTextFieldController | undefined;
+  searchController: TitaniumSiteSearchTextFieldController | undefined;
 
   constructor() {
     super();
@@ -167,7 +167,7 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
   }
 
   firstUpdated() {
-    this.siteSearchTextFieldController = new TitaniumSiteSearchTextFieldController(this, this.siteSearchTextFieldContext, {
+    this.searchController = new TitaniumSiteSearchTextFieldController(this, this.siteSearchTextFieldContext, {
       placeholder: 'Search by subject or recipient',
       onSearch: () => {
         if (this.pageControl) {
@@ -180,7 +180,7 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
 
   async #reload() {
     const { items, odataCount } = await this.#getItemsAsync(
-      this.siteSearchTextFieldContext ? (this.siteSearchTextFieldController?.searchTerm ?? null) : (this.searchTerm ?? null)
+      this.siteSearchTextFieldContext ? (this.searchController?.searchTerm ?? null) : (this.searchTerm ?? null)
     );
     this.items = items;
     this.resultTotal = odataCount;
