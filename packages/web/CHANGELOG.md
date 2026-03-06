@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.12.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.12.1...@leavittsoftware/web@8.12.2) (2026-03-06)
+
+
+### Bug Fixes
+
+* **email-history-viewer:** update prop name ([#717](https://github.com/LeavittSoftware/titanium-elements/issues/717)) ([0cd2ff4](https://github.com/LeavittSoftware/titanium-elements/commit/0cd2ff4b408e6d76c0cc6089acfca4683b25c9df))
+
+
+
+
+
 ## [8.12.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.12.0...@leavittsoftware/web@8.12.1) (2026-03-06)
 
 
