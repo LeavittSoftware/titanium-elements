@@ -169,7 +169,7 @@ export class TitaniumSmartAttachmentInput extends LitElement {
       .map((o) => ({
         id: o.Id,
         file: new File([''], `${o?.Name}.${o?.Extension}`),
-        previewSrc: getCdnInlineUrl(o, 512),
+        previewSrc: getCdnInlineUrl(o),
         downloadSrc: getCdnDownloadUrl(o),
       }));
     this.#originalFiles = structuredClone(this.files);
