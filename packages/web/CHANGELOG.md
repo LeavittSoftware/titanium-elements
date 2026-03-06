@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.12.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.12.0...@leavittsoftware/web@8.12.1) (2026-03-06)
+
+
+### Bug Fixes
+
+* **smart-attachment:** do not limit preview size ([8529fb4](https://github.com/LeavittSoftware/titanium-elements/commit/8529fb4f4e4e1d64f5aa226ec0c16205335cdab7))
+
+
+
+
+
 # [8.12.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.11.0...@leavittsoftware/web@8.12.0) (2026-03-05)
 
 
