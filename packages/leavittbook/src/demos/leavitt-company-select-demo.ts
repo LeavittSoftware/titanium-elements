@@ -37,24 +37,28 @@ export class LeavittCompanySelectDemo extends ThemePreference(LitElement) {
 
             <div>
               <h1>Filled</h1>
-              <item-row>
-                <leavitt-company-select
-                  style="width: 400px;"
-                  filled
-                  required
-                  ?disable-menu-open-on-focus=${this.disableMenuOpenOnFocus}
-                  .apiService=${api3UserService}
-                ></leavitt-company-select>
+              <leavitt-company-select
+                style="width: 400px;"
+                filled
+                required
+                ?disable-menu-open-on-focus=${this.disableMenuOpenOnFocus}
+                .apiService=${api3UserService}
+              ></leavitt-company-select>
+            </div>
+            <div>
+              <h1>Filled, shaped, large,</h1>
 
-                <leavitt-company-select
-                  style="width: 400px;"
-                  shaped
-                  filled
-                  required
-                  ?disable-menu-open-on-focus=${this.disableMenuOpenOnFocus}
-                  .apiService=${api3UserService}
-                ></leavitt-company-select>
-              </item-row>
+              <leavitt-company-select
+                style=" margin-top: 16px; max-width: 680px;"
+                shaped
+                filled
+                match-input-width
+                label=""
+                large
+                required
+                ?disable-menu-open-on-focus=${this.disableMenuOpenOnFocus}
+                .apiService=${api3UserService}
+              ></leavitt-company-select>
             </div>
 
             <div>

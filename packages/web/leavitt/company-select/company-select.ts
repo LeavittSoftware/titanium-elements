@@ -58,13 +58,15 @@ export class LeavittCompanySelect extends TitaniumSingleSelectBase<Partial<Compa
 
   @property({ reflect: true, type: Boolean }) accessor spellcheck: boolean = false;
 
-  @property({ type: Object }) accessor renderMenuItemContentTemplate = (company: Partial<Company>) =>
-    html`<md-menu-item .item=${company}>
+  @property({ type: Object }) accessor renderMenuItemContentTemplate = (company: Partial<Company>) => {
+    const theme = !this.shaped || !this.filled ? this.themePreference : this.shaped && this.filled && this.themePreference === 'dark' ? 'light' : 'dark';
+    return html`<md-menu-item .item=${company}>
       <slot name="trailing-icon" slot="trailing-icon"></slot>
       <span slot="headline">${company.Name}</span>
       <span slot="supporting-text">${company.ShortName || '-'}</span>
-      <img loading="lazy" company-mark slot="start" src=${getCompanyMarkUrl(company, this.themePreference)} />
-    </md-menu-item>`;
+      <img loading="lazy" company-mark slot="start" src=${getCompanyMarkUrl(company, theme)} />
+    </md-menu-item> `;
+  };
 
   async firstUpdated() {
     if (!this.disableAutoLoad && !this.companies.length && this.apiService) {
@@ -142,7 +144,12 @@ export class LeavittCompanySelect extends TitaniumSingleSelectBase<Partial<Compa
   }
 
   protected override renderSelectedLeadingInputSlot(entity: Partial<Company>) {
-    return html` <img leading slot="leading-icon" src=${getCompanyMarkUrl(entity, this.themePreference)} />`;
+    return html` <img
+      leading
+      style="width: ${this.large ? '40px' : '24px'}; height: ${this.large ? '40px' : '24px'}"
+      slot="leading-icon"
+      src=${getCompanyMarkUrl(entity, this.themePreference)}
+    />`;
   }
 
   protected override renderSuggestion(company: Partial<Company>) {

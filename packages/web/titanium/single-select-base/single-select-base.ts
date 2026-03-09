@@ -148,6 +148,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
 
   @property({ type: Boolean, attribute: 'menu-open', reflect: true }) private accessor menuOpen: boolean = false;
   @property({ type: Boolean, attribute: 'large' }) accessor large: boolean = false;
+  @property({ type: Boolean, attribute: 'shaped' }) accessor shaped: boolean = false;
 
   getTextField() {
     return this.filled ? this.shadowRoot?.querySelector('md-filled-text-field') : this.shadowRoot?.querySelector('md-outlined-text-field');
