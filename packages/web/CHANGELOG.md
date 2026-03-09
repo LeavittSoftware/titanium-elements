@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.13.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.12.3...@leavittsoftware/web@8.13.0) (2026-03-09)
+
+
+### Features
+
+* **company-select:** better support for filled ([ed9175c](https://github.com/LeavittSoftware/titanium-elements/commit/ed9175c3c35257d8844d90342354e647585f94c1))
+
+
+
+
+
 ## [8.12.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.12.2...@leavittsoftware/web@8.12.3) (2026-03-09)
 
 
