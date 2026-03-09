@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.12.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.12.2...@leavittsoftware/web@8.12.3) (2026-03-09)
+
+
+### Bug Fixes
+
+* **smart-attachment-input:** fix backward navigation bug ([#716](https://github.com/LeavittSoftware/titanium-elements/issues/716)) ([06c3d08](https://github.com/LeavittSoftware/titanium-elements/commit/06c3d08e88a0ca1b8a5e4c121b3b027dbea67b0f))
+
+
+
+
+
 ## [8.12.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.12.1...@leavittsoftware/web@8.12.2) (2026-03-06)
 
 
