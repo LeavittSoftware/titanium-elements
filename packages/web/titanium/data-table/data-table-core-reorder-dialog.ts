@@ -38,10 +38,15 @@ export class TitaniumDataTableCoreReorderDialog<T extends object> extends LoadWh
     const _items = structuredClone(items);
 
     const sortPropertyKey = this.tableMetaData?.reorderConfig?.sortPropertyKey;
-    if (sortPropertyKey) {
-      _items.sort((a, b) => a[sortPropertyKey].toString().localeCompare(b[sortPropertyKey].toString()));
-    }
 
+    if (sortPropertyKey) {
+      const numericSort = _items.every((item) => typeof item[sortPropertyKey] === 'number');
+      if (numericSort) {
+        _items.sort((a, b) => a[sortPropertyKey] - b[sortPropertyKey]);
+      } else {
+        _items.sort((a, b) => a[sortPropertyKey].toString().localeCompare(b[sortPropertyKey].toString()));
+      }
+    }
     this.items = _items;
     this.#originalItems = structuredClone(_items);
 
