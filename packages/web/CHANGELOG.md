@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.13.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.13.0...@leavittsoftware/web@8.13.1) (2026-03-09)
+
+
+### Bug Fixes
+
+* add numeric sort to reorder dialog  ([6098b3b](https://github.com/LeavittSoftware/titanium-elements/commit/6098b3b4e2af311d7915d306f8fa6978e1db106a)), closes [#718](https://github.com/LeavittSoftware/titanium-elements/issues/718)
+
+
+
+
+
 # [8.13.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.12.3...@leavittsoftware/web@8.13.0) (2026-03-09)
 
 
