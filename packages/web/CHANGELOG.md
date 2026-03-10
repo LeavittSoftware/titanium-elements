@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.13.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.13.1...@leavittsoftware/web@8.13.2) (2026-03-10)
+
+
+### Bug Fixes
+
+* **smart-attachment-input:** add nav hack to crop and save dialog ([#720](https://github.com/LeavittSoftware/titanium-elements/issues/720)) ([c17302d](https://github.com/LeavittSoftware/titanium-elements/commit/c17302d398b62acaa1e73cb50f74b49cb19890a9))
+
+
+
+
+
 ## [8.13.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.13.0...@leavittsoftware/web@8.13.1) (2026-03-09)
 
 
