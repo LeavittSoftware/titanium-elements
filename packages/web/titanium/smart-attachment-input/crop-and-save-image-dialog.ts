@@ -6,6 +6,7 @@ import '@material/web/iconbutton/icon-button';
 import 'cropperjs';
 
 import { dialogZIndexHack } from '../../titanium/hacks/dialog-zindex-hack';
+import { dialogCloseNavigationHack, dialogOpenNavigationHack } from '../../titanium/hacks/dialog-navigation-hack';
 import { css, html, LitElement } from 'lit';
 import { property, customElement, query, state } from 'lit/decorators.js';
 import { CropperCanvas, CropperImage, CropperSelection, CropperShade } from 'cropperjs';
@@ -370,9 +371,13 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
   render() {
     return html`
       <md-dialog
-        @open=${(e: DOMEvent<MdDialog>) => dialogZIndexHack(e.target)}
+        @open=${(e: DOMEvent<MdDialog>) => {
+          dialogOpenNavigationHack(e.target);
+          dialogZIndexHack(e.target);
+        }}
         @close=${(e: DOMEvent<MdDialog>) => {
-          if (e.target.returnValue === 'cancel' || e.target.returnValue === 'cropped') {
+          dialogCloseNavigationHack(e.target);
+          if (e.target.returnValue === 'cancel' || e.target.returnValue === 'cropped' || e.target.returnValue === 'navigation-close') {
             return this.#resolve(e.target.returnValue as 'cancel' | 'cropped');
           }
           e.preventDefault();
