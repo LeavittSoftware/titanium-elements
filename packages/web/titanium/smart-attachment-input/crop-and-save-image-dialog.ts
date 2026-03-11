@@ -451,7 +451,6 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
           <md-filled-tonal-button
             ?disabled=${this.isLoading}
             @click=${async () => {
-              await this.cropperCanvas?.$toCanvas();
               const canvasRect = this.cropperCanvas?.getBoundingClientRect();
               const img = (this.cropperImage as unknown as { $image?: HTMLImageElement })?.$image;
               const scaleX = img && canvasRect?.width ? img.naturalWidth / canvasRect.width : 1;
@@ -470,7 +469,13 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
                 targetWidth = Math.max(1, Math.round(targetWidth * r));
               }
 
-              const canvas = await this.cropperSelection?.$toCanvas({ width: targetWidth, height: targetHeight });
+              const canvas = await this.cropperSelection?.$toCanvas({
+                width: targetWidth,
+                height: targetHeight,
+                beforeDraw: (context: CanvasRenderingContext2D, _: HTMLCanvasElement) => {
+                  context.imageSmoothingQuality = 'high';
+                },
+              });
 
               this.isLoading = true;
               await this.updateComplete;
@@ -479,7 +484,7 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
                 return;
               }
               const previewDataUrl =
-                this.options?.shape === 'circle' ? await this.#applyCircleMask(canvas.toDataURL(this.#mimeType)) : canvas.toDataURL(this.#mimeType);
+                this.options?.shape === 'circle' ? await this.#applyCircleMask(canvas.toDataURL(this.#mimeType, 1)) : canvas.toDataURL(this.#mimeType, 1);
               const response = await fetch(previewDataUrl);
               const file = this.blobToFile(await response.blob(), this.#changeFileExtension(this.fileName, this.#extension));
               const save = this.#saveCroppedImageFunc?.(file, previewDataUrl) || Promise.resolve();
