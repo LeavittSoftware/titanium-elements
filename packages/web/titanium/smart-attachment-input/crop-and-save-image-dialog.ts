@@ -19,6 +19,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 
 import Bowser from 'bowser';
 const LoaderGif = new URL('./images/duck-loader.gif', import.meta.url).href;
+const DEFAULT_IMAGE_QUALITY = 0.80;
 
 export declare type CropperOptions = {
   shape?: 'square' | 'circle';
@@ -29,6 +30,7 @@ export declare type CropperOptions = {
   maximizeSelection?: boolean;
   outputMaxWidth?: number;
   outputMaxHeight?: number;
+  outputQuality?: number;
 };
 
 export declare type SelectionData = {
@@ -156,46 +158,45 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
     return fileName.slice(0, fileName.lastIndexOf('.')) + `.${ext}`;
   }
 
-  async #applyCircleMask(dataUrl: string) {
+  #canvasToBlob(canvas: HTMLCanvasElement, type?: string, quality?: number): Promise<Blob> {
+    return new Promise((resolve, reject) => {
+      canvas.toBlob((blob) => (blob ? resolve(blob) : reject(new Error('Canvas toBlob returned null'))), type, quality);
+    });
+  }
+
+  async #applyCircleMask(sourceUrl: string): Promise<Blob> {
     const canvas = document.createElement('canvas');
     const image = new Image();
 
-    const imagePromise = new Promise<string>((resolve) => {
-      image.onload = () => {
-        // use min size so we get a square
+    const blobPromise = new Promise<Blob>((resolve, reject) => {
+      image.onload = async () => {
         const size = Math.min(image.naturalWidth, image.naturalHeight);
 
-        // let's update the canvas size
         canvas.width = size;
         canvas.height = size;
 
-        // draw image to canvas
         const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
         ctx.drawImage(image, 0, 0);
 
-        // only draw image where mask is
         ctx.globalCompositeOperation = 'destination-in';
 
-        // draw our circle mask
         ctx.fillStyle = '#000';
         ctx.beginPath();
-        ctx.arc(
-          size * 0.5, // x
-          size * 0.5, // y
-          size * 0.5, // radius
-          0, // start angle
-          2 * Math.PI // end angle
-        );
+        ctx.arc(size * 0.5, size * 0.5, size * 0.5, 0, 2 * Math.PI);
         ctx.fill();
 
-        // restore to default composite operation (is draw over current image)
         ctx.globalCompositeOperation = 'source-over';
-        resolve(canvas.toDataURL());
+
+        try {
+          resolve(await this.#canvasToBlob(canvas, this.#mimeType, this.options?.outputQuality ?? DEFAULT_IMAGE_QUALITY));
+        } catch (e) {
+          reject(e);
+        }
       };
     });
-    image.src = dataUrl;
+    image.src = sourceUrl;
 
-    return await imagePromise;
+    return blobPromise;
   }
 
   // adapted from https://fengyuanchen.github.io/cropperjs/v2/api/cropper-selection.html#limit-boundaries
@@ -483,11 +484,21 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
               if (!canvas) {
                 return;
               }
-              const previewDataUrl =
-                this.options?.shape === 'circle' ? await this.#applyCircleMask(canvas.toDataURL(this.#mimeType, 1)) : canvas.toDataURL(this.#mimeType, 1);
-              const response = await fetch(previewDataUrl);
-              const file = this.blobToFile(await response.blob(), this.#changeFileExtension(this.fileName, this.#extension));
-              const save = this.#saveCroppedImageFunc?.(file, previewDataUrl) || Promise.resolve();
+
+              const blob = await this.#canvasToBlob(canvas, this.#mimeType, this.options?.outputQuality ?? DEFAULT_IMAGE_QUALITY);
+
+              let previewBlob: Blob;
+              if (this.options?.shape === 'circle') {
+                const tempUrl = URL.createObjectURL(blob);
+                previewBlob = await this.#applyCircleMask(tempUrl);
+                URL.revokeObjectURL(tempUrl);
+              } else {
+                previewBlob = blob;
+              }
+
+              const previewUrl = URL.createObjectURL(previewBlob);
+              const file = this.blobToFile(previewBlob, this.#changeFileExtension(this.fileName, this.#extension));
+              const save = this.#saveCroppedImageFunc?.(file, previewUrl) || Promise.resolve();
               this.loadWhile(save);
               await save;
               this.isLoading = false;
