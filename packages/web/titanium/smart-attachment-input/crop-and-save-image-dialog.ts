@@ -378,6 +378,8 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
         }}
         @close=${(e: DOMEvent<MdDialog>) => {
           if (e.target.returnValue === 'cancel' || e.target.returnValue === 'cropped' || e.target.returnValue === 'navigation-close') {
+            this.#isReady = false;
+            this.src = '';
             dialogCloseNavigationHack(e.target);
             return this.#resolve(e.target.returnValue as 'cancel' | 'cropped');
           }
