@@ -123,6 +123,9 @@ export class TitaniumSmartAttachmentInputDemo extends LitElement {
               <br />
 
               <section buttons>
+              <md-filled-tonal-button @click=${() => (this.smartAttachment.options = { outputQuality: 1 } as CropperOptions)}
+                  >Toggle max quality</md-filled-tonal-button
+                >
                 <md-filled-tonal-button
                   @click=${() => (this.smartAttachment.supportingText = this.smartAttachment.supportingText ? '' : 'This is a supporting text')}
                   >Toggle supporting text</md-filled-tonal-button

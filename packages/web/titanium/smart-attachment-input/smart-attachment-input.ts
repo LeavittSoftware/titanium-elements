@@ -51,6 +51,14 @@ export class TitaniumSmartAttachmentInput extends LitElement {
 
   #originalFiles: SmartAttachment[] = [];
 
+  #revokeFileObjectUrls(files: SmartAttachment[]) {
+    for (const file of files) {
+      if (file.previewSrc?.startsWith('blob:')) {
+        URL.revokeObjectURL(file.previewSrc);
+      }
+    }
+  }
+
   /**
    *  File types to accept ex. "image/*,.pdf"
    */
@@ -156,6 +164,7 @@ export class TitaniumSmartAttachmentInput extends LitElement {
    *  Use to preset input to existing image.
    */
   setFiles(...files: { fileName: string; previewSrc?: string; downloadSrc?: string; id?: number }[]) {
+    this.#revokeFileObjectUrls(this.files);
     this.files = [...files].map((o) => ({ file: new File([''], o.fileName), previewSrc: o.previewSrc, downloadSrc: o.downloadSrc, id: o.id }));
     this.#originalFiles = structuredClone(this.files);
   }
@@ -164,6 +173,7 @@ export class TitaniumSmartAttachmentInput extends LitElement {
    *  Use to preset input to existing image.
    */
   setFilesFromDatabaseAttachments(...attachments: Partial<IDatabaseAttachment>[]) {
+    this.#revokeFileObjectUrls(this.files);
     this.files = [...attachments]
       .filter((o) => o.Name && o.Extension)
       .map((o) => ({
@@ -200,6 +210,7 @@ export class TitaniumSmartAttachmentInput extends LitElement {
    *  Resets the inputs state.
    */
   async reset() {
+    this.#revokeFileObjectUrls(this.files);
     this.#originalFiles = [];
     this.previewSrc = undefined;
     this.files = [];
@@ -215,14 +226,17 @@ export class TitaniumSmartAttachmentInput extends LitElement {
       if (file) {
         const shouldCrop = this.croppableImageFormats.some((o) => file.name?.toLowerCase()?.endsWith(o?.toLowerCase()));
         if (shouldCrop) {
-          const cropResult = await this.cropperDialog.open(URL.createObjectURL(file), file.name, async (croppedImage, previewDataUrl) => {
+          const sourceUrl = URL.createObjectURL(file);
+          const cropResult = await this.cropperDialog.open(sourceUrl, file.name, async (croppedImage, previewDataUrl) => {
             const croppedFile = { file: croppedImage, previewSrc: previewDataUrl ?? undefined };
             if (this.multiple) {
               this.files = [...this.files, croppedFile];
             } else {
+              this.#revokeFileObjectUrls(this.files);
               this.files = [croppedFile];
             }
           });
+          URL.revokeObjectURL(sourceUrl);
           if (cropResult === 'cropped') {
             this.reportValidity();
             shouldNotify = true;
@@ -244,6 +258,7 @@ export class TitaniumSmartAttachmentInput extends LitElement {
           if (this.multiple) {
             this.files = [...this.files, _file];
           } else {
+            this.#revokeFileObjectUrls(this.files);
             this.files = [_file];
           }
           this.reportValidity();
@@ -258,6 +273,7 @@ export class TitaniumSmartAttachmentInput extends LitElement {
 
   #fileToDelete: SmartAttachment | null = null;
   #deleteFile(file: SmartAttachment) {
+    this.#revokeFileObjectUrls([file]);
     const i = this.files.findIndex((o) => o === file);
     this.files.splice(i, 1);
     this.requestUpdate('files');
