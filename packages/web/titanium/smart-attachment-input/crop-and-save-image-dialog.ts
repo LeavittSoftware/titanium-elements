@@ -26,7 +26,7 @@ export declare type CropperOptions = {
   canvasHideBackground?: boolean;
   selectionHideGrid?: boolean;
   selectionAspectRatio?: number | null | undefined;
-  constrainSelectionTo?: 'image' | 'canvas' | null;
+  constrainSelectionTo?: 'image' | 'canvas' | null; // constrainSelectionTo 'image' will prevent rotation
   maximizeSelection?: boolean;
   outputMaxWidth?: number;
   outputMaxHeight?: number;
@@ -107,7 +107,7 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
 
       const rect = this.cropperCanvas.getBoundingClientRect();
       const canvasRatio = rect.width / rect.height;
-      const selectionRatio = this.options?.selectionAspectRatio ?? canvasRatio;
+      const selectionRatio = this.options?.shape === 'circle' ? 1 : (this.options?.selectionAspectRatio ?? canvasRatio);
 
       // Temporarily disable selection constraint to prevent issues while image and
       // and selection are being setup. Prevent off-center and 1px default selections.
@@ -148,6 +148,13 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
 
   reset() {
     this.cropperImage.$resetTransform();
+  }
+
+  #rotateImage(angle: string) {
+    if (this.options?.constrainSelectionTo === 'image') {
+      return;
+    }
+    this.cropperImage?.$rotate(angle);
   }
 
   blobToFile(blob: Blob, fileName: string): File {
@@ -422,11 +429,11 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
                 <cropper-handle theme-color="var(--md-sys-color-primary)" action="sw-resize"></cropper-handle>
               </cropper-selection>
             </cropper-canvas>
-            <crop-buttons>
-              <md-icon-button label="Rotate right" title="Rotate right" @click=${() => this.cropperImage?.$rotate('90deg')}>
+            <crop-buttons ?hidden=${this.options?.constrainSelectionTo === 'image'}>
+              <md-icon-button label="Rotate right" title="Rotate right" @click=${() => this.#rotateImage('45deg')}>
                 <md-icon>rotate_right</md-icon>
               </md-icon-button>
-              <md-icon-button label="Rotate left" title="Rotate left" @click=${() => this.cropperImage.$rotate('-90deg')}>
+              <md-icon-button label="Rotate left" title="Rotate left" @click=${() => this.#rotateImage('-45deg')}>
                 <md-icon>rotate_left</md-icon>
               </md-icon-button>
             </crop-buttons>
