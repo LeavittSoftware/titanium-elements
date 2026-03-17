@@ -19,7 +19,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 
 import Bowser from 'bowser';
 const LoaderGif = new URL('./images/duck-loader.gif', import.meta.url).href;
-const DEFAULT_IMAGE_QUALITY = 0.80;
+const DEFAULT_IMAGE_QUALITY = 0.8;
 
 export declare type CropperOptions = {
   shape?: 'square' | 'circle';
@@ -164,39 +164,29 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
     });
   }
 
-  async #applyCircleMask(sourceUrl: string): Promise<Blob> {
-    const canvas = document.createElement('canvas');
-    const image = new Image();
+  #applyCircleMask(canvas: HTMLCanvasElement) {
+    const size = Math.min(canvas.width, canvas.height);
+    if (canvas.width !== size || canvas.height !== size) {
+      const sourceCanvas = document.createElement('canvas');
+      sourceCanvas.width = size;
+      sourceCanvas.height = size;
+      const sourceCtx = sourceCanvas.getContext('2d') as CanvasRenderingContext2D;
+      sourceCtx.drawImage(canvas, 0, 0);
+      canvas.width = size;
+      canvas.height = size;
+      const resizedCtx = canvas.getContext('2d') as CanvasRenderingContext2D;
+      resizedCtx.drawImage(sourceCanvas, 0, 0);
+    }
 
-    const blobPromise = new Promise<Blob>((resolve, reject) => {
-      image.onload = async () => {
-        const size = Math.min(image.naturalWidth, image.naturalHeight);
+    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+    ctx.globalCompositeOperation = 'destination-in';
 
-        canvas.width = size;
-        canvas.height = size;
+    ctx.fillStyle = '#000';
+    ctx.beginPath();
+    ctx.arc(size * 0.5, size * 0.5, size * 0.5, 0, 2 * Math.PI);
+    ctx.fill();
 
-        const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
-        ctx.drawImage(image, 0, 0);
-
-        ctx.globalCompositeOperation = 'destination-in';
-
-        ctx.fillStyle = '#000';
-        ctx.beginPath();
-        ctx.arc(size * 0.5, size * 0.5, size * 0.5, 0, 2 * Math.PI);
-        ctx.fill();
-
-        ctx.globalCompositeOperation = 'source-over';
-
-        try {
-          resolve(await this.#canvasToBlob(canvas, this.#mimeType, this.options?.outputQuality ?? DEFAULT_IMAGE_QUALITY));
-        } catch (e) {
-          reject(e);
-        }
-      };
-    });
-    image.src = sourceUrl;
-
-    return blobPromise;
+    ctx.globalCompositeOperation = 'source-over';
   }
 
   // adapted from https://fengyuanchen.github.io/cropperjs/v2/api/cropper-selection.html#limit-boundaries
@@ -487,16 +477,10 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
                 return;
               }
 
-              const blob = await this.#canvasToBlob(canvas, this.#mimeType, this.options?.outputQuality ?? DEFAULT_IMAGE_QUALITY);
-
-              let previewBlob: Blob;
               if (this.options?.shape === 'circle') {
-                const tempUrl = URL.createObjectURL(blob);
-                previewBlob = await this.#applyCircleMask(tempUrl);
-                URL.revokeObjectURL(tempUrl);
-              } else {
-                previewBlob = blob;
+                this.#applyCircleMask(canvas);
               }
+              const previewBlob = await this.#canvasToBlob(canvas, this.#mimeType, this.options?.outputQuality ?? DEFAULT_IMAGE_QUALITY);
 
               const previewUrl = URL.createObjectURL(previewBlob);
               const file = this.blobToFile(previewBlob, this.#changeFileExtension(this.fileName, this.#extension));
