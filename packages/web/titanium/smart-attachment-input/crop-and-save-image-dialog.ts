@@ -19,16 +19,18 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 
 import Bowser from 'bowser';
 const LoaderGif = new URL('./images/duck-loader.gif', import.meta.url).href;
+const DEFAULT_IMAGE_QUALITY = 0.8;
 
 export declare type CropperOptions = {
   shape?: 'square' | 'circle';
   canvasHideBackground?: boolean;
   selectionHideGrid?: boolean;
   selectionAspectRatio?: number | null | undefined;
-  constrainSelectionTo?: 'image' | 'canvas' | null;
+  constrainSelectionTo?: 'image' | 'canvas' | null; // constrainSelectionTo 'image' will prevent rotation
   maximizeSelection?: boolean;
   outputMaxWidth?: number;
   outputMaxHeight?: number;
+  outputQuality?: number;
 };
 
 export declare type SelectionData = {
@@ -105,7 +107,7 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
 
       const rect = this.cropperCanvas.getBoundingClientRect();
       const canvasRatio = rect.width / rect.height;
-      const selectionRatio = this.options?.selectionAspectRatio ?? canvasRatio;
+      const selectionRatio = this.options?.shape === 'circle' ? 1 : (this.options?.selectionAspectRatio ?? canvasRatio);
 
       // Temporarily disable selection constraint to prevent issues while image and
       // and selection are being setup. Prevent off-center and 1px default selections.
@@ -148,6 +150,13 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
     this.cropperImage.$resetTransform();
   }
 
+  #rotateImage(angle: string) {
+    if (this.options?.constrainSelectionTo === 'image') {
+      return;
+    }
+    this.cropperImage?.$rotate(angle);
+  }
+
   blobToFile(blob: Blob, fileName: string): File {
     return new File([blob], fileName, { lastModified: new Date().getTime() });
   }
@@ -156,46 +165,35 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
     return fileName.slice(0, fileName.lastIndexOf('.')) + `.${ext}`;
   }
 
-  async #applyCircleMask(dataUrl: string) {
-    const canvas = document.createElement('canvas');
-    const image = new Image();
-
-    const imagePromise = new Promise<string>((resolve) => {
-      image.onload = () => {
-        // use min size so we get a square
-        const size = Math.min(image.naturalWidth, image.naturalHeight);
-
-        // let's update the canvas size
-        canvas.width = size;
-        canvas.height = size;
-
-        // draw image to canvas
-        const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
-        ctx.drawImage(image, 0, 0);
-
-        // only draw image where mask is
-        ctx.globalCompositeOperation = 'destination-in';
-
-        // draw our circle mask
-        ctx.fillStyle = '#000';
-        ctx.beginPath();
-        ctx.arc(
-          size * 0.5, // x
-          size * 0.5, // y
-          size * 0.5, // radius
-          0, // start angle
-          2 * Math.PI // end angle
-        );
-        ctx.fill();
-
-        // restore to default composite operation (is draw over current image)
-        ctx.globalCompositeOperation = 'source-over';
-        resolve(canvas.toDataURL());
-      };
+  #canvasToBlob(canvas: HTMLCanvasElement, type?: string, quality?: number): Promise<Blob> {
+    return new Promise((resolve, reject) => {
+      canvas.toBlob((blob) => (blob ? resolve(blob) : reject(new Error('Canvas toBlob returned null'))), type, quality);
     });
-    image.src = dataUrl;
+  }
 
-    return await imagePromise;
+  #applyCircleMask(canvas: HTMLCanvasElement) {
+    const size = Math.min(canvas.width, canvas.height);
+    if (canvas.width !== size || canvas.height !== size) {
+      const sourceCanvas = document.createElement('canvas');
+      sourceCanvas.width = size;
+      sourceCanvas.height = size;
+      const sourceCtx = sourceCanvas.getContext('2d') as CanvasRenderingContext2D;
+      sourceCtx.drawImage(canvas, 0, 0);
+      canvas.width = size;
+      canvas.height = size;
+      const resizedCtx = canvas.getContext('2d') as CanvasRenderingContext2D;
+      resizedCtx.drawImage(sourceCanvas, 0, 0);
+    }
+
+    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+    ctx.globalCompositeOperation = 'destination-in';
+
+    ctx.fillStyle = '#000';
+    ctx.beginPath();
+    ctx.arc(size * 0.5, size * 0.5, size * 0.5, 0, 2 * Math.PI);
+    ctx.fill();
+
+    ctx.globalCompositeOperation = 'source-over';
   }
 
   // adapted from https://fengyuanchen.github.io/cropperjs/v2/api/cropper-selection.html#limit-boundaries
@@ -377,6 +375,8 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
         }}
         @close=${(e: DOMEvent<MdDialog>) => {
           if (e.target.returnValue === 'cancel' || e.target.returnValue === 'cropped' || e.target.returnValue === 'navigation-close') {
+            this.#isReady = false;
+            this.src = '';
             dialogCloseNavigationHack(e.target);
             return this.#resolve(e.target.returnValue as 'cancel' | 'cropped');
           }
@@ -429,11 +429,11 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
                 <cropper-handle theme-color="var(--md-sys-color-primary)" action="sw-resize"></cropper-handle>
               </cropper-selection>
             </cropper-canvas>
-            <crop-buttons>
-              <md-icon-button label="Rotate right" title="Rotate right" @click=${() => this.cropperImage?.$rotate('90deg')}>
+            <crop-buttons ?hidden=${this.options?.constrainSelectionTo === 'image'}>
+              <md-icon-button label="Rotate right" title="Rotate right" @click=${() => this.#rotateImage('45deg')}>
                 <md-icon>rotate_right</md-icon>
               </md-icon-button>
-              <md-icon-button label="Rotate left" title="Rotate left" @click=${() => this.cropperImage.$rotate('-90deg')}>
+              <md-icon-button label="Rotate left" title="Rotate left" @click=${() => this.#rotateImage('-45deg')}>
                 <md-icon>rotate_left</md-icon>
               </md-icon-button>
             </crop-buttons>
@@ -451,7 +451,6 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
           <md-filled-tonal-button
             ?disabled=${this.isLoading}
             @click=${async () => {
-              await this.cropperCanvas?.$toCanvas();
               const canvasRect = this.cropperCanvas?.getBoundingClientRect();
               const img = (this.cropperImage as unknown as { $image?: HTMLImageElement })?.$image;
               const scaleX = img && canvasRect?.width ? img.naturalWidth / canvasRect.width : 1;
@@ -470,7 +469,13 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
                 targetWidth = Math.max(1, Math.round(targetWidth * r));
               }
 
-              const canvas = await this.cropperSelection?.$toCanvas({ width: targetWidth, height: targetHeight });
+              const canvas = await this.cropperSelection?.$toCanvas({
+                width: targetWidth,
+                height: targetHeight,
+                beforeDraw: (context: CanvasRenderingContext2D, _: HTMLCanvasElement) => {
+                  context.imageSmoothingQuality = 'high';
+                },
+              });
 
               this.isLoading = true;
               await this.updateComplete;
@@ -478,11 +483,15 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
               if (!canvas) {
                 return;
               }
-              const previewDataUrl =
-                this.options?.shape === 'circle' ? await this.#applyCircleMask(canvas.toDataURL(this.#mimeType)) : canvas.toDataURL(this.#mimeType);
-              const response = await fetch(previewDataUrl);
-              const file = this.blobToFile(await response.blob(), this.#changeFileExtension(this.fileName, this.#extension));
-              const save = this.#saveCroppedImageFunc?.(file, previewDataUrl) || Promise.resolve();
+
+              if (this.options?.shape === 'circle') {
+                this.#applyCircleMask(canvas);
+              }
+              const previewBlob = await this.#canvasToBlob(canvas, this.#mimeType, this.options?.outputQuality ?? DEFAULT_IMAGE_QUALITY);
+
+              const previewUrl = URL.createObjectURL(previewBlob);
+              const file = this.blobToFile(previewBlob, this.#changeFileExtension(this.fileName, this.#extension));
+              const save = this.#saveCroppedImageFunc?.(file, previewUrl) || Promise.resolve();
               this.loadWhile(save);
               await save;
               this.isLoading = false;
