@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.14.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.13.2...@leavittsoftware/web@8.14.0) (2026-03-18)
+
+
+### Features
+
+* **smart-attachment-input:** improve quality of cropped images ([f9a932f](https://github.com/LeavittSoftware/titanium-elements/commit/f9a932f614bd5c680e21b0c878a9c66365c84237))
+
+
+
+
+
 ## [8.13.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.13.1...@leavittsoftware/web@8.13.2) (2026-03-10)
 
 
