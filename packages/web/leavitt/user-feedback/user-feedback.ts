@@ -12,7 +12,6 @@ import { customElement, property, query, state } from 'lit/decorators.js';
 import { LoadWhile, isDevelopment } from '../../titanium/helpers/helpers';
 import { PendingStateEvent } from '../../titanium/types/pending-state-event';
 import { h1, p } from '../../titanium/styles/styles';
-import { AuthenticatedTokenProvider } from '../api-service/authenticated-token-provider';
 import { IssueDto } from '@leavittsoftware/lg-core-typescript';
 import { TitaniumSmartAttachmentInput } from '../../titanium/smart-attachment-input/smart-attachment-input';
 import ApiService from '../api-service//api-service';
@@ -22,7 +21,7 @@ import { AuthZeroLgUserManager } from '../user-manager/auth-zero-lg-user-manager
 
 @customElement('leavitt-user-feedback')
 export class LeavittUserFeedback extends LoadWhile(LitElement) {
-  @property({ type: Object }) accessor userManager: AuthZeroLgUserManager | null;
+  @property({ type: Object }) accessor userManager: AuthZeroLgUserManager;
   @property({ type: Boolean }) accessor isActive: boolean = false;
 
   @state() private accessor activeIndex: number = 0;
@@ -55,7 +54,7 @@ export class LeavittUserFeedback extends LoadWhile(LitElement) {
     };
 
     try {
-      const apiService = new ApiService(this.userManager || new AuthenticatedTokenProvider());
+      const apiService = new ApiService(this.userManager);
       apiService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
       apiService.addHeader('X-LGAppName', 'IssueTracking');
       const post = apiService.postAsync<IssueDto>('Issues/ReportIssue', dto, { sendAsFormData: true });
@@ -94,7 +93,7 @@ export class LeavittUserFeedback extends LoadWhile(LitElement) {
     };
 
     try {
-      const apiService = new ApiService(this.userManager || new AuthenticatedTokenProvider());
+      const apiService = new ApiService(this.userManager);
       apiService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
       apiService.addHeader('X-LGAppName', 'IssueTracking');
       const post = apiService.postAsync<IssueDto>('Issues/ReportIssue', dto, { sendAsFormData: true });

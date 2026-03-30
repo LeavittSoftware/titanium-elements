@@ -19,11 +19,10 @@ import { DOMEvent } from '../../titanium/types/dom-event';
 import { SnackbarStack } from '../../titanium/snackbar/snackbar-stack';
 import { dialogCloseNavigationHack, dialogOpenNavigationHack } from '../../titanium/hacks/dialog-navigation-hack';
 import { AuthZeroLgUserManager } from '../user-manager/auth-zero-lg-user-manager';
-import { AuthenticatedTokenProvider } from '../api-service/authenticated-token-provider';
 
 @customElement('provide-feedback-dialog')
 export class ProvideFeedbackDialog extends LoadWhile(LitElement) {
-  @property({ type: Object }) accessor userManager: AuthZeroLgUserManager | null;
+  @property({ type: Object }) accessor userManager: AuthZeroLgUserManager;
   @query('md-dialog') private accessor dialog!: MdDialog;
   @query('titanium-snackbar-stack') private accessor snackbar: SnackbarStack;
   @query('md-outlined-text-field') private accessor textArea: MdOutlinedTextField;
@@ -53,7 +52,7 @@ export class ProvideFeedbackDialog extends LoadWhile(LitElement) {
 
     try {
       if (this.userManager) {
-        const apiService = new ApiService(this.userManager || new AuthenticatedTokenProvider());
+        const apiService = new ApiService(this.userManager);
         apiService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
         apiService.addHeader('X-LGAppName', 'IssueTracking');
         const post = apiService.postAsync<IssueDto>('Issues/ReportIssue', dto, { sendAsFormData: true });

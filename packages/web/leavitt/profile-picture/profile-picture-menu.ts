@@ -5,8 +5,6 @@ import '@material/web/button/text-button';
 import '@material/web/icon/icon';
 import '@material/web/iconbutton/icon-button';
 
-import { GetUserManagerInstance, UserManager } from '../user-manager/user-manager';
-import { UserManagerUpdatedEvent } from '../user-manager/user-manager-events';
 import { css, html, LitElement } from 'lit';
 import { property, customElement, query } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -22,7 +20,7 @@ import { AuthZeroLgUserManager } from '../user-manager/auth-zero-lg-user-manager
  */
 @customElement('profile-picture-menu')
 export class ProfilePictureMenu extends LitElement {
-  @property({ type: Object }) accessor userManager: UserManager | AuthZeroLgUserManager | null;
+  @property({ type: Object }) accessor userManager: AuthZeroLgUserManager | null;
 
   /**
    * Size in pixels of profile picture button
@@ -72,25 +70,11 @@ export class ProfilePictureMenu extends LitElement {
       this.email = userManager.identity?.email ?? '';
       this.company = userManager.identity?.companyName ?? '';
       this.name = userManager.identity?.name ?? '';
-    } else if (userManager instanceof UserManager) {
-      userManager.addEventListener(UserManagerUpdatedEvent.eventName, () => {
-        this.personId = userManager.personId;
-        this.profilePictureFileName = userManager.profilePictureFileName;
-        this.email = userManager.email;
-        this.company = userManager.company;
-        this.name = userManager.fullname;
-      });
-
-      this.personId = userManager.personId;
-      this.profilePictureFileName = userManager.profilePictureFileName;
-      this.email = userManager.email;
-      this.company = userManager.company;
-      this.name = userManager.fullname;
     }
   }
 
   #getUserManager() {
-    return this.userManager ?? GetUserManagerInstance();
+    return this.userManager;
   }
 
   updated(changed: PropertyValues<this>) {
@@ -172,11 +156,7 @@ export class ProfilePictureMenu extends LitElement {
           if (this.personId) {
             this.menu.open = !this.menu.open;
           } else {
-            if (this.userManager instanceof AuthZeroLgUserManager) {
-              this.userManager.authenticate();
-            } else {
-              GetUserManagerInstance()?.authenticateAsync();
-            }
+            this.userManager?.authenticate();
           }
         }}
         style=${styleMap({

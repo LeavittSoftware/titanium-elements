@@ -10,7 +10,6 @@ import { customElement, property, query } from 'lit/decorators.js';
 import { LoadWhile, isDevelopment } from '../../titanium/helpers/helpers';
 import { PendingStateEvent } from '../../titanium/types/pending-state-event';
 import { h1, p } from '../../titanium/styles/styles';
-import { AuthenticatedTokenProvider } from '../api-service/authenticated-token-provider';
 import { IssueDto } from '@leavittsoftware/lg-core-typescript';
 import ApiService from '../api-service/api-service';
 import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
@@ -25,7 +24,7 @@ import { AuthZeroLgUserManager } from '../user-manager/auth-zero-lg-user-manager
 
 @customElement('report-a-problem-dialog')
 export class ReportAProblemDialog extends LoadWhile(LitElement) {
-  @property({ type: Object }) accessor userManager: AuthZeroLgUserManager | null;
+  @property({ type: Object }) accessor userManager: AuthZeroLgUserManager;
   @query('md-dialog') private accessor dialog!: MdDialog;
   @query('titanium-snackbar-stack') private accessor snackbar: SnackbarStack;
 
@@ -57,7 +56,7 @@ export class ReportAProblemDialog extends LoadWhile(LitElement) {
     };
 
     try {
-      const apiService = new ApiService(this.userManager || new AuthenticatedTokenProvider());
+      const apiService = new ApiService(this.userManager);
       apiService.baseUrl = isDevelopment ? 'https://devapi3.leavitt.com/' : 'https://api3.leavitt.com/';
       apiService.addHeader('X-LGAppName', 'IssueTracking');
       const post = apiService.postAsync<IssueDto>('Issues/ReportIssue', dto, { sendAsFormData: true });
