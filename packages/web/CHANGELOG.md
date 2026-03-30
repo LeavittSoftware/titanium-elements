@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.14.0...@leavittsoftware/web@9.0.0) (2026-03-30)
+
+
+* feat!: remove deprecated UserManager, GetUserManagerInstance, and AuthenticatedTokenProvider ([500aecb](https://github.com/LeavittSoftware/titanium-elements/commit/500aecb2fc833878275ffac36fa71bdbe0d61506))
+* feat(data-table)!: rename sortExpression to getSortExpression ([2b7fbc7](https://github.com/LeavittSoftware/titanium-elements/commit/2b7fbc729cc0e3e9d9748f2309d6d83bfdcf500c))
+
+
+### BREAKING CHANGES
+
+* UserManager, GetUserManagerInstance, AuthenticatedTokenProvider, and UserManagerUpdatedEvent have reached end of life and are removed. Migrate to AuthZeroLgUserManager.
+* sortExpression string is now getSortExpression function so sort expressions can return dynamic values evaluated at query time.
+
+
+
+
+
 # [8.14.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.13.2...@leavittsoftware/web@8.14.0) (2026-03-18)
 
 
