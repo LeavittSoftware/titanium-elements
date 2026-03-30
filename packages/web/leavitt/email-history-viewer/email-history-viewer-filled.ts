@@ -96,7 +96,7 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
       {
         key: 'EmailTemplate',
         friendlyName: 'Email template',
-        sortExpression: 'EmailTemplate/Name',
+        getSortExpression: () => 'EmailTemplate/Name',
         render: (item) =>
           html`<div>${item.EmailTemplate?.Name}</div>
             ${item.EmailTemplate?.IsExpired ? html`<div inactive>Inactive</div>` : ''}`,
@@ -240,7 +240,7 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
     ];
 
     const orderby = this.dataTable.sort
-      .map((s) => `${this.tableMetaData.itemMetaData.find((m) => m.key === s.key)?.sortExpression ?? s.key} ${s.direction}`)
+      .map((s) => `${this.tableMetaData.itemMetaData.find((m) => m.key === s.key)?.getSortExpression?.() ?? s.key} ${s.direction}`)
       .join(', ');
     if (orderby) {
       odataParts.push(`orderby=${orderby}`);

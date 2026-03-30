@@ -243,7 +243,7 @@ export class TitaniumDataTableCoreDemo extends LitElement {
       {
         key: 'Appearance',
         friendlyName: 'Appearance',
-        sortExpression: 'Appearance',
+        getSortExpression: () => 'Appearance',
         render: (item) => html`${item.Appearance}`,
         width: '250px',
         defaultSort: {
@@ -266,14 +266,14 @@ export class TitaniumDataTableCoreDemo extends LitElement {
       {
         key: 'DragCoefficient',
         friendlyName: 'Drag Coefficient',
-        sortExpression: 'DragCoefficient',
+        getSortExpression: () => 'DragCoefficient',
         render: (item) => html`${item.DragCoefficient}%`,
         width: '250px',
       },
       {
         key: 'Year',
         friendlyName: 'Year',
-        sortExpression: 'Year',
+        getSortExpression: () => 'Year',
         render: (item) => html`${item.Year}`,
         width: '250px',
         hideByDefault: true,

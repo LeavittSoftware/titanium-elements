@@ -50,7 +50,7 @@ export type TitaniumDataTableCoreItemMetaData<T extends object> = {
   csvValue?: (item: T) => string | number | boolean | null | undefined;
   friendlyName?: string;
   hideByDefault?: boolean;
-  sortExpression?: string;
+  getSortExpression?: () => string;
   width?: string;
   disableSort?: boolean;
   defaultSort?: TitaniumDataTableCoreDefaultSort;
