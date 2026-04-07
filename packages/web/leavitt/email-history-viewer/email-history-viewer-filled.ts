@@ -101,7 +101,15 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
           html`<div>${item.EmailTemplate?.Name}</div>
             ${item.EmailTemplate?.IsExpired ? html`<div inactive>Inactive</div>` : ''}`,
         csvValue: (item) => item.EmailTemplate?.Name ?? '',
-        width: '200px',
+        width: '150px',
+      },
+      {
+        key: 'IsTestMessage',
+        friendlyName: 'Test',
+        getSortExpression: () => 'IsTestMessage',
+        render: (item) => html`<div>${item.IsTestMessage ? 'Yes' : 'No'}</div>`,
+        csvValue: (item) => (item.IsTestMessage ? 'Yes' : 'No'),
+        width: '50px',
       },
       {
         key: 'Bool1',
@@ -232,7 +240,7 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
     filterParts = [...filterParts, ...this.filterController.getActiveFilterOdata()];
 
     const odataParts = [
-      'select=Id,Recipients,SentDate,Subject',
+      'select=Id,Recipients,SentDate,Subject,IsTestMessage',
       'expand=EmailTemplate(select=Id,Name,IsExpired)',
       `top=${this.pageControl?.take}`,
       `skip=${(this.pageControl?.take ?? 0) * (this.pageControl?.page ?? 0)}`,
