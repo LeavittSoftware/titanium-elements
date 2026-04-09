@@ -27,12 +27,13 @@ import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
 import { a } from '../../titanium/styles/a';
 import { ellipsis } from '../../titanium/styles/ellipsis';
 import { DOMEvent } from '../../titanium/types/dom-event';
-import { LitElement, PropertyValues, css, html } from 'lit';
+import { LitElement, PropertyValues, css, html, nothing } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 import { FilterKeys, LeavittEmailHistoryViewListFilterDialog } from './email-history-view-list-filter-dialog';
 import { LeavittViewSentEmailDialog } from './view-sent-email-dialog';
 import ApiService from '../api-service/api-service';
 import { LeavittViewEmailTemplateInfoDialog } from './view-email-template-info-dialog';
+import { isDevelopment } from '@leavittsoftware/web/titanium/helpers/is-development';
 
 /**
  * @element leavitt-email-history-viewer
@@ -315,7 +316,7 @@ export default class LeavittEmailHistoryViewer extends LoadWhile(LitElement) {
           @sort-direction-changed=${this.#onSortDirectionChange}
         ></titanium-data-table-header>
 
-        <titanium-data-table-header
+        ${isDevelopment ? html`<titanium-data-table-header
           width="50px"
           desktop
           slot="table-headers"
@@ -325,7 +326,7 @@ export default class LeavittEmailHistoryViewer extends LoadWhile(LitElement) {
           .sortBy=${this.sortBy}
           .sortDirection=${this.sortDirection}
           @sort-direction-changed=${this.#onSortDirectionChange}
-        ></titanium-data-table-header>
+        ></titanium-data-table-header>` : nothing}
 
         <titanium-data-table-header width="50px" no-sort slot="table-headers"></titanium-data-table-header>
         ${repeat(
@@ -344,7 +345,7 @@ export default class LeavittEmailHistoryViewer extends LoadWhile(LitElement) {
                 <div>${item.EmailTemplate?.Name}</div>
                 ${item.EmailTemplate?.IsExpired ? html`<div inactive>Inactive</div>` : ''}</row-item
               >
-              <row-item width="50px" desktop title="Test Message"><div>${item.IsTestMessage ? 'Yes' : 'No'}</div></row-item>
+              ${isDevelopment ? html`<row-item width="50px" desktop title="Test Message"><div>${item.IsTestMessage ? 'Yes' : 'No'}</div></row-item>` : nothing}
               <row-item width="50px"
                 ><md-filled-tonal-icon-button @click=${() => this.viewDialog.open(item.Id ?? 0)}><md-icon>pageview</md-icon></md-filled-tonal-icon-button>
               </row-item>
