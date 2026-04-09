@@ -158,11 +158,14 @@ export default class LeavittEmailHistoryViewer extends LoadWhile(LitElement) {
     if (endDate) {
       filterParts.push(`SentDate le ${dayjs(endDate).format('YYYY-MM-DD')}`);
     }
+    if (!isDevelopment) {
+      filterParts.push('IsTestMessage eq false');
+    }
 
     filterParts = [...filterParts, ...this.filterController.getActiveFilterOdata()];
 
     const odataParts = [
-      'select=Id,Recipients,SentDate,Subject,IsTestMessage',
+      'select=Id,Recipients,SentDate,Subject'+(isDevelopment ? ',IsTestMessage' : ''),
       'expand=EmailTemplate(select=Id,Name,IsExpired)',
       `top=${await this.dataTable.getTake()}`,
       `orderby=${this.sortBy} ${this.sortDirection}`,
