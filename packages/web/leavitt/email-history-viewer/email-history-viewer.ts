@@ -27,12 +27,13 @@ import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
 import { a } from '../../titanium/styles/a';
 import { ellipsis } from '../../titanium/styles/ellipsis';
 import { DOMEvent } from '../../titanium/types/dom-event';
-import { LitElement, PropertyValues, css, html } from 'lit';
+import { LitElement, PropertyValues, css, html, nothing } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 import { FilterKeys, LeavittEmailHistoryViewListFilterDialog } from './email-history-view-list-filter-dialog';
 import { LeavittViewSentEmailDialog } from './view-sent-email-dialog';
 import ApiService from '../api-service/api-service';
 import { LeavittViewEmailTemplateInfoDialog } from './view-email-template-info-dialog';
+import { isDevelopment } from '@leavittsoftware/web/titanium/helpers/is-development';
 
 /**
  * @element leavitt-email-history-viewer
@@ -157,11 +158,14 @@ export default class LeavittEmailHistoryViewer extends LoadWhile(LitElement) {
     if (endDate) {
       filterParts.push(`SentDate le ${dayjs(endDate).format('YYYY-MM-DD')}`);
     }
+    if (!isDevelopment) {
+      filterParts.push('IsTestMessage eq false');
+    }
 
     filterParts = [...filterParts, ...this.filterController.getActiveFilterOdata()];
 
     const odataParts = [
-      'select=Id,Recipients,SentDate,Subject',
+      `select=Id,Recipients,SentDate,Subject${isDevelopment ? ',IsTestMessage' : ''}`,
       'expand=EmailTemplate(select=Id,Name,IsExpired)',
       `top=${await this.dataTable.getTake()}`,
       `orderby=${this.sortBy} ${this.sortDirection}`,
@@ -294,6 +298,7 @@ export default class LeavittEmailHistoryViewer extends LoadWhile(LitElement) {
         <titanium-data-table-header
           desktop
           slot="table-headers"
+          width="150px"
           column-name="Recipients"
           title="Recipients"
           @sort-by-changed=${this.#onSortByChange}
@@ -304,6 +309,7 @@ export default class LeavittEmailHistoryViewer extends LoadWhile(LitElement) {
 
         <titanium-data-table-header
           desktop
+          width="150px"
           slot="table-headers"
           column-name="EmailTemplate/Name"
           title="Email template"
@@ -312,6 +318,19 @@ export default class LeavittEmailHistoryViewer extends LoadWhile(LitElement) {
           .sortDirection=${this.sortDirection}
           @sort-direction-changed=${this.#onSortDirectionChange}
         ></titanium-data-table-header>
+
+        ${isDevelopment ? html`<titanium-data-table-header
+          width="50px"
+          desktop
+          slot="table-headers"
+          column-name="IsTestMessage"
+          title="Test"
+          @sort-by-changed=${this.#onSortByChange}
+          .sortBy=${this.sortBy}
+          .sortDirection=${this.sortDirection}
+          @sort-direction-changed=${this.#onSortDirectionChange}
+        ></titanium-data-table-header>` : nothing}
+
         <titanium-data-table-header width="50px" no-sort slot="table-headers"></titanium-data-table-header>
         ${repeat(
           this.logs ?? [],
@@ -323,12 +342,13 @@ export default class LeavittEmailHistoryViewer extends LoadWhile(LitElement) {
                   ? html`${dayjs(item.SentDate).format('MMM DD, YY')}<br /><span time>${dayjs(item.SentDate).format('h:mm A')}</span>`
                   : '-'}</row-item
               >
-              <row-item large>${item.Subject ?? '-'} </row-item>
-              <row-item desktop title=${item.Recipients ?? ''}>${this.renderRecipients(item.Recipients ?? null)}</row-item>
-              <row-item desktop>
+              <row-item large ellipsis>${item.Subject ?? '-'}</row-item>
+              <row-item desktop width="150px" title=${item.Recipients ?? ''}>${this.renderRecipients(item.Recipients ?? null)}</row-item>
+              <row-item desktop width="150px">
                 <div>${item.EmailTemplate?.Name}</div>
                 ${item.EmailTemplate?.IsExpired ? html`<div inactive>Inactive</div>` : ''}</row-item
               >
+              ${isDevelopment ? html`<row-item width="50px" desktop title="Test Message"><div>${item.IsTestMessage ? 'Yes' : 'No'}</div></row-item>` : nothing}
               <row-item width="50px"
                 ><md-filled-tonal-icon-button @click=${() => this.viewDialog.open(item.Id ?? 0)}><md-icon>pageview</md-icon></md-filled-tonal-icon-button>
               </row-item>
