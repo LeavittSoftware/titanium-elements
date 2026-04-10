@@ -91,8 +91,15 @@ export class TitaniumDrawer extends LitElement {
       }
     });
 
+    let mousedownTarget: EventTarget | null = null;
+    this.dialog?.addEventListener('mousedown', (e) => {
+      mousedownTarget = e.target;
+    });
+
     this.dialog?.addEventListener('click', (e) => {
-      if (e.target instanceof Element && e.target?.nodeName === 'DIALOG') {
+      const clickedBackdrop = e.target instanceof Element && e.target.nodeName === 'DIALOG';
+      const mousedownOnBackdrop = mousedownTarget instanceof Element && mousedownTarget.nodeName === 'DIALOG';
+      if (clickedBackdrop && mousedownOnBackdrop) {
         this.close();
       }
     });
