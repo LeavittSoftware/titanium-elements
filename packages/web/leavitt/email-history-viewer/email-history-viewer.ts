@@ -165,7 +165,7 @@ export default class LeavittEmailHistoryViewer extends LoadWhile(LitElement) {
     filterParts = [...filterParts, ...this.filterController.getActiveFilterOdata()];
 
     const odataParts = [
-      'select=Id,Recipients,SentDate,Subject'+(isDevelopment ? ',IsTestMessage' : ''),
+      `select=Id,Recipients,SentDate,Subject${isDevelopment ? ',IsTestMessage' : ''}`,
       'expand=EmailTemplate(select=Id,Name,IsExpired)',
       `top=${await this.dataTable.getTake()}`,
       `orderby=${this.sortBy} ${this.sortDirection}`,
