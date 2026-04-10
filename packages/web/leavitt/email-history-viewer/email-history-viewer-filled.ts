@@ -40,6 +40,7 @@ import {
   TitaniumTextFieldSearchContext,
 } from '@leavittsoftware/web/titanium/site-search-text-field-controller/site-search-text-field-controller';
 import { Debouncer } from '@leavittsoftware/web/titanium/helpers/debouncer';
+import { isDevelopment } from '@leavittsoftware/web/titanium/helpers/is-development';
 
 import dayjs from 'dayjs/esm';
 import ApiService from '../api-service/api-service';
@@ -101,7 +102,7 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
           html`<div>${item.EmailTemplate?.Name}</div>
             ${item.EmailTemplate?.IsExpired ? html`<div inactive>Inactive</div>` : ''}`,
         csvValue: (item) => item.EmailTemplate?.Name ?? '',
-        width: '200px',
+        width: '150px',
       },
       {
         key: 'Bool1',
@@ -176,6 +177,17 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
         return this.#reload();
       },
     });
+    if (isDevelopment) {
+      const lastColumnIndex = this.tableMetaData.itemMetaData.length - 1; // place just before the preview button column
+      this.tableMetaData.itemMetaData.splice(lastColumnIndex, 0, {
+        key: 'IsTestMessage',
+        friendlyName: 'Test',
+        getSortExpression: () => 'IsTestMessage',
+        render: (item) => html`<div>${item.IsTestMessage ? 'Yes' : 'No'}</div>`,
+        csvValue: (item) => (item.IsTestMessage ? 'Yes' : 'No'),
+        width: '50px'
+      });
+    }
   }
 
   async #reload() {
@@ -232,7 +244,7 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
     filterParts = [...filterParts, ...this.filterController.getActiveFilterOdata()];
 
     const odataParts = [
-      'select=Id,Recipients,SentDate,Subject',
+      `select=Id,Recipients,SentDate,Subject${isDevelopment ? ',IsTestMessage' : ''}`,
       'expand=EmailTemplate(select=Id,Name,IsExpired)',
       `top=${this.pageControl?.take}`,
       `skip=${(this.pageControl?.take ?? 0) * (this.pageControl?.page ?? 0)}`,
@@ -245,7 +257,9 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
     if (orderby) {
       odataParts.push(`orderby=${orderby}`);
     }
-
+    if (!isDevelopment) {
+      filterParts.push('IsTestMessage eq false');
+    }
     if (filterParts.length > 0) {
       odataParts.push(`filter=${filterParts.join(' and ')}`);
     }

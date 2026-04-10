@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.0.0...@leavittsoftware/web@9.1.0) (2026-04-10)
+
+
+### Features
+
+* **email-history-viewer/-filled:** add test message column ([#724](https://github.com/LeavittSoftware/titanium-elements/issues/724)) ([9ab83d0](https://github.com/LeavittSoftware/titanium-elements/commit/9ab83d0fd5cb531ebac54119331b85639b56e0ec))
+
+
+
+
+
 # [9.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@8.14.0...@leavittsoftware/web@9.0.0) (2026-03-30)
 
 
