@@ -158,12 +158,15 @@ export class ProfilePicture extends LitElement {
       <img
         loading="lazy"
         draggable="false"
-        data-alt="User profile picture"
-        onload="this.alt = this.getAttribute('data-alt')"
         src=${this.#getFilePath(this.fileName, this.size)}
+        @load=${(e: DOMEvent<HTMLImageElement>) => {
+          e.target.alt = 'User profile picture';
+        }}
         @error=${(e: DOMEvent<HTMLImageElement>) => {
           if (e.target.src !== this.#fallbackSrc) {
             e.target.src = this.#fallbackSrc;
+          } else {
+            e.target.alt = 'User profile picture';
           }
         }}
       />
