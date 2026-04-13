@@ -92,6 +92,7 @@ export class ProfilePicture extends LitElement {
       width: 100%;
       aspect-ratio: 1;
       image-rendering: -webkit-optimize-contrast;
+      background-color: var(--md-sys-color-surface-container-high);
     }
 
     md-icon {
@@ -157,7 +158,8 @@ export class ProfilePicture extends LitElement {
       <img
         loading="lazy"
         draggable="false"
-        alt="User profile picture"
+        data-alt="User profile picture"
+        onload="this.alt = this.getAttribute('data-alt')"
         src=${this.#getFilePath(this.fileName, this.size)}
         @error=${(e: DOMEvent<HTMLImageElement>) => {
           if (e.target.src !== this.#fallbackSrc) {
