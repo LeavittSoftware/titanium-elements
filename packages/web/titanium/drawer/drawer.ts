@@ -292,7 +292,7 @@ export class TitaniumDrawer extends LitElement {
       min-width: var(--titanium-drawer-width, 300px);
       padding: 0;
       margin: 0;
-      width: 100%;
+      width: var(--titanium-drawer-width, 300px);
 
       height: calc(100dvh - var(--titanium-drawer-full-height-padding, 48px));
 
