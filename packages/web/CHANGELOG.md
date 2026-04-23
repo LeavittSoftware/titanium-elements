@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.1.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.1.2...@leavittsoftware/web@9.1.3) (2026-04-23)
+
+
+### Bug Fixes
+
+* **profile-picture:** add background and hide alt text while loading ([#726](https://github.com/LeavittSoftware/titanium-elements/issues/726)) ([92c946e](https://github.com/LeavittSoftware/titanium-elements/commit/92c946e1d96ef1c1da9994dd27b2c1862acb3eb5))
+
+
+
+
+
 ## [9.1.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.1.1...@leavittsoftware/web@9.1.2) (2026-04-20)
 
 **Note:** Version bump only for package @leavittsoftware/web
