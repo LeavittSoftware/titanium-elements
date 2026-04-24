@@ -672,13 +672,13 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
             (item) => {
               return html`
                 <tr
-                  ?link-url=${this.tableMetaData?.itemLinkUrl || this.tableMetaData?.itemClickHandler}
+                  ?link-url=${this.tableMetaData?.itemLinkUrl?.(item) || this.tableMetaData?.itemClickHandler}
                   ?selected=${this.selected.includes(item)}
                   @click=${() => {
                     if (this.selected.length === 0) {
                       if (this.tableMetaData?.itemClickHandler) {
                         this.tableMetaData.itemClickHandler(item);
-                      } else if (this.tableMetaData?.itemLinkUrl) {
+                      } else if (this.tableMetaData?.itemLinkUrl?.(item)) {
                         this.dispatchEvent(
                           new CustomEvent<{ path: string }>('change-route', {
                             bubbles: true,

@@ -222,8 +222,8 @@ export class TitaniumDataTableCoreDemo extends LitElement {
 
   @state() private accessor tableMetaData: TitaniumDataTableCoreMetaData<ItemType> = {
     uniqueKey: (item) => item.Id?.toString() ?? '',
-    // itemLinkUrl: (item) => `/titanium-data-table-core#edit-${item.Id}`,
-    itemClickHandler: (item) => alert(`item click ${item.Name}`),
+    itemLinkUrl: (item) => (item.Appearance !== 'Ugly' ? `/titanium-data-table-core#edit-${item.Id}` : ''),
+    // itemClickHandler: (item) => alert(`item click ${item.Name}`),
     itemMetaData: [
       {
         key: 'Name',
