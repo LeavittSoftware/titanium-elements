@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.1.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.1.3...@leavittsoftware/web@9.1.4) (2026-04-24)
+
+
+### Bug Fixes
+
+* **data-table:** evaluate itemLinkUrl per-item so rows without a URL don't show link styling ([099da4a](https://github.com/LeavittSoftware/titanium-elements/commit/099da4ad7f22ce2bbfc52ed0aea5d5f3fda1e714))
+
+
+
+
+
 ## [9.1.3](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.1.2...@leavittsoftware/web@9.1.3) (2026-04-23)
 
 
