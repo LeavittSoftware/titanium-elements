@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.1.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.1.4...@leavittsoftware/web@9.1.5) (2026-05-04)
+
+
+### Bug Fixes
+
+* **smart-attachment-input:** hide rotate buttons when constrainSelectionTo defaults to 'image' ([#728](https://github.com/LeavittSoftware/titanium-elements/issues/728)) ([0fb1548](https://github.com/LeavittSoftware/titanium-elements/commit/0fb1548b70a70672f6c774a85f56490237f6bc87))
+
+
+
+
+
 ## [9.1.4](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.1.3...@leavittsoftware/web@9.1.4) (2026-04-24)
 
 
