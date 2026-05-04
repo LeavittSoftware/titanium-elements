@@ -98,6 +98,20 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
     this.reset();
     this.fileName = filename;
     this.src = url;
+
+    if (!this.options) {
+      this.options = {};
+    }
+
+    if (this.options.maximizeSelection === undefined) {
+      this.options.maximizeSelection = true;
+    }
+
+    if (this.options.constrainSelectionTo === undefined) {
+      this.options.constrainSelectionTo = 'image';
+    }
+
+    this.requestUpdate();
     await this.updateComplete;
     this.dialog.show();
 
@@ -108,22 +122,6 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
       const rect = this.cropperCanvas.getBoundingClientRect();
       const canvasRatio = rect.width / rect.height;
       const selectionRatio = this.options?.shape === 'circle' ? 1 : (this.options?.selectionAspectRatio ?? canvasRatio);
-
-      // Temporarily disable selection constraint to prevent issues while image and
-      // and selection are being setup. Prevent off-center and 1px default selections.
-      if (!this.options) {
-        this.options = {};
-      }
-
-      // Default maximizeSelection to true if not explicitly set
-      if (this.options.maximizeSelection === undefined) {
-        this.options.maximizeSelection = true;
-      }
-
-      // Default constrainSelectionTo to 'image' if not explicitly set
-      if (this.options.constrainSelectionTo === undefined) {
-        this.options.constrainSelectionTo = 'image';
-      }
 
       const constrain = this.options.constrainSelectionTo;
       this.options.constrainSelectionTo = null;
