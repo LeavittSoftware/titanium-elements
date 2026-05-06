@@ -49,6 +49,7 @@ export default class LeavittEmailHistoryViewer extends LoadWhile(LitElement) {
   @property({ type: Boolean }) accessor isActive: boolean;
   @property({ type: Object }) accessor apiService: ApiService | null;
   @property({ type: String }) accessor path: string;
+  @property({ type: String }) accessor apiControllerName: string = 'EmailTemplateLogs';
 
   // Data table props
   @state() private accessor logs: Array<Partial<EmailTemplateLog>> = [];
@@ -86,7 +87,7 @@ export default class LeavittEmailHistoryViewer extends LoadWhile(LitElement) {
   }
 
   updated(changedProps: PropertyValues<this>) {
-    if (this.isActive && changedProps.has('isActive') && this.#isDirty) {
+    if (this.isActive && (changedProps.has('isActive') || changedProps.has('apiControllerName') || this.#isDirty)) {
       this.#reload();
     }
 
@@ -176,7 +177,7 @@ export default class LeavittEmailHistoryViewer extends LoadWhile(LitElement) {
       odataParts.push(`filter=${filterParts.join(' and ')}`);
     }
     try {
-      const get = this.apiService.getAsync<Partial<EmailTemplateLog>>(`EmailTemplateLogs/?${odataParts.join('&')}`);
+      const get = this.apiService.getAsync<Partial<EmailTemplateLog>>(`${this.apiControllerName}/?${odataParts.join('&')}`);
       this.dataTable.loadWhile(get);
       this.loadWhile(get);
       const result = await get;
@@ -319,17 +320,19 @@ export default class LeavittEmailHistoryViewer extends LoadWhile(LitElement) {
           @sort-direction-changed=${this.#onSortDirectionChange}
         ></titanium-data-table-header>
 
-        ${isDevelopment ? html`<titanium-data-table-header
-          width="50px"
-          desktop
-          slot="table-headers"
-          column-name="IsTestMessage"
-          title="Test"
-          @sort-by-changed=${this.#onSortByChange}
-          .sortBy=${this.sortBy}
-          .sortDirection=${this.sortDirection}
-          @sort-direction-changed=${this.#onSortDirectionChange}
-        ></titanium-data-table-header>` : nothing}
+        ${isDevelopment
+          ? html`<titanium-data-table-header
+              width="50px"
+              desktop
+              slot="table-headers"
+              column-name="IsTestMessage"
+              title="Test"
+              @sort-by-changed=${this.#onSortByChange}
+              .sortBy=${this.sortBy}
+              .sortDirection=${this.sortDirection}
+              @sort-direction-changed=${this.#onSortDirectionChange}
+            ></titanium-data-table-header>`
+          : nothing}
 
         <titanium-data-table-header width="50px" no-sort slot="table-headers"></titanium-data-table-header>
         ${repeat(
