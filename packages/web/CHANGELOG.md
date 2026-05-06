@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.1.5...@leavittsoftware/web@9.2.0) (2026-05-06)
+
+
+### Features
+
+* **email-history-viewer:** add configurable apiControllerName property ([05d2221](https://github.com/LeavittSoftware/titanium-elements/commit/05d2221ca4484e75952bdc783aea6e7ff1d15650))
+
+
+
+
+
 ## [9.1.5](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.1.4...@leavittsoftware/web@9.1.5) (2026-05-04)
 
 
