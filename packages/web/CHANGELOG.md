@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.2.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.2.0...@leavittsoftware/web@9.2.1) (2026-05-08)
+
+
+### Bug Fixes
+
+* **email-history-viewer:** Resets dirty state reliably after data fetch ([#731](https://github.com/LeavittSoftware/titanium-elements/issues/731)) ([251277b](https://github.com/LeavittSoftware/titanium-elements/commit/251277bcc69e9192eeb2112158b7351945cc76b2))
+
+
+
+
+
 # [9.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.1.5...@leavittsoftware/web@9.2.0) (2026-05-06)
 
 
