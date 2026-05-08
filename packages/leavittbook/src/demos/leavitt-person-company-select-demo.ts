@@ -9,24 +9,15 @@ import '@leavittsoftware/web/leavitt/person-company-select/person-company-select
 import '@leavittsoftware/web/titanium/snackbar/snackbar-stack';
 
 import { html, LitElement } from 'lit';
-import { customElement, query, state } from 'lit/decorators.js';
+import { customElement, query } from 'lit/decorators.js';
 import { LeavittPersonCompanySelect } from '@leavittsoftware/web/leavitt/person-company-select/person-company-select';
 
-import ApiService from '@leavittsoftware/web/leavitt/api-service/api-service';
-import UserManager from '../services/user-manager-service';
 import StoryStyles from '../styles/story-styles';
+import api3UserService from '../services/api3-user-service';
 
 @customElement('leavitt-person-company-select-demo')
 export class LeavittPersonCompanySelectDemo extends LitElement {
-  @state() private accessor apiService: ApiService;
   @query('leavitt-person-company-select[methods-demo]') protected accessor methodsSelect!: LeavittPersonCompanySelect;
-
-  constructor() {
-    super();
-    this.apiService = new ApiService(UserManager);
-    this.apiService.baseUrl = 'https://devapi3.leavitt.com/';
-    this.apiService.addHeader('X-LGAppName', 'Testing');
-  }
 
   static styles = [StoryStyles];
 
@@ -43,7 +34,7 @@ export class LeavittPersonCompanySelectDemo extends LitElement {
             <div>
               <h1>Methods</h1>
               <item-row>
-                <leavitt-person-company-select required methods-demo .apiService=${this.apiService}></leavitt-person-company-select>
+                <leavitt-person-company-select required methods-demo .apiService=${api3UserService}></leavitt-person-company-select>
               </item-row>
               <section buttons>
                 <md-filled-tonal-button @click=${() => this.methodsSelect.reset()}>reset()</md-filled-tonal-button>
@@ -55,15 +46,15 @@ export class LeavittPersonCompanySelectDemo extends LitElement {
             <div>
               <h1>Attributes</h1>
               <item-row>
-                <leavitt-person-company-select label="default" .apiService=${this.apiService}></leavitt-person-company-select>
-                <leavitt-person-company-select label="shaped" shaped .apiService=${this.apiService}></leavitt-person-company-select>
+                <leavitt-person-company-select label="default" .apiService=${api3UserService}></leavitt-person-company-select>
+                <leavitt-person-company-select label="shaped" shaped .apiService=${api3UserService}></leavitt-person-company-select>
                 <leavitt-person-company-select
                   label="pre-selected"
                   .selected=${{
                     Name: 'Leavitt Group Enterprises',
                     type: 'Company',
                   } as never}
-                  .apiService=${this.apiService}
+                  .apiService=${api3UserService}
                 ></leavitt-person-company-select>
                 <leavitt-person-company-select
                   label="disabled pre-selected"
@@ -74,18 +65,18 @@ export class LeavittPersonCompanySelectDemo extends LitElement {
                     ProfilePictureCdnFileName: 'zP6DJ9lM6HmkTAaku8ZIzQQdUBHYrX5pCCANvFxtpnagBhJPp7CGXOl-16xe',
                   } as never}
                   disabled
-                  .apiService=${this.apiService}
+                  .apiService=${api3UserService}
                 ></leavitt-person-company-select>
                 <leavitt-person-company-select
                   label="placeholder"
                   placeholder="placeholder text"
-                  .apiService=${this.apiService}
+                  .apiService=${api3UserService}
                 ></leavitt-person-company-select>
                 <leavitt-person-company-select
                   label="required"
                   required
                   validationMessage="required"
-                  .apiService=${this.apiService}
+                  .apiService=${api3UserService}
                 ></leavitt-person-company-select>
               </item-row>
             </div>
