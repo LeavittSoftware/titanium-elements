@@ -1,3 +1,4 @@
+import '@leavittsoftware/web/leavitt/service-worker-notifier/service-worker-notifier';
 import '@leavittsoftware/web/leavitt/app/app-logo';
 import '@leavittsoftware/web/titanium/search-input/filled-search-input';
 import '@leavittsoftware/web/titanium/toolbar/toolbar';
@@ -7,7 +8,6 @@ import '@leavittsoftware/web/titanium/drawer/drawer';
 import '@leavittsoftware/web/leavitt/profile-picture/profile-picture-menu';
 import '@leavittsoftware/web/leavitt/user-feedback/report-a-problem-dialog';
 import '@leavittsoftware/web/leavitt/user-feedback/provide-feedback-dialog';
-
 import '@leavittsoftware/web/leavitt/error-page/error-page';
 
 import '@material/web/icon/icon';
@@ -676,7 +676,6 @@ export class MyApp extends PendingStateCatcher(LitElement) {
       <provide-feedback-dialog .userManager=${UserManager}></provide-feedback-dialog>
 
       <titanium-confirm-dialog></titanium-confirm-dialog>
-      <titanium-snackbar-stack .eventListenerTarget=${document}></titanium-snackbar-stack>
-      <titanium-service-worker-notifier></titanium-service-worker-notifier>`;
+      <titanium-snackbar-stack .eventListenerTarget=${document}></titanium-snackbar-stack> `;
   }
 }

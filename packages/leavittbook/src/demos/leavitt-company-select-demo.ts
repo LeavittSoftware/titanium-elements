@@ -5,7 +5,6 @@ import '@leavittsoftware/web/leavitt/app/app-navigation-header';
 import '@leavittsoftware/web/leavitt/app/app-width-limiter';
 import '@api-viewer/docs';
 import '@material/web/button/filled-tonal-button';
-import '@leavittsoftware/web/leavitt/user-manager/user-manager';
 import '@leavittsoftware/web/leavitt/company-select/company-select';
 
 import { html, LitElement } from 'lit';

@@ -112,13 +112,15 @@
         line-height: 1.5;
         min-height: calc(100vh - 48px);
         -webkit-font-smoothing: antialiased;
-        background-color: var(--md-sys-color-background);
+        --app-background-color: var(--md-sys-color-surface-container-low);
+        background-color: var(--app-background-color);
         color: var(--md-sys-color-on-background);
       }
     </style>
   </head>
 
   <body>
+    <leavitt-service-worker-notifier></leavitt-service-worker-notifier>
     <my-app></my-app>
     <script type="module" src="./src/my-app.js"></script>
     <noscript> Please enable JavaScript to view this website. </noscript>

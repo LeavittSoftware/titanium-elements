@@ -5,7 +5,6 @@ import '@leavittsoftware/web/leavitt/app/app-navigation-header';
 import '@leavittsoftware/web/leavitt/app/app-width-limiter';
 import '@api-viewer/docs';
 import '@material/web/divider/divider';
-import '@leavittsoftware/web/leavitt/user-manager/user-manager';
 import '@leavittsoftware/web/leavitt/email-history-viewer/email-history-viewer';
 import '@leavittsoftware/web/leavitt/email-history-viewer/email-history-viewer-filled';
 

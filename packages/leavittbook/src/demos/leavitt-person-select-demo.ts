@@ -5,7 +5,6 @@ import '@leavittsoftware/web/leavitt/app/app-navigation-header';
 import '@leavittsoftware/web/leavitt/app/app-width-limiter';
 import '@api-viewer/docs';
 import '@material/web/button/filled-tonal-button';
-import '@leavittsoftware/web/leavitt/user-manager/user-manager';
 import '@leavittsoftware/web/leavitt/profile-picture/profile-picture';
 import '@leavittsoftware/web/leavitt/person-select/person-select';
 

@@ -7,7 +7,6 @@ import '@api-viewer/docs';
 import '@material/web/button/filled-tonal-button';
 import '@leavittsoftware/web/titanium/snackbar/snackbar-stack';
 import '@leavittsoftware/web/leavitt/user-feedback/user-feedback';
-import '@leavittsoftware/web/leavitt/user-manager/user-manager';
 import '@leavittsoftware/web/leavitt/user-feedback/report-a-problem-dialog';
 import '@leavittsoftware/web/leavitt/user-feedback/provide-feedback-dialog';
 

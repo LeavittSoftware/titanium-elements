@@ -6,7 +6,6 @@ import '@leavittsoftware/web/leavitt/app/app-width-limiter';
 import '@api-viewer/docs';
 import '@leavittsoftware/web/titanium/snackbar/snackbar-stack';
 import '@leavittsoftware/web/leavitt/file-explorer/file-explorer';
-import '@leavittsoftware/web/leavitt/user-manager/user-manager';
 
 import { html, LitElement } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
