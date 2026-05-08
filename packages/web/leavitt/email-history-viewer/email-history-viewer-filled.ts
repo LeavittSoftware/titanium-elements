@@ -185,7 +185,7 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
         getSortExpression: () => 'IsTestMessage',
         render: (item) => html`<div>${item.IsTestMessage ? 'Yes' : 'No'}</div>`,
         csvValue: (item) => (item.IsTestMessage ? 'Yes' : 'No'),
-        width: '50px'
+        width: '50px',
       });
     }
   }

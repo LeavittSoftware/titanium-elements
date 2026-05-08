@@ -183,9 +183,10 @@ export default class LeavittEmailHistoryViewer extends LoadWhile(LitElement) {
       const result = await get;
       this.resultTotal = result.odataCount;
       this.logs = result.toList();
-      this.#isDirty = false;
     } catch (error) {
       this.dispatchEvent(new ShowSnackbarEvent(error));
+    } finally {
+      this.#isDirty = false;
     }
   }
 
