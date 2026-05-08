@@ -30,7 +30,9 @@ export class LeavittEmailHistoryViewerDemo extends ThemePreference(LitElement) {
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    api3UserService.addHeader('X-LGAppName', 'Testing');
+    if (api3UserService.headers['X-LGAppName'] === 'EducationAdminV2') {
+      api3UserService.addHeader('X-LGAppName', 'Testing');
+    }
   }
   static styles = [
     StoryStyles,
