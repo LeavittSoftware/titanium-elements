@@ -53,7 +53,7 @@ export default {
       globDirectory: path.join('dist'),
       // cache any html js and css by default
       globPatterns: ['**/*.{html,js,css,webmanifest}'],
-      skipWaiting: true,
+      skipWaiting: false,
       cleanupOutdatedCaches: true,
       clientsClaim: true,
       runtimeCaching: [{ urlPattern: 'polyfills/*.js', handler: 'CacheFirst' }],
