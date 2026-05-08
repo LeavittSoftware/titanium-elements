@@ -9,29 +9,31 @@ import '@leavittsoftware/web/leavitt/email-history-viewer/email-history-viewer';
 import '@leavittsoftware/web/leavitt/email-history-viewer/email-history-viewer-filled';
 
 import { css, html, LitElement } from 'lit';
-import { customElement, query, state } from 'lit/decorators.js';
+import { customElement, query } from 'lit/decorators.js';
 import { ThemePreference } from '@leavittsoftware/web/leavitt/theme/theme-preference';
 
-import ApiService from '@leavittsoftware/web/leavitt/api-service/api-service';
 import LeavittEmailHistoryViewer from '@leavittsoftware/web/leavitt/email-history-viewer/email-history-viewer';
 import LeavittEmailHistoryViewerFilled from '@leavittsoftware/web/leavitt/email-history-viewer/email-history-viewer-filled';
-import UserManager from '../services/user-manager-service';
 import StoryStyles from '../styles/story-styles';
 import { siteSearchTextFieldContext } from '../contexts/site-search-text-field-context';
+import api3UserService from '../services/api3-user-service';
 
 @customElement('leavitt-email-history-viewer-demo')
 export class LeavittEmailHistoryViewerDemo extends ThemePreference(LitElement) {
-  @state() private accessor apiService: ApiService;
   @query('leavitt-email-history-viewer') protected accessor demo1!: LeavittEmailHistoryViewer;
   @query('leavitt-email-history-viewer-filled') protected accessor demo2!: LeavittEmailHistoryViewerFilled;
 
-  constructor() {
-    super();
-    this.apiService = new ApiService(UserManager);
-    this.apiService.baseUrl = 'https://devapi3.leavitt.com/';
-    this.apiService.addHeader('X-LGAppName', 'EducationAdminV2');
+  connectedCallback() {
+    super.connectedCallback();
+    api3UserService.addHeader('X-LGAppName', 'EducationAdminV2');
   }
 
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    if (api3UserService.headers['X-LGAppName'] === 'EducationAdminV2') {
+      api3UserService.addHeader('X-LGAppName', 'Testing');
+    }
+  }
   static styles = [
     StoryStyles,
     css`
@@ -58,7 +60,7 @@ export class LeavittEmailHistoryViewerDemo extends ThemePreference(LitElement) {
                 <leavitt-email-history-viewer-filled
                   isActive
                   .siteSearchTextFieldContext=${siteSearchTextFieldContext}
-                  .apiService=${this.apiService}
+                  .apiService=${api3UserService}
                   .path=${'/leavitt-email-history-viewer'}
                 ></leavitt-email-history-viewer-filled>
               </div>
@@ -72,7 +74,7 @@ export class LeavittEmailHistoryViewerDemo extends ThemePreference(LitElement) {
             <div>
               <h1>Outlined</h1>
               <div row>
-                <leavitt-email-history-viewer isActive .apiService=${this.apiService} .path=${'/leavitt-email-history-viewer'}></leavitt-email-history-viewer>
+                <leavitt-email-history-viewer isActive .apiService=${api3UserService} .path=${'/leavitt-email-history-viewer'}></leavitt-email-history-viewer>
               </div>
             </div>
 

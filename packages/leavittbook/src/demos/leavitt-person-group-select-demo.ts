@@ -8,24 +8,15 @@ import '@material/web/button/filled-tonal-button';
 import '@leavittsoftware/web/leavitt/person-group-select/person-group-select';
 
 import { html, LitElement } from 'lit';
-import { customElement, query, state } from 'lit/decorators.js';
+import { customElement, query } from 'lit/decorators.js';
 import { LeavittPersonGroupSelect } from '@leavittsoftware/web/leavitt/person-group-select/person-group-select';
 
-import ApiService from '@leavittsoftware/web/leavitt/api-service/api-service';
-import UserManager from '../services/user-manager-service';
 import StoryStyles from '../styles/story-styles';
+import api3UserService from '../services/api3-user-service';
 
 @customElement('leavitt-person-group-select-demo')
 export class LeavittPersonGroupSelectDemo extends LitElement {
-  @state() private accessor apiService: ApiService;
   @query('leavitt-person-group-select[methods-demo]') protected accessor methodsSelect!: LeavittPersonGroupSelect;
-
-  constructor() {
-    super();
-    this.apiService = new ApiService(UserManager);
-    this.apiService.baseUrl = 'https://devapi3.leavitt.com/';
-    this.apiService.addHeader('X-LGAppName', 'Testing');
-  }
 
   static styles = [StoryStyles];
 
@@ -42,8 +33,8 @@ export class LeavittPersonGroupSelectDemo extends LitElement {
             <div>
               <h1>Default</h1>
               <item-row>
-                <leavitt-person-group-select label="default" .apiService=${this.apiService}></leavitt-person-group-select>
-                <leavitt-person-group-select label="shaped" shaped .apiService=${this.apiService}></leavitt-person-group-select>
+                <leavitt-person-group-select label="default" .apiService=${api3UserService}></leavitt-person-group-select>
+                <leavitt-person-group-select label="shaped" shaped .apiService=${api3UserService}></leavitt-person-group-select>
                 <leavitt-person-group-select
                   label="pre-selected"
                   .selected=${{
@@ -51,7 +42,7 @@ export class LeavittPersonGroupSelectDemo extends LitElement {
                     Id: 22,
                     type: 'PeopleGroup',
                   } as never}
-                  .apiService=${this.apiService}
+                  .apiService=${api3UserService}
                 ></leavitt-person-group-select>
                 <leavitt-person-group-select
                   label="disabled pre-selected"
@@ -62,14 +53,14 @@ export class LeavittPersonGroupSelectDemo extends LitElement {
                     type: 'Person',
                   } as never}
                   disabled
-                  .apiService=${this.apiService}
+                  .apiService=${api3UserService}
                 ></leavitt-person-group-select>
-                <leavitt-person-group-select label="placeholder" placeholder="placeholder text" .apiService=${this.apiService}></leavitt-person-group-select>
+                <leavitt-person-group-select label="placeholder" placeholder="placeholder text" .apiService=${api3UserService}></leavitt-person-group-select>
                 <leavitt-person-group-select
                   label="required"
                   required
                   validationMessage="required"
-                  .apiService=${this.apiService}
+                  .apiService=${api3UserService}
                 ></leavitt-person-group-select>
               </item-row>
             </div>
@@ -77,7 +68,7 @@ export class LeavittPersonGroupSelectDemo extends LitElement {
             <div>
               <h1>Methods</h1>
               <item-row>
-                <leavitt-person-group-select methods-demo required .apiService=${this.apiService}></leavitt-person-group-select>
+                <leavitt-person-group-select methods-demo required .apiService=${api3UserService}></leavitt-person-group-select>
               </item-row>
               <section buttons>
                 <md-filled-tonal-button @click=${() => this.methodsSelect.reset()}>reset()</md-filled-tonal-button>

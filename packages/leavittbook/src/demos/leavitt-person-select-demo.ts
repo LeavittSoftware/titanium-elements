@@ -9,25 +9,16 @@ import '@leavittsoftware/web/leavitt/profile-picture/profile-picture';
 import '@leavittsoftware/web/leavitt/person-select/person-select';
 
 import { html, LitElement } from 'lit';
-import { customElement, query, state } from 'lit/decorators.js';
+import { customElement, query } from 'lit/decorators.js';
 import { LeavittPersonSelect } from '@leavittsoftware/web/leavitt/person-select/person-select';
 import { Person } from '@leavittsoftware/lg-core-typescript';
 
-import ApiService from '@leavittsoftware/web/leavitt/api-service/api-service';
-import UserManager from '../services/user-manager-service';
 import StoryStyles from '../styles/story-styles';
+import api3UserService from '../services/api3-user-service';
 
 @customElement('leavitt-person-select-demo')
 export class LeavittPersonSelectDemo extends LitElement {
-  @state() private accessor apiService: ApiService;
   @query('leavitt-person-select[methods-demo]') protected accessor methodsSelect!: LeavittPersonSelect;
-
-  constructor() {
-    super();
-    this.apiService = new ApiService(UserManager);
-    this.apiService.baseUrl = 'https://devapi3.leavitt.com/';
-    this.apiService.addHeader('X-LGAppName', 'Testing');
-  }
 
   static styles = [StoryStyles];
 
@@ -42,7 +33,7 @@ export class LeavittPersonSelectDemo extends LitElement {
 
             <div>
               <h1>Methods</h1>
-              <leavitt-person-select required methods-demo .apiService=${this.apiService}></leavitt-person-select>
+              <leavitt-person-select required methods-demo .apiService=${api3UserService}></leavitt-person-select>
               <section buttons>
                 <md-filled-tonal-button @click=${() => this.methodsSelect.reset()}>reset()</md-filled-tonal-button>
                 <md-filled-tonal-button @click=${() => this.methodsSelect.focus()}>focus()</md-filled-tonal-button>
@@ -66,7 +57,7 @@ export class LeavittPersonSelectDemo extends LitElement {
                   'count=true',
                 ]}
                 enable-people-preloading
-                .apiService=${this.apiService}
+                .apiService=${api3UserService}
               ></leavitt-person-select>
             </div>
 
@@ -127,7 +118,7 @@ export class LeavittPersonSelectDemo extends LitElement {
             <div>
               <h1>Attributes</h1>
               <item-row>
-                <leavitt-person-select label="default" .apiService=${this.apiService}></leavitt-person-select>
+                <leavitt-person-select label="default" .apiService=${api3UserService}></leavitt-person-select>
 
                 <leavitt-person-select
                   label="prefilled"
@@ -137,15 +128,15 @@ export class LeavittPersonSelectDemo extends LitElement {
                     CompanyName: 'Leavitt Software Solutions',
                     ProfilePictureCdnFileName: 'zP6DJ9lM6HmkTAaku8ZIzQQdUBHYrX5pCCANvFxtpnagBhJPp7CGXOl-16xe',
                   } as never}
-                  .apiService=${this.apiService}
+                  .apiService=${api3UserService}
                 ></leavitt-person-select>
 
-                <leavitt-person-select label="shaped" shaped .apiService=${this.apiService}></leavitt-person-select>
-                <leavitt-person-select label="placeholder" placeholder="My placeholder" .apiService=${this.apiService}></leavitt-person-select>
-                <leavitt-person-select label="Supporting text" supportingText="supporting text" .apiService=${this.apiService}></leavitt-person-select>
-                <leavitt-person-select label="required" required validationMessage="required" .apiService=${this.apiService}></leavitt-person-select>
-                <leavitt-person-select label="disabled" disabled .apiService=${this.apiService}></leavitt-person-select>
-                <leavitt-person-select label="Suffix text" suffixText="Admin" .apiService=${this.apiService}></leavitt-person-select>
+                <leavitt-person-select label="shaped" shaped .apiService=${api3UserService}></leavitt-person-select>
+                <leavitt-person-select label="placeholder" placeholder="My placeholder" .apiService=${api3UserService}></leavitt-person-select>
+                <leavitt-person-select label="Supporting text" supportingText="supporting text" .apiService=${api3UserService}></leavitt-person-select>
+                <leavitt-person-select label="required" required validationMessage="required" .apiService=${api3UserService}></leavitt-person-select>
+                <leavitt-person-select label="disabled" disabled .apiService=${api3UserService}></leavitt-person-select>
+                <leavitt-person-select label="Suffix text" suffixText="Admin" .apiService=${api3UserService}></leavitt-person-select>
               </item-row>
             </div>
 

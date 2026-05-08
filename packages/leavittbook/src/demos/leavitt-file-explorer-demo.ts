@@ -8,21 +8,23 @@ import '@leavittsoftware/web/titanium/snackbar/snackbar-stack';
 import '@leavittsoftware/web/leavitt/file-explorer/file-explorer';
 
 import { html, LitElement } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
-import ApiService from '@leavittsoftware/web/leavitt/api-service/api-service';
-import UserManager from '../services/user-manager-service';
+import { customElement } from 'lit/decorators.js';
 
 import StoryStyles from '../styles/story-styles';
+import api3UserService from '../services/api3-user-service';
 
 @customElement('leavitt-file-explorer-demo')
 export class LeavittFileExplorerDemo extends LitElement {
-  @state() private accessor fileExplorerApiService: ApiService;
+  connectedCallback() {
+    super.connectedCallback();
+    api3UserService.addHeader('X-LGAppName', 'FileExplorer');
+  }
 
-  constructor() {
-    super();
-    this.fileExplorerApiService = new ApiService(UserManager);
-    this.fileExplorerApiService.baseUrl = 'https://devapi3.leavitt.com/';
-    this.fileExplorerApiService.addHeader('X-LGAppName', 'FileExplorer');
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    if (api3UserService.headers['X-LGAppName'] === 'FileExplorer') {
+      api3UserService.addHeader('X-LGAppName', 'Testing');
+    }
   }
 
   static styles = [StoryStyles];
@@ -39,7 +41,7 @@ export class LeavittFileExplorerDemo extends LitElement {
             <div>
               <h1>File Explorer</h1>
               <p>File explorer component with API integration</p>
-              <leavitt-file-explorer file-explorer-id="1" .apiService=${this.fileExplorerApiService}></leavitt-file-explorer>
+              <leavitt-file-explorer file-explorer-id="1" .apiService=${api3UserService}></leavitt-file-explorer>
             </div>
 
             <api-docs src="./custom-elements.json" selected="leavitt-file-explorer"></api-docs>
