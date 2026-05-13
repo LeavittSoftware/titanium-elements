@@ -1,0 +1,1 @@
+import{N as t,U as a,B as s}from"./BwDOgaCl.js";const e=new t(a);e.baseUrl=s?"https://devapi3.leavitt.com/":"https://api3.leavitt.com/",e.addHeader("X-LGAppName","Testing"),Object.freeze(e);export{e as a};
