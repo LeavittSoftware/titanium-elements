@@ -53,6 +53,7 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
   @property({ type: Object }) public accessor apiService: ApiService | null;
   @property({ type: String }) public accessor path: string;
   @property({ type: Object }) public accessor siteSearchTextFieldContext: TitaniumTextFieldSearchContext;
+  @property({ type: String }) accessor apiControllerName: string = 'EmailTemplateLogs';
 
   /**
    * @deprecated use the siteSearchTextFieldController + siteSearchTextFieldContext instead
@@ -149,7 +150,7 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
   }
 
   async updated(changedProps: PropertyValues<this>) {
-    if (this.isActive && changedProps.has('isActive')) {
+    if (this.isActive && (changedProps.has('isActive') || changedProps.has('apiControllerName'))) {
       await this.mainContentContainer?.updateComplete;
       this.#reload();
     }
@@ -268,7 +269,7 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
         throw new Error('No api service provided');
       }
 
-      const get = this.apiService?.getAsync<ItemType>(`EmailTemplateLogs/?${odataParts.join('&')}`);
+      const get = this.apiService?.getAsync<ItemType>(`${this.apiControllerName}/?${odataParts.join('&')}`);
       this.loadWhile(get);
       this.dataTable.loadWhile(get);
       this.dispatchEvent(new PendingStateEvent(get));
