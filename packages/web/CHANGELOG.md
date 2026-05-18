@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.3.0...@leavittsoftware/web@9.4.0) (2026-05-18)
+
+
+### Features
+
+* **helpers:** add [@promise](https://github.com/promise)Tracking decorator ([#734](https://github.com/LeavittSoftware/titanium-elements/issues/734)) ([28228eb](https://github.com/LeavittSoftware/titanium-elements/commit/28228ebf4c65cd89ef80aad34d122ed026757698))
+
+
+
+
+
 # [9.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.2.1...@leavittsoftware/web@9.3.0) (2026-05-13)
 
 
