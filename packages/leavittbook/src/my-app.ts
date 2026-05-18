@@ -175,6 +175,9 @@ export class MyApp extends PendingStateCatcher(LitElement) {
     page('/titanium-input-validator', () => this.#changePage('titanium-input-validator', () => import('./demos/titanium-input-validator-demo.js')));
     page('/titanium-data-table-header', () => this.#changePage('titanium-data-table-header', () => import('./demos/titanium-data-table-header-demo.js')));
     page('/titanium-data-table-core', () => this.#changePage('titanium-data-table-core', () => import('./demos/titanium-data-table-core-demo.js')));
+    page('/titanium-promise-tracking', () =>
+      this.#changePage('titanium-promise-tracking', () => import('./demos/titanium-promise-tracking-demo.js'))
+    );
 
     page('/titanium-full-page-loading-indicator', () =>
       this.#changePage('titanium-full-page-loading-indicator', () => import('./demos/titanium-full-page-loading-indicator-demo.js'))
@@ -444,6 +447,10 @@ export class MyApp extends PendingStateCatcher(LitElement) {
             <md-icon slot="start">groups</md-icon> <span>Profile picture stack</span>
           </md-list-item>
 
+          <md-list-item ?selected=${this.page === 'titanium-promise-tracking'} href="/titanium-promise-tracking" type="link">
+            <md-icon slot="start">hourglass_top</md-icon> <span>Promise tracking</span>
+          </md-list-item>
+
           <md-list-item ?selected=${!!this.page?.includes('titanium-search-input')} href="/titanium-search-input" type="link">
             <md-icon slot="start">search</md-icon> <span>Search input </span>
           </md-list-item>
@@ -583,6 +590,11 @@ export class MyApp extends PendingStateCatcher(LitElement) {
           : nothing}
         ${this.page === 'titanium-data-table-core'
           ? html` <titanium-data-table-core-demo large ?isActive=${this.page === 'titanium-data-table-core'}></titanium-data-table-core-demo> `
+          : nothing}
+        ${this.page === 'titanium-promise-tracking'
+          ? html`
+              <titanium-promise-tracking-demo large ?isActive=${this.page === 'titanium-promise-tracking'}></titanium-promise-tracking-demo>
+            `
           : nothing}
         ${this.page === 'titanium-data-table-header'
           ? html` <titanium-data-table-header-demo large ?isActive=${this.page === 'titanium-data-table-header'}></titanium-data-table-header-demo> `
