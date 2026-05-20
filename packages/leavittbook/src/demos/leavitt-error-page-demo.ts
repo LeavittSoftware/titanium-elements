@@ -12,8 +12,6 @@ import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import StoryStyles from '../styles/story-styles';
-import { a } from '@leavittsoftware/web/titanium/styles/a';
-import { p } from '@leavittsoftware/web/titanium/styles/p';
 
 @customElement('leavitt-error-page-demo')
 export class LeavittErrorPageDemo extends LitElement {
@@ -44,11 +42,7 @@ export class LeavittErrorPageDemo extends LitElement {
               <md-divider></md-divider>
               <leavitt-error-page
                 .heading=${html`Page not found`}
-                .message=${html` <style>
-                    ${p}
-                    ${a}
-                  </style>
-                  <p>The page you requested could not be found. <a href="/">Return home</a> or <a href="mailto:support@leavitt.com">contact support</a>.</p>`}
+                .message=${html`The page you requested could not be found. <a style="color: var(--md-sys-color-primary)" href="/">Return home</a> or <a style="color: var(--md-sys-color-primary)" href="mailto:support@leavitt.com">contact support</a>.`}
               ></leavitt-error-page>
             </div>
 
