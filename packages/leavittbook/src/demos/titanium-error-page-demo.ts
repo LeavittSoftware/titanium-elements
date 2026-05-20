@@ -11,6 +11,8 @@ import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import StoryStyles from '../styles/story-styles';
+import { a } from '@leavittsoftware/web/titanium/styles/a';
+import { p } from '@leavittsoftware/web/titanium/styles/p';
 
 @customElement('titanium-error-page-demo')
 export class TitaniumErrorPageDemo extends LitElement {
@@ -26,6 +28,14 @@ export class TitaniumErrorPageDemo extends LitElement {
             <div>
               <h1>Default</h1>
               <titanium-error-page message="You can customize this message"></titanium-error-page>
+              <h1>TemplateResult message</h1>
+              <titanium-error-page
+                .message=${html` <style>
+                    ${p}
+                    ${a}
+                  </style>
+                  <p>We couldn't find that page. <a href="/">Go back home</a> or <a href="mailto:support@leavitt.com">contact support</a>.</p>`}
+              ></titanium-error-page>
             </div>
             <api-docs src="./custom-elements.json" selected="titanium-error-page"></api-docs>
           </leavitt-app-width-limiter>
