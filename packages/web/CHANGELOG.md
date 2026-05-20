@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.4.0...@leavittsoftware/web@9.5.0) (2026-05-20)
+
+
+### Features
+
+* **error-page:** accept string | TemplateResult for heading and message ([#736](https://github.com/LeavittSoftware/titanium-elements/issues/736)) ([2fc5e40](https://github.com/LeavittSoftware/titanium-elements/commit/2fc5e403c06fab9e636dfa44504dcfed21dd781f))
+
+
+
+
+
 # [9.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.3.0...@leavittsoftware/web@9.4.0) (2026-05-18)
 
 
