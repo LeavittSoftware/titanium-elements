@@ -39,6 +39,11 @@ export class LeavittErrorPageDemo extends LitElement {
               <leavitt-error-page heading="Sorry!" message="It looks like you don't have access to this area."
                 ><md-icon slot="icon">lock</md-icon></leavitt-error-page
               >
+              <md-divider></md-divider>
+              <leavitt-error-page
+                .heading=${html`Page not found`}
+                .message=${html`The page you requested could not be found. <a style="color: var(--md-sys-color-primary)" href="/">Return home</a> or <a style="color: var(--md-sys-color-primary)" href="mailto:support@leavitt.com">contact support</a>.`}
+              ></leavitt-error-page>
             </div>
 
             <api-docs src="./custom-elements.json" selected="leavitt-error-page"></api-docs>

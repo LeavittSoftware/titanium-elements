@@ -1,4 +1,4 @@
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, TemplateResult } from 'lit';
 import { property, customElement, query } from 'lit/decorators.js';
 
 import '../app/app-main-content-container';
@@ -21,8 +21,8 @@ export class LeavittErrorPage extends ThemePreference(LitElement) {
   /**
    * Reason text for the error
    */
-  @property({ type: String }) accessor heading: string = 'Hmm...';
-  @property({ type: String }) accessor message: string = "It looks like that page doesn't exist.";
+  @property() accessor heading: string | TemplateResult<1> = 'Hmm...';
+  @property() accessor message: string | TemplateResult<1> = "It looks like that page doesn't exist.";
 
   @query('div[particles]') private accessor particlesContainer: HTMLDivElement;
 
