@@ -83,8 +83,6 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
     const fuse = new Fuse(entities, options as any);
     const fuseResults = fuse.search(searchTerm).slice(0, 20);
 
-    console.log(fuseResults);
-
     this.showSuggestions(fuseResults.map((o) => o.item) ?? [], odataCount ?? 0);
   }
 
