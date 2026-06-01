@@ -1,7 +1,12 @@
 /**
  * Decorates a reactive boolean accessor so that calling the generated method
  * sets the property to `true` while the supplied promise is pending, and
- * back to `false` once it resolves or rejects. Re-throws errors.
+ * back to `false` once it resolves or rejects.
+ *
+ * Errors are caught so the caller's `await` never rejects (execution is not
+ * halted at the call site), but the error is forwarded to the global
+ * `unhandledrejection` handler so it still surfaces in the console / error
+ * reporting tools and isn't silently swallowed.
  *
  * Reentrancy: if the method is called multiple times concurrently, the
  * property only flips back to `false` after ALL outstanding promises settle.
@@ -32,6 +37,11 @@ export function promiseTracking(methodName: string) {
         this[propertyKey] = true;
         try {
           await promise;
+        } catch (err) {
+          // Forward as an unhandled rejection so window.onunhandledrejection
+          // and dev tools surface it, but don't reject this method's promise
+          // (so callers' awaits don't throw and stop execution).
+          Promise.reject(err);
         } finally {
           this[counterKey]--;
           if (this[counterKey] === 0) {
