@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.5.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.5.0...@leavittsoftware/web@9.5.1) (2026-06-01)
+
+
+### Bug Fixes
+
+* **helpers:** forward promiseTracking errors without halting callers ([85533a2](https://github.com/LeavittSoftware/titanium-elements/commit/85533a2923fa5430eb65615a6361cd7d3b9012cc))
+* remove console log ([a69eecb](https://github.com/LeavittSoftware/titanium-elements/commit/a69eecb533b1c4157435217e2e99a0aa3f07f215))
+
+
+
+
+
 # [9.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.4.0...@leavittsoftware/web@9.5.0) (2026-05-20)
 
 
