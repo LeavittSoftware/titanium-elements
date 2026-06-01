@@ -26,6 +26,10 @@ export class TitaniumErrorPageDemo extends LitElement {
             <div>
               <h1>Default</h1>
               <titanium-error-page message="You can customize this message"></titanium-error-page>
+              <h1>TemplateResult message</h1>
+              <titanium-error-page
+                .message=${html`We couldn't find that page. <a style="color: var(--md-sys-color-primary)" href="/">Go back home</a> or <a style="color: var(--md-sys-color-primary)" href="mailto:support@leavitt.com">contact support</a>.`}
+              ></titanium-error-page>
             </div>
             <api-docs src="./custom-elements.json" selected="titanium-error-page"></api-docs>
           </leavitt-app-width-limiter>

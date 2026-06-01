@@ -1,4 +1,4 @@
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, TemplateResult } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
 
 /**
@@ -13,7 +13,7 @@ export class TitaniumErrorPage extends LitElement {
   /**
    * Reason text for the error
    */
-  @property({ type: String }) accessor message: string = 'We were unable to find the page you are looking for...';
+  @property() accessor message: string | TemplateResult<1> = 'We were unable to find the page you are looking for...';
 
   static styles = css`
     :host {
