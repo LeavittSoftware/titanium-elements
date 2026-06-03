@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.5.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.5.1...@leavittsoftware/web@9.5.2) (2026-06-03)
+
+
+### Bug Fixes
+
+* shrink drawer footer gap a bit to prevent line-break when 3-items ([cc70baa](https://github.com/LeavittSoftware/titanium-elements/commit/cc70baad0386e97465c88f114ee1a79787e95db1))
+
+
+
+
+
 ## [9.5.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.5.0...@leavittsoftware/web@9.5.1) (2026-06-01)
 
 
