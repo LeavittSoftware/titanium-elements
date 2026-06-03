@@ -269,7 +269,7 @@ export class TitaniumDrawer extends LitElement {
       display: flex;
       flex-direction: row;
       padding: 8px 24px;
-      gap: 24px;
+      gap: 20px;
     }
 
     footer ::slotted(a) {
