@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [9.6.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.6.0...@leavittsoftware/web@9.6.1) (2026-06-17)
+
+
+### Bug Fixes
+
+* broaden abort error check to suppress native browser abort messages ([#738](https://github.com/LeavittSoftware/titanium-elements/issues/738)) ([f5151ed](https://github.com/LeavittSoftware/titanium-elements/commit/f5151ed4fd96494d66c66fc5cb12bceb16846ba2))
+
+
+
+
+
 # [9.6.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.5.2...@leavittsoftware/web@9.6.0) (2026-06-17)
 
 
