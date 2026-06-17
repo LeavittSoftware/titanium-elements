@@ -12,8 +12,19 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
   #clientId: string = 'VNreSE4Z8HsMaUfc1yRGgZQv9EN2quOS';
   #tokenUri: string = 'https://auth.leavitt.com/oauth/token';
   #issuerIdentifier: string = 'https://auth.leavitt.com/';
-  #audience: string = `https://${isDevelopment ? 'dev' : ''}api3.leavitt.com`;
+  #apiVersion: 'api3' | 'api4' = 'api3';
   #scopes: string[] = ['openid', 'profile', 'email', 'offline_access'];
+
+  get #audience() {
+    return `https://${isDevelopment ? 'dev' : ''}${this.#apiVersion}.leavitt.com`;
+  }
+
+  public get apiVersion() {
+    return this.#apiVersion;
+  }
+  public set apiVersion(val: 'api3' | 'api4') {
+    this.#apiVersion = val;
+  }
 
   #isInitialized: boolean = false;
   #unrecoverableError: boolean = false;
