@@ -146,7 +146,7 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
         const result = await get;
         this.showSuggestions(result?.entities ?? [], result?.odataCount ?? 0);
       } catch (error) {
-        if (!error?.message?.includes('Abort error')) {
+        if (error?.name !== 'AbortError' && !error?.message?.includes('Abort error')) {
           this.dispatchEvent(new ShowSnackbarEvent(error));
         }
       }
