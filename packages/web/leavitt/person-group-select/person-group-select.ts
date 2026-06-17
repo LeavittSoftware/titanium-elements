@@ -107,7 +107,7 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
       results?.entities.forEach((p) => (p.type = 'Person'));
       return results;
     } catch (error) {
-      if (!error?.message?.toLowerCase().includes('abort')) {
+      if (error?.name !== 'AbortError' && !error?.message?.includes('Abort error')) {
         this.dispatchEvent(new ShowSnackbarEvent(error));
       }
     }
@@ -138,7 +138,7 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
       results?.entities.forEach((p) => (p.type = 'PeopleGroup'));
       return results;
     } catch (error) {
-      if (!error?.message?.toLowerCase().includes('abort')) {
+      if (error?.name !== 'AbortError' && !error?.message?.includes('Abort error')) {
         this.dispatchEvent(new ShowSnackbarEvent(error));
       }
     }

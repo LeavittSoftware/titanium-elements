@@ -131,7 +131,7 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
       this.showSuggestions(results, results.length);
       return;
     } catch (error) {
-      if (!error?.message?.toLowerCase().includes('abort')) {
+      if (error?.name !== 'AbortError' && !error?.message?.includes('Abort error')) {
         this.dispatchEvent(new ShowSnackbarEvent(error));
       }
     }
