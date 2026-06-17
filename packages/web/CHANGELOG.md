@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.6.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.5.2...@leavittsoftware/web@9.6.0) (2026-06-17)
+
+
+### Features
+
+* **user-manager:** add apiVersion selector for Auth0 audience ([44c2ec6](https://github.com/LeavittSoftware/titanium-elements/commit/44c2ec6409f60ca649434d94d722a959f2aec6f5))
+
+
+
+
+
 ## [9.5.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.5.1...@leavittsoftware/web@9.5.2) (2026-06-03)
 
 
