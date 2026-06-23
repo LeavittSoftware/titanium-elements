@@ -244,7 +244,9 @@ export class TitaniumDataTableCoreDemo extends LitElement {
         key: 'Appearance',
         friendlyName: 'Appearance',
         getSortExpression: () => 'Appearance',
-        render: (item) => html`${item.Appearance}`,
+        render: (item) =>
+          item.Appearance ? html`<div indicator ?green=${item.Appearance === 'Plaid'} ?red=${item.Appearance === 'Ugly'}>${item.Appearance}</div>` : html`-`,
+        csvValue: (item) => item.Appearance ?? '',
         width: '250px',
         defaultSort: {
           direction: 'desc',
