@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.9.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.8.0...@leavittsoftware/web@9.9.0) (2026-06-23)
+
+
+### Features
+
+* **site-search:** accept disabled in constructor options ([94c18d9](https://github.com/LeavittSoftware/titanium-elements/commit/94c18d9e8923ecb67ca6b4e287a3b012dd6d49a4))
+
+
+
+
+
 # [9.8.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.7.0...@leavittsoftware/web@9.8.0) (2026-06-23)
 
 
