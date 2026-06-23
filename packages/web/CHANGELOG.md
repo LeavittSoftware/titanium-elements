@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.8.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.7.0...@leavittsoftware/web@9.8.0) (2026-06-23)
+
+
+### Features
+
+* **site-search:** add disabled property to TitaniumSiteSearchTextFieldController ([fede8d2](https://github.com/LeavittSoftware/titanium-elements/commit/fede8d28bf99f596d3a784e9b9680ac8316a901e))
+
+
+
+
+
 # [9.7.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.6.1...@leavittsoftware/web@9.7.0) (2026-06-23)
 
 
