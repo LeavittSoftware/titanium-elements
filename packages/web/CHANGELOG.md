@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.7.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.6.1...@leavittsoftware/web@9.7.0) (2026-06-23)
+
+
+### Features
+
+* **data-table:** add indicator content styles and demo ([1a02b72](https://github.com/LeavittSoftware/titanium-elements/commit/1a02b7225baba8efd190cd7c42ce20cd45f32798))
+
+
+
+
+
 ## [9.6.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.6.0...@leavittsoftware/web@9.6.1) (2026-06-17)
 
 
