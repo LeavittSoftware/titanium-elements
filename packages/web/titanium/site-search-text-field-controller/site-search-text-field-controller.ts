@@ -36,8 +36,23 @@ export class TitaniumSiteSearchTextFieldController implements ReactiveController
   #wasActive = false;
   #listenerCleanup: AbortController | null = null;
 
+  #disabled = false;
+
   /** Current value of the search text field. Read this in your data-fetching method to apply the search filter. */
   searchTerm = '';
+
+  /** When `true`, the shared text field is disabled. Each page's controller has its own value (default `false`);
+   *  the active page's value wins because `#activate()` syncs it to the text field on every page transition. */
+  get disabled() {
+    return this.#disabled;
+  }
+
+  set disabled(value: boolean) {
+    this.#disabled = value;
+    if (this.#textField) {
+      this.#textField.disabled = value;
+    }
+  }
 
   /**
    * @param host - The page element that owns this controller. Must satisfy {@link PageElement}.
@@ -94,6 +109,7 @@ export class TitaniumSiteSearchTextFieldController implements ReactiveController
     this.#textField.addEventListener('input', this.#handleInput, { signal: this.#listenerCleanup.signal });
     this.#textField.value = this.searchTerm;
     this.#textField.placeholder = this.#placeholder;
+    this.#textField.disabled = this.#disabled;
   }
 
   #detachListener() {
