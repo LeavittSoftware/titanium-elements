@@ -60,18 +60,21 @@ export class TitaniumSiteSearchTextFieldController implements ReactiveController
    * @param options.placeholder - Placeholder text shown in the shared search text field when this page is active.
    * @param options.onSearch - Called when the user types. Handle page resets and data reloads here.
    * @param options.debounceDelay - Debounce interval in ms. Omit to use the default delay. Set to `0` to fire `onSearch` immediately on every keystroke.
+   * @param options.disabled - Initial disabled state. Defaults to `false`.
    */
   constructor(
     host: SiteSearchHost,
     context: TitaniumTextFieldSearchContext,
     options: {
       debounceDelay?: number;
+      disabled?: boolean;
       placeholder: string;
       onSearch: () => Promise<void>;
     }
   ) {
     this.#host = host;
     this.#placeholder = options.placeholder;
+    this.#disabled = options.disabled ?? false;
 
     if (options.debounceDelay !== 0) {
       const debouncer = new Debouncer<void, never>(() => {
