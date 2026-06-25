@@ -3,6 +3,87 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.9.0...@leavittsoftware/web@10.0.0) (2026-06-25)
+
+
+* v10  (#739) ([a7273e4](https://github.com/LeavittSoftware/titanium-elements/commit/a7273e45eab8b1aec4ba8e001a16664ebab632b6)), closes [#739](https://github.com/LeavittSoftware/titanium-elements/issues/739)
+
+
+### BREAKING CHANGES
+
+* Removes legacy titanium/leavitt components and migrates
+async loading from the LoadWhile mixin to @promiseTracking.
+
+Removed components include titanium-card, titanium-header, titanium-error-page,
+titanium-confirm-dialog, titanium-access-denied-page, legacy data-table
+(data-table, data-table-item, data-table-header), leavitt-user-feedback,
+legacy email-history-viewer, and unqualified/outlined duration, validator,
+search, and youtube inputs (filled variants only).
+
+LoadWhile and loadWhile() are removed; use @promiseTracking with
+trackLoadingPromise() and isLoading instead. TitaniumDataTableCore.loadWhile
+is now trackLoadingPromise.
+
+Leavittbook demos, routes, and shell updated; file-explorer uses
+titanium-confirmation-dialog.
+
+* refactor!: make filled the only variant for dual-style titanium components
+* Removes the illed attribute from date-input, date-range-selector,
+single-select-base (and subclasses), page-control, show-hide, smart-attachment-input,
+chip-multi-select, chip, and manual-address-dialog. Outlined Material styling is no
+longer supported; components always render filled controls. Deletes extendable-outlined-text-field.
+
+* docs: add CLAUDE.md files for agents and contributors.
+
+Add repo-level monorepo guide and comprehensive @leavittsoftware/web component reference for consuming agents, and ship CLAUDE.md with the npm package.
+
+* chore: update copyright year to 2026 in LICENSE.md
+
+* fix(leavittbook): make auth-gated demos reactive without forcing login
+
+Add AuthIdentityController so demos and story-header re-render when identity
+updates, while keeping authentication user-initiated via the story-header button.
+
+* docs(leavittbook): add gallery guide and polish shell layout
+
+Document leavittbook conventions in CLAUDE.md and README, add root
+EditorConfig, mount demos without isActive, mark auth routes with passkey
+icons, and sync hero and app shell styles with skeleton.
+
+* chore: upgrade to TypeScript 6 and ESLint 10
+
+Bump typescript to 6.x with bundler moduleResolution, add strict property
+initializers across Lit components, and fix unknown-catch and event listener
+typing for TS 6 defaults.
+
+* feat(address-input): migrate to @googlemaps/js-api-loader v2
+
+Replace the removed Loader class with setOptions()/importLibrary(). Ship a guarded global process shim, imported before the loader, so the component works in browser environments that don't define process (raw ESM, esbuild without define, etc.) without requiring any bundler config from consumers.
+
+* refactor(error-page): replace tsParticles with canvas starfield
+
+Render theme-aware drifting, twinkling stars on a self-contained canvas with prefers-reduced-motion support, and remove @tsparticles/* dependencies. Also finish remaining package bumps and pin terser to one worker for Node 22+.
+
+* chore: remove unused dependencies and relocate countup.js
+
+Drop eight unused root devDependencies, remove duplicate tslib from devDependencies, and move countup.js from @leavittsoftware/web to root so it is not published to npm consumers.
+
+* chore: trim deprecated npm deps and tighten audit overrides
+
+Drop rollup-plugin-copy in favor of a small inline Rollup copy plugin to remove inflight/glob@7, add overrides for dompurify, esbuild, js-yaml, and tar, and bump a few dev dependencies.
+
+* docs(web): add agent upgrade changelog and loadWhile compat alias
+
+Publish a migration guide in packages/web/CLAUDE.md for downstream bumps (Unreleased, 9.4.0, 9.0.0), restore deprecated dataTable.loadWhile() delegating to trackLoadingPromise, and extend the root doc-maintenance checklist for breaking releases.
+
+* refactor!: remove deprecated APIs and migrate address input to Places API (New)
+
+Remove toolbarSearchTerm from email history viewer, drop always-show-content from titanium-drawer, and switch google-address-input to AutocompleteSuggestion/Place with clearer SERVICE_DISABLED errors. Expand agent docs for Material Web, upgrade changelog entries, and fix single-select-base host CSS tokens.
+
+
+
+
+
 # [9.9.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.8.0...@leavittsoftware/web@9.9.0) (2026-06-23)
 
 
