@@ -38,7 +38,6 @@ export class LeavittCompanySelectDemo extends ThemePreference(LitElement) {
               <h1>Filled</h1>
               <leavitt-company-select
                 style="width: 400px;"
-                filled
                 required
                 ?disable-menu-open-on-focus=${this.disableMenuOpenOnFocus}
                 .apiService=${api3UserService}
@@ -50,7 +49,6 @@ export class LeavittCompanySelectDemo extends ThemePreference(LitElement) {
               <leavitt-company-select
                 style=" margin-top: 16px; max-width: 680px;"
                 shaped
-                filled
                 match-input-width
                 label=""
                 large

@@ -101,7 +101,7 @@ export class TitaniumDateRangeSelectorDemo extends LitElement {
 
             <div>
               <h1>Filled</h1>
-              <titanium-date-range-selector filled></titanium-date-range-selector>
+              <titanium-date-range-selector></titanium-date-range-selector>
             </div>
 
             <api-docs src="./custom-elements.json" selected="titanium-date-range-selector"></api-docs>

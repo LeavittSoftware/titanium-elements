@@ -37,7 +37,7 @@ export class TitaniumIconPickerDemo extends LitElement {
             <div>
               <h1>Filled</h1>
               <p>Filled icon picker example</p>
-              <titanium-icon-picker filled></titanium-icon-picker>
+              <titanium-icon-picker></titanium-icon-picker>
             </div>
 
             <div>

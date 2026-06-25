@@ -69,7 +69,6 @@ export class TitaniumAddressInputDemo extends LitElement {
               </google-address-input>
 
               <google-address-input
-                filled
                 demo-a-filled
                 autocomplete="street-address"
                 @selected=${(e: DOMEvent<GoogleAddressInput>) => console.log('selected change 1', e.target.selected)}
@@ -164,7 +163,6 @@ export class TitaniumAddressInputDemo extends LitElement {
               </titanium-address-input>
 
               <titanium-address-input
-                filled
                 ?allow-international=${this.allowInternational}
                 autocomplete="address"
                 demo-a-filled

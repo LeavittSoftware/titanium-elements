@@ -19,8 +19,8 @@ import StoryStyles from '../styles/story-styles';
 
 @customElement('titanium-date-input-demo')
 export class TitaniumDateInputDemo extends LitElement {
-  @query('titanium-date-input') protected accessor input!: TitaniumDateInput;
-  @query('titanium-date-input[filled]') protected accessor filledInput!: TitaniumDateInput;
+  @query('titanium-date-input[required]') protected accessor input!: TitaniumDateInput;
+  @query('titanium-date-input:nth-of-type(2)') protected accessor secondInput!: TitaniumDateInput;
 
   static styles = [
     StoryStyles,
@@ -66,8 +66,7 @@ export class TitaniumDateInputDemo extends LitElement {
                 ></titanium-date-input>
                 <titanium-date-input
                   required
-                  filled
-                  label="Filled"
+                  label="Another date"
                   @change=${(e: DOMEvent<TitaniumDateInput>) => console.log('change', e.target.value)}
                 ></titanium-date-input>
               </two-column>
@@ -76,14 +75,14 @@ export class TitaniumDateInputDemo extends LitElement {
                 <md-filled-tonal-button
                   @click=${() => {
                     this.input.reset();
-                    this.filledInput.reset();
+                    this.secondInput.reset();
                   }}
                   >Reset</md-filled-tonal-button
                 >
                 <md-filled-tonal-button
                   @click=${() => {
                     this.input.reportValidity();
-                    this.filledInput.reportValidity();
+                    this.secondInput.reportValidity();
                   }}
                   >Report validity</md-filled-tonal-button
                 >

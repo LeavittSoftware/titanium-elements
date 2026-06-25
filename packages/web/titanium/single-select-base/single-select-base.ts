@@ -1,9 +1,8 @@
-import { css, LitElement, PropertyValues } from 'lit';
+import { css, html, LitElement, PropertyValues } from 'lit';
 import { property, customElement, query, state } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 
 import '@material/web/progress/circular-progress';
-import '@material/web/textfield/outlined-text-field';
 import '@material/web/textfield/filled-text-field';
 
 import '@material/web/iconbutton/icon-button';
@@ -14,14 +13,12 @@ import '@material/web/menu/menu-item';
 
 import { DOMEvent } from '../types/dom-event';
 import { CloseMenuEvent, MenuItem } from '@material/web/menu/menu';
-import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
+import { MdFilledTextField } from '@material/web/textfield/filled-text-field';
 import { Menu } from '@material/web/menu/internal/menu';
 import { promiseTracking } from '../../titanium/helpers/promise-tracking';
 import { Identifier } from '../types/identifier-interface';
 import { redispatchEvent } from '@material/web/internal/events/redispatch-event';
 import { ThemePreference } from '../../leavitt/theme/theme-preference';
-import { html, literal } from 'lit/static-html.js';
-import { MdFilledTextField } from '@material/web/textfield/filled-text-field';
 
 @customElement('titanium-single-select-base')
 export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePreference(LitElement) {
@@ -42,11 +39,6 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
    *  Sets floating label value.
    */
   @property({ type: String }) accessor label: string = 'Single select';
-
-  /**
-   *  Swaps out outlined text field for a filled text field.
-   */
-  @property({ type: Boolean, reflect: true, attribute: 'filled' }) accessor filled: boolean = false;
 
   /**
    *  Sets placeholder text value.
@@ -156,7 +148,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
   @property({ type: Boolean, reflect: true, attribute: 'shaped' }) accessor shaped: boolean = false;
 
   getTextField() {
-    return this.filled ? this.shadowRoot?.querySelector('md-filled-text-field') : this.shadowRoot?.querySelector('md-outlined-text-field');
+    return this.shadowRoot?.querySelector('md-filled-text-field');
   }
 
   async firstUpdated() {
@@ -337,9 +329,17 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
       :host {
         display: block;
         position: relative;
-      }
 
-      :host([large]) {
+        --md-filled-text-field-container-shape: 16px;
+        --md-filled-field-container-shape: 16px;
+        --md-menu-container-shape: 16px;
+
+        --md-filled-text-field-active-indicator-height: 0;
+        --md-filled-text-field-error-active-indicator-height: 0;
+        --md-filled-text-field-hover-active-indicator-height: 0;
+        --md-filled-text-field-focus-active-indicator-height: 0;
+        --md-filled-text-field-disabled-active-indicator-height: 0;
+      }
         --md-filled-text-field-input-text-size: 1.125rem;
         --md-filled-text-field-input-text-line-height: 1.75rem;
         --md-filled-text-field-label-text-size: 1.125rem;
@@ -352,8 +352,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
         --md-filled-text-field-with-trailing-icon-trailing-space: 20px;
       }
 
-      md-filled-text-field,
-      md-outlined-text-field {
+      md-filled-text-field {
         width: 100%;
       }
 
@@ -370,29 +369,11 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
         min-width: 300px;
       }
 
-      :host([filled]) {
-        --md-filled-text-field-container-shape: 16px;
-        --md-filled-field-container-shape: 16px;
-        --md-menu-container-shape: 16px;
-
-        --md-filled-text-field-active-indicator-height: 0;
-        --md-filled-text-field-error-active-indicator-height: 0;
-        --md-filled-text-field-hover-active-indicator-height: 0;
-        --md-filled-text-field-focus-active-indicator-height: 0;
-        --md-filled-text-field-disabled-active-indicator-height: 0;
-      }
-
-      :host([shaped]) {
-        --md-outlined-text-field-container-shape: 28px;
+      :host([large]) {
         --md-filled-text-field-container-shape: 28px;
       }
 
-      :host([shaped][menu-open][filled]) {
-        --md-outlined-text-field-container-shape-start-start: 28px;
-        --md-outlined-text-field-container-shape-start-end: 28px;
-        --md-outlined-text-field-container-shape-end-end: 0;
-        --md-outlined-text-field-container-shape-end-start: 0;
-
+      :host([shaped][menu-open]) {
         --md-filled-text-field-container-shape-start-start: 28px;
         --md-filled-text-field-container-shape-start-end: 28px;
         --md-filled-text-field-container-shape-end-end: 0;
@@ -402,7 +383,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
         --md-menu-container-shape: 0 0 28px 28px;
       }
 
-      :host([shaped][menu-open][filled]) md-menu {
+      :host([shaped][menu-open]) md-menu {
         --md-menu-container-color: var(--md-sys-color-inverse-surface);
         color: var(--md-sys-color-inverse-on-surface);
 
@@ -412,7 +393,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
         --md-menu-item-hover-state-layer-color: var(--md-sys-color-surface);
       }
 
-      :host([shaped][menu-open][filled]) md-filled-text-field {
+      :host([shaped][menu-open]) md-filled-text-field {
         --md-filled-text-field-container-color: var(--md-sys-color-inverse-surface);
         --md-filled-text-field-input-text-color: var(--md-sys-color-inverse-on-surface);
         --md-filled-text-field-hover-input-text-color: var(--md-sys-color-inverse-on-surface);
@@ -443,7 +424,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
         color: var(--md-sys-color-on-surface);
       }
 
-      :host([shaped][filled]) [summary] {
+      :host([shaped]) [summary] {
         color: var(--md-sys-color-inverse-on-surface);
       }
 
@@ -499,9 +480,8 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
   }
 
   render() {
-    /* eslint-disable lit/binding-positions, lit/no-invalid-html */
     return html`
-      <${this.filled ? literal`md-filled-text-field` : literal`md-outlined-text-field`}
+      <md-filled-text-field
         id="menu-anchor"
         aria-haspopup="true"
         aria-controls="menu"
@@ -536,7 +516,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
             }
           }
         }}
-        @input=${async (e: DOMEvent<MdOutlinedTextField | MdFilledTextField>) => this.#onInput(e.target.value)}
+        @input=${async (e: DOMEvent<MdFilledTextField>) => this.#onInput(e.target.value)}
         @focus=${() => {
           if (this.selected) {
             this.select();
@@ -552,7 +532,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
         }}
       >
         ${this.selected ? this.renderSelectedLeadingInputSlot(this.selected) : this.renderLeadingInputSlot()} ${this.#renderTrailingInputSlot()}
-        </${this.filled ? literal`md-filled-text-field` : literal`md-outlined-text-field`}>
+      </md-filled-text-field>
       <md-menu
         part="menu"
         suggestions
@@ -592,6 +572,5 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
       </md-menu>
       ${this.renderTrailingSlot()}
     `;
-    /* eslint-enable lit/binding-positions, lit/no-invalid-html */
   }
 }

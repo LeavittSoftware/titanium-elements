@@ -46,7 +46,6 @@ export class LeavittPersonSelectDemo extends LitElement {
               <leavitt-person-select
                 match-input-width
                 shaped
-                filled
                 large
                 label=""
                 .odataParts=${[
@@ -65,7 +64,6 @@ export class LeavittPersonSelectDemo extends LitElement {
               <h1>Local searching</h1>
               <leavitt-person-select
                 large
-                filled
                 search-type="local"
                 .people=${[
                   {

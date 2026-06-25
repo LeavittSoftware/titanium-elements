@@ -70,7 +70,7 @@ export class TitaniumPageControlDemo extends LitElement {
             <div>
               <h1>Filled</h1>
               <p>Filled page control variant</p>
-              <titanium-page-control filled></titanium-page-control>
+              <titanium-page-control></titanium-page-control>
             </div>
 
             <div>

@@ -192,7 +192,6 @@ export class LeavittEmailHistoryViewerFilledFilterDialog extends LitElement {
         <div slot="headline">Filter logs by</div>
         <form slot="content" method="dialog">
           <titanium-date-range-selector
-            filled
             label="Sent"
             .startDate=${this.startDate}
             .endDate=${this.endDate}

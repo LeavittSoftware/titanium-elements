@@ -53,7 +53,6 @@ export class TitaniumChipMultiSelectDemo extends LitElement {
 
             <div>
               <titanium-chip-multi-select
-                filled
                 required
                 label="Service Animals"
                 ?hasItems=${!!this.demoItems.length}

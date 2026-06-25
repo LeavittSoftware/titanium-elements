@@ -59,7 +59,7 @@ export class LeavittCompanySelect extends TitaniumSingleSelectBase<Partial<Compa
   @property({ reflect: true, type: Boolean }) accessor spellcheck: boolean = false;
 
   @property({ type: Object }) accessor renderMenuItemContentTemplate = (company: Partial<Company>) => {
-    const theme = !this.shaped || !this.filled ? this.themePreference : this.shaped && this.filled && this.themePreference === 'dark' ? 'light' : 'dark';
+    const theme = !this.shaped ? this.themePreference : this.shaped && this.themePreference === 'dark' ? 'light' : 'dark';
     return html`<md-menu-item .item=${company}>
       <slot name="trailing-icon" slot="trailing-icon"></slot>
       <span slot="headline">${company.Name}</span>

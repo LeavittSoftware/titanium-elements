@@ -370,7 +370,6 @@ export default class LeavittEmailHistoryViewerFilled extends LitElement {
           </titanium-data-table-core>
           <leavitt-app-navigation-footer max-width="initial" .scrollableParent=${this.dataTable}>
             <titanium-page-control
-              filled
               slot="leading"
               ?disabled=${this.isLoading}
               .count=${this.resultTotal}

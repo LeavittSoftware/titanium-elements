@@ -44,7 +44,6 @@ export class TitaniumAddressInput extends GoogleAddressInput {
       }
 
       :host([has-selection]) {
-        --md-outlined-text-field-with-trailing-icon-trailing-space: 36px;
         --md-filled-text-field-with-trailing-icon-trailing-space: 36px;
       }
     `,
@@ -63,7 +62,6 @@ export class TitaniumAddressInput extends GoogleAddressInput {
       .allowInternational=${this.allowInternational}
       .showCounty=${this.showCounty}
       .showStreet2=${this.showStreet2}
-      .filled=${this.filled}
       .label=${this.label}
     ></manual-address-dialog>`;
   }
