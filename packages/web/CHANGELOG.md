@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@10.0.0...@leavittsoftware/web@10.0.1) (2026-06-25)
+
+
+### Bug Fixes
+
+* **error-page:** fix border overflow ([517f6d6](https://github.com/LeavittSoftware/titanium-elements/commit/517f6d6e013b858636f3fab84586b3fb4c9e13a0))
+
+
+
+
+
 # [10.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@9.9.0...@leavittsoftware/web@10.0.0) (2026-06-25)
 
 
