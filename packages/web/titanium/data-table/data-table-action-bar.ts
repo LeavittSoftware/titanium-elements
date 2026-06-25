@@ -9,7 +9,7 @@ export class TitaniumDataTableActionBar<T extends object> extends LitElement {
   @property({ type: Array }) accessor selected: Array<Partial<T>> = [];
 
   @property({ type: Boolean, reflect: true, attribute: 'has-selected' }) private accessor hasSelected: boolean = false;
-  @property({ type: Boolean, reflect: true, attribute: 'has-add-button' }) private accessor hasAddButton: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'has-add-button' }) private accessor hasAddButton: boolean = false;
 
   @queryAssignedElements({ slot: 'add-button' }) private accessor addButtonElements!: Element[];
 
@@ -47,10 +47,6 @@ export class TitaniumDataTableActionBar<T extends object> extends LitElement {
           grid-area: filters;
           align-self: end;
         }
-      }
-
-      :host([has-search][has-add-button]) div[add-button] {
-        margin: 0 0 0 12px;
       }
 
       selected-action-veil {

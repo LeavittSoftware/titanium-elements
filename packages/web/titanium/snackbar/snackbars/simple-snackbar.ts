@@ -10,16 +10,16 @@ import '@material/web/button/text-button';
 
 @customElement('titanium-simple-snackbar')
 export class SimpleSnackbar extends LitElement {
-  #resolve: (reason: string) => void;
+  #resolve!: (reason: string) => void;
 
   /**
    * Firefox support
    */
-  @property({ type: Boolean, reflect: true }) private accessor open: boolean;
+  @property({ type: Boolean, reflect: true }) private accessor open: boolean = false;
 
-  @property({ type: Boolean, reflect: true }) private accessor noAction: boolean;
-  @property({ type: String }) private accessor actionText: string;
-  @property({ type: String }) private accessor message: string | TemplateResult;
+  @property({ type: Boolean, reflect: true }) private accessor noAction: boolean = false;
+  @property({ type: String }) private accessor actionText: string = '';
+  @property({ type: String }) private accessor message!: string | TemplateResult;
 
   show(message: string, options?: SnackbarOptions) {
     //Firefox support

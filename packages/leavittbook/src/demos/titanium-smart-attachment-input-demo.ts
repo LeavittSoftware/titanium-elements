@@ -70,7 +70,7 @@ export class TitaniumSmartAttachmentInputDemo extends LitElement {
     'xbm',
   ];
 
-  @query('titanium-smart-attachment-input[filled]') private accessor smartAttachment!: TitaniumSmartAttachmentInput;
+  @query('titanium-smart-attachment-input[required]') private accessor smartAttachment!: TitaniumSmartAttachmentInput;
   @query('md-dialog') private accessor dialog!: any;
 
   static styles = [
@@ -112,9 +112,9 @@ export class TitaniumSmartAttachmentInputDemo extends LitElement {
             </div>
 
             <div>
-              <h1>Filled</h1>
+              <h1>With options</h1>
               <titanium-smart-attachment-input
-                filled
+                required
                 .croppableImageFormats=${this.selectedCroppableFormats}
                 .files=${this.files}
                 label="Upload files"

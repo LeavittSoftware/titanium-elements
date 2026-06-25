@@ -73,9 +73,9 @@ export default class GettingStarted extends LitElement {
               <p>NPM install:</p>
               <code block>npm i @leavittsoftware/web</code>
               <p>Include the element on your page.</p>
-              <code block>import '@leavittsoftware/web/titanium/card/card';</code>
+              <code block>import '@leavittsoftware/web/titanium/chip/chip';</code>
               <p>Use the element:</p>
-              <code block>${'<titanium-card></titanium-card>'}</code>
+              <code block>${'<titanium-chip label="Example"></titanium-chip>'}</code>
             </section>
 
             <section>

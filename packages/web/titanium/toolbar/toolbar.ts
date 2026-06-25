@@ -18,7 +18,7 @@ export class TitaniumToolbar extends LitElement {
   /**
    * Adds a box shadow around the toolbar
    */
-  @property({ type: Boolean, reflect: true }) protected accessor shadow: boolean;
+  @property({ type: Boolean, reflect: true }) protected accessor shadow: boolean = false;
 
   static styles = css`
     :host {

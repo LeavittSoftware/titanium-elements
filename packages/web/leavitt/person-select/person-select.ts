@@ -10,6 +10,7 @@ import '../profile-picture/profile-picture';
 import { Debouncer, getSearchTokens } from '../../titanium/helpers/helpers';
 import ApiService from '../api-service/api-service';
 import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
+import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
 
 /**
  *  Single select input that searches Leavitt Group users
@@ -33,7 +34,7 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
   /**
    *  Required
    */
-  @property({ attribute: false }) accessor apiService: ApiService;
+  @property({ attribute: false }) accessor apiService!: ApiService;
 
   /**
    *  Odata parts for the Person API call
@@ -100,7 +101,7 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
       const result = await get;
       return result?.toList() ?? [];
     } catch (error) {
-      this.dispatchEvent(new ShowSnackbarEvent(error));
+      this.dispatchEvent(new ShowSnackbarEvent(error as Partial<HttpError>));
     }
     return [];
   }
@@ -141,13 +142,14 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
         }
 
         const get = this.apiService.getAsync<Person>(`${this.apiControllerName}?${oDataParts.join('&')}`, { abortController: this.#abortController });
-        this.loadWhile(get);
+        this.trackLoadingPromise(get);
 
         const result = await get;
         this.showSuggestions(result?.entities ?? [], result?.odataCount ?? 0);
       } catch (error) {
-        if (error?.name !== 'AbortError' && !error?.message?.includes('Abort error')) {
-          this.dispatchEvent(new ShowSnackbarEvent(error));
+        const err = error as Partial<HttpError> & { name?: string; message?: string };
+        if (err?.name !== 'AbortError' && !err?.message?.includes('Abort error')) {
+          this.dispatchEvent(new ShowSnackbarEvent(error as Partial<HttpError>));
         }
       }
     }

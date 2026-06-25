@@ -1,20 +1,15 @@
 import '@material/web/icon/icon';
-import '@material/web/select/outlined-select';
 import '@material/web/select/filled-select';
 import '@material/web/select/select-option';
 import '@material/web/dialog/dialog';
-import '@material/web/textfield/outlined-text-field';
 import '@material/web/textfield/filled-text-field';
 import '@material/web/button/filled-tonal-button';
 import '@material/web/button/text-button';
 
-import { css, LitElement, nothing } from 'lit';
-import { literal, html } from 'lit/static-html.js';
+import { css, html, LitElement, nothing } from 'lit';
 import { property, customElement, query, queryAll, state } from 'lit/decorators.js';
 import { AddressInputAddress } from './types/address-input-address';
 import { MdDialog } from '@material/web/dialog/dialog';
-import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
-import { MdOutlinedSelect } from '@material/web/select/outlined-select';
 import { MdFilledTextField } from '@material/web/textfield/filled-text-field';
 import { MdFilledSelect } from '@material/web/select/filled-select';
 import { DOMEvent } from '../types/dom-event';
@@ -26,14 +21,13 @@ import { countries } from '../helpers/address/country-abbr-to-titlecase';
 
 @customElement('manual-address-dialog')
 export class ManualAddressDialog extends LitElement {
-  @query('md-dialog') protected accessor dialog: MdDialog;
+  @query('md-dialog') protected accessor dialog!: MdDialog;
 
   @property({ type: String }) accessor label: string = '';
-  @property({ type: Boolean, attribute: 'show-county' }) accessor showCounty: boolean;
-  @property({ type: Boolean, attribute: 'show-street2' }) accessor showStreet2: boolean;
+  @property({ type: Boolean, attribute: 'show-county' }) accessor showCounty: boolean = false;
+  @property({ type: Boolean, attribute: 'show-street2' }) accessor showStreet2: boolean = false;
 
   @property({ type: Boolean, attribute: 'allow-international' }) accessor allowInternational: boolean = false;
-  @property({ type: Boolean, attribute: 'filled' }) accessor filled: boolean = false;
 
   @state() protected accessor street: string = '';
   @state() protected accessor street2: string = '';
@@ -43,11 +37,9 @@ export class ManualAddressDialog extends LitElement {
   @state() protected accessor state: string = '';
   @state() protected accessor zip: string = '';
 
-  @queryAll('md-outlined-text-field, md-outlined-select, md-filled-text-field, md-filled-select') protected accessor allInputs: NodeListOf<
-    MdOutlinedTextField | MdOutlinedSelect | MdFilledTextField | MdFilledSelect
-  >;
+  @queryAll('md-filled-text-field, md-filled-select') protected accessor allInputs!: NodeListOf<MdFilledTextField | MdFilledSelect>;
 
-  resolve: (value: Partial<AddressInputAddress> | null) => void;
+  resolve!: (value: Partial<AddressInputAddress> | null) => void;
 
   public async open(address: AddressInputAddress | null | undefined) {
     this.reset();
@@ -130,7 +122,6 @@ export class ManualAddressDialog extends LitElement {
   ];
 
   render() {
-    /* eslint-disable lit/binding-positions, lit/no-invalid-html */
     return html`
       <md-dialog
         @open=${(e: DOMEvent<MdDialog>) => {
@@ -144,72 +135,65 @@ export class ManualAddressDialog extends LitElement {
       >
         <div slot="headline">${this.label}</div>
         <form slot="content">
-          <${this.filled ? literal`md-filled-text-field` : literal`md-outlined-text-field`}
+          <md-filled-text-field
             label="Street"
             autocomplete="address-line1"
             ?required=${!this.allowInternational || this.country === 'US'}
             .value=${this.street || ''}
-            @blur=${(e: DOMEvent<MdOutlinedTextField | MdFilledTextField>) => reportValidityIfError(e.target)}
-            @change=${(e: DOMEvent<MdOutlinedTextField | MdFilledTextField>) => (this.street = e.target.value)}
+            @blur=${(e: DOMEvent<MdFilledTextField>) => reportValidityIfError(e.target)}
+            @change=${(e: DOMEvent<MdFilledTextField>) => (this.street = e.target.value)}
           >
             <md-icon slot="leading-icon">markunread_mailbox</md-icon>
-          </${this.filled ? literal`md-filled-text-field` : literal`md-outlined-text-field`}>
-          ${
-            this.showStreet2 || (this.country !== 'US' && this.country)
-              ? html` <${this.filled ? literal`md-filled-text-field` : literal`md-outlined-text-field`}
-                @blur=${(e: DOMEvent<MdOutlinedTextField | MdFilledTextField>) => reportValidityIfError(e.target)}
+          </md-filled-text-field>
+          ${this.showStreet2 || (this.country !== 'US' && this.country)
+            ? html`<md-filled-text-field
+                @blur=${(e: DOMEvent<MdFilledTextField>) => reportValidityIfError(e.target)}
                 label="Street 2/Apartment"
                 autocomplete="address-line2"
                 .value=${this.street2 || ''}
-                @change=${(e: DOMEvent<MdOutlinedTextField | MdFilledTextField>) => (this.street2 = e.target.value)}
+                @change=${(e: DOMEvent<MdFilledTextField>) => (this.street2 = e.target.value)}
               >
-                <md-icon slot="leading-icon">meeting_room</md-icon></${this.filled ? literal`md-filled-text-field` : literal`md-outlined-text-field`}
-              >`
-              : nothing
-          }
-          <${this.filled ? literal`md-filled-text-field` : literal`md-outlined-text-field`}
+                <md-icon slot="leading-icon">meeting_room</md-icon>
+              </md-filled-text-field>`
+            : nothing}
+          <md-filled-text-field
             label="City"
             autocomplete="address-level2"
             ?required=${!this.allowInternational || this.country === 'US'}
             .value=${this.city || ''}
-            @blur=${(e: DOMEvent<MdOutlinedTextField | MdFilledTextField>) => reportValidityIfError(e.target)}
-            @change=${(e: DOMEvent<MdOutlinedTextField | MdFilledTextField>) => (this.city = e.target.value)}
-            ><md-icon slot="leading-icon">location_city</md-icon></${this.filled ? literal`md-filled-text-field` : literal`md-outlined-text-field`}
+            @blur=${(e: DOMEvent<MdFilledTextField>) => reportValidityIfError(e.target)}
+            @change=${(e: DOMEvent<MdFilledTextField>) => (this.city = e.target.value)}
+            ><md-icon slot="leading-icon">location_city</md-icon></md-filled-text-field
           >
-          ${
-            this.showCounty || (this.country !== 'US' && this.country)
-              ? html`<${this.filled ? literal`md-filled-text-field` : literal`md-outlined-text-field`}
-                @blur=${(e: DOMEvent<MdOutlinedTextField | MdFilledTextField>) => reportValidityIfError(e.target)}
+          ${this.showCounty || (this.country !== 'US' && this.country)
+            ? html`<md-filled-text-field
+                @blur=${(e: DOMEvent<MdFilledTextField>) => reportValidityIfError(e.target)}
                 label="County"
                 ?required=${!this.allowInternational || this.country === 'US'}
                 .value=${this.county || ''}
-                @change=${(e: DOMEvent<MdOutlinedTextField | MdFilledTextField>) => (this.county = e.target.value)}
-                ><md-icon slot="leading-icon">explore</md-icon></${this.filled ? literal`md-filled-text-field` : literal`md-outlined-text-field`}
+                @change=${(e: DOMEvent<MdFilledTextField>) => (this.county = e.target.value)}
+                ><md-icon slot="leading-icon">explore</md-icon></md-filled-text-field
               >`
-              : nothing
-          }
-          ${
-            this.allowInternational
-              ? html`<${this.filled ? literal`md-filled-select` : literal`md-outlined-select`}
+            : nothing}
+          ${this.allowInternational
+            ? html`<md-filled-select
                 @opening=${() => preventDialogOverflow(this.dialog)}
                 @closing=${() => allowDialogOverflow(this.dialog)}
-                @blur=${(e: DOMEvent<MdOutlinedTextField | MdFilledTextField>) => reportValidityIfError(e.target)}
+                @blur=${(e: DOMEvent<MdFilledTextField>) => reportValidityIfError(e.target)}
                 label="Country"
                 autocomplete="country"
                 required
                 .value=${this.country || ''}
-                @change=${(e: DOMEvent<MdOutlinedSelect | MdFilledSelect>) => {
+                @change=${(e: DOMEvent<MdFilledSelect>) => {
                   e.stopPropagation();
                   this.country = e.target.value;
 
                   if (this.country === 'US') {
-                    // If manually typed state is a valid US state abbreviation or name, preselect it
                     const foundState = usStates?.find(
                       (s) => s.abbreviation.toLowerCase() === this.state.toLowerCase() || s.name?.toLowerCase() === this.state.toLowerCase()
                     );
                     this.state = foundState ? foundState?.abbreviation : '';
                   } else if (this.country === 'CA') {
-                    // If manually typed state is a valid CA state abbreviation or name, preselect it
                     const foundState = caStates?.find(
                       (s) => s.abbreviation.toLowerCase() === this.state.toLowerCase() || s.name?.toLowerCase() === this.state.toLowerCase()
                     );
@@ -221,32 +205,30 @@ export class ManualAddressDialog extends LitElement {
               >
                 <md-icon slot="leading-icon">map</md-icon>
                 ${countries.map((s) => html`<md-select-option value=${s.abbreviation}> <div slot="headline">${s.name}</div></md-select-option>`)}
-              </${this.filled ? literal`md-filled-select` : literal`md-outlined-select`}> `
-              : nothing
-          }
-          ${
-            this.allowInternational && this.country !== 'US' && this.country !== 'CA'
-              ? html`
-                <${this.filled ? literal`md-filled-text-field` : literal`md-outlined-text-field`}
+              </md-filled-select>`
+            : nothing}
+          ${this.allowInternational && this.country !== 'US' && this.country !== 'CA'
+            ? html`
+                <md-filled-text-field
                   label="State/Province"
                   autocomplete="address-level1"
                   .value=${this.state || ''}
-                  @blur=${(e: DOMEvent<MdOutlinedTextField | MdFilledTextField>) => reportValidityIfError(e.target)}
-                  @change=${(e: DOMEvent<MdOutlinedTextField | MdFilledTextField>) => (this.state = e.target.value)}
+                  @blur=${(e: DOMEvent<MdFilledTextField>) => reportValidityIfError(e.target)}
+                  @change=${(e: DOMEvent<MdFilledTextField>) => (this.state = e.target.value)}
                 >
                   <md-icon slot="leading-icon">location_on</md-icon>
-                </${this.filled ? literal`md-filled-text-field` : literal`md-outlined-text-field`}>
+                </md-filled-text-field>
               `
-              : html`
-                <${this.filled ? literal`md-filled-select` : literal`md-outlined-select`}
+            : html`
+                <md-filled-select
                   @opening=${() => preventDialogOverflow(this.dialog)}
                   @closing=${() => allowDialogOverflow(this.dialog)}
-                  @blur=${(e: DOMEvent<MdOutlinedTextField | MdFilledTextField>) => reportValidityIfError(e.target)}
+                  @blur=${(e: DOMEvent<MdFilledTextField>) => reportValidityIfError(e.target)}
                   label="State"
                   autocomplete="address-level1"
                   required
                   .value=${this.state || ''}
-                  @change=${(e: DOMEvent<MdOutlinedSelect | MdFilledSelect>) => {
+                  @change=${(e: DOMEvent<MdFilledSelect>) => {
                     e.stopPropagation();
                     this.state = e.target.value;
                     if (usStates.some((o) => o.abbreviation.toLowerCase() === this.state.toLowerCase())) {
@@ -274,18 +256,17 @@ export class ManualAddressDialog extends LitElement {
                         <div slot="supporting-text">Canada</div>
                       </md-select-option>`
                   )}
-                </${this.filled ? literal`md-filled-select` : literal`md-outlined-select`}>
-              `
-          }
+                </md-filled-select>
+              `}
 
-          <${this.filled ? literal`md-filled-text-field` : literal`md-outlined-text-field`}
+          <md-filled-text-field
             label="Zip"
             autocomplete="postal-code"
             ?required=${!this.allowInternational || this.country === 'US'}
             .value=${this.zip || ''}
-            @blur=${(e: DOMEvent<MdOutlinedTextField | MdFilledTextField>) => reportValidityIfError(e.target)}
-            @change=${(e: DOMEvent<MdOutlinedTextField | MdFilledTextField>) => (this.zip = e.target.value)}
-            ><md-icon slot="leading-icon">universal_local</md-icon></${this.filled ? literal`md-filled-text-field` : literal`md-outlined-text-field`}
+            @blur=${(e: DOMEvent<MdFilledTextField>) => reportValidityIfError(e.target)}
+            @change=${(e: DOMEvent<MdFilledTextField>) => (this.zip = e.target.value)}
+            ><md-icon slot="leading-icon">universal_local</md-icon></md-filled-text-field
           >
         </form>
 
@@ -312,6 +293,5 @@ export class ManualAddressDialog extends LitElement {
         </div>
       </md-dialog>
     `;
-    /* eslint-enable lit/binding-positions, lit/no-invalid-html */
   }
 }

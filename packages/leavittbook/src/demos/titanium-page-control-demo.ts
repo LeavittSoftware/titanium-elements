@@ -15,7 +15,7 @@ import StoryStyles from '../styles/story-styles';
 
 @customElement('titanium-page-control-demo')
 export class TitaniumPageControlDemo extends LitElement {
-  @query('titanium-page-control[main]') private accessor pageControl: TitaniumPageControl;
+  @query('titanium-page-control[main]') private accessor pageControl!: TitaniumPageControl;
   @state() protected accessor count: number = 25;
   @state() protected accessor data;
   @state() protected accessor filteredData;
@@ -70,7 +70,7 @@ export class TitaniumPageControlDemo extends LitElement {
             <div>
               <h1>Filled</h1>
               <p>Filled page control variant</p>
-              <titanium-page-control filled></titanium-page-control>
+              <titanium-page-control></titanium-page-control>
             </div>
 
             <div>

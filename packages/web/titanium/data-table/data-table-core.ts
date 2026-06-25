@@ -21,7 +21,7 @@ import { MdCheckbox } from '@material/web/checkbox/checkbox';
 import { repeat } from 'lit/directives/repeat.js';
 import { a } from '@leavittsoftware/web/titanium/styles/a';
 import { styleMap } from 'lit/directives/style-map.js';
-import { LoadWhile } from '@leavittsoftware/web/titanium/helpers/load-while';
+import { promiseTracking } from '@leavittsoftware/web/titanium/helpers/promise-tracking';
 import { niceBadgeStyles } from '../styles/nice-badge';
 import { MdIconButton } from '@material/web/iconbutton/icon-button';
 import { CloseMenuEvent, MdMenu, MenuItem } from '@material/web/menu/menu';
@@ -78,7 +78,12 @@ export function generateDefaultSortFromMetaData<T extends object>(tableMetaData:
 }
 
 @customElement('titanium-data-table-core')
-export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElement) {
+export class TitaniumDataTableCore<T extends object> extends LitElement {
+  @promiseTracking('trackLoadingPromise')
+  @state()
+  accessor isLoading = false;
+  declare trackLoadingPromise: (promise: Promise<unknown>) => Promise<void>;
+
   /**
    * Current items displayed on the table.
    */
@@ -102,9 +107,9 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
    */
   @property({ type: Array }) accessor selected: Array<T> = [];
 
-  @query('titanium-data-table-core-settings-choose-columns-dialog') private accessor chooseColumnsDialog: TitaniumDataTableCoreSettingsChooseColumnsDialog<T>;
-  @query('titanium-data-table-core-settings-sort-dialog') private accessor sortDialog: TitaniumDataTableCoreSettingsSortDialog<T>;
-  @query('titanium-data-table-core-reorder-dialog') private accessor reorderDialog: TitaniumDataTableCoreReorderDialog<T>;
+  @query('titanium-data-table-core-settings-choose-columns-dialog') private accessor chooseColumnsDialog!: TitaniumDataTableCoreSettingsChooseColumnsDialog<T>;
+  @query('titanium-data-table-core-settings-sort-dialog') private accessor sortDialog!: TitaniumDataTableCoreSettingsSortDialog<T>;
+  @query('titanium-data-table-core-reorder-dialog') private accessor reorderDialog!: TitaniumDataTableCoreReorderDialog<T>;
   /**
    * Local storage key to save user settings for this data table.
    */
@@ -171,6 +176,11 @@ export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElemen
       this.sort = _sort;
       this.dispatchEvent(new Event('sort-changed'));
     }
+  }
+
+  /** @deprecated Use trackLoadingPromise. Alias kept for downstream compat. */
+  loadWhile(promise: Promise<unknown>) {
+    return this.trackLoadingPromise(promise);
   }
 
   #notifySelectedChanged() {

@@ -3,7 +3,6 @@ import '@leavittsoftware/web/leavitt/app/app-logo';
 import '@leavittsoftware/web/titanium/search-input/filled-search-input';
 import '@leavittsoftware/web/titanium/toolbar/toolbar';
 import '@leavittsoftware/web/titanium/snackbar/snackbar-stack';
-import '@leavittsoftware/web/titanium/error-page/error-page';
 import '@leavittsoftware/web/titanium/drawer/drawer';
 import '@leavittsoftware/web/leavitt/profile-picture/profile-picture-menu';
 import '@leavittsoftware/web/leavitt/user-feedback/report-a-problem-dialog';
@@ -36,6 +35,7 @@ import { mainMenuPositionContext } from '@leavittsoftware/web/leavitt/app/contex
 import { provide } from '@lit/context';
 import { siteSearchTextFieldContext } from './contexts/site-search-text-field-context';
 import { MdFilledTextField } from '@material/web/textfield/filled-text-field';
+import { PageElement } from '@leavittsoftware/web/titanium/site-search-text-field-controller/site-search-text-field-controller';
 
 @customElement('my-app')
 export class MyApp extends PendingStateCatcher(LitElement) {
@@ -48,7 +48,9 @@ export class MyApp extends PendingStateCatcher(LitElement) {
   @property({ type: String, reflect: true, attribute: 'main-menu-position' })
   private mainMenuPosition: 'slim' | 'full' | 'drawer' = 'full';
 
-  @query('titanium-drawer') private accessor drawer: TitaniumDrawer;
+  @query('titanium-drawer') private accessor drawer!: TitaniumDrawer;
+
+  #resizeObserver: ResizeObserver | null = null;
 
   async connectedCallback() {
     super.connectedCallback();
@@ -56,7 +58,7 @@ export class MyApp extends PendingStateCatcher(LitElement) {
       UserManager.initialize();
     } catch (error) {
       console.error(error);
-      this.fatalErrorMessage = error;
+      this.fatalErrorMessage = error instanceof Error ? error.message : String(error);
       this.#changePage('error');
       return;
     }
@@ -98,38 +100,43 @@ export class MyApp extends PendingStateCatcher(LitElement) {
       this.#applyTheme();
     });
 
-    const resizeObserver = new ResizeObserver((entries) => {
+    this.#resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
         const width = entry.contentRect.width;
         if (width < 600) {
+          this.drawer.mode = 'flyover';
           this.mainMenuPosition = 'drawer';
         } else if (width >= 600 && width < 920) {
+          this.drawer.mode = 'inline';
+          this.drawer.open();
           this.mainMenuPosition = 'slim';
-          this.drawer?.closeQuick();
         } else {
+          this.drawer.mode = 'inline';
+          this.drawer.open();
           this.mainMenuPosition = this.prefersCollapsedMenu ? 'slim' : 'full';
-          this.drawer?.closeQuick();
         }
       }
     });
 
-    resizeObserver.observe(this);
+    this.#resizeObserver.observe(this);
 
-    this.addEventListener(ChangePathEvent.eventName, (event: ChangePathEvent) => {
+    this.addEventListener(ChangePathEvent.eventName, ((event: ChangePathEvent) => {
       page.show(event.detail.path);
-    });
+    }) as EventListener);
 
-    this.addEventListener(RedirectPathEvent.eventName, (event: RedirectPathEvent) => {
+    this.addEventListener(RedirectPathEvent.eventName, ((event: RedirectPathEvent) => {
       page.redirect(event.detail.path);
-    });
+    }) as EventListener);
 
-    this.addEventListener(SiteErrorEvent.eventName, (event: SiteErrorEvent) => {
+    this.addEventListener(SiteErrorEvent.eventName, ((event: SiteErrorEvent) => {
       this.fatalErrorMessage = event.detail;
       this.#changePage('error');
-    });
+    }) as EventListener);
 
     page('*', (_ctx, next) => {
-      this.drawer?.close();
+      if (this.drawer?.mode === 'flyover') {
+        this.drawer.close();
+      }
       next();
     });
 
@@ -137,16 +144,12 @@ export class MyApp extends PendingStateCatcher(LitElement) {
       page.show('/getting-started');
     });
     page('/getting-started', () => this.#changePage('getting-started', () => import('./getting-started.js')));
-    page('/titanium-full-page-loading-indicator', () =>
-      this.#changePage('titanium-full-page-loading-indicator', () => import('./demos/titanium-full-page-loading-indicator-demo.js'))
-    );
     page('/available-cdn-icons', () => this.#changePage('available-cdn-icons', () => import('./demos/available-cdn-icons-demo.js')));
 
     page('/leavitt-company-select', () => this.#changePage('leavitt-company-select', () => import('./demos/leavitt-company-select-demo.js')));
     page('/leavitt-file-explorer', () => this.#changePage('leavitt-file-explorer', () => import('./demos/leavitt-file-explorer-demo.js')));
 
     page('/titanium-date-range-selector', () => this.#changePage('titanium-date-range-selector', () => import('./demos/titanium-date-range-selector-demo.js')));
-    page('/titanium-data-table-item', () => this.#changePage('titanium-data-table-item', () => import('./demos/titanium-data-table-item-demo.js')));
 
     page('/leavitt-person-select', () => this.#changePage('leavitt-person-select', () => import('./demos/leavitt-person-select-demo.js')));
     page('/leavitt-person-company-select', () =>
@@ -156,32 +159,18 @@ export class MyApp extends PendingStateCatcher(LitElement) {
 
     page('/leavitt-email-history-viewer', () => this.#changePage('leavitt-email-history-viewer', () => import('./demos/leavitt-email-history-viewer-demo.js')));
 
-    page('/leavitt-user-feedback', () => this.#changePage('leavitt-user-feedback', () => import('./demos/leavitt-user-feedback-demo.js')));
     page('/leavitt-error-page', () => this.#changePage('leavitt-error-page', () => import('./demos/leavitt-error-page-demo.js')));
     page('/profile-picture', () => this.#changePage('profile-picture', () => import('./demos/profile-picture-demo.js')));
     page('/profile-picture-menu', () => this.#changePage('profile-picture-menu', () => import('./demos/profile-picture-menu-demo.js')));
-    page('/titanium-access-denied-page', () => this.#changePage('titanium-access-denied-page', () => import('./demos/titanium-access-denied-page-demo.js')));
 
-    page('/titanium-data-table', () => this.#changePage('titanium-data-table', () => import('./demos/titanium-data-table-demo.js')));
-    page('/titanium-data-table-item', () => this.#changePage('titanium-data-table-item', () => import('./demos/titanium-data-table-item-demo.js')));
+    page('/titanium-data-table-core', () => this.#changePage('titanium-data-table-core', () => import('./demos/titanium-data-table-core-demo.js')));
     page('/titanium-drawer', () => this.#changePage('titanium-drawer', () => import('./demos/titanium-drawer-demo.js')));
-    page('/titanium-error-page', () => this.#changePage('titanium-error-page', () => import('./demos/titanium-error-page-demo.js')));
     page('/titanium-address-input', () => this.#changePage('titanium-address-input', () => import('./demos/titanium-address-input-demo.js')));
-    page('/titanium-header', () => this.#changePage('titanium-header', () => import('./demos/titanium-header-demo.js')));
     page('/titanium-icon-picker', () => this.#changePage('titanium-icon-picker', () => import('./demos/titanium-icon-picker-demo.js')));
-    page('/titanium-header', () => this.#changePage('titanium-header', () => import('./demos/titanium-header-demo.js')));
 
     page('/titanium-chip-multi-select', () => this.#changePage('titanium-chip-multi-select', () => import('./demos/titanium-chip-multi-select-demo.js')));
     page('/titanium-input-validator', () => this.#changePage('titanium-input-validator', () => import('./demos/titanium-input-validator-demo.js')));
-    page('/titanium-data-table-header', () => this.#changePage('titanium-data-table-header', () => import('./demos/titanium-data-table-header-demo.js')));
-    page('/titanium-data-table-core', () => this.#changePage('titanium-data-table-core', () => import('./demos/titanium-data-table-core-demo.js')));
-    page('/titanium-promise-tracking', () =>
-      this.#changePage('titanium-promise-tracking', () => import('./demos/titanium-promise-tracking-demo.js'))
-    );
-
-    page('/titanium-full-page-loading-indicator', () =>
-      this.#changePage('titanium-full-page-loading-indicator', () => import('./demos/titanium-full-page-loading-indicator-demo.js'))
-    );
+    page('/titanium-promise-tracking', () => this.#changePage('titanium-promise-tracking', () => import('./demos/titanium-promise-tracking-demo.js')));
 
     page('/titanium-page-control', () => this.#changePage('titanium-page-control', () => import('./demos/titanium-page-control-demo.js')));
 
@@ -196,7 +185,6 @@ export class MyApp extends PendingStateCatcher(LitElement) {
 
     page('/titanium-styles', () => this.#changePage('titanium-styles', () => import('./demos/titanium-styles-demo.js')));
     page('/titanium-snackbar', () => this.#changePage('titanium-snackbar', () => import('./demos/titanium-snackbar-demo.js')));
-    page('/titanium-card', () => this.#changePage('titanium-card', () => import('./demos/titanium-card-demo.js')));
     page('/titanium-chip', () => this.#changePage('titanium-chip', () => import('./demos/titanium-chip-demo.js')));
     page('/titanium-youtube-input', () => this.#changePage('titanium-youtube-input', () => import('./demos/titanium-youtube-input-demo.js')));
     page('/titanium-show-hide', () => this.#changePage('titanium-show-hide', () => import('./demos/titanium-show-hide-demo.js')));
@@ -205,7 +193,6 @@ export class MyApp extends PendingStateCatcher(LitElement) {
       this.#changePage('titanium-profile-picture-stack', () => import('./demos/titanium-profile-picture-stack-demo.js'))
     );
 
-    page('/titanium-confirm-dialog', () => this.#changePage('titanium-confirm-dialog', () => import('./demos/titanium-confirm-dialog-demo.js')));
     page('/titanium-confirmation-dialog', () => this.#changePage('titanium-confirmation-dialog', () => import('./demos/titanium-confirmation-dialog-demo.js')));
 
     page('*', () => {
@@ -213,6 +200,15 @@ export class MyApp extends PendingStateCatcher(LitElement) {
     });
 
     page.start();
+  }
+
+  async disconnectedCallback() {
+    await super.disconnectedCallback();
+    this.#resizeObserver?.disconnect();
+  }
+
+  #getActivePageElement(mainPage: string): PageElement | null {
+    return this.shadowRoot?.querySelector<PageElement>(`${mainPage}-demo`) ?? this.shadowRoot?.querySelector<PageElement>(mainPage) ?? null;
   }
 
   async #changePage(mainPage: string, importFunction?: () => Promise<unknown>) {
@@ -223,11 +219,12 @@ export class MyApp extends PendingStateCatcher(LitElement) {
         this.dispatchEvent(new PendingStateEvent(importElements));
       }
       await importElements;
+      await this.updateComplete;
 
-      this.showSearch = mainPage === 'leavitt-email-history-viewer';
+      this.showSearch = !!this.#getActivePageElement(mainPage)?.searchController;
     } catch (error) {
       console.warn(error);
-      this.#showErrorPage(error);
+      this.#showErrorPage(error instanceof Error ? error.message : String(error));
     }
   }
 
@@ -296,8 +293,7 @@ export class MyApp extends PendingStateCatcher(LitElement) {
   ];
 
   render() {
-    return html`<titanium-full-page-loading-indicator></titanium-full-page-loading-indicator>
-      <titanium-toolbar>
+    return html`<titanium-toolbar>
         <md-circular-progress ?hidden=${!this.stateIsPending} root-loading ?indeterminate=${this.stateIsPending}></md-circular-progress>
         <md-icon-button
           hamburger
@@ -332,7 +328,7 @@ export class MyApp extends PendingStateCatcher(LitElement) {
         </page-actions>
       </titanium-toolbar>
 
-      <titanium-drawer main-menu ?always-show-content=${this.mainMenuPosition !== 'drawer'}>
+      <titanium-drawer main-menu>
         <header slot="header">
           <leavitt-app-logo app-name="Titanium Elements"></leavitt-app-logo>
           <page-actions>
@@ -359,16 +355,8 @@ export class MyApp extends PendingStateCatcher(LitElement) {
         <section>
           <h4 menu-category>Titanium</h4>
 
-          <md-list-item ?selected=${this.page === 'titanium-access-denied-page'} href="/titanium-access-denied-page" type="link">
-            <md-icon slot="start">block</md-icon> <span>Access denied page</span>
-          </md-list-item>
-
           <md-list-item ?selected=${this.page === 'titanium-address-input'} href="/titanium-address-input" type="link">
             <md-icon slot="start">location_on</md-icon> <span>Address input</span>
-          </md-list-item>
-
-          <md-list-item ?selected=${this.page === 'titanium-card'} href="/titanium-card" type="link">
-            <md-icon slot="start">dashboard</md-icon> <span>Card</span>
           </md-list-item>
 
           <md-list-item ?selected=${this.page === 'titanium-chip'} href="/titanium-chip" type="link">
@@ -379,28 +367,12 @@ export class MyApp extends PendingStateCatcher(LitElement) {
             <md-icon slot="start">checklist</md-icon> <span>Chip multi select</span>
           </md-list-item>
 
-          <md-list-item ?selected=${this.page === 'titanium-confirm-dialog'} href="/titanium-confirm-dialog" type="link">
-            <md-icon slot="start">help_outline</md-icon> <span>Confirm dialog</span>
-          </md-list-item>
-
           <md-list-item ?selected=${this.page === 'titanium-confirmation-dialog'} href="/titanium-confirmation-dialog" type="link">
             <md-icon slot="start">check_circle</md-icon> <span>Confirmation dialog</span>
           </md-list-item>
 
-          <md-list-item ?selected=${this.page === 'titanium-data-table'} href="/titanium-data-table" type="link">
-            <md-icon slot="start">table_chart</md-icon> <span>Data table</span>
-          </md-list-item>
-
           <md-list-item ?selected=${this.page === 'titanium-data-table-core'} href="/titanium-data-table-core" type="link">
             <md-icon slot="start">table_rows</md-icon> <span>Data table core</span>
-          </md-list-item>
-
-          <md-list-item ?selected=${this.page === 'titanium-data-table-header'} href="/titanium-data-table-header" type="link">
-            <md-icon slot="start">view_column</md-icon> <span>Data table header</span>
-          </md-list-item>
-
-          <md-list-item ?selected=${this.page === 'titanium-data-table-item'} href="/titanium-data-table-item" type="link">
-            <md-icon slot="start">format_list_numbered</md-icon> <span>Data table item</span>
           </md-list-item>
 
           <md-list-item ?selected=${!!this.page?.includes('titanium-date-input')} href="/titanium-date-input" type="link">
@@ -417,18 +389,6 @@ export class MyApp extends PendingStateCatcher(LitElement) {
 
           <md-list-item ?selected=${!!this.page?.includes('titanium-duration-input')} href="/titanium-duration-input" type="link">
             <md-icon slot="start">timer</md-icon> <span>Duration input</span>
-          </md-list-item>
-
-          <md-list-item ?selected=${!!this.page?.includes('titanium-error-page')} href="/titanium-error-page" type="link">
-            <md-icon slot="start">error</md-icon> <span>Error page</span>
-          </md-list-item>
-
-          <md-list-item ?selected=${!!this.page?.includes('titanium-full-page-loading-indicator')} href="/titanium-full-page-loading-indicator" type="link">
-            <md-icon slot="start">hourglass_top</md-icon> <span>Full page loading indicator</span>
-          </md-list-item>
-
-          <md-list-item ?selected=${this.page === 'titanium-header'} href="/titanium-header" type="link">
-            <md-icon slot="start">title</md-icon> <span>Header</span>
           </md-list-item>
 
           <md-list-item ?selected=${this.page === 'titanium-icon-picker'} href="/titanium-icon-picker" type="link">
@@ -484,10 +444,12 @@ export class MyApp extends PendingStateCatcher(LitElement) {
           <h4 menu-category>Leavitt</h4>
           <md-list-item ?selected=${this.page === 'leavitt-company-select'} href="/leavitt-company-select" type="link">
             <md-icon slot="start">business</md-icon> <span>Company select</span>
+            <md-icon slot="end">passkey</md-icon>
           </md-list-item>
 
           <md-list-item ?selected=${this.page === 'leavitt-email-history-viewer'} href="/leavitt-email-history-viewer" type="link">
             <md-icon slot="start">mail</md-icon> <span>Email history viewer</span>
+            <md-icon slot="end">passkey</md-icon>
           </md-list-item>
 
           <md-list-item ?selected=${this.page === 'leavitt-error-page'} href="/leavitt-error-page" type="link">
@@ -496,18 +458,22 @@ export class MyApp extends PendingStateCatcher(LitElement) {
 
           <md-list-item ?selected=${this.page === 'leavitt-file-explorer'} href="/leavitt-file-explorer" type="link">
             <md-icon slot="start">folder_open</md-icon> <span>File explorer</span>
+            <md-icon slot="end">passkey</md-icon>
           </md-list-item>
 
           <md-list-item ?selected=${this.page === 'leavitt-person-company-select'} href="/leavitt-person-company-select" type="link">
             <md-icon slot="start">badge</md-icon> <span>Person company select</span>
+            <md-icon slot="end">passkey</md-icon>
           </md-list-item>
 
           <md-list-item ?selected=${this.page === 'leavitt-person-group-select'} href="/leavitt-person-group-select" type="link">
             <md-icon slot="start">diversity_3</md-icon> <span>Person group select</span>
+            <md-icon slot="end">passkey</md-icon>
           </md-list-item>
 
           <md-list-item ?selected=${this.page === 'leavitt-person-select'} href="/leavitt-person-select" type="link">
             <md-icon slot="start">person_search</md-icon> <span>Person select</span>
+            <md-icon slot="end">passkey</md-icon>
           </md-list-item>
 
           <md-list-item ?selected=${this.page === 'profile-picture'} href="/profile-picture" type="link">
@@ -516,10 +482,6 @@ export class MyApp extends PendingStateCatcher(LitElement) {
 
           <md-list-item ?selected=${this.page === 'profile-picture-menu'} href="/profile-picture-menu" type="link">
             <md-icon slot="start">account_box</md-icon> <span>Profile picture menu</span>
-          </md-list-item>
-
-          <md-list-item ?selected=${this.page === 'leavitt-user-feedback'} href="/leavitt-user-feedback" type="link">
-            <md-icon slot="start">feedback</md-icon> <span>User feedback</span>
           </md-list-item>
         </section>
         <a
@@ -547,133 +509,37 @@ export class MyApp extends PendingStateCatcher(LitElement) {
         ${this.page === 'error' ? html`<div>Oops, something went wrong.</div>` : nothing}
 
         <!-- Stories -->
-        ${this.page === 'available-cdn-icons'
-          ? html` <available-cdn-icons-demo large ?isActive=${this.page === 'available-cdn-icons'}></available-cdn-icons-demo> `
-          : nothing}
-        ${this.page === 'titanium-date-range-selector'
-          ? html` <titanium-date-range-selector-demo large ?isActive=${this.page === 'titanium-date-range-selector'}></titanium-date-range-selector-demo> `
-          : nothing}
-        ${this.page === 'leavitt-person-select'
-          ? html` <leavitt-person-select-demo large ?isActive=${this.page === 'leavitt-person-select'}></leavitt-person-select-demo> `
-          : nothing}
-        ${this.page === 'leavitt-company-select'
-          ? html` <leavitt-company-select-demo large ?isActive=${this.page === 'leavitt-company-select'}></leavitt-company-select-demo> `
-          : nothing}
-        ${this.page === 'leavitt-email-history-viewer'
-          ? html` <leavitt-email-history-viewer-demo large ?isActive=${this.page === 'leavitt-email-history-viewer'}></leavitt-email-history-viewer-demo> `
-          : nothing}
-        ${this.page === 'leavitt-file-explorer'
-          ? html` <leavitt-file-explorer-demo large ?isActive=${this.page === 'leavitt-file-explorer'}></leavitt-file-explorer-demo> `
-          : nothing}
-        ${this.page === 'leavitt-user-feedback'
-          ? html` <leavitt-user-feedback-demo large ?isActive=${this.page === 'leavitt-user-feedback'}></leavitt-user-feedback-demo> `
-          : nothing}
-        ${this.page === 'leavitt-error-page'
-          ? html` <leavitt-error-page-demo large ?isActive=${this.page === 'leavitt-error-page'}></leavitt-error-page-demo> `
-          : nothing}
-        ${this.page === 'leavitt-person-company-select'
-          ? html` <leavitt-person-company-select-demo large ?isActive=${this.page === 'leavitt-person-company-select'}></leavitt-person-company-select-demo> `
-          : nothing}
-        ${this.page === 'leavitt-person-group-select'
-          ? html` <leavitt-person-group-select-demo large ?isActive=${this.page === 'leavitt-person-group-select'}></leavitt-person-group-select-demo> `
-          : nothing}
-        ${this.page === 'titanium-drawer' ? html` <titanium-drawer-demo ?isActive=${this.page === 'titanium-drawer'}></titanium-drawer-demo> ` : nothing}
-        ${this.page === 'profile-picture' ? html` <profile-picture-demo ?isActive=${this.page === 'profile-picture'}></profile-picture-demo> ` : nothing}
-        ${this.page === 'profile-picture-menu'
-          ? html` <profile-picture-menu-demo large ?isActive=${this.page === 'profile-picture-menu'}></profile-picture-menu-demo> `
-          : nothing}
-        ${this.page === 'titanium-input-validator'
-          ? html` <titanium-input-validator-demo large ?isActive=${this.page === 'titanium-input-validator'}></titanium-input-validator-demo> `
-          : nothing}
-        ${this.page === 'titanium-data-table'
-          ? html` <titanium-data-table-demo large ?isActive=${this.page === 'titanium-data-table'}></titanium-data-table-demo> `
-          : nothing}
-        ${this.page === 'titanium-data-table-core'
-          ? html` <titanium-data-table-core-demo large ?isActive=${this.page === 'titanium-data-table-core'}></titanium-data-table-core-demo> `
-          : nothing}
-        ${this.page === 'titanium-promise-tracking'
-          ? html`
-              <titanium-promise-tracking-demo large ?isActive=${this.page === 'titanium-promise-tracking'}></titanium-promise-tracking-demo>
-            `
-          : nothing}
-        ${this.page === 'titanium-data-table-header'
-          ? html` <titanium-data-table-header-demo large ?isActive=${this.page === 'titanium-data-table-header'}></titanium-data-table-header-demo> `
-          : nothing}
-        ${this.page === 'titanium-data-table-item'
-          ? html` <titanium-data-table-item-demo large ?isActive=${this.page === 'titanium-data-table-item'}></titanium-data-table-item-demo> `
-          : nothing}
-        ${this.page === 'titanium-access-denied-page'
-          ? html` <titanium-access-denied-page-demo large ?isActive=${this.page === 'titanium-access-denied-page'}></titanium-access-denied-page-demo> `
-          : nothing}
-        ${this.page === 'titanium-address-input'
-          ? html` <titanium-address-input-demo large ?isActive=${this.page === 'titanium-address-input'}></titanium-address-input-demo> `
-          : nothing}
-        ${this.page === 'titanium-error-page'
-          ? html` <titanium-error-page-demo large ?isActive=${this.page === 'titanium-error-page'}></titanium-error-page-demo> `
-          : nothing}
-        ${this.page === 'titanium-header' ? html` <titanium-header-demo ?isActive=${this.page === 'titanium-header'}></titanium-header-demo> ` : nothing}
-        ${this.page === 'titanium-icon' ? html` <titanium-icon-demo ?isActive=${this.page === 'titanium-icon'}></titanium-icon-demo> ` : nothing}
-        ${this.page === 'titanium-icon-picker'
-          ? html` <titanium-icon-picker-demo large ?isActive=${this.page === 'titanium-icon-picker'}></titanium-icon-picker-demo> `
-          : nothing}
-        ${this.page === 'titanium-page-control'
-          ? html` <titanium-page-control-demo large ?isActive=${this.page === 'titanium-page-control'}></titanium-page-control-demo> `
-          : nothing}
-        ${this.page === 'titanium-date-input'
-          ? html` <titanium-date-input-demo large ?isActive=${this.page === 'titanium-date-input'}></titanium-date-input-demo> `
-          : nothing}
-        ${this.page === 'titanium-search-input'
-          ? html` <titanium-search-input-demo large ?isActive=${this.page === 'titanium-search-input'}></titanium-search-input-demo> `
-          : nothing}
-        ${this.page === 'titanium-toolbar'
-          ? html` <titanium-toolbar-demo large ?isActive=${this.page === 'titanium-toolbar'}></titanium-toolbar-demo> `
-          : nothing}
-        ${this.page === 'titanium-full-page-loading-indicator'
-          ? html`
-              <titanium-full-page-loading-indicator-demo
-                large
-                ?isActive=${this.page === 'titanium-full-page-loading-indicator'}
-              ></titanium-full-page-loading-indicator-demo>
-            `
-          : nothing}
-        ${this.page === 'titanium-loading-indicator'
-          ? html` <titanium-loading-indicator-demo large ?isActive=${this.page === 'titanium-loading-indicator'}></titanium-loading-indicator-demo> `
-          : nothing}
-        ${this.page === 'titanium-chip-multi-select'
-          ? html` <titanium-chip-multi-select-demo large ?isActive=${this.page === 'titanium-chip-multi-select'}></titanium-chip-multi-select-demo> `
-          : nothing}
-        ${this.page === 'titanium-styles' ? html` <titanium-styles-demo large ?isActive=${this.page === 'titanium-styles'}></titanium-styles-demo> ` : nothing}
-        ${this.page === 'titanium-snackbar'
-          ? html` <titanium-snackbar-demo large ?isActive=${this.page === 'titanium-snackbar'}></titanium-snackbar-demo> `
-          : nothing}
-        ${this.page === 'titanium-smart-attachment-input'
-          ? html`
-              <titanium-smart-attachment-input-demo large ?isActive=${this.page === 'titanium-smart-attachment-input'}></titanium-smart-attachment-input-demo>
-            `
-          : nothing}
-        ${this.page === 'titanium-card' ? html` <titanium-card-demo large ?isActive=${this.page === 'titanium-card'}></titanium-card-demo> ` : nothing}
-        ${this.page === 'titanium-chip' ? html` <titanium-chip-demo large ?isActive=${this.page === 'titanium-chip'}></titanium-chip-demo> ` : nothing}
-        ${this.page === 'titanium-youtube-input'
-          ? html` <titanium-youtube-input-demo large ?isActive=${this.page === 'titanium-youtube-input'}></titanium-youtube-input-demo> `
-          : nothing}
-        ${this.page === 'titanium-show-hide'
-          ? html` <titanium-show-hide-demo large ?isActive=${this.page === 'titanium-show-hide'}></titanium-show-hide-demo> `
-          : nothing}
-        ${this.page === 'titanium-duration-input'
-          ? html` <titanium-duration-input-demo large ?isActive=${this.page === 'titanium-duration-input'}></titanium-duration-input-demo> `
-          : nothing}
-        ${this.page === 'titanium-confirm-dialog'
-          ? html` <titanium-confirm-dialog-demo large ?isActive=${this.page === 'titanium-confirm-dialog'}></titanium-confirm-dialog-demo> `
-          : nothing}
-        ${this.page === 'titanium-confirmation-dialog'
-          ? html` <titanium-confirmation-dialog-demo large ?isActive=${this.page === 'titanium-confirmation-dialog'}></titanium-confirmation-dialog-demo> `
-          : nothing}
-        ${this.page === 'titanium-profile-picture-stack'
-          ? html`
-              <titanium-profile-picture-stack-demo large ?isActive=${this.page === 'titanium-profile-picture-stack'}></titanium-profile-picture-stack-demo>
-            `
-          : nothing}
-        <titanium-access-denied-page ?hidden=${this.page !== 'access-denied'}></titanium-access-denied-page>
+        ${this.page === 'available-cdn-icons' ? html`<available-cdn-icons-demo large></available-cdn-icons-demo>` : nothing}
+        ${this.page === 'titanium-date-range-selector' ? html`<titanium-date-range-selector-demo large></titanium-date-range-selector-demo>` : nothing}
+        ${this.page === 'leavitt-person-select' ? html`<leavitt-person-select-demo large></leavitt-person-select-demo>` : nothing}
+        ${this.page === 'leavitt-company-select' ? html`<leavitt-company-select-demo large></leavitt-company-select-demo>` : nothing}
+        ${this.page === 'leavitt-email-history-viewer' ? html`<leavitt-email-history-viewer-demo large></leavitt-email-history-viewer-demo>` : nothing}
+        ${this.page === 'leavitt-file-explorer' ? html`<leavitt-file-explorer-demo large></leavitt-file-explorer-demo>` : nothing}
+        ${this.page === 'leavitt-error-page' ? html`<leavitt-error-page-demo large></leavitt-error-page-demo>` : nothing}
+        ${this.page === 'leavitt-person-company-select' ? html`<leavitt-person-company-select-demo large></leavitt-person-company-select-demo>` : nothing}
+        ${this.page === 'leavitt-person-group-select' ? html`<leavitt-person-group-select-demo large></leavitt-person-group-select-demo>` : nothing}
+        ${this.page === 'titanium-drawer' ? html`<titanium-drawer-demo></titanium-drawer-demo>` : nothing}
+        ${this.page === 'profile-picture' ? html`<profile-picture-demo></profile-picture-demo>` : nothing}
+        ${this.page === 'profile-picture-menu' ? html`<profile-picture-menu-demo large></profile-picture-menu-demo>` : nothing}
+        ${this.page === 'titanium-input-validator' ? html`<titanium-input-validator-demo large></titanium-input-validator-demo>` : nothing}
+        ${this.page === 'titanium-data-table-core' ? html`<titanium-data-table-core-demo large></titanium-data-table-core-demo>` : nothing}
+        ${this.page === 'titanium-promise-tracking' ? html`<titanium-promise-tracking-demo large></titanium-promise-tracking-demo>` : nothing}
+        ${this.page === 'titanium-address-input' ? html`<titanium-address-input-demo large></titanium-address-input-demo>` : nothing}
+        ${this.page === 'titanium-icon-picker' ? html`<titanium-icon-picker-demo large></titanium-icon-picker-demo>` : nothing}
+        ${this.page === 'titanium-page-control' ? html`<titanium-page-control-demo large></titanium-page-control-demo>` : nothing}
+        ${this.page === 'titanium-date-input' ? html`<titanium-date-input-demo large></titanium-date-input-demo>` : nothing}
+        ${this.page === 'titanium-search-input' ? html`<titanium-search-input-demo large></titanium-search-input-demo>` : nothing}
+        ${this.page === 'titanium-toolbar' ? html`<titanium-toolbar-demo large></titanium-toolbar-demo>` : nothing}
+        ${this.page === 'titanium-chip-multi-select' ? html`<titanium-chip-multi-select-demo large></titanium-chip-multi-select-demo>` : nothing}
+        ${this.page === 'titanium-styles' ? html`<titanium-styles-demo large></titanium-styles-demo>` : nothing}
+        ${this.page === 'titanium-snackbar' ? html`<titanium-snackbar-demo large></titanium-snackbar-demo>` : nothing}
+        ${this.page === 'titanium-smart-attachment-input' ? html`<titanium-smart-attachment-input-demo large></titanium-smart-attachment-input-demo>` : nothing}
+        ${this.page === 'titanium-chip' ? html`<titanium-chip-demo large></titanium-chip-demo>` : nothing}
+        ${this.page === 'titanium-youtube-input' ? html`<titanium-youtube-input-demo large></titanium-youtube-input-demo>` : nothing}
+        ${this.page === 'titanium-show-hide' ? html`<titanium-show-hide-demo large></titanium-show-hide-demo>` : nothing}
+        ${this.page === 'titanium-duration-input' ? html`<titanium-duration-input-demo large></titanium-duration-input-demo>` : nothing}
+        ${this.page === 'titanium-confirmation-dialog' ? html`<titanium-confirmation-dialog-demo large></titanium-confirmation-dialog-demo>` : nothing}
+        ${this.page === 'titanium-profile-picture-stack' ? html`<titanium-profile-picture-stack-demo large></titanium-profile-picture-stack-demo>` : nothing}
 
         <leavitt-error-page
           ?hidden=${this.page !== 'error'}
@@ -687,7 +553,6 @@ export class MyApp extends PendingStateCatcher(LitElement) {
       <report-a-problem-dialog .userManager=${UserManager}></report-a-problem-dialog>
       <provide-feedback-dialog .userManager=${UserManager}></provide-feedback-dialog>
 
-      <titanium-confirm-dialog></titanium-confirm-dialog>
       <titanium-snackbar-stack .eventListenerTarget=${document}></titanium-snackbar-stack> `;
   }
 }

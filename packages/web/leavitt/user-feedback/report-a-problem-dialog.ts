@@ -6,8 +6,8 @@ import '../../titanium/snackbar/snackbar-stack';
 import '../../titanium/smart-attachment-input/smart-attachment-input';
 
 import { LitElement, css, html } from 'lit';
-import { customElement, property, query } from 'lit/decorators.js';
-import { LoadWhile, isDevelopment } from '../../titanium/helpers/helpers';
+import { customElement, property, query, state } from 'lit/decorators.js';
+import { promiseTracking, isDevelopment } from '../../titanium/helpers/helpers';
 import { PendingStateEvent } from '../../titanium/types/pending-state-event';
 import { h1, p } from '../../titanium/styles/styles';
 import { IssueDto } from '@leavittsoftware/lg-core-typescript';
@@ -21,15 +21,21 @@ import { DOMEvent } from '../../titanium/types/dom-event';
 import { SnackbarStack } from '../../titanium/snackbar/snackbar-stack';
 import { TitaniumSmartAttachmentInput } from '../../titanium/smart-attachment-input/smart-attachment-input';
 import { AuthZeroLgUserManager } from '../user-manager/auth-zero-lg-user-manager';
+import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
 
 @customElement('report-a-problem-dialog')
-export class ReportAProblemDialog extends LoadWhile(LitElement) {
-  @property({ type: Object }) accessor userManager: AuthZeroLgUserManager;
-  @query('md-dialog') private accessor dialog!: MdDialog;
-  @query('titanium-snackbar-stack') private accessor snackbar: SnackbarStack;
+export class ReportAProblemDialog extends LitElement {
+  @promiseTracking('trackLoadingPromise')
+  @state()
+  accessor isLoading = false;
+  declare trackLoadingPromise: (promise: Promise<unknown>) => Promise<void>;
 
-  @query('md-outlined-text-field') private accessor textArea: MdOutlinedTextField;
-  @query('titanium-smart-attachment-input') private accessor imageInput: TitaniumSmartAttachmentInput | null;
+  @property({ type: Object }) accessor userManager!: AuthZeroLgUserManager;
+  @query('md-dialog') private accessor dialog!: MdDialog;
+  @query('titanium-snackbar-stack') private accessor snackbar!: SnackbarStack;
+
+  @query('md-outlined-text-field') private accessor textArea!: MdOutlinedTextField;
+  @query('titanium-smart-attachment-input') private accessor imageInput!: TitaniumSmartAttachmentInput | null;
 
   show() {
     this.reset();
@@ -61,7 +67,7 @@ export class ReportAProblemDialog extends LoadWhile(LitElement) {
       apiService.addHeader('X-LGAppName', 'IssueTracking');
       const post = apiService.postAsync<IssueDto>('Issues/ReportIssue', dto, { sendAsFormData: true });
       this.dispatchEvent(new PendingStateEvent(post));
-      this.loadWhile(post);
+      this.trackLoadingPromise(post);
       const entity = (await post).entity;
 
       if (!entity) {
@@ -78,7 +84,7 @@ export class ReportAProblemDialog extends LoadWhile(LitElement) {
         this.dialog.close('done');
       }
     } catch (error) {
-      this.dispatchEvent(new ShowSnackbarEvent(error));
+      this.dispatchEvent(new ShowSnackbarEvent(error as Partial<HttpError>));
     }
   }
 

@@ -11,10 +11,6 @@ const StoryStyles = [
       margin-bottom: 48px;
     }
 
-    titanium-card {
-      margin-bottom: 36px;
-    }
-
     h1 {
       margin-bottom: 0;
     }

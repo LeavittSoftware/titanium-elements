@@ -42,7 +42,8 @@ export class LeavittErrorPageDemo extends LitElement {
               <md-divider></md-divider>
               <leavitt-error-page
                 .heading=${html`Page not found`}
-                .message=${html`The page you requested could not be found. <a style="color: var(--md-sys-color-primary)" href="/">Return home</a> or <a style="color: var(--md-sys-color-primary)" href="mailto:support@leavitt.com">contact support</a>.`}
+                .message=${html`The page you requested could not be found. <a style="color: var(--md-sys-color-primary)" href="/">Return home</a> or
+                  <a style="color: var(--md-sys-color-primary)" href="mailto:support@leavitt.com">contact support</a>.`}
               ></leavitt-error-page>
             </div>
 

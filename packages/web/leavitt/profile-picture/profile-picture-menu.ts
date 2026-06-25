@@ -20,14 +20,14 @@ import { AuthZeroLgUserManager } from '../user-manager/auth-zero-lg-user-manager
  */
 @customElement('profile-picture-menu')
 export class ProfilePictureMenu extends LitElement {
-  @property({ type: Object }) accessor userManager: AuthZeroLgUserManager | null;
+  @property({ type: Object }) accessor userManager: AuthZeroLgUserManager | null = null;
 
   /**
    * Size in pixels of profile picture button
    */
   @property({ type: Number }) accessor size: number = 40;
 
-  @property({ type: String }) accessor profilePictureFileName: string | null;
+  @property({ type: String }) accessor profilePictureFileName: string | null = null;
 
   /**
    * Person id of user
@@ -49,7 +49,7 @@ export class ProfilePictureMenu extends LitElement {
    */
   @property({ type: String }) accessor name: string = '';
 
-  @query('md-menu') private accessor menu: MdMenu;
+  @query('md-menu') private accessor menu!: MdMenu;
 
   @property() positioning: 'absolute' | 'fixed' | 'document' | 'popover' = 'popover';
 

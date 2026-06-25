@@ -7,7 +7,7 @@ import { ThemePreference } from '@leavittsoftware/web/leavitt/theme/theme-prefer
 export class LeavittAppLogo extends ThemePreference(LitElement) {
   @property({ type: String }) accessor href: string = '/';
   @property({ type: String }) accessor title: string = 'Back to home';
-  @property({ type: String, attribute: 'app-name' }) accessor appName: string | null;
+  @property({ type: String, attribute: 'app-name' }) accessor appName: string | null = null;
 
   static styles = [
     css`

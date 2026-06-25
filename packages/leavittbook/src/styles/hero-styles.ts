@@ -26,14 +26,27 @@ export const heroStyles = css`
     padding: 0;
   }
 
-  [heading2],
+  [heading3],
   h3 {
-    font-family: var(--titanium-styles-h2-font-family, Metropolis, Roboto, Noto, sans-serif);
+    font-family: var(--titanium-styles-h3-font-family, Metropolis, Roboto, Noto, sans-serif);
     -webkit-font-smoothing: antialiased;
     font-size: 20px;
     line-height: 24px;
     font-weight: 700;
     letter-spacing: 0.6px;
+
+    margin: 0;
+    padding: 0;
+  }
+
+  [heading4],
+  h4 {
+    font-family: var(--titanium-styles-h4-font-family, Metropolis, Roboto, Noto, sans-serif);
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
 
     margin: 0;
     padding: 0;

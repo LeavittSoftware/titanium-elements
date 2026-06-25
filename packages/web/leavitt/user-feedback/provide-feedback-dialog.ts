@@ -5,8 +5,8 @@ import '@material/web/button/text-button';
 import '@leavittsoftware/web/titanium/snackbar/snackbar-stack';
 
 import { LitElement, css, html } from 'lit';
-import { customElement, property, query } from 'lit/decorators.js';
-import { LoadWhile, isDevelopment } from '../../titanium/helpers/helpers';
+import { customElement, property, query, state } from 'lit/decorators.js';
+import { promiseTracking, isDevelopment } from '../../titanium/helpers/helpers';
 import { PendingStateEvent } from '../../titanium/types/pending-state-event';
 import { h1, p } from '../../titanium/styles/styles';
 import { IssueDto } from '@leavittsoftware/lg-core-typescript';
@@ -19,13 +19,19 @@ import { DOMEvent } from '../../titanium/types/dom-event';
 import { SnackbarStack } from '../../titanium/snackbar/snackbar-stack';
 import { dialogCloseNavigationHack, dialogOpenNavigationHack } from '../../titanium/hacks/dialog-navigation-hack';
 import { AuthZeroLgUserManager } from '../user-manager/auth-zero-lg-user-manager';
+import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
 
 @customElement('provide-feedback-dialog')
-export class ProvideFeedbackDialog extends LoadWhile(LitElement) {
-  @property({ type: Object }) accessor userManager: AuthZeroLgUserManager;
+export class ProvideFeedbackDialog extends LitElement {
+  @promiseTracking('trackLoadingPromise')
+  @state()
+  accessor isLoading = false;
+  declare trackLoadingPromise: (promise: Promise<unknown>) => Promise<void>;
+
+  @property({ type: Object }) accessor userManager!: AuthZeroLgUserManager;
   @query('md-dialog') private accessor dialog!: MdDialog;
-  @query('titanium-snackbar-stack') private accessor snackbar: SnackbarStack;
-  @query('md-outlined-text-field') private accessor textArea: MdOutlinedTextField;
+  @query('titanium-snackbar-stack') private accessor snackbar!: SnackbarStack;
+  @query('md-outlined-text-field') private accessor textArea!: MdOutlinedTextField;
 
   show() {
     this.reset();
@@ -57,7 +63,7 @@ export class ProvideFeedbackDialog extends LoadWhile(LitElement) {
         apiService.addHeader('X-LGAppName', 'IssueTracking');
         const post = apiService.postAsync<IssueDto>('Issues/ReportIssue', dto, { sendAsFormData: true });
         this.dispatchEvent(new PendingStateEvent(post));
-        this.loadWhile(post);
+        this.trackLoadingPromise(post);
         const entity = (await post).entity;
 
         if (!entity) {
@@ -69,7 +75,7 @@ export class ProvideFeedbackDialog extends LoadWhile(LitElement) {
         }
       }
     } catch (error) {
-      this.dispatchEvent(new ShowSnackbarEvent(error));
+      this.dispatchEvent(new ShowSnackbarEvent(error as Partial<HttpError>));
     }
   }
 

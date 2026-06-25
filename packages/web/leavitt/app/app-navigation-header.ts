@@ -11,20 +11,20 @@ export class LeavittAppNavigationHeader extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'sticky-top' }) accessor stickyTop: boolean = false;
   @property({ type: Object, attribute: 'scrollable-parent' }) accessor scrollableParent: Element | null = null;
 
-  @property({ type: String }) accessor level1Text: string | null;
-  @property({ type: String }) accessor level1Href: string | null;
+  @property({ type: String }) accessor level1Text: string | null = null;
+  @property({ type: String }) accessor level1Href: string | null = null;
 
-  @property({ type: String }) accessor level2Text: string | null;
-  @property({ type: String }) accessor level2Href: string | null;
+  @property({ type: String }) accessor level2Text: string | null = null;
+  @property({ type: String }) accessor level2Href: string | null = null;
 
-  @property({ type: String }) accessor level3Text: string | null;
-  @property({ type: String }) accessor level3Href: string | null;
+  @property({ type: String }) accessor level3Text: string | null = null;
+  @property({ type: String }) accessor level3Href: string | null = null;
 
-  @property({ type: String }) accessor level4Text: string | null;
-  @property({ type: String }) accessor level4Href: string | null;
+  @property({ type: String }) accessor level4Text: string | null = null;
+  @property({ type: String }) accessor level4Href: string | null = null;
 
-  @property({ type: String }) accessor level5Text: string | null;
-  @property({ type: String }) accessor level5Href: string | null;
+  @property({ type: String }) accessor level5Text: string | null = null;
+  @property({ type: String }) accessor level5Href: string | null = null;
 
   @property({ type: Boolean, reflect: true, attribute: 'is-scrolled' }) private accessor isScrolled: boolean = false;
   #scrollableParent: Element | null = null;

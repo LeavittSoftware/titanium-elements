@@ -7,14 +7,17 @@ import '@api-viewer/docs';
 import '@leavittsoftware/web/titanium/snackbar/snackbar-stack';
 import '@leavittsoftware/web/leavitt/file-explorer/file-explorer';
 
-import { html, LitElement } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import StoryStyles from '../styles/story-styles';
 import api3UserService from '../services/api3-user-service';
+import { AuthIdentityController } from '../services/auth-identity-controller';
 
 @customElement('leavitt-file-explorer-demo')
 export class LeavittFileExplorerDemo extends LitElement {
+  #auth = new AuthIdentityController(this);
+
   connectedCallback() {
     super.connectedCallback();
     api3UserService.addHeader('X-LGAppName', 'FileExplorer');
@@ -36,13 +39,17 @@ export class LeavittFileExplorerDemo extends LitElement {
           <leavitt-app-navigation-header level1Text="Leavitt file explorer" level1Href="/leavitt-file-explorer" sticky-top> </leavitt-app-navigation-header>
 
           <leavitt-app-width-limiter max-width="1000px">
-            <story-header name="Leavitt File Explorer" className="LeavittFileExplorer"></story-header>
+            <story-header name="Leavitt File Explorer" className="LeavittFileExplorer" requires-auth></story-header>
 
-            <div>
-              <h1>File Explorer</h1>
-              <p>File explorer component with API integration</p>
-              <leavitt-file-explorer file-explorer-id="1" .apiService=${api3UserService}></leavitt-file-explorer>
-            </div>
+            ${this.#auth.identity
+              ? html`
+                  <div>
+                    <h1>File Explorer</h1>
+                    <p>File explorer component with API integration</p>
+                    <leavitt-file-explorer file-explorer-id="1" .apiService=${api3UserService}></leavitt-file-explorer>
+                  </div>
+                `
+              : nothing}
 
             <api-docs src="./custom-elements.json" selected="leavitt-file-explorer"></api-docs>
           </leavitt-app-width-limiter>

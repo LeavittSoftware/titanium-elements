@@ -1,10 +1,27 @@
+import { cpSync, existsSync, mkdirSync } from 'node:fs';
+import { basename, join } from 'node:path';
 import nodeResolve from '@rollup/plugin-node-resolve';
-import copy from 'rollup-plugin-copy';
 import terser from '@rollup/plugin-terser';
 import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
 import { importMetaAssets } from '@web/rollup-plugin-import-meta-assets';
 import { generateSW } from 'rollup-plugin-workbox';
 import path from 'path';
+
+/** Copies static assets into dist without pulling in deprecated glob/inflight via rollup-plugin-copy. */
+function copyStaticAssets(targets) {
+  return {
+    name: 'copy-static-assets',
+    writeBundle() {
+      for (const { src, dest } of targets) {
+        if (!existsSync(src)) {
+          continue;
+        }
+        mkdirSync(dest, { recursive: true });
+        cpSync(src, join(dest, basename(src)), { recursive: true });
+      }
+    },
+  };
+}
 
 export default {
   input: 'index.html',
@@ -29,6 +46,8 @@ export default {
     nodeResolve(),
     /** Minify HTML */
     terser({
+      // @rollup/plugin-terser v1's multi-worker pool segfaults on Node 22+; pin to a single worker.
+      maxWorkers: 1,
       ecma: 2022,
       module: true,
       warnings: true,
@@ -58,17 +77,15 @@ export default {
       clientsClaim: true,
       runtimeCaching: [{ urlPattern: 'polyfills/*.js', handler: 'CacheFirst' }],
     }),
-    copy({
-      targets: [
-        { src: 'custom-elements.json', dest: 'dist' },
-        { src: 'theme.css', dest: 'dist' },
-        { src: 'theme-custom.css', dest: 'dist' },
-        { src: 'manifest.json', dest: 'dist' },
-        { src: 'manifest', dest: 'dist' },
-        { src: 'fonts', dest: 'dist' },
-        { src: 'images', dest: 'dist' },
-        { src: '404.html', dest: 'dist' },
-      ],
-    }),
+    copyStaticAssets([
+      { src: 'custom-elements.json', dest: 'dist' },
+      { src: 'theme.css', dest: 'dist' },
+      { src: 'theme-custom.css', dest: 'dist' },
+      { src: 'manifest.json', dest: 'dist' },
+      { src: 'manifest', dest: 'dist' },
+      { src: 'fonts', dest: 'dist' },
+      { src: 'images', dest: 'dist' },
+      { src: '404.html', dest: 'dist' },
+    ]),
   ],
 };

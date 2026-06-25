@@ -6,10 +6,10 @@ import { CountUp } from 'countup.js';
 export default class NpmStats extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'hide-downloads' }) accessor hideDownloads: boolean = false;
 
-  @query('span.major') protected accessor major: HTMLDivElement;
-  @query('span.minor') protected accessor minor: HTMLDivElement;
-  @query('span.rev') protected accessor rev: HTMLDivElement;
-  @query('span.downloads') protected accessor downloads: HTMLDivElement;
+  @query('span.major') protected accessor major!: HTMLDivElement;
+  @query('span.minor') protected accessor minor!: HTMLDivElement;
+  @query('span.rev') protected accessor rev!: HTMLDivElement;
+  @query('span.downloads') protected accessor downloads!: HTMLDivElement;
 
   #package = '@leavittsoftware%2Fweb';
 

@@ -16,7 +16,7 @@ export default class TitaniumFilledSearchInput extends LitElement {
   @property({ type: Boolean }) accessor spellcheck: boolean = false;
   @property({ type: Boolean }) accessor disabled: boolean = false;
 
-  @query('md-filled-text-field') private accessor textField: MdFilledTextField;
+  @query('md-filled-text-field') private accessor textField!: MdFilledTextField;
 
   static styles = css`
     :host {

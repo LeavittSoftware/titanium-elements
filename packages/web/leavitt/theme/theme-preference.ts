@@ -19,7 +19,7 @@ export declare class ThemePreferenceInterface {
 */
 export const ThemePreference = <T extends Constructor<LitElement>>(superClass: T) => {
   class ThemePreference extends superClass {
-    @property({ attribute: 'theme-preference', reflect: true }) themePreference: ThemePreferenceOption;
+    @property({ attribute: 'theme-preference', reflect: true }) themePreference: ThemePreferenceOption = 'light';
 
     connectedCallback() {
       super.connectedCallback();

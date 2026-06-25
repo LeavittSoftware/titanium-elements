@@ -1,13 +1,14 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "module": "esnext",
-    "moduleResolution": "node",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "outDir": "spec/tmp",
     "rootDir": ".",
     "types": ["jasmine", "node"],
     "sourceMap": true,
     "esModuleInterop": true
   },
-  "include": ["packages/**/*.spec.ts", "packages/**/*.test.ts"]
+  "include": ["packages/**/*.spec.ts", "packages/**/*.test.ts"],
+  "exclude": ["**/*.d.ts", "**/*.css.ts", "node_modules"]
 }

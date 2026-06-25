@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "target": "es2022",
-    "module": "esNext",
-    "moduleResolution": "node",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "declarationMap": true,
     "lib": ["esnext", "dom", "dom.iterable"],
     "experimentalDecorators": true,
@@ -26,5 +26,5 @@
     }
   },
   "include": ["packages/**/*.ts"],
-  "exclude": ["**/*.d.ts", "**/*.css.ts", "node_modules"]
+  "exclude": ["**/*.d.ts", "**/*.css.ts", "**/*.test.ts", "**/*.spec.ts", "node_modules"]
 }

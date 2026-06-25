@@ -12,7 +12,7 @@ import { dialogZIndexHack } from '../../titanium/hacks/dialog-zindex-hack';
 import { LitElement, PropertyValues, css, html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { MdDialog } from '@material/web/dialog/dialog';
-import { LoadWhile } from '../../titanium/helpers/load-while';
+import { promiseTracking } from '../../titanium/helpers/promise-tracking';
 import { FilterController } from '../../titanium/data-table/filter-controller';
 import { rangeLabel } from '../../titanium/date-range-selector/types/range-label';
 import { TitaniumDateRangeSelector } from '../../titanium/date-range-selector/date-range-selector';
@@ -24,23 +24,29 @@ import ApiService from '../api-service/api-service';
 import { EmailTemplate } from '@leavittsoftware/lg-core-typescript';
 import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
 import { MdOutlinedSelect } from '@material/web/select/outlined-select';
+import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
 
 export type FilterKeys = 'template' | 'startDate' | 'endDate' | 'dateRange';
 
 @customElement('leavitt-email-history-viewer-filled-filter-dialog')
-export class LeavittEmailHistoryViewerFilledFilterDialog extends LoadWhile(LitElement) {
-  @property({ type: Boolean }) accessor isActive: boolean;
-  @property({ type: Object }) accessor apiService: ApiService | null;
+export class LeavittEmailHistoryViewerFilledFilterDialog extends LitElement {
+  @promiseTracking('trackLoadingPromise')
+  @state()
+  accessor isLoading = false;
+  declare trackLoadingPromise: (promise: Promise<unknown>) => Promise<void>;
 
-  @state() private accessor filterController: FilterController<FilterKeys>;
+  @property({ type: Boolean }) accessor isActive: boolean = false;
+  @property({ type: Object }) accessor apiService: ApiService | null = null;
+
+  @state() private accessor filterController!: FilterController<FilterKeys>;
   @state() private accessor template: Partial<EmailTemplate>[] = [];
-  @state() private accessor templateId: string;
+  @state() private accessor templateId: string = '';
 
   #templatesAreDirty = true;
 
   //Date range props
-  @state() private accessor startDate: string;
-  @state() private accessor endDate: string;
+  @state() private accessor startDate: string = '';
+  @state() private accessor endDate: string = '';
 
   @query('md-dialog') private accessor dialog!: MdDialog;
   @query('titanium-date-range-selector') private accessor dateRangeSelect!: TitaniumDateRangeSelector;
@@ -75,12 +81,12 @@ export class LeavittEmailHistoryViewerFilledFilterDialog extends LoadWhile(LitEl
 
     try {
       const get = this.apiService.getAsync<EmailTemplate>(`EmailTemplates?${odataParts.join('&')}`);
-      this.loadWhile(get);
+      this.trackLoadingPromise(get);
       const entities = (await get).toList();
       this.#templatesAreDirty = false;
       return entities;
     } catch (error) {
-      this.dispatchEvent(new ShowSnackbarEvent(error));
+      this.dispatchEvent(new ShowSnackbarEvent(error as Partial<HttpError>));
     }
     return [];
   }
@@ -187,7 +193,6 @@ export class LeavittEmailHistoryViewerFilledFilterDialog extends LoadWhile(LitEl
         <div slot="headline">Filter logs by</div>
         <form slot="content" method="dialog">
           <titanium-date-range-selector
-            filled
             label="Sent"
             .startDate=${this.startDate}
             .endDate=${this.endDate}

@@ -174,7 +174,7 @@ export class TitaniumDataTableCoreDemo extends LitElement {
   @state() private accessor sort: TitaniumDataTableCoreSortItem[] = [];
   @state() private accessor items: Array<ItemType> = this.sortItems(allTeslas, this.sort);
   @state() private accessor selected: Array<ItemType> = [];
-  @query('titanium-data-table-core') private accessor tableCore: TitaniumDataTableCore<ItemType>;
+  @query('titanium-data-table-core') private accessor tableCore!: TitaniumDataTableCore<ItemType>;
   /**
    * Sorts items based on multiple sort criteria
    * @param items Array of items to sort
@@ -193,7 +193,7 @@ export class TitaniumDataTableCoreDemo extends LitElement {
         if (aValue == null) return sortItem.direction === 'asc' ? 1 : -1;
         if (bValue == null) return sortItem.direction === 'asc' ? -1 : 1;
 
-        let comparison = 0;
+        let comparison: number;
 
         // Handle string comparison
         if (typeof aValue === 'string' && typeof bValue === 'string') {
@@ -394,7 +394,7 @@ export class TitaniumDataTableCoreDemo extends LitElement {
                 @sort-changed=${async (e: DOMEvent<TitaniumDataTableCore<ItemType>>) => {
                   this.sort = e.target.sort;
                   const _delay = delay(300);
-                  this.tableCore.loadWhile(_delay);
+                  this.tableCore.trackLoadingPromise(_delay);
                   await _delay;
                   this.items = this.sortItems(this.items, this.sort);
 

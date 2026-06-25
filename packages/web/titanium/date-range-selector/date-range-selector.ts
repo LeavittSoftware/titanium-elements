@@ -1,5 +1,4 @@
 import '@material/web/icon/icon';
-import '@material/web/field/outlined-field';
 import '@material/web/field/filled-field';
 import '@material/web/menu/menu';
 import '@material/web/button/text-button';
@@ -10,7 +9,7 @@ import '@material/web/list/list-item';
 import '../date-input/date-input';
 
 import { css, LitElement, nothing } from 'lit';
-import { html, literal } from 'lit/static-html.js';
+import { html } from 'lit';
 import { property, customElement, query, state } from 'lit/decorators.js';
 import dayjs from 'dayjs/esm';
 import { DateRangeOption } from './types/date-range-option';
@@ -64,11 +63,6 @@ export class TitaniumDateRangeSelector extends LitElement {
   @property({ type: Boolean, reflect: true }) accessor disabled: boolean = false;
 
   /**
-   *  Whether or not the input should be filled
-   */
-  @property({ type: Boolean, reflect: true }) accessor filled: boolean = false;
-
-  /**
    *  Override default ranges with custom options. Needs to contain, at least, 'allTime'.
    */
   @property({ type: Object }) accessor customDateRanges: Map<string, DateRangeOption> | null = null;
@@ -87,7 +81,7 @@ export class TitaniumDateRangeSelector extends LitElement {
   @state() private accessor proposedRange: string = 'custom';
   @state() private accessor proposedStartDate: string = '';
   @state() private accessor proposedEndDate: string = '';
-  @state() protected accessor open: boolean;
+  @state() protected accessor open: boolean = false;
   @state() private accessor focused = false;
 
   async updated(changedProps) {
@@ -130,7 +124,7 @@ export class TitaniumDateRangeSelector extends LitElement {
       position: relative;
     }
 
-    :host([filled]) {
+    :host {
       --md-menu-container-shape: 16px;
 
       --md-filled-field-container-shape: 16px;
@@ -174,10 +168,6 @@ export class TitaniumDateRangeSelector extends LitElement {
 
       gap: 12px;
       padding: 12px;
-      border-radius: 0 0 4px 4px;
-    }
-
-    :host([filled]) menu-actions {
       border-radius: 0 0 16px 16px;
     }
 
@@ -191,13 +181,11 @@ export class TitaniumDateRangeSelector extends LitElement {
       margin-right: 16px;
     }
 
-    md-filled-field,
-    md-outlined-field {
+    md-filled-field {
       width: 100%;
     }
 
-    md-filled-field md-icon,
-    md-outlined-field md-icon {
+    md-filled-field md-icon {
       margin: 0 12px;
     }
 
@@ -274,9 +262,8 @@ export class TitaniumDateRangeSelector extends LitElement {
   }
 
   render() {
-    /* eslint-disable lit/binding-positions, lit/no-invalid-html */
     return html`
-      <${this.filled ? literal`md-filled-field` : literal`md-outlined-field`}
+      <md-filled-field
         part="field"
         aria-haspopup="listbox"
         role="combobox"
@@ -313,7 +300,7 @@ export class TitaniumDateRangeSelector extends LitElement {
 
         <md-icon slot="start">${this.#getRange(this.range)?.icon || 'date_range'}</md-icon>
         <md-icon slot="end">${this.open ? 'arrow_drop_up' : 'arrow_drop_down'}</md-icon>
-      </${this.filled ? literal`md-filled-field` : literal`md-outlined-field`}>
+      </md-filled-field>
 
       <!-- stay-open-on-focusout -->
       <md-menu
@@ -339,29 +326,27 @@ export class TitaniumDateRangeSelector extends LitElement {
           <section>
             <md-list>
               <!-- Recompute ranges on menu open -->
-              ${
-                this.open
-                  ? Array.from(this.customDateRanges ? this.customDateRanges : DateRanges).map(
-                      (o) =>
-                        html`<md-list-item
-                          type="button"
-                          ?selected=${this.proposedRange === o[0]}
-                          @click=${() => {
-                            this.proposedRange = o[0];
-                            const range = this.#getRange(o[0]);
-                            if (range) {
-                              this.proposedStartDate = range.startDate() ?? '';
-                              this.proposedEndDate = range.endDate() ?? '';
-                            }
-                          }}
-                          value=${o[0]}
-                        >
-                          <md-icon slot="start">${o[1].icon}</md-icon>
-                          <div slot="headline">${o[1].name}</div>
-                        </md-list-item>`
-                    )
-                  : nothing
-              }
+              ${this.open
+                ? Array.from(this.customDateRanges ? this.customDateRanges : DateRanges).map(
+                    (o) =>
+                      html`<md-list-item
+                        type="button"
+                        ?selected=${this.proposedRange === o[0]}
+                        @click=${() => {
+                          this.proposedRange = o[0];
+                          const range = this.#getRange(o[0]);
+                          if (range) {
+                            this.proposedStartDate = range.startDate() ?? '';
+                            this.proposedEndDate = range.endDate() ?? '';
+                          }
+                        }}
+                        value=${o[0]}
+                      >
+                        <md-icon slot="start">${o[1].icon}</md-icon>
+                        <div slot="headline">${o[1].name}</div>
+                      </md-list-item>`
+                  )
+                : nothing}
               <md-list-item type="button" ?selected=${this.proposedRange === 'custom'} @click=${() => (this.proposedRange = 'custom')} value="custom">
                 <md-icon slot="start">date_range</md-icon>
                 <div slot="headline">Custom range</div>
@@ -372,7 +357,6 @@ export class TitaniumDateRangeSelector extends LitElement {
                 start-date
                 label="From"
                 type=${this.type}
-                .filled=${this.filled}
                 .value=${this.proposedStartDate ?? ''}
                 @change=${async (e: DOMEvent<TitaniumDateInput>) => {
                   this.proposedStartDate = e.target.value ?? '';
@@ -389,7 +373,6 @@ export class TitaniumDateRangeSelector extends LitElement {
                 end-date
                 label="To"
                 type=${this.type}
-                .filled=${this.filled}
                 .value=${this.proposedEndDate ?? ''}
                 @change=${async (e: DOMEvent<TitaniumDateInput>) => {
                   this.proposedEndDate = e.target.value ?? '';
@@ -409,10 +392,8 @@ export class TitaniumDateRangeSelector extends LitElement {
           <menu-actions
             ><md-text-button @click=${() => (this.open = false)}>Cancel</md-text-button>
             <md-text-button
-              ?disabled=${
-                (this.startDate === this.proposedStartDate && this.endDate === this.proposedEndDate && this.proposedRange === this.range) ||
-                (this.type === 'datetime-local' && this.proposedRange === 'custom' && this.proposedStartDate?.length < 16 && this.proposedEndDate?.length < 16)
-              }
+              ?disabled=${(this.startDate === this.proposedStartDate && this.endDate === this.proposedEndDate && this.proposedRange === this.range) ||
+              (this.type === 'datetime-local' && this.proposedRange === 'custom' && this.proposedStartDate?.length < 16 && this.proposedEndDate?.length < 16)}
               @click=${() => {
                 if (!this.#validateDates(this.proposedStartDate, this.proposedEndDate)) {
                   return;
@@ -429,6 +410,5 @@ export class TitaniumDateRangeSelector extends LitElement {
         </main>
       </md-menu>
     `;
-    /* eslint-enable lit/binding-positions, lit/no-invalid-html */
   }
 }

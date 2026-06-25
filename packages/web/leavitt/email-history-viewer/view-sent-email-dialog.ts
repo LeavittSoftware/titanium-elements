@@ -10,7 +10,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { css, html, LitElement, nothing } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { EmailTemplateLog } from '@leavittsoftware/lg-core-typescript';
-import { LoadWhile } from '../../titanium/helpers/load-while';
+import { promiseTracking } from '../../titanium/helpers/promise-tracking';
 import { MdDialog } from '@material/web/dialog/dialog';
 import { DOMEvent } from '../../titanium/types/dom-event';
 import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
@@ -19,20 +19,26 @@ import { dialogCloseNavigationHack, dialogOpenNavigationHack } from '../../titan
 import ApiService from '../api-service/api-service';
 import { SnackbarStack } from '../../titanium/snackbar/snackbar-stack';
 import { p } from '../../titanium/styles/p';
+import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
 
 export type CloseReason = 'done';
 
 @customElement('leavitt-view-sent-email-dialog')
-export class LeavittViewSentEmailDialog extends LoadWhile(LitElement) {
-  @property({ type: Object }) accessor apiService: ApiService | null;
+export class LeavittViewSentEmailDialog extends LitElement {
+  @promiseTracking('trackLoadingPromise')
+  @state()
+  accessor isLoading = false;
+  declare trackLoadingPromise: (promise: Promise<unknown>) => Promise<void>;
 
-  @state() private accessor emailTemplateLogId: number | null;
-  @state() private accessor emailTemplateLog: Partial<EmailTemplateLog> | null;
+  @property({ type: Object }) accessor apiService: ApiService | null = null;
+
+  @state() private accessor emailTemplateLogId: number | null = null;
+  @state() private accessor emailTemplateLog: Partial<EmailTemplateLog> | null = null;
   @query('titanium-snackbar-stack') private accessor snackbar!: SnackbarStack;
 
-  @query('md-dialog') private accessor dialog: MdDialog;
+  @query('md-dialog') private accessor dialog!: MdDialog;
 
-  #resolve: (value: CloseReason) => void;
+  #resolve!: (value: CloseReason) => void;
   async open(emailTemplateLogId: number) {
     this.emailTemplateLogId = emailTemplateLogId;
     this.emailTemplateLog = null;
@@ -59,11 +65,11 @@ export class LeavittViewSentEmailDialog extends LoadWhile(LitElement) {
 
     try {
       const get = this.apiService.getAsync<Partial<EmailTemplateLog>>(`EmailTemplateLogs(${emailTemplateLogId})?${odataParts.join('&')}`);
-      this.loadWhile(get);
+      this.trackLoadingPromise(get);
       const result = await get;
       return result?.entity;
     } catch (error) {
-      this.dispatchEvent(new ShowSnackbarEvent(error));
+      this.dispatchEvent(new ShowSnackbarEvent(error as Partial<HttpError>));
     }
     return null;
   }

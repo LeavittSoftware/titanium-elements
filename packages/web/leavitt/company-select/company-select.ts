@@ -15,6 +15,7 @@ import { TitaniumSingleSelectBase } from '../../titanium/single-select-base/sing
 import { Debouncer } from '../../titanium/helpers/debouncer';
 import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
 import { getCompanyMarkUrl } from '@leavittsoftware/web/titanium/helpers/get-company-mark-url';
+import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
 
 /**
  *  Single select input that searches Leavitt Group companies
@@ -37,7 +38,7 @@ export class LeavittCompanySelect extends TitaniumSingleSelectBase<Partial<Compa
   /**
    *  Required
    */
-  @property({ attribute: false }) accessor apiService: ApiService;
+  @property({ attribute: false }) accessor apiService!: ApiService;
 
   /**
    *  Disables automatic loading of companies on firstUpdated
@@ -59,7 +60,7 @@ export class LeavittCompanySelect extends TitaniumSingleSelectBase<Partial<Compa
   @property({ reflect: true, type: Boolean }) accessor spellcheck: boolean = false;
 
   @property({ type: Object }) accessor renderMenuItemContentTemplate = (company: Partial<Company>) => {
-    const theme = !this.shaped || !this.filled ? this.themePreference : this.shaped && this.filled && this.themePreference === 'dark' ? 'light' : 'dark';
+    const theme = !this.shaped ? this.themePreference : this.shaped && this.themePreference === 'dark' ? 'light' : 'dark';
     return html`<md-menu-item .item=${company}>
       <slot name="trailing-icon" slot="trailing-icon"></slot>
       <span slot="headline">${company.Name}</span>
@@ -98,11 +99,11 @@ export class LeavittCompanySelect extends TitaniumSingleSelectBase<Partial<Compa
   async #getCompanies() {
     try {
       const get = this.apiService?.getAsync<Partial<Company>>(`${this.apiControllerName}?${this.odataParts.join('&')}`);
-      this.loadWhile(get);
+      this.trackLoadingPromise(get);
       const result = await get;
       return result?.toList() ?? [];
     } catch (error) {
-      this.dispatchEvent(new ShowSnackbarEvent(error));
+      this.dispatchEvent(new ShowSnackbarEvent(error as Partial<HttpError>));
     }
     return [];
   }

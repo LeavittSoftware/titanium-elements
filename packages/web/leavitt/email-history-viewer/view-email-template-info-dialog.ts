@@ -6,7 +6,7 @@ import '@material/web/progress/circular-progress';
 import { css, html, LitElement, nothing } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { EmailTemplate } from '@leavittsoftware/lg-core-typescript';
-import { LoadWhile } from '../../titanium/helpers/load-while';
+import { promiseTracking } from '../../titanium/helpers/promise-tracking';
 import { MdDialog } from '@material/web/dialog/dialog';
 import { DOMEvent } from '../../titanium/types/dom-event';
 import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
@@ -17,19 +17,25 @@ import { SnackbarStack } from '../../titanium/snackbar/snackbar-stack';
 import { p } from '../../titanium/styles/p';
 import { repeat } from 'lit/directives/repeat.js';
 import { h2 } from '../../titanium/styles/h2';
+import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
 
 export type CloseReason = 'done';
 
 @customElement('leavitt-view-email-template-info-dialog')
-export class LeavittViewEmailTemplateInfoDialog extends LoadWhile(LitElement) {
-  @property({ type: Object }) accessor apiService: ApiService | null;
+export class LeavittViewEmailTemplateInfoDialog extends LitElement {
+  @promiseTracking('trackLoadingPromise')
+  @state()
+  accessor isLoading = false;
+  declare trackLoadingPromise: (promise: Promise<unknown>) => Promise<void>;
 
-  @state() private accessor emailTemplates: Partial<EmailTemplate>[] | null;
+  @property({ type: Object }) accessor apiService: ApiService | null = null;
+
+  @state() private accessor emailTemplates: Partial<EmailTemplate>[] | null = null;
   @query('titanium-snackbar-stack') private accessor snackbar!: SnackbarStack;
 
-  @query('md-dialog') private accessor dialog: MdDialog;
+  @query('md-dialog') private accessor dialog!: MdDialog;
 
-  #resolve: (value: CloseReason) => void;
+  #resolve!: (value: CloseReason) => void;
   async open() {
     this.emailTemplates = [];
     this.dialog.returnValue = '';
@@ -55,11 +61,11 @@ export class LeavittViewEmailTemplateInfoDialog extends LoadWhile(LitElement) {
 
     try {
       const get = this.apiService.getAsync<Partial<EmailTemplate>>(`EmailTemplates?${odataParts.join('&')}`);
-      this.loadWhile(get);
+      this.trackLoadingPromise(get);
       const result = await get;
       return result?.entities;
     } catch (error) {
-      this.dispatchEvent(new ShowSnackbarEvent(error));
+      this.dispatchEvent(new ShowSnackbarEvent(error as Partial<HttpError>));
     }
     return [];
   }

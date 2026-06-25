@@ -20,19 +20,25 @@ import { MdDialog } from '@material/web/dialog/dialog';
 import { DOMEvent } from '../../titanium/types/dom-event';
 import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
 import ApiService from '../api-service/api-service';
-import { LoadWhile } from '../../titanium/helpers/helpers';
+import { promiseTracking } from '../../titanium/helpers/helpers';
 import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
+import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
 
 @customElement('leavitt-file-modal')
-export class FileModal extends LoadWhile(LitElement) {
-  @property({ attribute: false }) accessor apiService: ApiService | null;
+export class FileModal extends LitElement {
+  @promiseTracking('trackLoadingPromise')
+  @state()
+  accessor isLoading = false;
+  declare trackLoadingPromise: (promise: Promise<unknown>) => Promise<void>;
+
+  @property({ attribute: false }) accessor apiService: ApiService | null = null;
   @property({ type: Boolean }) accessor enableEditing: boolean = false;
 
   @state() private accessor state: 'view' | 'edit' = 'view';
   @state() private accessor file: FileExplorerFileDto | null = null;
   @state() private accessor isCopying: boolean = false;
   @state() private accessor hasClipboard: boolean = false;
-  @state() private accessor fileName: string;
+  @state() private accessor fileName: string = '';
   @query('md-dialog') private accessor dialog!: MdDialog;
 
   firstUpdated() {
@@ -58,12 +64,12 @@ export class FileModal extends LoadWhile(LitElement) {
 
     try {
       const patch = this.apiService.patchAsync(`FileExplorerAttachments(${this.file?.Id})`, dto);
-      this.loadWhile(patch);
+      this.trackLoadingPromise(patch);
       await patch;
       fileExplorerEvents.dispatch('FileExplorerFileDto', 'Update', { ...this.file, Name: this.fileName });
       this.state = 'view';
     } catch (error) {
-      this.dispatchEvent(new ShowSnackbarEvent(error));
+      this.dispatchEvent(new ShowSnackbarEvent(error as Partial<HttpError>));
     }
   }
 

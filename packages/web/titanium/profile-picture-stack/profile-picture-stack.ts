@@ -19,7 +19,7 @@ export class TitaniumProfilePictureStack extends LitElement {
   /**
    * Array of people to display in a stack.
    */
-  @property({ type: Array }) accessor people: Array<Partial<Person | null | undefined>>;
+  @property({ type: Array }) accessor people: Array<Partial<Person | null | undefined>> = [];
 
   /**
    * Number to define the max number of people to display in a stack.
@@ -31,7 +31,7 @@ export class TitaniumProfilePictureStack extends LitElement {
    * This will open a new tab to the directory profile of the person.
    * This will only work if the person has an Id.
    */
-  @property({ type: Boolean, attribute: 'enable-directory-href' }) accessor enableDirectoryHref: boolean = false;
+  @property({ type: Boolean, reflect: true, attribute: 'enable-directory-href' }) accessor enableDirectoryHref: boolean = false;
 
   /**
    * Toggle to show the full name of the person if there is one result in the stack.
@@ -59,7 +59,7 @@ export class TitaniumProfilePictureStack extends LitElement {
    */
   @state() private accessor autoMax: number = 0;
 
-  #resizeObserver: ResizeObserver;
+  #resizeObserver!: ResizeObserver;
 
   updated(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('autoResize')) {

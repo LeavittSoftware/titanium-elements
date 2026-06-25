@@ -43,14 +43,14 @@ export class TitaniumChipDemo extends LitElement {
             <p>Various chip examples demonstrating different states and configurations</p>
             <chip-container>
               <titanium-chip label="Jon Stewart"> </titanium-chip>
-              <titanium-chip filled label="Jon Stewart"> </titanium-chip>
+              <titanium-chip label="Jon Stewart"> </titanium-chip>
               <titanium-chip label="Stephen Colbert" input-chip @click=${() => alert('click!')}> </titanium-chip>
 
               <titanium-chip label="Jimmy Kimmel" @click=${() => alert('click!')}>
                 <md-icon slot="icon">task_alt</md-icon>
               </titanium-chip>
 
-              <titanium-chip filled label="Jimmy Kimmel" @click=${() => alert('click!')}>
+              <titanium-chip label="Jimmy Kimmel" @click=${() => alert('click!')}>
                 <md-icon slot="icon">task_alt</md-icon>
               </titanium-chip>
 
@@ -72,7 +72,7 @@ export class TitaniumChipDemo extends LitElement {
                 <profile-picture slot="icon" inert size="24"></profile-picture>
               </titanium-chip>
 
-              <titanium-chip selected filled label="Selected" @click=${(e) => (e.target.selected = !e.target.selected)}>
+              <titanium-chip selected label="Selected" @click=${(e) => (e.target.selected = !e.target.selected)}>
                 <profile-picture slot="icon" inert size="24"></profile-picture>
               </titanium-chip>
 
@@ -84,14 +84,13 @@ export class TitaniumChipDemo extends LitElement {
                 <md-icon slot="icon">task_alt</md-icon>
               </titanium-chip>
 
-              <titanium-chip disabled filled label="Disabled with remove button" input-chip @remove=${() => alert('remove!')} @click=${() => alert('click!')}>
+              <titanium-chip disabled label="Disabled with remove button" input-chip @remove=${() => alert('remove!')} @click=${() => alert('click!')}>
                 <md-icon slot="icon">task_alt</md-icon>
               </titanium-chip>
 
               <titanium-chip href="https://google.com" target="_blank" download="google.xls" label="Href demo"> </titanium-chip>
 
-              <titanium-chip filled label="Filled custom color" style="--titanium-chip-filled-background-color: bisque; --titanium-chip-filled-color: black">
-              </titanium-chip>
+              <titanium-chip label="Custom color" style="--titanium-chip-filled-background-color: bisque; --titanium-chip-filled-color: black"> </titanium-chip>
             </chip-container>
             <api-docs src="./custom-elements.json" selected="titanium-chip"></api-docs>
           </leavitt-app-width-limiter>

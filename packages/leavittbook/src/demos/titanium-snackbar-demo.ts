@@ -23,8 +23,8 @@ import StoryStyles from '../styles/story-styles';
 
 @customElement('titanium-snackbar-demo')
 export class TitaniumSnackbarDemo extends LitElement {
-  @query('md-dialog') dialog: MdDialog;
-  @query('titanium-snackbar-stack') snackbar: SnackbarStack;
+  @query('md-dialog') accessor dialog!: MdDialog;
+  @query('titanium-snackbar-stack') accessor snackbar!: SnackbarStack;
 
   static styles = [StoryStyles];
 

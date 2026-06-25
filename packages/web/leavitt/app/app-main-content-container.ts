@@ -7,11 +7,11 @@ import { consume } from '@lit/context';
 
 @customElement('leavitt-app-main-content-container')
 export class LeavittAppContentContainer extends LitElement {
-  @query('scroll-container') accessor scrollContainer: HTMLDivElement | null;
-  @property({ type: Object }) private accessor pendingStateElement: Element | null;
+  @query('scroll-container') accessor scrollContainer!: HTMLDivElement | null;
+  @property({ type: Object }) private accessor pendingStateElement: Element | null = null;
   @consume({ context: mainMenuPositionContext, subscribe: true })
   @property({ type: String, reflect: true, attribute: 'main-menu-position' })
-  public mainMenuPosition: string;
+  public mainMenuPosition: string = 'full';
 
   static styles = [
     css`

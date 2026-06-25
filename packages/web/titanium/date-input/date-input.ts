@@ -5,12 +5,11 @@ import { redispatchEvent } from '@material/web/internal/events/redispatch-event'
 
 import { stringConverter } from '@material/web/internal/controller/string-converter';
 
-import '@material/web/field/outlined-field';
 import '@material/web/field/filled-field';
 import '@material/web/icon/icon';
 import '@material/web/iconbutton/icon-button';
 import { Field } from '@material/web/field/internal/field';
-import { html, literal } from 'lit/static-html.js';
+import { html } from 'lit';
 
 /**
  * A date input the works in Firefox, Safari and Chrome
@@ -87,11 +86,6 @@ export class TitaniumDateInput extends LitElement {
   @property({ type: Boolean, attribute: 'no-asterisk' }) accessor noAsterisk = false;
 
   @property() accessor label = '';
-
-  /**
-   *  Swaps out outlined text field for a filled text field.
-   */
-  @property({ type: Boolean, attribute: 'filled' }) accessor filled: boolean = false;
 
   @property({ type: Boolean, reflect: true }) accessor required = false;
 
@@ -175,7 +169,7 @@ export class TitaniumDateInput extends LitElement {
    */
   @property({ reflect: true, type: String }) accessor autocomplete = '';
 
-  @query('input') private accessor input: HTMLInputElement;
+  @query('input') private accessor input!: HTMLInputElement;
 
   @queryAssignedElements({ slot: 'leading-icon' }) private accessor leadingIcons!: Element[];
   @queryAssignedElements({ slot: 'trailing-icon' }) private accessor trailingIcons!: Element[];
@@ -262,7 +256,7 @@ export class TitaniumDateInput extends LitElement {
     this.nativeErrorText = this.validationMessage;
 
     if (prevMessage === this.getErrorText()) {
-      (this.shadowRoot?.querySelector(this.filled ? 'md-filled-field' : 'md-outlined-field') as Field)?.reannounceError();
+      (this.shadowRoot?.querySelector('md-filled-field') as Field)?.reannounceError();
     }
 
     return valid;
@@ -295,7 +289,7 @@ export class TitaniumDateInput extends LitElement {
       display: block;
     }
 
-    :host([filled]) {
+    :host {
       --md-filled-field-container-shape: 16px;
 
       --md-filled-field-active-indicator-height: 0;
@@ -307,12 +301,6 @@ export class TitaniumDateInput extends LitElement {
       --md-filled-field-label-text-populated-line-height: 14px;
     }
 
-    :host(:not([filled])) {
-      --md-outlined-field-top-space: 15px;
-      --md-outlined-field-bottom-space: 15px;
-    }
-
-    md-outlined-field,
     md-filled-field {
       width: 100%;
     }
@@ -329,14 +317,7 @@ export class TitaniumDateInput extends LitElement {
     /* Safari Only */
     _::-webkit-full-page-media,
     _:future,
-    input {
-      padding-top: 14px;
-      padding-bottom: 7px;
-    }
-
-    :host([filled]) _::-webkit-full-page-media,
-    :host([filled]) _:future,
-    :host([filled]) input {
+    :host input {
       padding-top: 21px;
       padding-bottom: 0;
     }
@@ -355,14 +336,9 @@ export class TitaniumDateInput extends LitElement {
 
       input {
         min-width: 100px;
-        padding-bottom: 10px;
-        padding-top: 16px;
-        height: 30px;
-      }
-
-      :host([filled]) input {
         padding-bottom: 3px;
         padding-top: 23px;
+        height: 30px;
       }
     }
 
@@ -380,21 +356,15 @@ export class TitaniumDateInput extends LitElement {
         display: none;
       }
 
-      :host([filled]) {
+      :host {
         --md-filled-field-label-text-populated-line-height: 16px;
-      }
-
-      :host(:not([filled])) {
-        --md-outlined-field-top-space: 16px;
-        --md-outlined-field-bottom-space: 16px;
       }
     }
   `;
 
   protected render() {
-    /* eslint-disable lit/binding-positions, lit/no-invalid-html */
     return html`
-      <${this.filled ? literal`md-filled-field` : literal`md-outlined-field`}
+      <md-filled-field
         ?disabled=${this.disabled}
         ?error=${this.error || this.nativeError}
         error-text=${this.getErrorText()}
@@ -441,8 +411,7 @@ export class TitaniumDateInput extends LitElement {
             </md-icon-button>
           </slot>
         </span>
-      </${this.filled ? literal`md-filled-field` : literal`md-outlined-field`}>
+      </md-filled-field>
     `;
-    /* eslint-enable lit/binding-positions, lit/no-invalid-html */
   }
 }

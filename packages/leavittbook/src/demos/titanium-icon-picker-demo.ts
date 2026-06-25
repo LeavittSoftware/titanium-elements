@@ -16,7 +16,7 @@ import StoryStyles from '../styles/story-styles';
 
 @customElement('titanium-icon-picker-demo')
 export class TitaniumIconPickerDemo extends LitElement {
-  @query('titanium-icon-picker[demo2]') private accessor requiredInput: TitaniumIconPicker;
+  @query('titanium-icon-picker[demo2]') private accessor requiredInput!: TitaniumIconPicker;
 
   static styles = [StoryStyles];
 
@@ -37,7 +37,7 @@ export class TitaniumIconPickerDemo extends LitElement {
             <div>
               <h1>Filled</h1>
               <p>Filled icon picker example</p>
-              <titanium-icon-picker filled></titanium-icon-picker>
+              <titanium-icon-picker></titanium-icon-picker>
             </div>
 
             <div>

@@ -30,8 +30,8 @@ const randomPerson: Partial<Person> = { Id: 771130, FullName: 'Random Person', P
 
 @customElement('titanium-profile-picture-stack-demo')
 export class TitaniumProfilePictureStackDemo extends LitElement {
-  @state() people: Array<Partial<Person>> = [randomPerson, kaseyPerson, aaronPerson, randomPerson, randomPerson];
-  @state() manyPeople: Array<Partial<Person>> = new Array(20).fill(kaseyPerson);
+  @state() private accessor people: Array<Partial<Person>> = [randomPerson, kaseyPerson, aaronPerson, randomPerson, randomPerson];
+  @state() private accessor manyPeople: Array<Partial<Person>> = new Array(20).fill(kaseyPerson);
 
   static styles = [
     StoryStyles,

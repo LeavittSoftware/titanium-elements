@@ -19,7 +19,7 @@ import { customElement, property, query, state } from 'lit/decorators.js';
 import { a, ellipsis } from '../../titanium/styles/styles';
 import { getSearchTokens } from '../../titanium/helpers/get-search-token';
 import { DOMEvent } from '../../titanium/types/dom-event';
-import { LoadWhile } from '../../titanium/helpers/load-while';
+import { promiseTracking } from '../../titanium/helpers/promise-tracking';
 import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
 import { TitaniumPageControl } from '../../titanium/data-table/page-control';
 import { PendingStateEvent } from '../../titanium/types/pending-state-event';
@@ -39,28 +39,26 @@ import {
   TitaniumSiteSearchTextFieldController,
   TitaniumTextFieldSearchContext,
 } from '@leavittsoftware/web/titanium/site-search-text-field-controller/site-search-text-field-controller';
-import { Debouncer } from '@leavittsoftware/web/titanium/helpers/debouncer';
 import { isDevelopment } from '@leavittsoftware/web/titanium/helpers/is-development';
 
 import dayjs from 'dayjs/esm';
 import ApiService from '../api-service/api-service';
+import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
 
 type ItemType = Partial<EmailTemplateLog>;
 
 @customElement('leavitt-email-history-viewer-filled')
-export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElement) {
-  @property({ type: Boolean }) public accessor isActive: boolean;
-  @property({ type: Object }) public accessor apiService: ApiService | null;
-  @property({ type: String }) public accessor path: string;
-  @property({ type: Object }) public accessor siteSearchTextFieldContext: TitaniumTextFieldSearchContext;
+export default class LeavittEmailHistoryViewerFilled extends LitElement {
+  @promiseTracking('trackLoadingPromise')
+  @state()
+  accessor isLoading = false;
+  declare trackLoadingPromise: (promise: Promise<unknown>) => Promise<void>;
+
+  @property({ type: Boolean }) public accessor isActive: boolean = false;
+  @property({ type: Object }) public accessor apiService: ApiService | null = null;
+  @property({ type: String }) public accessor path: string = '';
+  @property({ type: Object }) public accessor siteSearchTextFieldContext!: TitaniumTextFieldSearchContext;
   @property({ type: String }) accessor apiControllerName: string = 'EmailTemplateLogs';
-
-  /**
-   * @deprecated use the siteSearchTextFieldController + siteSearchTextFieldContext instead
-   */
-  @property({ type: String }) public accessor toolbarSearchTerm: string = '';
-
-  @state() public accessor searchTerm: string = '';
 
   // Data table props
   @state() private accessor items: Array<ItemType> = [];
@@ -122,10 +120,10 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
 
   @query('titanium-data-table-core') private accessor dataTable!: TitaniumDataTableCore<ItemType>;
   @query('leavitt-email-history-viewer-filled-filter-dialog') private accessor filterDialog!: LeavittEmailHistoryViewerFilledFilterDialog;
-  @query('titanium-page-control') private accessor pageControl: TitaniumPageControl | null;
-  @query('leavitt-app-main-content-container') private accessor mainContentContainer: LeavittAppContentContainer | null;
-  @query('leavitt-view-sent-email-dialog') private accessor viewDialog: LeavittViewSentEmailDialog | null;
-  @query('leavitt-view-email-template-info-dialog') private accessor viewEmailTemplateInfoDialog: LeavittViewEmailTemplateInfoDialog | null;
+  @query('titanium-page-control') private accessor pageControl!: TitaniumPageControl | null;
+  @query('leavitt-app-main-content-container') private accessor mainContentContainer!: LeavittAppContentContainer | null;
+  @query('leavitt-view-sent-email-dialog') private accessor viewDialog!: LeavittViewSentEmailDialog | null;
+  @query('leavitt-view-email-template-info-dialog') private accessor viewEmailTemplateInfoDialog!: LeavittViewEmailTemplateInfoDialog | null;
 
   searchController: TitaniumSiteSearchTextFieldController | undefined;
 
@@ -153,14 +151,6 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
     if (this.isActive && (changedProps.has('isActive') || changedProps.has('apiControllerName'))) {
       await this.mainContentContainer?.updateComplete;
       this.#reload();
-    }
-
-    if (this.isActive && changedProps.has('toolbarSearchTerm') && this.searchTerm !== this.toolbarSearchTerm) {
-      this.searchTerm = this.toolbarSearchTerm;
-      if (this.pageControl) {
-        this.pageControl.page = 0;
-      }
-      this.#doSearchDebouncer.debounce();
     }
 
     if (changedProps.has('path')) {
@@ -192,14 +182,10 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
   }
 
   async #reload() {
-    const { items, odataCount } = await this.#getItemsAsync(
-      this.siteSearchTextFieldContext ? (this.searchController?.searchTerm ?? null) : (this.searchTerm ?? null)
-    );
+    const { items, odataCount } = await this.#getItemsAsync(this.searchController?.searchTerm ?? null);
     this.items = items;
     this.resultTotal = odataCount;
   }
-
-  #doSearchDebouncer = new Debouncer(() => this.#reload());
 
   renderRecipients(recipients: string | null, maxRecipients: number = 1) {
     const recipientsList =
@@ -270,13 +256,13 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
       }
 
       const get = this.apiService?.getAsync<ItemType>(`${this.apiControllerName}/?${odataParts.join('&')}`);
-      this.loadWhile(get);
-      this.dataTable.loadWhile(get);
+      this.trackLoadingPromise(get);
+      this.dataTable.trackLoadingPromise(get);
       this.dispatchEvent(new PendingStateEvent(get));
       const result = await get;
       return { items: result.toList(), odataCount: result.odataCount };
     } catch (error) {
-      this.dispatchEvent(new ShowSnackbarEvent(error, { autoHide: 7500 }));
+      this.dispatchEvent(new ShowSnackbarEvent(error as Partial<HttpError>, { autoHide: 7500 }));
     }
     return { items: [], odataCount: 0 };
   }
@@ -365,7 +351,6 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
           </titanium-data-table-core>
           <leavitt-app-navigation-footer max-width="initial" .scrollableParent=${this.dataTable}>
             <titanium-page-control
-              filled
               slot="leading"
               ?disabled=${this.isLoading}
               .count=${this.resultTotal}

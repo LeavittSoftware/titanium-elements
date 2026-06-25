@@ -17,18 +17,24 @@ import { DOMEvent } from '../types/dom-event';
 import { MdDialog } from '@material/web/dialog/dialog';
 import { ItemDropEvent } from './draggable-item-base';
 import { repeat } from 'lit/directives/repeat.js';
-import { LoadWhile } from '../helpers/load-while';
+import { promiseTracking } from '../helpers/promise-tracking';
 import { ShowSnackbarEvent } from '../snackbar/show-snackbar-event';
 import { SnackbarStack } from '@leavittsoftware/web/titanium/snackbar/snackbar-stack';
+import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
 
 export type CloseReason = 'apply' | 'cancel';
 
 @customElement('titanium-data-table-core-reorder-dialog')
-export class TitaniumDataTableCoreReorderDialog<T extends object> extends LoadWhile(LitElement) {
+export class TitaniumDataTableCoreReorderDialog<T extends object> extends LitElement {
+  @promiseTracking('trackLoadingPromise')
+  @state()
+  accessor isLoading = false;
+  declare trackLoadingPromise: (promise: Promise<unknown>) => Promise<void>;
+
   @property({ type: Object }) accessor tableMetaData: TitaniumDataTableCoreMetaData<T> | null = null;
   @property({ type: Object }) accessor supplementalItemStyles: CSSResult | CSSResultGroup | null = null;
 
-  @query('md-dialog') private accessor dialog: MdDialog;
+  @query('md-dialog') private accessor dialog!: MdDialog;
   @query('titanium-snackbar-stack') private accessor snackbar!: SnackbarStack;
 
   @state() accessor items: Array<T> = [];
@@ -61,7 +67,7 @@ export class TitaniumDataTableCoreReorderDialog<T extends object> extends LoadWh
     return JSON.stringify(sortA) !== JSON.stringify(sortB);
   }
 
-  #resolve: (value: CloseReason) => void;
+  #resolve!: (value: CloseReason) => void;
   static styles = [
     css`
       :host {
@@ -148,7 +154,7 @@ export class TitaniumDataTableCoreReorderDialog<T extends object> extends LoadWh
               _resolve = resolve;
               _reject = reject;
             });
-            this.loadWhile(saving);
+            this.trackLoadingPromise(saving);
             this.dispatchEvent(
               new CustomEvent<{ resolve: () => void; reject: (reason: any) => void; items: Array<T> }>('reorder-save-request', {
                 detail: { resolve: _resolve, reject: _reject, items: this.items },
@@ -159,7 +165,7 @@ export class TitaniumDataTableCoreReorderDialog<T extends object> extends LoadWh
               await saving;
               this.dialog?.close('apply');
             } catch (error) {
-              this.dispatchEvent(new ShowSnackbarEvent(error));
+              this.dispatchEvent(new ShowSnackbarEvent(error as Partial<HttpError>));
             }
           }}
           >Save

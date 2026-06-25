@@ -7,7 +7,7 @@ import '@api-viewer/docs';
 import '@material/web/button/filled-tonal-button';
 import '@leavittsoftware/web/leavitt/company-select/company-select';
 
-import { html, LitElement } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 import { LeavittCompanySelect } from '@leavittsoftware/web/leavitt/company-select/company-select';
 import { DOMEvent } from '@leavittsoftware/web/titanium/types/dom-event';
@@ -17,11 +17,14 @@ import { ThemePreference } from '@leavittsoftware/web/leavitt/theme/theme-prefer
 
 import api3UserService from '../services/api3-user-service';
 import StoryStyles from '../styles/story-styles';
+import { AuthIdentityController } from '../services/auth-identity-controller';
 
 @customElement('leavitt-company-select-demo')
 export class LeavittCompanySelectDemo extends ThemePreference(LitElement) {
   @state() private accessor disableMenuOpenOnFocus: boolean = false;
   @query('leavitt-company-select[methods-demo]') protected accessor methodsSelect!: LeavittCompanySelect;
+
+  #auth = new AuthIdentityController(this);
 
   static styles = [StoryStyles];
 
@@ -32,13 +35,14 @@ export class LeavittCompanySelectDemo extends ThemePreference(LitElement) {
           <leavitt-app-navigation-header level1Text="Leavitt company select" level1Href="/leavitt-company-select" sticky-top> </leavitt-app-navigation-header>
 
           <leavitt-app-width-limiter max-width="1000px">
-            <story-header name="Leavitt Company Select" className="LeavittCompanySelect"></story-header>
+            <story-header name="Leavitt Company Select" className="LeavittCompanySelect" requires-auth></story-header>
 
+            ${this.#auth.identity
+              ? html`
             <div>
               <h1>Filled</h1>
               <leavitt-company-select
                 style="width: 400px;"
-                filled
                 required
                 ?disable-menu-open-on-focus=${this.disableMenuOpenOnFocus}
                 .apiService=${api3UserService}
@@ -50,7 +54,6 @@ export class LeavittCompanySelectDemo extends ThemePreference(LitElement) {
               <leavitt-company-select
                 style=" margin-top: 16px; max-width: 680px;"
                 shaped
-                filled
                 match-input-width
                 label=""
                 large
@@ -96,10 +99,12 @@ export class LeavittCompanySelectDemo extends ThemePreference(LitElement) {
                 <leavitt-company-select
                   disableAutoLoad
                   label="disabled pre-selected"
-                  .selected=${{
-                    Id: 57,
-                    Name: 'Leavitt Group Enterprises',
-                  } as never}
+                  .selected=${
+                    {
+                      Id: 57,
+                      Name: 'Leavitt Group Enterprises',
+                    } as never
+                  }
                   disabled
                   .apiService=${api3UserService}
                 ></leavitt-company-select>
@@ -137,6 +142,10 @@ export class LeavittCompanySelectDemo extends ThemePreference(LitElement) {
                 .apiService=${api3UserService}
               ></leavitt-company-select>
             </div>
+
+            </div>
+              `
+              : nothing}
 
             <api-docs src="./custom-elements.json" selected="leavitt-company-select"></api-docs>
           </leavitt-app-width-limiter>

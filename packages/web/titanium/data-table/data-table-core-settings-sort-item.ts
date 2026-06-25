@@ -13,10 +13,10 @@ import { DraggableItemBase } from './draggable-item-base';
 
 @customElement('data-table-core-settings-sort-item')
 export class TitaniumDataTableCoreSettingsSortItem extends DraggableItemBase {
-  @property({ type: String }) accessor name: string;
-  @property({ type: String, reflect: true, attribute: 'sort-direction' }) accessor sortDirection: 'asc' | 'desc';
-  @property({ type: Number }) accessor index: number;
-  @property({ type: Boolean, reflect: true }) accessor disabled: boolean;
+  @property({ type: String }) accessor name: string = '';
+  @property({ type: String, reflect: true, attribute: 'sort-direction' }) accessor sortDirection!: 'asc' | 'desc';
+  @property({ type: Number }) accessor index: number = 0;
+  @property({ type: Boolean, reflect: true }) accessor disabled: boolean = false;
 
   override get items() {
     return Array.from(this.parentElement?.querySelectorAll<TitaniumDataTableCoreSettingsSortItem>('data-table-core-settings-sort-item') ?? []);

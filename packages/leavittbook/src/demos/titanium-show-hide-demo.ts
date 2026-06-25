@@ -345,7 +345,7 @@ export class TitaniumShowHideDemo extends LitElement {
               <h1>Filled button example</h1>
               <p>Read some text</p>
               <md-slider @input=${(event) => (this.verticalStepValue = event.target.value)} .value=${this.verticalStepValue}> </md-slider>
-              <titanium-show-hide filled collapse-height="200">
+              <titanium-show-hide collapse-height="200">
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum arcu, semper ac aliquet eu, porttitor vel turpis. Nullam non dolor ac
                   massa pharetra vulputate vel ac libero. In hac habitasse platea dictumst. Praesent lacus mi, vehicula eu euismod sit amet, accumsan porta

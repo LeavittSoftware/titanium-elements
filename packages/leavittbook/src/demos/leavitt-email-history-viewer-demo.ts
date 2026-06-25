@@ -4,24 +4,31 @@ import '@leavittsoftware/web/leavitt/app/app-main-content-container';
 import '@leavittsoftware/web/leavitt/app/app-navigation-header';
 import '@leavittsoftware/web/leavitt/app/app-width-limiter';
 import '@api-viewer/docs';
-import '@material/web/divider/divider';
-import '@leavittsoftware/web/leavitt/email-history-viewer/email-history-viewer';
 import '@leavittsoftware/web/leavitt/email-history-viewer/email-history-viewer-filled';
 
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, nothing } from 'lit';
 import { customElement, query } from 'lit/decorators.js';
 import { ThemePreference } from '@leavittsoftware/web/leavitt/theme/theme-preference';
-
-import LeavittEmailHistoryViewer from '@leavittsoftware/web/leavitt/email-history-viewer/email-history-viewer';
+import { TitaniumSiteSearchTextFieldController } from '@leavittsoftware/web/titanium/site-search-text-field-controller/site-search-text-field-controller';
 import LeavittEmailHistoryViewerFilled from '@leavittsoftware/web/leavitt/email-history-viewer/email-history-viewer-filled';
+
 import StoryStyles from '../styles/story-styles';
 import { siteSearchTextFieldContext } from '../contexts/site-search-text-field-context';
 import api3UserService from '../services/api3-user-service';
+import { AuthIdentityController } from '../services/auth-identity-controller';
 
 @customElement('leavitt-email-history-viewer-demo')
 export class LeavittEmailHistoryViewerDemo extends ThemePreference(LitElement) {
-  @query('leavitt-email-history-viewer') protected accessor demo1!: LeavittEmailHistoryViewer;
-  @query('leavitt-email-history-viewer-filled') protected accessor demo2!: LeavittEmailHistoryViewerFilled;
+  /** Always active while mounted — leavittbook removes inactive demos from the DOM. */
+  isActive = true;
+
+  @query('leavitt-email-history-viewer-filled') private accessor viewer!: LeavittEmailHistoryViewerFilled;
+
+  #auth = new AuthIdentityController(this);
+
+  get searchController(): TitaniumSiteSearchTextFieldController | null {
+    return this.viewer?.searchController ?? null;
+  }
 
   connectedCallback() {
     super.connectedCallback();
@@ -52,33 +59,24 @@ export class LeavittEmailHistoryViewerDemo extends ThemePreference(LitElement) {
           </leavitt-app-navigation-header>
 
           <leavitt-app-width-limiter max-width="1000px">
-            <story-header name="Leavitt Email History Viewer Filled" className="LeavittEmailHistoryViewerFilled"></story-header>
+            <story-header name="Leavitt Email History Viewer Filled" className="LeavittEmailHistoryViewerFilled" requires-auth></story-header>
 
-            <div>
-              <h1>Filled</h1>
-              <div row>
-                <leavitt-email-history-viewer-filled
-                  isActive
-                  .siteSearchTextFieldContext=${siteSearchTextFieldContext}
-                  .apiService=${api3UserService}
-                  .path=${'/leavitt-email-history-viewer'}
-                ></leavitt-email-history-viewer-filled>
-              </div>
-            </div>
+            ${this.#auth.identity
+              ? html`
+                  <div>
+                    <div row>
+                      <leavitt-email-history-viewer-filled
+                        isActive
+                        .siteSearchTextFieldContext=${siteSearchTextFieldContext}
+                        .apiService=${api3UserService}
+                        .path=${'/leavitt-email-history-viewer'}
+                      ></leavitt-email-history-viewer-filled>
+                    </div>
+                  </div>
+                `
+              : nothing}
 
             <api-docs src="./custom-elements.json" selected="leavitt-email-history-viewer-filled"></api-docs>
-
-            <md-divider></md-divider>
-            <story-header name="Leavitt Email History Viewer" className="LeavittEmailHistoryViewer"></story-header>
-
-            <div>
-              <h1>Outlined</h1>
-              <div row>
-                <leavitt-email-history-viewer isActive .apiService=${api3UserService} .path=${'/leavitt-email-history-viewer'}></leavitt-email-history-viewer>
-              </div>
-            </div>
-
-            <api-docs src="./custom-elements.json" selected="leavitt-email-history-viewer"></api-docs>
           </leavitt-app-width-limiter>
         </main>
       </leavitt-app-main-content-container>

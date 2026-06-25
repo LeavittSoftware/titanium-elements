@@ -1,4 +1,4 @@
-import { LoadWhile } from '../../titanium/helpers/load-while';
+import { promiseTracking } from '../../titanium/helpers/promise-tracking';
 import { css, html, LitElement, nothing, PropertyValues } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import ApiService from '../api-service/api-service';
@@ -11,9 +11,8 @@ import {
   FileExplorerPathDto,
 } from '@leavittsoftware/lg-core-typescript';
 import { PendingStateEvent } from '../../titanium/types/pending-state-event';
-import { ConfirmDialogOpenEvent } from '../../titanium/confirm-dialog/confirm-dialog-open-event';
 
-import '../../titanium/confirm-dialog/confirm-dialog';
+import '../../titanium/confirmation-dialog/confirmation-dialog';
 import fileExplorerEvents from './events/file-explorer-events';
 
 import '@material/web/icon/icon';
@@ -37,11 +36,12 @@ import { a, ellipsis, h1, h2 } from '../../titanium/styles/styles';
 
 import { formatBytes } from './helpers/format-bytes';
 import { CloseMenuEvent, MdMenu, MenuItem } from '@material/web/menu/menu';
-import TitaniumConfirmDialog from '../../titanium/confirm-dialog/confirm-dialog';
+import TitaniumConfirmationDialog from '../../titanium/confirmation-dialog/confirmation-dialog';
 import { FileModal } from './file-modal';
 import { AddFolderModal } from './add-folder-modal';
 import { FolderModal } from './folder-modal';
 import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
+import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
 
 /**
  * Leavitt Group specific file explorer
@@ -56,11 +56,16 @@ import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
  * @fires file-deleted - Fired when a file is deleted.
  */
 @customElement('leavitt-file-explorer')
-export class LeavittFileExplorer extends LoadWhile(LitElement) {
+export class LeavittFileExplorer extends LitElement {
+  @promiseTracking('trackLoadingPromise')
+  @state()
+  accessor isLoading = false;
+  declare trackLoadingPromise: (promise: Promise<unknown>) => Promise<void>;
+
   /**
    *  This is required.
    */
-  @property({ attribute: false }) accessor apiService: ApiService | null;
+  @property({ attribute: false }) accessor apiService: ApiService | null = null;
 
   /**
    * ID File explorer to display. This is required.
@@ -101,14 +106,14 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
   @state() private accessor path: FileExplorerPathDto[] = [];
   @state() private accessor selected: ((FileExplorerFolderDto | FileExplorerFileDto) & { type: 'folder' | 'file' })[] = [];
 
-  @query('md-menu[upload-menu]') private accessor uploadMenu: MdMenu;
+  @query('md-menu[upload-menu]') private accessor uploadMenu!: MdMenu;
 
-  @query('leavitt-folder-modal') private accessor folderDialog: FolderModal;
-  @query('leavitt-add-folder-modal') private accessor addFolderDialog: AddFolderModal;
-  @query('leavitt-file-modal') private accessor fileDialog: FileModal;
-  @query('input[files]') private accessor fileInput: HTMLInputElement;
-  @query('input[folders]') private accessor folderInput: HTMLInputElement;
-  @query('titanium-confirm-dialog') private accessor confirmDialog: TitaniumConfirmDialog;
+  @query('leavitt-folder-modal') private accessor folderDialog!: FolderModal;
+  @query('leavitt-add-folder-modal') private accessor addFolderDialog!: AddFolderModal;
+  @query('leavitt-file-modal') private accessor fileDialog!: FileModal;
+  @query('input[files]') private accessor fileInput!: HTMLInputElement;
+  @query('input[folders]') private accessor folderInput!: HTMLInputElement;
+  @query('titanium-confirmation-dialog') private accessor confirmationDialog!: TitaniumConfirmationDialog;
 
   #originalFolderId = 0;
 
@@ -116,15 +121,10 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
     //force attribute to reflect
     this.display = structuredClone(this.display);
 
-    this.addEventListener(ConfirmDialogOpenEvent.eventType, async (e: ConfirmDialogOpenEvent) => {
+    this.addEventListener(PendingStateEvent.eventType, (async (e: PendingStateEvent) => {
       e.stopPropagation();
-      this.confirmDialog.handleEvent(e);
-    });
-
-    this.addEventListener(PendingStateEvent.eventType, async (e: PendingStateEvent) => {
-      e.stopPropagation();
-      this.loadWhile(e.detail.promise);
-    });
+      this.trackLoadingPromise(e.detail.promise);
+    }) as unknown as EventListener);
 
     fileExplorerEvents.subscribe<FileExplorerAttachment>('FileExplorerFileDto', 'Update', (o) => {
       const index = this.files.findIndex((file) => file.Id === o.Id);
@@ -169,7 +169,7 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
     try {
       const get = this.apiService?.getAsync<FileExplorerDto>(`FileExplorers(${fileExplorerId})/FileExplorerView(folderId=${folderId})`);
       if (get) {
-        this.loadWhile(get);
+        this.trackLoadingPromise(get);
       }
       const result = await get;
 
@@ -197,7 +197,8 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
         this.state = this.folders.length > 0 || this.files.length > 0 ? 'files' : 'no-files';
       }
     } catch (error) {
-      if (error?.statusCode == 401 || error?.statusCode == 404) {
+      const httpError = error as Partial<HttpError>;
+      if (httpError?.statusCode == 401 || httpError?.statusCode == 404) {
         this.path = [{ Name: 'Files' } as FileExplorerPathDto];
         this.state = 'no-permission';
         return;
@@ -224,12 +225,11 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
    *  @internal
    */
   async #deleteSelectedClick() {
-    const confirmationDialogEvent = new ConfirmDialogOpenEvent(
+    const result = await this.confirmationDialog.open(
       'Please confirm delete',
       `Deleting folders will delete all of their contents. Are you sure you would like to delete the selected item${this.selected.length === 1 ? '' : 's'}?`
     );
-    this.dispatchEvent(confirmationDialogEvent);
-    if (await confirmationDialogEvent.dialogResult) {
+    if (result === 'confirmed') {
       const items = [...this.selected];
       const errorMessageToCount: Map<string, number> = new Map();
       let totalErrorCount = 0;
@@ -263,13 +263,14 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
               this.dispatchEvent(new CustomEvent('file-deleted'));
             }
           } catch (newError) {
-            const newErrorCount = (errorMessageToCount.get(newError) ?? 0) + 1;
-            errorMessageToCount.set(newError, newErrorCount);
+            const message = newError instanceof Error ? newError.message : String(newError);
+            const newErrorCount = (errorMessageToCount.get(message) ?? 0) + 1;
+            errorMessageToCount.set(message, newErrorCount);
             totalErrorCount++;
           }
         })
       );
-      this.loadWhile(requests);
+      this.trackLoadingPromise(requests);
       await requests;
       this.selected = [];
       this.state = this.folders.length > 0 || this.files.length > 0 ? 'files' : 'no-files';
@@ -360,12 +361,13 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
           }
         }
       } catch (error) {
-        failedFiles.push(file.name + ': ' + error.message);
+        const message = error instanceof Error ? error.message : String(error);
+        failedFiles.push(file.name + ': ' + message);
       }
     });
 
     const uploadAll = Throttle.all(requests, { maxInProgress: 4 });
-    this.loadWhile(uploadAll);
+    this.trackLoadingPromise(uploadAll);
     await uploadAll;
 
     if (failedFiles.length > 0) {
@@ -403,12 +405,13 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
           }
         }
       } catch (error) {
-        failedFiles.push(file.webkitRelativePath + ': ' + error.message);
+        const message = error instanceof Error ? error.message : String(error);
+        failedFiles.push(file.webkitRelativePath + ': ' + message);
       }
     });
 
     const uploadAll = Throttle.all(requests, { maxInProgress: 4 });
-    this.loadWhile(uploadAll);
+    this.trackLoadingPromise(uploadAll);
     await uploadAll;
 
     if (failedFiles.length > 0) {
@@ -446,7 +449,7 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
       }
       return result;
     } catch (error) {
-      this.dispatchEvent(new ShowSnackbarEvent(error));
+      this.dispatchEvent(new ShowSnackbarEvent(error as Partial<HttpError>));
     }
     return null;
   }
@@ -864,7 +867,7 @@ export class LeavittFileExplorer extends LoadWhile(LitElement) {
       ></leavitt-add-folder-modal>
       <leavitt-folder-modal .apiService=${this.apiService} .enableEditing=${this.isAdmin}></leavitt-folder-modal>
       <leavitt-file-modal .apiService=${this.apiService} .enableEditing=${this.isAdmin}></leavitt-file-modal>
-      <titanium-confirm-dialog></titanium-confirm-dialog>
+      <titanium-confirmation-dialog></titanium-confirmation-dialog>
     `;
   }
 }

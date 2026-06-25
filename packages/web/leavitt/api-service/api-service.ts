@@ -121,7 +121,7 @@ export default class ApiService {
         xhr.send(file);
       });
     } catch (error) {
-      return Promise.reject(this.#rewriteFetchErrors(error, 'UPLOAD', urlPath));
+      return Promise.reject(this.#rewriteFetchErrors(error as { name: string; message: string } | AbortError, 'UPLOAD', urlPath));
     }
   }
 
@@ -157,7 +157,7 @@ export default class ApiService {
         signal: options?.abortController?.signal,
       });
     } catch (error) {
-      return Promise.reject(this.#rewriteFetchErrors(error, 'POST', urlPath));
+      return Promise.reject(this.#rewriteFetchErrors(error as { name: string; message: string } | AbortError, 'POST', urlPath));
     }
 
     if (options?.responseType === 'blob') {
@@ -195,7 +195,7 @@ export default class ApiService {
         signal: options?.abortController?.signal,
       });
     } catch (error) {
-      return Promise.reject(this.#rewriteFetchErrors(error, 'PATCH', urlPath));
+      return Promise.reject(this.#rewriteFetchErrors(error as { name: string; message: string } | AbortError, 'PATCH', urlPath));
     }
 
     if (options?.responseType === 'blob') {
@@ -233,7 +233,7 @@ export default class ApiService {
         signal: options?.abortController?.signal,
       });
     } catch (error) {
-      return Promise.reject(this.#rewriteFetchErrors(error, 'PATCH', urlPath));
+      return Promise.reject(this.#rewriteFetchErrors(error as { name: string; message: string } | AbortError, 'PATCH', urlPath));
     }
 
     if (options?.responseType === 'blob') {
@@ -257,7 +257,7 @@ export default class ApiService {
     try {
       response = await fetch(this.#getFullUri(urlPath), { method: 'DELETE', headers: headers, signal: options?.abortController?.signal });
     } catch (error) {
-      return Promise.reject(this.#rewriteFetchErrors(error, 'DELETE', urlPath));
+      return Promise.reject(this.#rewriteFetchErrors(error as { name: string; message: string } | AbortError, 'DELETE', urlPath));
     }
 
     if (options?.responseType === 'blob') {
@@ -285,7 +285,7 @@ export default class ApiService {
         signal: options?.abortController?.signal,
       });
     } catch (error) {
-      return Promise.reject(this.#rewriteFetchErrors(error, 'GET', urlPath));
+      return Promise.reject(this.#rewriteFetchErrors(error as { name: string; message: string } | AbortError, 'GET', urlPath));
     }
 
     if (options?.responseType === 'blob') {
@@ -307,8 +307,9 @@ export default class ApiService {
       try {
         await call();
       } catch (httpError) {
-        httpErrors.push(httpError);
-        const errorMsg = httpError.message;
+        const error = httpError as HttpError;
+        httpErrors.push(error);
+        const errorMsg = error.message;
         errorMessageToCount.set(errorMsg, (errorMessageToCount.get(errorMsg) ?? 0) + 1);
       }
     });

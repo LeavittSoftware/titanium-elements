@@ -25,10 +25,10 @@ export class SnackbarStack extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    (this.eventListenerTarget || this.getRootNode()).addEventListener(ShowSnackbarEvent.eventName, (e: ShowSnackbarEvent) => {
+    (this.eventListenerTarget || this.getRootNode()).addEventListener(ShowSnackbarEvent.eventName, ((e: ShowSnackbarEvent) => {
       e.stopImmediatePropagation();
       this.open(e.SnackbarMessage, e.SnackbarOptions);
-    });
+    }) as EventListener);
   }
 
   static styles = [

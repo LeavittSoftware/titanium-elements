@@ -1,11 +1,9 @@
-import { css, LitElement } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { property, customElement, queryAsync } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
-import { MdOutlinedSelect } from '@material/web/select/outlined-select.js';
-import { literal, html } from 'lit/static-html.js';
+import { MdFilledSelect } from '@material/web/select/filled-select.js';
 
 import '@material/web/iconbutton/icon-button';
-import '@material/web/select/outlined-select.js';
 import '@material/web/select/filled-select.js';
 import '@material/web/select/select-option.js';
 
@@ -38,12 +36,12 @@ export class TitaniumPageControl extends LitElement {
   /**
    * Total number of items in all pages.
    */
-  @property({ type: Number }) accessor count: number;
+  @property({ type: Number }) accessor count: number = 0;
 
   /**
    * Local storage key to save the current page size.
    */
-  @property({ type: String, attribute: 'local-storage-key' }) accessor localStorageKey: string;
+  @property({ type: String, attribute: 'local-storage-key' }) accessor localStorageKey: string = '';
 
   /**
    * Label for the page control. If not provided, defaults to 'Items per page'.
@@ -53,14 +51,9 @@ export class TitaniumPageControl extends LitElement {
   /**
    * Disables the page control select and page navigation buttons when true
    */
-  @property({ type: Boolean }) accessor disabled: boolean;
+  @property({ type: Boolean }) accessor disabled: boolean = false;
 
-  /**
-   *  Swaps out outlined select for a filled select.
-   */
-  @property({ type: Boolean, attribute: 'filled' }) accessor filled: boolean = false;
-
-  @queryAsync('md-select') protected accessor select: MdOutlinedSelect;
+  @queryAsync('md-select') protected accessor select!: MdFilledSelect;
 
   /**
    * Gets or sets take value and assigns it to local storage.
@@ -141,13 +134,6 @@ export class TitaniumPageControl extends LitElement {
       display: flex;
     }
 
-    md-outlined-select {
-      min-width: 100px;
-      --md-outlined-field-top-space: 4px;
-      --md-outlined-field-bottom-space: 4px;
-      --md-outlined-select-text-field-container-shape: 8px;
-    }
-
     md-filled-select {
       min-width: 100px;
       overflow: hidden;
@@ -171,27 +157,26 @@ export class TitaniumPageControl extends LitElement {
   `;
 
   render() {
-    /* eslint-disable lit/binding-positions, lit/no-invalid-html */
     return html`
       <table-controls>
-          <div ellipsis>${this.label}</div>
-          <${this.filled ? literal`md-filled-select` : literal`md-outlined-select`}
-            ?disabled=${this.disabled}
-            @request-selection=${(e) => {
-              e.stopPropagation();
-              this.take = Number(e.target.value);
-              this.dispatchEvent(new CustomEvent('action', { composed: true }));
-            }}
-          >
-            ${repeat(
-              this.pageSizes,
-              (o) => o,
-              (o) =>
-                html` <md-select-option ?selected=${this.take === o} value=${o}>
-                  <div slot="headline">${o}</div>
-                </md-select-option>`
-            )}
-          </${this.filled ? literal`md-filled-select` : literal`md-outlined-select`}>
+        <div ellipsis>${this.label}</div>
+        <md-filled-select
+          ?disabled=${this.disabled}
+          @request-selection=${(e) => {
+            e.stopPropagation();
+            this.take = Number(e.target.value);
+            this.dispatchEvent(new CustomEvent('action', { composed: true }));
+          }}
+        >
+          ${repeat(
+            this.pageSizes,
+            (o) => o,
+            (o) =>
+              html` <md-select-option ?selected=${this.take === o} value=${o}>
+                <div slot="headline">${o}</div>
+              </md-select-option>`
+          )}
+        </md-filled-select>
         ${this.#getPageStats(this.page, this.count)}
         <table-paging>
           <md-icon-button @click=${this.#handleLastPageClick} ?disabled=${this.page === 0 || !this.count || this.disabled}>
@@ -203,6 +188,5 @@ export class TitaniumPageControl extends LitElement {
         </table-paging>
       </table-controls>
     `;
-    /* eslint-enable lit/binding-positions, lit/no-invalid-html */
   }
 }

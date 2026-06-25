@@ -5,7 +5,6 @@ import './image-preview-dialog';
 import '@material/web/dialog/dialog';
 import '@material/web/icon/icon';
 import '@material/web/button/text-button';
-import '@material/web/button/outlined-button';
 import '@material/web/button/filled-tonal-button';
 import '@material/web/chips/input-chip';
 
@@ -24,7 +23,7 @@ import { TitaniumChipMultiSelect } from '../../titanium/chip-multi-select/chip-m
 import { MdDialog } from '@material/web/dialog/dialog';
 import { getCdnInlineUrl } from '../helpers/get-cdn-Inline-url';
 import { p } from '../styles/p';
-import { literal, html } from 'lit/static-html.js';
+import { html } from 'lit';
 
 export type TitaniumSmartInputOptions = CropperOptions;
 
@@ -43,11 +42,11 @@ export class TitaniumSmartAttachmentInput extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'is-over' }) protected accessor isOver: boolean = false;
   @property({ type: String }) protected accessor previewSrc: string | undefined = undefined;
 
-  @query('input') protected accessor input: HTMLInputElement;
+  @query('input') protected accessor input!: HTMLInputElement;
   @query('image-preview-dialog') protected accessor imagePreviewDialog!: ImagePreviewDialog;
   @query('crop-and-save-image-dialog') protected accessor cropperDialog!: CropAndSaveImageDialog;
-  @query('md-dialog[confirm-delete]') private accessor confirmDeleteDialog: MdDialog;
-  @query('titanium-chip-multi-select') private accessor chipMultiSelect: TitaniumChipMultiSelect;
+  @query('md-dialog[confirm-delete]') private accessor confirmDeleteDialog!: MdDialog;
+  @query('titanium-chip-multi-select') private accessor chipMultiSelect!: TitaniumChipMultiSelect;
 
   #originalFiles: SmartAttachment[] = [];
 
@@ -107,7 +106,7 @@ export class TitaniumSmartAttachmentInput extends LitElement {
   /**
    *  Sets supporting text
    */
-  @property({ type: String }) accessor supportingText: string;
+  @property({ type: String }) accessor supportingText: string = '';
 
   /**
    *  Text to show when there are no attachments
@@ -117,17 +116,12 @@ export class TitaniumSmartAttachmentInput extends LitElement {
   /**
    *  Configurable CropperJs options.
    */
-  @property({ type: Object }) accessor options: CropperOptions;
+  @property({ type: Object }) accessor options!: CropperOptions;
 
   /**
    *  Forces cropper to output PNG's
    */
-  @property({ type: Boolean, reflect: true, attribute: 'force-png' }) accessor forcePNGOutput: boolean;
-
-  /**
-   *  Swaps out outlined chip multi select for a filled chip multi select.
-   */
-  @property({ type: Boolean, attribute: 'filled' }) accessor filled: boolean = false;
+  @property({ type: Boolean, reflect: true, attribute: 'force-png' }) accessor forcePNGOutput: boolean = false;
 
   /**
    *  Image formats here are sent to the cropper
@@ -326,12 +320,10 @@ export class TitaniumSmartAttachmentInput extends LitElement {
   ];
 
   render() {
-    /* eslint-disable lit/binding-positions, lit/no-invalid-html */
     return html`
       <titanium-chip-multi-select
         .supportingText=${this.supportingText}
         .required=${this.required}
-        ?filled=${this.filled}
         ?disabled=${this.disabled}
         @drop=${(e: DragEvent) => {
           if (this.disabled) {
@@ -358,7 +350,7 @@ export class TitaniumSmartAttachmentInput extends LitElement {
         .hasItems=${!!this.files.length}
       >
         <drop-scrim></drop-scrim>
-        <${this.filled ? literal`md-filled-tonal-button` : literal`md-outlined-button`}
+        <md-filled-tonal-button
           ?hidden=${!this.multiple && !!this.files.length}
           .disabled=${this.disabled}
           @click=${() => {
@@ -368,7 +360,7 @@ export class TitaniumSmartAttachmentInput extends LitElement {
             }
           }}
           >${this.addButtonLabel} <md-icon slot="icon">add</md-icon>
-        </${this.filled ? literal`md-filled-tonal-button` : literal`md-outlined-button`}>
+        </md-filled-tonal-button>
         ${repeat(
           this.files,
           (o) => o.file.name,
@@ -432,6 +424,5 @@ export class TitaniumSmartAttachmentInput extends LitElement {
         </div>
       </md-dialog>
     `;
-    /* eslint-enable lit/binding-positions, lit/no-invalid-html */
   }
 }

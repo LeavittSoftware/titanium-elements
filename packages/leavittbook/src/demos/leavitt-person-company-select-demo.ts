@@ -8,16 +8,19 @@ import '@material/web/button/filled-tonal-button';
 import '@leavittsoftware/web/leavitt/person-company-select/person-company-select';
 import '@leavittsoftware/web/titanium/snackbar/snackbar-stack';
 
-import { html, LitElement } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, query } from 'lit/decorators.js';
 import { LeavittPersonCompanySelect } from '@leavittsoftware/web/leavitt/person-company-select/person-company-select';
 
 import StoryStyles from '../styles/story-styles';
 import api3UserService from '../services/api3-user-service';
+import { AuthIdentityController } from '../services/auth-identity-controller';
 
 @customElement('leavitt-person-company-select-demo')
 export class LeavittPersonCompanySelectDemo extends LitElement {
   @query('leavitt-person-company-select[methods-demo]') protected accessor methodsSelect!: LeavittPersonCompanySelect;
+
+  #auth = new AuthIdentityController(this);
 
   static styles = [StoryStyles];
 
@@ -29,8 +32,10 @@ export class LeavittPersonCompanySelectDemo extends LitElement {
           </leavitt-app-navigation-header>
 
           <leavitt-app-width-limiter max-width="1000px">
-            <story-header name="Leavitt Person Company Select" className="LeavittPersonCompanySelect"></story-header>
+            <story-header name="Leavitt Person Company Select" className="LeavittPersonCompanySelect" requires-auth></story-header>
 
+            ${this.#auth.identity
+              ? html`
             <div>
               <h1>Methods</h1>
               <item-row>
@@ -50,20 +55,24 @@ export class LeavittPersonCompanySelectDemo extends LitElement {
                 <leavitt-person-company-select label="shaped" shaped .apiService=${api3UserService}></leavitt-person-company-select>
                 <leavitt-person-company-select
                   label="pre-selected"
-                  .selected=${{
-                    Name: 'Leavitt Group Enterprises',
-                    type: 'Company',
-                  } as never}
+                  .selected=${
+                    {
+                      Name: 'Leavitt Group Enterprises',
+                      type: 'Company',
+                    } as never
+                  }
                   .apiService=${api3UserService}
                 ></leavitt-person-company-select>
                 <leavitt-person-company-select
                   label="disabled pre-selected"
-                  .selected=${{
-                    FullName: 'Aaron Drabeck',
-                    Id: 11056,
-                    type: 'Person',
-                    ProfilePictureCdnFileName: 'zP6DJ9lM6HmkTAaku8ZIzQQdUBHYrX5pCCANvFxtpnagBhJPp7CGXOl-16xe',
-                  } as never}
+                  .selected=${
+                    {
+                      FullName: 'Aaron Drabeck',
+                      Id: 11056,
+                      type: 'Person',
+                      ProfilePictureCdnFileName: 'zP6DJ9lM6HmkTAaku8ZIzQQdUBHYrX5pCCANvFxtpnagBhJPp7CGXOl-16xe',
+                    } as never
+                  }
                   disabled
                   .apiService=${api3UserService}
                 ></leavitt-person-company-select>
@@ -80,6 +89,10 @@ export class LeavittPersonCompanySelectDemo extends LitElement {
                 ></leavitt-person-company-select>
               </item-row>
             </div>
+
+            </div>
+              `
+              : nothing}
 
             <api-docs src="./custom-elements.json" selected="leavitt-person-company-select"></api-docs>
           </leavitt-app-width-limiter>

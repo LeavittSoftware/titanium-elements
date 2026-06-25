@@ -13,12 +13,12 @@ export class TitaniumChip extends LitElement {
   /**
    *  Label / text of the chip
    */
-  @property({ type: String }) accessor label: string;
+  @property({ type: String }) accessor label: string = '';
 
   /**
    *  When true, the chip is selected
    */
-  @property({ type: Boolean, reflect: true }) accessor selected: boolean;
+  @property({ type: Boolean, reflect: true }) accessor selected: boolean = false;
 
   /**
    * The URL that the link button points to.
@@ -41,12 +41,12 @@ export class TitaniumChip extends LitElement {
   /**
    *  When true, trailing slot is replaced with a remove icon button
    */
-  @property({ type: Boolean, reflect: true, attribute: 'input-chip' }) accessor inputChip: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'input-chip' }) accessor inputChip: boolean = false;
 
   /**
    *  Prevents mouse events and disables the ripple effect
    */
-  @property({ type: Boolean, reflect: true, attribute: 'non-interactive' }) accessor nonInteractive: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'non-interactive' }) accessor nonInteractive: boolean = false;
 
   /**
    *  Icon name of the remove icon chip
@@ -57,8 +57,6 @@ export class TitaniumChip extends LitElement {
    *  Whether or not the input should be disabled
    */
   @property({ type: Boolean, reflect: true }) accessor disabled: boolean = false;
-
-  @property({ type: Boolean }) accessor filled: boolean = false;
 
   @property({ type: Boolean, reflect: true, attribute: 'has-leading-items' }) private accessor hasLeadingItems = false;
   @property({ type: Boolean, reflect: true, attribute: 'has-trailing-items' }) private accessor hasTrailingItems = false;
@@ -100,12 +98,12 @@ export class TitaniumChip extends LitElement {
         height: inherit;
         text-align: inherit;
 
-        border: 1px solid var(--titanium-chip-outline-color, var(--md-sys-color-outline));
+        border: none;
         border-radius: 8px;
         --md-focus-ring-shape: 8px;
 
-        color: inherit;
-        background: inherit;
+        background-color: var(--titanium-chip-filled-background-color, var(--md-sys-color-surface-container));
+        color: var(--titanium-chip-filled-color, var(--md-sys-color-on-surface));
         width: inherit;
 
         outline: none;
@@ -117,13 +115,6 @@ export class TitaniumChip extends LitElement {
         text-decoration: none;
 
         padding: 0 12px;
-      }
-
-      :host([filled]) a,
-      :host([filled]) button {
-        border: none;
-        background-color: var(--titanium-chip-filled-background-color, var(--md-sys-color-surface-container));
-        color: var(--titanium-chip-filled-color, var(--md-sys-color-on-surface));
       }
 
       :host([selected]) button,

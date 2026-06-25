@@ -8,17 +8,20 @@ import '@material/web/button/filled-tonal-button';
 import '@leavittsoftware/web/leavitt/profile-picture/profile-picture';
 import '@leavittsoftware/web/leavitt/person-select/person-select';
 
-import { html, LitElement } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, query } from 'lit/decorators.js';
 import { LeavittPersonSelect } from '@leavittsoftware/web/leavitt/person-select/person-select';
 import { Person } from '@leavittsoftware/lg-core-typescript';
 
 import StoryStyles from '../styles/story-styles';
 import api3UserService from '../services/api3-user-service';
+import { AuthIdentityController } from '../services/auth-identity-controller';
 
 @customElement('leavitt-person-select-demo')
 export class LeavittPersonSelectDemo extends LitElement {
   @query('leavitt-person-select[methods-demo]') protected accessor methodsSelect!: LeavittPersonSelect;
+
+  #auth = new AuthIdentityController(this);
 
   static styles = [StoryStyles];
 
@@ -29,8 +32,10 @@ export class LeavittPersonSelectDemo extends LitElement {
           <leavitt-app-navigation-header level1Text="Leavitt person select" level1Href="/leavitt-person-select" sticky-top> </leavitt-app-navigation-header>
 
           <leavitt-app-width-limiter max-width="1000px">
-            <story-header name="Leavitt Person Select" className="LeavittPersonSelect"></story-header>
+            <story-header name="Leavitt Person Select" className="LeavittPersonSelect" requires-auth></story-header>
 
+            ${this.#auth.identity
+              ? html`
             <div>
               <h1>Methods</h1>
               <leavitt-person-select required methods-demo .apiService=${api3UserService}></leavitt-person-select>
@@ -46,7 +51,6 @@ export class LeavittPersonSelectDemo extends LitElement {
               <leavitt-person-select
                 match-input-width
                 shaped
-                filled
                 large
                 label=""
                 .odataParts=${[
@@ -65,7 +69,6 @@ export class LeavittPersonSelectDemo extends LitElement {
               <h1>Local searching</h1>
               <leavitt-person-select
                 large
-                filled
                 search-type="local"
                 .people=${[
                   {
@@ -122,12 +125,14 @@ export class LeavittPersonSelectDemo extends LitElement {
 
                 <leavitt-person-select
                   label="prefilled"
-                  .selected=${{
-                    Id: 11056,
-                    FullName: 'Aaron D.',
-                    CompanyName: 'Leavitt Software Solutions',
-                    ProfilePictureCdnFileName: 'zP6DJ9lM6HmkTAaku8ZIzQQdUBHYrX5pCCANvFxtpnagBhJPp7CGXOl-16xe',
-                  } as never}
+                  .selected=${
+                    {
+                      Id: 11056,
+                      FullName: 'Aaron D.',
+                      CompanyName: 'Leavitt Software Solutions',
+                      ProfilePictureCdnFileName: 'zP6DJ9lM6HmkTAaku8ZIzQQdUBHYrX5pCCANvFxtpnagBhJPp7CGXOl-16xe',
+                    } as never
+                  }
                   .apiService=${api3UserService}
                 ></leavitt-person-select>
 
@@ -139,6 +144,10 @@ export class LeavittPersonSelectDemo extends LitElement {
                 <leavitt-person-select label="Suffix text" suffixText="Admin" .apiService=${api3UserService}></leavitt-person-select>
               </item-row>
             </div>
+
+            </div>
+              `
+              : nothing}
 
             <api-docs src="./custom-elements.json" selected="leavitt-person-select"></api-docs>
           </leavitt-app-width-limiter>

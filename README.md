@@ -41,11 +41,14 @@ Types enable JavaScript developers to use highly-productive development tools an
 
 ### Create the leavittbook story
 
-- [ ] Copy an existing demo/rename it/write your demo code
-- [ ] Update my-app inside of leavittbook
-  - Add a route
-  - Add a menu item
-  - Add your component tag
+See [`packages/leavittbook/CLAUDE.md`](packages/leavittbook/CLAUDE.md) for gallery conventions.
+
+- [ ] Copy an existing leavittbook demo (e.g. [`packages/leavittbook/src/demos/leavitt-error-page-demo.ts`](packages/leavittbook/src/demos/leavitt-error-page-demo.ts)) and rename it
+- [ ] Update [`packages/leavittbook/src/my-app.ts`](packages/leavittbook/src/my-app.ts)
+  - Add a `page('/route', …)` handler
+  - Add a drawer `<md-list-item href="…">` (label must match `level1Text` on the demo header)
+  - Add a conditional render tag in `<main-content>`
+- [ ] Add `requires-auth` on `<story-header>` if the demo calls api3
 
 ### Important
 

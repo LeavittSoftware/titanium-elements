@@ -11,22 +11,28 @@ import ApiService from '../api-service/api-service';
 import { PendingStateEvent } from '../../titanium/types/pending-state-event';
 import { DOMEvent } from '../../titanium/types/dom-event';
 import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
-import { LoadWhile } from '../../titanium/helpers/helpers';
+import { promiseTracking } from '../../titanium/helpers/promise-tracking';
 import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
+import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
 
 @customElement('leavitt-add-folder-modal')
-export class AddFolderModal extends LoadWhile(LitElement) {
+export class AddFolderModal extends LitElement {
+  @promiseTracking('trackLoadingPromise')
+  @state()
+  accessor isLoading = false;
+  declare trackLoadingPromise: (promise: Promise<unknown>) => Promise<void>;
+
   /**
    *  Required
    */
-  @property({ attribute: false }) accessor apiService: ApiService | null;
-  @property({ type: Number }) accessor fileExplorerId: number;
-  @property({ type: Number }) accessor parentFolderId: number;
+  @property({ attribute: false }) accessor apiService: ApiService | null = null;
+  @property({ type: Number }) accessor fileExplorerId: number = 0;
+  @property({ type: Number }) accessor parentFolderId: number = 0;
 
   @state() private accessor folderName: string = '';
   @query('md-dialog') private accessor dialog!: MdDialog;
 
-  resolve: (value: FileExplorerFolderDto | null) => void;
+  resolve!: (value: FileExplorerFolderDto | null) => void;
 
   async open() {
     this.folderName = '';
@@ -50,7 +56,7 @@ export class AddFolderModal extends LoadWhile(LitElement) {
     try {
       const post = this.apiService.postAsync<FileExplorerFolder>('FileExplorerFolders?expand=CreatorPerson(select=FullName,ProfilePictureCdnFileName)', dto);
       this.dispatchEvent(new PendingStateEvent(post));
-      this.loadWhile(post);
+      this.trackLoadingPromise(post);
       const result = (await post)?.entity;
 
       return {
@@ -59,7 +65,7 @@ export class AddFolderModal extends LoadWhile(LitElement) {
         CreatorFullName: result?.CreatorPerson?.FullName,
       } as FileExplorerFolderDto;
     } catch (error) {
-      this.dispatchEvent(new ShowSnackbarEvent(error));
+      this.dispatchEvent(new ShowSnackbarEvent(error as Partial<HttpError>));
     }
     return null;
   }

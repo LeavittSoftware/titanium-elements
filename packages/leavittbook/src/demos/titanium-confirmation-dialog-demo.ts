@@ -23,10 +23,10 @@ export class TitaniumConfirmationDialogDemo extends LitElement {
   @state() private accessor result4: 'confirmed' | 'cancel' | undefined;
   @state() private accessor favoriteSnack: string | undefined;
 
-  @query('titanium-confirmation-dialog[demo1]') private accessor confirmationDialog: TitaniumConfirmationDialog | null;
-  @query('titanium-confirmation-dialog[demo2]') private accessor confirmationDialog2: TitaniumConfirmationDialog | null;
-  @query('titanium-confirmation-dialog[demo3]') private accessor confirmationDialog3: TitaniumConfirmationDialog | null;
-  @query('titanium-confirmation-dialog[demo4]') private accessor confirmationDialog4: TitaniumConfirmationDialog | null;
+  @query('titanium-confirmation-dialog[demo1]') private accessor confirmationDialog!: TitaniumConfirmationDialog | null;
+  @query('titanium-confirmation-dialog[demo2]') private accessor confirmationDialog2!: TitaniumConfirmationDialog | null;
+  @query('titanium-confirmation-dialog[demo3]') private accessor confirmationDialog3!: TitaniumConfirmationDialog | null;
+  @query('titanium-confirmation-dialog[demo4]') private accessor confirmationDialog4!: TitaniumConfirmationDialog | null;
 
   static styles = [
     StoryStyles,

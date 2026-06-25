@@ -13,18 +13,12 @@ import { redispatchEvent } from '@material/web/internal/events/redispatch-event'
  */
 @customElement('titanium-drawer')
 export class TitaniumDrawer extends LitElement {
-  @query('dialog') private accessor dialog: HTMLDialogElement | null;
+  @query('dialog') private accessor dialog!: HTMLDialogElement | null;
 
   /**
-   * Set the position of content fixed when menu is closed. Only takes effect if always-show-content is set.
+   * Set the position of content fixed when menu is closed. Only takes effect in inline mode.
    */
   @property({ type: Boolean, reflect: true }) accessor fixed: boolean = false;
-
-  /**
-   * Show the slotted content regardless if the menu is open or closed
-   * @deprecated use mode instead
-   */
-  @property({ type: Boolean, reflect: true, attribute: 'always-show-content' }) accessor alwayShowContent: boolean = false;
 
   /**
    * Reverse the direction of the drawer opening and closing animations
@@ -35,7 +29,7 @@ export class TitaniumDrawer extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'has-footer' }) private accessor hasFooter = false;
   @property({ type: Boolean, reflect: true, attribute: 'keep-open-when-going-to-flyover' }) private accessor keepOpenWhenGoingToFlyover = false;
 
-  @property({ type: String, reflect: true, attribute: 'mode' }) accessor mode: 'inline' | 'flyover' | null;
+  @property({ type: String, reflect: true, attribute: 'mode' }) accessor mode: 'inline' | 'flyover' | null = null;
   @property({ type: Boolean, reflect: true, attribute: 'open' }) accessor isOpen: boolean = false; //read only
 
   @queryAssignedElements({ slot: 'header' }) private readonly headerElements!: Element[];
@@ -44,11 +38,6 @@ export class TitaniumDrawer extends LitElement {
   async updated(changedProps: PropertyValues<this>) {
     if (changedProps.has('mode')) {
       if (this.mode === 'inline') {
-        if (this.isOpen) {
-          //drawer was already open in inline mode, so we need to keep it open
-          this.alwayShowContent = true;
-        }
-
         //close the flyover drawer, we are inline
         this.dialog?.close();
       }
@@ -64,9 +53,6 @@ export class TitaniumDrawer extends LitElement {
             this.#setOpen(false);
           }
         }
-
-        //we are now in flyover mode, we need to hide the inline content
-        this.alwayShowContent = false;
       }
     }
   }
@@ -130,7 +116,6 @@ export class TitaniumDrawer extends LitElement {
   open() {
     if (this.mode === 'inline') {
       this.#setOpen(true);
-      this.alwayShowContent = true;
     } else {
       this.dialog?.showModal();
       this.dialog?.removeAttribute('hide');
@@ -144,7 +129,6 @@ export class TitaniumDrawer extends LitElement {
   async close() {
     if (this.mode === 'inline') {
       this.#setOpen(false);
-      this.alwayShowContent = false;
     } else {
       this.dialog?.setAttribute('hide', '');
       await TitaniumDrawer.animationsComplete(this.dialog!);
@@ -167,7 +151,6 @@ export class TitaniumDrawer extends LitElement {
   closeQuick() {
     if (this.mode === 'inline') {
       this.#setOpen(false);
-      this.alwayShowContent = false;
     } else {
       this.dialog?.close();
     }
@@ -281,7 +264,7 @@ export class TitaniumDrawer extends LitElement {
       opacity: 0.8;
     }
 
-    :host([always-show-content]) dialog:not([open]) {
+    :host([mode='inline'][open]) dialog:not([open]) {
       position: sticky;
       top: var(--titanium-drawer-full-height-padding, 48px);
 
@@ -299,7 +282,7 @@ export class TitaniumDrawer extends LitElement {
       animation: show 0.25s ease normal;
     }
 
-    :host([always-show-content][direction='rtl']) dialog:not([open]) {
+    :host([mode='inline'][open][direction='rtl']) dialog:not([open]) {
       animation: show-reverse 0.25s ease normal;
     }
 
