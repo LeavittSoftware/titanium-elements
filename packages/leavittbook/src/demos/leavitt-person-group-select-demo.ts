@@ -7,16 +7,19 @@ import '@api-viewer/docs';
 import '@material/web/button/filled-tonal-button';
 import '@leavittsoftware/web/leavitt/person-group-select/person-group-select';
 
-import { html, LitElement } from 'lit';
+import { html, LitElement, nothing } from 'lit';
 import { customElement, query } from 'lit/decorators.js';
 import { LeavittPersonGroupSelect } from '@leavittsoftware/web/leavitt/person-group-select/person-group-select';
 
 import StoryStyles from '../styles/story-styles';
 import api3UserService from '../services/api3-user-service';
+import { AuthIdentityController } from '../services/auth-identity-controller';
 
 @customElement('leavitt-person-group-select-demo')
 export class LeavittPersonGroupSelectDemo extends LitElement {
   @query('leavitt-person-group-select[methods-demo]') protected accessor methodsSelect!: LeavittPersonGroupSelect;
+
+  #auth = new AuthIdentityController(this);
 
   static styles = [StoryStyles];
 
@@ -28,8 +31,10 @@ export class LeavittPersonGroupSelectDemo extends LitElement {
           </leavitt-app-navigation-header>
 
           <leavitt-app-width-limiter max-width="1000px">
-            <story-header name="Leavitt Person/Group Select" className="LeavittPersonGroupSelect"></story-header>
+            <story-header name="Leavitt Person/Group Select" className="LeavittPersonGroupSelect" requires-auth></story-header>
 
+            ${this.#auth.identity
+              ? html`
             <div>
               <h1>Default</h1>
               <item-row>
@@ -37,21 +42,25 @@ export class LeavittPersonGroupSelectDemo extends LitElement {
                 <leavitt-person-group-select label="shaped" shaped .apiService=${api3UserService}></leavitt-person-group-select>
                 <leavitt-person-group-select
                   label="pre-selected"
-                  .selected=${{
-                    Name: 'LGE Programmer Basic Access',
-                    Id: 22,
-                    type: 'PeopleGroup',
-                  } as never}
+                  .selected=${
+                    {
+                      Name: 'LGE Programmer Basic Access',
+                      Id: 22,
+                      type: 'PeopleGroup',
+                    } as never
+                  }
                   .apiService=${api3UserService}
                 ></leavitt-person-group-select>
                 <leavitt-person-group-select
                   label="disabled pre-selected"
-                  .selected=${{
-                    Name: 'Aaron Drabeck',
-                    ProfilePictureCdnFileName: 'zP6DJ9lM6HmkTAaku8ZIzQQdUBHYrX5pCCANvFxtpnagBhJPp7CGXOl-16xe',
-                    Id: 11056,
-                    type: 'Person',
-                  } as never}
+                  .selected=${
+                    {
+                      Name: 'Aaron Drabeck',
+                      ProfilePictureCdnFileName: 'zP6DJ9lM6HmkTAaku8ZIzQQdUBHYrX5pCCANvFxtpnagBhJPp7CGXOl-16xe',
+                      Id: 11056,
+                      type: 'Person',
+                    } as never
+                  }
                   disabled
                   .apiService=${api3UserService}
                 ></leavitt-person-group-select>
@@ -76,6 +85,10 @@ export class LeavittPersonGroupSelectDemo extends LitElement {
                 <md-filled-tonal-button @click=${() => this.methodsSelect.reportValidity()}>reportValidity()</md-filled-tonal-button>
               </section>
             </div>
+
+            </div>
+              `
+              : nothing}
 
             <api-docs src="./custom-elements.json" selected="leavitt-person-group-select"></api-docs>
           </leavitt-app-width-limiter>

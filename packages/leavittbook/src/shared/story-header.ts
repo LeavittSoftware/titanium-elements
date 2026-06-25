@@ -2,8 +2,11 @@ import { css, html, LitElement, nothing, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { p } from '@leavittsoftware/web/titanium/styles/styles';
 
-import '@material/web/chips/suggestion-chip';
+import '@leavittsoftware/web/titanium/chip/chip';
+import '@material/web/button/filled-tonal-button';
 import { heroStyles } from '../styles/hero-styles';
+import UserManager from '../services/user-manager-service';
+import { AuthIdentityController } from '../services/auth-identity-controller';
 
 type CustomElementDeclaration = {
   name?: string;
@@ -40,15 +43,17 @@ export default class StoryHeader extends LitElement {
   @property({ type: String }) accessor name: string;
   @property({ type: String }) accessor className: string;
   @property({ type: String }) accessor deprecatedReason: string;
+  @property({ type: Boolean, attribute: 'requires-auth' }) accessor requiresAuth: boolean = false;
   @state() private accessor customElementDeclaration: CustomElementDeclaration | null = null;
 
   @state() private accessor customElementsJSON: { modules: [{ declarations: Array<CustomElementDeclaration> }] } | null = null;
+
+  #auth = new AuthIdentityController(this);
 
   async updated(changedProps: PropertyValues<this>) {
     if (changedProps.has('className') && this.className) {
       this.customElementsJSON = await getCustomElementsJSON();
       this.customElementDeclaration = this.customElementsJSON?.modules.flatMap((o) => o.declarations).find((o) => o.name === this.className) ?? null;
-      console.log(this.customElementDeclaration);
     }
   }
 
@@ -92,7 +97,10 @@ export default class StoryHeader extends LitElement {
         ${this.customElementDeclaration?.tagName ? html`<p code>${'<'}${this.customElementDeclaration?.tagName}${'>'}</p>` : ''}
       </info-container>
       <chip-container>
-        ${this.deprecatedReason ? html`<md-suggestion-chip disabled label="Deprecated (${this.deprecatedReason})"></md-suggestion-chip>` : nothing}
+        ${this.requiresAuth && !this.#auth.identity
+          ? html`<md-filled-tonal-button @click=${() => void UserManager.authenticate()}>Authentication is required for this demo</md-filled-tonal-button>`
+          : nothing}
+        ${this.deprecatedReason ? html`<titanium-chip non-interactive label="Deprecated (${this.deprecatedReason})"></titanium-chip>` : nothing}
       </chip-container>
     `;
   }
