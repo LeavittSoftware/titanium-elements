@@ -86,12 +86,14 @@ Update [`packages/web/CLAUDE.md`](packages/web/CLAUDE.md) in the **same PR** whe
 - Change a component's public API (properties, attributes, methods, events, slots, CSS parts)
 - Change cross-cutting behavior documented there (events, controllers, services, loading/snackbar patterns)
 - Add or revise implementation gotchas that affect consumers
+- Ship or change a **breaking** (`!`) release — add or update the **Upgrade changelog (for agents)** section
 
 **Checklist per change:**
 
 - [ ] Component entry added/updated/removed (primary catalog or internal appendix as appropriate)
 - [ ] Cross-cutting section updated if the change affects shared patterns
 - [ ] Import path and tag name match the source file
+- [ ] **Upgrade changelog** entry added/updated for any `!` commit or semver-major publish (rename `### Unreleased` → `### X.Y.Z` on publish; add a fresh `### Unreleased` stub)
 
 `npm run cem` can help verify property lists against source, but purpose, usage notes, and gotchas must be curated manually.
 
@@ -100,9 +102,10 @@ Update [`packages/web/CLAUDE.md`](packages/web/CLAUDE.md) in the **same PR** whe
 - Extend `LitElement`; register with `@customElement('kebab-case-name')` (must include a hyphen)
 - Use `@property() accessor` / `@state() accessor` (omit `accessor` on `@provide` / `@consume` context properties)
 - Side-effect imports for element registration; deep paths mirror source tree
-- Use `promiseTracking` for loading state (`LoadWhile` was removed)
+- Use `promiseTracking` for loading state on page components (`LoadWhile` mixin removed; `titanium-data-table-core.loadWhile()` remains as a deprecated alias for `trackLoadingPromise`)
 - Pair `ShowSnackbarEvent` with `titanium-snackbar-stack`; `PendingStateEvent` with loading indicators
 - Multi-word reflected attributes use **kebab-case** (`local-storage-key`, not `localStorageKey`)
+- Any PR with `feat!`, `fix!`, or `refactor!` must include an upgrade-changelog entry in `packages/web/CLAUDE.md` with grep targets and replacements
 
 ## What NOT to Do
 

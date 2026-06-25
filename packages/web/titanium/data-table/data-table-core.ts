@@ -178,6 +178,11 @@ export class TitaniumDataTableCore<T extends object> extends LitElement {
     }
   }
 
+  /** @deprecated Use trackLoadingPromise. Alias kept for downstream compat. */
+  loadWhile(promise: Promise<unknown>) {
+    return this.trackLoadingPromise(promise);
+  }
+
   #notifySelectedChanged() {
     this.dispatchEvent(new Event('selected-changed', { composed: true }));
   }

@@ -17,6 +17,75 @@ Component and utility reference for agents consuming this package. Read this bef
 npm i @leavittsoftware/web
 ```
 
+## Upgrade changelog (for agents)
+
+When bumping `@leavittsoftware/web` in a downstream project, read every entry **after** the version currently installed. Each entry lists grep targets, removals, and replacements — not full release history (that lives in-repo at `CHANGELOG.md`).
+
+### Unreleased
+
+**Upgrade if coming from:** `< unreleased` (published latest is `9.9.0`)
+
+**Search downstream for:**
+
+- `LoadWhile` — mixin import or `extend LoadWhile(` on **page** components only (not `dataTable.loadWhile`)
+- `titanium-data-table` tag or import (legacy stack — not `data-table-core`)
+- `titanium-confirm-dialog` (not `confirmation-dialog`)
+- `titanium-error-page`, `titanium-access-denied-page`, `titanium-full-page-loading-indicator`
+- `titanium-card`, `titanium-header`
+- `leavitt-user-feedback` (shell component)
+- `leavitt/email-history-viewer/email-history-viewer` (unfilled legacy viewer)
+- `outlined-duration-input`, `outlined-input-validator`, unqualified `search-input` / `youtube-input` / `duration-input` import paths
+- `filled` attribute on date-input, date-range-selector, chip, chip-multi-select, page-control, show-hide, smart-attachment-input, single-select-base subclasses, manual-address-dialog
+
+**Removed** — delete imports/usages:
+
+| Removed | Replacement |
+|---------|-------------|
+| `@leavittsoftware/web/titanium/helpers/load-while` | `@promiseTracking` on page components — see Loading — `promiseTracking` |
+| `titanium-confirm-dialog` | `titanium-confirmation-dialog` |
+| `titanium-error-page` | `leavitt-error-page` |
+| Legacy `titanium-data-table`, `-item`, `-header` | `titanium-data-table-core` + action bar + page control |
+| `leavitt-user-feedback` | `provide-feedback-dialog` / `report-a-problem-dialog` directly |
+| `leavitt/email-history-viewer/email-history-viewer` | `leavitt-email-history-viewer-filled` only |
+| `titanium-card`, `titanium-header`, `titanium-access-denied-page`, `titanium-full-page-loading-indicator` | App-specific UI (no direct replacement) |
+| Outlined / unqualified input variants | Filled paths only (e.g. `filled-search-input`, `filled-duration-input`) |
+
+**Renamed / API changes:**
+
+- Page-level `LoadWhile` mixin / `this.loadWhile()` on the page host → `@promiseTracking` + `trackLoadingPromise` (see Loading — `promiseTracking`)
+- `dataTable.loadWhile(promise)` — **still supported** via deprecated alias on `titanium-data-table-core`; prefer `trackLoadingPromise` in new code
+- `itemMetaData[].sortExpression` → `getSortExpression: () => string` (since 9.0; still required if not yet migrated)
+
+**Behavior / styling:**
+
+- `filled` attribute removed from dual-style components — filled Material styling is always on
+- `google-address-input` uses `@googlemaps/js-api-loader` v2 internally; consumers still only pass `googleMapsApiKey` — no bundler `process` shim required
+- `leavitt-error-page` no longer uses tsParticles; no consumer particle config to migrate
+
+### 9.4.0
+
+**Upgrade if coming from:** `< 9.4.0`
+
+**Adopt before unreleased / 10.x:**
+
+- `@promiseTracking` decorator added — preferred for page-level loading flags
+- If page components still `extend LoadWhile(LitElement)`, migrate to `@promiseTracking` + `trackLoadingPromise` before upgrading past 9.9.x
+- `dataTable.loadWhile(promise)` call sites do **not** need changing (compat alias on `titanium-data-table-core`)
+
+### 9.0.0
+
+**Upgrade if coming from:** `< 9.0.0`
+
+**Search downstream for:**
+
+- `UserManager`, `GetUserManagerInstance`, `AuthenticatedTokenProvider`, `UserManagerUpdatedEvent`
+- `sortExpression:` in `TitaniumDataTableCoreMetaData` column defs
+
+**Renamed / API changes:**
+
+- Auth helpers above → `AuthZeroLgUserManager` (see Services — `AuthZeroLgUserManager`)
+- `itemMetaData[].sortExpression: 'Name'` → `getSortExpression: () => 'Name'`
+
 ## Import and registration
 
 There is no barrel `index.ts` and no `exports` map. Always use deep file paths:
@@ -431,7 +500,7 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 | Property | `supplementalItemStyles` | `CSSResult \| CSSResultGroup \| null` | Per-row styles |
 | State | `isLoading` | `boolean` | Via `promiseTracking` |
 
-**Methods:** `selectAll()`, `deselectAll()`, `resetSort()`, `trackLoadingPromise(promise)`
+**Methods:** `selectAll()`, `deselectAll()`, `resetSort()`, `trackLoadingPromise(promise)`, `loadWhile(promise)` (deprecated alias for `trackLoadingPromise`)
 
 **Events:**
 - `selected-changed` (composed)
