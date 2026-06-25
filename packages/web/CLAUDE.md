@@ -874,7 +874,7 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 ### `leavitt-error-page`
 
-**Purpose:** Branded error page with particle star background; theme-aware.
+**Purpose:** Branded error page with an animated star background; theme-aware.
 
 **Import:** `import '@leavittsoftware/web/leavitt/error-page/error-page.js'`
 
@@ -883,7 +883,7 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 | Property | `heading` | `string \| TemplateResult` | Default `'Hmm...'` |
 | Property | `message` | `string \| TemplateResult` | |
 
-**Usage notes / gotchas:** Extends `ThemePreference`; uses `@tsparticles/preset-stars`
+**Usage notes / gotchas:** Extends `ThemePreference`; renders a self-contained `<canvas>` starfield (no external particle dependency) that drifts and twinkles, honors `prefers-reduced-motion`, and recolors on theme change.
 
 ---
 

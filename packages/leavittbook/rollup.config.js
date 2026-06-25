@@ -29,6 +29,8 @@ export default {
     nodeResolve(),
     /** Minify HTML */
     terser({
+      // @rollup/plugin-terser v1's multi-worker pool segfaults on Node 22+; pin to a single worker.
+      maxWorkers: 1,
       ecma: 2022,
       module: true,
       warnings: true,
