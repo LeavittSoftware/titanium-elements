@@ -506,7 +506,6 @@ export class MyApp extends PendingStateCatcher(LitElement) {
 
       <main-content>
         ${this.page === 'getting-started' ? html`<getting-started></getting-started>` : nothing}
-        ${this.page === 'error' ? html`<div>Oops, something went wrong.</div>` : nothing}
 
         <!-- Stories -->
         ${this.page === 'available-cdn-icons' ? html`<available-cdn-icons-demo large></available-cdn-icons-demo>` : nothing}
