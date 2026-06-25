@@ -24,10 +24,10 @@ export class LeavittErrorPage extends ThemePreference(LitElement) {
   @property() accessor heading: string | TemplateResult<1> = 'Hmm...';
   @property() accessor message: string | TemplateResult<1> = "It looks like that page doesn't exist.";
 
-  @query('div[particles]') private accessor particlesContainer: HTMLDivElement;
+  @query('div[particles]') private accessor particlesContainer!: HTMLDivElement;
 
-  #mdSysColorBackground: string;
-  #mdSysColorOnBackground: string;
+  #mdSysColorBackground!: string;
+  #mdSysColorOnBackground!: string;
   #particles: Container | undefined;
 
   async firstUpdated() {

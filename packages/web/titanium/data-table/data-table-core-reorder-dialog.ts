@@ -20,6 +20,7 @@ import { repeat } from 'lit/directives/repeat.js';
 import { promiseTracking } from '../helpers/promise-tracking';
 import { ShowSnackbarEvent } from '../snackbar/show-snackbar-event';
 import { SnackbarStack } from '@leavittsoftware/web/titanium/snackbar/snackbar-stack';
+import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
 
 export type CloseReason = 'apply' | 'cancel';
 
@@ -33,7 +34,7 @@ export class TitaniumDataTableCoreReorderDialog<T extends object> extends LitEle
   @property({ type: Object }) accessor tableMetaData: TitaniumDataTableCoreMetaData<T> | null = null;
   @property({ type: Object }) accessor supplementalItemStyles: CSSResult | CSSResultGroup | null = null;
 
-  @query('md-dialog') private accessor dialog: MdDialog;
+  @query('md-dialog') private accessor dialog!: MdDialog;
   @query('titanium-snackbar-stack') private accessor snackbar!: SnackbarStack;
 
   @state() accessor items: Array<T> = [];
@@ -66,7 +67,7 @@ export class TitaniumDataTableCoreReorderDialog<T extends object> extends LitEle
     return JSON.stringify(sortA) !== JSON.stringify(sortB);
   }
 
-  #resolve: (value: CloseReason) => void;
+  #resolve!: (value: CloseReason) => void;
   static styles = [
     css`
       :host {
@@ -164,7 +165,7 @@ export class TitaniumDataTableCoreReorderDialog<T extends object> extends LitEle
               await saving;
               this.dialog?.close('apply');
             } catch (error) {
-              this.dispatchEvent(new ShowSnackbarEvent(error));
+              this.dispatchEvent(new ShowSnackbarEvent(error as Partial<HttpError>));
             }
           }}
           >Save

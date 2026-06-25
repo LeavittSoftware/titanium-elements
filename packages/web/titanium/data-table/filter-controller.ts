@@ -110,7 +110,7 @@ export class FilterController<TKey extends string> {
     return this.#filters.get(key);
   }
 
-  #notifyTimer: number;
+  #notifyTimer!: number;
   #batchNotifyFiltersChanged() {
     clearTimeout(this.#notifyTimer);
     this.#setQueryString();

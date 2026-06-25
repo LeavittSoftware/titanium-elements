@@ -19,7 +19,7 @@ export class TitaniumChipMultiSelect extends LitElement {
   /**
    *  Label of input to display to users
    */
-  @property({ type: String }) accessor label: string;
+  @property({ type: String }) accessor label: string = '';
 
   /**
    *  Text to show when there are no items
@@ -34,32 +34,32 @@ export class TitaniumChipMultiSelect extends LitElement {
   /**
    *  Indicates whether or not to show the no items text
    */
-  @property({ type: Boolean }) accessor hasItems: boolean;
+  @property({ type: Boolean }) accessor hasItems: boolean = false;
 
   /**
    *   Passes the supportingText property to the input-validator
    */
-  @property({ type: String }) accessor supportingText: string;
+  @property({ type: String }) accessor supportingText: string = '';
 
   /**
    *  Passes the error property to the input-validator
    */
-  @property({ type: Boolean }) accessor error: boolean;
+  @property({ type: Boolean }) accessor error: boolean = false;
 
   /**
    *  Passes the errorText property to the input-validator
    */
-  @property({ type: String }) accessor errorText: string;
+  @property({ type: String }) accessor errorText: string = '';
 
   /**
    *  Passes the resizable property to the input-validator
    */
-  @property({ type: Boolean }) accessor resizable: boolean;
+  @property({ type: Boolean }) accessor resizable: boolean = false;
 
   /**
    *  Whether or not the input should appear disabled (chips, buttons and anything else slotted will still have to be disabled individually).
    */
-  @property({ type: Boolean, reflect: true }) accessor disabled: boolean;
+  @property({ type: Boolean, reflect: true }) accessor disabled: boolean = false;
 
   @query('titanium-filled-input-validator') private accessor validator:
     | { checkValidity: () => boolean; reportValidity: () => boolean; reset: () => void }

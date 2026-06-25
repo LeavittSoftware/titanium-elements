@@ -44,6 +44,7 @@ import { isDevelopment } from '@leavittsoftware/web/titanium/helpers/is-developm
 
 import dayjs from 'dayjs/esm';
 import ApiService from '../api-service/api-service';
+import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
 
 type ItemType = Partial<EmailTemplateLog>;
 
@@ -54,10 +55,10 @@ export default class LeavittEmailHistoryViewerFilled extends LitElement {
   accessor isLoading = false;
   declare trackLoadingPromise: (promise: Promise<unknown>) => Promise<void>;
 
-  @property({ type: Boolean }) public accessor isActive: boolean;
-  @property({ type: Object }) public accessor apiService: ApiService | null;
-  @property({ type: String }) public accessor path: string;
-  @property({ type: Object }) public accessor siteSearchTextFieldContext: TitaniumTextFieldSearchContext;
+  @property({ type: Boolean }) public accessor isActive: boolean = false;
+  @property({ type: Object }) public accessor apiService: ApiService | null = null;
+  @property({ type: String }) public accessor path: string = '';
+  @property({ type: Object }) public accessor siteSearchTextFieldContext!: TitaniumTextFieldSearchContext;
   @property({ type: String }) accessor apiControllerName: string = 'EmailTemplateLogs';
 
   /**
@@ -127,10 +128,10 @@ export default class LeavittEmailHistoryViewerFilled extends LitElement {
 
   @query('titanium-data-table-core') private accessor dataTable!: TitaniumDataTableCore<ItemType>;
   @query('leavitt-email-history-viewer-filled-filter-dialog') private accessor filterDialog!: LeavittEmailHistoryViewerFilledFilterDialog;
-  @query('titanium-page-control') private accessor pageControl: TitaniumPageControl | null;
-  @query('leavitt-app-main-content-container') private accessor mainContentContainer: LeavittAppContentContainer | null;
-  @query('leavitt-view-sent-email-dialog') private accessor viewDialog: LeavittViewSentEmailDialog | null;
-  @query('leavitt-view-email-template-info-dialog') private accessor viewEmailTemplateInfoDialog: LeavittViewEmailTemplateInfoDialog | null;
+  @query('titanium-page-control') private accessor pageControl!: TitaniumPageControl | null;
+  @query('leavitt-app-main-content-container') private accessor mainContentContainer!: LeavittAppContentContainer | null;
+  @query('leavitt-view-sent-email-dialog') private accessor viewDialog!: LeavittViewSentEmailDialog | null;
+  @query('leavitt-view-email-template-info-dialog') private accessor viewEmailTemplateInfoDialog!: LeavittViewEmailTemplateInfoDialog | null;
 
   searchController: TitaniumSiteSearchTextFieldController | undefined;
 
@@ -281,7 +282,7 @@ export default class LeavittEmailHistoryViewerFilled extends LitElement {
       const result = await get;
       return { items: result.toList(), odataCount: result.odataCount };
     } catch (error) {
-      this.dispatchEvent(new ShowSnackbarEvent(error, { autoHide: 7500 }));
+      this.dispatchEvent(new ShowSnackbarEvent(error as Partial<HttpError>, { autoHide: 7500 }));
     }
     return { items: [], odataCount: 0 };
   }

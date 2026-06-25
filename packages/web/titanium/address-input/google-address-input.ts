@@ -1,3 +1,4 @@
+/// <reference types="google.maps" />
 import { PropertyValues, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -12,6 +13,7 @@ import { placeResultToAddress } from './utils/place-result-to-address';
 import { addressToString } from './utils/address-to-string';
 import { AddressInputAddress } from './types/address-input-address';
 import { validateStreet } from './utils/validate-street';
+import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
 
 /**
  *  Single select input that searches Places using the Google Places API
@@ -24,7 +26,7 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
   /**
    *  **REQUIRED** GoogleAPI key for Places API
    */
-  @property({ type: String }) accessor googleMapsApiKey: string;
+  @property({ type: String }) accessor googleMapsApiKey: string = '';
 
   @property({ type: String }) accessor label: string = 'Address';
 
@@ -40,8 +42,8 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
 
   #doSearchDebouncer = new Debouncer((searchTerm: string) => this.#doSearch(searchTerm));
   #abortController: AbortController = new AbortController();
-  #placesService: google.maps.places.PlacesService;
-  #autoCompleteService: google.maps.places.AutocompleteService;
+  #placesService!: google.maps.places.PlacesService;
+  #autoCompleteService!: google.maps.places.AutocompleteService;
 
   async firstUpdated() {
     const loader = new Loader({
@@ -78,26 +80,23 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
       if (!this.allowInternational) {
         autoCompletionRequest.componentRestrictions = { country: ['us'] };
       }
-      this.#autoCompleteService.getPlacePredictions(
-        autoCompletionRequest,
-        (predictions: google.maps.places.AutocompletePrediction[] | null, status: google.maps.places.PlacesServiceStatus) => {
-          if (status != google.maps.places.PlacesServiceStatus.OK || !predictions) {
-            console.warn(status);
-            return res([]);
-          }
-
-          return res(
-            predictions.map(
-              (o) =>
-                ({
-                  Id: o.place_id,
-                  primaryDisplayText: o?.structured_formatting?.main_text || o.description,
-                  secondaryText: o.structured_formatting?.secondary_text,
-                }) satisfies AddressInputAddress
-            )
-          );
+      this.#autoCompleteService.getPlacePredictions(autoCompletionRequest, (predictions: google.maps.places.AutocompletePrediction[] | null, status) => {
+        if (status != google.maps.places.PlacesServiceStatus.OK || !predictions) {
+          console.warn(status);
+          return res([]);
         }
-      );
+
+        return res(
+          predictions.map(
+            (o) =>
+              ({
+                Id: o.place_id,
+                primaryDisplayText: o?.structured_formatting?.main_text || o.description,
+                secondaryText: o.structured_formatting?.secondary_text,
+              }) satisfies AddressInputAddress
+          )
+        );
+      });
     });
   }
 
@@ -131,8 +130,9 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
       this.showSuggestions(results, results.length);
       return;
     } catch (error) {
-      if (error?.name !== 'AbortError' && !error?.message?.includes('Abort error')) {
-        this.dispatchEvent(new ShowSnackbarEvent(error));
+      const err = error as Partial<HttpError> & { name?: string; message?: string };
+      if (err?.name !== 'AbortError' && !err?.message?.includes('Abort error')) {
+        this.dispatchEvent(new ShowSnackbarEvent(error as Partial<HttpError>));
       }
     }
 
@@ -203,7 +203,7 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
           entity = { ...entity, ...address };
         }
       } catch (error) {
-        this.dispatchEvent(new ShowSnackbarEvent(error));
+        this.dispatchEvent(new ShowSnackbarEvent(error as Partial<HttpError>));
       }
     }
     super.setSelected(entity);

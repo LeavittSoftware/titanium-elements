@@ -48,7 +48,7 @@ export class MyApp extends PendingStateCatcher(LitElement) {
   @property({ type: String, reflect: true, attribute: 'main-menu-position' })
   private mainMenuPosition: 'slim' | 'full' | 'drawer' = 'full';
 
-  @query('titanium-drawer') private accessor drawer: TitaniumDrawer;
+  @query('titanium-drawer') private accessor drawer!: TitaniumDrawer;
 
   #resizeObserver: ResizeObserver | null = null;
 
@@ -58,7 +58,7 @@ export class MyApp extends PendingStateCatcher(LitElement) {
       UserManager.initialize();
     } catch (error) {
       console.error(error);
-      this.fatalErrorMessage = error;
+      this.fatalErrorMessage = error instanceof Error ? error.message : String(error);
       this.#changePage('error');
       return;
     }
@@ -120,18 +120,18 @@ export class MyApp extends PendingStateCatcher(LitElement) {
 
     this.#resizeObserver.observe(this);
 
-    this.addEventListener(ChangePathEvent.eventName, (event: ChangePathEvent) => {
+    this.addEventListener(ChangePathEvent.eventName, ((event: ChangePathEvent) => {
       page.show(event.detail.path);
-    });
+    }) as EventListener);
 
-    this.addEventListener(RedirectPathEvent.eventName, (event: RedirectPathEvent) => {
+    this.addEventListener(RedirectPathEvent.eventName, ((event: RedirectPathEvent) => {
       page.redirect(event.detail.path);
-    });
+    }) as EventListener);
 
-    this.addEventListener(SiteErrorEvent.eventName, (event: SiteErrorEvent) => {
+    this.addEventListener(SiteErrorEvent.eventName, ((event: SiteErrorEvent) => {
       this.fatalErrorMessage = event.detail;
       this.#changePage('error');
-    });
+    }) as EventListener);
 
     page('*', (_ctx, next) => {
       if (this.drawer?.mode === 'flyover') {
@@ -224,7 +224,7 @@ export class MyApp extends PendingStateCatcher(LitElement) {
       this.showSearch = !!this.#getActivePageElement(mainPage)?.searchController;
     } catch (error) {
       console.warn(error);
-      this.#showErrorPage(error);
+      this.#showErrorPage(error instanceof Error ? error.message : String(error));
     }
   }
 

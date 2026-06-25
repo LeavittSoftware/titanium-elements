@@ -17,7 +17,7 @@ import StoryStyles from '../styles/story-styles';
 
 @customElement('titanium-youtube-input-demo')
 export class TitaniumYoutubeInputDemo extends LitElement {
-  @query('titanium-filled-youtube-input[required]') private accessor filledInput: TitaniumFilledYouTubeInput;
+  @query('titanium-filled-youtube-input[required]') private accessor filledInput!: TitaniumFilledYouTubeInput;
 
   static styles = [
     StoryStyles,

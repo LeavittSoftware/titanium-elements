@@ -22,8 +22,8 @@ import StoryStyles from '../styles/story-styles';
 
 @customElement('titanium-drawer-demo')
 export class TitaniumDrawerDemo extends LitElement {
-  @query('titanium-drawer[one]') private accessor drawerOne: TitaniumDrawer;
-  @query('titanium-drawer[two]') private accessor drawerTwo: TitaniumDrawer;
+  @query('titanium-drawer[one]') private accessor drawerOne!: TitaniumDrawer;
+  @query('titanium-drawer[two]') private accessor drawerTwo!: TitaniumDrawer;
 
   @state() private accessor drawerTwoMode: 'inline' | 'flyover' = 'flyover';
   @state() private accessor drawerTwoOpen: boolean = false;

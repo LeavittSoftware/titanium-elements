@@ -169,7 +169,7 @@ export class TitaniumDateInput extends LitElement {
    */
   @property({ reflect: true, type: String }) accessor autocomplete = '';
 
-  @query('input') private accessor input: HTMLInputElement;
+  @query('input') private accessor input!: HTMLInputElement;
 
   @queryAssignedElements({ slot: 'leading-icon' }) private accessor leadingIcons!: Element[];
   @queryAssignedElements({ slot: 'trailing-icon' }) private accessor trailingIcons!: Element[];

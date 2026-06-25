@@ -18,7 +18,7 @@ export class EventBus<TEntityTypes, TEventTypes> {
       if (Array.isArray(eventTypes)) {
         eventTypes.forEach((o) => this.subscribe(entityType, o, callback));
       } else {
-        this.#addSubscription(entityType, eventTypes, callback);
+        this.#addSubscription(entityType, eventTypes, callback as EventCallback<unknown>);
       }
     }
   }

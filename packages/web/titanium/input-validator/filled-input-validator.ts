@@ -14,7 +14,7 @@ import { MdFilledField } from '@material/web/field/filled-field';
 @customElement('titanium-filled-input-validator')
 export class TitaniumFilledInputValidator extends MdFilledField {
   @property({ type: Boolean }) populated: boolean = true;
-  @property({ type: Object }) accessor evaluator: () => boolean;
+  @property({ type: Object }) accessor evaluator!: () => boolean;
 
   firstUpdated() {
     this.addEventListener('focusin', () => (this.focused = true));

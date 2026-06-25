@@ -41,6 +41,7 @@ import { FileModal } from './file-modal';
 import { AddFolderModal } from './add-folder-modal';
 import { FolderModal } from './folder-modal';
 import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
+import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
 
 /**
  * Leavitt Group specific file explorer
@@ -64,7 +65,7 @@ export class LeavittFileExplorer extends LitElement {
   /**
    *  This is required.
    */
-  @property({ attribute: false }) accessor apiService: ApiService | null;
+  @property({ attribute: false }) accessor apiService: ApiService | null = null;
 
   /**
    * ID File explorer to display. This is required.
@@ -105,14 +106,14 @@ export class LeavittFileExplorer extends LitElement {
   @state() private accessor path: FileExplorerPathDto[] = [];
   @state() private accessor selected: ((FileExplorerFolderDto | FileExplorerFileDto) & { type: 'folder' | 'file' })[] = [];
 
-  @query('md-menu[upload-menu]') private accessor uploadMenu: MdMenu;
+  @query('md-menu[upload-menu]') private accessor uploadMenu!: MdMenu;
 
-  @query('leavitt-folder-modal') private accessor folderDialog: FolderModal;
-  @query('leavitt-add-folder-modal') private accessor addFolderDialog: AddFolderModal;
-  @query('leavitt-file-modal') private accessor fileDialog: FileModal;
-  @query('input[files]') private accessor fileInput: HTMLInputElement;
-  @query('input[folders]') private accessor folderInput: HTMLInputElement;
-  @query('titanium-confirmation-dialog') private accessor confirmationDialog: TitaniumConfirmationDialog;
+  @query('leavitt-folder-modal') private accessor folderDialog!: FolderModal;
+  @query('leavitt-add-folder-modal') private accessor addFolderDialog!: AddFolderModal;
+  @query('leavitt-file-modal') private accessor fileDialog!: FileModal;
+  @query('input[files]') private accessor fileInput!: HTMLInputElement;
+  @query('input[folders]') private accessor folderInput!: HTMLInputElement;
+  @query('titanium-confirmation-dialog') private accessor confirmationDialog!: TitaniumConfirmationDialog;
 
   #originalFolderId = 0;
 
@@ -120,10 +121,10 @@ export class LeavittFileExplorer extends LitElement {
     //force attribute to reflect
     this.display = structuredClone(this.display);
 
-    this.addEventListener(PendingStateEvent.eventType, async (e: PendingStateEvent) => {
+    this.addEventListener(PendingStateEvent.eventType, (async (e: PendingStateEvent) => {
       e.stopPropagation();
       this.trackLoadingPromise(e.detail.promise);
-    });
+    }) as unknown as EventListener);
 
     fileExplorerEvents.subscribe<FileExplorerAttachment>('FileExplorerFileDto', 'Update', (o) => {
       const index = this.files.findIndex((file) => file.Id === o.Id);
@@ -196,7 +197,8 @@ export class LeavittFileExplorer extends LitElement {
         this.state = this.folders.length > 0 || this.files.length > 0 ? 'files' : 'no-files';
       }
     } catch (error) {
-      if (error?.statusCode == 401 || error?.statusCode == 404) {
+      const httpError = error as Partial<HttpError>;
+      if (httpError?.statusCode == 401 || httpError?.statusCode == 404) {
         this.path = [{ Name: 'Files' } as FileExplorerPathDto];
         this.state = 'no-permission';
         return;
@@ -261,8 +263,9 @@ export class LeavittFileExplorer extends LitElement {
               this.dispatchEvent(new CustomEvent('file-deleted'));
             }
           } catch (newError) {
-            const newErrorCount = (errorMessageToCount.get(newError) ?? 0) + 1;
-            errorMessageToCount.set(newError, newErrorCount);
+            const message = newError instanceof Error ? newError.message : String(newError);
+            const newErrorCount = (errorMessageToCount.get(message) ?? 0) + 1;
+            errorMessageToCount.set(message, newErrorCount);
             totalErrorCount++;
           }
         })
@@ -358,7 +361,8 @@ export class LeavittFileExplorer extends LitElement {
           }
         }
       } catch (error) {
-        failedFiles.push(file.name + ': ' + error.message);
+        const message = error instanceof Error ? error.message : String(error);
+        failedFiles.push(file.name + ': ' + message);
       }
     });
 
@@ -401,7 +405,8 @@ export class LeavittFileExplorer extends LitElement {
           }
         }
       } catch (error) {
-        failedFiles.push(file.webkitRelativePath + ': ' + error.message);
+        const message = error instanceof Error ? error.message : String(error);
+        failedFiles.push(file.webkitRelativePath + ': ' + message);
       }
     });
 
@@ -444,7 +449,7 @@ export class LeavittFileExplorer extends LitElement {
       }
       return result;
     } catch (error) {
-      this.dispatchEvent(new ShowSnackbarEvent(error));
+      this.dispatchEvent(new ShowSnackbarEvent(error as Partial<HttpError>));
     }
     return null;
   }

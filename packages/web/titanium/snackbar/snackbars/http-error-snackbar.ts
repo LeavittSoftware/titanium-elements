@@ -14,12 +14,12 @@ import { SnackbarOptions } from '../types/snackbar-options';
 
 @customElement('titanium-http-error-snackbar')
 export class HttpErrorSnackbar extends LitElement {
-  #resolve: (reason: string) => void;
+  #resolve!: (reason: string) => void;
 
   /**
    * Firefox support
    */
-  @property({ type: Boolean, reflect: true }) private accessor open: boolean;
+  @property({ type: Boolean, reflect: true }) private accessor open: boolean = false;
 
   @property({ type: Array }) private accessor httpErrors: Partial<HttpError>[] = [];
 

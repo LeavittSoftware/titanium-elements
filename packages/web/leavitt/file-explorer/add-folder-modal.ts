@@ -13,6 +13,7 @@ import { DOMEvent } from '../../titanium/types/dom-event';
 import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
 import { promiseTracking } from '../../titanium/helpers/promise-tracking';
 import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
+import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
 
 @customElement('leavitt-add-folder-modal')
 export class AddFolderModal extends LitElement {
@@ -24,14 +25,14 @@ export class AddFolderModal extends LitElement {
   /**
    *  Required
    */
-  @property({ attribute: false }) accessor apiService: ApiService | null;
-  @property({ type: Number }) accessor fileExplorerId: number;
-  @property({ type: Number }) accessor parentFolderId: number;
+  @property({ attribute: false }) accessor apiService: ApiService | null = null;
+  @property({ type: Number }) accessor fileExplorerId: number = 0;
+  @property({ type: Number }) accessor parentFolderId: number = 0;
 
   @state() private accessor folderName: string = '';
   @query('md-dialog') private accessor dialog!: MdDialog;
 
-  resolve: (value: FileExplorerFolderDto | null) => void;
+  resolve!: (value: FileExplorerFolderDto | null) => void;
 
   async open() {
     this.folderName = '';
@@ -64,7 +65,7 @@ export class AddFolderModal extends LitElement {
         CreatorFullName: result?.CreatorPerson?.FullName,
       } as FileExplorerFolderDto;
     } catch (error) {
-      this.dispatchEvent(new ShowSnackbarEvent(error));
+      this.dispatchEvent(new ShowSnackbarEvent(error as Partial<HttpError>));
     }
     return null;
   }

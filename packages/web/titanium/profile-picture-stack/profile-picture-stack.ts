@@ -19,7 +19,7 @@ export class TitaniumProfilePictureStack extends LitElement {
   /**
    * Array of people to display in a stack.
    */
-  @property({ type: Array }) accessor people: Array<Partial<Person | null | undefined>>;
+  @property({ type: Array }) accessor people: Array<Partial<Person | null | undefined>> = [];
 
   /**
    * Number to define the max number of people to display in a stack.
@@ -59,7 +59,7 @@ export class TitaniumProfilePictureStack extends LitElement {
    */
   @state() private accessor autoMax: number = 0;
 
-  #resizeObserver: ResizeObserver;
+  #resizeObserver!: ResizeObserver;
 
   updated(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('autoResize')) {

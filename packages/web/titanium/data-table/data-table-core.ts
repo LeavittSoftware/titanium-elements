@@ -107,9 +107,9 @@ export class TitaniumDataTableCore<T extends object> extends LitElement {
    */
   @property({ type: Array }) accessor selected: Array<T> = [];
 
-  @query('titanium-data-table-core-settings-choose-columns-dialog') private accessor chooseColumnsDialog: TitaniumDataTableCoreSettingsChooseColumnsDialog<T>;
-  @query('titanium-data-table-core-settings-sort-dialog') private accessor sortDialog: TitaniumDataTableCoreSettingsSortDialog<T>;
-  @query('titanium-data-table-core-reorder-dialog') private accessor reorderDialog: TitaniumDataTableCoreReorderDialog<T>;
+  @query('titanium-data-table-core-settings-choose-columns-dialog') private accessor chooseColumnsDialog!: TitaniumDataTableCoreSettingsChooseColumnsDialog<T>;
+  @query('titanium-data-table-core-settings-sort-dialog') private accessor sortDialog!: TitaniumDataTableCoreSettingsSortDialog<T>;
+  @query('titanium-data-table-core-reorder-dialog') private accessor reorderDialog!: TitaniumDataTableCoreReorderDialog<T>;
   /**
    * Local storage key to save user settings for this data table.
    */

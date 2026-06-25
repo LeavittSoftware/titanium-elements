@@ -19,6 +19,7 @@ import { DOMEvent } from '../../titanium/types/dom-event';
 import { SnackbarStack } from '../../titanium/snackbar/snackbar-stack';
 import { dialogCloseNavigationHack, dialogOpenNavigationHack } from '../../titanium/hacks/dialog-navigation-hack';
 import { AuthZeroLgUserManager } from '../user-manager/auth-zero-lg-user-manager';
+import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
 
 @customElement('provide-feedback-dialog')
 export class ProvideFeedbackDialog extends LitElement {
@@ -27,10 +28,10 @@ export class ProvideFeedbackDialog extends LitElement {
   accessor isLoading = false;
   declare trackLoadingPromise: (promise: Promise<unknown>) => Promise<void>;
 
-  @property({ type: Object }) accessor userManager: AuthZeroLgUserManager;
+  @property({ type: Object }) accessor userManager!: AuthZeroLgUserManager;
   @query('md-dialog') private accessor dialog!: MdDialog;
-  @query('titanium-snackbar-stack') private accessor snackbar: SnackbarStack;
-  @query('md-outlined-text-field') private accessor textArea: MdOutlinedTextField;
+  @query('titanium-snackbar-stack') private accessor snackbar!: SnackbarStack;
+  @query('md-outlined-text-field') private accessor textArea!: MdOutlinedTextField;
 
   show() {
     this.reset();
@@ -74,7 +75,7 @@ export class ProvideFeedbackDialog extends LitElement {
         }
       }
     } catch (error) {
-      this.dispatchEvent(new ShowSnackbarEvent(error));
+      this.dispatchEvent(new ShowSnackbarEvent(error as Partial<HttpError>));
     }
   }
 

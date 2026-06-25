@@ -16,7 +16,7 @@ export class ProfilePicture extends LitElement {
   /**
    * File name of the profile picture on CDN, no extension
    */
-  @property({ reflect: true, type: String }) accessor fileName: string | null;
+  @property({ reflect: true, type: String }) accessor fileName: string | null = null;
 
   /**
    * Shape of profile picture
@@ -26,17 +26,17 @@ export class ProfilePicture extends LitElement {
   /**
    * Shows a colored ring around the picture
    */
-  @property({ reflect: true, type: Boolean, attribute: 'show-ring' }) accessor showRing: boolean;
+  @property({ reflect: true, type: Boolean, attribute: 'show-ring' }) accessor showRing: boolean = false;
 
   /**
    * Shows a test user indicator at the bottom of the picture
    */
-  @property({ reflect: true, type: Boolean, attribute: 'show-test-user-indicator' }) accessor showTestUserIndicator: boolean;
+  @property({ reflect: true, type: Boolean, attribute: 'show-test-user-indicator' }) accessor showTestUserIndicator: boolean = false;
 
   /**
    * Makes the image a link to the respective profile page
    */
-  @property({ reflect: true, type: Number, attribute: 'profile-picture-link-person-id' }) accessor profilePictureLinkPersonId: number | null;
+  @property({ reflect: true, type: Number, attribute: 'profile-picture-link-person-id' }) accessor profilePictureLinkPersonId: number | null = null;
 
   /**
    * Size in pixels of profile picture

@@ -11,7 +11,7 @@ import { Attachment } from '@leavittsoftware/lg-core-typescript/lg.net.core';
 
 @customElement('leavitt-file-explorer-image')
 export class FileExplorerImage extends LitElement {
-  @property({ type: Object }) accessor attachment: Partial<Attachment>;
+  @property({ type: Object }) accessor attachment!: Partial<Attachment>;
 
   static styles = css`
     :host {

@@ -10,7 +10,7 @@ import { FileExplorerFolderDto } from '@leavittsoftware/lg-core-typescript';
 
 @customElement('folder-list-item')
 export class FolderListItem extends LitElement {
-  @property({ type: Object }) accessor folder: FileExplorerFolderDto;
+  @property({ type: Object }) accessor folder!: FileExplorerFolderDto;
   @property({ type: Boolean, reflect: true }) accessor selected: boolean = false;
   @property({ type: Number }) accessor selectedCount: number = 0;
   @property({ type: String, reflect: true, attribute: 'display' }) accessor display: 'grid' | 'list' = 'grid';

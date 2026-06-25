@@ -14,7 +14,7 @@ import { formatBytes } from './helpers/format-bytes';
 
 @customElement('file-list-item')
 export class FileListItem extends LitElement {
-  @property({ type: Object }) accessor file: FileExplorerFileDto;
+  @property({ type: Object }) accessor file!: FileExplorerFileDto;
   @property({ type: Boolean, reflect: true }) accessor selected: boolean = false;
   @property({ type: Number, reflect: true, attribute: 'selected-count' }) accessor selectedCount: number = 0;
   @property({ type: String, reflect: true, attribute: 'display' }) accessor display: 'grid' | 'list' = 'grid';

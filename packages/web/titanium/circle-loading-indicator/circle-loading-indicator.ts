@@ -13,13 +13,13 @@ import { PendingStateEvent } from '@leavittsoftware/web/titanium/types/pending-s
  */
 @customElement('titanium-circle-loading-indicator')
 export class TitaniumCircleLoadingIndicator extends LitElement {
-  @property({ type: Object }) accessor pendingStateElement: Element | null;
+  @property({ type: Object }) accessor pendingStateElement: Element | null = null;
 
-  @property({ type: Boolean, reflect: true }) private accessor open: boolean;
-  @property({ type: Boolean, reflect: true }) private accessor closed: boolean;
+  @property({ type: Boolean, reflect: true }) private accessor open: boolean = false;
+  @property({ type: Boolean, reflect: true }) private accessor closed: boolean = false;
 
-  #openDelayTimer: number;
-  #closeDelayTimer: number;
+  #openDelayTimer!: number;
+  #closeDelayTimer!: number;
 
   //Promises faster than this do not cause the scrim to open at all
   //Prevents flicker for fast promises
@@ -27,12 +27,12 @@ export class TitaniumCircleLoadingIndicator extends LitElement {
 
   // min time scrim has to remain open
   #minTimeOpen: number = 400;
-  #timeOpen: number;
+  #timeOpen!: number;
   #openCount = 0;
 
   firstUpdated() {
     const element = this.pendingStateElement ?? this;
-    element.addEventListener(PendingStateEvent.eventType, async (e: PendingStateEvent) => {
+    element.addEventListener(PendingStateEvent.eventType, (async (e: PendingStateEvent) => {
       e.stopPropagation();
       this.#open();
       this.#openCount++;
@@ -46,7 +46,7 @@ export class TitaniumCircleLoadingIndicator extends LitElement {
           this.#close();
         }
       }
-    });
+    }) as unknown as EventListener);
   }
 
   #open() {

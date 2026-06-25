@@ -1,6 +1,6 @@
 export class Debouncer<T, A> {
   #debouncePromise: Promise<T> | undefined;
-  #debounceResolve: { (arg0: T): void; (value?: T | PromiseLike<T> | undefined): void };
+  #debounceResolve!: (value: T) => void;
   #timer: number = 0;
   #work: (...args: A[]) => Promise<T>;
   #interval: number;

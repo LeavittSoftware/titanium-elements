@@ -18,14 +18,14 @@ export class ItemDropEvent extends Event {
 }
 
 export class DraggableItemBase extends LitElement {
-  @property({ type: Boolean, reflect: true, attribute: 'nudge-down' }) protected accessor nudgeDown: boolean;
-  @property({ type: Boolean, reflect: true, attribute: 'nudge-up' }) protected accessor nudgeUp: boolean;
-  @property({ type: Boolean, reflect: true, attribute: 'dragged' }) protected accessor dragged: boolean;
-  @property({ type: Boolean, reflect: true, attribute: 'dragging' }) protected accessor dragging: boolean;
-  @property({ type: Boolean, attribute: 'disable-drag', reflect: true }) protected accessor disableDrag: boolean;
-  @property({ type: Object }) protected accessor scrollableContainer: HTMLElement;
+  @property({ type: Boolean, reflect: true, attribute: 'nudge-down' }) protected accessor nudgeDown: boolean = false;
+  @property({ type: Boolean, reflect: true, attribute: 'nudge-up' }) protected accessor nudgeUp: boolean = false;
+  @property({ type: Boolean, reflect: true, attribute: 'dragged' }) protected accessor dragged: boolean = false;
+  @property({ type: Boolean, reflect: true, attribute: 'dragging' }) protected accessor dragging: boolean = false;
+  @property({ type: Boolean, attribute: 'disable-drag', reflect: true }) protected accessor disableDrag: boolean = false;
+  @property({ type: Object }) protected accessor scrollableContainer!: HTMLElement;
 
-  @state() protected accessor nudgeHeight: number;
+  @state() protected accessor nudgeHeight: number = 0;
   @state() protected accessor hoverIndex: number | null = null;
   @state() protected accessor originIndex: number | null = null;
 

@@ -18,6 +18,7 @@ import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field
 import ApiService from '../api-service/api-service';
 import { promiseTracking } from '../../titanium/helpers/helpers';
 import { ShowSnackbarEvent } from '../..//titanium/snackbar/show-snackbar-event';
+import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
 
 @customElement('leavitt-folder-modal')
 export class FolderModal extends LitElement {
@@ -26,12 +27,12 @@ export class FolderModal extends LitElement {
   accessor isLoading = false;
   declare trackLoadingPromise: (promise: Promise<unknown>) => Promise<void>;
 
-  @property({ attribute: false }) accessor apiService: ApiService | null;
+  @property({ attribute: false }) accessor apiService: ApiService | null = null;
   @property({ type: Boolean }) accessor enableEditing: boolean = false;
 
   @state() private accessor state: 'view' | 'edit' = 'view';
   @state() private accessor folder: FileExplorerFolderDto | null = null;
-  @state() private accessor folderName: string;
+  @state() private accessor folderName: string = '';
 
   @query('md-dialog') private accessor dialog!: MdDialog;
 
@@ -59,7 +60,7 @@ export class FolderModal extends LitElement {
       fileExplorerEvents.dispatch('FileExplorerFolder', 'Update', { ...this.folder, Name: this.folderName });
       this.state = 'view';
     } catch (error) {
-      this.dispatchEvent(new ShowSnackbarEvent(error));
+      this.dispatchEvent(new ShowSnackbarEvent(error as Partial<HttpError>));
     }
   }
 

@@ -8,8 +8,16 @@ declare global {
 }
 
 export type Constructor<T> = { new (...args: any[]): T };
-export const PendingStateCatcher = <C extends Constructor<HTMLElement>>(base: C) =>
-  class extends base {
+
+export type PendingStateCatcherMixin = {
+  stateIsPending: boolean;
+  pendingStateCatcherLoadingStartDelay: number;
+  pendingStateCatcherMinTimeOpen: number;
+  pendingStateCatcherTarget: Promise<HTMLElement> | null;
+};
+
+export function PendingStateCatcher<C extends Constructor<HTMLElement>>(base: C): C & Constructor<PendingStateCatcherMixin> {
+  class PendingStateCatcherClass extends base {
     static get properties() {
       return {
         stateIsPending: { type: Boolean },
@@ -22,7 +30,7 @@ export const PendingStateCatcher = <C extends Constructor<HTMLElement>>(base: C)
     /**
      * !! Handled by the pending state catcher !!
      */
-    public accessor stateIsPending: boolean;
+    public accessor stateIsPending!: boolean;
 
     /**
      * Promises faster than this do not cause stateIsPending to be set to true at all
@@ -39,64 +47,68 @@ export const PendingStateCatcher = <C extends Constructor<HTMLElement>>(base: C)
      * async reference to the element that will be used to listen for pending state events
      * defaults to window
      */
-    public accessor pendingStateCatcherTarget: Promise<HTMLElement> | null;
+    public accessor pendingStateCatcherTarget!: Promise<HTMLElement> | null;
 
     /**
      *  @internal
      */
-    #loadingDelayTimer: number;
-    #closeDelayTimer: number;
-    #openCount = 0;
-    #timeStampOfLoadingStart: number;
+    private loadingDelayTimer!: number;
+    private closeDelayTimer!: number;
+    private openCount = 0;
+    private timeStampOfLoadingStart!: number;
+
+    private handlePendingStateEvent = async (e: Event) => {
+      const event = e as PendingStateEvent;
+      this.loadingStarted();
+      this.openCount++;
+      try {
+        await event.detail.promise;
+      } catch {
+        // Do nothing, this will be handled by others
+      } finally {
+        this.openCount--;
+        if (this.openCount === 0) {
+          this.loadingStopped();
+        }
+      }
+    };
 
     async connectedCallback() {
       super.connectedCallback();
 
       const target = (await this.pendingStateCatcherTarget) || window;
-      target.addEventListener(PendingStateEvent.eventType, this.#handlePendingStateEvent.bind(this));
+      target.addEventListener(PendingStateEvent.eventType, this.handlePendingStateEvent);
     }
 
     async disconnectedCallback() {
       super.disconnectedCallback();
 
       const target = (await this.pendingStateCatcherTarget) || window;
-      target.removeEventListener(PendingStateEvent.eventType, this.#handlePendingStateEvent.bind(this));
+      target.removeEventListener(PendingStateEvent.eventType, this.handlePendingStateEvent);
     }
 
-    async #handlePendingStateEvent(e: PendingStateEvent) {
-      this.#loadingStarted();
-      this.#openCount++;
-      try {
-        await e.detail.promise;
-      } catch {
-        // Do nothing, this will be handled by others
-      } finally {
-        this.#openCount--;
-        if (this.#openCount === 0) {
-          this.#loadingStopped();
-        }
-      }
-    }
-
-    #loadingStarted() {
-      window.clearTimeout(this.#loadingDelayTimer);
+    private loadingStarted() {
+      window.clearTimeout(this.loadingDelayTimer);
 
       //If new event is received while close timer is running, prevent the close
-      window.clearTimeout(this.#closeDelayTimer);
+      window.clearTimeout(this.closeDelayTimer);
 
-      this.#loadingDelayTimer = window.setTimeout(() => {
-        this.#timeStampOfLoadingStart = performance.now();
+      this.loadingDelayTimer = window.setTimeout(() => {
+        this.timeStampOfLoadingStart = performance.now();
         this.stateIsPending = true;
       }, this.pendingStateCatcherLoadingStartDelay);
     }
 
-    #loadingStopped() {
-      window.clearTimeout(this.#loadingDelayTimer);
-      const totalTimeOpened = performance.now() - this.#timeStampOfLoadingStart;
+    private loadingStopped() {
+      window.clearTimeout(this.loadingDelayTimer);
+      const totalTimeOpened = performance.now() - this.timeStampOfLoadingStart;
       const loadingStopDelay = Math.max(this.pendingStateCatcherMinTimeOpen - totalTimeOpened, 0);
 
-      this.#closeDelayTimer = window.setTimeout(() => {
+      this.closeDelayTimer = window.setTimeout(() => {
         this.stateIsPending = false;
       }, loadingStopDelay);
     }
-  };
+  }
+
+  return PendingStateCatcherClass as C & Constructor<PendingStateCatcherMixin>;
+}

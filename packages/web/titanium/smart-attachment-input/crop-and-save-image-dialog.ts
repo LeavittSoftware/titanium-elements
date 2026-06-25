@@ -53,19 +53,19 @@ export class CropAndSaveImageDialog extends LitElement {
   accessor isLoading = false;
   declare trackLoadingPromise: (promise: Promise<unknown>) => Promise<void>;
 
-  @query('md-dialog') accessor dialog: MdDialog;
-  @query('main') accessor main: HTMLElement;
-  @query('cropper-canvas') accessor cropperCanvas: CropperCanvas;
-  @query('cropper-selection') accessor cropperSelection: CropperSelection;
-  @query('cropper-image') accessor cropperImage: CropperImage;
-  @query('cropper-shade') accessor cropperShade: CropperShade;
+  @query('md-dialog') accessor dialog!: MdDialog;
+  @query('main') accessor main!: HTMLElement;
+  @query('cropper-canvas') accessor cropperCanvas!: CropperCanvas;
+  @query('cropper-selection') accessor cropperSelection!: CropperSelection;
+  @query('cropper-image') accessor cropperImage!: CropperImage;
+  @query('cropper-shade') accessor cropperShade!: CropperShade;
 
   /**
    *  Forces cropper to output PNG's
    */
-  @property({ type: Boolean, reflect: true, attribute: 'force-png' }) accessor forcePNGOutput: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'force-png' }) accessor forcePNGOutput: boolean = false;
 
-  @property({ type: Object }) accessor options: CropperOptions;
+  @property({ type: Object }) accessor options!: CropperOptions;
 
   @state() protected accessor fileName: string = '';
   @state() protected accessor src: string = '';
@@ -82,7 +82,7 @@ export class CropAndSaveImageDialog extends LitElement {
     this.#setUpResizeObserver();
   }
 
-  #resizeObserver: ResizeObserver;
+  #resizeObserver!: ResizeObserver;
 
   #setUpResizeObserver() {
     this.#resizeObserver = new ResizeObserver(() => {
@@ -95,7 +95,7 @@ export class CropAndSaveImageDialog extends LitElement {
   }
 
   #saveCroppedImageFunc: ((file: File, previewDataUrl: string) => Promise<void>) | undefined;
-  #resolve: (value: 'cropped' | 'cancel') => void;
+  #resolve!: (value: 'cropped' | 'cancel') => void;
   async open(url: string, filename: string, saveCroppedImageFunc?: (file: File, previewDataUrl: string) => Promise<void>) {
     this.#isReady = false;
     this.#saveCroppedImageFunc = saveCroppedImageFunc;

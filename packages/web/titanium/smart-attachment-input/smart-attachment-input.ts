@@ -42,11 +42,11 @@ export class TitaniumSmartAttachmentInput extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'is-over' }) protected accessor isOver: boolean = false;
   @property({ type: String }) protected accessor previewSrc: string | undefined = undefined;
 
-  @query('input') protected accessor input: HTMLInputElement;
+  @query('input') protected accessor input!: HTMLInputElement;
   @query('image-preview-dialog') protected accessor imagePreviewDialog!: ImagePreviewDialog;
   @query('crop-and-save-image-dialog') protected accessor cropperDialog!: CropAndSaveImageDialog;
-  @query('md-dialog[confirm-delete]') private accessor confirmDeleteDialog: MdDialog;
-  @query('titanium-chip-multi-select') private accessor chipMultiSelect: TitaniumChipMultiSelect;
+  @query('md-dialog[confirm-delete]') private accessor confirmDeleteDialog!: MdDialog;
+  @query('titanium-chip-multi-select') private accessor chipMultiSelect!: TitaniumChipMultiSelect;
 
   #originalFiles: SmartAttachment[] = [];
 
@@ -106,7 +106,7 @@ export class TitaniumSmartAttachmentInput extends LitElement {
   /**
    *  Sets supporting text
    */
-  @property({ type: String }) accessor supportingText: string;
+  @property({ type: String }) accessor supportingText: string = '';
 
   /**
    *  Text to show when there are no attachments
@@ -116,12 +116,12 @@ export class TitaniumSmartAttachmentInput extends LitElement {
   /**
    *  Configurable CropperJs options.
    */
-  @property({ type: Object }) accessor options: CropperOptions;
+  @property({ type: Object }) accessor options!: CropperOptions;
 
   /**
    *  Forces cropper to output PNG's
    */
-  @property({ type: Boolean, reflect: true, attribute: 'force-png' }) accessor forcePNGOutput: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'force-png' }) accessor forcePNGOutput: boolean = false;
 
   /**
    *  Image formats here are sent to the cropper

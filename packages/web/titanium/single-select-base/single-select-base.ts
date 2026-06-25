@@ -27,13 +27,13 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
   accessor isLoading = false;
   declare trackLoadingPromise: (promise: Promise<unknown>) => Promise<void>;
 
-  @state() protected accessor searchTerm: string;
+  @state() protected accessor searchTerm: string = '';
   @state() protected accessor suggestions: Array<T> = [];
 
   //Suggestions shown to the user when no search terms are present
   @state() protected accessor defaultSuggestions: Array<T> = [];
 
-  @query('md-menu[suggestions]') protected accessor menu: Menu;
+  @query('md-menu[suggestions]') protected accessor menu!: Menu;
 
   /**
    *  Sets floating label value.
@@ -84,7 +84,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
    */
   @property({ type: Boolean }) accessor error: boolean = false;
 
-  @property({ type: String }) accessor errorText: string;
+  @property({ type: String }) accessor errorText: string = '';
 
   /**
    *  Displays error state if input is empty and input is blurred.
@@ -94,39 +94,39 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
   /**
    * An optional prefix to display before the input value.
    */
-  @property({ type: String }) accessor prefixText: string;
+  @property({ type: String }) accessor prefixText: string = '';
 
   /**
    * An optional suffix to display after the input value.
    */
-  @property({ type: String }) accessor suffixText: string;
+  @property({ type: String }) accessor suffixText: string = '';
 
   /**
    * Whether or not the text field has a leading icon. Used for SSR.
    */
-  @property({ type: Boolean }) accessor hasLeadingIcon: boolean;
+  @property({ type: Boolean }) accessor hasLeadingIcon: boolean = false;
 
   /**
    * Whether or not the text field has a trailing icon. Used for SSR.
    */
-  @property({ type: Boolean }) accessor hasTrailingIcon: boolean;
+  @property({ type: Boolean }) accessor hasTrailingIcon: boolean = false;
 
   /**
    * Prevents menu from automatically showing on focus.
    */
-  @property({ type: Boolean, attribute: 'disable-menu-open-on-focus' }) accessor disableMenuOpenOnFocus: boolean;
+  @property({ type: Boolean, attribute: 'disable-menu-open-on-focus' }) accessor disableMenuOpenOnFocus: boolean = false;
 
   /**
    * Conveys additional information below the text field, such as how it should
    * be used.
    */
-  @property({ type: String }) accessor supportingText: string;
+  @property({ type: String }) accessor supportingText: string = '';
 
   /**
    * Override the input text CSS `direction`. Useful for RTL languages that use
    * LTR notation for fractions.
    */
-  @property({ type: String }) accessor textDirection: string;
+  @property({ type: String }) accessor textDirection: string = '';
   @property({ type: String }) accessor pathToSelectedText: string = 'Name';
 
   @property() positioning: 'absolute' | 'fixed' | 'document' | 'popover' = 'popover';
@@ -141,7 +141,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
 
   #resizeObserver: ResizeObserver | null = null;
 
-  @state() protected accessor count: number;
+  @state() protected accessor count: number = 0;
 
   @property({ type: Boolean, attribute: 'menu-open', reflect: true }) private accessor menuOpen: boolean = false;
   @property({ type: Boolean, reflect: true, attribute: 'large' }) accessor large: boolean = false;
@@ -155,7 +155,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
     const textField = this.getTextField();
     if (textField && this.required) {
       const originalCheckValidity = textField?.checkValidity;
-      textField.checkValidity = () => !!this.selected && originalCheckValidity.bind(textField);
+      textField.checkValidity = () => !!this.selected && originalCheckValidity.call(textField);
     }
   }
 
@@ -558,11 +558,9 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
           this.setSelected(selectedMenuItem?.item);
         }}
       >
-        ${
-          !!this.searchTerm && !this.isLoading
-            ? html`<div summary>Showing ${this.suggestions.length} of ${this.count} result${this.count === 1 ? '' : 's'} for '${this.searchTerm}'</div>`
-            : ''
-        }
+        ${!!this.searchTerm && !this.isLoading
+          ? html`<div summary>Showing ${this.suggestions.length} of ${this.count} result${this.count === 1 ? '' : 's'} for '${this.searchTerm}'</div>`
+          : ''}
         ${repeat(
           this.suggestions,
           (item) => item?.Id,

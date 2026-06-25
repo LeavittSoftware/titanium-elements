@@ -6,11 +6,11 @@ import '@material/web/progress/circular-progress';
 
 @customElement('leavitt-service-worker-notifier')
 export class LeavittServiceWorkerNotifier extends ThemePreference(LitElement) {
-  @query('main') private accessor main: HTMLElement;
+  @query('main') private accessor main!: HTMLElement;
 
   @state() private accessor isLoading: boolean = false;
 
-  #newWorker: ServiceWorker | null;
+  #newWorker!: ServiceWorker | null;
   #refreshing = false;
 
   async connectedCallback() {

@@ -11,6 +11,7 @@ import ApiService from '../api-service/api-service';
 import Fuse, { IFuseOptions } from 'fuse.js';
 import { peopleGroupIcons } from './people-group-icons';
 import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
+import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
 
 export type Person = CorePerson & { type: 'Person'; Name: string };
 export type PeopleGroup = CorePeopleGroup & { type: 'PeopleGroup' };
@@ -46,7 +47,7 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
   /**
    *  Required
    */
-  @property({ attribute: false }) accessor apiService: ApiService;
+  @property({ attribute: false }) accessor apiService!: ApiService;
 
   #doSearchDebouncer = new Debouncer((searchTerm: string) => this.#doSearch(searchTerm));
   #abortController: AbortController = new AbortController();
@@ -107,8 +108,9 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
       results?.entities.forEach((p) => (p.type = 'Person'));
       return results;
     } catch (error) {
-      if (error?.name !== 'AbortError' && !error?.message?.includes('Abort error')) {
-        this.dispatchEvent(new ShowSnackbarEvent(error));
+      const err = error as Partial<HttpError> & { name?: string; message?: string };
+      if (err?.name !== 'AbortError' && !err?.message?.includes('Abort error')) {
+        this.dispatchEvent(new ShowSnackbarEvent(error as Partial<HttpError>));
       }
     }
     return null;
@@ -138,8 +140,9 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
       results?.entities.forEach((p) => (p.type = 'PeopleGroup'));
       return results;
     } catch (error) {
-      if (error?.name !== 'AbortError' && !error?.message?.includes('Abort error')) {
-        this.dispatchEvent(new ShowSnackbarEvent(error));
+      const err = error as Partial<HttpError> & { name?: string; message?: string };
+      if (err?.name !== 'AbortError' && !err?.message?.includes('Abort error')) {
+        this.dispatchEvent(new ShowSnackbarEvent(error as Partial<HttpError>));
       }
     }
     return null;

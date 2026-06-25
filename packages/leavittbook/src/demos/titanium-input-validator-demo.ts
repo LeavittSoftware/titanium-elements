@@ -20,7 +20,7 @@ import StoryStyles from '../styles/story-styles';
 @customElement('titanium-input-validator-demo')
 export class TitaniumInputValidatorDemo extends LitElement {
   @state() private accessor filledIconSelected = '';
-  @queryAll('titanium-filled-input-validator') private accessor filledValidators: NodeListOf<TitaniumFilledInputValidator>;
+  @queryAll('titanium-filled-input-validator') private accessor filledValidators!: NodeListOf<TitaniumFilledInputValidator>;
 
   static styles = [
     StoryStyles,

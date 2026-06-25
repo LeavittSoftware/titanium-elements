@@ -1,3 +1,4 @@
+/// <reference types="google.maps" />
 import { AddressInputAddress } from '../types/address-input-address';
 
 export function placeResultToAddress(place: google.maps.places.PlaceResult) {

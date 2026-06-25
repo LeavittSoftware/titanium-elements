@@ -13,12 +13,12 @@ export class TitaniumChip extends LitElement {
   /**
    *  Label / text of the chip
    */
-  @property({ type: String }) accessor label: string;
+  @property({ type: String }) accessor label: string = '';
 
   /**
    *  When true, the chip is selected
    */
-  @property({ type: Boolean, reflect: true }) accessor selected: boolean;
+  @property({ type: Boolean, reflect: true }) accessor selected: boolean = false;
 
   /**
    * The URL that the link button points to.
@@ -41,12 +41,12 @@ export class TitaniumChip extends LitElement {
   /**
    *  When true, trailing slot is replaced with a remove icon button
    */
-  @property({ type: Boolean, reflect: true, attribute: 'input-chip' }) accessor inputChip: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'input-chip' }) accessor inputChip: boolean = false;
 
   /**
    *  Prevents mouse events and disables the ripple effect
    */
-  @property({ type: Boolean, reflect: true, attribute: 'non-interactive' }) accessor nonInteractive: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'non-interactive' }) accessor nonInteractive: boolean = false;
 
   /**
    *  Icon name of the remove icon chip

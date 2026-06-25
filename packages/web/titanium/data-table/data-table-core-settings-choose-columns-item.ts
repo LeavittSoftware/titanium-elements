@@ -8,9 +8,9 @@ import { DraggableItemBase } from './draggable-item-base';
 
 @customElement('titanium-data-table-core-settings-choose-columns-item')
 export class TitaniumDataTableCoreSettingsChooseColumnsItem extends DraggableItemBase {
-  @property({ type: String }) accessor name: string;
-  @property({ type: Boolean }) accessor selected: boolean;
-  @property({ type: Boolean }) accessor disabled: boolean;
+  @property({ type: String }) accessor name: string = '';
+  @property({ type: Boolean }) accessor selected: boolean = false;
+  @property({ type: Boolean }) accessor disabled: boolean = false;
 
   override get items() {
     return Array.from(

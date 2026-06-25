@@ -32,7 +32,7 @@ export default [
       ecmaVersion: 2020,
       sourceType: 'module',
       parserOptions: {
-        project: true,
+        project: ['./tsconfig.json', './tsconfig.spec.json'],
         tsconfigRootDir: import.meta.dirname,
       },
     },

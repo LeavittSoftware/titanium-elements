@@ -11,6 +11,7 @@ import ApiService from '../api-service/api-service';
 import Fuse from 'fuse.js';
 import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
 import { getCompanyMarkUrl } from '../../titanium/helpers/get-company-mark-url';
+import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
 
 export type Person = CorePerson & { type: 'Person'; Name: string };
 export type Company = CoreCompany & { type: 'Company' };
@@ -42,7 +43,7 @@ export class LeavittPersonCompanySelect extends TitaniumSingleSelectBase<Partial
   /**
    *  Required
    */
-  @property({ attribute: false }) accessor apiService: ApiService;
+  @property({ attribute: false }) accessor apiService!: ApiService;
 
   @property({ reflect: true, type: String }) accessor autocomplete: string = 'off';
 
@@ -108,8 +109,9 @@ export class LeavittPersonCompanySelect extends TitaniumSingleSelectBase<Partial
       results?.entities.forEach((p) => (p.type = 'Person'));
       return results;
     } catch (error) {
-      if (error?.name !== 'AbortError' && !error?.message?.includes('Abort error')) {
-        this.dispatchEvent(new ShowSnackbarEvent(error));
+      const err = error as Partial<HttpError> & { name?: string; message?: string };
+      if (err?.name !== 'AbortError' && !err?.message?.includes('Abort error')) {
+        this.dispatchEvent(new ShowSnackbarEvent(error as Partial<HttpError>));
       }
     }
     return null;
@@ -134,8 +136,9 @@ export class LeavittPersonCompanySelect extends TitaniumSingleSelectBase<Partial
       results?.entities.forEach((p) => (p.type = 'Company'));
       return results;
     } catch (error) {
-      if (error?.name !== 'AbortError' && !error?.message?.includes('Abort error')) {
-        this.dispatchEvent(new ShowSnackbarEvent(error));
+      const err = error as Partial<HttpError> & { name?: string; message?: string };
+      if (err?.name !== 'AbortError' && !err?.message?.includes('Abort error')) {
+        this.dispatchEvent(new ShowSnackbarEvent(error as Partial<HttpError>));
       }
     }
     return null;

@@ -13,7 +13,7 @@ import { redispatchEvent } from '@material/web/internal/events/redispatch-event'
  */
 @customElement('titanium-drawer')
 export class TitaniumDrawer extends LitElement {
-  @query('dialog') private accessor dialog: HTMLDialogElement | null;
+  @query('dialog') private accessor dialog!: HTMLDialogElement | null;
 
   /**
    * Set the position of content fixed when menu is closed. Only takes effect if always-show-content is set.
@@ -35,7 +35,7 @@ export class TitaniumDrawer extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'has-footer' }) private accessor hasFooter = false;
   @property({ type: Boolean, reflect: true, attribute: 'keep-open-when-going-to-flyover' }) private accessor keepOpenWhenGoingToFlyover = false;
 
-  @property({ type: String, reflect: true, attribute: 'mode' }) accessor mode: 'inline' | 'flyover' | null;
+  @property({ type: String, reflect: true, attribute: 'mode' }) accessor mode: 'inline' | 'flyover' | null = null;
   @property({ type: Boolean, reflect: true, attribute: 'open' }) accessor isOpen: boolean = false; //read only
 
   @queryAssignedElements({ slot: 'header' }) private readonly headerElements!: Element[];

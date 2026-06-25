@@ -28,7 +28,7 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
 
   #isInitialized: boolean = false;
   #unrecoverableError: boolean = false;
-  #unrecoverableErrorDescription: string;
+  #unrecoverableErrorDescription!: string;
 
   public get identity() {
     return this.#decodeIdentity(this.#idToken);
@@ -116,7 +116,7 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
         try {
           await this.#exchangeCodeForToken(code);
         } catch (error) {
-          return this.#rejectAllAuthenticatePromises(error.message);
+          return this.#rejectAllAuthenticatePromises(error instanceof Error ? error.message : String(error));
         }
 
         if (this.#validateToken(this.#accessToken)) {
@@ -171,7 +171,7 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
           //try to get a new token
           await this.#refreshAccessToken(this.#refreshToken);
         } catch (error) {
-          return this.#rejectAllAuthenticatePromises(error.message);
+          return this.#rejectAllAuthenticatePromises(error instanceof Error ? error.message : String(error));
         }
 
         if (this.#validateToken(this.#accessToken)) {
@@ -369,7 +369,7 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
       return data.access_token;
     } catch (error) {
       if (!navigator.onLine) {
-        throw new Error('No internet connection. Please check your network.');
+        throw new Error('No internet connection. Please check your network.', { cause: error });
       }
       console.error('Error refreshing access token', error);
     }
@@ -414,10 +414,10 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
       return data.access_token;
     } catch (error) {
       if (!navigator.onLine) {
-        throw new Error('No internet connection. Please check your network.');
+        throw new Error('No internet connection. Please check your network.', { cause: error });
       }
       console.error('Token exchange failed', error);
-      throw new Error('Token exchange failed');
+      throw new Error('Token exchange failed', { cause: error });
     }
   }
 

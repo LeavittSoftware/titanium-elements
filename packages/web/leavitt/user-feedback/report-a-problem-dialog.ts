@@ -21,6 +21,7 @@ import { DOMEvent } from '../../titanium/types/dom-event';
 import { SnackbarStack } from '../../titanium/snackbar/snackbar-stack';
 import { TitaniumSmartAttachmentInput } from '../../titanium/smart-attachment-input/smart-attachment-input';
 import { AuthZeroLgUserManager } from '../user-manager/auth-zero-lg-user-manager';
+import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
 
 @customElement('report-a-problem-dialog')
 export class ReportAProblemDialog extends LitElement {
@@ -29,12 +30,12 @@ export class ReportAProblemDialog extends LitElement {
   accessor isLoading = false;
   declare trackLoadingPromise: (promise: Promise<unknown>) => Promise<void>;
 
-  @property({ type: Object }) accessor userManager: AuthZeroLgUserManager;
+  @property({ type: Object }) accessor userManager!: AuthZeroLgUserManager;
   @query('md-dialog') private accessor dialog!: MdDialog;
-  @query('titanium-snackbar-stack') private accessor snackbar: SnackbarStack;
+  @query('titanium-snackbar-stack') private accessor snackbar!: SnackbarStack;
 
-  @query('md-outlined-text-field') private accessor textArea: MdOutlinedTextField;
-  @query('titanium-smart-attachment-input') private accessor imageInput: TitaniumSmartAttachmentInput | null;
+  @query('md-outlined-text-field') private accessor textArea!: MdOutlinedTextField;
+  @query('titanium-smart-attachment-input') private accessor imageInput!: TitaniumSmartAttachmentInput | null;
 
   show() {
     this.reset();
@@ -83,7 +84,7 @@ export class ReportAProblemDialog extends LitElement {
         this.dialog.close('done');
       }
     } catch (error) {
-      this.dispatchEvent(new ShowSnackbarEvent(error));
+      this.dispatchEvent(new ShowSnackbarEvent(error as Partial<HttpError>));
     }
   }
 

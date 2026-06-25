@@ -26,8 +26,8 @@ export type CloseReason = 'apply' | 'cancel' | 'navigation-close';
 @customElement('titanium-data-table-core-settings-sort-dialog')
 export class TitaniumDataTableCoreSettingsSortDialog<T extends object> extends LitElement {
   @property({ type: Object }) accessor tableMetaData: TitaniumDataTableCoreMetaData<T> | null = null;
-  @query('md-dialog') private accessor dialog: MdDialog;
-  @query('md-menu') private accessor addMenu: MdMenu;
+  @query('md-dialog') private accessor dialog!: MdDialog;
+  @query('md-menu') private accessor addMenu!: MdMenu;
 
   @state() accessor sort: TitaniumDataTableCoreSortItem[] = [];
   #originalSort: TitaniumDataTableCoreSortItem[] = [];
@@ -47,8 +47,8 @@ export class TitaniumDataTableCoreSettingsSortDialog<T extends object> extends L
     return JSON.stringify(sortA) !== JSON.stringify(sortB);
   }
 
-  #repositionMenu: EventListener;
-  #resolve: (value: CloseReason) => void;
+  #repositionMenu!: EventListener;
+  #resolve!: (value: CloseReason) => void;
   static styles = [
     p,
     niceBadgeStyles,

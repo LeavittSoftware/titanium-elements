@@ -12,8 +12,8 @@ import { dialogCloseNavigationHack, dialogOpenNavigationHack } from '../hacks/di
 
 @customElement('titanium-confirmation-dialog')
 export default class TitaniumConfirmationDialog extends LitElement {
-  @property({ type: String }) accessor text: string;
-  @property({ type: String }) accessor headline: string;
+  @property({ type: String }) accessor text: string = '';
+  @property({ type: String }) accessor headline: string = '';
   @property({ type: String, attribute: 'confirm-action-text' }) accessor confirmActionText: string = 'Confirm';
   @property({ type: String, attribute: 'cancel-action-text' }) accessor cancelActionText: string = 'Cancel';
   @property({ type: Boolean, attribute: 'disable-confirmation-action' }) accessor disableConfirmationAction: boolean = false;
@@ -21,7 +21,7 @@ export default class TitaniumConfirmationDialog extends LitElement {
 
   @query('md-dialog') protected accessor dialog!: MdDialog;
 
-  #resolve: (value: 'confirmed' | 'cancel') => void;
+  #resolve!: (value: 'confirmed' | 'cancel') => void;
 
   open = async (headline: string, text: string) => {
     this.headline = headline;

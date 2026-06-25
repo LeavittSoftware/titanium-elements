@@ -40,9 +40,9 @@ const readCustomElementsJson = async (path: string) => {
 
 @customElement('story-header')
 export default class StoryHeader extends LitElement {
-  @property({ type: String }) accessor name: string;
-  @property({ type: String }) accessor className: string;
-  @property({ type: String }) accessor deprecatedReason: string;
+  @property({ type: String }) accessor name: string = '';
+  @property({ type: String }) accessor className: string = '';
+  @property({ type: String }) accessor deprecatedReason: string = '';
   @property({ type: Boolean, attribute: 'requires-auth' }) accessor requiresAuth: boolean = false;
   @state() private accessor customElementDeclaration: CustomElementDeclaration | null = null;
 

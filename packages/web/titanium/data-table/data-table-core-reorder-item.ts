@@ -9,7 +9,7 @@ import { dataTableContentStyles } from './data-table-content-styles';
 
 @customElement('titanium-data-table-core-reorder-item')
 export class TitaniumDataTableCoreReorderItem<T extends object> extends DraggableItemBase {
-  @property({ type: Object }) accessor item: T;
+  @property({ type: Object }) accessor item!: T;
   @property({ type: Object }) accessor tableMetaData: TitaniumDataTableCoreMetaData<T> | null = null;
   @property({ type: Object }) accessor supplementalItemStyles: CSSResult | CSSResultGroup | null = null;
 

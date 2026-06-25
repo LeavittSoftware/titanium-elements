@@ -23,7 +23,7 @@ dayjs.extend(duration);
 export class TitaniumDurationInputDemo extends LitElement {
   @state() private accessor filledDuration: duration.Duration | null = dayjs.duration(14400);
 
-  @query('titanium-filled-duration-input[required]') private accessor filledInput: TitaniumFilledDurationInput;
+  @query('titanium-filled-duration-input[required]') private accessor filledInput!: TitaniumFilledDurationInput;
 
   static styles = [
     StoryStyles,

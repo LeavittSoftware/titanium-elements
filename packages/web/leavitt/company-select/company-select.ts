@@ -15,6 +15,7 @@ import { TitaniumSingleSelectBase } from '../../titanium/single-select-base/sing
 import { Debouncer } from '../../titanium/helpers/debouncer';
 import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
 import { getCompanyMarkUrl } from '@leavittsoftware/web/titanium/helpers/get-company-mark-url';
+import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
 
 /**
  *  Single select input that searches Leavitt Group companies
@@ -37,7 +38,7 @@ export class LeavittCompanySelect extends TitaniumSingleSelectBase<Partial<Compa
   /**
    *  Required
    */
-  @property({ attribute: false }) accessor apiService: ApiService;
+  @property({ attribute: false }) accessor apiService!: ApiService;
 
   /**
    *  Disables automatic loading of companies on firstUpdated
@@ -102,7 +103,7 @@ export class LeavittCompanySelect extends TitaniumSingleSelectBase<Partial<Compa
       const result = await get;
       return result?.toList() ?? [];
     } catch (error) {
-      this.dispatchEvent(new ShowSnackbarEvent(error));
+      this.dispatchEvent(new ShowSnackbarEvent(error as Partial<HttpError>));
     }
     return [];
   }

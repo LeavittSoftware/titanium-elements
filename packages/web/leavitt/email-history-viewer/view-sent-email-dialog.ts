@@ -19,6 +19,7 @@ import { dialogCloseNavigationHack, dialogOpenNavigationHack } from '../../titan
 import ApiService from '../api-service/api-service';
 import { SnackbarStack } from '../../titanium/snackbar/snackbar-stack';
 import { p } from '../../titanium/styles/p';
+import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
 
 export type CloseReason = 'done';
 
@@ -29,15 +30,15 @@ export class LeavittViewSentEmailDialog extends LitElement {
   accessor isLoading = false;
   declare trackLoadingPromise: (promise: Promise<unknown>) => Promise<void>;
 
-  @property({ type: Object }) accessor apiService: ApiService | null;
+  @property({ type: Object }) accessor apiService: ApiService | null = null;
 
-  @state() private accessor emailTemplateLogId: number | null;
-  @state() private accessor emailTemplateLog: Partial<EmailTemplateLog> | null;
+  @state() private accessor emailTemplateLogId: number | null = null;
+  @state() private accessor emailTemplateLog: Partial<EmailTemplateLog> | null = null;
   @query('titanium-snackbar-stack') private accessor snackbar!: SnackbarStack;
 
-  @query('md-dialog') private accessor dialog: MdDialog;
+  @query('md-dialog') private accessor dialog!: MdDialog;
 
-  #resolve: (value: CloseReason) => void;
+  #resolve!: (value: CloseReason) => void;
   async open(emailTemplateLogId: number) {
     this.emailTemplateLogId = emailTemplateLogId;
     this.emailTemplateLog = null;
@@ -68,7 +69,7 @@ export class LeavittViewSentEmailDialog extends LitElement {
       const result = await get;
       return result?.entity;
     } catch (error) {
-      this.dispatchEvent(new ShowSnackbarEvent(error));
+      this.dispatchEvent(new ShowSnackbarEvent(error as Partial<HttpError>));
     }
     return null;
   }

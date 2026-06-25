@@ -30,8 +30,8 @@ export default class TitaniumShowHide extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'has-hidden-items' }) protected accessor hasHiddenItems: boolean = false;
   @property({ type: Number }) accessor hiddenItemCount: number = 0;
 
-  @query('items-container') protected accessor itemsContainer: HTMLElement;
-  @query('collapsed-box') protected accessor collapsedContainer: HTMLElement;
+  @query('items-container') protected accessor itemsContainer!: HTMLElement;
+  @query('collapsed-box') protected accessor collapsedContainer!: HTMLElement;
 
   updated(changedProps: PropertyValues<this>) {
     if (changedProps.has('collapsed')) {
@@ -121,9 +121,7 @@ export default class TitaniumShowHide extends LitElement {
         </items-container>
       </collapsed-box>
       <slot name="button" @click=${() => (this.collapsed = !this.collapsed)} ?hidden=${!this.hasHiddenItems}>
-        <md-filled-button part="button">
-          ${this.collapsed ? `Show more (${this.hiddenItemCount})` : 'Show less'}
-        </md-filled-button>
+        <md-filled-button part="button"> ${this.collapsed ? `Show more (${this.hiddenItemCount})` : 'Show less'} </md-filled-button>
       </slot>
     `;
   }

@@ -26,7 +26,7 @@ export class TitaniumDataTableCoreSettingsChooseColumnsDialog<T extends object> 
 
   @state() accessor customColumnsApplied: boolean = false;
 
-  @query('md-dialog') private accessor dialog: MdDialog;
+  @query('md-dialog') private accessor dialog!: MdDialog;
 
   updated(changedProperties: PropertyValues) {
     if (changedProperties.has('tableMetaData')) {
@@ -90,7 +90,7 @@ export class TitaniumDataTableCoreSettingsChooseColumnsDialog<T extends object> 
     });
   }
 
-  #resolve: (value: 'done') => void;
+  #resolve!: (value: 'done') => void;
   static styles = [
     css`
       :host {
