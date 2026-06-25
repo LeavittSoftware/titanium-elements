@@ -6,8 +6,8 @@ import '../../titanium/snackbar/snackbar-stack';
 import '../../titanium/smart-attachment-input/smart-attachment-input';
 
 import { LitElement, css, html } from 'lit';
-import { customElement, property, query } from 'lit/decorators.js';
-import { LoadWhile, isDevelopment } from '../../titanium/helpers/helpers';
+import { customElement, property, query, state } from 'lit/decorators.js';
+import { promiseTracking, isDevelopment } from '../../titanium/helpers/helpers';
 import { PendingStateEvent } from '../../titanium/types/pending-state-event';
 import { h1, p } from '../../titanium/styles/styles';
 import { IssueDto } from '@leavittsoftware/lg-core-typescript';
@@ -23,7 +23,12 @@ import { TitaniumSmartAttachmentInput } from '../../titanium/smart-attachment-in
 import { AuthZeroLgUserManager } from '../user-manager/auth-zero-lg-user-manager';
 
 @customElement('report-a-problem-dialog')
-export class ReportAProblemDialog extends LoadWhile(LitElement) {
+export class ReportAProblemDialog extends LitElement {
+  @promiseTracking('trackLoadingPromise')
+  @state()
+  accessor isLoading = false;
+  declare trackLoadingPromise: (promise: Promise<unknown>) => Promise<void>;
+
   @property({ type: Object }) accessor userManager: AuthZeroLgUserManager;
   @query('md-dialog') private accessor dialog!: MdDialog;
   @query('titanium-snackbar-stack') private accessor snackbar: SnackbarStack;
@@ -61,7 +66,7 @@ export class ReportAProblemDialog extends LoadWhile(LitElement) {
       apiService.addHeader('X-LGAppName', 'IssueTracking');
       const post = apiService.postAsync<IssueDto>('Issues/ReportIssue', dto, { sendAsFormData: true });
       this.dispatchEvent(new PendingStateEvent(post));
-      this.loadWhile(post);
+      this.trackLoadingPromise(post);
       const entity = (await post).entity;
 
       if (!entity) {

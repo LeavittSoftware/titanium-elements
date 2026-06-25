@@ -12,7 +12,7 @@ import { property, customElement, query, state } from 'lit/decorators.js';
 import { CropperCanvas, CropperImage, CropperSelection, CropperShade } from 'cropperjs';
 import { cropperCSS } from './cropper-styles';
 import { h1, p } from '../../titanium/styles/styles';
-import { LoadWhile } from '../../titanium/helpers/load-while';
+import { promiseTracking } from '../../titanium/helpers/promise-tracking';
 import { MdDialog } from '@material/web/dialog/dialog';
 import { DOMEvent } from '../types/dom-event';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -47,7 +47,12 @@ export declare type SelectionData = {
  *
  */
 @customElement('crop-and-save-image-dialog')
-export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
+export class CropAndSaveImageDialog extends LitElement {
+  @promiseTracking('trackLoadingPromise')
+  @state()
+  accessor isLoading = false;
+  declare trackLoadingPromise: (promise: Promise<unknown>) => Promise<void>;
+
   @query('md-dialog') accessor dialog: MdDialog;
   @query('main') accessor main: HTMLElement;
   @query('cropper-canvas') accessor cropperCanvas: CropperCanvas;
@@ -475,25 +480,24 @@ export class CropAndSaveImageDialog extends LoadWhile(LitElement) {
                 },
               });
 
-              this.isLoading = true;
-              await this.updateComplete;
-
               if (!canvas) {
                 return;
               }
 
-              if (this.options?.shape === 'circle') {
-                this.#applyCircleMask(canvas);
-              }
-              const previewBlob = await this.#canvasToBlob(canvas, this.#mimeType, this.options?.outputQuality ?? DEFAULT_IMAGE_QUALITY);
+              await this.trackLoadingPromise(
+                (async () => {
+                  if (this.options?.shape === 'circle') {
+                    this.#applyCircleMask(canvas);
+                  }
+                  const previewBlob = await this.#canvasToBlob(canvas, this.#mimeType, this.options?.outputQuality ?? DEFAULT_IMAGE_QUALITY);
 
-              const previewUrl = URL.createObjectURL(previewBlob);
-              const file = this.blobToFile(previewBlob, this.#changeFileExtension(this.fileName, this.#extension));
-              const save = this.#saveCroppedImageFunc?.(file, previewUrl) || Promise.resolve();
-              this.loadWhile(save);
-              await save;
-              this.isLoading = false;
-              this.dialog.close('cropped');
+                  const previewUrl = URL.createObjectURL(previewBlob);
+                  const file = this.blobToFile(previewBlob, this.#changeFileExtension(this.fileName, this.#extension));
+                  const save = this.#saveCroppedImageFunc?.(file, previewUrl) || Promise.resolve();
+                  await save;
+                  this.dialog.close('cropped');
+                })()
+              );
             }}
             >Save</md-filled-tonal-button
           >

@@ -68,7 +68,7 @@ export class LeavittPersonCompanySelect extends TitaniumSingleSelectBase<Partial
     this.#abortController = new AbortController();
 
     const all = Promise.all([this.#doPersonSearch(searchTerm), this.#doCompanySearch(searchTerm)]);
-    this.loadWhile(all);
+    this.trackLoadingPromise(all);
     const results = await all;
     const entities = [...(results[0]?.entities ?? []), ...(results[1]?.entities ?? [])];
     const odataCount = (results[0]?.odataCount ?? 0) + (results[1]?.odataCount ?? 0);

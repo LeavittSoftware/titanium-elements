@@ -25,7 +25,6 @@ export class TitaniumChipMultiSelectDemo extends LitElement {
   @state() protected accessor disabled: boolean = false;
   @state() protected accessor supportingText: string | null = 'Service animals are welcome.';
   @query('titanium-chip-multi-select') private accessor titaniumChipMultiSelect: TitaniumChipMultiSelect;
-  @query('titanium-chip-multi-select[filled]') private accessor titaniumChipMultiSelectFilled: TitaniumChipMultiSelect;
 
   static styles = [
     StoryStyles,
@@ -53,46 +52,13 @@ export class TitaniumChipMultiSelectDemo extends LitElement {
             <story-header name="Titanium chip multi select" className="TitaniumChipMultiSelect"></story-header>
 
             <div>
-              <h1>Default</h1>
-              <titanium-chip-multi-select
-                required
-                label="Service Animals"
-                ?hasItems=${!!this.demoItems.length}
-                .supportingText=${this.supportingText ?? ''}
-                ?disabled=${this.disabled}
-              >
-                <md-filled-tonal-button
-                  ?disabled=${this.disabled}
-                  @click=${async () => {
-                    this.demoItems.push(chipLabels[this.demoItems.length % chipLabels.length]);
-                    this.requestUpdate('demoItems');
-                  }}
-                  >Add Animal <md-icon slot="icon">add</md-icon></md-filled-tonal-button
-                >
-                ${repeat(
-                  this.demoItems,
-                  (o) => o,
-                  (o, index) =>
-                    html`<md-input-chip
-                      label=${o}
-                      closeable
-                      ?disabled=${this.disabled}
-                      @remove=${(e: Event) => {
-                        e.preventDefault();
-                        this.demoItems = this.demoItems.filter((_, i) => i !== index);
-                      }}
-                    ></md-input-chip>`
-                )}</titanium-chip-multi-select
-              >
-
-              <h1>Filled</h1>
               <titanium-chip-multi-select
                 filled
+                required
                 label="Service Animals"
                 ?hasItems=${!!this.demoItems.length}
                 .supportingText=${this.supportingText ?? ''}
                 ?disabled=${this.disabled}
-                required
               >
                 <md-filled-tonal-button
                   ?disabled=${this.disabled}
@@ -138,7 +104,6 @@ export class TitaniumChipMultiSelectDemo extends LitElement {
                 <md-filled-tonal-button
                   @click=${async () => {
                     this.titaniumChipMultiSelect.reportValidity();
-                    this.titaniumChipMultiSelectFilled.reportValidity();
                   }}
                   >Report validity</md-filled-tonal-button
                 >
@@ -146,7 +111,6 @@ export class TitaniumChipMultiSelectDemo extends LitElement {
                 <md-filled-tonal-button
                   @click=${async () => {
                     this.titaniumChipMultiSelect.reset();
-                    this.titaniumChipMultiSelectFilled.reset();
                   }}
                   >Reset</md-filled-tonal-button
                 >

@@ -17,14 +17,19 @@ import { DOMEvent } from '../types/dom-event';
 import { MdDialog } from '@material/web/dialog/dialog';
 import { ItemDropEvent } from './draggable-item-base';
 import { repeat } from 'lit/directives/repeat.js';
-import { LoadWhile } from '../helpers/load-while';
+import { promiseTracking } from '../helpers/promise-tracking';
 import { ShowSnackbarEvent } from '../snackbar/show-snackbar-event';
 import { SnackbarStack } from '@leavittsoftware/web/titanium/snackbar/snackbar-stack';
 
 export type CloseReason = 'apply' | 'cancel';
 
 @customElement('titanium-data-table-core-reorder-dialog')
-export class TitaniumDataTableCoreReorderDialog<T extends object> extends LoadWhile(LitElement) {
+export class TitaniumDataTableCoreReorderDialog<T extends object> extends LitElement {
+  @promiseTracking('trackLoadingPromise')
+  @state()
+  accessor isLoading = false;
+  declare trackLoadingPromise: (promise: Promise<unknown>) => Promise<void>;
+
   @property({ type: Object }) accessor tableMetaData: TitaniumDataTableCoreMetaData<T> | null = null;
   @property({ type: Object }) accessor supplementalItemStyles: CSSResult | CSSResultGroup | null = null;
 
@@ -148,7 +153,7 @@ export class TitaniumDataTableCoreReorderDialog<T extends object> extends LoadWh
               _resolve = resolve;
               _reject = reject;
             });
-            this.loadWhile(saving);
+            this.trackLoadingPromise(saving);
             this.dispatchEvent(
               new CustomEvent<{ resolve: () => void; reject: (reason: any) => void; items: Array<T> }>('reorder-save-request', {
                 detail: { resolve: _resolve, reject: _reject, items: this.items },

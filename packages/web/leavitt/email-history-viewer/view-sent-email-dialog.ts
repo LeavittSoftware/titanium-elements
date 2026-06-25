@@ -10,7 +10,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { css, html, LitElement, nothing } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { EmailTemplateLog } from '@leavittsoftware/lg-core-typescript';
-import { LoadWhile } from '../../titanium/helpers/load-while';
+import { promiseTracking } from '../../titanium/helpers/promise-tracking';
 import { MdDialog } from '@material/web/dialog/dialog';
 import { DOMEvent } from '../../titanium/types/dom-event';
 import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
@@ -23,7 +23,12 @@ import { p } from '../../titanium/styles/p';
 export type CloseReason = 'done';
 
 @customElement('leavitt-view-sent-email-dialog')
-export class LeavittViewSentEmailDialog extends LoadWhile(LitElement) {
+export class LeavittViewSentEmailDialog extends LitElement {
+  @promiseTracking('trackLoadingPromise')
+  @state()
+  accessor isLoading = false;
+  declare trackLoadingPromise: (promise: Promise<unknown>) => Promise<void>;
+
   @property({ type: Object }) accessor apiService: ApiService | null;
 
   @state() private accessor emailTemplateLogId: number | null;
@@ -59,7 +64,7 @@ export class LeavittViewSentEmailDialog extends LoadWhile(LitElement) {
 
     try {
       const get = this.apiService.getAsync<Partial<EmailTemplateLog>>(`EmailTemplateLogs(${emailTemplateLogId})?${odataParts.join('&')}`);
-      this.loadWhile(get);
+      this.trackLoadingPromise(get);
       const result = await get;
       return result?.entity;
     } catch (error) {

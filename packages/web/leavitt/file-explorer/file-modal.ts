@@ -20,11 +20,16 @@ import { MdDialog } from '@material/web/dialog/dialog';
 import { DOMEvent } from '../../titanium/types/dom-event';
 import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
 import ApiService from '../api-service/api-service';
-import { LoadWhile } from '../../titanium/helpers/helpers';
+import { promiseTracking } from '../../titanium/helpers/helpers';
 import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
 
 @customElement('leavitt-file-modal')
-export class FileModal extends LoadWhile(LitElement) {
+export class FileModal extends LitElement {
+  @promiseTracking('trackLoadingPromise')
+  @state()
+  accessor isLoading = false;
+  declare trackLoadingPromise: (promise: Promise<unknown>) => Promise<void>;
+
   @property({ attribute: false }) accessor apiService: ApiService | null;
   @property({ type: Boolean }) accessor enableEditing: boolean = false;
 
@@ -58,7 +63,7 @@ export class FileModal extends LoadWhile(LitElement) {
 
     try {
       const patch = this.apiService.patchAsync(`FileExplorerAttachments(${this.file?.Id})`, dto);
-      this.loadWhile(patch);
+      this.trackLoadingPromise(patch);
       await patch;
       fileExplorerEvents.dispatch('FileExplorerFileDto', 'Update', { ...this.file, Name: this.fileName });
       this.state = 'view';

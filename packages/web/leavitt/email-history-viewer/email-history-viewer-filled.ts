@@ -19,7 +19,7 @@ import { customElement, property, query, state } from 'lit/decorators.js';
 import { a, ellipsis } from '../../titanium/styles/styles';
 import { getSearchTokens } from '../../titanium/helpers/get-search-token';
 import { DOMEvent } from '../../titanium/types/dom-event';
-import { LoadWhile } from '../../titanium/helpers/load-while';
+import { promiseTracking } from '../../titanium/helpers/promise-tracking';
 import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
 import { TitaniumPageControl } from '../../titanium/data-table/page-control';
 import { PendingStateEvent } from '../../titanium/types/pending-state-event';
@@ -48,7 +48,12 @@ import ApiService from '../api-service/api-service';
 type ItemType = Partial<EmailTemplateLog>;
 
 @customElement('leavitt-email-history-viewer-filled')
-export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElement) {
+export default class LeavittEmailHistoryViewerFilled extends LitElement {
+  @promiseTracking('trackLoadingPromise')
+  @state()
+  accessor isLoading = false;
+  declare trackLoadingPromise: (promise: Promise<unknown>) => Promise<void>;
+
   @property({ type: Boolean }) public accessor isActive: boolean;
   @property({ type: Object }) public accessor apiService: ApiService | null;
   @property({ type: String }) public accessor path: string;
@@ -270,8 +275,8 @@ export default class LeavittEmailHistoryViewerFilled extends LoadWhile(LitElemen
       }
 
       const get = this.apiService?.getAsync<ItemType>(`${this.apiControllerName}/?${odataParts.join('&')}`);
-      this.loadWhile(get);
-      this.dataTable.loadWhile(get);
+      this.trackLoadingPromise(get);
+      this.dataTable.trackLoadingPromise(get);
       this.dispatchEvent(new PendingStateEvent(get));
       const result = await get;
       return { items: result.toList(), odataCount: result.odataCount };

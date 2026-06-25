@@ -394,7 +394,7 @@ export class TitaniumDataTableCoreDemo extends LitElement {
                 @sort-changed=${async (e: DOMEvent<TitaniumDataTableCore<ItemType>>) => {
                   this.sort = e.target.sort;
                   const _delay = delay(300);
-                  this.tableCore.loadWhile(_delay);
+                  this.tableCore.trackLoadingPromise(_delay);
                   await _delay;
                   this.items = this.sortItems(this.items, this.sort);
 

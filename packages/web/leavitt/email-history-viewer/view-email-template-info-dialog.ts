@@ -6,7 +6,7 @@ import '@material/web/progress/circular-progress';
 import { css, html, LitElement, nothing } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { EmailTemplate } from '@leavittsoftware/lg-core-typescript';
-import { LoadWhile } from '../../titanium/helpers/load-while';
+import { promiseTracking } from '../../titanium/helpers/promise-tracking';
 import { MdDialog } from '@material/web/dialog/dialog';
 import { DOMEvent } from '../../titanium/types/dom-event';
 import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
@@ -21,7 +21,12 @@ import { h2 } from '../../titanium/styles/h2';
 export type CloseReason = 'done';
 
 @customElement('leavitt-view-email-template-info-dialog')
-export class LeavittViewEmailTemplateInfoDialog extends LoadWhile(LitElement) {
+export class LeavittViewEmailTemplateInfoDialog extends LitElement {
+  @promiseTracking('trackLoadingPromise')
+  @state()
+  accessor isLoading = false;
+  declare trackLoadingPromise: (promise: Promise<unknown>) => Promise<void>;
+
   @property({ type: Object }) accessor apiService: ApiService | null;
 
   @state() private accessor emailTemplates: Partial<EmailTemplate>[] | null;
@@ -55,7 +60,7 @@ export class LeavittViewEmailTemplateInfoDialog extends LoadWhile(LitElement) {
 
     try {
       const get = this.apiService.getAsync<Partial<EmailTemplate>>(`EmailTemplates?${odataParts.join('&')}`);
-      this.loadWhile(get);
+      this.trackLoadingPromise(get);
       const result = await get;
       return result?.entities;
     } catch (error) {

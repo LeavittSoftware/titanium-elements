@@ -141,7 +141,7 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
         }
 
         const get = this.apiService.getAsync<Person>(`${this.apiControllerName}?${oDataParts.join('&')}`, { abortController: this.#abortController });
-        this.loadWhile(get);
+        this.trackLoadingPromise(get);
 
         const result = await get;
         this.showSuggestions(result?.entities ?? [], result?.odataCount ?? 0);

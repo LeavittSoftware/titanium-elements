@@ -5,7 +5,6 @@ export { escapeTerm } from './escape-term';
 export { installMediaQueryWatcher } from './install-media-query-watcher';
 export { getSearchTokens } from './get-search-token';
 export { Debouncer } from './debouncer';
-export { LoadWhile } from './load-while';
 export { promiseTracking } from './promise-tracking';
 export { join } from './join';
 export { delay } from './delay';

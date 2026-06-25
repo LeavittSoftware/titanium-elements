@@ -1,8 +1,7 @@
 import { css, LitElement, PropertyValues } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
-import { literal, html } from 'lit/static-html.js';
+import { html } from 'lit';
 
-import '../../titanium/input-validator/outlined-input-validator';
 import '../../titanium/input-validator/filled-input-validator';
 
 /**
@@ -66,7 +65,7 @@ export class TitaniumChipMultiSelect extends LitElement {
    */
   @property({ type: Boolean, reflect: true }) accessor disabled: boolean;
 
-  @query('titanium-outlined-input-validator, titanium-filled-input-validator') private accessor validator:
+  @query('titanium-filled-input-validator') private accessor validator:
     | { checkValidity: () => boolean; reportValidity: () => boolean; reset: () => void }
     | undefined;
 
@@ -104,7 +103,6 @@ export class TitaniumChipMultiSelect extends LitElement {
         width: 100%;
       }
 
-      titanium-outlined-input-validator,
       titanium-filled-input-validator {
         display: block;
         width: 100%;
@@ -165,9 +163,8 @@ export class TitaniumChipMultiSelect extends LitElement {
   ];
 
   protected render() {
-    /* eslint-disable lit/binding-positions, lit/no-invalid-html */
     return html`
-      <${this.filled ? literal`titanium-filled-input-validator` : literal`titanium-outlined-input-validator`}
+      <titanium-filled-input-validator
         ?disabled=${this.disabled}
         .evaluator=${() => !this.required || !!this.hasItems}
         ?required=${this.required}
@@ -181,8 +178,7 @@ export class TitaniumChipMultiSelect extends LitElement {
           <slot></slot>
           ${!this.hasItems ? html` <span>${this.noItemsText}</span>` : ''}
         </slot-container>
-      </${this.filled ? literal`titanium-filled-input-validator` : literal`titanium-outlined-input-validator`}>
+      </titanium-filled-input-validator>
     `;
-    /* eslint-enable lit/binding-positions, lit/no-invalid-html */
   }
 }

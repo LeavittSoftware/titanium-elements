@@ -126,7 +126,7 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
     this.#abortController = new AbortController();
     try {
       const get = this.#getSuggestions(searchTerm);
-      this.loadWhile(get);
+      this.trackLoadingPromise(get);
       const results = (await get) ?? [];
       this.showSuggestions(results, results.length);
       return;

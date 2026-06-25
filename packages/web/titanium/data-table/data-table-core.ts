@@ -21,7 +21,7 @@ import { MdCheckbox } from '@material/web/checkbox/checkbox';
 import { repeat } from 'lit/directives/repeat.js';
 import { a } from '@leavittsoftware/web/titanium/styles/a';
 import { styleMap } from 'lit/directives/style-map.js';
-import { LoadWhile } from '@leavittsoftware/web/titanium/helpers/load-while';
+import { promiseTracking } from '@leavittsoftware/web/titanium/helpers/promise-tracking';
 import { niceBadgeStyles } from '../styles/nice-badge';
 import { MdIconButton } from '@material/web/iconbutton/icon-button';
 import { CloseMenuEvent, MdMenu, MenuItem } from '@material/web/menu/menu';
@@ -78,7 +78,12 @@ export function generateDefaultSortFromMetaData<T extends object>(tableMetaData:
 }
 
 @customElement('titanium-data-table-core')
-export class TitaniumDataTableCore<T extends object> extends LoadWhile(LitElement) {
+export class TitaniumDataTableCore<T extends object> extends LitElement {
+  @promiseTracking('trackLoadingPromise')
+  @state()
+  accessor isLoading = false;
+  declare trackLoadingPromise: (promise: Promise<unknown>) => Promise<void>;
+
   /**
    * Current items displayed on the table.
    */

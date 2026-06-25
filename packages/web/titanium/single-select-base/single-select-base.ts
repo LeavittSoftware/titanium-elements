@@ -16,7 +16,7 @@ import { DOMEvent } from '../types/dom-event';
 import { CloseMenuEvent, MenuItem } from '@material/web/menu/menu';
 import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
 import { Menu } from '@material/web/menu/internal/menu';
-import { LoadWhile } from '../../titanium/helpers/load-while';
+import { promiseTracking } from '../../titanium/helpers/promise-tracking';
 import { Identifier } from '../types/identifier-interface';
 import { redispatchEvent } from '@material/web/internal/events/redispatch-event';
 import { ThemePreference } from '../../leavitt/theme/theme-preference';
@@ -24,7 +24,12 @@ import { html, literal } from 'lit/static-html.js';
 import { MdFilledTextField } from '@material/web/textfield/filled-text-field';
 
 @customElement('titanium-single-select-base')
-export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePreference(LoadWhile(LitElement)) {
+export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePreference(LitElement) {
+  @promiseTracking('trackLoadingPromise')
+  @state()
+  accessor isLoading = false;
+  declare trackLoadingPromise: (promise: Promise<unknown>) => Promise<void>;
+
   @state() protected accessor searchTerm: string;
   @state() protected accessor suggestions: Array<T> = [];
 

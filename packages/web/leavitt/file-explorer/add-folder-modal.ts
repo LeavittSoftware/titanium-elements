@@ -11,11 +11,16 @@ import ApiService from '../api-service/api-service';
 import { PendingStateEvent } from '../../titanium/types/pending-state-event';
 import { DOMEvent } from '../../titanium/types/dom-event';
 import { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
-import { LoadWhile } from '../../titanium/helpers/helpers';
+import { promiseTracking } from '../../titanium/helpers/promise-tracking';
 import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
 
 @customElement('leavitt-add-folder-modal')
-export class AddFolderModal extends LoadWhile(LitElement) {
+export class AddFolderModal extends LitElement {
+  @promiseTracking('trackLoadingPromise')
+  @state()
+  accessor isLoading = false;
+  declare trackLoadingPromise: (promise: Promise<unknown>) => Promise<void>;
+
   /**
    *  Required
    */
@@ -50,7 +55,7 @@ export class AddFolderModal extends LoadWhile(LitElement) {
     try {
       const post = this.apiService.postAsync<FileExplorerFolder>('FileExplorerFolders?expand=CreatorPerson(select=FullName,ProfilePictureCdnFileName)', dto);
       this.dispatchEvent(new PendingStateEvent(post));
-      this.loadWhile(post);
+      this.trackLoadingPromise(post);
       const result = (await post)?.entity;
 
       return {
