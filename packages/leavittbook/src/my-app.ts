@@ -35,6 +35,7 @@ import { mainMenuPositionContext } from '@leavittsoftware/web/leavitt/app/contex
 import { provide } from '@lit/context';
 import { siteSearchTextFieldContext } from './contexts/site-search-text-field-context';
 import { MdFilledTextField } from '@material/web/textfield/filled-text-field';
+import { PageElement } from '@leavittsoftware/web/titanium/site-search-text-field-controller/site-search-text-field-controller';
 
 @customElement('my-app')
 export class MyApp extends PendingStateCatcher(LitElement) {
@@ -48,6 +49,8 @@ export class MyApp extends PendingStateCatcher(LitElement) {
   private mainMenuPosition: 'slim' | 'full' | 'drawer' = 'full';
 
   @query('titanium-drawer') private accessor drawer: TitaniumDrawer;
+
+  #resizeObserver: ResizeObserver | null = null;
 
   async connectedCallback() {
     super.connectedCallback();
@@ -97,22 +100,25 @@ export class MyApp extends PendingStateCatcher(LitElement) {
       this.#applyTheme();
     });
 
-    const resizeObserver = new ResizeObserver((entries) => {
+    this.#resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
         const width = entry.contentRect.width;
         if (width < 600) {
+          this.drawer.mode = 'flyover';
           this.mainMenuPosition = 'drawer';
         } else if (width >= 600 && width < 920) {
+          this.drawer.mode = 'inline';
+          this.drawer.open();
           this.mainMenuPosition = 'slim';
-          this.drawer?.closeQuick();
         } else {
+          this.drawer.mode = 'inline';
+          this.drawer.open();
           this.mainMenuPosition = this.prefersCollapsedMenu ? 'slim' : 'full';
-          this.drawer?.closeQuick();
         }
       }
     });
 
-    resizeObserver.observe(this);
+    this.#resizeObserver.observe(this);
 
     this.addEventListener(ChangePathEvent.eventName, (event: ChangePathEvent) => {
       page.show(event.detail.path);
@@ -128,7 +134,9 @@ export class MyApp extends PendingStateCatcher(LitElement) {
     });
 
     page('*', (_ctx, next) => {
-      this.drawer?.close();
+      if (this.drawer?.mode === 'flyover') {
+        this.drawer.close();
+      }
       next();
     });
 
@@ -194,6 +202,15 @@ export class MyApp extends PendingStateCatcher(LitElement) {
     page.start();
   }
 
+  async disconnectedCallback() {
+    await super.disconnectedCallback();
+    this.#resizeObserver?.disconnect();
+  }
+
+  #getActivePageElement(mainPage: string): PageElement | null {
+    return this.shadowRoot?.querySelector<PageElement>(`${mainPage}-demo`) ?? this.shadowRoot?.querySelector<PageElement>(mainPage) ?? null;
+  }
+
   async #changePage(mainPage: string, importFunction?: () => Promise<unknown>) {
     this.page = mainPage;
     try {
@@ -202,8 +219,9 @@ export class MyApp extends PendingStateCatcher(LitElement) {
         this.dispatchEvent(new PendingStateEvent(importElements));
       }
       await importElements;
+      await this.updateComplete;
 
-      this.showSearch = mainPage === 'leavitt-email-history-viewer';
+      this.showSearch = !!this.#getActivePageElement(mainPage)?.searchController;
     } catch (error) {
       console.warn(error);
       this.#showErrorPage(error);
@@ -426,10 +444,12 @@ export class MyApp extends PendingStateCatcher(LitElement) {
           <h4 menu-category>Leavitt</h4>
           <md-list-item ?selected=${this.page === 'leavitt-company-select'} href="/leavitt-company-select" type="link">
             <md-icon slot="start">business</md-icon> <span>Company select</span>
+            <md-icon slot="end">passkey</md-icon>
           </md-list-item>
 
           <md-list-item ?selected=${this.page === 'leavitt-email-history-viewer'} href="/leavitt-email-history-viewer" type="link">
             <md-icon slot="start">mail</md-icon> <span>Email history viewer</span>
+            <md-icon slot="end">passkey</md-icon>
           </md-list-item>
 
           <md-list-item ?selected=${this.page === 'leavitt-error-page'} href="/leavitt-error-page" type="link">
@@ -438,18 +458,22 @@ export class MyApp extends PendingStateCatcher(LitElement) {
 
           <md-list-item ?selected=${this.page === 'leavitt-file-explorer'} href="/leavitt-file-explorer" type="link">
             <md-icon slot="start">folder_open</md-icon> <span>File explorer</span>
+            <md-icon slot="end">passkey</md-icon>
           </md-list-item>
 
           <md-list-item ?selected=${this.page === 'leavitt-person-company-select'} href="/leavitt-person-company-select" type="link">
             <md-icon slot="start">badge</md-icon> <span>Person company select</span>
+            <md-icon slot="end">passkey</md-icon>
           </md-list-item>
 
           <md-list-item ?selected=${this.page === 'leavitt-person-group-select'} href="/leavitt-person-group-select" type="link">
             <md-icon slot="start">diversity_3</md-icon> <span>Person group select</span>
+            <md-icon slot="end">passkey</md-icon>
           </md-list-item>
 
           <md-list-item ?selected=${this.page === 'leavitt-person-select'} href="/leavitt-person-select" type="link">
             <md-icon slot="start">person_search</md-icon> <span>Person select</span>
+            <md-icon slot="end">passkey</md-icon>
           </md-list-item>
 
           <md-list-item ?selected=${this.page === 'profile-picture'} href="/profile-picture" type="link">
@@ -485,99 +509,37 @@ export class MyApp extends PendingStateCatcher(LitElement) {
         ${this.page === 'error' ? html`<div>Oops, something went wrong.</div>` : nothing}
 
         <!-- Stories -->
-        ${this.page === 'available-cdn-icons'
-          ? html` <available-cdn-icons-demo large ?isActive=${this.page === 'available-cdn-icons'}></available-cdn-icons-demo> `
-          : nothing}
-        ${this.page === 'titanium-date-range-selector'
-          ? html` <titanium-date-range-selector-demo large ?isActive=${this.page === 'titanium-date-range-selector'}></titanium-date-range-selector-demo> `
-          : nothing}
-        ${this.page === 'leavitt-person-select'
-          ? html` <leavitt-person-select-demo large ?isActive=${this.page === 'leavitt-person-select'}></leavitt-person-select-demo> `
-          : nothing}
-        ${this.page === 'leavitt-company-select'
-          ? html` <leavitt-company-select-demo large ?isActive=${this.page === 'leavitt-company-select'}></leavitt-company-select-demo> `
-          : nothing}
-        ${this.page === 'leavitt-email-history-viewer'
-          ? html` <leavitt-email-history-viewer-demo large ?isActive=${this.page === 'leavitt-email-history-viewer'}></leavitt-email-history-viewer-demo> `
-          : nothing}
-        ${this.page === 'leavitt-file-explorer'
-          ? html` <leavitt-file-explorer-demo large ?isActive=${this.page === 'leavitt-file-explorer'}></leavitt-file-explorer-demo> `
-          : nothing}
-        ${this.page === 'leavitt-error-page'
-          ? html` <leavitt-error-page-demo large ?isActive=${this.page === 'leavitt-error-page'}></leavitt-error-page-demo> `
-          : nothing}
-        ${this.page === 'leavitt-person-company-select'
-          ? html` <leavitt-person-company-select-demo large ?isActive=${this.page === 'leavitt-person-company-select'}></leavitt-person-company-select-demo> `
-          : nothing}
-        ${this.page === 'leavitt-person-group-select'
-          ? html` <leavitt-person-group-select-demo large ?isActive=${this.page === 'leavitt-person-group-select'}></leavitt-person-group-select-demo> `
-          : nothing}
-        ${this.page === 'titanium-drawer' ? html` <titanium-drawer-demo ?isActive=${this.page === 'titanium-drawer'}></titanium-drawer-demo> ` : nothing}
-        ${this.page === 'profile-picture' ? html` <profile-picture-demo ?isActive=${this.page === 'profile-picture'}></profile-picture-demo> ` : nothing}
-        ${this.page === 'profile-picture-menu'
-          ? html` <profile-picture-menu-demo large ?isActive=${this.page === 'profile-picture-menu'}></profile-picture-menu-demo> `
-          : nothing}
-        ${this.page === 'titanium-input-validator'
-          ? html` <titanium-input-validator-demo large ?isActive=${this.page === 'titanium-input-validator'}></titanium-input-validator-demo> `
-          : nothing}
-        ${this.page === 'titanium-data-table-core'
-          ? html` <titanium-data-table-core-demo large ?isActive=${this.page === 'titanium-data-table-core'}></titanium-data-table-core-demo> `
-          : nothing}
-        ${this.page === 'titanium-promise-tracking'
-          ? html` <titanium-promise-tracking-demo large ?isActive=${this.page === 'titanium-promise-tracking'}></titanium-promise-tracking-demo> `
-          : nothing}
-        ${this.page === 'titanium-address-input'
-          ? html` <titanium-address-input-demo large ?isActive=${this.page === 'titanium-address-input'}></titanium-address-input-demo> `
-          : nothing}
-        ${this.page === 'titanium-icon' ? html` <titanium-icon-demo ?isActive=${this.page === 'titanium-icon'}></titanium-icon-demo> ` : nothing}
-        ${this.page === 'titanium-icon-picker'
-          ? html` <titanium-icon-picker-demo large ?isActive=${this.page === 'titanium-icon-picker'}></titanium-icon-picker-demo> `
-          : nothing}
-        ${this.page === 'titanium-page-control'
-          ? html` <titanium-page-control-demo large ?isActive=${this.page === 'titanium-page-control'}></titanium-page-control-demo> `
-          : nothing}
-        ${this.page === 'titanium-date-input'
-          ? html` <titanium-date-input-demo large ?isActive=${this.page === 'titanium-date-input'}></titanium-date-input-demo> `
-          : nothing}
-        ${this.page === 'titanium-search-input'
-          ? html` <titanium-search-input-demo large ?isActive=${this.page === 'titanium-search-input'}></titanium-search-input-demo> `
-          : nothing}
-        ${this.page === 'titanium-toolbar'
-          ? html` <titanium-toolbar-demo large ?isActive=${this.page === 'titanium-toolbar'}></titanium-toolbar-demo> `
-          : nothing}
-        ${this.page === 'titanium-loading-indicator'
-          ? html` <titanium-loading-indicator-demo large ?isActive=${this.page === 'titanium-loading-indicator'}></titanium-loading-indicator-demo> `
-          : nothing}
-        ${this.page === 'titanium-chip-multi-select'
-          ? html` <titanium-chip-multi-select-demo large ?isActive=${this.page === 'titanium-chip-multi-select'}></titanium-chip-multi-select-demo> `
-          : nothing}
-        ${this.page === 'titanium-styles' ? html` <titanium-styles-demo large ?isActive=${this.page === 'titanium-styles'}></titanium-styles-demo> ` : nothing}
-        ${this.page === 'titanium-snackbar'
-          ? html` <titanium-snackbar-demo large ?isActive=${this.page === 'titanium-snackbar'}></titanium-snackbar-demo> `
-          : nothing}
-        ${this.page === 'titanium-smart-attachment-input'
-          ? html`
-              <titanium-smart-attachment-input-demo large ?isActive=${this.page === 'titanium-smart-attachment-input'}></titanium-smart-attachment-input-demo>
-            `
-          : nothing}
-        ${this.page === 'titanium-chip' ? html` <titanium-chip-demo large ?isActive=${this.page === 'titanium-chip'}></titanium-chip-demo> ` : nothing}
-        ${this.page === 'titanium-youtube-input'
-          ? html` <titanium-youtube-input-demo large ?isActive=${this.page === 'titanium-youtube-input'}></titanium-youtube-input-demo> `
-          : nothing}
-        ${this.page === 'titanium-show-hide'
-          ? html` <titanium-show-hide-demo large ?isActive=${this.page === 'titanium-show-hide'}></titanium-show-hide-demo> `
-          : nothing}
-        ${this.page === 'titanium-duration-input'
-          ? html` <titanium-duration-input-demo large ?isActive=${this.page === 'titanium-duration-input'}></titanium-duration-input-demo> `
-          : nothing}
-        ${this.page === 'titanium-confirmation-dialog'
-          ? html` <titanium-confirmation-dialog-demo large ?isActive=${this.page === 'titanium-confirmation-dialog'}></titanium-confirmation-dialog-demo> `
-          : nothing}
-        ${this.page === 'titanium-profile-picture-stack'
-          ? html`
-              <titanium-profile-picture-stack-demo large ?isActive=${this.page === 'titanium-profile-picture-stack'}></titanium-profile-picture-stack-demo>
-            `
-          : nothing}
+        ${this.page === 'available-cdn-icons' ? html`<available-cdn-icons-demo large></available-cdn-icons-demo>` : nothing}
+        ${this.page === 'titanium-date-range-selector' ? html`<titanium-date-range-selector-demo large></titanium-date-range-selector-demo>` : nothing}
+        ${this.page === 'leavitt-person-select' ? html`<leavitt-person-select-demo large></leavitt-person-select-demo>` : nothing}
+        ${this.page === 'leavitt-company-select' ? html`<leavitt-company-select-demo large></leavitt-company-select-demo>` : nothing}
+        ${this.page === 'leavitt-email-history-viewer' ? html`<leavitt-email-history-viewer-demo large></leavitt-email-history-viewer-demo>` : nothing}
+        ${this.page === 'leavitt-file-explorer' ? html`<leavitt-file-explorer-demo large></leavitt-file-explorer-demo>` : nothing}
+        ${this.page === 'leavitt-error-page' ? html`<leavitt-error-page-demo large></leavitt-error-page-demo>` : nothing}
+        ${this.page === 'leavitt-person-company-select' ? html`<leavitt-person-company-select-demo large></leavitt-person-company-select-demo>` : nothing}
+        ${this.page === 'leavitt-person-group-select' ? html`<leavitt-person-group-select-demo large></leavitt-person-group-select-demo>` : nothing}
+        ${this.page === 'titanium-drawer' ? html`<titanium-drawer-demo></titanium-drawer-demo>` : nothing}
+        ${this.page === 'profile-picture' ? html`<profile-picture-demo></profile-picture-demo>` : nothing}
+        ${this.page === 'profile-picture-menu' ? html`<profile-picture-menu-demo large></profile-picture-menu-demo>` : nothing}
+        ${this.page === 'titanium-input-validator' ? html`<titanium-input-validator-demo large></titanium-input-validator-demo>` : nothing}
+        ${this.page === 'titanium-data-table-core' ? html`<titanium-data-table-core-demo large></titanium-data-table-core-demo>` : nothing}
+        ${this.page === 'titanium-promise-tracking' ? html`<titanium-promise-tracking-demo large></titanium-promise-tracking-demo>` : nothing}
+        ${this.page === 'titanium-address-input' ? html`<titanium-address-input-demo large></titanium-address-input-demo>` : nothing}
+        ${this.page === 'titanium-icon-picker' ? html`<titanium-icon-picker-demo large></titanium-icon-picker-demo>` : nothing}
+        ${this.page === 'titanium-page-control' ? html`<titanium-page-control-demo large></titanium-page-control-demo>` : nothing}
+        ${this.page === 'titanium-date-input' ? html`<titanium-date-input-demo large></titanium-date-input-demo>` : nothing}
+        ${this.page === 'titanium-search-input' ? html`<titanium-search-input-demo large></titanium-search-input-demo>` : nothing}
+        ${this.page === 'titanium-toolbar' ? html`<titanium-toolbar-demo large></titanium-toolbar-demo>` : nothing}
+        ${this.page === 'titanium-chip-multi-select' ? html`<titanium-chip-multi-select-demo large></titanium-chip-multi-select-demo>` : nothing}
+        ${this.page === 'titanium-styles' ? html`<titanium-styles-demo large></titanium-styles-demo>` : nothing}
+        ${this.page === 'titanium-snackbar' ? html`<titanium-snackbar-demo large></titanium-snackbar-demo>` : nothing}
+        ${this.page === 'titanium-smart-attachment-input' ? html`<titanium-smart-attachment-input-demo large></titanium-smart-attachment-input-demo>` : nothing}
+        ${this.page === 'titanium-chip' ? html`<titanium-chip-demo large></titanium-chip-demo>` : nothing}
+        ${this.page === 'titanium-youtube-input' ? html`<titanium-youtube-input-demo large></titanium-youtube-input-demo>` : nothing}
+        ${this.page === 'titanium-show-hide' ? html`<titanium-show-hide-demo large></titanium-show-hide-demo>` : nothing}
+        ${this.page === 'titanium-duration-input' ? html`<titanium-duration-input-demo large></titanium-duration-input-demo>` : nothing}
+        ${this.page === 'titanium-confirmation-dialog' ? html`<titanium-confirmation-dialog-demo large></titanium-confirmation-dialog-demo>` : nothing}
+        ${this.page === 'titanium-profile-picture-stack' ? html`<titanium-profile-picture-stack-demo large></titanium-profile-picture-stack-demo>` : nothing}
 
         <leavitt-error-page
           ?hidden=${this.page !== 'error'}

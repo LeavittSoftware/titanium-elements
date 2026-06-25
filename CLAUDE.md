@@ -24,7 +24,7 @@ The package is published to npm and consumed via **deep imports** (no barrel `in
 ```
 packages/
   web/           # @leavittsoftware/web — all published elements (titanium/ + leavitt/)
-  leavittbook/   # Local component gallery and demos (not published)
+  leavittbook/   # Local component gallery and demos (not published); see packages/leavittbook/CLAUDE.md
 ```
 
 Within `packages/web`:

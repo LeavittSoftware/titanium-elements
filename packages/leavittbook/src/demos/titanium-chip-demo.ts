@@ -90,8 +90,7 @@ export class TitaniumChipDemo extends LitElement {
 
               <titanium-chip href="https://google.com" target="_blank" download="google.xls" label="Href demo"> </titanium-chip>
 
-              <titanium-chip label="Custom color" style="--titanium-chip-filled-background-color: bisque; --titanium-chip-filled-color: black">
-              </titanium-chip>
+              <titanium-chip label="Custom color" style="--titanium-chip-filled-background-color: bisque; --titanium-chip-filled-color: black"> </titanium-chip>
             </chip-container>
             <api-docs src="./custom-elements.json" selected="titanium-chip"></api-docs>
           </leavitt-app-width-limiter>

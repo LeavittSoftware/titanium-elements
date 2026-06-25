@@ -5,11 +5,24 @@ export const myAppStyles = css`
     display: grid;
     grid:
       'toolbar toolbar' 64px
-      'menu content' auto / 300px 1fr;
+      'menu content' auto / 310px 1fr;
 
     transition: 250ms;
 
     --mdc-icon-font: 'Material Symbols Outlined';
+  }
+
+  :host([no-main-menu]) {
+    grid-template-columns: 0 1fr !important;
+
+    titanium-toolbar {
+      grid-template-columns: auto auto 1fr auto !important;
+      padding: 0 24px 0 24px !important;
+    }
+  }
+
+  :host([no-main-menu]) main-content {
+    margin-left: 16px;
   }
 
   :host([main-menu-position='drawer']) {
@@ -32,6 +45,10 @@ export const myAppStyles = css`
         display: flex;
       }
     }
+  }
+
+  :host([no-main-menu][main-menu-position='drawer']) main-content {
+    margin-left: 0;
   }
 
   /* safari does not like nested selectors on host */
@@ -79,10 +96,10 @@ export const myAppStyles = css`
   :host([main-menu-position='slim']) {
     grid:
       'toolbar toolbar' 64px
-      'menu content' auto / 80px 1fr;
+      'menu content' auto / 85px 1fr;
 
     titanium-toolbar {
-      grid: 'main-menu-button logo search-input page-actions' / 80px auto 1fr auto;
+      grid: 'main-menu-button logo search-input page-actions' / 85px auto 1fr auto;
     }
   }
 
@@ -170,12 +187,20 @@ export const myAppStyles = css`
     }
 
     h4[sub] {
-      display: flex;
+      display: grid;
+      overflow: hidden;
+      grid-template-columns: auto 1fr;
       align-items: center;
       gap: 4px;
-      padding: 0 12px 2px 35px;
+      padding: 0 12px 2px 24px;
       opacity: 0.8;
       --md-icon-size: 16px;
+
+      span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
     }
   }
 
@@ -183,7 +208,7 @@ export const myAppStyles = css`
     grid-area: toolbar;
     background-color: var(--app-background-color);
     display: grid;
-    grid: 'main-menu-button logo search-input page-actions' / auto 240px 1fr auto;
+    grid: 'main-menu-button logo search-input page-actions' / auto 250px 1fr auto;
     align-items: center;
     height: 64px;
     z-index: 6;

@@ -27,7 +27,7 @@ export class TitaniumAddressInputDemo extends LitElement {
   @query('titanium-address-input[demo-a]') protected accessor titaniumAddressInputDemoA!: TitaniumAddressInput;
   @query('titanium-address-input[demo-a-filled]') protected accessor titaniumAddressInputDemoAFilled!: TitaniumAddressInput;
 
-  @state() accessor allowInternational: boolean = false;
+  @state() protected accessor allowInternational: boolean = false;
 
   static styles = [
     StoryStyles,
