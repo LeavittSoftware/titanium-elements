@@ -25,6 +25,7 @@ export class LeavittErrorPage extends ThemePreference(LitElement) {
   @property() accessor message: string | TemplateResult<1> = "It looks like that page doesn't exist.";
 
   @query('canvas[particles]') private accessor canvas!: HTMLCanvasElement;
+  @query('leavitt-app-main-content-container') private accessor container!: HTMLElement;
 
   #mdSysColorBackground!: string;
   #mdSysColorOnBackground!: string;
@@ -36,15 +37,21 @@ export class LeavittErrorPage extends ThemePreference(LitElement) {
 
   #onThemeChange = (themePreference: ThemePreferenceOption) => {
     this.#setColors(themePreference);
-    this.style.backgroundColor = this.#mdSysColorBackground;
+    this.#applyBackground();
     if (this.#reduceMotion) {
       this.#draw();
     }
   };
 
+  #applyBackground() {
+    if (this.container) {
+      this.container.style.backgroundColor = this.#mdSysColorBackground;
+    }
+  }
+
   firstUpdated() {
     this.#setColors(this.themePreference);
-    this.style.backgroundColor = this.#mdSysColorBackground;
+    this.#applyBackground();
     themePreferenceEvent.subscribe('theme-preference', 'change', this.#onThemeChange);
 
     this.#reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
@@ -171,7 +178,6 @@ export class LeavittErrorPage extends ThemePreference(LitElement) {
   static styles = css`
     :host {
       display: grid;
-      position: relative;
     }
 
     h1 {
