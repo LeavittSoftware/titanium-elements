@@ -16,7 +16,7 @@
     "**/*.jpg"
   ],
   "dependencies": {
-    "@googlemaps/js-api-loader": "1.16.10",
+    "@googlemaps/js-api-loader": "^2.1.1",
     "@leavittsoftware/lg-core-typescript": "*",
     "@lit/context": "^1.1.6",
     "@material/web": "*",

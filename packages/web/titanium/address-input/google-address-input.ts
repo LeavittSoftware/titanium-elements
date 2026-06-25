@@ -1,4 +1,6 @@
 /// <reference types="google.maps" />
+// Must precede the @googlemaps/js-api-loader import below; it reads process.env.NODE_ENV at module scope.
+import './google-maps-process-shim.js';
 import { PropertyValues, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -6,7 +8,7 @@ import { TitaniumSingleSelectBase } from '../../titanium/single-select-base/sing
 import { Debouncer } from '../../titanium/helpers/helpers';
 import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
 
-import { Loader } from '@googlemaps/js-api-loader';
+import { setOptions, importLibrary } from '@googlemaps/js-api-loader';
 
 import '@material/web/icon/icon';
 import { placeResultToAddress } from './utils/place-result-to-address';
@@ -46,13 +48,12 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
   #autoCompleteService!: google.maps.places.AutocompleteService;
 
   async firstUpdated() {
-    const loader = new Loader({
-      apiKey: this.googleMapsApiKey,
-      version: 'weekly',
-      libraries: ['places'],
+    setOptions({
+      key: this.googleMapsApiKey,
+      v: 'weekly',
     });
 
-    await loader.importLibrary('places');
+    await importLibrary('places');
 
     this.#placesService = new google.maps.places.PlacesService(document.createElement('div'));
     this.#autoCompleteService = new google.maps.places.AutocompleteService();

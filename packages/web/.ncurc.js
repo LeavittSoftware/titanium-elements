@@ -1,4 +1,4 @@
-const rejectAll = ['@googlemaps/js-api-loader'];
+const rejectAll = [];
 const rejectMajor = [];
 
 module.exports = {

@@ -641,6 +641,8 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Events:** `selected`; dispatches `ShowSnackbarEvent` on API errors
 
+**Usage notes / gotchas:** Loads Google Maps via `@googlemaps/js-api-loader` v2, which reads `process.env.NODE_ENV` at module scope. The component ships a guarded global `process` shim (`google-maps-process-shim.ts`, imported first) so it works in browser environments that don't define `process`; consumers need no bundler define.
+
 ---
 
 ### `titanium-chip`
