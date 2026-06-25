@@ -328,7 +328,7 @@ export class MyApp extends PendingStateCatcher(LitElement) {
         </page-actions>
       </titanium-toolbar>
 
-      <titanium-drawer main-menu ?always-show-content=${this.mainMenuPosition !== 'drawer'}>
+      <titanium-drawer main-menu>
         <header slot="header">
           <leavitt-app-logo app-name="Titanium Elements"></leavitt-app-logo>
           <page-actions>

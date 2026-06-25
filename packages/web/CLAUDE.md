@@ -36,19 +36,23 @@ When bumping `@leavittsoftware/web` in a downstream project, read every entry **
 - `leavitt/email-history-viewer/email-history-viewer` (unfilled legacy viewer)
 - `outlined-duration-input`, `outlined-input-validator`, unqualified `search-input` / `youtube-input` / `duration-input` import paths
 - `filled` attribute on date-input, date-range-selector, chip, chip-multi-select, page-control, show-hide, smart-attachment-input, single-select-base subclasses, manual-address-dialog
+- `always-show-content` on `titanium-drawer`
+- `toolbarSearchTerm`, `toolbar-search-term` on `leavitt-email-history-viewer-filled`
 
 **Removed** — delete imports/usages:
 
-| Removed | Replacement |
-|---------|-------------|
-| `@leavittsoftware/web/titanium/helpers/load-while` | `@promiseTracking` on page components — see Loading — `promiseTracking` |
-| `titanium-confirm-dialog` | `titanium-confirmation-dialog` |
-| `titanium-error-page` | `leavitt-error-page` |
-| Legacy `titanium-data-table`, `-item`, `-header` | `titanium-data-table-core` + action bar + page control |
-| `leavitt-user-feedback` | `provide-feedback-dialog` / `report-a-problem-dialog` directly |
-| `leavitt/email-history-viewer/email-history-viewer` | `leavitt-email-history-viewer-filled` only |
-| `titanium-card`, `titanium-header`, `titanium-access-denied-page`, `titanium-full-page-loading-indicator` | App-specific UI (no direct replacement) |
-| Outlined / unqualified input variants | Filled paths only (e.g. `filled-search-input`, `filled-duration-input`) |
+| Removed                                                                                                   | Replacement                                                                               |
+| --------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `@leavittsoftware/web/titanium/helpers/load-while`                                                        | `@promiseTracking` on page components — see Loading — `promiseTracking`                   |
+| `titanium-confirm-dialog`                                                                                 | `titanium-confirmation-dialog`                                                            |
+| `titanium-error-page`                                                                                     | `leavitt-error-page`                                                                      |
+| Legacy `titanium-data-table`, `-item`, `-header`                                                          | `titanium-data-table-core` + action bar + page control                                    |
+| `leavitt-user-feedback`                                                                                   | `provide-feedback-dialog` / `report-a-problem-dialog` directly                            |
+| `leavitt/email-history-viewer/email-history-viewer`                                                       | `leavitt-email-history-viewer-filled` only                                                |
+| `titanium-card`, `titanium-header`, `titanium-access-denied-page`, `titanium-full-page-loading-indicator` | App-specific UI (no direct replacement)                                                   |
+| Outlined / unqualified input variants                                                                     | Filled paths only (e.g. `filled-search-input`, `filled-duration-input`)                   |
+| `always-show-content` on `titanium-drawer`                                                                | Set `mode="inline"` / `mode="flyover"` and call `open()` for inline sidebars              |
+| `toolbarSearchTerm` / `toolbar-search-term` on `leavitt-email-history-viewer-filled`                      | `.siteSearchTextFieldContext` + `TitaniumSiteSearchTextFieldController` — see Site search |
 
 **Renamed / API changes:**
 
@@ -59,7 +63,7 @@ When bumping `@leavittsoftware/web` in a downstream project, read every entry **
 **Behavior / styling:**
 
 - `filled` attribute removed from dual-style components — filled Material styling is always on
-- `google-address-input` uses `@googlemaps/js-api-loader` v2 internally; consumers still only pass `googleMapsApiKey` — no bundler `process` shim required
+- `google-address-input` uses `@googlemaps/js-api-loader` v2 internally; consumers still only pass `googleMapsApiKey` — no bundler `process` shim required. Enable **Places API (New)** (`places.googleapis.com`) plus **Maps JavaScript API** on the key's GCP project (legacy Places API is not enough).
 - `leavitt-error-page` no longer uses tsParticles; no consumer particle config to migrate
 
 ### 9.4.0
@@ -102,6 +106,65 @@ import { h2, p } from '@leavittsoftware/web/titanium/styles/styles.js';
 - Published builds use `.js` extensions in import paths
 - Material Web elements (`md-filled-button`, `md-dialog`, etc.) must be imported separately by the consumer
 - Paths mirror source: `titanium/<feature>/<file>` or `leavitt/<feature>/<file>`
+
+## Material Web foundation
+
+Most `titanium-*` and `leavitt-*` elements are **built on** [Material Web](https://github.com/material-components/material-web) (`@material/web/*`) — either by **extending** an `Md*` class or by **composing** `md-*` tags inside a `LitElement` wrapper. When debugging API, validation, slots, or styling, check the matching Material Web component docs in addition to this file.
+
+### Extend vs compose
+
+| Pattern | What it means | Where to look for extra API |
+| ------- | ------------- | --------------------------- |
+| **Extends** | `class TitaniumFoo extends MdFilledTextField` (or `MdFilledField`, etc.) | Material Web docs for that base class — properties, attributes, methods, slots, and CSS parts apply on the **titanium tag** |
+| **Composes** | `class TitaniumFoo extends LitElement` and renders `<md-filled-text-field>` (or `md-dialog`, `md-menu`, …) in `render()` | This file + Material Web docs for the **inner** `md-*` tag; the titanium tag exposes its own curated API |
+
+Titanium **mixins and decorators** (`ThemePreference`, `promiseTracking`, …) apply to the **host class** they decorate. They do not replace Material Web behavior — an input that extends `MdFilledTextField` still has all text-field properties; one that composes `md-filled-text-field` exposes titanium properties on the host and Material Web behavior on the child.
+
+### Published components by pattern
+
+| Tag / family | Pattern | Material Web base or key children |
+| ------------ | ------- | --------------------------------- |
+| `titanium-filled-duration-input` | extends | `MdFilledTextField` |
+| `titanium-filled-youtube-input` | extends | `MdFilledTextField` |
+| `titanium-filled-input-validator` | extends | `MdFilledField` |
+| `titanium-filled-search-input` | composes | `md-filled-text-field` |
+| `titanium-date-input` | composes | `md-filled-field` |
+| `titanium-date-range-selector` | composes | `md-filled-field`, `md-menu`, `md-list` |
+| `titanium-single-select-base` and all `leavitt-*-select`, `titanium-icon-picker`, `google-address-input` | composes | `md-filled-text-field`, `md-menu`, `md-menu-item` |
+| `titanium-chip-multi-select` | composes | `titanium-filled-input-validator` (extends `MdFilledField`); slots intended for `md-filled-tonal-button`, `md-input-chip` |
+| `titanium-confirmation-dialog` and most modal/dialog components | composes | `md-dialog` (+ `md-filled-button` / `md-text-button` actions) |
+| `titanium-data-table-core` | composes | `md-checkbox`, `md-icon-button`, `md-menu` |
+| `titanium-page-control` | composes | `md-filled-select` |
+| `titanium-chip` | composes | `md-ripple`, `md-focus-ring` (custom chip — not `md-chip`) |
+| Snackbars, toolbars, many app-shell pieces | composes | assorted `md-icon`, `md-icon-button`, `md-filled-button`, etc. |
+
+When a component **extends** `MdFilledTextField` or `MdFilledField`, consumers can use standard Material field properties on the titanium tag: `label`, `error`, `error-text`, `supporting-text`, `required`, `disabled`, `prefix-text`, `suffix-text`, `checkValidity()`, `reportValidity()`, `setCustomValidity()`, leading/trailing icon slots, and documented CSS parts.
+
+### Styling
+
+Material Web theming uses **CSS custom properties** on `:host` or on a child `md-*` selector:
+
+```css
+:host {
+  --md-filled-text-field-container-shape: 24px;
+  --md-filled-text-field-container-color: var(--md-sys-color-surface-container-high);
+  --md-sys-color-primary: /* app theme */;
+}
+```
+
+- `--md-sys-color-*` — Material 3 color roles (surface, on-surface, primary, outline-variant, …)
+- `--md-filled-text-field-*`, `--md-filled-field-*`, `--md-dialog-*`, `--md-icon-button-*`, … — per-component tokens
+
+Set tokens on the titanium host when the inner `md-*` element inherits from `:host`, or target the child directly (e.g. `md-filled-text-field { … }` in the component's `static styles`). See `titanium-filled-search-input` and `titanium-drawer` for examples.
+
+### Internal utilities from Material Web
+
+Some titanium components import Material Web **internals** (not part of the public consumer API):
+
+- `redispatchEvent` from `@material/web/internal/events/redispatch-event` — re-bubbles native/MW events from composed children
+- `stringConverter` and field internals — used by `titanium-date-input` for form-associated behavior
+
+Do not import `@material/web/internal/*` from consuming applications unless Material Web documents those paths as stable.
 
 ## Tag naming caveats
 
@@ -230,9 +293,7 @@ Define columns via `TitaniumDataTableCoreMetaData<T>`:
 tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
   uniqueKey: (item) => String(item.Id),
   itemLinkUrl: (item) => `/items/${item.Id}`,
-  itemMetaData: [
-    { key: 'name', friendlyName: 'Name', render: (item) => html`${item.Name}`, getSortExpression: () => 'Name' },
-  ],
+  itemMetaData: [{ key: 'name', friendlyName: 'Name', render: (item) => html`${item.Name}`, getSortExpression: () => 'Name' }],
   reorderConfig: { sortPropertyKey: 'SortOrder', reorderItemDisplayKey: 'Name' },
 };
 ```
@@ -245,11 +306,15 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 ## Inheritance bases
 
-| Base | Path | Used by |
-|------|------|---------|
-| `TitaniumSingleSelectBase` | `titanium/single-select-base/single-select-base` | All `leavitt-*-select`, `titanium-icon-picker`, `google-address-input` |
-| `google-address-input` | `titanium/address-input/google-address-input` | `titanium-address-input` |
-| `ThemePreference` mixin | `leavitt/theme/theme-preference` | `leavitt-app-logo`, `leavitt-error-page`, `leavitt-service-worker-notifier` |
+Titanium class inheritance (in addition to Material Web extend/compose — see **Material Web foundation**):
+
+| Base                       | Path                                             | Used by                                                                     |
+| -------------------------- | ------------------------------------------------ | --------------------------------------------------------------------------- |
+| `MdFilledTextField`        | `@material/web/textfield/filled-text-field`      | `titanium-filled-duration-input`, `titanium-filled-youtube-input`           |
+| `MdFilledField`            | `@material/web/field/filled-field`               | `titanium-filled-input-validator`                                           |
+| `TitaniumSingleSelectBase` | `titanium/single-select-base/single-select-base` | All `leavitt-*-select`, `titanium-icon-picker`, `google-address-input`      |
+| `google-address-input`     | `titanium/address-input/google-address-input`    | `titanium-address-input`                                                    |
+| `ThemePreference` mixin    | `leavitt/theme/theme-preference`                 | `leavitt-app-logo`, `leavitt-error-page`, `leavitt-service-worker-notifier`, `titanium-single-select-base` |
 
 ---
 
@@ -265,10 +330,10 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Source:** `leavitt/app/app-main-content-container.ts`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Attribute | `main-menu-position` | `string` | From `mainMenuPositionContext`; `'drawer'` changes height/border-radius |
-| Property | `.pendingStateElement` | `Element \| null` | Host that dispatches `PendingStateEvent` for the circle loader |
+| Kind      | Name                   | Type / values     | Notes                                                                   |
+| --------- | ---------------------- | ----------------- | ----------------------------------------------------------------------- |
+| Attribute | `main-menu-position`   | `string`          | From `mainMenuPositionContext`; `'drawer'` changes height/border-radius |
+| Property  | `.pendingStateElement` | `Element \| null` | Host that dispatches `PendingStateEvent` for the circle loader          |
 
 **Methods:** —
 
@@ -279,6 +344,7 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 **CSS parts:** `loading-indicator`, `scroll-container`
 
 **Usage notes / gotchas:**
+
 - Height is `100dvh`-based; drawer mode removes right margin and border radius
 - When kicking off async work in `updated()`, `await this.appMainContentContainer?.updateComplete` first so the loader can appear
 
@@ -294,12 +360,12 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Source:** `leavitt/app/app-navigation-header.ts`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Attribute | `sticky-top` | `boolean` | Reflected |
-| Property | `scrollable-parent` | `Element \| null` | Auto-detected if unset |
-| Property | `level1Text` … `level5Text` | `string \| null` | Breadcrumb labels |
-| Property | `level1Href` … `level5Href` | `string \| null` | Breadcrumb links |
+| Kind      | Name                        | Type / values     | Notes                  |
+| --------- | --------------------------- | ----------------- | ---------------------- |
+| Attribute | `sticky-top`                | `boolean`         | Reflected              |
+| Property  | `scrollable-parent`         | `Element \| null` | Auto-detected if unset |
+| Property  | `level1Text` … `level5Text` | `string \| null`  | Breadcrumb labels      |
+| Property  | `level1Href` … `level5Href` | `string \| null`  | Breadcrumb links       |
 
 **Methods:** —
 
@@ -310,6 +376,7 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 **CSS parts:** `main`, `trailing`, `footer`
 
 **Usage notes / gotchas:**
+
 - Border appears when scrolled + `sticky-top`
 - Top-level nav labels should match page header text (level1 = top nav, level3 = sub-nav)
 
@@ -323,10 +390,10 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Source:** `leavitt/app/app-navigation-footer.ts`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Attribute | `max-width` | `string` | Default `'640px'` |
-| Property | `scrollable-parent` | `Element \| null` | |
+| Kind      | Name                | Type / values     | Notes             |
+| --------- | ------------------- | ----------------- | ----------------- |
+| Attribute | `max-width`         | `string`          | Default `'640px'` |
+| Property  | `scrollable-parent` | `Element \| null` |                   |
 
 **Methods:** `isOverflown(element: Element): boolean`
 
@@ -348,10 +415,10 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Source:** `leavitt/app/app-logo.ts`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Property | `href` | `string` | Default `'/'` |
-| Property | `title` | `string` | |
+| Kind      | Name       | Type / values    | Notes                            |
+| --------- | ---------- | ---------------- | -------------------------------- |
+| Property  | `href`     | `string`         | Default `'/'`                    |
+| Property  | `title`    | `string`         |                                  |
 | Attribute | `app-name` | `string \| null` | Title case; acronyms keep casing |
 
 **Methods / events / slots / parts:** —
@@ -368,9 +435,9 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Source:** `leavitt/app/app-width-limiter.ts`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Attribute | `max-width` | `string` | Default `'640px'` |
+| Kind      | Name        | Type / values | Notes             |
+| --------- | ----------- | ------------- | ----------------- |
+| Attribute | `max-width` | `string`      | Default `'640px'` |
 
 **Slots:** default
 
@@ -388,14 +455,13 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Source:** `titanium/drawer/drawer.ts`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Attribute | `mode` | `inline` \| `flyover` | |
-| Attribute | `open` | `boolean` | Read-only; reflected from `isOpen` |
-| Attribute | `direction` | `ltr` \| `rtl` | Animation direction |
-| Attribute | `fixed` | `boolean` | Content position when closed (with inline) |
-| Attribute | `always-show-content` | `boolean` | **Deprecated** — use `mode` |
-| Attribute | `keep-open-when-going-to-flyover` | `boolean` | Preserve open state on mode switch |
+| Kind      | Name                              | Type / values         | Notes                                           |
+| --------- | --------------------------------- | --------------------- | ----------------------------------------------- |
+| Attribute | `mode`                            | `inline` \| `flyover` |                                                 |
+| Attribute | `open`                            | `boolean`             | Read-only; reflected from `isOpen`              |
+| Attribute | `direction`                       | `ltr` \| `rtl`        | Animation direction                             |
+| Attribute | `fixed`                           | `boolean`             | Content position when closed (inline mode only) |
+| Attribute | `keep-open-when-going-to-flyover` | `boolean`             | Preserve open state on mode switch              |
 
 **Methods:** `open()`, `close()`, `toggle()`, `closeQuick()`
 
@@ -408,8 +474,10 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 **CSS custom properties:** `--md-sys-color-outline-variant`, `--md-sys-color-on-background`
 
 **Usage notes / gotchas:**
+
 - Swipe-left closes; backdrop click closes; `popstate` closes dialog
 - Flyover sets `html { overflow: hidden }`
+- Inline sidebar: set `mode="inline"` and call `open()`; do not use removed `always-show-content`
 - Switching `mode` from inline→flyover: use `keep-open-when-going-to-flyover` to stay open
 
 ---
@@ -422,9 +490,9 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Source:** `titanium/toolbar/toolbar.ts`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Attribute | `shadow` | `boolean` | Auto-set on document scroll |
+| Kind      | Name     | Type / values | Notes                       |
+| --------- | -------- | ------------- | --------------------------- |
+| Attribute | `shadow` | `boolean`     | Auto-set on document scroll |
 
 **Slots:** default (style slotted `[main-title]`)
 
@@ -440,12 +508,12 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Source:** `titanium/show-hide/show-hide.ts`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Attribute | `collapse-height` | `number` | Default `120` |
-| Attribute | `collapsed` | `boolean` | |
-| Attribute | `disable-fade` | `boolean` | |
-| Property | `hiddenItemCount` | `number` | Read-only count of clipped items |
+| Kind      | Name              | Type / values | Notes                            |
+| --------- | ----------------- | ------------- | -------------------------------- |
+| Attribute | `collapse-height` | `number`      | Default `120`                    |
+| Attribute | `collapsed`       | `boolean`     |                                  |
+| Attribute | `disable-fade`    | `boolean`     |                                  |
+| Property  | `hiddenItemCount` | `number`      | Read-only count of clipped items |
 
 **Events:** `collapsed-changed`, `hidden-item-count-changed`
 
@@ -465,9 +533,9 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Source:** `titanium/collapsible-container/collapsible-container.ts`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Attribute | `opened`, `disabled` | `boolean` | Reflected |
+| Kind      | Name                 | Type / values | Notes     |
+| --------- | -------------------- | ------------- | --------- |
+| Attribute | `opened`, `disabled` | `boolean`     | Reflected |
 
 **Slots:** `header`, `content`
 
@@ -487,22 +555,23 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Source:** `titanium/data-table/data-table-core.ts`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Property | `items` | `T[]` | Current rows |
-| Property | `tableMetaData` | `TitaniumDataTableCoreMetaData<T> \| null` | Column config |
-| Property | `selected` | `T[]` | Selected rows |
-| Attribute | `selection-mode` | `single` \| `multi` \| `none` | Default `none` |
-| Attribute | `local-storage-key` | `string` | Default `'dtc-pref'`; **kebab-case attribute** |
-| Attribute | `sticky-header`, `disabled` | `boolean` | |
-| Property | `sort` | getter/setter | Persists to `{key}-user-sort` in localStorage |
-| Property | `userSettings` | getter/setter | Column visibility prefs |
-| Property | `supplementalItemStyles` | `CSSResult \| CSSResultGroup \| null` | Per-row styles |
-| State | `isLoading` | `boolean` | Via `promiseTracking` |
+| Kind      | Name                        | Type / values                              | Notes                                          |
+| --------- | --------------------------- | ------------------------------------------ | ---------------------------------------------- |
+| Property  | `items`                     | `T[]`                                      | Current rows                                   |
+| Property  | `tableMetaData`             | `TitaniumDataTableCoreMetaData<T> \| null` | Column config                                  |
+| Property  | `selected`                  | `T[]`                                      | Selected rows                                  |
+| Attribute | `selection-mode`            | `single` \| `multi` \| `none`              | Default `none`                                 |
+| Attribute | `local-storage-key`         | `string`                                   | Default `'dtc-pref'`; **kebab-case attribute** |
+| Attribute | `sticky-header`, `disabled` | `boolean`                                  |                                                |
+| Property  | `sort`                      | getter/setter                              | Persists to `{key}-user-sort` in localStorage  |
+| Property  | `userSettings`              | getter/setter                              | Column visibility prefs                        |
+| Property  | `supplementalItemStyles`    | `CSSResult \| CSSResultGroup \| null`      | Per-row styles                                 |
+| State     | `isLoading`                 | `boolean`                                  | Via `promiseTracking`                          |
 
 **Methods:** `selectAll()`, `deselectAll()`, `resetSort()`, `trackLoadingPromise(promise)`, `loadWhile(promise)` (deprecated alias for `trackLoadingPromise`)
 
 **Events:**
+
 - `selected-changed` (composed)
 - `sort-changed`
 - `items-reordered` — `CustomEvent<T[]>`
@@ -516,6 +585,7 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 **Exported types:** `TitaniumDataTableCoreMetaData`, `TitaniumDataTableCoreItemMetaData`, `TitaniumDataTableCoreSortItem`, `generateDefaultSortFromMetaData()`
 
 **Usage notes / gotchas:**
+
 - Clears selection when `items` reference changes
 - Don't clear rows on refetch (scrollbar jank); disable controls via `disabled` / `isLoading`
 - Status columns: use `<span indicator green>` / `red` (see cross-cutting patterns)
@@ -531,9 +601,9 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Source:** `titanium/data-table/data-table-action-bar.ts`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Property | `selected` | `Partial<T>[]` | |
+| Kind     | Name       | Type / values  | Notes |
+| -------- | ---------- | -------------- | ----- |
+| Property | `selected` | `Partial<T>[]` |       |
 
 **Slots:** `add-button`, `filters`, `selected-actions`
 
@@ -551,20 +621,21 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Source:** `titanium/data-table/page-control.ts`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Property | `pageSizes` | `number[]` | Default `[10,15,20,50]` |
-| Attribute | `default-page-size` | `number` | Default `10` |
-| Property | `page` | `number` | Zero-based |
-| Property | `count` | `number` | Total items |
-| Attribute | `local-storage-key` | `string` | **Required** for `take` persistence |
-| Property | `label` | `string` | Default `'Items per page'` |
-| Property | `disabled` | `boolean` | |
-| Property | `take` | getter/setter | Persists to localStorage; resets `page` to 0 |
+| Kind      | Name                | Type / values | Notes                                        |
+| --------- | ------------------- | ------------- | -------------------------------------------- |
+| Property  | `pageSizes`         | `number[]`    | Default `[10,15,20,50]`                      |
+| Attribute | `default-page-size` | `number`      | Default `10`                                 |
+| Property  | `page`              | `number`      | Zero-based                                   |
+| Property  | `count`             | `number`      | Total items                                  |
+| Attribute | `local-storage-key` | `string`      | **Required** for `take` persistence          |
+| Property  | `label`             | `string`      | Default `'Items per page'`                   |
+| Property  | `disabled`          | `boolean`     |                                              |
+| Property  | `take`              | getter/setter | Persists to localStorage; resets `page` to 0 |
 
 **Events:** `action` (composed) — fired on page or take change
 
 **Usage notes / gotchas:**
+
 - Unknown `take` values are added to `pageSizes`
 - Next disabled when `(page+1)*take >= count`
 - Use `local-storage-key` attribute (kebab-case), not `localStorageKey`
@@ -577,16 +648,18 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Purpose:** Cross-browser date / datetime-local input (form-associated).
 
+**Material Web:** Composes `md-filled-field`; uses MW field tokens and `redispatchEvent` for form events.
+
 **Import:** `import '@leavittsoftware/web/titanium/date-input/date-input.js'`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Property | `value`, `label`, `placeholder`, `supporting-text` | `string` | |
-| Attribute | `type` | `date` \| `datetime-local` | |
-| Attribute | `min`, `max`, `maxLength` | `string` | |
-| Property | `required`, `disabled`, `error` | `boolean` | |
-| Property | `prefix-text`, `suffix-text` | `string` | |
-| Attribute | `has-leading-icon`, `has-trailing-icon`, `no-asterisk` | `boolean` | |
+| Kind      | Name                                                   | Type / values              | Notes |
+| --------- | ------------------------------------------------------ | -------------------------- | ----- |
+| Property  | `value`, `label`, `placeholder`, `supporting-text`     | `string`                   |       |
+| Attribute | `type`                                                 | `date` \| `datetime-local` |       |
+| Attribute | `min`, `max`, `maxLength`                              | `string`                   |       |
+| Property  | `required`, `disabled`, `error`                        | `boolean`                  |       |
+| Property  | `prefix-text`, `suffix-text`                           | `string`                   |       |
+| Attribute | `has-leading-icon`, `has-trailing-icon`, `no-asterisk` | `boolean`                  |       |
 
 **Methods:** `checkValidity()`, `reportValidity()`, `select()`, `setCustomValidity()`, `reset()`
 
@@ -602,15 +675,17 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Purpose:** Preset + custom date range picker with popover UI.
 
+**Material Web:** Composes `md-filled-field`, `md-menu`, `md-list`, `md-text-button`.
+
 **Import:** `import '@leavittsoftware/web/titanium/date-range-selector/date-range-selector.js'`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Property | `range` | `string` | Default `'custom'`; presets like `allTime`, `last7Days`, etc. |
-| Property | `startDate`, `endDate` | `string` | ISO date strings |
-| Property | `label`, `supporting-text`, `type` | `string` | `type`: `date` \| `datetime-local` |
-| Property | `customDateRanges` | `Map<string, DateRangeOption> \| null` | Override presets |
-| Property | `disabled`, `positioning` | | `positioning`: `popover` \| `fixed` |
+| Kind     | Name                               | Type / values                          | Notes                                                         |
+| -------- | ---------------------------------- | -------------------------------------- | ------------------------------------------------------------- |
+| Property | `range`                            | `string`                               | Default `'custom'`; presets like `allTime`, `last7Days`, etc. |
+| Property | `startDate`, `endDate`             | `string`                               | ISO date strings                                              |
+| Property | `label`, `supporting-text`, `type` | `string`                               | `type`: `date` \| `datetime-local`                            |
+| Property | `customDateRanges`                 | `Map<string, DateRangeOption> \| null` | Override presets                                              |
+| Property | `disabled`, `positioning`          |                                        | `positioning`: `popover` \| `fixed`                           |
 
 **Methods:** `reset()` — sets `range` to `'allTime'`
 
@@ -626,14 +701,16 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Purpose:** Natural-language duration input (parses strings like "3 hours and 30 minutes").
 
+**Material Web:** Extends `MdFilledTextField` — inherits label, validation, and field styling API.
+
 **Import:** `import '@leavittsoftware/web/titanium/duration-input/filled-duration-input.js'`
 
 **Source:** `titanium/duration-input/filled-duration-input.ts`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Property | `duration` | `dayjs.Duration \| null` | Canonical value |
-| Property | `label`, `placeholder` | `string` | |
+| Kind     | Name                   | Type / values            | Notes           |
+| -------- | ---------------------- | ------------------------ | --------------- |
+| Property | `duration`             | `dayjs.Duration \| null` | Canonical value |
+| Property | `label`, `placeholder` | `string`                 |                 |
 
 **Events:** `duration-change` — read `event.target.duration`
 
@@ -645,14 +722,16 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Purpose:** Full-width filled search field with clear button.
 
+**Material Web:** Composes `md-filled-text-field`; style via `--md-filled-text-field-*` on `:host`.
+
 **Import:** `import '@leavittsoftware/web/titanium/search-input/filled-search-input.js'`
 
 **Source:** `titanium/search-input/filled-search-input.ts`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Property | `value`, `placeholder` | `string` | |
-| Property | `disabled`, `autocomplete`, `spellcheck` | | |
+| Kind     | Name                                     | Type / values | Notes |
+| -------- | ---------------------------------------- | ------------- | ----- |
+| Property | `value`, `placeholder`                   | `string`      |       |
+| Property | `disabled`, `autocomplete`, `spellcheck` |               |       |
 
 **Events:** `input` (composed); redispatches `blur`, `focus`, `change`, `invalid`
 
@@ -662,14 +741,16 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Purpose:** YouTube video key input; strips full URLs to 11-char key; shows thumbnail preview.
 
+**Material Web:** Extends `MdFilledTextField` — inherits label, validation, and trailing-icon slot.
+
 **Import:** `import '@leavittsoftware/web/titanium/youtube-input/filled-youtube-input.js'`
 
 **Source:** `titanium/youtube-input/filled-youtube-input.ts`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Property | `value`, `label` | `string` | |
-| Property | `pattern` | `string` | Default `'^.{11}$'` |
+| Kind     | Name             | Type / values | Notes               |
+| -------- | ---------------- | ------------- | ------------------- |
+| Property | `value`, `label` | `string`      |                     |
+| Property | `pattern`        | `string`      | Default `'^.{11}$'` |
 
 **Methods:** `reset()`
 
@@ -683,12 +764,12 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Import:** `import '@leavittsoftware/web/titanium/address-input/address-input.js'`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Property | `googleMapsApiKey` | `string` | **Required** (inherited) |
-| Attribute | `show-street2`, `show-county` | `boolean` | |
-| Property | `allow-international` | `boolean` | |
-| + | All `TitaniumSingleSelectBase` props | | |
+| Kind      | Name                                 | Type / values | Notes                    |
+| --------- | ------------------------------------ | ------------- | ------------------------ |
+| Property  | `googleMapsApiKey`                   | `string`      | **Required** (inherited) |
+| Attribute | `show-street2`, `show-county`        | `boolean`     |                          |
+| Property  | `allow-international`                | `boolean`     |                          |
+| +         | All `TitaniumSingleSelectBase` props |               |                          |
 
 **Events:** `selected` (JSDoc says `location-changed` but base fires `selected`)
 
@@ -702,15 +783,15 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Import:** `import '@leavittsoftware/web/titanium/address-input/google-address-input.js'`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Property | `googleMapsApiKey` | `string` | **Required** |
-| Property | `pathToSelectedText` | `string` | Default `'primaryDisplayText'` |
-| Property | `allow-international` | `boolean` | |
+| Kind     | Name                  | Type / values | Notes                          |
+| -------- | --------------------- | ------------- | ------------------------------ |
+| Property | `googleMapsApiKey`    | `string`      | **Required**                   |
+| Property | `pathToSelectedText`  | `string`      | Default `'primaryDisplayText'` |
+| Property | `allow-international` | `boolean`     |                                |
 
 **Events:** `selected`; dispatches `ShowSnackbarEvent` on API errors
 
-**Usage notes / gotchas:** Loads Google Maps via `@googlemaps/js-api-loader` v2, which reads `process.env.NODE_ENV` at module scope. The component ships a guarded global `process` shim (`google-maps-process-shim.ts`, imported first) so it works in browser environments that don't define `process`; consumers need no bundler define.
+**Usage notes / gotchas:** Loads Google Maps via `@googlemaps/js-api-loader` v2, which reads `process.env.NODE_ENV` at module scope. The component ships a guarded global `process` shim (`google-maps-process-shim.ts`, imported first) so it works in browser environments that don't define `process`; consumers need no bundler define. **GCP:** the API key's project must have **Maps JavaScript API** and **Places API (New)** (`places.googleapis.com`) enabled — the legacy Places API alone is not sufficient after the `AutocompleteSuggestion` / `Place` migration. A `SERVICE_DISABLED` error means Places API (New) is missing on that project.
 
 ---
 
@@ -720,12 +801,12 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Import:** `import '@leavittsoftware/web/titanium/chip/chip.js'`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Property | `label` | `string` | |
-| Property | `selected`, `disabled`, `non-interactive` | `boolean` | |
-| Property | `href`, `download`, `target` | `string` | Link chip |
-| Attribute | `input-chip` | `boolean` | Enables remove button |
+| Kind      | Name                                      | Type / values | Notes                 |
+| --------- | ----------------------------------------- | ------------- | --------------------- |
+| Property  | `label`                                   | `string`      |                       |
+| Property  | `selected`, `disabled`, `non-interactive` | `boolean`     |                       |
+| Property  | `href`, `download`, `target`              | `string`      | Link chip             |
+| Attribute | `input-chip`                              | `boolean`     | Enables remove button |
 
 **Events:** `remove` (when `input-chip`)
 
@@ -743,10 +824,10 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Import:** `import '@leavittsoftware/web/titanium/chip-multi-select/chip-multi-select.js'`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Property | `label`, `noItemsText`, `supportingText`, `errorText` | `string` | |
-| Property | `required`, `hasItems`, `error`, `resizable`, `disabled` | `boolean` | |
+| Kind     | Name                                                     | Type / values | Notes |
+| -------- | -------------------------------------------------------- | ------------- | ----- |
+| Property | `label`, `noItemsText`, `supportingText`, `errorText`    | `string`      |       |
+| Property | `required`, `hasItems`, `error`, `resizable`, `disabled` | `boolean`     |       |
 
 **Methods:** `checkValidity()`, `reportValidity()`, `reset()`
 
@@ -760,19 +841,21 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Purpose:** Generic autocomplete single-select base (extended by domain selects).
 
+**Material Web:** Composes `md-filled-text-field` + `md-menu`; `required` patches inner `md-filled-text-field.checkValidity`.
+
 **Import:** `import '@leavittsoftware/web/titanium/single-select-base/single-select-base.js'`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Property | `label`, `placeholder`, `selected` | | `selected`: `T \| null` |
-| Property | `required`, `disabled`, `error`, `errorText` | `boolean` / `string` | |
-| Property | `prefixText`, `suffixText`, `supportingText` | `string` | |
-| Attribute | `no-asterisk`, `has-leading-icon`, `has-trailing-icon` | `boolean` | |
-| Property | `pathToSelectedText` | `string` | Key on selected object for display |
-| Property | `positioning`, `match-input-width`, `large`, `shaped` | | Menu positioning |
-| Attribute | `disable-menu-open-on-focus` | `boolean` | |
-| Attribute | `menu-open` | `boolean` | Reflected |
-| State | `isLoading` | `boolean` | |
+| Kind      | Name                                                   | Type / values        | Notes                              |
+| --------- | ------------------------------------------------------ | -------------------- | ---------------------------------- |
+| Property  | `label`, `placeholder`, `selected`                     |                      | `selected`: `T \| null`            |
+| Property  | `required`, `disabled`, `error`, `errorText`           | `boolean` / `string` |                                    |
+| Property  | `prefixText`, `suffixText`, `supportingText`           | `string`             |                                    |
+| Attribute | `no-asterisk`, `has-leading-icon`, `has-trailing-icon` | `boolean`            |                                    |
+| Property  | `pathToSelectedText`                                   | `string`             | Key on selected object for display |
+| Property  | `positioning`, `match-input-width`, `large`, `shaped`  |                      | Menu positioning                   |
+| Attribute | `disable-menu-open-on-focus`                           | `boolean`            |                                    |
+| Attribute | `menu-open`                                            | `boolean`            | Reflected                          |
+| State     | `isLoading`                                            | `boolean`            |                                    |
 
 **Methods:** `reset()`, `softReset()`, `select()`, `focus()`, `checkValidity()`, `reportValidity()`, `setCustomValidity()`, `trackLoadingPromise()`
 
@@ -783,6 +866,7 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 **CSS parts:** `menu`
 
 **Usage notes / gotchas:**
+
 - `required` patches `md-filled-text-field.checkValidity`
 - Custom validity when typed but not selected
 - `positioning='popover'` falls back to `'fixed'` in Firefox
@@ -795,12 +879,12 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Import:** `import '@leavittsoftware/web/titanium/icon-picker/icon-picker.js'`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Property | `favorites` | `string[]` | |
-| Property | `whitelist` | `string` | Comma-separated icon names |
-| Property | `pathToSelectedText` | `string` | Default `'icon'` |
-| + | `TitaniumSingleSelectBase` props | | |
+| Kind     | Name                             | Type / values | Notes                      |
+| -------- | -------------------------------- | ------------- | -------------------------- |
+| Property | `favorites`                      | `string[]`    |                            |
+| Property | `whitelist`                      | `string`      | Comma-separated icon names |
+| Property | `pathToSelectedText`             | `string`      | Default `'icon'`           |
+| +        | `TitaniumSingleSelectBase` props |               |                            |
 
 **Events:** `selected`
 
@@ -812,13 +896,13 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Import:** `import '@leavittsoftware/web/titanium/smart-attachment-input/smart-attachment-input.js'`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Property | `accept`, `multiple`, `required`, `disabled` | | |
-| Property | `confirmDelete`, `confirmDeleteHeader`, `confirmDeleteText` | | |
-| Property | `addButtonLabel`, `label`, `supportingText`, `noItemsText` | `string` | |
-| Property | `options` | `CropperOptions` | Cropper.js config |
-| Attribute | `force-png` | `boolean` | |
+| Kind      | Name                                                        | Type / values    | Notes             |
+| --------- | ----------------------------------------------------------- | ---------------- | ----------------- |
+| Property  | `accept`, `multiple`, `required`, `disabled`                |                  |                   |
+| Property  | `confirmDelete`, `confirmDeleteHeader`, `confirmDeleteText` |                  |                   |
+| Property  | `addButtonLabel`, `label`, `supportingText`, `noItemsText`  | `string`         |                   |
+| Property  | `options`                                                   | `CropperOptions` | Cropper.js config |
+| Attribute | `force-png`                                                 | `boolean`        |                   |
 
 **Methods:** `getFiles()`, `setFiles(...)`, `setFilesFromDatabaseAttachments(...)`, `checkValidity()`, `reportValidity()`, `hasChanges()`, `reset()`, `handleNewFile(files)`
 
@@ -832,15 +916,17 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Purpose:** Filled MdField wrapper with custom `evaluator` validation function.
 
+**Material Web:** Extends `MdFilledField` — slotted content sits inside the MW field container.
+
 **Import:** `import '@leavittsoftware/web/titanium/input-validator/filled-input-validator.js'`
 
 **Source:** `titanium/input-validator/filled-input-validator.ts`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Property | `evaluator` | `() => boolean` | Custom validity check |
-| Property | `populated` | `boolean` | |
-| + | MdField props | `label`, `error`, `error-text`, `supporting-text`, `required` | |
+| Kind     | Name          | Type / values                                                 | Notes                 |
+| -------- | ------------- | ------------------------------------------------------------- | --------------------- |
+| Property | `evaluator`   | `() => boolean`                                               | Custom validity check |
+| Property | `populated`   | `boolean`                                                     |                       |
+| +        | MdField props | `label`, `error`, `error-text`, `supporting-text`, `required` |                       |
 
 **Methods:** `checkValidity()`, `reportValidity()`, `reset()`
 
@@ -854,13 +940,15 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Purpose:** Imperative promise-based confirm/cancel dialog.
 
+**Material Web:** Composes `md-dialog` with `md-text-button` / `md-filled-tonal-button` actions.
+
 **Import:** `import '@leavittsoftware/web/titanium/confirmation-dialog/confirmation-dialog.js'`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Property | `headline`, `text` | `string` | |
-| Property | `confirmActionText`, `cancelActionText` | `string` | |
-| Property | `disableConfirmationAction`, `disableCancelAction` | `boolean` | |
+| Kind     | Name                                               | Type / values | Notes |
+| -------- | -------------------------------------------------- | ------------- | ----- |
+| Property | `headline`, `text`                                 | `string`      |       |
+| Property | `confirmActionText`, `cancelActionText`            | `string`      |       |
+| Property | `disableConfirmationAction`, `disableCancelAction` | `boolean`     |       |
 
 **Methods:** `open(headline, text)` → `Promise<'cancel' | 'confirmed'>`
 
@@ -876,8 +964,8 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Import:** `import '@leavittsoftware/web/leavitt/user-feedback/provide-feedback-dialog.js'`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
+| Kind     | Name           | Type / values           | Notes        |
+| -------- | -------------- | ----------------------- | ------------ |
 | Property | `.userManager` | `AuthZeroLgUserManager` | **Required** |
 
 **Methods:** `show()`, `reset()`
@@ -892,8 +980,8 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Import:** `import '@leavittsoftware/web/leavitt/user-feedback/report-a-problem-dialog.js'`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
+| Kind     | Name           | Type / values           | Notes        |
+| -------- | -------------- | ----------------------- | ------------ |
 | Property | `.userManager` | `AuthZeroLgUserManager` | **Required** |
 
 **Methods:** `show()`, `reset()`
@@ -910,8 +998,8 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Import:** `import '@leavittsoftware/web/titanium/snackbar/snackbar-stack.js'`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
+| Kind     | Name                   | Type / values             | Notes              |
+| -------- | ---------------------- | ------------------------- | ------------------ |
 | Property | `.eventListenerTarget` | `HTMLElement \| Document` | Default `document` |
 
 **Methods:** `open(message, options?)`, `dismissAll()`
@@ -928,13 +1016,14 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Import:** `import '@leavittsoftware/web/titanium/circle-loading-indicator/circle-loading-indicator.js'`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Property | `.pendingStateElement` | `Element \| null` | |
+| Kind     | Name                   | Type / values     | Notes |
+| -------- | ---------------------- | ----------------- | ----- |
+| Property | `.pendingStateElement` | `Element \| null` |       |
 
 **Events listened:** `pending-state`
 
 **Usage notes / gotchas:**
+
 - Sets parent `inert` while open; 75ms open delay, 400ms min visible
 - **Must** dispatch `PendingStateEvent` for work — `isLoading` alone does not drive the overlay
 - Calls `stopPropagation()` on the event
@@ -947,10 +1036,10 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 **Import:** `import '@leavittsoftware/web/leavitt/error-page/error-page.js'`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
+| Kind     | Name      | Type / values              | Notes              |
+| -------- | --------- | -------------------------- | ------------------ |
 | Property | `heading` | `string \| TemplateResult` | Default `'Hmm...'` |
-| Property | `message` | `string \| TemplateResult` | |
+| Property | `message` | `string \| TemplateResult` |                    |
 
 **Usage notes / gotchas:** Extends `ThemePreference`; renders a self-contained `<canvas>` starfield (no external particle dependency) that drifts and twinkles, honors `prefers-reduced-motion`, and recolors on theme change.
 
@@ -964,13 +1053,13 @@ All extend `TitaniumSingleSelectBase` and fire `selected`. All require `.apiServ
 
 **Import:** `import '@leavittsoftware/web/leavitt/company-select/company-select.js'`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Property | `.apiService` | `ApiService` | **Required** |
-| Property | `apiControllerName` | `string` | Default `'Companies'` |
-| Property | `companies` | `Partial<Company>[]` | Preloaded list |
-| Property | `odataParts` | `string[]` | Default `orderby=Name,select=...` |
-| Property | `disableAutoLoad` | `boolean` | Skip auto-fetch on `firstUpdated` |
+| Kind     | Name                | Type / values        | Notes                             |
+| -------- | ------------------- | -------------------- | --------------------------------- |
+| Property | `.apiService`       | `ApiService`         | **Required**                      |
+| Property | `apiControllerName` | `string`             | Default `'Companies'`             |
+| Property | `companies`         | `Partial<Company>[]` | Preloaded list                    |
+| Property | `odataParts`        | `string[]`           | Default `orderby=Name,select=...` |
+| Property | `disableAutoLoad`   | `boolean`            | Skip auto-fetch on `firstUpdated` |
 
 **Methods:** `reloadCompanies()`, `reset()` (inherited)
 
@@ -982,14 +1071,14 @@ All extend `TitaniumSingleSelectBase` and fire `selected`. All require `.apiServ
 
 **Import:** `import '@leavittsoftware/web/leavitt/person-select/person-select.js'`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Property | `.apiService` | `ApiService` | **Required** |
-| Property | `apiControllerName` | `string` | |
-| Property | `odataParts` | `string[]` | |
-| Property | `searchType` | `local` \| `remote` | Remote uses OData `contains` on `FullName` |
-| Property | `enablePeoplePreloading` | `boolean` | |
-| Property | `people` | `Partial<Person>[]` | |
+| Kind     | Name                     | Type / values       | Notes                                      |
+| -------- | ------------------------ | ------------------- | ------------------------------------------ |
+| Property | `.apiService`            | `ApiService`        | **Required**                               |
+| Property | `apiControllerName`      | `string`            |                                            |
+| Property | `odataParts`             | `string[]`          |                                            |
+| Property | `searchType`             | `local` \| `remote` | Remote uses OData `contains` on `FullName` |
+| Property | `enablePeoplePreloading` | `boolean`           |                                            |
+| Property | `people`                 | `Partial<Person>[]` |                                            |
 
 ---
 
@@ -997,11 +1086,11 @@ All extend `TitaniumSingleSelectBase` and fire `selected`. All require `.apiServ
 
 **Import:** `import '@leavittsoftware/web/leavitt/person-company-select/person-company-select.js'`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Property | `.apiService` | `ApiService` | **Required** |
-| Property | `peopleApiControllerName` | `string` | |
-| Property | `companyApiControllerName` | `string` | |
+| Kind     | Name                       | Type / values | Notes        |
+| -------- | -------------------------- | ------------- | ------------ |
+| Property | `.apiService`              | `ApiService`  | **Required** |
+| Property | `peopleApiControllerName`  | `string`      |              |
+| Property | `companyApiControllerName` | `string`      |              |
 
 **Usage notes / gotchas:** Combined people + companies in one autocomplete
 
@@ -1011,11 +1100,11 @@ All extend `TitaniumSingleSelectBase` and fire `selected`. All require `.apiServ
 
 **Import:** `import '@leavittsoftware/web/leavitt/person-group-select/person-group-select.js'`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Property | `.apiService` | `ApiService` | **Required** |
-| Property | `peopleApiControllerName` | `string` | |
-| Property | `groupApiControllerName` | `string` | |
+| Kind     | Name                      | Type / values | Notes        |
+| -------- | ------------------------- | ------------- | ------------ |
+| Property | `.apiService`             | `ApiService`  | **Required** |
+| Property | `peopleApiControllerName` | `string`      |              |
+| Property | `groupApiControllerName`  | `string`      |              |
 
 **Usage notes / gotchas:** Searches people and people groups
 
@@ -1029,21 +1118,22 @@ All extend `TitaniumSingleSelectBase` and fire `selected`. All require `.apiServ
 
 **Import:** `import '@leavittsoftware/web/leavitt/file-explorer/file-explorer.js'`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Property | `.apiService` | `ApiService` | **Required** |
-| Attribute | `file-explorer-id` | `number` | |
-| Attribute | `folder-id` | `number \| null` | |
-| Attribute | `local-storage-display-key` | `string` | Persists grid/list preference |
-| Attribute | `prevent-navigation-up` | `boolean` | |
-| Property | `display` | `grid` \| `list` | Persisted |
-| Property | `state` | `no-permission` \| `files` \| `no-files` \| `error` | |
+| Kind      | Name                        | Type / values                                       | Notes                         |
+| --------- | --------------------------- | --------------------------------------------------- | ----------------------------- |
+| Property  | `.apiService`               | `ApiService`                                        | **Required**                  |
+| Attribute | `file-explorer-id`          | `number`                                            |                               |
+| Attribute | `folder-id`                 | `number \| null`                                    |                               |
+| Attribute | `local-storage-display-key` | `string`                                            | Persists grid/list preference |
+| Attribute | `prevent-navigation-up`     | `boolean`                                           |                               |
+| Property  | `display`                   | `grid` \| `list`                                    | Persisted                     |
+| Property  | `state`                     | `no-permission` \| `files` \| `no-files` \| `error` |                               |
 
 **Methods:** `reload()`
 
 **Events:** `folder-added`, `folder-deleted`, `file-added`, `file-deleted`, `PendingStateEvent`, `ShowSnackbarEvent`
 
 **Usage notes / gotchas:**
+
 - Subscribes to `fileExplorerEvents` bus for live modal sync
 - Uses `titanium-confirmation-dialog` for deletes
 - Internal modals: `leavitt-file-modal`, `leavitt-folder-modal`, `leavitt-add-folder-modal`
@@ -1058,13 +1148,12 @@ All extend `TitaniumSingleSelectBase` and fire `selected`. All require `.apiServ
 
 **Import:** `import '@leavittsoftware/web/leavitt/email-history-viewer/email-history-viewer-filled.js'`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Property | `isActive` | `boolean` | |
-| Property | `.apiService` | `ApiService` | **Required** |
-| Property | `path`, `apiControllerName` | `string` | |
-| Property | `.siteSearchTextFieldContext` | Lit context | Shared search field |
-| Property | `toolbarSearchTerm` | `string` | **Deprecated** |
+| Kind     | Name                          | Type / values | Notes               |
+| -------- | ----------------------------- | ------------- | ------------------- |
+| Property | `isActive`                    | `boolean`     |                     |
+| Property | `.apiService`                 | `ApiService`  | **Required**        |
+| Property | `path`, `apiControllerName`   | `string`      |                     |
+| Property | `.siteSearchTextFieldContext` | Lit context   | Shared search field |
 
 **Uses:** `titanium-page-control`, filter dialogs, `leavitt-view-sent-email-dialog`
 
@@ -1078,13 +1167,13 @@ All extend `TitaniumSingleSelectBase` and fire `selected`. All require `.apiServ
 
 **Import:** `import '@leavittsoftware/web/leavitt/profile-picture/profile-picture.js'`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Property | `fileName` | `string` | CDN filename |
-| Property | `shape` | `circle` \| `square` | |
-| Property | `size` | `number` | Pixels |
-| Property | `show-ring`, `show-test-user-indicator`, `useIntrinsicImageSize` | `boolean` | |
-| Property | `profile-picture-link-person-id` | `number` | Directory link |
+| Kind     | Name                                                             | Type / values        | Notes          |
+| -------- | ---------------------------------------------------------------- | -------------------- | -------------- |
+| Property | `fileName`                                                       | `string`             | CDN filename   |
+| Property | `shape`                                                          | `circle` \| `square` |                |
+| Property | `size`                                                           | `number`             | Pixels         |
+| Property | `show-ring`, `show-test-user-indicator`, `useIntrinsicImageSize` | `boolean`            |                |
+| Property | `profile-picture-link-person-id`                                 | `number`             | Directory link |
 
 **CSS parts:** `test-user-indicator`
 
@@ -1096,11 +1185,11 @@ All extend `TitaniumSingleSelectBase` and fire `selected`. All require `.apiServ
 
 **Import:** `import '@leavittsoftware/web/leavitt/profile-picture/profile-picture-menu.js'`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Property | `.userManager` | `AuthZeroLgUserManager` | |
-| Property | `size`, `profilePictureFileName`, `personId`, `email`, `company`, `name` | | |
-| Property | `positioning` | `popover` \| `fixed` | |
+| Kind     | Name                                                                     | Type / values           | Notes |
+| -------- | ------------------------------------------------------------------------ | ----------------------- | ----- |
+| Property | `.userManager`                                                           | `AuthZeroLgUserManager` |       |
+| Property | `size`, `profilePictureFileName`, `personId`, `email`, `company`, `name` |                         |       |
+| Property | `positioning`                                                            | `popover` \| `fixed`    |       |
 
 **Slots:** `content`
 
@@ -1114,12 +1203,12 @@ All extend `TitaniumSingleSelectBase` and fire `selected`. All require `.apiServ
 
 **Import:** `import '@leavittsoftware/web/titanium/profile-picture-stack/profile-picture-stack.js'`
 
-| Kind | Name | Type / values | Notes |
-|------|------|---------------|-------|
-| Property | `people` | `Partial<Person>[]` | |
-| Property | `max` | `number` | Max visible |
-| Property | `size`, `overlap` | `number` | |
-| Property | `enable-directory-href`, `show-full-name`, `auto-resize` | `boolean` | |
+| Kind     | Name                                                     | Type / values       | Notes       |
+| -------- | -------------------------------------------------------- | ------------------- | ----------- |
+| Property | `people`                                                 | `Partial<Person>[]` |             |
+| Property | `max`                                                    | `number`            | Max visible |
+| Property | `size`, `overlap`                                        | `number`            |             |
+| Property | `enable-directory-href`, `show-full-name`, `auto-resize` | `boolean`           |             |
 
 **CSS parts:** `additional-users`, `additional-users-paragraph`, `name`, `profile-picture`
 
@@ -1143,13 +1232,13 @@ All extend `TitaniumSingleSelectBase` and fire `selected`. All require `.apiServ
 
 ## Events
 
-| Symbol | Import path | Event name | Payload / usage |
-|--------|-------------|------------|-----------------|
-| `ShowSnackbarEvent` | `titanium/snackbar/show-snackbar-event` | `show-snackbar` | `message: string \| Partial<HttpError>`, optional `SnackbarOptions` |
-| `PendingStateEvent` | `titanium/types/pending-state-event` | `pending-state` | `{ promise: Promise<unknown> }`; bubbles, composed |
-| `DateRangeChangedEvent` | `titanium/date-range-selector/date-range-change-event` | `date-range-changed` | Class exists; `titanium-date-range-selector` fires `change` instead |
-| `ThemePreferenceEvent` | `leavitt/theme/theme-preference-event` | theme preference changes | Subscribe for dark/light switches |
-| `DataTableItemsReorderedEvent` | `titanium/data-table/data-table-core` | `titanium-data-table-items-reorder` | Exported from data-table-core; core dispatches `items-reordered` on apply |
+| Symbol                         | Import path                                            | Event name                          | Payload / usage                                                           |
+| ------------------------------ | ------------------------------------------------------ | ----------------------------------- | ------------------------------------------------------------------------- |
+| `ShowSnackbarEvent`            | `titanium/snackbar/show-snackbar-event`                | `show-snackbar`                     | `message: string \| Partial<HttpError>`, optional `SnackbarOptions`       |
+| `PendingStateEvent`            | `titanium/types/pending-state-event`                   | `pending-state`                     | `{ promise: Promise<unknown> }`; bubbles, composed                        |
+| `DateRangeChangedEvent`        | `titanium/date-range-selector/date-range-change-event` | `date-range-changed`                | Class exists; `titanium-date-range-selector` fires `change` instead       |
+| `ThemePreferenceEvent`         | `leavitt/theme/theme-preference-event`                 | theme preference changes            | Subscribe for dark/light switches                                         |
+| `DataTableItemsReorderedEvent` | `titanium/data-table/data-table-core`                  | `titanium-data-table-items-reorder` | Exported from data-table-core; core dispatches `items-reordered` on apply |
 
 ## Services
 
@@ -1157,14 +1246,14 @@ All extend `TitaniumSingleSelectBase` and fire `selected`. All require `.apiServ
 
 **Import:** `leavitt/api-service/api-service`
 
-| Method | Notes |
-|--------|-------|
-| `getAsync<T>(urlPath)` | Returns `ODataResponse<T>` |
-| `postAsync<T>(urlPath, body?)` | JSON POST |
-| `putAsync`, `patchAsync`, `deleteAsync` | Standard verbs |
-| `uploadFile(urlPath, file, onprogress, options?)` | XHR upload with progress |
-| `aggregateResponses(promises)` | Batch multiple async ops |
-| `addHeader(key, value)` | e.g. `X-LGAppName` |
+| Method                                            | Notes                      |
+| ------------------------------------------------- | -------------------------- |
+| `getAsync<T>(urlPath)`                            | Returns `ODataResponse<T>` |
+| `postAsync<T>(urlPath, body?)`                    | JSON POST                  |
+| `putAsync`, `patchAsync`, `deleteAsync`           | Standard verbs             |
+| `uploadFile(urlPath, file, onprogress, options?)` | XHR upload with progress   |
+| `aggregateResponses(promises)`                    | Batch multiple async ops   |
+| `addHeader(key, value)`                           | e.g. `X-LGAppName`         |
 
 **Response helpers:** `ODataResponse.toList()`, `.odataCount`
 
@@ -1178,52 +1267,54 @@ Auth0 integration for `profile-picture-menu`, feedback dialogs. Provides `identi
 
 ## Controllers and buses
 
-| Symbol | Import path | Purpose |
-|--------|-------------|---------|
-| `FilterController` | `titanium/data-table/filter-controller` | URL query-string filter state for list pages |
-| `TitaniumSiteSearchTextFieldController` | `titanium/site-search-text-field-controller/site-search-text-field-controller` | App-level shared search field via Lit context |
-| `EventBus` | `titanium/event-bus/event-bus` | Typed pub/sub (`subscribe`, `dispatch`, `unsubscribe`) |
-| `fileExplorerEvents` | `leavitt/file-explorer/events/file-explorer-events` | File explorer modal sync bus |
+| Symbol                                  | Import path                                                                    | Purpose                                                |
+| --------------------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------ |
+| `FilterController`                      | `titanium/data-table/filter-controller`                                        | URL query-string filter state for list pages           |
+| `TitaniumSiteSearchTextFieldController` | `titanium/site-search-text-field-controller/site-search-text-field-controller` | App-level shared search field via Lit context          |
+| `EventBus`                              | `titanium/event-bus/event-bus`                                                 | Typed pub/sub (`subscribe`, `dispatch`, `unsubscribe`) |
+| `fileExplorerEvents`                    | `leavitt/file-explorer/events/file-explorer-events`                            | File explorer modal sync bus                           |
 
 ## Contexts
 
-| Context | Import path |
-|---------|-------------|
-| `mainMenuPositionContext` | `leavitt/app/contexts/main-menu-position-context` |
+| Context                          | Import path                                                                    |
+| -------------------------------- | ------------------------------------------------------------------------------ |
+| `mainMenuPositionContext`        | `leavitt/app/contexts/main-menu-position-context`                              |
 | `TitaniumTextFieldSearchContext` | `titanium/site-search-text-field-controller/site-search-text-field-controller` |
 
 ## Mixins and decorators
 
-| Symbol | Import path | Purpose |
-|--------|-------------|---------|
-| `promiseTracking` | `titanium/helpers/promise-tracking` | `@promiseTracking('methodName')` decorator for loading flags |
-| `PendingStateCatcher` | `titanium/helpers/pending-state-catcher` | Mixin to catch pending-state on host |
-| `ThemePreference` | `leavitt/theme/theme-preference` | Dark/light theme mixin |
+| Symbol                | Import path                              | Purpose                                                      |
+| --------------------- | ---------------------------------------- | ------------------------------------------------------------ |
+| `promiseTracking`     | `titanium/helpers/promise-tracking`      | `@promiseTracking('methodName')` decorator for loading flags |
+| `PendingStateCatcher` | `titanium/helpers/pending-state-catcher` | Mixin to catch pending-state on host                         |
+| `ThemePreference`     | `leavitt/theme/theme-preference`         | Dark/light theme mixin                                       |
+
+These apply to the **host class** (`LitElement` or `Md*` subclass). They stack with Material Web properties on the same element when the component extends an `Md*` class, or apply to the wrapper when the component composes inner `md-*` children (see **Material Web foundation**).
 
 ## Helpers (selected)
 
-| Symbol | Import path | Purpose |
-|--------|-------------|---------|
-| `Debouncer` | `titanium/helpers/debouncer` | Debounced async calls |
-| `delay` | `titanium/helpers/delay` | Promise delay |
-| `getCdnDownloadUrl`, `getCdnInlineUrl` | `titanium/helpers/get-cdn-download-url`, `get-cdn-Inline-url` | CDN attachment URLs |
-| `getCompanyMarkUrl`, `getCompanyLogoUrl` | `titanium/helpers/get-company-mark-url`, `get-company-logo-url` | Company branding URLs |
-| `formatAddress`, address utils | `titanium/helpers/address/*` | Address formatting |
-| Phone formatters | `titanium/helpers/phone-numbers/*` | Phone number display |
-| `convertArrayToCsv`, `startCsvDownload` | `titanium/helpers/csv/*` | CSV export |
-| `getSearchTokens` | `titanium/helpers/get-search-token` | OData search token parsing |
-| `escapeTerm` | `titanium/helpers/escape-term` | OData string escaping |
-| `groupBy`, `join`, `middleEllipsis` | `titanium/helpers/*` | General utilities |
-| `notNull`, `notUndefined`, `notNullOrUndefined` | `titanium/helpers/*` | Type guards |
-| `installMediaQueryWatcher` | `titanium/helpers/install-media-query-watcher` | Responsive layout callback |
-| `findScrollableParent` | `titanium/helpers/find-scrollable-parent` | Scroll container detection |
-| `isDevelopment` | `titanium/helpers/is-development` | Dev environment detection |
+| Symbol                                          | Import path                                                     | Purpose                    |
+| ----------------------------------------------- | --------------------------------------------------------------- | -------------------------- |
+| `Debouncer`                                     | `titanium/helpers/debouncer`                                    | Debounced async calls      |
+| `delay`                                         | `titanium/helpers/delay`                                        | Promise delay              |
+| `getCdnDownloadUrl`, `getCdnInlineUrl`          | `titanium/helpers/get-cdn-download-url`, `get-cdn-Inline-url`   | CDN attachment URLs        |
+| `getCompanyMarkUrl`, `getCompanyLogoUrl`        | `titanium/helpers/get-company-mark-url`, `get-company-logo-url` | Company branding URLs      |
+| `formatAddress`, address utils                  | `titanium/helpers/address/*`                                    | Address formatting         |
+| Phone formatters                                | `titanium/helpers/phone-numbers/*`                              | Phone number display       |
+| `convertArrayToCsv`, `startCsvDownload`         | `titanium/helpers/csv/*`                                        | CSV export                 |
+| `getSearchTokens`                               | `titanium/helpers/get-search-token`                             | OData search token parsing |
+| `escapeTerm`                                    | `titanium/helpers/escape-term`                                  | OData string escaping      |
+| `groupBy`, `join`, `middleEllipsis`             | `titanium/helpers/*`                                            | General utilities          |
+| `notNull`, `notUndefined`, `notNullOrUndefined` | `titanium/helpers/*`                                            | Type guards                |
+| `installMediaQueryWatcher`                      | `titanium/helpers/install-media-query-watcher`                  | Responsive layout callback |
+| `findScrollableParent`                          | `titanium/helpers/find-scrollable-parent`                       | Scroll container detection |
+| `isDevelopment`                                 | `titanium/helpers/is-development`                               | Dev environment detection  |
 
 ## Hacks
 
-| Module | Import path | When to use |
-|--------|-------------|-------------|
-| `dialogCloseNavigationHack` | `titanium/hacks/dialog-navigation-hack` | Close dialog on SPA navigation without breaking history |
-| `dialogZindexHack` | `titanium/hacks/dialog-zindex-hack` | Stacking context issues with nested dialogs |
-| `dialogOverflowHacks` | `titanium/hacks/dialog-overflow-hacks` | Body scroll lock with dialogs |
-| `reportValidityIfError` | `titanium/hacks/report-validity-if-error` | Form validation helper |
+| Module                      | Import path                               | When to use                                             |
+| --------------------------- | ----------------------------------------- | ------------------------------------------------------- |
+| `dialogCloseNavigationHack` | `titanium/hacks/dialog-navigation-hack`   | Close dialog on SPA navigation without breaking history |
+| `dialogZindexHack`          | `titanium/hacks/dialog-zindex-hack`       | Stacking context issues with nested dialogs             |
+| `dialogOverflowHacks`       | `titanium/hacks/dialog-overflow-hacks`    | Body scroll lock with dialogs                           |
+| `reportValidityIfError`     | `titanium/hacks/report-validity-if-error` | Form validation helper                                  |

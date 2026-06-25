@@ -39,7 +39,6 @@ import {
   TitaniumSiteSearchTextFieldController,
   TitaniumTextFieldSearchContext,
 } from '@leavittsoftware/web/titanium/site-search-text-field-controller/site-search-text-field-controller';
-import { Debouncer } from '@leavittsoftware/web/titanium/helpers/debouncer';
 import { isDevelopment } from '@leavittsoftware/web/titanium/helpers/is-development';
 
 import dayjs from 'dayjs/esm';
@@ -60,13 +59,6 @@ export default class LeavittEmailHistoryViewerFilled extends LitElement {
   @property({ type: String }) public accessor path: string = '';
   @property({ type: Object }) public accessor siteSearchTextFieldContext!: TitaniumTextFieldSearchContext;
   @property({ type: String }) accessor apiControllerName: string = 'EmailTemplateLogs';
-
-  /**
-   * @deprecated use the siteSearchTextFieldController + siteSearchTextFieldContext instead
-   */
-  @property({ type: String }) public accessor toolbarSearchTerm: string = '';
-
-  @state() public accessor searchTerm: string = '';
 
   // Data table props
   @state() private accessor items: Array<ItemType> = [];
@@ -161,14 +153,6 @@ export default class LeavittEmailHistoryViewerFilled extends LitElement {
       this.#reload();
     }
 
-    if (this.isActive && changedProps.has('toolbarSearchTerm') && this.searchTerm !== this.toolbarSearchTerm) {
-      this.searchTerm = this.toolbarSearchTerm;
-      if (this.pageControl) {
-        this.pageControl.page = 0;
-      }
-      this.#doSearchDebouncer.debounce();
-    }
-
     if (changedProps.has('path')) {
       this.filterController.path = this.path;
     }
@@ -198,14 +182,10 @@ export default class LeavittEmailHistoryViewerFilled extends LitElement {
   }
 
   async #reload() {
-    const { items, odataCount } = await this.#getItemsAsync(
-      this.siteSearchTextFieldContext ? (this.searchController?.searchTerm ?? null) : (this.searchTerm ?? null)
-    );
+    const { items, odataCount } = await this.#getItemsAsync(this.searchController?.searchTerm ?? null);
     this.items = items;
     this.resultTotal = odataCount;
   }
-
-  #doSearchDebouncer = new Debouncer(() => this.#reload());
 
   renderRecipients(recipients: string | null, maxRecipients: number = 1) {
     const recipientsList =

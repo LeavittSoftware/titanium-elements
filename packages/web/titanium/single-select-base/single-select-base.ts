@@ -339,7 +339,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
         --md-filled-text-field-hover-active-indicator-height: 0;
         --md-filled-text-field-focus-active-indicator-height: 0;
         --md-filled-text-field-disabled-active-indicator-height: 0;
-      }
+
         --md-filled-text-field-input-text-size: 1.125rem;
         --md-filled-text-field-input-text-line-height: 1.75rem;
         --md-filled-text-field-label-text-size: 1.125rem;

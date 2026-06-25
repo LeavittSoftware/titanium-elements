@@ -70,6 +70,8 @@ Paths mirror the source tree under `packages/web/`. Use `.js` extensions when im
 
 For per-component API (properties, methods, events, slots, CSS parts, and implementation notes), see [`packages/web/CLAUDE.md`](packages/web/CLAUDE.md).
 
+Most titanium/leavitt elements **extend or compose** `@material/web` components (`MdFilledTextField`, `md-dialog`, etc.). Mixins, validation, and `--md-*` styling often apply to those Material Web bases — see **Material Web foundation** in `packages/web/CLAUDE.md` before assuming a component is a plain `LitElement` wrapper.
+
 After install, consuming projects find the same file at:
 
 ```
@@ -99,7 +101,7 @@ Update [`packages/web/CLAUDE.md`](packages/web/CLAUDE.md) in the **same PR** whe
 
 ## Contributing Conventions
 
-- Extend `LitElement`; register with `@customElement('kebab-case-name')` (must include a hyphen)
+- Extend `LitElement` or the appropriate `@material/web` base (e.g. `MdFilledTextField`); register with `@customElement('kebab-case-name')` (must include a hyphen)
 - Use `@property() accessor` / `@state() accessor` (omit `accessor` on `@provide` / `@consume` context properties)
 - Side-effect imports for element registration; deep paths mirror source tree
 - Use `promiseTracking` for loading state on page components (`LoadWhile` mixin removed; `titanium-data-table-core.loadWhile()` remains as a deprecated alias for `trackLoadingPromise`)

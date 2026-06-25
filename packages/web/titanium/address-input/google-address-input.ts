@@ -11,7 +11,7 @@ import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
 import { setOptions, importLibrary } from '@googlemaps/js-api-loader';
 
 import '@material/web/icon/icon';
-import { placeResultToAddress } from './utils/place-result-to-address';
+import { placeToAddress } from './utils/place-result-to-address';
 import { addressToString } from './utils/address-to-string';
 import { AddressInputAddress } from './types/address-input-address';
 import { validateStreet } from './utils/validate-street';
@@ -44,8 +44,8 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
 
   #doSearchDebouncer = new Debouncer((searchTerm: string) => this.#doSearch(searchTerm));
   #abortController: AbortController = new AbortController();
-  #placesService!: google.maps.places.PlacesService;
-  #autoCompleteService!: google.maps.places.AutocompleteService;
+  #sessionToken: google.maps.places.AutocompleteSessionToken | undefined;
+  #placePredictions = new Map<string, google.maps.places.PlacePrediction>();
 
   async firstUpdated() {
     setOptions({
@@ -54,9 +54,12 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
     });
 
     await importLibrary('places');
+    this.#renewSessionToken();
+  }
 
-    this.#placesService = new google.maps.places.PlacesService(document.createElement('div'));
-    this.#autoCompleteService = new google.maps.places.AutocompleteService();
+  #renewSessionToken() {
+    this.#placePredictions.clear();
+    this.#sessionToken = new google.maps.places.AutocompleteSessionToken();
   }
 
   updated(changedProps: PropertyValues<this>) {
@@ -73,49 +76,59 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
   }
 
   async #getSuggestions(searchTerm: string) {
-    return new Promise<AddressInputAddress[] | null>((res) => {
-      const autoCompletionRequest: google.maps.places.AutocompletionRequest = {
-        input: searchTerm,
-        types: ['address'],
-      };
-      if (!this.allowInternational) {
-        autoCompletionRequest.componentRestrictions = { country: ['us'] };
-      }
-      this.#autoCompleteService.getPlacePredictions(autoCompletionRequest, (predictions: google.maps.places.AutocompletePrediction[] | null, status) => {
-        if (status != google.maps.places.PlacesServiceStatus.OK || !predictions) {
-          console.warn(status);
-          return res([]);
+    const request: google.maps.places.AutocompleteRequest = {
+      input: searchTerm,
+      sessionToken: this.#sessionToken,
+      includedPrimaryTypes: ['street_address'],
+    };
+    if (!this.allowInternational) {
+      request.includedRegionCodes = ['us'];
+    }
+
+    try {
+      const { suggestions } = await google.maps.places.AutocompleteSuggestion.fetchAutocompleteSuggestions(request);
+
+      this.#placePredictions.clear();
+      const results: AddressInputAddress[] = [];
+
+      for (const suggestion of suggestions) {
+        const prediction = suggestion.placePrediction;
+        if (!prediction) {
+          continue;
         }
 
-        return res(
-          predictions.map(
-            (o) =>
-              ({
-                Id: o.place_id,
-                primaryDisplayText: o?.structured_formatting?.main_text || o.description,
-                secondaryText: o.structured_formatting?.secondary_text,
-              }) satisfies AddressInputAddress
-          )
-        );
-      });
-    });
+        this.#placePredictions.set(prediction.placeId, prediction);
+        results.push({
+          Id: prediction.placeId,
+          primaryDisplayText: prediction.mainText?.text ?? prediction.text.text,
+          secondaryText: prediction.secondaryText?.text,
+        });
+      }
+
+      return results;
+    } catch (error) {
+      throw new Error(this.#getPlacesApiErrorMessage(error), { cause: error });
+    }
+  }
+
+  #getPlacesApiErrorMessage(error: unknown) {
+    const message = String((error as Error)?.message ?? error);
+    if (message.includes('SERVICE_DISABLED')) {
+      return 'Google Places API (New) is not enabled for this API key. In Google Cloud Console, enable "Places API (New)" and "Maps JavaScript API" for the project that owns the key.';
+    }
+    return message;
   }
 
   async #getPlaceDetail(placeId: string) {
-    return new Promise<google.maps.places.PlaceResult>((res, rej) => {
-      const request: google.maps.places.PlaceDetailsRequest = {
-        placeId: placeId,
-        fields: ['address_components', 'formatted_address', 'geometry'],
-      };
+    const prediction = this.#placePredictions.get(placeId);
+    const place = prediction?.toPlace() ?? new google.maps.places.Place({ id: placeId });
 
-      this.#placesService.getDetails(request, (place, status) => {
-        if (status != google.maps.places.PlacesServiceStatus.OK || !place) {
-          return rej(status);
-        }
-
-        return res(place);
-      });
+    const { place: fetchedPlace } = await place.fetchFields({
+      fields: ['addressComponents', 'formattedAddress', 'location'],
     });
+
+    this.#renewSessionToken();
+    return fetchedPlace;
   }
 
   async #doSearch(searchTerm: string) {
@@ -199,7 +212,7 @@ export class GoogleAddressInput extends TitaniumSingleSelectBase<AddressInputAdd
     if (entity) {
       try {
         const place = await this.#getPlaceDetail(entity.Id);
-        const address = placeResultToAddress(place);
+        const address = placeToAddress(place);
         if (address) {
           entity = { ...entity, ...address };
         }
