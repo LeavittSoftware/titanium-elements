@@ -81,7 +81,7 @@ export class TitaniumDataTable extends LitElement {
   /**
    * Disables all item selection on the data-table.
    */
-  @property({ type: Boolean, attribute: 'disable-select' }) accessor disableSelect: boolean = false;
+  @property({ type: Boolean, reflect: true, attribute: 'disable-select' }) accessor disableSelect: boolean = false;
 
   /**
    * Disables paging.

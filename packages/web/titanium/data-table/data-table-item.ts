@@ -44,7 +44,7 @@ export class TitaniumDataTableItem extends LitElement {
   /**
    *  Disables ability to select this row.
    */
-  @property({ type: Boolean, attribute: 'disable-select' }) accessor disableSelect: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'disable-select' }) accessor disableSelect: boolean;
 
   /**
    *  Sets if view port is small

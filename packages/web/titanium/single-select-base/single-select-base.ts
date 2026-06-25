@@ -41,7 +41,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
   /**
    *  Swaps out outlined text field for a filled text field.
    */
-  @property({ type: Boolean, attribute: 'filled' }) accessor filled: boolean = false;
+  @property({ type: Boolean, reflect: true, attribute: 'filled' }) accessor filled: boolean = false;
 
   /**
    *  Sets placeholder text value.
@@ -147,8 +147,8 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
   @state() protected accessor count: number;
 
   @property({ type: Boolean, attribute: 'menu-open', reflect: true }) private accessor menuOpen: boolean = false;
-  @property({ type: Boolean, attribute: 'large' }) accessor large: boolean = false;
-  @property({ type: Boolean, attribute: 'shaped' }) accessor shaped: boolean = false;
+  @property({ type: Boolean, reflect: true, attribute: 'large' }) accessor large: boolean = false;
+  @property({ type: Boolean, reflect: true, attribute: 'shaped' }) accessor shaped: boolean = false;
 
   getTextField() {
     return this.filled ? this.shadowRoot?.querySelector('md-filled-text-field') : this.shadowRoot?.querySelector('md-outlined-text-field');

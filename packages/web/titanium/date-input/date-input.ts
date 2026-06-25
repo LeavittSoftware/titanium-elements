@@ -91,7 +91,7 @@ export class TitaniumDateInput extends LitElement {
   /**
    *  Swaps out outlined text field for a filled text field.
    */
-  @property({ type: Boolean, attribute: 'filled' }) accessor filled: boolean = false;
+  @property({ type: Boolean, reflect: true, attribute: 'filled' }) accessor filled: boolean = false;
 
   @property({ type: Boolean, reflect: true }) accessor required = false;
 

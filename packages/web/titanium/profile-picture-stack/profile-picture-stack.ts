@@ -31,7 +31,7 @@ export class TitaniumProfilePictureStack extends LitElement {
    * This will open a new tab to the directory profile of the person.
    * This will only work if the person has an Id.
    */
-  @property({ type: Boolean, attribute: 'enable-directory-href' }) accessor enableDirectoryHref: boolean = false;
+  @property({ type: Boolean, reflect: true, attribute: 'enable-directory-href' }) accessor enableDirectoryHref: boolean = false;
 
   /**
    * Toggle to show the full name of the person if there is one result in the stack.

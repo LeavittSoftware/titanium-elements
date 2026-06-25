@@ -49,10 +49,6 @@ export class TitaniumDataTableActionBar<T extends object> extends LitElement {
         }
       }
 
-      :host([has-search][has-add-button]) div[add-button] {
-        margin: 0 0 0 12px;
-      }
-
       selected-action-veil {
         display: none;
         grid: 'text buttons' / minmax(min-content, 1fr) auto;

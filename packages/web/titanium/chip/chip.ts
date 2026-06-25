@@ -58,7 +58,7 @@ export class TitaniumChip extends LitElement {
    */
   @property({ type: Boolean, reflect: true }) accessor disabled: boolean = false;
 
-  @property({ type: Boolean }) accessor filled: boolean = false;
+  @property({ type: Boolean, reflect: true }) accessor filled: boolean = false;
 
   @property({ type: Boolean, reflect: true, attribute: 'has-leading-items' }) private accessor hasLeadingItems = false;
   @property({ type: Boolean, reflect: true, attribute: 'has-trailing-items' }) private accessor hasTrailingItems = false;
