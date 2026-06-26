@@ -23,7 +23,11 @@ When bumping `@leavittsoftware/web` in a downstream project, read every entry **
 
 ### Unreleased
 
-**Upgrade if coming from:** `< unreleased` (published latest is `9.9.0`)
+**Upgrade if coming from:** `< unreleased` (published latest is `10.0.1`)
+
+### 10.1.0
+
+**Upgrade if coming from:** `< 10.1.0` (published latest is `10.0.1`)
 
 **Search downstream for:**
 
@@ -38,30 +42,42 @@ When bumping `@leavittsoftware/web` in a downstream project, read every entry **
 - `filled` attribute on date-input, date-range-selector, chip, chip-multi-select, page-control, show-hide, smart-attachment-input, single-select-base subclasses, manual-address-dialog
 - `always-show-content` on `titanium-drawer`
 - `toolbarSearchTerm`, `toolbar-search-term` on `leavitt-email-history-viewer-filled`
+- `change-route` — composed event from `titanium-data-table-core` row clicks (not `@change-route` on other elements)
+- `ChangePathEvent`, `@${ChangePathEvent.eventName}` — app-shell listeners wired only for table row navigation
+- `page` / `from 'page'` — Page.js router in app shell (`my-app.ts`)
+
+**Adopt when upgrading to this version:**
+
+- **Migrate away from Page.js** — `FilterController` and `titanium-data-table-core` row navigation now depend on the [Navigation API](https://developer.mozilla.org/en-US/docs/Web/API/Navigation_API) (`window.navigation`). Page.js apps may lose automatic URL→filter sync on browsers without Navigation API support, and table row links no longer dispatch `change-route` for Page.js to handle. Replace Page.js with a Navigation API router using `AppRoute` types from `titanium/helpers/route` (see skeleton.leavitt.com `develop`). Until migrated, call `filterController.loadFromQueryString()` when list pages become active (`isActive`).
 
 **Removed** — delete imports/usages:
 
-| Removed                                                                                                   | Replacement                                                                               |
-| --------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| `@leavittsoftware/web/titanium/helpers/load-while`                                                        | `@promiseTracking` on page components — see Loading — `promiseTracking`                   |
-| `titanium-confirm-dialog`                                                                                 | `titanium-confirmation-dialog`                                                            |
-| `titanium-error-page`                                                                                     | `leavitt-error-page`                                                                      |
-| Legacy `titanium-data-table`, `-item`, `-header`                                                          | `titanium-data-table-core` + action bar + page control                                    |
-| `leavitt-user-feedback`                                                                                   | `provide-feedback-dialog` / `report-a-problem-dialog` directly                            |
-| `leavitt/email-history-viewer/email-history-viewer`                                                       | `leavitt-email-history-viewer-filled` only                                                |
-| `titanium-card`, `titanium-header`, `titanium-access-denied-page`, `titanium-full-page-loading-indicator` | App-specific UI (no direct replacement)                                                   |
-| Outlined / unqualified input variants                                                                     | Filled paths only (e.g. `filled-search-input`, `filled-duration-input`)                   |
-| `always-show-content` on `titanium-drawer`                                                                | Set `mode="inline"` / `mode="flyover"` and call `open()` for inline sidebars              |
-| `toolbarSearchTerm` / `toolbar-search-term` on `leavitt-email-history-viewer-filled`                      | `.siteSearchTextFieldContext` + `TitaniumSiteSearchTextFieldController` — see Site search |
+| Removed                                                                                                   | Replacement                                                                                                     |
+| --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `@leavittsoftware/web/titanium/helpers/load-while`                                                        | `@promiseTracking` on page components — see Loading — `promiseTracking`                                         |
+| `titanium-confirm-dialog`                                                                                 | `titanium-confirmation-dialog`                                                                                  |
+| `titanium-error-page`                                                                                     | `leavitt-error-page`                                                                                            |
+| Legacy `titanium-data-table`, `-item`, `-header`                                                          | `titanium-data-table-core` + action bar + page control                                                          |
+| `leavitt-user-feedback`                                                                                   | `provide-feedback-dialog` / `report-a-problem-dialog` directly                                                  |
+| `leavitt/email-history-viewer/email-history-viewer`                                                       | `leavitt-email-history-viewer-filled` only                                                                      |
+| `titanium-card`, `titanium-header`, `titanium-access-denied-page`, `titanium-full-page-loading-indicator` | App-specific UI (no direct replacement)                                                                         |
+| Outlined / unqualified input variants                                                                     | Filled paths only (e.g. `filled-search-input`, `filled-duration-input`)                                         |
+| `always-show-content` on `titanium-drawer`                                                                | Set `mode="inline"` / `mode="flyover"` and call `open()` for inline sidebars                                    |
+| `toolbarSearchTerm` / `toolbar-search-term` on `leavitt-email-history-viewer-filled`                      | `.siteSearchTextFieldContext` + `TitaniumSiteSearchTextFieldController` — see Site search                       |
+| `change-route` event from `titanium-data-table-core` (`itemLinkUrl` row clicks)                           | Navigation API: row clicks call `window.navigation.navigate(...)`; use `itemClickHandler` for custom navigation |
+| App-shell `change-route` / `ChangePathEvent` listeners for table links only                               | Remove listener; adopt a Navigation API router (see `AppRoute` in `titanium/helpers/route`)                     |
 
 **Renamed / API changes:**
 
 - Page-level `LoadWhile` mixin / `this.loadWhile()` on the page host → `@promiseTracking` + `trackLoadingPromise` (see Loading — `promiseTracking`)
 - `dataTable.loadWhile(promise)` — **still supported** via deprecated alias on `titanium-data-table-core`; prefer `trackLoadingPromise` in new code
 - `itemMetaData[].sortExpression` → `getSortExpression: () => string` (since 9.0; still required if not yet migrated)
+- `FilterController` constructor `path` — still a `regexparam` pattern string (e.g. `/people/:id?`); assign `.path` when the active route is known (same as before)
 
 **Behavior / styling:**
 
+- `titanium-data-table-core` row clicks with `itemLinkUrl` navigate via `window.navigation.navigate(...)` — no composed `change-route` event
+- `FilterController` syncs filter values from the query string on Navigation API `currententrychange` (when pathname matches `path`); no longer monkey-patches `history.pushState` / `history.replaceState`. Requires `window.navigation` (Chrome, Edge, Safari 17.4+, Firefox 147+). Filter writes still use `history.replaceState`.
 - `filled` attribute removed from dual-style components — filled Material styling is always on
 - `google-address-input` uses `@googlemaps/js-api-loader` v2 internally; consumers still only pass `googleMapsApiKey` — no bundler `process` shim required. Enable **Places API (New)** (`places.googleapis.com`) plus **Maps JavaScript API** on the key's GCP project (legacy Places API is not enough).
 - `leavitt-error-page` no longer uses tsParticles; no consumer particle config to migrate
@@ -70,7 +86,7 @@ When bumping `@leavittsoftware/web` in a downstream project, read every entry **
 
 **Upgrade if coming from:** `< 9.4.0`
 
-**Adopt before unreleased / 10.x:**
+**Adopt before 10.x:**
 
 - `@promiseTracking` decorator added — preferred for page-level loading flags
 - If page components still `extend LoadWhile(LitElement)`, migrate to `@promiseTracking` + `trackLoadingPromise` before upgrading past 9.9.x
@@ -113,30 +129,30 @@ Most `titanium-*` and `leavitt-*` elements are **built on** [Material Web](https
 
 ### Extend vs compose
 
-| Pattern | What it means | Where to look for extra API |
-| ------- | ------------- | --------------------------- |
-| **Extends** | `class TitaniumFoo extends MdFilledTextField` (or `MdFilledField`, etc.) | Material Web docs for that base class — properties, attributes, methods, slots, and CSS parts apply on the **titanium tag** |
-| **Composes** | `class TitaniumFoo extends LitElement` and renders `<md-filled-text-field>` (or `md-dialog`, `md-menu`, …) in `render()` | This file + Material Web docs for the **inner** `md-*` tag; the titanium tag exposes its own curated API |
+| Pattern      | What it means                                                                                                            | Where to look for extra API                                                                                                 |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| **Extends**  | `class TitaniumFoo extends MdFilledTextField` (or `MdFilledField`, etc.)                                                 | Material Web docs for that base class — properties, attributes, methods, slots, and CSS parts apply on the **titanium tag** |
+| **Composes** | `class TitaniumFoo extends LitElement` and renders `<md-filled-text-field>` (or `md-dialog`, `md-menu`, …) in `render()` | This file + Material Web docs for the **inner** `md-*` tag; the titanium tag exposes its own curated API                    |
 
 Titanium **mixins and decorators** (`ThemePreference`, `promiseTracking`, …) apply to the **host class** they decorate. They do not replace Material Web behavior — an input that extends `MdFilledTextField` still has all text-field properties; one that composes `md-filled-text-field` exposes titanium properties on the host and Material Web behavior on the child.
 
 ### Published components by pattern
 
-| Tag / family | Pattern | Material Web base or key children |
-| ------------ | ------- | --------------------------------- |
-| `titanium-filled-duration-input` | extends | `MdFilledTextField` |
-| `titanium-filled-youtube-input` | extends | `MdFilledTextField` |
-| `titanium-filled-input-validator` | extends | `MdFilledField` |
-| `titanium-filled-search-input` | composes | `md-filled-text-field` |
-| `titanium-date-input` | composes | `md-filled-field` |
-| `titanium-date-range-selector` | composes | `md-filled-field`, `md-menu`, `md-list` |
-| `titanium-single-select-base` and all `leavitt-*-select`, `titanium-icon-picker`, `google-address-input` | composes | `md-filled-text-field`, `md-menu`, `md-menu-item` |
-| `titanium-chip-multi-select` | composes | `titanium-filled-input-validator` (extends `MdFilledField`); slots intended for `md-filled-tonal-button`, `md-input-chip` |
-| `titanium-confirmation-dialog` and most modal/dialog components | composes | `md-dialog` (+ `md-filled-button` / `md-text-button` actions) |
-| `titanium-data-table-core` | composes | `md-checkbox`, `md-icon-button`, `md-menu` |
-| `titanium-page-control` | composes | `md-filled-select` |
-| `titanium-chip` | composes | `md-ripple`, `md-focus-ring` (custom chip — not `md-chip`) |
-| Snackbars, toolbars, many app-shell pieces | composes | assorted `md-icon`, `md-icon-button`, `md-filled-button`, etc. |
+| Tag / family                                                                                             | Pattern  | Material Web base or key children                                                                                         |
+| -------------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `titanium-filled-duration-input`                                                                         | extends  | `MdFilledTextField`                                                                                                       |
+| `titanium-filled-youtube-input`                                                                          | extends  | `MdFilledTextField`                                                                                                       |
+| `titanium-filled-input-validator`                                                                        | extends  | `MdFilledField`                                                                                                           |
+| `titanium-filled-search-input`                                                                           | composes | `md-filled-text-field`                                                                                                    |
+| `titanium-date-input`                                                                                    | composes | `md-filled-field`                                                                                                         |
+| `titanium-date-range-selector`                                                                           | composes | `md-filled-field`, `md-menu`, `md-list`                                                                                   |
+| `titanium-single-select-base` and all `leavitt-*-select`, `titanium-icon-picker`, `google-address-input` | composes | `md-filled-text-field`, `md-menu`, `md-menu-item`                                                                         |
+| `titanium-chip-multi-select`                                                                             | composes | `titanium-filled-input-validator` (extends `MdFilledField`); slots intended for `md-filled-tonal-button`, `md-input-chip` |
+| `titanium-confirmation-dialog` and most modal/dialog components                                          | composes | `md-dialog` (+ `md-filled-button` / `md-text-button` actions)                                                             |
+| `titanium-data-table-core`                                                                               | composes | `md-checkbox`, `md-icon-button`, `md-menu`                                                                                |
+| `titanium-page-control`                                                                                  | composes | `md-filled-select`                                                                                                        |
+| `titanium-chip`                                                                                          | composes | `md-ripple`, `md-focus-ring` (custom chip — not `md-chip`)                                                                |
+| Snackbars, toolbars, many app-shell pieces                                                               | composes | assorted `md-icon`, `md-icon-button`, `md-filled-button`, etc.                                                            |
 
 When a component **extends** `MdFilledTextField` or `MdFilledField`, consumers can use standard Material field properties on the titanium tag: `label`, `error`, `error-text`, `supporting-text`, `required`, `disabled`, `prefix-text`, `suffix-text`, `checkValidity()`, `reportValidity()`, `setCustomValidity()`, leading/trailing icon slots, and documented CSS parts.
 
@@ -222,11 +238,11 @@ Place `<titanium-snackbar-stack>` in the app shell; it listens for `show-snackba
 ```ts
 import { FilterController } from '@leavittsoftware/web/titanium/data-table/filter-controller';
 
-filterController = new FilterController('my-page-route');
+filterController = new FilterController('/my-page/:id?');
 // Register Filter instances; syncs with query string; getActiveFilterOdata() for OData $filter
 ```
 
-The constructor `path` should match the page's route path.
+The constructor `path` is a `regexparam` pattern matching the page route (same pattern as app route tables). Assign `.path` when the active route is known. Requires the [Navigation API](https://developer.mozilla.org/en-US/docs/Web/API/Navigation_API) (`window.navigation`) so filter values reload on `currententrychange`; filter writes still update the URL via `history.replaceState`.
 
 ### Site search — `TitaniumSiteSearchTextFieldController`
 
@@ -302,18 +318,18 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 - `friendlyName` values: sentence case
 - Reorder: listen `@reorder-save-request`, call `e.detail.resolve()` on success or `e.detail.reject(error)` on failure — the reorder dialog shows errors via its own snackbar; don't snackbar in the save handler
 - On refetch: don't clear rows (layout jank); use `trackLoadingPromise` / `disabled` on the table
-- Dispatches `change-route` (composed) when row has `itemLinkUrl`; `items-reordered` when reorder dialog applies
+- Navigates via `window.navigation.navigate(itemLinkUrl(item))` when a row has `itemLinkUrl`; dispatches `items-reordered` when reorder dialog applies
 
 ## Inheritance bases
 
 Titanium class inheritance (in addition to Material Web extend/compose — see **Material Web foundation**):
 
-| Base                       | Path                                             | Used by                                                                     |
-| -------------------------- | ------------------------------------------------ | --------------------------------------------------------------------------- |
-| `MdFilledTextField`        | `@material/web/textfield/filled-text-field`      | `titanium-filled-duration-input`, `titanium-filled-youtube-input`           |
-| `MdFilledField`            | `@material/web/field/filled-field`               | `titanium-filled-input-validator`                                           |
-| `TitaniumSingleSelectBase` | `titanium/single-select-base/single-select-base` | All `leavitt-*-select`, `titanium-icon-picker`, `google-address-input`      |
-| `google-address-input`     | `titanium/address-input/google-address-input`    | `titanium-address-input`                                                    |
+| Base                       | Path                                             | Used by                                                                                                    |
+| -------------------------- | ------------------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
+| `MdFilledTextField`        | `@material/web/textfield/filled-text-field`      | `titanium-filled-duration-input`, `titanium-filled-youtube-input`                                          |
+| `MdFilledField`            | `@material/web/field/filled-field`               | `titanium-filled-input-validator`                                                                          |
+| `TitaniumSingleSelectBase` | `titanium/single-select-base/single-select-base` | All `leavitt-*-select`, `titanium-icon-picker`, `google-address-input`                                     |
+| `google-address-input`     | `titanium/address-input/google-address-input`    | `titanium-address-input`                                                                                   |
 | `ThemePreference` mixin    | `leavitt/theme/theme-preference`                 | `leavitt-app-logo`, `leavitt-error-page`, `leavitt-service-worker-notifier`, `titanium-single-select-base` |
 
 ---
@@ -575,8 +591,9 @@ Titanium class inheritance (in addition to Material Web extend/compose — see *
 - `selected-changed` (composed)
 - `sort-changed`
 - `items-reordered` — `CustomEvent<T[]>`
-- `change-route` — `CustomEvent<{ path: string }>` (composed)
 - `reorder-save-request` — delegate with `resolve()` / `reject(error)`
+
+Row clicks with `itemLinkUrl` navigate directly via `window.navigation.navigate(...)` (no `change-route` event).
 
 **Slots:** `settings-menu-items`
 
@@ -1267,12 +1284,12 @@ Auth0 integration for `profile-picture-menu`, feedback dialogs. Provides `identi
 
 ## Controllers and buses
 
-| Symbol                                  | Import path                                                                    | Purpose                                                |
-| --------------------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------ |
-| `FilterController`                      | `titanium/data-table/filter-controller`                                        | URL query-string filter state for list pages           |
-| `TitaniumSiteSearchTextFieldController` | `titanium/site-search-text-field-controller/site-search-text-field-controller` | App-level shared search field via Lit context          |
-| `EventBus`                              | `titanium/event-bus/event-bus`                                                 | Typed pub/sub (`subscribe`, `dispatch`, `unsubscribe`) |
-| `fileExplorerEvents`                    | `leavitt/file-explorer/events/file-explorer-events`                            | File explorer modal sync bus                           |
+| Symbol                                  | Import path                                                                    | Purpose                                                                       |
+| --------------------------------------- | ------------------------------------------------------------------------------ | ----------------------------------------------------------------------------- |
+| `FilterController`                      | `titanium/data-table/filter-controller`                                        | URL query-string filter state; listens on Navigation API `currententrychange` |
+| `TitaniumSiteSearchTextFieldController` | `titanium/site-search-text-field-controller/site-search-text-field-controller` | App-level shared search field via Lit context                                 |
+| `EventBus`                              | `titanium/event-bus/event-bus`                                                 | Typed pub/sub (`subscribe`, `dispatch`, `unsubscribe`)                        |
+| `fileExplorerEvents`                    | `leavitt/file-explorer/events/file-explorer-events`                            | File explorer modal sync bus                                                  |
 
 ## Contexts
 
@@ -1293,22 +1310,23 @@ These apply to the **host class** (`LitElement` or `Md*` subclass). They stack w
 
 ## Helpers (selected)
 
-| Symbol                                          | Import path                                                     | Purpose                    |
-| ----------------------------------------------- | --------------------------------------------------------------- | -------------------------- |
-| `Debouncer`                                     | `titanium/helpers/debouncer`                                    | Debounced async calls      |
-| `delay`                                         | `titanium/helpers/delay`                                        | Promise delay              |
-| `getCdnDownloadUrl`, `getCdnInlineUrl`          | `titanium/helpers/get-cdn-download-url`, `get-cdn-Inline-url`   | CDN attachment URLs        |
-| `getCompanyMarkUrl`, `getCompanyLogoUrl`        | `titanium/helpers/get-company-mark-url`, `get-company-logo-url` | Company branding URLs      |
-| `formatAddress`, address utils                  | `titanium/helpers/address/*`                                    | Address formatting         |
-| Phone formatters                                | `titanium/helpers/phone-numbers/*`                              | Phone number display       |
-| `convertArrayToCsv`, `startCsvDownload`         | `titanium/helpers/csv/*`                                        | CSV export                 |
-| `getSearchTokens`                               | `titanium/helpers/get-search-token`                             | OData search token parsing |
-| `escapeTerm`                                    | `titanium/helpers/escape-term`                                  | OData string escaping      |
-| `groupBy`, `join`, `middleEllipsis`             | `titanium/helpers/*`                                            | General utilities          |
-| `notNull`, `notUndefined`, `notNullOrUndefined` | `titanium/helpers/*`                                            | Type guards                |
-| `installMediaQueryWatcher`                      | `titanium/helpers/install-media-query-watcher`                  | Responsive layout callback |
-| `findScrollableParent`                          | `titanium/helpers/find-scrollable-parent`                       | Scroll container detection |
-| `isDevelopment`                                 | `titanium/helpers/is-development`                               | Dev environment detection  |
+| Symbol                                          | Import path                                                     | Purpose                                                                         |
+| ----------------------------------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `Debouncer`                                     | `titanium/helpers/debouncer`                                    | Debounced async calls                                                           |
+| `delay`                                         | `titanium/helpers/delay`                                        | Promise delay                                                                   |
+| `getCdnDownloadUrl`, `getCdnInlineUrl`          | `titanium/helpers/get-cdn-download-url`, `get-cdn-Inline-url`   | CDN attachment URLs                                                             |
+| `getCompanyMarkUrl`, `getCompanyLogoUrl`        | `titanium/helpers/get-company-mark-url`, `get-company-logo-url` | Company branding URLs                                                           |
+| `formatAddress`, address utils                  | `titanium/helpers/address/*`                                    | Address formatting                                                              |
+| Phone formatters                                | `titanium/helpers/phone-numbers/*`                              | Phone number display                                                            |
+| `convertArrayToCsv`, `startCsvDownload`         | `titanium/helpers/csv/*`                                        | CSV export                                                                      |
+| `getSearchTokens`                               | `titanium/helpers/get-search-token`                             | OData search token parsing                                                      |
+| `escapeTerm`                                    | `titanium/helpers/escape-term`                                  | OData string escaping                                                           |
+| `groupBy`, `join`, `middleEllipsis`             | `titanium/helpers/*`                                            | General utilities                                                               |
+| `notNull`, `notUndefined`, `notNullOrUndefined` | `titanium/helpers/*`                                            | Type guards                                                                     |
+| `installMediaQueryWatcher`                      | `titanium/helpers/install-media-query-watcher`                  | Responsive layout callback                                                      |
+| `findScrollableParent`                          | `titanium/helpers/find-scrollable-parent`                       | Scroll container detection                                                      |
+| `isDevelopment`                                 | `titanium/helpers/is-development`                               | Dev environment detection                                                       |
+| `AppRoute`, `PageRoute`, `RedirectRoute`        | `titanium/helpers/route`                                        | Route table types for Navigation API SPA routers (`URLPattern` + lazy `import`) |
 
 ## Hacks
 

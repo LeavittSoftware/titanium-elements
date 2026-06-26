@@ -689,13 +689,7 @@ export class TitaniumDataTableCore<T extends object> extends LitElement {
                       if (this.tableMetaData?.itemClickHandler) {
                         this.tableMetaData.itemClickHandler(item);
                       } else if (this.tableMetaData?.itemLinkUrl?.(item)) {
-                        this.dispatchEvent(
-                          new CustomEvent<{ path: string }>('change-route', {
-                            bubbles: true,
-                            composed: true,
-                            detail: { path: this.tableMetaData?.itemLinkUrl?.(item) ?? '' },
-                          })
-                        );
+                        window.navigation.navigate(this.tableMetaData.itemLinkUrl(item) ?? '');
                       }
                     } else if (this.selectionMode === 'single') {
                       this.selected = [item];

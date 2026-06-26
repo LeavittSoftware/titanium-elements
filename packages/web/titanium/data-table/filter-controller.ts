@@ -23,22 +23,13 @@ export class FilterController<TKey extends string> {
    */
   constructor(path: string) {
     this.path = path;
-    const pushState = history.pushState.bind(history);
-    history.pushState = (...args) => {
-      pushState(...args);
+
+    window.navigation?.addEventListener('currententrychange', () => {
       const pathRegex = parse(this.path);
       if (pathRegex.pattern.test(window.location.pathname)) {
         this.loadFromQueryString();
       }
-    };
-    const replaceState = history.replaceState.bind(history);
-    history.replaceState = (...args) => {
-      replaceState(...args);
-      const pathRegex = parse(this.path);
-      if (pathRegex.pattern.test(window.location.pathname)) {
-        this.loadFromQueryString();
-      }
-    };
+    });
   }
 
   /**
