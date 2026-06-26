@@ -301,6 +301,14 @@ export class TitaniumDataTableCoreDemo extends LitElement {
         width: '250px',
         hideByDefault: true,
       },
+      {
+        key: 'Actions',
+        friendlyName: 'Actions',
+        disableSort: true,
+        omitFromCsv: true,
+        render: (item) => html`<md-icon-button @click=${() => alert(`View ${item.Name}`)}><md-icon>visibility</md-icon></md-icon-button>`,
+        width: '80px',
+      },
     ],
     maxCustomSortColumns: 6,
     reorderConfig: {

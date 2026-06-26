@@ -48,6 +48,7 @@ export type TitaniumDataTableCoreItemMetaData<T extends object> = {
   key: string;
   render: (item: T) => TemplateResult;
   csvValue?: (item: T) => string | number | boolean | null | undefined;
+  omitFromCsv?: boolean;
   friendlyName?: string;
   hideByDefault?: boolean;
   getSortExpression?: () => string;
@@ -589,8 +590,9 @@ export class TitaniumDataTableCore<T extends object> extends LitElement {
                               this.orderByUserPreference(
                                 this.tableMetaData?.itemMetaData?.filter(
                                   (o) =>
-                                    (!o.hideByDefault && this.userSettings.find((s) => s.key === o.key)?.show) ||
-                                    this.userSettings.find((s) => s.key === o.key)?.show
+                                    ((!o.hideByDefault && this.userSettings.find((s) => s.key === o.key)?.show) ||
+                                      this.userSettings.find((s) => s.key === o.key)?.show) &&
+                                    !o.omitFromCsv
                                 ) ?? [],
                                 this.userSettings
                               ) ?? [];

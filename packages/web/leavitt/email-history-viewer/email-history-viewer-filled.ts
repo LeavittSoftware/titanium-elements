@@ -109,7 +109,7 @@ export default class LeavittEmailHistoryViewerFilled extends LitElement {
         disableSort: true,
         render: (item) =>
           html`<md-filled-tonal-icon-button @click=${() => this.viewDialog?.open?.(item?.Id ?? 0)}><md-icon>pageview</md-icon></md-filled-tonal-icon-button>`,
-        csvValue: () => '',
+        omitFromCsv: true,
         width: '60px',
       },
     ],

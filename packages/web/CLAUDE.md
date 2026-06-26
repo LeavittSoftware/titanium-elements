@@ -23,11 +23,15 @@ When bumping `@leavittsoftware/web` in a downstream project, read every entry **
 
 ### Unreleased
 
-**Upgrade if coming from:** `< unreleased` (published latest is `10.0.1`)
+**Upgrade if coming from:** `< unreleased` (published latest is `10.0.2`)
 
-### 10.1.0
+**Adopt when upgrading to this version:**
 
-**Upgrade if coming from:** `< 10.1.0` (published latest is `10.0.1`)
+- `TitaniumDataTableCoreItemMetaData.omitFromCsv` — set on action/button columns to exclude them from built-in CSV export; use `csvValue` when a complex `render` column should export a scalar value
+
+### 10.0.0
+
+**Upgrade if coming from:** `< 10.0.0`
 
 **Search downstream for:**
 
@@ -316,6 +320,8 @@ tableMetaData: TitaniumDataTableCoreMetaData<MyItem> = {
 
 - Sort/column prefs persist in `localStorage` under `local-storage-key`
 - `friendlyName` values: sentence case
+- `csvValue` — custom scalar for CSV when `render` is display-only (nested objects, formatted dates)
+- `omitFromCsv` — exclude action/button columns from CSV export entirely (column stays visible in the table)
 - Reorder: listen `@reorder-save-request`, call `e.detail.resolve()` on success or `e.detail.reject(error)` on failure — the reorder dialog shows errors via its own snackbar; don't snackbar in the save handler
 - On refetch: don't clear rows (layout jank); use `trackLoadingPromise` / `disabled` on the table
 - Navigates via `window.navigation.navigate(itemLinkUrl(item))` when a row has `itemLinkUrl`; dispatches `items-reordered` when reorder dialog applies
@@ -607,6 +613,7 @@ Row clicks with `itemLinkUrl` navigate directly via `window.navigation.navigate(
 - Don't clear rows on refetch (scrollbar jank); disable controls via `disabled` / `isLoading`
 - Status columns: use `<span indicator green>` / `red` (see cross-cutting patterns)
 - `friendlyName` on column metadata: sentence case
+- `csvValue` / `omitFromCsv` on column metadata — see **Data tables** cross-cutting patterns
 
 ---
 
