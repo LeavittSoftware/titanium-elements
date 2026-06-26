@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@10.0.2...@leavittsoftware/web@10.1.0) (2026-06-26)
+
+
+### Features
+
+* **data-table:** add omitFromCsv for CSV export ([81058d8](https://github.com/LeavittSoftware/titanium-elements/commit/81058d80b3991c5fe10cf847674f85a76c780cb2))
+
+
+
+
+
 ## [10.0.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@10.0.1...@leavittsoftware/web@10.0.2) (2026-06-26)
 
 **Note:** Version bump only for package @leavittsoftware/web
