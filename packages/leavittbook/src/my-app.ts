@@ -17,7 +17,7 @@ import '@material/web/progress/circular-progress';
 
 import './shared/npm-stats';
 
-import { ChangePathEvent, RedirectPathEvent, SiteErrorEvent } from './events';
+import { SiteErrorEvent } from './events';
 import { LitElement, css, html, nothing } from 'lit';
 import { PendingStateEvent } from '@leavittsoftware/web/titanium/types/pending-state-event';
 import { customElement, property, query, state } from 'lit/decorators.js';
@@ -27,8 +27,8 @@ import { h4, p } from '@leavittsoftware/web/titanium/styles/styles';
 import { ReportAProblemDialog } from '@leavittsoftware/web/leavitt/user-feedback/report-a-problem-dialog';
 import { ProvideFeedbackDialog } from '@leavittsoftware/web/leavitt/user-feedback/provide-feedback-dialog';
 
-import page from 'page';
 import themePreferenceEvent from '@leavittsoftware/web/leavitt/theme/theme-preference-event';
+import type { AppRoute } from '@leavittsoftware/web/titanium/helpers/route';
 import UserManager from './services/user-manager-service';
 import { PendingStateCatcher } from '@leavittsoftware/web/titanium/helpers/pending-state-catcher';
 import { mainMenuPositionContext } from '@leavittsoftware/web/leavitt/app/contexts/main-menu-position-context';
@@ -51,6 +51,163 @@ export class MyApp extends PendingStateCatcher(LitElement) {
   @query('titanium-drawer') private accessor drawer!: TitaniumDrawer;
 
   #resizeObserver: ResizeObserver | null = null;
+
+  #routes: AppRoute[] = [
+    { pattern: new URLPattern({ pathname: '/getting-started' }), page: 'getting-started', import: () => import('./getting-started.js') },
+    { pattern: new URLPattern({ pathname: '/available-cdn-icons' }), page: 'available-cdn-icons', import: () => import('./demos/available-cdn-icons-demo.js') },
+    {
+      pattern: new URLPattern({ pathname: '/leavitt-company-select' }),
+      page: 'leavitt-company-select',
+      import: () => import('./demos/leavitt-company-select-demo.js'),
+    },
+    {
+      pattern: new URLPattern({ pathname: '/leavitt-file-explorer' }),
+      page: 'leavitt-file-explorer',
+      import: () => import('./demos/leavitt-file-explorer-demo.js'),
+    },
+    {
+      pattern: new URLPattern({ pathname: '/titanium-date-range-selector' }),
+      page: 'titanium-date-range-selector',
+      import: () => import('./demos/titanium-date-range-selector-demo.js'),
+    },
+    {
+      pattern: new URLPattern({ pathname: '/leavitt-person-select' }),
+      page: 'leavitt-person-select',
+      import: () => import('./demos/leavitt-person-select-demo.js'),
+    },
+    {
+      pattern: new URLPattern({ pathname: '/leavitt-person-company-select' }),
+      page: 'leavitt-person-company-select',
+      import: () => import('./demos/leavitt-person-company-select-demo.js'),
+    },
+    {
+      pattern: new URLPattern({ pathname: '/leavitt-person-group-select' }),
+      page: 'leavitt-person-group-select',
+      import: () => import('./demos/leavitt-person-group-select-demo.js'),
+    },
+    {
+      pattern: new URLPattern({ pathname: '/leavitt-email-history-viewer' }),
+      page: 'leavitt-email-history-viewer',
+      import: () => import('./demos/leavitt-email-history-viewer-demo.js'),
+    },
+    { pattern: new URLPattern({ pathname: '/leavitt-error-page' }), page: 'leavitt-error-page', import: () => import('./demos/leavitt-error-page-demo.js') },
+    { pattern: new URLPattern({ pathname: '/profile-picture' }), page: 'profile-picture', import: () => import('./demos/profile-picture-demo.js') },
+    {
+      pattern: new URLPattern({ pathname: '/profile-picture-menu' }),
+      page: 'profile-picture-menu',
+      import: () => import('./demos/profile-picture-menu-demo.js'),
+    },
+    {
+      pattern: new URLPattern({ pathname: '/titanium-data-table-core' }),
+      page: 'titanium-data-table-core',
+      import: () => import('./demos/titanium-data-table-core-demo.js'),
+    },
+    { pattern: new URLPattern({ pathname: '/titanium-drawer' }), page: 'titanium-drawer', import: () => import('./demos/titanium-drawer-demo.js') },
+    {
+      pattern: new URLPattern({ pathname: '/titanium-address-input' }),
+      page: 'titanium-address-input',
+      import: () => import('./demos/titanium-address-input-demo.js'),
+    },
+    {
+      pattern: new URLPattern({ pathname: '/titanium-icon-picker' }),
+      page: 'titanium-icon-picker',
+      import: () => import('./demos/titanium-icon-picker-demo.js'),
+    },
+    {
+      pattern: new URLPattern({ pathname: '/titanium-chip-multi-select' }),
+      page: 'titanium-chip-multi-select',
+      import: () => import('./demos/titanium-chip-multi-select-demo.js'),
+    },
+    {
+      pattern: new URLPattern({ pathname: '/titanium-input-validator' }),
+      page: 'titanium-input-validator',
+      import: () => import('./demos/titanium-input-validator-demo.js'),
+    },
+    {
+      pattern: new URLPattern({ pathname: '/titanium-promise-tracking' }),
+      page: 'titanium-promise-tracking',
+      import: () => import('./demos/titanium-promise-tracking-demo.js'),
+    },
+    {
+      pattern: new URLPattern({ pathname: '/titanium-page-control' }),
+      page: 'titanium-page-control',
+      import: () => import('./demos/titanium-page-control-demo.js'),
+    },
+    {
+      pattern: new URLPattern({ pathname: '/titanium-smart-attachment-input' }),
+      page: 'titanium-smart-attachment-input',
+      import: () => import('./demos/titanium-smart-attachment-input-demo.js'),
+    },
+    { pattern: new URLPattern({ pathname: '/titanium-date-input' }), page: 'titanium-date-input', import: () => import('./demos/titanium-date-input-demo.js') },
+    {
+      pattern: new URLPattern({ pathname: '/titanium-search-input' }),
+      page: 'titanium-search-input',
+      import: () => import('./demos/titanium-search-input-demo.js'),
+    },
+    { pattern: new URLPattern({ pathname: '/titanium-toolbar' }), page: 'titanium-toolbar', import: () => import('./demos/titanium-toolbar-demo.js') },
+    { pattern: new URLPattern({ pathname: '/titanium-styles' }), page: 'titanium-styles', import: () => import('./demos/titanium-styles-demo.js') },
+    { pattern: new URLPattern({ pathname: '/titanium-snackbar' }), page: 'titanium-snackbar', import: () => import('./demos/titanium-snackbar-demo.js') },
+    { pattern: new URLPattern({ pathname: '/titanium-chip' }), page: 'titanium-chip', import: () => import('./demos/titanium-chip-demo.js') },
+    {
+      pattern: new URLPattern({ pathname: '/titanium-youtube-input' }),
+      page: 'titanium-youtube-input',
+      import: () => import('./demos/titanium-youtube-input-demo.js'),
+    },
+    { pattern: new URLPattern({ pathname: '/titanium-show-hide' }), page: 'titanium-show-hide', import: () => import('./demos/titanium-show-hide-demo.js') },
+    {
+      pattern: new URLPattern({ pathname: '/titanium-duration-input' }),
+      page: 'titanium-duration-input',
+      import: () => import('./demos/titanium-duration-input-demo.js'),
+    },
+    {
+      pattern: new URLPattern({ pathname: '/titanium-profile-picture-stack' }),
+      page: 'titanium-profile-picture-stack',
+      import: () => import('./demos/titanium-profile-picture-stack-demo.js'),
+    },
+    {
+      pattern: new URLPattern({ pathname: '/titanium-confirmation-dialog' }),
+      page: 'titanium-confirmation-dialog',
+      import: () => import('./demos/titanium-confirmation-dialog-demo.js'),
+    },
+    { pattern: new URLPattern({ pathname: '/' }), redirect: '/getting-started' },
+  ];
+
+  #onNavigate = (event: NavigateEvent) => {
+    if (!event.canIntercept || event.hashChange || event.downloadRequest !== null) {
+      return;
+    }
+    const url = new URL(event.destination.url);
+    if (url.origin !== location.origin) {
+      return;
+    }
+    event.intercept({ handler: () => this.#route(url) });
+  };
+
+  async #route(url: URL) {
+    const { pathname } = url;
+
+    if (this.drawer?.mode === 'flyover') {
+      this.drawer.close();
+    }
+
+    for (const route of this.#routes) {
+      const match = route.pattern.exec({ pathname });
+      if (!match) {
+        continue;
+      }
+      const params = match.pathname.groups as Record<string, string>;
+
+      if ('redirect' in route) {
+        const target = typeof route.redirect === 'function' ? route.redirect(params) : route.redirect;
+        window.navigation.navigate(target, { history: 'replace' });
+        return;
+      }
+
+      await this.#changePage(route.page, route.import);
+      return;
+    }
+    this.#showErrorPage();
+  }
 
   async connectedCallback() {
     super.connectedCallback();
@@ -120,91 +277,26 @@ export class MyApp extends PendingStateCatcher(LitElement) {
 
     this.#resizeObserver.observe(this);
 
-    this.addEventListener(ChangePathEvent.eventName, ((event: ChangePathEvent) => {
-      page.show(event.detail.path);
-    }) as EventListener);
-
-    this.addEventListener(RedirectPathEvent.eventName, ((event: RedirectPathEvent) => {
-      page.redirect(event.detail.path);
-    }) as EventListener);
-
     this.addEventListener(SiteErrorEvent.eventName, ((event: SiteErrorEvent) => {
       this.fatalErrorMessage = event.detail;
       this.#changePage('error');
     }) as EventListener);
 
-    page('*', (_ctx, next) => {
-      if (this.drawer?.mode === 'flyover') {
-        this.drawer.close();
-      }
-      next();
-    });
+    if (!('navigation' in window)) {
+      this.#showErrorPage('This app requires a browser with Navigation API support.', 'Unsupported browser');
+      return;
+    }
 
-    page('/', async () => {
-      page.show('/getting-started');
-    });
-    page('/getting-started', () => this.#changePage('getting-started', () => import('./getting-started.js')));
-    page('/available-cdn-icons', () => this.#changePage('available-cdn-icons', () => import('./demos/available-cdn-icons-demo.js')));
-
-    page('/leavitt-company-select', () => this.#changePage('leavitt-company-select', () => import('./demos/leavitt-company-select-demo.js')));
-    page('/leavitt-file-explorer', () => this.#changePage('leavitt-file-explorer', () => import('./demos/leavitt-file-explorer-demo.js')));
-
-    page('/titanium-date-range-selector', () => this.#changePage('titanium-date-range-selector', () => import('./demos/titanium-date-range-selector-demo.js')));
-
-    page('/leavitt-person-select', () => this.#changePage('leavitt-person-select', () => import('./demos/leavitt-person-select-demo.js')));
-    page('/leavitt-person-company-select', () =>
-      this.#changePage('leavitt-person-company-select', () => import('./demos/leavitt-person-company-select-demo.js'))
-    );
-    page('/leavitt-person-group-select', () => this.#changePage('leavitt-person-group-select', () => import('./demos/leavitt-person-group-select-demo.js')));
-
-    page('/leavitt-email-history-viewer', () => this.#changePage('leavitt-email-history-viewer', () => import('./demos/leavitt-email-history-viewer-demo.js')));
-
-    page('/leavitt-error-page', () => this.#changePage('leavitt-error-page', () => import('./demos/leavitt-error-page-demo.js')));
-    page('/profile-picture', () => this.#changePage('profile-picture', () => import('./demos/profile-picture-demo.js')));
-    page('/profile-picture-menu', () => this.#changePage('profile-picture-menu', () => import('./demos/profile-picture-menu-demo.js')));
-
-    page('/titanium-data-table-core', () => this.#changePage('titanium-data-table-core', () => import('./demos/titanium-data-table-core-demo.js')));
-    page('/titanium-drawer', () => this.#changePage('titanium-drawer', () => import('./demos/titanium-drawer-demo.js')));
-    page('/titanium-address-input', () => this.#changePage('titanium-address-input', () => import('./demos/titanium-address-input-demo.js')));
-    page('/titanium-icon-picker', () => this.#changePage('titanium-icon-picker', () => import('./demos/titanium-icon-picker-demo.js')));
-
-    page('/titanium-chip-multi-select', () => this.#changePage('titanium-chip-multi-select', () => import('./demos/titanium-chip-multi-select-demo.js')));
-    page('/titanium-input-validator', () => this.#changePage('titanium-input-validator', () => import('./demos/titanium-input-validator-demo.js')));
-    page('/titanium-promise-tracking', () => this.#changePage('titanium-promise-tracking', () => import('./demos/titanium-promise-tracking-demo.js')));
-
-    page('/titanium-page-control', () => this.#changePage('titanium-page-control', () => import('./demos/titanium-page-control-demo.js')));
-
-    page('/titanium-smart-attachment-input', () =>
-      this.#changePage('titanium-smart-attachment-input', () => import('./demos/titanium-smart-attachment-input-demo.js'))
-    );
-    page('/titanium-date-input', () => this.#changePage('titanium-date-input', () => import('./demos/titanium-date-input-demo.js')));
-
-    page('/titanium-search-input', () => this.#changePage('titanium-search-input', () => import('./demos/titanium-search-input-demo.js')));
-
-    page('/titanium-toolbar', () => this.#changePage('titanium-toolbar', () => import('./demos/titanium-toolbar-demo.js')));
-
-    page('/titanium-styles', () => this.#changePage('titanium-styles', () => import('./demos/titanium-styles-demo.js')));
-    page('/titanium-snackbar', () => this.#changePage('titanium-snackbar', () => import('./demos/titanium-snackbar-demo.js')));
-    page('/titanium-chip', () => this.#changePage('titanium-chip', () => import('./demos/titanium-chip-demo.js')));
-    page('/titanium-youtube-input', () => this.#changePage('titanium-youtube-input', () => import('./demos/titanium-youtube-input-demo.js')));
-    page('/titanium-show-hide', () => this.#changePage('titanium-show-hide', () => import('./demos/titanium-show-hide-demo.js')));
-    page('/titanium-duration-input', () => this.#changePage('titanium-duration-input', () => import('./demos/titanium-duration-input-demo.js')));
-    page('/titanium-profile-picture-stack', () =>
-      this.#changePage('titanium-profile-picture-stack', () => import('./demos/titanium-profile-picture-stack-demo.js'))
-    );
-
-    page('/titanium-confirmation-dialog', () => this.#changePage('titanium-confirmation-dialog', () => import('./demos/titanium-confirmation-dialog-demo.js')));
-
-    page('*', () => {
-      this.#showErrorPage();
-    });
-
-    page.start();
+    window.navigation.addEventListener('navigate', this.#onNavigate);
+    this.#route(new URL(location.href));
   }
 
   async disconnectedCallback() {
     await super.disconnectedCallback();
     this.#resizeObserver?.disconnect();
+    if ('navigation' in window) {
+      window.navigation.removeEventListener('navigate', this.#onNavigate);
+    }
   }
 
   #getActivePageElement(mainPage: string): PageElement | null {

@@ -14,7 +14,10 @@ Component APIs live in [`packages/web/CLAUDE.md`](../web/CLAUDE.md).
 
 1. Copy an existing demo (e.g. [`src/demos/leavitt-error-page-demo.ts`](src/demos/leavitt-error-page-demo.ts)) → `src/demos/<name>-demo.ts`
 2. Register in [`src/my-app.ts`](src/my-app.ts):
-   - `page('/route', …)` lazy import
+   - Add an `AppRoute` entry to `#routes` (see [`titanium/helpers/route`](../web/titanium/helpers/route.ts)):
+     ```ts
+     { pattern: new URLPattern({ pathname: '/my-route' }), page: 'my-route', import: () => import('./demos/my-demo.js') },
+     ```
    - `<md-list-item href="…">` in the drawer (`level1Text` must match the nav label)
    - `${this.page === 'route-key' ? html`<…-demo></…-demo>` : nothing}` in `<main-content>`
 3. Run `npm start` (CEM watch keeps `custom-elements.json` current)
@@ -35,6 +38,8 @@ leavitt-app-main-content-container (.pendingStateElement=${this})
 - Import shared typography from `@leavittsoftware/web/titanium/styles/styles` before local font rules.
 
 ## Routing (intentional divergence from skeleton)
+
+Routing uses the [Navigation API](https://developer.mozilla.org/en-US/docs/Web/API/Navigation_API) with an inline `#routes: AppRoute[]` table in [`src/my-app.ts`](src/my-app.ts) — same router pattern as skeleton. Requires Navigation API support (Chrome, Edge, Safari 17.4+, Firefox 147+); unsupported browsers see an error page.
 
 Leavittbook **removes** inactive demo pages from the DOM on navigation (`${this.page === 'x' ? html`…` : nothing}`). Production apps scaffolded from skeleton keep pages mounted with `?hidden` + `.isActive`. The gallery resets demo state on each visit.
 

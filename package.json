@@ -12,7 +12,6 @@
     "api-viewer-element": "^1.0.0-pre.10",
     "countup.js": "^2.10.0",
     "lit": "3.3.3",
-    "page": "^1.11.6",
     "promise-parallel-throttle": "^3.5.0",
     "tslib": "^2.8.1"
   },
@@ -24,7 +23,6 @@
     "@rollup/plugin-terser": "^1.0.0",
     "@types/google.maps": "*",
     "@types/jasmine": "^6.0.0",
-    "@types/page": "^1.11.9",
     "@typescript-eslint/eslint-plugin": "^8.62.0",
     "@typescript-eslint/parser": "^8.62.0",
     "@web/dev-server": "^0.4.6",
