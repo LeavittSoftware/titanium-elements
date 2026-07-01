@@ -18,7 +18,7 @@ export const dataRow = [
       border-bottom: 1px solid var(--md-sys-color-outline-variant);
     }
 
-    data-row:last-of-type {
+    data-row:not([hidden]):not(:has(~ data-row:not([hidden]))) {
       border: none;
     }
 
