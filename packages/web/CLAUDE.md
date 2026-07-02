@@ -28,6 +28,7 @@ When bumping `@leavittsoftware/web` in a downstream project, read every entry **
 **Adopt when upgrading to this version:**
 
 - `TitaniumDataTableCoreItemMetaData.omitFromCsv` — set on action/button columns to exclude them from built-in CSV export; use `csvValue` when a complex `render` column should export a scalar value
+- `titanium-drawer.openQuick()` — opens without slide-in animation; pair with `closeQuick()` when restoring persisted open state on component mount
 
 ### 10.0.0
 
@@ -485,7 +486,7 @@ Titanium class inheritance (in addition to Material Web extend/compose — see *
 | Attribute | `fixed`                           | `boolean`             | Content position when closed (inline mode only) |
 | Attribute | `keep-open-when-going-to-flyover` | `boolean`             | Preserve open state on mode switch              |
 
-**Methods:** `open()`, `close()`, `toggle()`, `closeQuick()`
+**Methods:** `open()`, `openQuick()`, `close()`, `toggle()`, `closeQuick()`
 
 **Events:** `open-change`; redispatches native `close`, `toggle` from dialog
 
@@ -501,6 +502,7 @@ Titanium class inheritance (in addition to Material Web extend/compose — see *
 - Flyover sets `html { overflow: hidden }`
 - Inline sidebar: set `mode="inline"` and call `open()`; do not use removed `always-show-content`
 - Switching `mode` from inline→flyover: use `keep-open-when-going-to-flyover` to stay open
+- Restoring an already-open drawer on mount (e.g. persisted sidebar state): call `openQuick()` instead of `open()` so slide-in animation does not replay; use `open()` for user-initiated toggles
 
 ---
 
