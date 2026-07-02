@@ -124,6 +124,21 @@ export class TitaniumDrawer extends LitElement {
   }
 
   /**
+   *  Opens drawer without animations
+   */
+  openQuick() {
+    this.dialog?.setAttribute('no-animate', '');
+    if (this.mode === 'inline') {
+      this.#setOpen(true);
+    } else {
+      this.dialog?.showModal();
+      this.dialog?.removeAttribute('hide');
+      this.setBodyOverflow('hidden');
+    }
+    requestAnimationFrame(() => this.dialog?.removeAttribute('no-animate'));
+  }
+
+  /**
    *  Closes drawer
    */
   async close() {
@@ -284,6 +299,11 @@ export class TitaniumDrawer extends LitElement {
 
     :host([mode='inline'][open][direction='rtl']) dialog:not([open]) {
       animation: show-reverse 0.25s ease normal;
+    }
+
+    dialog[no-animate][open],
+    :host([mode='inline'][open]) dialog[no-animate]:not([open]) {
+      animation: none !important;
     }
 
     ::slotted(h3) {
