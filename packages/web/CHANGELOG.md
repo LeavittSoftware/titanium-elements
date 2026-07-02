@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [10.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@10.1.1...@leavittsoftware/web@10.2.0) (2026-07-02)
+
+
+### Features
+
+* **drawer:** add openQuick() method for animation-free opening ([90132e0](https://github.com/LeavittSoftware/titanium-elements/commit/90132e0f60aed5fe470f52bc9833e5484048d47c))
+
+
+
+
+
 ## [10.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@10.1.0...@leavittsoftware/web@10.1.1) (2026-07-01)
 
 
