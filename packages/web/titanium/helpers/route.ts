@@ -1,11 +1,14 @@
-/** Return 'halt' to stop the routing pipeline (skip remaining matches and the page render). Returning nothing continues. */
-export type RouteHandlerResult = 'halt' | void;
+/** Return value that stops the routing pipeline (skip remaining matches and the page render). */
+export const ROUTE_HALT = 'halt' as const;
+
+/** Return `ROUTE_HALT` / `'halt'` to stop the pipeline. Returning nothing continues. */
+export type RouteHandlerResult = typeof ROUTE_HALT | void;
 
 /**
  * A route with a pattern and a `before` handler but no page or redirect.
  * All middleware routes matching the destination run in declaration order before
  * the first matching page/redirect route; the pipeline continues automatically
- * unless a handler returns 'halt'.
+ * unless a handler returns `ROUTE_HALT` / `'halt'`.
  */
 export type MiddlewareRoute = {
   pattern: URLPattern;

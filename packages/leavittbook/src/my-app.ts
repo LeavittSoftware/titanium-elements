@@ -28,7 +28,7 @@ import { ReportAProblemDialog } from '@leavittsoftware/web/leavitt/user-feedback
 import { ProvideFeedbackDialog } from '@leavittsoftware/web/leavitt/user-feedback/provide-feedback-dialog';
 
 import themePreferenceEvent from '@leavittsoftware/web/leavitt/theme/theme-preference-event';
-import type { AppRoute } from '@leavittsoftware/web/titanium/helpers/route';
+import { ROUTE_HALT, type AppRoute } from '@leavittsoftware/web/titanium/helpers/route';
 import UserManager from './services/user-manager-service';
 import { PendingStateCatcher } from '@leavittsoftware/web/titanium/helpers/pending-state-catcher';
 import { mainMenuPositionContext } from '@leavittsoftware/web/leavitt/app/contexts/main-menu-position-context';
@@ -210,7 +210,7 @@ export class MyApp extends PendingStateCatcher(LitElement) {
           window.navigation.navigate(target, { history: 'replace' });
           return;
         }
-        if ((await route.before?.(params, url)) === 'halt') {
+        if ((await route.before?.(params, url)) === ROUTE_HALT) {
           return;
         }
         if ('page' in route) {

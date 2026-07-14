@@ -36,9 +36,9 @@ jobs:
         # pulls all tags (needed for lerna / semantic release to correctly version)
       - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
 
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           registry-url: 'https://registry.npmjs.org'
           scope: leavittsoftware
 

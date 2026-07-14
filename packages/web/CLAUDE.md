@@ -23,12 +23,23 @@ When bumping `@leavittsoftware/web` in a downstream project, read every entry **
 
 ### Unreleased
 
-**Upgrade if coming from:** `< unreleased` (published latest is `10.0.2`)
+**Upgrade if coming from:** `< unreleased` (published latest is `10.2.0`)
+
+**Search downstream for:**
+
+- `AppRoute` / `PageRoute` / `RedirectRoute` imports from `titanium/helpers/route`
+- App-shell `#routes` tables and `before` handlers on page routes
+- `'page' in route` / `'redirect' in route` discriminators used to collect or execute matches
 
 **Adopt when upgrading to this version:**
 
-- `TitaniumDataTableCoreItemMetaData.omitFromCsv` — set on action/button columns to exclude them from built-in CSV export; use `csvValue` when a complex `render` column should export a scalar value
-- `titanium-drawer.openQuick()` — opens without slide-in animation; pair with `closeQuick()` when restoring persisted open state on component mount
+- **Middleware + halt pipeline** — `AppRoute` now includes `MiddlewareRoute` (`pattern` + required `before`, no `page`/`redirect`). Matching destinations run **all** matching middleware (and page `before` handlers) in declaration order; handlers continue by default and may return `ROUTE_HALT` / `'halt'` (`RouteHandlerResult`) to stop the pipeline without rendering. Rework app routers from “first match wins immediately” to the two-pass collect-then-execute pattern (see skeleton.leavitt.com `develop` / leavittbook `my-app.ts`). Prefer importing `ROUTE_HALT` from `titanium/helpers/route` instead of the string literal.
+
+**Renamed / API changes:**
+
+- `AppRoute` = `MiddlewareRoute | PageRoute | RedirectRoute`
+- `PageRoute.before` return type is now `RouteHandlerResult | Promise<RouteHandlerResult>` (may return `ROUTE_HALT` / `'halt'`)
+- New exports: `MiddlewareRoute`, `RouteHandlerResult`, `ROUTE_HALT`
 
 ### 10.0.0
 
@@ -1335,7 +1346,7 @@ These apply to the **host class** (`LitElement` or `Md*` subclass). They stack w
 | `installMediaQueryWatcher`                                                        | `titanium/helpers/install-media-query-watcher`                  | Responsive layout callback                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `findScrollableParent`                                                            | `titanium/helpers/find-scrollable-parent`                       | Scroll container detection                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `isDevelopment`                                                                   | `titanium/helpers/is-development`                               | Dev environment detection                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `AppRoute`, `PageRoute`, `RedirectRoute`, `MiddlewareRoute`, `RouteHandlerResult` | `titanium/helpers/route`                                        | Route table types for Navigation API SPA routers (`URLPattern` + lazy `import`). `MiddlewareRoute` (`pattern` + `before`, no `page`/`redirect`) runs for every matching destination in declaration order before the first matching page/redirect; handlers continue by default and may return `'halt'` (`RouteHandlerResult`) to stop the pipeline (e.g. after a guard redirect). `PageRoute.before` may also return `'halt'` to skip its render. |
+| `AppRoute`, `PageRoute`, `RedirectRoute`, `MiddlewareRoute`, `RouteHandlerResult`, `ROUTE_HALT` | `titanium/helpers/route`                                        | Route table types for Navigation API SPA routers (`URLPattern` + lazy `import`). `MiddlewareRoute` (`pattern` + `before`, no `page`/`redirect`) runs for every matching destination in declaration order before the first matching page/redirect; handlers continue by default and may return `ROUTE_HALT` / `'halt'` (`RouteHandlerResult`) to stop the pipeline (e.g. after a guard redirect). `PageRoute.before` may also return `ROUTE_HALT` to skip its render. |
 
 ## Hacks
 
