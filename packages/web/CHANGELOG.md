@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [11.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@10.2.1...@leavittsoftware/web@11.0.0) (2026-07-14)
+
+
+* feat(route)!: require MiddlewareRoute halt-aware app routers ([c516d9d](https://github.com/LeavittSoftware/titanium-elements/commit/c516d9dc5ac07f58f9d84d09ba33012d02d1ddcf))
+
+
+### BREAKING CHANGES
+
+* AppRoute now includes MiddlewareRoute. App-shell routers must run matching middleware/before handlers in declaration order and honor ROUTE_HALT ('halt') to stop the pipeline. Prefer ROUTE_HALT over the string literal.
+
+Co-authored-by: Cursor <cursoragent@cursor.com>
+
+
+
+
+
 ## [10.2.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@10.2.0...@leavittsoftware/web@10.2.1) (2026-07-14)
 
 **Note:** Version bump only for package @leavittsoftware/web
