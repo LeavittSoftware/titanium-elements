@@ -190,23 +190,37 @@ export class MyApp extends PendingStateCatcher(LitElement) {
       this.drawer.close();
     }
 
-    for (const route of this.#routes) {
+    // Pass 1: collect matches in declaration order (pure — no state touched yet).
+    const matches = this.#routes.flatMap((route) => {
       const match = route.pattern.exec({ pathname });
-      if (!match) {
-        continue;
-      }
-      const params = match.pathname.groups as Record<string, string>;
+      return match ? [{ route, params: match.pathname.groups as Record<string, string> }] : [];
+    });
 
-      if ('redirect' in route) {
-        const target = typeof route.redirect === 'function' ? route.redirect(params) : route.redirect;
-        window.navigation.navigate(target, { history: 'replace' });
-        return;
-      }
-
-      await this.#changePage(route.page, route.import);
+    // 404 unless something terminal (page or redirect) matched — middleware alone isn't a page.
+    if (!matches.some(({ route }) => 'page' in route || 'redirect' in route)) {
+      this.#showErrorPage();
       return;
     }
-    this.#showErrorPage();
+
+    // Pass 2: execute in order; middleware continues by default, stop on 'halt' or the first terminal route.
+    try {
+      for (const { route, params } of matches) {
+        if ('redirect' in route) {
+          const target = typeof route.redirect === 'function' ? route.redirect(params) : route.redirect;
+          window.navigation.navigate(target, { history: 'replace' });
+          return;
+        }
+        if ((await route.before?.(params, url)) === 'halt') {
+          return;
+        }
+        if ('page' in route) {
+          await this.#changePage(route.page, route.import);
+          return; // terminal — first matching page wins
+        }
+      }
+    } catch (error) {
+      this.#showErrorPage(error instanceof Error ? error.message : String(error));
+    }
   }
 
   async connectedCallback() {
