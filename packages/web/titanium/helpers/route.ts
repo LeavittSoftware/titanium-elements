@@ -1,4 +1,7 @@
-/** Return value that stops the routing pipeline (skip remaining matches and the page render). */
+/**
+ * Return value that stops the routing pipeline (skip remaining matches and the page render).
+ * Prefer this constant over the `'halt'` string when writing `before` handlers.
+ */
 export const ROUTE_HALT = 'halt' as const;
 
 /** Return `ROUTE_HALT` / `'halt'` to stop the pipeline. Returning nothing continues. */
