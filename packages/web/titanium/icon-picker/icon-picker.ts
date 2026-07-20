@@ -1,4 +1,4 @@
-import { PropertyValues, css, html } from 'lit';
+import { PropertyValues, html } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
 import Fuse from 'fuse.js';
 import { TitaniumSingleSelectBase } from '../../titanium/single-select-base/single-select-base';
@@ -98,18 +98,7 @@ export class TitaniumIconPicker extends TitaniumSingleSelectBase<MaterialIconDat
     return html` <md-icon slot="leading-icon">${entity.icon}</md-icon> `;
   }
 
-  static styles = [
-    ...TitaniumSingleSelectBase.styles,
-    css`
-      md-menu-item[inert] {
-        --md-menu-item-bottom-space: 4px;
-        --md-menu-item-top-space: 4px;
-        --md-menu-item-two-line-container-height: 50px;
-        background-color: var(--md-sys-color-surface-container-high);
-        --md-menu-item-supporting-text-size: 12px;
-      }
-    `,
-  ];
+  static styles = [...TitaniumSingleSelectBase.styles];
 
   protected override renderSuggestion(entity: MaterialIconDatabaseEntry) {
     const favorites = this.defaultSuggestions.filter((o) => o.favorite);

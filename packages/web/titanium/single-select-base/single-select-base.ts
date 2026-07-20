@@ -390,7 +390,29 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
         --md-menu-item-supporting-text-color: var(--md-sys-color-inverse-on-surface);
         --md-menu-item-trailing-supporting-text-color: var(--md-sys-color-inverse-on-surface);
         --md-menu-item-label-text-color: var(--md-sys-color-inverse-on-surface);
+        --md-menu-item-leading-icon-color: var(--md-sys-color-inverse-on-surface);
+        --md-menu-item-trailing-icon-color: var(--md-sys-color-inverse-on-surface);
         --md-menu-item-hover-state-layer-color: var(--md-sys-color-surface);
+      }
+
+      md-menu-item[inert] {
+        --md-menu-item-bottom-space: 4px;
+        --md-menu-item-top-space: 4px;
+        --md-menu-item-two-line-container-height: 50px;
+        --md-menu-item-supporting-text-size: 12px;
+        background-color: var(--md-sys-color-surface-container-high);
+        color: var(--md-sys-color-on-surface);
+        --md-menu-item-label-text-color: var(--md-sys-color-on-surface);
+        --md-menu-item-supporting-text-color: var(--md-sys-color-on-surface);
+        --md-menu-item-trailing-supporting-text-color: var(--md-sys-color-on-surface);
+      }
+
+      :host([shaped]) md-menu-item[inert] {
+        background-color: color-mix(in srgb, var(--md-sys-color-inverse-on-surface) 16%, var(--md-sys-color-inverse-surface));
+        color: var(--md-sys-color-inverse-on-surface);
+        --md-menu-item-label-text-color: var(--md-sys-color-inverse-on-surface);
+        --md-menu-item-supporting-text-color: var(--md-sys-color-inverse-on-surface);
+        --md-menu-item-trailing-supporting-text-color: var(--md-sys-color-inverse-on-surface);
       }
 
       :host([shaped][menu-open]) md-filled-text-field {
