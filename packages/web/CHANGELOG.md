@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [11.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@11.0.0...@leavittsoftware/web@11.0.1) (2026-07-20)
+
+
+### Bug Fixes
+
+* **single-select-base:** set inverse icon and inert header tokens for shaped menus ([5925c09](https://github.com/LeavittSoftware/titanium-elements/commit/5925c09545d960313042da876890503ff4125c39))
+
+
+
+
+
 # [11.0.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@10.2.1...@leavittsoftware/web@11.0.0) (2026-07-14)
 
 
