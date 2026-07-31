@@ -10,15 +10,81 @@ import '@material/web/icon/icon';
 
 import '@leavittsoftware/web/titanium/multi-select-base/multi-select-base';
 
-import { css, html, LitElement } from 'lit';
-import { customElement, query, state } from 'lit/decorators.js';
+import { css, html, LitElement, nothing, PropertyValues } from 'lit';
+import { customElement, property, query, state } from 'lit/decorators.js';
 import { ShowSnackbarEvent } from '@leavittsoftware/web/titanium/snackbar/show-snackbar-event';
-import { TitaniumMultiSelectBase, TitaniumMultiSelectSection } from '@leavittsoftware/web/titanium/multi-select-base/multi-select-base';
+import { TitaniumMultiSelectBase } from '@leavittsoftware/web/titanium/multi-select-base/multi-select-base';
 
 import StoryStyles from '../styles/story-styles';
 
-type Animal = { Id: number; Name: string };
+// ──────────────────────────────────────────────────────────────────────────────
+// Example subclass — copy this pattern into your app and swap the data types
+// ──────────────────────────────────────────────────────────────────────────────
+
 type Activity = { Id: string; Name: string; Icon: string };
+
+const ALL_ACTIVITIES: Array<Activity> = [
+  { Id: 'walking', Name: 'Walking', Icon: 'directions_walk' },
+  { Id: 'running', Name: 'Running', Icon: 'directions_run' },
+  { Id: 'cycling', Name: 'Cycling', Icon: 'directions_bike' },
+  { Id: 'swimming', Name: 'Swimming', Icon: 'pool' },
+  { Id: 'weights', Name: 'Weight training', Icon: 'fitness_center' },
+  { Id: 'yoga', Name: 'Yoga', Icon: 'self_improvement' },
+  { Id: 'hiking', Name: 'Hiking', Icon: 'hiking' },
+  { Id: 'rowing', Name: 'Rowing', Icon: 'rowing' },
+  { Id: 'skiing', Name: 'Skiing', Icon: 'downhill_skiing' },
+  { Id: 'climbing', Name: 'Climbing', Icon: 'landscape' },
+];
+
+/**
+ * Concrete multi select for fitness activities — demonstrates subclassing
+ * `TitaniumMultiSelectBase` with icons, custom defaults, and trailing content.
+ *
+ * Copy this pattern: set your item type, wire up data in `update()`, and
+ * optionally override `renderSuggestion` / `renderChip` for richer UI.
+ *
+ * @element activity-multi-select
+ */
+@customElement('activity-multi-select')
+export class ActivityMultiSelect extends TitaniumMultiSelectBase<Activity> {
+  @property({ type: String }) override accessor label = 'Activities';
+  @property({ type: String }) override accessor placeholder = 'Select activities';
+  @property({ type: String }) override accessor searchPlaceholder = 'Search activities';
+  @property({ type: String }) override accessor pathToIcon = 'Icon';
+
+  /**
+   * Pass in the catalog of activities. In a real app this could come from an API.
+   */
+  @property({ type: Array }) accessor activities: Array<Activity> = [];
+
+  override update(changed: PropertyValues<this>) {
+    if (changed.has('activities')) {
+      this.items = this.activities;
+    }
+    super.update(changed);
+  }
+
+  protected override renderTrailingMenuSlot() {
+    if (!this.searchTerm && this.activities.length) {
+      return html`<div style="padding: 8px 16px; font-size: 12px; color: var(--md-sys-color-on-surface-variant)">
+        ${this.activities.length} activities available
+      </div>`;
+    }
+    return nothing;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'activity-multi-select': ActivityMultiSelect;
+  }
+}
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Demo page
+// ──────────────────────────────────────────────────────────────────────────────
+
+type Animal = { Id: number; Name: string };
 
 const animals: Array<Animal> = [
   'Aardvark',
@@ -43,36 +109,6 @@ const animals: Array<Animal> = [
   'Tapir',
 ].map((Name, index) => ({ Id: index + 1, Name }));
 
-const activities: Array<Activity> = [
-  { Id: 'walking', Name: 'Walking', Icon: 'directions_walk' },
-  { Id: 'running', Name: 'Running', Icon: 'directions_run' },
-  { Id: 'cycling', Name: 'Cycling', Icon: 'directions_bike' },
-  { Id: 'swimming', Name: 'Swimming', Icon: 'pool' },
-  { Id: 'weights', Name: 'Weight training', Icon: 'fitness_center' },
-  { Id: 'yoga', Name: 'Yoga', Icon: 'self_improvement' },
-  { Id: 'hiking', Name: 'Hiking', Icon: 'hiking' },
-  { Id: 'rowing', Name: 'Rowing', Icon: 'rowing' },
-  { Id: 'skiing', Name: 'Skiing', Icon: 'downhill_skiing' },
-  { Id: 'climbing', Name: 'Climbing', Icon: 'landscape' },
-];
-
-const activitySections: Array<TitaniumMultiSelectSection<Activity>> = [
-  {
-    key: 'frequent',
-    headline: 'Frequently used activities',
-    supportingText: 'Your 3 most frequently logged activities',
-    icon: 'star',
-    items: activities.filter((o) => ['walking', 'running', 'cycling'].includes(o.Id)),
-  },
-  {
-    key: 'all',
-    headline: 'All activities',
-    supportingText: `${activities.length} activities available`,
-    icon: 'sort_by_alpha',
-    items: activities,
-  },
-];
-
 @customElement('titanium-multi-select-base-demo')
 export class TitaniumMultiSelectBaseDemo extends LitElement {
   @state() private accessor disabled: boolean = false;
@@ -84,7 +120,8 @@ export class TitaniumMultiSelectBaseDemo extends LitElement {
   static styles = [
     StoryStyles,
     css`
-      titanium-multi-select-base {
+      titanium-multi-select-base,
+      activity-multi-select {
         max-width: 480px;
       }
 
@@ -110,7 +147,7 @@ export class TitaniumMultiSelectBaseDemo extends LitElement {
             </p>
 
             <div>
-              <h1>Local search</h1>
+              <h1>Direct use — local search</h1>
               <p>A flat list of items searched locally with fuse.js. The popover width follows the field with <code>match-input-width</code>.</p>
               <titanium-multi-select-base
                 match-input-width
@@ -127,26 +164,21 @@ export class TitaniumMultiSelectBaseDemo extends LitElement {
             </div>
 
             <div>
-              <h1>Sections and icons</h1>
+              <h1>Subclass — icons and trailing content</h1>
               <p>
-                Items are grouped under sticky headers while no search term is entered. <code>pathToIcon</code> points at the property holding a Material
-                Symbols icon name, which is rendered in both the menu items and the chips.
+                <code>activity-multi-select</code> extends <code>TitaniumMultiSelectBase</code>. It sets default labels, wires up its own
+                <code>activities</code> property, and overrides <code>renderTrailingMenuSlot()</code>. Copy this pattern for your own domain selects.
               </p>
-              <titanium-multi-select-base
+              <activity-multi-select
                 match-input-width
                 has-leading-icon
-                label="Activities"
-                placeholder="Select activities"
-                search-placeholder="Search activities"
-                pathToIcon="Icon"
-                .sections=${activitySections}
-                .items=${activities}
+                .activities=${ALL_ACTIVITIES}
                 .selected=${this.selectedActivities}
                 ?disabled=${this.disabled}
-                @selected-changed=${(e: Event) => (this.selectedActivities = (e.target as TitaniumMultiSelectBase<Activity>).selected)}
+                @selected-changed=${(e: Event) => (this.selectedActivities = (e.target as ActivityMultiSelect).selected)}
               >
                 <md-icon slot="leading-icon">exercise</md-icon>
-              </titanium-multi-select-base>
+              </activity-multi-select>
               <p selection>${this.selectedActivities.length ? this.selectedActivities.map((o) => o.Name).join(', ') : 'Nothing selected'}</p>
             </div>
 

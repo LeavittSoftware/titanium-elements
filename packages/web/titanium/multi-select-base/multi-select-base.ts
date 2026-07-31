@@ -9,7 +9,7 @@ import '../input-validator/filled-input-validator';
 
 import Fuse from 'fuse.js';
 
-import { css, html, LitElement, nothing, PropertyValues } from 'lit';
+import { css, html, LitElement, nothing, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 
@@ -823,7 +823,7 @@ export class TitaniumMultiSelectBase<T extends Identifier = Identifier> extends 
   /**
    *  Renders content at the bottom of the popover, below the selectable items.
    */
-  protected renderTrailingMenuSlot() {
+  protected renderTrailingMenuSlot(): TemplateResult | typeof nothing {
     return nothing;
   }
 
