@@ -27,6 +27,7 @@ When bumping `@leavittsoftware/web` in a downstream project, read every entry **
 
 **Search downstream for:**
 
+- Hand-rolled multi selects built from `titanium-chip-multi-select` + a `leavitt-*-select` / `titanium-single-select-base` subclass
 - `AppRoute` / `PageRoute` / `RedirectRoute` imports from `titanium/helpers/route`
 - App-shell `#routes` tables and `before` handlers on page routes
 - `'page' in route` / `'redirect' in route` discriminators used to collect or execute matches
@@ -34,11 +35,13 @@ When bumping `@leavittsoftware/web` in a downstream project, read every entry **
 
 **Adopt when upgrading to this version:**
 
+- **`titanium-multi-select-base`** — new generic multi select combobox: selected items render as chips inside the field and the search input lives in the popover above the selectable items. Replaces the `titanium-chip-multi-select` + separate single-select + add-button pattern for "pick several from a list" inputs. Use it directly with `.items` (local fuse.js search) and optional `.sections` grouping, or extend it and override `onInputChanged` / `showSuggestions` for remote search — same hook names as `titanium-single-select-base`. Fires `selected-changed`; read the new value from `event.target.selected`.
 - **Middleware + halt pipeline** — `AppRoute` now includes `MiddlewareRoute` (`pattern` + required `before`, no `page`/`redirect`). Matching destinations run **all** matching middleware (and page `before` handlers) in declaration order; handlers continue by default and may return `ROUTE_HALT` / `'halt'` (`RouteHandlerResult`) to stop the pipeline without rendering. Rework app routers from “first match wins immediately” to the two-pass collect-then-execute pattern (see skeleton.leavitt.com `develop` / leavittbook `my-app.ts`). Prefer importing `ROUTE_HALT` from `titanium/helpers/route` instead of the string literal.
 - **`titanium-single-select-base` shaped menu tokens** — shaped open menus now set `--md-menu-item-leading-icon-color` / `--md-menu-item-trailing-icon-color` to `inverse-on-surface` (alongside the existing label/supporting-text tokens). Inert section-header `md-menu-item` styling (spacing + shaped inverse colors) lives on the base — remove duplicate `md-menu-item[inert]` / leading-icon color overrides from subclasses once on this build.
 
 **Renamed / API changes:**
 
+- New element: `titanium-multi-select-base` (`titanium/multi-select-base/multi-select-base`); new exported type `TitaniumMultiSelectSection<T>`
 - `AppRoute` = `MiddlewareRoute | PageRoute | RedirectRoute`
 - `PageRoute.before` return type is now `RouteHandlerResult | Promise<RouteHandlerResult>` (may return `ROUTE_HALT` / `'halt'`)
 - New exports: `MiddlewareRoute`, `RouteHandlerResult`, `ROUTE_HALT`
@@ -165,6 +168,7 @@ Titanium **mixins and decorators** (`ThemePreference`, `promiseTracking`, …) a
 | `titanium-date-input`                                                                                    | composes | `md-filled-field`                                                                                                         |
 | `titanium-date-range-selector`                                                                           | composes | `md-filled-field`, `md-menu`, `md-list`                                                                                   |
 | `titanium-single-select-base` and all `leavitt-*-select`, `titanium-icon-picker`, `google-address-input` | composes | `md-filled-text-field`, `md-menu`, `md-menu-item`                                                                         |
+| `titanium-multi-select-base`                                                                             | composes | `titanium-filled-input-validator` (extends `MdFilledField`), `md-menu`, `md-menu-item`, `titanium-chip`                   |
 | `titanium-chip-multi-select`                                                                             | composes | `titanium-filled-input-validator` (extends `MdFilledField`); slots intended for `md-filled-tonal-button`, `md-input-chip` |
 | `titanium-confirmation-dialog` and most modal/dialog components                                          | composes | `md-dialog` (+ `md-filled-button` / `md-text-button` actions)                                                             |
 | `titanium-data-table-core`                                                                               | composes | `md-checkbox`, `md-icon-button`, `md-menu`                                                                                |
@@ -349,6 +353,7 @@ Titanium class inheritance (in addition to Material Web extend/compose — see *
 | `MdFilledTextField`        | `@material/web/textfield/filled-text-field`      | `titanium-filled-duration-input`, `titanium-filled-youtube-input`                                          |
 | `MdFilledField`            | `@material/web/field/filled-field`               | `titanium-filled-input-validator`                                                                          |
 | `TitaniumSingleSelectBase` | `titanium/single-select-base/single-select-base` | All `leavitt-*-select`, `titanium-icon-picker`, `google-address-input`                                     |
+| `TitaniumMultiSelectBase`  | `titanium/multi-select-base/multi-select-base`   | Usable directly; extend for remote-search multi selects                                                    |
 | `google-address-input`     | `titanium/address-input/google-address-input`    | `titanium-address-input`                                                                                   |
 | `ThemePreference` mixin    | `leavitt/theme/theme-preference`                 | `leavitt-app-logo`, `leavitt-error-page`, `leavitt-service-worker-notifier`, `titanium-single-select-base` |
 
@@ -910,6 +915,64 @@ Row clicks with `itemLinkUrl` navigate directly via `window.navigation.navigate(
 - Custom validity when typed but not selected
 - `positioning='popover'` falls back to `'fixed'` in Firefox
 - `shaped` + open menu inverts surface/on-surface for the field and menu (label, supporting text, leading/trailing icons). Inert section-header rows (`md-menu-item[inert]`) are styled by the base for both default and shaped.
+
+---
+
+### `titanium-multi-select-base`
+
+**Purpose:** Generic multi select combobox. Selected items render as removable chips inside the field; the search input lives in the popover directly above the selectable items.
+
+**Material Web:** Composes `titanium-filled-input-validator` (extends `MdFilledField`) as the field, plus `md-menu` + `md-menu-item` for the popover and `titanium-chip` for the chips.
+
+**Import:** `import '@leavittsoftware/web/titanium/multi-select-base/multi-select-base.js'`
+
+**Source:** `titanium/multi-select-base/multi-select-base.ts`
+
+| Kind      | Name                                                   | Type / values                                    | Notes                                                       |
+| --------- | ------------------------------------------------------ | ------------------------------------------------ | ----------------------------------------------------------- |
+| Property  | `selected`                                             | `T[]`                                            | Selected items                                              |
+| Property  | `items`                                                | `T[]`                                            | Full catalog; searched locally with fuse.js                 |
+| Property  | `sections`                                             | `TitaniumMultiSelectSection<T>[]`                | Optional grouping shown when no search term is entered      |
+| Property  | `label`, `placeholder`                                 | `string`                                         | `placeholder` shows in the field when nothing is selected   |
+| Attribute | `search-placeholder`                                   | `string`                                         | Placeholder of the popover search input                     |
+| Property  | `pathToSelectedText`                                   | `string`                                         | Default `'Name'`; key holding the display text              |
+| Property  | `pathToIcon`                                           | `string`                                         | Optional key holding a Material Symbols icon name           |
+| Property  | `searchKeys`                                           | `string[]`                                       | fuse.js keys; defaults to `[pathToSelectedText]`            |
+| Attribute | `max-selected`                                         | `number`                                         | `0` (default) allows an unlimited number                    |
+| Property  | `required`, `disabled`, `error`                        | `boolean`                                        | `required` = at least one selection                         |
+| Property  | `errorText`, `supportingText`                          | `string`                                         |                                                             |
+| Attribute | `no-items-text`, `no-results-text`                     | `string`                                         | Empty-state text for an empty catalog / an unmatched search |
+| Attribute | `has-leading-icon`, `no-asterisk`, `disable-clear-all` | `boolean`                                        |                                                             |
+| Attribute | `match-input-width`                                    | `boolean`                                        | ResizeObserver keeps the popover the width of the field     |
+| Attribute | `menu-open`                                            | `boolean`                                        | Reflected; read via the `isOpen` getter                     |
+| Property  | `positioning`                                          | `absolute` \| `fixed` \| `document` \| `popover` | Default `popover`                                           |
+| Getter    | `isOpen`, `isAtMaxSelected`                            | `boolean`                                        |                                                             |
+| State     | `isLoading`                                            | `boolean`                                        | Via `promiseTracking` / `trackLoadingPromise`               |
+
+**Methods:** `open()`, `close()`, `toggleMenu()`, `focus()`, `selectItem(item)`, `deselectItem(item)`, `toggleItem(item)`, `isSelected(item)`, `clear()`, `reset()`, `softReset()`, `checkValidity()`, `reportValidity()`, `trackLoadingPromise(promise)`
+
+**Events:** `selected-changed` (composed) — read `event.target.selected`; redispatches menu `opening`/`opened`/`closing`/`closed`
+
+**Slots:** `leading-icon` (requires `has-leading-icon`)
+
+**CSS parts:** `menu`
+
+**CSS custom properties:** `--titanium-multi-select-menu-max-height` (default `460px`), `--titanium-multi-select-search-height` (default `52px`)
+
+**Exported types:** `TitaniumMultiSelectSection<T>` — `{ key, headline, supportingText?, icon?, items }`
+
+**Usage notes / gotchas:**
+
+- Items may appear in more than one section (e.g. "Frequently used" + "All"); identity comes from `Id`, falling back to the display text, so duplicates stay in sync
+- Searching always renders a flat list across the whole catalog, never the sections
+- Menu items are rendered with `keep-open`, so the popover stays open while toggling; the base handles click / Enter / Space selection so `renderSuggestion` overrides only need markup
+- Keyboard: `ArrowDown` from the search input moves into the list, `ArrowUp` on the first item returns to the search input, `Backspace` on an empty search removes the last chip, `Escape` closes
+- Validity is reported when the popover closes; `required` fields do not error before the user has interacted
+- `positioning='popover'` falls back to `'fixed'` in Firefox
+
+**Subclassing (remote search):** override `onInputChanged(searchTerm)` and call `showSuggestions(results, totalCount)` — same hooks as `titanium-single-select-base`. Override `renderSuggestion`, `renderChip`, `renderSectionHeader`, `renderTrailingMenuSlot`, `getItemText`, `getItemIcon`, or `getItemKey` to customize rendering and identity.
+
+**Pairs with:** `titanium-chip`, `titanium-filled-input-validator`
 
 ---
 

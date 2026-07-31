@@ -124,6 +124,11 @@ export class MyApp extends PendingStateCatcher(LitElement) {
       import: () => import('./demos/titanium-input-validator-demo.js'),
     },
     {
+      pattern: new URLPattern({ pathname: '/titanium-multi-select-base' }),
+      page: 'titanium-multi-select-base',
+      import: () => import('./demos/titanium-multi-select-base-demo.js'),
+    },
+    {
       pattern: new URLPattern({ pathname: '/titanium-promise-tracking' }),
       page: 'titanium-promise-tracking',
       import: () => import('./demos/titanium-promise-tracking-demo.js'),
@@ -505,6 +510,10 @@ export class MyApp extends PendingStateCatcher(LitElement) {
             <md-icon slot="start">fact_check</md-icon> <span>Input validator</span>
           </md-list-item>
 
+          <md-list-item ?selected=${this.page === 'titanium-multi-select-base'} href="/titanium-multi-select-base" type="link">
+            <md-icon slot="start">library_add_check</md-icon> <span>Multi select base</span>
+          </md-list-item>
+
           <md-list-item ?selected=${!!this.page?.includes('titanium-page-control')} href="/titanium-page-control" type="link">
             <md-icon slot="start">tune</md-icon> <span>Page control</span>
           </md-list-item>
@@ -628,6 +637,7 @@ export class MyApp extends PendingStateCatcher(LitElement) {
         ${this.page === 'profile-picture-menu' ? html`<profile-picture-menu-demo large></profile-picture-menu-demo>` : nothing}
         ${this.page === 'titanium-input-validator' ? html`<titanium-input-validator-demo large></titanium-input-validator-demo>` : nothing}
         ${this.page === 'titanium-data-table-core' ? html`<titanium-data-table-core-demo large></titanium-data-table-core-demo>` : nothing}
+        ${this.page === 'titanium-multi-select-base' ? html`<titanium-multi-select-base-demo large></titanium-multi-select-base-demo>` : nothing}
         ${this.page === 'titanium-promise-tracking' ? html`<titanium-promise-tracking-demo large></titanium-promise-tracking-demo>` : nothing}
         ${this.page === 'titanium-address-input' ? html`<titanium-address-input-demo large></titanium-address-input-demo>` : nothing}
         ${this.page === 'titanium-icon-picker' ? html`<titanium-icon-picker-demo large></titanium-icon-picker-demo>` : nothing}
