@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [11.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@11.0.1...@leavittsoftware/web@11.1.0) (2026-07-31)
+
+
+### Features
+
+* add multi-select-base ([6def9ae](https://github.com/LeavittSoftware/titanium-elements/commit/6def9ae73ec459d34cbd6422574d842c462da86f))
+
+
+
+
+
 ## [11.0.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@11.0.0...@leavittsoftware/web@11.0.1) (2026-07-20)
 
 
