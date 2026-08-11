@@ -230,6 +230,10 @@ export class TitaniumDataTableCore<T extends object> extends LitElement {
           top: 0;
           z-index: 3;
         }
+
+        thead tr th[settings] {
+          top: 0; /* vertical pin only with sticky-header */
+        }
       }
 
       table[has-selected-items] {
@@ -246,7 +250,6 @@ export class TitaniumDataTableCore<T extends object> extends LitElement {
             padding: 0;
             position: sticky;
             left: 0;
-            top: 0;
             z-index: 4;
 
             content-container {
