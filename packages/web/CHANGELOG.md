@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [11.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@11.1.0...@leavittsoftware/web@11.1.1) (2026-08-12)
+
+
+### Bug Fixes
+
+* **data-table-core:** use top 0 on settings button only when sticky-header is set ([3b96daf](https://github.com/LeavittSoftware/titanium-elements/commit/3b96dafd1b88dd8dbd5bcecb80de2d44453a74c5))
+
+
+
+
+
 # [11.1.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@11.0.1...@leavittsoftware/web@11.1.0) (2026-07-31)
 
 
