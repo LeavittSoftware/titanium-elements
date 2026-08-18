@@ -1,5 +1,6 @@
 export { startCsvDownload } from './csv/start-csv-download';
 export { convertArrayToCsv } from './csv/convert-array-to-csv';
+export { downloadAuthenticatedFile } from './download-authenticated-file';
 export { isDevelopment } from './is-development';
 export { escapeTerm } from './escape-term';
 export { installMediaQueryWatcher } from './install-media-query-watcher';
