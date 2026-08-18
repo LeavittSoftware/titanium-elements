@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [11.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@11.1.1...@leavittsoftware/web@11.2.0) (2026-08-18)
+
+
+### Features
+
+* add downloadAuthenticatedFile helper ([7e025b4](https://github.com/LeavittSoftware/titanium-elements/commit/7e025b4e6924a59b7bd3651acb5251761329d071))
+
+
+
+
+
 ## [11.1.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@11.1.0...@leavittsoftware/web@11.1.1) (2026-08-12)
 
 
