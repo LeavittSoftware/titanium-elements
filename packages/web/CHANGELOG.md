@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [11.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@11.2.0...@leavittsoftware/web@11.3.0) (2026-08-21)
+
+
+### Features
+
+* add hide-template-filter to email history viewer ([ac112a8](https://github.com/LeavittSoftware/titanium-elements/commit/ac112a8134038802b0b94f42517b118e65fe950e))
+
+
+
+
+
 # [11.2.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@11.1.1...@leavittsoftware/web@11.2.0) (2026-08-18)
 
 
