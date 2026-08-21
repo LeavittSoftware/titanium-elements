@@ -37,6 +37,7 @@ export class LeavittEmailHistoryViewerFilledFilterDialog extends LitElement {
 
   @property({ type: Boolean }) accessor isActive: boolean = false;
   @property({ type: Object }) accessor apiService: ApiService | null = null;
+  @property({ type: Boolean, attribute: 'hide-template-filter' }) accessor hideTemplateFilter: boolean = false;
 
   @state() private accessor filterController!: FilterController<FilterKeys>;
   @state() private accessor template: Partial<EmailTemplate>[] = [];
@@ -65,6 +66,10 @@ export class LeavittEmailHistoryViewerFilledFilterDialog extends LitElement {
   }
 
   async #preloadChipData() {
+    if (this.hideTemplateFilter) {
+      return;
+    }
+
     //Preload for chips
     if (this.filterController.getValue('template') && this.#templatesAreDirty) {
       this.template = await this.#getTemplatesAsync();
@@ -92,7 +97,7 @@ export class LeavittEmailHistoryViewerFilledFilterDialog extends LitElement {
   }
 
   public async open() {
-    if (this.#templatesAreDirty) {
+    if (!this.hideTemplateFilter && this.#templatesAreDirty) {
       this.template = await this.#getTemplatesAsync();
     }
 
@@ -152,7 +157,7 @@ export class LeavittEmailHistoryViewerFilledFilterDialog extends LitElement {
     return html`
       <md-input-chip
         remove-only
-        ?hidden=${!this.filterController.getValue('template') || this.isLoading}
+        ?hidden=${this.hideTemplateFilter || !this.filterController.getValue('template') || this.isLoading}
         label="${this.template.find((o) => o.Id === Number(this.filterController.getValue('template')))?.Name ?? ''} template"
         @remove=${(e: Event) => {
           e.preventDefault();
@@ -202,7 +207,12 @@ export class LeavittEmailHistoryViewerFilledFilterDialog extends LitElement {
             }}
           ></titanium-date-range-selector>
 
-          <md-filled-select label="Templates" .value=${this.templateId ?? ''} @change=${(e: DOMEvent<MdOutlinedSelect>) => (this.templateId = e.target.value)}>
+          <md-filled-select
+            ?hidden=${this.hideTemplateFilter}
+            label="Templates"
+            .value=${this.templateId ?? ''}
+            @change=${(e: DOMEvent<MdOutlinedSelect>) => (this.templateId = e.target.value)}
+          >
             <md-icon slot="leading-icon">content_copy</md-icon>
             <md-select-option></md-select-option>
             ${this.template.map(
@@ -219,7 +229,9 @@ export class LeavittEmailHistoryViewerFilledFilterDialog extends LitElement {
           <md-text-button @click=${() => this.dialog.close('cancel')}> Close </md-text-button>
           <md-filled-tonal-button
             @click=${() => {
-              this.filterController.setValue('template', this.templateId || null);
+              if (!this.hideTemplateFilter) {
+                this.filterController.setValue('template', this.templateId || null);
+              }
 
               //set date range
               this.filterController.setValue('dateRange', this.dateRangeSelect.range === 'allTime' ? null : this.dateRangeSelect.range);

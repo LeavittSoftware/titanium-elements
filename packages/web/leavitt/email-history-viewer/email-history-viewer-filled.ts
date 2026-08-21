@@ -59,6 +59,7 @@ export default class LeavittEmailHistoryViewerFilled extends LitElement {
   @property({ type: String }) public accessor path: string = '';
   @property({ type: Object }) public accessor siteSearchTextFieldContext!: TitaniumTextFieldSearchContext;
   @property({ type: String }) accessor apiControllerName: string = 'EmailTemplateLogs';
+  @property({ type: Boolean, attribute: 'hide-template-filter' }) accessor hideTemplateFilter: boolean = false;
 
   // Data table props
   @state() private accessor items: Array<ItemType> = [];
@@ -145,6 +146,15 @@ export default class LeavittEmailHistoryViewerFilled extends LitElement {
       }
     });
     this.filterController.loadFromQueryString();
+  }
+
+  willUpdate(changedProps: PropertyValues<this>) {
+    if (changedProps.has('hideTemplateFilter') && this.hideTemplateFilter) {
+      this.tableMetaData = {
+        ...this.tableMetaData,
+        itemMetaData: this.tableMetaData.itemMetaData.filter((column) => column.key !== 'EmailTemplate'),
+      };
+    }
   }
 
   async updated(changedProps: PropertyValues<this>) {
@@ -313,6 +323,7 @@ export default class LeavittEmailHistoryViewerFilled extends LitElement {
               <leavitt-email-history-viewer-filled-filter-dialog
                 .apiService=${this.apiService}
                 .isActive=${this.isActive}
+                ?hide-template-filter=${this.hideTemplateFilter}
                 slot="filters"
                 .filterController=${this.filterController}
               ></leavitt-email-history-viewer-filled-filter-dialog>
@@ -332,7 +343,7 @@ export default class LeavittEmailHistoryViewerFilled extends LitElement {
               }
               this.#reload();
             }}
-            local-storage-key="email-history-list-preferences"
+            local-storage-key=${this.hideTemplateFilter ? 'email-history-list-preferences-no-template' : 'email-history-list-preferences'}
             .supplementalItemStyles=${css`
               [inactive],
               span[time],

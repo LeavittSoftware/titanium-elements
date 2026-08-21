@@ -1251,14 +1251,19 @@ All extend `TitaniumSingleSelectBase` and fire `selected`. All require `.apiServ
 
 **Import:** `import '@leavittsoftware/web/leavitt/email-history-viewer/email-history-viewer-filled.js'`
 
-| Kind     | Name                          | Type / values | Notes               |
-| -------- | ----------------------------- | ------------- | ------------------- |
-| Property | `isActive`                    | `boolean`     |                     |
-| Property | `.apiService`                 | `ApiService`  | **Required**        |
-| Property | `path`, `apiControllerName`   | `string`      |                     |
-| Property | `.siteSearchTextFieldContext` | Lit context   | Shared search field |
+| Kind      | Name                          | Type / values | Notes                                                                                                             |
+| --------- | ----------------------------- | ------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Property  | `isActive`                    | `boolean`     |                                                                                                                   |
+| Property  | `.apiService`                 | `ApiService`  | **Required**                                                                                                      |
+| Property  | `path`, `apiControllerName`   | `string`      |                                                                                                                   |
+| Property  | `.siteSearchTextFieldContext` | Lit context   | Shared search field                                                                                               |
+| Attribute | `hide-template-filter`        | `boolean`     | Hides the template chip, dialog select, and Email template column; `template` still applies from the query string |
 
 **Uses:** `titanium-page-control`, filter dialogs, `leavitt-view-sent-email-dialog`
+
+**Usage notes / gotchas:**
+
+- `hide-template-filter` hides the template filter UI and the Email template table column. The `template` FilterController entry stays registered (`EmailTemplateId eq {id}`), so a host can pin a template with `?template=<id>` without exposing a removable chip, dialog control, or redundant column. Date-range Apply does not clear a pinned template when the UI is hidden.
 
 ---
 

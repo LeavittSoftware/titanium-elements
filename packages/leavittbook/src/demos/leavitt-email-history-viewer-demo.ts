@@ -64,9 +64,22 @@ export class LeavittEmailHistoryViewerDemo extends ThemePreference(LitElement) {
             ${this.#auth.identity
               ? html`
                   <div>
+                    <h1>Default</h1>
                     <div row>
                       <leavitt-email-history-viewer-filled
                         isActive
+                        .siteSearchTextFieldContext=${siteSearchTextFieldContext}
+                        .apiService=${api3UserService}
+                        .path=${'/leavitt-email-history-viewer'}
+                      ></leavitt-email-history-viewer-filled>
+                    </div>
+
+                    <h1>Hide template filter</h1>
+                    <p>The template chip, dialog select, and Email template column are hidden. <code>?template=</code> still filters the list.</p>
+                    <div row>
+                      <leavitt-email-history-viewer-filled
+                        isActive
+                        hide-template-filter
                         .siteSearchTextFieldContext=${siteSearchTextFieldContext}
                         .apiService=${api3UserService}
                         .path=${'/leavitt-email-history-viewer'}
