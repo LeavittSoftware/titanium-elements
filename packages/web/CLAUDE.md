@@ -31,6 +31,8 @@ When bumping `@leavittsoftware/web` in a downstream project, read every entry **
 - `AppRoute` / `PageRoute` / `RedirectRoute` imports from `titanium/helpers/route`
 - App-shell `#routes` tables and `before` handlers on page routes
 - `'page' in route` / `'redirect' in route` discriminators used to collect or execute matches
+- **`window.navigation.navigate(`** anywhere inside `#route`, a route `before` handler, or a home-routing helper — this is the renderer-crash pattern below
+- **`event.canIntercept`** / `event.navigationType === 'reload'` guard bodies hand-rolled in `#onNavigate`
 - `md-menu-item[inert]` style overrides / `--md-menu-item-leading-icon-color` on single-select subclasses
 
 **Adopt when upgrading to this version:**
@@ -38,6 +40,28 @@ When bumping `@leavittsoftware/web` in a downstream project, read every entry **
 - **`titanium-multi-select-base`** — new generic multi select combobox: selected items render as chips inside the field and the search input lives in the popover above the selectable items. Replaces the `titanium-chip-multi-select` + separate single-select + add-button pattern for "pick several from a list" inputs. Use it directly with `.items` (local fuse.js search) and optional `.sections` grouping, or extend it and override `onInputChanged` / `showSuggestions` for remote search — same hook names as `titanium-single-select-base`. Fires `selected-changed`; read the new value from `event.target.selected`.
 - **Middleware + halt pipeline** — `AppRoute` now includes `MiddlewareRoute` (`pattern` + required `before`, no `page`/`redirect`). Matching destinations run **all** matching middleware (and page `before` handlers) in declaration order; handlers continue by default and may return `ROUTE_HALT` / `'halt'` (`RouteHandlerResult`) to stop the pipeline without rendering. Rework app routers from “first match wins immediately” to the two-pass collect-then-execute pattern (see skeleton.leavitt.com `develop` / leavittbook `my-app.ts`). Prefer importing `ROUTE_HALT` from `titanium/helpers/route` instead of the string literal.
 - **`titanium-single-select-base` shaped menu tokens** — shaped open menus now set `--md-menu-item-leading-icon-color` / `--md-menu-item-trailing-icon-color` to `inverse-on-surface` (alongside the existing label/supporting-text tokens). Inert section-header `md-menu-item` styling (spacing + shaped inverse colors) lives on the base — remove duplicate `md-menu-item[inert]` / leading-icon color overrides from subclasses once on this build.
+- **`getInterceptableUrl` + `resolveRoute` — required for any app with `redirect` routes.** Resolving a redirect with `window.navigation.navigate()` **crashes the renderer process**. A navigation started during boot, or from inside an intercept handler, produces a `NavigateEvent` whose handler settles once it is no longer the ongoing event, tripping `CHECK_EQ(this, window->navigation()->ongoing_navigate_event_)` in Blink's `NavigateEvent::ReactDone` (`navigate_event.cc`). The tab dies with `STATUS_BREAKPOINT`; it is not catchable from JS. Confirmed on Chrome 151 and the two prior stable builds.
+
+  `resolveRoute(routes, url)` follows redirects by rewriting the address bar with `history.replaceState` instead, and returns `{ url, matches }` where `matches` contains only middleware and page routes for the final URL. `getInterceptableUrl(event)` returns the destination URL to intercept or `null`, and encapsulates the intercept guards. The two coordinate through module-private state so the router does not intercept its own rewrite — `replaceState` dispatches a `navigate` event, and intercepting it starts a second, racing routing pass that reaches the same CHECK. **Use both together; do not hand-roll either half.**
+
+  ```ts
+  #onNavigate = (event: NavigateEvent) => {
+    const url = getInterceptableUrl(event);
+    if (!url) return;
+    event.intercept({ handler: () => this.#route(url) });
+  };
+
+  async #route(requestedUrl: URL) {
+    const { url, matches } = resolveRoute(this.#routes, requestedUrl);
+    if (!matches.some(({ route }) => 'page' in route)) return this.#showErrorPage();
+    for (const { route, params } of matches) {
+      if ((await route.before?.(params, url)) === ROUTE_HALT) return;
+      if ('page' in route) return this.#changePage(route.page, route.import);
+    }
+  }
+  ```
+
+  **Behaviour note:** a redirect means the intermediate URL is not real, so middleware matching it no longer runs — only the final URL's routes execute. An unresolvable redirect cycle (10 hops) returns no matches, which callers should treat as a 404.
 
 **Renamed / API changes:**
 
@@ -45,6 +69,7 @@ When bumping `@leavittsoftware/web` in a downstream project, read every entry **
 - `AppRoute` = `MiddlewareRoute | PageRoute | RedirectRoute`
 - `PageRoute.before` return type is now `RouteHandlerResult | Promise<RouteHandlerResult>` (may return `ROUTE_HALT` / `'halt'`)
 - New exports: `MiddlewareRoute`, `RouteHandlerResult`, `ROUTE_HALT`
+- New exports from `titanium/helpers/route`: `getInterceptableUrl`, `resolveRoute`, and types `RouteMatch<T>`, `ResolvedRoute`
 
 ### 10.0.0
 
