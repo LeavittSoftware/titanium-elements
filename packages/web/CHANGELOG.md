@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [11.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@11.3.0...@leavittsoftware/web@11.4.0) (2026-08-28)
+
+
+### Features
+
+* **route:** add getInterceptableUrl and resolveRoute helpers ([ca1aa02](https://github.com/LeavittSoftware/titanium-elements/commit/ca1aa02395df503fecae1059539f75e73a2e8c64))
+
+
+
+
+
 # [11.3.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@11.2.0...@leavittsoftware/web@11.3.0) (2026-08-21)
 
 
