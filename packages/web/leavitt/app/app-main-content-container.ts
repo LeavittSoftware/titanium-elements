@@ -41,6 +41,14 @@ export class LeavittAppContentContainer extends LitElement {
         scrollbar-color: var(--md-sys-color-surface-container-highest) transparent;
         border-radius: 28px;
       }
+
+      /* The host squares off in drawer mode, so the scroller has to as well — its
+         rounded overflow clip is otherwise visible at the page's top corners once
+         there is enough content to scroll. Safari does not like nested selectors on
+         host, so this stays flat. */
+      :host([main-menu-position='drawer']) scroll-container {
+        border-radius: 0;
+      }
     `,
   ];
 
