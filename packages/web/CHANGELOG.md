@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [11.4.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@11.4.0...@leavittsoftware/web@11.4.1) (2026-09-02)
+
+
+### Bug Fixes
+
+* square scroll-container corners in drawer mode ([178bb56](https://github.com/LeavittSoftware/titanium-elements/commit/178bb56a6a0900cd032ba82d3d043813a24cddb3))
+
+
+
+
+
 # [11.4.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@11.3.0...@leavittsoftware/web@11.4.0) (2026-08-28)
 
 
