@@ -14,6 +14,15 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
   #issuerIdentifier: string = 'https://auth.leavitt.com/';
   #apiVersion: 'api3' | 'api4' = 'api3';
   #scopes: string[] = ['openid', 'profile', 'email', 'offline_access'];
+  #connectionCookieName: string = 'lg-auth0-connection';
+  #connectionCookieMaxAgeSeconds: number = 60 * 60 * 24 * 30;
+
+  /**
+   * When true, the enterprise connection (e.g. Okta) a user last signed in with is remembered in a cookie
+   * shared across *.leavitt.com, and the next login redirect skips the Auth0 login page by sending
+   * `connection=<name>` to /authorize.
+   */
+  public useDirectLoginHint: boolean = true;
 
   get #audience() {
     return `https://${isDevelopment ? 'dev' : ''}${this.#apiVersion}.leavitt.com`;
@@ -65,7 +74,9 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
   }
   set #idToken(val: string | null) {
     localStorage.setItem('lg-auth0-id-token', val || '');
-    this.#notifyIdentityUpdated(this.identity);
+    const identity = this.identity;
+    this.#rememberConnection(identity);
+    this.#notifyIdentityUpdated(identity);
   }
 
   get #codeVerifier() {
@@ -73,6 +84,46 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
   }
   set #codeVerifier(val: string | null) {
     localStorage.setItem('lg-auth0-code-verifier', val || '');
+  }
+
+  get #connectionCookieAttributes() {
+    const hostname = window.location.hostname;
+    const attributes = ['path=/', 'samesite=lax'];
+    if (hostname === 'leavitt.com' || hostname.endsWith('.leavitt.com')) {
+      attributes.push('domain=.leavitt.com');
+    }
+    if (window.location.protocol === 'https:') {
+      attributes.push('secure');
+    }
+    return attributes.join('; ');
+  }
+
+  #getRememberedConnection() {
+    const prefix = `${this.#connectionCookieName}=`;
+    const cookie = document.cookie.split('; ').find((c) => c.startsWith(prefix));
+    return cookie ? decodeURIComponent(cookie.substring(prefix.length)) || null : null;
+  }
+
+  #setRememberedConnection(connection: string) {
+    document.cookie = `${this.#connectionCookieName}=${encodeURIComponent(connection)}; max-age=${this.#connectionCookieMaxAgeSeconds}; ${this.#connectionCookieAttributes}`;
+  }
+
+  #clearRememberedConnection() {
+    document.cookie = `${this.#connectionCookieName}=; max-age=0; ${this.#connectionCookieAttributes}`;
+  }
+
+  //Enterprise identities (Okta, SAML, OIDC) have a sub of strategy|connection|id; database and social logins have only strategy|id
+  #rememberConnection(identity: AuthZeroLgIdenitity | null) {
+    if (!this.useDirectLoginHint || !identity?.uniqueIdentifier) {
+      return;
+    }
+
+    const [, connection, id] = identity.uniqueIdentifier.split('|');
+    if (connection && id) {
+      this.#setRememberedConnection(connection);
+    } else {
+      this.#clearRememberedConnection();
+    }
   }
 
   #authenticateResolvers: Array<{ resolver: (accessToken: string | null) => void; reject: (error: string) => void }> = [];
@@ -131,6 +182,9 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
     const errorDescription = urlParams.get('error_description');
 
     if (error) {
+      //the remembered connection may be why login failed; fall back to the Auth0 login page next time
+      this.#clearRememberedConnection();
+
       //remove the error and error_description from the url
       const newUrl = new URL(window.location.href);
       newUrl.searchParams.delete('error');
@@ -197,6 +251,7 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
     this.#refreshToken = null;
     this.#idToken = null;
     this.#codeVerifier = null;
+    this.#clearRememberedConnection();
     const redirectUrl = `${this.authZeroDomainBaseURL}/oidc/logout?federated&client_id=${this.#clientId}&post_logout_redirect_uri=${encodeURIComponent(this.postLogoutRedirectUri)}`;
     console.log('redirecting to logout page...');
     document.location.href = redirectUrl;
@@ -236,7 +291,7 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
     // Save verifier for the final step
     this.#codeVerifier = codeVerifier;
 
-    const urlParts = {
+    const urlParts: Record<string, string> = {
       response_type: 'code',
       client_id: this.#clientId,
       code_challenge: codeChallenge,
@@ -246,6 +301,11 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
       scope: this.#scopes.join(' '),
       state: currentUrl.pathname + currentUrl.search + currentUrl.hash,
     };
+
+    const rememberedConnection = this.useDirectLoginHint ? this.#getRememberedConnection() : null;
+    if (rememberedConnection) {
+      urlParts.connection = rememberedConnection;
+    }
 
     const searchParams = Object.entries(urlParts)
       .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)

@@ -1406,6 +1406,12 @@ Auth0 integration for `profile-picture-menu`, feedback dialogs. Provides `identi
 
 `refreshPermissions()` removes the cached access token (`lg-auth0-at`) and ID token (`lg-auth0-id-token`), keeps the refresh token (`lg-auth0-rt`), and reloads the page. On the next `authenticate()` the refresh token issues new tokens, so `identity.roles` reflects the user's current roles without an Auth0 login redirect. Clearing only the refresh token does not work: `authenticate()` keeps using a still-valid cached access token.
 
+**Direct login for enterprise connections (Okta):** when a user signs in through an enterprise connection (identity token `sub` of the form `strategy|connection|id`), the connection name is saved in the `lg-auth0-connection` cookie for 30 days. Each token refresh extends it. The next login redirect adds `connection=<name>` to `/authorize`, so Auth0 skips its email prompt and sends the user straight to Okta, where an existing Okta session completes sign-in without any prompt. Database (`leavitt-clients`) and social logins have a two-part `sub` and clear the cookie.
+
+- Cookie scope is `domain=.leavitt.com` on `*.leavitt.com` hosts, so all Leavitt apps share the hint. On other hosts (`localhost`, `cedarcityhousing.com`, `manage.leavittlink.com`) it's a host-only cookie.
+- The cookie is cleared on `logout()` and whenever `initialize()` sees an `?error=` login response, so the next login falls back to the Auth0 login page.
+- Set `useDirectLoginHint = false` to stop reading and writing the cookie in an app.
+
 `refreshPermissions()` requires the app's Navigation API router to leave `navigationType === 'reload'` alone. `getInterceptableUrl` (from `titanium/helpers/route`) already skips reloads; a hand-rolled `#onNavigate` that intercepts every same-origin navigation turns `location.reload()` into an in-app route change and the page never reloads.
 
 ## Controllers and buses
