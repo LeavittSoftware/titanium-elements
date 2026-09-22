@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [11.6.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@11.5.0...@leavittsoftware/web@11.6.0) (2026-09-22)
+
+
+### Features
+
+* skip Auth0 login page for returning Okta users ([751c9fb](https://github.com/LeavittSoftware/titanium-elements/commit/751c9fb4f4246ad818f6b6319d777df2df4748ad))
+
+
+
+
+
 # [11.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@11.4.1...@leavittsoftware/web@11.5.0) (2026-09-22)
 
 
