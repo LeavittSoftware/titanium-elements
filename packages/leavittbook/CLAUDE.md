@@ -39,11 +39,24 @@ leavitt-app-main-content-container (.pendingStateElement=${this})
 
 ## Routing (intentional divergence from skeleton)
 
-Routing uses the [Navigation API](https://developer.mozilla.org/en-US/docs/Web/API/Navigation_API) with an inline `#routes: AppRoute[]` table in [`src/my-app.ts`](src/my-app.ts) — same router pattern as skeleton. Requires Navigation API support (Chrome, Edge, Safari 17.4+, Firefox 147+); unsupported browsers see an error page.
+Routing uses the [Navigation API](https://developer.mozilla.org/en-US/docs/Web/API/Navigation_API) with an inline `#routes: AppRoute[]` table in [`src/my-app.ts`](src/my-app.ts) — same router pattern as skeleton `develop`. Requires Navigation API support (Chrome, Edge, Safari 17.4+, Firefox 147+); unsupported browsers see an error page.
+
+- `#onNavigate` calls `getInterceptableUrl(event)` and `#route` calls `resolveRoute(this.#routes, url)` (both from `titanium/helpers/route`). Never follow a redirect with `window.navigation.navigate(...)` — it crashes the renderer; `resolveRoute` rewrites the address bar instead. `getInterceptableUrl` also leaves reloads alone, which `refreshPermissions()` in `profile-picture-menu` depends on.
+- `#showErrorPage(message?: string | Error, heading?)` and the `#route` / `#changePage` catch blocks match skeleton (including `HttpError` messages).
 
 Leavittbook **removes** inactive demo pages from the DOM on navigation (`${this.page === 'x' ? html`…` : nothing}`). Production apps scaffolded from skeleton keep pages mounted with `?hidden` + `.isActive`. The gallery resets demo state on each visit.
 
 Use `connectedCallback` / `disconnectedCallback` for per-visit setup and teardown.
+
+**Intentional differences from skeleton `my-app.ts`** (do not re-flag in drift checks):
+
+| Leavittbook                                                                                    | Why                                                                                 |
+| ---------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `#getActivePageElement` (`${page}-demo` lookup) + `await this.updateComplete` in `#changePage` | Demos mount only after render, so the element exists only once the update completes |
+| `UserManager.initialize()` in `connectedCallback`, no auth gate before `#route`                | The gallery is public; demos gate themselves (see Auth)                             |
+| No `#clearRouteScopedState()`                                                                  | No route-scoped `@state` ids (no middleware or param routes)                        |
+| `'navigation' in window` guard in `disconnectedCallback`                                       | Avoids a throw on unsupported browsers                                              |
+| `drawer` field name (skeleton: `mainMenuDrawer`)                                               | Cosmetic                                                                            |
 
 ## Auth
 

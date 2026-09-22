@@ -28,7 +28,8 @@ import { ReportAProblemDialog } from '@leavittsoftware/web/leavitt/user-feedback
 import { ProvideFeedbackDialog } from '@leavittsoftware/web/leavitt/user-feedback/provide-feedback-dialog';
 
 import themePreferenceEvent from '@leavittsoftware/web/leavitt/theme/theme-preference-event';
-import { ROUTE_HALT, type AppRoute } from '@leavittsoftware/web/titanium/helpers/route';
+import { getInterceptableUrl, resolveRoute, ROUTE_HALT, type AppRoute } from '@leavittsoftware/web/titanium/helpers/route';
+import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
 import UserManager from './services/user-manager-service';
 import { PendingStateCatcher } from '@leavittsoftware/web/titanium/helpers/pending-state-catcher';
 import { mainMenuPositionContext } from '@leavittsoftware/web/leavitt/app/contexts/main-menu-position-context';
@@ -178,43 +179,30 @@ export class MyApp extends PendingStateCatcher(LitElement) {
   ];
 
   #onNavigate = (event: NavigateEvent) => {
-    if (!event.canIntercept || event.hashChange || event.downloadRequest !== null) {
-      return;
-    }
-    const url = new URL(event.destination.url);
-    if (url.origin !== location.origin) {
+    const url = getInterceptableUrl(event);
+    if (!url) {
       return;
     }
     event.intercept({ handler: () => this.#route(url) });
   };
 
-  async #route(url: URL) {
-    const { pathname } = url;
-
+  async #route(requestedUrl: URL) {
     if (this.drawer?.mode === 'flyover') {
       this.drawer.close();
     }
 
-    // Pass 1: collect matches in declaration order (pure — no state touched yet).
-    const matches = this.#routes.flatMap((route) => {
-      const match = route.pattern.exec({ pathname });
-      return match ? [{ route, params: match.pathname.groups as Record<string, string> }] : [];
-    });
+    // Follows redirect routes by rewriting the address bar, then yields the routes to run.
+    const { url, matches } = resolveRoute(this.#routes, requestedUrl);
 
-    // 404 unless something terminal (page or redirect) matched — middleware alone isn't a page.
-    if (!matches.some(({ route }) => 'page' in route || 'redirect' in route)) {
+    // Middleware alone isn't a page, and a redirect cycle resolves to no matches.
+    if (!matches.some(({ route }) => 'page' in route)) {
       this.#showErrorPage();
       return;
     }
 
-    // Pass 2: execute in order; middleware continues by default, stop on 'halt' or the first terminal route.
+    // Middleware continues by default; stop on ROUTE_HALT or the first page route.
     try {
       for (const { route, params } of matches) {
-        if ('redirect' in route) {
-          const target = typeof route.redirect === 'function' ? route.redirect(params) : route.redirect;
-          window.navigation.navigate(target, { history: 'replace' });
-          return;
-        }
         if ((await route.before?.(params, url)) === ROUTE_HALT) {
           return;
         }
@@ -224,7 +212,7 @@ export class MyApp extends PendingStateCatcher(LitElement) {
         }
       }
     } catch (error) {
-      this.#showErrorPage(error instanceof Error ? error.message : String(error));
+      this.#showErrorPage(error instanceof Error ? error : ((error as Partial<HttpError>).message ?? 'Something went wrong'));
     }
   }
 
@@ -269,6 +257,11 @@ export class MyApp extends PendingStateCatcher(LitElement) {
   public async firstUpdated() {
     this.#applyTheme();
 
+    if (!('navigation' in window)) {
+      this.#showErrorPage('This app requires a browser with Navigation API support.', 'Unsupported browser');
+      return;
+    }
+
     this.searchTextField = this.shadowRoot?.querySelector<MdFilledTextField>('titanium-filled-search-input') ?? null;
 
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', ({ matches: isDark }) => {
@@ -297,14 +290,8 @@ export class MyApp extends PendingStateCatcher(LitElement) {
     this.#resizeObserver.observe(this);
 
     this.addEventListener(SiteErrorEvent.eventName, ((event: SiteErrorEvent) => {
-      this.fatalErrorMessage = event.detail;
-      this.#changePage('error');
+      this.#showErrorPage(event.detail);
     }) as EventListener);
-
-    if (!('navigation' in window)) {
-      this.#showErrorPage('This app requires a browser with Navigation API support.', 'Unsupported browser');
-      return;
-    }
 
     window.navigation.addEventListener('navigate', this.#onNavigate);
     this.#route(new URL(location.href));
@@ -335,13 +322,13 @@ export class MyApp extends PendingStateCatcher(LitElement) {
       this.showSearch = !!this.#getActivePageElement(mainPage)?.searchController;
     } catch (error) {
       console.warn(error);
-      this.#showErrorPage(error instanceof Error ? error.message : String(error));
+      this.#showErrorPage(error instanceof Error ? error : ((error as Partial<HttpError>).message ?? 'Something went wrong'));
     }
   }
 
-  #showErrorPage(message?: string, heading?: string) {
+  #showErrorPage(message?: string | Error, heading?: string) {
     this.fatalErrorHeading = heading || null;
-    this.fatalErrorMessage = message || null;
+    this.fatalErrorMessage = message instanceof Error ? message.message : (message ?? null);
     this.#changePage('error');
   }
 
