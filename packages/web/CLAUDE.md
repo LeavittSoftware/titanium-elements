@@ -1396,7 +1396,11 @@ All extend `TitaniumSingleSelectBase` and fire `selected`. All require `.apiServ
 
 **Import:** `leavitt/user-manager/auth-zero-lg-user-manager`
 
-Auth0 integration for `profile-picture-menu`, feedback dialogs. Provides `identity`, `authenticate()`, `onIdentityUpdated`.
+Auth0 integration for `profile-picture-menu`, feedback dialogs. Provides `identity`, `authenticate()`, `onIdentityUpdated`, `logout()`, and `refreshPermissions()`.
+
+`refreshPermissions()` removes the cached access token (`lg-auth0-at`) and ID token (`lg-auth0-id-token`), keeps the refresh token (`lg-auth0-rt`), and reloads the page. On the next `authenticate()` the refresh token issues new tokens, so `identity.roles` reflects the user's current roles without an Auth0 login redirect. Clearing only the refresh token does not work: `authenticate()` keeps using a still-valid cached access token.
+
+`refreshPermissions()` requires the app's Navigation API router to leave `navigationType === 'reload'` alone. `getInterceptableUrl` (from `titanium/helpers/route`) already skips reloads; a hand-rolled `#onNavigate` that intercepts every same-origin navigation turns `location.reload()` into an in-app route change and the page never reloads.
 
 ## Controllers and buses
 

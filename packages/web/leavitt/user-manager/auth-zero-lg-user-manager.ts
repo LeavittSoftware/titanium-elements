@@ -202,6 +202,16 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
     document.location.href = redirectUrl;
   }
 
+  /**
+   * Clears the cached access and ID tokens and reloads the page so the refresh token
+   * issues new tokens carrying the user's current roles.
+   */
+  public refreshPermissions() {
+    localStorage.removeItem('lg-auth0-at');
+    localStorage.removeItem('lg-auth0-id-token');
+    window.location.reload();
+  }
+
   #identityUpdatedCallbacks: Array<(identity: AuthZeroLgIdenitity | null) => void> = [];
   //add public callback to nitify clients when identity is updated
   public onIdentityUpdated(callback: (identity: AuthZeroLgIdenitity | null) => void) {
