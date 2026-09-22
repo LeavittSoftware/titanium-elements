@@ -32,7 +32,7 @@ When bumping `@leavittsoftware/web` in a downstream project, read every entry **
 - App-shell `#routes` tables and `before` handlers on page routes
 - `'page' in route` / `'redirect' in route` discriminators used to collect or execute matches
 - **`window.navigation.navigate(`** anywhere inside `#route`, a route `before` handler, or a home-routing helper — this is the renderer-crash pattern below
-- **`event.canIntercept`** / `event.navigationType === 'reload'` guard bodies hand-rolled in `#onNavigate`
+- **`event.canIntercept`** / `event.navigationType === 'reload'` guard bodies hand-rolled in `#onNavigate` — a guard that intercepts reloads also breaks `profile-picture-menu`'s **Refresh permissions** (`location.reload()` never reloads)
 - `md-menu-item[inert]` style overrides / `--md-menu-item-leading-icon-color` on single-select subclasses
 
 **Adopt when upgrading to this version:**
@@ -1324,9 +1324,15 @@ All extend `TitaniumSingleSelectBase` and fire `selected`. All require `.apiServ
 | Property | `size`, `profilePictureFileName`, `personId`, `email`, `company`, `name` |                         |       |
 | Property | `positioning`                                                            | `popover` \| `fixed`    |       |
 
-**Slots:** `content`
+**Slots:** `content` — rendered between the identity card and the action row; slotted children share the menu's 8px vertical gap
 
-**Usage notes / gotchas:** Auto-syncs from `userManager.onIdentityUpdated`; opens auth if no `personId`
+**Usage notes / gotchas:**
+
+- Auto-syncs from `userManager.onIdentityUpdated`; opens auth if no `personId`
+- Layout: close button, identity card (avatar, name, company, email), a wrapping row of `md-filled-button` actions on a surface-container-high background — **Leavitt apps** and **Settings** (side by side when there is room, stacked otherwise) — a full-width **Sign out** `md-filled-tonal-button`, then a small centered **Refresh permissions** `md-text-button` footer link
+- **Refresh permissions** calls `userManager.refreshPermissions()` — use it after a user's roles change so the app picks them up without signing out. It depends on the app router not intercepting reloads (see `AuthZeroLgUserManager`)
+- Menu is 360px wide with a 28px container shape; colors come from `--md-sys-color-surface-container` / `-surface-container-high`
+- Small viewports: content shrinks to whatever width `md-menu` gives its surface (popover positioning resizes the surface to stay on screen), so it never scrolls horizontally. Responsive rules use a `profile-menu` container query (no viewport units or media queries): at 320px or narrower the padding tightens and the identity card compacts. The action row is a `repeat(auto-fit, minmax(140px, 1fr))` grid, so the buttons stack when two don't fit. Long names and emails truncate with an ellipsis
 
 ---
 
