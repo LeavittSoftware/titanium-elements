@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [11.5.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@11.4.1...@leavittsoftware/web@11.5.0) (2026-09-22)
+
+
+### Features
+
+* **profile-picture-menu:** Material You redesign with refresh permissions action ([d11b033](https://github.com/LeavittSoftware/titanium-elements/commit/d11b033baf23d35ea9944a77d6d4415af476654d))
+* **user-manager:** add refreshPermissions to AuthZeroLgUserManager ([30f9632](https://github.com/LeavittSoftware/titanium-elements/commit/30f9632b9ccc1ece65a0551d5fa7df58d71aceef))
+
+
+
+
+
 ## [11.4.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@11.4.0...@leavittsoftware/web@11.4.1) (2026-09-02)
 
 
