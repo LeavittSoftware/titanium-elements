@@ -1,0 +1,57 @@
+:root {
+  /* Custom */
+  --md-outlined-button-container-height: 36px;
+  --md-ref-typeface-brand: 'Metropolis';
+
+  --app-accent-color-green-light: #34a853;
+  --app-accent-color-on-green-light: #ffffff;
+
+  --app-accent-color-green-dark: #79c08c;
+  --app-accent-color-on-green-dark: #012e0d;
+
+  --app-accent-color-orange-light: #fbbc04;
+  --app-accent-color-on-orange-light: #ffffff;
+
+  --app-accent-color-orange-dark: #ffd46e;
+  --app-accent-color-on-orange-dark: #422e00;
+
+  --app-accent-color-teal-light: #00796b;
+  --app-accent-color-on-teal-light: #ffffff;
+
+  --app-accent-color-teal-dark: #75bbb3;
+  --app-accent-color-on-teal-dark: #422e00;
+
+  --app-accent-color-indigo-light: #303f9f;
+  --app-accent-color-on-indigo-light: #ffffff;
+
+  --app-accent-color-indigo-dark: #838ac2;
+  --app-accent-color-on-indigo-dark: #101533;
+
+  /* Custom light*/
+  --app-accent-color-green: var(--app-accent-color-green-light);
+  --app-accent-color-on-green: var(--app-accent-color-on-green-light);
+
+  --app-accent-color-orange: var(--app-accent-color-orange-light);
+  --app-accent-color-on-orange: var(--app-accent-color-on-orange-light);
+
+  --app-accent-color-teal: var(--app-accent-color-teal-light);
+  --app-accent-color-on-teal: var(--app-accent-color-on-teal-light);
+
+  --app-accent-color-indigo: var(--app-accent-color-indigo-light);
+  --app-accent-color-on-indigo: var(--app-accent-color-on-indigo-light);
+}
+
+/* Custom dark*/
+[data-theme='dark'] {
+  --app-accent-color-green: var(--app-accent-color-green-dark);
+  --app-accent-color-on-green: var(--app-accent-color-on-green-dark);
+
+  --app-accent-color-orange: var(--app-accent-color-orange-dark);
+  --app-accent-color-on-orange: var(--app-accent-color-on-orange-dark);
+
+  --app-accent-color-teal: var(--app-accent-color-teal-dark);
+  --app-accent-color-on-teal: var(--app-accent-color-on-teal-dark);
+
+  --app-accent-color-indigo: var(--app-accent-color-indigo-dark);
+  --app-accent-color-on-indigo: var(--app-accent-color-on-indigo-dark);
+}
