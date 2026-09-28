@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [11.7.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@11.6.0...@leavittsoftware/web@11.7.0) (2026-09-28)
+
+
+### Features
+
+* **helpers:** support Azure-stored CDN attachment URLs ([bcc07c4](https://github.com/LeavittSoftware/titanium-elements/commit/bcc07c4e1ab3ab33b4191d8545452473a19bcd6a))
+
+
+
+
+
 # [11.6.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@11.5.0...@leavittsoftware/web@11.6.0) (2026-09-22)
 
 
