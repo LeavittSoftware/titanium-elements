@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [11.7.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@11.7.0...@leavittsoftware/web@11.7.1) (2026-10-13)
+
+
+### Bug Fixes
+
+* load static assets from cdn01.leavitt.com ([#742](https://github.com/LeavittSoftware/titanium-elements/issues/742)) ([163d984](https://github.com/LeavittSoftware/titanium-elements/commit/163d984732b225f52a83242543afa7fc07815079))
+
+
+
+
+
 # [11.7.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@11.6.0...@leavittsoftware/web@11.7.0) (2026-09-28)
 
 
