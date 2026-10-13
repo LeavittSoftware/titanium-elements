@@ -143,13 +143,13 @@ export class AvailableCdnIconsDemo extends LitElement {
                 (o) =>
                   html`<button
                     @click=${() => {
-                      navigator.clipboard.writeText(`https://cdn.leavitt.com/icons/${o}`);
+                      navigator.clipboard.writeText(`https://cdn01.leavitt.com/public/files/4/icons/${o}`);
                       this.dispatchEvent(new ShowSnackbarEvent('URL copied to clipboard!', { autoHide: 1500, noAction: true }));
                     }}
                   >
                     <md-ripple></md-ripple>
                     <md-focus-ring></md-focus-ring>
-                    <img src="https://cdn.leavitt.com/icons/${o}" height="92" />
+                    <img src="https://cdn01.leavitt.com/public/files/4/icons/${o}" height="92" />
                     <div>${o}</div>
                   </button>`
               )}

@@ -120,7 +120,11 @@ export class LeavittAppLogo extends ThemePreference(LitElement) {
 
   render() {
     return html`<a mark href=${this.href} title=${this.title}>
-      <img src=${this.themePreference === 'dark' ? 'https://cdn.leavitt.com/company-mark-57-dark.svg' : 'https://cdn.leavitt.com/company-mark-57.svg'} />
+      <img
+        src=${this.themePreference === 'dark'
+          ? 'https://cdn01.leavitt.com/public/files/4/logos/company-mark-57-dark.svg'
+          : 'https://cdn01.leavitt.com/public/files/4/logos/company-mark-57.svg'}
+      />
       <span app-name>${this.appName}</span>${this.renderLGLogoText()}
     </a>`;
   }
