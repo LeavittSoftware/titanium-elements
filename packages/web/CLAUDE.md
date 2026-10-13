@@ -21,9 +21,20 @@ npm i @leavittsoftware/web
 
 When bumping `@leavittsoftware/web` in a downstream project, read every entry **after** the version currently installed. Each entry lists grep targets, removals, and replacements — not full release history (that lives in-repo at `CHANGELOG.md`).
 
-### Unreleased
+### 11.5.0 – 11.7.1
 
-**Upgrade if coming from:** `< unreleased` (published latest is `10.2.0`)
+**Upgrade if coming from:** `>= 11.0.0` and `< 11.7.1`. No required code changes: every release in this range is additive or internal.
+
+- **11.5.0** — `profile-picture-menu` Material You redesign (internal markup and styles only) and `AuthZeroLgUserManager.refreshPermissions()`.
+- **11.6.0** — returning Okta users skip the Auth0 login page (internal to `AuthZeroLgUserManager`).
+- **11.7.0** — `getCdnInlineUrl` / `getCdnDownloadUrl` build `cdn01.leavitt.com` URLs for Azure-stored attachments (`CdnFileName` contains `/`). Legacy `cdn.leavitt.com` rows produce the same URLs as before. New exports from `titanium/helpers/cdn-attachment`: `getCdnFileUrl`, `isAzureStored`, `CdnAttachment`.
+- **11.7.1** — the package's static assets (app logo, service worker notifier, error page, profile-picture fallback, company logo/mark fallbacks) load from `cdn01.leavitt.com/public/files/4/`.
+
+**Search downstream for:** hardcoded `https://cdn.leavitt.com/` static assets (fonts, `icons/`, `lg-logo` / `lg-mark` / `company-57` / `company-mark-57` SVGs). Point them at `https://cdn01.leavitt.com/public/files/4/` + `fonts/`, `icons/`, or `logos/`. Leave profile pictures (`${ProfilePictureCdnFileName}-*.webp`, `user-0-*.jpeg`) and legacy `CdnFileName` attachment URLs alone; they move separately.
+
+### 11.0.0 – 11.4.0
+
+**Upgrade if coming from:** `< 11.0.0`. 11.0.0 is the breaking release (middleware-aware routers). The multi select (11.1.0), single-select menu tokens (11.0.1), and `getInterceptableUrl` / `resolveRoute` (11.4.0) followed.
 
 **Search downstream for:**
 
