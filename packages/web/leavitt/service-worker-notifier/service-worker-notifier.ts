@@ -157,7 +157,9 @@ export class LeavittServiceWorkerNotifier extends ThemePreference(LitElement) {
         ${this.isLoading
           ? html`<md-circular-progress indeterminate></md-circular-progress>`
           : html`<img
-              src=${this.themePreference === 'dark' ? 'https://cdn.leavitt.com/company-mark-57-dark.svg' : 'https://cdn.leavitt.com/company-mark-57.svg'}
+              src=${this.themePreference === 'dark'
+                ? 'https://cdn01.leavitt.com/public/files/4/logos/company-mark-57-dark.svg'
+                : 'https://cdn01.leavitt.com/public/files/4/logos/company-mark-57.svg'}
             />`}
         <div>
           <h1>This site has been updated!</h1>

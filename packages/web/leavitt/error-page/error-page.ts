@@ -270,10 +270,10 @@ export class LeavittErrorPage extends ThemePreference(LitElement) {
           <image-container>
             <div icon-container>
               <slot name="icon">
-                <img mark src="https://cdn.leavitt.com/icons/lg-mark.svg" />
+                <img mark src="https://cdn01.leavitt.com/public/files/4/icons/lg-mark.svg" />
               </slot>
             </div>
-            <img planet src="https://cdn.leavitt.com/icons/lg-planet.svg" />
+            <img planet src="https://cdn01.leavitt.com/public/files/4/icons/lg-planet.svg" />
           </image-container>
         </leavitt-app-width-limiter>
       </leavitt-app-main-content-container>

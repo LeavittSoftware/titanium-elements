@@ -49,7 +49,7 @@ export class ProfilePicture extends LitElement {
   @property({ type: Boolean }) accessor useIntrinsicImageSize: boolean = false;
 
   #availableSizes = new Set([32, 64, 128, 256, 512, 1024]);
-  #fallbackSrc = 'https://cdn.leavitt.com/icon-user-profile-sq.svg';
+  #fallbackSrc = 'https://cdn01.leavitt.com/public/files/4/icons/icon-user-profile-sq.svg';
 
   protected updated(changedProps: PropertyValues<this>) {
     if (changedProps.has('size') || changedProps.has('useIntrinsicImageSize')) {

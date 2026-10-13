@@ -167,7 +167,7 @@ export class TitaniumSmartAttachmentInputDemo extends LitElement {
                     (this.files = [
                       {
                         file: new File([''], 'sample.svg'),
-                        previewSrc: 'https://cdn.leavitt.com/icons/icon-app-broker-key.svg',
+                        previewSrc: 'https://cdn01.leavitt.com/public/files/4/icons/icon-app-broker-key.svg',
                       },
                     ])}
                   >Pre-select file</md-filled-tonal-button
