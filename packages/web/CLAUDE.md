@@ -21,6 +21,10 @@ npm i @leavittsoftware/web
 
 When bumping `@leavittsoftware/web` in a downstream project, read every entry **after** the version currently installed. Each entry lists grep targets, removals, and replacements — not full release history (that lives in-repo at `CHANGELOG.md`).
 
+### Unreleased
+
+- Opt-in `AuthZeroLgUserManager.employeesOnly` and the `?lge=true` link parameter: set the property on employee-only sites, or add the parameter to links only employees follow (Okta tiles), to send users straight to Okta. No required code changes.
+
 ### 11.5.0 – 11.7.1
 
 **Upgrade if coming from:** `>= 11.0.0` and `< 11.7.1`. No required code changes: every release in this range is additive or internal.
@@ -1413,7 +1417,7 @@ All extend `TitaniumSingleSelectBase` and fire `selected`. All require `.apiServ
 
 **Import:** `leavitt/user-manager/auth-zero-lg-user-manager`
 
-Auth0 integration for `profile-picture-menu`, feedback dialogs. Provides `identity`, `authenticate()`, `onIdentityUpdated`, `logout()`, and `refreshPermissions()`.
+Auth0 integration for `profile-picture-menu`, feedback dialogs. Provides `identity`, `authenticate()`, `onIdentityUpdated`, `logout()`, `refreshPermissions()`, and the `useDirectLoginHint` / `employeesOnly` login-redirect settings.
 
 `refreshPermissions()` removes the cached access token (`lg-auth0-at`) and ID token (`lg-auth0-id-token`), keeps the refresh token (`lg-auth0-rt`), and reloads the page. On the next `authenticate()` the refresh token issues new tokens, so `identity.roles` reflects the user's current roles without an Auth0 login redirect. Clearing only the refresh token does not work: `authenticate()` keeps using a still-valid cached access token.
 
@@ -1422,6 +1426,8 @@ Auth0 integration for `profile-picture-menu`, feedback dialogs. Provides `identi
 - Cookie scope is `domain=.leavitt.com` on `*.leavitt.com` hosts, so all Leavitt apps share the hint. On other hosts (`localhost`, `cedarcityhousing.com`, `manage.leavittlink.com`) it's a host-only cookie.
 - The cookie is cleared on `logout()` and whenever `initialize()` sees an `?error=` login response, so the next login falls back to the Auth0 login page.
 - Set `useDirectLoginHint = false` to stop reading and writing the cookie in an app.
+- Set `employeesOnly = true` on a site that only Leavitt employees use. Every login redirect then sends `connection=Prod-Auth0-Connector`, whether or not the cookie exists, so a first visit, an expired cookie, or a return after logout or an `?error=` response still goes straight to Okta. Each sign-in and token refresh writes the cookie even when `useDirectLoginHint` is `false`, so other Leavitt apps skip the Auth0 login page too. The cookie is not written before sign-in, so someone who opens the site but never signs in isn't sent to Okta elsewhere. Client (`leavitt-clients` database) and social logins can't sign in to such a site. `logout()` and `?error=` still clear the cookie; the site itself doesn't read it.
+- Add `?lge=true` to a link that only employees follow (an Okta dashboard tile, a link from an employee-only site) to make that page load's login redirect send `connection=Prod-Auth0-Connector`, whatever the site's `employeesOnly` / `useDirectLoginHint` settings. The parameter's presence is enough (`?lge` and `?lge=1` work too). It's dropped from the `state` URL, so it doesn't come back after login; if the user is already signed in no redirect happens and it stays in the address bar, which is harmless. Nothing is persisted; the cookie is written after sign-in as usual.
 
 `refreshPermissions()` requires the app's Navigation API router to leave `navigationType === 'reload'` alone. `getInterceptableUrl` (from `titanium/helpers/route`) already skips reloads; a hand-rolled `#onNavigate` that intercepts every same-origin navigation turns `location.reload()` into an in-app route change and the page never reloads.
 

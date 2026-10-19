@@ -16,6 +16,8 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
   #scopes: string[] = ['openid', 'profile', 'email', 'offline_access'];
   #connectionCookieName: string = 'lg-auth0-connection';
   #connectionCookieMaxAgeSeconds: number = 60 * 60 * 24 * 30;
+  #employeeConnection: string = 'Prod-Auth0-Connector';
+  #employeeLinkParam: string = 'lge';
 
   /**
    * When true, the enterprise connection (e.g. Okta) a user last signed in with is remembered in a cookie
@@ -23,6 +25,13 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
    * `connection=<name>` to /authorize.
    */
   public useDirectLoginHint: boolean = true;
+
+  /**
+   * Declares that only Leavitt employees signing in through Okta use this site. Every login redirect sends
+   * `connection=Prod-Auth0-Connector` to /authorize, so the Auth0 login page is never shown, and each sign-in
+   * writes the connection cookie even when `useDirectLoginHint` is false. Client and social logins can't sign in.
+   */
+  public employeesOnly: boolean = false;
 
   get #audience() {
     return `https://${isDevelopment ? 'dev' : ''}${this.#apiVersion}.leavitt.com`;
@@ -114,7 +123,7 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
 
   //Enterprise identities (Okta, SAML, OIDC) have a sub of strategy|connection|id; database and social logins have only strategy|id
   #rememberConnection(identity: AuthZeroLgIdenitity | null) {
-    if (!this.useDirectLoginHint || !identity?.uniqueIdentifier) {
+    if (!(this.useDirectLoginHint || this.employeesOnly) || !identity?.uniqueIdentifier) {
       return;
     }
 
@@ -285,6 +294,14 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
   //This will cause the authentication to fail
   async #redirectToLogin() {
     const currentUrl = new URL(document.location.href);
+
+    //?lge=true marks a link only employees follow (e.g. an Okta tile); drop it so it isn't restored after login
+    const isEmployeeLink = currentUrl.searchParams.has(this.#employeeLinkParam);
+    if (isEmployeeLink) {
+      //only mutate when present: any searchParams change re-serializes the whole query and would alter state
+      currentUrl.searchParams.delete(this.#employeeLinkParam);
+    }
+
     const codeVerifier = this.#generateRandomString(128);
     const codeChallenge = await this.#generateCodeChallenge(codeVerifier);
 
@@ -302,9 +319,9 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
       state: currentUrl.pathname + currentUrl.search + currentUrl.hash,
     };
 
-    const rememberedConnection = this.useDirectLoginHint ? this.#getRememberedConnection() : null;
-    if (rememberedConnection) {
-      urlParts.connection = rememberedConnection;
+    const connection = this.employeesOnly || isEmployeeLink ? this.#employeeConnection : this.useDirectLoginHint ? this.#getRememberedConnection() : null;
+    if (connection) {
+      urlParts.connection = connection;
     }
 
     const searchParams = Object.entries(urlParts)
