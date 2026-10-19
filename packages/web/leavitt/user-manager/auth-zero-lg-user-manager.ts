@@ -17,6 +17,7 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
   #connectionCookieName: string = 'lg-auth0-connection';
   #connectionCookieMaxAgeSeconds: number = 60 * 60 * 24 * 30;
   #employeeConnection: string = 'Prod-Auth0-Connector';
+  #employeeLinkParam: string = 'lge';
 
   /**
    * When true, the enterprise connection (e.g. Okta) a user last signed in with is remembered in a cookie
@@ -293,6 +294,14 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
   //This will cause the authentication to fail
   async #redirectToLogin() {
     const currentUrl = new URL(document.location.href);
+
+    //?lge=true marks a link only employees follow (e.g. an Okta tile); drop it so it isn't restored after login
+    const isEmployeeLink = currentUrl.searchParams.has(this.#employeeLinkParam);
+    if (isEmployeeLink) {
+      //only mutate when present: any searchParams change re-serializes the whole query and would alter state
+      currentUrl.searchParams.delete(this.#employeeLinkParam);
+    }
+
     const codeVerifier = this.#generateRandomString(128);
     const codeChallenge = await this.#generateCodeChallenge(codeVerifier);
 
@@ -310,7 +319,7 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
       state: currentUrl.pathname + currentUrl.search + currentUrl.hash,
     };
 
-    const connection = this.employeesOnly ? this.#employeeConnection : this.useDirectLoginHint ? this.#getRememberedConnection() : null;
+    const connection = this.employeesOnly || isEmployeeLink ? this.#employeeConnection : this.useDirectLoginHint ? this.#getRememberedConnection() : null;
     if (connection) {
       urlParts.connection = connection;
     }
