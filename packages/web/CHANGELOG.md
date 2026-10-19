@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [11.8.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@11.7.1...@leavittsoftware/web@11.8.0) (2026-10-19)
+
+
+### Features
+
+* **user-manager:** send employees straight to Okta with employeesOnly and ?lge=true ([#744](https://github.com/LeavittSoftware/titanium-elements/issues/744)) ([89bd4fa](https://github.com/LeavittSoftware/titanium-elements/commit/89bd4faf032cb2b85744a63627e9158a8ab7a9b4))
+
+
+
+
+
 ## [11.7.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@11.7.0...@leavittsoftware/web@11.7.1) (2026-10-13)
 
 
