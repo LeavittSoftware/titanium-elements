@@ -18,6 +18,7 @@ export interface AuthZeroLgIdenitity {
   audience: string | null;
   uniqueIdentifier: string | null;
   roles: string[];
+  droppedRoles: string[];
   sid: string | null;
   updatedAt: Date | null;
 }

@@ -1,6 +1,7 @@
 export interface AuthZeroLgIdentityToken {
   'https://leavitt.com/coreid': number | null;
   'https://leavitt.com/roles': string[] | null;
+  'https://leavitt.com/droppedRoles': string[] | null;
   'https://leavitt.com/activeEmployee': boolean | null;
   'https://leavitt.com/pendingEmployee': boolean | null;
   'https://leavitt.com/activeClient': boolean | null;

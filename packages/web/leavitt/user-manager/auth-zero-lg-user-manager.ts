@@ -18,6 +18,7 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
   #connectionCookieMaxAgeSeconds: number = 60 * 60 * 24 * 30;
   #employeeConnection: string = 'Prod-Auth0-Connector';
   #employeeLinkParam: string = 'lge';
+  #dropRolesParam: string = 'lg_drop_roles';
 
   /**
    * When true, the enterprise connection (e.g. Okta) a user last signed in with is remembered in a cookie
@@ -160,6 +161,13 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
 
     const code = urlParams.get('code');
     const state = urlParams.get('state');
+
+    //?lg_drop_roles in the address bar always means a fresh sign-in with those roles left out (see dropRoles)
+    if (!code && urlParams.has(this.#dropRolesParam)) {
+      localStorage.removeItem('lg-auth0-at');
+      localStorage.removeItem('lg-auth0-rt');
+      localStorage.removeItem('lg-auth0-id-token');
+    }
     if (code) {
       // If code is present in the url, exchange it for a token have all
       //   subsequent calls to authenticate wait for the code to be exchanged
@@ -276,6 +284,28 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
     window.location.reload();
   }
 
+  /**
+   * Signs in again with the given roles left out of the new tokens, to test a page as a user who has fewer roles.
+   * The page reloads with `?lg_drop_roles=<roles>`; `initialize()` then clears every cached token and the login
+   * redirect forwards the list to /authorize, where the post-login Action removes those roles from the ID and access
+   * token claims (it never adds any) and remembers the choice for the user, so later token refreshes keep them out too.
+   * Opening a page with that parameter in the address bar does the same without any code.
+   * `identity.droppedRoles` lists what the Action removed. Call `restoreRoles()` to get every role back.
+   */
+  public dropRoles(roles: string[]) {
+    const url = new URL(window.location.href);
+    url.searchParams.set(this.#dropRolesParam, roles.join(','));
+    window.history.replaceState(window.history.state, '', url.toString());
+    window.location.reload();
+  }
+
+  /**
+   * Undoes `dropRoles()`: signs in again with every role the user holds and clears the remembered choice.
+   */
+  public restoreRoles() {
+    this.dropRoles([]);
+  }
+
   #identityUpdatedCallbacks: Array<(identity: AuthZeroLgIdenitity | null) => void> = [];
   //add public callback to nitify clients when identity is updated
   public onIdentityUpdated(callback: (identity: AuthZeroLgIdenitity | null) => void) {
@@ -302,6 +332,12 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
       currentUrl.searchParams.delete(this.#employeeLinkParam);
     }
 
+    //?lg_drop_roles=A,B asks the post-login Action to leave those roles out of the tokens (see dropRoles); drop it so it isn't restored after login
+    const dropRoles = currentUrl.searchParams.get(this.#dropRolesParam);
+    if (dropRoles !== null) {
+      currentUrl.searchParams.delete(this.#dropRolesParam);
+    }
+
     const codeVerifier = this.#generateRandomString(128);
     const codeChallenge = await this.#generateCodeChallenge(codeVerifier);
 
@@ -322,6 +358,10 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
     const connection = this.employeesOnly || isEmployeeLink ? this.#employeeConnection : this.useDirectLoginHint ? this.#getRememberedConnection() : null;
     if (connection) {
       urlParts.connection = connection;
+    }
+
+    if (dropRoles !== null) {
+      urlParts[this.#dropRolesParam] = dropRoles;
     }
 
     const searchParams = Object.entries(urlParts)
@@ -375,6 +415,7 @@ export class AuthZeroLgUserManager implements BearerTokenProvider {
     const identity: AuthZeroLgIdenitity = {
       coreid: token['https://leavitt.com/coreid'] ?? 0,
       roles: token['https://leavitt.com/roles'] || [],
+      droppedRoles: token['https://leavitt.com/droppedRoles'] || [],
       activeEmployee: !!token['https://leavitt.com/activeEmployee'],
       pendingEmployee: !!token['https://leavitt.com/pendingEmployee'],
       activeClient: !!token['https://leavitt.com/activeClient'],
