@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [11.9.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@11.8.0...@leavittsoftware/web@11.9.0) (2026-10-30)
+
+
+### Features
+
+* **user-manager:** sign in with fewer roles for testing via ?lg_drop_roles ([2121168](https://github.com/LeavittSoftware/titanium-elements/commit/21211686959ba733f5aebaaf0d2cc31ed1904d44))
+
+
+
+
+
 # [11.8.0](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@11.7.1...@leavittsoftware/web@11.8.0) (2026-10-19)
 
 
