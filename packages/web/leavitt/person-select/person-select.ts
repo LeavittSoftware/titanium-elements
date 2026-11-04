@@ -61,12 +61,13 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
   @property({ attribute: false }) accessor apiService!: ApiService;
 
   /**
-   *  Odata parts for the Person API call
+   *  Odata parts for the Person API call. To tell same-name people apart ("Company · Job title"), add `JobTitle` to `select=`
+   *  when the endpoint has it; it is left out by default because endpoints without it refuse the query.
    */
   @property({ type: Array }) accessor odataParts: Array<string> = [
     'top=15',
     'orderby=FullName',
-    'select=FullName,CompanyName,JobTitle,Id,ProfilePictureCdnFileName',
+    'select=FullName,CompanyName,Id,ProfilePictureCdnFileName',
     'count=true',
   ];
 
