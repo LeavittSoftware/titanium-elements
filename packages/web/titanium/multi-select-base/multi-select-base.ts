@@ -473,6 +473,13 @@ export class TitaniumMultiSelectBase<T extends Identifier = Identifier> extends 
   }
 
   /**
+   *  Whether the field is showing an error, either set through `error` or reported by `reportValidity()`.
+   */
+  get hasError() {
+    return this.error || !!this.field?.error;
+  }
+
+  /**
    *  Returns true if the field passes validity checks.
    */
   checkValidity() {

@@ -269,6 +269,15 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
   }
 
   /**
+   *  Whether the input is showing an error, either set through `error` or reported by `reportValidity()`.
+   */
+  get hasError() {
+    // md-filled-text-field exposes hasError at runtime; its typings mark it private.
+    const textField = this.getTextField() as unknown as { hasError?: boolean } | null;
+    return this.error || !!textField?.hasError;
+  }
+
+  /**
    *  Runs checkValidity() method, and if it returns false, then it reports to the user that the input is invalid.
    */
   reportValidity() {
@@ -345,6 +354,16 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
     }
     this.awaitingResults = !!searchTerm;
     this.searchTerm = searchTerm;
+
+    // Clear an error that is already showing once the input is valid again, e.g. after clearing
+    // the text of an optional select. Only reports when valid so screen readers do not
+    // re-announce an unchanged error on every keystroke.
+    if (this.hasError) {
+      await this.updateComplete;
+      if (this.checkValidity()) {
+        this.reportValidity();
+      }
+    }
     await this.updateComplete;
 
     this.onInputChanged(searchTerm);
