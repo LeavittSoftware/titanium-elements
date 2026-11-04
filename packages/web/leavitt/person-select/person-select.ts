@@ -13,6 +13,30 @@ import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
 import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
 
 /**
+ *  Passed to `renderMenuItemContentTemplate` alongside each person.
+ */
+export type PersonSuggestionContext = {
+  /**
+   *  Another person in the visible list has the same full name.
+   */
+  hasDuplicateName: boolean;
+};
+
+/**
+ *  Second line of a person suggestion: the company, plus the job title when another visible
+ *  person has the same name so the two can be told apart.
+ */
+export function getPersonSupportingText(person: Partial<Person>, context: PersonSuggestionContext) {
+  if (!context.hasDuplicateName) {
+    return person.CompanyName ?? '';
+  }
+
+  return [person.CompanyName, person.JobTitle].filter(Boolean).join(' · ');
+}
+
+const normalizeName = (name: string | null | undefined) => (name ?? '').trim().toLowerCase();
+
+/**
  *  Single select input that searches Leavitt Group users
  *
  *  @element leavitt-person-select
@@ -42,7 +66,7 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
   @property({ type: Array }) accessor odataParts: Array<string> = [
     'top=15',
     'orderby=FullName',
-    'select=FullName,CompanyName,Id,ProfilePictureCdnFileName',
+    'select=FullName,CompanyName,JobTitle,Id,ProfilePictureCdnFileName',
     'count=true',
   ];
 
@@ -59,12 +83,43 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
 
   @property({ reflect: true, type: Boolean }) accessor spellcheck: boolean = false;
 
-  @property({ type: Object }) accessor renderMenuItemContentTemplate = (person: Partial<Person>) =>
+  /**
+   *  Renders a suggestion. The second argument says whether another visible person has the same
+   *  name; use `getPersonSupportingText()` or your own fields to tell them apart.
+   */
+  @property({ type: Object }) accessor renderMenuItemContentTemplate = (
+    person: Partial<Person>,
+    context: PersonSuggestionContext = { hasDuplicateName: false }
+  ) =>
     html`<md-menu-item .item=${person}>
       <profile-picture slot="start" .fileName=${person?.ProfilePictureCdnFileName ?? null} shape="circle" size="40"></profile-picture>
       <span slot="headline">${person.FullName}</span>
-      <span slot="supporting-text">${person.CompanyName}</span>
+      <span slot="supporting-text">${getPersonSupportingText(person, context)}</span>
     </md-menu-item>`;
+
+  /**
+   *  Normalized names that appear more than once in the visible suggestions.
+   */
+  #duplicateNames = new Set<string>();
+
+  willUpdate(changed: PropertyValues<this>) {
+    super.willUpdate(changed);
+    const changedProperties = changed as Map<string, unknown>;
+    if (changedProperties.has('suggestions')) {
+      const seen = new Set<string>();
+      this.#duplicateNames = new Set<string>();
+      for (const person of this.suggestions) {
+        const name = normalizeName(person.FullName);
+        if (!name) {
+          continue;
+        }
+        if (seen.has(name)) {
+          this.#duplicateNames.add(name);
+        }
+        seen.add(name);
+      }
+    }
+  }
 
   #doSearchDebouncer = new Debouncer((searchTerm: string) => this.#doSearch(searchTerm));
   #abortController: AbortController = new AbortController();
@@ -170,6 +225,6 @@ export class LeavittPersonSelect extends TitaniumSingleSelectBase<Partial<Person
   }
 
   protected override renderSuggestion(person: Partial<Person>) {
-    return this.renderMenuItemContentTemplate(person);
+    return this.renderMenuItemContentTemplate(person, { hasDuplicateName: this.#duplicateNames.has(normalizeName(person.FullName)) });
   }
 }
