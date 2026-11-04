@@ -246,6 +246,14 @@ export class TitaniumDateInput extends LitElement {
     return this.error ? this.errorText : this.nativeErrorText;
   }
 
+  /**
+   * Whether the input is showing an error, either set through `error` or reported by
+   * `reportValidity()`.
+   */
+  get hasError() {
+    return this.error || this.nativeError;
+  }
+
   private showErrorMessage(valid: boolean, invalidEvent: Event | undefined) {
     if (invalidEvent?.defaultPrevented) {
       return valid;
@@ -401,6 +409,13 @@ export class TitaniumDateInput extends LitElement {
             this.value = (event.target as HTMLInputElement).value;
             // Sync validity so that clients can check validity on input.
             this.syncValidity();
+
+            // Clear a reported error as soon as the value is valid instead of waiting for the
+            // next reportValidity(). Only reports when valid, so it never shows an error early
+            // and screen readers do not re-announce an unchanged error on every keystroke.
+            if (this.nativeError && this.checkValidity()) {
+              this.reportValidity();
+            }
           }}
           @select=${(e: Event) => redispatchEvent(this, e)}
         />

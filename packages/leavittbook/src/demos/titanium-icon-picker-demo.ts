@@ -6,9 +6,12 @@ import '@leavittsoftware/web/leavitt/app/app-width-limiter';
 import '@api-viewer/docs';
 
 import '@material/web/button/filled-tonal-button';
+import '@material/web/button/text-button';
+import '@material/web/dialog/dialog';
 
 import { html, LitElement } from 'lit';
 import { customElement, query } from 'lit/decorators.js';
+import { MdDialog } from '@material/web/dialog/dialog';
 import '@leavittsoftware/web/titanium/icon-picker/icon-picker';
 import { TitaniumIconPicker } from '@leavittsoftware/web/titanium/icon-picker/icon-picker';
 
@@ -17,6 +20,7 @@ import StoryStyles from '../styles/story-styles';
 @customElement('titanium-icon-picker-demo')
 export class TitaniumIconPickerDemo extends LitElement {
   @query('titanium-icon-picker[demo2]') private accessor requiredInput!: TitaniumIconPicker;
+  @query('md-dialog') private accessor dialog!: MdDialog;
 
   static styles = [StoryStyles];
 
@@ -71,10 +75,28 @@ export class TitaniumIconPickerDemo extends LitElement {
               </section>
             </div>
 
+            <div>
+              <h1>Inside a dialog</h1>
+              <p>Icon picker in an <code>md-dialog</code>. Type to search; the suggestions stay open while you type.</p>
+              <section buttons>
+                <md-filled-tonal-button @click=${() => this.dialog.show()}>Open dialog</md-filled-tonal-button>
+              </section>
+            </div>
+
             <api-docs src="./custom-elements.json" selected="titanium-icon-picker"></api-docs>
           </leavitt-app-width-limiter>
         </main>
       </leavitt-app-main-content-container>
+
+      <md-dialog>
+        <div slot="headline">Pick an icon</div>
+        <form slot="content" method="dialog">
+          <titanium-icon-picker label="Icon"></titanium-icon-picker>
+        </form>
+        <div slot="actions">
+          <md-text-button @click=${() => this.dialog.close()}>Close</md-text-button>
+        </div>
+      </md-dialog>
     `;
   }
 }

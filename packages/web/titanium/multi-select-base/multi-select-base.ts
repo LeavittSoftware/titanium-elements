@@ -20,6 +20,19 @@ import { Menu } from '@material/web/menu/internal/menu';
 import { promiseTracking } from '../helpers/promise-tracking';
 import { redispatchEvent } from '@material/web/internal/events/redispatch-event';
 import { TitaniumFilledInputValidator } from '../input-validator/filled-input-validator';
+import { showMdMenu } from '../helpers/show-md-menu';
+import { waitForAncestorAnimations } from '../helpers/ancestor-animations';
+
+/**
+ *  Free space below the field, in pixels, needed for the popover to open downward. Enough for the
+ *  search row and a few items; md-menu shrinks the popover to fit the space it gets.
+ */
+const minSpaceBelow = 240;
+
+/**
+ *  Gap, in pixels, kept between the popover and the edge of the viewport.
+ */
+const viewportMargin = 16;
 
 /**
  * A group of items rendered under a header when no search term is entered.
@@ -186,6 +199,12 @@ export class TitaniumMultiSelectBase<T extends Identifier = Identifier> extends 
 
   @property({ type: Boolean, attribute: 'menu-open', reflect: true }) private accessor menuOpen: boolean = false;
 
+  /**
+   *  Whether the popover opens above the field. Chosen each time it opens and kept until it closes.
+   *  The search row then sits at the bottom of the popover, next to the field.
+   */
+  @property({ type: Boolean, attribute: 'opens-up', reflect: true }) private accessor opensUp: boolean = false;
+
   @state() protected accessor searchTerm: string = '';
 
   /**
@@ -196,6 +215,11 @@ export class TitaniumMultiSelectBase<T extends Identifier = Identifier> extends 
   @state() protected accessor count: number = 0;
 
   @state() private accessor menuWidth: number | undefined;
+
+  /**
+   *  Room for the popover on the side it opens toward, less a margin from the viewport edge.
+   */
+  @state() private accessor menuMaxHeight: number | undefined;
 
   @query('md-menu') protected accessor menu!: Menu | null;
   @query('titanium-filled-input-validator') protected accessor field!: TitaniumFilledInputValidator | null;
@@ -308,11 +332,47 @@ export class TitaniumMultiSelectBase<T extends Identifier = Identifier> extends 
   /**
    *  Opens the popover and focuses the search input.
    */
-  open() {
+  async open() {
     if (this.disabled) {
       return;
     }
-    this.menu?.show();
+
+    // In a dialog that is still sliding into place the field is moving, so measure it once it
+    // settles. Then render the search row at the chosen end before the popover measures itself.
+    await waitForAncestorAnimations(this);
+    this.#chooseDirection();
+    await this.updateComplete;
+    await showMdMenu(this.menu);
+  }
+
+  /**
+   *  Opens downward whenever there is reasonable room below the field, and upward only when the
+   *  field is near the bottom of the viewport and there is more room above. md-menu's own flip
+   *  logic flips up whenever the full-height popover fits better above, even by a pixel, which
+   *  covered the fields above. The menu renders with `no-vertical-flip` so the choice made here
+   *  holds while the popover is open.
+   */
+  #chooseDirection() {
+    const rect = this.field?.getBoundingClientRect();
+    if (!rect) {
+      return;
+    }
+
+    const spaceBelow = window.innerHeight - rect.bottom;
+    const spaceAbove = rect.top;
+    this.opensUp = spaceBelow < minSpaceBelow && spaceAbove > spaceBelow;
+    this.menuMaxHeight = Math.max(0, Math.floor((this.opensUp ? spaceAbove : spaceBelow) - viewportMargin));
+  }
+
+  #menuStyle() {
+    const styles: Array<string> = [];
+    if (this.matchInputWidth && this.menuWidth) {
+      styles.push(`min-width: ${this.menuWidth}px`, `max-width: ${this.menuWidth}px`);
+    }
+    if (this.menuMaxHeight !== undefined) {
+      styles.push(`max-height: min(var(--titanium-multi-select-menu-max-height, 460px), ${this.menuMaxHeight}px)`);
+    }
+    return styles.join('; ');
   }
 
   /**
@@ -413,6 +473,13 @@ export class TitaniumMultiSelectBase<T extends Identifier = Identifier> extends 
     this.searchTerm = '';
     this.suggestions = [];
     this.count = 0;
+  }
+
+  /**
+   *  Whether the field is showing an error, either set through `error` or reported by `reportValidity()`.
+   */
+  get hasError() {
+    return this.error || !!this.field?.error;
   }
 
   /**
@@ -541,11 +608,19 @@ export class TitaniumMultiSelectBase<T extends Identifier = Identifier> extends 
     switch (event.key) {
       case 'ArrowDown':
         event.preventDefault();
-        this.menu?.activateNextItem();
+        // When the popover opens upward the search row is at the bottom; there is nothing below it.
+        if (!this.opensUp) {
+          this.menu?.activateNextItem();
+        }
         break;
       case 'ArrowUp':
         event.preventDefault();
-        this.menu?.activatePreviousItem();
+        if (this.opensUp) {
+          // Move to the item nearest the search row.
+          this.#activateLastItem();
+        } else {
+          this.menu?.activatePreviousItem();
+        }
         break;
       case 'Enter': {
         event.preventDefault();
@@ -604,10 +679,28 @@ export class TitaniumMultiSelectBase<T extends Identifier = Identifier> extends 
       return;
     }
 
-    if (event.key === 'ArrowUp' && (this.menu?.items[0] as unknown) === menuItem) {
+    // Arrowing past the item next to the search row returns to the search input.
+    const returnsToSearch = this.opensUp
+      ? event.key === 'ArrowDown' && this.#getActivatableItems().at(-1) === menuItem
+      : event.key === 'ArrowUp' && (this.menu?.items[0] as unknown) === menuItem;
+    if (returnsToSearch) {
       event.preventDefault();
       event.stopPropagation();
       this.searchInput?.focus();
+    }
+  }
+
+  #getActivatableItems() {
+    return ((this.menu?.items ?? []) as unknown as Array<HTMLElement & { disabled?: boolean }>).filter((item) => !item.disabled);
+  }
+
+  #activateLastItem() {
+    const items = (this.menu?.items ?? []) as unknown as Array<HTMLElement>;
+    items.forEach((item) => (item.tabIndex = -1));
+    const last = this.#getActivatableItems().at(-1);
+    if (last) {
+      last.tabIndex = 0;
+      last.focus();
     }
   }
 
@@ -708,6 +801,29 @@ export class TitaniumMultiSelectBase<T extends Identifier = Identifier> extends 
       search-container md-icon {
         --md-icon-size: 20px;
         color: var(--md-sys-color-on-surface-variant);
+      }
+
+      /* Opening upward: the search row sits at the bottom of the popover, next to the field. */
+      :host([opens-up]) {
+        --md-menu-top-space: 8px;
+        --md-menu-bottom-space: 0;
+      }
+
+      :host([opens-up]) search-container {
+        top: auto;
+        bottom: 0;
+        border-bottom: none;
+        border-top: 1px solid var(--md-sys-color-outline-variant);
+      }
+
+      :host([opens-up]) div[section-header] {
+        top: 0;
+      }
+
+      :host([opens-up]) md-menu-item,
+      :host([opens-up]) div[section-header] {
+        scroll-margin-top: 0;
+        scroll-margin-bottom: var(--titanium-multi-select-search-height, 52px);
       }
 
       input[search] {
@@ -920,12 +1036,15 @@ export class TitaniumMultiSelectBase<T extends Identifier = Identifier> extends 
         part="menu"
         id="menu"
         anchor="field"
-        anchor-corner="end-start"
+        anchor-corner=${this.opensUp ? 'start-start' : 'end-start'}
+        menu-corner=${this.opensUp ? 'end-start' : 'start-start'}
+        no-vertical-flip
         default-focus="none"
         no-navigation-wrap
         stay-open-on-focusout
+        skip-restore-focus
         .positioning=${this.positioning}
-        style=${this.matchInputWidth && this.menuWidth ? `min-width: ${this.menuWidth}px; max-width: ${this.menuWidth}px` : ''}
+        style=${this.#menuStyle()}
         @click=${this.#onMenuClick}
         @keydown=${this.#onMenuKeydown}
         @opening=${async (e: Event) => {
@@ -948,40 +1067,48 @@ export class TitaniumMultiSelectBase<T extends Identifier = Identifier> extends 
           redispatchEvent(this, e);
         }}
         @closed=${(e: Event) => {
-          this.reportValidity();
+          // Only re-check an error that is already showing. A required field first errors when
+          // the app calls reportValidity(), not when the user closes the popover.
+          if (this.field?.error) {
+            this.reportValidity();
+          }
           redispatchEvent(this, e);
         }}
       >
-        <search-container>
-          <md-icon>search</md-icon>
-          <input
-            search
-            id="search"
-            type="search"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label=${this.searchPlaceholder}
-            placeholder=${this.searchPlaceholder}
-            .value=${this.searchTerm}
-            @input=${(e: Event) => this.#onSearchInput((e.target as HTMLInputElement).value)}
-            @keydown=${this.#onSearchKeydown}
-          />
-          ${this.isLoading ? html`<md-circular-progress indeterminate></md-circular-progress>` : nothing}
-          ${this.searchTerm && !this.isLoading
-            ? html`<md-icon-button
-                title="Clear search"
-                @click=${() => {
-                  this.#onSearchInput('');
-                  this.searchInput?.focus();
-                }}
-              >
-                <md-icon>close</md-icon>
-              </md-icon-button>`
-            : nothing}
-        </search-container>
-        ${this.#renderSuggestions()} ${this.renderTrailingMenuSlot()}
+        ${this.opensUp ? nothing : this.#renderSearch()} ${this.#renderSuggestions()} ${this.renderTrailingMenuSlot()}
+        ${this.opensUp ? this.#renderSearch() : nothing}
       </md-menu>
     `;
+  }
+
+  #renderSearch() {
+    return html`<search-container>
+      <md-icon>search</md-icon>
+      <input
+        search
+        id="search"
+        type="search"
+        autocomplete="off"
+        spellcheck="false"
+        aria-label=${this.searchPlaceholder}
+        placeholder=${this.searchPlaceholder}
+        .value=${this.searchTerm}
+        @input=${(e: Event) => this.#onSearchInput((e.target as HTMLInputElement).value)}
+        @keydown=${this.#onSearchKeydown}
+      />
+      ${this.isLoading ? html`<md-circular-progress indeterminate></md-circular-progress>` : nothing}
+      ${this.searchTerm && !this.isLoading
+        ? html`<md-icon-button
+            title="Clear search"
+            @click=${() => {
+              this.#onSearchInput('');
+              this.searchInput?.focus();
+            }}
+          >
+            <md-icon>close</md-icon>
+          </md-icon-button>`
+        : nothing}
+    </search-container>`;
   }
 }
 
