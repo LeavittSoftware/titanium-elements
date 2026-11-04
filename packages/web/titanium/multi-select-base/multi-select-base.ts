@@ -21,6 +21,7 @@ import { promiseTracking } from '../helpers/promise-tracking';
 import { redispatchEvent } from '@material/web/internal/events/redispatch-event';
 import { TitaniumFilledInputValidator } from '../input-validator/filled-input-validator';
 import { showMdMenu } from '../helpers/show-md-menu';
+import { waitForAncestorAnimations } from '../helpers/ancestor-animations';
 
 /**
  *  Free space below the field, in pixels, needed for the popover to open downward. Enough for the
@@ -336,7 +337,9 @@ export class TitaniumMultiSelectBase<T extends Identifier = Identifier> extends 
       return;
     }
 
-    // Render the search row at the chosen end before the popover measures itself.
+    // In a dialog that is still sliding into place the field is moving, so measure it once it
+    // settles. Then render the search row at the chosen end before the popover measures itself.
+    await waitForAncestorAnimations(this);
     this.#chooseDirection();
     await this.updateComplete;
     await showMdMenu(this.menu);

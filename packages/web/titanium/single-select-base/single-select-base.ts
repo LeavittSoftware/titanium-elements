@@ -20,6 +20,7 @@ import { Identifier } from '../types/identifier-interface';
 import { redispatchEvent } from '@material/web/internal/events/redispatch-event';
 import { ThemePreference } from '../../leavitt/theme/theme-preference';
 import { showMdMenu } from '../helpers/show-md-menu';
+import { getRunningAncestorAnimations } from '../helpers/ancestor-animations';
 
 @customElement('titanium-single-select-base')
 export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePreference(LitElement) {
@@ -511,6 +512,46 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
 
   protected renderSelectedLeadingInputSlot(_entity: T) {}
 
+  #canOpenWithoutTyping() {
+    return !this.selected && !this.disableMenuOpenOnFocus && (!!this.searchTerm || !!this.suggestions.length);
+  }
+
+  async #onFocus() {
+    if (this.selected) {
+      this.select();
+      return;
+    }
+
+    if (!this.searchTerm && this.defaultSuggestions) {
+      this.suggestions = this.defaultSuggestions;
+    }
+
+    if (!this.#canOpenWithoutTyping()) {
+      return;
+    }
+
+    // A dialog or drawer focuses its first field as it opens, then animates into place. That focus
+    // is not the user asking for suggestions, and a menu opened now would be positioned against the
+    // field mid-animation, so leave it closed. Clicking the field or typing opens it.
+    await new Promise((resolve) => setTimeout(resolve));
+    if (getRunningAncestorAnimations(this).length || !this.matches(':focus-within')) {
+      return;
+    }
+
+    showMdMenu(this.menu);
+  }
+
+  #onClick(e: MouseEvent) {
+    // The clear button and other trailing content handle their own clicks.
+    if (e.composedPath().some((el) => el instanceof HTMLElement && el.slot === 'trailing-icon')) {
+      return;
+    }
+
+    if (!this.menu?.open && this.#canOpenWithoutTyping()) {
+      showMdMenu(this.menu);
+    }
+  }
+
   #renderTrailingInputSlot() {
     return html`<div slot="trailing-icon">
       <md-circular-progress ?indeterminate=${this.isLoading} ?hidden=${!this.isLoading}></md-circular-progress>
@@ -584,19 +625,8 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
           }
         }}
         @input=${async (e: DOMEvent<MdFilledTextField>) => this.#onInput(e.target.value)}
-        @focus=${() => {
-          if (this.selected) {
-            this.select();
-          } else {
-            if (!this.searchTerm && this.defaultSuggestions) {
-              this.suggestions = this.defaultSuggestions;
-            }
-
-            if ((!!this.searchTerm || !!this.suggestions.length) && !this.disableMenuOpenOnFocus) {
-              showMdMenu(this.menu);
-            }
-          }
-        }}
+        @focus=${() => this.#onFocus()}
+        @click=${(e: MouseEvent) => this.#onClick(e)}
       >
         ${this.selected ? this.renderSelectedLeadingInputSlot(this.selected) : this.renderLeadingInputSlot()} ${this.#renderTrailingInputSlot()}
       </md-filled-text-field>
