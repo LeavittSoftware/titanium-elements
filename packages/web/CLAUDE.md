@@ -25,6 +25,13 @@ When bumping `@leavittsoftware/web` in a downstream project, read every entry **
 
 - Opt-in `AuthZeroLgUserManager.employeesOnly` and the `?lge=true` link parameter: set the property on employee-only sites, or add the parameter to links only employees follow (Okta tiles), to send users straight to Okta. No required code changes.
 - `AuthZeroLgUserManager.dropRoles(roles)` / `restoreRoles()` and `identity.droppedRoles`: sign in again with some roles left out of the tokens, for testing a page with fewer roles. Needs the matching post-login Action on the Auth0 tenant. No required code changes.
+- **Selects and validation fixes (#745–#749).** No required code changes; behavior changes to know about:
+  - `titanium-single-select-base` (and every `leavitt-*-select`, `titanium-icon-picker`, `google-address-input`): the suggestions menu stays open while the user types and shows "Searching for '…'…" until results arrive, instead of closing on each keystroke. Fixes menus that reported `open` with the popover hidden, mostly inside `md-dialog`.
+  - `titanium-multi-select-base`: the popover opens downward whenever at least 240px is free below the field and upward only near the bottom of the viewport, with the search row moved to the bottom. A `required` field no longer errors when the popover closes; it errors on `reportValidity()`. An outside click leaves focus on the clicked control. `open()` now returns a `Promise`.
+  - `titanium-date-input`, `titanium-single-select-base`: an error from `reportValidity()` clears as soon as the value is valid. New `hasError` getter on both and on `titanium-multi-select-base`.
+  - New opt-in `LiveValidationController` (`titanium/helpers/live-validation-controller`) does the same for plain `md-filled-text-field` / `md-filled-select` inside a page or dialog. **Search downstream for** hand-rolled `@input` handlers that call `reportValidity()` or `reportValidityIfError()` to clear errors; they can be replaced by the controller.
+  - `leavitt-app-navigation-header`: the longest earlier crumb truncates first and the current page stays whole.
+  - `leavitt-person-select`: default `odataParts` select `JobTitle`; same-name people show "Company · Job title". Apps that override `odataParts` should add `JobTitle` to `select=` to get this. `renderMenuItemContentTemplate` receives an optional second `{ hasDuplicateName }` argument.
 
 ### 11.5.0 – 11.7.1
 
@@ -356,6 +363,28 @@ Exports: `h1`–`h5` (aliases `heading1`–`heading5`), `p`/`paragraph`, `a`/`li
 
 Only green / red / neutral-gray — no orange/warning tier.
 
+### Form validation — clearing errors once fixed
+
+Material Web fields show an error when `reportValidity()` finds them invalid and keep it until the next `reportValidity()` or `reset()`, even after the user fixes the value. `titanium-date-input`, `titanium-single-select-base` and `titanium-multi-select-base` clear their own errors as soon as the value is valid. For plain `md-filled-text-field` / `md-filled-select` (and any field with `hasError`, `checkValidity()`, `reportValidity()`), attach `LiveValidationController` to the page or dialog that validates on save:
+
+```ts
+import { LiveValidationController } from '@leavittsoftware/web/titanium/helpers/live-validation-controller.js';
+
+class MyDialog extends LitElement {
+  // Public field: the controller registers itself and is never read (a #private field trips noUnusedLocals).
+  liveValidation = new LiveValidationController(this);
+
+  #save() {
+    const valid = [...this.shadowRoot!.querySelectorAll('[validate]')].map((f) => (f as any).reportValidity()).every(Boolean);
+  }
+}
+```
+
+- Listens (capture phase) for `input`, `change`, `selected` and `selected-changed` inside the host's render root; pass `{ events }` to change the list
+- Only re-checks fields that already show an error, and only re-reports once the field is valid: it never shows an error early, never moves focus (`reportValidity()` on an invalid Material field focuses it), and does not make screen readers re-announce an unchanged error
+- Checks the outermost field in the event path, so a titanium select is checked as a whole rather than through its inner text field
+- Prefer it over `reportValidityIfError` in `@input` handlers, which re-reports invalid fields too (moving focus to them)
+
 ### Multi-word HTML attributes
 
 Use kebab-case for reflected attributes: `local-storage-key="my-key"`, not `localStorageKey="my-key"`. Use `.localStorageKey=${value}` only for dynamic property binding.
@@ -461,6 +490,8 @@ Titanium class inheritance (in addition to Material Web extend/compose — see *
 
 - Border appears when scrolled + `sticky-top`
 - Top-level nav labels should match page header text (level1 = top nav, level3 = sub-nav)
+- Truncation: when the crumbs don't fit, the longest earlier crumb is cut first (short ones stay whole; each keeps at least a letter and an ellipsis). The last crumb, the current page, keeps its full width and only truncates when it alone is wider than the row. Every crumb has a `title` with its full text.
+- Empty levels are skipped; chevrons render only between crumbs
 
 ---
 
@@ -748,11 +779,13 @@ Row clicks with `itemLinkUrl` navigate directly via `window.navigation.navigate(
 
 **Methods:** `checkValidity()`, `reportValidity()`, `select()`, `setCustomValidity()`, `reset()`
 
+**Getters:** `hasError` — `error` or an error reported by `reportValidity()`
+
 **Events:** Redispatches `change`, `blur`, `select`, `invalid`
 
 **Slots:** `leading-icon`, `trailing-icon` (default trailing: calendar picker)
 
-**Usage notes / gotchas:** `formAssociated`; after user input, attribute `value` no longer syncs until `reset()`; Safari/iOS/Firefox-specific styling
+**Usage notes / gotchas:** `formAssociated`; after user input, attribute `value` no longer syncs until `reset()`; Safari/iOS/Firefox-specific styling. An error from `reportValidity()` clears as soon as the user enters a valid value (it never appears before `reportValidity()`).
 
 ---
 
@@ -944,6 +977,8 @@ Row clicks with `itemLinkUrl` navigate directly via `window.navigation.navigate(
 
 **Methods:** `reset()`, `softReset()`, `select()`, `focus()`, `checkValidity()`, `reportValidity()`, `setCustomValidity()`, `trackLoadingPromise()`
 
+**Getters:** `hasError` — `error` or an error reported by the inner text field
+
 **Events:** `selected`; redispatches menu `opening`/`opened`/`closing`/`closed`
 
 **Slots:** `leading-icon`, `trailing-icon`
@@ -954,6 +989,9 @@ Row clicks with `itemLinkUrl` navigate directly via `window.navigation.navigate(
 
 - `required` patches `md-filled-text-field.checkValidity`
 - Custom validity when typed but not selected
+- The menu stays open while the user types. Previous results stay in place, with a "Searching for '…'…" summary, until the subclass calls `showSuggestions()`; results that arrive after the user picked an item are ignored
+- The menu opens through `showMdMenu` (`titanium/helpers/show-md-menu`), which works around an `md-menu` bug: `show()` during the close animation leaves the menu `open` with its popover hidden. Subclasses that open the menu themselves should use it too
+- While an error is showing, typing re-checks validity and clears the error once the input is valid (picking an item always re-reports)
 - `positioning='popover'` falls back to `'fixed'` in Firefox
 - `shaped` + open menu inverts surface/on-surface for the field and menu (label, supporting text, leading/trailing icons). Inert section-header rows (`md-menu-item[inert]`) are styled by the base for both default and shaped.
 
@@ -986,11 +1024,12 @@ Row clicks with `itemLinkUrl` navigate directly via `window.navigation.navigate(
 | Attribute | `has-leading-icon`, `no-asterisk`, `disable-clear-all` | `boolean`                                        |                                                             |
 | Attribute | `match-input-width`                                    | `boolean`                                        | ResizeObserver keeps the popover the width of the field     |
 | Attribute | `menu-open`                                            | `boolean`                                        | Reflected; read via the `isOpen` getter                     |
+| Attribute | `opens-up`                                             | `boolean`                                        | Reflected; set while the popover opens above the field      |
 | Property  | `positioning`                                          | `absolute` \| `fixed` \| `document` \| `popover` | Default `popover`                                           |
-| Getter    | `isOpen`, `isAtMaxSelected`                            | `boolean`                                        |                                                             |
+| Getter    | `isOpen`, `isAtMaxSelected`, `hasError`                | `boolean`                                        | `hasError`: `error` or an error from `reportValidity()`     |
 | State     | `isLoading`                                            | `boolean`                                        | Via `promiseTracking` / `trackLoadingPromise`               |
 
-**Methods:** `open()`, `close()`, `toggleMenu()`, `focus()`, `selectItem(item)`, `deselectItem(item)`, `toggleItem(item)`, `isSelected(item)`, `clear()`, `reset()`, `softReset()`, `checkValidity()`, `reportValidity()`, `trackLoadingPromise(promise)`
+**Methods:** `open()` (returns a `Promise`), `close()`, `toggleMenu()`, `focus()`, `selectItem(item)`, `deselectItem(item)`, `toggleItem(item)`, `isSelected(item)`, `clear()`, `reset()`, `softReset()`, `checkValidity()`, `reportValidity()`, `trackLoadingPromise(promise)`
 
 **Events:** `selected-changed` (composed) — read `event.target.selected`; redispatches menu `opening`/`opened`/`closing`/`closed`
 
@@ -1007,8 +1046,11 @@ Row clicks with `itemLinkUrl` navigate directly via `window.navigation.navigate(
 - Items may appear in more than one section (e.g. "Frequently used" + "All"); identity comes from `Id`, falling back to the display text, so duplicates stay in sync
 - Searching always renders a flat list across the whole catalog, never the sections
 - Menu items are rendered with `keep-open`, so the popover stays open while toggling; the base handles click / Enter / Space selection so `renderSuggestion` overrides only need markup
-- Keyboard: `ArrowDown` from the search input moves into the list, `ArrowUp` on the first item returns to the search input, `Backspace` on an empty search removes the last chip, `Escape` closes
-- Validity is reported when the popover closes; `required` fields do not error before the user has interacted
+- Direction: the popover opens downward whenever at least 240px is free below the field, and upward only when there is less room below and more above. The direction is chosen on open and locked (`no-vertical-flip`) until the popover closes; its height is capped to the room on that side, less a 16px margin. `md-menu`'s own flip logic is not used, because it flipped upward whenever the full-height popover fit marginally better above
+- When the popover opens upward (`opens-up`), the search row renders at the bottom of the popover, next to the field; section headers stick to the top instead
+- Keyboard: `ArrowDown` from the search input moves into the list, `ArrowUp` on the first item returns to the search input, `Backspace` on an empty search removes the last chip, `Escape` closes. When opening upward the arrows mirror: `ArrowUp` from the search input moves to the bottom item, `ArrowDown` on the bottom item returns to the search input
+- Validity: a `required` field first errors when the app calls `reportValidity()`. While an error shows, selecting or removing an item and closing the popover re-check it, so it clears as soon as something is selected
+- An outside click closes the popover and leaves focus on what was clicked (`skip-restore-focus`); one click on a dialog's action button both closes the popover and presses the button. `Escape` returns focus to the field
 - `positioning='popover'` falls back to `'fixed'` in Firefox
 
 **Subclassing (remote search):** override `onInputChanged(searchTerm)` and call `showSuggestions(results, totalCount)` — same hooks as `titanium-single-select-base`. Override `renderSuggestion`, `renderChip`, `renderSectionHeader`, `renderTrailingMenuSlot`, `getItemText`, `getItemIcon`, or `getItemKey` to customize rendering and identity.
@@ -1215,14 +1257,23 @@ All extend `TitaniumSingleSelectBase` and fire `selected`. All require `.apiServ
 
 **Import:** `import '@leavittsoftware/web/leavitt/person-select/person-select.js'`
 
-| Kind     | Name                     | Type / values       | Notes                                      |
-| -------- | ------------------------ | ------------------- | ------------------------------------------ |
-| Property | `.apiService`            | `ApiService`        | **Required**                               |
-| Property | `apiControllerName`      | `string`            |                                            |
-| Property | `odataParts`             | `string[]`          |                                            |
-| Property | `searchType`             | `local` \| `remote` | Remote uses OData `contains` on `FullName` |
-| Property | `enablePeoplePreloading` | `boolean`           |                                            |
-| Property | `people`                 | `Partial<Person>[]` |                                            |
+| Kind     | Name                            | Type / values                                                   | Notes                                      |
+| -------- | ------------------------------- | --------------------------------------------------------------- | ------------------------------------------ |
+| Property | `.apiService`                   | `ApiService`                                                    | **Required**                               |
+| Property | `apiControllerName`             | `string`                                                        |                                            |
+| Property | `odataParts`                    | `string[]`                                                      |                                            |
+| Property | `searchType`                    | `local` \| `remote`                                             | Remote uses OData `contains` on `FullName` |
+| Property | `enablePeoplePreloading`        | `boolean`                                                       |                                            |
+| Property | `people`                        | `Partial<Person>[]`                                             |                                            |
+| Property | `renderMenuItemContentTemplate` | `(person, context?: PersonSuggestionContext) => TemplateResult` | Override to customize suggestion rows      |
+
+**Exports:** `PersonSuggestionContext` (`{ hasDuplicateName: boolean }`), `getPersonSupportingText(person, context)`
+
+**Usage notes / gotchas:**
+
+- Each suggestion's second line is the company name. When another visible suggestion has the same full name (case-insensitive), the second line is "Company · Job title" so the two can be told apart
+- Default `odataParts` select `FullName,CompanyName,JobTitle,Id,ProfilePictureCdnFileName`. If you override `odataParts`, keep `CompanyName` and `JobTitle` in `select=` or the second line is empty
+- Work email is not used: `Person.PrimaryWorkEmailAddress` is computed from `EmailAddresses` on the server and most People endpoints disallow `$expand`, so selecting it returns nothing
 
 ---
 
@@ -1441,6 +1492,7 @@ Auth0 integration for `profile-picture-menu`, feedback dialogs. Provides `identi
 | `FilterController`                      | `titanium/data-table/filter-controller`                                        | URL query-string filter state; listens on Navigation API `currententrychange` |
 | `TitaniumSiteSearchTextFieldController` | `titanium/site-search-text-field-controller/site-search-text-field-controller` | App-level shared search field via Lit context                                 |
 | `EventBus`                              | `titanium/event-bus/event-bus`                                                 | Typed pub/sub (`subscribe`, `dispatch`, `unsubscribe`)                        |
+| `LiveValidationController`              | `titanium/helpers/live-validation-controller`                                  | Clears field errors as soon as they are corrected (see below)                 |
 | `fileExplorerEvents`                    | `leavitt/file-explorer/events/file-explorer-events`                            | File explorer modal sync bus                                                  |
 
 ## Contexts
@@ -1479,14 +1531,16 @@ These apply to the **host class** (`LitElement` or `Md*` subclass). They stack w
 | `notNull`, `notUndefined`, `notNullOrUndefined`                                                 | `titanium/helpers/*`                                            | Type guards                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | `installMediaQueryWatcher`                                                                      | `titanium/helpers/install-media-query-watcher`                  | Responsive layout callback                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | `findScrollableParent`                                                                          | `titanium/helpers/find-scrollable-parent`                       | Scroll container detection                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `showMdMenu`                                                                                    | `titanium/helpers/show-md-menu`                                 | Opens an `md-menu` safely: waits for a close animation in progress and recovers a menu stuck `open` with its popover hidden (the result of calling `show()` during the close animation). Use instead of `menu.show()` when a menu can be reopened quickly.                                                                                                                                                                                                           |
+| `LiveValidationController`                                                                      | `titanium/helpers/live-validation-controller`                   | Clears field errors as soon as they are corrected — see **Form validation** above                                                                                                                                                                                                                                                                                                                                                                                    |
 | `isDevelopment`                                                                                 | `titanium/helpers/is-development`                               | Dev environment detection                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | `AppRoute`, `PageRoute`, `RedirectRoute`, `MiddlewareRoute`, `RouteHandlerResult`, `ROUTE_HALT` | `titanium/helpers/route`                                        | Route table types for Navigation API SPA routers (`URLPattern` + lazy `import`). `MiddlewareRoute` (`pattern` + `before`, no `page`/`redirect`) runs for every matching destination in declaration order before the first matching page/redirect; handlers continue by default and may return `ROUTE_HALT` / `'halt'` (`RouteHandlerResult`) to stop the pipeline (e.g. after a guard redirect). `PageRoute.before` may also return `ROUTE_HALT` to skip its render. |
 
 ## Hacks
 
-| Module                      | Import path                               | When to use                                             |
-| --------------------------- | ----------------------------------------- | ------------------------------------------------------- |
-| `dialogCloseNavigationHack` | `titanium/hacks/dialog-navigation-hack`   | Close dialog on SPA navigation without breaking history |
-| `dialogZindexHack`          | `titanium/hacks/dialog-zindex-hack`       | Stacking context issues with nested dialogs             |
-| `dialogOverflowHacks`       | `titanium/hacks/dialog-overflow-hacks`    | Body scroll lock with dialogs                           |
-| `reportValidityIfError`     | `titanium/hacks/report-validity-if-error` | Form validation helper                                  |
+| Module                      | Import path                               | When to use                                                                        |
+| --------------------------- | ----------------------------------------- | ---------------------------------------------------------------------------------- |
+| `dialogCloseNavigationHack` | `titanium/hacks/dialog-navigation-hack`   | Close dialog on SPA navigation without breaking history                            |
+| `dialogZindexHack`          | `titanium/hacks/dialog-zindex-hack`       | Stacking context issues with nested dialogs                                        |
+| `dialogOverflowHacks`       | `titanium/hacks/dialog-overflow-hacks`    | Body scroll lock with dialogs                                                      |
+| `reportValidityIfError`     | `titanium/hacks/report-validity-if-error` | Form validation helper; prefer `LiveValidationController` to clear errors on input |

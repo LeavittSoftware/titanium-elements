@@ -44,7 +44,8 @@ function isValidatableField(target: EventTarget): target is ValidatableField {
  *
  *  @example
  *  class MyDialog extends LitElement {
- *    #liveValidation = new LiveValidationController(this);
+ *    // A public field: the controller registers itself, so the field is never read.
+ *    liveValidation = new LiveValidationController(this);
  *  }
  */
 export class LiveValidationController implements ReactiveController {
