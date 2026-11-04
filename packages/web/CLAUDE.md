@@ -33,6 +33,7 @@ When bumping `@leavittsoftware/web` in a downstream project, read every entry **
   - New opt-in `LiveValidationController` (`titanium/helpers/live-validation-controller`) does the same for plain `md-filled-text-field` / `md-filled-select` inside a page or dialog. **Search downstream for** hand-rolled `@input` handlers that call `reportValidity()` or `reportValidityIfError()` to clear errors; they can be replaced by the controller.
   - `leavitt-app-navigation-header`: the longest earlier crumb truncates first and the current page stays whole.
   - `leavitt-person-select`: default `odataParts` select `JobTitle`; same-name people show "Company · Job title". Apps that override `odataParts` should add `JobTitle` to `select=` to get this. `renderMenuItemContentTemplate` receives an optional second `{ hasDuplicateName }` argument.
+    - **Can break a picker that keeps the default query.** When `apiControllerName` points at an OData function or DTO that has no `JobTitle` (e.g. a person-summary projection), the API refuses the new default with 400 "Could not find a property named 'JobTitle'" and the picker shows no suggestions. **Search downstream for** every `leavitt-person-select` without `.odataParts` whose `apiControllerName` isn't the `People` entity set, and check its endpoint: either add `JobTitle` to the endpoint, or pass `odataParts` without it (the pre-11.9.1 default was `['top=15', 'orderby=FullName', 'select=FullName,CompanyName,Id,ProfilePictureCdnFileName', 'count=true']`).
 
 ### 11.5.0 – 11.7.1
 
@@ -1277,6 +1278,7 @@ All extend `TitaniumSingleSelectBase` and fire `selected`. All require `.apiServ
 
 - Each suggestion's second line is the company name. When another visible suggestion has the same full name (case-insensitive), the second line is "Company · Job title" so the two can be told apart
 - Default `odataParts` select `FullName,CompanyName,JobTitle,Id,ProfilePictureCdnFileName`. If you override `odataParts`, keep `CompanyName` and `JobTitle` in `select=` or the second line is empty
+- An endpoint whose type has no `JobTitle` (a DTO or OData function returning a person summary) refuses the default query with 400: pass `odataParts` without `JobTitle` for it
 - Work email is not used: `Person.PrimaryWorkEmailAddress` is computed from `EmailAddresses` on the server and most People endpoints disallow `$expand`, so selecting it returns nothing
 
 ---
