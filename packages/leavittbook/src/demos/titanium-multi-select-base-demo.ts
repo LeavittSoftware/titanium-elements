@@ -6,14 +6,21 @@ import '@leavittsoftware/web/leavitt/app/app-width-limiter';
 import '@api-viewer/docs';
 
 import '@material/web/button/filled-tonal-button';
+import '@material/web/button/filled-button';
+import '@material/web/button/text-button';
+import '@material/web/dialog/dialog';
 import '@material/web/icon/icon';
+import '@material/web/textfield/filled-text-field';
 
 import '@leavittsoftware/web/titanium/multi-select-base/multi-select-base';
+import '@leavittsoftware/web/titanium/icon-picker/icon-picker';
 
 import { css, html, LitElement, nothing, PropertyValues } from 'lit';
-import { customElement, property, query, state } from 'lit/decorators.js';
+import { customElement, property, query, queryAll, state } from 'lit/decorators.js';
 import { ShowSnackbarEvent } from '@leavittsoftware/web/titanium/snackbar/show-snackbar-event';
 import { TitaniumMultiSelectBase } from '@leavittsoftware/web/titanium/multi-select-base/multi-select-base';
+import { LiveValidationController } from '@leavittsoftware/web/titanium/helpers/live-validation-controller';
+import { MdDialog } from '@material/web/dialog/dialog';
 
 import StoryStyles from '../styles/story-styles';
 
@@ -116,6 +123,24 @@ export class TitaniumMultiSelectBaseDemo extends LitElement {
   @state() private accessor selectedActivities: Array<Activity> = [];
 
   @query('#required') private accessor requiredSelect!: TitaniumMultiSelectBase<Animal>;
+  @query('md-dialog') private accessor dialog!: MdDialog;
+  @queryAll('md-dialog [validate]') private accessor dialogFields!: NodeListOf<HTMLElement & { reportValidity: () => boolean; reset: () => void }>;
+
+  // Clears each dialog field's error as soon as it is corrected, instead of on the next Save.
+  liveValidation = new LiveValidationController(this);
+
+  #saveDialog() {
+    const results = [...this.dialogFields].map((field) => field.reportValidity());
+    if (results.every(Boolean)) {
+      this.dialog.close();
+      this.dispatchEvent(new ShowSnackbarEvent('Saved'));
+    }
+  }
+
+  async #openDialog() {
+    this.dialogFields.forEach((field) => field.reset());
+    await this.dialog.show();
+  }
 
   static styles = [
     StoryStyles,
@@ -123,6 +148,16 @@ export class TitaniumMultiSelectBaseDemo extends LitElement {
       titanium-multi-select-base,
       activity-multi-select {
         max-width: 480px;
+      }
+
+      form[dialog-form] {
+        display: grid;
+        gap: 16px;
+        min-width: min(420px, 80vw);
+      }
+
+      form[dialog-form] titanium-multi-select-base {
+        max-width: none;
       }
 
       p[selection] {
@@ -184,7 +219,10 @@ export class TitaniumMultiSelectBaseDemo extends LitElement {
 
             <div>
               <h1>Required with a selection limit</h1>
-              <p>Unselected items are disabled once <code>max-selected</code> is reached. Validity is reported when the popover closes.</p>
+              <p>
+                Unselected items are disabled once <code>max-selected</code> is reached. The error appears when <code>reportValidity()</code> runs and clears as
+                soon as an item is selected.
+              </p>
               <titanium-multi-select-base
                 id="required"
                 required
@@ -208,10 +246,36 @@ export class TitaniumMultiSelectBaseDemo extends LitElement {
               </section>
             </div>
 
+            <div>
+              <h1>Inside a dialog</h1>
+              <p>
+                A form in an <code>md-dialog</code>. The popover opens downward when there is room below the field and upward, with the search row at the
+                bottom, when the field is near the bottom of the window. Save calls <code>reportValidity()</code>; a <code>LiveValidationController</code> on
+                the page clears each error as soon as the field is corrected.
+              </p>
+              <section buttons>
+                <md-filled-tonal-button @click=${() => this.#openDialog()}>Open dialog</md-filled-tonal-button>
+              </section>
+            </div>
+
             <api-docs src="./custom-elements.json" selected="titanium-multi-select-base"></api-docs>
           </leavitt-app-width-limiter>
         </main>
       </leavitt-app-main-content-container>
+
+      <md-dialog>
+        <div slot="headline">New team</div>
+        <form slot="content" id="dialog-form" method="dialog" dialog-form>
+          <md-filled-text-field validate label="Team name" required></md-filled-text-field>
+          <md-filled-text-field validate label="Description" type="textarea" rows="3"></md-filled-text-field>
+          <titanium-multi-select-base validate required label="Animals" placeholder="Pick team animals" .items=${animals}></titanium-multi-select-base>
+          <titanium-icon-picker validate required label="Team icon"></titanium-icon-picker>
+        </form>
+        <div slot="actions">
+          <md-text-button @click=${() => this.dialog.close()}>Cancel</md-text-button>
+          <md-filled-button @click=${() => this.#saveDialog()}>Save</md-filled-button>
+        </div>
+      </md-dialog>
     `;
   }
 }
