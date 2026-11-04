@@ -89,8 +89,28 @@ export class LeavittAppNavigationHeader extends LitElement {
 
         gap: 4px;
       }
+      /*
+       * Earlier crumbs start at zero width and grow, up to their full text, to share the free space.
+       * Flexbox hands the space out evenly and stops growing a crumb once its text fits, so short
+       * crumbs stay whole and only the longest ones are cut. Each keeps at least a letter and an
+       * ellipsis. The current page keeps its full width and only shrinks when it alone is wider than
+       * the row.
+       */
       h1 {
         opacity: 0.8;
+        flex: 1 1 0;
+        min-width: 2.5em;
+        max-width: max-content;
+      }
+
+      h1[current] {
+        opacity: 1;
+        flex: 0 1 auto;
+        min-width: 0;
+      }
+
+      md-icon {
+        flex: none;
       }
 
       h1 > a:visited,
@@ -101,10 +121,6 @@ export class LeavittAppNavigationHeader extends LitElement {
 
       h1 > a:hover {
         text-decoration: underline;
-      }
-
-      h1:last-child {
-        opacity: 1;
       }
 
       md-icon {
@@ -157,6 +173,16 @@ export class LeavittAppNavigationHeader extends LitElement {
     }
   }
 
+  #getCrumbs() {
+    return [
+      { text: this.level1Text, href: this.level1Href },
+      { text: this.level2Text, href: this.level2Href },
+      { text: this.level3Text, href: this.level3Href },
+      { text: this.level4Text, href: this.level4Href },
+      { text: this.level5Text, href: this.level5Href },
+    ].filter((crumb): crumb is { text: string; href: string | null } => !!crumb.text);
+  }
+
   #onScroll() {
     this.isScrolled = (this.#scrollableParent?.scrollTop || 0) > 0;
   }
@@ -164,39 +190,13 @@ export class LeavittAppNavigationHeader extends LitElement {
   render() {
     return html`
       <main ellipsis part="main">
-        ${this.level1Text
-          ? this.level1Href
-            ? html`<h1 ellipsis><a title=${this.level1Text} href=${this.level1Href}>${this.level1Text}</a></h1>`
-            : html`<h1 ellipsis>${this.level1Text}</h1>`
-          : nothing}
-        ${this.level2Text
-          ? this.level2Href
-            ? html` <md-icon>chevron_right</md-icon>
-                <h1 ellipsis><a title=${this.level2Text} href=${this.level2Href}>${this.level2Text}</a></h1>`
-            : html` <md-icon>chevron_right</md-icon>
-                <h1 ellipsis>${this.level2Text}</h1>`
-          : nothing}
-        ${this.level3Text
-          ? this.level3Href
-            ? html`<md-icon>chevron_right</md-icon>
-                <h1 ellipsis><a title=${this.level3Text} href=${this.level3Href}>${this.level3Text}</a></h1>`
-            : html`<md-icon>chevron_right</md-icon>
-                <h1 ellipsis>${this.level3Text}</h1>`
-          : nothing}
-        ${this.level4Text
-          ? this.level4Href
-            ? html`<md-icon>chevron_right</md-icon>
-                <h1 ellipsis><a title=${this.level4Text} href=${this.level4Href}>${this.level4Text}</a></h1>`
-            : html`<md-icon>chevron_right</md-icon>
-                <h1 ellipsis>${this.level4Text}</h1>`
-          : nothing}
-        ${this.level5Text
-          ? this.level5Href
-            ? html`<md-icon>chevron_right</md-icon>
-                <h1 ellipsis><a title=${this.level5Text} href=${this.level5Href}>${this.level5Text}</a></h1>`
-            : html`<md-icon>chevron_right</md-icon>
-                <h1 ellipsis>${this.level5Text}</h1>`
-          : nothing}
+        ${this.#getCrumbs().map(
+          (crumb, index, crumbs) =>
+            html`${index > 0 ? html`<md-icon>chevron_right</md-icon>` : nothing}
+              <h1 ellipsis title=${crumb.text} ?current=${index === crumbs.length - 1}>
+                ${crumb.href ? html`<a href=${crumb.href}>${crumb.text}</a>` : crumb.text}
+              </h1>`
+        )}
       </main>
       <aside part="trailing"><slot name="trailing"></slot></aside>
       <footer part="footer"><slot name="footer"></slot></footer>
