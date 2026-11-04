@@ -19,6 +19,7 @@ import { promiseTracking } from '../../titanium/helpers/promise-tracking';
 import { Identifier } from '../types/identifier-interface';
 import { redispatchEvent } from '@material/web/internal/events/redispatch-event';
 import { ThemePreference } from '../../leavitt/theme/theme-preference';
+import { showMdMenu } from '../helpers/show-md-menu';
 
 @customElement('titanium-single-select-base')
 export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePreference(LitElement) {
@@ -143,6 +144,11 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
 
   @state() protected accessor count: number = 0;
 
+  /**
+   *  True from a keystroke until the search results for it arrive in `showSuggestions()`.
+   */
+  @state() private accessor awaitingResults: boolean = false;
+
   @property({ type: Boolean, attribute: 'menu-open', reflect: true }) private accessor menuOpen: boolean = false;
   @property({ type: Boolean, reflect: true, attribute: 'large' }) accessor large: boolean = false;
   @property({ type: Boolean, reflect: true, attribute: 'shaped' }) accessor shaped: boolean = false;
@@ -202,6 +208,13 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
     }
 
     super.update(changed);
+
+    // The menu stays open while the user types, and md-menu only measures its surface when it
+    // opens. Measure again when the list changes so the surface fits the new results.
+    const changedProperties = changed as Map<string, unknown>;
+    if (this.menuOpen && (changedProperties.has('suggestions') || changedProperties.has('awaitingResults'))) {
+      this.menu?.reposition();
+    }
   }
 
   setCustomValidity(error: string) {
@@ -229,6 +242,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
   softReset() {
     this.searchTerm = '';
     this.suggestions = [];
+    this.awaitingResults = false;
   }
 
   /**
@@ -304,20 +318,32 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
   }
 
   protected async showSuggestions(suggestions: Array<T>, totalSuggestionCount: number) {
+    // The user picked an item while this search was still running. Its results are stale.
+    if (this.selected && !this.searchTerm) {
+      return;
+    }
+
     this.suggestions = suggestions;
     this.count = totalSuggestionCount;
+    this.awaitingResults = false;
     await this.updateComplete;
-    this.menu.show();
+    await showMdMenu(this.menu);
   }
 
   async #onInput(searchTerm: string) {
-    if (searchTerm || !this.defaultSuggestions.length) {
+    // Keep the menu open while typing. The previous results stay in place until the new ones
+    // arrive in showSuggestions(). Closing and reopening on every keystroke raced md-menu's close
+    // animation and could leave the menu open with its popover hidden.
+    if (!searchTerm && !this.defaultSuggestions.length) {
       this.menu.close();
     }
 
     this.setSelected(null);
-    this.suggestions = !searchTerm ? this.defaultSuggestions : [];
-    this.count = !searchTerm ? this.defaultSuggestions.length : 0;
+    if (!searchTerm) {
+      this.suggestions = this.defaultSuggestions;
+      this.count = this.defaultSuggestions.length;
+    }
+    this.awaitingResults = !!searchTerm;
     this.searchTerm = searchTerm;
     await this.updateComplete;
 
@@ -527,7 +553,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
         @keydown=${(e: KeyboardEvent) => {
           if (this.suggestions.length > 0 && (e.key == 'Enter' || e.key == 'ArrowDown' || e.key == 'ArrowUp')) {
             if (!this.menu.open) {
-              this.menu.show();
+              showMdMenu(this.menu);
             }
             e.stopPropagation();
             this.menu?.activateNextItem();
@@ -548,7 +574,7 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
             }
 
             if ((!!this.searchTerm || !!this.suggestions.length) && !this.disableMenuOpenOnFocus) {
-              this.menu.show();
+              showMdMenu(this.menu);
             }
           }
         }}
@@ -580,9 +606,11 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
           this.setSelected(selectedMenuItem?.item);
         }}
       >
-        ${!!this.searchTerm && !this.isLoading
-          ? html`<div summary>Showing ${this.suggestions.length} of ${this.count} result${this.count === 1 ? '' : 's'} for '${this.searchTerm}'</div>`
-          : ''}
+        ${!this.searchTerm
+          ? ''
+          : this.awaitingResults || this.isLoading
+            ? html`<div summary>Searching for '${this.searchTerm}'…</div>`
+            : html`<div summary>Showing ${this.suggestions.length} of ${this.count} result${this.count === 1 ? '' : 's'} for '${this.searchTerm}'</div>`}
         ${repeat(
           this.suggestions,
           (item) => item?.Id,
