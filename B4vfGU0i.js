@@ -1,0 +1,1 @@
+function t(t,l){return"dark"==l?t?.DarkMarkUrl||t?.MarkUrl||"https://cdn01.leavitt.com/public/files/4/logos/lg-mark-dark.svg":t?.MarkUrl||"https://cdn01.leavitt.com/public/files/4/logos/lg-mark.svg"}export{t as g};
