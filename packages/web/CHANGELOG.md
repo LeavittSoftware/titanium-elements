@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [11.9.2](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@11.9.1...@leavittsoftware/web@11.9.2) (2026-11-04)
+
+
+### Bug Fixes
+
+* **person-select:** make the JobTitle tie-breaker opt-in ([#754](https://github.com/LeavittSoftware/titanium-elements/issues/754)) ([1580d63](https://github.com/LeavittSoftware/titanium-elements/commit/1580d6386aa337f058022dde45f78531f46a4e92))
+
+
+
+
+
 ## [11.9.1](https://github.com/LeavittSoftware/titanium-elements/compare/@leavittsoftware/web@11.9.0...@leavittsoftware/web@11.9.1) (2026-11-04)
 
 **Note:** Version bump only for package @leavittsoftware/web
