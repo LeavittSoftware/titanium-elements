@@ -14,7 +14,52 @@ import { ShowSnackbarEvent } from '../../titanium/snackbar/show-snackbar-event';
 import { HttpError } from '@leavittsoftware/web/leavitt/api-service/HttpError';
 
 export type Person = CorePerson & { type: 'Person'; Name: string };
-export type PeopleGroup = CorePeopleGroup & { type: 'PeopleGroup' };
+
+/**
+ *  The group fields `leavitt-person-group-select` renders. Every group result is normalized into this shape when it arrives,
+ *  whether the endpoint returns `PeopleGroup` entities or a DTO.
+ */
+export interface PersonGroupSelectGroup {
+  Id: number;
+  Name: string;
+  Description?: string | null;
+  /** Derived type name, e.g. `JobRolePeopleGroup`. `PeopleGroup` or empty shows the default icon. */
+  Discriminator?: string | null;
+  EffectiveMembersCount?: number;
+}
+
+export type PeopleGroup = CorePeopleGroup & PersonGroupSelectGroup & { type: 'PeopleGroup' };
+
+/**
+ *  Default group query. `filter=` is appended to these parts on each search.
+ */
+export const defaultPersonGroupSelectGroupODataParts: readonly string[] = Object.freeze([
+  'top=100',
+  'count=true',
+  'select=Name,Id,Description',
+  'expand=EffectiveMembers(top=0;count=true)',
+]);
+
+/**
+ *  Copies a group result and fills `Discriminator` and `EffectiveMembersCount` from the OData annotations
+ *  (`@odata.type`, `EffectiveMembers@odata.count`) when the result doesn't carry them. Other fields are kept as they are.
+ */
+export function toPersonGroupSelectGroup<T extends Partial<PersonGroupSelectGroup>>(group: T): T & Partial<PersonGroupSelectGroup> & { type: 'PeopleGroup' } {
+  const annotated = group as T & { '@odata.type'?: unknown; 'EffectiveMembers@odata.count'?: unknown };
+  const normalized: T & Partial<PersonGroupSelectGroup> & { type: 'PeopleGroup' } = { ...group, type: 'PeopleGroup' };
+
+  const odataType = annotated['@odata.type'];
+  const discriminator = group.Discriminator || (typeof odataType === 'string' ? odataType.split('.').pop() : null);
+  if (discriminator) {
+    normalized.Discriminator = discriminator;
+  }
+
+  const membersCount = typeof group.EffectiveMembersCount === 'number' ? group.EffectiveMembersCount : annotated['EffectiveMembers@odata.count'];
+  if (typeof membersCount === 'number') {
+    normalized.EffectiveMembersCount = membersCount;
+  }
+  return normalized;
+}
 
 /**
  *  Single select input that searches Leavitt Group users and user groups
@@ -37,6 +82,20 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
    *  Set the name of the API controller to use
    */
   @property({ type: String }) accessor groupApiControllerName: string = 'PeopleGroups';
+
+  /**
+   *  OData query parts for the group search, without `filter=`. The search filter (`groupFilterParts` plus the name tokens)
+   *  is appended as `filter=`. Defaults to `defaultPersonGroupSelectGroupODataParts`, which suits `PeopleGroup` entity endpoints.
+   *  An endpoint that returns a DTO with the count projected in passes e.g.
+   *  `['top=100', 'count=true', 'select=Id,Name,Description,Discriminator,EffectiveMembersCount']`.
+   */
+  @property({ attribute: false }) accessor groupODataParts: string[] = [...defaultPersonGroupSelectGroupODataParts];
+
+  /**
+   *  Filter clauses always applied to the group search, joined with `and` ahead of the name search.
+   *  Defaults to `['not IsExpired']`. Pass `[]` for an endpoint whose result type has no `IsExpired` (filter expired groups server-side).
+   */
+  @property({ attribute: false }) accessor groupFilterParts: string[] = ['not IsExpired'];
 
   @property({ type: String }) accessor pathToSelectedText: string = 'Name';
 
@@ -123,21 +182,23 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
     if (!searchTerm) {
       return null;
     }
-    const filterParts = ['not IsExpired'];
+    const filterParts = [...this.groupFilterParts];
 
     try {
-      const odataParts = ['top=100', 'count=true', 'select=Name,Id,Description', 'expand=EffectiveMembers(top=0;count=true)'];
+      const odataParts = [...this.groupODataParts];
       const searchTokens = getSearchTokens(searchTerm);
       if (searchTokens.length > 0) {
         filterParts.push(searchTokens.map((token: string) => `contains(tolower(Name), '${token.toLowerCase()}')`).join(' and '));
       }
 
-      odataParts.push(`filter=${filterParts.join(' and ')}`);
+      if (filterParts.length > 0) {
+        odataParts.push(`filter=${filterParts.join(' and ')}`);
+      }
 
       const results = await this.apiService?.getAsync<PeopleGroup>(`${this.groupApiControllerName}?${odataParts.join('&')}`, {
         abortController: this.#abortController,
       });
-      results?.entities.forEach((p) => (p.type = 'PeopleGroup'));
+      results?.entities.forEach((group, index) => (results.entities[index] = toPersonGroupSelectGroup(group)));
       return results;
     } catch (error) {
       const err = error as Partial<HttpError> & { name?: string; message?: string };
@@ -163,15 +224,22 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
     `,
   ];
 
+  #groupIcon(discriminator: string | null | undefined) {
+    return discriminator && discriminator !== 'PeopleGroup' ? peopleGroupIcons.get(`#lg.net.core.DataModel.Core.${discriminator}`) : undefined;
+  }
+
   // Overloaded base
   protected override onInputChanged(searchTerm: string) {
     this.#doSearchDebouncer.debounce(searchTerm);
   }
 
   protected override renderSelectedLeadingInputSlot(entity: Partial<Partial<Person | PeopleGroup>>) {
-    return entity.type === 'Person'
-      ? html`<profile-picture slot="leading-icon" .fileName=${entity?.ProfilePictureCdnFileName || null} shape="circle" size="24"></profile-picture>`
-      : html`<md-icon group slot="leading-icon">${peopleGroupIcons.get(entity['@odata.type'])?.icon ?? 'task_alt'}</md-icon>`;
+    if (entity.type === 'Person') {
+      return html`<profile-picture slot="leading-icon" .fileName=${entity?.ProfilePictureCdnFileName || null} shape="circle" size="24"></profile-picture>`;
+    }
+    // A pre-selected group set by the site hasn't been through the search, so normalize it here too.
+    const group = toPersonGroupSelectGroup(entity as Partial<PeopleGroup>);
+    return html`<md-icon group slot="leading-icon">${this.#groupIcon(group.Discriminator)?.icon ?? 'task_alt'}</md-icon>`;
   }
 
   protected override renderSuggestion(entity: Partial<Partial<Person | PeopleGroup>>) {
@@ -183,13 +251,15 @@ export class LeavittPersonGroupSelect extends TitaniumSingleSelectBase<Partial<P
         </md-menu-item>`
       : entity.type === 'PeopleGroup'
         ? html`<md-menu-item .item=${entity} ?selected=${this.selected?.Id === entity.Id}>
-            <md-icon group slot="start">${peopleGroupIcons.get(entity['@odata.type'])?.icon ?? 'task_alt'}</md-icon>
+            <md-icon group slot="start">${this.#groupIcon(entity.Discriminator)?.icon ?? 'task_alt'}</md-icon>
             <span slot="headline">${entity.Name}</span>
 
-            ${Object.keys(entity).some((o) => o === 'EffectiveMembers@odata.count')
-              ? html` <span slot="overline"> ${entity['EffectiveMembers@odata.count']} user${entity['EffectiveMembers@odata.count'] === 1 ? '' : 's'} </span>`
-              : nothing}
-            <span slot="supporting-text">${entity.Description || (peopleGroupIcons.get(entity['@odata.type'])?.displayName ?? 'People group')}</span>
+            ${
+              typeof entity.EffectiveMembersCount === 'number'
+                ? html` <span slot="overline"> ${entity.EffectiveMembersCount} user${entity.EffectiveMembersCount === 1 ? '' : 's'} </span>`
+                : nothing
+            }
+            <span slot="supporting-text">${entity.Description || (this.#groupIcon(entity.Discriminator)?.displayName ?? 'People group')}</span>
           </md-menu-item>`
         : html``;
   }
