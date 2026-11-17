@@ -58,3 +58,9 @@ jobs:
 
       - name: Run Lerna Publish
         run: npm run lerna:publish
+
+      # Publishes any package whose package.json version isn't on npm yet, so a release whose
+      # version commit and tag were pushed but whose npm publish failed goes out on the next run.
+      # Does nothing when every version is already published.
+      - name: Publish versions missing from npm
+        run: npx lerna publish from-package --yes
