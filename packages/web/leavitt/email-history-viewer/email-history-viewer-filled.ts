@@ -72,7 +72,7 @@ export default class LeavittEmailHistoryViewerFilled extends LitElement {
         friendlyName: 'Sent',
         render: (item) =>
           html`<div>
-            ${item.SentDate ? html`${dayjs(item.SentDate).format('MMM DD, YY')}<br /><span time>${dayjs(item.SentDate).format('h:mm A')}</span>` : '-'}
+            ${item.SentDate ? html`${dayjs(item.SentDate).format('MMM D, YYYY')}<br /><span time>${dayjs(item.SentDate).format('h:mm A')}</span>` : '-'}
           </div>`,
         width: '150px',
         defaultSort: {
