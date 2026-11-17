@@ -34,6 +34,12 @@ When bumping `@leavittsoftware/web` in a downstream project, read every entry **
   - `leavitt-app-navigation-header`: the longest earlier crumb truncates first and the current page stays whole.
   - `leavitt-person-select`: same-name people show "Company · Job title" when the query selects `JobTitle`. **Opt in** by adding `JobTitle` to `select=` in `odataParts`, only for endpoints that have it; the default query leaves it out. `renderMenuItemContentTemplate` receives an optional second `{ hasDuplicateName }` argument; `getPersonSupportingText()` builds the line.
     - 11.9.1 alone selected `JobTitle` by default, and an endpoint without it (a DTO or OData function returning a person summary) refused that with 400, leaving the picker without suggestions. Later versions make it opt-in, so upgrade past 11.9.1 rather than overriding `odataParts` to work around it.
+- `leavitt-email-history-viewer-filled`: the Sent column shows a four-digit year without a padded day ("Nov 6, 2026", was "Nov 06, 26"). No code changes.
+- `leavitt-app-logo`: the app name uses normal word spacing, so a name with several words keeps its spaces; the "Leavitt Group" mark keeps the tight spacing. No code changes; multi-word app names render slightly wider.
+- `leavitt-person-group-select`: new `groupODataParts` and `groupFilterParts` properties choose the group query, so a site can point the picker at an endpoint that returns a DTO instead of `PeopleGroup` entities with `$expand`. No required code changes: the default request is the same as before. Group results are normalized into the new exported `PersonGroupSelectGroup` interface (`Id`, `Name`, `Description`, `Discriminator`, `EffectiveMembersCount`), and the templates read only those fields.
+  - The normalized item keeps every field the endpoint returned, adds `Discriminator` (from `@odata.type` when missing) and `EffectiveMembersCount` (from `EffectiveMembers@odata.count` when missing), and keeps `type: 'PeopleGroup'`. Code that reads `@odata.type` or `EffectiveMembers@odata.count` from `selected` keeps working on entity endpoints, but **prefer** `Discriminator` / `EffectiveMembersCount`, which also work on DTO endpoints.
+  - **Search downstream for** `leavitt-person-group-select` bound to a `groupApiControllerName` whose function could return a DTO (one with `EffectiveMembersCount` projected in). Pass `.groupODataParts=${['top=100', 'count=true', 'select=Id,Name,Description,Discriminator,EffectiveMembersCount']}`, and `.groupFilterParts=${[]}` if the DTO has no `IsExpired`.
+  - New exports from `leavitt/person-group-select/person-group-select`: `PersonGroupSelectGroup`, `toPersonGroupSelectGroup()`, `defaultPersonGroupSelectGroupODataParts`. `PeopleGroup` now also includes `PersonGroupSelectGroup`.
 
 ### 11.5.0 – 11.7.1
 
@@ -1300,13 +1306,19 @@ All extend `TitaniumSingleSelectBase` and fire `selected`. All require `.apiServ
 
 **Import:** `import '@leavittsoftware/web/leavitt/person-group-select/person-group-select.js'`
 
-| Kind     | Name                      | Type / values | Notes        |
-| -------- | ------------------------- | ------------- | ------------ |
-| Property | `.apiService`             | `ApiService`  | **Required** |
-| Property | `peopleApiControllerName` | `string`      |              |
-| Property | `groupApiControllerName`  | `string`      |              |
+| Kind     | Name                      | Type / values | Notes                                                                                                                                     |
+| -------- | ------------------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Property | `.apiService`             | `ApiService`  | **Required**                                                                                                                              |
+| Property | `peopleApiControllerName` | `string`      |                                                                                                                                           |
+| Property | `groupApiControllerName`  | `string`      | Default `PeopleGroups`                                                                                                                    |
+| Property | `.groupODataParts`        | `string[]`    | Group query without `filter=`. Default `top=100`, `count=true`, `select=Name,Id,Description`, `expand=EffectiveMembers(top=0;count=true)` |
+| Property | `.groupFilterParts`       | `string[]`    | Filter clauses joined with `and` ahead of the name search. Default `['not IsExpired']`                                                    |
 
-**Usage notes / gotchas:** Searches people and people groups
+**Usage notes / gotchas:** Searches people and people groups.
+
+- Every group result is normalized into the exported `PersonGroupSelectGroup` interface (`Id`, `Name`, `Description?`, `Discriminator?`, `EffectiveMembersCount?`) with `type: 'PeopleGroup'`; the templates read only those fields. `Discriminator` falls back to the type name at the end of `@odata.type`, and `EffectiveMembersCount` to `EffectiveMembers@odata.count`, so entity endpoints work unchanged. Other returned fields stay on the item. `toPersonGroupSelectGroup()` does the same for a group the site sets as `selected`.
+- The icon comes from `Discriminator` (e.g. `JobRolePeopleGroup` → `light_mode`); `PeopleGroup` or no discriminator shows `task_alt`. The `n users` overline shows only when `EffectiveMembersCount` is present.
+- **DTO endpoints:** an endpoint that projects the count into a DTO can't take `$expand`. Pass `.groupODataParts=${['top=100', 'count=true', 'select=Id,Name,Description,Discriminator,EffectiveMembersCount']}`, and `.groupFilterParts=${[]}` when the DTO has no `IsExpired` (filter expired groups on the server). Pass the arrays as stable references (a `static readonly` or module constant) so each render doesn't create a new one.
 
 ---
 

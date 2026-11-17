@@ -154,13 +154,17 @@ export class LeavittServiceWorkerNotifier extends ThemePreference(LitElement) {
 
   render() {
     return html`<main popover="manual" @click=${this.handleClick}>
-        ${this.isLoading
-          ? html`<md-circular-progress indeterminate></md-circular-progress>`
-          : html`<img
-              src=${this.themePreference === 'dark'
-                ? 'https://cdn01.leavitt.com/public/files/4/logos/company-mark-57-dark.svg'
-                : 'https://cdn01.leavitt.com/public/files/4/logos/company-mark-57.svg'}
-            />`}
+        ${
+          this.isLoading
+            ? html`<md-circular-progress indeterminate></md-circular-progress>`
+            : html`<img
+                src=${
+                  this.themePreference === 'dark'
+                    ? 'https://cdn01.leavitt.com/public/files/4/logos/company-mark-57-dark.svg'
+                    : 'https://cdn01.leavitt.com/public/files/4/logos/company-mark-57.svg'
+                }
+              />`
+        }
         <div>
           <h1>This site has been updated!</h1>
           <h3>Please click to reload</h3>

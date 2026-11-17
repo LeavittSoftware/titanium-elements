@@ -37,8 +37,9 @@ export class LeavittCompanySelectDemo extends ThemePreference(LitElement) {
           <leavitt-app-width-limiter max-width="1000px">
             <story-header name="Leavitt Company Select" className="LeavittCompanySelect" requires-auth></story-header>
 
-            ${this.#auth.identity
-              ? html`
+            ${
+              this.#auth.identity
+                ? html`
             <div>
               <h1>Filled</h1>
               <leavitt-company-select
@@ -145,7 +146,8 @@ export class LeavittCompanySelectDemo extends ThemePreference(LitElement) {
 
             </div>
               `
-              : nothing}
+                : nothing
+            }
 
             <api-docs src="./custom-elements.json" selected="leavitt-company-select"></api-docs>
           </leavitt-app-width-limiter>

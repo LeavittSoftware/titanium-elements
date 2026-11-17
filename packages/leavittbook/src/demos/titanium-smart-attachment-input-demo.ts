@@ -181,63 +181,81 @@ export class TitaniumSmartAttachmentInputDemo extends LitElement {
                 <titanium-smart-attachment-input
                   label="Circle crop"
                   supporting-text="Forces an aspect ratio of 1:1"
-                  .options=${{
-                    shape: 'circle',
-                  } as CropperOptions}
+                  .options=${
+                    {
+                      shape: 'circle',
+                    } as CropperOptions
+                  }
                 ></titanium-smart-attachment-input>
                 <titanium-smart-attachment-input
                   label="Custom aspect ratio"
-                  .options=${{
-                    selectionAspectRatio: 16 / 9,
-                  } as CropperOptions}
+                  .options=${
+                    {
+                      selectionAspectRatio: 16 / 9,
+                    } as CropperOptions
+                  }
                 ></titanium-smart-attachment-input>
                 <titanium-smart-attachment-input
                   label="No aspect ratio, no grid, no background"
-                  .options=${{
-                    selectionHideGrid: true,
-                    canvasHideBackground: true,
-                  } as CropperOptions}
+                  .options=${
+                    {
+                      selectionHideGrid: true,
+                      canvasHideBackground: true,
+                    } as CropperOptions
+                  }
                 ></titanium-smart-attachment-input>
                 <titanium-smart-attachment-input
                   label="Constrain select to canvas"
-                  .options=${{
-                    constrainSelectionTo: 'canvas',
-                  } as CropperOptions}
+                  .options=${
+                    {
+                      constrainSelectionTo: 'canvas',
+                    } as CropperOptions
+                  }
                 ></titanium-smart-attachment-input>
                 <titanium-smart-attachment-input
                   label="Constrain select to image"
-                  .options=${{
-                    constrainSelectionTo: 'image',
-                  } as CropperOptions}
+                  .options=${
+                    {
+                      constrainSelectionTo: 'image',
+                    } as CropperOptions
+                  }
                 ></titanium-smart-attachment-input>
                 <titanium-smart-attachment-input
                   label="Maximize selection"
-                  .options=${{
-                    maximizeSelection: true,
-                  } as CropperOptions}
+                  .options=${
+                    {
+                      maximizeSelection: true,
+                    } as CropperOptions
+                  }
                 ></titanium-smart-attachment-input>
                 <titanium-smart-attachment-input
                   label="Maximize selection with aspect"
-                  .options=${{
-                    maximizeSelection: true,
-                    selectionAspectRatio: 16 / 9,
-                  } as CropperOptions}
+                  .options=${
+                    {
+                      maximizeSelection: true,
+                      selectionAspectRatio: 16 / 9,
+                    } as CropperOptions
+                  }
                 ></titanium-smart-attachment-input>
                 <titanium-smart-attachment-input
                   label="Maximize with wide aspect and image constrain"
-                  .options=${{
-                    maximizeSelection: true,
-                    selectionAspectRatio: 16 / 9,
-                    constrainSelectionTo: 'image',
-                  } as CropperOptions}
+                  .options=${
+                    {
+                      maximizeSelection: true,
+                      selectionAspectRatio: 16 / 9,
+                      constrainSelectionTo: 'image',
+                    } as CropperOptions
+                  }
                 ></titanium-smart-attachment-input>
                 <titanium-smart-attachment-input
                   label="Maximize with tall aspect and image constrain"
-                  .options=${{
-                    maximizeSelection: true,
-                    selectionAspectRatio: 9 / 16,
-                    constrainSelectionTo: 'image',
-                  } as CropperOptions}
+                  .options=${
+                    {
+                      maximizeSelection: true,
+                      selectionAspectRatio: 9 / 16,
+                      constrainSelectionTo: 'image',
+                    } as CropperOptions
+                  }
                 ></titanium-smart-attachment-input
               ></input-grid>
             </div>

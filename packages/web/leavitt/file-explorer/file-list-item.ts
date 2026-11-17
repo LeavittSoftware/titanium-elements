@@ -249,12 +249,14 @@ export class FileListItem extends LitElement {
         <span name>${this.file.Name}</span>
         <span ext>${this.file.Extension}</span>
       </file-name>
-      ${this.display === 'list'
-        ? html`
-            <span date>${dayjs(this.file.CreatedDate).format('MMM D, YYYY')}</span>
-            <span size>${formatBytes(this.file.Size)}</span>
-          `
-        : html`<image-wrapper><leavitt-file-explorer-image .attachment=${this.file}></leavitt-file-explorer-image></image-wrapper>`}
+      ${
+        this.display === 'list'
+          ? html`
+              <span date>${dayjs(this.file.CreatedDate).format('MMM D, YYYY')}</span>
+              <span size>${formatBytes(this.file.Size)}</span>
+            `
+          : html`<image-wrapper><leavitt-file-explorer-image .attachment=${this.file}></leavitt-file-explorer-image></image-wrapper>`
+      }
 
       <md-filled-tonal-icon-button
         tabIndex=${this.selectedCount ? '-1' : '0'}

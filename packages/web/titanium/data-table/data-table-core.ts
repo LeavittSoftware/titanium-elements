@@ -523,21 +523,23 @@ export class TitaniumDataTableCore<T extends object> extends LitElement {
                     (e.detail.itemPath?.[0] as MenuItem & { action?: () => void })?.action?.();
                   }}
                 >
-                  ${this.selectionMode !== 'none' && !(this.selectionMode === 'single' && !this.selected.length)
-                    ? html` <md-menu-item
-                          .action=${() => {
-                            if (this.selected.length > 0) {
-                              this.deselectAll();
-                            } else {
-                              this.selectAll();
-                            }
-                          }}
-                        >
-                          <md-icon slot="start">${this.selected.length > 0 ? 'deselect' : 'select_all'}</md-icon>
-                          <div slot="headline">${this.selected.length > 0 ? 'Deselect all' : 'Select all'}</div>
-                        </md-menu-item>
-                        <md-divider role="separator" tabindex="-1"></md-divider>`
-                    : nothing}
+                  ${
+                    this.selectionMode !== 'none' && !(this.selectionMode === 'single' && !this.selected.length)
+                      ? html` <md-menu-item
+                            .action=${() => {
+                              if (this.selected.length > 0) {
+                                this.deselectAll();
+                              } else {
+                                this.selectAll();
+                              }
+                            }}
+                          >
+                            <md-icon slot="start">${this.selected.length > 0 ? 'deselect' : 'select_all'}</md-icon>
+                            <div slot="headline">${this.selected.length > 0 ? 'Deselect all' : 'Select all'}</div>
+                          </md-menu-item>
+                          <md-divider role="separator" tabindex="-1"></md-divider>`
+                      : nothing
+                  }
 
                   <md-menu-item .action=${() => this.chooseColumnsDialog.show()}>
                     <md-icon slot="start">table_edit</md-icon>
@@ -568,56 +570,60 @@ export class TitaniumDataTableCore<T extends object> extends LitElement {
                     <div slot="headline">Reset sort</div>
                   </md-menu-item>
 
-                  ${this.tableMetaData?.reorderConfig?.reorderItemDisplayKey && this.tableMetaData?.reorderConfig?.sortPropertyKey
-                    ? html` <md-divider role="separator" tabindex="-1"></md-divider>
-                        <md-menu-item
-                          .action=${async () => {
-                            const result = await this.reorderDialog.show(this.items);
-                            if (result === 'apply') {
-                              structuredClone(this.reorderDialog.items);
-                              this.dispatchEvent(new CustomEvent<Array<T>>('items-reordered', { detail: this.items }));
-                            }
-                          }}
-                        >
-                          <md-icon slot="start">drag_handle</md-icon>
-                          <div slot="headline">Reorder items</div>
-                        </md-menu-item>`
-                    : nothing}
-                  ${this.items.length > 0
-                    ? html`<md-divider role="separator" tabindex="-1"></md-divider>
-                        <md-menu-item
-                          .action=${() => {
-                            const fileFriendlyTimestamp = dayjs().format('YYYY-MM-DD HH-mm-ss');
-                            const csvConfig = mkConfig({ filename: `web export ${fileFriendlyTimestamp}`, useKeysAsHeaders: true });
-                            const currentlyShownColumnMetaData =
-                              this.orderByUserPreference(
-                                this.tableMetaData?.itemMetaData?.filter(
-                                  (o) =>
-                                    ((!o.hideByDefault && this.userSettings.find((s) => s.key === o.key)?.show) ||
-                                      this.userSettings.find((s) => s.key === o.key)?.show) &&
-                                    !o.omitFromCsv
-                                ) ?? [],
-                                this.userSettings
-                              ) ?? [];
-                            const items =
-                              this.items.map((item) => {
-                                const itemData = {};
-                                for (const metaData of currentlyShownColumnMetaData) {
-                                  const header = metaData.friendlyName ?? metaData.key;
-                                  itemData[header] = metaData.csvValue ? metaData.csvValue(item) : item[metaData.key];
-                                }
-                                return itemData;
-                              }) ?? [];
+                  ${
+                    this.tableMetaData?.reorderConfig?.reorderItemDisplayKey && this.tableMetaData?.reorderConfig?.sortPropertyKey
+                      ? html` <md-divider role="separator" tabindex="-1"></md-divider>
+                          <md-menu-item
+                            .action=${async () => {
+                              const result = await this.reorderDialog.show(this.items);
+                              if (result === 'apply') {
+                                structuredClone(this.reorderDialog.items);
+                                this.dispatchEvent(new CustomEvent<Array<T>>('items-reordered', { detail: this.items }));
+                              }
+                            }}
+                          >
+                            <md-icon slot="start">drag_handle</md-icon>
+                            <div slot="headline">Reorder items</div>
+                          </md-menu-item>`
+                      : nothing
+                  }
+                  ${
+                    this.items.length > 0
+                      ? html`<md-divider role="separator" tabindex="-1"></md-divider>
+                          <md-menu-item
+                            .action=${() => {
+                              const fileFriendlyTimestamp = dayjs().format('YYYY-MM-DD HH-mm-ss');
+                              const csvConfig = mkConfig({ filename: `web export ${fileFriendlyTimestamp}`, useKeysAsHeaders: true });
+                              const currentlyShownColumnMetaData =
+                                this.orderByUserPreference(
+                                  this.tableMetaData?.itemMetaData?.filter(
+                                    (o) =>
+                                      ((!o.hideByDefault && this.userSettings.find((s) => s.key === o.key)?.show) ||
+                                        this.userSettings.find((s) => s.key === o.key)?.show) &&
+                                      !o.omitFromCsv
+                                  ) ?? [],
+                                  this.userSettings
+                                ) ?? [];
+                              const items =
+                                this.items.map((item) => {
+                                  const itemData = {};
+                                  for (const metaData of currentlyShownColumnMetaData) {
+                                    const header = metaData.friendlyName ?? metaData.key;
+                                    itemData[header] = metaData.csvValue ? metaData.csvValue(item) : item[metaData.key];
+                                  }
+                                  return itemData;
+                                }) ?? [];
 
-                            const csv = generateCsv(csvConfig)(items);
-                            download(csvConfig)(csv);
-                          }}
-                        >
-                          <md-icon slot="start">file_save</md-icon>
-                          <div slot="headline">Save to CSV</div>
-                          <span small slot="supporting-text">${this.items.length} row${this.items.length === 1 ? '' : 's'}</span>
-                        </md-menu-item>`
-                    : nothing}
+                              const csv = generateCsv(csvConfig)(items);
+                              download(csvConfig)(csv);
+                            }}
+                          >
+                            <md-icon slot="start">file_save</md-icon>
+                            <div slot="headline">Save to CSV</div>
+                            <span small slot="supporting-text">${this.items.length} row${this.items.length === 1 ? '' : 's'}</span>
+                          </md-menu-item>`
+                      : nothing
+                  }
 
                   <slot name="settings-menu-items"></slot>
                 </md-menu>
@@ -673,14 +679,16 @@ export class TitaniumDataTableCore<T extends object> extends LitElement {
           </tr>
         </thead>
         <tbody>
-          ${!this.isLoading && this.items.length === 0
-            ? html`
-                <tr>
-                  <td table-message></td>
-                  <td table-message colspan=${this.tableMetaData?.itemMetaData?.length ?? 0}>No results</td>
-                </tr>
-              `
-            : nothing}
+          ${
+            !this.isLoading && this.items.length === 0
+              ? html`
+                  <tr>
+                    <td table-message></td>
+                    <td table-message colspan=${this.tableMetaData?.itemMetaData?.length ?? 0}>No results</td>
+                  </tr>
+                `
+              : nothing
+          }
           ${repeat(
             this.items ?? [],
             (item) => this.tableMetaData?.uniqueKey(item) ?? '',
@@ -713,26 +721,28 @@ export class TitaniumDataTableCore<T extends object> extends LitElement {
                 >
                   <td checkbox>
                     <content-container>
-                      ${this.selectionMode !== 'none'
-                        ? html`
-                            <md-checkbox
-                              @click=${(e: DOMEvent<MdCheckbox>) => e.stopPropagation()}
-                              ?checked=${this.selected.includes(item)}
-                              @change=${() => {
-                                if (this.selected.includes(item)) {
-                                  this.selected.splice(this.selected.indexOf(item), 1);
-                                } else if (this.selectionMode === 'single') {
-                                  this.selected = [item];
-                                } else {
-                                  this.selected.push(item);
-                                }
-                                this.requestUpdate('selected');
-                                this.#notifySelectedChanged();
-                              }}
-                              ?disabled=${this.disabled}
-                            ></md-checkbox>
-                          `
-                        : nothing}
+                      ${
+                        this.selectionMode !== 'none'
+                          ? html`
+                              <md-checkbox
+                                @click=${(e: DOMEvent<MdCheckbox>) => e.stopPropagation()}
+                                ?checked=${this.selected.includes(item)}
+                                @change=${() => {
+                                  if (this.selected.includes(item)) {
+                                    this.selected.splice(this.selected.indexOf(item), 1);
+                                  } else if (this.selectionMode === 'single') {
+                                    this.selected = [item];
+                                  } else {
+                                    this.selected.push(item);
+                                  }
+                                  this.requestUpdate('selected');
+                                  this.#notifySelectedChanged();
+                                }}
+                                ?disabled=${this.disabled}
+                              ></md-checkbox>
+                            `
+                          : nothing
+                      }
                     </content-container>
                   </td>
                   ${repeat(

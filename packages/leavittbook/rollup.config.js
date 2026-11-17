@@ -11,14 +11,20 @@ import path from 'path';
 function copyStaticAssets(targets) {
   return {
     name: 'copy-static-assets',
-    writeBundle() {
-      for (const { src, dest } of targets) {
-        if (!existsSync(src)) {
-          continue;
+    // writeBundle is a parallel hook, so without order/sequential the copy can race
+    // generateSW and theme.css would be missing from the precache manifest.
+    writeBundle: {
+      order: 'pre',
+      sequential: true,
+      handler() {
+        for (const { src, dest } of targets) {
+          if (!existsSync(src)) {
+            continue;
+          }
+          mkdirSync(dest, { recursive: true });
+          cpSync(src, join(dest, basename(src)), { recursive: true });
         }
-        mkdirSync(dest, { recursive: true });
-        cpSync(src, join(dest, basename(src)), { recursive: true });
-      }
+      },
     },
   };
 }
@@ -86,6 +92,8 @@ export default {
       { src: 'fonts', dest: 'dist' },
       { src: 'images', dest: 'dist' },
       { src: '404.html', dest: 'dist' },
+      // GitHub Pages runs Jekyll, which won't serve files that start with an underscore, and chunk hashes can.
+      { src: '.nojekyll', dest: 'dist' },
     ]),
   ],
 };

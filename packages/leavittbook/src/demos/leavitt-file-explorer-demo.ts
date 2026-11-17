@@ -41,15 +41,17 @@ export class LeavittFileExplorerDemo extends LitElement {
           <leavitt-app-width-limiter max-width="1000px">
             <story-header name="Leavitt File Explorer" className="LeavittFileExplorer" requires-auth></story-header>
 
-            ${this.#auth.identity
-              ? html`
-                  <div>
-                    <h1>File Explorer</h1>
-                    <p>File explorer component with API integration</p>
-                    <leavitt-file-explorer file-explorer-id="1" .apiService=${api3UserService}></leavitt-file-explorer>
-                  </div>
-                `
-              : nothing}
+            ${
+              this.#auth.identity
+                ? html`
+                    <div>
+                      <h1>File Explorer</h1>
+                      <p>File explorer component with API integration</p>
+                      <leavitt-file-explorer file-explorer-id="1" .apiService=${api3UserService}></leavitt-file-explorer>
+                    </div>
+                  `
+                : nothing
+            }
 
             <api-docs src="./custom-elements.json" selected="leavitt-file-explorer"></api-docs>
           </leavitt-app-width-limiter>

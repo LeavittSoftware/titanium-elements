@@ -33,8 +33,9 @@ export class LeavittPersonGroupSelectDemo extends LitElement {
           <leavitt-app-width-limiter max-width="1000px">
             <story-header name="Leavitt Person/Group Select" className="LeavittPersonGroupSelect" requires-auth></story-header>
 
-            ${this.#auth.identity
-              ? html`
+            ${
+              this.#auth.identity
+                ? html`
             <div>
               <h1>Default</h1>
               <item-row>
@@ -88,7 +89,8 @@ export class LeavittPersonGroupSelectDemo extends LitElement {
 
             </div>
               `
-              : nothing}
+                : nothing
+            }
 
             <api-docs src="./custom-elements.json" selected="leavitt-person-group-select"></api-docs>
           </leavitt-app-width-limiter>

@@ -39,19 +39,160 @@
 
   --app-accent-color-indigo: var(--app-accent-color-indigo-light);
   --app-accent-color-on-indigo: var(--app-accent-color-on-indigo-light);
+
+  /* Leavitt brand colors. Each one has a readable on- color and a dark mode pair. */
+  --leavitt-brand-midnight-light: #0e0005;
+  --leavitt-brand-on-midnight-light: #ffffff;
+
+  --leavitt-brand-midnight-dark: #eee5e8;
+  --leavitt-brand-on-midnight-dark: #21191c;
+
+  --leavitt-brand-dark-desert-sky-light: #08263c;
+  --leavitt-brand-on-dark-desert-sky-light: #ffffff;
+
+  --leavitt-brand-dark-desert-sky-dark: #c5d8f0;
+  --leavitt-brand-on-dark-desert-sky-dark: #001d33;
+
+  --leavitt-brand-burnt-sienna-light: #bc4f12;
+  --leavitt-brand-on-burnt-sienna-light: #ffffff;
+
+  --leavitt-brand-burnt-sienna-dark: #f99563;
+  --leavitt-brand-on-burnt-sienna-dark: #301400;
+
+  --leavitt-brand-charcoal-light: #394e5e;
+  --leavitt-brand-on-charcoal-light: #ffffff;
+
+  --leavitt-brand-charcoal-dark: #b1c2d1;
+  --leavitt-brand-on-charcoal-dark: #061e2b;
+
+  --leavitt-brand-carbon-light: #494f56;
+  --leavitt-brand-on-carbon-light: #ffffff;
+
+  --leavitt-brand-carbon-dark: #b9bfc5;
+  --leavitt-brand-on-carbon-dark: #171c22;
+
+  --leavitt-brand-canyon-smoke-light: #676a70;
+  --leavitt-brand-on-canyon-smoke-light: #ffffff;
+
+  --leavitt-brand-canyon-smoke-dark: #afb1b7;
+  --leavitt-brand-on-canyon-smoke-dark: #191c20;
+
+  --leavitt-brand-salt-flats-light: #808080;
+  --leavitt-brand-on-salt-flats-light: #151515;
+
+  --leavitt-brand-salt-flats-dark: #a9a9a9;
+  --leavitt-brand-on-salt-flats-dark: #1b1b1b;
+
+  --leavitt-brand-basin-blue-light: #06395c;
+  --leavitt-brand-on-basin-blue-light: #ffffff;
+
+  --leavitt-brand-basin-blue-dark: #b3cdf1;
+  --leavitt-brand-on-basin-blue-dark: #001d34;
+
+  --leavitt-brand-blue-light: #16467a;
+  --leavitt-brand-on-blue-light: #ffffff;
+
+  --leavitt-brand-blue-dark: #acc3f5;
+  --leavitt-brand-on-blue-dark: #041c36;
+
+  --leavitt-brand-orange-light: #f76b12;
+  --leavitt-brand-on-orange-light: #2f1400;
+
+  --leavitt-brand-orange-dark: #f58140;
+  --leavitt-brand-on-orange-dark: #2f1400;
+
+  --leavitt-brand-alpine-mist-light: #f3f5f5;
+  --leavitt-brand-on-alpine-mist-light: #1a1c1c;
+
+  --leavitt-brand-alpine-mist-dark: #272828;
+  --leavitt-brand-on-alpine-mist-dark: #f2f4f4;
+
+  /* Leavitt brand light */
+  --leavitt-brand-midnight: var(--leavitt-brand-midnight-light);
+  --leavitt-brand-on-midnight: var(--leavitt-brand-on-midnight-light);
+
+  --leavitt-brand-dark-desert-sky: var(--leavitt-brand-dark-desert-sky-light);
+  --leavitt-brand-on-dark-desert-sky: var(--leavitt-brand-on-dark-desert-sky-light);
+
+  --leavitt-brand-burnt-sienna: var(--leavitt-brand-burnt-sienna-light);
+  --leavitt-brand-on-burnt-sienna: var(--leavitt-brand-on-burnt-sienna-light);
+
+  --leavitt-brand-charcoal: var(--leavitt-brand-charcoal-light);
+  --leavitt-brand-on-charcoal: var(--leavitt-brand-on-charcoal-light);
+
+  --leavitt-brand-carbon: var(--leavitt-brand-carbon-light);
+  --leavitt-brand-on-carbon: var(--leavitt-brand-on-carbon-light);
+
+  --leavitt-brand-canyon-smoke: var(--leavitt-brand-canyon-smoke-light);
+  --leavitt-brand-on-canyon-smoke: var(--leavitt-brand-on-canyon-smoke-light);
+
+  --leavitt-brand-salt-flats: var(--leavitt-brand-salt-flats-light);
+  --leavitt-brand-on-salt-flats: var(--leavitt-brand-on-salt-flats-light);
+
+  --leavitt-brand-basin-blue: var(--leavitt-brand-basin-blue-light);
+  --leavitt-brand-on-basin-blue: var(--leavitt-brand-on-basin-blue-light);
+
+  --leavitt-brand-blue: var(--leavitt-brand-blue-light);
+  --leavitt-brand-on-blue: var(--leavitt-brand-on-blue-light);
+
+  --leavitt-brand-orange: var(--leavitt-brand-orange-light);
+  --leavitt-brand-on-orange: var(--leavitt-brand-on-orange-light);
+
+  --leavitt-brand-alpine-mist: var(--leavitt-brand-alpine-mist-light);
+  --leavitt-brand-on-alpine-mist: var(--leavitt-brand-on-alpine-mist-light);
+
+  /* Scrim is black in both themes — keep overlay text/icons light. */
+  --md-sys-color-on-scrim: rgb(255 255 255);
 }
 
 /* Custom dark*/
-[data-theme='dark'] {
-  --app-accent-color-green: var(--app-accent-color-green-dark);
-  --app-accent-color-on-green: var(--app-accent-color-on-green-dark);
+/* Screen only: paper is white and browsers don't print backgrounds, so printouts always use the light theme. */
+@media screen {
+  [data-theme='dark'] {
+    --app-accent-color-green: var(--app-accent-color-green-dark);
+    --app-accent-color-on-green: var(--app-accent-color-on-green-dark);
 
-  --app-accent-color-orange: var(--app-accent-color-orange-dark);
-  --app-accent-color-on-orange: var(--app-accent-color-on-orange-dark);
+    --app-accent-color-orange: var(--app-accent-color-orange-dark);
+    --app-accent-color-on-orange: var(--app-accent-color-on-orange-dark);
 
-  --app-accent-color-teal: var(--app-accent-color-teal-dark);
-  --app-accent-color-on-teal: var(--app-accent-color-on-teal-dark);
+    --app-accent-color-teal: var(--app-accent-color-teal-dark);
+    --app-accent-color-on-teal: var(--app-accent-color-on-teal-dark);
 
-  --app-accent-color-indigo: var(--app-accent-color-indigo-dark);
-  --app-accent-color-on-indigo: var(--app-accent-color-on-indigo-dark);
+    --app-accent-color-indigo: var(--app-accent-color-indigo-dark);
+    --app-accent-color-on-indigo: var(--app-accent-color-on-indigo-dark);
+
+    /* Leavitt brand dark */
+    --leavitt-brand-midnight: var(--leavitt-brand-midnight-dark);
+    --leavitt-brand-on-midnight: var(--leavitt-brand-on-midnight-dark);
+
+    --leavitt-brand-dark-desert-sky: var(--leavitt-brand-dark-desert-sky-dark);
+    --leavitt-brand-on-dark-desert-sky: var(--leavitt-brand-on-dark-desert-sky-dark);
+
+    --leavitt-brand-burnt-sienna: var(--leavitt-brand-burnt-sienna-dark);
+    --leavitt-brand-on-burnt-sienna: var(--leavitt-brand-on-burnt-sienna-dark);
+
+    --leavitt-brand-charcoal: var(--leavitt-brand-charcoal-dark);
+    --leavitt-brand-on-charcoal: var(--leavitt-brand-on-charcoal-dark);
+
+    --leavitt-brand-carbon: var(--leavitt-brand-carbon-dark);
+    --leavitt-brand-on-carbon: var(--leavitt-brand-on-carbon-dark);
+
+    --leavitt-brand-canyon-smoke: var(--leavitt-brand-canyon-smoke-dark);
+    --leavitt-brand-on-canyon-smoke: var(--leavitt-brand-on-canyon-smoke-dark);
+
+    --leavitt-brand-salt-flats: var(--leavitt-brand-salt-flats-dark);
+    --leavitt-brand-on-salt-flats: var(--leavitt-brand-on-salt-flats-dark);
+
+    --leavitt-brand-basin-blue: var(--leavitt-brand-basin-blue-dark);
+    --leavitt-brand-on-basin-blue: var(--leavitt-brand-on-basin-blue-dark);
+
+    --leavitt-brand-blue: var(--leavitt-brand-blue-dark);
+    --leavitt-brand-on-blue: var(--leavitt-brand-on-blue-dark);
+
+    --leavitt-brand-orange: var(--leavitt-brand-orange-dark);
+    --leavitt-brand-on-orange: var(--leavitt-brand-on-orange-dark);
+
+    --leavitt-brand-alpine-mist: var(--leavitt-brand-alpine-mist-dark);
+    --leavitt-brand-on-alpine-mist: var(--leavitt-brand-on-alpine-mist-dark);
+  }
 }

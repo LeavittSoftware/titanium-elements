@@ -169,9 +169,9 @@ export class TitaniumDataTableCoreReorderDialog<T extends object> extends LitEle
             }
           }}
           >Save
-          ${this.isLoading
-            ? html`<md-circular-progress slot="icon" indeterminate></md-circular-progress>`
-            : html` <md-icon slot="icon">save</md-icon>`}</md-filled-tonal-button
+          ${
+            this.isLoading ? html`<md-circular-progress slot="icon" indeterminate></md-circular-progress>` : html` <md-icon slot="icon">save</md-icon>`
+          }</md-filled-tonal-button
         >
       </div>
     </md-dialog>`;

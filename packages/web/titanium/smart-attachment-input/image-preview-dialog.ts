@@ -65,15 +65,17 @@ export class ImagePreviewDialog extends LitElement {
         <div header slot="headline">${middleEllipsis(this.filename || 'Image preview', 60)}</div>
         <img slot="content" draggable="false" src=${ifDefined(this.imageUrl)} />
         <div slot="actions">
-          ${this.downloadSrc
-            ? html`<md-text-button
-                @click=${(e: MouseEvent) => {
-                  e.stopPropagation();
-                  window.open(this.downloadSrc);
-                }}
-                ><md-icon slot="icon">file_download</md-icon>Download</md-text-button
-              >`
-            : html`<div></div>`}
+          ${
+            this.downloadSrc
+              ? html`<md-text-button
+                  @click=${(e: MouseEvent) => {
+                    e.stopPropagation();
+                    window.open(this.downloadSrc);
+                  }}
+                  ><md-icon slot="icon">file_download</md-icon>Download</md-text-button
+                >`
+              : html`<div></div>`
+          }
 
           <md-text-button
             @click=${(e: MouseEvent) => {

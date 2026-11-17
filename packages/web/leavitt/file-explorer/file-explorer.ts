@@ -279,9 +279,11 @@ export class LeavittFileExplorer extends LitElement {
         this.dispatchEvent(
           new ShowSnackbarEvent('', {
             overrideTemplate: html`Failed to delete ${totalErrorCount === 1 ? 'files and folders' : `${totalErrorCount} files and folders: <br />`}.
-            ${errorMessageToCount.size === 1
-              ? Array.from(errorMessageToCount.keys())[0]
-              : Array.from(errorMessageToCount.entries()).map(([error, count]) => `(${count}) ${error} <br />`)}`,
+            ${
+              errorMessageToCount.size === 1
+                ? Array.from(errorMessageToCount.keys())[0]
+                : Array.from(errorMessageToCount.entries()).map(([error, count]) => `(${count}) ${error} <br />`)
+            }`,
           })
         );
       }
@@ -700,30 +702,34 @@ export class LeavittFileExplorer extends LitElement {
       <header>
         <aside ellipsis>
           <nav ellipsis>
-            ${this.fileExplorer
-              ? this.path.map(
-                  (o, i) => html`
-                    ${i == this.path.length - 1
-                      ? html` <span ellipsis end title=${o?.Name ?? ''}> ${o.Name} </span> `
-                      : html`
-                          <a
-                            ?disabled=${this.isLoading}
-                            ellipsis
-                            title=${o.Name ?? ''}
-                            href="#"
-                            @click=${(e) => {
-                              e.preventDefault();
-                              this.folderId = o.FolderId ?? null;
-                              this.selected = [];
-                            }}
-                          >
-                            ${o.Name}</a
-                          >
-                          <md-icon>navigate_next</md-icon>
-                        `}
-                  `
-                )
-              : html`<span ellipsis end> File explorer</span>`}
+            ${
+              this.fileExplorer
+                ? this.path.map(
+                    (o, i) => html`
+                      ${
+                        i == this.path.length - 1
+                          ? html` <span ellipsis end title=${o?.Name ?? ''}> ${o.Name} </span> `
+                          : html`
+                              <a
+                                ?disabled=${this.isLoading}
+                                ellipsis
+                                title=${o.Name ?? ''}
+                                href="#"
+                                @click=${(e) => {
+                                  e.preventDefault();
+                                  this.folderId = o.FolderId ?? null;
+                                  this.selected = [];
+                                }}
+                              >
+                                ${o.Name}</a
+                              >
+                              <md-icon>navigate_next</md-icon>
+                            `
+                      }
+                    `
+                  )
+                : html`<span ellipsis end> File explorer</span>`
+            }
           </nav>
           <file-summary ?hidden=${!this.fileExplorer} ellipsis heading3
             >${this.fileExplorer?.FilesCount} files | ${this.fileExplorer?.FoldersCount} folders | ${formatBytes(this.fileExplorer?.Size)}</file-summary
@@ -741,9 +747,11 @@ export class LeavittFileExplorer extends LitElement {
           <md-icon-button title="Clear selected" @click=${() => (this.selected = [])}> <md-icon>clear</md-icon></md-icon-button>
           <h2 ellipsis>${this.selected.length} selected</h2>
           <div buttons part="selected-actions-container">
-            ${this.isAdmin
-              ? html` <md-icon-button title="Delete selected" @click=${this.#deleteSelectedClick}> <md-icon>delete</md-icon></md-icon-button> `
-              : nothing}
+            ${
+              this.isAdmin
+                ? html` <md-icon-button title="Delete selected" @click=${this.#deleteSelectedClick}> <md-icon>delete</md-icon></md-icon-button> `
+                : nothing
+            }
             <md-icon-button
               primary
               ?hidden=${!this.selected.length}
@@ -810,55 +818,57 @@ export class LeavittFileExplorer extends LitElement {
       <footer>
         <span counts> ${this.files.length} files | ${this.folders.length} folders </span>
 
-        ${this.isAdmin
-          ? html`
-              <footer-actions>
-                <md-text-button ?disabled=${this.isLoading} @click=${this.#addFolderClick}>
-                  <md-icon slot="icon">create_new_folder</md-icon>
-                  <span> Add folder</span>
-                </md-text-button>
-                <div style="position: relative;">
-                  <md-text-button
-                    id="upload-button"
-                    ?disabled=${this.isLoading}
-                    @click=${() => {
-                      this.uploadMenu.open = !this.uploadMenu.open;
-                    }}
-                  >
-                    <md-icon slot="icon">backup</md-icon>
-                    Upload
+        ${
+          this.isAdmin
+            ? html`
+                <footer-actions>
+                  <md-text-button ?disabled=${this.isLoading} @click=${this.#addFolderClick}>
+                    <md-icon slot="icon">create_new_folder</md-icon>
+                    <span> Add folder</span>
                   </md-text-button>
-                  <md-menu
-                    upload-menu
-                    anchor="upload-button"
-                    @close-menu=${(e: CloseMenuEvent) => {
-                      (e.detail.itemPath?.[0] as MenuItem & { action?: () => void })?.action?.();
-                    }}
-                  >
-                    <md-menu-item .action=${() => this.fileInput.click()}>
-                      <span slot="headline">Upload files</span>
-                      <md-icon slot="start">upload_file</md-icon>
-                    </md-menu-item>
-                    <md-menu-item .action=${() => this.folderInput.click()}>
-                      <span slot="headline">Upload folders</span>
-                      <md-icon slot="start">perm_media</md-icon>
-                    </md-menu-item>
-                  </md-menu>
-                </div>
-                <input
-                  folders
-                  @change=${async () => this.#uploadFolders(this.folderInput.files)}
-                  type="file"
-                  webkitdirectory
-                  directory
-                  multiple
-                  id="file"
-                  style="display:none;"
-                />
-                <input files @change=${async () => this.#uploadFiles(this.fileInput.files)} type="file" multiple id="file" style="display:none;" />
-              </footer-actions>
-            `
-          : nothing}
+                  <div style="position: relative;">
+                    <md-text-button
+                      id="upload-button"
+                      ?disabled=${this.isLoading}
+                      @click=${() => {
+                        this.uploadMenu.open = !this.uploadMenu.open;
+                      }}
+                    >
+                      <md-icon slot="icon">backup</md-icon>
+                      Upload
+                    </md-text-button>
+                    <md-menu
+                      upload-menu
+                      anchor="upload-button"
+                      @close-menu=${(e: CloseMenuEvent) => {
+                        (e.detail.itemPath?.[0] as MenuItem & { action?: () => void })?.action?.();
+                      }}
+                    >
+                      <md-menu-item .action=${() => this.fileInput.click()}>
+                        <span slot="headline">Upload files</span>
+                        <md-icon slot="start">upload_file</md-icon>
+                      </md-menu-item>
+                      <md-menu-item .action=${() => this.folderInput.click()}>
+                        <span slot="headline">Upload folders</span>
+                        <md-icon slot="start">perm_media</md-icon>
+                      </md-menu-item>
+                    </md-menu>
+                  </div>
+                  <input
+                    folders
+                    @change=${async () => this.#uploadFolders(this.folderInput.files)}
+                    type="file"
+                    webkitdirectory
+                    directory
+                    multiple
+                    id="file"
+                    style="display:none;"
+                  />
+                  <input files @change=${async () => this.#uploadFiles(this.fileInput.files)} type="file" multiple id="file" style="display:none;" />
+                </footer-actions>
+              `
+            : nothing
+        }
       </footer>
       <leavitt-add-folder-modal
         .apiService=${this.apiService}

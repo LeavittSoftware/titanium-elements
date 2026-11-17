@@ -125,11 +125,13 @@ export class LeavittViewSentEmailDialog extends LitElement {
       >
         <div slot="headline">Email log</div>
 
-        ${this.isLoading
-          ? html`<main slot="content">Loading...</main>`
-          : !this.emailTemplateLog
-            ? html`<main slot="content">No email template log found</main>`
-            : html`<main slot="content" email-body>${unsafeHTML(this.emailTemplateLog?.EmailBody ?? '')}</main>`}
+        ${
+          this.isLoading
+            ? html`<main slot="content">Loading...</main>`
+            : !this.emailTemplateLog
+              ? html`<main slot="content">No email template log found</main>`
+              : html`<main slot="content" email-body>${unsafeHTML(this.emailTemplateLog?.EmailBody ?? '')}</main>`
+        }
 
         <titanium-snackbar-stack slot="content" .eventListenerTarget=${this}></titanium-snackbar-stack>
         <div slot="actions">

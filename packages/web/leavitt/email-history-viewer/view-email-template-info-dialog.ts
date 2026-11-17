@@ -134,19 +134,21 @@ export class LeavittViewEmailTemplateInfoDialog extends LitElement {
       >
         <div slot="headline">What emails does this tool send?</div>
 
-        ${this.isLoading
-          ? nothing
-          : !this.emailTemplates?.length
-            ? html`<main slot="content">No email templates found for this site</main>`
-            : html`<main slot="content" email-templates>
-                ${repeat(
-                  this.emailTemplates,
-                  (emailTemplate) => emailTemplate.Id,
-                  (emailTemplate) =>
-                    html`<h2>${emailTemplate.Name}</h2>
-                      <p>${emailTemplate.Description ?? 'No description available'}</p>`
-                )}
-              </main>`}
+        ${
+          this.isLoading
+            ? nothing
+            : !this.emailTemplates?.length
+              ? html`<main slot="content">No email templates found for this site</main>`
+              : html`<main slot="content" email-templates>
+                  ${repeat(
+                    this.emailTemplates,
+                    (emailTemplate) => emailTemplate.Id,
+                    (emailTemplate) =>
+                      html`<h2>${emailTemplate.Name}</h2>
+                        <p>${emailTemplate.Description ?? 'No description available'}</p>`
+                  )}
+                </main>`
+        }
 
         <titanium-snackbar-stack slot="content" .eventListenerTarget=${this}></titanium-snackbar-stack>
         <div slot="actions">

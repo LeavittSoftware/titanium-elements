@@ -655,11 +655,13 @@ export class TitaniumSingleSelectBase<T extends Identifier> extends ThemePrefere
           this.setSelected(selectedMenuItem?.item);
         }}
       >
-        ${!this.searchTerm
-          ? ''
-          : this.awaitingResults || this.isLoading
-            ? html`<div summary>Searching for '${this.searchTerm}'…</div>`
-            : html`<div summary>Showing ${this.suggestions.length} of ${this.count} result${this.count === 1 ? '' : 's'} for '${this.searchTerm}'</div>`}
+        ${
+          !this.searchTerm
+            ? ''
+            : this.awaitingResults || this.isLoading
+              ? html`<div summary>Searching for '${this.searchTerm}'…</div>`
+              : html`<div summary>Showing ${this.suggestions.length} of ${this.count} result${this.count === 1 ? '' : 's'} for '${this.searchTerm}'</div>`
+        }
         ${repeat(
           this.suggestions,
           (item) => item?.Id,

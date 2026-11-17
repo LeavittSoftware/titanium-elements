@@ -210,27 +210,29 @@ export class FileModal extends LitElement {
     return html`
       <md-dialog>
         <header slot="headline">
-          ${this.state === 'view'
-            ? html`<h1 title="${this.file?.Name ?? ''}.${this.file?.Extension ?? ''}">
-                ${middleEllipsis(`${this.file?.Name ?? ''}.${this.file?.Extension ?? ''}`)}
-              </h1>`
-            : html`<md-filled-text-field
-                label="File name"
-                .value=${this.fileName ?? ''}
-                @input=${(event: DOMEvent<MdOutlinedTextField>) => (this.fileName = event.target.value)}
-              >
-                <md-icon-button slot="trailing-icon" @click=${() => (this.state = 'view')} ?disabled=${this.isLoading}>
-                  <md-icon>cancel</md-icon>
-                </md-icon-button>
-                <md-icon-button
-                  save
-                  slot="trailing-icon"
-                  ?disabled=${this.fileName === this.file?.Name || !this.fileName || this.isLoading}
-                  @click=${() => this.#saveFileName()}
+          ${
+            this.state === 'view'
+              ? html`<h1 title="${this.file?.Name ?? ''}.${this.file?.Extension ?? ''}">
+                  ${middleEllipsis(`${this.file?.Name ?? ''}.${this.file?.Extension ?? ''}`)}
+                </h1>`
+              : html`<md-filled-text-field
+                  label="File name"
+                  .value=${this.fileName ?? ''}
+                  @input=${(event: DOMEvent<MdOutlinedTextField>) => (this.fileName = event.target.value)}
                 >
-                  <md-icon>save</md-icon>
-                </md-icon-button>
-              </md-filled-text-field>`}
+                  <md-icon-button slot="trailing-icon" @click=${() => (this.state = 'view')} ?disabled=${this.isLoading}>
+                    <md-icon>cancel</md-icon>
+                  </md-icon-button>
+                  <md-icon-button
+                    save
+                    slot="trailing-icon"
+                    ?disabled=${this.fileName === this.file?.Name || !this.fileName || this.isLoading}
+                    @click=${() => this.#saveFileName()}
+                  >
+                    <md-icon>save</md-icon>
+                  </md-icon-button>
+                </md-filled-text-field>`
+          }
 
           <md-icon-button
             ?hidden=${!this.enableEditing || this.state === 'edit'}
@@ -243,43 +245,51 @@ export class FileModal extends LitElement {
           </md-icon-button>
         </header>
         <main ext=${this.file?.Extension ?? ''} slot="content">
-          ${this.file?.PreviewSizes?.includes('512')
-            ? html` <img preview loading="lazy" src=${ifDefined(getCdnInlineUrl(this.file, 512))} />`
-            : html`<no-preview><p>No preview currently available</p> </no-preview> `}
+          ${
+            this.file?.PreviewSizes?.includes('512')
+              ? html` <img preview loading="lazy" src=${ifDefined(getCdnInlineUrl(this.file, 512))} />`
+              : html`<no-preview><p>No preview currently available</p> </no-preview> `
+          }
 
           <data-row force-stacked>
             <h5>Uploaded</h5>
             <p>${dayjs(this.file?.CreatedDate).format('MMM D, YYYY h:mm:ss a')}</p>
           </data-row>
-          ${!this.file?.CreatorId
-            ? nothing
-            : html`<data-row force-stacked>
-                <h5>Uploaded by</h5>
-                <p image><profile-picture size="24" .fileName=${this.file.CreatorProfilePictureCndFileName}></profile-picture> ${this.file?.CreatorFullName}</p>
-              </data-row>`}
+          ${
+            !this.file?.CreatorId
+              ? nothing
+              : html`<data-row force-stacked>
+                  <h5>Uploaded by</h5>
+                  <p image>
+                    <profile-picture size="24" .fileName=${this.file.CreatorProfilePictureCndFileName}></profile-picture> ${this.file?.CreatorFullName}
+                  </p>
+                </data-row>`
+          }
           <data-row force-stacked>
             <h5>Copy download link</h5>
             <p ellipsis>
-              ${this.hasClipboard
-                ? html`
-                    <a
-                      download-link
-                      title="Copy direct download link to clipboard"
-                      @click=${() => {
-                        const link = getCdnDownloadUrl(this.file);
-                        if (link) {
-                          navigator.clipboard.writeText(link);
-                          this.isCopying = true;
-                          setTimeout(() => {
-                            this.isCopying = false;
-                          }, 2000);
-                        }
-                      }}
-                    >
-                      ${getCdnDownloadUrl(this.file)}
-                    </a>
-                  `
-                : html` ${getCdnDownloadUrl(this.file)} `}
+              ${
+                this.hasClipboard
+                  ? html`
+                      <a
+                        download-link
+                        title="Copy direct download link to clipboard"
+                        @click=${() => {
+                          const link = getCdnDownloadUrl(this.file);
+                          if (link) {
+                            navigator.clipboard.writeText(link);
+                            this.isCopying = true;
+                            setTimeout(() => {
+                              this.isCopying = false;
+                            }, 2000);
+                          }
+                        }}
+                      >
+                        ${getCdnDownloadUrl(this.file)}
+                      </a>
+                    `
+                  : html` ${getCdnDownloadUrl(this.file)} `
+              }
             </p>
             <p alert ?invisible=${!this.isCopying}>Copied to clipboard</p>
           </data-row>

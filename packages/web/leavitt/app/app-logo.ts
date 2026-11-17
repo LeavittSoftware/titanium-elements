@@ -73,6 +73,8 @@ export class LeavittAppLogo extends ThemePreference(LitElement) {
 
         span[app-name] {
           opacity: 1;
+          /* The tight spacing suits the "Leavitt Group" mark; an app name with several words needs its spaces. */
+          word-spacing: normal;
         }
 
         span[app-name],
@@ -121,9 +123,11 @@ export class LeavittAppLogo extends ThemePreference(LitElement) {
   render() {
     return html`<a mark href=${this.href} title=${this.title}>
       <img
-        src=${this.themePreference === 'dark'
-          ? 'https://cdn01.leavitt.com/public/files/4/logos/company-mark-57-dark.svg'
-          : 'https://cdn01.leavitt.com/public/files/4/logos/company-mark-57.svg'}
+        src=${
+          this.themePreference === 'dark'
+            ? 'https://cdn01.leavitt.com/public/files/4/logos/company-mark-57-dark.svg'
+            : 'https://cdn01.leavitt.com/public/files/4/logos/company-mark-57.svg'
+        }
       />
       <span app-name>${this.appName}</span>${this.renderLGLogoText()}
     </a>`;
