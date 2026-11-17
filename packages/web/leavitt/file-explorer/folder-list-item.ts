@@ -180,12 +180,14 @@ ${this.folder.FilesCount} file${this.folder.FilesCount === 1 ? '' : 's'}, ${this
         <md-icon>${this.display === 'list' && this.selected ? 'check' : 'folder_open'}</md-icon>
       </folder-name>
 
-      ${this.display === 'list'
-        ? html`
-            <span date>${dayjs(this.folder.CreatedDate).format('MMM D, YYYY')}</span>
-            <span size>${this.#kFormatter(this.folder.FilesCount ?? 0) || '0'} file${this.folder.FilesCount === 1 ? '' : 's'}</span>
-          `
-        : nothing}
+      ${
+        this.display === 'list'
+          ? html`
+              <span date>${dayjs(this.folder.CreatedDate).format('MMM D, YYYY')}</span>
+              <span size>${this.#kFormatter(this.folder.FilesCount ?? 0) || '0'} file${this.folder.FilesCount === 1 ? '' : 's'}</span>
+            `
+          : nothing
+      }
     </button>`;
   }
 }

@@ -145,29 +145,31 @@ export class TitaniumDataTableCoreSettingsSortDialog<T extends object> extends L
             this.requestUpdate('sort');
           }}
         >
-          ${!this.sort.length
-            ? html`<p no-sort>No sort columns</p>`
-            : repeat(
-                //sort by sort order in this.sort
-                this.sort,
-                (sort) => sort.key,
-                (sort, index) =>
-                  html`<data-table-core-settings-sort-item
-                    .index=${index}
-                    .name=${this.tableMetaData?.itemMetaData.find((item) => item.key === sort.key)?.friendlyName ?? sort.key}
-                    sort-direction=${sort.direction}
-                    .scrollableContainer=${this.dialog?.shadowRoot?.querySelector('.scroller')}
-                    ?disable-drag=${this.sort.length === 1}
-                    @sort-direction-changed=${(e) => {
-                      this.sort[index].direction = e.target.sortDirection as 'asc' | 'desc';
-                      this.requestUpdate('sort');
-                    }}
-                    @delete=${() => {
-                      this.sort.splice(index, 1);
-                      this.requestUpdate('sort');
-                    }}
-                  ></data-table-core-settings-sort-item>`
-              )}
+          ${
+            !this.sort.length
+              ? html`<p no-sort>No sort columns</p>`
+              : repeat(
+                  //sort by sort order in this.sort
+                  this.sort,
+                  (sort) => sort.key,
+                  (sort, index) =>
+                    html`<data-table-core-settings-sort-item
+                      .index=${index}
+                      .name=${this.tableMetaData?.itemMetaData.find((item) => item.key === sort.key)?.friendlyName ?? sort.key}
+                      sort-direction=${sort.direction}
+                      .scrollableContainer=${this.dialog?.shadowRoot?.querySelector('.scroller')}
+                      ?disable-drag=${this.sort.length === 1}
+                      @sort-direction-changed=${(e) => {
+                        this.sort[index].direction = e.target.sortDirection as 'asc' | 'desc';
+                        this.requestUpdate('sort');
+                      }}
+                      @delete=${() => {
+                        this.sort.splice(index, 1);
+                        this.requestUpdate('sort');
+                      }}
+                    ></data-table-core-settings-sort-item>`
+                )
+          }
         </form>
       </main>
       <div slot="actions">

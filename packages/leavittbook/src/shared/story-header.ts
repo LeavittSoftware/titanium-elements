@@ -97,9 +97,11 @@ export default class StoryHeader extends LitElement {
         ${this.customElementDeclaration?.tagName ? html`<p code>${'<'}${this.customElementDeclaration?.tagName}${'>'}</p>` : ''}
       </info-container>
       <chip-container>
-        ${this.requiresAuth && !this.#auth.identity
-          ? html`<md-filled-tonal-button @click=${() => void UserManager.authenticate()}>Authentication is required for this demo</md-filled-tonal-button>`
-          : nothing}
+        ${
+          this.requiresAuth && !this.#auth.identity
+            ? html`<md-filled-tonal-button @click=${() => void UserManager.authenticate()}>Authentication is required for this demo</md-filled-tonal-button>`
+            : nothing
+        }
         ${this.deprecatedReason ? html`<titanium-chip non-interactive label="Deprecated (${this.deprecatedReason})"></titanium-chip>` : nothing}
       </chip-container>
     `;

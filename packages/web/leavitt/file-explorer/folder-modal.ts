@@ -150,38 +150,40 @@ export class FolderModal extends LitElement {
   render() {
     return html`
       <md-dialog>
-        ${this.state === 'view'
-          ? html`<static-header slot="headline"
-              ><md-icon>folder</md-icon>
-              <h1>${this.folder?.Name}</h1>
-              <md-icon-button
-                ?hidden=${!this.enableEditing}
-                @click=${() => {
-                  this.state = 'edit';
-                  this.folderName = this.folder?.Name ?? '';
-                }}
+        ${
+          this.state === 'view'
+            ? html`<static-header slot="headline"
+                ><md-icon>folder</md-icon>
+                <h1>${this.folder?.Name}</h1>
+                <md-icon-button
+                  ?hidden=${!this.enableEditing}
+                  @click=${() => {
+                    this.state = 'edit';
+                    this.folderName = this.folder?.Name ?? '';
+                  }}
+                >
+                  <md-icon>create</md-icon>
+                </md-icon-button>
+              </static-header>`
+            : html`<md-filled-text-field
+                slot="headline"
+                label="Folder name"
+                .value=${this.folderName ?? ''}
+                @input=${(event: DOMEvent<MdOutlinedTextField>) => (this.folderName = event.target.value)}
               >
-                <md-icon>create</md-icon>
-              </md-icon-button>
-            </static-header>`
-          : html`<md-filled-text-field
-              slot="headline"
-              label="Folder name"
-              .value=${this.folderName ?? ''}
-              @input=${(event: DOMEvent<MdOutlinedTextField>) => (this.folderName = event.target.value)}
-            >
-              <md-icon-button slot="trailing-icon" @click=${() => (this.state = 'view')} ?disabled=${this.isLoading}>
-                <md-icon>cancel</md-icon>
-              </md-icon-button>
-              <md-icon-button
-                save
-                slot="trailing-icon"
-                ?disabled=${this.folderName === this.folder?.Name || !this.folderName || this.isLoading}
-                @click=${() => this.#saveFolderName()}
-              >
-                <md-icon>save</md-icon>
-              </md-icon-button>
-            </md-filled-text-field>`}
+                <md-icon-button slot="trailing-icon" @click=${() => (this.state = 'view')} ?disabled=${this.isLoading}>
+                  <md-icon>cancel</md-icon>
+                </md-icon-button>
+                <md-icon-button
+                  save
+                  slot="trailing-icon"
+                  ?disabled=${this.folderName === this.folder?.Name || !this.folderName || this.isLoading}
+                  @click=${() => this.#saveFolderName()}
+                >
+                  <md-icon>save</md-icon>
+                </md-icon-button>
+              </md-filled-text-field>`
+        }
         <main slot="content">
           <data-row force-stacked>
             <h5>Files</h5>
@@ -195,14 +197,16 @@ export class FolderModal extends LitElement {
             <h5>Created</h5>
             <p>${dayjs(this.folder?.CreatedDate).format('MMM D, YYYY h:mm:ss a')}</p>
           </data-row>
-          ${!this.folder?.CreatorId
-            ? nothing
-            : html`<data-row force-stacked>
-                <h5>Created by</h5>
-                <p image>
-                  <profile-picture size="24" .fileName=${this.folder.CreatorProfilePictureCndFileName}></profile-picture> ${this.folder?.CreatorFullName}
-                </p>
-              </data-row>`}
+          ${
+            !this.folder?.CreatorId
+              ? nothing
+              : html`<data-row force-stacked>
+                  <h5>Created by</h5>
+                  <p image>
+                    <profile-picture size="24" .fileName=${this.folder.CreatorProfilePictureCndFileName}></profile-picture> ${this.folder?.CreatorFullName}
+                  </p>
+                </data-row>`
+          }
         </main>
         <div slot="actions">
           <md-text-button @click=${() => this.dialog.close()}> Close </md-text-button>

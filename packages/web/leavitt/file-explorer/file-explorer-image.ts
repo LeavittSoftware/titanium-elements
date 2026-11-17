@@ -43,9 +43,11 @@ export class FileExplorerImage extends LitElement {
 
   render() {
     return html`
-      ${this.attachment?.PreviewSizes?.includes('512')
-        ? html`<img draggable="false" loading="lazy" src=${ifDefined(getCdnInlineUrl(this.attachment, 512))} />`
-        : html` <md-icon>${getIcon(this.attachment?.Extension ?? '')}</md-icon>`}
+      ${
+        this.attachment?.PreviewSizes?.includes('512')
+          ? html`<img draggable="false" loading="lazy" src=${ifDefined(getCdnInlineUrl(this.attachment, 512))} />`
+          : html` <md-icon>${getIcon(this.attachment?.Extension ?? '')}</md-icon>`
+      }
     `;
   }
 }

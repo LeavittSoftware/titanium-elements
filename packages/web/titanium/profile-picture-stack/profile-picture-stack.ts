@@ -153,15 +153,17 @@ export class TitaniumProfilePictureStack extends LitElement {
   render() {
     const max = this.autoResize ? this.autoMax : this.max;
     return html`
-      ${this.people?.length > max
-        ? html`<additional-users
-            style="width:${this.size}px;height:${this.size}px;margin-left:-${this.overlap}px"
-            part="additional-users"
-            title="${(this.people?.length || 0) - max} more"
-          >
-            <p part="additional-users-paragraph">+${(this.people?.length || 0) - max}</p>
-          </additional-users>`
-        : nothing}
+      ${
+        this.people?.length > max
+          ? html`<additional-users
+              style="width:${this.size}px;height:${this.size}px;margin-left:-${this.overlap}px"
+              part="additional-users"
+              title="${(this.people?.length || 0) - max} more"
+            >
+              <p part="additional-users-paragraph">+${(this.people?.length || 0) - max}</p>
+            </additional-users>`
+          : nothing
+      }
       ${this.people
         ?.slice(0, max)
         ?.reverse()

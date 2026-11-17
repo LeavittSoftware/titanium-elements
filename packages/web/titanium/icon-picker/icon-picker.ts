@@ -104,22 +104,26 @@ export class TitaniumIconPicker extends TitaniumSingleSelectBase<MaterialIconDat
     const favorites = this.defaultSuggestions.filter((o) => o.favorite);
     const nonFavorites = this.defaultSuggestions.filter((o) => !o.favorite);
     return html`
-      ${!this.searchTerm && favorites?.length && favorites.at(0) === entity
-        ? html`<md-menu-item inert>
-            <md-icon slot="end">favorite</md-icon>
-            <div slot="headline">Favorite icon${favorites.length === 1 ? '' : 's'}</div>
-            <div slot="supporting-text">${favorites.length} most commonly used icon${favorites.length === 1 ? '' : 's'}</div>
-          </md-menu-item>`
-        : ''}
-      ${!this.searchTerm && nonFavorites.at(0) === entity
-        ? html`
-            <md-menu-item inert>
-              <md-icon slot="end">sort_by_alpha</md-icon>
-              <div slot="headline">All icons</div>
-              <div slot="supporting-text">Showing ${nonFavorites.length} of ${this.#iconDatabase.length - favorites.length}</div>
-            </md-menu-item>
-          `
-        : ''}
+      ${
+        !this.searchTerm && favorites?.length && favorites.at(0) === entity
+          ? html`<md-menu-item inert>
+              <md-icon slot="end">favorite</md-icon>
+              <div slot="headline">Favorite icon${favorites.length === 1 ? '' : 's'}</div>
+              <div slot="supporting-text">${favorites.length} most commonly used icon${favorites.length === 1 ? '' : 's'}</div>
+            </md-menu-item>`
+          : ''
+      }
+      ${
+        !this.searchTerm && nonFavorites.at(0) === entity
+          ? html`
+              <md-menu-item inert>
+                <md-icon slot="end">sort_by_alpha</md-icon>
+                <div slot="headline">All icons</div>
+                <div slot="supporting-text">Showing ${nonFavorites.length} of ${this.#iconDatabase.length - favorites.length}</div>
+              </md-menu-item>
+            `
+          : ''
+      }
 
       <md-menu-item .item=${entity} ?selected=${this.selected?.Id === entity.Id}>
         <slot name="trailing-icon" slot="trailing-icon"></slot>

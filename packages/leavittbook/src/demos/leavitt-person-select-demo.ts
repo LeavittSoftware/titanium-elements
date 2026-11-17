@@ -34,8 +34,9 @@ export class LeavittPersonSelectDemo extends LitElement {
           <leavitt-app-width-limiter max-width="1000px">
             <story-header name="Leavitt Person Select" className="LeavittPersonSelect" requires-auth></story-header>
 
-            ${this.#auth.identity
-              ? html`
+            ${
+              this.#auth.identity
+                ? html`
             <div>
               <h1>Methods</h1>
               <leavitt-person-select required methods-demo .apiService=${api3UserService}></leavitt-person-select>
@@ -147,7 +148,8 @@ export class LeavittPersonSelectDemo extends LitElement {
 
             </div>
               `
-              : nothing}
+                : nothing
+            }
 
             <api-docs src="./custom-elements.json" selected="leavitt-person-select"></api-docs>
           </leavitt-app-width-limiter>

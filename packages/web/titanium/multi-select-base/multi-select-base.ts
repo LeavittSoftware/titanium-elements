@@ -945,9 +945,11 @@ export class TitaniumMultiSelectBase<T extends Identifier = Identifier> extends 
 
   #renderSuggestions() {
     if (this.searchTerm) {
-      return html`${this.isLoading || this.suggestions.length
-        ? html`<div summary>Showing ${this.suggestions.length} of ${this.count} result${this.count === 1 ? '' : 's'} for '${this.searchTerm}'</div>`
-        : html`<div empty>${this.noResultsText}</div>`}
+      return html`${
+        this.isLoading || this.suggestions.length
+          ? html`<div summary>Showing ${this.suggestions.length} of ${this.count} result${this.count === 1 ? '' : 's'} for '${this.searchTerm}'</div>`
+          : html`<div empty>${this.noResultsText}</div>`
+      }
       ${repeat(
         this.suggestions,
         (item) => this.getItemKey(item),
@@ -1005,29 +1007,33 @@ export class TitaniumMultiSelectBase<T extends Identifier = Identifier> extends 
       >
         ${this.hasLeadingIcon ? html`<slot name="leading-icon" slot="start"></slot>` : nothing}
         <chips-container>
-          ${this.selected.length
-            ? repeat(
-                this.selected,
-                (item) => this.getItemKey(item),
-                (item) => this.renderChip(item)
-              )
-            : html`<span placeholder>${this.placeholder}</span>`}
+          ${
+            this.selected.length
+              ? repeat(
+                  this.selected,
+                  (item) => this.getItemKey(item),
+                  (item) => this.renderChip(item)
+                )
+              : html`<span placeholder>${this.placeholder}</span>`
+          }
         </chips-container>
         <div slot="end" trailing>
           ${this.isLoading ? html`<md-circular-progress indeterminate></md-circular-progress>` : nothing}
-          ${this.selected.length && !this.disableClearAll && !this.disabled
-            ? html`<md-icon-button
-                title="Clear selection"
-                @click=${(e: MouseEvent) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  this.clear();
-                  this.focus();
-                }}
-              >
-                <md-icon>close</md-icon>
-              </md-icon-button>`
-            : nothing}
+          ${
+            this.selected.length && !this.disableClearAll && !this.disabled
+              ? html`<md-icon-button
+                  title="Clear selection"
+                  @click=${(e: MouseEvent) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.clear();
+                    this.focus();
+                  }}
+                >
+                  <md-icon>close</md-icon>
+                </md-icon-button>`
+              : nothing
+          }
           <md-icon>${this.menuOpen ? 'arrow_drop_up' : 'arrow_drop_down'}</md-icon>
         </div>
       </titanium-filled-input-validator>
@@ -1097,17 +1103,19 @@ export class TitaniumMultiSelectBase<T extends Identifier = Identifier> extends 
         @keydown=${this.#onSearchKeydown}
       />
       ${this.isLoading ? html`<md-circular-progress indeterminate></md-circular-progress>` : nothing}
-      ${this.searchTerm && !this.isLoading
-        ? html`<md-icon-button
-            title="Clear search"
-            @click=${() => {
-              this.#onSearchInput('');
-              this.searchInput?.focus();
-            }}
-          >
-            <md-icon>close</md-icon>
-          </md-icon-button>`
-        : nothing}
+      ${
+        this.searchTerm && !this.isLoading
+          ? html`<md-icon-button
+              title="Clear search"
+              @click=${() => {
+                this.#onSearchInput('');
+                this.searchInput?.focus();
+              }}
+            >
+              <md-icon>close</md-icon>
+            </md-icon-button>`
+          : nothing
+      }
     </search-container>`;
   }
 }
