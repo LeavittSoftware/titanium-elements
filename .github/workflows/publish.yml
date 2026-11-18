@@ -10,6 +10,9 @@ on:
     paths:
       - '.github/workflows/publish.yml'
       - 'packages/web/**'
+  # Lets a maintainer re-run the publish from the Actions tab, e.g. to push out a version
+  # whose tag exists but whose npm upload failed.
+  workflow_dispatch:
 permissions:
   id-token: write # Required for OIDC
   contents: read
@@ -56,11 +59,18 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      # Built on its own so the recovery step below knows the compiled output is good.
+      - name: Build
+        id: build
+        run: npm run build
+
       - name: Run Lerna Publish
         run: npm run lerna:publish
 
-      # Publishes any package whose package.json version isn't on npm yet, so a release whose
-      # version commit and tag were pushed but whose npm publish failed goes out on the next run.
-      # Does nothing when every version is already published.
+      # Publishes any package whose package.json version isn't on npm yet. It runs even when
+      # Lerna Publish fails, because Lerna pushes the version commit and tag before uploading:
+      # when the upload fails (e.g. a Sigstore TLOG_CREATE_ENTRY_ERROR 409 on the provenance),
+      # this retries it in the same job. Does nothing when every version is already published.
       - name: Publish versions missing from npm
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
         run: npx lerna publish from-package --yes
