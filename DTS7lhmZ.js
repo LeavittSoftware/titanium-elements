@@ -1,0 +1,1 @@
+class s{#s;#t;#i=0;#e;#o;constructor(s,t=300){this.#e=s,this.#o=t}debounce(...s){return clearTimeout(this.#i),this.#i=window.setTimeout(async()=>{const t=await this.#e(...s);this.#t(t),this.#s=void 0},this.#o),this.#s||(this.#s=new Promise(s=>{this.#t=s})),this.#s}}export{s as D};
