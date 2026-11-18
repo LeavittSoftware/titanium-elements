@@ -23,6 +23,7 @@ When bumping `@leavittsoftware/web` in a downstream project, read every entry **
 
 ### Unreleased
 
+- **`titanium-snackbar-stack` fix (11.9.3 was broken).** In the 11.9.3 build every `ShowSnackbarEvent` threw `Cannot read properties of undefined (reading 'unshift')`, error snackbars showed an empty box with only Dismiss buttons, and `dismissAll()` threw `reading 'forEach'`. The cause: the TypeScript 7 compiler renamed the instance field `SnackbarStack` (same name as the class) to `SnackbarStack_1` in the initializer only. The field is now the private `#snackbars`. No required code changes; apps on 11.9.3 should upgrade. The old public `SnackbarStack` array field is gone (nothing downstream read it).
 - Opt-in `AuthZeroLgUserManager.employeesOnly` and the `?lge=true` link parameter: set the property on employee-only sites, or add the parameter to links only employees follow (Okta tiles), to send users straight to Okta. No required code changes.
 - `AuthZeroLgUserManager.dropRoles(roles)` / `restoreRoles()` and `identity.droppedRoles`: sign in again with some roles left out of the tokens, for testing a page with fewer roles. Needs the matching post-login Action on the Auth0 tenant. No required code changes.
 - **Selects and validation fixes (#745–#749).** No required code changes; behavior changes to know about:

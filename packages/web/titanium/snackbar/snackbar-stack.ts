@@ -21,7 +21,7 @@ import { HttpErrorSnackbar } from './snackbars/http-error-snackbar';
 export class SnackbarStack extends LitElement {
   @property({ type: Object }) accessor eventListenerTarget: HTMLElement | Document | undefined;
 
-  SnackbarStack: (SimpleSnackbar | HttpErrorSnackbar)[] = [];
+  #snackbars: (SimpleSnackbar | HttpErrorSnackbar)[] = [];
 
   connectedCallback() {
     super.connectedCallback();
@@ -52,7 +52,7 @@ export class SnackbarStack extends LitElement {
         options.close = (reason) => normalPopover.close(reason);
       }
 
-      this.SnackbarStack.unshift(normalPopover);
+      this.#snackbars.unshift(normalPopover);
       closeReason = normalPopover.show(message, options);
       popover = normalPopover;
     } else {
@@ -61,7 +61,7 @@ export class SnackbarStack extends LitElement {
         httpPopover = document.createElement('titanium-http-error-snackbar');
         this.shadowRoot?.appendChild(httpPopover);
         httpPopover.popover = 'manual';
-        this.SnackbarStack.unshift(httpPopover);
+        this.#snackbars.unshift(httpPopover);
 
         closeReason = httpPopover.show(message, options);
       } else {
@@ -79,7 +79,7 @@ export class SnackbarStack extends LitElement {
     this.reposition();
 
     await closeReason;
-    this.SnackbarStack.splice(this.SnackbarStack.indexOf(popover), 1);
+    this.#snackbars.splice(this.#snackbars.indexOf(popover), 1);
     popover.remove();
 
     this.reposition();
@@ -87,13 +87,13 @@ export class SnackbarStack extends LitElement {
   }
 
   dismissAll() {
-    this.SnackbarStack.forEach((o) => o.close());
+    this.#snackbars.forEach((o) => o.close());
   }
 
   async reposition() {
     let offset = 0;
-    for (let index = 0; index < this.SnackbarStack.length; index++) {
-      const snackbar = this.SnackbarStack[index];
+    for (let index = 0; index < this.#snackbars.length; index++) {
+      const snackbar = this.#snackbars[index];
       await snackbar.updateComplete;
 
       if (snackbar.clientHeight === 0) {
