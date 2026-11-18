@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [11.9.4](https://github.com/LeavittSoftware/titanium-elements/compare/%40leavittsoftware%2Fweb%4011.9.3...%40leavittsoftware%2Fweb%4011.9.4) (2026-11-18)
+
+### Bug Fixes
+
+* **snackbar:** rename snackbar-stack field so TS 7 stops renaming it ([ffa5e0e](https://github.com/LeavittSoftware/titanium-elements/commit/ffa5e0e648eb07accc9a98548b98dcca02ee7fa1))
+
+
 ## [11.9.3](https://github.com/LeavittSoftware/titanium-elements/compare/%40leavittsoftware%2Fweb%4011.9.2...%40leavittsoftware%2Fweb%4011.9.3) (2026-11-17)
 
 **Note:** Version bump only for package @leavittsoftware/web
